@@ -1,0 +1,28 @@
+From d8753f35f12f07b795ba06b8a237842727726f63 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 12 Jul 2010 23:37:21 +0000
+Subject: [PATCH] Fix infinite loop in list_upgradable in libopkg.
+
+From Sebastian Krzyszkowiak.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@543 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index 705156a..be38d4f 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -760,7 +760,7 @@ opkg_list_upgradable_packages(opkg_package_callback_t callback, void *user_data)
+ 
+ 	head = prepare_upgrade_list();
+ 	for (node = active_list_next(head, head); node;
+-	     active_list_next(head, node)) {
++	     node = active_list_next(head, node)) {
+ 		old = list_entry(node, pkg_t, list);
+ 		new = pkg_hash_fetch_best_installation_candidate_by_name(old->name);
+ 		if (new == NULL)
+-- 
+1.7.1
+

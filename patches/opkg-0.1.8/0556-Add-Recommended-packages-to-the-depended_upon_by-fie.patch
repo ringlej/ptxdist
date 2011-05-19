@@ -1,0 +1,102 @@
+From ac2222f7d6514fb403ce0848f6812a22a48f75c7 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 19 Aug 2010 01:54:04 +0000
+Subject: [PATCH] Add Recommended packages to the depended_upon_by field.
+
+This ensures recommended packages are not orphaned prematurely. Minor code
+clean up while here.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@556 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_depends.c |   70 ++++++++++++++++++++++++++----------------------
+ 1 files changed, 38 insertions(+), 32 deletions(-)
+
+diff --git a/libopkg/pkg_depends.c b/libopkg/pkg_depends.c
+index 56f3bd7..1e14d1f 100644
+--- a/libopkg/pkg_depends.c
++++ b/libopkg/pkg_depends.c
+@@ -769,43 +769,49 @@ pkg_depend_str(pkg_t *pkg, int idx)
+ 	return str;
+ }
+ 
+-/*
+- * WARNING: This function assumes pre_depends and depends are at the
+- * start of the pkg->depends array.
+- */
+ void buildDependedUponBy(pkg_t * pkg, abstract_pkg_t * ab_pkg)
+ {
+-     compound_depend_t * depends;
+-     int count, othercount;
+-     int i, j;
+-     abstract_pkg_t * ab_depend;
+-     abstract_pkg_t ** temp;
++	compound_depend_t * depends;
++	int count, othercount;
++	int i, j;
++	abstract_pkg_t * ab_depend;
++	abstract_pkg_t ** temp;
++
++	count = pkg->pre_depends_count +
++			pkg->depends_count +
++			pkg->recommends_count +
++			pkg->suggests_count;
++
++	for (i = 0; i < count; i++) {
++		depends = &pkg->depends[i];
++		if (depends->type != PREDEPEND
++		    && depends->type != DEPEND
++		    && depends->type != RECOMMEND)
++			continue;
++		for (j = 0; j < depends->possibility_count; j++) {
++			ab_depend = depends->possibilities[j]->pkg;
++			if (!ab_depend->depended_upon_by) {
++				ab_depend->depended_upon_by =
++					xcalloc(1, sizeof(abstract_pkg_t *));
++			}
+ 
+-     count = pkg->pre_depends_count + pkg->depends_count;
+-     depends = pkg->depends;
++			temp = ab_depend->depended_upon_by;
++			othercount = 1;
++			while (*temp) {
++			    temp++;
++			    othercount++;
++			}
++			*temp = ab_pkg;
+ 
+-     for (i = 0; i < count; i++) {
+-	  for (j = 0; j < depends->possibility_count; j++){
+-	       ab_depend = depends->possibilities[j]->pkg;
+-	       if(!ab_depend->depended_upon_by)
+-		    ab_depend->depended_upon_by = xcalloc(1, sizeof(abstract_pkg_t *));
+-
+-	       temp = ab_depend->depended_upon_by;
+-	       othercount = 1;
+-	       while(*temp){
+-		    temp++;
+-		    othercount++;
+-	       }
+-	       *temp = ab_pkg;
++			ab_depend->depended_upon_by =
++				xrealloc(ab_depend->depended_upon_by,
++				(othercount + 1) * sizeof(abstract_pkg_t *));
+ 
+-	       ab_depend->depended_upon_by = xrealloc(ab_depend->depended_upon_by,
+-									(othercount + 1) * sizeof(abstract_pkg_t *));
+-	       /* the array may have moved */
+-	       temp = ab_depend->depended_upon_by + othercount;
+-	       *temp = NULL;
+-	  }
+-	  depends++;
+-     }
++			/* the array may have been moved by realloc */
++			temp = ab_depend->depended_upon_by + othercount;
++			*temp = NULL;
++		}
++	}
+ }
+ 
+ static depend_t * depend_init(void)
+-- 
+1.7.1
+

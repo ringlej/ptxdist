@@ -1,0 +1,51 @@
+From d6ea4230ca70c3c7875a61e1c7c1dedb6d1b6fc5 Mon Sep 17 00:00:00 2001
+From: google@wwsnet.net <google@wwsnet.net@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 13 Sep 2010 00:47:26 +0000
+Subject: [PATCH] fix compile issues on OS X and FreeBSD
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@560 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_download.c |    1 +
+ libopkg/pkg.c           |    1 +
+ tests/libopkg_test.c    |    1 +
+ 3 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/libopkg/opkg_download.c b/libopkg/opkg_download.c
+index 4969dd7..e84340a 100644
+--- a/libopkg/opkg_download.c
++++ b/libopkg/opkg_download.c
+@@ -21,6 +21,7 @@
+ 
+ #include <stdio.h>
+ #include <unistd.h>
++#include <libgen.h>
+ 
+ #include "opkg_download.h"
+ #include "opkg_message.h"
+diff --git a/libopkg/pkg.c b/libopkg/pkg.c
+index 5b1321e..2e854a9 100644
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -21,6 +21,7 @@
+ #include <string.h>
+ #include <ctype.h>
+ #include <unistd.h>
++#include <libgen.h>
+ 
+ #include "pkg.h"
+ 
+diff --git a/tests/libopkg_test.c b/tests/libopkg_test.c
+index dbe1e7e..31a22b0 100644
+--- a/tests/libopkg_test.c
++++ b/tests/libopkg_test.c
+@@ -5,6 +5,7 @@
+ 
+ #include <opkg.h>
+ 
++int opkg_state_changed;
+ pkg_t *find_pkg = NULL;
+ 
+ 
+-- 
+1.7.1
+

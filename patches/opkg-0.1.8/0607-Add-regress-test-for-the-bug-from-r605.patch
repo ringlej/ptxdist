@@ -1,0 +1,70 @@
+From 5dc29c0675d04089d4f1d8616d6777861f072e21 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 21 Feb 2011 04:45:33 +0000
+Subject: [PATCH] Add regress test for the bug from r605.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@607 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ tests/regress/Makefile    |    3 ++-
+ tests/regress/filehash.py |   35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 1 deletions(-)
+ create mode 100755 tests/regress/filehash.py
+
+diff --git a/tests/regress/Makefile b/tests/regress/Makefile
+index c438a16..bb9d212 100644
+--- a/tests/regress/Makefile
++++ b/tests/regress/Makefile
+@@ -1,7 +1,8 @@
+ PYTHON=/usr/bin/python3
+ REGRESSION_TESTS=issue26.py issue31.py issue45.py issue46.py \
+ 			issue50.py issue51.py issue55.py issue58.py \
+-			issue72.py
++			issue72.py \
++			filehash.py
+ 
+ regress:
+ 	@for test in $(REGRESSION_TESTS); do \
+diff --git a/tests/regress/filehash.py b/tests/regress/filehash.py
+new file mode 100755
+index 0000000..e6cbe62
+--- /dev/null
++++ b/tests/regress/filehash.py
+@@ -0,0 +1,35 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++open("asdf", "w").close()
++a = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a.write(data_files=["asdf"])
++b = opk.Opk(Package="b", Version="1.0", Architecture="all")
++b.write(data_files=["asdf"])
++os.unlink("asdf")
++opkgcl.install("a_1.0_all.opk")
++
++if not opkgcl.is_installed("a"):
++	print(__file__, ": Package 'a' not installed.")
++	exit(False)
++
++if not os.path.exists("{}/asdf".format(cfg.offline_root)):
++	print(__file__, ": asdf not created.")
++	exit(False)
++
++opkgcl.install("b_1.0_all.opk", "--force-overwrite")
++
++if "{}/asdf".format(cfg.offline_root) not in opkgcl.files("b"):
++	print(__file__, ": asdf not claimed by ``b''.")
++	exit(False)
++
++if "{}/asdf".format(cfg.offline_root) in opkgcl.files("a"):
++	print(__file__, ": asdf is still claimed by ``a''.")
++	exit(False)
++
++opkgcl.remove("b")
++opkgcl.remove("a")
+-- 
+1.7.1
+

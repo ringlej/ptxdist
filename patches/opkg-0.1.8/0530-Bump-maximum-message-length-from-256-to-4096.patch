@@ -1,0 +1,31 @@
+From affb6d55b8f3e21796ea86e40113c617c8d3a893 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 2 Jun 2010 00:05:02 +0000
+Subject: [PATCH] Bump maximum message length from 256 to 4096.
+
+Errors seen in the wild can easily exceed 256 chars, especially when there is
+no limit imposed on maximum file path lengths under most systems. This should
+probably be changed at some point, to use realloc instead of a static buffer
+on the stack.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@530 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_message.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_message.c b/libopkg/opkg_message.c
+index 4a24039..e5324e6 100644
+--- a/libopkg/opkg_message.c
++++ b/libopkg/opkg_message.c
+@@ -92,7 +92,7 @@ opkg_message (message_level_t level, const char *fmt, ...)
+ 	va_start (ap, fmt);
+ 
+ 	if (level == ERROR) {
+-#define MSG_LEN 256
++#define MSG_LEN 4096
+ 		char msg[MSG_LEN];
+ 		if (vsnprintf(msg, MSG_LEN, fmt, ap) >= MSG_LEN) {
+ 			fprintf(stderr, "%s: Message truncated!\n",
+-- 
+1.7.1
+

@@ -1,0 +1,48 @@
+From b501406f5cd2f475b1f76ea02c42f3d530302bbe Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 21 Sep 2010 01:24:51 +0000
+Subject: [PATCH] Revert "Don't call opkg_conf_deinit() if opkg_conf_init() fails."
+
+This reverts commit 12e726ce863c221d32d20ba41242c2fcb798a909.
+
+I should pay more attention. This does not fix the problem.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@572 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg.c |   11 +++++------
+ 1 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index 1efefac..b36dc1b 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -121,21 +121,20 @@ opkg_new()
+ 		goto err0;
+ 
+ 	if (opkg_conf_load())
+-		goto err1;
++		goto err0;
+ 
+ 	if (pkg_hash_load_feeds())
+-		goto err2;
++		goto err1;
+ 
+ 	if (pkg_hash_load_status_files())
+-		goto err2;
++		goto err1;
+ 
+ 	return 0;
+ 
+-err2:
+-	pkg_hash_deinit();
+ err1:
+-	opkg_conf_deinit();
++	pkg_hash_deinit();
+ err0:
++	opkg_conf_deinit();
+ 	return -1;
+ }
+ 
+-- 
+1.7.1
+

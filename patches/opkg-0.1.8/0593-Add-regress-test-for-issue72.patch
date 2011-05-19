@@ -1,0 +1,93 @@
+From bab2931ba2828426ae497b23d20590a208ed6f48 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 23 Dec 2010 01:37:58 +0000
+Subject: [PATCH] Add regress test for issue72.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@593 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ tests/regress/Makefile   |   13 +++++++++++
+ tests/regress/issue72.py |   52 ++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 65 insertions(+), 0 deletions(-)
+ create mode 100644 tests/regress/Makefile
+ create mode 100755 tests/regress/issue72.py
+
+diff --git a/tests/regress/Makefile b/tests/regress/Makefile
+new file mode 100644
+index 0000000..c438a16
+--- /dev/null
++++ b/tests/regress/Makefile
+@@ -0,0 +1,13 @@
++PYTHON=/usr/bin/python3
++REGRESSION_TESTS=issue26.py issue31.py issue45.py issue46.py \
++			issue50.py issue51.py issue55.py issue58.py \
++			issue72.py
++
++regress:
++	@for test in $(REGRESSION_TESTS); do \
++		echo $$test; \
++		$(PYTHON) $$test; \
++	done
++
++clean:
++	rm -f *.pyc
+diff --git a/tests/regress/issue72.py b/tests/regress/issue72.py
+new file mode 100755
+index 0000000..3c71401
+--- /dev/null
++++ b/tests/regress/issue72.py
+@@ -0,0 +1,52 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++long_dir = 110*"a"
++long_b = 110*"b"
++long_filename = long_dir + "/"+ long_b
++long_filename2 = long_dir + "/" + 110*"c"
++
++os.mkdir(long_dir)
++open(long_filename, "w").close()
++os.symlink(long_b, long_filename2)
++a = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a.write(data_files=[long_dir, long_filename, long_filename2])
++os.unlink(long_filename)
++os.unlink(long_filename2)
++os.rmdir(long_dir)
++opkgcl.install("a_1.0_all.opk")
++
++if not opkgcl.is_installed("a"):
++	print(__file__, ": Package 'a' not installed.")
++	exit(False)
++
++if not os.path.exists("{}/{}".format(cfg.offline_root, long_dir)):
++	print(__file__, ": dir with name longer than 100 "
++					"characters not created.")
++	exit(False)
++
++if not os.path.exists("{}/{}".format(cfg.offline_root, long_filename)):
++	print(__file__, ": file with a name longer than 100 characters, "
++				"in dir with name longer than 100 characters, "
++				"not created.")
++	exit(False)
++
++if not os.path.lexists("{}/{}".format(cfg.offline_root, long_filename2)):
++	print(__file__, ": symlink with a name longer than 100 characters, "
++				"pointing at a file with a name longer than "
++				"100 characters,"
++				"in dir with name longer than 100 characters, "
++				"not created.")
++	exit(False)
++
++linky = os.path.realpath("{}/{}".format(cfg.offline_root, long_filename2))
++linky_dst = "{}/{}".format(cfg.offline_root, long_filename)
++if linky != linky_dst:
++	print(__file__, ": symlink path truncated.")
++	exit(False)
++
++opkgcl.remove("a")
+-- 
+1.7.1
+

@@ -1,0 +1,37 @@
+From 6d27d9bb440be0006a754c7473e72f6e1dbdad04 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 2 Feb 2011 00:53:46 +0000
+Subject: [PATCH] Fix depmod intercept. Patch from Andreas Oberritter.
+
+* If depmod -a ${KERNEL_VERSION} is called, the version should be retained.
+* The script calls depmod -A, which does nothing if the installed module's
+  timestamp is older than modules.dep's timestamp. As modules generally
+  inherit the timestamp of the build, this would result in depmod doing nothing.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@599 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ intercept/depmod |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/intercept/depmod b/intercept/depmod
+index a60768f..f8a4f9a 100644
+--- a/intercept/depmod
++++ b/intercept/depmod
+@@ -1,10 +1,10 @@
+ #!/bin/sh
+ 
+ if [ "x$1" = "x-a" ] || [ "x$1" = "x-A" ]; then
+-  if [ ! -f $OPKG_INTERCEPT_DIR/depmod ]; then
+-    echo "depmod -A" > $OPKG_INTERCEPT_DIR/depmod
+-    chmod +x $OPKG_INTERCEPT_DIR/depmod
+-  fi
++  echo "depmod $@" >> $OPKG_INTERCEPT_DIR/depmod
++  sort -u $OPKG_INTERCEPT_DIR/depmod > $OPKG_INTERCEPT_DIR/depmod.tmp
++  mv $OPKG_INTERCEPT_DIR/depmod.tmp $OPKG_INTERCEPT_DIR/depmod
++  chmod +x $OPKG_INTERCEPT_DIR/depmod
+   exit 0
+ fi
+ 
+-- 
+1.7.1
+

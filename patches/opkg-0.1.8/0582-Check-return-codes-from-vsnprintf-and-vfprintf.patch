@@ -1,0 +1,50 @@
+From 1c98b4bd7f1e6c7ec10f006b39b5bab96fa1149f Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 19 Nov 2010 03:56:06 +0000
+Subject: [PATCH] Check return codes from vsnprintf and vfprintf.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@582 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_message.c |   23 +++++++++++++++++++----
+ 1 files changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/libopkg/opkg_message.c b/libopkg/opkg_message.c
+index e5324e6..7114e3a 100644
+--- a/libopkg/opkg_message.c
++++ b/libopkg/opkg_message.c
+@@ -94,13 +94,28 @@ opkg_message (message_level_t level, const char *fmt, ...)
+ 	if (level == ERROR) {
+ #define MSG_LEN 4096
+ 		char msg[MSG_LEN];
+-		if (vsnprintf(msg, MSG_LEN, fmt, ap) >= MSG_LEN) {
+-			fprintf(stderr, "%s: Message truncated!\n",
++		int ret;
++		ret = vsnprintf(msg, MSG_LEN, fmt, ap);
++		if (ret < 0) {
++			fprintf(stderr, "%s: encountered an output or encoding"
++					" error during vsnprintf.\n",
++					__FUNCTION__);
++			va_end (ap);
++			exit(EXIT_FAILURE);
++		}
++		if (ret >= MSG_LEN) {
++			fprintf(stderr, "%s: Message truncated.\n",
+ 					__FUNCTION__);
+ 		}
+ 		push_error_list(msg);
+-	} else
+-		vprintf(fmt, ap);
++	} else {
++		if (vprintf(fmt, ap) < 0) {
++			fprintf(stderr, "%s: encountered an output or encoding"
++					" error during vprintf.\n",
++					__FUNCTION__);
++			exit(EXIT_FAILURE);
++		}
++	}
+ 
+ 	va_end (ap);
+ }
+-- 
+1.7.1
+

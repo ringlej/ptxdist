@@ -1,0 +1,26 @@
+From 2e7f79df655f82bf42ed2a06fea1a036d3d37024 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 14 Feb 2011 02:45:32 +0000
+Subject: [PATCH] Add missing space.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@600 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_parse.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg_parse.c b/libopkg/pkg_parse.c
+index 5d08177..ba64269 100644
+--- a/libopkg/pkg_parse.c
++++ b/libopkg/pkg_parse.c
+@@ -139,7 +139,7 @@ parse_version(pkg_t *pkg, const char *vstr)
+ 		pkg->epoch= 0;
+ 	}
+ 
+-	pkg->version= xstrdup(vstr);
++	pkg->version = xstrdup(vstr);
+ 	pkg->revision = strrchr(pkg->version,'-');
+ 
+ 	if (pkg->revision)
+-- 
+1.7.1
+

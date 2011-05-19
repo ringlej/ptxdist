@@ -1,0 +1,62 @@
+From e85956a6700f6b6d66394a70d6c442e947b6a517 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 15 Sep 2010 00:05:24 +0000
+Subject: [PATCH] mask && PFM_FOO should instead be mask & PFM_FOO.
+
+From Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@564 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_parse.c |   17 ++++++++---------
+ 1 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/libopkg/pkg_parse.c b/libopkg/pkg_parse.c
+index 2ce696f..5d08177 100644
+--- a/libopkg/pkg_parse.c
++++ b/libopkg/pkg_parse.c
+@@ -222,11 +222,11 @@ pkg_parse_line(pkg_t *pkg, const char *line, uint mask)
+ 		break;
+ 
+ 	case 'I':
+-		if ((mask && PFM_INSTALLED_SIZE) && is_field("Installed-Size", line)) {
++		if ((mask & PFM_INSTALLED_SIZE) && is_field("Installed-Size", line)) {
+ 			char *tmp = parse_simple("Installed-Size", line);
+ 			pkg->installed_size = strtoul(tmp, NULL, 0);
+ 			free (tmp);
+-		} else if ((mask && PFM_INSTALLED_TIME) && is_field("Installed-Time", line)) {
++		} else if ((mask & PFM_INSTALLED_TIME) && is_field("Installed-Time", line)) {
+ 			char *tmp = parse_simple("Installed-Time", line);
+ 			pkg->installed_time = strtoul(tmp, NULL, 0);
+ 			free (tmp);
+@@ -234,14 +234,13 @@ pkg_parse_line(pkg_t *pkg, const char *line, uint mask)
+ 		break;
+ 
+ 	case 'M':
+-		if (mask && PFM_MD5SUM) {
+-			if (is_field("MD5sum:", line))
+-				pkg->md5sum = parse_simple("MD5sum", line);
++		if ((mask & PFM_MD5SUM) && is_field("MD5sum:", line))
++			pkg->md5sum = parse_simple("MD5sum", line);
+ 			/* The old opkg wrote out status files with the wrong
+ 			* case for MD5sum, let's parse it either way */
+-			else if (is_field("MD5Sum:", line))
+-				pkg->md5sum = parse_simple("MD5Sum", line);
+-		} else if((mask & PFM_MAINTAINER) && is_field("Maintainer", line))
++		else if ((mask & PFM_MD5SUM) && is_field("MD5Sum:", line)) 
++			pkg->md5sum = parse_simple("MD5Sum", line);
++		else if((mask & PFM_MAINTAINER) && is_field("Maintainer", line))
+ 			pkg->maintainer = parse_simple("Maintainer", line);
+ 		break;
+ 
+@@ -301,7 +300,7 @@ pkg_parse_line(pkg_t *pkg, const char *line, uint mask)
+ 			strcat(pkg->description, "\n");
+ 			strcat(pkg->description, (line));
+ 			goto dont_reset_flags;
+-		} else if ((mask && PFM_CONFFILES) && reading_conffiles) {
++		} else if ((mask & PFM_CONFFILES) && reading_conffiles) {
+ 			parse_conffiles(pkg, line);
+ 			goto dont_reset_flags;
+ 		}
+-- 
+1.7.1
+

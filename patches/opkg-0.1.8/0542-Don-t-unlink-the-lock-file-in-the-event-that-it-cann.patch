@@ -1,0 +1,70 @@
+From 9709cebaa23d60afa0a59d0a3e4713103d907bef Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 8 Jul 2010 00:44:21 +0000
+Subject: [PATCH] Don't unlink the lock file in the event that it cannot be locked.
+
+Fixes Issue #54.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@542 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_conf.c |   15 +++++++++------
+ 1 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index cd636f1..a145ae7 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -486,7 +486,10 @@ opkg_conf_init(void)
+ 
+ 	if (lockf(lock_fd, F_TLOCK, (off_t)0) == -1) {
+ 		opkg_perror(ERROR, "Could not lock %s", lock_file);
+-		goto err3;
++		if (close(lock_fd) == -1)
++			opkg_perror(ERROR, "Couldn't close descriptor %d (%s)",
++				lock_fd, lock_file);
++		goto err2;
+ 	}
+ 
+ 	if (conf->tmp_dir)
+@@ -502,7 +505,7 @@ opkg_conf_init(void)
+ 	conf->tmp_dir = mkdtemp(tmp);
+ 	if (conf->tmp_dir == NULL) {
+ 		opkg_perror(ERROR, "Creating temp dir %s failed", tmp);
+-		goto err4;
++		goto err3;
+ 	}
+ 
+ 	pkg_hash_init();
+@@ -533,14 +536,14 @@ opkg_conf_init(void)
+ 	}
+ 
+ 	if (resolve_pkg_dest_list(&tmp_dest_nv_pair_list))
+-		goto err5;
++		goto err4;
+ 
+ 	nv_pair_list_deinit(&tmp_dest_nv_pair_list);
+ 
+ 	return 0;
+ 
+ 
+-err5:
++err4:
+ 	free(conf->lists_dir);
+ 
+ 	pkg_hash_deinit();
+@@ -549,10 +552,10 @@ err5:
+ 
+ 	if (rmdir(conf->tmp_dir) == -1)
+ 		opkg_perror(ERROR, "Couldn't remove dir %s", conf->tmp_dir);
+-err4:
++err3:
+ 	if (lockf(lock_fd, F_ULOCK, (off_t)0) == -1)
+ 		opkg_perror(ERROR, "Couldn't unlock %s", lock_file);
+-err3:
++
+ 	if (close(lock_fd) == -1)
+ 		opkg_perror(ERROR, "Couldn't close descriptor %d (%s)",
+ 				lock_fd, lock_file);
+-- 
+1.7.1
+

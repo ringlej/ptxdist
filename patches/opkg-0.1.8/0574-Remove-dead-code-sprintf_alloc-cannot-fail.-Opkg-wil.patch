@@ -1,0 +1,29 @@
+From 3cfd512eeae8e66f159957888e38e749e368e302 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 21 Sep 2010 01:30:51 +0000
+Subject: [PATCH] Remove dead code, sprintf_alloc() cannot fail. Opkg will exit instead.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@574 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_conf.c |    5 -----
+ 1 files changed, 0 insertions(+), 5 deletions(-)
+
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index 9c1ed34..acac1b4 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -484,11 +484,6 @@ opkg_conf_load(void)
+ 	else
+ 		sprintf_alloc (&lock_file, "%s", OPKGLOCKFILE);
+ 
+-	if (lock_file == NULL) {
+-		opkg_perror(ERROR, "Could not allocate memory for lock file name");
+-		goto err2;
+-	}
+-
+ 	lock_fd = creat(lock_file, S_IRUSR | S_IWUSR | S_IRGRP);
+ 	if (lock_fd == -1) {
+ 		opkg_perror(ERROR, "Could not create lock file %s", lock_file);
+-- 
+1.7.1
+

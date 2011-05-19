@@ -1,0 +1,46 @@
+From 578a78948bdeeb11351e22e6dd3edec790f37e19 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 21 Sep 2010 00:49:26 +0000
+Subject: [PATCH] Don't call opkg_conf_deinit() if opkg_conf_init() fails.
+
+Pointed out by Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@570 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg.c |   11 ++++++-----
+ 1 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index b36dc1b..1efefac 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -121,20 +121,21 @@ opkg_new()
+ 		goto err0;
+ 
+ 	if (opkg_conf_load())
+-		goto err0;
++		goto err1;
+ 
+ 	if (pkg_hash_load_feeds())
+-		goto err1;
++		goto err2;
+ 
+ 	if (pkg_hash_load_status_files())
+-		goto err1;
++		goto err2;
+ 
+ 	return 0;
+ 
+-err1:
++err2:
+ 	pkg_hash_deinit();
+-err0:
++err1:
+ 	opkg_conf_deinit();
++err0:
+ 	return -1;
+ }
+ 
+-- 
+1.7.1
+

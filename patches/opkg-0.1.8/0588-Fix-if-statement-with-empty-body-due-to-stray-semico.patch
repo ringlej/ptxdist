@@ -1,0 +1,28 @@
+From 25c4c0cc6f7e142f87be6e0945541a448602f197 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 13 Dec 2010 04:39:11 +0000
+Subject: [PATCH] Fix if statement with empty body due to stray semicolon.
+
+Found with Clang.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@588 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libbb/unarchive.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libbb/unarchive.c b/libbb/unarchive.c
+index 44f8715..1d152f5 100644
+--- a/libbb/unarchive.c
++++ b/libbb/unarchive.c
+@@ -621,7 +621,7 @@ free_header_tar(file_header_t *tar_entry)
+ 		return;
+ 
+ 	free(tar_entry->name);
+-	if (tar_entry->link_name);
++	if (tar_entry->link_name)
+ 		free(tar_entry->link_name);
+ 
+ 	free(tar_entry);
+-- 
+1.7.1
+

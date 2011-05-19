@@ -1,0 +1,56 @@
+From 78ec74138a1bc08d8c130f9e38a9d851db3b74a7 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 19 Nov 2010 06:19:25 +0000
+Subject: [PATCH] Fix formatting issues found with the last commit.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@585 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_install.c |    4 ++--
+ libopkg/opkg_remove.c  |    2 +-
+ libopkg/pkg.c          |    2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index eaa1edc..68c17b3 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -204,8 +204,8 @@ verify_pkg_installable(pkg_t *pkg)
+ 	pkg_size_kbs = (pkg->installed_size + 1023)/1024;
+ 
+ 	if (pkg_size_kbs >= kbs_available) {
+-		opkg_msg(ERROR, "Only have %dkb available on filesystem %s, "
+-			"pkg %s needs %d\n",
++		opkg_msg(ERROR, "Only have %ldkb available on filesystem %s, "
++			"pkg %s needs %ld\n",
+ 			kbs_available, root_dir, pkg->name, pkg_size_kbs);
+ 		return -1;
+ 	}
+diff --git a/libopkg/opkg_remove.c b/libopkg/opkg_remove.c
+index 1ed2dab..e2a63e1 100644
+--- a/libopkg/opkg_remove.c
++++ b/libopkg/opkg_remove.c
+@@ -363,7 +363,7 @@ remove_data_files_and_list(pkg_t *pkg)
+ 	  }
+ 
+ 	  if (!conf->noaction) {
+-	  	opkg_msg(INFO, "Deleting %s.\n", file_name, conf->noaction);
++	  	opkg_msg(INFO, "Deleting %s.\n", file_name);
+ 	       unlink(file_name);
+ 	  } else
+ 	  	opkg_msg(INFO, "Not deleting %s. (noaction)\n",
+diff --git a/libopkg/pkg.c b/libopkg/pkg.c
+index 1606eaa..235741e 100644
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -462,7 +462,7 @@ set_flags_from_control(pkg_t *pkg){
+ 
+      fp = fopen(file_name, "r");
+      if (fp == NULL) {
+-	     opkg_perror(ERROR, "Failed to open %s");
++	     opkg_perror(ERROR, "Failed to open %s", file_name);
+ 	     free(file_name);
+ 	     return;
+      }
+-- 
+1.7.1
+

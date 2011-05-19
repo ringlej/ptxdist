@@ -1,0 +1,32 @@
+From f8980c8d1dd162031290602cb3d494d617ff51ba Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 19 Nov 2010 04:30:47 +0000
+Subject: [PATCH] Remove an unnecessary allocation.
+
+According to SUS3:
+If the value of n is zero on a call to snprintf(), nothing shall be written, the number of bytes that would have been written had n been sufficiently large excluding the terminating null shall be returned, and s may be a null pointer.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@583 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/sprintf_alloc.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libopkg/sprintf_alloc.c b/libopkg/sprintf_alloc.c
+index e2513ec..aef8e06 100644
+--- a/libopkg/sprintf_alloc.c
++++ b/libopkg/sprintf_alloc.c
+@@ -23,9 +23,9 @@ sprintf_alloc(char **str, const char *fmt, ...)
+ {
+ 	va_list ap;
+ 	int n;
+-	unsigned int size = 1;
++	unsigned int size = 0;
+ 
+-	*str = xcalloc(1, size);
++	*str = NULL;
+ 
+ 	for (;;) {
+ 		va_start(ap, fmt);
+-- 
+1.7.1
+

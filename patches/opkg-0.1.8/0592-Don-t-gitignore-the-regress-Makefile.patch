@@ -1,0 +1,25 @@
+From 6cdd37a2c49383c4eff4ddc882e8c4aba0069351 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 23 Dec 2010 01:37:42 +0000
+Subject: [PATCH] Don't gitignore the regress Makefile.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@592 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ .gitignore |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index f3a60ef..df61d46 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -14,6 +14,7 @@ Makefile
+ Makefile.in
+ # o_0
+ Makefile.in.in
++!tests/regress/Makefile
+ 
+ # The local aclocal.m4 file
+ aclocal.m4
+-- 
+1.7.1
+

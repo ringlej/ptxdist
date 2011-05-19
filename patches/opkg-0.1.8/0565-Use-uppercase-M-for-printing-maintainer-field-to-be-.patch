@@ -1,0 +1,28 @@
+From 442cfaa9075c7cdc8839eee9efd6b0e1a662e982 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 15 Sep 2010 00:05:37 +0000
+Subject: [PATCH] Use uppercase M for printing maintainer field, to be consistent.
+
+From Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@565 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg.c b/libopkg/pkg.c
+index 2e854a9..1606eaa 100644
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -714,7 +714,7 @@ pkg_formatted_field(FILE *fp, pkg_t *pkg, const char *field)
+      case 'M':
+ 	  if (strcasecmp(field, "Maintainer") == 0) {
+ 	       if (pkg->maintainer) {
+-                   fprintf(fp, "maintainer: %s\n", pkg->maintainer);
++                   fprintf(fp, "Maintainer: %s\n", pkg->maintainer);
+ 	       }
+ 	  } else if (strcasecmp(field, "MD5sum") == 0) {
+ 	       if (pkg->md5sum) {
+-- 
+1.7.1
+

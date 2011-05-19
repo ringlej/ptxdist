@@ -1,0 +1,158 @@
+From b427dfbf01c2f8fb8908a28bccbefd1fc1c6595c Mon Sep 17 00:00:00 2001
+From: javiplx@gmail.com <javiplx@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 7 Apr 2011 15:03:54 +0000
+Subject: [PATCH] Add flag in opkg_download calls to reduce the severity of the 'failed download' message
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@610 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg.c          |   10 +++++-----
+ libopkg/opkg_cmd.c      |    6 +++---
+ libopkg/opkg_download.c |   10 +++++-----
+ libopkg/opkg_download.h |    2 +-
+ 4 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index 0757370..7c3e18f 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -342,7 +342,7 @@ opkg_install_package(const char *package_name,
+ 
+ 		err = opkg_download(url, pkg->local_filename,
+ 				    (curl_progress_func) curl_progress_cb,
+-				    &cb_data);
++				    &cb_data, 0);
+ 		free(url);
+ 
+ 		if (err) {
+@@ -613,7 +613,7 @@ opkg_update_package_lists(opkg_progress_callback_t progress_callback,
+ 
+ 			err = opkg_download(url, tmp_file_name,
+ 					  (curl_progress_func) curl_progress_cb,
+-					  &cb_data);
++					  &cb_data, 0);
+ 
+ 			if (err == 0) {
+ 				opkg_msg(INFO, "Inflating %s...\n",
+@@ -632,7 +632,7 @@ opkg_update_package_lists(opkg_progress_callback_t progress_callback,
+ 			}
+ 			free(tmp_file_name);
+ 		} else
+-			err = opkg_download(url, list_file_name, NULL, NULL);
++			err = opkg_download(url, list_file_name, NULL, NULL, 0);
+ 
+ 		if (err) {
+ 			opkg_msg(ERROR, "Couldn't retrieve %s\n", url);
+@@ -659,7 +659,7 @@ opkg_update_package_lists(opkg_progress_callback_t progress_callback,
+ 			/* make sure there is no existing signature file */
+ 			unlink(sig_file_name);
+ 
+-			err = opkg_download(url, sig_file_name, NULL, NULL);
++			err = opkg_download(url, sig_file_name, NULL, NULL, 0);
+ 			if (err) {
+ 				opkg_msg(ERROR, "Couldn't retrieve %s\n", url);
+ 			} else {
+@@ -864,7 +864,7 @@ opkg_repository_accessibility_check(void)
+ 		iter1 = str_list_pop(src);
+ 		repositories--;
+ 
+-		if (opkg_download(iter1->data, "/dev/null", NULL, NULL))
++		if (opkg_download(iter1->data, "/dev/null", NULL, NULL, 0))
+ 			ret++;
+ 		str_list_elt_deinit(iter1);
+ 	}
+diff --git a/libopkg/opkg_cmd.c b/libopkg/opkg_cmd.c
+index 4059bb7..8c04418 100644
+--- a/libopkg/opkg_cmd.c
++++ b/libopkg/opkg_cmd.c
+@@ -130,7 +130,7 @@ opkg_update_cmd(int argc, char **argv)
+ 	      FILE *in, *out;
+ 
+ 	      sprintf_alloc (&tmp_file_name, "%s/%s.gz", tmp, src->name);
+-	      err = opkg_download(url, tmp_file_name, NULL, NULL);
++	      err = opkg_download(url, tmp_file_name, NULL, NULL, 0);
+ 	      if (err == 0) {
+ 		   opkg_msg(NOTICE, "Inflating %s.\n", url);
+ 		   in = fopen (tmp_file_name, "r");
+@@ -147,7 +147,7 @@ opkg_update_cmd(int argc, char **argv)
+ 	      }
+ 	      free(tmp_file_name);
+ 	  } else
+-	      err = opkg_download(url, list_file_name, NULL, NULL);
++	      err = opkg_download(url, list_file_name, NULL, NULL, 0);
+ 	  if (err) {
+ 	       failures++;
+ 	  } else {
+@@ -171,7 +171,7 @@ opkg_update_cmd(int argc, char **argv)
+               /* Put the signature in the right place */
+               sprintf_alloc (&tmp_file_name, "%s/%s.sig", lists_dir, src->name);
+ 
+-              err = opkg_download(url, tmp_file_name, NULL, NULL);
++              err = opkg_download(url, tmp_file_name, NULL, NULL, 0);
+               if (err) {
+                   failures++;
+                   opkg_msg(NOTICE, "Signature check failed.\n");
+diff --git a/libopkg/opkg_download.c b/libopkg/opkg_download.c
+index 16502d1..b9533aa 100644
+--- a/libopkg/opkg_download.c
++++ b/libopkg/opkg_download.c
+@@ -82,7 +82,7 @@ str_starts_with(const char *str, const char *prefix)
+ 
+ int
+ opkg_download(const char *src, const char *dest_file_name,
+-	curl_progress_func cb, void *data)
++	curl_progress_func cb, void *data, const short hide_error)
+ {
+     int err = 0;
+ 
+@@ -142,7 +142,7 @@ opkg_download(const char *src, const char *dest_file_name,
+ 	{
+ 	    long error_code;
+ 	    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &error_code);
+-	    opkg_msg(ERROR, "Failed to download %s: %s.\n",
++	    opkg_msg(hide_error?DEBUG2:ERROR, "Failed to download %s: %s.\n",
+ 		    src, curl_easy_strerror(res));
+ 	    free(tmp_file_location);
+ 	    return -1;
+@@ -196,7 +196,7 @@ opkg_download_cache(const char *src, const char *dest_file_name,
+     int err = 0;
+ 
+     if (!conf->cache || str_starts_with(src, "file:")) {
+-	err = opkg_download(src, dest_file_name, cb, data);
++	err = opkg_download(src, dest_file_name, cb, data, 0);
+ 	goto out1;
+     }
+ 
+@@ -215,7 +215,7 @@ opkg_download_cache(const char *src, const char *dest_file_name,
+     if (file_exists(cache_location))
+ 	opkg_msg(NOTICE, "Copying %s.\n", cache_location);
+     else {
+-	err = opkg_download(src, cache_location, cb, data);
++	err = opkg_download(src, cache_location, cb, data, 0);
+ 	if (err) {
+ 	    (void) unlink(cache_location);
+ 	    goto out2;
+@@ -287,7 +287,7 @@ opkg_prepare_url_for_install(const char *url, char **namep)
+ 	  char *file_base = basename(file_basec);
+ 
+ 	  sprintf_alloc(&tmp_file, "%s/%s", conf->tmp_dir, file_base);
+-	  err = opkg_download(url, tmp_file, NULL, NULL);
++	  err = opkg_download(url, tmp_file, NULL, NULL, 0);
+ 	  if (err)
+ 	       return err;
+ 
+diff --git a/libopkg/opkg_download.h b/libopkg/opkg_download.h
+index 3e1c760..91b990e 100644
+--- a/libopkg/opkg_download.h
++++ b/libopkg/opkg_download.h
+@@ -25,7 +25,7 @@ typedef void (*opkg_download_progress_callback)(int percent, char *url);
+ typedef int (*curl_progress_func)(void *data, double t, double d, double ultotal, double ulnow);
+ 
+ 
+-int opkg_download(const char *src, const char *dest_file_name, curl_progress_func cb, void *data);
++int opkg_download(const char *src, const char *dest_file_name, curl_progress_func cb, void *data, const short hide_error);
+ int opkg_download_pkg(pkg_t *pkg, const char *dir);
+ /*
+  * Downloads file from url, installs in package database, return package name.
+-- 
+1.7.1
+

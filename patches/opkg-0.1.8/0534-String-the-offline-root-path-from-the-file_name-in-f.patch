@@ -1,0 +1,37 @@
+From b4cebed6238b42ad45e79a6cf28749d0626658c6 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 11 Jun 2010 02:07:29 +0000
+Subject: [PATCH] String the offline root path from the file_name in file_hash_get_file_owner().
+
+file_hash_set_file_owner() strips the offline root path, so this reciprocal
+function should do likewise. This makes behaviour consistent with and without
+an offline root.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@534 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_hash.c |    9 ++++++++-
+ 1 files changed, 8 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+index a7e3f52..f72ed26 100644
+--- a/libopkg/pkg_hash.c
++++ b/libopkg/pkg_hash.c
+@@ -623,7 +623,14 @@ hash_insert_pkg(pkg_t *pkg, int set_status)
+ pkg_t *
+ file_hash_get_file_owner(const char *file_name)
+ {
+-	return hash_table_get(&conf->file_hash, file_name); 
++	if (conf->offline_root) {
++		unsigned int len = strlen(conf->offline_root);
++		if (strncmp(file_name, conf->offline_root, len) == 0) {
++			file_name += len;
++		}
++	}
++
++	return hash_table_get(&conf->file_hash, file_name);
+ }
+ 
+ void
+-- 
+1.7.1
+

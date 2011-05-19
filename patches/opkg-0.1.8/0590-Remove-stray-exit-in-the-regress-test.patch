@@ -1,0 +1,25 @@
+From 0d9f9342d4b6071c158351d4c30370ddf36dc7ec Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 13 Dec 2010 04:39:47 +0000
+Subject: [PATCH] Remove stray exit() in the regress test.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@590 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ tests/regress/issue50.py |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+diff --git a/tests/regress/issue50.py b/tests/regress/issue50.py
+index 0ef4eae..a4a18cc 100755
+--- a/tests/regress/issue50.py
++++ b/tests/regress/issue50.py
+@@ -9,7 +9,6 @@ open("foo", "w").close()
+ a1 = opk.Opk(Package="a", Version="1.0", Architecture="all")
+ a1.write(data_files=["foo"])
+ 
+-exit()
+ opkgcl.install("a_1.0_all.opk")
+ 
+ o = opk.OpkGroup()
+-- 
+1.7.1
+

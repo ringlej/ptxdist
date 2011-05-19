@@ -1,0 +1,29 @@
+From d09cea362eb6d39f75fc4b2566f2f2ed35e58757 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 29 Apr 2010 06:59:56 +0000
+Subject: [PATCH] Add a message for the case that no installation candidate can be found.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@529 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_install.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 9f1dbac..c8e6dc9 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -1138,8 +1138,10 @@ opkg_install_by_name(const char *pkg_name)
+ 			old->version);
+     
+      new = pkg_hash_fetch_best_installation_candidate_by_name(pkg_name);
+-     if (new == NULL)
++     if (new == NULL) {
++	opkg_msg(NOTICE, "Unknown package '%s'.\n", pkg_name);
+ 	return -1;
++     }
+ 
+      opkg_msg(DEBUG2, "Versions from pkg_hash_fetch:");
+      if ( old ) 
+-- 
+1.7.1
+

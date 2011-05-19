@@ -1,0 +1,27 @@
+From a91236f83d1777cf9dd94c709f0a974b173c7b8b Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 19 Nov 2010 06:19:11 +0000
+Subject: [PATCH] Use printf format specifier attribute for opkg_message().
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@584 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_message.h |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_message.h b/libopkg/opkg_message.h
+index 62a6b83..4fa2a0b 100644
+--- a/libopkg/opkg_message.h
++++ b/libopkg/opkg_message.h
+@@ -30,7 +30,8 @@ typedef enum {
+ 
+ void free_error_list(void);
+ void print_error_list(void);
+-void opkg_message(message_level_t level, const char *fmt, ...);
++void opkg_message(message_level_t level, const char *fmt, ...)
++				__attribute__ ((format (printf, 2, 3)));
+ 
+ #define opkg_msg(l, fmt, args...) \
+ 	do { \
+-- 
+1.7.1
+

@@ -1,0 +1,61 @@
+From 82779432519ebc597fc7b74b4e6313fabd3cb9e0 Mon Sep 17 00:00:00 2001
+From: javiplx@gmail.com <javiplx@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 26 Apr 2011 13:48:21 +0000
+Subject: [PATCH] Modify Release file parsing to use parse_from_stream_nomalloc
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@621 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/release_parse.c |   27 +++++++++------------------
+ 1 files changed, 9 insertions(+), 18 deletions(-)
+
+diff --git a/libopkg/release_parse.c b/libopkg/release_parse.c
+index e1d9a84..f411045 100644
+--- a/libopkg/release_parse.c
++++ b/libopkg/release_parse.c
+@@ -23,8 +23,10 @@
+ #include "parse_util.h"
+ 
+ static int
+-release_parse_line(release_t *release, const char *line)
++release_parse_line(void *ptr, const char *line, uint mask)
+ {
++	release_t *release = (release_t *) ptr;
++
+ 	int ret = 0;
+ 	unsigned int count = 0;
+ 	char **list = 0;
+@@ -111,25 +113,14 @@ dont_reset_flags:
+ int
+ release_parse_from_stream(release_t *release, FILE *fp)
+ {
+-	int ret = 0;
+-	char *buf = NULL;
+-	size_t buflen, nread;
+-
+-	nread = getline(&buf, &buflen, fp);
+-	while ( nread != -1 ) {
+-		if (buf[nread-1] == '\n') buf[nread-1] = '\0';
+-		if (release_parse_line(release, buf))
+-                        opkg_msg(DEBUG, "Failed to parse release line for %s:\n\t%s\n",
+-					release->name, buf);
+-		nread = getline(&buf, &buflen, fp);
+-	}
+-
+-	if (!feof(fp)) {
+-		opkg_perror(ERROR, "Problems reading Release file for %sd\n", release->name);
+-		ret = -1;
+-	}
++	int ret;
++	char *buf;
++	const size_t len = 4096;
+ 
++	buf = xmalloc(len);
++	ret = parse_from_stream_nomalloc(release_parse_line, release, fp, 0, &buf, len);
+ 	free(buf);
++
+ 	return ret;
+ }
+ 
+-- 
+1.7.1
+

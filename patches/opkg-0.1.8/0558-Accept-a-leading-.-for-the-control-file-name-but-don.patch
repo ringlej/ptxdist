@@ -1,0 +1,47 @@
+From f637389e79f9fb04b73d4fe254fea63e9b077a94 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 24 Aug 2010 04:09:34 +0000
+Subject: [PATCH] Accept a leading "./" for the control file name, but don't mandate it.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@558 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libbb/unarchive.c     |    7 ++++++-
+ libopkg/pkg_extract.c |    3 +--
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/libbb/unarchive.c b/libbb/unarchive.c
+index 0e820c8..44f8715 100644
+--- a/libbb/unarchive.c
++++ b/libbb/unarchive.c
+@@ -295,8 +295,13 @@ unarchive(FILE *src_stream, FILE *out_stream,
+ 
+ 		if (extract_names != NULL) {
+ 			int found_flag = FALSE;
++			char *p = file_entry->name;
++
++			if (p[0] == '.' && p[1] == '/')
++				p += 2;
++
+ 			for(i = 0; extract_names[i] != 0; i++) {
+-				if (strcmp(extract_names[i], file_entry->name) == 0) {
++				if (strcmp(extract_names[i], p) == 0) {
+ 					found_flag = TRUE;
+ 					break;
+ 				}
+diff --git a/libopkg/pkg_extract.c b/libopkg/pkg_extract.c
+index b7d924c..0f21e40 100644
+--- a/libopkg/pkg_extract.c
++++ b/libopkg/pkg_extract.c
+@@ -29,8 +29,7 @@ pkg_extract_control_file_to_stream(pkg_t *pkg, FILE *stream)
+ 	deb_extract(pkg->local_filename, stream,
+ 			extract_control_tar_gz
+ 			| extract_to_stream,
+-			NULL, "./control", &err);
+-
++			NULL, "control", &err);
+ 	return err;
+ }
+ 
+-- 
+1.7.1
+

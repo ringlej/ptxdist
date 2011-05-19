@@ -1,0 +1,103 @@
+From bef8b3ced498de337792a579af8f5536dae801b3 Mon Sep 17 00:00:00 2001
+From: google@wwsnet.net <google@wwsnet.net@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 5 Oct 2010 07:21:00 +0000
+Subject: [PATCH] Implement "list-changed-conffiles" command - based on patch by Yann Lopez <yann.lopez@gmail.com>.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@576 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_cmd.c |   35 +++++++++++++++++++++++++++++++++++
+ man/opkg-cl.1.in   |    3 +++
+ src/opkg-cl.c      |    3 +++
+ 3 files changed, 41 insertions(+), 0 deletions(-)
+
+diff --git a/libopkg/opkg_cmd.c b/libopkg/opkg_cmd.c
+index affa0f7..584d05d 100644
+--- a/libopkg/opkg_cmd.c
++++ b/libopkg/opkg_cmd.c
+@@ -617,6 +617,39 @@ opkg_list_installed_cmd(int argc, char **argv)
+ }
+ 
+ static int
++opkg_list_changed_conffiles_cmd(int argc, char **argv)
++{
++     int i ;
++     pkg_vec_t *available;
++     pkg_t *pkg;
++     char *pkg_name = NULL;
++     conffile_list_elt_t *iter;
++     conffile_t *cf;
++
++     if (argc > 0) {
++	  pkg_name = argv[0];
++     }
++     available = pkg_vec_alloc();
++     pkg_hash_fetch_all_installed(available);
++     pkg_vec_sort(available, pkg_compare_names);
++     for (i=0; i < available->len; i++) {
++	  pkg = available->pkgs[i];
++	  /* if we have package name or pattern and pkg does not match, then skip it */
++	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0))
++	    continue;
++	  if (nv_pair_list_empty(&pkg->conffiles))
++	    continue;
++	  for (iter = nv_pair_list_first(&pkg->conffiles); iter; iter = nv_pair_list_next(&pkg->conffiles, iter)) {
++	    cf = (conffile_t *)iter->data;
++	    if (cf->name && cf->value && conffile_has_been_modified(cf))
++	      printf("%s\n", cf->name);
++	  }
++     }
++     pkg_vec_free(available);
++     return 0;
++}
++
++static int
+ opkg_list_upgradable_cmd(int argc, char **argv)
+ {
+     struct active_list *head = prepare_upgrade_list();
+@@ -1188,6 +1221,8 @@ static opkg_cmd_t cmds[] = {
+      {"list-installed", 0, (opkg_cmd_fun_t)opkg_list_installed_cmd, PFM_SOURCE},
+      {"list_upgradable", 0, (opkg_cmd_fun_t)opkg_list_upgradable_cmd, PFM_SOURCE},
+      {"list-upgradable", 0, (opkg_cmd_fun_t)opkg_list_upgradable_cmd, PFM_SOURCE},
++     {"list_changed_conffiles", 0, (opkg_cmd_fun_t)opkg_list_changed_conffiles_cmd, PFM_SOURCE},
++     {"list-changed-conffiles", 0, (opkg_cmd_fun_t)opkg_list_changed_conffiles_cmd, PFM_SOURCE},
+      {"info", 0, (opkg_cmd_fun_t)opkg_info_cmd, 0},
+      {"flag", 1, (opkg_cmd_fun_t)opkg_flag_cmd, PFM_DESCRIPTION|PFM_SOURCE},
+      {"status", 0, (opkg_cmd_fun_t)opkg_status_cmd, PFM_DESCRIPTION|PFM_SOURCE},
+diff --git a/man/opkg-cl.1.in b/man/opkg-cl.1.in
+index d15e985..2bfb792 100644
+--- a/man/opkg-cl.1.in
++++ b/man/opkg-cl.1.in
+@@ -52,6 +52,9 @@ List installed packages
+ \fBlist-upgradable\fR
+ List installed and upgradable packages
+ .TP
++\fBlist-changed-conffiles\fR
++List package configuration files which have been modified after installation
++.TP
+ \fBfiles <\fIpackage\fP>\fR
+ List files belonging to \fIpackage\fP
+ .TP
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index ebaa3d0..bf123cd 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -225,6 +225,7 @@ usage()
+ 	printf("\tlist			List available packages\n");
+ 	printf("\tlist-installed		List installed packages\n");
+ 	printf("\tlist-upgradable		List installed and upgradable packages\n");
++	printf("\tlist-changed-conffiles	List user modified configuration files\n");
+ 	printf("\tfiles <pkg>		List files belonging to <pkg>\n");
+ 	printf("\tsearch <file|regexp>	List package providing <file>\n");
+ 	printf("\tinfo [pkg|regexp]	Display all info for <pkg>\n");
+@@ -328,6 +329,8 @@ main(int argc, char *argv[])
+ 	    !strcmp(cmd_name,"compare-versions") ||
+ 	    !strcmp(cmd_name,"list_installed") ||
+ 	    !strcmp(cmd_name,"list-installed") ||
++	    !strcmp(cmd_name,"list_changed_conffiles") ||
++	    !strcmp(cmd_name,"list-changed-conffiles") ||
+ 	    !strcmp(cmd_name,"status") )
+ 		noreadfeedsfile = 1;
+ 
+-- 
+1.7.1
+

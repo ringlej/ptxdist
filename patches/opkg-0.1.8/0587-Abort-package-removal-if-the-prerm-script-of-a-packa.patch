@@ -1,0 +1,147 @@
+From 76282e2441864414fc7548ca5685de5d4dc29c6c Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 24 Nov 2010 00:01:35 +0000
+Subject: [PATCH] Abort package removal if the prerm script of a package returns non zero.
+
+This can be overridden with --force-remove.
+Also, improve propagation of errors up the call stack for related errors.
+
+From Sergey 'Jin' Bostandzhyan.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@587 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_conf.h   |    1 +
+ libopkg/opkg_remove.c |   30 ++++++++++++++++++++++--------
+ src/opkg-cl.c         |    7 +++++++
+ 3 files changed, 30 insertions(+), 8 deletions(-)
+
+diff --git a/libopkg/opkg_conf.h b/libopkg/opkg_conf.h
+index 0b163b0..af6b9ab 100644
+--- a/libopkg/opkg_conf.h
++++ b/libopkg/opkg_conf.h
+@@ -75,6 +75,7 @@ struct opkg_conf
+      int force_removal_of_dependent_packages;
+      int force_removal_of_essential_packages;
+      int force_postinstall;
++     int force_remove;
+      int check_signature;
+      int nodeps; /* do not follow dependencies */
+      char *offline_root;
+diff --git a/libopkg/opkg_remove.c b/libopkg/opkg_remove.c
+index e2a63e1..c6f2e37 100644
+--- a/libopkg/opkg_remove.c
++++ b/libopkg/opkg_remove.c
+@@ -170,6 +170,7 @@ static int
+ remove_autoinstalled(pkg_t *pkg)
+ {
+ 	int i, j;
++	int err = 0;
+ 	int n_deps;
+ 	pkg_t *p;
+ 	struct compound_depend *cdep;
+@@ -205,7 +206,9 @@ remove_autoinstalled(pkg_t *pkg)
+ 				 opkg_msg(NOTICE, "%s was autoinstalled and is "
+ 					       "now orphaned, removing.\n",
+ 					       p->name);
+-			         opkg_remove_pkg(p, 0);
++				if (opkg_remove_pkg(p, 0) != 0) {
++					err = -1;
++				}
+ 			} else
+ 				opkg_msg(INFO, "%s was autoinstalled and is "
+ 						"still required by %d "
+@@ -217,7 +220,7 @@ remove_autoinstalled(pkg_t *pkg)
+ 		}
+ 	}
+ 
+-	return 0;
++	return err;
+ }
+ 
+ int
+@@ -291,7 +294,16 @@ opkg_remove_pkg(pkg_t *pkg, int from_upgrade)
+      pkg->state_want = SW_DEINSTALL;
+      opkg_state_changed++;
+ 
+-     pkg_run_script(pkg, "prerm", "remove");
++     if (pkg_run_script(pkg, "prerm", "remove") != 0) {
++         if (!conf->force_remove) {
++             opkg_msg(ERROR, "not removing package \"%s\", "
++                             "prerm script failed\n", pkg->name);
++             opkg_msg(NOTICE, "You can force removal of packages with failed "
++                              "prerm scripts with the option: \n"
++                              "\t--force-remove\n");
++             return -1;
++         }
++     }
+ 
+      /* DPKG_INCOMPATIBILITY: dpkg is slightly different here. It
+ 	maintains an empty filelist rather than deleting it. That seems
+@@ -300,7 +312,7 @@ opkg_remove_pkg(pkg_t *pkg, int from_upgrade)
+ 	feel free to fix this. */
+      remove_data_files_and_list(pkg);
+ 
+-     pkg_run_script(pkg, "postrm", "remove");
++     err = pkg_run_script(pkg, "postrm", "remove");
+ 
+      remove_maintainer_scripts(pkg);
+      pkg->state_status = SS_NOT_INSTALLED;
+@@ -309,10 +321,12 @@ opkg_remove_pkg(pkg_t *pkg, int from_upgrade)
+ 	  parent_pkg->state_status = SS_NOT_INSTALLED;
+ 
+      /* remove autoinstalled packages that are orphaned by the removal of this one */
+-     if (conf->autoremove)
+-       remove_autoinstalled(pkg);
+-
+-     return 0;
++     if (conf->autoremove) {
++         if (remove_autoinstalled(pkg) != 0) {
++             err = -1;
++         }
++     }
++     return err;
+ }
+ 
+ void
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index bf123cd..5b72050 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -40,6 +40,7 @@ enum {
+ 	ARGS_OPT_FORCE_REMOVAL_OF_ESSENTIAL_PACKAGES,
+ 	ARGS_OPT_FORCE_SPACE,
+ 	ARGS_OPT_FORCE_POSTINSTALL,
++	ARGS_OPT_FORCE_REMOVE,
+ 	ARGS_OPT_ADD_ARCH,
+ 	ARGS_OPT_ADD_DEST,
+ 	ARGS_OPT_NOACTION,
+@@ -79,6 +80,8 @@ static struct option long_options[] = {
+ 		ARGS_OPT_FORCE_REMOVAL_OF_ESSENTIAL_PACKAGES},
+ 	{"force-postinstall", 0, 0, ARGS_OPT_FORCE_POSTINSTALL},
+ 	{"force_postinstall", 0, 0, ARGS_OPT_FORCE_POSTINSTALL},
++	{"force-remove", 0, 0, ARGS_OPT_FORCE_REMOVE},
++	{"force_remove", 0, 0, ARGS_OPT_FORCE_REMOVE},
+ 	{"noaction", 0, 0, ARGS_OPT_NOACTION},
+ 	{"download-only", 0, 0, ARGS_OPT_DOWNLOAD_ONLY},
+ 	{"nodeps", 0, 0, ARGS_OPT_NODEPS},
+@@ -166,6 +169,9 @@ args_parse(int argc, char *argv[])
+ 		case ARGS_OPT_FORCE_POSTINSTALL:
+ 			conf->force_postinstall = 1;
+ 			break;
++		case ARGS_OPT_FORCE_REMOVE:
++			conf->force_remove = 1;
++			break;
+ 		case ARGS_OPT_NODEPS:
+ 			conf->nodeps = 1;
+ 			break;
+@@ -270,6 +276,7 @@ usage()
+ 	printf("\t--force-downgrade	Allow opkg to downgrade packages\n");
+ 	printf("\t--force-space		Disable free space checks\n");
+ 	printf("\t--force-postinstall	Run postinstall scripts even in offline mode\n");
++	printf("\t--force-remove	Remove package even if prerm script fails\n");
+ 	printf("\t--noaction		No action -- test only\n");
+ 	printf("\t--download-only	No action -- download only\n");
+ 	printf("\t--nodeps		Do not follow dependencies\n");
+-- 
+1.7.1
+

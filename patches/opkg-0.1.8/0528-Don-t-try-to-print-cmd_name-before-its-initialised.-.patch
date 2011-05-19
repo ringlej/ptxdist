@@ -1,0 +1,26 @@
+From 4fc11f66f297250e52b6bc6b2ce63c2597fd65e8 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 13 Apr 2010 23:16:40 +0000
+Subject: [PATCH] Don't try to print cmd_name before its initialised. From Amanous, Issue #48.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@528 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ src/opkg-cl.c |    2 --
+ 1 files changed, 0 insertions(+), 2 deletions(-)
+
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index 448387e..ae63012 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -274,8 +274,6 @@ main(int argc, char *argv[])
+ 
+ 	opts = args_parse(argc, argv);
+ 	if (opts == argc || opts < 0) {
+-		fprintf (stderr, "%s: unknown sub-command %s\n", argv[0],
+-			 cmd_name);
+ 		fprintf(stderr, "opkg must have one sub-command argument\n");
+ 		usage();
+ 	}
+-- 
+1.7.1
+

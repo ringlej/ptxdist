@@ -1,0 +1,92 @@
+From 6dc8a5d00f1f5244d7c3732dbc21b3763e9066b6 Mon Sep 17 00:00:00 2001
+From: google@wwsnet.net <google@wwsnet.net@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 13 Sep 2010 00:42:01 +0000
+Subject: [PATCH] implement --force-postinstall option, this allows forcing the execution of postinstall scripts in offline root mode
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@559 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_conf.c |    1 +
+ libopkg/opkg_conf.h |    1 +
+ libopkg/pkg.c       |    2 +-
+ src/opkg-cl.c       |    7 +++++++
+ 4 files changed, 10 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index bffeb84..6dee5ac 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -53,6 +53,7 @@ opkg_option_t options[] = {
+ 	  { "force_downgrade", OPKG_OPT_TYPE_BOOL, &_conf.force_downgrade },
+ 	  { "force_reinstall", OPKG_OPT_TYPE_BOOL, &_conf.force_reinstall },
+ 	  { "force_space", OPKG_OPT_TYPE_BOOL, &_conf.force_space },
++	  { "force_postinstall", OPKG_OPT_TYPE_BOOL, &_conf.force_postinstall },
+           { "check_signature", OPKG_OPT_TYPE_BOOL, &_conf.check_signature },
+ 	  { "ftp_proxy", OPKG_OPT_TYPE_STRING, &_conf.ftp_proxy },
+ 	  { "http_proxy", OPKG_OPT_TYPE_STRING, &_conf.http_proxy },
+diff --git a/libopkg/opkg_conf.h b/libopkg/opkg_conf.h
+index 6e7aa7d..7496ff4 100644
+--- a/libopkg/opkg_conf.h
++++ b/libopkg/opkg_conf.h
+@@ -73,6 +73,7 @@ struct opkg_conf
+      int force_space;
+      int force_removal_of_dependent_packages;
+      int force_removal_of_essential_packages;
++     int force_postinstall;
+      int check_signature;
+      int nodeps; /* do not follow dependencies */
+      char *offline_root;
+diff --git a/libopkg/pkg.c b/libopkg/pkg.c
+index 38816d4..5b1321e 100644
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -1255,7 +1255,7 @@ pkg_run_script(pkg_t *pkg, const char *script, const char *args)
+ 
+      /* XXX: FEATURE: When conf->offline_root is set, we should run the
+ 	maintainer script within a chroot environment. */
+-     if (conf->offline_root) {
++     if (conf->offline_root && !conf->force_postinstall) {
+           opkg_msg(INFO, "Offline root mode: not running %s.%s.\n",
+ 			  pkg->name, script);
+ 	  return 0;
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index a5fc697..3716b5c 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -39,6 +39,7 @@ enum {
+ 	ARGS_OPT_FORCE_REMOVAL_OF_DEPENDENT_PACKAGES,
+ 	ARGS_OPT_FORCE_REMOVAL_OF_ESSENTIAL_PACKAGES,
+ 	ARGS_OPT_FORCE_SPACE,
++	ARGS_OPT_FORCE_POSTINSTALL,
+ 	ARGS_OPT_NOACTION,
+ 	ARGS_OPT_DOWNLOAD_ONLY,
+ 	ARGS_OPT_NODEPS,
+@@ -74,6 +75,8 @@ static struct option long_options[] = {
+ 		ARGS_OPT_FORCE_REMOVAL_OF_ESSENTIAL_PACKAGES},
+ 	{"force_removal_of_essential_packages", 0, 0,
+ 		ARGS_OPT_FORCE_REMOVAL_OF_ESSENTIAL_PACKAGES},
++	{"force-postinstall", 0, 0, ARGS_OPT_FORCE_POSTINSTALL},
++	{"force_postinstall", 0, 0, ARGS_OPT_FORCE_POSTINSTALL},
+ 	{"noaction", 0, 0, ARGS_OPT_NOACTION},
+ 	{"download-only", 0, 0, ARGS_OPT_DOWNLOAD_ONLY},
+ 	{"nodeps", 0, 0, ARGS_OPT_NODEPS},
+@@ -155,6 +158,9 @@ args_parse(int argc, char *argv[])
+ 		case ARGS_OPT_FORCE_SPACE:
+ 			conf->force_space = 1;
+ 			break;
++		case ARGS_OPT_FORCE_POSTINSTALL:
++			conf->force_postinstall = 1;
++			break;
+ 		case ARGS_OPT_NODEPS:
+ 			conf->nodeps = 1;
+ 			break;
+@@ -241,6 +247,7 @@ usage()
+ 	printf("\t--force-overwrite	Overwrite files from other package(s)\n");
+ 	printf("\t--force-downgrade	Allow opkg to downgrade packages\n");
+ 	printf("\t--force-space		Disable free space checks\n");
++	printf("\t--force-postinstall	Run postinstall scripts even in offline mode\n");
+ 	printf("\t--noaction		No action -- test only\n");
+ 	printf("\t--download-only	No action -- download only\n");
+ 	printf("\t--nodeps		Do not follow dependencies\n");
+-- 
+1.7.1
+

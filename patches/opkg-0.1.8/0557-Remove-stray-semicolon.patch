@@ -1,0 +1,26 @@
+From 0066c1ac6151d99b95453eeab3307e99f5884a45 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 24 Aug 2010 04:09:21 +0000
+Subject: [PATCH] Remove stray semicolon.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@557 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_parse.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg_parse.c b/libopkg/pkg_parse.c
+index 0149860..2ce696f 100644
+--- a/libopkg/pkg_parse.c
++++ b/libopkg/pkg_parse.c
+@@ -398,7 +398,7 @@ pkg_parse_from_stream_nomalloc(pkg_t *pkg, FILE *fp, uint mask,
+ 		buf = *buf0;
+ 		buflen = buf0len;
+ 		buf[0] = '\0';
+-	};
++	}
+ 
+ 	if (pkg->name == NULL) {
+ 		/* probably just a blank line */
+-- 
+1.7.1
+

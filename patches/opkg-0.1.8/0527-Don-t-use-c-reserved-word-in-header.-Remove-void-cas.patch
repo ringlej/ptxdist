@@ -1,0 +1,86 @@
+From 517ebc96f447796f0cb3e102761e98a8afaa504c Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Sun, 14 Mar 2010 23:18:40 +0000
+Subject: [PATCH] Don't use c++ reserved word in header. Remove void* cast.
+
+Fixes compilation of header when used with C++. A slightly modified patch
+from Paul Eggleton.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@527 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/list.h |   28 ++++++++++++++--------------
+ 1 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/libopkg/list.h b/libopkg/list.h
+index 0bd87b9..48e4dd5 100644
+--- a/libopkg/list.h
++++ b/libopkg/list.h
+@@ -20,13 +20,13 @@
+ #ifndef _LINUX_LIST_H
+ #define _LINUX_LIST_H
+ 
+-#define LIST_POISON1  ((void *) 0x00100100)
+-#define LIST_POISON2  ((void *) 0x00200200)
+-
+ struct list_head {
+     struct list_head *next, *prev;
+ };
+ 
++#define LIST_POISON1  ((struct list_head *) 0x00100100)
++#define LIST_POISON2  ((struct list_head *) 0x00200200)
++
+ #define LIST_HEAD_INIT(name) { &(name), &(name) }
+ 
+ #define LIST_HEAD(name) \
+@@ -36,37 +36,37 @@ struct list_head {
+ 	(ptr)->next = (ptr); (ptr)->prev = (ptr); \
+ } while (0)
+ 
+-static inline void __list_add(struct list_head *new,
++static inline void __list_add(struct list_head *newitem,
+                               struct list_head *prev,
+                               struct list_head *next) {
+-    next->prev = new;
+-    new->next = next;
+-    new->prev = prev;
+-    prev->next = new;
++    next->prev = newitem;
++    newitem->next = next;
++    newitem->prev = prev;
++    prev->next = newitem;
+ }
+ 
+ /**
+  * list_add - add a new entry
+- * @new: new entry to be added
++ * @newitem: new entry to be added
+  * @head: list head to add it after
+  *
+  * Insert a new entry after the specified head.
+  * This is good for implementing stacks.
+  */
+-static inline void list_add(struct list_head *new, struct list_head *head) {
+-    __list_add(new, head, head->next);
++static inline void list_add(struct list_head *newitem, struct list_head *head) {
++    __list_add(newitem, head, head->next);
+ }
+ 
+ /**
+  * list_add_tail - add a new entry
+- * @new: new entry to be added
++ * @newitem: new entry to be added
+  * @head: list head to add it before
+  *
+  * Insert a new entry before the specified head.
+  * This is useful for implementing queues.
+  */
+-static inline void list_add_tail(struct list_head *new, struct list_head *head) {
+-    __list_add(new, head->prev, head);
++static inline void list_add_tail(struct list_head *newitem, struct list_head *head) {
++    __list_add(newitem, head->prev, head);
+ }
+ 
+ 
+-- 
+1.7.1
+

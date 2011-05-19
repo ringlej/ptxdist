@@ -1,0 +1,29 @@
+From 970666583189a1f2712c1baa0b8b6a40a9b71b75 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 22 Nov 2010 23:48:31 +0000
+Subject: [PATCH] Print the package name corresponding to a failed script.
+
+From Sergey 'Jin' Bostandzhyan.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@586 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg.c b/libopkg/pkg.c
+index 235741e..265f554 100644
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -1299,7 +1299,8 @@ pkg_run_script(pkg_t *pkg, const char *script, const char *args)
+      free(cmd);
+ 
+      if (err) {
+-	  opkg_msg(ERROR, "%s script returned status %d.\n", script, err);
++	  opkg_msg(ERROR, "package \"%s\" %s script returned status %d.\n", 
++               pkg->name, script, err);
+ 	  return err;
+      }
+ 
+-- 
+1.7.1
+

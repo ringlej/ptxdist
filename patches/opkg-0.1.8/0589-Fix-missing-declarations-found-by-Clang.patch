@@ -1,0 +1,25 @@
+From c52c31b0d3770e83cb68deb4a13932c803fe382e Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 13 Dec 2010 04:39:29 +0000
+Subject: [PATCH] Fix missing declarations, found by Clang.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@589 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ src/opkg-cl.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index 5b72050..993aa66 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -28,6 +28,7 @@
+ #include "opkg_cmd.h"
+ #include "file_util.h"
+ #include "opkg_message.h"
++#include "opkg_download.h"
+ #include "../libbb/libbb.h"
+ 
+ enum {
+-- 
+1.7.1
+

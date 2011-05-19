@@ -1,0 +1,28 @@
+From 72d53fc301af46caffe7752e020dfe853c3f35a5 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 19 Aug 2010 01:53:52 +0000
+Subject: [PATCH] Ensure Pre-Depended and Recommended packages can be autoremoved.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@555 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_remove.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_remove.c b/libopkg/opkg_remove.c
+index 0e967a3..1ed2dab 100644
+--- a/libopkg/opkg_remove.c
++++ b/libopkg/opkg_remove.c
+@@ -182,7 +182,9 @@ remove_autoinstalled(pkg_t *pkg)
+ 
+ 	for (i=0; i<count; i++) {
+ 		cdep = &pkg->depends[i];
+-		if (cdep->type != DEPEND)
++		if (cdep->type != PREDEPEND
++		    && cdep->type != DEPEND
++		    && cdep->type != RECOMMEND)
+ 			continue;
+ 		for (j=0; j<cdep->possibility_count; j++) {
+ 			p = pkg_hash_fetch_installed_by_name(
+-- 
+1.7.1
+

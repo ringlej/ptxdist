@@ -1,0 +1,547 @@
+From 2ea9af9a660ccf765ab4cd3ef84affa7d77527d0 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 15 Sep 2010 00:39:22 +0000
+Subject: [PATCH] Add simple regression testing code and tests for some issues.
+
+Written with python3 only because I was reading a tutorial and wanted
+to do something useful with it.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@566 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ tests/regress/cfg.py     |    3 +
+ tests/regress/issue26.py |   35 +++++++++++++++++
+ tests/regress/issue31.py |   25 ++++++++++++
+ tests/regress/issue45.py |   33 ++++++++++++++++
+ tests/regress/issue46.py |   39 +++++++++++++++++++
+ tests/regress/issue50.py |   44 +++++++++++++++++++++
+ tests/regress/issue51.py |   70 ++++++++++++++++++++++++++++++++++
+ tests/regress/issue55.py |   25 ++++++++++++
+ tests/regress/issue58.py |   31 +++++++++++++++
+ tests/regress/opk.py     |   95 ++++++++++++++++++++++++++++++++++++++++++++++
+ tests/regress/opkgcl.py  |   44 +++++++++++++++++++++
+ 11 files changed, 444 insertions(+), 0 deletions(-)
+ create mode 100644 tests/regress/cfg.py
+ create mode 100755 tests/regress/issue26.py
+ create mode 100755 tests/regress/issue31.py
+ create mode 100755 tests/regress/issue45.py
+ create mode 100755 tests/regress/issue46.py
+ create mode 100755 tests/regress/issue50.py
+ create mode 100755 tests/regress/issue51.py
+ create mode 100755 tests/regress/issue55.py
+ create mode 100755 tests/regress/issue58.py
+ create mode 100644 tests/regress/opk.py
+ create mode 100755 tests/regress/opkgcl.py
+
+diff --git a/tests/regress/cfg.py b/tests/regress/cfg.py
+new file mode 100644
+index 0000000..4304378
+--- /dev/null
++++ b/tests/regress/cfg.py
+@@ -0,0 +1,3 @@
++opkdir = "/tmp/opk"
++offline_root = "/tmp/opkg"
++opkgcl = "/home/grg/opkg/code/svn/src/opkg-cl"
+diff --git a/tests/regress/issue26.py b/tests/regress/issue26.py
+new file mode 100755
+index 0000000..d7f2174
+--- /dev/null
++++ b/tests/regress/issue26.py
+@@ -0,0 +1,35 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++o = opk.OpkGroup()
++o.add(Package="a", Version="2.0", Architecture="all")
++o.write_opk()
++o.write_list()
++
++# older version, not in Packages list
++a1 = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a1.write()
++
++opkgcl.update()
++
++# install v2 from repository
++opkgcl.install("a")
++if not opkgcl.is_installed("a", "2.0"):
++	print(__file__, ": Package 'a_2.0' not installed.")
++	exit(False)
++
++opkgcl.install("a_1.0_all.opk", "--force-downgrade")
++if not opkgcl.is_installed("a", "1.0"):
++	print(__file__, ": Package 'a_1.0' not installed (1).")
++	exit(False)
++
++opkgcl.install("a_1.0_all.opk", "--force-downgrade")
++if not opkgcl.is_installed("a", "1.0"):
++	print(__file__, ": Package 'a_1.0' not installed (2).")
++	exit(False)
++
++opkgcl.remove("a")
+diff --git a/tests/regress/issue31.py b/tests/regress/issue31.py
+new file mode 100755
+index 0000000..ca00f67
+--- /dev/null
++++ b/tests/regress/issue31.py
+@@ -0,0 +1,25 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++o = opk.OpkGroup()
++o.add(Package="a", Version="1.0", Architecture="all", Depends="b")
++o.add(Package="b", Version="1.0", Architecture="all", Depends="c")
++o.write_opk()
++o.write_list()
++
++opkgcl.update()
++
++opkgcl.install("a")
++if opkgcl.is_installed("a"):
++	print(__file__, ": Package 'a' installed, despite dependency "
++			"upon a package with an unresolved dependency.")
++	exit(False)
++
++if opkgcl.is_installed("b"):
++	print(__file__, ": Package 'b' installed, "
++			"despite unresolved dependency.")
++	exit(False)
+diff --git a/tests/regress/issue45.py b/tests/regress/issue45.py
+new file mode 100755
+index 0000000..3e4e147
+--- /dev/null
++++ b/tests/regress/issue45.py
+@@ -0,0 +1,33 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++o = opk.OpkGroup()
++o.add(Package="a", Version="1.0", Architecture="all", Depends="b")
++o.add(Package="b", Version="1.0", Architecture="all")
++o.write_opk()
++o.write_list()
++
++opkgcl.update()
++
++(status, output) = opkgcl.opkgcl("install a")
++ln_a = output.find("Configuring a")
++ln_b = output.find("Configuring b")
++
++if ln_a == -1:
++	print(__file__, ": Didn't see package 'a' get configured.")
++	exit(False)
++
++if ln_b == -1:
++	print(__file__, ": Didn't see package 'b' get configured.")
++	exit(False)
++
++if ln_a < ln_b:
++	print(__file__, ": Packages 'a' and 'b' configured in wrong order.")
++	exit(False)
++
++opkgcl.remove("a")
++opkgcl.remove("b")
+diff --git a/tests/regress/issue46.py b/tests/regress/issue46.py
+new file mode 100755
+index 0000000..814b05d
+--- /dev/null
++++ b/tests/regress/issue46.py
+@@ -0,0 +1,39 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++o = opk.OpkGroup()
++o.add(Package="a", Version="1.0", Architecture="all", Recommends="b")
++o.add(Package="b", Version="2.0", Architecture="all")
++o.write_opk()
++o.write_list()
++
++# prime the status file so 'b' is not installed as a recommendation
++status_filename = "{}/usr/lib/opkg/status".format(cfg.offline_root)
++f = open(status_filename, "w")
++f.write("Package: b\n")
++f.write("Version: 1.0\n")
++f.write("Architecture: all\n")
++f.write("Status: deinstall hold not-installed\n")
++f.close()
++
++opkgcl.update()
++
++opkgcl.install("a")
++if opkgcl.is_installed("b"):
++	print(__file__, ": Package 'b' installed despite "
++					"deinstall/hold status.")
++	exit(False)
++
++opkgcl.remove("a")
++opkgcl.install("a")
++if opkgcl.is_installed("b"):
++	print(__file__, ": Package 'b' installed - deinstall/hold status "
++					"not retained.")
++	exit(False)
++
++opkgcl.remove("a")
++open(status_filename, "w").close()
+diff --git a/tests/regress/issue50.py b/tests/regress/issue50.py
+new file mode 100755
+index 0000000..0ef4eae
+--- /dev/null
++++ b/tests/regress/issue50.py
+@@ -0,0 +1,44 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++open("foo", "w").close()
++a1 = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a1.write(data_files=["foo"])
++
++exit()
++opkgcl.install("a_1.0_all.opk")
++
++o = opk.OpkGroup()
++a2 = opk.Opk(Package="a", Version="2.0", Architecture="all", Depends="b")
++a2.write()
++b1 = opk.Opk(Package="b", Version="1.0", Architecture="all")
++b1.write(data_files=["foo"])
++o.opk_list.append(a2)
++o.opk_list.append(b1)
++o.write_list()
++
++os.unlink("foo")
++
++opkgcl.update()
++opkgcl.upgrade()
++
++if not opkgcl.is_installed("a", "2.0"):
++	print(__file__, ": Package 'a_2.0' not installed.")
++	exit(False)
++
++foo_fullpath = "{}/foo".format(cfg.offline_root)
++
++if not os.path.exists(foo_fullpath):
++	print(__file__, ": File 'foo' incorrectly orphaned.")
++	exit(False)
++
++if not foo_fullpath in opkgcl.files("b"):
++	print(__file__, ": Package 'b' does not own file 'foo'.")
++	exit(False)
++
++opkgcl.remove("a")
++opkgcl.remove("b")
+diff --git a/tests/regress/issue51.py b/tests/regress/issue51.py
+new file mode 100755
+index 0000000..75803ed
+--- /dev/null
++++ b/tests/regress/issue51.py
+@@ -0,0 +1,70 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++open("foo", "w").close()
++a1 = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a1.write(data_files=["foo"])
++os.rename("a_1.0_all.opk", "a_with_foo.opk")
++
++opkgcl.install("a_with_foo.opk")
++
++# ----
++opkgcl.install("a_with_foo.opk")
++
++open("bar", "w").close()
++o = opk.OpkGroup()
++a2 = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a2.write(data_files=["foo", "bar"])
++o.opk_list.append(a2)
++o.write_list()
++
++os.unlink("foo")
++os.unlink("bar")
++
++opkgcl.update()
++opkgcl.install("a", "--force-reinstall")
++
++foo_fullpath = "{}/foo".format(cfg.offline_root)
++bar_fullpath = "{}/bar".format(cfg.offline_root)
++
++if not os.path.exists(foo_fullpath) or not os.path.exists(bar_fullpath):
++	print(__file__, ": Files foo and/or bar are missing.")
++	exit(False)
++
++a_files = opkgcl.files("a")
++if not foo_fullpath in a_files or not bar_fullpath in a_files:
++	print(__file__, ": Package 'a' does not own foo and/or bar.")
++	exit(False)
++
++opkgcl.remove("a")
++
++if os.path.exists(foo_fullpath) or os.path.exists(bar_fullpath):
++	print(__file__, ": Files foo and/or bar still exist "
++				"after removal of package 'a'.")
++	exit(False)
++
++# ----
++o = opk.OpkGroup()
++a2 = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a2.write()
++o.opk_list.append(a2)
++o.write_list()
++
++
++opkgcl.update()
++
++opkgcl.install("a", "--force-reinstall")
++
++if os.path.exists(foo_fullpath):
++	print(__file__, ": File 'foo' not orphaned as it should be.")
++	exit(False)
++
++if foo_fullpath in opkgcl.files("a"):
++	print(__file__, ": Package 'a' incorrectly owns file 'foo'.")
++	exit(False)
++
++opkgcl.remove("a")
+diff --git a/tests/regress/issue55.py b/tests/regress/issue55.py
+new file mode 100755
+index 0000000..1a2763b
+--- /dev/null
++++ b/tests/regress/issue55.py
+@@ -0,0 +1,25 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++long_filename = 110*"a"
++
++os.symlink(long_filename, "linky")
++a = opk.Opk(Package="a", Version="1.0", Architecture="all")
++a.write(data_files=["linky"])
++os.unlink("linky")
++opkgcl.install("a_1.0_all.opk")
++
++if not opkgcl.is_installed("a"):
++	print(__file__, ": Package 'a' not installed.")
++	exit(False)
++
++if not os.path.lexists("{}/linky".format(cfg.offline_root)):
++	print(__file__, ": symlink to file with a name longer than 100 "
++					"characters not created.")
++	exit(False)
++
++opkgcl.remove("a")
+diff --git a/tests/regress/issue58.py b/tests/regress/issue58.py
+new file mode 100755
+index 0000000..8635617
+--- /dev/null
++++ b/tests/regress/issue58.py
+@@ -0,0 +1,31 @@
++#!/usr/bin/python3
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++
++o = opk.OpkGroup()
++o.add(Package="a", Version="1.0", Architecture="all", Recommends="b")
++o.add(Package="b", Version="1.0", Architecture="all")
++o.add(Package="c", Version="1.0", Architecture="all", Recommends="b")
++o.write_opk()
++o.write_list()
++
++opkgcl.update()
++
++opkgcl.install("a")
++opkgcl.install("c")
++
++opkgcl.remove("a", "--autoremove")
++if not opkgcl.is_installed("b"):
++	print(__file__, ": Pacakge 'b' orphaned despite remaining "
++			"recommending package 'c'.")
++	exit(False)
++
++opkgcl.remove("c", "--autoremove")
++if opkgcl.is_installed("b"):
++	print(__file__, ": Recommended package 'b' not autoremoved.")
++	exit(False)
++
++
+diff --git a/tests/regress/opk.py b/tests/regress/opk.py
+new file mode 100644
+index 0000000..616658a
+--- /dev/null
++++ b/tests/regress/opk.py
+@@ -0,0 +1,95 @@
++import tarfile, os
++import cfg
++
++class Opk:
++	valid_control_fields = ["Package", "Version", "Depends", "Provides",\
++			"Replaces", "Conflicts", "Suggests", "Recommends",\
++			"Section", "Architecture", "Maintainer", "MD5Sum",\
++			"Size", "InstalledSize", "Filename", "Source",\
++			"Description", "OE", "Homepage", "Priority",\
++			"Conffiles"]
++
++	def __init__(self, **control):
++		for k in control.keys():
++			if k not in self.valid_control_fields:
++				raise Exception("Invalid control field: "
++						"{}".format(k))
++		self.control = control
++
++	def write(self, tar_not_ar=False, data_files=None):
++		filename = "{Package}_{Version}_{Architecture}.opk"\
++						.format(**self.control)
++		if os.path.exists(filename):
++			os.unlink(filename)
++		if os.path.exists("control"):
++			os.unlink("control")
++		if os.path.exists("control.tar.gz"):
++			os.unlink("control.tar.gz")
++		if os.path.exists("data.tar.gz"):
++			os.unlink("data.tar.gz")
++
++		f = open("control", "w")
++		for k in self.control.keys():
++			f.write("{}: {}\n".format(k, self.control[k]))
++		f.close()
++
++		tar = tarfile.open("control.tar.gz", "w:gz")
++		tar.add("control")
++		tar.close()
++
++		tar = tarfile.open("data.tar.gz", "w:gz")
++		if data_files:
++			for df in data_files:
++				tar.add(df)
++		tar.close()
++
++
++		if tar_not_ar:
++			tar = tarfile.open(filename, "w:gz")
++			tar.add("control.tar.gz")
++			tar.add("data.tar.gz")
++			tar.close()
++		else:
++			os.system("ar q {} control.tar.gz data.tar.gz \
++					2>/dev/null".format(filename))
++
++		os.unlink("control")
++		os.unlink("control.tar.gz")
++		os.unlink("data.tar.gz")
++
++class OpkGroup:
++	def __init__(self):
++		self.opk_list = []
++
++	def add(self, **control):
++		self.opk_list.append(Opk(**control))
++	
++	def write_opk(self, tar_not_ar=False):
++		for o in self.opk_list:
++			o.write(tar_not_ar)
++
++	def write_list(self, filename="Packages"):
++		f = open(filename, "w")
++		for opk in self.opk_list:
++			for k in opk.control.keys():
++				f.write("{}: {}\n".format(k, opk.control[k]))
++			f.write("Filename: {Package}_{Version}_{Architecture}"
++					".opk\n".format(**opk.control))
++			f.write("\n")
++		f.close()
++
++
++def regress_init():
++	"""
++	Initialisation and sanity checking.
++	"""
++
++	if not os.access(cfg.opkgcl, os.X_OK):
++		print("Cannot exec {}".format(cfg.opkgcl))
++		exit(False)
++
++	os.chdir(cfg.opkdir)
++
++	odir = "{}/usr/lib/opkg".format(cfg.offline_root)
++	os.system("rm -fr {}".format(odir))
++	os.mkdir(odir)
+diff --git a/tests/regress/opkgcl.py b/tests/regress/opkgcl.py
+new file mode 100755
+index 0000000..effc5c8
+--- /dev/null
++++ b/tests/regress/opkgcl.py
+@@ -0,0 +1,44 @@
++#!/usr/bin/python3
++
++import os, subprocess
++import cfg
++
++def opkgcl(opkg_args):
++	cmd = "{} -o {} {}".format(cfg.opkgcl, cfg.offline_root, opkg_args)
++	#print(cmd)
++	return subprocess.getstatusoutput(cmd)
++
++def install(pkg_name, flags=""):
++	return opkgcl("{} install {}".format(flags, pkg_name))[0]
++
++def remove(pkg_name, flags=""):
++	return opkgcl("{} remove {}".format(flags, pkg_name))[0]
++
++def update():
++	return opkgcl("update")[0]
++
++def upgrade():
++	return opkgcl("upgrade")[0]
++
++def files(pkg_name):
++	output = opkgcl("files {}".format(pkg_name))[1]
++	return output.split("\n")[1:]
++
++
++def is_installed(pkg_name, version=None):
++	out = opkgcl("list_installed {}".format(pkg_name))[1]
++	if len(out) == 0 or out.split()[0] != pkg_name:
++		return False
++	if version and out.split()[2] != version:
++		return False
++	if not os.path.exists("{}/usr/lib/opkg/info/{}.control"\
++				.format(cfg.offline_root, pkg_name)):
++		return False
++	return True
++
++
++if __name__ == '__main__':
++	import sys
++	(status, output) = opkgcl(" ".join(sys.argv[1:]))
++	print(output)
++	exit(status)
+-- 
+1.7.1
+

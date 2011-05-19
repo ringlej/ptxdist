@@ -1,0 +1,25 @@
+From 44bc1bfda88ca36f92354ffad7abd3d4ced1535f Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 10 Aug 2010 05:38:10 +0000
+Subject: [PATCH] This will never be done, offline roots often point at other architectures.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@546 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ TODO |    2 --
+ 1 files changed, 0 insertions(+), 2 deletions(-)
+
+diff --git a/TODO b/TODO
+index 969bad8..0777b1c 100644
+--- a/TODO
++++ b/TODO
+@@ -38,7 +38,5 @@ FEATURES
+ 
+  * Start with all "XXX: FEATURE" comments. Remove them if they are bogus.
+ 
+- * Implement chrooting to an offline_root for running maintainer scripts.
+-
+  * Improve dpkg compatibility, according to the Debian Policy Manual.
+    http://www.debian.org/doc/debian-policy/ch-controlfields.html
+-- 
+1.7.1
+

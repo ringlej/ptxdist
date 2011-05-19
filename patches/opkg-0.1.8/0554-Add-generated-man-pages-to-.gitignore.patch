@@ -1,0 +1,24 @@
+From 47ba6f710905a4921f61d69b5c3e3ab22b72ad27 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 18 Aug 2010 05:40:28 +0000
+Subject: [PATCH] Add generated man pages to .gitignore.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@554 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ .gitignore |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index eae52a8..f3a60ef 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -60,3 +60,6 @@ autom4te.cache/
+ .deps/
+ src/opkg-cl
+ tests/libopkg_test
++
++# Man pages
++man/*.1
+-- 
+1.7.1
+

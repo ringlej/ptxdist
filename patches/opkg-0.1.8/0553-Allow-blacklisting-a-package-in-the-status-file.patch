@@ -1,0 +1,56 @@
+From 239861f73d8f69744b8ea0eb3373ef0f4453971b Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 18 Aug 2010 05:40:17 +0000
+Subject: [PATCH] Allow blacklisting a package in the status file.
+
+To blacklist a particular package, add the following status entry for the
+package to be blacklisted:
+Status: deinstall hold not-installed
+
+Should fix the opkg end of Issue #46. OpenEmbedded will need to correctly
+prime the status file.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@553 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_conf.c |    3 ++-
+ libopkg/pkg_vec.c   |   10 +++++++---
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index f1ef0d0..bffeb84 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -359,7 +359,8 @@ opkg_conf_write_status_files(void)
+ 	  /* We don't need most uninstalled packages in the status file */
+ 	  if (pkg->state_status == SS_NOT_INSTALLED
+ 	      && (pkg->state_want == SW_UNKNOWN
+-		  || pkg->state_want == SW_DEINSTALL
++		  || (pkg->state_want == SW_DEINSTALL
++			  && pkg->state_flag != SF_HOLD)
+ 		  || pkg->state_want == SW_PURGE)) {
+ 	       continue;
+ 	  }
+diff --git a/libopkg/pkg_vec.c b/libopkg/pkg_vec.c
+index 3cdc7fc..472962c 100644
+--- a/libopkg/pkg_vec.c
++++ b/libopkg/pkg_vec.c
+@@ -59,9 +59,13 @@ void pkg_vec_insert_merge(pkg_vec_t *vec, pkg_t *pkg, int set_status)
+ 			pkg->name, pkg->version, pkg->architecture,
+ 			vec->pkgs[i]->name, vec->pkgs[i]->version,
+ 			vec->pkgs[i]->architecture);
+-	  if ((strcmp(pkg->name, vec->pkgs[i]->name) == 0)
+-	      && (pkg_compare_versions(pkg, vec->pkgs[i]) == 0)
+-	      && (strcmp(pkg->architecture, vec->pkgs[i]->architecture) == 0)) {
++	 /* if the name,ver,arch matches, or the name matches and the
++	  * package is marked deinstall/hold  */
++	  if ((!strcmp(pkg->name, vec->pkgs[i]->name))
++	      && ((pkg->state_want == SW_DEINSTALL
++		  && (pkg->state_flag & SF_HOLD))
++	      || ((pkg_compare_versions(pkg, vec->pkgs[i]) == 0)
++	      && (!strcmp(pkg->architecture, vec->pkgs[i]->architecture))))) {
+ 	       found  = 1;
+                opkg_msg(DEBUG2, "Duplicate for pkg=%s version=%s arch=%s.\n",
+ 			pkg->name, pkg->version, pkg->architecture);
+-- 
+1.7.1
+

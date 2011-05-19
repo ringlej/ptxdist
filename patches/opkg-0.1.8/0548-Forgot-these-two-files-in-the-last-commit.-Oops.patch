@@ -1,0 +1,52 @@
+From 9f30e19b2dcab0be5c84ea7fe34d6d466c6c1675 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 10 Aug 2010 05:38:37 +0000
+Subject: [PATCH] Forgot these two files in the last commit. Oops.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@548 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ Makefile.am  |    2 +-
+ configure.ac |    6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 7e3d0ef..26f2d99 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,6 +1,6 @@
+ ACLOCAL_AMFLAGS = -I shave
+ 
+-SUBDIRS = libbb libopkg src tests utils
++SUBDIRS = libbb libopkg src tests utils man
+ 
+ 
+ HOST_CPU=@host_cpu@
+diff --git a/configure.ac b/configure.ac
+index f386b52..907911b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -270,11 +270,12 @@ Use --disable-gpg if you want OpenSSL smime signatures])
+ 	fi
+ fi
+ 
+-
++CLEAN_DATE=`date +"%B %Y" | tr -d '\n'`
+ 
+ AC_SUBST(opkglibdir)
+ AC_SUBST(opkgetcdir)
+ AC_SUBST(opkglockfile)
++AC_SUBST([CLEAN_DATE])
+ 
+ # Setup output beautifier.
+ SHAVE_INIT([shave], [enable])
+@@ -290,4 +291,7 @@ AC_OUTPUT(
+     libopkg.pc
+     shave/shave
+     shave/shave-libtool
++    man/Makefile
++    man/opkg-cl.1
++    man/opkg-key.1
+     )
+-- 
+1.7.1
+

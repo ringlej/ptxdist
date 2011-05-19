@@ -1,0 +1,50 @@
+From d8b2e77ac150010224cfefdd8668223203473dab Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 12 Aug 2010 00:37:47 +0000
+Subject: [PATCH] Fix segfault using the --verbosity option.
+
+Patch from David Bachelart via Issue #57.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@550 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ src/opkg-cl.c |   10 ++++++----
+ 1 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index ae63012..a09275f 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -95,7 +95,7 @@ args_parse(int argc, char *argv[])
+ 	int parse_err = 0;
+ 
+ 	while (1) {
+-		c = getopt_long_only(argc, argv, "Ad:f:no:p:t:vV:",
++		c = getopt_long_only(argc, argv, "Ad:f:no:p:t:vV::",
+ 				long_options, &option_index);
+ 		if (c == -1)
+ 			break;
+@@ -120,7 +120,9 @@ args_parse(int argc, char *argv[])
+ 			printf("opkg version %s\n", VERSION);
+ 			exit(0);
+ 		case 'V':
+-			conf->verbosity = atoi(optarg);
++			conf->verbosity = INFO;
++			if (optarg != NULL)
++				conf->verbosity = atoi(optarg);
+ 			break;
+ 		case ARGS_OPT_AUTOREMOVE:
+ 			conf->autoremove = 1;
+@@ -214,8 +216,8 @@ usage()
+ 
+ 	printf("\nOptions:\n");
+ 	printf("\t-A			Query all packages not just those installed\n"); 
+-	printf("\t-V <level>		Set verbosity level to <level>.\n");
+-	printf("\t--verbosity <level>	Verbosity levels:\n");
++	printf("\t-V[<level>]		Set verbosity level to <level>.\n");
++	printf("\t--verbosity[=<level>]	Verbosity levels:\n");
+ 	printf("\t				0 errors only\n");
+ 	printf("\t				1 normal messages (default)\n");
+ 	printf("\t				2 informative messages\n");
+-- 
+1.7.1
+

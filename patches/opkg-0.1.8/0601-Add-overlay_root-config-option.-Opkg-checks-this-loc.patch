@@ -1,0 +1,84 @@
+From 0f54da55b8717543b08596e58c022ae49e70a184 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 14 Feb 2011 02:46:01 +0000
+Subject: [PATCH] Add overlay_root config option. Opkg checks this location for available space.
+
+This option is useful in the case where root is mounted ro, and another rw
+filesystem is overlaid on top with e.g. mini_fo.
+
+From Nicolas Thill via OpenWrt.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@601 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_conf.c    |    1 +
+ libopkg/opkg_conf.h    |    1 +
+ libopkg/opkg_install.c |   18 +++++++++++++++---
+ 3 files changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index acac1b4..864d2ac 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -63,6 +63,7 @@ opkg_option_t options[] = {
+ 	  { "download_only", OPKG_OPT_TYPE_BOOL, &_conf.download_only },
+ 	  { "nodeps", OPKG_OPT_TYPE_BOOL, &_conf.nodeps },
+ 	  { "offline_root", OPKG_OPT_TYPE_STRING, &_conf.offline_root },
++	  { "overlay_root", OPKG_OPT_TYPE_STRING, &_conf.overlay_root },
+ 	  { "proxy_passwd", OPKG_OPT_TYPE_STRING, &_conf.proxy_passwd },
+ 	  { "proxy_user", OPKG_OPT_TYPE_STRING, &_conf.proxy_user },
+ 	  { "query-all", OPKG_OPT_TYPE_BOOL, &_conf.query_all },
+diff --git a/libopkg/opkg_conf.h b/libopkg/opkg_conf.h
+index af6b9ab..0340ff2 100644
+--- a/libopkg/opkg_conf.h
++++ b/libopkg/opkg_conf.h
+@@ -79,6 +79,7 @@ struct opkg_conf
+      int check_signature;
+      int nodeps; /* do not follow dependencies */
+      char *offline_root;
++     char *overlay_root;
+      int query_all;
+      int verbosity;
+      int noaction;
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 7838875..74a2ce1 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -21,6 +21,7 @@
+ #include <time.h>
+ #include <signal.h>
+ #include <unistd.h>
++#include <sys/stat.h>
+ 
+ #include "pkg.h"
+ #include "pkg_hash.h"
+@@ -192,13 +193,24 @@ static int
+ verify_pkg_installable(pkg_t *pkg)
+ {
+ 	unsigned long kbs_available, pkg_size_kbs;
+-	char *root_dir;
++	char *root_dir = NULL;
++	struct stat s;
+ 
+ 	if (conf->force_space || pkg->installed_size == 0)
+ 		return 0;
+ 
+-	root_dir = pkg->dest ? pkg->dest->root_dir :
+-						conf->default_dest->root_dir;
++	if (pkg->dest)
++	{
++		if (!strcmp(pkg->dest->name, "root") && conf->overlay_root
++		    && !stat(conf->overlay_root, &s) && (s.st_mode & S_IFDIR))
++			root_dir = conf->overlay_root;
++		else
++			root_dir = pkg->dest->root_dir;
++	}
++
++	if (!root_dir)
++		root_dir = conf->default_dest->root_dir;
++
+ 	kbs_available = get_available_kbytes(root_dir);
+ 
+ 	pkg_size_kbs = (pkg->installed_size + 1023)/1024;
+-- 
+1.7.1
+

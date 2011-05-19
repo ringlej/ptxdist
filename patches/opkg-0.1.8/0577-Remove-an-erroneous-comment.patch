@@ -1,0 +1,25 @@
+From 3a7c004560907c3acf4d7d330a9af8ef6309fa09 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 11 Nov 2010 00:23:29 +0000
+Subject: [PATCH] Remove an erroneous comment.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@577 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libbb/unzip.c |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+diff --git a/libbb/unzip.c b/libbb/unzip.c
+index 472ffba..435effb 100644
+--- a/libbb/unzip.c
++++ b/libbb/unzip.c
+@@ -51,7 +51,6 @@
+ 
+ static FILE *in_file, *out_file;
+ 
+-/* these are freed by gz_close */
+ static unsigned char *window;
+ static unsigned long *crc_table = NULL;
+ 
+-- 
+1.7.1
+

@@ -1,0 +1,26 @@
+From 00c5a9ccefea37200e12a8ba42f106d47edc08fa Mon Sep 17 00:00:00 2001
+From: javiplx@gmail.com <javiplx@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 7 Apr 2011 15:51:52 +0000
+Subject: [PATCH] Fix mistype in define clause
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@613 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/release.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/release.c b/libopkg/release.c
+index 86f9a8d..1b6e838 100644
+--- a/libopkg/release.c
++++ b/libopkg/release.c
+@@ -305,7 +305,7 @@ release_verify_file(release_t *release, const char* file_name, const char *pathn
+      struct stat f_info;
+      char *f_md5 = NULL;
+      const char *md5 = release_get_md5(release, pathname);
+-#ifndef HAVE_SHA256
++#ifdef HAVE_SHA256
+      char *f_sha256 = NULL;
+      const char *sha256 = release_get_sha256(release, pathname);
+ #endif
+-- 
+1.7.1
+

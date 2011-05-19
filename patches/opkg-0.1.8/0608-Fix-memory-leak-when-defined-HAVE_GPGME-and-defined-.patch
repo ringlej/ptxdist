@@ -1,0 +1,33 @@
+From 7ac69b203f3dadd51fe32cfe503509005fa92803 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 22 Feb 2011 03:38:50 +0000
+Subject: [PATCH] Fix memory leak when !defined(HAVE_GPGME) and !defined(HAVE_OPENSSL).
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@608 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index 6d97789..574386e 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -685,7 +685,6 @@ opkg_update_package_lists(opkg_progress_callback_t progress_callback,
+ 				}
+ 			}
+ 			free(sig_file_name);
+-			free(list_file_name);
+ 			free(url);
+ 		}
+ #else
+@@ -693,6 +692,7 @@ opkg_update_package_lists(opkg_progress_callback_t progress_callback,
+ 				" has not been enabled in this build\n",
+ 				list_file_name);
+ #endif
++		free(list_file_name);
+ 
+ 		sources_done++;
+ 		progress(pdata, 100 * sources_done / sources_list_count);
+-- 
+1.7.1
+

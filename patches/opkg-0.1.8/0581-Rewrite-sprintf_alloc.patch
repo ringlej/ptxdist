@@ -1,0 +1,111 @@
+From 7e8e45766b6fbf8c3ea443646af259f2943e4ef2 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 19 Nov 2010 03:55:52 +0000
+Subject: [PATCH] Rewrite sprintf_alloc.
+
+The example in printf(3) that this was taken from should not be used as
+it ignores negative return codes from vsnprintf, instead allocating more
+memory. Given an error from vsnprintf, this would loop until the process'
+virtual memory is exhausted.
+
+So we just exit in the event of a problem instead.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@581 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/sprintf_alloc.c |   52 ++++++++++++++++------------------------------
+ libopkg/sprintf_alloc.h |    2 +-
+ 2 files changed, 19 insertions(+), 35 deletions(-)
+
+diff --git a/libopkg/sprintf_alloc.c b/libopkg/sprintf_alloc.c
+index 08c56bf..e2513ec 100644
+--- a/libopkg/sprintf_alloc.c
++++ b/libopkg/sprintf_alloc.c
+@@ -1,8 +1,6 @@
+ /* sprintf_alloc.c -- like sprintf with memory allocation
+ 
+-   Carl D. Worth
+-
+-   Copyright (C) 2001 University of Southern California
++   Copyright (C) 2010 Ubiq Technologies <graham.gower@gmail.com>
+ 
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+@@ -20,46 +18,32 @@
+ #include "sprintf_alloc.h"
+ #include "libbb/libbb.h"
+ 
+-int sprintf_alloc(char **str, const char *fmt, ...)
++void
++sprintf_alloc(char **str, const char *fmt, ...)
+ {
+ 	va_list ap;
+ 	int n;
+-	unsigned size = 100;
+-
+-	if (!str) {
+-		opkg_msg(ERROR, "Internal error: str=NULL.\n");
+-		return -1;
+-	}
+-	if (!fmt) {
+-		opkg_msg(ERROR, "Internal error: fmt=NULL.\n");
+-		return -1;
+-	}
+-
+-	/* On x86_64 systems, any strings over 100 were segfaulting.
+-	   It seems that the ap needs to be reinitalized before every
+-	   use of the v*printf() functions. I pulled the functionality out
+-	   of vsprintf_alloc and combined it all here instead.
+-	*/
+-
+-
+-	/* ripped more or less straight out of PRINTF(3) */
++	unsigned int size = 1;
+ 
+ 	*str = xcalloc(1, size);
+ 
+-	while (1) {
++	for (;;) {
+ 		va_start(ap, fmt);
+ 		n = vsnprintf (*str, size, fmt, ap);
+ 		va_end(ap);
+-		/* If that worked, return the size. */
+-		if (n > -1 && n < size)
+-			return n;
+-		/* Else try again with more space. */
+-		if (n > -1)    /* glibc 2.1 */
+-			size = n+1; /* precisely what is needed */
+-		else           /* glibc 2.0 */
+-			size *= 2;  /* twice the old size */
++
++		if (n < 0) {
++			fprintf(stderr, "%s: encountered an output or encoding"
++					" error during vsnprintf.\n",
++					__FUNCTION__);
++			exit(EXIT_FAILURE);
++		}
++
++		if (n < size)
++			break;
++
++		/* Truncated, try again with more space. */
++		size = n+1;
+ 		*str = xrealloc(*str, size);
+ 	}
+-
+-	return -1; /* Just to be correct - it probably won't get here */
+ }
+diff --git a/libopkg/sprintf_alloc.h b/libopkg/sprintf_alloc.h
+index 3d68d69..bcf42a4 100644
+--- a/libopkg/sprintf_alloc.h
++++ b/libopkg/sprintf_alloc.h
+@@ -18,6 +18,6 @@
+ #ifndef SPRINTF_ALLOC_H
+ #define SPRINTF_ALLOC_H
+ 
+-int sprintf_alloc(char **str, const char *fmt, ...);
++void sprintf_alloc(char **str, const char *fmt, ...);
+ 
+ #endif
+-- 
+1.7.1
+

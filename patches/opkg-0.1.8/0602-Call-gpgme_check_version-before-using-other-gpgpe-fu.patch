@@ -1,0 +1,33 @@
+From a28f22ee5c9f868c733572048bbbb1217957507b Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 14 Feb 2011 02:46:33 +0000
+Subject: [PATCH] Call gpgme_check_version() before using other gpgpe functions.
+
+The function initializes some sub-systems, and for this reason alone
+it must be invoked early in your program, before you make use of the
+other functions in GPGME.
+see http://pyme.sourceforge.net/doc/gpgme/Library-Version-Check.html
+
+Patch from Bernhard Guillon.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@602 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_download.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/libopkg/opkg_download.c b/libopkg/opkg_download.c
+index b1f009f..16502d1 100644
+--- a/libopkg/opkg_download.c
++++ b/libopkg/opkg_download.c
+@@ -340,6 +340,8 @@ opkg_verify_file (char *text_file, char *sig_file)
+     gpgme_signature_t s;
+     char *trusted_path = NULL;
+ 
++    gpgme_check_version (NULL);
++
+     err = gpgme_new (&ctx);
+ 
+     if (err)
+-- 
+1.7.1
+

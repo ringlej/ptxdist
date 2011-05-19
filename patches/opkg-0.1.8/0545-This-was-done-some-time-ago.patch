@@ -1,0 +1,28 @@
+From 0e4ead567cedfcd827fd8c4850aa4a9d83aeec85 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 10 Aug 2010 05:37:59 +0000
+Subject: [PATCH] This was done some time ago.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@545 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ TODO |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+diff --git a/TODO b/TODO
+index eb29da9..969bad8 100644
+--- a/TODO
++++ b/TODO
+@@ -20,10 +20,6 @@ See issue list: http://code.google.com/p/opkg/issues/list
+ 
+  * Reduce memory used per pkg_t and peak memory use in general.
+ 
+- * Refactor opkg_conf_t *conf.
+-   Make it global instead of passing it to every function.
+-   Remove args_t args in favour of conf.
+-
+  * #includes are a mess.
+ 
+  * Refactor opkg_install_pkg() into more precise functions.
+-- 
+1.7.1
+

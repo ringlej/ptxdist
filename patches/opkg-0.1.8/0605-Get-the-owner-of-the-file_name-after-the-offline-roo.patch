@@ -1,0 +1,37 @@
+From 0eed2e07feb747bfb79cbe01c5ec546286578088 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 21 Feb 2011 04:24:42 +0000
+Subject: [PATCH] Get the owner of the file_name after the offline root has been stripped.
+
+Fixes a problem where the old package maintains that it owns a file even
+though the new pkg has been installed with --force-overwrite.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@605 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_hash.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+index 59b285d..b7f1573 100644
+--- a/libopkg/pkg_hash.c
++++ b/libopkg/pkg_hash.c
+@@ -650,7 +650,7 @@ file_hash_get_file_owner(const char *file_name)
+ void
+ file_hash_set_file_owner(const char *file_name, pkg_t *owning_pkg)
+ {
+-	pkg_t *old_owning_pkg = hash_table_get(&conf->file_hash, file_name);
++	pkg_t *old_owning_pkg;
+ 	int file_name_len = strlen(file_name);
+ 
+ 	if (file_name[file_name_len -1] == '/')
+@@ -658,6 +658,7 @@ file_hash_set_file_owner(const char *file_name, pkg_t *owning_pkg)
+ 
+ 	file_name = strip_offline_root(file_name);
+ 
++	old_owning_pkg = hash_table_get(&conf->file_hash, file_name);
+ 	hash_table_insert(&conf->file_hash, file_name, owning_pkg);
+ 
+ 	if (old_owning_pkg) {
+-- 
+1.7.1
+

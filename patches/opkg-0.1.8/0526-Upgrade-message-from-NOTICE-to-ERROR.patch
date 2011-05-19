@@ -1,0 +1,30 @@
+From c047b9ed89fa790806450825d5b725a2b1c13d5c Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 4 Mar 2010 22:48:08 +0000
+Subject: [PATCH] Upgrade message from NOTICE to ERROR.
+
+Koen pointed out that this information is important enough for users that it
+should be deferred until the end of the output, so that its not lost in a
+small scroll buffer.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@526 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_install.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 484c9e9..9f1dbac 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -1103,7 +1103,7 @@ resolve_conffiles(pkg_t *pkg)
+                   } else {
+                       char *new_conffile;
+                       sprintf_alloc(&new_conffile, "%s-opkg", root_filename);
+-                      opkg_msg(NOTICE, "Existing conffile %s "
++                      opkg_msg(ERROR, "Existing conffile %s "
+                            "is different from the conffile in the new package."
+                            " The new conffile will be placed at %s.\n",
+                            root_filename, new_conffile);
+-- 
+1.7.1
+

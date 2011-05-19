@@ -1,0 +1,29 @@
+From 093eb1abca0b5429856aa680437db9631d60a1ba Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 21 Feb 2011 04:24:55 +0000
+Subject: [PATCH] List some sub-commands that were missing from the --help output.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@606 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ src/opkg-cl.c |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index 993aa66..1b927e5 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -241,8 +241,11 @@ usage()
+ 	printf("\tcompare-versions <v1> <op> <v2>\n");
+ 	printf("\t                    compare versions using <= < > >= = << >>\n");
+ 	printf("\tprint-architecture	List installable package architectures\n");
++	printf("\tdepends [-A] [pkgname|pat]+\n");
+ 	printf("\twhatdepends [-A] [pkgname|pat]+\n");
+ 	printf("\twhatdependsrec [-A] [pkgname|pat]+\n");
++	printf("\twhatrecommends[-A] [pkgname|pat]+\n");
++	printf("\twhatsuggests[-A] [pkgname|pat]+\n");
+ 	printf("\twhatprovides [-A] [pkgname|pat]+\n");
+ 	printf("\twhatconflicts [-A] [pkgname|pat]+\n");
+ 	printf("\twhatreplaces [-A] [pkgname|pat]+\n");
+-- 
+1.7.1
+

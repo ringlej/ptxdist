@@ -1,0 +1,32 @@
+From 0eb2cb22be9a69e9562fea935617864cc0e5f217 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 18 Aug 2010 02:27:08 +0000
+Subject: [PATCH] Remove outdated comment regarding an old bug.
+
+I managed to track down the "bug 1277" this comment referred to.
+http://web.archive.org/web/20050503234854/http://handhelds.org/~bugzilla/show_bug.cgi?id=1277
+
+This referred to the status file containing incorrect information after a
+failed upgrade.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@551 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_install.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 49e14fc..2693274 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -1172,7 +1172,7 @@ opkg_install_by_name(const char *pkg_name)
+ 	       return 0;
+ 	  } else if (cmp < 0) {
+ 	       new->dest = old->dest;
+-	       old->state_want = SW_DEINSTALL;    /* Here probably the problem for bug 1277 */
++	       old->state_want = SW_DEINSTALL;
+ 	  }
+ 	  free(old_version);
+ 	  free(new_version);
+-- 
+1.7.1
+

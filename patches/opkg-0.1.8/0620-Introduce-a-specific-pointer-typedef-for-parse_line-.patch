@@ -1,0 +1,152 @@
+From bcf06b0c94483291a280c82242ecbd634cb3a921 Mon Sep 17 00:00:00 2001
+From: javiplx@gmail.com <javiplx@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Tue, 26 Apr 2011 13:45:15 +0000
+Subject: [PATCH] Introduce a specific pointer typedef for parse_line functions
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@620 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/parse_util.c |    9 ++++-----
+ libopkg/parse_util.h |    7 ++++---
+ libopkg/pkg_hash.c   |    2 +-
+ libopkg/pkg_parse.c  |    7 ++++---
+ libopkg/pkg_parse.h  |    6 +++---
+ 5 files changed, 16 insertions(+), 15 deletions(-)
+
+diff --git a/libopkg/parse_util.c b/libopkg/parse_util.c
+index 538bb11..54850a8 100644
+--- a/libopkg/parse_util.c
++++ b/libopkg/parse_util.c
+@@ -22,7 +22,6 @@
+ #include "libbb/libbb.h"
+ 
+ #include "parse_util.h"
+-#include "pkg_parse.h"
+ 
+ int
+ is_field(const char *type, const char *line)
+@@ -89,7 +88,7 @@ parse_list(const char *raw, unsigned int *count, const char sep, int skip_field)
+ }
+ 
+ int
+-parse_from_stream_nomalloc(pkg_t *pkg, FILE *fp, uint mask,
++parse_from_stream_nomalloc(parse_line_t parse_line, void *ptr, FILE *fp, uint mask,
+ 						char **buf0, size_t buf0len)
+ {
+ 	int ret, lineno;
+@@ -111,7 +110,7 @@ parse_from_stream_nomalloc(pkg_t *pkg, FILE *fp, uint mask,
+ 			} else if (strlen(*buf0) == buf0len-1) {
+ 				opkg_msg(ERROR, "Missing new line character"
+ 						" at end of file!\n");
+-				pkg_parse_line(pkg, *buf0, mask);
++				parse_line(ptr, *buf0, mask);
+ 			}
+ 			break;
+ 		}
+@@ -126,7 +125,7 @@ parse_from_stream_nomalloc(pkg_t *pkg, FILE *fp, uint mask,
+ 				 */
+ 				opkg_msg(ERROR, "Missing new line character"
+ 						" at end of file!\n");
+-				pkg_parse_line(pkg, *buf0, mask);
++				parse_line(ptr, *buf0, mask);
+ 				break;
+ 			}
+ 			if (buf0len >= EXCESSIVE_LINE_LEN) {
+@@ -157,7 +156,7 @@ parse_from_stream_nomalloc(pkg_t *pkg, FILE *fp, uint mask,
+ 
+ 		lineno++;
+ 
+-		if (pkg_parse_line(pkg, *buf0, mask))
++		if (parse_line(ptr, *buf0, mask))
+ 			break;
+ 
+ 		buf = *buf0;
+diff --git a/libopkg/parse_util.h b/libopkg/parse_util.h
+index d1aba4c..26e2d5b 100644
+--- a/libopkg/parse_util.h
++++ b/libopkg/parse_util.h
+@@ -18,13 +18,14 @@
+ #ifndef PARSE_UTIL_H
+ #define PARSE_UTIL_H
+ 
+-#include "pkg.h"
+-
+ int is_field(const char *type, const char *line);
+ char *parse_simple(const char *type, const char *line);
+ char **parse_list(const char *raw, unsigned int *count, const char sep, int skip_field);
+ 
+-int parse_from_stream_nomalloc(pkg_t *pkg, FILE *fp, uint mask,
++typedef int (*parse_line_t)(void *, const char *, uint);
++int parse_from_stream_nomalloc(parse_line_t parse_line, void *item, FILE *fp, uint mask,
+ 						char **buf0, size_t buf0len);
+ 
++#define EXCESSIVE_LINE_LEN	(4096 << 8)
++
+ #endif
+diff --git a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+index 3e4d9d4..e08840b 100644
+--- a/libopkg/pkg_hash.c
++++ b/libopkg/pkg_hash.c
+@@ -120,7 +120,7 @@ pkg_hash_add_from_file(const char *file_name,
+ 		pkg->src = src;
+ 		pkg->dest = dest;
+ 
+-		ret = parse_from_stream_nomalloc(pkg, fp, 0,
++		ret = parse_from_stream_nomalloc(pkg_parse_line, pkg, fp, 0,
+ 				&buf, len);
+ 		if (pkg->name == NULL) {
+ 			/* probably just a blank line */
+diff --git a/libopkg/pkg_parse.c b/libopkg/pkg_parse.c
+index 3f188a8..406220b 100644
+--- a/libopkg/pkg_parse.c
++++ b/libopkg/pkg_parse.c
+@@ -21,7 +21,6 @@
+ #include <stdio.h>
+ #include <ctype.h>
+ 
+-#include "pkg.h"
+ #include "opkg_utils.h"
+ #include "pkg_parse.h"
+ #include "libbb/libbb.h"
+@@ -105,8 +104,10 @@ get_arch_priority(const char *arch)
+ }
+ 
+ int
+-pkg_parse_line(pkg_t *pkg, const char *line, uint mask)
++pkg_parse_line(void *ptr, const char *line, uint mask)
+ {
++	pkg_t *pkg = (pkg_t *) ptr;
++
+ 	/* these flags are a bit hackish... */
+ 	static int reading_conffiles = 0, reading_description = 0;
+ 	int ret = 0;
+@@ -273,7 +274,7 @@ pkg_parse_from_stream(pkg_t *pkg, FILE *fp, uint mask)
+ 	const size_t len = 4096;
+ 
+ 	buf = xmalloc(len);
+-	ret = parse_from_stream_nomalloc(pkg, fp, mask, &buf, len);
++	ret = parse_from_stream_nomalloc(pkg_parse_line, pkg, fp, mask, &buf, len);
+ 	if (pkg->name == NULL) {
+ 		/* probably just a blank line */
+ 		ret = 1;
+diff --git a/libopkg/pkg_parse.h b/libopkg/pkg_parse.h
+index f477375..4e2b8e0 100644
+--- a/libopkg/pkg_parse.h
++++ b/libopkg/pkg_parse.h
+@@ -18,11 +18,11 @@
+ #ifndef PKG_PARSE_H
+ #define PKG_PARSE_H
+ 
++#include "pkg.h"
++
+ int parse_version(pkg_t *pkg, const char *raw);
+ int pkg_parse_from_stream(pkg_t *pkg, FILE *fp, uint mask);
+-int pkg_parse_line(pkg_t *pkg, const char *line, uint mask);
+-
+-#define EXCESSIVE_LINE_LEN	(4096 << 8)
++int pkg_parse_line(void *ptr, const char *line, uint mask);
+ 
+ /* package field mask */
+ #define PFM_ARCHITECTURE	(1 << 1)
+-- 
+1.7.1
+

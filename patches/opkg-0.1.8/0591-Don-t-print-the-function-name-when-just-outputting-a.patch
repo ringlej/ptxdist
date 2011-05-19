@@ -1,0 +1,49 @@
+From a51633c1d32fdf46957a155d1744d6f30fb47420 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 23 Dec 2010 01:37:18 +0000
+Subject: [PATCH] Don't print the function name when just outputting a \n.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@591 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_cmd.c     |    4 ++--
+ libopkg/opkg_install.c |    2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libopkg/opkg_cmd.c b/libopkg/opkg_cmd.c
+index 584d05d..29ae0cd 100644
+--- a/libopkg/opkg_cmd.c
++++ b/libopkg/opkg_cmd.c
+@@ -1042,7 +1042,7 @@ opkg_what_depends_conflicts_cmd(enum depend_type what_field_type, int recursive,
+ 					if (!pkg_dependence_satisfiable(possibility))
+ 						opkg_msg(NOTICE,
+ 							" unsatisfiable");
+-					opkg_msg(NOTICE, "\n");
++					opkg_message(NOTICE, "\n");
+ 					goto next_package;
+ 				}
+ 			}
+@@ -1121,7 +1121,7 @@ opkg_what_provides_replaces_cmd(enum what_field_type what_field_type, int argc,
+ 			      if (strcmp(target, apkg->name) != 0)
+ 				   opkg_msg(NOTICE, "\t%s %s\n",
+ 						   rel_str, apkg->name);
+-			      opkg_msg(NOTICE, "\n");
++			      opkg_message(NOTICE, "\n");
+ 			 }
+ 		    }
+ 	       }
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 68c17b3..ec4afba 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -134,7 +134,7 @@ check_conflicts_for(pkg_t *pkg)
+ 	  i = 0;
+ 	  while (i < conflicts->len)
+ 	       opkg_msg(level, "\t%s", conflicts->pkgs[i++]->name);
+-	  opkg_msg(level, "\n");
++	  opkg_message(level, "\n");
+ 	  pkg_vec_free(conflicts);
+ 	  return -1;
+      }
+-- 
+1.7.1
+

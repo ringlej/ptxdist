@@ -1,0 +1,29 @@
+From 631201787e18b0e6b0d4e619d3830ecf37ec1166 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 4 Mar 2010 22:47:57 +0000
+Subject: [PATCH] Downgrade message from ERROR to NOTICE.
+
+This is a normal condition for feeds which supply multiple target
+architectures, as pointed out by Koen Kooi.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@525 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/pkg_hash.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+index 5850082..a7e3f52 100644
+--- a/libopkg/pkg_hash.c
++++ b/libopkg/pkg_hash.c
+@@ -107,7 +107,7 @@ pkg_hash_add_from_file(const char *file_name,
+ 
+ 		if (!pkg->architecture || !pkg->arch_priority) {
+ 			char *version_str = pkg_version_str_alloc(pkg);
+-			opkg_msg(ERROR, "Package %s version %s has no "
++			opkg_msg(NOTICE, "Package %s version %s has no "
+ 					"valid architecture, ignoring.\n",
+ 					pkg->name, version_str);
+ 			free(version_str);
+-- 
+1.7.1
+

@@ -1,0 +1,212 @@
+From 7fc9b3b1705f104eb66510d771994fb46b01d1e6 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 21 Jun 2010 23:34:25 +0000
+Subject: [PATCH] Fix --force-reinstall by removing special case code. Just remove the pkg first.
+
+This should fix Issue #51.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@538 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_cmd.c     |   11 +++++++++++
+ libopkg/opkg_install.c |   30 ++++++++++--------------------
+ libopkg/opkg_remove.c  |    1 +
+ libopkg/pkg_hash.c     |   33 +++++++++++++++++++++------------
+ libopkg/pkg_hash.h     |    1 +
+ 5 files changed, 44 insertions(+), 32 deletions(-)
+
+diff --git a/libopkg/opkg_cmd.c b/libopkg/opkg_cmd.c
+index 63de047..b0e5552 100644
+--- a/libopkg/opkg_cmd.c
++++ b/libopkg/opkg_cmd.c
+@@ -424,12 +424,23 @@ error:
+ }
+ 
+ static int
++opkg_remove_cmd(int argc, char **argv);
++
++static int
+ opkg_install_cmd(int argc, char **argv)
+ {
+      int i, r;
+      char *arg;
+      int err=0;
+ 
++     if (conf->force_reinstall) {
++	     int saved_force_depends = conf->force_depends;
++	     conf->force_depends = 1;
++	     (void)opkg_remove_cmd(argc, argv);
++	     conf->force_depends = saved_force_depends;
++	     conf->force_reinstall = 0;
++     }
++
+      signal(SIGINT, sigint_handler);
+ 
+      /*
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 16b5be9..49e14fc 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -470,19 +470,10 @@ opkg_install_check_downgrade(pkg_t *pkg, pkg_t *old_pkg, int message)
+ 	       pkg->dest = old_pkg->dest;
+ 	       rc = 0;
+ 	  } else /* cmp == 0 */ {
+-	       if (conf->force_reinstall) {
+                if(!conf->download_only)
+-                   opkg_msg(NOTICE, "Reinstalling %s (%s) on %s...\n",
+-                           pkg->name, new_version, old_pkg->dest->name);
+-		    pkg->dest = old_pkg->dest;
+-		    rc = 0;
+-	       } else {
+-                   if(!conf->download_only)
+-                       opkg_msg(NOTICE, "%s (%s) already install on %s."
+-                               " Not reinstalling.\n",
+-                               pkg->name, new_version, old_pkg->dest->name);
+-		    rc = 1;
+-	       }
++                   opkg_msg(NOTICE, "%s (%s) already install on %s.\n",
++			pkg->name, new_version, old_pkg->dest->name);
++	       rc = 1;
+ 	  } 
+ 	  free(old_version);
+ 	  free(new_version);
+@@ -1145,8 +1136,8 @@ opkg_install_by_name(const char *pkg_name)
+ 
+      opkg_msg(DEBUG2, "Versions from pkg_hash_fetch:");
+      if ( old ) 
+-        opkg_msg(DEBUG2, " old %s ", old->version);
+-     opkg_msg(DEBUG2, " new %s\n", new->version);
++        opkg_message(DEBUG2, " old %s ", old->version);
++     opkg_message(DEBUG2, " new %s\n", new->version);
+ 
+      new->state_flag |= SF_USER;
+      if (old) {
+@@ -1165,7 +1156,7 @@ opkg_install_by_name(const char *pkg_name)
+ 		       "\n\t%s is available "
+ 		       "\n\t%d was comparison result\n",
+ 		       pkg_name, old_version, new_version, cmp);
+-	  if (cmp == 0 && !conf->force_reinstall) {
++	  if (cmp == 0) {
+ 	       opkg_msg(NOTICE,
+ 			    "Package %s (%s) installed in %s is up to date.\n",
+ 			    old->name, old_version, old->dest->name);
+@@ -1219,7 +1210,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 		       pkg->architecture, pkg->name);
+ 	  return -1;
+      }
+-     if (pkg->state_status == SS_INSTALLED && conf->force_reinstall == 0 && conf->nodeps == 0) {
++     if (pkg->state_status == SS_INSTALLED && conf->nodeps == 0) {
+ 	  err = satisfy_dependencies_for(pkg);
+ 	  if (err)
+ 		  return -1;
+@@ -1252,7 +1243,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 	installing pkg A, A deps B & B deps on A. So both B and A are
+ 	installed. Then A's installation is started resulting in an
+ 	uncecessary upgrade */ 
+-     if (pkg->state_status == SS_INSTALLED && conf->force_reinstall == 0)
++     if (pkg->state_status == SS_INSTALLED)
+ 	     return 0;
+     
+      err = verify_pkg_installable(pkg);
+@@ -1426,7 +1417,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 		  return 0;
+ 
+ 	  /* point of no return: no unwinding after this */
+-	  if (old_pkg && !conf->force_reinstall) {
++	  if (old_pkg) {
+ 	       old_pkg->state_want = SW_DEINSTALL;
+ 
+ 	       if (old_pkg->state_flag & SF_NOPRUNE) {
+@@ -1485,9 +1476,8 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 	  opkg_msg(DEBUG, "pkg=%s old_state_flag=%x state_flag=%x\n",
+ 			  pkg->name, old_state_flag, pkg->state_flag);
+ 
+-	  if (old_pkg && !conf->force_reinstall) {
++	  if (old_pkg)
+ 	       old_pkg->state_status = SS_NOT_INSTALLED;
+-	  }
+ 
+ 	  time(&pkg->installed_time);
+ 
+diff --git a/libopkg/opkg_remove.c b/libopkg/opkg_remove.c
+index 4920587..792ab37 100644
+--- a/libopkg/opkg_remove.c
++++ b/libopkg/opkg_remove.c
+@@ -367,6 +367,7 @@ remove_data_files_and_list(pkg_t *pkg)
+ 	  	opkg_msg(INFO, "Not deleting %s. (noaction)\n",
+ 				file_name);
+ 
++	  file_hash_remove(file_name);
+      }
+ 
+      /* Remove empty directories */
+diff --git a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+index f72ed26..67c1781 100644
+--- a/libopkg/pkg_hash.c
++++ b/libopkg/pkg_hash.c
+@@ -619,17 +619,31 @@ hash_insert_pkg(pkg_t *pkg, int set_status)
+ 	pkg->parent = ab_pkg;
+ }
+ 
+-
+-pkg_t *
+-file_hash_get_file_owner(const char *file_name)
++static const char *
++strip_offline_root(const char *file_name)
+ {
++	unsigned int len;
++
+ 	if (conf->offline_root) {
+-		unsigned int len = strlen(conf->offline_root);
+-		if (strncmp(file_name, conf->offline_root, len) == 0) {
++		len = strlen(conf->offline_root);
++		if (strncmp(file_name, conf->offline_root, len) == 0)
+ 			file_name += len;
+-		}
+ 	}
+ 
++	return file_name;
++}
++
++void
++file_hash_remove(const char *file_name)
++{
++	file_name = strip_offline_root(file_name);
++	hash_table_remove(&conf->file_hash, file_name);
++}
++
++pkg_t *
++file_hash_get_file_owner(const char *file_name)
++{
++	file_name = strip_offline_root(file_name);
+ 	return hash_table_get(&conf->file_hash, file_name);
+ }
+ 
+@@ -642,12 +656,7 @@ file_hash_set_file_owner(const char *file_name, pkg_t *owning_pkg)
+ 	if (file_name[file_name_len -1] == '/')
+ 		return;
+ 
+-	if (conf->offline_root) {
+-		unsigned int len = strlen(conf->offline_root);
+-		if (strncmp(file_name, conf->offline_root, len) == 0) {
+-			file_name += len;
+-		}
+-	}
++	file_name = strip_offline_root(file_name);
+ 
+ 	hash_table_insert(&conf->file_hash, file_name, owning_pkg); 
+ 
+diff --git a/libopkg/pkg_hash.h b/libopkg/pkg_hash.h
+index d847b73..0ae01e7 100644
+--- a/libopkg/pkg_hash.h
++++ b/libopkg/pkg_hash.h
+@@ -47,6 +47,7 @@ pkg_t *pkg_hash_fetch_installed_by_name(const char *pkg_name);
+ pkg_t *pkg_hash_fetch_installed_by_name_dest(const char *pkg_name,
+ 					     pkg_dest_t *dest);
+ 
++void file_hash_remove(const char *file_name);
+ pkg_t *file_hash_get_file_owner(const char *file_name);
+ void file_hash_set_file_owner(const char *file_name, pkg_t *pkg);
+ 
+-- 
+1.7.1
+

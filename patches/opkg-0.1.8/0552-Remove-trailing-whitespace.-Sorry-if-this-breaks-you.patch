@@ -1,0 +1,2392 @@
+From 0a4946b3e913a2affe5fd342aa88e2533d06356e Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Wed, 18 Aug 2010 03:39:02 +0000
+Subject: [PATCH] Remove trailing whitespace. Sorry if this breaks your patches.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@552 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libbb/gz_open.c               |    4 +-
+ libbb/last_char_is.c          |    2 +-
+ libbb/make_directory.c        |    2 +-
+ libbb/parse_mode.c            |    2 +-
+ libbb/safe_strncpy.c          |    6 +-
+ libbb/unarchive.c             |   52 +++++++++++++-------------
+ libbb/unzip.c                 |   12 +++---
+ libbb/xfuncs.c                |    2 +-
+ libbb/xreadlink.c             |    8 ++--
+ libopkg/active_list.c         |   14 +++---
+ libopkg/active_list.h         |    2 +-
+ libopkg/file_util.c           |    8 ++--
+ libopkg/hash_table.c          |   14 +++---
+ libopkg/hash_table.h          |    6 +-
+ libopkg/list.h                |    2 +-
+ libopkg/nv_pair_list.c        |    2 +-
+ libopkg/nv_pair_list.h        |    2 +-
+ libopkg/opkg.c                |    4 +-
+ libopkg/opkg_cmd.c            |   78 +++++++++++++++++++-------------------
+ libopkg/opkg_conf.c           |   18 ++++----
+ libopkg/opkg_download.c       |   14 +++---
+ libopkg/opkg_download.h       |    2 +-
+ libopkg/opkg_install.c        |   84 ++++++++++++++++++++--------------------
+ libopkg/opkg_remove.c         |   24 ++++++------
+ libopkg/opkg_upgrade.c        |    6 +-
+ libopkg/opkg_utils.c          |   12 +++---
+ libopkg/opkg_utils.h          |    2 +-
+ libopkg/pkg.c                 |   24 ++++++------
+ libopkg/pkg.h                 |    4 +-
+ libopkg/pkg_depends.c         |   82 ++++++++++++++++++++--------------------
+ libopkg/pkg_depends.h         |    4 +-
+ libopkg/pkg_hash.c            |   28 +++++++-------
+ libopkg/pkg_hash.h            |    4 +-
+ libopkg/pkg_parse.c           |    6 +-
+ libopkg/pkg_parse.h           |    2 +-
+ libopkg/pkg_src.h             |    2 +-
+ libopkg/pkg_vec.c             |   10 ++--
+ libopkg/pkg_vec.h             |    2 +-
+ libopkg/sprintf_alloc.c       |    6 +-
+ libopkg/str_list.c            |    4 +-
+ libopkg/void_list.c           |    2 +-
+ libopkg/xregex.c              |    2 +-
+ libopkg/xsystem.h             |    2 +-
+ src/opkg-cl.c                 |   10 ++--
+ tests/libopkg_test.c          |    4 +-
+ tests/opkg_active_list_test.c |    6 +-
+ tests/opkg_extract_test.c     |   10 ++--
+ tests/opkg_hash_test.c        |    4 +-
+ 48 files changed, 301 insertions(+), 301 deletions(-)
+
+diff --git a/libbb/gz_open.c b/libbb/gz_open.c
+index 40f741f..3997e72 100644
+--- a/libbb/gz_open.c
++++ b/libbb/gz_open.c
+@@ -39,7 +39,7 @@ gz_open(FILE *compressed_file, int *pid)
+ 		return(NULL);
+ 	}
+ 
+-    /* If we don't flush, we end up with two copies of anything pending, 
++    /* If we don't flush, we end up with two copies of anything pending,
+        one from the parent, one from the child */
+     fflush(stdout);
+     fflush(stderr);
+@@ -71,7 +71,7 @@ gz_close(int gunzip_pid)
+ 		perror_msg("waitpid");
+ 		return -1;
+ 	}
+-	
++
+ 	if (WIFSIGNALED(status)) {
+ 		error_msg("Unzip process killed by signal %d.\n",
+ 			WTERMSIG(status));
+diff --git a/libbb/last_char_is.c b/libbb/last_char_is.c
+index 4e2ee92..26c2423 100644
+--- a/libbb/last_char_is.c
++++ b/libbb/last_char_is.c
+@@ -32,7 +32,7 @@ char * last_char_is(const char *s, int c)
+ 	if (!s)
+ 	    return NULL;
+ 	sret  = (char *)s+strlen(s)-1;
+-	if (sret>=s && *sret == c) { 
++	if (sret>=s && *sret == c) {
+ 		return sret;
+ 	} else {
+ 		return NULL;
+diff --git a/libbb/make_directory.c b/libbb/make_directory.c
+index cff2e51..86ab554 100644
+--- a/libbb/make_directory.c
++++ b/libbb/make_directory.c
+@@ -61,7 +61,7 @@ int make_directory (const char *path, long mode, int flags)
+ 			   memory of the path argument and may return
+ 			   a pointer to static memory, which can then
+ 			   be modified by consequtive calls to dirname */
+-			
++
+ 			pathcopy = xstrdup (path);
+ 			parent = dirname (pathcopy);
+ 			parentcopy = xstrdup (parent);
+diff --git a/libbb/parse_mode.c b/libbb/parse_mode.c
+index ba34ea9..02668c7 100644
+--- a/libbb/parse_mode.c
++++ b/libbb/parse_mode.c
+@@ -31,7 +31,7 @@
+  * correct mode described by the string. */
+ extern int parse_mode(const char *s, mode_t * theMode)
+ {
+-	static const mode_t group_set[] = { 
++	static const mode_t group_set[] = {
+ 		S_ISUID | S_IRWXU,		/* u */
+ 		S_ISGID | S_IRWXG,		/* g */
+ 		S_IRWXO,				/* o */
+diff --git a/libbb/safe_strncpy.c b/libbb/safe_strncpy.c
+index 0c5cf12..eb2dbab 100644
+--- a/libbb/safe_strncpy.c
++++ b/libbb/safe_strncpy.c
+@@ -24,11 +24,11 @@
+ 
+ 
+ 
+-/* Like strncpy but make sure the resulting string is always 0 terminated. */  
++/* Like strncpy but make sure the resulting string is always 0 terminated. */
+ extern char * safe_strncpy(char *dst, const char *src, size_t size)
+-{   
++{
+ 	dst[size-1] = '\0';
+-	return strncpy(dst, src, size-1);   
++	return strncpy(dst, src, size-1);
+ }
+ 
+ 
+diff --git a/libbb/unarchive.c b/libbb/unarchive.c
+index b063c63..0e820c8 100644
+--- a/libbb/unarchive.c
++++ b/libbb/unarchive.c
+@@ -1,7 +1,7 @@
+ /*
+  *  Copyright (C) 2000 by Glenn McGrath
+  *  Copyright (C) 2001 by Laurence Anderson
+- *	
++ *
+  *  Based on previous work by busybox developers and others.
+  *
+  *  This program is free software; you can redistribute it and/or modify
+@@ -47,8 +47,8 @@ seek_by_read(FILE* fd, size_t len)
+         char buf[SEEK_BUF];
+ 
+         while (len) {
+-                cc = fread(buf, sizeof(buf[0]), 
+-                                len > SEEK_BUF ? SEEK_BUF : len, 
++                cc = fread(buf, sizeof(buf[0]),
++                                len > SEEK_BUF ? SEEK_BUF : len,
+                                 fd);
+ 
+                 total += cc;
+@@ -74,17 +74,17 @@ seek_sub_file(FILE *fd, const int count)
+ }
+ 
+ 
+-/* Extract the data postioned at src_stream to either filesystem, stdout or 
+- * buffer depending on the value of 'function' which is defined in libbb.h 
++/* Extract the data postioned at src_stream to either filesystem, stdout or
++ * buffer depending on the value of 'function' which is defined in libbb.h
+  *
+  * prefix doesnt have to be just a directory, it may prefix the filename as well.
+  *
+- * e.g. '/var/lib/dpkg/info/dpkg.' will extract all files to the base bath 
+- * '/var/lib/dpkg/info/' and all files/dirs created in that dir will have 
++ * e.g. '/var/lib/dpkg/info/dpkg.' will extract all files to the base bath
++ * '/var/lib/dpkg/info/' and all files/dirs created in that dir will have
+  * 'dpkg.' as their prefix
+  *
+  * For this reason if prefix does point to a dir then it must end with a
+- * trailing '/' or else the last dir will be assumed to be the file prefix 
++ * trailing '/' or else the last dir will be assumed to be the file prefix
+  */
+ static char *
+ extract_archive(FILE *src_stream, FILE *out_stream,
+@@ -100,7 +100,7 @@ extract_archive(FILE *src_stream, FILE *out_stream,
+ 
+ 	*err = 0;
+ 
+-	/* prefix doesnt have to be a proper path it may prepend 
++	/* prefix doesnt have to be a proper path it may prepend
+ 	 * the filename as well */
+ 	if (prefix != NULL) {
+ 		/* strip leading '/' in filename to extract as prefix may not be dir */
+@@ -129,11 +129,11 @@ extract_archive(FILE *src_stream, FILE *out_stream,
+ 
+ 	if (function & extract_to_stream) {
+ 		if (S_ISREG(file_entry->mode)) {
+-			*err = copy_file_chunk(src_stream, out_stream, file_entry->size);			
++			*err = copy_file_chunk(src_stream, out_stream, file_entry->size);
+ 			archive_offset += file_entry->size;
+ 		}
+ 	}
+-	else if (function & extract_one_to_buffer) { 
++	else if (function & extract_one_to_buffer) {
+ 		if (S_ISREG(file_entry->mode)) {
+ 			buffer = (char *) xmalloc(file_entry->size + 1);
+ 			fread(buffer, 1, file_entry->size, src_stream);
+@@ -189,7 +189,7 @@ extract_archive(FILE *src_stream, FILE *out_stream,
+ 						goto cleanup;
+ 					}
+ 					archive_offset += file_entry->size;
+-					*err = copy_file_chunk(src_stream, dst_stream, file_entry->size);			
++					*err = copy_file_chunk(src_stream, dst_stream, file_entry->size);
+ 					fclose(dst_stream);
+ 				}
+ 				break;
+@@ -230,7 +230,7 @@ extract_archive(FILE *src_stream, FILE *out_stream,
+ 
+ 		}
+ 
+-		/* Changing a symlink's properties normally changes the properties of the 
++		/* Changing a symlink's properties normally changes the properties of the
+ 		 * file pointed to, so dont try and change the date or mode, lchown does
+ 		 * does the right thing, but isnt available in older versions of libc */
+ 		if (S_ISLNK(file_entry->mode)) {
+@@ -247,7 +247,7 @@ extract_archive(FILE *src_stream, FILE *out_stream,
+ 			chmod(full_name, file_entry->mode);
+ 		}
+ 	} else {
+-		/* If we arent extracting data we have to skip it, 
++		/* If we arent extracting data we have to skip it,
+ 		 * if data size is 0 then then just do it anyway
+ 		 * (saves testing for it) */
+ 		seek_sub_file(src_stream, file_entry->size);
+@@ -256,7 +256,7 @@ extract_archive(FILE *src_stream, FILE *out_stream,
+ 	/* extract_list and extract_verbose_list can be used in conjunction
+ 	 * with one of the above four extraction functions, so do this seperately */
+ 	if (function & extract_verbose_list) {
+-		fprintf(out_stream, "%s %d/%d %8d %s ", mode_string(file_entry->mode), 
++		fprintf(out_stream, "%s %d/%d %8d %s ", mode_string(file_entry->mode),
+ 			file_entry->uid, file_entry->gid,
+ 			(int) file_entry->size, time_string(file_entry->mtime));
+ 	}
+@@ -373,7 +373,7 @@ get_header_ar(FILE *src_stream)
+ 		/* raw_header[60] wont be '\n' as it should, but it doesnt matter */
+ 		memmove(ar.raw, &ar.raw[1], 59);
+ 	}
+-		
++
+ 	typed = (file_header_t *) xcalloc(1, sizeof(file_header_t));
+ 
+ 	typed->size = (size_t) atoi(ar.formated.size);
+@@ -409,7 +409,7 @@ get_header_ar(FILE *src_stream)
+ 	}
+ 	typed->name[strcspn(typed->name, " /")]='\0';
+ 
+-	/* convert the rest of the now valid char header to its typed struct */	
++	/* convert the rest of the now valid char header to its typed struct */
+ 	parse_mode(ar.formated.mode, &typed->mode);
+ 	typed->mtime = atoi(ar.formated.date);
+ 	typed->uid = atoi(ar.formated.uid);
+@@ -555,7 +555,7 @@ get_header_tar(FILE *tar_stream)
+ # ifdef CONFIG_FEATURE_TAR_OLDGNU_COMPATABILITY
+ 		if (last_char_is(tar_entry->name, '/')) {
+ 			tar_entry->mode |= S_IFDIR;
+-		} else 
++		} else
+ # endif
+ 			tar_entry->mode |= S_IFREG;
+ 		break;
+@@ -623,7 +623,7 @@ free_header_tar(file_header_t *tar_entry)
+ }
+ 
+ char *
+-deb_extract(const char *package_filename, FILE *out_stream, 
++deb_extract(const char *package_filename, FILE *out_stream,
+ 	const int extract_function, const char *prefix,
+ 	const char *filename, int *err)
+ {
+@@ -642,11 +642,11 @@ deb_extract(const char *package_filename, FILE *out_stream,
+ 		file_list[0] = filename;
+ 		file_list[1] = NULL;
+ 	}
+-	
++
+ 	if (extract_function & extract_control_tar_gz) {
+ 		ared_file = "control.tar.gz";
+ 	}
+-	else if (extract_function & extract_data_tar_gz) {		
++	else if (extract_function & extract_data_tar_gz) {
+ 		ared_file = "data.tar.gz";
+ 	} else {
+                 opkg_msg(ERROR, "Internal error: extract_function=%x\n",
+@@ -719,7 +719,7 @@ deb_extract(const char *package_filename, FILE *out_stream,
+ 			*err = -1;
+ 			goto cleanup;
+ 		}
+-		
++
+ 		/* walk through outer tar file to find ared_file */
+ 		while ((tar_header = get_header_tar(unzipped_opkg_stream)) != NULL) {
+                         int name_offset = 0;
+@@ -736,12 +736,12 @@ deb_extract(const char *package_filename, FILE *out_stream,
+ 				}
+ 				archive_offset = 0;
+ 
+-				output_buffer = unarchive(uncompressed_stream, 
+-							  out_stream, 
++				output_buffer = unarchive(uncompressed_stream,
++							  out_stream,
+ 							  get_header_tar,
+ 							  free_header_tar,
+-							  extract_function, 
+-							  prefix, 
++							  extract_function,
++							  prefix,
+ 							  file_list,
+ 							  err);
+ 
+diff --git a/libbb/unzip.c b/libbb/unzip.c
+index e0a2388..472ffba 100644
+--- a/libbb/unzip.c
++++ b/libbb/unzip.c
+@@ -59,7 +59,7 @@ static unsigned long crc; /* shift register contents */
+ 
+ /*
+  * window size--must be a power of two, and
+- *  at least 32K for zip's deflate method 
++ *  at least 32K for zip's deflate method
+  */
+ static const int WSIZE = 0x8000;
+ 
+@@ -93,7 +93,7 @@ static const unsigned short mask_bits[] = {
+ /* ========================================================================
+  * Signal and error handler.
+  */
+- 
++
+ static void abort_gzip()
+ {
+ 	error_msg("gzip aborted\n");
+@@ -111,7 +111,7 @@ static void make_crc_table()
+ 	static int p[] = {0,1,2,4,5,7,8,10,11,12,16,22,23,26};
+ 
+ 	/* initial shift register value */
+-	crc = 0xffffffffL;	
++	crc = 0xffffffffL;
+ 	crc_table = (unsigned long *) xmalloc(256 * sizeof(unsigned long));
+ 
+ 	/* Make exclusive-or pattern from polynomial (0xedb88320) */
+@@ -165,7 +165,7 @@ static void flush_window(void)
+ /*
+  * Free the malloc'ed tables built by huft_build(), which makes a linked
+  * list of the tables it made, with the links in a dummy first entry of
+- * each table. 
++ * each table.
+  * t: table to free
+  */
+ static int huft_free(huft_t *t)
+@@ -196,7 +196,7 @@ static int huft_free(huft_t *t)
+  * t:	result: starting table
+  * m:	maximum lookup bits, returns actual
+  */
+-static int huft_build(unsigned int *b, const unsigned int n, const unsigned int s, 
++static int huft_build(unsigned int *b, const unsigned int n, const unsigned int s,
+ 	const unsigned short *d, const unsigned short *e, huft_t **t, int *m)
+ {
+ 	unsigned a;		/* counter for codes of length k */
+@@ -605,7 +605,7 @@ static int inflate_block(int *e)
+ 			bk = k_stored;
+ 			return 0;
+ 		}
+-	case 1:	/* Inflate fixed 
++	case 1:	/* Inflate fixed
+ 			 * decompress an inflated type 1 (fixed Huffman codes) block.  We should
+ 			 * either replace this with a custom decoder, or at least precompute the
+ 			 * Huffman tables.
+diff --git a/libbb/xfuncs.c b/libbb/xfuncs.c
+index 4374048..f577315 100644
+--- a/libbb/xfuncs.c
++++ b/libbb/xfuncs.c
+@@ -71,7 +71,7 @@ extern char * xstrndup (const char *s, int n) {
+ 		error_msg_and_die("xstrndup bug");
+ 
+ 	t = xmalloc(++n);
+-	
++
+ 	return safe_strncpy(t,s,n);
+ }
+ 
+diff --git a/libbb/xreadlink.c b/libbb/xreadlink.c
+index 5b0504c..7d77a3b 100644
+--- a/libbb/xreadlink.c
++++ b/libbb/xreadlink.c
+@@ -14,10 +14,10 @@
+ #include "libbb.h"
+ 
+ extern char *xreadlink(const char *path)
+-{                       
++{
+ 	static const int GROWBY = 80; /* how large we will grow strings by */
+ 
+-	char *buf = NULL;   
++	char *buf = NULL;
+ 	int bufsize = 0, readsize = 0;
+ 
+ 	do {
+@@ -27,11 +27,11 @@ extern char *xreadlink(const char *path)
+ 		    perror_msg("%s", path);
+ 		    return NULL;
+ 		}
+-	}           
++	}
+ 	while (bufsize < readsize + 1);
+ 
+ 	buf[readsize] = '\0';
+ 
+ 	return buf;
+-}       
++}
+ 
+diff --git a/libopkg/active_list.c b/libopkg/active_list.c
+index ffc6db0..69ac1d1 100644
+--- a/libopkg/active_list.c
++++ b/libopkg/active_list.c
+@@ -2,7 +2,7 @@
+ 
+    Tick Chen <tick@openmoko.com>
+ 
+-   Copyright (C) 2008 Openmoko Inc. 
++   Copyright (C) 2008 Openmoko Inc.
+ 
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+@@ -30,7 +30,7 @@ void active_list_init(struct active_list *ptr) {
+ }
+ 
+ /**
+- */ 
++ */
+ struct active_list * active_list_next(struct active_list *head, struct active_list *ptr) {
+     struct active_list *next=NULL;
+     if ( !head ) {
+@@ -47,7 +47,7 @@ struct active_list * active_list_next(struct active_list *head, struct active_li
+         return ptr->depended;
+     }
+     while ( next->depend.next != &next->depend ) {
+-        next = list_entry(next->depend.next, struct active_list, node); 
++        next = list_entry(next->depend.next, struct active_list, node);
+     }
+     return next;
+ }
+@@ -64,10 +64,10 @@ struct active_list * active_list_prev(struct active_list *head, struct active_li
+     if ( ptr->depend.prev != &ptr->depend ) {
+         prev = list_entry(ptr->depend.prev, struct active_list, node);
+         return prev;
+-    } 
++    }
+     if ( ptr->depended  && ptr->depended != head && &ptr->depended->depend == ptr->node.prev ) {
+         prev = list_entry(ptr->depended->node.prev, struct active_list, node);
+-    } else 
++    } else
+         prev = list_entry(ptr->node.prev, struct active_list, node);
+     if ( prev == head )
+         return NULL;
+@@ -131,8 +131,8 @@ void active_list_head_delete(struct active_list *head) {
+ }
+ 
+ /*
+- *  Using insert sort. 
+- *  Note. the list should not be large, or it will be very inefficient. 
++ *  Using insert sort.
++ *  Note. the list should not be large, or it will be very inefficient.
+  *
+  */
+ struct active_list * active_list_sort(struct active_list *head, int (*compare)(const void *, const void *)) {
+diff --git a/libopkg/active_list.h b/libopkg/active_list.h
+index c9d90c0..ecb79a6 100644
+--- a/libopkg/active_list.h
++++ b/libopkg/active_list.h
+@@ -2,7 +2,7 @@
+ 
+    Tick Chen <tick@openmoko.com>
+ 
+-   Copyright (C) 2008 Openmoko Inc. 
++   Copyright (C) 2008 Openmoko Inc.
+ 
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+diff --git a/libopkg/file_util.c b/libopkg/file_util.c
+index 0a443ea..cf5f774 100644
+--- a/libopkg/file_util.c
++++ b/libopkg/file_util.c
+@@ -175,9 +175,9 @@ char *file_md5sum_alloc(const char *file_name)
+ 	md5sum_hex[i*2] = bin2hex[md5sum_bin[i] >> 4];
+ 	md5sum_hex[i*2+1] = bin2hex[md5sum_bin[i] & 0xf];
+     }
+-    
++
+     md5sum_hex[md5sum_hex_len] = '\0';
+-    
++
+     return md5sum_hex;
+ }
+ 
+@@ -222,9 +222,9 @@ char *file_sha256sum_alloc(const char *file_name)
+ 	sha256sum_hex[i*2] = bin2hex[sha256sum_bin[i] >> 4];
+ 	sha256sum_hex[i*2+1] = bin2hex[sha256sum_bin[i] & 0xf];
+     }
+-    
++
+     sha256sum_hex[sha256sum_hex_len] = '\0';
+-    
++
+     return sha256sum_hex;
+ }
+ 
+diff --git a/libopkg/hash_table.c b/libopkg/hash_table.c
+index f3705ea..37b53e9 100644
+--- a/libopkg/hash_table.c
++++ b/libopkg/hash_table.c
+@@ -1,7 +1,7 @@
+ /* hash.c - hash tables for opkg
+ 
+    Steven M. Ayer, Jamey Hicks
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -108,9 +108,9 @@ void *hash_table_get(hash_table_t *hash, const char *key)
+ {
+   int ndx= hash_index(hash, key);
+   hash_entry_t *hash_entry = hash->entries + ndx;
+-  while (hash_entry) 
++  while (hash_entry)
+   {
+-    if (hash_entry->key) 
++    if (hash_entry->key)
+     {
+       if (strcmp(key, hash_entry->key) == 0) {
+ 	 hash->n_hits++;
+@@ -134,7 +134,7 @@ int hash_table_insert(hash_table_t *hash, const char *key, void *value)
+ 	       hash_entry->data = value;
+ 	       return 0;
+ 	  } else {
+-	       /* 
++	       /*
+ 		* if this is a collision, we have to go to the end of the ll,
+ 		* then add a new entry
+ 		* before we can hook up the value
+@@ -170,9 +170,9 @@ int hash_table_remove(hash_table_t *hash, const char *key)
+     int ndx= hash_index(hash, key);
+     hash_entry_t *hash_entry = hash->entries + ndx;
+     hash_entry_t *next_entry=NULL, *last_entry=NULL;
+-    while (hash_entry) 
++    while (hash_entry)
+     {
+-        if (hash_entry->key) 
++        if (hash_entry->key)
+         {
+             if (strcmp(key, hash_entry->key) == 0) {
+                 free(hash_entry->key);
+@@ -198,7 +198,7 @@ int hash_table_remove(hash_table_t *hash, const char *key)
+ }
+ 
+ void hash_table_foreach(hash_table_t *hash, void (*f)(const char *key, void *entry, void *data), void *data)
+-{ 
++{
+     int i;
+     if (!hash || !f)
+ 	return;
+diff --git a/libopkg/hash_table.h b/libopkg/hash_table.h
+index 9fa926f..472b3e2 100644
+--- a/libopkg/hash_table.h
++++ b/libopkg/hash_table.h
+@@ -1,7 +1,7 @@
+ /* hash.h - hash tables for opkg
+ 
+    Steven M. Ayer, Jamey Hicks
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -28,8 +28,8 @@ struct hash_entry {
+ };
+ 
+ struct hash_table {
+-  const char *name; 
+-  hash_entry_t * entries;  
++  const char *name;
++  hash_entry_t * entries;
+   unsigned int n_buckets;
+   unsigned int n_elements;
+ 
+diff --git a/libopkg/list.h b/libopkg/list.h
+index 48e4dd5..c1325db 100644
+--- a/libopkg/list.h
++++ b/libopkg/list.h
+@@ -2,7 +2,7 @@
+ 
+    Tick Chen <tick@openmoko.com>
+ 
+-   Copyright (C) 2008 Openmoko Inc. 
++   Copyright (C) 2008 Openmoko Inc.
+ 
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+diff --git a/libopkg/nv_pair_list.c b/libopkg/nv_pair_list.c
+index 8baebb1..333e721 100644
+--- a/libopkg/nv_pair_list.c
++++ b/libopkg/nv_pair_list.c
+@@ -74,7 +74,7 @@ char *nv_pair_list_find(nv_pair_list_t *list, char *name)
+ 	  if (strcmp(nv_pair->name, name) == 0) {
+ 	       return nv_pair->value;
+ 	  }
+-     }    
++     }
+      return NULL;
+ }
+ 
+diff --git a/libopkg/nv_pair_list.h b/libopkg/nv_pair_list.h
+index e37f612..1223a1f 100644
+--- a/libopkg/nv_pair_list.h
++++ b/libopkg/nv_pair_list.h
+@@ -39,7 +39,7 @@ void nv_pair_list_push(nv_pair_list_t *list, nv_pair_t *data);
+ nv_pair_list_elt_t *nv_pair_list_pop(nv_pair_list_t *list);
+ char *nv_pair_list_find(nv_pair_list_t *list, char *name);
+ 
+-nv_pair_list_elt_t *nv_pair_list_first(nv_pair_list_t *list); 
++nv_pair_list_elt_t *nv_pair_list_first(nv_pair_list_t *list);
+ nv_pair_list_elt_t *nv_pair_list_prev(nv_pair_list_t *list, nv_pair_list_elt_t *node);
+ nv_pair_list_elt_t *nv_pair_list_next(nv_pair_list_t *list, nv_pair_list_elt_t *node);
+ nv_pair_list_elt_t *nv_pair_list_last(nv_pair_list_t *list);
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index be38d4f..87c3244 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -244,7 +244,7 @@ opkg_set_option(char *option, void *value)
+ /**
+  * @brief libopkg API: Install package
+  * @param package_name The name of package in which is going to install
+- * @param progress_callback The callback function that report the status to caller. 
++ * @param progress_callback The callback function that report the status to caller.
+  */
+ int
+ opkg_install_package(const char *package_name,
+@@ -822,7 +822,7 @@ opkg_find_package(const char *name, const char *ver, const char *arch,
+ 
+ /**
+  * @brief Check the accessibility of repositories.
+- * @return return how many repositories cannot access. 0 means all okay. 
++ * @return return how many repositories cannot access. 0 means all okay.
+  */
+ int
+ opkg_repository_accessibility_check(void)
+diff --git a/libopkg/opkg_cmd.c b/libopkg/opkg_cmd.c
+index c5ba3f4..affa0f7 100644
+--- a/libopkg/opkg_cmd.c
++++ b/libopkg/opkg_cmd.c
+@@ -63,7 +63,7 @@ write_status_files_if_changed(void)
+ 	  opkg_msg(INFO, "Writing status file.\n");
+ 	  opkg_conf_write_status_files();
+ 	  pkg_write_changed_filelists();
+-     } else { 
++     } else {
+ 	  opkg_msg(DEBUG, "Nothing to be done.\n");
+      }
+ }
+@@ -87,9 +87,9 @@ opkg_update_cmd(int argc, char **argv)
+      pkg_src_list_elt_t *iter;
+      pkg_src_t *src;
+ 
+- 
++
+     sprintf_alloc(&lists_dir, "%s", conf->restrict_to_default_dest ? conf->default_dest->lists_dir : conf->lists_dir);
+- 
++
+     if (! file_is_dir(lists_dir)) {
+ 	  if (file_exists(lists_dir)) {
+ 	       opkg_msg(ERROR, "%s exists, but is not a directory.\n",
+@@ -101,8 +101,8 @@ opkg_update_cmd(int argc, char **argv)
+ 	  if (err) {
+ 	       free(lists_dir);
+ 	       return -1;
+-	  }	
+-     } 
++	  }
++     }
+ 
+      failures = 0;
+ 
+@@ -119,7 +119,7 @@ opkg_update_cmd(int argc, char **argv)
+ 	  src = (pkg_src_t *)iter->data;
+ 
+ 	  if (src->extra_data)	/* debian style? */
+-	      sprintf_alloc(&url, "%s/%s/%s", src->value, src->extra_data, 
++	      sprintf_alloc(&url, "%s/%s/%s", src->value, src->extra_data,
+ 			    src->gzip ? "Packages.gz" : "Packages");
+ 	  else
+ 	      sprintf_alloc(&url, "%s/%s", src->value, src->gzip ? "Packages.gz" : "Packages");
+@@ -128,7 +128,7 @@ opkg_update_cmd(int argc, char **argv)
+ 	  if (src->gzip) {
+ 	      char *tmp_file_name;
+ 	      FILE *in, *out;
+-	      
++
+ 	      sprintf_alloc (&tmp_file_name, "%s/%s.gz", tmp, src->name);
+ 	      err = opkg_download(url, tmp_file_name, NULL, NULL);
+ 	      if (err == 0) {
+@@ -252,7 +252,7 @@ opkg_finalize_intercepts(opkg_intercept_t ctx)
+ 
+ 	    if (de->d_name[0] == '.')
+ 		continue;
+-	    
++
+ 	    sprintf_alloc (&path, "%s/%s", ctx->statedir, de->d_name);
+ 	    if (access (path, X_OK) == 0) {
+ 		const char *argv[] = {"sh", "-c", path, NULL};
+@@ -263,7 +263,7 @@ opkg_finalize_intercepts(opkg_intercept_t ctx)
+         closedir(dir);
+     } else
+ 	opkg_perror(ERROR, "Failed to open dir %s", ctx->statedir);
+-	
++
+     rm_r(ctx->statedir);
+     free (ctx->statedir);
+     free (ctx);
+@@ -272,10 +272,10 @@ opkg_finalize_intercepts(opkg_intercept_t ctx)
+ }
+ 
+ /* For package pkg do the following: If it is already visited, return. If not,
+-   add it in visited list and recurse to its deps. Finally, add it to ordered 
++   add it in visited list and recurse to its deps. Finally, add it to ordered
+    list.
+    pkg_vec all contains all available packages in repos.
+-   pkg_vec visited contains packages already visited by this function, and is 
++   pkg_vec visited contains packages already visited by this function, and is
+    used to end recursion and avoid an infinite loop on graph cycles.
+    pkg_vec ordered will finally contain the ordered set of packages.
+ */
+@@ -293,21 +293,21 @@ opkg_recurse_pkgs_in_order(pkg_t *pkg, pkg_vec_t *all,
+ 
+     /* If it's just an available package, that is, not installed and not even
+        unpacked, skip it */
+-    /* XXX: This is probably an overkill, since a state_status != SS_UNPACKED 
+-       would do here. However, if there is an intermediate node (pkg) that is 
+-       configured and installed between two unpacked packages, the latter 
++    /* XXX: This is probably an overkill, since a state_status != SS_UNPACKED
++       would do here. However, if there is an intermediate node (pkg) that is
++       configured and installed between two unpacked packages, the latter
+        won't be properly reordered, unless all installed/unpacked pkgs are
+        checked */
+-    if (pkg->state_status == SS_NOT_INSTALLED) 
++    if (pkg->state_status == SS_NOT_INSTALLED)
+         return 0;
+ 
+     /* If the  package has already been visited (by this function), skip it */
+-    for(j = 0; j < visited->len; j++) 
++    for(j = 0; j < visited->len; j++)
+         if ( ! strcmp(visited->pkgs[j]->name, pkg->name)) {
+             opkg_msg(DEBUG, "pkg %s already visited, skipping.\n", pkg->name);
+             return 0;
+         }
+-    
++
+     pkg_vec_insert(visited, pkg);
+ 
+     count = pkg->pre_depends_count + pkg->depends_count + \
+@@ -315,9 +315,9 @@ opkg_recurse_pkgs_in_order(pkg_t *pkg, pkg_vec_t *all,
+ 
+     opkg_msg(DEBUG, "pkg %s.\n", pkg->name);
+ 
+-    /* Iterate over all the dependencies of pkg. For each one, find a package 
++    /* Iterate over all the dependencies of pkg. For each one, find a package
+        that is either installed or unpacked and satisfies this dependency.
+-       (there should only be one such package per dependency installed or 
++       (there should only be one such package per dependency installed or
+        unpacked). Then recurse to the dependency package */
+     for (j=0; j < count ; j++) {
+         compound_depend = &pkg->depends[j];
+@@ -328,16 +328,16 @@ opkg_recurse_pkgs_in_order(pkg_t *pkg, pkg_vec_t *all,
+             l = 0;
+             if (dependents != NULL)
+                 while (l < abpkg->provided_by->len && dependents[l] != NULL) {
+-                    opkg_msg(DEBUG, "Descending on pkg %s.\n", 
++                    opkg_msg(DEBUG, "Descending on pkg %s.\n",
+                                  dependents [l]->name);
+-    
++
+                     /* find whether dependent l is installed or unpacked,
+                      * and then find which package in the list satisfies it */
+                     for(m = 0; m < all->len; m++) {
+                         dep = all->pkgs[m];
+                         if ( dep->state_status != SS_NOT_INSTALLED)
+                             if ( ! strcmp(dep->name, dependents[l]->name)) {
+-                                opkg_recurse_pkgs_in_order(dep, all, 
++                                opkg_recurse_pkgs_in_order(dep, all,
+                                                            visited, ordered);
+                                 /* Stop the outer loop */
+                                 l = abpkg->provided_by->len;
+@@ -350,7 +350,7 @@ opkg_recurse_pkgs_in_order(pkg_t *pkg, pkg_vec_t *all,
+         }
+     }
+ 
+-    /* When all recursions from this node down, are over, and all 
++    /* When all recursions from this node down, are over, and all
+        dependencies have been added in proper order in the ordered array, add
+        also the package pkg to ordered array */
+     pkg_vec_insert(ordered, pkg);
+@@ -389,11 +389,11 @@ opkg_configure_packages(char *pkg_name)
+ 	     err = -1;
+ 	     goto error;
+      }
+-    
++
+      for(i = 0; i < ordered->len; i++) {
+ 	  pkg = ordered->pkgs[i];
+ 
+-	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0)) 
++	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0))
+ 	       continue;
+ 
+ 	  if (pkg->state_status == SS_UNPACKED) {
+@@ -579,7 +579,7 @@ opkg_list_cmd(int argc, char **argv)
+      for (i=0; i < available->len; i++) {
+ 	  pkg = available->pkgs[i];
+ 	  /* if we have package name or pattern and pkg does not match, then skip it */
+-	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0)) 
++	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0))
+ 	       continue;
+           print_pkg(pkg);
+      }
+@@ -606,7 +606,7 @@ opkg_list_installed_cmd(int argc, char **argv)
+      for (i=0; i < available->len; i++) {
+ 	  pkg = available->pkgs[i];
+ 	  /* if we have package name or pattern and pkg does not match, then skip it */
+-	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0)) 
++	  if (pkg_name && fnmatch(pkg_name, pkg->name, 0))
+ 	       continue;
+           print_pkg(pkg);
+      }
+@@ -738,7 +738,7 @@ opkg_remove_cmd(int argc, char **argv)
+             } else {
+ 	         pkg_to_remove = pkg_hash_fetch_installed_by_name(pkg->name);
+             }
+-        
++
+             if (pkg_to_remove == NULL) {
+ 	         opkg_msg(ERROR, "Package %s is not installed.\n", pkg->name);
+ 	         continue;
+@@ -770,7 +770,7 @@ opkg_flag_cmd(int argc, char **argv)
+      int i;
+      pkg_t *pkg;
+      const char *flags = argv[0];
+-    
++
+      signal(SIGINT, sigint_handler);
+ 
+      for (i=1; i < argc; i++) {
+@@ -790,7 +790,7 @@ opkg_flag_cmd(int argc, char **argv)
+ 	      pkg->state_flag = pkg_state_flag_from_str(flags);
+           }
+ 
+-	  /* 
++	  /*
+ 	   * Useful if a package is installed in an offline_root, and
+ 	   * should be configured by opkg-cl configure at a later date.
+ 	   */
+@@ -931,7 +931,7 @@ opkg_what_depends_conflicts_cmd(enum depend_type what_field_type, int recursive,
+ 	case RECOMMEND: rel_str = "recommends"; break;
+ 	default: return -1;
+ 	}
+-     
++
+ 	available_pkgs = pkg_vec_alloc();
+ 
+ 	if (conf->query_all)
+@@ -987,14 +987,14 @@ opkg_what_depends_conflicts_cmd(enum depend_type what_field_type, int recursive,
+ 								& SF_MARKED)
+ 							!= SF_MARKED)
+ 						continue;
+-					
++
+ 					/* mark the depending package so we
+ 					* won't visit it again */
+ 					pkg->state_flag |= SF_MARKED;
+ 					pkg_mark_provides(pkg);
+ 					changed++;
+ 
+-					ver = pkg_version_str_alloc(pkg); 
++					ver = pkg_version_str_alloc(pkg);
+ 				        opkg_msg(NOTICE, "\t%s %s\t%s %s",
+ 							pkg->name,
+ 							ver,
+@@ -1061,7 +1061,7 @@ opkg_what_provides_replaces_cmd(enum what_field_type what_field_type, int argc,
+ 	  pkg_vec_t *available_pkgs = pkg_vec_alloc();
+ 	  const char *rel_str = (what_field_type == WHATPROVIDES ? "provides" : "replaces");
+ 	  int i;
+-     
++
+ 	  pkg_info_preinstall_check();
+ 
+ 	  if (conf->query_all)
+@@ -1079,8 +1079,8 @@ opkg_what_provides_replaces_cmd(enum what_field_type what_field_type, int argc,
+ 		    int k;
+ 		    int count = (what_field_type == WHATPROVIDES) ? pkg->provides_count : pkg->replaces_count;
+ 		    for (k = 0; k < count; k++) {
+-			 abstract_pkg_t *apkg = 
+-			      ((what_field_type == WHATPROVIDES) 
++			 abstract_pkg_t *apkg =
++			      ((what_field_type == WHATPROVIDES)
+ 			       ? pkg->provides[k]
+ 			       : pkg->replaces[k]);
+ 			 if (fnmatch(target, apkg->name, 0) == 0) {
+@@ -1124,7 +1124,7 @@ opkg_search_cmd(int argc, char **argv)
+      if (argc < 1) {
+ 	  return -1;
+      }
+- 
++
+      installed = pkg_vec_alloc();
+      pkg_hash_fetch_all_installed(installed);
+      pkg_vec_sort(installed, pkg_compare_names);
+@@ -1154,8 +1154,8 @@ opkg_compare_versions_cmd(int argc, char **argv)
+      if (argc == 3) {
+ 	  /* this is a bit gross */
+ 	  struct pkg p1, p2;
+-	  parse_version(&p1, argv[0]); 
+-	  parse_version(&p2, argv[2]); 
++	  parse_version(&p1, argv[0]);
++	  parse_version(&p2, argv[2]);
+ 	  return pkg_version_satisfied(&p1, &p2, argv[1]);
+      } else {
+ 	  opkg_msg(ERROR,
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index a145ae7..f1ef0d0 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -47,13 +47,13 @@ opkg_conf_t *conf = &_conf;
+ opkg_option_t options[] = {
+ 	  { "cache", OPKG_OPT_TYPE_STRING, &_conf.cache},
+ 	  { "force_defaults", OPKG_OPT_TYPE_BOOL, &_conf.force_defaults },
+-          { "force_maintainer", OPKG_OPT_TYPE_BOOL, &_conf.force_maintainer }, 
++          { "force_maintainer", OPKG_OPT_TYPE_BOOL, &_conf.force_maintainer },
+ 	  { "force_depends", OPKG_OPT_TYPE_BOOL, &_conf.force_depends },
+ 	  { "force_overwrite", OPKG_OPT_TYPE_BOOL, &_conf.force_overwrite },
+ 	  { "force_downgrade", OPKG_OPT_TYPE_BOOL, &_conf.force_downgrade },
+ 	  { "force_reinstall", OPKG_OPT_TYPE_BOOL, &_conf.force_reinstall },
+ 	  { "force_space", OPKG_OPT_TYPE_BOOL, &_conf.force_space },
+-          { "check_signature", OPKG_OPT_TYPE_BOOL, &_conf.check_signature }, 
++          { "check_signature", OPKG_OPT_TYPE_BOOL, &_conf.check_signature },
+ 	  { "ftp_proxy", OPKG_OPT_TYPE_STRING, &_conf.ftp_proxy },
+ 	  { "http_proxy", OPKG_OPT_TYPE_STRING, &_conf.http_proxy },
+ 	  { "no_proxy", OPKG_OPT_TYPE_STRING, &_conf.no_proxy },
+@@ -72,7 +72,7 @@ opkg_option_t options[] = {
+ 	  { "signature_ca_path", OPKG_OPT_TYPE_STRING, &_conf.signature_ca_path },
+ #endif
+ #if defined(HAVE_PATHFINDER)
+-          { "check_x509_path", OPKG_OPT_TYPE_BOOL, &_conf.check_x509_path }, 
++          { "check_x509_path", OPKG_OPT_TYPE_BOOL, &_conf.check_x509_path },
+ #endif
+ #if defined(HAVE_SSLCURL) && defined(HAVE_CURL)
+           { "ssl_engine", OPKG_OPT_TYPE_STRING, &_conf.ssl_engine },
+@@ -156,7 +156,7 @@ opkg_conf_set_option(const char *name, const char *value)
+ 			 opkg_msg(ERROR, "Option %s needs an argument\n",
+ 				name);
+ 			 return -1;
+-		    }		    
++		    }
+ 	       case OPKG_OPT_TYPE_STRING:
+ 		    if (value) {
+ 			    if (*(char **)options[i].value) {
+@@ -176,7 +176,7 @@ opkg_conf_set_option(const char *name, const char *value)
+ 	  }
+ 	  i++;
+      }
+-    
++
+      opkg_msg(ERROR, "Unrecognized option: %s=%s\n", name, value);
+      return -1;
+ }
+@@ -202,7 +202,7 @@ opkg_conf_parse_file(const char *filename,
+ 
+      opkg_msg(INFO, "Loading conf file %s.\n", filename);
+ 
+-     err = xregcomp(&comment_re, 
++     err = xregcomp(&comment_re,
+ 		    "^[[:space:]]*(#.*|[[:space:]]*)$",
+ 		    REG_EXTENDED);
+      if (err)
+@@ -460,11 +460,11 @@ opkg_conf_init(void)
+ 	free(etc_opkg_conf_pattern);
+ 
+ 	for (i = 0; i < globbuf.gl_pathc; i++) {
+-		if (globbuf.gl_pathv[i]) 
++		if (globbuf.gl_pathv[i])
+ 			if (conf->conf_file &&
+ 					!strcmp(conf->conf_file, globbuf.gl_pathv[i]))
+ 				continue;
+-		if ( opkg_conf_parse_file(globbuf.gl_pathv[i], 
++		if ( opkg_conf_parse_file(globbuf.gl_pathv[i],
+ 			&conf->pkg_src_list, &tmp_dest_nv_pair_list)<0) {
+ 			globfree(&globbuf);
+ 			goto err1;
+@@ -617,7 +617,7 @@ opkg_conf_deinit(void)
+ 		}
+ 	}
+ 
+-	if (conf->verbosity >= DEBUG) { 
++	if (conf->verbosity >= DEBUG) {
+ 		hash_print_stats(&conf->pkg_hash);
+ 		hash_print_stats(&conf->file_hash);
+ 		hash_print_stats(&conf->obs_file_hash);
+diff --git a/libopkg/opkg_download.c b/libopkg/opkg_download.c
+index c852d86..4969dd7 100644
+--- a/libopkg/opkg_download.c
++++ b/libopkg/opkg_download.c
+@@ -90,7 +90,7 @@ opkg_download(const char *src, const char *dest_file_name,
+     char *tmp_file_location;
+ 
+     opkg_msg(NOTICE,"Downloading %s.\n", src);
+-	
++
+     if (str_starts_with(src, "file:")) {
+ 	const char *file_src = src + 5;
+ 	opkg_msg(INFO, "Copying %s to %s...", file_src, dest_file_name);
+@@ -269,7 +269,7 @@ opkg_download_pkg(pkg_t *pkg, const char *dir)
+ }
+ 
+ /*
+- * Downloads file from url, installs in package database, return package name. 
++ * Downloads file from url, installs in package database, return package name.
+  */
+ int
+ opkg_prepare_url_for_install(const char *url, char **namep)
+@@ -317,7 +317,7 @@ opkg_prepare_url_for_install(const char *url, char **namep)
+      pkg->dest = conf->default_dest;
+      pkg->state_want = SW_INSTALL;
+      pkg->state_flag |= SF_PREFER;
+-     hash_insert_pkg(pkg, 1);  
++     hash_insert_pkg(pkg, 1);
+ 
+      if (namep) {
+ 	  *namep = pkg->name;
+@@ -338,14 +338,14 @@ opkg_verify_file (char *text_file, char *sig_file)
+     gpgme_verify_result_t result;
+     gpgme_signature_t s;
+     char *trusted_path = NULL;
+-    
++
+     err = gpgme_new (&ctx);
+ 
+     if (err)
+ 	return -1;
+ 
+     sprintf_alloc(&trusted_path, "%s/%s", conf->offline_root, "/etc/opkg/trusted.gpg");
+-    err = gpgme_data_new_from_file (&key, trusted_path, 1); 
++    err = gpgme_data_new_from_file (&key, trusted_path, 1);
+     free (trusted_path);
+     if (err)
+     {
+@@ -359,14 +359,14 @@ opkg_verify_file (char *text_file, char *sig_file)
+     }
+     gpgme_data_release (key);
+ 
+-    err = gpgme_data_new_from_file (&sig, sig_file, 1); 
++    err = gpgme_data_new_from_file (&sig, sig_file, 1);
+     if (err)
+     {
+ 	gpgme_release (ctx);
+ 	return -1;
+     }
+ 
+-    err = gpgme_data_new_from_file (&text, text_file, 1); 
++    err = gpgme_data_new_from_file (&text, text_file, 1);
+     if (err)
+     {
+         gpgme_data_release (sig);
+diff --git a/libopkg/opkg_download.h b/libopkg/opkg_download.h
+index 0058287..3e1c760 100644
+--- a/libopkg/opkg_download.h
++++ b/libopkg/opkg_download.h
+@@ -28,7 +28,7 @@ typedef int (*curl_progress_func)(void *data, double t, double d, double ultotal
+ int opkg_download(const char *src, const char *dest_file_name, curl_progress_func cb, void *data);
+ int opkg_download_pkg(pkg_t *pkg, const char *dir);
+ /*
+- * Downloads file from url, installs in package database, return package name. 
++ * Downloads file from url, installs in package database, return package name.
+  */
+ int opkg_prepare_url_for_install(const char *url, char **namep);
+ 
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 2693274..eaa1edc 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -50,7 +50,7 @@ satisfy_dependencies_for(pkg_t *pkg)
+      char **tmp, **unresolved = NULL;
+      int ndepends;
+ 
+-     ndepends = pkg_hash_fetch_unsatisfied_dependencies(pkg, depends, 
++     ndepends = pkg_hash_fetch_unsatisfied_dependencies(pkg, depends,
+ 							&unresolved);
+ 
+      if (unresolved) {
+@@ -151,8 +151,8 @@ update_file_ownership(pkg_t *new_pkg, pkg_t *old_pkg)
+      if (new_list == NULL)
+ 	     return -1;
+ 
+-     for (iter = str_list_first(new_list), niter = str_list_next(new_list, iter); 
+-             iter; 
++     for (iter = str_list_first(new_list), niter = str_list_next(new_list, iter);
++             iter;
+              iter = niter, niter = str_list_next(new_list, niter)) {
+ 	  char *new_file = (char *)iter->data;
+ 	  pkg_t *owner = file_hash_get_file_owner(new_file);
+@@ -172,8 +172,8 @@ update_file_ownership(pkg_t *new_pkg, pkg_t *old_pkg)
+ 		  return -1;
+ 	  }
+ 
+-	  for (iter = str_list_first(old_list), niter = str_list_next(old_list, iter); 
+-                  iter; 
++	  for (iter = str_list_first(old_list), niter = str_list_next(old_list, iter);
++                  iter;
+                   iter = niter, niter = str_list_next(old_list, niter)) {
+ 	       char *old_file = (char *)iter->data;
+ 	       pkg_t *owner = file_hash_get_file_owner(old_file);
+@@ -250,7 +250,7 @@ unpack_pkg_control_files(pkg_t *pkg)
+ 	  free(conffiles_file_name);
+ 	  return 0;
+      }
+-    
++
+      conffiles_file = fopen(conffiles_file_name, "r");
+      if (conffiles_file == NULL) {
+ 	  opkg_perror(ERROR, "Failed to open %s", conffiles_file_name);
+@@ -298,7 +298,7 @@ unpack_pkg_control_files(pkg_t *pkg)
+  * which are no longer a dependency in the new (upgraded) pkg.
+  */
+ static int
+-pkg_remove_orphan_dependent(pkg_t *pkg, pkg_t *old_pkg) 
++pkg_remove_orphan_dependent(pkg_t *pkg, pkg_t *old_pkg)
+ {
+ 	int i, j, k, l, found,r, err = 0;
+ 	int n_deps;
+@@ -368,7 +368,7 @@ pkg_remove_orphan_dependent(pkg_t *pkg, pkg_t *old_pkg)
+ 				r = opkg_remove_pkg(p, 0);
+ 				if (!err)
+ 					err = r;
+-			} else 
++			} else
+ 				opkg_msg(INFO, "%s was autoinstalled and is "
+ 						"still required by %d "
+ 						"installed packages.\n",
+@@ -441,7 +441,7 @@ pkg_remove_installed_replacees_unwind(pkg_vec_t *replacees)
+ /* compares versions of pkg and old_pkg, returns 0 if OK to proceed with installation of pkg, 1 otherwise */
+ static int
+ opkg_install_check_downgrade(pkg_t *pkg, pkg_t *old_pkg, int message)
+-{	  
++{
+      if (old_pkg) {
+           char message_out[15];
+ 	  char *old_version = pkg_version_str_alloc(old_pkg);
+@@ -450,12 +450,12 @@ opkg_install_check_downgrade(pkg_t *pkg, pkg_t *old_pkg, int message)
+ 	  int rc = 0;
+ 
+           memset(message_out,'\x0',15);
+-          strncpy (message_out,"Upgrading ",strlen("Upgrading ")); 
++          strncpy (message_out,"Upgrading ",strlen("Upgrading "));
+           if ( (conf->force_downgrade==1) && (cmp > 0) ){     /* We've been asked to allow downgrade  and version is precedent */
+-             cmp = -1 ;                                       /* then we force opkg to downgrade */ 
++             cmp = -1 ;                                       /* then we force opkg to downgrade */
+              strncpy (message_out,"Downgrading ",strlen("Downgrading "));         /* We need to use a value < 0 because in the 0 case we are asking to */
+                                                               /* reinstall, and some check could fail asking the "force-reinstall" option */
+-          } 
++          }
+ 
+ 	  if (cmp > 0) {
+               if(!conf->download_only)
+@@ -474,14 +474,14 @@ opkg_install_check_downgrade(pkg_t *pkg, pkg_t *old_pkg, int message)
+                    opkg_msg(NOTICE, "%s (%s) already install on %s.\n",
+ 			pkg->name, new_version, old_pkg->dest->name);
+ 	       rc = 1;
+-	  } 
++	  }
+ 	  free(old_version);
+ 	  free(new_version);
+ 	  return rc;
+      } else {
+           char message_out[15] ;
+           memset(message_out,'\x0',15);
+-          if ( message ) 
++          if ( message )
+                strncpy( message_out,"Upgrading ",strlen("Upgrading ") );
+           else
+                strncpy( message_out,"Installing ",strlen("Installing ") );
+@@ -501,7 +501,7 @@ prerm_upgrade_old_pkg(pkg_t *pkg, pkg_t *old_pkg)
+ {
+      /* DPKG_INCOMPATIBILITY:
+ 	dpkg does some things here that we don't do yet. Do we care?
+-	
++
+ 	1. If a version of the package is already installed, call
+ 	   old-prerm upgrade new-version
+ 	2. If the script runs but exits with a non-zero exit status
+@@ -615,7 +615,7 @@ backup_make_backup(const char *file_name)
+ {
+      int err;
+      char *backup;
+-    
++
+      backup = backup_filename_alloc(file_name);
+      err = file_copy(file_name, backup);
+      if (err) {
+@@ -668,7 +668,7 @@ backup_modified_conffiles(pkg_t *pkg, pkg_t *old_pkg)
+      if (old_pkg) {
+ 	  for (iter = nv_pair_list_first(&old_pkg->conffiles); iter; iter = nv_pair_list_next(&old_pkg->conffiles, iter)) {
+ 	       char *cf_name;
+-	       
++
+ 	       cf = iter->data;
+ 	       cf_name = root_filename_alloc(cf->name);
+ 
+@@ -734,7 +734,7 @@ check_data_file_clashes(pkg_t *pkg, pkg_t *old_pkg)
+ 	can unwind if necessary).  To avoid complexity and redundant
+ 	storage, opkg doesn't do any installation until later, (at the
+ 	point at which dpkg removes the backups.
+-	
++
+ 	But, we do have to check for data file clashes, since after
+ 	installing a package with a file clash, removing either of the
+ 	packages involved in the clash has the potential to break the
+@@ -749,8 +749,8 @@ check_data_file_clashes(pkg_t *pkg, pkg_t *old_pkg)
+      if (files_list == NULL)
+ 	     return -1;
+ 
+-     for (iter = str_list_first(files_list), niter = str_list_next(files_list, iter); 
+-             iter; 
++     for (iter = str_list_first(files_list), niter = str_list_next(files_list, iter);
++             iter;
+              iter = niter, niter = str_list_next(files_list, iter)) {
+ 	  filename = (char *) iter->data;
+ 	  if (file_exists(filename) && (! file_is_dir(filename))) {
+@@ -761,7 +761,7 @@ check_data_file_clashes(pkg_t *pkg, pkg_t *old_pkg)
+ 		    continue;
+ 	       }
+ 
+-	       /* Pre-existing files are OK if force-overwrite was asserted. */ 
++	       /* Pre-existing files are OK if force-overwrite was asserted. */
+ 	       if (conf->force_overwrite) {
+ 		    /* but we need to change who owns this file */
+ 		    file_hash_set_file_owner(filename, pkg);
+@@ -844,8 +844,8 @@ check_data_file_clashes_change(pkg_t *pkg, pkg_t *old_pkg)
+      if (files_list == NULL)
+ 	     return -1;
+ 
+-     for (iter = str_list_first(files_list), niter = str_list_next(files_list, iter); 
+-             iter; 
++     for (iter = str_list_first(files_list), niter = str_list_next(files_list, iter);
++             iter;
+              iter = niter, niter = str_list_next(files_list, niter)) {
+ 	  char *filename = (char *) iter->data;
+           if (root_filename) {
+@@ -868,7 +868,7 @@ check_data_file_clashes_change(pkg_t *pkg, pkg_t *old_pkg)
+ 	       /* Pre-existing files are OK if owned by a package replaced by new pkg. */
+ 	       if (owner) {
+ 		    if (pkg_replaces(pkg, owner)) {
+-/* It's now time to change the owner of that file. 
++/* It's now time to change the owner of that file.
+    It has been "replaced" from the new "Replaces", then I need to inform lists file about that.  */
+ 			 opkg_msg(INFO, "Replacing pre-existing file %s "
+ 					 "owned by package %s\n",
+@@ -962,7 +962,7 @@ remove_obsolesced_files(pkg_t *pkg, pkg_t *old_pkg)
+ 	       /* in case obsolete file no longer belongs to old_pkg */
+ 	       continue;
+ 	  }
+- 
++
+ 	  /* old file is obsolete */
+ 	  opkg_msg(NOTICE, "Removing obsolete file %s.\n", old);
+ 	  if (!conf->noaction) {
+@@ -1000,7 +1000,7 @@ remove_disappeared(pkg_t *pkg)
+      /* DPKG_INCOMPATIBILITY:
+ 	This is a fairly sophisticated dpkg operation. Shall we
+ 	skip it? */
+-     
++
+      /* Any packages all of whose files have been overwritten during the
+ 	installation, and which aren't required for dependencies, are
+ 	considered to have been removed. For each such package
+@@ -1024,7 +1024,7 @@ install_data_files(pkg_t *pkg)
+ 	than dpkg. Rather than removing backups at this point, we
+ 	actually do the data file installation now. See comments in
+ 	check_data_file_clashes() for more details. */
+-    
++
+      opkg_msg(INFO, "Extracting data files to %s.\n", pkg->dest->root_dir);
+      err = pkg_extract_data_files_to_dir(pkg, pkg->dest->root_dir);
+      if (err) {
+@@ -1037,7 +1037,7 @@ install_data_files(pkg_t *pkg)
+       * XXX: This should be fixed outside of opkg, in the Package list.
+       */
+      set_flags_from_control(pkg) ;
+-     
++
+      opkg_msg(DEBUG, "Calling pkg_write_filelist.\n");
+      err = pkg_write_filelist(pkg);
+      if (err)
+@@ -1127,7 +1127,7 @@ opkg_install_by_name(const char *pkg_name)
+      if (old)
+         opkg_msg(DEBUG2, "Old versions from pkg_hash_fetch %s.\n",
+ 			old->version);
+-    
++
+      new = pkg_hash_fetch_best_installation_candidate_by_name(pkg_name);
+      if (new == NULL) {
+ 	opkg_msg(NOTICE, "Unknown package '%s'.\n", pkg_name);
+@@ -1135,7 +1135,7 @@ opkg_install_by_name(const char *pkg_name)
+      }
+ 
+      opkg_msg(DEBUG2, "Versions from pkg_hash_fetch:");
+-     if ( old ) 
++     if ( old )
+         opkg_message(DEBUG2, " old %s ", old->version);
+      opkg_message(DEBUG2, " new %s\n", new->version);
+ 
+@@ -1147,10 +1147,10 @@ opkg_install_by_name(const char *pkg_name)
+ 	  cmp = pkg_compare_versions(old, new);
+           if ( (conf->force_downgrade==1) && (cmp > 0) ){     /* We've been asked to allow downgrade  and version is precedent */
+ 	     opkg_msg(DEBUG, "Forcing downgrade\n");
+-             cmp = -1 ;                                       /* then we force opkg to downgrade */ 
++             cmp = -1 ;                                       /* then we force opkg to downgrade */
+                                                               /* We need to use a value < 0 because in the 0 case we are asking to */
+                                                               /* reinstall, and some check could fail asking the "force-reinstall" option */
+-          } 
++          }
+ 	  opkg_msg(DEBUG, "Comparing visible versions of pkg %s:"
+ 		       "\n\t%s is installed "
+ 		       "\n\t%s is available "
+@@ -1183,7 +1183,7 @@ opkg_install_by_name(const char *pkg_name)
+ }
+ 
+ /**
+- *  @brief Really install a pkg_t 
++ *  @brief Really install a pkg_t
+  */
+ int
+ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+@@ -1200,7 +1200,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ #endif
+      sigset_t newset, oldset;
+ 
+-     if ( from_upgrade ) 
++     if ( from_upgrade )
+         message = 1;            /* Coming from an upgrade, and should change the output message */
+ 
+      opkg_msg(DEBUG2, "Calling pkg_arch_supported.\n");
+@@ -1215,7 +1215,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 	  if (err)
+ 		  return -1;
+ 
+-	  opkg_msg(NOTICE, "Package %s is already installed on %s.\n", 
++	  opkg_msg(NOTICE, "Package %s is already installed on %s.\n",
+ 		       pkg->name, pkg->dest->name);
+ 	  return 0;
+      }
+@@ -1231,21 +1231,21 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 	     return -1;
+ 
+      pkg->state_want = SW_INSTALL;
+-     if (old_pkg){                          
++     if (old_pkg){
+          old_pkg->state_want = SW_DEINSTALL; /* needed for check_data_file_clashes of dependencies */
+      }
+ 
+      err = check_conflicts_for(pkg);
+      if (err)
+ 	     return -1;
+-    
++
+      /* this setup is to remove the upgrade scenario in the end when
+ 	installing pkg A, A deps B & B deps on A. So both B and A are
+ 	installed. Then A's installation is started resulting in an
+-	uncecessary upgrade */ 
++	uncecessary upgrade */
+      if (pkg->state_status == SS_INSTALLED)
+ 	     return 0;
+-    
++
+      err = verify_pkg_installable(pkg);
+      if (err)
+ 	     return -1;
+@@ -1383,7 +1383,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+                pkg_remove_orphan_dependent(pkg, old_pkg);
+ 
+ 	  /* XXX: BUG: we really should treat replacement more like an upgrade
+-	   *      Instead, we're going to remove the replacees 
++	   *      Instead, we're going to remove the replacees
+ 	   */
+ 	  err = pkg_remove_installed_replacees(replacees);
+ 	  if (err)
+@@ -1434,7 +1434,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 		    }
+ 	       }
+ 
+-               /* removing files from old package, to avoid ghost files */ 
++               /* removing files from old package, to avoid ghost files */
+                remove_data_files_and_list(old_pkg);
+                remove_maintainer_scripts(old_pkg);
+ 	  }
+@@ -1488,7 +1488,7 @@ opkg_install_pkg(pkg_t *pkg, int from_upgrade)
+ 	  sigprocmask(SIG_UNBLOCK, &newset, &oldset);
+           pkg_vec_free (replacees);
+ 	  return 0;
+-     
++
+ 
+      UNWIND_POSTRM_UPGRADE_OLD_PKG:
+ 	  postrm_upgrade_old_pkg_unwind(pkg, old_pkg);
+diff --git a/libopkg/opkg_remove.c b/libopkg/opkg_remove.c
+index 792ab37..0e967a3 100644
+--- a/libopkg/opkg_remove.c
++++ b/libopkg/opkg_remove.c
+@@ -93,7 +93,7 @@ opkg_remove_dependent_pkgs(pkg_t *pkg, abstract_pkg_t **dependents)
+ 		pkg->name);
+ 	return 0;
+     }
+-    
++
+     if (dependents == NULL)
+ 	    return 0;
+ 
+@@ -109,10 +109,10 @@ opkg_remove_dependent_pkgs(pkg_t *pkg, abstract_pkg_t **dependents)
+ 
+     while (dependents [i] != NULL) {
+         abstract_pkg_t *dep_ab_pkg = dependents[i];
+-	
++
+ 	if (dep_ab_pkg->dependencies_checked == 2){
+ 	    i++;
+-	    continue;	
++	    continue;
+         }
+         if (dep_ab_pkg->state_status == SS_INSTALLED) {
+             for (a = 0; a < dep_ab_pkg->pkgs->len; a++) {
+@@ -125,15 +125,15 @@ opkg_remove_dependent_pkgs(pkg_t *pkg, abstract_pkg_t **dependents)
+         }
+ 	i++;
+ 	/* 1 - to keep track of visited ab_pkgs when checking for possiblility of a broken removal of pkgs.
+-	 * 2 - to keep track of pkgs whose deps have been checked alrdy  - Karthik */	
++	 * 2 - to keep track of pkgs whose deps have been checked alrdy  - Karthik */
+     }
+-    
++
+     if (count == 1) {
+-        pkg_vec_free(dependent_pkgs);  
++        pkg_vec_free(dependent_pkgs);
+ 	return 0;
+     }
+-    
+-    
++
++
+     int err=0;
+     for (i = 0; i < dependent_pkgs->len; i++) {
+         err = opkg_remove_pkg(dependent_pkgs->pkgs[i],0);
+@@ -254,13 +254,13 @@ opkg_remove_pkg(pkg_t *pkg, int from_upgrade)
+      if (!conf->force_depends
+ 	 && !(pkg->state_flag & SF_REPLACE)) {
+ 	  abstract_pkg_t **dependents;
+-	  int has_installed_dependents = 
++	  int has_installed_dependents =
+ 	       pkg_has_installed_dependents(pkg, &dependents);
+ 
+ 	  if (has_installed_dependents) {
+ 	       /*
+ 		* if this package is depended upon by others, then either we should
+-		* not remove it or we should remove it and all of its dependents 
++		* not remove it or we should remove it and all of its dependents
+ 		*/
+ 
+ 	       if (!conf->force_removal_of_dependent_packages) {
+@@ -303,7 +303,7 @@ opkg_remove_pkg(pkg_t *pkg, int from_upgrade)
+      remove_maintainer_scripts(pkg);
+      pkg->state_status = SS_NOT_INSTALLED;
+ 
+-     if (parent_pkg) 
++     if (parent_pkg)
+ 	  parent_pkg->state_status = SS_NOT_INSTALLED;
+ 
+      /* remove autoinstalled packages that are orphaned by the removal of this one */
+@@ -376,7 +376,7 @@ remove_data_files_and_list(pkg_t *pkg)
+ 	       removed_a_dir = 0;
+ 	       for (iter = str_list_first(&installed_dirs); iter; iter = str_list_next(&installed_dirs, iter)) {
+ 		    file_name = (char *)iter->data;
+-	    
++
+ 		    if (rmdir(file_name) == 0) {
+ 			 opkg_msg(INFO, "Deleting %s.\n", file_name);
+ 			 removed_a_dir = 1;
+diff --git a/libopkg/opkg_upgrade.c b/libopkg/opkg_upgrade.c
+index d58a12b..10b8217 100644
+--- a/libopkg/opkg_upgrade.c
++++ b/libopkg/opkg_upgrade.c
+@@ -44,10 +44,10 @@ opkg_upgrade_pkg(pkg_t *old)
+           free(old_version);
+           return 0;
+      }
+-          
++
+      old_version = pkg_version_str_alloc(old);
+      new_version = pkg_version_str_alloc(new);
+-               
++
+      cmp = pkg_compare_versions(old, new);
+      opkg_msg(DEBUG, "Comparing visible versions of pkg %s:"
+                   "\n\t%s is installed "
+@@ -122,7 +122,7 @@ prepare_upgrade_list(void)
+         cmp = pkg_compare_versions(old, new);
+ 
+         if ( cmp < 0 ) {
+-           node = active_list_move_node(all, head, &old->list); 
++           node = active_list_move_node(all, head, &old->list);
+         }
+     }
+     active_list_head_delete(all);
+diff --git a/libopkg/opkg_utils.c b/libopkg/opkg_utils.c
+index 5ab5227..ebe4fa8 100644
+--- a/libopkg/opkg_utils.c
++++ b/libopkg/opkg_utils.c
+@@ -1,7 +1,7 @@
+ /* opkg_utils.c - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -30,9 +30,9 @@ get_available_kbytes(char * filesystem)
+         return 0;
+     }
+ 
+-    // Actually ((sfs.f_bavail * sfs.f_frsize) / 1024) 
+-    // and here we try to avoid overflow. 
+-    if (f.f_frsize >= 1024) 
++    // Actually ((sfs.f_bavail * sfs.f_frsize) / 1024)
++    // and here we try to avoid overflow.
++    if (f.f_frsize >= 1024)
+         return (f.f_bavail * (f.f_frsize / 1024));
+     else if (f.f_frsize > 0)
+         return f.f_bavail / (1024 / f.f_frsize);
+@@ -47,8 +47,8 @@ char *trim_xstrdup(const char *src)
+ {
+      const char *end;
+ 
+-     /* remove it from the front */    
+-     while(src && 
++     /* remove it from the front */
++     while(src &&
+ 	   isspace(*src) &&
+ 	   *src)
+ 	  src++;
+diff --git a/libopkg/opkg_utils.h b/libopkg/opkg_utils.h
+index ecdd3f5..092d158 100644
+--- a/libopkg/opkg_utils.h
++++ b/libopkg/opkg_utils.h
+@@ -1,7 +1,7 @@
+ /* opkg_utils.h - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+diff --git a/libopkg/pkg.c b/libopkg/pkg.c
+index 9b3c6df..38816d4 100644
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -95,7 +95,7 @@ pkg_init(pkg_t *pkg)
+      pkg->recommends_str = NULL;
+      pkg->suggests_count = 0;
+      pkg->recommends_count = 0;
+-     
++
+      active_list_init(&pkg->list);
+ 
+      pkg->conflicts = NULL;
+@@ -103,7 +103,7 @@ pkg_init(pkg_t *pkg)
+ 
+      pkg->replaces = NULL;
+      pkg->replaces_count = 0;
+-    
++
+      pkg->pre_depends_count = 0;
+      pkg->pre_depends_str = NULL;
+      pkg->provides_count = 0;
+@@ -188,7 +188,7 @@ pkg_deinit(pkg_t *pkg)
+ 	if (pkg->description)
+ 		free(pkg->description);
+ 	pkg->description = NULL;
+-	
++
+ 	pkg->state_want = SW_UNKNOWN;
+ 	pkg->state_flag = SF_OK;
+ 	pkg->state_status = SS_NOT_INSTALLED;
+@@ -221,11 +221,11 @@ pkg_deinit(pkg_t *pkg)
+ 
+ 	pkg->pre_depends_count = 0;
+ 	pkg->provides_count = 0;
+-	
++
+ 	if (pkg->filename)
+ 		free(pkg->filename);
+ 	pkg->filename = NULL;
+-	
++
+ 	if (pkg->local_filename)
+ 		free(pkg->local_filename);
+ 	pkg->local_filename = NULL;
+@@ -281,7 +281,7 @@ pkg_init_from_file(pkg_t *pkg, const char *filename)
+ 	pkg->local_filename = xstrdup(filename);
+ 
+ 	tmp = xstrdup(filename);
+-	sprintf_alloc(&control_path, "%s/%s.control.XXXXXX", 
++	sprintf_alloc(&control_path, "%s/%s.control.XXXXXX",
+                         conf->tmp_dir,
+                         basename(tmp));
+ 	free(tmp);
+@@ -641,8 +641,8 @@ pkg_formatted_field(FILE *fp, pkg_t *pkg, const char *field)
+                fprintf(fp, "Conffiles:\n");
+ 	       for (iter = nv_pair_list_first(&pkg->conffiles); iter; iter = nv_pair_list_next(&pkg->conffiles, iter)) {
+ 		    if (((conffile_t *)iter->data)->name && ((conffile_t *)iter->data)->value) {
+-                         fprintf(fp, " %s %s\n", 
+-                                 ((conffile_t *)iter->data)->name, 
++                         fprintf(fp, " %s %s\n",
++                                 ((conffile_t *)iter->data)->name,
+                                  ((conffile_t *)iter->data)->value);
+ 		    }
+ 	       }
+@@ -1004,7 +1004,7 @@ pkg_name_version_and_architecture_compare(const void *p1, const void *p2)
+ 	       a->name, b->name);
+        return 0;
+      }
+-       
++
+      namecmp = strcmp(a->name, b->name);
+      if (namecmp)
+ 	  return namecmp;
+@@ -1147,7 +1147,7 @@ pkg_get_installed_files(pkg_t *pkg)
+ 
+      while (1) {
+ 	  char *file_name;
+-	
++
+ 	  line = file_read_line_alloc(list_file);
+ 	  if (line == NULL) {
+ 	       break;
+@@ -1345,8 +1345,8 @@ pkg_info_preinstall_check(void)
+ 			       "files for pkg %s.\n", pkg->name);
+ 	       break;
+ 	  }
+-	  for (iter = str_list_first(installed_files), niter = str_list_next(installed_files, iter); 
+-                  iter; 
++	  for (iter = str_list_first(installed_files), niter = str_list_next(installed_files, iter);
++                  iter;
+                   iter = niter, niter = str_list_next(installed_files, iter)) {
+ 	       char *installed_file = (char *) iter->data;
+ 	       file_hash_set_file_owner(installed_file, pkg);
+diff --git a/libopkg/pkg.h b/libopkg/pkg.h
+index 1b65feb..775b656 100644
+--- a/libopkg/pkg.h
++++ b/libopkg/pkg.h
+@@ -145,7 +145,7 @@ struct pkg
+      char **conflicts_str;
+      compound_depend_t * conflicts;
+      unsigned int conflicts_count;
+-	
++
+      char **replaces_str;
+      unsigned int replaces_count;
+      abstract_pkg_t ** replaces;
+@@ -191,7 +191,7 @@ void pkg_deinit(pkg_t *pkg);
+ int pkg_init_from_file(pkg_t *pkg, const char *filename);
+ abstract_pkg_t *abstract_pkg_new(void);
+ 
+-/* 
++/*
+  * merges fields from newpkg into oldpkg.
+  * Forcibly sets oldpkg state_status, state_want and state_flags
+  */
+diff --git a/libopkg/pkg_depends.c b/libopkg/pkg_depends.c
+index ee5e9b6..56f3bd7 100644
+--- a/libopkg/pkg_depends.c
++++ b/libopkg/pkg_depends.c
+@@ -1,7 +1,7 @@
+ /* pkg_depends.c - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -50,7 +50,7 @@ static int pkg_constraint_satisfied(pkg_t *pkg, void *cdata)
+ 	  return 0;
+ }
+ 
+-/* returns ndependencies or negative error value */ 
++/* returns ndependencies or negative error value */
+ int
+ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+ 		char *** unresolved)
+@@ -61,8 +61,8 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+      char ** the_lost;
+      abstract_pkg_t * ab_pkg;
+ 
+-     /* 
+-      * this is a setup to check for redundant/cyclic dependency checks, 
++     /*
++      * this is a setup to check for redundant/cyclic dependency checks,
+       * which are marked at the abstract_pkg level
+       */
+      if (!(ab_pkg = pkg->parent)) {
+@@ -73,7 +73,7 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+      if (ab_pkg->dependencies_checked) {    /* avoid duplicate or cyclic checks */
+ 	  *unresolved = NULL;
+ 	  return 0;
+-     } else { 
++     } else {
+ 	  ab_pkg->dependencies_checked = 1;  /* mark it for subsequent visits */
+      }
+      /**/
+@@ -85,7 +85,7 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+      }
+ 
+      the_lost = NULL;
+-	
++
+      /* foreach dependency */
+      for (i = 0; i < count; i++) {
+ 	  compound_depend_t * compound_depend = &pkg->depends[i];
+@@ -100,7 +100,7 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+ 		    abstract_pkg_t *abpkg = possible_satisfiers[j]->pkg;
+ 		    abstract_pkg_vec_t *ab_provider_vec = abpkg->provided_by;
+ 		    int nposs = ab_provider_vec->len;
+-		    abstract_pkg_t **ab_providers = ab_provider_vec->pkgs; 
++		    abstract_pkg_t **ab_providers = ab_provider_vec->pkgs;
+ 		    int l;
+ 		    for (l = 0; l < nposs; l++) {
+ 			 pkg_vec_t *test_vec = ab_providers[l]->pkgs;
+@@ -108,7 +108,7 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+ 			 if (!test_vec){   /* no pkg_vec hooked up to the abstract_pkg!  (need another feed?) */
+ 			      continue;
+ 			 }
+-	      
++
+ 			 /* cruise this possiblity's pkg_vec looking for an installed version */
+ 			 for (k = 0; k < test_vec->len; k++) {
+ 			      pkg_t *pkg_scout = test_vec->pkgs[k];
+@@ -167,9 +167,9 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+ 	       /* foreach provided_by, which includes the abstract_pkg itself */
+ 	       depend_t *dependence_to_satisfy = possible_satisfiers[j];
+ 	       abstract_pkg_t *satisfying_apkg = possible_satisfiers[j]->pkg;
+-	       pkg_t *satisfying_pkg = 
+-		    pkg_hash_fetch_best_installation_candidate(satisfying_apkg, 
+-							       pkg_installed_and_constraint_satisfied, 
++	       pkg_t *satisfying_pkg =
++		    pkg_hash_fetch_best_installation_candidate(satisfying_apkg,
++							       pkg_installed_and_constraint_satisfied,
+ 							       dependence_to_satisfy, 1);
+                /* Being that I can't test constraing in pkg_hash, I will test it here */
+ 	       if (satisfying_pkg != NULL) {
+@@ -191,9 +191,9 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+ 		    /* foreach provided_by, which includes the abstract_pkg itself */
+ 		    depend_t *dependence_to_satisfy = possible_satisfiers[j];
+ 		    abstract_pkg_t *satisfying_apkg = possible_satisfiers[j]->pkg;
+-		    pkg_t *satisfying_pkg = 
+-			 pkg_hash_fetch_best_installation_candidate(satisfying_apkg, 
+-								    pkg_constraint_satisfied, 
++		    pkg_t *satisfying_pkg =
++			 pkg_hash_fetch_best_installation_candidate(satisfying_apkg,
++								    pkg_constraint_satisfied,
+ 								    dependence_to_satisfy, 1);
+                     /* Being that I can't test constraing in pkg_hash, I will test it here too */
+ 	            if (satisfying_pkg != NULL) {
+@@ -239,7 +239,7 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+ 				pkg->name, satisfier_entry_pkg->name);
+ 		    } else {
+ 			 char ** newstuff = NULL;
+-			 
++
+ 			 if (satisfier_entry_pkg != pkg &&
+ 			     !is_pkg_in_pkg_vec(unsatisfied, satisfier_entry_pkg)) {
+ 			      pkg_vec_insert(unsatisfied, satisfier_entry_pkg);
+@@ -259,10 +259,10 @@ pkg_hash_fetch_unsatisfied_dependencies(pkg_t * pkg, pkg_vec_t *unsatisfied,
+      return unsatisfied->len;
+ }
+ 
+-/*checking for conflicts !in replaces 
+-  If a packages conflicts with another but is also replacing it, I should not consider it a 
+-  really conflicts 
+-  returns 0 if conflicts <> replaces or 1 if conflicts == replaces 
++/*checking for conflicts !in replaces
++  If a packages conflicts with another but is also replacing it, I should not consider it a
++  really conflicts
++  returns 0 if conflicts <> replaces or 1 if conflicts == replaces
+ */
+ static int
+ is_pkg_a_replaces(pkg_t *pkg_scout,pkg_t *pkg)
+@@ -297,11 +297,11 @@ pkg_vec_t * pkg_hash_fetch_conflicts(pkg_t * pkg)
+     int i, j, k;
+     int count;
+     abstract_pkg_t * ab_pkg;
+-    pkg_t **pkg_scouts; 
+-    pkg_t *pkg_scout; 
++    pkg_t **pkg_scouts;
++    pkg_t *pkg_scout;
+ 
+-    /* 
+-     * this is a setup to check for redundant/cyclic dependency checks, 
++    /*
++     * this is a setup to check for redundant/cyclic dependency checks,
+      * which are marked at the abstract_pkg level
+      */
+     if(!(ab_pkg = pkg->parent)){
+@@ -340,7 +340,7 @@ pkg_vec_t * pkg_hash_fetch_conflicts(pkg_t * pkg)
+                     pkg_scout = pkg_scouts[k];
+                     if (!pkg_scout) {
+                         opkg_msg(ERROR,  "Internal error: pkg_scout=NULL\n");
+-                        continue; 
++                        continue;
+                     }
+ 		    if ((pkg_scout->state_status == SS_INSTALLED || pkg_scout->state_want == SW_INSTALL) &&
+ 		       version_constraints_satisfied(possible_satisfier, pkg_scout) && !is_pkg_a_replaces(pkg_scout,pkg)){
+@@ -377,21 +377,21 @@ int version_constraints_satisfied(depend_t * depends, pkg_t * pkg)
+     free (temp->version);
+     free(temp);
+ 
+-    if((depends->constraint == EARLIER) && 
++    if((depends->constraint == EARLIER) &&
+        (comparison < 0))
+ 	return 1;
+-    else if((depends->constraint == LATER) && 
++    else if((depends->constraint == LATER) &&
+ 	    (comparison > 0))
+ 	return 1;
+     else if(comparison == 0)
+ 	return 1;
+-    else if((depends->constraint == LATER_EQUAL) && 
++    else if((depends->constraint == LATER_EQUAL) &&
+ 	    (comparison >= 0))
+ 	return 1;
+-    else if((depends->constraint == EARLIER_EQUAL) && 
++    else if((depends->constraint == EARLIER_EQUAL) &&
+ 	    (comparison <= 0))
+ 	return 1;
+-    
++
+     return 0;
+ }
+ 
+@@ -402,7 +402,7 @@ int pkg_dependence_satisfiable(depend_t *depend)
+      int n_providers = provider_apkgs->len;
+      abstract_pkg_t **apkgs = provider_apkgs->pkgs;
+      pkg_vec_t *pkg_vec;
+-     int n_pkgs ; 
++     int n_pkgs ;
+      int i;
+      int j;
+ 
+@@ -556,9 +556,9 @@ static char ** merge_unresolved(char ** oldstuff, char ** newstuff)
+     return result;
+ }
+ 
+-/* 
++/*
+  * a kinda kludgy way to back out depends str from two different arrays (reg'l'r 'n pre)
+- * this is null terminated, no count is carried around 
++ * this is null terminated, no count is carried around
+  */
+ char ** add_unresolved_dep(pkg_t * pkg, char ** the_lost, int ref_ndx)
+ {
+@@ -572,7 +572,7 @@ char ** add_unresolved_dep(pkg_t * pkg, char ** the_lost, int ref_ndx)
+     resized = xrealloc(the_lost, sizeof(char *) * (count + 1));
+     resized[count - 1] = pkg_depend_str(pkg, ref_ndx);
+     resized[count] = NULL;
+-    
++
+     return resized;
+ }
+ 
+@@ -798,7 +798,7 @@ void buildDependedUponBy(pkg_t * pkg, abstract_pkg_t * ab_pkg)
+ 	       }
+ 	       *temp = ab_pkg;
+ 
+-	       ab_depend->depended_upon_by = xrealloc(ab_depend->depended_upon_by, 
++	       ab_depend->depended_upon_by = xrealloc(ab_depend->depended_upon_by,
+ 									(othercount + 1) * sizeof(abstract_pkg_t *));
+ 	       /* the array may have moved */
+ 	       temp = ab_depend->depended_upon_by + othercount;
+@@ -810,15 +810,15 @@ void buildDependedUponBy(pkg_t * pkg, abstract_pkg_t * ab_pkg)
+ 
+ static depend_t * depend_init(void)
+ {
+-    depend_t * d = xcalloc(1, sizeof(depend_t));    
++    depend_t * d = xcalloc(1, sizeof(depend_t));
+     d->constraint = NONE;
+     d->version = NULL;
+     d->pkg = NULL;
+-    
++
+     return d;
+ }
+ 
+-static int parseDepends(compound_depend_t *compound_depend, 
++static int parseDepends(compound_depend_t *compound_depend,
+ 			char * depend_str)
+ {
+      char * pkg_name, buffer[2048];
+@@ -852,9 +852,9 @@ static int parseDepends(compound_depend_t *compound_depend,
+ 	       *dest++ = *src++;
+ 	  *dest = '\0';
+ 	  pkg_name = trim_xstrdup(buffer);
+-	
++
+ 	  /* now look at possible version info */
+-	
++
+ 	  /* skip to next chars */
+ 	  if(isspace(*src))
+ 	       while(*src && isspace(*src)) src++;
+@@ -889,7 +889,7 @@ static int parseDepends(compound_depend_t *compound_depend,
+ 	       }
+ 	       else if(!strncmp(src, ">", 1)){
+ 		    possibilities[i]->constraint = LATER_EQUAL;
+-		    src++; 
++		    src++;
+ 	       }
+ 
+ 	       /* now we have any constraint, pass space to version string */
+@@ -907,7 +907,7 @@ static int parseDepends(compound_depend_t *compound_depend,
+ 	  possibilities[i]->pkg = ensure_abstract_pkg_by_name(pkg_name);
+ 
+ 	  free(pkg_name);
+-	
++
+ 	  /* now get past the ) and any possible | chars */
+ 	  while(*src &&
+ 		(isspace(*src) ||
+diff --git a/libopkg/pkg_depends.h b/libopkg/pkg_depends.h
+index 9c5da27..5d1f074 100644
+--- a/libopkg/pkg_depends.h
++++ b/libopkg/pkg_depends.h
+@@ -1,7 +1,7 @@
+ /* pkg_depends.h - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -47,7 +47,7 @@ struct depend{
+     abstract_pkg_t * pkg;
+ };
+ typedef struct depend depend_t;
+-    
++
+ struct compound_depend{
+     depend_type_t type;
+     int possibility_count;
+diff --git a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+index 67c1781..59b285d 100644
+--- a/libopkg/pkg_hash.c
++++ b/libopkg/pkg_hash.c
+@@ -1,7 +1,7 @@
+ /* opkg_hash.c - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -44,7 +44,7 @@ free_pkgs(const char *key, void *entry, void *data)
+ 	/* Each entry in the hash table is an abstract package, which contains
+ 	 * a list of packages that provide the abstract package.
+ 	 */
+-  
++
+ 	ab_pkg = (abstract_pkg_t*) entry;
+ 
+ 	if (ab_pkg->pkgs) {
+@@ -171,7 +171,7 @@ pkg_hash_load_status_files(void)
+ 
+ 	for (iter = void_list_first(&conf->pkg_dest_list); iter;
+ 			iter = void_list_next(&conf->pkg_dest_list, iter)) {
+-	
++
+ 		dest = (pkg_dest_t *)iter->data;
+ 
+ 		if (file_exists(dest->status_file_name)) {
+@@ -247,7 +247,7 @@ pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+ 	  }
+ 
+ 	  if (replacement_apkg)
+-	       opkg_msg(DEBUG, "replacement_apkg=%s for provider_apkg=%s.\n", 
++	       opkg_msg(DEBUG, "replacement_apkg=%s for provider_apkg=%s.\n",
+ 			    replacement_apkg->name, provider_apkg->name);
+ 
+ 	  if (replacement_apkg && (replacement_apkg != provider_apkg)) {
+@@ -262,7 +262,7 @@ pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+ 			       provider_apkg->name);
+ 	       continue;
+ 	  }
+-    
++
+ 
+ 	  /* now check for supported architecture */
+ 	  {
+@@ -274,7 +274,7 @@ pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+ 		    opkg_msg(DEBUG, "%s arch=%s arch_priority=%d version=%s.\n",
+ 				 maybe->name, maybe->architecture,
+ 				 maybe->arch_priority, maybe->version);
+-                    /* We make sure not to add the same package twice. Need to search for the reason why 
++                    /* We make sure not to add the same package twice. Need to search for the reason why
+                        they show up twice sometimes. */
+ 		    if ((maybe->arch_priority > 0) && (! pkg_vec_contains(matching_pkgs, maybe))) {
+ 			 max_count++;
+@@ -313,7 +313,7 @@ pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+              good_pkg_by_name = matching;
+ 	     /* It has been provided by hand, so it is what user want */
+              if (matching->provided_by_hand == 1)
+-                break;                                 
++                break;
+           }
+      }
+ 
+@@ -344,7 +344,7 @@ pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+ 				matching->name, prio);
+                   }
+               }
+-          
++
+           }
+ 
+      if (conf->verbosity >= INFO && matching_apkgs->len > 1) {
+@@ -364,7 +364,7 @@ pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+      abstract_pkg_vec_free(matching_apkgs);
+      abstract_pkg_vec_free(providers);
+ 
+-     if (good_pkg_by_name) {   /* We found a good candidate, we will install it */ 
++     if (good_pkg_by_name) {   /* We found a good candidate, we will install it */
+ 	  return good_pkg_by_name;
+      }
+      if (held_pkg) {
+@@ -404,7 +404,7 @@ pkg_name_constraint_fcn(pkg_t *pkg, void *cdata)
+ 	if (strcmp(pkg->name, name) == 0)
+ 		return 1;
+ 	else
+-		return 0;   
++		return 0;
+ }
+ 
+ static pkg_vec_t *
+@@ -449,10 +449,10 @@ pkg_hash_fetch_by_name_version(const char *pkg_name, const char * version)
+ 	pkg_vec_t * vec;
+ 	int i;
+ 	char *version_str = NULL;
+-    
++
+ 	if(!(vec = pkg_vec_fetch_by_name(pkg_name)))
+ 		return NULL;
+-    
++
+ 	for(i = 0; i < vec->len; i++) {
+ 		version_str = pkg_version_str_alloc(vec->pkgs[i]);
+ 		if(!strcmp(version_str, version)) {
+@@ -464,7 +464,7 @@ pkg_hash_fetch_by_name_version(const char *pkg_name, const char * version)
+ 
+ 	if(i == vec->len)
+ 		return NULL;
+-    
++
+ 	return vec->pkgs[i];
+ }
+ 
+@@ -658,7 +658,7 @@ file_hash_set_file_owner(const char *file_name, pkg_t *owning_pkg)
+ 
+ 	file_name = strip_offline_root(file_name);
+ 
+-	hash_table_insert(&conf->file_hash, file_name, owning_pkg); 
++	hash_table_insert(&conf->file_hash, file_name, owning_pkg);
+ 
+ 	if (old_owning_pkg) {
+ 		pkg_get_installed_files(old_owning_pkg);
+diff --git a/libopkg/pkg_hash.h b/libopkg/pkg_hash.h
+index 0ae01e7..1165d83 100644
+--- a/libopkg/pkg_hash.h
++++ b/libopkg/pkg_hash.h
+@@ -1,7 +1,7 @@
+ /* pkg_hash.h - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -40,7 +40,7 @@ abstract_pkg_t * ensure_abstract_pkg_by_name(const char * pkg_name);
+ void pkg_hash_fetch_all_installed(pkg_vec_t *installed);
+ pkg_t * pkg_hash_fetch_by_name_version(const char *pkg_name,
+ 				       const char * version);
+-pkg_t *pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg, 
++pkg_t *pkg_hash_fetch_best_installation_candidate(abstract_pkg_t *apkg,
+ 						  int (*constraint_fcn)(pkg_t *pkg, void *data), void *cdata, int quiet);
+ pkg_t *pkg_hash_fetch_best_installation_candidate_by_name(const char *name);
+ pkg_t *pkg_hash_fetch_installed_by_name(const char *pkg_name);
+diff --git a/libopkg/pkg_parse.c b/libopkg/pkg_parse.c
+index f1725de..0149860 100644
+--- a/libopkg/pkg_parse.c
++++ b/libopkg/pkg_parse.c
+@@ -62,7 +62,7 @@ parse_comma_separated(const char *raw, unsigned int *count)
+ 
+ 	while (*raw) {
+ 		depends = xrealloc(depends, sizeof(char *) * (line_count + 1));
+-	
++
+ 		while (isspace(*raw))
+ 			raw++;
+ 
+@@ -230,7 +230,7 @@ pkg_parse_line(pkg_t *pkg, const char *line, uint mask)
+ 			char *tmp = parse_simple("Installed-Time", line);
+ 			pkg->installed_time = strtoul(tmp, NULL, 0);
+ 			free (tmp);
+-		}	    
++		}
+ 		break;
+ 
+ 	case 'M':
+@@ -246,7 +246,7 @@ pkg_parse_line(pkg_t *pkg, const char *line, uint mask)
+ 		break;
+ 
+ 	case 'P':
+-		if ((mask & PFM_PACKAGE) && is_field("Package", line)) 
++		if ((mask & PFM_PACKAGE) && is_field("Package", line))
+ 			pkg->name = parse_simple("Package", line);
+ 		else if ((mask & PFM_PRIORITY) && is_field("Priority", line))
+ 			pkg->priority = parse_simple("Priority", line);
+diff --git a/libopkg/pkg_parse.h b/libopkg/pkg_parse.h
+index 24f0238..7020a90 100644
+--- a/libopkg/pkg_parse.h
++++ b/libopkg/pkg_parse.h
+@@ -1,7 +1,7 @@
+ /* pkg_parse.h - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+diff --git a/libopkg/pkg_src.h b/libopkg/pkg_src.h
+index 9cedc2c..b1a95a5 100644
+--- a/libopkg/pkg_src.h
++++ b/libopkg/pkg_src.h
+@@ -20,7 +20,7 @@
+ 
+ #include "nv_pair.h"
+ 
+-typedef struct 
++typedef struct
+ {
+   char *name;
+   char *value;
+diff --git a/libopkg/pkg_vec.c b/libopkg/pkg_vec.c
+index 4f66c02..3cdc7fc 100644
+--- a/libopkg/pkg_vec.c
++++ b/libopkg/pkg_vec.c
+@@ -1,7 +1,7 @@
+ /* pkg_vec.c - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+@@ -56,7 +56,7 @@ void pkg_vec_insert_merge(pkg_vec_t *vec, pkg_t *pkg, int set_status)
+      /* look for a duplicate pkg by name, version, and architecture */
+      for (i = 0; i < vec->len; i++){
+          opkg_msg(DEBUG2, "%s %s arch=%s vs. %s %s arch=%s.\n",
+-			pkg->name, pkg->version, pkg->architecture, 
++			pkg->name, pkg->version, pkg->architecture,
+ 			vec->pkgs[i]->name, vec->pkgs[i]->version,
+ 			vec->pkgs[i]->architecture);
+ 	  if ((strcmp(pkg->name, vec->pkgs[i]->name) == 0)
+@@ -70,7 +70,7 @@ void pkg_vec_insert_merge(pkg_vec_t *vec, pkg_t *pkg, int set_status)
+      }
+ 
+      /* we didn't find one, add it */
+-     if (!found){   
++     if (!found){
+           opkg_msg(DEBUG2, "Adding new pkg=%s version=%s arch=%s.\n",
+ 			pkg->name, pkg->version, pkg->architecture);
+           pkg_vec_insert(vec, pkg);
+@@ -143,7 +143,7 @@ int pkg_vec_mark_if_matches(pkg_vec_t *vec, const char *pattern)
+ 
+ abstract_pkg_vec_t * abstract_pkg_vec_alloc(void)
+ {
+-    abstract_pkg_vec_t * vec ; 
++    abstract_pkg_vec_t * vec ;
+     vec = xcalloc(1, sizeof(abstract_pkg_vec_t));
+     vec->pkgs = NULL;
+     vec->len = 0;
+@@ -171,7 +171,7 @@ void abstract_pkg_vec_insert(abstract_pkg_vec_t *vec, abstract_pkg_t *pkg)
+ 
+ abstract_pkg_t * abstract_pkg_vec_get(abstract_pkg_vec_t *vec, int i)
+ {
+-    if (vec->len > i) 
++    if (vec->len > i)
+ 	return vec->pkgs[i];
+     else
+ 	return NULL;
+diff --git a/libopkg/pkg_vec.h b/libopkg/pkg_vec.h
+index 0b5d82b..8ee1673 100644
+--- a/libopkg/pkg_vec.h
++++ b/libopkg/pkg_vec.h
+@@ -1,7 +1,7 @@
+ /* pkg_vec.h - the opkg package management system
+ 
+    Steven M. Ayer
+-   
++
+    Copyright (C) 2002 Compaq Computer Corporation
+ 
+    This program is free software; you can redistribute it and/or
+diff --git a/libopkg/sprintf_alloc.c b/libopkg/sprintf_alloc.c
+index c55a016..03a5f27 100644
+--- a/libopkg/sprintf_alloc.c
++++ b/libopkg/sprintf_alloc.c
+@@ -35,12 +35,12 @@ int sprintf_alloc(char **str, const char *fmt, ...)
+       return -1;
+     }
+ 
+-    /* On x86_64 systems, any strings over 100 were segfaulting.  
++    /* On x86_64 systems, any strings over 100 were segfaulting.
+        It seems that the ap needs to be reinitalized before every
+        use of the v*printf() functions. I pulled the functionality out
+-       of vsprintf_alloc and combined it all here instead. 
++       of vsprintf_alloc and combined it all here instead.
+     */
+-    
++
+ 
+     /* ripped more or less straight out of PRINTF(3) */
+ 
+diff --git a/libopkg/str_list.c b/libopkg/str_list.c
+index e99ef37..d3a0179 100644
+--- a/libopkg/str_list.c
++++ b/libopkg/str_list.c
+@@ -76,7 +76,7 @@ void str_list_remove(str_list_t *list, str_list_elt_t **iter)
+     char *str = void_list_remove((void_list_t *) list,
+ 					       (void_list_elt_t **) iter);
+ 
+-    if (str) 
++    if (str)
+ 	free(str);
+ }
+ 
+@@ -85,7 +85,7 @@ void str_list_remove_elt(str_list_t *list, const char *target_str)
+      char *str = void_list_remove_elt((void_list_t *) list,
+ 					 (void *)target_str,
+ 					 (void_list_cmp_t)strcmp);
+-     if (str) 
++     if (str)
+          free(str);
+ }
+ 
+diff --git a/libopkg/void_list.c b/libopkg/void_list.c
+index 8248dc1..4c9d897 100644
+--- a/libopkg/void_list.c
++++ b/libopkg/void_list.c
+@@ -71,7 +71,7 @@ void_list_elt_t *void_list_pop(void_list_t *list)
+ {
+     struct list_head *node;
+ 
+-    if (void_list_empty(list)) 
++    if (void_list_empty(list))
+         return NULL;
+     node = list->head.next;
+     list_del_init(node);
+diff --git a/libopkg/xregex.c b/libopkg/xregex.c
+index 2808dc6..f682d4c 100644
+--- a/libopkg/xregex.c
++++ b/libopkg/xregex.c
+@@ -35,7 +35,7 @@ static void print_regcomp_err(const regex_t *preg, int err)
+ {
+     unsigned int size;
+     char *error;
+-    
++
+     size = regerror(err, preg, 0, 0);
+     error = xcalloc(1, size);
+     regerror(err, preg, error, size);
+diff --git a/libopkg/xsystem.h b/libopkg/xsystem.h
+index 9bb082d..042efad 100644
+--- a/libopkg/xsystem.h
++++ b/libopkg/xsystem.h
+@@ -29,4 +29,4 @@
+ int xsystem(const char *argv[]);
+ 
+ #endif
+-	 
++
+diff --git a/src/opkg-cl.c b/src/opkg-cl.c
+index a09275f..a5fc697 100644
+--- a/src/opkg-cl.c
++++ b/src/opkg-cl.c
+@@ -31,7 +31,7 @@
+ #include "../libbb/libbb.h"
+ 
+ enum {
+-	ARGS_OPT_FORCE_MAINTAINER = 129, 
++	ARGS_OPT_FORCE_MAINTAINER = 129,
+ 	ARGS_OPT_FORCE_DEPENDS,
+ 	ARGS_OPT_FORCE_OVERWRITE,
+ 	ARGS_OPT_FORCE_DOWNGRADE,
+@@ -174,7 +174,7 @@ args_parse(int argc, char *argv[])
+ 			printf("Confusion: getopt_long returned %d\n", c);
+ 		}
+ 	}
+-    
++
+ 	if (parse_err)
+ 		return parse_err;
+ 	else
+@@ -215,7 +215,7 @@ usage()
+ 	printf("\twhatreplaces [-A] [pkgname|pat]+\n");
+ 
+ 	printf("\nOptions:\n");
+-	printf("\t-A			Query all packages not just those installed\n"); 
++	printf("\t-A			Query all packages not just those installed\n");
+ 	printf("\t-V[<level>]		Set verbosity level to <level>.\n");
+ 	printf("\t--verbosity[=<level>]	Verbosity levels:\n");
+ 	printf("\t				0 errors only\n");
+@@ -256,7 +256,7 @@ usage()
+ 	printf(" regexp could be something like 'pkgname*' '*file*' or similar\n");
+ 	printf(" e.g. opkg info 'libstd*' or opkg search '*libop*' or opkg remove 'libncur*'\n");
+ 
+-	/* --force-removal-of-essential-packages	Let opkg remove essential packages. 
++	/* --force-removal-of-essential-packages	Let opkg remove essential packages.
+ 		Using this option is almost guaranteed to break your system, hence this option
+ 		is not even advertised in the usage statement. */
+ 
+@@ -317,7 +317,7 @@ main(int argc, char *argv[])
+ 			if (pkg_hash_load_feeds())
+ 				goto err1;
+ 		}
+-   
++
+ 		if (pkg_hash_load_status_files())
+ 			goto err1;
+ 	}
+diff --git a/tests/libopkg_test.c b/tests/libopkg_test.c
+index 4d82a67..dbe1e7e 100644
+--- a/tests/libopkg_test.c
++++ b/tests/libopkg_test.c
+@@ -151,7 +151,7 @@ main (int argc, char **argv)
+   }
+ 
+   setenv("OFFLINE_ROOT", "/tmp", 0);
+- 
++
+   if (opkg_new ()) {
+ 	  printf("opkg_new() failed. This sucks.\n");
+ 	  print_error_list();
+@@ -223,7 +223,7 @@ main (int argc, char **argv)
+         }
+       }
+       break;
+-          
++
+     case 'r':
+       if (argv[1][1] == 'e')
+       {
+-- 
+1.7.1
+

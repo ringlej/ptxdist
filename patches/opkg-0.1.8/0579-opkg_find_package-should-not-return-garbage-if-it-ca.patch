@@ -1,0 +1,42 @@
+From dcb875bea220d4eddd6b398046e91d3781083fe6 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 15 Nov 2010 22:47:28 +0000
+Subject: [PATCH] opkg_find_package() should not return garbage if it cannot find the package.
+
+From juliosao via Issue #69.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@579 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg.c b/libopkg/opkg.c
+index b36dc1b..6d97789 100644
+--- a/libopkg/opkg.c
++++ b/libopkg/opkg.c
+@@ -778,6 +778,7 @@ pkg_t *
+ opkg_find_package(const char *name, const char *ver, const char *arch,
+ 		const char *repo)
+ {
++	int pkg_found = 0;
+ 	pkg_t *pkg = NULL;
+ 	pkg_vec_t *all;
+ 	int i;
+@@ -815,12 +816,13 @@ opkg_find_package(const char *name, const char *ver, const char *arch,
+ 		}
+ 
+ 		/* match found */
++		pkg_found = 1;
+ 		break;
+ 	}
+ 
+ 	pkg_vec_free(all);
+ 
+-	return pkg;
++	return pkg_found ? pkg : NULL;
+ }
+ 
+ /**
+-- 
+1.7.1
+

@@ -1,0 +1,36 @@
+From 863691e01b76c0788bd93f37aedc4d8b36465d09 Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Mon, 28 Jun 2010 00:25:22 +0000
+Subject: [PATCH] s/ipkgetcdir/opkgetcdir/
+
+From David Bachelart via Issue #53.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@539 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ configure.ac |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 0583897..f386b52 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -225,13 +225,13 @@ if test x$opkglibdir = x; then
+         opkglibdir=/usr/lib
+ fi
+ 
+-ipkgetcdir=
++opkgetcdir=
+ AC_ARG_WITH(opkgetcdir,
+-[  --with-ipkgetcdir=DIR   specifies directory for opkg.conf file,
++[  --with-opkgetcdir=DIR   specifies directory for opkg.conf file,
+                            "/opkg" is always added so if you want your files
+                            to be in /usr/etc/opkg instead of /etc/opkg
+                            you should indicate
+-                           --with-ipkgetcdir=/usr/etc ],
++                           --with-opkgetcdir=/usr/etc ],
+ [case "${withval}" in
+ yes)    AC_MSG_ERROR(bad value ${withval} given for opkg.conf directory ) ;;
+ no)     ;;
+-- 
+1.7.1
+

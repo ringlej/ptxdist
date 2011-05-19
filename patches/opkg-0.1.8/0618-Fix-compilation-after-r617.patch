@@ -1,0 +1,26 @@
+From 9c97d5ecd795709c8584e972bfdf3aee3a5b846d Mon Sep 17 00:00:00 2001
+From: google@wwsnet.net <google@wwsnet.net@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 8 Apr 2011 13:33:11 +0000
+Subject: [PATCH] Fix compilation after r617
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@618 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_download.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_download.c b/libopkg/opkg_download.c
+index a1b8341..4a8b2a2 100644
+--- a/libopkg/opkg_download.c
++++ b/libopkg/opkg_download.c
+@@ -227,7 +227,7 @@ opkg_download_cache(const char *src, const char *dest_file_name,
+         if (file_exists(cache_location))
+            opkg_msg(NOTICE, "Copying %s.\n", cache_location);
+         else  {
+- 	    err = opkg_download(src, cache_location, cb, data);
++ 	    err = opkg_download(src, cache_location, cb, data, 0);
+ 	    if (err) {
+ 	       (void) unlink(cache_location);
+ 	       goto out2;
+-- 
+1.7.1
+

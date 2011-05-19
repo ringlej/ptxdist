@@ -1,0 +1,26 @@
+From 154f3993b8112021e79beac00128547d333b808d Mon Sep 17 00:00:00 2001
+From: graham.gower <graham.gower@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 11 Jun 2010 02:07:45 +0000
+Subject: [PATCH] Promote file removal message from INFO to NOTICE.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@535 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libopkg/opkg_install.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+index 4889ad8..88fed59 100644
+--- a/libopkg/opkg_install.c
++++ b/libopkg/opkg_install.c
+@@ -970,7 +970,7 @@ remove_obsolesced_files(pkg_t *pkg, pkg_t *old_pkg)
+ 	  }
+  
+ 	  /* old file is obsolete */
+-	  opkg_msg(INFO, "Removing obsolete file %s.\n", old);
++	  opkg_msg(NOTICE, "Removing obsolete file %s.\n", old);
+ 	  if (!conf->noaction) {
+ 	       err = unlink(old);
+ 	       if (err) {
+-- 
+1.7.1
+

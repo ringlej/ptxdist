@@ -1,0 +1,163 @@
+From 4510dc50d303256dd5f74681119c826c329f6939 Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Fri, 18 Feb 2011 00:02:14 +0000
+Subject: [PATCH] Allow vfork()ing an external gunzip binary instead of using fork().
+
+Patch from Mike Westerhof, with minor modifications to allow the use of both
+GNU gunzip and busybox gunzip. His original patch header follows.
+
+This patch allows a user to set an environment variable to cause opkg to
+select either the built-in gunzip code or an external gunzip utility, in
+order to dodge the OOM Killer.
+
+The built-in code is, of course, is the most desirable way to use opkg,
+since it is far more efficient.  However, the built-in code can trigger
+the OOM (out of memory) killer on small-memory machines, like the 32MB
+NSLU2.  This occurs because a standard fork will duplicate the entire
+address space of the parent.  Since opkg reads the entire feed database
+into memory, this problem is compounded by large feeds.
+
+This patch introduces a means for the user to cause opkg to use vfork()
+instead -- vfork() does not behave in the same manner as fork(), and
+does not trigger the OOM killer.  However, the semantics of vfork() are
+such that it cannot run the built-in gunzip code.  Instead, it must
+exec() an external utility to perform the gunzip operation.  It seems
+counter-intuitive, but the vfork()/exec() approach is the only good way
+to avoid triggering the dreaded OOM killer.
+
+In order to use this, the user must manually set the OPKG_USE_VFORK
+environment variable to any value.  For example:
+
+$ OPKG_USE_VFORK=1 opkg install samba
+
+The external utility used to do the gunzip operation is "busybox gunzip".
+It would have been nice to be able to just invoke "gunzip", but the
+full gunzip executable behaves slightly differently than does busybox,
+generating annoying warning messages.
+
+This is an update of the original patch by Mike Westerhof, Dec 2008.
+
+Mike Westerhof, Feb 2011
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@604 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ libbb/gz_open.c |   74 +++++++++++++++++++++++++++++++++++++++++++++++-------
+ 1 files changed, 64 insertions(+), 10 deletions(-)
+
+diff --git a/libbb/gz_open.c b/libbb/gz_open.c
+index 3997e72..bdc7564 100644
+--- a/libbb/gz_open.c
++++ b/libbb/gz_open.c
+@@ -29,33 +29,69 @@
+ #include <unistd.h>
+ #include "libbb.h"
+ 
++static int gz_use_vfork;
++
+ FILE *
+ gz_open(FILE *compressed_file, int *pid)
+ {
+ 	int unzip_pipe[2];
++	off_t floc;
++	int cfile = -1;
++
++	gz_use_vfork = (getenv("OPKG_USE_VFORK") != NULL);
++
++	if (gz_use_vfork) {
++		/* Create a new file descriptor for the input stream
++		 * (it *must* be associated with a file), and lseek()
++		 * to the same position in that fd as the stream.
++		 */
++		cfile = dup(fileno(compressed_file));
++		floc = ftello(compressed_file);
++		lseek(cfile, floc, SEEK_SET);
++		setenv("GZIP", "--quiet", 0);
++	}
+ 
+ 	if (pipe(unzip_pipe)!=0) {
+ 		perror_msg("pipe");
+ 		return(NULL);
+ 	}
+ 
+-    /* If we don't flush, we end up with two copies of anything pending,
+-       one from the parent, one from the child */
+-    fflush(stdout);
+-    fflush(stderr);
++	/* If we don't flush, we end up with two copies of anything pending,
++	   one from the parent, one from the child */
++	fflush(stdout);
++	fflush(stderr);
+ 
+-	if ((*pid = fork()) == -1) {
++	if (gz_use_vfork) {
++		*pid = vfork();
++	} else {
++		*pid = fork();
++	}
++
++	if (*pid<0) {
+ 		perror_msg("fork");
+ 		return(NULL);
+ 	}
++
+ 	if (*pid==0) {
+ 		/* child process */
+ 		close(unzip_pipe[0]);
+-		unzip(compressed_file, fdopen(unzip_pipe[1], "w"));
+-		fflush(NULL);
+-		fclose(compressed_file);
+-		close(unzip_pipe[1]);
+-		_exit(EXIT_SUCCESS);
++		if (gz_use_vfork) {
++			dup2(unzip_pipe[1], 1);
++			dup2(cfile, 0);
++			execlp("gunzip","gunzip",NULL);
++			/* If we get here, we had a failure */
++			_exit(EXIT_FAILURE);
++		} else {
++			unzip(compressed_file, fdopen(unzip_pipe[1], "w"));
++			fflush(NULL);
++			fclose(compressed_file);
++			close(unzip_pipe[1]);
++			_exit(EXIT_SUCCESS);
++		}
++	}
++	/* Parent process is executing here */
++	if (gz_use_vfork) {
++		close(cfile);
+ 	}
+ 	close(unzip_pipe[1]);
+ 	return(fdopen(unzip_pipe[0], "r"));
+@@ -67,11 +103,29 @@ gz_close(int gunzip_pid)
+ 	int status;
+ 	int ret;
+ 
++	if (gz_use_vfork) {
++		/* The gunzip process remains running in the background if we
++		 * used the vfork()/exec() technique - so we have to kill it
++		 * forcibly.  There might be a better way to do this, but that
++		 * affect a lot of other parts of opkg, and this works fine.
++		 */
++		if (kill(gunzip_pid, SIGTERM) == -1) {
++			perror_msg("gz_close(): unable to kill gunzip pid.");
++			return -1;
++		}
++	}
++
++
+ 	if (waitpid(gunzip_pid, &status, 0) == -1) {
+ 		perror_msg("waitpid");
+ 		return -1;
+ 	}
+ 
++	if (gz_use_vfork) {
++		/* Bail out here if we used the vfork()/exec() technique. */
++		return 0;
++	}
++
+ 	if (WIFSIGNALED(status)) {
+ 		error_msg("Unzip process killed by signal %d.\n",
+ 			WTERMSIG(status));
+-- 
+1.7.1
+

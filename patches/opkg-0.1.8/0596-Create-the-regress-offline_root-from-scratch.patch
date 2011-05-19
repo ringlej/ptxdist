@@ -1,0 +1,33 @@
+From 7486bf366c05312e7d50d5f969a539a6a581fcac Mon Sep 17 00:00:00 2001
+From: graham.gower@gmail.com <graham.gower@gmail.com@e8e0d7a0-c8d9-11dd-a880-a1081c7ac358>
+Date: Thu, 23 Dec 2010 01:38:57 +0000
+Subject: [PATCH] Create the regress offline_root from scratch.
+
+git-svn-id: http://opkg.googlecode.com/svn/trunk@596 e8e0d7a0-c8d9-11dd-a880-a1081c7ac358
+---
+ tests/regress/opk.py |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/tests/regress/opk.py b/tests/regress/opk.py
+index 616658a..9763bd3 100644
+--- a/tests/regress/opk.py
++++ b/tests/regress/opk.py
+@@ -90,6 +90,12 @@ def regress_init():
+ 
+ 	os.chdir(cfg.opkdir)
+ 
+-	odir = "{}/usr/lib/opkg".format(cfg.offline_root)
+-	os.system("rm -fr {}".format(odir))
+-	os.mkdir(odir)
++	os.system("rm -fr {}".format(cfg.offline_root))
++
++	os.makedirs("{}/usr/lib/opkg".format(cfg.offline_root))
++	os.makedirs("{}/etc/opkg".format(cfg.offline_root))
++
++	f = open("{}/etc/opkg/opkg.conf".format(cfg.offline_root), "w")
++	f.write("arch all 1\n")
++	f.write("src test file:{}\n".format(cfg.opkdir))
++	f.close()
+-- 
+1.7.1
+
