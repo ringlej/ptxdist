@@ -38,7 +38,11 @@ ptxd_get_ipkg_files() {
 	# take first hit
 	if ptxd_get_path "${ipkg_files[@]}"; then
 	    ptxd_reply_ipkg_files[${#ptxd_reply_ipkg_files[@]}]="${ptxd_reply}"
-	    ptxd_reply_perm_files[${#ptxd_reply_perm_files[@]}]="${ptxd_reply%/*/*}/state/${1}.perms"
+	    if [ -z "$(ptxd_get_ptxconf PTXCONF_IMAGE_INSTALL_FROM_IPKG_REPOSITORY)" ]; then
+		ptxd_reply_perm_files[${#ptxd_reply_perm_files[@]}]="${ptxd_reply%/*/*}/state/${1}.perms"
+	    else
+		ptxd_reply_perm_files[${#ptxd_reply_perm_files[@]}]="${ptxd_reply%.ipk}.perms"
+	    fi
 	else
 	    ptxd_bailout "\
 
@@ -57,7 +61,12 @@ export -f ptxd_get_ipkg_files
 # initialize variables needed for image creation
 #
 ptxd_make_image_init() {
-    image_ipkg_repo_dirs=( "${ptx_pkg_dir}" )
+    if [ -z "$(ptxd_get_ptxconf PTXCONF_IMAGE_INSTALL_FROM_IPKG_REPOSITORY)" ]; then
+	image_ipkg_repo_dirs=( "${ptx_pkg_dir}" )
+    else
+	image_ipkg_repo_dirs=( "${image_repo_dist_dir}" )
+    fi
+
     if [ -n "${PTXDIST_BASE_PLATFORMDIR}" ]; then
 	image_ipkg_repo_dirs[${#image_ipkg_repo_dirs[@]}]="${PTXDIST_BASE_PLATFORMDIR}/packages"
     fi

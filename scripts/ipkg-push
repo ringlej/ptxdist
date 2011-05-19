@@ -119,9 +119,15 @@ for package in $IPKG_PACKAGES; do
 		# this package wasn't there before, re-revision to -1
 		newpackage=`$SCRIPTDIR/ipkg-revision $POOL/$package - 1`
 		if [ -n "$DIST" ]; then 
+			cp -f "$IPKGDIR/../state/${IPKG_NAME}.perms" "$POOL/${newpackage%.ipk}.perms"
+
 			echo "  linking.source...: ../../pool/$newpackage"
 			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpackage"
-			ln -sf ../../pool/$newpackage $REPODIR/$PROJECT/dists/$DIST/$newpackage
+			ln -sf ../../pool/${newpackage} $REPODIR/$PROJECT/dists/$DIST/$newpackage
+
+			echo "  perms linking.source...: ../../pool/${newpackage%.ipk}.perms"
+			echo "  perms linking.to.......: $REPODIR/$PROJECT/dists/$DIST/${newpackage%.ipk}.perms"
+			ln -sf ../../pool/${newpackage%.ipk}.perms $REPODIR/$PROJECT/dists/$DIST/${newpackage%.ipk}.perms
 		fi
 
 	else
@@ -149,7 +155,11 @@ for package in $IPKG_PACKAGES; do
 			if [ -n "$DIST" ]; then 
 				echo "  linking.source...: ../../pool/$latest_pkg"
 				echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$latest_pkg"
-				ln -sf ../../pool/$latest_pkg $REPODIR/$PROJECT/dists/$DIST/$latest_pkg
+				ln -sf ../../pool/${latest_pkg} $REPODIR/$PROJECT/dists/$DIST/$latest_pkg
+
+				echo "  perms linking.source...: ../../pool/${latest_pkg%.ipk}.perms"
+				echo "  perms linking.to.......: $REPODIR/$PROJECT/dists/$DIST/${latest_pkg%.ipk}.perms"
+				ln -sf ../../pool/${latest_pkg%.ipk}.perms $REPODIR/$PROJECT/dists/$DIST/${latest_pkg%.ipk}.perms
 			fi
 			continue
 		fi
@@ -159,10 +169,16 @@ for package in $IPKG_PACKAGES; do
 
 		newpackage=`$SCRIPTDIR/ipkg-revision $POOL/$package - $(($IPKG_REV_PACKAGE+1))`
 		echo "RSC2: newpackage=$newpackage"
-		if [ -n "$DIST" ]; then 
+		if [ -n "$DIST" ]; then
+			cp -f "$IPKGDIR/../state/${IPKG_NAME}.perms" "$POOL/${newpackage%.ipk}.perms"
+
 			echo "  linking.source...: ../../pool/$newpackage"
 			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpackage"
-			ln -sf ../../pool/$newpackage $REPODIR/$PROJECT/dists/$DIST/$newpackage
+			ln -sf ../../pool/${newpackage} $REPODIR/$PROJECT/dists/$DIST/$newpackage
+	
+			echo "  perms linking.source...: ../../pool/${newpackage%.ipk}.perms"
+			echo "  perms linking.to.......: $REPODIR/$PROJECT/dists/$DIST/${newpackage%.ipk}.perms"
+			ln -sf ../../pool/${newpackage%.ipk}.perms $REPODIR/$PROJECT/dists/$DIST/${newpackage%.ipk}.perms
 		fi
 
 	fi

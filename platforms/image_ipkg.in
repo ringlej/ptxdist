@@ -24,6 +24,18 @@ config IMAGE_IPKG_FORCED_PUSH
 	  If this option is checked, this is done by default. This
 	  is most useful for development purposes.
 
+config IMAGE_INSTALL_FROM_IPKG_REPOSITORY
+	bool
+	select IMAGE_IPKG_PUSH_TO_REPOSITORY
+	select IMAGE_IPKG_FORCED_PUSH
+	prompt "make images: install packets from ipkg-repository"
+	help
+	  If this option is checked the packet files from the
+	  ipkg-repository are used to create the images
+	  
+	  Please note, that the ipkg-repository is currently a
+	  local directory on your machine.
+
 config IMAGE_IPKG_INDEX
 	bool "generate ipkg.index"
 	default y

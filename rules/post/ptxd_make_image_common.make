@@ -17,6 +17,7 @@ DOPERMISSIONS := '{	\
 image/env = \
 	$(call ptx/env) \
 	image_pkgs_selected_target="$(call ptx/escape,$(PTX_PACKAGES_INSTALL))" \
+	image_repo_dist_dir="$(call ptx/escape,$(PTXCONF_SETUP_IPKG_REPOSITORY)/$(call remove_quotes,$(PTXCONF_PROJECT))/dists/$(call remove_quotes,$(PTXCONF_PROJECT))$(call remove_quotes,$(PTXCONF_PROJECT_VERSION)))" \
 	\
 	image_work_dir="$(call ptx/escape,$(image/work_dir))" \
 	image_permissions="$(call ptx/escape,$(image/permissions))"
