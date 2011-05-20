@@ -3,6 +3,7 @@
 menuconfig OPKG
 	tristate
 	select LIBCURL if OPKG_CURL
+	select OPENSSL if OPKG_OPENSSL
 	prompt "opkg                          "
 	help
 	  Opkg is a lightweight package management system based on Ipkg.
