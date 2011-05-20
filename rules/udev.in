@@ -8,7 +8,6 @@ menuconfig UDEV
 	select GLIB		if UDEV_EXTRA_UDEV_ACL
 	select ACL		if UDEV_EXTRA_UDEV_ACL
 	select USBUTILS		if UDEV_EXTRA_USB_DB
-	select LIBUSB_COMPAT	if UDEV_EXTRA_HID2HCI
 	select LIBUSB_COMPAT	if UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
 	select PCIUTILS		if UDEV_EXTRA_PCI_DB
 	help
@@ -186,12 +185,6 @@ if UDEV_EXTRAS
 		prompt "fstab_import"
 		help
 		  Find matching entry in fstab and export it
-
-	config UDEV_EXTRA_HID2HCI
-		bool
-		prompt "hid2hci"
-		help
-		  Convert HID to HCI IDs
 
 	config UDEV_EXTRA_INPUT_ID
 		bool

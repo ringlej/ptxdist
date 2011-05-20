@@ -20,8 +20,8 @@ ifndef PTXCONF_UDEV_EXPERIMENTAL
 UDEV_VERSION	:= 162
 UDEV_MD5	:= dd7099242e92084605e07db0c7299a02
 else
-UDEV_VERSION	:= 167
-UDEV_MD5	:= 4b37e1222f06c14c24147de346aa0bad
+UDEV_VERSION	:= 170
+UDEV_MD5	:= 6e132d1a3b4dae24dafd2726c5cdd982
 endif
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
@@ -81,12 +81,6 @@ else
 UDEV_AUTOCONF	+= --without-systemdsystemunitdir
 endif
 
-ifeq ($(PTXCONF_ARCH_ARM)-$(PTXCONF_UDEV_EXTRA_HID2HCI),-y)
-UDEV_AUTOCONF	+= --enable-bluetooth
-else
-UDEV_AUTOCONF	+= --disable-bluetooth
-endif
-
 ifdef PTXCONF_UDEV_EXTRA_KEYMAP
 UDEV_AUTOCONF	+= --enable-keymap
 else
@@ -94,27 +88,21 @@ UDEV_AUTOCONF	+= --disable-keymap
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_UDEV_ACL
-UDEV_AUTOCONF	+= --enable-acl
+UDEV_AUTOCONF	+= --enable-udev_acl
 else
-UDEV_AUTOCONF	+= --disable-acl
+UDEV_AUTOCONF	+= --disable-udev_acl
 endif
 
-ifdef PTXCONF_UDEV_EXTRA_USB_DB
-UDEV_AUTOCONF	+= --enable-usbdb
+ifneq ($(PTXCONF_UDEV_EXTRA_USB_DB)$(PTXCONF_UDEV_EXTRA_PCI_DB),)
+UDEV_AUTOCONF	+= --enable-hwdb
 else
-UDEV_AUTOCONF	+= --disable-usbdb
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_PCI_DB
-UDEV_AUTOCONF	+= --enable-pcidb
-else
-UDEV_AUTOCONF	+= --disable-pcidb
+UDEV_AUTOCONF	+= --disable-hwdb
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
-UDEV_AUTOCONF	+= --enable-mobile-action-modeswitch
+UDEV_AUTOCONF	+= --enable-action_modeswitch
 else
-UDEV_AUTOCONF	+= --disable-mobile-action-modeswitch
+UDEV_AUTOCONF	+= --disable-action_modeswitch
 endif
 
 ifdef PTXCONF_UDEV_SELINUX
