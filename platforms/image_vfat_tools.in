@@ -1,0 +1,7 @@
+## SECTION=image
+
+config IMAGE_VFAT_TOOLS
+	bool
+	select HOST_MTOOLS
+	select HOST_DOSFSTOOLS
+
