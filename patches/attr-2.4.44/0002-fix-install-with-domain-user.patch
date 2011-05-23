@@ -1,0 +1,30 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Mon, 23 May 2011 09:27:46 -0400
+Subject: [PATCH] fix install with domain\user
+
+If current user is domain\user the \ gets interpreted as an escape char
+resulting in user not found.
+
+Enclose "$(PKG_USER)" and "$(PKG_GROUP)" in quotes to fix.
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ include/buildmacros |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/include/buildmacros b/include/buildmacros
+index d9b0734..1eb61df 100644
+--- a/include/buildmacros
++++ b/include/buildmacros
+@@ -40,7 +40,7 @@ OBJECTS = $(ASFILES:.s=.o) \
+ 	  $(LFILES:.l=.o) \
+ 	  $(YFILES:%.y=%.tab.o)
+ 
+-INSTALL	= $(TOPDIR)/include/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
++INSTALL	= $(TOPDIR)/include/install-sh -o "$(PKG_USER)" -g "$(PKG_GROUP)"
+ 
+ SHELL = /bin/sh
+ IMAGES_DIR = $(TOPDIR)/all-images
+-- 
+1.7.0.4
+

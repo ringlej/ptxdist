@@ -1,4 +1,3 @@
-From ab16f079fc3c0014da5c7455d47eda24dad192c4 Mon Sep 17 00:00:00 2001
 From: Robert Schwebel <r.schwebel@pengutronix.de>
 Date: Fri, 8 Jan 2010 17:22:45 +0100
 Subject: [PATCH] buildmacros: use correct libtool commands
@@ -10,10 +9,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  include/buildmacros |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
-Index: b/include/buildmacros
-===================================================================
+diff --git a/include/buildmacros b/include/buildmacros
+index ab89182..d9b0734 100644
 --- a/include/buildmacros
 +++ b/include/buildmacros
 @@ -55,10 +55,10 @@ LIBNAME = $(basename $(LTLIBRARY))
@@ -38,3 +37,6 @@ Index: b/include/buildmacros
  
  INSTALL_MAN = \
  	@for d in $(MAN_PAGES); do \
+-- 
+1.7.0.4
+
