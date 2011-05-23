@@ -45,6 +45,7 @@ LSOF_ENV 	:= \
 
 LSOF_MAKEVARS	:= \
 	$(CROSS_ENV_CC) \
+	LSOF_USER=none \
 	DEBUG=-O2
 
 #
