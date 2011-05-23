@@ -81,6 +81,14 @@ else
 UDEV_AUTOCONF	+= --without-systemdsystemunitdir
 endif
 
+ifndef PTXCONF_UDEV_EXPERIMENTAL
+ifeq ($(PTXCONF_ARCH_ARM)-$(PTXCONF_UDEV_EXTRA_HID2HCI),-y)
+UDEV_AUTOCONF	+= --enable-bluetooth
+else
+UDEV_AUTOCONF	+= --disable-bluetooth
+endif
+endif
+
 ifdef PTXCONF_UDEV_EXTRA_KEYMAP
 UDEV_AUTOCONF	+= --enable-keymap
 else
@@ -93,10 +101,24 @@ else
 UDEV_AUTOCONF	+= --disable-udev_acl
 endif
 
+ifndef PTXCONF_UDEV_EXPERIMENTAL
+ifdef PTXCONF_UDEV_EXTRA_USB_DB
+UDEV_AUTOCONF	+= --enable-usbdb
+else
+UDEV_AUTOCONF	+= --disable-usbdb
+endif
+
+ifdef PTXCONF_UDEV_EXTRA_PCI_DB
+UDEV_AUTOCONF	+= --enable-pcidb
+else
+UDEV_AUTOCONF	+= --disable-pcidb
+endif
+else
 ifneq ($(PTXCONF_UDEV_EXTRA_USB_DB)$(PTXCONF_UDEV_EXTRA_PCI_DB),)
 UDEV_AUTOCONF	+= --enable-hwdb
 else
 UDEV_AUTOCONF	+= --disable-hwdb
+endif
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH

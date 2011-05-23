@@ -11,7 +11,7 @@ with
 	--disable-acl
 	--disable-usbdb
 	--disable-pcidb
-	--disable-modem-modeswitch
+	--disable-action_modeswitch
 as configure options
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
@@ -73,7 +73,7 @@ Index: udev-162/Makefile.am
  libexec_PROGRAMS += extras/hid2hci/hid2hci
 +endif # ENABLE_BLUETOOTH
  
-+if ENABLE_ACL
++if ENABLE_UDEV_ACL
  # ------------------------------------------------------------------------------
  # udev_acl - apply ACLs for users with local forground sessions
  # ------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ Index: udev-162/Makefile.am
  	ln -sf $(libexecdir)/udev-acl $(DESTDIR)$(prefix)/lib/ConsoleKit/run-seat.d/udev-acl.ck
  
  INSTALL_EXEC_HOOKS += udevacl-install-hook
-+endif # ENABLE_ACL
++endif # ENABLE_UDEV_ACL
  
 +if ENABLE_USBDB
  # ------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ Index: udev-162/Makefile.am
  libexec_PROGRAMS += extras/usb-db/pci-db
 +endif # ENABLE_PCIDB
  
-+if ENABLE_MOBILE_ACTION_MODESWITCH
++if ENABLE_ACTION_MODESWITCH
  # ------------------------------------------------------------------------------
  # mobile-action-modeswitch - switch Mobile Action cables into serial mode
  # ------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ Index: udev-162/Makefile.am
  	extras/mobile-action-modeswitch/61-mobile-action.rules
  
  libexec_PROGRAMS += extras/mobile-action-modeswitch/mobile-action-modeswitch
-+endif # ENABLE_MOBILE_ACTION_MODESWITCH
++endif # ENABLE_ACTION_MODESWITCH
  
 +if ENABLE_KEYMAP
  # ------------------------------------------------------------------------------
@@ -150,10 +150,10 @@ Index: udev-162/configure.ac
 +	AS_HELP_STRING([--disable-keymap], [disable keymap - map custom hardware's multimedia keys]),
 +	[], [enable_keymap=yes])
 +AM_CONDITIONAL([ENABLE_KEYMAP], [test "x$enable_keymap" = xyes])
-+AC_ARG_ENABLE([acl],
-+	AS_HELP_STRING([--disable-acl], [disable udev_acl - apply ACLs for users with local forground sessions]),
-+	[], [enable_acl=yes])
-+AM_CONDITIONAL([ENABLE_ACL], [test "x$enable_acl" = xyes])
++AC_ARG_ENABLE([udev_acl],
++	AS_HELP_STRING([--disable-udev_acl], [disable udev_acl - apply ACLs for users with local forground sessions]),
++	[], [enable_udev_acl=yes])
++AM_CONDITIONAL([ENABLE_UDEV_ACL], [test "x$enable_udev_acl" = xyes])
 +AC_ARG_ENABLE([usbdb],
 +	AS_HELP_STRING([--disable-usbdb], [disable usb-db - read USB vendor/device string database]),
 +	[], [enable_usbdb=yes])
@@ -162,10 +162,10 @@ Index: udev-162/configure.ac
 +	AS_HELP_STRING([--disable-pcidb], [disable pci-db - read PCI vendor/device string database]),
 +	[], [enable_pcidb=yes])
 +AM_CONDITIONAL([ENABLE_PCIDB], [test "x$enable_pcidb" = xyes])
-+AC_ARG_ENABLE([mobile-action-modeswitch],
-+	AS_HELP_STRING([--disable-mobile-action-modeswitch], [disable mobile-action-modeswitch - switch Mobile Action cables into serial mode]),
-+	[], [enable_mobile_action_modeswitch=yes])
-+AM_CONDITIONAL([ENABLE_MOBILE_ACTION_MODESWITCH], [test "x$enable_mobile_action_modeswitch" = xyes])
++AC_ARG_ENABLE([action_modeswitch],
++	AS_HELP_STRING([--disable-action_modeswitch], [disable mobile-action-modeswitch - switch Mobile Action cables into serial mode]),
++	[], [enable_action_modeswitch=yes])
++AM_CONDITIONAL([ENABLE_ACTION_MODESWITCH], [test "x$enable_action_modeswitch" = xyes])
 +
 +if test "x$enable_keymap" = xyes; then
  	AC_PATH_PROG([GPERF], [gperf])
@@ -177,18 +177,18 @@ Index: udev-162/configure.ac
 +	AC_SUBST([INCLUDE_PREFIX], [$(echo '#include <linux/input.h>' | eval $ac_cpp -E - | sed -n '/linux\/input.h/ {s:.*"\(.*\)/linux/input.h".*:\1:; p; q}')])
 +fi
 +
-+if test "x$enable_gudev" = xyes -o "x$enable_acl" = xyes; then
++if test "x$enable_gudev" = xyes -o "x$enable_udev_acl" = xyes; then
  	PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.7.0 gobject-2.0 >= 2.7.0])
  	AC_SUBST([GLIB_CFLAGS])
  	AC_SUBST([GLIB_LIBS])
 +fi
  
-+if test "x$enable_acl" = xyes; then
++if test "x$enable_udev_acl" = xyes; then
  	AC_CHECK_LIB([acl], [acl_init], [:], AC_MSG_ERROR([libacl not found]))
  	AC_CHECK_HEADER([acl/libacl.h], [:], AC_MSG_ERROR([libacl header not found]))
 +fi
  
-+if test "x$enable_bluetooth" = xyes -o "x$enable_mobile_action_modeswitch" = xyes; then
++if test "x$enable_bluetooth" = xyes -o "x$enable_action_modeswitch" = xyes; then
  	PKG_CHECK_MODULES(LIBUSB, libusb >= 0.1.12)
  	AC_SUBST(LIBUSB_CFLAGS)
  	AC_SUBST(LIBUSB_LIBS)
@@ -225,8 +225,8 @@ Index: udev-162/configure.ac
 +	gudev:			${enable_gudev}
 +	bluetooth:		${enable_bluetooth}
 +	keymap:			${enable_keymap}
-+	acl:			${enable_acl}
-+	mobile-action-modeswitch:	${enable_mobile_action_modeswitch}
++	acl:			${enable_udev_acl}
++	action-modeswitch:	${enable_action_modeswitch}
  	gintrospection:		${enable_introspection}
  
  	usb.ids:		${USB_DATABASE}
