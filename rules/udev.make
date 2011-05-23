@@ -119,6 +119,18 @@ UDEV_AUTOCONF	+= --enable-hwdb
 else
 UDEV_AUTOCONF	+= --disable-hwdb
 endif
+
+ifdef PTXCONF_UDEV_EXTRA_FLOPPY
+UDEV_AUTOCONF	+= --enable-floppy
+else
+UDEV_AUTOCONF	+= --disable-floppy
+endif
+
+ifdef PTXCONF_UDEV_EXTRA_EDD_ID
+UDEV_AUTOCONF	+= --enable-edd
+else
+UDEV_AUTOCONF	+= --disable-edd
+endif
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
