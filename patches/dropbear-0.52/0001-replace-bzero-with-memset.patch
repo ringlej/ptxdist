@@ -1,0 +1,26 @@
+From 30d685c42cda04cf36dbadd5b453d4c50a7de64c Mon Sep 17 00:00:00 2001
+From: Jon Ringle <jon@ringle.org>
+Date: Tue, 26 Apr 2011 03:11:49 -0400
+Subject: [PATCH] replace bzero with memset
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ svr-main.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/svr-main.c b/svr-main.c
+index 8d57084..484d186 100644
+--- a/svr-main.c
++++ b/svr-main.c
+@@ -133,7 +133,7 @@ void main_noinetd() {
+ 	for (i = 0; i < MAX_UNAUTH_CLIENTS; i++) {
+ 		childpipes[i] = -1;
+ 	}
+-	bzero(preauth_addrs, sizeof(preauth_addrs));
++	memset(preauth_addrs, 0, sizeof(preauth_addrs));
+ 	
+ 	/* Set up the listening sockets */
+ 	listensockcount = listensockets(listensocks, MAX_LISTEN_ADDR, &maxsock);
+-- 
+1.7.0.4
+
