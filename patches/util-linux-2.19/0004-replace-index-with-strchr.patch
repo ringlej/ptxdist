@@ -1,0 +1,36 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Tue, 24 May 2011 12:14:09 -0400
+Subject: [PATCH] replace index with strchr
+
+index is deprecated and not available in uclibc
+replace with strchr
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ shlibs/mount/src/tab_parse.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/shlibs/mount/src/tab_parse.c b/shlibs/mount/src/tab_parse.c
+index 4eb32eb..a2cd30f 100644
+--- a/shlibs/mount/src/tab_parse.c
++++ b/shlibs/mount/src/tab_parse.c
+@@ -272,14 +272,14 @@ static int mnt_table_parse_next(struct libmnt_table *tb, FILE *f, struct libmnt_
+ 		if (fgets(buf, sizeof(buf), f) == NULL)
+ 			return -EINVAL;
+ 		++*nlines;
+-		s = index (buf, '\n');
++		s = strchr (buf, '\n');
+ 		if (!s) {
+ 			/* Missing final newline?  Otherwise extremely */
+ 			/* long line - assume file was corrupted */
+ 			if (feof(f)) {
+ 				DBG(TAB, mnt_debug_h(tb,
+ 					"%s: no final newline",	filename));
+-				s = index (buf, '\0');
++				s = strchr (buf, '\0');
+ 			} else {
+ 				DBG(TAB, mnt_debug_h(tb,
+ 					"%s:%d: missing newline at line",
+-- 
+1.7.0.4
+

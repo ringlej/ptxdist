@@ -1,0 +1,32 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Thu, 21 Apr 2011 17:44:28 -0400
+Subject: [PATCH] _s undeclared fix
+
+tt.c: In function 'recount_widths':
+tt.c:398: error: '_s' undeclared (first use in this function)
+tt.c:398: error: (Each undeclared identifier is reported only once
+tt.c:398: error: for each function it appears in.)
+tt.c: In function 'print_data':
+tt.c:508: error: '_s' undeclared (first use in this function)
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ lib/tt.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/lib/tt.c b/lib/tt.c
+index 198210c..328b9d7 100644
+--- a/lib/tt.c
++++ b/lib/tt.c
+@@ -52,7 +52,7 @@ static const struct tt_symbols utf8_tt_symbols = {
+ };
+ 
+ #else /* !HAVE_WIDECHAR */
+-# define mbs_width       strlen(_s)
++# define mbs_width(_s)       strlen(_s)
+ #endif /* !HAVE_WIDECHAR */
+ 
+ #define is_last_column(_tb, _cl) \
+-- 
+1.7.0.4
+

@@ -1,0 +1,40 @@
+From: Karel Zak <kzak@redhat.com>
+Date: Fri, 11 Feb 2011 09:06:27 +0100
+Subject: [PATCH] partx, lsblk: fix gettext calls
+
+Reported-by: Peter Breitenlohner <peb@mppmu.mpg.de>
+Signed-off-by: Karel Zak <kzak@redhat.com>
+---
+ misc-utils/lsblk.c |    2 +-
+ partx/partx.c      |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/misc-utils/lsblk.c b/misc-utils/lsblk.c
+index 44358fd..b07bfb4 100644
+--- a/misc-utils/lsblk.c
++++ b/misc-utils/lsblk.c
+@@ -871,7 +871,7 @@ static void __attribute__((__noreturn__)) help(FILE *out)
+ 	fprintf(out, _("\nAvailable columns:\n"));
+ 
+ 	for (i = 0; i < __NCOLUMNS; i++)
+-		fprintf(out, " %10s  %s\n", infos[i].name, gettext(infos[i].help));
++		fprintf(out, " %10s  %s\n", infos[i].name, _(infos[i].help));
+ 
+ 	fprintf(out, _("\nFor more information see lsblk(8).\n"));
+ 
+diff --git a/partx/partx.c b/partx/partx.c
+index efb627f..a65586f 100644
+--- a/partx/partx.c
++++ b/partx/partx.c
+@@ -615,7 +615,7 @@ static void __attribute__((__noreturn__)) usage(FILE *out)
+ 	fprintf(out, _("\nAvailable columns (for --show):\n"));
+ 
+ 	for (i = 0; i < __NCOLUMNS; i++)
+-		fprintf(out, " %10s  %s\n", infos[i].name, gettext(infos[i].help));
++		fprintf(out, " %10s  %s\n", infos[i].name, _(infos[i].help));
+ 
+ 	fprintf(out, _("\nFor more information see partx(8).\n"));
+ 
+-- 
+1.7.0.4
+
