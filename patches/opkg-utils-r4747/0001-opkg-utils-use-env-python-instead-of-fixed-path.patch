@@ -1,4 +1,3 @@
-From a84ad7f392520432d6364523f17fc9777310fb13 Mon Sep 17 00:00:00 2001
 From: George McCollister <george.mccollister@gmail.com>
 Date: Fri, 13 May 2011 10:00:47 -0500
 Subject: [PATCH] opkg-utils: use env python instead of fixed path
@@ -67,5 +66,5 @@ index 807f8f4..3864fa5 100755
  import sys, os
  from glob import glob
 -- 
-1.7.1
+1.7.5.1
 

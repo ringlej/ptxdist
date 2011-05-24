@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 24 May 2011 08:15:20 +0200
+Subject: [PATCH] opkg-build: don't use bashism
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ opkg-build |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/opkg-build b/opkg-build
+index 1c323c3..f9251ea 100755
+--- a/opkg-build
++++ b/opkg-build
+@@ -239,7 +239,7 @@ rm $tmp_dir/tarX
+ 
+ echo "2.0" > $tmp_dir/debian-binary
+ 
+-if (( $opkext == 1)); then 
++if [ $opkext -eq 1 ]; then
+ 	pkg_file=$dest_dir/${pkg}_${version}_${arch}.opk
+ else
+ 	pkg_file=$dest_dir/${pkg}_${version}_${arch}.ipk
+-- 
+1.7.5.1
+
