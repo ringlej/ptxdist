@@ -112,6 +112,7 @@ menu "install options               "
 
 	config UDEV_LIBGUDEV
 		bool
+		select UDEV_LIBUDEV
 		prompt "install libgudev"
 		help
 		  Install libgudev.so on the target.
