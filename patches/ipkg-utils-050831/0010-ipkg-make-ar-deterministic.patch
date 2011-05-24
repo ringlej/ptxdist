@@ -1,6 +1,10 @@
-From: Darren Hutchinson <dhutchinson@google.com>
-Date: Mon, 8 Nov 2010 13:21:56 +0100
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 24 May 2011 07:56:53 +0200
 Subject: [PATCH] ipkg: make ar deterministic
+
+Based on a patch from Darren Hutchinson <dhutchinson@google.com>
+
+From the original description:
 
 I had a strange problem when I tried to create an image.
 The last part of the error message was:
@@ -17,19 +21,19 @@ files created with a UID >99999 - it relies on the (ascii) AR header fields
 using one digit less than their allocated sizes so it can the padding
 space to split() them.
 
-There is no real need to use the actual UID in the ar header, and GNU AR has a
-'D' option that uses UID and GID values of zero when creating the ipkg archive.
-I have put together a quick patch that tells ptxdist to patch ipkg-build to use
-the 'D' option when invoking AR.
+The original patch added the option 'D' to ar to set the UID and GID to
+zero. This option is not available in older versions of ar. chown to 0:0
+instead. This is possible because the everything is run in fakeroot.
 
-Signed-off-by: Darren Hutchinson <dhutchinson@google.com>
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Not for upstream!
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  ipkg-build |    5 ++++-
  1 files changed, 4 insertions(+), 1 deletions(-)
 
 diff --git a/ipkg-build b/ipkg-build
-index 77367ac..27e4868 100755
+index 77367ac..7234e64 100755
 --- a/ipkg-build
 +++ b/ipkg-build
 @@ -235,7 +235,10 @@ echo "2.0" > $tmp_dir/debian-binary
@@ -37,10 +41,10 @@ index 77367ac..27e4868 100755
  rm -f $pkg_file
  if [ "$outer" = "ar" ] ; then
 -  ( cd $tmp_dir && ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
-+  # Add 'D' flag to ar. This forces UID 0 to be used when creating ipkg
-+  # files. This is needed as high UID values (> 99999) cause problems when
-+  # parsing ar file headers
-+  ( cd $tmp_dir && ar -crDf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
++  # chown the content to "0:0".  files. This is needed as high UID values (>
++  # 99999) cause problems when parsing ar file headers
++  ( cd $tmp_dir && chown 0:0 ./debian-binary ./data.tar.gz ./control.tar.gz &&
++	ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
  else
    ( cd $tmp_dir && tar -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
  fi
