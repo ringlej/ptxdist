@@ -16,7 +16,7 @@ Index: b/src/eggdbus/Makefile.am
  	completetype.c			completetype.h			\
  	$(NULL)
  
-+$(eggdbus_binding_tool_SOURCES): eggdbusenumtypes.h
++$(eggdbus_binding_tool_SOURCES) $(libeggdbus_common_la_SOURCES): eggdbusenumtypes.h
 +
  eggdbus_binding_tool_CFLAGS =                		      		\
          -D_EGG_DBUS_COMPILATION                                  	\
