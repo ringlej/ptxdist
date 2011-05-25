@@ -124,7 +124,7 @@ install_config =									\
 # $1: xpkg label
 # $2: OWN, use '-' to use the real UID of each file/directory
 # $3: GID, use '-' to use the real GID of each file/directory
-# $4: the toplevel directory.
+# $4: the toplevel directory, or  "-": to use $(PKG_PKGDIR)/$destination
 # $5: the target directory.
 # $6: strip
 #

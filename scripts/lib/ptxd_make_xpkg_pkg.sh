@@ -425,7 +425,13 @@ ptxd_install_find() {
 export -f ptxd_install_find
 
 ptxd_install_tree() {
-    ptxd_install_find "$@" ||
+    local src="${1}"
+    local dst="${2}"
+    shift 2
+    if [ "${src}" = "-" ]; then
+	src="${pkg_pkg_dir}${dst}"
+    fi
+    ptxd_install_find "${src}" "${dst}" "$@" ||
     ptxd_install_error "install_tree failed!"
 }
 export -f ptxd_install_tree
