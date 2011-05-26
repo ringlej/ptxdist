@@ -9,12 +9,14 @@ shift
 [ -e "${PTXDIST_BOARDSETUP}" ] || ptxd_bailout "Please run 'ptxdist boardsetup' first!"
 
 ptxd_get_path \
+	"${PTXDIST_PLATFORMCONFIGDIR}/tests/${TST}.kermit" \
 	"${PTXDIST_WORKSPACE}/tests/${TST}.kermit" \
 	"${PTXDIST_TOPDIR}/tests/${TST}.kermit" ||
 ptxd_bailout "No kermit-script for ${TST} found! Please report to the developers."
 KSCRIPT="${ptxd_reply}"
 
 ptxd_get_path \
+	"${PTXDIST_PLATFORMCONFIGDIR}/tests/libptxdisttest.kermit" \
 	"${PTXDIST_WORKSPACE}/tests/libptxdisttest.kermit" \
 	"${PTXDIST_TOPDIR}/tests/libptxdisttest.kermit" ||
 ptxd_bailout "Could not find kermit-library! Please report to the developers."
