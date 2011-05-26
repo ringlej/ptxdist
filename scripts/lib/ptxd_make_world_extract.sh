@@ -21,6 +21,20 @@ ptxd_make_world_extract() {
     pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
 
     case "${pkg_url}" in
+	lndir://*)
+	    local url="${pkg_url//lndir:\/\//}"
+	    if [ -n "${pkg_src}" ]; then
+		ptxd_bailout "<PKG>_SOURCE must not be defined when using a lndir:// URL!"
+	    fi
+	    if [ -d "${url}" ]; then
+		echo "local directory using lndir"
+		mkdir -p "${pkg_dir}"
+		lndir "$(ptxd_abspath "${url}")" "${pkg_dir}"
+		return
+	    else
+		ptxd_bailout "the URL '${pkg_url}' points to non existing directory."
+	    fi
+	    ;;
 	file://*)
 	    local url="${pkg_url//file:\/\//}"
 	    if [ -n "${pkg_src}" ]; then

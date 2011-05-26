@@ -322,11 +322,16 @@ END {
 		}
 
 		#
-		# conditional dependency on autogen script
+		# conditional dependencies
 		#
 		print "ifneq ($(" this_PKG "),)"						> DGEN_DEPS_POST;
+		# on autogen script
 		print "ifneq ($(call autogen_dep,$(" this_PKG ")),)"				> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/autogen-tools"		> DGEN_DEPS_POST;
+		print "endif"									> DGEN_DEPS_POST;
+		# on lndir
+		print "ifneq ($(findstring lndir://,$(" this_PKG "_URL)),)"			> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/host-lndir.install.post"	> DGEN_DEPS_POST;
 		print "endif"									> DGEN_DEPS_POST;
 		print "endif"									> DGEN_DEPS_POST;
 
