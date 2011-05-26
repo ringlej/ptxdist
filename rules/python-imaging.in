@@ -1,0 +1,24 @@
+## SECTION=multimedia_libs
+
+menuconfig PYTHON_IMAGING
+	tristate
+	select PYTHON
+	select ZLIB
+	select FREETYPE		if PYTHON_IMAGING_FREETYPE
+	select LIBJPEG		if PYTHON_IMAGING_JPEG
+	prompt "python-imaging"
+	help
+	  FIXME
+
+if PYTHON_IMAGING
+
+config PYTHON_IMAGING_FREETYPE
+	bool
+	prompt "FreeType support"
+
+config PYTHON_IMAGING_JPEG
+	bool
+	prompt "jpeg support"
+
+endif
+
