@@ -1,0 +1,37 @@
+## SECTION=multimedia_libs
+
+menuconfig LIBDMTX
+	tristate
+	prompt "libdmtx"
+	select PYTHON	if LIBDMTX_PYTHON
+	help
+	  libdmtx is open source software for reading and writing Data
+	  Matrix barcodes on Linux, Unix, OS X, Windows, and mobile
+	  devices. At its core libdmtx is a native shared library, allowing
+	  C/C++ programs to use its capabilities without extra restrictions
+	  or overhead.
+
+if LIBDMTX
+
+config LIBDMTX_DMTXQUERY
+	bool
+	prompt "install dmtxquery"
+
+config LIBDMTX_DMTXREAD
+	bool
+	# requires Wand >= 6.2.4
+	depends on BROKEN
+	prompt "install dmtxread"
+
+config LIBDMTX_DMTXWRITE
+	bool
+	# requires Wand >= 6.2.4
+	depends on BROKEN
+	prompt "install dmtxwrite"
+
+config LIBDMTX_PYTHON
+	bool
+	prompt "enable python bindings"
+
+endif
+

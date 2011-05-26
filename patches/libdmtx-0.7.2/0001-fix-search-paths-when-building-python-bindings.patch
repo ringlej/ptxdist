@@ -1,0 +1,41 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 26 May 2011 10:34:48 +0200
+Subject: [PATCH] fix search paths when building python bindings
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ wrapper/python/Makefile |    2 +-
+ wrapper/python/setup.py |    4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/wrapper/python/Makefile b/wrapper/python/Makefile
+index 22435a4..4f4d9d2 100755
+--- a/wrapper/python/Makefile
++++ b/wrapper/python/Makefile
+@@ -2,7 +2,7 @@ all:
+ 	python setup.py build
+ 
+ install:
+-	python setup.py install
++	python setup.py install --prefix=$$DESTDIR/usr
+ 
+ clean:
+ 	rm -Rf build
+diff --git a/wrapper/python/setup.py b/wrapper/python/setup.py
+index 2cb10d4..7d9404b 100755
+--- a/wrapper/python/setup.py
++++ b/wrapper/python/setup.py
+@@ -22,8 +22,8 @@
+ from distutils.core import setup, Extension
+ 
+ mod = Extension( '_pydmtx',
+-                 include_dirs = ['/usr/local/include'],
+-                 library_dirs = ['/usr/local/lib'],
++                 include_dirs = ['../../'],
++                 library_dirs = ['../../.libs'],
+                  libraries = ['dmtx'],
+                  sources = ['pydmtxmodule.c'] )
+ 
+-- 
+1.7.5.1
+
