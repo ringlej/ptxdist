@@ -1,0 +1,11 @@
+## SECTION=multimedia_libs
+
+config LIBV4L2_PYTHON
+	tristate
+	select V4L_UTILS
+	select V4L_UTILS_LIBV4L2
+	select PYTHON
+	select PYTHON_IMAGING
+	prompt "libv4l2-python"
+	help
+	  libv4l2 python bindings

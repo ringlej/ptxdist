@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 26 May 2011 18:46:14 +0200
+Subject: [PATCH] load lib from global dir
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ pyv4l2.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/pyv4l2.py b/pyv4l2.py
+index af0ccea..15b090a 100755
+--- a/pyv4l2.py
++++ b/pyv4l2.py
+@@ -10,7 +10,7 @@ import os
+ import Image as PILImage
+ from cStringIO import StringIO
+ 
+-lib = cdll.LoadLibrary("./libpyv4l2.so")
++lib = cdll.LoadLibrary("libpyv4l2.so")
+ lib.Error.restype = c_char_p
+ lib.MMap.restype = c_void_p
+ lib.GetStandard.restype = c_longlong
+-- 
+1.7.5.1
+
