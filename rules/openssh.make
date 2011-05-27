@@ -110,6 +110,8 @@ ifdef PTXCONF_OPENSSH_SSHD_SYSTEMD_UNIT
 		/lib/systemd/system/sshd@.service)
 	@$(call install_link, openssh, ../sshd.socket, \
 		/lib/systemd/system/sockets.target.wants/sshd.socket)
+	@$(call install_alternative, openssh, 0, 0, 0644, \
+		/usr/lib/tmpfiles.d/ssh.conf)
 endif
 endif
 
