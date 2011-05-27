@@ -1,0 +1,34 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Tue, 26 Apr 2011 03:27:51 -0400
+Subject: [PATCH] replace index/rindex with strchr/strrchr
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ mii-diag.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mii-diag.c b/mii-diag.c
+index 3c47e4a..3b45db9 100644
+--- a/mii-diag.c
++++ b/mii-diag.c
+@@ -174,7 +174,7 @@ main(int argc, char **argv)
+ {
+ 	int c, errflag = 0;
+ 	char **spp, *ifname;
+-    char *progname = rindex(argv[0], '/') ? rindex(argv[0], '/')+1 : argv[0];
++    char *progname = strrchr(argv[0], '/') ? strrchr(argv[0], '/')+1 : argv[0];
+ 
+ 	while ((c = getopt_long(argc, argv, shortopts, longopts, 0)) != EOF)
+ 		switch (c) {
+@@ -310,7 +310,7 @@ int do_one_xcvr(int skfd)
+ 					str = endstr+1;
+ 				else {
+ 					fprintf(stderr, "Invalid driver parameter '%s'.\n", str);
+-					str = index(str, ',');
++					str = strchr(str, ',');
+ 				}
+ 			} else if (endstr[0] == ',') {
+ 				data32[i] = newval;
+-- 
+1.7.0.4
+

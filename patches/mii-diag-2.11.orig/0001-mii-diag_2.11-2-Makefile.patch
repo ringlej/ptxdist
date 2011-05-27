@@ -1,0 +1,71 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Fri, 27 May 2011 17:48:06 -0400
+Subject: [PATCH] mii-diag_2.11-2 Makefile
+
+Get rid of debian/ stuff
+Keep only Makefile and typo fixes
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ Makefile   |   26 ++++++++++++++++++++++++++
+ mii-diag.8 |    4 ++--
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..cdfc573
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,26 @@
++CFLAGS= -O -Wall
++CC=gcc
++INSTALL=install
++
++LIBS=libmii.o
++
++all: mii-diag mii-diag-udeb
++
++mii-diag:
++	$(CC) $(CFLAGS) -Wstrict-prototypes -O mii-diag.c -DLIBMII \
++				libmii.c -o mii-diag
++
++mii-diag-udeb:
++	$(CC) -Os -Wstrict-prototypes -O mii-diag.c -o mii-diag
++clean:
++	rm -f *.o mii-diag mii-diag-udeb *~
++
++install-mii-diag:
++	mkdir -p $(DESTDIR)/usr/sbin
++	$(INSTALL) mii-diag $(DESTDIR)/usr/sbin
++
++install-mii-diag-udeb:
++	mkdir -p $(DESTDIR)/usr/sbin
++	$(INSTALL) mii-diag-udeb $(DESTDIR)/usr/sbin/mii-diag
++	
++install: all install-mii-diag
+diff --git a/mii-diag.8 b/mii-diag.8
+index 38837da..2890582 100644
+--- a/mii-diag.8
++++ b/mii-diag.8
+@@ -61,7 +61,7 @@ A summary of options is as follows.
+ .B \-F, --fixed-speed <speed|setting>
+ 
+ Speed is one of: 100baseT4, 100baseTx, 100baseTx-FD, 100baseTx-HD, 10baseT,
+-10baseT-FD, 10baseT-HD.  For more precise control an explict numeric
++10baseT-FD, 10baseT-HD.  For more precise control an explicit numeric
+ register setting is also allowed.
+ 
+ 
+@@ -117,7 +117,7 @@ capabilities, configuration and current status.
+ .PP
+ The '--monitor' option allows scripting link beat changes.
+ .PP
+-This option is similar to --watch, but with lower overhead and simplifed
++This option is similar to --watch, but with lower overhead and simplified
+ output.  It polls the interface only once a second and the output format
+ is a single line per link change with three fixed words
+   <unknown|down||negotiating|up> <STATUS> <PARTNER-CAP>
+-- 
+1.7.0.4
+
