@@ -1,0 +1,10 @@
+[Unit]
+Description=Handle network interface with ifup/ifdown
+Before=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/ifup -a
+ExecStop=/sbin/ifdown -a
+

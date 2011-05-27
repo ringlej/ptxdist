@@ -1,0 +1,2 @@
+#!/bin/sh
+ifconfig | awk '/^[^ ]/ { printf "%s=kernel\n", $1 }' > /var/run/ifstate

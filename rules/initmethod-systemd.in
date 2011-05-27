@@ -1,0 +1,16 @@
+## SECTION=initmethod
+
+if INITMETHOD_SYSTEMD
+
+config INITMETHOD_SYSTEMD_IFUPDOWN
+	bool
+	select BUSYBOX_IFUPDOWN			if BUSYBOX
+	select BUSYBOX_IFCONFIG			if BUSYBOX
+	select BUSYBOX_FEATURE_IFUPDOWN_IP	if BUSYBOX
+	prompt "install simple network service"
+	help
+	  Enable this to install services to handle networks with ifup/ifdown
+
+endif
+
+

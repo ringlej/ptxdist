@@ -1,0 +1,11 @@
+[Unit]
+Description=Mark kernel activated network interfaces as up
+Before=ifupdown.service
+ConditionPathExists=!/var/run/ifstate
+#ConditionKernelCommandLine=nfsroot
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/lib/systemd/ifupdown-prepare
+
