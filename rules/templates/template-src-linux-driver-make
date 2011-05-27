@@ -18,21 +18,13 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_URL		:= lndir://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_LICENSE	:= unknown
 
 ifdef PTXCONF_@PACKAGE@
 $(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@package@.extract:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -48,10 +40,6 @@ $(STATEDIR)/@package@.prepare:
 
 $(STATEDIR)/@package@.compile:
 	@$(call targetinfo)
-#	# The kernel cannot build an out-of-tree driver out-of-tree :-)
-#	# So we make a local copy.
-	rm -fr $(@PACKAGE@_DIR)
-	cp -a $(@PACKAGE@_SRCDIR) $(@PACKAGE@_DIR)
 	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
 		-C $(KERNEL_DIR) \
 		M=$(@PACKAGE@_DIR) \
