@@ -20,8 +20,8 @@ ifndef PTXCONF_UDEV_EXPERIMENTAL
 UDEV_VERSION	:= 162
 UDEV_MD5	:= dd7099242e92084605e07db0c7299a02
 else
-UDEV_VERSION	:= 170
-UDEV_MD5	:= 6e132d1a3b4dae24dafd2726c5cdd982
+UDEV_VERSION	:= 171
+UDEV_MD5	:= bdf4617284be2ecac11767437417e209
 endif
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
@@ -402,9 +402,14 @@ endif
 
 ifdef PTXCONF_UDEV_SYSTEMD
 	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/systemd/system/udev.socket)
-	@$(call install_link, udev, ../udev.socket, \
-		/lib/systemd/system/socket.target.wants/udev.socket)
+		/lib/systemd/system/udev-kernel.socket)
+	@$(call install_link, udev, ../udev-kernel.socket, \
+		/lib/systemd/system/socket.target.wants/udev-kernel.socket)
+
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/systemd/system/udev-control.socket)
+	@$(call install_link, udev, ../udev-control.socket, \
+		/lib/systemd/system/socket.target.wants/udev-control.socket)
 
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/systemd/system/udev.service)
