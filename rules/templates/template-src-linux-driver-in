@@ -3,7 +3,6 @@
 config @PACKAGE@
 	tristate
 	select KERNEL
-	select HOST_LNDIR
 	prompt "@package@"
 	help
 	  FIXME
