@@ -3,6 +3,8 @@
 config FILE
 	tristate
 	select HOST_FILE
+	select ZLIB
+	select GCCLIBS_GCC_S
 	prompt "file"
 	help
 	  The file command is "a file type guesser", that is, a command-line tool
