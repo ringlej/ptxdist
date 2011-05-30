@@ -2,6 +2,11 @@
 
 config JS
 	tristate
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
 	prompt "js (spidermonkey)"
 	help
 	  Spidermonkey is the JavaScript engine of the Mozilla firefox project.
