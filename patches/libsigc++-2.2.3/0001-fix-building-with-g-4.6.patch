@@ -1,0 +1,46 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 30 May 2011 09:42:01 +0200
+Subject: [PATCH] fix building with g++ 4.6
+
+Without it building fails with:
+[...]
+../sigc++/signal.h:33:11: error: 'size_t' does not name a type
+../sigc++/signal.h:34:11: error: 'ptrdiff_t' does not name a type
+[...]
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ sigc++/signal.h      |    3 +++
+ sigc++/signal_base.h |    2 ++
+ 2 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/sigc++/signal.h b/sigc++/signal.h
+index f88b9c0..b4a4380 100644
+--- a/sigc++/signal.h
++++ b/sigc++/signal.h
+@@ -21,6 +21,9 @@
+   #define SIGC_TYPEDEF_REDEFINE_ALLOWED 1
+ #endif
+ 
++using std::size_t;
++using std::ptrdiff_t;
++
+ namespace sigc {
+ 
+ /** STL-style iterator for slot_list.
+diff --git a/sigc++/signal_base.h b/sigc++/signal_base.h
+index 582a8f4..e924de6 100644
+--- a/sigc++/signal_base.h
++++ b/sigc++/signal_base.h
+@@ -28,6 +28,8 @@
+ #include <sigc++/functors/slot.h>
+ #include <sigc++/functors/mem_fun.h>
+ 
++using std::size_t;
++
+ namespace sigc
+ {
+ 
+-- 
+1.7.5.1
+
