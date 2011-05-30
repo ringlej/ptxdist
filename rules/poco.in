@@ -2,6 +2,12 @@
 
 config POCO
 	tristate
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_RT
+	select LIBC_PTHREAD
 	prompt "poco"
 	help
 	  The POCO C++ Libraries (POrtable COmponents) are open source C++ class
