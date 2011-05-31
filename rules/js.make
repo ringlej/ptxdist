@@ -59,7 +59,16 @@ JS_CONF_ENV := \
 	ac_cv_path_DOXYGEN=/bin/true \
 	ac_cv_path_WHOAMI=/bin/true \
 	ac_cv_path_AUTOCONF=/bin/true \
-	ac_cv_path_UNZIP=/bin/true
+	ac_cv_path_UNZIP=/bin/true \
+	ac_cv_va_copy=yes \
+	ac_cv___va_copy=yes
+
+# FIXME: is this correct?
+ifdef PTXCONF_ARCH_PPC
+JS_CONF_ENV += ac_cv_va_val_copy=no
+else
+JS_CONF_ENV += ac_cv_va_val_copy=yes
+endif
 
 #
 # autoconf
