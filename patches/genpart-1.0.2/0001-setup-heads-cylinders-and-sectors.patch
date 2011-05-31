@@ -1,0 +1,76 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 31 May 2011 16:11:10 +0200
+Subject: [PATCH] setup heads, cylinders and sectors
+
+"heads per cylinder" and "sectors per track" are just a guess.
+It seems to work with typical SD-Cards. And unused partitions
+are shown as such now.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/genpart.c |   24 ++++++++++++++++++------
+ 1 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/src/genpart.c b/src/genpart.c
+index 6c11b91..49be9d7 100644
+--- a/src/genpart.c
++++ b/src/genpart.c
+@@ -7,12 +7,12 @@ struct partition_entry {
+ 	unsigned char boot;
+ 
+ 	unsigned char start_head;
+-	unsigned short start_cyl_sec;
++	unsigned char start_cyl_sec[2];
+ 
+ 	unsigned char part_type;
+ 
+ 	unsigned char end_head;
+-	unsigned short end_cyl_sec;
++	unsigned char end_cyl_sec[2];
+ 
+ 	unsigned int relative_sectors;
+ 	unsigned int total_sectors;
+@@ -35,6 +35,19 @@ void print_usage(void)
+ 	);
+ }
+ 
++void setup_head_cyl_sec(unsigned int lba, unsigned char *head, unsigned char *cyl_sec)
++{
++	const unsigned int hpc = 255;
++	const unsigned int spt = 63;
++	unsigned int s, c;
++
++	*head = (lba/spt)%hpc;
++	c = (lba/(spt * hpc));
++	s = (lba > 0) ?(lba%spt + 1) : 0;
++	cyl_sec[0] = ((c & 0x300) >> 2) | (s & 0xff);
++	cyl_sec[1] = (c & 0xff);
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	struct partition_entry entry;
+@@ -60,10 +73,6 @@ int main(int argc, char *argv[])
+ 	memset(&entry, 0, sizeof(struct partition_entry));
+ 
+ 	entry.part_type = 0x83; /* default to linux */
+-	entry.start_head = 0xff;
+-	entry.start_cyl_sec = 0xffff;
+-	entry.end_head = 0xff;
+-	entry.end_cyl_sec = 0xffff;
+ 
+ 	while ((opt = getopt_long(argc, argv, "hb:s:ct:m", long_options, NULL)) != -1) {
+ 		switch (opt) {
+@@ -87,6 +96,9 @@ int main(int argc, char *argv[])
+ 				break;
+ 		}
+ 	}
++	setup_head_cyl_sec(entry.relative_sectors, &entry.start_head, entry.start_cyl_sec);
++	setup_head_cyl_sec((entry.total_sectors > 0) ? (entry.relative_sectors + entry.total_sectors - 1) : 0,
++		&entry.end_head, entry.end_cyl_sec);
+ 
+ 	if (fwrite(&entry, sizeof(struct partition_entry), 1, stdout) > 0) {
+ 		if (do_magic) {
+-- 
+1.7.5.3
+
