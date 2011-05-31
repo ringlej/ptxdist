@@ -14,7 +14,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  3 files changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/examples/examples.pro b/examples/examples.pro
-index f233aba..ead2214 100644
+index cf12dd6..ed7db9c 100644
 --- a/examples/examples.pro
 +++ b/examples/examples.pro
 @@ -49,6 +49,10 @@ symbian: SUBDIRS = \
@@ -29,7 +29,7 @@ index f233aba..ead2214 100644
  
  contains(QT_CONFIG, phonon):!static: SUBDIRS += phonon
 diff --git a/projects.pro b/projects.pro
-index 02bf61d..ea5b0e7 100644
+index bf4dc5e..f095f0d 100644
 --- a/projects.pro
 +++ b/projects.pro
 @@ -2,7 +2,6 @@
@@ -41,10 +41,10 @@ index 02bf61d..ea5b0e7 100644
  
  cross_compile: CONFIG += nostrip
 diff --git a/src/src.pro b/src/src.pro
-index 868e22f..a803ec8 100644
+index 9314fbd..3f528ee 100644
 --- a/src/src.pro
 +++ b/src/src.pro
-@@ -105,12 +105,13 @@ src_webkit_declarative.target = sub-webkitdeclarative
+@@ -100,12 +100,13 @@ src_declarative.target = sub-declarative
     src_qt3support.depends = src_gui src_xml src_network src_sql
     src_tools_idc.depends = src_corelib             # target defined in tools.pro
     src_tools_uic3.depends = src_qt3support src_xml # target defined in tools.pro
@@ -58,20 +58,20 @@ index 868e22f..a803ec8 100644
 +   src_plugins.depends = src_gui src_sql
 +   contains(QT_CONFIG, svg):src_plugins.depends += src_svg
     contains(QT_CONFIG, multimedia):src_plugins.depends += src_multimedia
+    contains(QT_CONFIG, declarative):src_plugins.depends += src_declarative
     src_s60installs.depends = $$TOOLS_SUBDIRS $$SRC_SUBDIRS
-    src_s60installs.depends -= src_s60installs
-@@ -118,6 +119,7 @@ src_webkit_declarative.target = sub-webkitdeclarative
+@@ -114,6 +115,7 @@ src_declarative.target = sub-declarative
     contains(QT_CONFIG, webkit)  {
        src_webkit.depends = src_gui src_sql src_network
        contains(QT_CONFIG, xmlpatterns): src_webkit.depends += src_xmlpatterns
 +      contains(QT_CONFIG, phonon): src_webkit.depends += src_phonon
        src_imports.depends += src_webkit
-       exists($$QT_SOURCE_TREE/src/3rdparty/webkit/JavaScriptCore/JavaScriptCore.pro) {
-          src_webkit.depends += src_javascriptcore
-@@ -142,6 +144,8 @@ src_webkit_declarative.target = sub-webkitdeclarative
+    }
+    contains(QT_CONFIG, qt3support): src_plugins.depends += src_qt3support
+@@ -133,6 +135,8 @@ src_declarative.target = sub-declarative
+    contains(QT_CONFIG, svg) {
        src_declarative.depends += src_svg
     }
-    contains(QT_CONFIG, webkit) : contains(QT_CONFIG, declarative): src_webkit_declarative.depends = src_declarative src_webkit
 +   contains(QT_CONFIG, declarative):src_plugins.depends += src_declarative
 +   contains(QT_CONFIG, phonon):src_plugins.depends += src_phonon
  }

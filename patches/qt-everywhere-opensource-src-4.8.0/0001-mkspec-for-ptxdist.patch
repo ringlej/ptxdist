@@ -10,11 +10,11 @@ Add a mkspec for ptxdist:
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- mkspecs/linux-ptx-g++/qmake.conf.in       |   40 +++++++++++++++++++++++++++++
+ mkspecs/linux-ptx-g++/qmake.conf.in       |   41 +++++++++++++++++++++++++++++
  mkspecs/linux-ptx-g++/qplatformdefs.h     |    2 +
- mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   31 ++++++++++++++++++++++
+ mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   32 ++++++++++++++++++++++
  mkspecs/qws/linux-ptx-g++/qplatformdefs.h |    2 +
- 4 files changed, 75 insertions(+), 0 deletions(-)
+ 4 files changed, 77 insertions(+), 0 deletions(-)
  create mode 100644 mkspecs/linux-ptx-g++/qmake.conf.in
  create mode 100644 mkspecs/linux-ptx-g++/qplatformdefs.h
  create mode 100644 mkspecs/qws/linux-ptx-g++/qmake.conf.in
@@ -22,16 +22,17 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
 diff --git a/mkspecs/linux-ptx-g++/qmake.conf.in b/mkspecs/linux-ptx-g++/qmake.conf.in
 new file mode 100644
-index 0000000..5153cf3
+index 0000000..c3e0150
 --- /dev/null
 +++ b/mkspecs/linux-ptx-g++/qmake.conf.in
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,41 @@
 +#
 +# qmake configuration for linux-ptx-g++
 +#
 +
 +
-+include(../common/g++.conf)
++include(../common/gcc-base-unix.conf)
++include(../common/g++-unix.conf)
 +include(../common/linux.conf)
 +
 +MAKEFILE_GENERATOR      = UNIX
@@ -76,16 +77,17 @@ index 0000000..05c77d1
 +#include "../linux-g++/qplatformdefs.h"
 diff --git a/mkspecs/qws/linux-ptx-g++/qmake.conf.in b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
 new file mode 100644
-index 0000000..014b71f
+index 0000000..b52d5e7
 --- /dev/null
 +++ b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
-@@ -0,0 +1,31 @@
+@@ -0,0 +1,32 @@
 +#
 +# qmake configuration for linux-ptx-g++
 +#
 +
 +
-+include(../../common/g++.conf)
++include(../../common/gcc-base-unix.conf)
++include(../../common/g++-unix.conf)
 +include(../../common/linux.conf)
 +include(../../common/qws.conf)
 +

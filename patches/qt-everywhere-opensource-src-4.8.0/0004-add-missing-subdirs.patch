@@ -9,8 +9,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  examples/declarative/modelviews/modelviews.pro |    1 +
  examples/examples.pro                          |    2 +-
+ examples/itemviews/itemviews.pro               |    4 +++-
+ examples/mainwindows/mainwindows.pro           |    1 +
  examples/tutorials/tutorials.pro               |    1 +
- 3 files changed, 3 insertions(+), 1 deletions(-)
+ 5 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/examples/declarative/modelviews/modelviews.pro b/examples/declarative/modelviews/modelviews.pro
 index b811e44..7748da0 100644
@@ -25,7 +27,7 @@ index b811e44..7748da0 100644
      stringlistmodel
  
 diff --git a/examples/examples.pro b/examples/examples.pro
-index ead2214..fe681ed 100644
+index ed7db9c..8bdea85 100644
 --- a/examples/examples.pro
 +++ b/examples/examples.pro
 @@ -70,7 +70,7 @@ contains(QT_CONFIG, declarative): SUBDIRS += declarative
@@ -37,8 +39,41 @@ index ead2214..fe681ed 100644
  
  # install
  sources.files = README *.pro
+diff --git a/examples/itemviews/itemviews.pro b/examples/itemviews/itemviews.pro
+index 137599c..547694d 100644
+--- a/examples/itemviews/itemviews.pro
++++ b/examples/itemviews/itemviews.pro
+@@ -2,6 +2,7 @@ TEMPLATE      = subdirs
+ SUBDIRS       = addressbook \
+                 basicsortfiltermodel \
+                 chart \
++                coloreditorfactory \
+                 combowidgetmapper \
+                 customsortfiltermodel \
+                 dirview \
+@@ -13,7 +14,8 @@ SUBDIRS       = addressbook \
+                 simpledommodel \
+                 simpletreemodel \
+                 simplewidgetmapper \
+-                spinboxdelegate
++                spinboxdelegate \
++                stardelegate
+ 
+ # install
+ sources.files = README *.pro
+diff --git a/examples/mainwindows/mainwindows.pro b/examples/mainwindows/mainwindows.pro
+index 0b9b299..462327b 100644
+--- a/examples/mainwindows/mainwindows.pro
++++ b/examples/mainwindows/mainwindows.pro
+@@ -1,5 +1,6 @@
+ TEMPLATE      = subdirs
+ SUBDIRS       = application \
++                dockwidgets \
+                 mdi \
+                 menus \
+                 recentfiles \
 diff --git a/examples/tutorials/tutorials.pro b/examples/tutorials/tutorials.pro
-index 1b4667e..12adac4 100644
+index ba1769d..cb1ca6e 100644
 --- a/examples/tutorials/tutorials.pro
 +++ b/examples/tutorials/tutorials.pro
 @@ -1,5 +1,6 @@

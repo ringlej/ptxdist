@@ -1,0 +1,33 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 17 Oct 2011 19:34:55 +0200
+Subject: [PATCH] don't build webkit tests
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/3rdparty/webkit/Source/WebKit.pro |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+diff --git a/src/3rdparty/webkit/Source/WebKit.pro b/src/3rdparty/webkit/Source/WebKit.pro
+index 9be0f4a..eee88fe 100644
+--- a/src/3rdparty/webkit/Source/WebKit.pro
++++ b/src/3rdparty/webkit/Source/WebKit.pro
+@@ -15,19 +15,15 @@ SUBDIRS += WebKit/qt/QtWebKit.pro
+ 
+ webkit2 {
+     exists($$PWD/WebKit2/WebProcess.pro): SUBDIRS += WebKit2/WebProcess.pro
+-    exists($$PWD/WebKit2/UIProcess/API/qt/tests): SUBDIRS += WebKit2/UIProcess/API/qt/tests
+ }
+ 
+ contains(QT_CONFIG, declarative) {
+     exists($$PWD/WebKit/qt/declarative): SUBDIRS += WebKit/qt/declarative
+ }
+ 
+-exists($$PWD/WebKit/qt/tests): SUBDIRS += WebKit/qt/tests
+-
+ build-qtscript {
+     SUBDIRS += \
+         JavaScriptCore/qt/api/QtScript.pro \
+-        JavaScriptCore/qt/tests \
+         JavaScriptCore/qt/benchmarks
+ }
+ 

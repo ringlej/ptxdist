@@ -127,6 +127,28 @@ choice
 endchoice
 
 choice
+	prompt "eglnullws           "
+	default QT4_GFX_EGLNULLWS_NULL
+	help
+	  Accelerated driver using eglnullws
+
+	config QT4_GFX_EGLNULLWS_NULL
+		bool
+		prompt "none   "
+		help
+		  Don't build the driver
+
+# only as plugin
+
+	config QT4_GFX_EGLNULLWS_PLUGIN
+		bool
+		depends on QT4_BUILD_OPENGL
+		prompt "plugin "
+		help
+		  Load the driver at runtime
+endchoice
+
+choice
 	prompt "LinuxFb             "
 	default QT4_GFX_LINUXFB_NONE
 	help
@@ -616,7 +638,8 @@ config QT4_GIF_NONE
 	help
 	 This disables entirely any GIF support
 
-config QT4_GIF_INTERNAL
+config QT4_GIF_NULL
+	# note: NULL == no configure option. There is only -no-gif
 	bool "internal"
 	help
 	  This uses the embedded GIF support

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.7.4
-QT4_MD5		:= 9831cf1dfa8d0689a06c2c54c5c65aaf
+QT4_VERSION	:= 4.8.0
+QT4_MD5		:= e8a5fdbeba2927c948d9f477a6abe904
 QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
@@ -136,6 +136,7 @@ QT4_AUTOCONF += \
 # graphics drivers
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_AHI)		+= gfx-ahi
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_DIRECTFB)	+= gfx-directfb
+QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_EGLNULLWS)	+= gfx-eglnullws
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_LINUXFB)		+= gfx-linuxfb
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_POWERVR)		+= gfx-powervr
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_SVGA)		+= gfx-svgalib
@@ -281,9 +282,6 @@ QT4_BUILD-$(PTXCONF_QT4_BUILD_QTXMLPATTERNS)	+= xmlpatterns
 QT4_BUILD-$(PTXCONF_QT4_BUILD_MULTIMEDIA)	+= multimedia
 QT4_BUILD-$(PTXCONF_QT4_BUILD_PHONON)		+= phonon
 QT4_BUILD-$(PTXCONF_QT4_BUILD_WEBKIT)		+= webkit script
-ifdef PTXCONF_QT4_BUILD_DECLARATIVE
-QT4_BUILD-$(PTXCONF_QT4_BUILD_WEBKIT)		+= webkitdeclarative
-endif
 QT4_BUILD-$(PTXCONF_QT4_BUILD_SCRIPTTOOLS)	+= scripttools
 # qmlviewer does not need xml but we cannot built sub-tools without it
 QT4_BUILD-$(PTXCONF_QT4_BUILD_TOOLS)		+= xml
@@ -366,6 +364,7 @@ QT4_IMAGEFORMATS-				+= svg
 endif
 
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_DIRECTFB)	+= directfbscreen
+QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_EGLNULLWS)	+= eglnullws
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_LINUXFB)	+= screenlinuxfb
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_POWERVR)	+= gfxpvregl
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_TRANSFORMED)	+= gfxtransformed
