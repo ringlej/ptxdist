@@ -23,15 +23,7 @@ SYSTEMD_SUFFIX	:= tar.bz2
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
-SYSTEMD_LICENSE	:= unknown
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(SYSTEMD_SOURCE):
-	@$(call targetinfo)
-	@$(call get, SYSTEMD)
+SYSTEMD_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -49,8 +41,8 @@ SYSTEMD_CONF_OPT += \
 	--disable-pam \
 	--disable-gtk \
 	--with-distro=other \
-	--with-sysvinit-path=/etc/init.d \
-	--with-sysvrcd-path=/etc \
+	--without-sysvinit-path \
+	--without-sysvrcd-path \
 	--with-dbuspolicydir=/etc/dbus-1/system.d \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
@@ -61,7 +53,7 @@ SYSTEMD_CONF_OPT += \
 
 # SYSTEMD_MAKEVARS	:= V=1
 
-# FIXME do we have to create dbuspolicydir?
+# FIXME kernel:
 # - autofs4 is mandatory. Is this necessary?
 # - ipv6 is mandatory. Is this necessary?
 
@@ -82,19 +74,22 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_fixup, systemd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, systemd,DESCRIPTION,missing)
 
-	#
-	# Some info about the current state of systemd support in ptxdist:
-	#
-	# - we don't care about a user systemd yet
-	#
+#	#
+#	# Some info about the current state of systemd support in ptxdist:
+#	#
+#	# - we don't care about a user systemd yet
+#	#
 
 	# daemon + tools
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemctl)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-ask-password)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-machine-id-setup)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tmpfiles)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-notify)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tty-ask-password-agent)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_link, systemd, ../bin/systemd, /sbin/init)
@@ -105,13 +100,15 @@ endif
 
 	# configuration
 	@$(call install_copy, systemd, 0, 0, 0644, -, /etc/systemd/system.conf)
-	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/tmpfiles.d/x11.conf)
-	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/tmpfiles.d/systemd.conf)
+	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/rules.d/99-systemd.rules)
-	@$(call install_copy, systemd, 0, 0, 0644, -, /etc/dbus-1/system.d/org.freedesktop.systemd1.conf)
+	@$(call install_tree, systemd, 0, 0, -, /etc/dbus-1/system.d/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/share/polkit-1/actions/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/services/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system-services/)
 
 	# units
-	@$(call install_tree, systemd, 0, 0, $(SYSTEMD_PKGDIR)/lib/systemd, /lib/systemd)
+	@$(call install_tree, systemd, 0, 0, -, /lib/systemd)
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
 
