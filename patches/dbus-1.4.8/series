@@ -1,2 +1,0 @@
-0003-make-dbus-1.pc-relocatable.patch
-0004-use-SOCK_CLOEXEC-only-if-available.patch

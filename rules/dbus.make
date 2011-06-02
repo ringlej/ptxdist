@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.4.8
-DBUS_MD5	:= e30253e15f0f4e6c5ee9e6f0eba5046c
+DBUS_VERSION	:= 1.4.10
+DBUS_MD5	:= 402a2f8102bedbe236e2891b2b0f31c2
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -122,8 +122,6 @@ $(STATEDIR)/dbus.targetinstall:
 
 	@$(call install_alternative, dbus, 0, 0, 0755, \
 		/etc/rc.once.d/dbus)
-	@$(call install_link, dbus, /etc/machine-id, \
-		/var/lib/dbus/machine-id)
 
 #	#
 #	# create system.d and event.d directories, which are used by the configuration and startup files
