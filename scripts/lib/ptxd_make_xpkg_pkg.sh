@@ -373,7 +373,7 @@ ptxd_install_generic() {
     local strip="$5"
 
     local -a stat
-    stat=( $(stat -c "%u %g %a %t %T" "${file}") ) &&
+    stat=( $(stat -c "%u %g %a 0x%t 0x%T" "${file}") ) &&
     local usr="${usr:-${stat[0]}}" &&
     local grp="${grp:-${stat[1]}}" &&
     local mod="${stat[2]}" &&
