@@ -17,11 +17,15 @@ config FBUTILS_FBSET
 	bool
 	default y
 	prompt "install fbset util on target"
+	depends on !BUSYBOX_FBSET || ALLYES
 	help
 	  fbset  is  a system utility to show or change the settings
 	  of the frame buffer device. The frame buffer  device  pro-
 	  vides  a  simple  and unique interface to access different
 	  kinds of graphic displays.
+
+comment "BusyBox' fbset is selected!"
+	depends on BUSYBOX_FBSET
 
 config FBUTILS_FBCMAP
 	bool
