@@ -1,0 +1,97 @@
+## SECTION=shell_and_console
+
+menuconfig RSYSLOG
+	tristate
+	select LIBC_DL
+	select LIBC_RT
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
+	select ZLIB		if RSYSLOG_ZLIB
+	select LIBNET		if RSYSLOG_OMUDPSPOOF
+	prompt "rsyslog"
+	help
+	  FIXME
+
+if RSYSLOG
+
+config RSYSLOG_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for rsyslogd"
+
+config RSYSLOG_REGEXP
+	bool
+	prompt "regular expression support"
+
+config RSYSLOG_ZLIB
+	bool
+	prompt "zlib compression support"
+
+config RSYSLOG_INET
+	bool
+	prompt "networking support"
+
+config RSYSLOG_IMDIAG
+	bool
+	prompt "diag input module"
+
+config RSYSLOG_IMFILE
+	bool
+	prompt "file input module"
+
+config RSYSLOG_IMKLOG
+	bool
+	default y
+	prompt "klog input module"
+
+config RSYSLOG_IMMARK
+	bool
+	default y
+	prompt "mark input module"
+
+config RSYSLOG_IMPSTATS
+	bool
+	prompt "periodic statistics module"
+
+config RSYSLOG_IMPTCP
+	bool
+	prompt "plain tcp input module"
+
+config RSYSLOG_IMTCP
+	bool
+	default y
+	prompt "tcp input module"
+
+config RSYSLOG_IMUDP
+	bool
+	default y
+	prompt "udp input module"
+
+config RSYSLOG_IMUXSOCK
+	bool
+	default y
+	prompt "unix domain socket input module"
+
+config RSYSLOG_OMPROG
+	bool
+	prompt "program output module"
+
+config RSYSLOG_OMUDPSPOOF
+	bool
+	prompt "spoofing network output module"
+
+config RSYSLOG_OMSTDOUT
+	bool
+	prompt "stdout output module"
+
+config RSYSLOG_OMUXSOCK
+	bool
+	prompt "unix domain socket output module"
+
+config RSYSLOG_PMLASTMSG
+	bool
+	prompt "lastmsg parser module"
+
+endif
+
