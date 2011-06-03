@@ -22,46 +22,24 @@ POCO		:= poco-$(POCO_VERSION)
 POCO_SUFFIX	:= tar.gz
 POCO_URL	:= $(PTXCONF_SETUP_SFMIRROR)/project/poco/sources/poco-1.4.1/$(POCO).$(POCO_SUFFIX)
 POCO_SOURCE	:= $(SRCDIR)/$(POCO).$(POCO_SUFFIX)
-POCO_DIR	:= $(BUILDDIR)/$(POCO)
+POCO_DIR	:= $(shell readlink -f "$(BUILDDIR)/$(POCO)")
 POCO_LICENSE	:= unknown
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(POCO_SOURCE):
-	@$(call targetinfo)
-	@$(call get, POCO)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-POCO_PATH	:= PATH=$(CROSS_PATH)
-POCO_CONF_ENV	:= $(CROSS_ENV)
+POCO_CONF_TOOL	:= autoconf
+POCO_CONF_OPT	:= \
+	--config=Linux \
+	--prefix=/usr \
+	--no-tests \
+	--no-samples \
+	--omit=Data/MySQL,Data/ODBC,Zip \
+	--poquito
 
-$(STATEDIR)/poco.prepare:
-	@$(call targetinfo)
-	cd $(POCO_DIR) && \
-		$(POCO_PATH) $(POCO_ENV) \
-		./configure \
-			--config=Linux \
-			--prefix=/usr \
-			--no-tests \
-			--no-samples \
-			--omit=Data/MySQL,Data/ODBC,Zip \
-			--poquito
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-#
-$(STATEDIR)/poco.compile:
-	@$(call targetinfo)
-	cd $(POCO_DIR) && $(POCO_PATH) $(MAKE) \
-		$(PARALLELMFLAGS) CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
-	@$(call touch)
+POCO_MAKE_OPT	:= \
+	CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
 
 # ----------------------------------------------------------------------------
 # Target-Install
