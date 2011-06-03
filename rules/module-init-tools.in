@@ -44,8 +44,12 @@ comment "BusyBox' lsmod is selected!"
 config MODULE_INIT_TOOLS_MODINFO
 	bool
 	prompt "Install modinfo on target"
+	depends on !BUSYBOX_MODINFO || ALLYES
 	help
 	  program to show information about a Linux Kernel module
+
+comment "BusyBox' modinfo is selected!"
+	depends on BUSYBOX_MODINFO
 
 config MODULE_INIT_TOOLS_MODPROBE
 	bool
