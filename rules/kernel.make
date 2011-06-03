@@ -189,6 +189,9 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) modules_install
 endif
+ifdef PTXCONF_KERNEL_DTC
+	@install -m 755 "$(KERNEL_DIR)/scripts/dtc/dtc" "$(PTXCONF_SYSROOT_HOST)/bin/dtc"
+endif
 
 	@$(call touch)
 

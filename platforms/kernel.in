@@ -191,6 +191,9 @@ config KERNEL_IMAGE
 	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}.elf" if KERNEL_IMAGE_SIMPLE && KERNEL_ARCH_POWERPC
 	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}" if KERNEL_IMAGE_SIMPLE && ARCH_MICROBLAZE
 
+config KERNEL_DTC
+	bool
+
 config KERNEL_XZ
 	prompt "build xz-utils hosttool"
 	bool

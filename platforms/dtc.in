@@ -1,5 +1,6 @@
 menuconfig HOST_DTC
 	bool
+	depends on !KERNEL_DTC
 	prompt "Build device tree compiler    "
 	help
 	  Select this if the HOST_DTC tool is required without
@@ -24,7 +25,8 @@ endif
 
 menuconfig DTC
 	bool
-	select HOST_DTC
+	select HOST_DTC		if !DTC_KERNEL
+	select KERNEL_DTC	if DTC_KERNEL
 	select KERNEL
 	prompt "Build device tree             "
 	help
@@ -47,6 +49,10 @@ config DTC_OFTREE_DTS
 	  Select the dts file to use for the device tree binary
 	  blob generation. Default is to use the one shipped with
 	  the kernel.
+
+config DTC_KERNEL
+	bool
+	prompt "use kernel dtc"
 
 config DTC_EXTRA_ARGS
 	string "extra options passed to dtc"
