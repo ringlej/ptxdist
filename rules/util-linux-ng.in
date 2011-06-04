@@ -102,6 +102,19 @@ config UTIL_LINUX_NG_UMOUNT
 comment "BusyBox' umount is selected!"
 	depends on BUSYBOX_UMOUNT
 
+config UTIL_LINUX_NG_FSCK
+	bool
+	prompt "fsck"
+	depends on !BUSYBOX_FSCK || ALLYES
+	help
+	  fsck  is  used  to  check and optionally repair one or
+	  more Linux file systems. fsck is simply a front-end for
+	  the various file system checkers (fsck.fstype) available
+	  under Linux.
+
+comment "BusyBox' fsck is selected!"
+	depends on BUSYBOX_FSCK
+
 config UTIL_LINUX_NG_IPCS
 	bool
 	prompt "ipcs"
@@ -144,7 +157,7 @@ config UTIL_LINUX_NG_CHRT
 	help
 	  chrt manipulates the real-time attributes of a process.
 
-comment "chrt from busybox selected"
+comment "BusyBox' chrt is selected!"
 	depends on BUSYBOX_CHRT
 
 config UTIL_LINUX_NG_HWCLOCK
@@ -157,7 +170,7 @@ config UTIL_LINUX_NG_HWCLOCK
 	  on shutdown in the hardware clock, so the hardware will keep the
 	  correct time when Linux is _not_ running.
 
-comment "hwclock from busybox selected"
+comment "BusyBox' hwclock is selected!"
         depends on BUSYBOX_HWCLOCK
 
 config UTIL_LINUX_NG_IONICE

@@ -62,7 +62,6 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-cramfs \
 	--disable-elvtune \
 	--disable-fallocate \
-	--disable-fsck \
 	--disable-init \
 	--disable-kill \
 	--disable-last \
@@ -87,6 +86,12 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-selinux \
 	--without-audit \
 	--without-utempter
+
+ifdef PTXCONF_UTIL_LINUX_NG_FSCK
+UTIL_LINUX_NG_AUTOCONF += --enable-fsck
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-fsck
+endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_AGETTY
 UTIL_LINUX_NG_AUTOCONF += --enable-agetty
@@ -128,6 +133,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_MOUNT
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_UMOUNT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/umount)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_FSCK
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fsck)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_IPCS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcs)
