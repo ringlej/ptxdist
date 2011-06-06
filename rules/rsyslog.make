@@ -87,6 +87,12 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-mmsnmptrapd \
 	--disable-omhdfs \
 
+ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
+RSYSLOG_CONF_OPT += --with-systemdsystemunitdir=/lib/systemd/system
+else
+RSYSLOG_CONF_OPT += --without-systemdsystemunitdir
+endif
+
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMDIAG)	+= imdiag
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMFILE)	+= imfile
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMKLOG)	+= imklog
@@ -127,10 +133,12 @@ $(STATEDIR)/rsyslog.targetinstall:
 
 	@$(call install_alternative, rsyslog, 0, 0, 0644, /etc/rsyslog.conf)
 
+ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
 	@$(call install_copy, rsyslog, 0, 0, 0644, -, \
 		/lib/systemd/system/rsyslog.service)
 	@$(call install_link, rsyslog, ../rsyslog.service, \
 		/lib/systemd/system/multi-user.target.wants/rsyslog.service)
+endif
 
 	@for plugin in $(RSYSLOG_PLUGINS-y); do \
 		$(call install_copy, rsyslog, 0, 0, 0644, -, \
