@@ -269,6 +269,8 @@ endif
 ifdef PTXCONF_DROPBEAR_SCP
 	@$(call install_copy, dropbear, 0, 0, 0755, -, \
 		/usr/bin/scp)
+	@$(call install_copy, dropbear, 0, 0, 0755, -, \
+		/usr/bin/dbclient)
 endif
 
 #	#
