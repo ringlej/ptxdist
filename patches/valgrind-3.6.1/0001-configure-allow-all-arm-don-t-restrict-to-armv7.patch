@@ -1,0 +1,25 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 8 Jun 2011 00:58:59 +0200
+Subject: [PATCH] configure: allow all arm, don't restrict to armv7
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/configure b/configure
+index 699137b..1179122 100755
+--- a/configure
++++ b/configure
+@@ -5262,7 +5262,7 @@ $as_echo "ok (${host_cpu})" >&6; }
+         esac
+         ;;
+ 
+-     armv7*)
++     arm*)
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: ok (${host_cpu})" >&5
+ $as_echo "ok (${host_cpu})" >&6; }
+ 	ARCH_MAX="arm"
+-- 
+1.7.4.1
+
