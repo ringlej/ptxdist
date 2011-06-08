@@ -16,6 +16,10 @@ config CANUTILS_VERSION
 	string
 	default "4.0.6"
 
+config CANUTILS_MD5
+	prompt "canutils source md5sum"
+	string
+
 config CANUTILS_4
 	bool "canutils version >= 4.0"
 	help
