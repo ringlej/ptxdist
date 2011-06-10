@@ -32,9 +32,9 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-$(@PACKAGE@_SOURCE):
-	@$(call targetinfo)
-	@$(call get, @PACKAGE@)
+#$(@PACKAGE@_SOURCE):
+#	@$(call targetinfo)
+#	@$(call get, @PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare

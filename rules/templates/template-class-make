@@ -28,9 +28,9 @@
 # Get
 # ----------------------------------------------------------------------------
 
-$(@CLASS@@PACKAGE@_SOURCE):
-	@$(call targetinfo)
-	@$(call get, @CLASS@@PACKAGE@)
+#$(@CLASS@@PACKAGE@_SOURCE):
+#	@$(call targetinfo)
+#	@$(call get, @CLASS@@PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare
