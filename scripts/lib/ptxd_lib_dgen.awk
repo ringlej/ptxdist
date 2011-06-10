@@ -286,6 +286,11 @@ function import_PKG(this_PKG,	this_pkg) {
 			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
 		}
 	}
+	if ((this_PKG in PKG_source_url) && !(this_PKG in PKG_source_rule)) {
+		print "$(" this_PKG "_SOURCE):"								> DGEN_DEPS_POST;
+		print "	@$(call targetinfo)"								> DGEN_DEPS_POST;
+		print "	@$(call get, " this_PKG ")"							> DGEN_DEPS_POST;
+	}
 }
 
 END {
@@ -314,11 +319,6 @@ END {
 		if (!(this_pkg ~ /^host-|^cross-/)) {
 			print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
 			print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
-		}
-		if ((this_PKG in PKG_source_url) && !(this_PKG in PKG_source_rule)) {
-			print "$(" this_PKG "_SOURCE):"								> DGEN_DEPS_POST;
-			print "	@$(call targetinfo)"								> DGEN_DEPS_POST;
-			print "	@$(call get, " this_PKG ")"							> DGEN_DEPS_POST;
 		}
 
 		#
