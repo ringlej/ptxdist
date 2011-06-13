@@ -39,6 +39,8 @@ menuconfig QT4
 	select FREETYPE			if QT4_X11_FONTCONFIG
 	select XORG_PROTO_INPUT		if QT4_X11_XINPUT
 	select XORG_LIB_XI		if QT4_X11_XINPUT
+	select XORG_PROTO_KB		if QT4_X11_XKB
+	select XORG_LIB_XKBUI		if QT4_X11_XKB
 
 	prompt "qt                            "
 	help
@@ -50,6 +52,7 @@ menu "build options               "
 
 config QT4_SHARED
 	bool
+	default y
 	prompt "build shared libraries"
 	help
 	  If selected the shared Qt Libraries are built
@@ -80,11 +83,11 @@ menu "graphics driver             "
 
 choice
 	prompt "ahi                 "
-	default QT4_GFX_AHI_NONE
+	default QT4_GFX_AHI_NULL
 	help
 	  FIXME
 
-	config QT4_GFX_AHI_NONE
+	config QT4_GFX_AHI_NULL
 		bool
 		prompt "none   "
 		help
@@ -148,11 +151,11 @@ endchoice
 
 choice
 	prompt "PowerVR             "
-	default QT4_GFX_POWERVR_NONE
+	default QT4_GFX_POWERVR_NULL
 	help
 	  FIXME
 
-	config QT4_GFX_POWERVR_NONE
+	config QT4_GFX_POWERVR_NULL
 		bool
 		prompt "none   "
 		help
@@ -295,9 +298,9 @@ endchoice
 
 choice
 	prompt "hybrid              "
-	default QT4_GFX_HYBRID_NONE
+	default QT4_GFX_HYBRID_NULL
 
-	config QT4_GFX_HYBRID_NONE
+	config QT4_GFX_HYBRID_NULL
 		bool
 		prompt "none   "
 		help
@@ -752,9 +755,9 @@ if QT4_BUILD_SQL
 
 choice
 	prompt "SQLITE support    "
-	default QT4_SQLITE_NONE
+	default QT4_SQLITE_NULL
 
-config QT4_SQLITE_NONE
+config QT4_SQLITE_NULL
 	bool "none   "
 	help
 	 This disables entirely any SQLITE support
@@ -771,6 +774,11 @@ config QT4_SQLITE_PLUGIN
 endchoice
 
 endif # QT4_BUILD_SQL
+
+# make sure this symbol exists even if QT4_BUILD_SQL if disabled
+config QT4_SQLITE_NONE
+	bool
+	default QT4_SQLITE_NULL || !QT4_BUILD_SQL
 
 
 config QT4_BUILD_SCRIPT
@@ -801,6 +809,7 @@ config QT4_BUILD_XML
 config QT4_BUILD_DESIGNERLIBS
 	bool
 	select QT4_BUILD_XML
+	select QT4_BUILD_TOOLS
 	prompt "Qt Designer Libraries"
 	help
 	  This option enables two libraries:
@@ -816,6 +825,7 @@ config QT4_BUILD_ASSISTANTLIB
 	select QT4_BUILD_NETWORK
 	select QT4_BUILD_XML
 	select QT4_BUILD_SQL
+	select QT4_BUILD_TOOLS
 	prompt "QtAssistant"
 	help
 	  The QtAssistant module provides a means of launching Qt Assistant to provide
@@ -892,9 +902,13 @@ config QT4_INSTALL_QMLVIEWER
 	bool
 	prompt "install qmlviewer"
 	select QT4_BUILD_SQL
+	select QT4_BUILD_TOOLS
 	depends on QT4_BUILD_DECLARATIVE
 
 endmenu
+
+config QT4_BUILD_TOOLS
+	bool
 
 if QT4_PLATFORM_EMBEDDED
 
