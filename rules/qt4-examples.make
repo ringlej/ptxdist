@@ -49,12 +49,6 @@ ifdef PTXCONF_QT4_EXAMPLES_ANIMATION_STICKMAN
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/animation/stickman/stickman)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES_ASSISTANT_SIMPLETEXTVIEWER
-	@$(call install_copy, qt4-examples, 0, 0, 0755, \
-		$(QT4_DIR)-build/examples/assistant/simpletextviewer/simpletextviewer, \
-		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/assistant/simpletextviewer/simpletextviewer)
-endif
-
 ifdef PTXCONF_QT4_EXAMPLES_DBUS_COMPLEXPING
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)-build/examples/dbus/complexpingpong/complexpong, \
@@ -101,6 +95,144 @@ ifdef PTXCONF_QT4_EXAMPLES_DBUS_CONTROLLER
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)-build/examples/dbus/remotecontrolledcar/controller/controller, \
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/dbus/remotecontrolledcar/controller/controller)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_NETWORKACCESSMANAGERFACTORY
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/networkaccessmanagerfactory/networkaccessmanagerfactory, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/networkaccessmanagerfactory/networkaccessmanagerfactory)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_LAYOUTITEM
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/qgraphicslayouts/layoutitem/layoutitem, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/qgraphicslayouts/layoutitem/layoutitem)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_QGRAPHICSGRIDLAYOUT
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/qgraphicslayouts/qgraphicsgridlayout/qgraphicsgridlayout, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/qgraphicslayouts/qgraphicsgridlayout/qgraphicsgridlayout)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_QGRAPHICSLINEARLAYOUT
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/qgraphicslayouts/qgraphicslinearlayout/qgraphicslinearlayout, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/qgraphicslayouts/qgraphicslinearlayout/qgraphicslinearlayout)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_ADDING
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/adding/adding, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/adding/adding)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_ATTACHED
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/attached/attached, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/attached/attached)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_BINDING
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/binding/binding, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/binding/binding)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_COERCION
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/coercion/coercion, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/coercion/coercion)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_DEFAULT
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/default/default, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/default/default)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_EXTENDED
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/extended/extended, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/extended/extended)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_GROUPED
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/grouped/grouped, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/grouped/grouped)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_METHODS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/methods/methods, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/methods/methods)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_PROPERTIES
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/properties/properties, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/properties/properties)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_SIGNAL
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/signal/signal, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/signal/signal)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_VALUESOURCE
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/cppextensions/referenceexamples/valuesource/valuesource, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/cppextensions/referenceexamples/valuesource/valuesource)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_ABSTRACTITEMMODEL
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/modelviews/abstractitemmodel/abstractitemmodel, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/modelviews/abstractitemmodel/abstractitemmodel)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_OBJECTLISTMODEL
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/modelviews/objectlistmodel/objectlistmodel, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/modelviews/objectlistmodel/objectlistmodel)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_STRINGLISTMODEL
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/modelviews/stringlistmodel/stringlistmodel, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/modelviews/stringlistmodel/stringlistmodel)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_CHAPTER1_BASICS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/tutorials/extending/chapter1-basics/chapter1-basics, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/tutorials/extending/chapter1-basics/chapter1-basics)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_CHAPTER2_METHODS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/tutorials/extending/chapter2-methods/chapter2-methods, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/tutorials/extending/chapter2-methods/chapter2-methods)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_CHAPTER3_BINDINGS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/tutorials/extending/chapter3-bindings/chapter3-bindings, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/tutorials/extending/chapter3-bindings/chapter3-bindings)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_CHAPTER4_CUSTOMPROPERTYTYPES
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/tutorials/extending/chapter4-customPropertyTypes/chapter4-customPropertyTypes, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/tutorials/extending/chapter4-customPropertyTypes/chapter4-customPropertyTypes)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_DECLARATIVE_CHAPTER5_LISTPROPERTIES
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/declarative/tutorials/extending/chapter5-listproperties/chapter5-listproperties, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/declarative/tutorials/extending/chapter5-listproperties/chapter5-listproperties)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES_DESIGNER_CALCULATORBUILDER
@@ -541,28 +673,16 @@ ifdef PTXCONF_QT4_EXAMPLES_MULTIMEDIA_VIDEOWIDGET
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/multimedia/videowidget/videowidget)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES_MULTITOUCH_DIALS
+ifdef PTXCONF_QT4_EXAMPLES_NETWORK_BEARERCLOUD
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
-		$(QT4_DIR)-build/examples/multitouch/dials/dials, \
-		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/multitouch/dials/dials)
+		$(QT4_DIR)-build/examples/network/bearercloud/bearercloud, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/network/bearercloud/bearercloud)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES_MULTITOUCH_FINGERPAINT
+ifdef PTXCONF_QT4_EXAMPLES_NETWORK_BEARERMONITOR
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
-		$(QT4_DIR)-build/examples/multitouch/fingerpaint/fingerpaint, \
-		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/multitouch/fingerpaint/fingerpaint)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES_MULTITOUCH_KNOBS
-	@$(call install_copy, qt4-examples, 0, 0, 0755, \
-		$(QT4_DIR)-build/examples/multitouch/knobs/knobs, \
-		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/multitouch/knobs/knobs)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES_MULTITOUCH_PINCHZOOM
-	@$(call install_copy, qt4-examples, 0, 0, 0755, \
-		$(QT4_DIR)-build/examples/multitouch/pinchzoom/pinchzoom, \
-		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/multitouch/pinchzoom/pinchzoom)
+		$(QT4_DIR)-build/examples/network/bearermonitor/bearermonitor, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/network/bearermonitor/bearermonitor)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES_NETWORK_BLOCKINGFORTUNECLIENT
@@ -1105,6 +1225,30 @@ ifdef PTXCONF_QT4_EXAMPLES_TOOLS_UNDOFRAMEWORK
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tools/undoframework/undoframework)
 endif
 
+ifdef PTXCONF_QT4_EXAMPLES_TOUCH_DIALS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/touch/dials/dials, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/touch/dials/dials)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TOUCH_FINGERPAINT
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/touch/fingerpaint/fingerpaint, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/touch/fingerpaint/fingerpaint)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TOUCH_KNOBS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/touch/knobs/knobs, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/touch/knobs/knobs)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TOUCH_PINCHZOOM
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/touch/pinchzoom/pinchzoom, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/touch/pinchzoom/pinchzoom)
+endif
+
 ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_PART1
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)-build/examples/tutorials/addressbook/part1/part1, \
@@ -1145,6 +1289,48 @@ ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_PART7
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)-build/examples/tutorials/addressbook/part7/part7, \
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/addressbook/part7/part7)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_READONLY
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/1_readonly/mv_readonly, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/1_readonly/mv_readonly)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_FORMATTING
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/2_formatting/mv_formatting, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/2_formatting/mv_formatting)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_CHANGINGMODEL
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/3_changingmodel/mv_changingmodel, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/3_changingmodel/mv_changingmodel)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_HEADERS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/4_headers/mv_headers, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/4_headers/mv_headers)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_EDIT
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/5_edit/mv_edit, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/5_edit/mv_edit)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_TREE
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/6_treeview/mv_tree, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/6_treeview/mv_tree)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_MV_SELECTIONS
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/tutorials/modelview/7_selections/mv_selections, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/tutorials/modelview/7_selections/mv_selections)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES_TUTORIALS_CHILDWIDGET
@@ -1199,6 +1385,12 @@ ifdef PTXCONF_QT4_EXAMPLES_WEBKIT_FORMEXTRACTOR
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)-build/examples/webkit/formextractor/formextractor, \
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/webkit/formextractor/formextractor)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_WEBKIT_IMAGEANALYZER
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)-build/examples/webkit/imageanalyzer/imageanalyzer, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/webkit/imageanalyzer/imageanalyzer)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES_WEBKIT_PREVIEWER

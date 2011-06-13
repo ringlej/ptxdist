@@ -62,23 +62,6 @@ config QT4_EXAMPLES_ANIMATION_STICKMAN
 endif
 
 
-menuconfig QT4_EXAMPLES_ASSISTANT
-	bool
-	prompt "assistant"
-
-if QT4_EXAMPLES_ASSISTANT
-
-config QT4_EXAMPLES_ASSISTANT_SIMPLETEXTVIEWER
-	bool
-	prompt "simpletextviewer"
-	depends on QT4_BUILD_ASSISTANTLIB
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-
-endif
-
-
 menuconfig QT4_EXAMPLES_DBUS
 	bool
 	prompt "dbus"
@@ -149,6 +132,269 @@ config QT4_EXAMPLES_DBUS_CONTROLLER
 	prompt "controller"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	depends on QT4_BUILD_XML
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE
+	bool
+	prompt "declarative"
+
+if QT4_EXAMPLES_DECLARATIVE
+
+config QT4_EXAMPLES_DECLARATIVE_NETWORKACCESSMANAGERFACTORY
+	bool
+	prompt "networkaccessmanagerfactory"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_LAYOUTITEM
+	bool
+	prompt "layoutitem"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_QGRAPHICSGRIDLAYOUT
+	bool
+	prompt "qgraphicsgridlayout"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_QGRAPHICSLINEARLAYOUT
+	bool
+	prompt "qgraphicslinearlayout"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_ADDING
+	bool
+	prompt "adding"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_ATTACHED
+	bool
+	prompt "attached"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_BINDING
+	bool
+	prompt "binding"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_COERCION
+	bool
+	prompt "coercion"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_DEFAULT
+	bool
+	prompt "default"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_EXTENDED
+	bool
+	prompt "extended"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_GROUPED
+	bool
+	prompt "grouped"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_METHODS
+	bool
+	prompt "methods"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_PROPERTIES
+	bool
+	prompt "properties"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_SIGNAL
+	bool
+	prompt "signal"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_VALUESOURCE
+	bool
+	prompt "valuesource"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_ABSTRACTITEMMODEL
+	bool
+	prompt "abstractitemmodel"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_OBJECTLISTMODEL
+	bool
+	prompt "objectlistmodel"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_STRINGLISTMODEL
+	bool
+	prompt "stringlistmodel"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CHAPTER1_BASICS
+	bool
+	prompt "chapter1-basics"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CHAPTER2_METHODS
+	bool
+	prompt "chapter2-methods"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CHAPTER3_BINDINGS
+	bool
+	prompt "chapter3-bindings"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CHAPTER4_CUSTOMPROPERTYTYPES
+	bool
+	prompt "chapter4-customPropertyTypes"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CHAPTER5_LISTPROPERTIES
+	bool
+	prompt "chapter5-listproperties"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -749,45 +995,24 @@ config QT4_EXAMPLES_MULTIMEDIA_VIDEOWIDGET
 endif
 
 
-menuconfig QT4_EXAMPLES_MULTITOUCH
-	bool
-	prompt "multitouch"
-
-if QT4_EXAMPLES_MULTITOUCH
-
-config QT4_EXAMPLES_MULTITOUCH_DIALS
-	bool
-	prompt "dials"
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_MULTITOUCH_FINGERPAINT
-	bool
-	prompt "fingerpaint"
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_MULTITOUCH_KNOBS
-	bool
-	prompt "knobs"
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_MULTITOUCH_PINCHZOOM
-	bool
-	prompt "pinchzoom"
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-
-endif
-
-
 menuconfig QT4_EXAMPLES_NETWORK
 	bool
 	prompt "network"
 
 if QT4_EXAMPLES_NETWORK
+
+config QT4_EXAMPLES_NETWORK_BEARERCLOUD
+	bool
+	prompt "bearercloud"
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_NETWORK_BEARERMONITOR
+	bool
+	prompt "bearermonitor"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES_NETWORK_BLOCKINGFORTUNECLIENT
 	bool
@@ -1403,7 +1628,6 @@ config QT4_EXAMPLES_THREADS_SEMAPHORES
 config QT4_EXAMPLES_THREADS_WAITCONDITIONS
 	bool
 	prompt "waitconditions"
-	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
 
@@ -1498,6 +1722,40 @@ config QT4_EXAMPLES_TOOLS_UNDOFRAMEWORK
 endif
 
 
+menuconfig QT4_EXAMPLES_TOUCH
+	bool
+	prompt "touch"
+
+if QT4_EXAMPLES_TOUCH
+
+config QT4_EXAMPLES_TOUCH_DIALS
+	bool
+	prompt "dials"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TOUCH_FINGERPAINT
+	bool
+	prompt "fingerpaint"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TOUCH_KNOBS
+	bool
+	prompt "knobs"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TOUCH_PINCHZOOM
+	bool
+	prompt "pinchzoom"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
 menuconfig QT4_EXAMPLES_TUTORIALS
 	bool
 	prompt "tutorials"
@@ -1543,6 +1801,48 @@ config QT4_EXAMPLES_TUTORIALS_PART6
 config QT4_EXAMPLES_TUTORIALS_PART7
 	bool
 	prompt "part7"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_READONLY
+	bool
+	prompt "mv_readonly"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_FORMATTING
+	bool
+	prompt "mv_formatting"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_CHANGINGMODEL
+	bool
+	prompt "mv_changingmodel"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_HEADERS
+	bool
+	prompt "mv_headers"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_EDIT
+	bool
+	prompt "mv_edit"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_TREE
+	bool
+	prompt "mv_tree"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_MV_SELECTIONS
+	bool
+	prompt "mv_selections"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1608,9 +1908,6 @@ config QT4_EXAMPLES_WEBKIT_DOMTRAVERSAL
 	bool
 	prompt "domtraversal"
 	depends on QT4_BUILD_WEBKIT
-	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
-	depends on QT4_BUILD_XML
-	depends on QT4_BUILD_QTXMLPATTERNS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1618,9 +1915,6 @@ config QT4_EXAMPLES_WEBKIT_FANCYBROWSER
 	bool
 	prompt "fancybrowser"
 	depends on QT4_BUILD_WEBKIT
-	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
-	depends on QT4_BUILD_XML
-	depends on QT4_BUILD_QTXMLPATTERNS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1628,9 +1922,13 @@ config QT4_EXAMPLES_WEBKIT_FORMEXTRACTOR
 	bool
 	prompt "formextractor"
 	depends on QT4_BUILD_WEBKIT
-	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
-	depends on QT4_BUILD_XML
-	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_WEBKIT_IMAGEANALYZER
+	bool
+	prompt "imageanalyzer"
+	depends on QT4_BUILD_WEBKIT
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1638,9 +1936,6 @@ config QT4_EXAMPLES_WEBKIT_PREVIEWER
 	bool
 	prompt "previewer"
 	depends on QT4_BUILD_WEBKIT
-	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
-	depends on QT4_BUILD_XML
-	depends on QT4_BUILD_QTXMLPATTERNS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1648,9 +1943,6 @@ config QT4_EXAMPLES_WEBKIT_SIMPLESELECTOR
 	bool
 	prompt "simpleselector"
 	depends on QT4_BUILD_WEBKIT
-	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
-	depends on QT4_BUILD_XML
-	depends on QT4_BUILD_QTXMLPATTERNS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1872,8 +2164,6 @@ config QT4_EXAMPLES_XMLPATTERNS_QOBJECTXMLMODEL
 	bool
 	prompt "qobjectxmlmodel"
 	depends on QT4_BUILD_WEBKIT
-	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
-	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_QTXMLPATTERNS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
