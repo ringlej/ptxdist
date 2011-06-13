@@ -115,6 +115,3 @@ index 0000000..e10ebcf
 @@ -0,0 +1,2 @@
 +
 +#include "../../linux-g++/qplatformdefs.h"
--- 
-1.7.2.3
-

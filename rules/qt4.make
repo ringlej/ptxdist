@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.6.3
-QT4_MD5		:= 5c69f16d452b0bb3d44bc3c10556c072
+QT4_VERSION	:= 4.7.3
+QT4_MD5		:= 49b96eefb1224cc529af6fe5608654fe
 QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
@@ -469,7 +469,7 @@ endif
 ifdef PTXCONF_QT4_DBUS_LINK
 QT4_AUTOCONF += -dbus-linked
 endif
-ifdef PTXCONF_QT4_DBUS_NONE
+ifndef PTXCONF_QT4_DBUS
 QT4_AUTOCONF += -no-qdbus
 endif
 
@@ -488,6 +488,13 @@ endif
 ifdef PTXCONF_QT4_OPENGL_NONE
 QT4_AUTOCONF += -no-opengl
 endif
+
+ifdef PTXCONF_QT4_OPENGL_EGL
+QT4_AUTOCONF += -egl
+else
+QT4_AUTOCONF += -no-egl
+endif
+
 
 ifdef PTXCONF_QT4_SHARED
 QT4_AUTOCONF += -shared
@@ -522,6 +529,10 @@ ifdef PTXCONF_QT4_BUILD_WEBKIT
 QT4_AUTOCONF += -webkit
 QT4_BUILD_TARGETS += sub-webkit
 QT4_INSTALL_OPT += sub-webkit-install_subtargets
+ifdef PTXCONF_QT4_BUILD_DECLARATIVE
+QT4_BUILD_TARGETS += sub-webkitdeclarative
+QT4_INSTALL_OPT += sub-webkitdeclarative-install_subtargets
+endif
 else
 QT4_AUTOCONF += -no-webkit
 endif
@@ -548,10 +559,12 @@ ifdef PTXCONF_QT4_SQLITE_PLUGIN
 QT4_AUTOCONF += -plugin-sql-sqlite
 endif
 
-ifneq ($(PTXCONF_QT4_BUILD_DESIGNERLIBS)$(PTXCONF_QT4_BUILD_ASSISTANTLIB),)
+ifneq ($(PTXCONF_QT4_BUILD_DESIGNERLIBS)$(PTXCONF_QT4_BUILD_ASSISTANTLIB)$(PTXCONF_QT4_INSTALL_QMLVIEWER),)
 QT4_AUTOCONF += -make tools
 QT4_BUILD_TOOLS_TARGETS = sub-tools
 QT4_INSTALL_OPT += sub-tools-install_subtargets
+# qmlviewer does not need xml but we cannot built sub-tools without it
+QT4_BUILD_TARGETS += sub-xml
 else
 QT4_AUTOCONF += -nomake tools
 endif
@@ -609,6 +622,13 @@ ifdef PTXCONF_QT4_BUILD_QTESTLIB
 QT4_BUILD_TARGETS += sub-testlib
 QT4_INSTALL_OPT += sub-testlib-install_subtargets
 endif
+ifdef PTXCONF_QT4_BUILD_DECLARATIVE
+QT4_AUTOCONF += -declarative
+QT4_BUILD_TARGETS += sub-declarative sub-imports
+QT4_INSTALL_OPT += sub-declarative-install_subtargets sub-imports-install_subtargets
+else
+QT4_AUTOCONF += -no-declarative
+endif
 
 $(STATEDIR)/qt4.compile:
 	@$(call targetinfo)
@@ -645,10 +665,6 @@ $(STATEDIR)/qt4.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-QT_VERSION_L3 := $(QT4_VERSION)
-QT_VERSION_L2 := 4.6
-QT_VERSION_L1 := 4
 
 $(STATEDIR)/qt4.targetinstall:
 	@$(call targetinfo)
@@ -688,11 +704,10 @@ ifdef PTXCONF_QT4_BUILD_QTESTLIB
 	@$(call install_lib, qt4, 0, 0, 0644, libQtTest)
 endif
 ifdef PTXCONF_QT4_BUILD_ASSISTANTLIB
-	@$(call install_lib, qt4, 0, 0, 0644, libQtAssistantClient)
 	@$(call install_lib, qt4, 0, 0, 0644, libQtCLucene)
 	@$(call install_lib, qt4, 0, 0, 0644, libQtHelp)
 endif
-ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
+ifdef PTXCONF_QT4_DBUS
 	@$(call install_lib, qt4, 0, 0, 0644, libQtDBus)
 endif
 ifdef PTXCONF_QT4_BUILD_DESIGNERLIBS
@@ -700,6 +715,12 @@ ifdef PTXCONF_QT4_BUILD_DESIGNERLIBS
 endif
 ifdef PTXCONF_QT4_BUILD_WEBKIT
 	@$(call install_lib, qt4, 0, 0, 0644, libQtWebKit)
+ifdef PTXCONF_QT4_BUILD_DECLARATIVE
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/QtWebKit/qmldir)
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/QtWebKit/libqmlwebkitplugin.so)
+endif
 endif
 ifdef PTXCONF_QT4_BUILD_SCRIPTTOOLS
 	@$(call install_lib, qt4, 0, 0, 0644, libQtScriptTools)
@@ -707,8 +728,23 @@ endif
 ifdef PTXCONF_QT4_BUILD_QTXMLPATTERNS
 	@$(call install_lib, qt4, 0, 0, 0644, libQtXmlPatterns)
 endif
-ifdef PTXCONF_QT4_BUILD_MULTIMEDIA
-	@$(call install_lib, qt4, 0, 0, 0644, libQtMultimedia)
+ifdef PTXCONF_QT4_BUILD_DECLARATIVE
+	@$(call install_lib, qt4, 0, 0, 0644, libQtDeclarative)
+
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/Qt/labs/folderlistmodel/qmldir)
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin.so)
+
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/Qt/labs/gestures/qmldir)
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/Qt/labs/gestures/libqmlgesturesplugin.so)
+
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/Qt/labs/particles/qmldir)
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/imports/Qt/labs/particles/libqmlparticlesplugin.so)
 endif
 ifdef PTXCONF_QT4_BUILD_OPENGL
 	@$(call install_lib, qt4, 0, 0, 0644, libQtOpenGL)
@@ -742,7 +778,7 @@ ifdef PTXCONF_QT4_GFX_POWERVR_PLUGIN
 		/usr/plugins/gfxdrivers/libqgfxpvregl.$(QT4_PLUGIN_EXT))
 	@$(call install_lib, qt4, 0, 0, 0644, libpvrQWSWSEGL)
 endif
-ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
+ifdef PTXCONF_QT4_DBUS
 ifdef PTXCONF_QT4_BUILD_SCRIPT
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/script/libqtscriptdbus.$(QT4_PLUGIN_EXT))
@@ -774,9 +810,19 @@ ifdef PTXCONF_QT4_BUILD_SVG
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/iconengines/libqsvgicon.$(QT4_PLUGIN_EXT))
 endif
+ifndef PTXCONF_QT4_BUILD_NETWORK
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/plugins/bearer/libqgenericbearer.$(QT4_PLUGIN_EXT))
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/plugins/bearer/libqnmbearer.$(QT4_PLUGIN_EXT))
+endif
 ifdef PTXCONF_QT4_BUILD_PHONON
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/phonon_backend/libphonon_gstreamer.$(QT4_PLUGIN_EXT))
+endif
+ifdef PTXCONF_QT4_INSTALL_QMLVIEWER
+	@$(call install_copy, qt4, 0, 0, 0755, -, \
+		/usr/bin/qmlviewer)
 endif
 
 ifdef PTXCONF_QT4_FONT_DEJAVU

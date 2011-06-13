@@ -657,16 +657,18 @@ config QT4_OPENSSL
 	help
 	  Add Qt support for openssl.
 
+config QT4_DBUS
+	bool
+	prompt "dbus support"
+	help
+	  Build D-Bus bindings for Qt
+
 choice
 	prompt "dbus support       "
+	depends on QT4_DBUS
 	default QT4_DBUS_LOAD
 	help
 	  Qt dbus support.
-
-config QT4_DBUS_NONE
-	bool "none    "
-	help
-	  Disable Qt bus support.
 
 config QT4_DBUS_LOAD
 	bool "load    "
@@ -712,6 +714,10 @@ config QT4_OPENGL_ES2
 	select QT4_BUILD_OPENGL
 
 endchoice
+
+config QT4_OPENGL_EGL
+	bool "use EGL"
+	depends on QT4_BUILD_OPENGL && !QT4_OPENGL_DESKTOP
 
 menu "optional libraries          "
 
@@ -867,6 +873,26 @@ config QT4_BUILD_SCRIPTTOOLS
 	help
 	  QtScriptTools provides additional components for applications that
 	  use Qt Script.
+
+config QT4_BUILD_DECLARATIVE
+	bool
+	prompt "Declarative"
+	select QT4_BUILD_GUI
+	select QT4_BUILD_SQL
+	select QT4_BUILD_SCRIPT
+	select QT4_BUILD_NETWORK
+	help
+	  QtDeclarative is a C++ library that provides the underlying engine,
+	  which translates the declarative description of the UI in QML into
+	  items on a QGraphicsScene. The library also provides APIs to bind
+	  custom C++ types and elements to QML, and to connect the QML UI with
+	  the underlying application logic written in C++.
+
+config QT4_INSTALL_QMLVIEWER
+	bool
+	prompt "install qmlviewer"
+	select QT4_BUILD_SQL
+	depends on QT4_BUILD_DECLARATIVE
 
 endmenu
 

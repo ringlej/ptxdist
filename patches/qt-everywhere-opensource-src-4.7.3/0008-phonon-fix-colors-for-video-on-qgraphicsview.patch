@@ -34,6 +34,3 @@ index 89d5a9d..8508001 100644
  
  template <VideoFormat FMT>
  struct template_factory;
--- 
-1.7.2.3
-

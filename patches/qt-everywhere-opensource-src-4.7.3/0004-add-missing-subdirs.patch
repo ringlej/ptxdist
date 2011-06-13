@@ -1,0 +1,50 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 8 Oct 2010 20:13:40 +0200
+Subject: [PATCH] add missing subdirs
+
+SUBDIRS is not set correctly in several places in examples
+This patch fixes it.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ examples/declarative/modelviews/modelviews.pro |    1 +
+ examples/examples.pro                          |    2 +-
+ examples/tutorials/tutorials.pro               |    1 +
+ 3 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/examples/declarative/modelviews/modelviews.pro b/examples/declarative/modelviews/modelviews.pro
+index b811e44..7748da0 100644
+--- a/examples/declarative/modelviews/modelviews.pro
++++ b/examples/declarative/modelviews/modelviews.pro
+@@ -1,6 +1,7 @@
+ TEMPLATE = subdirs
+ 
+ SUBDIRS += \
++    abstractitemmodel \
+     objectlistmodel \
+     stringlistmodel
+ 
+diff --git a/examples/examples.pro b/examples/examples.pro
+index ead2214..fe681ed 100644
+--- a/examples/examples.pro
++++ b/examples/examples.pro
+@@ -70,7 +70,7 @@ contains(QT_CONFIG, declarative): SUBDIRS += declarative
+ win32: SUBDIRS += activeqt
+ contains(QT_CONFIG, xmlpatterns):!contains(QT_CONFIG, no-gui): SUBDIRS += xmlpatterns
+ contains(DEFINES, QT_NO_CURSOR): SUBDIRS -= mainwindows
+-contains(QT_CONFIG, concurrent): SUBDIRS += qtconcurrent
++!contains(DEFINES, QT_NO_CONCURRENT): SUBDIRS += qtconcurrent
+ 
+ # install
+ sources.files = README *.pro
+diff --git a/examples/tutorials/tutorials.pro b/examples/tutorials/tutorials.pro
+index 34723c2..4728dac 100644
+--- a/examples/tutorials/tutorials.pro
++++ b/examples/tutorials/tutorials.pro
+@@ -1,5 +1,6 @@
+ TEMPLATE      = subdirs
+ SUBDIRS       = \
++                widgets \
+                 addressbook \
+                 modelview
+ 

@@ -1,5 +1,5 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Wed, 2 Feb 2011 18:31:53 +0100
+Date: Fri, 8 Oct 2010 20:13:41 +0200
 Subject: [PATCH] Hack: disable -Wl,--gc-sections on ppc
 
 The linker in our toolchain crashes with -Wl,--gc-sections on PowerPC.
@@ -12,20 +12,17 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/3rdparty/webkit/WebCore/WebCore.pro b/src/3rdparty/webkit/WebCore/WebCore.pro
-index 7e57394..b2e2b77 100644
+index 37d216d..3470570 100644
 --- a/src/3rdparty/webkit/WebCore/WebCore.pro
 +++ b/src/3rdparty/webkit/WebCore/WebCore.pro
-@@ -65,8 +65,8 @@ unix {
-     lessThan(QT_MINOR_VERSION, 4): QMAKE_PKGCONFIG_REQUIRES += QtXml
+@@ -89,8 +89,8 @@ unix {
+     QMAKE_PKGCONFIG_REQUIRES = QtCore QtGui QtNetwork
  }
  
 -unix:!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
 -unix:!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
-+unix:!isEqual(QT_ARCH, powerpc):!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
++unix:!isEqual(QT_ARCH, powerpc):!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections
 +unix:!isEqual(QT_ARCH, powerpc):!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
+ linux*-g++*:QMAKE_LFLAGS += $$QMAKE_LFLAGS_NOUNDEF
  
- CONFIG(release):!CONFIG(QTDIR_build) {
-     contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
--- 
-1.7.2.3
-
+ CONFIG(release):!CONFIG(standalone_package) {

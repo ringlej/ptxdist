@@ -1,5 +1,5 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Wed, 2 Feb 2011 18:31:52 +0100
+Date: Fri, 8 Oct 2010 20:13:40 +0200
 Subject: [PATCH] Hack: hide cursor during startup
 
 This will hide the cursor during application startup.
@@ -13,7 +13,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/src/gui/embedded/qwscursor_qws.cpp b/src/gui/embedded/qwscursor_qws.cpp
-index a9cd8aa..cb9f173 100644
+index 439d412..5a2e0a4 100644
 --- a/src/gui/embedded/qwscursor_qws.cpp
 +++ b/src/gui/embedded/qwscursor_qws.cpp
 @@ -344,7 +344,7 @@ void QWSServerPrivate::initializeCursor()
@@ -25,6 +25,3 @@ index a9cd8aa..cb9f173 100644
  #endif
      q->sendMouseEvent(QPoint(swidth/2, sheight/2), 0);
  }
--- 
-1.7.2.3
-

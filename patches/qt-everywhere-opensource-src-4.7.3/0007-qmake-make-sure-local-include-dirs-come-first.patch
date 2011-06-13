@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/qmake/generators/unix/unixmake.cpp b/qmake/generators/unix/unixmake.cpp
-index fa12aff..8ba50e1 100644
+index 188df0f..c95169d 100644
 --- a/qmake/generators/unix/unixmake.cpp
 +++ b/qmake/generators/unix/unixmake.cpp
-@@ -215,7 +215,7 @@ UnixMakefileGenerator::init()
+@@ -217,7 +217,7 @@ UnixMakefileGenerator::init()
              cflags += " $(CFLAGS)";
          else
              cflags += " $(" + comps[i] + "FLAGS)";
@@ -25,10 +25,10 @@ index fa12aff..8ba50e1 100644
          QString compiler = comps[i];
          if (compiler == "C")
 diff --git a/qmake/generators/unix/unixmake2.cpp b/qmake/generators/unix/unixmake2.cpp
-index 0bb38fb..bbc85a7 100644
+index df580fd..eeaedd2 100644
 --- a/qmake/generators/unix/unixmake2.cpp
 +++ b/qmake/generators/unix/unixmake2.cpp
-@@ -955,7 +955,7 @@ UnixMakefileGenerator::writeMakeParts(QTextStream &t)
+@@ -977,7 +977,7 @@ UnixMakefileGenerator::writeMakeParts(QTextStream &t)
                  compiler = "$(CXX)";
  
              // compile command
@@ -37,6 +37,3 @@ index 0bb38fb..bbc85a7 100644
          }
      }
  
--- 
-1.7.2.3
-

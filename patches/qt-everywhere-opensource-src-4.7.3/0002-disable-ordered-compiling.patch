@@ -1,0 +1,81 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 8 Oct 2010 20:13:40 +0200
+Subject: [PATCH] disable ordered compiling.
+
+By default all modules are compiled in a predefined order. This breaks when
+building not all modules. This patch disables ordered building. As a result
+qmake generates the correct dependancies.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ examples/examples.pro |    4 ++++
+ projects.pro          |    1 -
+ src/src.pro           |   10 ++++++++--
+ 3 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/examples/examples.pro b/examples/examples.pro
+index f233aba..ead2214 100644
+--- a/examples/examples.pro
++++ b/examples/examples.pro
+@@ -49,6 +49,10 @@ symbian: SUBDIRS = \
+     SUBDIRS += multimedia
+ }
+ 
++contains(QT_CONFIG, webkit) {
++    SUBDIRS += webkit
++}
++
+ contains(QT_CONFIG, script): SUBDIRS += script
+ 
+ contains(QT_CONFIG, phonon):!static: SUBDIRS += phonon
+diff --git a/projects.pro b/projects.pro
+index f94e1de..b34cc35 100644
+--- a/projects.pro
++++ b/projects.pro
+@@ -2,7 +2,6 @@
+ # Main projectfile
+ #####################################################################
+ 
+-CONFIG += ordered
+ TEMPLATE = subdirs
+ 
+ cross_compile: CONFIG += nostrip
+diff --git a/src/src.pro b/src/src.pro
+index 060f48b..27b1df9 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -105,19 +105,22 @@ src_webkit_declarative.target = sub-webkitdeclarative
+    src_qt3support.depends = src_gui src_xml src_network src_sql
+    src_tools_idc.depends = src_corelib             # target defined in tools.pro
+    src_tools_uic3.depends = src_qt3support src_xml # target defined in tools.pro
+-   src_phonon.depends = src_gui
++   src_phonon.depends = src_gui src_network
+    src_multimedia.depends = src_gui
+    contains(QT_CONFIG, opengl):src_multimedia.depends += src_opengl
+    src_tools_activeqt.depends = src_tools_idc src_gui
+    src_declarative.depends = src_gui src_script src_network
+-   src_plugins.depends = src_gui src_sql src_svg
++   src_plugins.depends = src_gui src_sql
++   contains(QT_CONFIG, svg):src_plugins.depends += src_svg
+    contains(QT_CONFIG, multimedia):src_plugins.depends += src_multimedia
++   contains(QT_CONFIG, declarative):src_plugins.depends += src_declarative
+    src_s60installs.depends = $$TOOLS_SUBDIRS $$SRC_SUBDIRS
+    src_s60installs.depends -= src_s60installs
+    src_imports.depends = src_gui src_declarative
+    contains(QT_CONFIG, webkit)  {
+       src_webkit.depends = src_gui src_sql src_network
+       contains(QT_CONFIG, xmlpatterns): src_webkit.depends += src_xmlpatterns
++      contains(QT_CONFIG, phonon): src_webkit.depends += src_phonon
+       src_imports.depends += src_webkit
+       exists($$QT_SOURCE_TREE/src/3rdparty/webkit/JavaScriptCore/JavaScriptCore.pro) {
+          src_webkit.depends += src_javascriptcore
+@@ -187,6 +190,9 @@ for(subname, SRC_SUBDIRS) {
+        EXTRA_RELEASE_TARGETS += release-$${subtarget}
+        QMAKE_EXTRA_TARGETS += release-$${subtarget}
+    }
++   contains(QT_CONFIG, phonon) {
++      src_plugins.depends += src_phonon
++   }
+ }
+ debug.depends = $$EXTRA_DEBUG_TARGETS
+ release.depends = $$EXTRA_RELEASE_TARGETS
