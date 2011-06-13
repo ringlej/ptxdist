@@ -4,11 +4,18 @@ menuconfig POPPLER
 	tristate
 	prompt "poppler                       "
 	select FONTCONFIG
-	select GLIB	if POPPLER_GLIB
-	select LIBJPEG	if POPPLER_JPEG
-	select CAIRO	if POPPLER_CAIRO
-	select GTK	if POPPLER_SPLASH && POPPLER_GLIB
-	select ZLIB	if POPPLER_ZLIB
+	select HOST_GETTEXT
+	select GLIB		if POPPLER_GLIB
+	select LIBPNG		if POPPLER_PNG
+	select LIBJPEG		if POPPLER_JPEG
+	select CAIRO		if POPPLER_CAIRO
+	select GTK		if POPPLER_SPLASH && POPPLER_GLIB
+	select ZLIB		if POPPLER_ZLIB
+	select LIBCURL		if POPPLER_CURL
+	select LCMS		if POPPLER_CMS
+	select QT4		if POPPLER_QT4
+	select QT4_BUILD_GUI	if POPPLER_QT4
+	select QT4_BUILD_XML	if POPPLER_QT4
 	help
 	  Poppler is a PDF rendering library based on the xpdf-3.0 code base.
 
@@ -28,8 +35,14 @@ config POPPLER_GLIB
 	help
 	  build poppler glib wrapper.
 
-comment "glibc wrapper needs at least one graphics backend"
-	depends on POPPLER_GLIB && !(POPPLER_CAIRO || POPPLER_SPLASH)
+config POPPLER_QT4
+	bool
+	prompt "enable poppler Qt4 wrapper"
+	help
+	  build poppler Qt4 wrapper.
+
+comment "least one graphics backend should be selected"
+	depends on !(POPPLER_CAIRO || POPPLER_SPLASH)
 
 config POPPLER_CAIRO
 	bool
@@ -43,16 +56,34 @@ config POPPLER_SPLASH
 	help
 	  build splash graphics backend
 
+config POPPLER_PNG
+	bool
+	prompt "enable poppler png support"
+	help
+	  compiles poppler with png support.
+
 config POPPLER_JPEG
 	bool
 	prompt "enable poppler jpeg support"
 	help
-	  compiles poppler glib wrapper.
+	  compiles poppler with jpeg support.
 
 config POPPLER_ZLIB
 	bool
 	prompt "enable poppler zlib support"
 	help
 	  compiles poppler with zlib support.
+
+config POPPLER_CURL
+	bool
+	prompt "enable poppler curl support"
+	help
+	  compiles poppler with curl support.
+
+config POPPLER_CMS
+	bool
+	prompt "enable poppler cms support"
+	help
+	  compiles poppler with color management system support.
 
 endif

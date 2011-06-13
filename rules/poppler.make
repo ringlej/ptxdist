@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_POPPLER) += poppler
 #
 # Paths and names
 #
-POPPLER_VERSION	:= 0.10.4
-POPPLER_MD5	:= 8d17dbf4e4f0f55bdcf433ce1d5c44b5
+POPPLER_VERSION	:= 0.16.6
+POPPLER_MD5	:= 592a564fb7075a845f75321ed6425424
 POPPLER		:= poppler-$(POPPLER_VERSION)
 POPPLER_SUFFIX	:= tar.gz
 POPPLER_URL	:= http://poppler.freedesktop.org/$(POPPLER).$(POPPLER_SUFFIX)
@@ -45,54 +45,27 @@ POPPLER_ENV 	:= $(CROSS_ENV)
 #
 POPPLER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-abiword-output \
 	--disable-gdk \
 	--disable-gtk-test \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--disable-poppler-cpp \
 	--disable-poppler-qt \
-	--disable-poppler-qt4 \
-	--without-x
-
-ifdef PTXCONF_POPPLER_BIN
-POPPLER_AUTOCONF += --enable-utils
-else
-POPPLER_AUTOCONF += --disable-utils
-endif
-
-ifdef PTXCONF_POPPLER_ZLIB
-POPPLER_AUTOCONF += --enable-zlib
-else
-POPPLER_AUTOCONF += --disable-zlib
-endif
-
-ifdef PTXCONF_POPPLER_JPEG
-POPPLER_AUTOCONF += --enable-libjpeg
-else
-POPPLER_AUTOCONF += --disable-libjpeg
-endif
-
-ifdef PTXCONF_POPPLER_CAIRO
-POPPLER_AUTOCONF += --enable-cairo-output
-else
-POPPLER_AUTOCONF += --disable-cairo-output
-endif
-
-ifdef PTXCONF_POPPLER_SPLASH
-POPPLER_AUTOCONF += --enable-splash-output
-else
-POPPLER_AUTOCONF += --disable-splash-output
-endif
-
-ifdef PTXCONF_POPPLER_GLIB
-POPPLER_AUTOCONF += --enable-poppler-glib
-else
-POPPLER_AUTOCONF += --disable-poppler-glib
-endif
-
-ifdef PTXCONF_HAS_HARDFLOAT
-POPPLER_AUTOCONF += --disable-fixedpoint
-else
-POPPLER_AUTOCONF += --enable-fixedpoint
-endif
+	--without-x \
+	--$(call ptx/endis, PTXCONF_POPPLER_GLIB)-poppler-glib \
+	--$(call ptx/endis, PTXCONF_POPPLER_QT4)-poppler-qt4 \
+	--$(call ptx/endis, PTXCONF_POPPLER_CAIRO)-cairo-output \
+	--$(call ptx/endis, PTXCONF_POPPLER_SPLASH)-splash-output \
+	--$(call ptx/endis, PTXCONF_POPPLER_ZLIB)-zlib \
+	--$(call ptx/endis, PTXCONF_POPPLER_LIB)-libcurl \
+	--$(call ptx/endis, PTXCONF_POPPLER_JPEG)-libjpeg \
+	--$(call ptx/endis, PTXCONF_POPPLER_PNG)-libpng \
+	--$(call ptx/endis, PTXCONF_POPPLER_CMS)-cms \
+	--$(call ptx/endis, PTXCONF_POPPLER_BIN)-utils \
+	--$(call ptx/disen, PTXCONF_HAS_HARDFLOAT)-single-precision
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -117,6 +90,9 @@ ifdef PTXCONF_POPPLER_BIN
 endif
 ifdef PTXCONF_POPPLER_GLIB
 	@$(call install_lib, poppler, 0, 0, 0644, libpoppler-glib)
+endif
+ifdef PTXCONF_POPPLER_QT4
+	@$(call install_lib, poppler, 0, 0, 0644, libpoppler-qt4)
 endif
 	@$(call install_finish, poppler)
 

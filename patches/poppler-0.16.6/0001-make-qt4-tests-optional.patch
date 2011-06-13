@@ -1,0 +1,60 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 11 Jun 2011 20:23:02 +0200
+Subject: [PATCH] make qt4 tests optional
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac          |   13 ++++++-------
+ qt4/tests/Makefile.am |    2 +-
+ 2 files changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 471f909..aff11d8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -482,19 +482,17 @@ AC_ARG_ENABLE(poppler-qt4,
+ if test x$enable_poppler_qt4 = xyes; then
+   PKG_CHECK_MODULES(POPPLER_QT4, 
+ 	            QtCore >= 4.4.0 QtGui >= 4.4.0 QtXml >= 4.4.0)
+-  PKG_CHECK_MODULES(POPPLER_QT4_TEST, 
+-	            QtTest >= 4.4.0)
+ elif test x$enable_poppler_qt4 = xtry; then
+   PKG_CHECK_MODULES(POPPLER_QT4,
+                     QtCore >= 4.4.0 QtGui >= 4.4.0 QtXml >= 4.4.0,
+                     [enable_poppler_qt4="yes"],
+                     [enable_poppler_qt4="no"])
+-  if test x$enable_poppler_qt4 = xyes; then
+-    PKG_CHECK_MODULES(POPPLER_QT4_TEST,
++fi
++if test x$enable_poppler_qt4 = xyes; then
++  PKG_CHECK_MODULES(POPPLER_QT4_TEST,
+                     QtTest >= 4.4.0,
+-                    [enable_poppler_qt4="yes"],
+-                    [enable_poppler_qt4="no"])
+-  fi
++                    [enable_poppler_qt4_tests="yes"],
++                    [enable_poppler_qt4_tests="no"])
+ fi
+ 
+ AC_SUBST(POPPLER_QT4_CXXFLAGS)
+@@ -522,6 +520,7 @@ if test x$enable_poppler_qt4 = xyes; then
+ fi
+ 
+ AM_CONDITIONAL(BUILD_POPPLER_QT4, test "x$enable_poppler_qt4" = "xyes")
++AM_CONDITIONAL(BUILD_POPPLER_QT4_TESTS, test "x$enable_poppler_qt4_tests" = "xyes")
+ 
+ dnl
+ dnl CPP frontend
+diff --git a/qt4/tests/Makefile.am b/qt4/tests/Makefile.am
+index 93e1132..9e8deaf 100644
+--- a/qt4/tests/Makefile.am
++++ b/qt4/tests/Makefile.am
+@@ -65,7 +65,7 @@ stress_poppler_dir_LDADD = $(LDADDS)
+ clean-generic:
+ 	rm -f *.moc
+ 
+-if BUILD_POPPLER_QT4
++if BUILD_POPPLER_QT4_TESTS
+ TESTS = \
+ 	check_attachments	\
+ 	check_actualtext	\
