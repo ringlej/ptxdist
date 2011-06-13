@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 # Paths and names
 #
 CAIRO_SUFFIX	:= tar.gz
-CAIRO_VERSION	:= 1.8.10
-CAIRO_MD5	:= b60a82f405f9400bbfdcf850b1728d25
+CAIRO_VERSION	:= 1.10.0
+CAIRO_MD5	:= 70a2ece66cf473d976e2db0f75bf199e
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO		:= cairo-$(CAIRO_VERSION)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
@@ -44,19 +44,41 @@ CAIRO_ENV 	:= $(CROSS_ENV)
 #
 CAIRO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-shared \
-	--enable-static \
+	--disable-static \
 	--disable-gtk-doc \
 	--disable-gcov \
+	--disable-valgrind \
 	--disable-xlib-xrender \
 	--disable-xcb \
+	--disable-xlib-xcb \
+	--disable-xcb-shm \
+	--disable-qt \
 	--disable-quartz \
 	--disable-quartz-font \
 	--disable-quartz-image \
+	--disable-skia \
 	--disable-os2 \
 	--disable-beos \
-	--disable-glitz \
+	--disable-drm \
+	--disable-drm-xr \
+	--disable-gallium \
+	--disable-xcb-drm \
+	--disable-gl \
+	--disable-vg \
+	--disable-egl \
+	--disable-glx \
+	--disable-wgl \
+	--disable-script \
+	--disable-tee \
+	--disable-xml \
 	--enable-pthread \
+	--disable-gobject \
+	--disable-full-testing \
+	--disable-trace \
+	--disable-interpreter \
+	--disable-symbol-lookup \
 	--disable-test-surfaces
 
 ifdef PTXCONF_CAIRO_XLIB
@@ -96,9 +118,9 @@ CAIRO_AUTOCONF += --disable-directfb
 endif
 
 ifdef PTXCONF_CAIRO_FREETYPE
-CAIRO_AUTOCONF += --enable-ft
+CAIRO_AUTOCONF += --enable-ft --enable-fc
 else
-CAIRO_AUTOCONF += --disable-ft
+CAIRO_AUTOCONF += --disable-ft --disable-fc
 endif
 
 ifdef PTXCONF_CAIRO_PS
