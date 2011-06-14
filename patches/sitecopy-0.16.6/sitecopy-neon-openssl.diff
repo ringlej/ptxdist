@@ -1,0 +1,36 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Subject: Fix build with OpenSSL 1.x
+
+See http://lists.manyfish.co.uk/pipermail/neon-commits/2009-September/000827.html.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ lib/neon/ne_openssl.c |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/lib/neon/ne_openssl.c
++++ b/lib/neon/ne_openssl.c
+@@ -36,6 +36,7 @@
+ #include <openssl/pkcs12.h>
+ #include <openssl/x509v3.h>
+ #include <openssl/rand.h>
++#include <openssl/opensslv.h>
+ 
+ #ifdef NE_HAVE_TS_SSL
+ #include <stdlib.h> /* for abort() */
+@@ -615,6 +616,15 @@ void ne_ssl_context_destroy(ne_ssl_conte
+     ne_free(ctx);
+ }
+ 
++/* OpenSSL 1.0 removed SSL_SESSION_cmp for no apparent reason - hoping
++ * it is reasonable to assume that comparing the session IDs is
++ * sufficient. */
++static int SSL_SESSION_cmp(SSL_SESSION *a, SSL_SESSION *b)
++{
++    return a->session_id_length == b->session_id_length
++        && memcmp(a->session_id, b->session_id, a->session_id_length) == 0;
++}
++
+ /* For internal use only. */
+ int ne__negotiate_ssl(ne_session *sess)
+ {

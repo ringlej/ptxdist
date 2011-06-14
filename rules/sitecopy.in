@@ -1,0 +1,57 @@
+## SECTION=networking
+
+menuconfig SITECOPY
+	tristate
+	prompt "sitecopy                      "
+	select EXPAT		if SITECOPY_XML_EXPAT
+	select LIBXML2		if SITECOPY_XML_LIBXML2
+	select OPENSSL		if SITECOPY_OPENSSL
+	help
+	  Synchronize local and remote web site via FTP or WebDAV
+        
+if SITECOPY
+
+config SITECOPY_FTP
+	bool
+	prompt "FTP support enabled"
+	help
+	  Build with FTP support. No additional dependencies.
+
+config SITECOPY_RSH
+	bool
+	prompt "rsh/rcp support enabled"
+	help
+	  Build with rsh/rcp support. No additional dependencies.
+
+config SITECOPY_SFTP
+	bool
+	prompt "sftp/scp support enabled"
+	help
+	  Build with sftp/scp support. No additional dependencies.
+
+config SITECOPY_WEBDAV
+	bool
+	prompt "WebDAV support enabled"
+	help
+	  Build with WebDAV support. No additional dependencies.
+
+config SITECOPY_OPENSSL
+	bool
+	prompt "SSL support with OpenSSL"
+	help
+	  Build with SSL support. Required OpenSSL to be built.
+
+choice
+	prompt "xml library       "
+	default SITECOPY_XML_EXPAT
+
+	config SITECOPY_XML_EXPAT
+		bool
+		prompt "expat  "
+
+	config SITECOPY_XML_LIBXML2
+		bool
+		prompt "libxml2"
+endchoice
+
+endif
