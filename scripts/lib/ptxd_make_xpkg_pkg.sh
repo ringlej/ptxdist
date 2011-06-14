@@ -295,6 +295,7 @@ install device node:
     ptxd_install_setup &&
 
     rm -f "${pdirs[@]/%/${dst}}" &&
+    install -d "${dirs[@]/%/$(dirname "${dst}")}" &&
     for d in "${pdirs[@]/%/${dst}}"; do
 	mknod -m "${mod}" "${d}" "${type}" "${major}" "${minor}" || return
     done &&
