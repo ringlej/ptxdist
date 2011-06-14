@@ -59,8 +59,12 @@ case "$remove_old" in
 		;;
 esac
 
+if git format-patch -h 2>&1 | grep -q signature; then
+	GIT_EXTRA_ARGS="--no-signature"
+fi
+
 echo "$PTX_PATCHES_HEADER" > .ptxdist/series
-git format-patch -N --no-signature -o .ptxdist/patches/ base | sed -e 's,^.ptxdist/patches/,,' >> .ptxdist/series
+git format-patch -N $GIT_EXTRA_ARGS -o .ptxdist/patches/ base | sed -e 's,^.ptxdist/patches/,,' >> .ptxdist/series
 cat .ptxdist/series | _md5sum >> .ptxdist/series
 
 # The first line of the patch is 'From <some-git-hash> ...'
