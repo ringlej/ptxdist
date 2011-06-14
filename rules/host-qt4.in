@@ -2,10 +2,13 @@
 
 config HOST_QT4
 	tristate
-	select HOST_DBUS
+	select HOST_DBUS	if HOST_QT4_DBUS
 	default ALLYES
 
 if HOST_QT4
+
+config HOST_QT4_DBUS
+	bool
 
 config HOST_QT4_XMLPATTERNS
 	bool

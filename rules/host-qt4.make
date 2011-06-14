@@ -73,7 +73,6 @@ HOST_QT4_AUTOCONF := \
 	-no-freetype \
 	-stl \
 	-no-glib \
-	-dbus \
 	-no-phonon \
 	-no-phonon-backend \
 	-no-webkit \
@@ -95,6 +94,12 @@ HOST_QT4_AUTOCONF := \
 	-no-mouse-qvfb \
 	-no-mouse-qnx
 
+ifdef PTXCONF_HOST_QT4_DBUS
+HOST_QT4_AUTOCONF += -qdbus
+else
+HOST_QT4_AUTOCONF += -no-qdbus
+endif
+
 ifdef PTXCONF_HOST_QT4_XMLPATTERNS
 HOST_QT4_AUTOCONF += -xmlpatterns -exceptions
 else
@@ -110,7 +115,7 @@ $(STATEDIR)/host-qt4.compile:
 	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-tools-bootstrap
 	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
-		sub-xml sub-dbus sub-moc sub-rcc sub-uic
+		sub-xml sub-moc sub-rcc sub-uic
 	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-network
 ifdef PTXCONF_HOST_QT4_XMLPATTERNS
@@ -119,8 +124,12 @@ ifdef PTXCONF_HOST_QT4_XMLPATTERNS
 endif
 	@cd $(HOST_QT4_BUILDDIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
+ifdef PTXCONF_HOST_QT4_DBUS
+	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+		sub-dbus
 	@cd $(HOST_QT4_BUILDDIR)/tools/qdbus && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) sub-qdbusxml2cpp sub-qdbuscpp2xml
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -131,12 +140,14 @@ HOST_QT4_INSTALL_TARGETS := \
 	install_qmake \
 	install_mkspecs \
 	sub-xml-install_subtargets \
-	sub-dbus-install_subtargets \
 	sub-network-install_subtargets \
 	sub-moc-install_subtargets \
 	sub-rcc-install_subtargets \
 	sub-uic-install_subtargets
 
+ifdef PTXCONF_HOST_QT4_DBUS
+HOST_QT4_INSTALL_TARGETS += sub-dbus-install_subtargets
+endif
 ifdef PTXCONF_HOST_QT4_XMLPATTERNS
 HOST_QT4_INSTALL_TARGETS += sub-xmlpatterns-install_subtargets
 endif
@@ -149,10 +160,12 @@ $(STATEDIR)/host-qt4.install:
 		$(HOST_QT4_INSTALL_TARGETS) $(HOST_QT4_INSTALL_OPT)
 	@cd $(HOST_QT4_BUILDDIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) install $(HOST_QT4_INSTALL_OPT)
+ifdef PTXCONF_HOST_QT4_DBUS
 	@cd $(HOST_QT4_BUILDDIR)/tools/qdbus && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) $(HOST_QT4_INSTALL_OPT) \
 		sub-qdbusxml2cpp-install_subtargets \
 		sub-qdbuscpp2xml-install_subtargets
+endif
 	@$(call touch)
 
 $(STATEDIR)/host-qt4.install.post:
