@@ -70,6 +70,10 @@ ifdef PTXCONF_SVGALIB_VGATEST
 	mkdir -p $(SVGALIB_PKGDIR)/usr/bin
 	cp "$(SVGALIB_DIR)/demos/vgatest" "$(SVGALIB_PKGDIR)/usr/bin/vgatest"
 endif
+	install -d $(SYSROOT)/include
+	install $(SVGALIB_DIR)/include/vga.h $(SYSROOT)/include
+	install $(SVGALIB_DIR)/include/vgamouse.h $(SYSROOT)/include
+	install $(SVGALIB_DIR)/include/vgakeyboard.h $(SYSROOT)/include
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -91,6 +95,7 @@ $(STATEDIR)/svgalib.targetinstall:
 ifdef PTXCONF_SVGALIB_VGATEST
 	@$(call install_copy, svgalib, 0, 0, 0755, -, /usr/bin/vgatest)
 endif
+	@$(call install_config, svgalib, 0, 0, 0644, /etc/vga/libvga.config)
 
 	@$(call install_finish, svgalib)
 
