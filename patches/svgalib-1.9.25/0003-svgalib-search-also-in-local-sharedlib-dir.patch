@@ -1,0 +1,25 @@
+From 57639dc85bf498e6ba147f274f5608c2ab715dc8 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Thu, 16 Jun 2011 16:49:07 +0200
+Subject: [PATCH 3/3] svgalib: search also in local sharedlib dir
+
+---
+ demos/Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/demos/Makefile b/demos/Makefile
+index f7052f3..37ef13b 100644
+--- a/demos/Makefile
++++ b/demos/Makefile
+@@ -29,7 +29,7 @@ PROGS    = fun testgl speedtest mousetest vgatest scrolltest testlinear \
+ 
+ # Determine what library (static or shared) we will be linking programs with
+ ifdef INSTALLSHAREDLIB
+-  LIBS = -lvgagl -lvga
++  LIBS = -L../sharedlib -lvgagl -lvga
+ endif
+ ifndef LIBS
+   LIBS    = ../staticlib/libvgagl.a ../staticlib/libvga.a -lm
+-- 
+1.7.5.3
+

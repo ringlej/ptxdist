@@ -1,0 +1,18 @@
+## SECTION=multimedia_libs
+
+config SVGALIB
+	tristate
+	prompt "svgalib"
+	help
+	  SVGAlib is a library that provides simple access to VGA hardware.
+
+if SVGALIB
+
+config SVGALIB_VGATEST
+	bool
+	prompt "vgatest"
+	help
+	  A test tool.
+
+endif
+
