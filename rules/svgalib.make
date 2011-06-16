@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_SVGALIB) += svgalib
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_SVGALIB) += svgalib
 
 #
 # Paths and names
