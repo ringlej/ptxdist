@@ -89,7 +89,7 @@ $(STATEDIR)/svgalib.targetinstall:
 	@$(call install_lib, svgalib, 0, 0, 0755, libvgagl)
 
 ifdef PTXCONF_SVGALIB_VGATEST
-	@$(call install_copy, svgalib, 0, 0, 0755, /usr/bin/vgatest)
+	@$(call install_copy, svgalib, 0, 0, 0755, -, /usr/bin/vgatest)
 endif
 
 	@$(call install_finish, svgalib)
