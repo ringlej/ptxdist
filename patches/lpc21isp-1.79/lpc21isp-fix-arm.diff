@@ -1,0 +1,27 @@
+From: Bernhard Walle <walle@corscience.de>
+Date: Mon, 20 Jun 2011 19:40:37 +0200
+Subject: [PATCH] Fix build on ARM platform with Linux
+
+The lpc21isp developers think that ARM cannot run Linux. This is false, treat
+the ARM/Linux build just as building it on any platform.
+
+Signed-off-by: Bernhard Walle <walle@corscience.de>
+---
+ lpc21isp.h |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+diff --git a/lpc21isp.h b/lpc21isp.h
+index c9b9320..8190ddb 100644
+--- a/lpc21isp.h
++++ b/lpc21isp.h
+@@ -37,10 +37,6 @@ Portions Copyright (c) by Aeolus Development 2004 http://www.aeolusdevelopment.c
+ #elif defined(__CYGWIN__)
+ #define COMPILE_FOR_CYGWIN
+ #define COMPILED_FOR "Cygwin"
+-#elif defined(__arm__) || defined(__thumb__)
+-#define COMPILE_FOR_LPC21
+-#define COMPILED_FOR "ARM"
+-#define printf iprintf
+ #elif defined(__APPLE__)
+ #define COMPILE_FOR_LINUX
+ #define COMPILED_FOR "Apple MacOS X"
