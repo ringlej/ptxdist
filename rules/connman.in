@@ -6,6 +6,7 @@ menuconfig CONNMAN
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select DBUS
+	select IPTABLES
 	select UDEV		if CONNMAN_UDEV
 	select POLICYKIT	if CONNMAN_POLKIT
 	select DBUS_PYTHON	if CONNMAN_TESTS
@@ -34,14 +35,6 @@ menu "plugins"
 		bool
 		prompt "bluetooth support"
 
-	config CONNMAN_DHCLIENT
-		bool
-		prompt "dhclient support"
-
-	config CONNMAN_DNSPROXY
-		bool
-		prompt "dnsproxy support"
-
 	config CONNMAN_ETHERNET
 		bool
 		prompt "ethernet support"
@@ -49,10 +42,6 @@ menu "plugins"
 	config CONNMAN_FAKE
 		bool
 		prompt "fake support"
-
-	config CONNMAN_HSO
-		bool
-		prompt "hso support"
 
 	config CONNMAN_LOOPBACK
 		bool
@@ -62,45 +51,15 @@ menu "plugins"
 		bool
 		prompt "polkit support"
 
-	config CONNMAN_RESOLVCONF
-		bool
-		prompt "resolvconf support"
-
-	config CONNMAN_UDHCP
-		bool
-		prompt "udhcp support"
-
 	config CONNMAN_WIFI
 		bool
 		prompt "wifi support"
 
 	config CONNMAN_WIMAX
 		bool
+		# needs Intel WiMAX SDK
+		depends on BROKEN
 		prompt "wimax support"
-
-
-	config CONNMAN_NOVATEL
-		bool
-		# FIXME needs ppp headers
-		depends on BROKEN
-		prompt "novatel support"
-
-	config CONNMAN_HUAWEI
-		bool
-		# FIXME needs ppp headers
-		depends on BROKEN
-		prompt "huawei support"
-
-	config CONNMAN_PPP
-		bool
-		# FIXME needs ppp headers
-		depends on BROKEN
-		prompt "ppp support"
-
-	config CONNMAN_UDEV
-		bool
-		select UDEV_LIBUDEV
-		prompt "udev support"
 
 endmenu
 
@@ -116,6 +75,12 @@ config CONNMAN_STARTSCRIPT
 	bool
 	default y
 	prompt "install /etc/init.d/connman"
+
+config CONNMAN_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for connman"
 
 endif
 

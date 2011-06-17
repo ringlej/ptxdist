@@ -16,152 +16,90 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 #
 # Paths and names
 #
-CONNMAN_VERSION	:= 0.10
-CONNMAN_MD5	:= 094743343e062ea370fcd461aa48a7fe
+CONNMAN_VERSION	:= 0.75
+CONNMAN_MD5	:= 9973cb89a11fff6b51fc85b51c13b711
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
-CONNMAN_URL	:= http://ftp.moblin.org/connman/releases/$(CONNMAN).$(CONNMAN_SUFFIX)
+CONNMAN_URL	:= http://www.kernel.org/pub/linux/network/connman/$(CONNMAN).$(CONNMAN_SUFFIX)
 CONNMAN_SOURCE	:= $(SRCDIR)/$(CONNMAN).$(CONNMAN_SUFFIX)
 CONNMAN_DIR	:= $(BUILDDIR)/$(CONNMAN)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(CONNMAN_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CONNMAN)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CONNMAN_PATH	:= PATH=$(CROSS_PATH)
-CONNMAN_ENV 	:= \
-	$(CROSS_ENV) \
-	PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT=y
-
 #
 # autoconf
 #
-CONNMAN_AUTOCONF := \
+CONNMAN_CONF_TOOL	:= autoconf
+CONNMAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-gtk-doc \
 	--disable-debug \
 	--enable-threads \
+	--$(call ptx/endis, PTXCONF_CONNMAN_ETHERNET)-ethernet \
+	--$(call ptx/endis, PTXCONF_CONNMAN_WIFI)-wifi \
+	--$(call ptx/endis, PTXCONF_CONNMAN_BLUETOOTH)-bluetooth \
+	--disable-hh2serial-gps \
+	--disable-ofono \
+	--disable-openconnect \
+	--disable-portal \
+	--disable-openvpn \
+	--disable-vpnc \
+	--$(call ptx/endis, PTXCONF_CONNMAN_LOOPBACK)-loopback \
+	--disable-pacrunner \
+	--disable-google \
+	--disable-meego \
+	--$(call ptx/endis, PTXCONF_CONNMAN_WIMAX)-iwmx \
+	--disable-iospm \
+	--disable-ntpd \
+	--disable-nmcompat \
+	--disable-tist \
+	--$(call ptx/endis, PTXCONF_CONNMAN_POLKIT)-polkit \
+	--$(call ptx/endis, PTXCONF_CONNMAN_CLIENT)-client \
+	--disable-tools \
+	--disable-test \
+	--$(call ptx/endis, PTXCONF_CONNMAN_FAKE)-fake \
+	--disable-capng \
 	--enable-datafiles
 
-ifdef PTXCONF_CONNMAN_LOOPBACK
-CONNMAN_AUTOCONF += --enable-loopback
+ifdef PTXCONF_CONNMAN_SYSTEMD_UNIT
+CONNMAN_CONF_OPT += --with-systemdunitdir=/lib/systemd/system
 else
-CONNMAN_AUTOCONF += --disable-loopback
-endif
-ifdef PTXCONF_CONNMAN_ETHERNET
-CONNMAN_AUTOCONF += --enable-ethernet
-else
-CONNMAN_AUTOCONF += --disable-ethernet
-endif
-ifdef PTXCONF_CONNMAN_WIFI
-CONNMAN_AUTOCONF += --enable-wifi
-else
-CONNMAN_AUTOCONF += --disable-wifi
-endif
-ifdef PTXCONF_CONNMAN_WIMAX
-CONNMAN_AUTOCONF += --enable-wimax
-else
-CONNMAN_AUTOCONF += --disable-wimax
-endif
-ifdef PTXCONF_CONNMAN_BLUETOOTH
-CONNMAN_AUTOCONF += --enable-bluetooth
-else
-CONNMAN_AUTOCONF += --disable-bluetooth
-endif
-ifdef PTXCONF_CONNMAN_UDHCP
-CONNMAN_AUTOCONF += --enable-udhcp
-else
-CONNMAN_AUTOCONF += --disable-udhcp
-endif
-ifdef PTXCONF_CONNMAN_DHCLIENT
-CONNMAN_AUTOCONF += --enable-dhclient
-else
-CONNMAN_AUTOCONF += --disable-dhclient
-endif
-ifdef PTXCONF_CONNMAN_RESOLVCONF
-CONNMAN_AUTOCONF += --enable-resolvconf
-else
-CONNMAN_AUTOCONF += --disable-resolvconf
-endif
-ifdef PTXCONF_CONNMAN_DNSPROXY
-CONNMAN_AUTOCONF += --enable-dnsproxy
-else
-CONNMAN_AUTOCONF += --disable-dnsproxy
-endif
-ifdef PTXCONF_CONNMAN_NOVATEL
-CONNMAN_AUTOCONF += --enable-novatel
-else
-CONNMAN_AUTOCONF += --disable-novatel
-endif
-ifdef PTXCONF_CONNMAN_HUAWEI
-CONNMAN_AUTOCONF += --enable-huawei
-else
-CONNMAN_AUTOCONF += --disable-huawei
-endif
-ifdef PTXCONF_CONNMAN_HSO
-CONNMAN_AUTOCONF += --enable-hso
-else
-CONNMAN_AUTOCONF += --disable-hso
-endif
-ifdef PTXCONF_CONNMAN_PPP
-CONNMAN_AUTOCONF += --enable-ppp
-else
-CONNMAN_AUTOCONF += --disable-ppp
-endif
-ifdef PTXCONF_CONNMAN_UDEV
-CONNMAN_AUTOCONF += --enable-udev
-else
-CONNMAN_AUTOCONF += --disable-udev
-endif
-ifdef PTXCONF_CONNMAN_POLKIT
-CONNMAN_AUTOCONF += --enable-polkit
-else
-CONNMAN_AUTOCONF += --disable-polkit
-endif
-ifdef PTXCONF_CONNMAN_CLIENT
-CONNMAN_AUTOCONF += --enable-client
-else
-CONNMAN_AUTOCONF += --disable-client
-endif
-ifdef PTXCONF_CONNMAN_FAKE
-CONNMAN_AUTOCONF += --enable-fake
-else
-CONNMAN_AUTOCONF += --disable-fake
+CONNMAN_CONF_OPT += --without-systemdunitdir
 endif
 
 CONNMAN_TESTS := \
-	connect-network \
-	create-network \
-	debug-connman \
-	disable-device \
-	disable-network \
-	disconnect-network \
-	enable-device \
+	backtrace \
+	connect-service \
+	connect-vpn \
+	disable-tethering \
+	disconnect-vpn \
+	enable-tethering \
+	find-service \
+	get-proxy-autoconfig \
+	get-services \
 	get-state \
-	list-connections \
-	list-devices \
-	list-networks \
 	list-profiles \
+	list-services \
 	monitor-connman \
-	select-connection \
-	select-network \
+	monitor-manager \
+	monitor-services \
+	provision-service \
 	set-address \
-	set-passphrase \
-	set-policy \
+	set-domains \
+	set-ipv4-method \
+	set-ipv6-method \
+	set-nameservers \
+	set-proxy \
 	show-introspection \
 	simple-agent \
-	start-scanning \
 	test-compat \
 	test-connman \
-	test-manager
+	test-counter \
+	test-manager \
+	test-profile \
+	test-session
 
 # ----------------------------------------------------------------------------
 # Install
@@ -172,15 +110,22 @@ $(STATEDIR)/connman.install:
 	@$(call install, CONNMAN)
 	install -D -m 755 "$(CONNMAN_DIR)/client/cm" \
 		"$(CONNMAN_PKGDIR)/usr/sbin/cm"
-	@for i in $(CONNMAN_TESTS); do \
-		install -D -m 755 "$(CONNMAN_DIR)/test/$$i" \
-			"$(CONNMAN_PKGDIR)/usr/sbin/cm-$$i"; \
-	done
+	@$(foreach test, $(CONNMAN_TESTS), \
+		install -D -m 755 "$(CONNMAN_DIR)/test/$(test)" \
+			"$(CONNMAN_PKGDIR)/usr/sbin/cm-$(test)";)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_LOOPBACK)	+= loopback
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_ETHERNET)	+= ethernet
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_WIFI)		+= wifi
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_WIMAX)	+= iwmx
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_BLUETOOTH)	+= bluetooth
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_POLKIT)	+= polkit
+CONNMAN_PLUGINS-$(PTXCONF_CONNMAN_FAKE)		+= fake
 
 $(STATEDIR)/connman.targetinstall:
 	@$(call targetinfo)
@@ -194,11 +139,6 @@ $(STATEDIR)/connman.targetinstall:
 #	# binary
 	@$(call install_copy, connman, 0, 0, 0755, -, /usr/sbin/connmand)
 
-#	# dirs
-	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman)
-	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman/scripts)
-	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman/plugins)
-
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_CONNMAN_STARTSCRIPT
 	@$(call install_alternative, connman, 0, 0, 0755, /etc/init.d/connman, n)
@@ -210,6 +150,12 @@ ifneq ($(call remove_quotes, $(PTXCONF_CONNMAN_BBINIT_LINK)),)
 endif
 endif
 endif
+ifdef PTXCONF_CONNMAN_SYSTEMD_UNIT
+	@$(call install_copy, connman, 0, 0, 0644, -, \
+		/lib/systemd/system/connman.service)
+	@$(call install_link, connman, ../connman.service, \
+		/lib/systemd/system/multi-user.target.wants/connman.service)
+endif
 
 #	# dbus config
 	@$(call install_alternative, connman, 0, 0, 0644, /etc/dbus-1/system.d/connman.conf)
@@ -217,45 +163,9 @@ endif
 #	#
 #	# plugins
 #	#
-ifdef PTXCONF_CONNMAN_BLUETOOTH
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/bluetooth.so)
-endif
-ifdef PTXCONF_CONNMAN_DHCLIENT
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/dhclient.so)
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/scripts/dhclient.conf)
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/scripts/dhclient-script)
-endif
-ifdef PTXCONF_CONNMAN_DNSPROXY
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/dnsproxy.so)
-endif
-ifdef PTXCONF_CONNMAN_ETHERNET
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/ethernet.so)
-endif
-ifdef PTXCONF_CONNMAN_FAKE
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/fake.so)
-endif
-ifdef PTXCONF_CONNMAN_HSO
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/hso.so)
-endif
-ifdef PTXCONF_CONNMAN_LOOPBACK
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/loopback.so)
-endif
-ifdef PTXCONF_CONNMAN_POLKIG
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/polkit.so)
-endif
-ifdef PTXCONF_CONNMAN_RESOLVCONF
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/resolvconf.so)
-endif
-ifdef PTXCONF_CONNMAN_UDHCP
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/udhcp.so)
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/scripts/udhcpc-script)
-endif
-ifdef PTXCONF_CONNMAN_WIFI
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/wifi.so)
-endif
-ifdef PTXCONF_CONNMAN_WIMAX
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/wimax.so)
-endif
+	@$(foreach plugin, $(CONNMAN_PLUGINS-y), \
+		$(call install_copy, connman, 0, 0, 0644, -, \
+			/usr/lib/connman/plugins/$(plugin).so);)
 
 #	# command line client
 ifdef PTXCONF_CONNMAN_CLIENT
@@ -264,10 +174,9 @@ endif
 
 #	# python tests
 ifdef PTXCONF_CONNMAN_TESTS
-	@for i in $(CONNMAN_TESTS); do \
+	@$(foreach test, $(CONNMAN_TESTS), \
 		$(call install_copy, connman, 0, 0, 0755, -, \
-			/usr/sbin/cm-$$i); \
-	done
+			/usr/sbin/cm-$(test));)
 endif
 
 	@$(call install_finish, connman)
