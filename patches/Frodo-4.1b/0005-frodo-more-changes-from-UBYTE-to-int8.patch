@@ -1,0 +1,199 @@
+From 30876f26f9dcd707df11ef409b6b95d93d33f64d Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 19:23:22 +0200
+Subject: [PATCH 05/10] frodo: more changes from UBYTE to int8
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/AmigaGUI.h      |   16 ++++++++--------
+ Src/Display.h       |    2 +-
+ Src/Display_Acorn.i |    2 +-
+ Src/Display_Amiga.i |    8 ++++----
+ Src/Display_WIN32.i |   12 ++++++------
+ Src/SID_Amiga.i     |    4 ++--
+ 6 files changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/Src/AmigaGUI.h b/Src/AmigaGUI.h
+index 3009b45..8d4af69 100644
+--- a/Src/AmigaGUI.h
++++ b/Src/AmigaGUI.h
+@@ -78,7 +78,7 @@ extern struct IntuitionBase *IntuitionBase;
+ extern struct Library       *GadToolsBase;
+ 
+ extern struct Screen        *Scr;
+-extern UBYTE                 *PubScreenName;
++extern int8                 *PubScreenName;
+ extern APTR                  VisualInfo;
+ extern struct Window        *PrefsWnd;
+ extern struct Gadget        *PrefsGList;
+@@ -90,16 +90,16 @@ extern UWORD                 PrefsLeft;
+ extern UWORD                 PrefsTop;
+ extern UWORD                 PrefsWidth;
+ extern UWORD                 PrefsHeight;
+-extern UBYTE                *PrefsWdt;
++extern int8                *PrefsWdt;
+ extern struct TextAttr      *Font, Attr;
+ extern UWORD                 FontX, FontY;
+ extern UWORD                 OffX, OffY;
+-extern UBYTE                *SIDType0Labels[];
+-extern UBYTE                *REUSize0Labels[];
+-extern UBYTE                *DriveType80Labels[];
+-extern UBYTE                *DriveType90Labels[];
+-extern UBYTE                *DriveType100Labels[];
+-extern UBYTE                *DriveType110Labels[];
++extern int8                *SIDType0Labels[];
++extern int8                *REUSize0Labels[];
++extern int8                *DriveType80Labels[];
++extern int8                *DriveType90Labels[];
++extern int8                *DriveType100Labels[];
++extern int8                *DriveType110Labels[];
+ extern struct IntuiText      PrefsIText[];
+ extern struct NewMenu        PrefsNewMenu[];
+ extern UWORD                 PrefsGTypes[];
+diff --git a/Src/Display.h b/Src/Display.h
+index 4a3c228..da2bee3 100644
+--- a/Src/Display.h
++++ b/Src/Display.h
+@@ -183,7 +183,7 @@ private:
+ 	BOOL FileNameDialog(char *prefs_path, BOOL save = false);
+ 	void OfferSave();			// Offer chance to save changes
+ 
+-	UBYTE *chunky_buf;			// Chunky buffer for drawing
++	int8 *chunky_buf;			// Chunky buffer for drawing
+ 	BOOL active;				// is application active?
+ 	BOOL paused;				// is application paused?
+ 	BOOL waiting;				// is application waiting?
+diff --git a/Src/Display_Acorn.i b/Src/Display_Acorn.i
+index 14f558c..bf609c0 100644
+--- a/Src/Display_Acorn.i
++++ b/Src/Display_Acorn.i
+@@ -203,7 +203,7 @@ void C64Display::PollKeyboard(uint8 *key_matrix, uint8 *rev_matrix, uint8 *joyst
+   int status;
+   uint8 kjoy, kjoy2;
+   uint32 newkeys[8];
+-  UBYTE kjoy, kjoy2;
++  int8 kjoy, kjoy2;
+ 
+   // Clear keyboard
+   for (code=0; code<8; code++) {key_matrix[code] = 0xff; rev_matrix[code] = 0xff; newkeys[code] = 0;}
+diff --git a/Src/Display_Amiga.i b/Src/Display_Amiga.i
+index c846b68..f8ecc56 100644
+--- a/Src/Display_Amiga.i
++++ b/Src/Display_Amiga.i
+@@ -132,7 +132,7 @@ C64Display::C64Display(C64 *the_c64) : TheC64(the_c64)
+ 		led_state[i] = old_led_state[i] = LED_OFF;
+ 
+ 	// Allocate chunky buffer to draw into
+-	chunky_buf = new UBYTE[DISPLAY_X * DISPLAY_Y];
++	chunky_buf = new int8[DISPLAY_X * DISPLAY_Y];
+ 
+ 	// Open fonts
+ 	led_font = OpenDiskFont(&led_font_attr);
+@@ -360,7 +360,7 @@ void C64Display::Speedometer(int speed)
+  *  Return pointer to bitmap data
+  */
+ 
+-UBYTE *C64Display::BitmapBase(void)
++int8 *C64Display::BitmapBase(void)
+ {
+ 	return chunky_buf;
+ }
+@@ -380,7 +380,7 @@ int C64Display::BitmapXMod(void)
+  *  Handle IDCMP messages
+  */
+ 
+-void C64Display::PollKeyboard(UBYTE *key_matrix, UBYTE *rev_matrix, UBYTE *joystick)
++void C64Display::PollKeyboard(int8 *key_matrix, int8 *rev_matrix, int8 *joystick)
+ {
+ 	struct IntuiMessage *msg;
+ 
+@@ -594,7 +594,7 @@ bool C64Display::NumLock(void)
+  *  Allocate C64 colors
+  */
+ 
+-void C64Display::InitColors(UBYTE *colors)
++void C64Display::InitColors(int8 *colors)
+ {
+ 	// Spread pens into colors array
+ 	for (int i=0; i<256; i++)
+diff --git a/Src/Display_WIN32.i b/Src/Display_WIN32.i
+index c6cccf4..f55b88d 100644
+--- a/Src/Display_WIN32.i
++++ b/Src/Display_WIN32.i
+@@ -117,7 +117,7 @@ private:
+ 
+ static C64Display *TheDisplay;
+ static int keystate[256];
+-static UBYTE rev_matrix[8], key_matrix[8];
++static int8 rev_matrix[8], key_matrix[8];
+ static int quit = 0;
+ static int numlock = 0;
+ static int joystate = 0xff;
+@@ -223,7 +223,7 @@ C64Display::C64Display(C64 *the_c64) : TheC64(the_c64)
+ 		led_state[i] = old_led_state[i] = LED_OFF;
+ 
+ 	// Allocate chunky buffer to draw into.
+-	chunky_buf = new UBYTE[DISPLAY_X * DISPLAY_Y];
++	chunky_buf = new int8[DISPLAY_X * DISPLAY_Y];
+ 
+ 	CalcViewPort();
+ 
+@@ -447,7 +447,7 @@ void C64Display::Speedometer(int speed)
+  *  Return pointer to bitmap data
+  */
+ 
+-UBYTE *C64Display::BitmapBase()
++int8 *C64Display::BitmapBase()
+ {
+ #ifdef WORKBUFFER_BITMAP
+ 	if (colors_depth == 8 && pWork) {
+@@ -465,7 +465,7 @@ UBYTE *C64Display::BitmapBase()
+ 		if (ddrval == DD_OK) {
+ 			workbuffer_locked = TRUE;
+ 			workbuffer_bitmap = TRUE;
+-			return (UBYTE *) bitmap_ddsd.lpSurface;
++			return (int8 *) bitmap_ddsd.lpSurface;
+ 		}
+ 	}
+ 	workbuffer_bitmap = FALSE;
+@@ -492,7 +492,7 @@ int C64Display::BitmapXMod()
+  *  Freshen keyboard state
+  */
+ 
+-void C64Display::PollKeyboard(UBYTE *CIA_key_matrix, UBYTE *CIA_rev_matrix, UBYTE *joystick)
++void C64Display::PollKeyboard(int8 *CIA_key_matrix, int8 *CIA_rev_matrix, int8 *joystick)
+ {
+ 	//Debug("Display::PollKeyboard\n");
+ 
+@@ -532,7 +532,7 @@ bool C64Display::NumLock()
+  *  Allocate C64 colors
+  */
+ 
+-void C64Display::InitColors(UBYTE *array)
++void C64Display::InitColors(int8 *array)
+ {
+ 	if (colors_depth == 8) {
+ 		for (int i = 0; i < 256; i++)
+diff --git a/Src/SID_Amiga.i b/Src/SID_Amiga.i
+index 7ef993d..6467e7a 100644
+--- a/Src/SID_Amiga.i
++++ b/Src/SID_Amiga.i
+@@ -252,13 +252,13 @@ public:
+ 	virtual void Resume(void) {}
+ 
+ private:
+-	UBYTE *sid_base;	// SID card base pointer
++	int8 *sid_base;	// SID card base pointer
+ };
+ 
+ // Constructor: Reset SID
+ SIDCardRenderer::SIDCardRenderer()
+ {
+-	sid_base = (UBYTE *)0xa00001;
++	sid_base = (int8 *)0xa00001;
+ 	Reset();
+ }
+ 
+-- 
+1.7.5.3
+

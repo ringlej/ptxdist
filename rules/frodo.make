@@ -38,8 +38,12 @@ $(FRODO_SOURCE):
 
 FRODO_PATH	:= PATH=$(CROSS_PATH)
 FRODO_CONF_ENV	:= $(CROSS_ENV)
+ifdef PTXCONF_FRODO_SVGALIB
+FRODO_CONF_ENV	+= ac_cv_lib_vga_vga_setmode=yes SDL_CONFIG=no
+endif
 FRODO_MAKE_ENV	:= $(CROSS_ENV)
 FRODO_SUBDIR	:= Src
+FRODO_CONF_TOOL	:= autoconf
 
 #
 # autoconf

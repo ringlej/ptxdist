@@ -1,1 +1,10 @@
-enable-sdl.diff
+0001-enable-sdl.diff.patch
+0002-frodo-add-cppflags-support.patch
+0003-frodo-change-more-UBYTEs-into-int8.patch
+0004-frodo-AmigaGUI-change-UBYTE-into-int8.patch
+0005-frodo-more-changes-from-UBYTE-to-int8.patch
+0006-frodo-remove-duplicated-defines.patch
+0007-frodo-fix-cast.patch
+0008-frodo-fix-type.patch
+0009-frodo-fix-types.patch
+0010-frodo-fix-type.patch

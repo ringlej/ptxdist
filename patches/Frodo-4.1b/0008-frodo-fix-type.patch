@@ -1,0 +1,32 @@
+From 169e2be56169efbe4f0e84f5c4bff9edf7dd9447 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 20:07:53 +0200
+Subject: [PATCH 08/10] frodo: fix type
+
+Display_svga.i: In member function 'uint8* C64Display::BitmapBase()':
+Display_svga.i:485:23: error: invalid conversion from 'int8*' to 'uint8*'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/Display_svga.i |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Src/Display_svga.i b/Src/Display_svga.i
+index 7dd201b..68bb104 100644
+--- a/Src/Display_svga.i
++++ b/Src/Display_svga.i
+@@ -480,9 +480,9 @@ void C64Display::Update(void)
+ }
+ 
+ 
+-int8 *C64Display::BitmapBase(void)
++uint8 *C64Display::BitmapBase(void)
+ {
+-       return (int8 *)bufmem;
++       return (uint8 *)bufmem;
+ }
+ 
+ 
+-- 
+1.7.5.3
+

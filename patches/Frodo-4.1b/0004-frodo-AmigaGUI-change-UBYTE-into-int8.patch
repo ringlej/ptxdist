@@ -1,0 +1,178 @@
+From 23b341c7bd872cceb385283b0d18c16ffc2f68d2 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 19:21:38 +0200
+Subject: [PATCH 04/10] frodo: AmigaGUI: change UBYTE into int8
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/AmigaGUI.c |  112 ++++++++++++++++++++++++++++----------------------------
+ 1 files changed, 56 insertions(+), 56 deletions(-)
+
+diff --git a/Src/AmigaGUI.c b/Src/AmigaGUI.c
+index eef5cb7..fb6f041 100644
+--- a/Src/AmigaGUI.c
++++ b/Src/AmigaGUI.c
+@@ -23,7 +23,7 @@
+ #include "AmigaGUI.h"
+ 
+ struct Screen         *Scr = NULL;
+-UBYTE                 *PubScreenName = NULL;
++int8                 *PubScreenName = NULL;
+ APTR                   VisualInfo = NULL;
+ struct Window         *PrefsWnd = NULL;
+ struct Gadget         *PrefsGList = NULL;
+@@ -35,50 +35,50 @@ UWORD                  PrefsLeft = 0;
+ UWORD                  PrefsTop = 16;
+ UWORD                  PrefsWidth = 561;
+ UWORD                  PrefsHeight = 238;
+-UBYTE                 *PrefsWdt = (UBYTE *)"Frodo Preferences";
++int8                 *PrefsWdt = (int8 *)"Frodo Preferences";
+ struct TextAttr       *Font, Attr;
+ UWORD                  FontX, FontY;
+ UWORD                  OffX, OffY;
+ 
+-UBYTE *SIDType0Labels[] = {
+-	(UBYTE *)"None",
+-	(UBYTE *)"Digital (AHI)",
+-	(UBYTE *)"SID Card",
++int8 *SIDType0Labels[] = {
++	(int8 *)"None",
++	(int8 *)"Digital (AHI)",
++	(int8 *)"SID Card",
+ 	NULL };
+ 
+-UBYTE *REUSize0Labels[] = {
+-	(UBYTE *)"None",
+-	(UBYTE *)"128K",
+-	(UBYTE *)"256K",
+-	(UBYTE *)"512K",
++int8 *REUSize0Labels[] = {
++	(int8 *)"None",
++	(int8 *)"128K",
++	(int8 *)"256K",
++	(int8 *)"512K",
+ 	NULL };
+ 
+-UBYTE *DriveType80Labels[] = {
+-	(UBYTE *)"DIR",
+-	(UBYTE *)"D64",
+-	(UBYTE *)"T64",
++int8 *DriveType80Labels[] = {
++	(int8 *)"DIR",
++	(int8 *)"D64",
++	(int8 *)"T64",
+ 	NULL };
+ 
+-UBYTE *DriveType90Labels[] = {
+-	(UBYTE *)"DIR",
+-	(UBYTE *)"D64",
+-	(UBYTE *)"T64",
++int8 *DriveType90Labels[] = {
++	(int8 *)"DIR",
++	(int8 *)"D64",
++	(int8 *)"T64",
+ 	NULL };
+ 
+-UBYTE *DriveType100Labels[] = {
+-	(UBYTE *)"DIR",
+-	(UBYTE *)"D64",
+-	(UBYTE *)"T64",
++int8 *DriveType100Labels[] = {
++	(int8 *)"DIR",
++	(int8 *)"D64",
++	(int8 *)"T64",
+ 	NULL };
+ 
+-UBYTE *DriveType110Labels[] = {
+-	(UBYTE *)"DIR",
+-	(UBYTE *)"D64",
+-	(UBYTE *)"T64",
++int8 *DriveType110Labels[] = {
++	(int8 *)"DIR",
++	(int8 *)"D64",
++	(int8 *)"T64",
+ 	NULL };
+ 
+ struct IntuiText PrefsIText[] = {
+-	2, 0, JAM1,34, 115, NULL, (UBYTE *)"Drive", NULL };
++	2, 0, JAM1,34, 115, NULL, (int8 *)"Drive", NULL };
+ 
+ #define Prefs_TNUM 1
+ 
+@@ -128,37 +128,37 @@ UWORD PrefsGTypes[] = {
+ };
+ 
+ struct NewGadget PrefsNGad[] = {
+-	8, 4, 26, 11, (UBYTE *)"Sprite display", NULL, GD_SpritesOn, PLACETEXT_RIGHT, NULL, (APTR)SpritesOnClicked,
+-	8, 16, 26, 11, (UBYTE *)"Sprite collisions", NULL, GD_SpriteCollisions, PLACETEXT_RIGHT, NULL, (APTR)SpriteCollisionsClicked,
+-	8, 28, 26, 11, (UBYTE *)"Joystick connected", NULL, GD_Joystick2On, PLACETEXT_RIGHT, NULL, (APTR)Joystick2OnClicked,
+-	8, 40, 26, 11, (UBYTE *)"Map joystick to port 1", NULL, GD_JoystickSwap, PLACETEXT_RIGHT, NULL, (APTR)JoystickSwapClicked,
+-	8, 52, 26, 11, (UBYTE *)"Limit speed", NULL, GD_LimitSpeed, PLACETEXT_RIGHT, NULL, (APTR)LimitSpeedClicked,
+-	8, 64, 26, 11, (UBYTE *)"Fast reset", NULL, GD_FastReset, PLACETEXT_RIGHT, NULL, (APTR)FastResetClicked,
+-	8, 76, 26, 11, (UBYTE *)"Clear CIA ICR on write", NULL, GD_CIAIRQHack, PLACETEXT_RIGHT, NULL, (APTR)CIAIRQHackClicked,
+-	8, 88, 26, 11, (UBYTE *)"SID filters", NULL, GD_SIDFilters, PLACETEXT_RIGHT, NULL, (APTR)SIDFiltersClicked,
+-	490, 4, 65, 14, (UBYTE *)"Cycles per line (CPU)", NULL, GD_NormalCycles, PLACETEXT_LEFT, NULL, (APTR)NormalCyclesClicked,
+-	490, 19, 65, 14, (UBYTE *)"Cycles per Bad Line (CPU)", NULL, GD_BadLineCycles, PLACETEXT_LEFT, NULL, (APTR)BadLineCyclesClicked,
+-	490, 34, 65, 14, (UBYTE *)"Cycles per line (CIA)", NULL, GD_CIACycles, PLACETEXT_LEFT, NULL, (APTR)CIACyclesClicked,
+-	490, 49, 65, 14, (UBYTE *)"Cycles per line (1541)", NULL, GD_FloppyCycles, PLACETEXT_LEFT, NULL, (APTR)FloppyCyclesClicked,
+-	490, 64, 65, 14, (UBYTE *)"Draw every n-th frame", NULL, GD_SkipFrames, PLACETEXT_LEFT, NULL, (APTR)SkipFramesClicked,
+-	426, 79, 129, 14, (UBYTE *)"SID emulation type", NULL, GD_SIDType, PLACETEXT_LEFT, NULL, (APTR)SIDTypeClicked,
+-	426, 94, 129, 14, (UBYTE *)"REU size", NULL, GD_REUSize, PLACETEXT_LEFT, NULL, (APTR)REUSizeClicked,
+-	47, 123, 401, 14, (UBYTE *)"8", NULL, GD_DrivePath8, PLACETEXT_LEFT, NULL, (APTR)DrivePath8Clicked,
++	8, 4, 26, 11, (int8 *)"Sprite display", NULL, GD_SpritesOn, PLACETEXT_RIGHT, NULL, (APTR)SpritesOnClicked,
++	8, 16, 26, 11, (int8 *)"Sprite collisions", NULL, GD_SpriteCollisions, PLACETEXT_RIGHT, NULL, (APTR)SpriteCollisionsClicked,
++	8, 28, 26, 11, (int8 *)"Joystick connected", NULL, GD_Joystick2On, PLACETEXT_RIGHT, NULL, (APTR)Joystick2OnClicked,
++	8, 40, 26, 11, (int8 *)"Map joystick to port 1", NULL, GD_JoystickSwap, PLACETEXT_RIGHT, NULL, (APTR)JoystickSwapClicked,
++	8, 52, 26, 11, (int8 *)"Limit speed", NULL, GD_LimitSpeed, PLACETEXT_RIGHT, NULL, (APTR)LimitSpeedClicked,
++	8, 64, 26, 11, (int8 *)"Fast reset", NULL, GD_FastReset, PLACETEXT_RIGHT, NULL, (APTR)FastResetClicked,
++	8, 76, 26, 11, (int8 *)"Clear CIA ICR on write", NULL, GD_CIAIRQHack, PLACETEXT_RIGHT, NULL, (APTR)CIAIRQHackClicked,
++	8, 88, 26, 11, (int8 *)"SID filters", NULL, GD_SIDFilters, PLACETEXT_RIGHT, NULL, (APTR)SIDFiltersClicked,
++	490, 4, 65, 14, (int8 *)"Cycles per line (CPU)", NULL, GD_NormalCycles, PLACETEXT_LEFT, NULL, (APTR)NormalCyclesClicked,
++	490, 19, 65, 14, (int8 *)"Cycles per Bad Line (CPU)", NULL, GD_BadLineCycles, PLACETEXT_LEFT, NULL, (APTR)BadLineCyclesClicked,
++	490, 34, 65, 14, (int8 *)"Cycles per line (CIA)", NULL, GD_CIACycles, PLACETEXT_LEFT, NULL, (APTR)CIACyclesClicked,
++	490, 49, 65, 14, (int8 *)"Cycles per line (1541)", NULL, GD_FloppyCycles, PLACETEXT_LEFT, NULL, (APTR)FloppyCyclesClicked,
++	490, 64, 65, 14, (int8 *)"Draw every n-th frame", NULL, GD_SkipFrames, PLACETEXT_LEFT, NULL, (APTR)SkipFramesClicked,
++	426, 79, 129, 14, (int8 *)"SID emulation type", NULL, GD_SIDType, PLACETEXT_LEFT, NULL, (APTR)SIDTypeClicked,
++	426, 94, 129, 14, (int8 *)"REU size", NULL, GD_REUSize, PLACETEXT_LEFT, NULL, (APTR)REUSizeClicked,
++	47, 123, 401, 14, (int8 *)"8", NULL, GD_DrivePath8, PLACETEXT_LEFT, NULL, (APTR)DrivePath8Clicked,
+ 	470, 123, 65, 14, NULL, NULL, GD_DriveType8, 0, NULL, (APTR)DriveType8Clicked,
+-	47, 138, 401, 14, (UBYTE *)"9", NULL, GD_DrivePath9, PLACETEXT_LEFT, NULL, (APTR)DrivePath9Clicked,
++	47, 138, 401, 14, (int8 *)"9", NULL, GD_DrivePath9, PLACETEXT_LEFT, NULL, (APTR)DrivePath9Clicked,
+ 	470, 138, 65, 14, NULL, NULL, GD_DriveType9, 0, NULL, (APTR)DriveType9Clicked,
+-	47, 153, 401, 14, (UBYTE *)"10", NULL, GD_DrivePath10, PLACETEXT_LEFT, NULL, (APTR)DrivePath10Clicked,
++	47, 153, 401, 14, (int8 *)"10", NULL, GD_DrivePath10, PLACETEXT_LEFT, NULL, (APTR)DrivePath10Clicked,
+ 	470, 153, 65, 14, NULL, NULL, GD_DriveType10, 0, NULL, (APTR)DriveType10Clicked,
+-	47, 168, 401, 14, (UBYTE *)"11", NULL, GD_DrivePath11, PLACETEXT_LEFT, NULL, (APTR)DrivePath11Clicked,
++	47, 168, 401, 14, (int8 *)"11", NULL, GD_DrivePath11, PLACETEXT_LEFT, NULL, (APTR)DrivePath11Clicked,
+ 	470, 168, 65, 14, NULL, NULL, GD_DriveType11, 0, NULL, (APTR)DriveType11Clicked,
+-	20, 186, 26, 11, (UBYTE *)"Map '/'<->'\' in filenames", NULL, GD_MapSlash, PLACETEXT_RIGHT, NULL, (APTR)MapSlashClicked,
+-	20, 198, 26, 11, (UBYTE *)"Enable 1541 processor emulation", NULL, GD_Emul1541Proc, PLACETEXT_RIGHT, NULL, (APTR)Emul1541ProcClicked,
+-	61, 218, 81, 16, (UBYTE *)"_OK", NULL, GD_OK, PLACETEXT_IN, NULL, (APTR)OKClicked,
+-	416, 218, 81, 16, (UBYTE *)"_Cancel", NULL, GD_Cancel, PLACETEXT_IN, NULL, (APTR)CancelClicked,
+-	448, 123, 20, 14, (UBYTE *)"·", NULL, GD_GetDrive8, PLACETEXT_IN, NULL, (APTR)GetDrive8Clicked,
+-	448, 138, 20, 14, (UBYTE *)"·", NULL, GD_GetDrive9, PLACETEXT_IN, NULL, (APTR)GetDrive9Clicked,
+-	448, 153, 20, 14, (UBYTE *)"·", NULL, GD_GetDrive10, PLACETEXT_IN, NULL, (APTR)GetDrive10Clicked,
+-	448, 168, 20, 14, (UBYTE *)"·", NULL, GD_GetDrive11, PLACETEXT_IN, NULL, (APTR)GetDrive11Clicked
++	20, 186, 26, 11, (int8 *)"Map '/'<->'\' in filenames", NULL, GD_MapSlash, PLACETEXT_RIGHT, NULL, (APTR)MapSlashClicked,
++	20, 198, 26, 11, (int8 *)"Enable 1541 processor emulation", NULL, GD_Emul1541Proc, PLACETEXT_RIGHT, NULL, (APTR)Emul1541ProcClicked,
++	61, 218, 81, 16, (int8 *)"_OK", NULL, GD_OK, PLACETEXT_IN, NULL, (APTR)OKClicked,
++	416, 218, 81, 16, (int8 *)"_Cancel", NULL, GD_Cancel, PLACETEXT_IN, NULL, (APTR)CancelClicked,
++	448, 123, 20, 14, (int8 *)"·", NULL, GD_GetDrive8, PLACETEXT_IN, NULL, (APTR)GetDrive8Clicked,
++	448, 138, 20, 14, (int8 *)"·", NULL, GD_GetDrive9, PLACETEXT_IN, NULL, (APTR)GetDrive9Clicked,
++	448, 153, 20, 14, (int8 *)"·", NULL, GD_GetDrive10, PLACETEXT_IN, NULL, (APTR)GetDrive10Clicked,
++	448, 168, 20, 14, (int8 *)"·", NULL, GD_GetDrive11, PLACETEXT_IN, NULL, (APTR)GetDrive11Clicked
+ };
+ 
+ ULONG PrefsGTags[] = {
+@@ -359,7 +359,7 @@ int OpenPrefsWindow( void )
+ 
+ 		PrefsZoom[0] = PrefsZoom[1] = 0;
+ 	if ( PrefsWdt )
+-		PrefsZoom[2] = TextLength( &Scr->RastPort, (UBYTE *)PrefsWdt, strlen((char *)PrefsWdt )) + 80;
++		PrefsZoom[2] = TextLength( &Scr->RastPort, (int8 *)PrefsWdt, strlen((char *)PrefsWdt )) + 80;
+ 	else
+ 		PrefsZoom[2]  = 80L;
+ 		PrefsZoom[3] = Scr->WBorTop + Scr->RastPort.TxHeight + 1;
+-- 
+1.7.5.3
+

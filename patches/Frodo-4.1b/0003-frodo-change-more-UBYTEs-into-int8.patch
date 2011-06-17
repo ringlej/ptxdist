@@ -1,0 +1,72 @@
+From 464d0d3e0e19f3463ff3c3145dd479a938eec9f4 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 19:20:39 +0200
+Subject: [PATCH 03/10] frodo: change more UBYTEs into int8
+
+This was obviously started but not done in all places.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/C64.h          |    2 +-
+ Src/Display_svga.i |   10 +++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/Src/C64.h b/Src/C64.h
+index 83d8d16..0870c24 100644
+--- a/Src/C64.h
++++ b/Src/C64.h
+@@ -131,7 +131,7 @@ private:
+ 	struct IOStdReq *game_io;
+ 	struct GamePortTrigger game_trigger;
+ 	struct InputEvent game_event;
+-	UBYTE joy_state;				// Current state of joystick
++	int8 joy_state;				// Current state of joystick
+ 	bool game_open, port_allocated;	// Flags: gameport.device opened, game port allocated
+ #endif
+ 
+diff --git a/Src/Display_svga.i b/Src/Display_svga.i
+index 29f0874..37f2194 100644
+--- a/Src/Display_svga.i
++++ b/Src/Display_svga.i
+@@ -137,7 +137,7 @@ static int keystate[256];
+ static int f11pressed = 0, f12pressed = 0, quit = 0;
+ static int joystate = 0xFF;
+ static int numlock = 0;
+-static UBYTE rev_matrix[8], key_matrix[8];
++static int8 rev_matrix[8], key_matrix[8];
+ 
+ /*
+   C64 keyboard matrix:
+@@ -487,9 +487,9 @@ void C64Display::Update(void)
+ }
+ 
+ 
+-UBYTE *C64Display::BitmapBase(void)
++int8 *C64Display::BitmapBase(void)
+ {
+-       return (UBYTE *)bufmem;
++       return (int8 *)bufmem;
+ }
+ 
+ 
+@@ -499,7 +499,7 @@ int C64Display::BitmapXMod(void)
+ }
+ 
+ 
+-void C64Display::PollKeyboard(UBYTE *CIA_key_matrix, UBYTE *CIA_rev_matrix, UBYTE *joystick)
++void C64Display::PollKeyboard(int8 *CIA_key_matrix, int8 *CIA_rev_matrix, int8 *joystick)
+ {
+     keyboard_update();
+     *joystick = joystate;
+@@ -534,7 +534,7 @@ static int colorval(int v)
+        return ((v & 255)*0x01010101) >> 26;
+ }
+ 
+-void C64Display::InitColors(UBYTE *colors)
++void C64Display::InitColors(int8 *colors)
+ {
+        int i;
+ 
+-- 
+1.7.5.3
+

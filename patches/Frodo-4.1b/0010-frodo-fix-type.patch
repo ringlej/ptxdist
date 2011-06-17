@@ -1,0 +1,32 @@
+From c9a969f6dfaed4590f75d0c969658c2261c4c86d Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 20:09:54 +0200
+Subject: [PATCH 10/10] frodo: fix type
+
+Display_svga.i:530:6: error: prototype for 'void C64Display::InitColors(int8*)' does not match any in class 'C64Display'
+Display.h:63:7: error: candidate is: void C64Display::InitColors(uint8*)
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/Display_svga.i |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Src/Display_svga.i b/Src/Display_svga.i
+index a60ba80..e1e4a53 100644
+--- a/Src/Display_svga.i
++++ b/Src/Display_svga.i
+@@ -527,9 +527,9 @@ static int colorval(int v)
+        return ((v & 255)*0x01010101) >> 26;
+ }
+ 
+-void C64Display::InitColors(int8 *colors)
++void C64Display::InitColors(uint8 *colors)
+ {
+-       int i;
++       uint8 i;
+ 
+        for (i=0; i< 256; i++) {
+                vga_setpalette(i, colorval(palette_red[i & 0x0f]), colorval(palette_green[i & 0x0f]), colorval(palette_blue[i & 0x0f]));
+-- 
+1.7.5.3
+

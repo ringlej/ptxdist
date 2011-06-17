@@ -1,0 +1,29 @@
+From 3b9eb870e8cebd1ddf7f8162495013bc2adee83f Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 20:08:52 +0200
+Subject: [PATCH 09/10] frodo: fix types
+
+Display_svga.i:495:6: error: prototype for 'void C64Display::PollKeyboard(int8*, int8*, int8*)' does not match any in class 'C64Display'
+Display.h:60:7: error: candidate is: void C64Display::PollKeyboard(uint8*, uint8*, uint8*)
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/Display_svga.i |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Src/Display_svga.i b/Src/Display_svga.i
+index 68bb104..a60ba80 100644
+--- a/Src/Display_svga.i
++++ b/Src/Display_svga.i
+@@ -492,7 +492,7 @@ int C64Display::BitmapXMod(void)
+ }
+ 
+ 
+-void C64Display::PollKeyboard(int8 *CIA_key_matrix, int8 *CIA_rev_matrix, int8 *joystick)
++void C64Display::PollKeyboard(uint8 *CIA_key_matrix, uint8 *CIA_rev_matrix, uint8 *joystick)
+ {
+     keyboard_update();
+     *joystick = joystate;
+-- 
+1.7.5.3
+

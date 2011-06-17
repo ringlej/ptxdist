@@ -1,0 +1,56 @@
+From b71409de528a660b25f96a788c9b5b236706472f Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 20:02:27 +0200
+Subject: [PATCH 06/10] frodo: remove duplicated defines
+
+We currently get these warnings:
+
+In file included from Display.cpp:79:0:
+Display_svga.i:156:0: warning: "KEY_F10" redefined
+/opt/OSELAS.Toolchain-2011.03.0/i586-unknown-linux-gnu/gcc-4.5.2-glibc-2.13-binutils-2.21-kernel-2.6.36-sanitized/bin/../sysroot-i586-unknown-linux-gnu/usr/include/linux/input.h:186:0: note: this is the location of the previous definition
+Display_svga.i:157:0: warning: "KEY_F11" redefined
+/opt/OSELAS.Toolchain-2011.03.0/i586-unknown-linux-gnu/gcc-4.5.2-glibc-2.13-binutils-2.21-kernel-2.6.36-sanitized/bin/../sysroot-i586-unknown-linux-gnu/usr/include/linux/input.h:205:0: note: this is the location of the previous definition
+Display_svga.i:158:0: warning: "KEY_F12" redefined
+/opt/OSELAS.Toolchain-2011.03.0/i586-unknown-linux-gnu/gcc-4.5.2-glibc-2.13-binutils-2.21-kernel-2.6.36-sanitized/bin/../sysroot-i586-unknown-linux-gnu/usr/include/linux/input.h:206:0: note: this is the location of the previous definition
+Display_svga.i:166:0: warning: "KEY_NUMLOCK" redefined
+/opt/OSELAS.Toolchain-2011.03.0/i586-unknown-linux-gnu/gcc-4.5.2-glibc-2.13-binutils-2.21-kernel-2.6.36-sanitized/bin/../sysroot-i586-unknown-linux-gnu/usr/include/linux/input.h:187:0: note: this is the location of the previous definition
+Display_svga.i:168:0: warning: "KEY_KPPLUS" redefined
+/opt/OSELAS.Toolchain-2011.03.0/i586-unknown-linux-gnu/gcc-4.5.2-glibc-2.13-binutils-2.21-kernel-2.6.36-sanitized/bin/../sysroot-i586-unknown-linux-gnu/usr/include/linux/input.h:196:0: note: this is the location of the previous definition
+Display_svga.i:169:0: warning: "KEY_KPMINUS" redefined
+/opt/OSELAS.Toolchain-2011.03.0/i586-unknown-linux-gnu/gcc-4.5.2-glibc-2.13-binutils-2.21-kernel-2.6.36-sanitized/bin/../sysroot-i586-unknown-linux-gnu/usr/include/linux/input.h:192:0: note: this is the location of the previous definition
+
+Remove duplicate definitions.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/Display_svga.i |    7 -------
+ 1 files changed, 0 insertions(+), 7 deletions(-)
+
+diff --git a/Src/Display_svga.i b/Src/Display_svga.i
+index 37f2194..75fd1b4 100644
+--- a/Src/Display_svga.i
++++ b/Src/Display_svga.i
+@@ -153,9 +153,6 @@ static int8 rev_matrix[8], key_matrix[8];
+   7    R/S  Q   C= SPC  2  CTL  <-  1
+ */
+ #define MATRIX(a,b) (((a) << 3) | (b))
+-#define KEY_F10 512
+-#define KEY_F11 513
+-#define KEY_F12 514
+ 
+ #define KEY_FIRE 515
+ #define KEY_JUP 516
+@@ -163,10 +160,6 @@ static int8 rev_matrix[8], key_matrix[8];
+ #define KEY_JLF 518
+ #define KEY_JRT 519
+ 
+-#define KEY_NUMLOCK 520
+-
+-#define KEY_KPPLUS 521
+-#define KEY_KPMINUS 522
+ #define KEY_KPMULT 523
+ #define KEY_KPDIV 524
+ 
+-- 
+1.7.5.3
+

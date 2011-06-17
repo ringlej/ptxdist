@@ -1,0 +1,33 @@
+From b1ee6659eb8a897badaf8f88842faf68511c8e3c Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 17 Jun 2011 20:04:11 +0200
+Subject: [PATCH 07/10] frodo: fix cast
+
+Fix this error:
+
+In file included from Display.cpp:79:0:
+Display_svga.i: In member function 'void C64Display::Update()':
+Display_svga.i:478:40: error: invalid conversion from 'char*' to 'unsigned char*'
+Display_svga.i:478:40: error:   initializing argument 2 of 'int vga_drawscanline(int, unsigned char*)'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Src/Display_svga.i |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Src/Display_svga.i b/Src/Display_svga.i
+index 75fd1b4..7dd201b 100644
+--- a/Src/Display_svga.i
++++ b/Src/Display_svga.i
+@@ -475,7 +475,7 @@ void C64Display::Update(void)
+ 	return;
+     
+     for (y = 0; y < DISPLAY_Y; y++) {
+-	vga_drawscanline(y, bufmem + hsize * y);
++	vga_drawscanline(y, (unsigned char*) bufmem + hsize * y);
+     }
+ }
+ 
+-- 
+1.7.5.3
+

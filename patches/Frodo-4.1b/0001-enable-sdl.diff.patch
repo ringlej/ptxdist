@@ -1,11 +1,16 @@
+From 6e30f01c5dc810e943123f0b272a2299f194c94a Mon Sep 17 00:00:00 2001
+From: unknown author <unknown.author@example.com>
+Date: Thu, 16 Jun 2011 21:13:59 +0200
+Subject: [PATCH 01/10] enable-sdl.diff
+
 ---
  Src/configure.in |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
-Index: Frodo-4.1b/Src/configure.in
-===================================================================
---- Frodo-4.1b.orig/Src/configure.in
-+++ Frodo-4.1b/Src/configure.in
+diff --git a/Src/configure.in b/Src/configure.in
+index cee913c..b439941 100644
+--- a/Src/configure.in
++++ b/Src/configure.in
 @@ -80,15 +80,15 @@ elif [[ x"$no_x" = "xyes" ]]; then
      TARGET=svgalib
      CFLAGS="$CFLAGS -D__svgalib__"
@@ -27,3 +32,6 @@ Index: Frodo-4.1b/Src/configure.in
  else
    AC_MSG_RESULT([X Window System])
    TARGET=x11
+-- 
+1.7.5.3
+

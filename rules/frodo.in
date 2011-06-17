@@ -1,11 +1,33 @@
 ## SECTION=bytecode_engines
-config FRODO
+menuconfig FRODO
 	tristate
-	prompt "frodo"
+	prompt "frodo                         "
 	select READLINE
 	select ALSA_LIB
-	select SDL
+	select SDL if FRODO_SDL
+	select SVGALIB if FRODO_SVGALIB
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	help
-	  FIXME
+	  A C64 emulator.
+
+if FRODO
+
+choice
+	prompt "graphics backend    "
+	default FRODO_SDL
+
+	config FRODO_SDL
+		bool
+		prompt "sdl"
+		help
+		  SDL Backend
+
+	config FRODO_SVGALIB
+		bool
+		prompt "svgalib"
+		help
+		  SVGALIB Backend
+endchoice
+
+endif
