@@ -17,13 +17,13 @@ PACKAGES-$(PTXCONF_RSYSLOG) += rsyslog
 # Paths and names
 #
 RSYSLOG_VERSION	:= 5.8.1
-RSYSLOG_MD5		:= 909d4d867450aeedd6b388c199d79222
+RSYSLOG_MD5	:= 909d4d867450aeedd6b388c199d79222
 RSYSLOG		:= rsyslog-$(RSYSLOG_VERSION)
 RSYSLOG_SUFFIX	:= tar.gz
-RSYSLOG_URL		:= http://www.rsyslog.com/files/download/rsyslog/$(RSYSLOG).$(RSYSLOG_SUFFIX)
+RSYSLOG_URL	:= http://www.rsyslog.com/files/download/rsyslog/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_SOURCE	:= $(SRCDIR)/$(RSYSLOG).$(RSYSLOG_SUFFIX)
-RSYSLOG_DIR		:= $(BUILDDIR)/$(RSYSLOG)
-RSYSLOG_LICENSE	:= unknown
+RSYSLOG_DIR	:= $(BUILDDIR)/$(RSYSLOG)
+RSYSLOG_LICENSE	:= GPLv3, LGPLv3
 
 # ----------------------------------------------------------------------------
 # Prepare
