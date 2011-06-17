@@ -50,7 +50,7 @@ IPTABLES_AUTOCONF := \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib \
-	--disable-devel \
+	--enable-devel \
 	--disable-libipq
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPV4_TOOLS
