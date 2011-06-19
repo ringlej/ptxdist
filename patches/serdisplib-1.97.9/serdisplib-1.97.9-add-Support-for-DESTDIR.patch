@@ -1,0 +1,70 @@
+From f2c935dac0bca0d0754457968fd57f9ff227af18 Mon Sep 17 00:00:00 2001
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sat, 28 May 2011 14:58:40 +0200
+Subject: [PATCH] serdisplib: Add Support for DESTDIR
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ Makefile.in       |    6 +++---
+ src/Makefile.in   |    8 ++++----
+ tools/Makefile.in |    8 ++++----
+ 3 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 7a1a7eb..101966c 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -9,9 +9,9 @@ top_srcdir = @top_srcdir@
+ srcdir = @srcdir@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+-bindir = @bindir@
+-libdir = @libdir@
+-mandir = @mandir@
++bindir = $(DESTDIR)@bindir@
++libdir = $(DESTDIR)@libdir@
++mandir = $(DESTDIR)@mandir@
+ abs_top_srcdir=@abs_top_srcdir@
+ base_abs_top_srcdir=$(shell /bin/basename $(abs_top_srcdir))
+ current_timestamp=$(shell /bin/date '+%Y%m%d-%H%M')
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 930b65a..c554f2c 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -22,10 +22,10 @@ top_srcdir = @top_srcdir@
+ srcdir = @srcdir@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+-bindir = @bindir@
+-libdir = @libdir@
+-mandir = @mandir@
+-includedir = @includedir@
++bindir = $(DESTDIR)@bindir@
++libdir = $(DESTDIR)@libdir@
++mandir = $(DESTDIR)@mandir@
++includedir = $(DESTDIR)@includedir@
+ 
+ CC=@CC@
+ AR=@AR@ -r
+diff --git a/tools/Makefile.in b/tools/Makefile.in
+index 8d29739..5a748f7 100644
+--- a/tools/Makefile.in
++++ b/tools/Makefile.in
+@@ -10,10 +10,10 @@ top_srcdir = @top_srcdir@
+ srcdir = @srcdir@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+-bindir = @bindir@
+-libdir = @libdir@
+-mandir = @mandir@
+-includedir = @includedir@
++bindir = $(DESTDIR)@bindir@
++libdir = $(DESTDIR)@libdir@
++mandir = $(DESTDIR)@mandir@
++includedir = $(DESTDIR)@includedir@
+ 
+ CC=@CC@
+ AR=@AR@ -r
+-- 
+1.7.5.2
+

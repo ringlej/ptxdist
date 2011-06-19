@@ -1,0 +1,17 @@
+## SECTION=system_libraries
+
+config SERDISPLIB
+	tristate
+	prompt "serdisplib"
+	select LIBUSB_COMPAT
+	help
+	  Library to drive serial displays with built-in controllers.
+
+config SERDISPLIB_TESTSERDISP
+	bool
+	prompt "Install testserdisp on target"
+	depends on SERDISPLIB
+	help
+	  If selected, the testserdisp test program will be installed on
+          the target.
+
