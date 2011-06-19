@@ -11,6 +11,41 @@
 #
 
 #
+# collect dependencies
+#
+# in some rare cases there is more than one xpkg per package and/or
+# the names don't correspond, so we have to use the mapping file
+#
+# in:	$pkg_deps	(space seperated)
+# out:	$pkg_xpkg_deps	(array)
+#
+ptxd_make_xpkg_deps() {
+    # do deps
+    if [ -z "${pkg_deps}" ]; then
+	return
+    fi
+
+    set -- ${pkg_deps[*]}
+
+    local dep
+    while [ ${#} -ne 0 ]; do
+	local map="${ptx_state_dir}/${1}.xpkg.map"
+	shift
+
+	if [ \! -e "${map}" ]; then
+	    continue
+	fi
+
+	while read dep; do
+	    pkg_xpkg_deps=( "${pkg_xpkg_deps[@]}" "${dep}" )
+	done < "${map}"
+    done
+}
+export -f ptxd_make_xpkg_deps
+
+
+
+#
 #
 ptxd_make_xpkg_prepare() {
     local dep
