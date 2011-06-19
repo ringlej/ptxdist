@@ -65,6 +65,11 @@ EOF
     echo "${pkg_xpkg_license}" > "${pkg_xpkg_license_file}"
     echo "done."
 
+    #
+    # remove old pkgs
+    # note: no version here, so we remove packages with old versions too
+    #
+    rm -f "${ptx_pkg_dir}/${pkg_xpkg}"_*"${PTXDIST_IPKG_ARCH_STRING}.ipk"
 
     #
     # create pkg
