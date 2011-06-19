@@ -9,7 +9,20 @@
 # see the README file.
 #
 
+#
+# run the actual package creation in fakeroot
+#
+ptxd_make_xpkg_finish_impl() {
+    local -a fake_args
+    if [ -f "${pkg_fake_env}" ]; then
+	fake_args=( "-i" "${pkg_fake_env}" )
+    fi
+    fake_args[${#fake_args[@]}]="-u"
 
+    export ${!pkg_*} ${!ptx_*}
+    fakeroot "${fake_args[@]}" -- "ptxd_make_${pkg_xpkg_type}_finish_impl"
+}
+export -f ptxd_make_xpkg_finish_impl
 
 #
 # function to create a generic package
@@ -57,7 +70,7 @@ EOF
     # create pkg
     #
     echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
-    "ptxd_make_${pkg_xpkg_type}_finish" &&
+    ptxd_make_xpkg_finish_impl &&
     rm -rf "${pkg_xpkg_tmp}" || {
 	local ret=$?
 	echo "failed"

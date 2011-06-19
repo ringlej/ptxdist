@@ -20,18 +20,3 @@ ptxd_make_opkg_finish_impl() {
 }
 export -f ptxd_make_opkg_finish_impl
 
-
-#
-# create an opkg package
-#
-ptxd_make_opkg_finish() {
-    local -a fake_args
-    if [ -f "${pkg_fake_env}" ]; then
-	fake_args=( "-i" "${pkg_fake_env}" )
-    fi
-    fake_args[${#fake_args[@]}]="-u"
-
-    export ${!pkg_*} ${!ptx_*}
-    fakeroot "${fake_args[@]}" -- ptxd_make_opkg_finish_impl
-}
-export -f ptxd_make_opkg_finish
