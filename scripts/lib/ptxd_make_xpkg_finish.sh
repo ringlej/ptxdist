@@ -91,8 +91,6 @@ EOF
     #
     # create pkg
     #
-    ptxd_make_xpkg_deps &&
-
     echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
     "ptxd_make_${pkg_xpkg_type}_finish" &&
     rm -rf "${pkg_xpkg_tmp}" || {

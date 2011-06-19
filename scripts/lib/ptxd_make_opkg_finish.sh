@@ -25,14 +25,6 @@ export -f ptxd_make_opkg_finish_impl
 # create an opkg package
 #
 ptxd_make_opkg_finish() {
-    local dep
-
-    # replace space with ", "
-    dep="${pkg_xpkg_deps[*]}"
-    dep="${dep// /, }"
-
-    sed -i -e "s:@DEPENDS@:${dep}:g" "${pkg_xpkg_control}" || return
-
     local -a fake_args
     if [ -f "${pkg_fake_env}" ]; then
 	fake_args=( "-i" "${pkg_fake_env}" )

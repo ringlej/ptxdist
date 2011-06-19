@@ -13,6 +13,7 @@
 #
 #
 ptxd_make_xpkg_prepare() {
+    local dep
     ptxd_make_xpkg_init || return
 
     echo "install_init:	preparing for image creation of '${pkg_xpkg}'..."
@@ -25,17 +26,25 @@ ptxd_make_xpkg_prepare() {
     mkdir -p -- "${pkg_xpkg_control_dir}" &&
     touch "${pkg_xpkg_cmds}" || return
 
+    ptxd_make_xpkg_deps || return
+
+    # replace space with ", "
+    dep="${pkg_xpkg_deps[*]}"
+    dep="${dep// /, }"
+
     #
-    # replace ARCH and PACKAGE in control file
+    # replace ARCH PACKAGE, VERSION and DEPENDS in control file
     #
     echo -e "\
 install_init:	@ARCH@ -> ${PTXDIST_IPKG_ARCH_STRING}
 install_init:	@PACKAGE@ -> ${pkg_xpkg}
-install_init:	@VERSION@ -> ${pkg_xpkg_version}"
+install_init:	@VERSION@ -> ${pkg_xpkg_version}
+install_init:	@DEPENDS@ -> ${dep}"
 
     ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
 	PACKAGE="${pkg_xpkg}" \
 	VERSION="${pkg_xpkg_version}" \
+	DEPENDS="${dep}" \
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
 	"${pkg_xpkg_control}" || return
 
