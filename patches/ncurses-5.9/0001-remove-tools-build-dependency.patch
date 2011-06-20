@@ -1,38 +1,37 @@
+From 5ffddc3492d8fac3bbe605f48fed90316d8fd4fb Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Thu, 17 Mar 2011 13:34:53 +0100
-Subject: [PATCH] remove tools build dependency
+Subject: [PATCH 1/3] remove tools build dependency
 
 make_keys is built as host tool and copied to the real package.
 This patch makes sure that it is not rebuilt again.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
-# 20081125: wsa: HACK: Not for upstream.
-
  ncurses/Makefile.in |    3 +--
  1 files changed, 1 insertions(+), 2 deletions(-)
 
 diff --git a/ncurses/Makefile.in b/ncurses/Makefile.in
-index ce35c03..0e2b08d 100644
+index 45a26b9..24b0fd4 100644
 --- a/ncurses/Makefile.in
 +++ b/ncurses/Makefile.in
-@@ -189,7 +189,7 @@ $(DESTDIR)$(libdir) :
+@@ -210,7 +210,7 @@ $(DESTDIR)$(libdir) :
  ./lib_gen.c : $(base)/MKlib_gen.sh ../include/curses.h
- 	sh $(base)/MKlib_gen.sh "$(CPP) $(CPPFLAGS)" "$(AWK)" generated <../include/curses.h >$@
+ 	sh -e $(base)/MKlib_gen.sh "$(CPP) $(CPPFLAGS)" "$(AWK)" generated <../include/curses.h >$@
  
 -init_keytry.h: make_keys$(BUILD_EXEEXT) keys.list
 +init_keytry.h: keys.list
  	./make_keys$(BUILD_EXEEXT) keys.list > $@
  
  keys.list :	$(tinfo)/MKkeys_list.sh
-@@ -209,7 +209,6 @@ make_hash$(BUILD_EXEEXT) : \
- 	sh $(serial)/MKexpanded.sh "$(CPP)" $(CPPFLAGS) > $@
+@@ -230,7 +230,6 @@ make_hash$(BUILD_EXEEXT) : \
+ 	sh -e $(serial)/MKexpanded.sh "$(CPP)" $(CPPFLAGS) > $@
  
  ./comp_captab.c: \
 -		make_hash$(BUILD_EXEEXT) \
  		../include/hashsize.h \
+ 		$(tinfo)/MKcaptab.sh \
  		$(tinfo)/MKcaptab.awk
- 	sh $(tinfo)/MKcaptab.awk $(AWK) $(srcdir)/../include/@TERMINFO_CAPS@ > $@
 -- 
-1.7.2.3
+1.7.5.3
 

@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_NCURSES) += ncurses
 #
 # Paths and names
 #
-NCURSES_VERSION	:= 5.6
-NCURSES_MD5	:= b6593abe1089d6aab1551c105c9300e3
+NCURSES_VERSION	:= 5.9
+NCURSES_MD5	:= 8cb9c412e5f2d96bc6f459aa8c6282a1
 NCURSES		:= ncurses-$(NCURSES_VERSION)
 NCURSES_SUFFIX	:= tar.gz
 NCURSES_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
@@ -48,13 +48,33 @@ NCURSES_AUTOCONF_SHARED := \
 	--with-normal \
 	--with-shared \
 	--without-ada \
-	--without-gpm
+	--without-gpm \
+	--without-manpages \
+	--without-tests \
+	--enable-mixed-case \
+	--with-ticlib=yes \
+	--disable-relink \
+	--disable-big-strings \
+	--disable-sp-funcs \
+	--disable-term-driver \
+	--disable-ext-mouse \
+	--disable-interop \
+	--enable-reentrant
+
+# do this to get libncurses with threads but without a trailing "t":
+NCURSES_AUTOCONF_SHARED += \
+	--with-pthread=yes \
+	--enable-weak-symbols
 
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
-NCURSES_AUTOCONF_SHARED += --enable-widec
+NCURSES_AUTOCONF_SHARED += \
+	--enable-widec \
+	--enable-ext-colors
 else
-NCURSES_AUTOCONF_SHARED += --disable-widec
+NCURSES_AUTOCONF_SHARED += \
+	--disable-widec \
+	--disable-ext-colors
 endif
 
 ifdef PTXCONF_NCURSES_BIG_CORE
@@ -73,7 +93,8 @@ NCURSES_AUTOCONF := \
 
 $(STATEDIR)/ncurses.compile:
 	@$(call targetinfo)
-	cp $(PTXCONF_SYSROOT_HOST)/bin/{make_keys,make_hash} $(NCURSES_DIR)/ncurses/
+	#cd $(NCURSES_DIR)/ncurses && make make_keys make_hash
+	#cp $(PTXCONF_SYSROOT_HOST)/bin/make_hash $(NCURSES_DIR)/ncurses/
 	@$(call compile, NCURSES)
 	@$(call touch)
 

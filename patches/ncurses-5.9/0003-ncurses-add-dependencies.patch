@@ -1,0 +1,37 @@
+From eea58539696d155f594f64add33b7d38b8b20f83 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Mon, 20 Jun 2011 16:54:29 +0200
+Subject: [PATCH 3/3] ncurses: add dependencies
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ ncurses/Makefile.in |    6 ++++--
+ 1 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/ncurses/Makefile.in b/ncurses/Makefile.in
+index 24b0fd4..8e3d7e9 100644
+--- a/ncurses/Makefile.in
++++ b/ncurses/Makefile.in
+@@ -210,7 +210,7 @@ $(DESTDIR)$(libdir) :
+ ./lib_gen.c : $(base)/MKlib_gen.sh ../include/curses.h
+ 	sh -e $(base)/MKlib_gen.sh "$(CPP) $(CPPFLAGS)" "$(AWK)" generated <../include/curses.h >$@
+ 
+-init_keytry.h: keys.list
++init_keytry.h: keys.list make_keys$(BUILD_EXEEXT)
+ 	./make_keys$(BUILD_EXEEXT) keys.list > $@
+ 
+ keys.list :	$(tinfo)/MKkeys_list.sh
+@@ -232,7 +232,9 @@ make_hash$(BUILD_EXEEXT) : \
+ ./comp_captab.c: \
+ 		../include/hashsize.h \
+ 		$(tinfo)/MKcaptab.sh \
+-		$(tinfo)/MKcaptab.awk
++		$(tinfo)/MKcaptab.awk \
++		make_keys$(BUILD_EXEEXT) \
++		make_hash$(BUILD_EXEEXT)
+ 	sh -e $(tinfo)/MKcaptab.sh $(AWK) $(USE_BIG_STRINGS) $(tinfo)/MKcaptab.awk $(srcdir)/../include/@TERMINFO_CAPS@ > $@
+ 
+ ./lib_keyname.c: keys.list $(base)/MKkeyname.awk
+-- 
+1.7.5.3
+

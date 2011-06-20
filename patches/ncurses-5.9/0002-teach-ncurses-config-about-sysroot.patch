@@ -1,0 +1,56 @@
+From cedb5f7efc778670c52bd7d4077d96e8e4a93dee Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 17 Mar 2011 13:34:53 +0100
+Subject: [PATCH 2/3] teach ncurses-config about sysroot
+
+This patch teaches ncurses-config about sysroot
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ misc/ncurses-config.in |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/misc/ncurses-config.in b/misc/ncurses-config.in
+index a9c0ac5..08d44bb 100644
+--- a/misc/ncurses-config.in
++++ b/misc/ncurses-config.in
+@@ -73,10 +73,10 @@ while test $# -gt 0; do
+ 	--cflags)
+ 		INCS=
+ 		if test "x@WITH_OVERWRITE@" = xno ; then
+-			INCS="$INCS -I${includedir}/${THIS}"
++			INCS="$INCS -I${SYSROOT}${includedir}/${THIS}"
+ 		fi
+-		if test "${includedir}" != /usr/include ; then
+-			INCS="$INCS -I${includedir}"
++		if test "${SYSROOT}${includedir}" != /usr/include ; then
++			INCS="$INCS -I${SYSROOT}${includedir}"
+ 		fi
+ 		sed -e 's,^[ ]*,,' -e 's, [ ]*, ,g' -e 's,[ ]*$,,' <<-ENDECHO
+ 			$INCS
+@@ -85,11 +85,11 @@ ENDECHO
+ 	--libs)
+ 		if test @TINFO_NAME@ = @LIB_NAME@ ; then
+ 		sed -e 's,^[ ]*,,' -e 's, [ ]*, ,g' -e 's,[ ]*$,,' <<-ENDECHO
+-			-L$libdir @EXTRA_LDFLAGS@ -l${THIS} @LIBS@
++			-L${SYSROOT}$libdir @EXTRA_LDFLAGS@ -l${THIS} @LIBS@
+ ENDECHO
+ 		else
+ 		sed -e 's,^[ ]*,,' -e 's, [ ]*, ,g' -e 's,[ ]*$,,' <<-ENDECHO
+-			-L$libdir @EXTRA_LDFLAGS@ -l${THIS} -l${TINFO_LIB} @LIBS@
++			-L${SYSROOT}$libdir @EXTRA_LDFLAGS@ -l${THIS} -l${TINFO_LIB} @LIBS@
+ ENDECHO
+ 		fi
+ 		;;
+@@ -114,7 +114,7 @@ ENDECHO
+ 		echo "${includedir}"
+ 		;;
+ 	--libdir)
+-		echo "${libdir}"
++		echo "${SYSROOT}${libdir}"
+ 		;;
+ 	--mandir)
+ 		echo "${mandir}"
+-- 
+1.7.5.3
+
