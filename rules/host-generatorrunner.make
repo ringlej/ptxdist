@@ -46,7 +46,7 @@ HOST_GENERATORRUNNER_CONF_OPT	:= \
 $(STATEDIR)/host-generatorrunner.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_GENERATORRUNNER)
-	@sed -i -e 's,\(GENERATORRUNNER_PLUGIN_DIR \)$(PTXCONF_SYSROOT_HOST),\1,g' \
+	@sed -i -e 's,\(GENERATORRUNNER_PLUGIN_DIR "\)$(PTXCONF_SYSROOT_HOST),\1,g' \
 		'$(PTXCONF_SYSROOT_HOST)/lib/cmake/GeneratorRunner-$(HOST_GENERATORRUNNER_VERSION)/GeneratorRunnerConfig.cmake'
 	@$(call touch)
 
