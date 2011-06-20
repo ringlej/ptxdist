@@ -127,6 +127,12 @@ config LIGHTTPD_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/lighttpd"
 
+config LIGHTTPD_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for lighttpd"
+
 config LIGHTTPD_GENERIC_SITE
 	bool
 	default y
