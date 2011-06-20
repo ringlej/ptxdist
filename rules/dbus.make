@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.4.10
-DBUS_MD5	:= 402a2f8102bedbe236e2891b2b0f31c2
+DBUS_VERSION	:= 1.4.12
+DBUS_MD5	:= 104f2ea94c10a896dfb1edecb5714cb1
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -49,6 +49,8 @@ DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
 	--disable-tests \
+	--disable-embedded-tests \
+	--disable-modular-tests \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
