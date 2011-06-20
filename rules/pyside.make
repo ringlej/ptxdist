@@ -50,7 +50,8 @@ $(STATEDIR)/pyside.targetinstall:
 	@$(call install_fixup, pyside,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, pyside,DESCRIPTION,missing)
 
-	@$(call install_lib, pyside, 0, 0, 0644, libpyside)
+	@$(call install_lib, pyside, 0, 0, 0644, \
+		libpyside-python$(PYTHON_MAJORMINOR))
 	@$(call install_tree, pyside, 0, 0, \
 		$(PYSIDE_PKGDIR)/usr/lib/python2.6/site-packages/PySide, \
 		/usr/lib/python2.6/site-packages/PySide)

@@ -10,17 +10,14 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 0 deletions(-)
 
 diff --git a/libpyside/dynamicqmetaobject.cpp b/libpyside/dynamicqmetaobject.cpp
-index 6c7710f..4cbb14e 100644
+index 86190fa..439f888 100644
 --- a/libpyside/dynamicqmetaobject.cpp
 +++ b/libpyside/dynamicqmetaobject.cpp
-@@ -27,6 +27,7 @@
- #include <QList>
+@@ -35,6 +35,7 @@
+ #include <QLinkedList>
  #include <QObject>
  #include <cstring>
 +#include <iostream>
  #include <QDebug>
  #include <QMetaMethod>
  
--- 
-1.7.2.3
-
