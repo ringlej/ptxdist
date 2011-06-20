@@ -65,6 +65,19 @@ SYSTEMD_CONF_OPT += \
 # Target-Install
 # ----------------------------------------------------------------------------
 
+$(STATEDIR)/systemd.install:
+	@$(call targetinfo)
+	@$(call world/install, SYSTEMD)
+ifdef PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED
+	@rm $(SYSTEMD_PKGDIR)/lib/systemd/system/sysinit.target.wants/systemd-random-seed-load.service
+	@rm $(SYSTEMD_PKGDIR)/lib/systemd/system/shutdown.target.wants/systemd-random-seed-save.service
+endif
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
 $(STATEDIR)/systemd.targetinstall:
 	@$(call targetinfo)
 
@@ -114,13 +127,6 @@ endif
 
 	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/cache/man)
-
-ifdef PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED
-	@$(call install_link, systemd, /dev/null, \
-		/etc/systemd/system/systemd-random-seed-save.service)
-	@$(call install_link, systemd, /dev/null, \
-		/etc/systemd/system/systemd-random-seed-load.service)
-endif
 
 	@$(call install_finish, systemd)
 
