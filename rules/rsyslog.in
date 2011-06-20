@@ -8,7 +8,7 @@ menuconfig RSYSLOG
 	select GCCLIBS_GCC_S
 	select ZLIB		if RSYSLOG_ZLIB
 	select LIBNET		if RSYSLOG_OMUDPSPOOF
-	prompt "rsyslog"
+	prompt "rsyslog                       "
 	help
 	  FIXME
 
