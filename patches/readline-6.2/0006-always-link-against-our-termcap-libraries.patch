@@ -12,12 +12,12 @@ we linked against.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  shlib/Makefile.in |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/shlib/Makefile.in b/shlib/Makefile.in
-index 61724e7..316e2db 100644
---- a/shlib/Makefile.in
-+++ b/shlib/Makefile.in
+Index: readline-6.2/shlib/Makefile.in
+===================================================================
+--- readline-6.2.orig/shlib/Makefile.in
++++ readline-6.2/shlib/Makefile.in
 @@ -166,11 +166,11 @@ unsupported:
  
  $(SHARED_READLINE):	$(SHARED_OBJ)
@@ -25,13 +25,10 @@ index 61724e7..316e2db 100644
 -	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_OBJ) $(SHLIB_LIBS)
 +	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_OBJ) $(SHLIB_LIBS) $(TERMCAP_LIB)
  
- $(SHARED_HISTORY):	$(SHARED_HISTOBJ) xmalloc.so
+ $(SHARED_HISTORY):	$(SHARED_HISTOBJ) xmalloc.so xfree.so
  	$(RM) $@
--	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_HISTOBJ) xmalloc.so $(SHLIB_LIBS)
-+	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_HISTOBJ) xmalloc.so $(SHLIB_LIBS) $(TERMCAP_LIB)
+-	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_HISTOBJ) xmalloc.so xfree.so $(SHLIB_LIBS)
++	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_HISTOBJ) xmalloc.so xfree.so $(SHLIB_LIBS) $(TERMCAP_LIB)
  
  # Since tilde.c is shared between readline and bash, make sure we compile 
  # it with the right flags when it's built as part of readline
--- 
-1.6.6
-

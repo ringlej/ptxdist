@@ -11,12 +11,12 @@ http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  examples/rlfe/rlfe.c |   17 +++++++++++------
- 1 files changed, 11 insertions(+), 6 deletions(-)
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/examples/rlfe/rlfe.c b/examples/rlfe/rlfe.c
-index eacd5ab..de2c607 100644
---- a/examples/rlfe/rlfe.c
-+++ b/examples/rlfe/rlfe.c
+Index: readline-6.2/examples/rlfe/rlfe.c
+===================================================================
+--- readline-6.2.orig/examples/rlfe/rlfe.c
++++ readline-6.2/examples/rlfe/rlfe.c
 @@ -154,21 +154,27 @@ struct termios orig_term;
  static pid_t child = -1;
  
@@ -59,6 +59,3 @@ index eacd5ab..de2c607 100644
  	    }
  	  old_count = buf_count;
  
--- 
-1.6.6
-

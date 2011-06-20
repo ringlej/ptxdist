@@ -12,12 +12,12 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  history.h  |    1 +
  readline.h |    1 +
- 2 files changed, 2 insertions(+), 0 deletions(-)
+ 2 files changed, 2 insertions(+)
 
-diff --git a/history.h b/history.h
-index 1257e66..a9e907a 100644
---- a/history.h
-+++ b/history.h
+Index: readline-6.2/history.h
+===================================================================
+--- readline-6.2.orig/history.h
++++ readline-6.2/history.h
 @@ -32,6 +32,7 @@ extern "C" {
  #  include "rlstdc.h"
  #  include "rltypedefs.h"
@@ -26,10 +26,10 @@ index 1257e66..a9e907a 100644
  #  include <readline/rlstdc.h>
  #  include <readline/rltypedefs.h>
  #endif
-diff --git a/readline.h b/readline.h
-index a29c600..8ae77da 100644
---- a/readline.h
-+++ b/readline.h
+Index: readline-6.2/readline.h
+===================================================================
+--- readline-6.2.orig/readline.h
++++ readline-6.2/readline.h
 @@ -32,6 +32,7 @@ extern "C" {
  #  include "keymaps.h"
  #  include "tilde.h"
@@ -38,6 +38,3 @@ index a29c600..8ae77da 100644
  #  include <readline/rlstdc.h>
  #  include <readline/rltypedefs.h>
  #  include <readline/keymaps.h>
--- 
-1.6.6
-

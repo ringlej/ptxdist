@@ -14,11 +14,11 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  rlstdc.h   |    8 ++++----
  2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/readline.h b/readline.h
-index 7a4ffaa..a29c600 100644
---- a/readline.h
-+++ b/readline.h
-@@ -376,7 +376,7 @@ extern int rl_reset_line_state PARAMS((void));
+Index: readline-6.2/readline.h
+===================================================================
+--- readline-6.2.orig/readline.h
++++ readline-6.2/readline.h
+@@ -376,7 +376,7 @@ extern int rl_reset_line_state PARAMS((v
  extern int rl_crlf PARAMS((void));
  
  #if defined (USE_VARARGS) && defined (PREFER_STDARG)
@@ -27,10 +27,10 @@ index 7a4ffaa..a29c600 100644
  #else
  extern int rl_message ();
  #endif
-diff --git a/rlstdc.h b/rlstdc.h
-index a6d2394..59d570b 100644
---- a/rlstdc.h
-+++ b/rlstdc.h
+Index: readline-6.2/rlstdc.h
+===================================================================
+--- readline-6.2.orig/rlstdc.h
++++ readline-6.2/rlstdc.h
 @@ -36,10 +36,10 @@
  #  endif
  #endif
@@ -46,6 +46,3 @@ index a6d2394..59d570b 100644
  #endif
  
  #endif /* !_RL_STDC_H_ */
--- 
-1.6.6
-

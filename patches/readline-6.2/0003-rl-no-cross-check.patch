@@ -11,12 +11,12 @@ http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/configure b/configure
-index 868d29e..3bacf88 100755
---- a/configure
-+++ b/configure
+Index: readline-6.2/configure
+===================================================================
+--- readline-6.2.orig/configure
++++ readline-6.2/configure
 @@ -2538,7 +2538,7 @@ ac_exeext=$ac_cv_exeext
  $as_echo_n "checking whether the C compiler works... " >&6; }
  # FIXME: These cross compiler hacks should be removed for Autoconf 3.0
@@ -26,6 +26,3 @@ index 868d29e..3bacf88 100755
    if { ac_try='./$ac_file'
    { (case "(($ac_try" in
    *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
--- 
-1.6.6
-
