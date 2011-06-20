@@ -132,7 +132,7 @@ QT4_AUTOCONF += \
 
 # graphics drivers
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_AHI)		+= gfx-ahi
-QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_DIRECTFB)		+= gfx-directfb
+QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_DIRECTFB)	+= gfx-directfb
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_LINUXFB)		+= gfx-linuxfb
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_POWERVR)		+= gfx-powervr
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_SVGA)		+= gfx-svgalib
@@ -149,9 +149,9 @@ QT4_AUTOCONF-$(call ptx/qt, KBD_QVFB)			+= kbd-qvfb
 
 # mouse drivers
 QT4_AUTOCONF-$(call ptx/qt, MOUSE_PC)			+= mouse-pc
-QT4_AUTOCONF-$(call ptx/qt, MOUSE_INPUT)			+= mouse-linuxinput
+QT4_AUTOCONF-$(call ptx/qt, MOUSE_INPUT)		+= mouse-linuxinput
 QT4_AUTOCONF-$(call ptx/qt, MOUSE_LINUXTP)		+= mouse-linuxtp
-QT4_AUTOCONF-$(call ptx/qt, MOUSE_TSLIB)			+= mouse-tslib
+QT4_AUTOCONF-$(call ptx/qt, MOUSE_TSLIB)		+= mouse-tslib
 QT4_AUTOCONF-$(call ptx/qt, MOUSE_QVFB)			+= mouse-qvfb
 
 endif # PTXCONF_QT4_PLATFORM_EMBEDDED
@@ -182,10 +182,10 @@ endif # PTXCONF_QT4_PLATFORM_X11
 
 QT4_AUTOCONF-$(call ptx/qt-system, PNG)			+= libpng
 QT4_AUTOCONF-$(call ptx/qt-system, MNG)			+= libmng
-QT4_AUTOCONF-$(call ptx/qt-system, TIFF)			+= libtiff
+QT4_AUTOCONF-$(call ptx/qt-system, TIFF)		+= libtiff
 QT4_AUTOCONF-$(call ptx/qt-system, GIF)			+= gif
 QT4_AUTOCONF-$(call ptx/qt-system, JPG)			+= libjpeg
-QT4_AUTOCONF-$(call ptx/qt-system, ZLIB)			+= zlib
+QT4_AUTOCONF-$(call ptx/qt-system, ZLIB)		+= zlib
 QT4_AUTOCONF-$(call ptx/qt-system, FREETYPE)		+= freetype
 ifdef PTXCONF_QT4_FREETYPE_SYSTEM
 QT4_AUTOCONF += -I$(SYSROOT)/usr/include/freetype2
@@ -196,7 +196,7 @@ QT4_AUTOCONF-$(call ptx/qt-no, GLIB)			+= glib
 QT4_AUTOCONF-$(call ptx/qt-no, OPENSSL)			+= openssl
 QT4_AUTOCONF-$(call ptx/qt-no, EGL)			+= egl
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_QTXMLPATTERNS)	+= xmlpatterns exceptions
-QT4_AUTOCONF-$(call ptx/qt-no, BUILD_MULTIMEDIA)		+= multimedia audio-backend
+QT4_AUTOCONF-$(call ptx/qt-no, BUILD_MULTIMEDIA)	+= multimedia audio-backend
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_PHONON)		+= phonon phonon-backend
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_WEBKIT)		+= webkit
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_SCRIPTTOOLS)	+= scripttools
