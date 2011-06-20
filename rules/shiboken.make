@@ -71,7 +71,8 @@ $(STATEDIR)/shiboken.targetinstall:
 	@$(call install_fixup, shiboken,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, shiboken,DESCRIPTION,missing)
 
-	@$(call install_lib, shiboken, 0, 0, 0644, libshiboken)
+	@$(call install_lib, shiboken, 0, 0, 0644, \
+		libshiboken-python$(PYTHON_MAJORMINOR))
 
 	@$(call install_finish, shiboken)
 
