@@ -48,14 +48,22 @@ $(STATEDIR)/shiboken.install:
 	@$(call targetinfo)
 	@$(call world/install, SHIBOKEN)
 	@cd $(SHIBOKEN_DIR)-build && $(MAKE) -C data install DESTDIR='$(SHIBOKEN_PKGDIR)'
+	@sed -i -e 's,"$(SYSROOT)/usr,"SYSROOT/usr,g' \
+		-e 's,"$(PTXCONF_SYSROOT_CROSS),"SYSROOT_CROSS,g' \
+		'$(SHIBOKEN_PKGDIR)/usr/lib/cmake/Shiboken-$(SHIBOKEN_VERSION)/ShibokenConfig-python$(PYTHON_MAJORMINOR).cmake'
+	echo $(PTXCONF_SYSROOT_CROSS)/usr
 	@$(call touch)
 
 $(STATEDIR)/shiboken.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, SHIBOKEN)
-	@sed -i -e 's,"/usr/bin,"$(PTXCONF_SYSROOT_HOST)/bin,g' \
-		-e 's,"/usr,"$(SYSROOT)/usr,g' \
+	@sed -i -e 's,(/usr,($(SYSROOT)/usr,g' \
 		'$(SYSROOT)/usr/lib/cmake/Shiboken-$(SHIBOKEN_VERSION)/ShibokenConfig.cmake'
+	@sed -i -e 's,"SYSROOT_CROSS,"$(PTXCONF_SYSROOT_CROSS),g' \
+		-e 's,"SYSROOT/usr,"$(SYSROOT)/usr,g' \
+		-e 's,"/usr/bin,"$(PTXCONF_SYSROOT_HOST)/usr/bin,g' \
+		-e 's,"/usr,"$(SYSROOT)/usr,g' \
+		'$(SYSROOT)/usr/lib/cmake/Shiboken-$(SHIBOKEN_VERSION)/ShibokenConfig-python$(PYTHON_MAJORMINOR).cmake'
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
