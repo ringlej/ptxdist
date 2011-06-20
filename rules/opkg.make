@@ -37,7 +37,8 @@ OPKG_ENV 	:= $(CROSS_ENV)
 OPKG_CONF_TOOL	:= autoconf
 OPKG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-shave
+	--enable-shave \
+	--with-opkglockfile=/var/lock/opkg.lock
 
 ifdef PTXCONF_OPKG_PATHFINDER
 OPKG_CONF_OPT += --enable-pathfinder
@@ -88,7 +89,7 @@ ifdef PTXCONF_OPKG_GPG
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
 endif
 #	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/update-alternatives)
-	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-cl)
+	@$(call install_copy, opkg, 0, 0, 0755, $(OPKG_DIR)/src/opkg-cl, /usr/bin/opkg)
 
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/ldconfig)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/depmod)
