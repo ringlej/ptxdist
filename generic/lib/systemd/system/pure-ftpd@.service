@@ -1,0 +1,9 @@
+[Unit]
+Description=pure-ftpd
+Requires=pure-uploadscript.service
+After=pure-uploadscript.service
+After=syslog.target
+
+[Service]
+ExecStart=/usr/sbin/pure-ftpd @ARGS@
+StandardInput=socket

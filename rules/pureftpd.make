@@ -49,7 +49,8 @@ PUREFTPD_AUTOCONF := \
 	--without-mysql \
 	--without-pgsql \
 	--without-privsep \
-	--without-capabilities
+	--without-capabilities \
+	--with-standalone
 
 #
 # FIXME: configure probes host's /dev/urandom and /dev/random
@@ -57,10 +58,10 @@ PUREFTPD_AUTOCONF := \
 #
 # Can --with-probe-random-dev solve this?
 
-ifdef PTXCONF_PUREFTPD_INETD_SERVER
-PUREFTPD_AUTOCONF += --with-inetd --without-standalone
+ifdef PTXCONF_PUREFTPD_SYSTEMD_UNIT
+PUREFTPD_AUTOCONF += --with-inetd
 else
-PUREFTPD_AUTOCONF += --without-inetd --with-standalone
+PUREFTPD_AUTOCONF += --without-inetd
 endif
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
@@ -97,6 +98,11 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+PUREFTPD_ARGS := $(call remove_quotes,$(PTXCONF_PUREFTPD_ARGS))
+ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
+PUREFTPD_ARGS += -o
+endif
+
 $(STATEDIR)/pureftpd.targetinstall:
 	@$(call targetinfo)
 
@@ -113,7 +119,7 @@ $(STATEDIR)/pureftpd.targetinstall:
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, pureftpd, 0, 0, 0755, -, \
-		/usr/sbin/pure-uploadscript, n)
+		/usr/sbin/pure-uploadscript)
 endif
 
 #	#
@@ -123,6 +129,16 @@ ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PUREFTPD_STARTSCRIPT
 	@$(call install_alternative, pureftpd, 0, 0, 0755, /etc/init.d/pureftpd)
 
+	@$(call install_replace, pureftpd, \
+		/etc/init.d/pureftpd, \
+		@DAEMON_ARGS@, "$(PUREFTPD_ARGS)")
+	@$(call install_replace, pureftpd, \
+		/etc/init.d/pureftpd, \
+		@HELPER_ARGS@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_ARGS))
+	@$(call install_replace, pureftpd, \
+		/etc/init.d/pureftpd, \
+		@HELPER_SCRIPT@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_SCRIPT))
+
 ifneq ($(call remove_quotes,$(PTXCONF_PUREFTPD_BBINIT_LINK)),)
 	@$(call install_link, pureftpd, \
 		../init.d/pureftpd, \
@@ -130,6 +146,29 @@ ifneq ($(call remove_quotes,$(PTXCONF_PUREFTPD_BBINIT_LINK)),)
 endif
 endif
 endif
+
+ifdef PTXCONF_PUREFTPD_SYSTEMD_UNIT
+	@$(call install_alternative, pureftpd, 0, 0, 0644, \
+		/lib/systemd/system/pure-ftpd.socket)
+	@$(call install_link, pureftpd, ../pure-ftpd.socket, \
+		/lib/systemd/system/sockets.target.wants/pure-ftpd.socket)
+
+	@$(call install_alternative, pureftpd, 0, 0, 0644, \
+		/lib/systemd/system/pure-ftpd@.service)
+	@$(call install_replace, pureftpd, \
+		/lib/systemd/system/pure-ftpd@.service, \
+		@ARGS@, "$(PUREFTPD_ARGS)")
+
+	@$(call install_alternative, pureftpd, 0, 0, 0644, \
+		/lib/systemd/system/pure-uploadscript.service)
+	@$(call install_replace, pureftpd, \
+		/lib/systemd/system/pure-uploadscript.service, \
+		@ARGS@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_ARGS))
+	@$(call install_replace, pureftpd, \
+		/lib/systemd/system/pure-uploadscript.service, \
+		@SCRIPT@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_SCRIPT))
+endif
+
 	@$(call install_finish, pureftpd)
 
 	@$(call touch)

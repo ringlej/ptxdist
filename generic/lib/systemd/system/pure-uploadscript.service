@@ -1,0 +1,7 @@
+[Unit]
+Description=pure-ftpd upload script helper
+ConditionPathExists=/usr/sbin/pure-uploadscript
+ConditionPathExists=@SCRIPT@
+
+[Service]
+ExecStart=/usr/sbin/pure-uploadscript @ARGS@ -r @SCRIPT@

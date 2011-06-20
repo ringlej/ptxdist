@@ -15,11 +15,31 @@ menuconfig PUREFTPD
 
 if PUREFTPD
 
+config PUREFTPD_ARGS
+	string
+	default "-H"
+	prompt "daemon command-line args"
+
 config PUREFTPD_UPLOADSCRIPT
 	bool
 	prompt "support upload scripts"
 	help
 	  Allow running an external script after an upload
+
+if PUREFTPD_UPLOADSCRIPT
+
+config PUREFTPD_UPLOADSCRIPT_ARGS
+	string
+	default "-u 0 -g 0"
+	prompt "upload helper args"
+
+config PUREFTPD_UPLOADSCRIPT_SCRIPT
+	string
+	prompt "script path"
+	help
+	  Full path of the upload script
+
+endif
 
 comment "build options   ---"
 
@@ -67,5 +87,11 @@ config PUREFTPD_STARTSCRIPT
 	bool
 	default y
 	prompt "install /etc/init.d/pureftpd"
+
+config PUREFTPD_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for pure-ftpd"
 
 endif
