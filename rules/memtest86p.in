@@ -1,0 +1,27 @@
+## SECTION=debug_tools
+
+menuconfig MEMTEST86P
+	tristate
+	prompt "memtest86+                    "
+	help
+	  Memory tester based on memtest86
+
+if MEMTEST86P
+
+config MEMTEST86P_SERIAL
+	bool "serial support"
+	help
+	  The default state of the serial console.
+	  This is normally off since it slows down testing.
+
+if MEMTEST86P_SERIAL
+
+config MEMTEST86P_BAUDRATE
+	int "default serial baudrate"
+	default 115200
+	help
+	  Default baudrate for serial console.
+
+endif
+
+endif
