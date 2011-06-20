@@ -198,13 +198,16 @@ QT4_AUTOCONF-$(call ptx/qt-no, EGL)			+= egl
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_QTXMLPATTERNS)	+= xmlpatterns exceptions
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_MULTIMEDIA)	+= multimedia audio-backend
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_PHONON)		+= phonon phonon-backend
-QT4_AUTOCONF-$(call ptx/qt-no, BUILD_WEBKIT)		+= webkit
+# QtWebKit need QtScript headers but not the lib.
+QT4_AUTOCONF-$(call ptx/qt-no, BUILD_WEBKIT)		+= webkit script
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_SCRIPTTOOLS)	+= scripttools
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_SVG)		+= svg
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_SCRIPT)		+= script
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_DECLARATIVE)	+= declarative
 
 QT4_AUTOCONF-$(call ptx/qt-plugin, SQLITE)		+= sql-sqlite
+
+QT4_AUTOCONF-no := $(filter-out $(QT4_AUTOCONF-y),$(QT4_AUTOCONF-no))
 
 QT4_AUTOCONF += $(foreach opt,$(QT4_AUTOCONF-y),-$(opt))
 QT4_AUTOCONF += $(foreach opt,$(QT4_AUTOCONF-qt),-qt-$(opt))
@@ -274,7 +277,7 @@ QT4_BUILD-$(PTXCONF_QT4_BUILD_DECLARATIVE)	+= declarative imports
 QT4_BUILD-$(PTXCONF_QT4_BUILD_QTXMLPATTERNS)	+= xmlpatterns
 QT4_BUILD-$(PTXCONF_QT4_BUILD_MULTIMEDIA)	+= multimedia
 QT4_BUILD-$(PTXCONF_QT4_BUILD_PHONON)		+= phonon
-QT4_BUILD-$(PTXCONF_QT4_BUILD_WEBKIT)		+= webkit
+QT4_BUILD-$(PTXCONF_QT4_BUILD_WEBKIT)		+= webkit script
 ifdef PTXCONF_QT4_BUILD_DECLARATIVE
 QT4_BUILD-$(PTXCONF_QT4_BUILD_WEBKIT)		+= webkitdeclarative
 endif
