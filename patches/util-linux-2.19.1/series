@@ -3,6 +3,4 @@
 0002-__progname-redefinition-fix.patch
 0003-_s-undeclared-fix.patch
 0004-replace-index-with-strchr.patch
-0005-libmount-replace-mkostmps-with-more-portable-mkstemp.patch
-0006-partx-lsblk-fix-gettext-calls.patch
 # 46107b4447bfd6ffdcda93e37657e575  - git-ptx-patches magic

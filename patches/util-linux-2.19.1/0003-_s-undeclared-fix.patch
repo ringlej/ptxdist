@@ -12,13 +12,13 @@ tt.c:508: error: '_s' undeclared (first use in this function)
 Signed-off-by: Jon Ringle <jon@ringle.org>
 ---
  lib/tt.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/tt.c b/lib/tt.c
-index 198210c..328b9d7 100644
---- a/lib/tt.c
-+++ b/lib/tt.c
-@@ -52,7 +52,7 @@ static const struct tt_symbols utf8_tt_symbols = {
+Index: util-linux-2.19.1/lib/tt.c
+===================================================================
+--- util-linux-2.19.1.orig/lib/tt.c
++++ util-linux-2.19.1/lib/tt.c
+@@ -52,7 +52,7 @@ static const struct tt_symbols utf8_tt_s
  };
  
  #else /* !HAVE_WIDECHAR */
@@ -27,6 +27,3 @@ index 198210c..328b9d7 100644
  #endif /* !HAVE_WIDECHAR */
  
  #define is_last_column(_tb, _cl) \
--- 
-1.7.0.4
-

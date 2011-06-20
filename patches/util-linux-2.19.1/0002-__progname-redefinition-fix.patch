@@ -16,10 +16,10 @@ Signed-off-by: Jon Ringle <jon@ringle.org>
  shlibs/mount/src/cache.c |    2 +-
  3 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/disk-utils/swaplabel.c b/disk-utils/swaplabel.c
-index 9dc20b4..28990a7 100644
---- a/disk-utils/swaplabel.c
-+++ b/disk-utils/swaplabel.c
+Index: util-linux-2.19.1/disk-utils/swaplabel.c
+===================================================================
+--- util-linux-2.19.1.orig/disk-utils/swaplabel.c
++++ util-linux-2.19.1/disk-utils/swaplabel.c
 @@ -30,8 +30,8 @@
  # endif
  #endif
@@ -30,10 +30,10 @@ index 9dc20b4..28990a7 100644
  #include "swapheader.h"
  #include "strutils.h"
  #include "nls.h"
-diff --git a/lib/tt.c b/lib/tt.c
-index 3bcdea9..198210c 100644
---- a/lib/tt.c
-+++ b/lib/tt.c
+Index: util-linux-2.19.1/lib/tt.c
+===================================================================
+--- util-linux-2.19.1.orig/lib/tt.c
++++ util-linux-2.19.1/lib/tt.c
 @@ -15,6 +15,7 @@
  #include <unistd.h>
  #include <string.h>
@@ -42,10 +42,10 @@ index 3bcdea9..198210c 100644
  #ifdef HAVE_SYS_IOCTL_H
  #include <sys/ioctl.h>
  #endif
-diff --git a/shlibs/mount/src/cache.c b/shlibs/mount/src/cache.c
-index e0641c1..40613e2 100644
---- a/shlibs/mount/src/cache.c
-+++ b/shlibs/mount/src/cache.c
+Index: util-linux-2.19.1/shlibs/mount/src/cache.c
+===================================================================
+--- util-linux-2.19.1.orig/shlibs/mount/src/cache.c
++++ util-linux-2.19.1/shlibs/mount/src/cache.c
 @@ -25,8 +25,8 @@
  #include <fcntl.h>
  #include <blkid.h>
@@ -56,6 +56,3 @@ index e0641c1..40613e2 100644
  
  /*
   * Canonicalized (resolved) paths & tags cache
--- 
-1.7.0.4
-

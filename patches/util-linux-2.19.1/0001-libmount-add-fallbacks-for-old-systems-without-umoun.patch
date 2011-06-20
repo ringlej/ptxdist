@@ -6,15 +6,15 @@ Reported-by: Peter Breitenlohner <peb@mppmu.mpg.de>
 Signed-off-by: Karel Zak <kzak@redhat.com>
 ---
  shlibs/mount/src/context_umount.c |   28 ++++++++++++++++++++++++++++
- 1 files changed, 28 insertions(+), 0 deletions(-)
+ 1 file changed, 28 insertions(+)
 
-diff --git a/shlibs/mount/src/context_umount.c b/shlibs/mount/src/context_umount.c
-index bd9be69..1187a87 100644
---- a/shlibs/mount/src/context_umount.c
-+++ b/shlibs/mount/src/context_umount.c
-@@ -21,6 +21,34 @@
- #include "strutils.h"
- #include "mountP.h"
+Index: util-linux-2.19.1/shlibs/mount/src/context_umount.c
+===================================================================
+--- util-linux-2.19.1.orig/shlibs/mount/src/context_umount.c
++++ util-linux-2.19.1/shlibs/mount/src/context_umount.c
+@@ -49,6 +49,34 @@ umount2(const char *path, int flags) {
+ #endif
+ 
  
 +#if defined(MNT_FORCE)
 +/* Interesting ... it seems libc knows about MNT_FORCE and presumably
@@ -47,6 +47,3 @@ index bd9be69..1187a87 100644
  static int lookup_umount_fs(struct libmnt_context *cxt)
  {
  	int rc;
--- 
-1.7.0.4
-
