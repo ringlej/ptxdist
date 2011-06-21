@@ -108,11 +108,15 @@ CONNMAN_TESTS := \
 $(STATEDIR)/connman.install:
 	@$(call targetinfo)
 	@$(call install, CONNMAN)
+ifdef PTXCONF_CONNMAN_CLIENT
 	install -D -m 755 "$(CONNMAN_DIR)/client/cm" \
 		"$(CONNMAN_PKGDIR)/usr/sbin/cm"
+endif
+ifdef PTXCONF_CONNMAN_TESTS
 	@$(foreach test, $(CONNMAN_TESTS), \
 		install -D -m 755 "$(CONNMAN_DIR)/test/$(test)" \
 			"$(CONNMAN_PKGDIR)/usr/sbin/cm-$(test)";)
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
