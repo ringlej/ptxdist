@@ -1,0 +1,10 @@
+## SECTION=networking
+
+config FLUP
+	tristate
+	select PYTHON
+	prompt "flup"
+	help
+	  A python package that provides a collection of WSGI modules,
+	  including fastcgi.
+
