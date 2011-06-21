@@ -15,7 +15,22 @@ _version_temp		:= $(subst -, ,$(_version_temp))
 KERNEL_VERSION_MAJOR	:= $(word 1,$(_version_temp))
 KERNEL_VERSION_MINOR	:= $(word 2,$(_version_temp))
 KERNEL_VERSION_MICRO	:= $(word 3,$(_version_temp))
-_version_temp		:=
+
+KERNEL_HEADER_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_HEADER_VERSION))
+_version_temp			:= $(subst ., ,$(KERNEL_HEADER_VERSION))
+_version_temp			:= $(subst -, ,$(_version_temp))
+KERNEL_HEADER_VERSION_MAJOR	:= $(word 1,$(_version_temp))
+KERNEL_HEADER_VERSION_MINOR	:= $(word 2,$(_version_temp))
+KERNEL_HEADER_VERSION_MICRO	:= $(word 3,$(_version_temp))
+_version_temp			:=
+
+KERNEL_HEADER_ARCH := $(PTXCONF_ARCH_STRING)
+ifdef PTXCONF_ARCH_X86
+KERNEL_HEADER_ARCH := "x86"
+endif
+ifdef PTXCONF_ARCH_PPC
+KERNEL_HEADER_ARCH := "powerpc"
+endif
 
 KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
 KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include

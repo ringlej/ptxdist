@@ -1,0 +1,23 @@
+## SECTION=core
+
+menuconfig KERNEL_HEADER
+	tristate
+	prompt "Linux kernel headers          "
+	help
+	  Kernel headers used to build tools that need newer kernel
+	  headers than those provided by the toolchain.
+
+if KERNEL_HEADER
+
+config KERNEL_HEADER_VERSION
+	prompt "kernel version"
+	string
+	default "2.6.39"
+
+config KERNEL_HEADER_MD5
+	prompt "kernel source md5sum"
+	string
+	default "1aab7a741abe08d42e8eccf20de61e05"
+
+endif
+
