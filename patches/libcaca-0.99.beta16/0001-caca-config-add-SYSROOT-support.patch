@@ -1,4 +1,3 @@
-From ab8c8298aa0c2403d12fa47054db826bb6242a21 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Sat, 9 Jan 2010 17:42:58 +0100
 Subject: [PATCH] caca-config: add SYSROOT support
@@ -34,6 +33,3 @@ index c768b99..56274e9 100644
 +  echo -L${SYSROOT}@libdir@ $libs
  fi
  
--- 
-1.6.6
-
