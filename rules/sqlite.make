@@ -20,18 +20,19 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION := 3070500
-SQLITE_MD5	:= a9604a82613ade2e7f4c303f233e477f
-SQLITE_TYPE            := autoconf
+SQLITE_VERSION	:= 3070603
+SQLITE_MD5	:= 7eb41eea5ffa5cbe359a48629084c425
+SQLITE_TYPE	:= autoconf
 ifeq ($(SQLITE_TYPE),)
-SQLITE         := sqlite-$(SQLITE_VERSION)
+SQLITE		:= sqlite-$(SQLITE_VERSION)
 else
-SQLITE         := sqlite-$(SQLITE_TYPE)-$(SQLITE_VERSION)
+SQLITE		:= sqlite-$(SQLITE_TYPE)-$(SQLITE_VERSION)
 endif
 SQLITE_SUFFIX	:= tar.gz
 SQLITE_URL	:= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_SOURCE	:= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_DIR	:= $(BUILDDIR)/$(SQLITE)
+SQLITE_LICENSE	:= public_domain
 
 # ----------------------------------------------------------------------------
 # Get
