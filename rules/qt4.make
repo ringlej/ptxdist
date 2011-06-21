@@ -206,6 +206,8 @@ QT4_AUTOCONF-$(call ptx/qt-no, BUILD_SCRIPT)		+= script
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_DECLARATIVE)	+= declarative
 
 QT4_AUTOCONF-$(call ptx/qt-plugin, SQLITE)		+= sql-sqlite
+QT4_AUTOCONF-$(call ptx/qt-system, SQLITE)		+= sqlite
+
 
 QT4_AUTOCONF-no := $(filter-out $(QT4_AUTOCONF-y),$(QT4_AUTOCONF-no))
 

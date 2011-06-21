@@ -17,6 +17,7 @@ menuconfig QT4
 	select FREETYPE		if QT4_FREETYPE_SYSTEM
 	select LIBPNG		if QT4_PNG_SYSTEM
 	select LIBJPEG		if QT4_JPG_SYSTEM
+	select SQLITE		if QT4_SQLITE_SYSTEM
 	select DIRECTFB		if QT4_GFX_DIRECTFB_PLUGIN
 	select GSTREAMER	if QT4_BUILD_PHONON
 	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
@@ -773,6 +774,11 @@ config QT4_SQLITE_PLUGIN
 	help
 	  Load the driver at runtime
 endchoice
+
+config QT4_SQLITE_SYSTEM
+	bool
+	depends on !QT4_SQLITE_NULL
+	prompt "use system sqlite"
 
 endif # QT4_BUILD_SQL
 
