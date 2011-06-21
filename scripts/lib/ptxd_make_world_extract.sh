@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 # Copyright (C) 2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -59,9 +61,28 @@ ptxd_make_world_extract() {
 
     echo "\
 extract: pkg_src=$(ptxd_print_path ${pkg_src})
-extract: pkg_extract_dir=$(ptxd_print_path ${pkg_extract_dir})"
+extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
 
-    ptxd_make_extract_archive "${pkg_src}" "${pkg_extract_dir}"
+    local tmpdir
+    tmpdir="$(mktemp -d "${pkg_dir}.XXXXXX")"
+    if ! ptxd_make_extract_archive "${pkg_src}" "${tmpdir}"; then
+	rm -rf "${tmpdir}"
+	ptxd_bailout "failed to extract '${pkg_src}'."
+    fi
+    local depth=$[${pkg_strip_level:=1}+1]
+    if [ -e "${pkg_dir}" ]; then
+	tar -C "${tmpdir}" --remove-files -c . | \
+	    tar -x --strip-components=${depth} -C "${pkg_dir}"
+	check_pipe_status
+    else
+	mkdir -p "${pkg_dir}" &&
+	find "${tmpdir}" -mindepth ${depth} -maxdepth ${depth} -print0 | \
+	    xargs -0 mv -t "${pkg_dir}"
+	check_pipe_status
+    fi
+    local ret=$?
+    rm -rf "${tmpdir}"
+    return ${ret}
 }
 
 export -f ptxd_make_world_extract
