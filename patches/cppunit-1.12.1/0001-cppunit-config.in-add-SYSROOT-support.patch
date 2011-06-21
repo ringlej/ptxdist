@@ -1,8 +1,8 @@
-From 14aceb996bb4b80d1b67bdd50028705b059f7889 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Sat, 9 Jan 2010 19:17:59 +0100
 Subject: [PATCH] cppunit-config.in: add SYSROOT support
 
+Forwarded: not-needed
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  cppunit-config.in |    8 ++++----
@@ -31,6 +31,3 @@ index 51e8b58..9ee6fc9 100644
        fi
        echo ${my_linker_flags} -lcppunit @LIBADD_DL@
  fi      
--- 
-1.6.6
-
