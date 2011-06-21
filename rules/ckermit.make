@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2005 by Oscar Peredo
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,44 +18,20 @@ PACKAGES-$(PTXCONF_CKERMIT) += ckermit
 #
 # Paths and names
 #
-CKERMIT_VERSION	:= 211
-CKERMIT_MD5	:= 5767ec5e6ff0857cbfe2d3ec1ee0e2bc
-CKERMIT		:= cku$(CKERMIT_VERSION)
-CKERMIT_SUFFIX	:= tar.gz
-CKERMIT_URL	:= http://www.columbia.edu/kermit/ftp/archives/$(CKERMIT).$(CKERMIT_SUFFIX)
-CKERMIT_SOURCE	:= $(SRCDIR)/$(CKERMIT).$(CKERMIT_SUFFIX)
-CKERMIT_DIR	:= $(BUILDDIR)/$(CKERMIT)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(CKERMIT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CKERMIT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ckermit.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CKERMIT_DIR))
-	mkdir -p $(CKERMIT_DIR)
-	@$(call extract, CKERMIT, $(CKERMIT_DIR))
-	@$(call patchin, CKERMIT)
-	@$(call touch)
+CKERMIT_VERSION		:= 211
+CKERMIT_MD5		:= 5767ec5e6ff0857cbfe2d3ec1ee0e2bc
+CKERMIT			:= cku$(CKERMIT_VERSION)
+CKERMIT_SUFFIX		:= tar.gz
+CKERMIT_URL		:= http://www.columbia.edu/kermit/ftp/archives/$(CKERMIT).$(CKERMIT_SUFFIX)
+CKERMIT_SOURCE		:= $(SRCDIR)/$(CKERMIT).$(CKERMIT_SUFFIX)
+CKERMIT_DIR		:= $(BUILDDIR)/$(CKERMIT)
+CKERMIT_STRIP_LEVEL	:= 0
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CKERMIT_PATH	:= PATH=$(CROSS_PATH)
-CKERMIT_ENV 	:= $(CROSS_ENV)
-
-$(STATEDIR)/ckermit.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+CKERMIT_CONF_TOOL	:= NO
 
 # ----------------------------------------------------------------------------
 # Compile
