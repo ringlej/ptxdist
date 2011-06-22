@@ -41,7 +41,7 @@ I2C_TOOLS_ENV 	:= $(CROSS_ENV)
 
 I2C_TOOLS_MAKE_OPT := \
 	prefix=/usr \
-	KERNELVERSION=$(KERNEL_VERSION) \
+	KERNELVERSION=$(KERNEL_HEADER_VERSION) \
 	$(CROSS_ENV_CC)
 
 # install the header files to include/i2c-tools
