@@ -2,6 +2,9 @@ From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Sat, 9 Jan 2010 17:42:58 +0100
 Subject: [PATCH] caca-config: add SYSROOT support
 
+The method used here is probably not acceptable upstream.
+
+Forwarded: not-needed
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  caca-config.in |    6 +++---
