@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		:= 1.3.10
-NANO_MD5		:= 851609ae03ae967595a888219bad3e2d
+NANO_VERSION		:= 1.3.12
+NANO_MD5		:= 1450892aac7ae31d00817d42636d9a0d
 NANO			:= nano-$(NANO_VERSION)
 NANO_SUFFIX		:= tar.gz
 NANO_URL		:= http://www.nano-editor.org/dist/v1.3/$(NANO).$(NANO_SUFFIX)

@@ -1,0 +1,35 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 22 Jun 2011 14:35:50 +0200
+Subject: [PATCH] Fix building with ncurses-5.9
+
+It fails with:
+nano.c: In function 'handle_sigwinch':
+nano.c:1085:5: error: lvalue required as left operand of assignment
+nano.c:1086:5: error: lvalue required as left operand of assignment
+
+There is an upstream bugreport[1] but no fix. The only recommended
+workaround[2] is to comment out the relevant lines.
+
+[1] http://savannah.gnu.org/bugs/?28984
+[2] http://lists.gnu.org/archive/html/help-nano/2010-02/msg00005.html
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/nano.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/src/nano.c b/src/nano.c
+index 6c78770..3a990d2 100644
+--- a/src/nano.c
++++ b/src/nano.c
+@@ -1082,8 +1082,10 @@ RETSIGTYPE handle_sigwinch(int signal)
+      * otherwise.  However, COLS and LINES are curses global variables,
+      * and in some cases curses has already updated them.  But not in
+      * all cases.  Argh. */
++/*
+     COLS = win.ws_col;
+     LINES = win.ws_row;
++*/
+ 
+     /* If we've partitioned the filestruct, unpartition it now. */
+     if (filepart != NULL)
