@@ -72,7 +72,7 @@ endif
 TK_AUTOCONF += tcl_cv_strtod_buggy=ok
 
 # checking system version... Linux-2.6.25.4-ptx <-- it detects host's one!
-TK_AUTOCONF += tcl_cv_sys_version=Linux-$(PTXCONF_KERNEL_VERSION)
+TK_AUTOCONF += tcl_cv_sys_version=Linux-$(KERNEL_HEADER_VERSION)
 
 # it does not detect the BSP variant of X
 TK_AUTOCONF += \
