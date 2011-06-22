@@ -30,7 +30,7 @@ SVGALIB_LICENSE	:= unknown
 # ----------------------------------------------------------------------------
 
 SVGALIB_CONF_ENV	:= $(CROSS_ENV)
-SVGALIB_CONF_ENV	+= S_KERNELRELEASE=$(PTXCONF_KERNEL_VERSION)
+SVGALIB_CONF_ENV	+= S_KERNELRELEASE=$(KERNEL_HEADER_VERSION)
 SVGALIB_CONF_TOOL	:= NO
 
 # ----------------------------------------------------------------------------
