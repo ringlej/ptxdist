@@ -41,7 +41,7 @@ $(NMAP_SOURCE):
 NMAP_PATH := PATH=$(CROSS_PATH)
 NMAP_ENV  := \
 	$(CROSS_ENV) \
-	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
+	ac_cv_linux_vers=$(KERNEL_HEADER_VERSION_MAJOR)
 
 #
 # autoconf
