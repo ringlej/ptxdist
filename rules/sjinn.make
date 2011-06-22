@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Tom St
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -25,31 +26,10 @@ SJINN_SOURCE	:= $(SRCDIR)/$(SJINN).$(SJINN_SUFFIX)
 SJINN_DIR	:= $(BUILDDIR)/$(SJINN)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(SJINN_SOURCE):
-	@$(call targetinfo)
-	@$(call get, SJINN)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/sjinn.extract:
-	@$(call targetinfo)
-	@$(call clean, $(SJINN_DIR))
-	@$(call extract, SJINN)
-	mv $(BUILDDIR)/sjinn $(BUILDDIR)/$(SJINN)
-	@$(call patchin, SJINN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-SJINN_PATH	:= PATH=$(CROSS_PATH)
-SJINN_ENV 	:= $(CROSS_ENV)
+SJINN_CONF_TOOL	:= NO
 
 SJINN_MAKE_OPT := \
 	CC=$(CROSS_CC) \
@@ -58,10 +38,6 @@ SJINN_MAKE_OPT := \
 SJINN_INSTALL_OPT := \
 	install \
 	prefix=$(SJINN_PKGDIR)/usr
-
-$(STATEDIR)/sjinn.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
