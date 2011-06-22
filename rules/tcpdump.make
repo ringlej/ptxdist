@@ -46,7 +46,7 @@ TCPDUMP_ENV 	:= $(CROSS_ENV)
 TCPDUMP_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
-	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR) \
+	ac_cv_linux_vers=$(KERNEL_HEADER_VERSION_MAJOR) \
 	td_cv_buggygetaddrinfo=no
 
 # FIXME: Unsupported switches yet
