@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2004 by Benedikt Spranger
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -26,37 +27,10 @@ HEXEDIT_SOURCE	:= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_DIR	:= $(BUILDDIR)/$(HEXEDIT)
 HEXEDIT_LICENSE	:= GPLv2+
 
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HEXEDIT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HEXEDIT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hexedit.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HEXEDIT_DIR))
-	@$(call extract, HEXEDIT)
-	mv $(BUILDDIR)/hexedit $(HEXEDIT_DIR)
-	@$(call patchin, HEXEDIT)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-HEXEDIT_PATH	:= PATH=$(CROSS_PATH)
-HEXEDIT_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-HEXEDIT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+HEXEDIT_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
