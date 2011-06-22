@@ -3,6 +3,6 @@
 config MEDIA_CTL
 	tristate
 	prompt "media-ctl"
-	select KERNEL
+	select KERNEL_HEADER
 	help
 	  Userspace tool to manipulate  the multimedia device API
