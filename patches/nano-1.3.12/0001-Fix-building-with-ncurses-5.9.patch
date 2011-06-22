@@ -7,12 +7,12 @@ nano.c: In function 'handle_sigwinch':
 nano.c:1085:5: error: lvalue required as left operand of assignment
 nano.c:1086:5: error: lvalue required as left operand of assignment
 
-There is an upstream bugreport[1] but no fix. The only recommended
-workaround[2] is to comment out the relevant lines.
+There is an upstream bugreport with a proposed fix[1], similar to this
+one.  As of today, there is no new release.
 
-[1] http://savannah.gnu.org/bugs/?28984
-[2] http://lists.gnu.org/archive/html/help-nano/2010-02/msg00005.html
+[1] http://lists.gnu.org/archive/html/help-nano/2010-02/msg00005.html
 
+Bug: http://savannah.gnu.org/bugs/?28984
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/nano.c |    2 ++
