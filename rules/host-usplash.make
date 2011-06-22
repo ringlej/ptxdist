@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2008 by 
+# Copyright (C) 2008, 2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,18 +17,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_USPLASH) += host-usplash
 # Paths and names
 #
 HOST_USPLASH_DIR	= $(HOST_BUILDDIR)/$(USPLASH)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-usplash.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_USPLASH_DIR))
-	@$(call extract, USPLASH, $(HOST_BUILDDIR))
-	mv $(HOST_BUILDDIR)/usplash $(HOST_USPLASH_DIR)
-	@$(call patchin, USPLASH, $(HOST_USPLASH_DIR))
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
