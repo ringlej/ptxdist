@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2010 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,36 +24,12 @@ JS_SUFFIX	:= tar.bz2
 JS_URL		:= http://ftp.mozilla.org/pub/mozilla.org/xulrunner/releases/$(JS_VERSION)/source/xulrunner-$(JS_VERSION).source.$(JS_SUFFIX)
 JS_SOURCE	:= $(SRCDIR)/xulrunner-$(JS_VERSION).source.$(JS_SUFFIX)
 JS_DIR		:= $(BUILDDIR)/$(JS)
+JS_SUBDIR	:= js/src
 JS_LICENSE	:= unknown
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(JS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, JS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/js.extract:
-	@$(call targetinfo)
-	@$(call clean, $(JS_DIR))
-	@$(call extract, JS)
-	# we have a crappy name - the packet is called 'xulrunner-$version',
-	# but extracts to 'mozilla-$version'
-	mv $(BUILDDIR)/mozilla-1.9.2/js/src $(JS_DIR)
-	rm -fr $(BUILDDIR)/js
-	@$(call patchin, JS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-JS_PATH		:= PATH=$(CROSS_PATH)
 
 JS_CONF_ENV := \
 	$(CROSS_ENV) \
@@ -147,36 +124,11 @@ JS_CONF_OPT := \
 #  --with-static-checking=path/to/gcc_dehydra.so
 #                            Enable static checking of code using GCC-dehydra
 
-$(STATEDIR)/js.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(JS_DIR)/config.cache)
-	cd $(JS_DIR) && \
-		$(JS_PATH) $(JS_CONF_ENV) \
-		./configure $(JS_CONF_OPT)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/js.compile:
-	@$(call targetinfo)
-	cd $(JS_DIR) && $(JS_PATH) $(MAKE) \
-		$(PARALLELMFLAGS) \
-		HOST_CXX=g++ \
-		HOST_CC=gcc
-#	cd $(JS_DIR)/src && $(JS_PATH) $(MAKE) -f Makefile.ref \
-#		$(PARALLELMFLAGS_BROKEN) \
-#		OS_ARCH=Linux \
-#		CC=$(CROSS_CC) \
-#		CCC=$(CROSS_CXX) \
-#		AR=$(CROSS_AR) \
-#		LD=$(CROSS_LD) \
-#		HOST_CC=gcc \
-#		CPU_ARCH=$(PTXCONF_ARCH_STRING) \
-#		CROSS_COMPILE=1 \
-#		JS_EDITLINE=1
-	@$(call touch)
+JS_MAKE_OPT := HOST_CXX=$(HOSTCXX) HOST_CC=$(HOSTCC)
 
 # ----------------------------------------------------------------------------
 # Target-Install
