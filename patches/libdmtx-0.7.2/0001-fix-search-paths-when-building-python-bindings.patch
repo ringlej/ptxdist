@@ -2,6 +2,11 @@ From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Thu, 26 May 2011 10:34:48 +0200
 Subject: [PATCH] fix search paths when building python bindings
 
+The code is searching for it's own libs+includes only in /usr/local,
+instead of just taking the variants it provides itself. This also does
+not work if we cross compile or build distributions, with DESTDIR != /.
+
+Forwarded: no
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  wrapper/python/Makefile |    2 +-
