@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2008 by Juergen Beisert
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -26,26 +27,6 @@ INADYN_SOURCE	:= $(SRCDIR)/$(INADYN).$(INADYN_SUFFIX)
 INADYN_DIR	:= $(BUILDDIR)/$(INADYN)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(INADYN_SOURCE):
-	@$(call targetinfo)
-	@$(call get, INADYN)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/inadyn.extract:
-	@$(call targetinfo)
-	@$(call clean, $(INADYN_DIR))
-	@$(call extract, INADYN)
-	mv $(BUILDDIR)/inadyn $(INADYN_DIR)
-	@$(call patchin, INADYN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
@@ -58,6 +39,8 @@ INADYN_MAKE_OPT	:= TARGET_ARCH=linux
 
 $(STATEDIR)/inadyn.install:
 	@$(call targetinfo)
+	install -D -m755 $(INADYN_DIR)/bin/linux/inadyn \
+		$(INADYN_PKGDIR)/sbin/inadyn
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -73,9 +56,7 @@ $(STATEDIR)/inadyn.targetinstall:
 	@$(call install_fixup, inadyn,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, inadyn,DESCRIPTION,missing)
 
-	@$(call install_copy, inadyn, 0, 0, 0755, \
-		$(INADYN_DIR)/bin/linux/inadyn, /sbin/inadyn)
-
+	@$(call install_copy, inadyn, 0, 0, 0755, -, /sbin/inadyn)
 	@$(call install_alternative, inadyn, 0, 0, 0600, /etc/inadyn.conf)
 
 	@$(call install_finish, inadyn)
