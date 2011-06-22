@@ -35,13 +35,8 @@ KERNEL_SUFFIX		:= tar.bz2
 KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
 KERNEL_LICENSE		:= GPLv2
-
-ifdef PTXCONF_KERNEL_LOCAL_FLAG
-KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
-else
 KERNEL_URL		:= $(call kernel-url, KERNEL)
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
-endif
 
 # ----------------------------------------------------------------------------
 # Prepare

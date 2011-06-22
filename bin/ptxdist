@@ -1742,8 +1742,6 @@ parse_second()
 		exit
 	fi
 
-	local kernellink="${PTXDIST_WORKSPACE}/.kernel"
-
 	while [ ${#} -ne 0 ]; do
 		local cmd="${1}"
 		shift
@@ -1801,17 +1799,8 @@ parse_second()
 			;;
 
 		platformconfig)
-			if [ -L "${kernellink}" ]; then
-				rm -f -- "${kernellink}"
-			fi
-
 			do_config menuconfig platform
-			local retval=${?}
-
-			if [ -n "$(ptxd_get_ptxconf PTXCONF_KERNEL_SYMLINK_IN_PROJECTDIR)" ]; then
-				ln -sf "${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)" "${kernellink}"
-			fi
-			exit ${retval}
+			exit ${?}
 			;;
 
 		kernelconfig)
@@ -1842,17 +1831,8 @@ parse_second()
 			;;
 
 		platform)
-			if [ -L "${kernellink}" ]; then
-				rm -f -- "${kernellink}"
-			fi
-
 			do_select platformconfig "${1}"
-			local retval=${?}
-
-			if [ -n "$(ptxd_get_ptxconf PTXCONF_KERNEL_SYMLINK_IN_PROJECTDIR)" ]; then
-				ln -sf "${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)" "${kernellink}"
-			fi
-			exit ${retval}
+			exit ${?}
 			;;
 
 		collection)
