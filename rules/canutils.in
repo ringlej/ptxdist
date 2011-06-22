@@ -3,7 +3,7 @@
 menuconfig CANUTILS
 	tristate
 	prompt "canutils                      "
-	select KERNEL		if CANUTILS_BSP_KERNEL
+	select KERNEL_HEADER
 	select LIBSOCKETCAN	if CANUTILS_4
 	help
 	  The canutils package contains tools to configure
@@ -26,13 +26,6 @@ config CANUTILS_4
 	  Select this if you're using a canutils version >= 4.0
 
 	  This will enable extra an extra dependency to libsocketcan.
-
-config CANUTILS_BSP_KERNEL
-	bool "use BSP's kernel headers instead of toolchain's"
-	help
-	  Select this if you're using a toolchain based on a
-	  kernel < 2.6.25. This kernel doesn't provide the
-	  necessary headers.
 
 config CANUTILS_CANCONFIG
 	bool

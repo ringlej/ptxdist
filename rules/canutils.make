@@ -37,11 +37,9 @@ $(CANUTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-CANUTILS_CONF_ENV := $(CROSS_ENV)
-
-ifdef PTXCONF_CANUTILS_BSP_KERNEL
-CANUTILS_CONF_ENV += CPPFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR) $(CROSS_CPPFLAGS)"
-endif
+CANUTILS_CONF_ENV := \
+	$(CROSS_ENV) \
+	CPPFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR) $(CROSS_CPPFLAGS)"
 
 #
 # autoconf
