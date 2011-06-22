@@ -1,0 +1,64 @@
+## SECTION=debug_tools
+
+menuconfig RRDTOOL
+	tristate
+	select GLIB
+	select CAIRO
+	select CAIRO_SVG
+	select CAIRO_PDF
+	select CAIRO_PS
+	select PANGO
+	select LIBXML2
+	prompt "rrdtool"
+	help
+	  The Round Robin Database Tool (RRDtool) is a system to store and
+	  display time-series data (e.g. network bandwidth, machine-room
+	  temperature, server load average). It stores the data in Round
+	  Robin Databases (RRDs), a very compact way that will not expand
+	  over time. RRDtool processes the extracted data to enforce a
+	  certain data density, allowing for useful graphical
+	  representation of data values.
+
+if RRDTOOL
+
+config RRDTOOL_RRDCACHED
+	bool
+	prompt "install rrdcached"
+	help
+	  rrdcached is a daemon that receives updates to existing RRD files,
+	  accumulates them and, if enough have been received or a defined
+	  time has passed, writes the updates to the RRD file.
+
+config RRDTOOL_RRDCGI
+	bool
+	prompt "install rrdcgi"
+	help
+	  rrdcgi is a sort of very limited script interpreter. Its
+	  purpose is to run as a cgi-program and parse a web page
+	  template containing special <RRD:: tags.
+
+config RRDTOOL_RRDTOOL
+	bool
+	prompt "install rrdtool"
+	help
+	  rrdtool lets you log and analyze the data you gather from all
+	  kinds of data-sources
+
+config RRDTOOL_RRDUPDATE
+	bool
+	prompt "install rrdupdate"
+	help
+	  Store a new set of values into the RRD
+
+config RRDTOOL_WRAP
+	bool
+	prompt "build in support for libwrap (tcp wrapper)"
+
+config RRDTOOL_DEFAULT_FONT
+	string
+	prompt "default font"
+	help
+	  comma separated list of fonts to use.
+
+endif
+
