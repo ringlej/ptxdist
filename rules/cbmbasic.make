@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -22,47 +23,15 @@ CBMBASIC		:= cbmbasic
 CBMBASIC_SUFFIX		:= zip
 CBMBASIC_URL		:= http://www.weihenstephan.org/~michaste/pagetable/recompiler/$(CBMBASIC).$(CBMBASIC_SUFFIX)
 CBMBASIC_SOURCE		:= $(SRCDIR)/$(CBMBASIC).$(CBMBASIC_SUFFIX)
-CBMBASIC_DIR		:= $(BUILDDIR)/$(CBMBASIC)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(CBMBASIC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CBMBASIC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cbmbasic.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CBMBASIC_DIR))
-	mkdir -p $(CBMBASIC_DIR)
-	@$(call extract, CBMBASIC, $(CBMBASIC_DIR))
-	@$(call patchin, CBMBASIC)
-	@$(call touch)
+CBMBASIC_DIR		:= $(BUILDDIR)/$(CBMBASIC)-$(CBMBASIC_VERSION)
+CBMBASIC_STRIP_LEVEL	:= 0
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CBMBASIC_PATH	:= PATH=$(CROSS_PATH)
-CBMBASIC_ENV 	:= $(CROSS_ENV)
-
-$(STATEDIR)/cbmbasic.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cbmbasic.compile:
-	@$(call targetinfo)
-	cd $(CBMBASIC_DIR) && $(CBMBASIC_PATH) $(MAKE) $(PARALLELMFLAGS) CC=$(CROSS_CC)
-	@$(call touch)
+CBMBASIC_CONF_TOOL	:= NO
+CBMBASIC_MAKE_OPT	:= $(CROSS_ENV_PROGS)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -70,7 +39,8 @@ $(STATEDIR)/cbmbasic.compile:
 
 $(STATEDIR)/cbmbasic.install:
 	@$(call targetinfo)
-	# @$(call install, CBMBASIC)
+	install -D -m755 $(CBMBASIC_DIR)/cbmbasic \
+		$(CBMBASIC_PKGDIR)/usr/bin/cbmbasic
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -86,9 +56,7 @@ $(STATEDIR)/cbmbasic.targetinstall:
 	@$(call install_fixup, cbmbasic,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, cbmbasic,DESCRIPTION,missing)
 
-	@$(call install_copy, cbmbasic, 0, 0, 0755, \
-		$(CBMBASIC_DIR)/cbmbasic, \
-		/usr/bin/cbmbasic)
+	@$(call install_copy, cbmbasic, 0, 0, 0755, -, /usr/bin/cbmbasic)
 
 	@$(call install_finish, cbmbasic)
 
