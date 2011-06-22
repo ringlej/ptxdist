@@ -2,6 +2,9 @@ From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Thu, 26 May 2011 17:07:26 +0200
 Subject: [PATCH] setup.py: remove host directories from search paths
 
+This patch is probably not acceptable in upstream.
+
+Forwarded: not-needed
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  setup.py |    8 --------
