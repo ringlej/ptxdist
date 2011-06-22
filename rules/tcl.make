@@ -42,7 +42,7 @@ $(TCL_SOURCE):
 TCL_PATH	:= PATH=$(CROSS_PATH)
 TCL_ENV 	:= \
 	$(CROSS_ENV) \
-	tcl_cv_sys_version=Linux-$(PTXCONF_KERNEL_VERSION) \
+	tcl_cv_sys_version=Linux-$(KERNEL_HEADER_VERSION) \
 	tcl_cv_strstr_unbroken=yes \
 	tcl_cv_strtoul_unbroken=yes \
 	tcl_cv_strtod_unbroken=yes \
