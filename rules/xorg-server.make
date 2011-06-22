@@ -79,7 +79,7 @@ XORG_SERVER_AUTOCONF = \
 	--with-vendor-name=Ptxdist \
 	--with-vendor-name-short=PTX \
 	--with-vendor-web=http://www.pengutronix.de/software/ptxdist/index_en.html \
-	--with-os-name=Linux-$(PTXCONF_KERNEL_VERSION) \
+	--with-os-name=Linux-$(KERNEL_HEADER_VERSION) \
 	--with-os-vendor=Ptxdist \
 	--with-fontrootdir=$(XORG_FONTDIR)
 
