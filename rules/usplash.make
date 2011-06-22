@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,26 +25,6 @@ USPLASH_SUFFIX	:= tar.gz
 USPLASH_URL	:= http://archive.ubuntu.com/ubuntu/pool/main/u/usplash/$(USPLASH).$(USPLASH_SUFFIX)
 USPLASH_SOURCE	:= $(SRCDIR)/$(USPLASH).$(USPLASH_SUFFIX)
 USPLASH_DIR	:= $(BUILDDIR)/$(USPLASH)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(USPLASH_SOURCE):
-	@$(call targetinfo)
-	@$(call get, USPLASH)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/usplash.extract:
-	@$(call targetinfo)
-	@$(call clean, $(USPLASH_DIR))
-	@$(call extract, USPLASH)
-	mv $(BUILDDIR)/usplash $(USPLASH_DIR)
-	@$(call patchin, USPLASH)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
