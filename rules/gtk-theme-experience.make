@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Robert Schwebel
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,14 +24,7 @@ GTK_THEME_EXPERIENCE_SUFFIX	:= tar.gz
 GTK_THEME_EXPERIENCE_URL	:= http://ftp.gnome.org/pub/GNOME/teams/art.gnome.org/themes/gtk2/$(GTK_THEME_EXPERIENCE).$(GTK_THEME_EXPERIENCE_SUFFIX)
 GTK_THEME_EXPERIENCE_SOURCE	:= $(SRCDIR)/$(GTK_THEME_EXPERIENCE).$(GTK_THEME_EXPERIENCE_SUFFIX)
 GTK_THEME_EXPERIENCE_DIR	:= $(BUILDDIR)/$(GTK_THEME_EXPERIENCE)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GTK_THEME_EXPERIENCE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GTK_THEME_EXPERIENCE)
+GTK_THEME_EXPERIENCE_STRIP_LEVEL:= 0
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -39,8 +33,7 @@ $(GTK_THEME_EXPERIENCE_SOURCE):
 $(STATEDIR)/gtk-theme-experience.extract:
 	@$(call targetinfo)
 	@$(call clean, $(GTK_THEME_EXPERIENCE_DIR))
-	mkdir -p $(GTK_THEME_EXPERIENCE_DIR)
-	@$(call extract, GTK_THEME_EXPERIENCE, $(GTK_THEME_EXPERIENCE_DIR))
+	@$(call extract, GTK_THEME_EXPERIENCE)
 	mv "$(GTK_THEME_EXPERIENCE_DIR)/eXperience - ice" $(GTK_THEME_EXPERIENCE_DIR)/eXperience-ice
 	mv "$(GTK_THEME_EXPERIENCE_DIR)/eXperience - olive" $(GTK_THEME_EXPERIENCE_DIR)/eXperience-olive
 	cd $(GTK_THEME_EXPERIENCE_DIR) && find . -name "*~" | xargs rm -fr
@@ -51,9 +44,7 @@ $(STATEDIR)/gtk-theme-experience.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/gtk-theme-experience.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+GTK_THEME_EXPERIENCE_CONF_TOOL := NO
 
 # ----------------------------------------------------------------------------
 # Compile
