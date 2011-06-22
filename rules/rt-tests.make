@@ -3,6 +3,7 @@
 # Copyright (C) 2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #               2009 by Wolfram Sang <w.sang@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,36 +29,12 @@ RT_TESTS_SOURCE		:= $(SRCDIR)/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_DIR		:= $(BUILDDIR)/$(RT_TESTS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(RT_TESTS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, RT_TESTS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/rt-tests.extract:
-	@$(call targetinfo)
-	@$(call clean, $(RT_TESTS_DIR))
-	@$(call extract, RT_TESTS)
-	rm -fr $(RT_TESTS_DIR)
-	mv $(BUILDDIR)/rt-tests $(RT_TESTS_DIR)
-	@$(call patchin, RT_TESTS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-RT_TESTS_PATH	:= PATH=$(CROSS_PATH)
-RT_TESTS_ENV 	:= $(CROSS_ENV)
-
-RT_TESTS_MAKEVARS := \
-	$(CROSS_ENV_CC) \
-	prefix=/usr
+RT_TESTS_CONF_TOOL	:= NO
+RT_TESTS_MAKE_OPT	:= $(CROSS_ENV_CC) prefix=/usr
+RT_TESTS_INSTALL_OPT	:= $(RT_TESTS_MAKE_OPT) install
 
 # ----------------------------------------------------------------------------
 # Target-Install
