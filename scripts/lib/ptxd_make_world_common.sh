@@ -239,6 +239,21 @@ ptxd_make_world_init() {
     unset path_ptr
 
     #
+    # check if we shall use a local work-in-progress tree instead
+    # of the configured URL.
+    #
+    # If a link in local_src/<label>.<platform> exists and points to
+    # a directory, use this instead of the real one.
+    #
+    local wip_sources="${PTXDIST_WORKSPACE}/local_src/${pkg_label}${PTXDIST_PLATFORMSUFFIX}"
+    if [ -d "$(readlink -f "${wip_sources}")" ]; then
+	pkg_url="file://${wip_sources}"
+	unset pkg_src
+	pkg_pkg=${pkg_pkg}-wip # don't apply patches
+    fi
+    unset wip_sources
+
+    #
     # extract dir
     #
     local extract_ptr="ptx_extract_dir_${pkg_type}"
