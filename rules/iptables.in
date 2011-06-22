@@ -3,7 +3,7 @@
 menuconfig IPTABLES
 	tristate
 	prompt "iptables                      "
-	select KERNEL
+	select KERNEL_HEADER
 	select LIBC_M
 	select LIBC_DL
 	select GCCLIBS_GCC_S
