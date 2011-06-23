@@ -7,6 +7,8 @@ menuconfig SYSTEMD
 	select LIBC_RT
 	select DBUS
 	select LIBCAP
+	select PYTHON if SYSTEMD_ANALYZE
+	select DBUS_PYTHON if SYSTEMD_ANALYZE
 	select UDEV
 	select UDEV_LIBUDEV
 	select UDEV_EXPERIMENTAL
@@ -34,6 +36,12 @@ config SYSTEMD_DISABLE_RANDOM_SEED
 	  This option is for systems with read-only rootfs, where writing
 	  the random seed is not possible.
 	  Warning: enabling this option may be insecure.
+
+config SYSTEMD_ANALYZE
+	bool
+	prompt "systemd-analyze"
+	help
+	  Install the systemd-analyze tool. This feature requires python.
 
 endif
 

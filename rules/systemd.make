@@ -103,6 +103,9 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tty-ask-password-agent)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
+ifdef PTXCONF_SYSTEMD_ANALYZE
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-analyze)
+endif
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_link, systemd, ../bin/systemd, /sbin/init)
