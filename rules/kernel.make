@@ -167,20 +167,6 @@ endif # !PTXCONF_PROJECT_USE_PRODUCTION
 
 $(STATEDIR)/kernel.install:
 	@$(call targetinfo)
-	@rm -rf "$(KERNEL_HEADERS_DIR)"
-	@cd $(KERNEL_DIR) && \
-	if $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) help | \
-		grep headers_install > /dev/null 2>&1; then \
-		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) headers_install INSTALL_HDR_PATH=$(KERNEL_HEADERS_DIR); \
-	else \
-		mkdir -p $(KERNEL_HEADERS_INCLUDE_DIR)/asm && \
-		cp -r \
-			$(KERNEL_DIR)/include/linux \
-			$(KERNEL_DIR)/include/asm/* \
-			$(KERNEL_DIR)/include/asm-generic \
-			$(KERNEL_HEADERS_INCLUDE_DIR); \
-	fi
-
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@rm -rf $(KERNEL_PKGDIR)
 	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
@@ -265,11 +251,6 @@ ifndef PTXCONF_PROJECT_USE_PRODUCTION
 $(STATEDIR)/kernel.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, KERNEL)
-	@if [ -d "$(KERNEL_HEADERS_DIR)" ]; then \
-		echo "Deleting kernel headers:"; \
-		echo "$(KERNEL_HEADERS_DIR)"; \
-		rm -rf "$(KERNEL_HEADERS_DIR)"; \
-	fi
 	@if [ -L $(KERNEL_DIR) ]; then \
 		pushd $(KERNEL_DIR); \
 		quilt pop -af; \
