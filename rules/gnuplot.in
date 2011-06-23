@@ -16,10 +16,32 @@ menuconfig GNUPLOT
 	  many printers, (La)TeX, (x)fig, Postscript, and so on.
 
 	  Data files and self-defined functions can be manipulated by internal
- 	  C-like language.  Can perform smoothing, spline-fitting, or nonlinear
- 	  fits. Can work with complex numbers.
+	  C-like language.  Can perform smoothing, spline-fitting, or nonlinear
+	  fits. Can work with complex numbers.
 
 if GNUPLOT
+
+config GNUPLOT_HELP
+	bool
+	prompt "Install interactive help"
+	help
+	  Installs the interactive help files on the target.
+	  Requires about 600 kByte of space.
+
+config GNUPLOT_POSTSCRIPT
+	bool
+	prompt "Install Postscript prolog files"
+	help
+	  Installs the prolog files needed to generate Postscript output. If you
+	  don't need Postscript, you can turn off that setting. Requires about
+	  100 kByte of space.
+
+config GNUPLOT_JS
+	bool
+	prompt "Install JavaScript runtime files"
+	help
+	  Installs some JavaScript files and PNG images which will be needed if
+	  HTML5 output should be generated. Requires about 300 kByte of disk space.
 
 config GNUPLOT_FITERRVARS
 	bool

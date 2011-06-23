@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 #
 # Paths and names
 #
-GNUPLOT_VERSION	:= 4.2.6
-GNUPLOT_MD5	:= c10468d74030e8bed0fd6865a45cf1fd
+GNUPLOT_VERSION	:= 4.4.3
+GNUPLOT_MD5	:= 639603752996f4923bc02c895fa03b45
 GNUPLOT		:= gnuplot-$(GNUPLOT_VERSION)
 GNUPLOT_SUFFIX	:= tar.gz
 GNUPLOT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX)
@@ -49,7 +49,6 @@ GNUPLOT_ENV	:= $(CROSS_ENV)
 GNUPLOT_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-history-file \
-	--disable-mouse \
 	--disable-x11-mbfonts \
 	--enable-binary-data-file \
 	--disable-with-image \
@@ -76,7 +75,8 @@ GNUPLOT_AUTOCONF = \
 	--without-lisp-files \
 	--without-row-help \
 	--without-tutorial \
-	--without-wx-config
+	--without-wx-config \
+	--without-lua
 
 ifdef PTXCONF_GNUPLOT_FITERRVARS
 GNUPLOT_AUTOCONF += --enable-fiterrvars
@@ -85,9 +85,9 @@ GNUPLOT_AUTOCONF += --disable-fiterrvars
 endif
 
 ifdef PTXCONF_GNUPLOT_X
-GNUPLOT_AUTOCONF += --with-x
+GNUPLOT_AUTOCONF += --with-x --enable-mouse
 else
-GNUPLOT_AUTOCONF += --without-x
+GNUPLOT_AUTOCONF += --without-x --disable-mouse
 endif
 
 ifdef PTXCONF_GNUPLOT_PLOT
@@ -138,8 +138,20 @@ $(STATEDIR)/gnuplot.targetinstall:
 
 	@$(call install_copy, gnuplot, 0, 0, 0755, -, /usr/bin/gnuplot)
 
+ifdef PTXCONF_GNUPLOT_HELP
+	@$(call install_copy, gnuplot, 0, 0, 0644, -, /usr/share/gnuplot/4.4/gnuplot.gih)
+endif
+
+ifdef PTXCONF_GNUPLOT_POSTSCRIPT
+	@$(call install_tree, gnuplot, 0, 0, -, /usr/share/gnuplot/4.4/PostScript)
+endif
+
+ifdef PTXCONF_GNUPLOT_JS
+	@$(call install_tree, gnuplot, 0, 0, -, /usr/share/gnuplot/4.4/js)
+endif
+
 ifdef PTXCONF_GNUPLOT_X
-	@$(call install_copy, gnuplot, 0, 0, 0755, -, /usr/libexec/gnuplot/4.2/gnuplot_x11)
+	@$(call install_copy, gnuplot, 0, 0, 0755, -, /usr/libexec/gnuplot/4.4/gnuplot_x11)
 endif
 
 	@$(call install_finish, gnuplot)
