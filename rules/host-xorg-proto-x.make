@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_X) += host-xorg-proto-x
+LAZY_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_X) += host-xorg-proto-x
 
 #
 # Paths and names
