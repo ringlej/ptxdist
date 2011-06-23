@@ -1,12 +1,31 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
+
+#
+# generate for all packages:
+# $(<PKG>_SOURCE) := <PKG>
+#
+define pkg_source
+$(if $($(1)_SOURCE),$(eval $($(1)_SOURCE) := $(1)),)
+endef
+$(foreach pkg, $(PTX_PACKAGES_SELECTED), $(call pkg_source,$(PTX_MAP_TO_PACKAGE_$(pkg))))
+
+#
+# generic source rule. It uses the variables defined above
+# to find the package for the source archive.
+#
+$(SRCDIR)/%:
+	@$(call targetinfo)
+	@$(call get, $($@))
+
 
 $(STATEDIR)/%.get:
 	@$(call targetinfo)

@@ -109,29 +109,6 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 }
 
 #
-# Look for <PKG>_SOURCE definitions and corresponding rules to determine
-# which rules must be generated.
-# This assumes:
-#   "<PKG>_SOURCE := ...." defined a new source.
-#   "<PKG>_SOURCE = ...." reuses another source ('=' because the order is unknown)
-#   "(<PKG>_SOURCE):" defined a souce rule.
-#
-# Default rules will be generated for all new souces with no source rule.
-#
-# out:
-# PKG_source_url	array with value '1' for all PKG with new source.
-# PKG_source_rule	array with value '1' for all PKG with source rule.
-#
-$0 ~ /^[A-Z0-9_]*_SOURCE[[:space:]]*:=.*/ {
-	PKG = gensub(/^([A-Z0-9_]*)_SOURCE[[:space:]]*:=.*/, "\\1", "g");
-	PKG_source_url[PKG] = 1;
-}
-$1 ~ /^\$\([A-Z0-9_]*_SOURCE\):$/ {
-	PKG = gensub(/^\$\(([A-Z0-9_]*)_SOURCE\):$/, "\\1", "g", $1);
-	PKG_source_rule[PKG] = 1;
-}
-
-#
 # parses "PTX_MAP_DEP_PKG=FOO" lines, which are the raw dependencies
 # generated from kconfig. these deps usually contain non pkg symbols,
 # these are filtered out here.
@@ -285,11 +262,6 @@ function import_PKG(this_PKG,	this_pkg) {
 				this_PKG ")"				> DGEN_DEPS_PRE;
 			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
 		}
-	}
-	if ((this_PKG in PKG_source_url) && !(this_PKG in PKG_source_rule)) {
-		print "$(" this_PKG "_SOURCE):"								> DGEN_DEPS_POST;
-		print "	@$(call targetinfo)"								> DGEN_DEPS_POST;
-		print "	@$(call get, " this_PKG ")"							> DGEN_DEPS_POST;
 	}
 }
 
