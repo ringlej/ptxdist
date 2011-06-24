@@ -5,4 +5,5 @@ config LCMS
 	prompt "lcms"
 	select LIBC_M
 	help
-	  FIXME
+	  LittleCMS intends to be a small-footprint, speed
+	  optimized color management engine in open source form.

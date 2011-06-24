@@ -22,7 +22,9 @@ config MGETTY_CONFIG
 	string
 	default "${MGETTY_DIR}/policy.h-dist"
 	help
-	  FIXME: This item needs to be documented
+	  policy.h-dist is the default policy.h file provided by the
+	  distribution. It will be renamed to policy.h and used if
+	  no other policy.h file is supplied.
 
 config MGETTY_INSTALL_CONFIG
 	prompt "Install default config files to ${ROOTDIR}/etc/mgetty+sendfax"

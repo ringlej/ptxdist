@@ -34,19 +34,31 @@ config LSH_MAKESEED
 	bool
 	prompt "Install lsh-make-seed"
 	help
-	  FIXME: This item needs to be documented
+	  lsh-make-seed - Creates an initial random seed file for
+	  the YARROW pseudorandomnessgenerator used by lsh.
 
-config LSH_KEYGEN 
+config LSH_KEYGEN
 	bool
 	prompt "Install lsh-keygen"
 	help
-	  FIXME: This item needs to be documented
+	  lsh-keygen - Generates a keypair and write it on stdout.
+	  Generates a new private key for the desired algorithm
+	  and security level and write it on stdout.
+
+	  You will usually want to pipe the new key into a program
+	  like lsh-writekey, to split it into its private and public
+	  parts, and optionally encrypt the private information.
 
 config LSH_WRITEKEY
 	bool
 	prompt "Install lsh-writekey"
 	help
-	  FIXME: This item needs to be documented
+	  lsh-writekey - Keypair split/store handler.
+	  Splits a keypair in one private and one public file,
+	  optionally encrypting the private file using a passphrase.
+
+	  Common usage is to pipe the output from lsh-keygen into
+	  this program.
 
 endif
 

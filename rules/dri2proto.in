@@ -3,4 +3,8 @@
 config DRI2PROTO
 	tristate
 	help
-	  FIXME
+	  Direct Rendering Infrastructure 2 Extension
+	  This extension defines a protocol to securely allow user
+	  applications to access the video hardware without requiring
+	  data to be passed through the X server.
+

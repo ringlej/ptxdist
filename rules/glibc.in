@@ -111,8 +111,9 @@ config GLIBC_NSS_FILES
 	bool
 	prompt "Install libnss_files"
 	help
-	  Contains functions to access some vitale system control files (for
+	  Contains functions to access some vital system control files (for
 	  login for example) and for name resolution to ip addresses.
+	  NSS is the "Name Service Switch", controlled by /etc/nsswitch.conf
 
 config GLIBC_NSS_HESIOD
 	bool
@@ -120,7 +121,7 @@ config GLIBC_NSS_HESIOD
 	select GLIBC_RESOLV
 	select GLIBC_NSS_FILES
 	help
-	  FIXME: This item needs to be documented
+	  Adds the hesiod libnss source for user lookups
 
 config GLIBC_NSS_NIS
 	bool
@@ -128,21 +129,21 @@ config GLIBC_NSS_NIS
 	select GLIBC_NSL
 	select GLIBC_NSS_FILES
 	help
-	  FIXME: This item needs to be documented
+	  Adds the NIS (NIS version 2), also called YP, libnss source
 
 config GLIBC_NSS_NISPLUS
 	bool
 	prompt "Install libnss_nisplus"
 	select GLIBC_NSL
 	help
-	  FIXME: This item needs to be documented
+	  Adds the NIS+ (NIS version 3) libnss source
 
 config GLIBC_NSS_COMPAT
 	bool
 	prompt "Install libnss_compat"
 	select GLIBC_NSL
 	help
-	  FIXME: This item needs to be documented
+	  Adds the NIS libnss source on compat mode
 
 config GLIBC_RESOLV
 	bool

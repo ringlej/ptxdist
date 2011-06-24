@@ -23,26 +23,30 @@ config LIBGSF_NLS
 	bool
 	prompt "NLS Support"
 	help
-	  FIXME
+	  National Language Support integration into libgsf
+	  for internationalization
 
 config LIBGSF_PYTHON
 	bool
 	depends on BROKEN
 	prompt "Python support"
 	help
-	  FIXME
+	  Configures whether to build with Python support. Should be
+	  turned off. MUST be turned off if Python is not installed.
 
 config LIBGSF_BZ2
 	bool
 	prompt "bz2 support"
 	help
-	  FIXME
+	  Configures whether to build with bzip2 support.
+	  bzip2 is a freely available, high-quality data compressor.
 
 config LIBGSF_GIO
 	bool
 	prompt "GIO support"
 	help
-	  FIXME
+	  Configures whether to build with GIO support.
+	  GIO is the Gnome I/O library for GVFS.
 
 endif
 

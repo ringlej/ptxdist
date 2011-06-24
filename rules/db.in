@@ -5,7 +5,9 @@ menuconfig DB
 	prompt "berkeley db                   "
 	select GCCLIBS_GCC_S
 	help
-	  FIXME
+	  The well known Berkeley DB, a library that provides a
+	  high-performance embedded database for key/value data.
+	  Project page: http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html
 
 if DB
 

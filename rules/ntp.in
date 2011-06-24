@@ -10,7 +10,7 @@ menuconfig NTP
 	select GCCLIBS_GCC_S
 	select LIBMD
 	help
-	  Build the standard NTP Daemon Process an supplementary programs.
+	  Build the standard NTP Daemon Process and supplementary programs.
 	  This conflicts with BSD openntpd.
 
 # ----- Compile Options
@@ -100,7 +100,7 @@ config NTP_TICKADJ
 
 config NTP_SIMULATOR
 	bool
-	prompt "build/install the NTPD simulator?"
+	prompt "build/install the NTPD simulator"
 	help
 	  FIXME: This item needs to be documented
 
@@ -126,31 +126,31 @@ config NTP_STEP_SLEW
 
 config NTP_NTPDATE_STEP
 	bool
-	prompt "if ntpdate should step the time"
+	prompt "ntpdate should step the time"
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_HOURLY_TODR_SYNC
 	bool
-	prompt "if we should sync TODR hourly"
+	prompt "sync TODR hourly"
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_KERNEL_FLL_BUG
 	bool
-	prompt "if we should avoid a kernel FLL bug"
+	prompt "avoid a kernel FLL bug"
 	help
 	  If we should avoid a (Solaris) kernel FLL bug.
 
 config NTP_IRIG_SAWTOOTH
 	bool
-	prompt "if we should enable the IRIG sawtooth filter"
+	prompt "enable the IRIG sawtooth filter"
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_NIST
 	bool
-	prompt "if we should enable the NIST lockclock scheme"
+	prompt "enable the NIST lockclock scheme"
 	help
 	  FIXME: This item needs to be documented
 
@@ -162,13 +162,13 @@ config NTP_CRYPTO
 
 config NTP_SNTP
 	bool
-	prompt "Build SNTP"
+	prompt "build SNTP"
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_ARLIB
 	bool
-	prompt "Compile the async resolver library"
+	prompt "compile the async resolver library"
 	help
 	  FIXME: This item needs to be documented
 
@@ -176,7 +176,7 @@ comment "Clock drivers"
 
 config NTP_ALL_CLOCK_DRIVERS
 	bool
-	prompt "Build all clock drivers"
+	prompt "build all clock drivers"
 	default y
 	help
 	  Disabling this entry will only build a set of selected clock drivers.

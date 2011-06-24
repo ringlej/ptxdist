@@ -32,7 +32,8 @@ config LIBPV_PYTHON
 	bool
 	prompt "Python bindings"
 	help
-	  FIXME: This item needs to be documented
+	  Install libpv Python bindings, a Python module supporting
+	  PvEngine, PvEngineAttr and Pv.
 
 config LIBPV_PVTOOL
 	bool

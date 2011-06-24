@@ -9,7 +9,7 @@ menuconfig LIBMD
 	    MD4 (RFC 1186 - R. Rivest)
 	    MD5 (RFC 1321 - R. Rivest)
 	    SHA-1 (FIPS PUB 180 and 180.1 - NIST)
-	    RIPEMD-160FIXME
+	    RIPEMD-160 (http://www.esat.kuleuven.ac.be/~bosselae/ripemd160.html)
 	  It could be used by the upcoming new Xorg server if you don't want
 	  the openssl package on your target. If there is already openssl
 	  present, the Xorg server can use the SHA-1 from the openssl library

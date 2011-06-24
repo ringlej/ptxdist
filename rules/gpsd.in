@@ -177,69 +177,115 @@ menu "install options"
 		bool
 		prompt "gpsd"
 		help
-		  FIXME
+		  gpsd is a service daemon that monitors one or more
+		  GPS- or AIS receivers attached through serial or USB
+		  ports, making all data on the location/course/velocity
+		  of the sensors available to be queried on TCP port 2947
+		  of the host. With gpsd, multiple location-aware client
+		  applications can share access to receivers without
+		  contention or loss of data. Also, gpsd responds to
+		  queries with a format that is substantially easier to
+		  parse than the NMEA 0183 emitted by most GPS receivers.
 
 	config GPSD_GPSCTL
 		bool
 		prompt "gpsctl"
 		help
-		  FIXME
+		  The gpsctl tool for tweaking GPS settings.
+		  gpsctl can switch a dual-mode GPS between NMEA and
+		  vendor-binary modes. It can also be used to set the
+		  device baudrate. Note: Not all devices have these
+		  capabilities.
 
 	config GPSD_GPSPIPE
 		bool
 		prompt "gpspipe"
 		help
-		  FIXME
+		  A simple client that captures GPS output and/or gpsd
+		  reports and sends it to standard output.
+		  gpspipe is a tool to connect to gpsd and output the
+		  received sentences to stdout. This makes the program
+		  useful as a pipe from gpsd to another program or file.
 
 	config GPSD_GPSFLASH
 		bool
 		prompt "gpsflash"
 		help
-		  FIXME
+		  This program is a firmware loader for GPS receivers
+		  connected via serial or USB port. Presently it supports
+		  only SiRF GPSes.
 
 	config GPSD_GPXLOGGER
 		bool
 		prompt "gpxlogger"
 		help
-		  FIXME
+		  This program listens to DBUS broadcasts from gpsd
+		  (org.gpsd.fix) and logs each fix to standard output as
+		  they arrive in an XML format.
 
 	config GPSD_CGPS
 		bool
 		prompt "cgps"
 		help
-		  FIXME
+		  cgps is a client resembling xgps, but without the
+		  pictorial satellite display and able to run on a serial
+		  terminal or terminal emulator.
 
 	config GPSD_GPSMON
 		bool
 		prompt "gpsmon"
 		select NCURSES
 		help
-		  FIXME
+		  The gpsmon real-time packet monitor and diagnostic tool.
+		  (This replaces the sirfmon tool in older versions.)
+		  gpsmon is a monitor that watches packets coming from a
+		  GPS and displays them along with diagnostic information.
+		  It supports commands that can be used to tweak GPS settings
+		  in various ways; some are device-independent, some vary
+		  with the GPS chipset type.
 
 	config GPSD_GPSDECODE
 		bool
 		depends on GPSD_DRIVER_RTCM104V2
 		prompt "gpsdecode"
 		help
-		  FIXME
+		  The gpsdecode packet decoder.
+		  This tool is a batch-mode decoder for NMEA and various
+		  binary packet formats associated with GPS, AIS, and
+		  differential-correction services.
 
 	config GPSD_GPSCAT
 		bool "gpscat"
 		select GPSD_PYTHON
 		help
-		  FIXME
+		  The gpscat tool dumps output from a serial device.
+		  Optionally, it can packetize the data.
+		  gpscat is a simple program for logging and packetizing
+		  GPS data streams. It takes input from a specified file
+		  or serial device (presumed to have a GPS attached) and
+		  reports to standard output.
 
 	config GPSD_GPSFAKE
 		bool "gpsfake"
 		select GPSD_PYTHON
 		help
-		  FIXME
+		  The gpsfake test harness simulating a GPS receiver.
+		  gpsfake is a test harness for gpsd and its clients. It
+		  opens a pty (pseudo-TTY), launches a gpsd instance that
+		  thinks the slave side of the pty is its GPS device, and
+		  repeatedly feeds the contents of one or more test logfiles
+		  through the master side to the GPS.
 
 	config GPSD_GPSPROF
 		bool "gpsprof"
 		select GPSD_PYTHON
 		help
-		  FIXME
+		  The gpsprof program for plotting spatial scatter of fixes
+		  and fix latency.
+		  gpsprof measures the various latencies between a GPS and
+		  its client. It emits to standard output a GNUPLOT program
+		  that draws an illustrative graph. It can also be told to
+		  emit the raw profile data.
 
 endmenu
 

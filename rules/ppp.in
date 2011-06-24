@@ -115,25 +115,33 @@ config PPP_OATM
 	bool
 	prompt "ppp over atm"
 	help
-	  FIXME: This item needs to be documented
+	  Asynchronous Transfer Mode (ATM) designates a type of
+	  telecommunication networks using asynchronous time-division
+	  multiplexing.
 
 config PPP_RADIUS
 	bool
 	prompt "radius"
 	help
-	  FIXME: This item needs to be documented
+	  Remote Authentication Dial In User Service (RADIUS) is often
+	  used for authentication, authorization in remote login scenarios.
 
 config PPP_RADATTR
 	bool
 	prompt "radattr"
 	help
-	  FIXME: This item needs to be documented
+	  The radattr plugin for pppd causes all radius attributes
+	  returned by the RADIUS server at authentication time to be
+	  stored in the file /var/run/radattr.pppN where pppN is the
+	  name of the PPP interface.
 
 config PPP_RADREALMS
 	bool
 	prompt "radrealms"
 	help
-	  FIXME: This item needs to be documented
+	  A pppd plugin which is stacked on top of radius.so. This plugin
+	  allows selection of alternate set of servers based on the user's
+	  realm.
 
 config PPP_OE
 	bool
@@ -148,25 +156,29 @@ config PPP_MINCONN
 	bool
 	prompt "minconn"
 	help
-	  FIXME: This item needs to be documented
+	  pppd plugin to implement a 'minconnect' option
+	  (Set minimum connect time before idle timeout applies)
 
 config PPP_PASSPROMPT
 	bool
 	prompt "passprompt"
 	help
-	  FIXME: This item needs to be documented
+	  pppd plugin to invoke an external PAP password prompter
 
 config PPP_PASSWORDFD
 	bool
 	prompt "passwordfd"
 	help
-	  FIXME: This item needs to be documented
+	  This plugin let's you pass the password to the pppd via
+	  a file descriptor. That's easy and secure - no fiddling
+	  with pap- and chap-secrets files.
 
 config PPP_WINBIND
 	bool
 	prompt "winbind"
 	help
-	  FIXME: This item needs to be documented
+	  WINBIND plugin for pppd. Performs PAP, CHAP, MS-CHAP, MS-CHAPv2
+	  authentication using WINBIND to contact a NT-style PDC.
 
 endif
 
@@ -197,7 +209,8 @@ config PPP_INST_PPPSTATS
 config PPP_INST_PONOFF
 	bool "install pon/poff"
 	help
-	  FIXME
+	  pon and poff are helper commands to start and close a ppp
+	  connection.
 
 config PPP_STARTSCRIPT
 	bool

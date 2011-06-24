@@ -30,20 +30,48 @@ config PROFTPD_PAM
 	prompt "PAM support"
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
+	  PAM, which stands for Pluggable Authentication Modules,
+	  is an API intended to make it easy to replace the old
+	  Unix-style DES password hashes with a flexible system that
+	  allows to use MD5 checksums, SQL tables, LDAP servers, RADIUS
+	  servers, etc in place of that password check.
+	  However, what PAM does not provide is the rest of the user
+	  account information in /etc/passwd, i.e. the user's UID and
+	  GID, home directory, and shell. This means that PAM cannot
+	  be used as a drop-in replacement for user information stored
+	  in /etc/passwd. NSS (Name Service Switch) modules, supported
+	  by some operating systems, are a complementary API to PAM
+	  which can be used to supply the rest of this user information.
+
+	  proftpd uses the normal libc functions for looking up user
+	  information, and those libc functions typically read
+	  /etc/passwd. NSS is an abstraction layer within some libc
+	  implementations that causes those functions to read other
+	  sources rather than /etc/passwd.
 
 config PROFTPD_SENDFILE
 	bool
 	prompt "sendfile support"
 	help
-	  FIXME: This item needs to be documented
+	  Unix kernels handle a socket as just another file descriptor;
+	  this means that sendfile(2) can be used to efficiently copy
+	  data from a file on disk to a network socket, e.g. for
+	  downloading a file.
+
+	  As useful as the sendfile(2) function can be, there are
+	  unfortunately cases where bad implementations of the function
+	  can cause problems. These problems manifest as broken or
+	  aborted downloads, or as downloaded data being corrupted, or
+	  even as downloaded files being larger than the original file.
 
 config PROFTPD_SHADOW
 	bool
 	prompt "shadow support"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Some operating systems require you to use either
+	  --enable-autoshadow or --enable-shadow if you wish to use
+	  the system's shadow password file for user authentication.
 
 config PROFTPD_AUTOSHADOW
 	bool
@@ -51,7 +79,8 @@ config PROFTPD_AUTOSHADOW
 	depends on PROFTPD_SHADOW
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Using autoshadow allows proftpd to work with either shadow
+	  or traditional password files.
 
 config PROFTPD_STARTSCRIPT
 	bool

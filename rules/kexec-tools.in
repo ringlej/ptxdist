@@ -15,7 +15,7 @@ config KEXEC_TOOLS_GAMECUBE
 	depends on BROKEN
 	prompt "Support for Gamecube"
 	help
-	  FIXME
+	  kexec has been ported to the GameCube/PPC32 platform.
 
 config KEXEC_TOOLS_ZLIB
 	bool
@@ -28,7 +28,7 @@ config KEXEC_TOOLS_XEN
 	depends on BROKEN
 	prompt "Xen support"
 	help
-	  FIXME
+	  kexec has been ported to xen for the hypervisor and domain 0.
 
 config KEXEC_TOOLS_KEXEC
 	bool
@@ -40,6 +40,10 @@ config KEXEC_TOOLS_KDUMP
 	bool
 	prompt "Install kdump"
 	help
-	  FIXME
+	  Kdump is a kexec based crash dumping mechansim for Linux.
+	  Its functionality is broken mainly into two components,
+	  user space and kernel space. Kernel space patches are
+	  already part of main line kernel tree. User space component
+	  is nothing but a patch on top of existing kexec tools.
 
 endif

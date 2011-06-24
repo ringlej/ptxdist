@@ -19,19 +19,21 @@ config LIBRSVG_PIXBUF_LOADER
 	bool
 	prompt "pixbuf loader support"
 	help
-	  FIXME
+	  This enables the librsvg-based gdk-pixbuf loader.
 
 config LIBRSVG_SVGZ
 	bool
 	prompt "svgz support"
 	help
-	  FIXME
+	  Adds support for the ompressed Scalable Vector Graphics
+	  file format (SVGZ)
 
 config LIBRSVG_CROCO
 	bool
 	prompt "libcroco support"
 	help
-	  FIXME
+	  Libcroco is a general CSS parsing and manipulation library.
+	  It enhances librsvg to provide extra features.
 
 endif
 

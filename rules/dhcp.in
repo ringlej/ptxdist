@@ -20,7 +20,11 @@ config DHCP_SERVER
 	bool
 	prompt "DHCP Server dhcpd"
 	help
-		FIXME
+	  This is the main component of the DHCP server, the daemon process
+	  that allows a server to provide a Dynamic Host Configuration
+	  Protocol service to a network.
+	  It takes its configuration from /etc/dhcp3/dhcpd.conf and tracks
+	  issued addresses as records in the dhcpd.leases file.
 
 config DHCP_DHCPD_CONF
 	bool "Install /etc/dhcpd.conf"
@@ -67,6 +71,16 @@ config DHCP_RELAY
 	bool
 	prompt "DHCP Relay dhcrelay"
 	help
-	 FIXME
+	  The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a
+	  means for relaying DHCP and BOOTP requests from a subnet to which no
+	  DHCP server is directly connected to one or more DHCP servers on other
+	  subnets.
+
+	  The DHCP Relay Agent listens for DHCP and BOOTP queries and responses.
+	  When a query is received from a client, dhcrelay forwards it to the
+	  list of DHCP servers specified on the command line. When a reply is
+	  received from a server, it is broadcast or unicast (according to the
+	  relay agent's ability or the client's request) on the network from
+	  which the original request came.
 
 endif

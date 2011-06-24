@@ -7,4 +7,5 @@ config ARORA
 	select QT4_BUILD_WEBKIT
 	select QT4_BUILD_QTXMLPATTERNS
 	help
-	  FIXME
+	  Arora is a lightweight web browser based on Qt4 (WebKit).
+	  Project page: http://code.google.com/p/arora/

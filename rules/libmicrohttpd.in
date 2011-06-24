@@ -18,7 +18,10 @@ config LIBMICROHTTPD_HTTPS
 	bool
 	prompt "HTTPS support"
 	help
-	  FIXME
+	  Run in https mode (this option may not work with all
+	  threading modes yet).
+	  If you disable HTTPS/SSL support, you can also choose the
+	  eCos License.
 
 config LIBMICROHTTPD_CLIENT_SIDE
 	bool
@@ -30,6 +33,6 @@ config LIBMICROHTTPD_MESSAGES
 	bool
 	prompt "Messages"
 	help
-	  FIXME
+	  Enable MHD error messages
 
 endif

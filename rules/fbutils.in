@@ -51,6 +51,7 @@ config FBUTILS_FBCONVERT
 	default y
 	prompt "install fbconvert util on target"
 	help
-	  FIXME: This item needs to be documented
+	  Converts from the old fb.modes format to the new one
+	  (/etc/fb.modes contains video mode descriptions.)
 
 endif
