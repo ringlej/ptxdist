@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 # Paths and names
 #
-RT_TESTS_VERSION	:= 0.66
-RT_TESTS_MD5		:= e784b85aa4c9f7b54f455b264f6dc531
+RT_TESTS_VERSION	:= 0.73
+RT_TESTS_MD5		:= 98da46135f0a91c96cb7e5b27c7e3bb6
 RT_TESTS_LICENSE	:= GPLv2, GPLv2+
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.bz2
@@ -40,6 +40,19 @@ RT_TESTS_INSTALL_OPT	:= $(RT_TESTS_MAKE_OPT) install
 # Target-Install
 # ----------------------------------------------------------------------------
 
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_CYCLICTEST)		+= cyclictest
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_HACKBENCH)		+= hackbench
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_PIP)			+= pip_stress
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_PI_STRESS)		+= pi_stress
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_PMQTEST)		+= pmqtest
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_PTSEMATEST)		+= ptsematest
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_RT_MIGRATE_TEST)	+= rt-migrate-test
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_SENDME)			+= sendme
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_SIGNALTEST)		+= signaltest
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_SIGWAITTEST)		+= sigwaittest
+RT_TESTS_BIN-$(PTXCONF_RT_TESTS_SVSEMATEST)		+= svsematest
+
+
 $(STATEDIR)/rt-tests.targetinstall:
 	@$(call targetinfo)
 
@@ -49,42 +62,10 @@ $(STATEDIR)/rt-tests.targetinstall:
 	@$(call install_fixup, rt-tests,AUTHOR,"Robert Schwebel")
 	@$(call install_fixup, rt-tests,DESCRIPTION,missing)
 
-ifdef PTXCONF_RT_TESTS_CYCLICTEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/cyclictest)
-endif
-ifdef PTXCONF_RT_TESTS_PIP
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/pip)
-endif
-ifdef PTXCONF_RT_TESTS_PI_STRESS
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/pi_stress)
-endif
-ifdef PTXCONF_RT_TESTS_PTSEMATEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/ptsematest)
-endif
-ifdef PTXCONF_RT_TESTS_RT_MIGRATE_TEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/rt-migrate-test)
-endif
-ifdef PTXCONF_RT_TESTS_SENDME
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/sendme)
-endif
-ifdef PTXCONF_RT_TESTS_SIGNALTEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/signaltest)
-endif
-ifdef PTXCONF_RT_TESTS_SIGWAITTEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/sigwaittest)
-endif
-ifdef PTXCONF_RT_TESTS_SVSEMATEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/svsematest)
-endif
+	@$(foreach tool, $(RT_TESTS_BIN-y), \
+		$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/$(tool));)
+
 	@$(call install_finish, rt-tests)
 
 	@$(call touch)
