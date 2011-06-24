@@ -35,7 +35,8 @@ PYSIDE_LICENSE	:= unknown
 PYSIDE_CONF_TOOL	:= cmake
 PYSIDE_CONF_OPT	= \
 	$(CROSS_CMAKE_USR) \
-	-DQT_SRC_DIR:STRING='$(QT4_DIR)'
+	-DQT_SRC_DIR:STRING='$(QT4_DIR)' \
+	-DPython_ADDITIONAL_VERSIONS=$(PYTHON_MAJORMINOR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
