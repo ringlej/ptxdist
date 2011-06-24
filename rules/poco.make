@@ -36,10 +36,15 @@ POCO_CONF_OPT	:= \
 	--no-tests \
 	--no-samples \
 	--omit=Data/MySQL,Data/ODBC,Zip \
-	--poquito
+	--poquito \
+	--unbundled \
+	--shared
 
-POCO_MAKE_OPT	:= \
-	CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
+POCO_MAKE_ENV	:= \
+	$(CROSS_ENV) \
+	CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX) \
+	POCO_TARGET_OSNAME=Linux \
+	POCO_TARGET_OSARCH=$(PTXCONF_ARCH_STRING)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -8,6 +8,9 @@ config POCO
 	select LIBC_DL
 	select LIBC_RT
 	select LIBC_PTHREAD
+	select ZLIB
+	select LIBPCRE
+	select EXPAT
 	prompt "poco"
 	help
 	  The POCO C++ Libraries (POrtable COmponents) are open source C++ class
