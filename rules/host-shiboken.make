@@ -25,9 +25,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_SHIBOKEN) += host-shiboken
 # cmake
 #
 HOST_SHIBOKEN_CONF_TOOL	:= cmake
-HOST_SHIBOKEN_CONF_OPT	:= \
+HOST_SHIBOKEN_CONF_OPT	= \
 	$(HOST_CMAKE_OPT) \
-	-DBUILD_TESTS:BOOL=OFF
+	-DBUILD_TESTS:BOOL=OFF \
+	-DPython_ADDITIONAL_VERSIONS=$(PYTHON_MAJORMINOR)
+
 
 # ----------------------------------------------------------------------------
 # Install
