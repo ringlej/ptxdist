@@ -52,7 +52,7 @@ $(STATEDIR)/python-imaging.install:
 	@$(call targetinfo)
 	cd $(PYTHON_IMAGING_DIR) && \
 		$(PYTHON_IMAGING_PATH) $(PYTHON_IMAGING_MAKE_ENV) \
-		python setup.py install --prefix=$(PYTHON_IMAGING_PKGDIR)/usr
+		python setup.py install --root=$(PYTHON_IMAGING_PKGDIR) --prefix=/usr
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
