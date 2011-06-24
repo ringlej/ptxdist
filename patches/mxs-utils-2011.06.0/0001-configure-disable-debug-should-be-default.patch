@@ -1,0 +1,32 @@
+From 71395abbea24d5578f30b193357cc8c7805453fa Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Mon, 4 Jul 2011 18:12:49 +0200
+Subject: [PATCH 2/2] configure: make --disable-debug default
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ configure.ac |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index c52987d..db13963 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -39,12 +39,12 @@ AM_INIT_AUTOMAKE([foreign no-exeext dist-bzip2])
+ #
+ AC_MSG_CHECKING([whether to enable debugging])
+ AC_ARG_ENABLE(debug,
+-	AS_HELP_STRING([--enable-debug], [enable debugging @<:@default=yes@:>@]),
++	AS_HELP_STRING([--enable-debug], [enable debugging @<:@default=no@:>@]),
+ 		[case "$enableval" in
+ 		y | yes) CONFIG_DEBUG=yes ;;
+ 		*) CONFIG_DEBUG=no ;;
+ 	esac],
+-	[CONFIG_DEBUG=yes])
++	[CONFIG_DEBUG=no])
+ AC_MSG_RESULT([${CONFIG_DEBUG}])
+ if test "${CONFIG_DEBUG}" = "yes"; then
+ 	CXXFLAGS="${CXXFLAGS} -Werror -Wsign-compare -Wfloat-equal -Wformat-security -Wno-unknown-pragmas -g -O1"
+-- 
+1.7.5.4
+

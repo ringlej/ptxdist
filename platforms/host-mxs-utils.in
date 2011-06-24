@@ -1,0 +1,8 @@
+## SECTION=bootloader
+
+config HOST_MXS_UTILS
+	tristate
+	prompt "mxs-utils"
+	help
+	  Tool to generate bootable images for the i.MX23 and i.MX28 CPU.
+
