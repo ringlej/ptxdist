@@ -48,7 +48,16 @@ GETTEXT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-java \
 	--disable-native-java \
-	--disable-csharp
+	--disable-csharp \
+	--enable-threads=posix \
+	--disable-rpath \
+	--disable-relocatable \
+	--enable-libasprintf \
+	--disable-acl \
+	--disable-openmp \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-curses \
+	--without-emacs
 
 # ----------------------------------------------------------------------------
 # Target-Install
