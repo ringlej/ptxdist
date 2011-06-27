@@ -67,7 +67,6 @@ $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call install_lib, lm_sensors, 0, 0, 0644, libsensors)
 
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors)
-	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors-conf-convert)
 
 	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /etc/sensors3.conf)
 
