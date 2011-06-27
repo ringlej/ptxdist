@@ -147,6 +147,8 @@ endif
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 NCURSES_WIDE := w
 endif
+NCURSES_MAJOR := 6
+NCURSES_MINOR := 0
 
 $(STATEDIR)/ncurses.targetinstall:
 	@$(call targetinfo)
@@ -160,17 +162,23 @@ $(STATEDIR)/ncurses.targetinstall:
 	@$(call install_lib, ncurses, 0, 0, 0644, libncurses$(NCURSES_WIDE))
 
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so.5.6)
-	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so.5)
-	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so)
+	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libncurses.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
+	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libncurses.so.$(NCURSES_MAJOR))
+	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libncurses.so)
 endif
 
 ifdef PTXCONF_NCURSES_FORM
 	@$(call install_lib, ncurses, 0, 0, 0644, libform$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5.6)
-	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5)
-	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so)
+	@$(call install_link, ncurses, libformw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libform.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
+	@$(call install_link, ncurses, libformw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libform.so.$(NCURSES_MAJOR))
+	@$(call install_link, ncurses, libformw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libform.so)
 endif
 endif
 
@@ -178,9 +186,12 @@ endif
 ifdef PTXCONF_NCURSES_MENU
 	@$(call install_lib, ncurses, 0, 0, 0644, libmenu$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5.6)
-	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5)
-	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so)
+	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libmenu.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
+	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libmenu.so.$(NCURSES_MAJOR))
+	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libmenu.so)
 endif
 endif
 
@@ -188,9 +199,12 @@ endif
 ifdef PTXCONF_NCURSES_PANEL
 	@$(call install_lib, ncurses, 0, 0, 0644, libpanel$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5.6)
-	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5)
-	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so)
+	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libpanel.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
+	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libpanel.so.$(NCURSES_MAJOR))
+	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+		/lib/libpanel.so)
 endif
 endif
 
