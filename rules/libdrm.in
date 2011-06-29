@@ -5,6 +5,7 @@ menuconfig LIBDRM
 	prompt "libdrm                        "
 	select LIBC_RT
 	select LIBPTHREAD_STUBS
+	select LIBPCIACCESS
 	help
 	  This library provides an user-level interface to the DRM
 	  device. It is needed for x.org.
