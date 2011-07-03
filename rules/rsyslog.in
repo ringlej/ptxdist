@@ -6,7 +6,8 @@ menuconfig RSYSLOG
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
-	select ZLIB		if RSYSLOG_ZLIB
+	# FIXME: still needs the headers even if zlib support is disabled
+	select ZLIB		#if RSYSLOG_ZLIB
 	select LIBNET		if RSYSLOG_OMUDPSPOOF
 	prompt "rsyslog                       "
 	help
