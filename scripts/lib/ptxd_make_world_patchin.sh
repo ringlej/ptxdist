@@ -112,6 +112,16 @@ ptxd_make_world_patchin_apply_git_compat()
 	esac
 
 	case "${patch}" in
+	    "#tag:"*)
+		local tag="${patch##\#tag:}"
+		if [ -f ${pkg_patchin_dir}/.ptxdist/git-patches/series ]; then
+		    mv ${pkg_patchin_dir}/.ptxdist/git-patches/series{,.${tag}} &&
+		    touch ${pkg_patchin_dir}/.ptxdist/git-patches/series
+		else
+		    touch ${pkg_patchin_dir}/.ptxdist/git-patches/series.${tag}
+		fi
+		continue
+		;;
 	    ""|"#"*) continue ;;	# skip empty lines and comments
 	    *.gz)  cat="zcat" ;;
 	    *.bz2) cat="bzcat" ;;
@@ -140,6 +150,23 @@ ptxd_make_world_patchin_apply_git()
     # git quiltimport has certain limitations, work around them
     #
     ptxd_make_world_patchin_apply_git_compat || return
+
+    grep "\#tag:" "${pkg_patchin_dir}/.ptxdist/series" | while read tagline; do
+	local tag="${tagline##\#tag:}"
+	tag=$(echo ${tag}|cut -d' ' -f1)
+	if [ -f "${pkg_patchin_dir}/.ptxdist/git-patches/series.${tag}" ]; then
+	    mv ${pkg_patchin_dir}/.ptxdist/git-patches/series{,.1} || return
+	    mv ${pkg_patchin_dir}/.ptxdist/git-patches/series{.${tag},} || return
+
+	    git quiltimport \
+		--patches "${pkg_patchin_dir}/.ptxdist/git-patches" \
+		--author "unknown author <unknown.author@example.com>"
+	    echo "tagging -> ${tag}"
+	    git tag -f ${tag}
+	    mv ${pkg_patchin_dir}/.ptxdist/git-patches/series{,.${tag}} || return
+	    mv ${pkg_patchin_dir}/.ptxdist/git-patches/series{.1,} || return
+	fi
+    done
 
     git quiltimport \
 	--patches "${pkg_patchin_dir}/.ptxdist/git-patches" \
