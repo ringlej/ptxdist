@@ -688,6 +688,12 @@ config QT4_DBUS_LINK
 	  Build Qt dbus support and link to libdbus-1.
 endchoice
 
+config QT4_ACCESSIBILITY
+	bool
+	prompt "accessibility"
+	help
+	  Compile Accessibility support.
+
 endmenu
 
 config QT4_BUILD_OPENGL

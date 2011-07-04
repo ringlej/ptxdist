@@ -89,7 +89,6 @@ QT4_AUTOCONF := \
 	-release \
 	-no-rpath \
 	-no-fast \
-	-no-accessibility \
 	-no-sql-ibase \
 	-no-sql-mysql \
 	-no-sql-odbc \
@@ -117,6 +116,7 @@ QT4_AUTOCONF := \
 	-make libs \
 	-nomake docs
 
+QT4_AUTOCONF-$(call ptx,ifdef, PTXCONF_QT4_ACCESSIBILITY,y,no)	+= accessibility
 QT4_AUTOCONF-$(call ptx/ifdef, PTXCONF_ICONV,y,no)		+= iconv
 QT4_AUTOCONF-$(call ptx/ifdef, PTXCONF_GLOBAL_LARGE_FILE,y,no)	+= largefile
 
