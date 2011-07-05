@@ -250,6 +250,8 @@ function import_PKG(this_PKG,	this_pkg) {
 			print this_PKG "_MD5 = $(" target_PKG "_MD5)"	> DGEN_DEPS_PRE;
 			print this_PKG "_SOURCE = $(" \
 				target_PKG "_SOURCE)"			> DGEN_DEPS_PRE;
+			print this_PKG "_URL = $(" \
+				target_PKG "_URL)"			> DGEN_DEPS_PRE;
 			print this_PKG "_DIR = $(addprefix $(" this_PKG_type \
 				"BUILDDIR)/,$(" target_PKG "))"		> DGEN_DEPS_PRE;
 		}
