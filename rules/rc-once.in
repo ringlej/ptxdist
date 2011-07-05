@@ -3,4 +3,11 @@
 config RC_ONCE
 	tristate
 	prompt "rc.once"
+	help
+	  Some services need a one time initialization when the system starts
+	  up the first time after creating and installing the root filesystem.
+	  One example is the 'ssh' server, which needs to create a unique key
+	  to provide its services.
+	  You can add your own 'one time initialization' by adding files to the
+	  /etc/rc.once.d/ directory.
 
