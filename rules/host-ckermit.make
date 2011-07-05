@@ -19,7 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_CKERMIT) += host-ckermit
 #
 HOST_CKERMIT_DIR		= $(HOST_BUILDDIR)/$(CKERMIT)
 HOST_CKERMIT_STRIP_LEVEL	:= 0
-HOST_CKERMIT_MAKE_OPT		:= linuxnc
+HOST_CKERMIT_MAKE_OPT		:= linux
 HOST_CKERMIT_INSTALL_OPT	:= install prefix=
 
 # ----------------------------------------------------------------------------
@@ -36,6 +36,7 @@ $(STATEDIR)/host-ckermit.install:
 	@$(call targetinfo)
 	@$(call install, HOST_CKERMIT)
 	@ln -sf kermit $(HOST_CKERMIT_PKGDIR)/bin/ckermit
+	@install -m755  $(HOST_CKERMIT_DIR)/wart $(HOST_CKERMIT_PKGDIR)/bin/
 	@$(call touch)
 
 # vim: syntax=make

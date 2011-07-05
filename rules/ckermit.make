@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_CKERMIT) += ckermit
 #
 # Paths and names
 #
-CKERMIT_VERSION		:= 211
-CKERMIT_MD5		:= 5767ec5e6ff0857cbfe2d3ec1ee0e2bc
+CKERMIT_VERSION		:= 300
+CKERMIT_MD5		:= cde4676b0a31cdb3afa42e10fa81105f
 CKERMIT			:= cku$(CKERMIT_VERSION)
 CKERMIT_SUFFIX		:= tar.gz
 CKERMIT_URL		:= http://www.columbia.edu/kermit/ftp/archives/$(CKERMIT).$(CKERMIT_SUFFIX)
@@ -43,10 +43,10 @@ CKERMIT_MAKEVARS := \
 	prefix=/usr \
 	CC=$(CROSS_CC) \
 	CC2=$(CROSS_CC) \
-	HOST_CC=$(HOSTCC) \
+	WART=$(PTXCONF_SYSROOT_HOST)/bin/wart \
 	CFLAGS='$(CROSS_CPPFLAGS) $(CROSS_CFLAGS) -O2 -g -DLINUX -DFNFLOAT -DCK_POSIX_SIG -DCK_NEWTERM -DTCPSOCKET -DLINUXFSSTND -DNOCOTFMC -DPOSIX -DUSE_STRERROR -DCK_NCURSES -DHAVE_PTMX' \
 	LNKFLAGS='$(CROSS_LDFLAGS)' \
-	LIBS='-lncurses -lm -lcrypt -lresolv'
+	LIBS='-lncurses -lutil -lresolv -lcrypt -lm'
 
 # ----------------------------------------------------------------------------
 # Target-Install

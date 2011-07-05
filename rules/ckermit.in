@@ -7,6 +7,7 @@ config CKERMIT
 	select LIBC_CRYPT
 	select LIBC_RESOLV
 	select NCURSES
+	select HOST_CKERMIT
 	help
 	  Columbia Univ 'kermit' terminal program: Basic file transfer &
           terminal control.
