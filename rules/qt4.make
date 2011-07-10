@@ -38,6 +38,9 @@ $(STATEDIR)/qt4.extract:
 	@$(call patchin, QT4)
 	@for file in $(QT4_DIR)/mkspecs/{qws/,}linux-ptx-g++/*.in; do \
 		sed -e "s,@COMPILER_PREFIX@,$(COMPILER_PREFIX),g" \
+		    -e "s,@CPPFLAGS@,$(CROSS_CPPFLAGS),g" \
+		    -e "s,@CFLAGS@,$(CROSS_CFLAGS),g" \
+		    -e "s,@CXXFLAGS@,$(CROSS_CXXFLAGS),g" \
 		    -e "s,@INCDIR@,$(SYSROOT)/include $(SYSROOT)/usr/include,g" \
 		    -e "s,@LIBDIR@,$(SYSROOT)/lib $(SYSROOT)/usr/lib,g" \
 		    -e "s#@LDFLAGS@#$(strip $(CROSS_LDFLAGS))#g" \
