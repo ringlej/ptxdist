@@ -1,0 +1,93 @@
+From a3c1fe9c1ec7e5257fd186a7720f412fe44440cc Mon Sep 17 00:00:00 2001
+From: George McCollister <george.mccollister@gmail.com>
+Date: Mon, 11 Jul 2011 12:32:37 -0500
+Subject: [PATCH 4/4] opkg: Added sha256 support.
+
+MD5 and SHA256 hashes are generated for each package now.
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+---
+ opkg.py |   24 +++++++++++++++++++++---
+ 1 files changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/opkg.py b/opkg.py
+index 3fda9b5..b000082 100644
+--- a/opkg.py
++++ b/opkg.py
+@@ -36,7 +36,7 @@ import tempfile
+ import os
+ import sys
+ import glob
+-import md5
++import hashlib
+ import re
+ import string
+ import commands
+@@ -133,8 +133,9 @@ class Package:
+         self.section = None
+         self.filename_header = None
+         self.file_list = []
+-        # md5 and size is lazy attribute, computed on demand
++        # md5, sha256 and size are lazy attribute, computed on demand
+         #self.md5 = None
++	#self.sha256 = None
+         #self.size = None
+         self.installed_size = None
+         self.filename = None
+@@ -179,6 +180,9 @@ class Package:
+         if name == "md5":
+             self._computeFileMD5()
+             return self.md5
++        elif name == "sha256":
++            self._computeFileSHA256()
++            return self.sha256
+         elif name == 'size':
+             return self._get_file_size()
+         else:
+@@ -187,7 +191,7 @@ class Package:
+     def _computeFileMD5(self):
+         # compute the MD5.
+         f = open(self.fn, "rb")
+-        sum = md5.new()
++        sum = hashlib.md5()
+         while 1:
+             data = f.read(1024)
+             if not data: break
+@@ -195,6 +199,17 @@ class Package:
+         f.close()
+         self.md5 = sum.hexdigest()
+ 
++    def _computeFileSHA256(self):
++        # compute the SHA256.
++        f = open(self.fn, "rb")
++        sum = hashlib.sha256()
++        while 1:
++            data = f.read(1024)
++            if not data: break
++            sum.update(data)
++        f.close()
++        self.sha256 = sum.hexdigest()
++
+     def _get_file_size(self):
+         if not self.fn:
+             self.size = 0;
+@@ -223,6 +238,8 @@ class Package:
+                     self.size = int(value)
+                 elif name == 'md5sum':
+                     self.md5 = value
++                elif name == 'sha256sum':
++                    self.sha256 = value
+                 elif self.__dict__.has_key(name):
+                     self.__dict__[name] = value
+                 else:
+@@ -418,6 +435,7 @@ class Package:
+         if self.architecture: out = out + "Architecture: %s\n" % (self.architecture)
+         if self.maintainer: out = out + "Maintainer: %s\n" % (self.maintainer)
+         if self.md5: out = out + "MD5Sum: %s\n" % (self.md5)
++        if self.sha256: out = out + "SHA256Sum: %s\n" % (self.sha256)
+         if self.size: out = out + "Size: %d\n" % int(self.size)
+         if self.installed_size: out = out + "InstalledSize: %d\n" % int(self.installed_size)
+         if self.filename: out = out + "Filename: %s\n" % (self.filename)
+-- 
+1.7.1
+
