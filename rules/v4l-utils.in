@@ -2,7 +2,7 @@
 
 menuconfig V4L_UTILS
 	tristate
-	prompt "v4l-utils"
+	prompt "v4l-utils                     "
 	select LIBC_RT		if V4L_UTILS_LIBV4LCONVERT
 	select LIBC_M		if V4L_UTILS_LIBV4LCONVERT
 	select LIBC_PTHREAD	if V4L_UTILS_LIBV4L2
@@ -25,5 +25,21 @@ config V4L_UTILS_LIBV4LCONVERT
 	bool
 	prompt "install libv4lconvert"
 
+config V4L_UTILS_V4L2COMPLIANCE
+	bool
+	select V4L_UTILS_LIBV4L2
+	prompt "install v4l2compliance"
+
+config V4L_UTILS_V4L2DBG
+	bool
+	select V4L_UTILS_LIBV4L2
+	prompt "install v4l-dbg"
+
+config V4L_UTILS_V4L2CTL
+	bool
+	select V4L_UTILS_LIBV4L2
+	prompt "install v4l-ctl"
+
 endif
+
 

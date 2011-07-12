@@ -33,9 +33,6 @@ V4L_UTILS_CONF_TOOL	:= NO
 V4L_UTILS_MAKE_ENV	:= $(CROSS_ENV)
 V4L_UTILS_INSTALL_OPT	:= PREFIX=/usr install
 
-# just the libs for now
-V4L_UTILS_SUBDIR	:= lib
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -61,6 +58,17 @@ ifdef PTXCONF_V4L_UTILS_LIBV4LCONVERT
 	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4lconvert)
 endif
 
+ifdef PTXCONF_V4L_UTILS_V4L2COMPLIANCE
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/v4l2-compliance)
+endif
+
+ifdef PTXCONF_V4L_UTILS_V4L2DBG
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/sbin/v4l2-dbg)
+endif
+
+ifdef PTXCONF_V4L_UTILS_V4L2CTL
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/v4l2-ctl)
+endif
 
 	@$(call install_finish, v4l-utils)
 
