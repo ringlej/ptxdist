@@ -26,29 +26,20 @@ LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(LIBDRM_SOURCE):
-	@$(call targetinfo)
-	@$(call get, LIBDRM)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 #
 # autoconf
 #
-LIBDRM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBDRM_CONF_TOOL := autoconf
+LIBDRM_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-radeon \
+	--enable-udev \
 
-ifndef PTXCONF_ARCH_ARM
-ifdef PTXCONF_LIBDRM_INTEL
-LIBDRM_AUTOCONF += --enable-intel
-else
-LIBDRM_AUTOCONF += --disable-intel
-endif
-endif
+LIBDRM_CONF_OPT += --$(call ptx/endis, PTXCONF_LIBDRM_INTEL)-intel
+LIBDRM_CONF_OPT += --$(call ptx/endis, PTXCONF_LIBDRM_LIBKMS)-libkms
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -65,10 +56,11 @@ $(STATEDIR)/libdrm.targetinstall:
 
 	@$(call install_lib, libdrm, 0, 0, 0644, libdrm)
 
-ifndef PTXCONF_ARCH_ARM
+ifdef PTXCONF_LIBDRM_LIBKMS
+	@$(call install_lib, libdrm, 0, 0, 0644, libkms)
+endif
 ifdef PTXCONF_LIBDRM_INTEL
 	@$(call install_lib, libdrm, 0, 0, 0644, libdrm_intel)
-endif
 endif
 	@$(call install_finish, libdrm)
 
