@@ -13,8 +13,10 @@ Signed-off-by: Jon Ringle <jon@ringle.org>
 
 Jon Ringle: refreshed for iproute2-2.6.31
 
---- iproute2-2.6.31.orig/misc/Makefile	2009-12-26 13:26:44.000000000 -0500
-+++ iproute2-2.6.31/misc/Makefile	2009-11-08 23:48:39.000000000 -0500
+Index: iproute2-2.6.39/misc/Makefile
+===================================================================
+--- iproute2-2.6.39.orig/misc/Makefile
++++ iproute2-2.6.39/misc/Makefile
 @@ -1,10 +1,14 @@
  SSOBJ=ss.o ssfilter.o
  LNSTATOBJ=lnstat.o lnstat_util.o
@@ -31,9 +33,11 @@ Jon Ringle: refreshed for iproute2-2.6.31
  all: $(TARGETS)
  
  ss: $(SSOBJ) $(LIBUTIL)
---- iproute2-2.6.31.orig/Makefile	2009-12-26 13:26:44.000000000 -0500
-+++ iproute2-2.6.31/Makefile	2009-11-08 23:48:40.000000000 -0500
-@@ -30,7 +25,7 @@
+Index: iproute2-2.6.39/Makefile
+===================================================================
+--- iproute2-2.6.39.orig/Makefile
++++ iproute2-2.6.39/Makefile
+@@ -30,7 +30,7 @@ ADDLIB+=ipx_ntop.o ipx_pton.o
  CC = gcc
  HOSTCC = gcc
  CCOPTS = -D_GNU_SOURCE -O2 -Wstrict-prototypes -Wall
@@ -41,4 +45,4 @@ Jon Ringle: refreshed for iproute2-2.6.31
 +CFLAGS = $(CROSS_CPPFLAGS) $(CCOPTS) -I../include $(DEFINES)
  YACCFLAGS = -d -t -v
  
- LDLIBS += -L../lib -lnetlink -lutil
+ SUBDIRS=lib ip tc misc netem genl

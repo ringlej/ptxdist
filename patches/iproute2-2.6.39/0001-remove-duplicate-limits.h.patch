@@ -14,10 +14,10 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  tc/m_xt.c |    1 -
  1 file changed, 1 deletion(-)
 
-Index: iproute2-2.6.31/tc/m_xt.c
+Index: iproute2-2.6.39/tc/m_xt.c
 ===================================================================
---- iproute2-2.6.31.orig/tc/m_xt.c
-+++ iproute2-2.6.31/tc/m_xt.c
+--- iproute2-2.6.39.orig/tc/m_xt.c
++++ iproute2-2.6.39/tc/m_xt.c
 @@ -15,7 +15,6 @@
  #include <netinet/in.h>
  #include <arpa/inet.h>

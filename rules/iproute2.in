@@ -22,6 +22,21 @@ menuconfig IPROUTE2
 
 if IPROUTE2
 
+config IPROUTE2_ARPD
+	bool
+	prompt "arpd"
+	help
+	  Enabling this extry will enlarge your system by the berkely
+	  DB4.x library.
+
+config IPROUTE2_CTSTAT
+	bool
+	prompt "ctstat"
+
+config IPROUTE2_GENL
+	bool
+	prompt "genl"
+
 config IPROUTE2_IP
 	bool
 	depends on !BUSYBOX_IP || ALLYES
@@ -30,20 +45,13 @@ config IPROUTE2_IP
 comment "busybox' ip is selected"
 	depends on BUSYBOX_IP
 
-config IPROUTE2_RTMON
+config IPROUTE2_IPCFG
 	bool
-	prompt "rtmon"
+	prompt "ipcfg"
 
-config IPROUTE2_TC
+config IPROUTE2_IFSTAT
 	bool
-	prompt "tc"
-
-config IPROUTE2_ARPD
-	bool
-	prompt "arpd"
-	help
-	  Enabling this extry will enlarge your system by the berkely
-	  DB4.x library.
+	prompt "ifstat"
 
 config IPROUTE2_LNSTAT
 	bool
@@ -53,12 +61,36 @@ config IPROUTE2_NSTAT
 	bool
 	prompt "nstat"
 
+config IPROUTE2_ROUTEF
+	bool
+	prompt "routef"
+
+config IPROUTE2_ROUTEL
+	bool
+	prompt "routel"
+
 config IPROUTE2_RTACCT
 	bool
 	prompt "rtacct"
 
+config IPROUTE2_RTMON
+	bool
+	prompt "rtmon"
+
+config IPROUTE2_RTPR
+	bool
+	prompt "rtpr"
+
+config IPROUTE2_RTSTAT
+	bool
+	prompt "rtstat"
+
 config IPROUTE2_SS
 	bool
 	prompt "ss"
+
+config IPROUTE2_TC
+	bool
+	prompt "tc"
 
 endif

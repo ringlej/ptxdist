@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 2.6.34
-IPROUTE2_MD5		:= 5c5742bdac05a1688f266512e685b83c
+IPROUTE2_VERSION	:= 2.6.39
+IPROUTE2_MD5		:= 8a3b6bc77c2ecf752284aa4a6fc630a6
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
-IPROUTE2_SUFFIX		:= tar.bz2
+IPROUTE2_SUFFIX		:= tar.gz
 IPROUTE2_URL		:= http://devresources.linuxfoundation.org/dev/iproute2/download/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
@@ -58,6 +58,25 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+IPROUTE2_INSTALL_FILES-y =
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_ARPD) +=	/sbin/arpd
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_CTSTAT) +=	/sbin/ctstat
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_GENL) +=	/sbin/genl
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_IP) +=	/sbin/ip
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_IFCFG) +=	/sbin/ifcfg
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_IFSTAT) +=	/sbin/ifstat
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_LNSTAT) +=	/sbin/lnstat
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_NSTAT) +=	/sbin/nstat
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_ROUTEF) +=	/sbin/routef
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_ROUTEL) +=	/sbin/routel
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_RTACCT) +=	/sbin/rtacct
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_RTMON) +=	/sbin/rtmon
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_RTPR) +=	/sbin/rtpr
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_RTSTAT) +=	/sbin/rtstat
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_SS) +=	/sbin/ss
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_TC) +=	/sbin/tc
+
+
 $(STATEDIR)/iproute2.targetinstall:
 	@$(call targetinfo)
 
@@ -67,56 +86,23 @@ $(STATEDIR)/iproute2.targetinstall:
 	@$(call install_fixup, iproute2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, iproute2,DESCRIPTION,missing)
 
-ifdef PTXCONF_IPROUTE2_IP
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/ip)
-endif
-ifdef PTXCONF_IPROUTE2_RTMON
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/rtmon)
-endif
+	for i in $(IPROUTE2_INSTALL_FILES-y); do \
+		$(call install_copy, iproute2, 0, 0, 0755, -, $$i) \
+	done
+
 ifdef PTXCONF_IPROUTE2_TC
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/tc)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/lib/tc/normal.dist)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/lib/tc/pareto.dist)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/lib/tc/paretonormal.dist)
-endif
-ifdef PTXCONF_IPROUTE2_ARPD
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/arpd)
-endif
-ifdef PTXCONF_IPROUTE2_LNSTAT
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/lnstat)
-endif
-ifdef PTXCONF_IPROUTE2_NSTAT
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/nstat)
-endif
-ifdef PTXCONF_IPROUTE2_RTACCT
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/rtacct)
-endif
-ifdef PTXCONF_IPROUTE2_SS
-	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/ss)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/pareto.dist)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/paretonormal.dist)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/experimental.dist)
 endif
 
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/etc/iproute2/ematch_map)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/etc/iproute2/rt_dsfield)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/etc/iproute2/rt_protos)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/etc/iproute2/rt_realms)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/etc/iproute2/rt_scopes)
-
-	@$(call install_copy, iproute2, 0, 0, 0644, -, \
-		/etc/iproute2/rt_tables)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/ematch_map)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_dsfield)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_protos)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_realms)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_scopes)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_tables)
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/group)
 
 	@$(call install_finish, iproute2)
 
