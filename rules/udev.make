@@ -20,8 +20,8 @@ ifndef PTXCONF_UDEV_EXPERIMENTAL
 UDEV_VERSION	:= 162
 UDEV_MD5	:= dd7099242e92084605e07db0c7299a02
 else
-UDEV_VERSION	:= 171
-UDEV_MD5	:= bdf4617284be2ecac11767437417e209
+UDEV_VERSION	:= 172
+UDEV_MD5	:= bd122d04cf758441f498aad0169a454f
 endif
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
@@ -131,12 +131,6 @@ UDEV_AUTOCONF	+= --enable-edd
 else
 UDEV_AUTOCONF	+= --disable-edd
 endif
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
-UDEV_AUTOCONF	+= --enable-action_modeswitch
-else
-UDEV_AUTOCONF	+= --disable-action_modeswitch
 endif
 
 ifdef PTXCONF_UDEV_SELINUX
@@ -333,12 +327,6 @@ ifdef PTXCONF_UDEV_EXTRA_KEYMAP
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/keymap)
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/95-keymap.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/mobile-action-modeswitch)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/61-mobile-action.rules)
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_PATH_ID
