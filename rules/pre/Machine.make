@@ -53,9 +53,10 @@ ifdef PTXCONF_ARCH_MICROBLAZE
     CPUFLAGS-$(PTXCONF_XILINX_MICROBLAZE0_USE_PCMP_INSTR) += -mxl-pattern-compare
 
     ifdef PTXCONF_HAS_HARDFLOAT
+       # XILINX_MICROBLAZE0_USE_FPU can be 0 (NONE), 1 (BASIC), or 2 (EXTENDED)
       CPUFLAGS-$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU) += -mhard-float
-      CPUFLAGS-$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU) += -mxl-float-convert
-      CPUFLAGS-$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU) += -mxl-float-sqrt
+      CPUFLAGS-$(subst 1,,$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU)) += -mxl-float-convert
+      CPUFLAGS-$(subst 1,,$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU)) += -mxl-float-sqrt
     endif
 
     CPUFLAGS-1 += -mcpu=v$(CPU_VER)
