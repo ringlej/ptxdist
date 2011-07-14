@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MPG123) += mpg123
 #
 # Paths and names
 #
-MPG123_VERSION	:= 1.12.1
-MPG123_MD5	:= e7d810a75d22954169f1530a436aca4c
+MPG123_VERSION	:= 1.13.3
+MPG123_MD5	:= b1f990ce76dcf2fdf9d53ac39fc6bc7e
 MPG123		:= mpg123-$(MPG123_VERSION)
 MPG123_SUFFIX	:= tar.bz2
 MPG123_URL	:= http://www.mpg123.org/download/$(MPG123).$(MPG123_SUFFIX)
@@ -44,8 +44,9 @@ MPG123_CONF_TOOL	:= autoconf
 MPG123_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
-	--with-audio=alsa,oss \
-	--with-default-audio=alsa
+	--with-audio=alsa\
+	--with-default-audio=alsa\
+	--enable-modules=no
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
