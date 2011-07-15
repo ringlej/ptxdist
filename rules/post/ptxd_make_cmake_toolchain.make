@@ -10,6 +10,7 @@
 
 $(PTXDIST_CMAKE_TOOLCHAIN_TARGET):
 	@$(CROSS_ENV) \
+		PTXCONF_ARCH_STRING="${PTXCONF_ARCH_STRING}" \
 		ptxd_make_cmake_toolchain_target "${@}"
 
 $(PTXDIST_CMAKE_TOOLCHAIN_HOST):
