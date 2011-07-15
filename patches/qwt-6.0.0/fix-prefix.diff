@@ -6,12 +6,12 @@ Index: b/qwtconfig.pri
 ===================================================================
 --- a/qwtconfig.pri
 +++ b/qwtconfig.pri
-@@ -8,7 +8,7 @@ VER_PAT      = 0
- VERSION      = $${VER_MAJ}.$${VER_MIN}.$${VER_PAT}
+@@ -19,7 +19,7 @@
+ QWT_INSTALL_PREFIX = $$[QT_INSTALL_PREFIX]
  
  unix {
--    INSTALLBASE    = /usr/local/qwt-5.2.0
-+    INSTALLBASE    = /usr
+-    QWT_INSTALL_PREFIX    = /usr/local/qwt-$$QWT_VERSION
++    QWT_INSTALL_PREFIX    = /usr
  }
  
  win32 {
