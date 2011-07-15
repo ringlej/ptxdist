@@ -50,21 +50,16 @@ if [ "x$1" = "x--force-remove" ]; then
 	shift
 fi
 
-tag2=$(grep "#tag:" .ptxdist/series | awk "/#tag:${tag}/{getline;print \$0}" | sed 's,#tag:,,' | cut -d' ' -f1)
-if [ "${tag}" != "${tag2}" ]; then
-    range="${tag}..${tag2}"
-else
-    range="${tag}"
-    tag2=""
-fi
+tag2=$(grep "#tag:" .ptxdist/series | awk "/#tag:${tag}/{if (getline) print \$1}" | sed 's,#tag:,,')
+range="${tag}..${tag2}"
 
 echo "$PTX_PATCHES_HEADER" > .ptxdist/series.0
 :> .ptxdist/series.1
-if grep -q "#tag:" .ptxdist/series; then
+if grep -q "^#tag:" .ptxdist/series; then
 	tagline=$(grep "#tag:${tag}" .ptxdist/series)
 	t=$(echo "${tagline}"|cut -d' ' -f1)
 	if [ "#tag:${tag}" == "${t}" ]; then
-		tagopt=$(echo "${tagline}"|cut -d' ' -f2-)
+		tagopt=$(echo "${tagline}"|cut -d' ' -s -f2-)
 		sed -e "/$PTX_PATCHES_HEADER/d" -n -e "0,/#tag:${tag}/p" .ptxdist/series >> .ptxdist/series.0
 		# Remove patches before #tag:${tag} so they don't get rm'd with remove_old=yes
 		sed -i --follow-symlinks "0,/#tag:${tag}/d" .ptxdist/series
@@ -135,9 +130,7 @@ while read patch para; do
 	esac
 	if grep -q "$patch" .ptxdist/series.auto; then
 		p=".ptxdist/patches/$patch"
-		lines=$(cat "$p" | wc -l)
-		lines=$[lines-1]
-		tail -n$lines "$p" > ".$patch.ptx-patches"
+		tail -n+2 "$p" > ".$patch.ptx-patches"
 		mv ".$patch.ptx-patches" "$p"
 	else
 		if grep -q "$patch" .ptxdist/series.{0,1}; then
@@ -146,4 +139,4 @@ while read patch para; do
 			echo "Old patch \"$patch\"!"
 		fi
 	fi
-done
+done | sort
