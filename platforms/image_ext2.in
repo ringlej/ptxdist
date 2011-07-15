@@ -30,4 +30,12 @@ config IMAGE_EXT2_GZIP
 	help
 	  FIXME: This item needs to be documented
 
+config IMAGE_EXT2_JOURNAL
+	bool
+	select HOST_E2FSPROGS
+	prompt "Add a journal to the ext2 file system image, making it ext3"
+	help
+	  Enable this option if you want to mount the root file system as
+	  ext3 image.
+
 endif

@@ -24,6 +24,18 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 	) | $(FAKEROOT) --
 	@echo "done."
 
+ifdef PTXCONF_IMAGE_EXT2_JOURNAL
+#	# Since genext2fs cannot generate ext3 images, we use tune2fs to create
+#	# the journal entry and then run e2fsck to update the revision from 0
+#	# to 1 to prevent a mount warning. Since both programs lack a quiet
+#	# mode we use output redirection (and since we're operating on files
+#	# and not on real block devices, it's very unlikely that there are
+#	# errors we want to see.
+	@echo -n "Adding a journal to root.ext2 ..."
+	@tune2fs -j "$(IMAGEDIR)/root.ext2" > /dev/null
+	@e2fsck -y "$(IMAGEDIR)/root.ext2" > /dev/null 2>&1
+	@echo  "done."
+endif
 
 $(IMAGEDIR)/root.ext2.gz: $(IMAGEDIR)/root.ext2
 	@echo -n "Creating root.ext2.gz from root.ext2...";
