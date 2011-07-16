@@ -16,13 +16,13 @@ PACKAGES-$(PTXCONF_LCMS) += lcms
 #
 # Paths and names
 #
-LCMS_VERSION	:= 2.2
-LCMS		:= lcms2-$(LCMS_VERSION)
-LCMS_MD5	:= aaf33c7c25675e6163189ba488ae20f5
+LCMS_VERSION	:= 1.18a
+LCMS_MD5	:= f4abfe1c57ea3f633c2e9d034e74e3e8
+LCMS		:= lcms-$(LCMS_VERSION)
 LCMS_SUFFIX	:= tar.gz
 LCMS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/lcms/$(LCMS).$(LCMS_SUFFIX)
 LCMS_SOURCE	:= $(SRCDIR)/$(LCMS).$(LCMS_SUFFIX)
-LCMS_DIR	:= $(BUILDDIR)/lcms-2.0
+LCMS_DIR	:= $(BUILDDIR)/lcms-1.18
 
 # ----------------------------------------------------------------------------
 # Get
@@ -46,7 +46,8 @@ LCMS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-tiff \
 	--without-zlib \
-	--without-jpeg
+	--without-jpeg \
+	--without-python
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -61,12 +62,7 @@ $(STATEDIR)/lcms.targetinstall:
 	@$(call install_fixup, lcms,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, lcms,DESCRIPTION,missing)
 
-	@$(call install_lib,   lcms, 0, 0, 0644, liblcms2)
-
-	# FIXME
-	# /usr/bin/transicc
-	# /usr/bin/psicc
-	# /usr/bin/linkicc
+	@$(call install_lib, lcms, 0, 0, 0644, liblcms)
 
 	@$(call install_finish, lcms)
 
