@@ -133,6 +133,12 @@ UDEV_AUTOCONF	+= --disable-edd
 endif
 endif
 
+ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
+UDEV_AUTOCONF	+= --enable-action_modeswitch
+else
+UDEV_AUTOCONF	+= --disable-action_modeswitch
+endif
+
 ifdef PTXCONF_UDEV_SELINUX
 UDEV_AUTOCONF	+= --with-selinux
 else
@@ -327,6 +333,12 @@ ifdef PTXCONF_UDEV_EXTRA_KEYMAP
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/keymap)
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/95-keymap.rules,n)
+endif
+
+ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
+	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/mobile-action-modeswitch)
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/udev/rules.d/61-mobile-action.rules)
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_PATH_ID
