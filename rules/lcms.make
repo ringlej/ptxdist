@@ -16,13 +16,13 @@ PACKAGES-$(PTXCONF_LCMS) += lcms
 #
 # Paths and names
 #
-LCMS_VERSION	:= 1.18a
-LCMS_MD5	:= f4abfe1c57ea3f633c2e9d034e74e3e8
+LCMS_VERSION	:= 1.19
+LCMS_MD5	:= 8af94611baf20d9646c7c2c285859818
 LCMS		:= lcms-$(LCMS_VERSION)
 LCMS_SUFFIX	:= tar.gz
 LCMS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/lcms/$(LCMS).$(LCMS_SUFFIX)
 LCMS_SOURCE	:= $(SRCDIR)/$(LCMS).$(LCMS_SUFFIX)
-LCMS_DIR	:= $(BUILDDIR)/lcms-1.18
+LCMS_DIR	:= $(BUILDDIR)/lcms-1.19
 
 # ----------------------------------------------------------------------------
 # Get
