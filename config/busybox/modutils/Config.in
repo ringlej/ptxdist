@@ -5,6 +5,7 @@
 #
 
 menu "Linux Module Utilities"
+	depends on BUSYBOX_PLATFORM_LINUX
 
 config BUSYBOX_MODINFO
 	bool "modinfo"

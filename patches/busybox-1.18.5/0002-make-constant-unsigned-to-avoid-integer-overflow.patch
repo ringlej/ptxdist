@@ -7,10 +7,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  include/unarchive.h |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/include/unarchive.h b/include/unarchive.h
+diff --git a/include/archive.h b/include/archive.h
 index b55af6d..4ec4b08 100644
---- a/include/unarchive.h
-+++ b/include/unarchive.h
+--- a/include/archive.h
++++ b/include/archive.h
 @@ -14,7 +14,7 @@ enum {
  	XZ_MAGIC1   = 0xfd * 256 + '7',
  	XZ_MAGIC2   = (('z' * 256 + 'X') * 256 + 'Z') * 256 + 0,

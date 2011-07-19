@@ -9,26 +9,43 @@ menu "Miscellaneous Utilities"
 config BUSYBOX_CONSPY
 	bool "conspy"
 	default n
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  A text-mode VNC like program for Linux virtual terminals.
 	  example:  conspy NUM      shared access to console num
 	  or        conspy -nd NUM  screenshot of console num
 	  or        conspy -cs NUM  poor man's GNU screen like
+config BUSYBOX_NANDWRITE
+	bool "nandwrite"
+	default n
+	depends on BUSYBOX_PLATFORM_LINUX
+	help
+	  Write to the specified MTD device, with bad blocks awareness
+
+config BUSYBOX_NANDDUMP
+	bool "nanddump"
+	default n
+	depends on BUSYBOX_PLATFORM_LINUX
+	help
+	  Dump the content of raw NAND chip
 config BUSYBOX_UBIATTACH
 	bool "ubiattach"
 	default n
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Attach MTD device to an UBI device.
 
 config BUSYBOX_UBIDETACH
 	bool "ubidetach"
 	default n
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Detach MTD device from an UBI device.
 
 config BUSYBOX_ADJTIMEX
 	bool "adjtimex"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Adjtimex reads and optionally sets adjustment parameters for
 	  the Linux clock adjustment algorithm.
@@ -40,9 +57,24 @@ config BUSYBOX_BBCONFIG
 	  The bbconfig applet will print the config file with which
 	  busybox was built.
 
+config BUSYBOX_FEATURE_COMPRESS_BBCONFIG
+	bool "Compress bbconfig data"
+	default y
+	depends on BUSYBOX_BBCONFIG
+	help
+	  Store bbconfig data in compressed form, uncompress them on-the-fly
+	  before output.
+
+	  If you have a really tiny busybox with few applets enabled (and
+	  bunzip2 isn't one of them), the overhead of the decompressor might
+	  be noticeable. Also, if you run executables directly from ROM
+	  and have very little memory, this might not be a win. Otherwise,
+	  you probably want this.
+
 config BUSYBOX_BEEP
 	bool "beep"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  The beep applets beeps in a given freq/Hz.
 
@@ -139,7 +171,6 @@ config BUSYBOX_CHRT
 config BUSYBOX_CROND
 	bool "crond"
 	default y
-	select BUSYBOX_FEATURE_SUID
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  Crond is a background daemon that parses individual crontab
@@ -174,7 +205,6 @@ config BUSYBOX_FEATURE_CROND_DIR
 config BUSYBOX_CRONTAB
 	bool "crontab"
 	default y
-	select BUSYBOX_FEATURE_SUID
 	help
 	  Crontab manipulates the crontab for a particular user. Only
 	  the superuser may specify a different user and/or crontab directory.
@@ -199,6 +229,7 @@ config BUSYBOX_FEATURE_DC_LIBM
 config BUSYBOX_DEVFSD
 	bool "devfsd (obsolete)"
 	default n
+	depends on BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  This is deprecated and should NOT be used anymore.
@@ -242,6 +273,7 @@ config BUSYBOX_DEVFSD_VERBOSE
 config BUSYBOX_FEATURE_DEVFS
 	bool "Use devfs names for all devices (obsolete)"
 	default n
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  This is obsolete and should NOT be used anymore.
 	  Use linux >= 2.6 (optionally with hotplug) and mdev instead!
@@ -261,6 +293,7 @@ config BUSYBOX_DEVMEM
 config BUSYBOX_EJECT
 	bool "eject"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Used to eject cdroms. (defaults to /dev/cdrom)
 
@@ -275,6 +308,7 @@ config BUSYBOX_FEATURE_EJECT_SCSI
 config BUSYBOX_FBSPLASH
 	bool "fbsplash"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Shows splash image and progress bar on framebuffer device.
 	  Can be used during boot phase of an embedded device. ~2kb.
@@ -324,6 +358,7 @@ config BUSYBOX_FLASH_ERASEALL
 config BUSYBOX_IONICE
 	bool "ionice"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Set/set program io scheduling class and priority
 	  Requires kernel >= 2.6.13
@@ -424,11 +459,12 @@ config BUSYBOX_FEATURE_LESS_LINENUMS
 	default y
 	depends on BUSYBOX_FEATURE_LESS_DASHCMD
 	help
-	  Enable "-N" command.
+	  Enables "-N" command.
 
 config BUSYBOX_HDPARM
 	bool "hdparm"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Get/Set hard drive parameters. Primarily intended for ATA
 	  drives. Adds about 13k (or around 30k if you enable the
@@ -490,15 +526,15 @@ config BUSYBOX_MAKEDEVS
 	help
 	  'makedevs' is a utility used to create a batch of devices with
 	  one command.
-	  .
+
 	  There are two choices for command line behaviour, the interface
 	  as used by LEAF/Linux Router Project, or a device table file.
-	  .
+
 	  'leaf' is traditionally what busybox follows, it allows multiple
 	  devices of a particluar type to be created per command.
 	  e.g. /dev/hda[0-9]
 	  Device properties are passed as command line arguments.
-	  .
+
 	  'table' reads device properties from a file or stdin, allowing
 	  a batch of unrelated devices to be made with one command.
 	  User/group names are allowed as an alternative to uid/gid.
@@ -545,6 +581,7 @@ config BUSYBOX_MT
 config BUSYBOX_RAIDAUTORUN
 	bool "raidautorun"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  raidautorun tells the kernel md driver to
 	  search and start RAID arrays.
@@ -552,7 +589,7 @@ config BUSYBOX_RAIDAUTORUN
 config BUSYBOX_READAHEAD
 	bool "readahead"
 	default y
-	depends on BUSYBOX_LFS
+	depends on BUSYBOX_LFS && BUSYBOX_PLATFORM_LINUX
 	help
 	  Preload the files listed on the command line into RAM cache so that
 	  subsequent reads on these files will not block on disk I/O.
@@ -569,6 +606,7 @@ config BUSYBOX_READAHEAD
 config BUSYBOX_RFKILL
 	bool "rfkill"
 	default n  # doesn't build on Ubuntu 9.04
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Enable/disable wireless devices.
 
@@ -589,6 +627,7 @@ config BUSYBOX_RUNLEVEL
 config BUSYBOX_RX
 	bool "rx"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Receive files using the Xmodem protocol.
 
@@ -660,6 +699,7 @@ config BUSYBOX_WALL
 config BUSYBOX_WATCHDOG
 	bool "watchdog"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  The watchdog utility is used with hardware or software watchdog
 	  device drivers. It opens the specified watchdog device special file

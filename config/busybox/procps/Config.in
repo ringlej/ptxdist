@@ -6,6 +6,26 @@
 
 menu "Process Utilities"
 
+config BUSYBOX_IOSTAT
+	bool "iostat"
+	default y
+	help
+	  Report CPU and I/O statistics
+config BUSYBOX_MPSTAT
+	bool "mpstat"
+	default y
+	help
+	  Per-processor statistics
+config BUSYBOX_PMAP
+       bool "pmap"
+       default y
+       help
+         Display processes' memory mappings.
+config BUSYBOX_POWERTOP
+	bool "powertop"
+	default y
+	help
+	  Analyze power consumption on Intel-based laptops
 config BUSYBOX_SMEMCAP
 	bool "smemcap"
 	default y
@@ -16,6 +36,7 @@ config BUSYBOX_SMEMCAP
 config BUSYBOX_FREE
 	bool "free"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX #sysinfo()
 	help
 	  free displays the total amount of free and used physical and swap
 	  memory in the system, as well as the buffers used by the kernel.
@@ -110,7 +131,7 @@ config BUSYBOX_FEATURE_PS_WIDE
 config BUSYBOX_FEATURE_PS_TIME
 	bool "Enable time and elapsed time output"
 	default y
-	depends on BUSYBOX_PS && BUSYBOX_DESKTOP
+	depends on BUSYBOX_PS && BUSYBOX_DESKTOP && BUSYBOX_PLATFORM_LINUX #sysinfo()
 	help
 	  Support -o time and -o etime output specifiers.
 
@@ -206,6 +227,7 @@ config BUSYBOX_FEATURE_SHOW_THREADS
 config BUSYBOX_UPTIME
 	bool "uptime"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX #sysinfo()
 	help
 	  uptime gives a one line display of the current time, how long
 	  the system has been running, how many users are currently logged

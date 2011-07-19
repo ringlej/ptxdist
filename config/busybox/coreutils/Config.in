@@ -34,10 +34,11 @@ config BUSYBOX_FEATURE_DATE_ISOFMT
 	  Enable option (-I) to output an ISO-8601 compliant
 	  date/time string.
 
+# defaults to "no": stat's nanosecond field is a bit non-portable
 config BUSYBOX_FEATURE_DATE_NANO
 	bool "Support %[num]N nanosecond format specifier"
 	default n
-	depends on BUSYBOX_DATE
+	depends on BUSYBOX_DATE && BUSYBOX_PLATFORM_LINUX # syscall(BUSYBOX___NR_clockBUSYBOX__gettime)
 	help
 	  Support %[num]N format specifier. Adds ~250 bytes of code.
 
@@ -95,6 +96,11 @@ config BUSYBOX_FEATURE_TR_EQUIV
 	  replace all instances of 'a' with 'xyz'. This option is mainly
 	  useful for cases when no other way of expressing a character
 	  is possible.
+config BUSYBOX_BASE64
+	bool "base64"
+	default y
+	help
+	  Base64 encode and decode
 
 config BUSYBOX_CAL
 	bool "cal"
@@ -680,6 +686,7 @@ config BUSYBOX_FEATURE_SPLIT_FANCY
 config BUSYBOX_STAT
 	bool "stat"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX # statfs()
 	help
 	  display file or filesystem status.
 

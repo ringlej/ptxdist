@@ -34,6 +34,7 @@ config BUSYBOX_FSCK
 config BUSYBOX_LSATTR
 	bool "lsattr"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  lsattr lists the file attributes on a second extended file system.
 

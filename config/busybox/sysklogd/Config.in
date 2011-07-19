@@ -117,6 +117,22 @@ config BUSYBOX_KLOGD
 	  you wish to record the messages produced by the kernel,
 	  you should enable this option.
 
+config BUSYBOX_FEATURE_KLOGD_KLOGCTL
+	bool "Use the klogctl() interface"
+	default y
+	depends on BUSYBOX_KLOGD && BUSYBOX_PLATFORM_LINUX
+	help
+	  The klogd applet supports two interfaces for reading
+	  kernel messages. Linux provides the klogctl() interface
+	  which allows reading messages from the kernel ring buffer
+	  independently from the file system.
+
+	  If you answer 'N' here, klogd will use the more portable
+	  approach of reading them from /proc or a device node.
+	  However, this method requires the file to be available.
+
+	  If in doubt, say 'Y'.
+
 config BUSYBOX_LOGGER
 	bool "logger"
 	default y

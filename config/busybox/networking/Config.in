@@ -6,6 +6,11 @@
 
 menu "Networking Utilities"
 
+config BUSYBOX_NBDCLIENT
+	bool "nbd-client"
+	default y
+	help
+	  Network block device client
 config BUSYBOX_NC
 	bool "nc"
 	default y
@@ -83,18 +88,21 @@ config BUSYBOX_VERBOSE_RESOLUTION_ERRORS
 config BUSYBOX_ARP
 	bool "arp"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Manipulate the system ARP cache.
 
 config BUSYBOX_ARPING
 	bool "arping"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Ping hosts by ARP packets.
 
 config BUSYBOX_BRCTL
 	bool "brctl"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Manage ethernet bridges.
 	  Supports addbr/delbr and addif/delif.
@@ -127,6 +135,7 @@ config BUSYBOX_DNSD
 config BUSYBOX_ETHER_WAKE
 	bool "ether-wake"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Send a magic packet to wake up sleeping machines.
 
@@ -298,9 +307,18 @@ config BUSYBOX_FEATURE_HTTPD_PROXY
 	  Then a request to /url/myfile will be forwarded to
 	  http://hostname[:port]/new/path/myfile.
 
+config BUSYBOX_FEATURE_HTTPD_GZIP
+	bool "Support for GZIP content encoding"
+	default y
+	depends on BUSYBOX_HTTPD
+	help
+	  Makes httpd send files using GZIP content encoding if the
+	  client supports it and a pre-compressed <file>.gz exists.
+
 config BUSYBOX_IFCONFIG
 	bool "ifconfig"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Ifconfig is used to configure the kernel-resident network interfaces.
 
@@ -348,6 +366,7 @@ config BUSYBOX_FEATURE_IFCONFIG_BROADCAST_PLUS
 config BUSYBOX_IFENSLAVE
 	bool "ifenslave"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Userspace application to bind several interfaces
 	  to a logical interface (use with kernel bonding driver).
@@ -355,6 +374,7 @@ config BUSYBOX_IFENSLAVE
 config BUSYBOX_IFPLUGD
 	bool "ifplugd"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Network interface plug detection daemon.
 
@@ -396,7 +416,7 @@ config BUSYBOX_FEATURE_IFUPDOWN_IP
 config BUSYBOX_FEATURE_IFUPDOWN_IP_BUILTIN
 	bool "Use busybox ip applet"
 	default y
-	depends on BUSYBOX_FEATURE_IFUPDOWN_IP
+	depends on BUSYBOX_FEATURE_IFUPDOWN_IP && BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_IP
 	select BUSYBOX_FEATURE_IP_ADDRESS
 	select BUSYBOX_FEATURE_IP_LINK
@@ -515,6 +535,7 @@ config BUSYBOX_FEATURE_INETD_RPC
 config BUSYBOX_IP
 	bool "ip"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  The "ip" applet is a TCP/IP interface configuration and routing
 	  utility. You generally don't need "ip" to use busybox with
@@ -630,6 +651,7 @@ config BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS
 config BUSYBOX_NAMEIF
 	bool "nameif"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  nameif is used to rename network interface by its MAC address.
@@ -658,6 +680,7 @@ config BUSYBOX_FEATURE_NAMEIF_EXTENDED
 config BUSYBOX_NETSTAT
 	bool "netstat"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  netstat prints information about the Linux networking subsystem.
 
@@ -686,6 +709,7 @@ config BUSYBOX_NSLOOKUP
 config BUSYBOX_NTPD
 	bool "ntpd"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  The NTP client/server daemon.
 
@@ -700,6 +724,7 @@ config BUSYBOX_FEATURE_NTPD_SERVER
 config BUSYBOX_PING
 	bool "ping"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  ping uses the ICMP protocol's mandatory ECHO_REQUEST datagram to
 	  elicit an ICMP ECHO_RESPONSE from a host or gateway.
@@ -728,12 +753,14 @@ config BUSYBOX_PSCAN
 config BUSYBOX_ROUTE
 	bool "route"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Route displays or manipulates the kernel's IP routing tables.
 
 config BUSYBOX_SLATTACH
 	bool "slattach"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  slattach is a small utility to attach network interfaces to serial
 	  lines.
@@ -814,7 +841,7 @@ config BUSYBOX_TELNETD
 
 		  mount -t devpts devpts /dev/pts
 
-	  You need to be sure that Busybox has LOGIN and
+	  You need to be sure that busybox has LOGIN and
 	  FEATURE_SUID enabled. And finally, you should make
 	  certain that Busybox has been installed setuid root:
 
@@ -920,6 +947,7 @@ config BUSYBOX_TFTP_DEBUG
 config BUSYBOX_TRACEROUTE
 	bool "traceroute"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Utility to trace the route of IP packets.
 
@@ -956,6 +984,7 @@ config BUSYBOX_FEATURE_TRACEROUTE_USE_ICMP
 config BUSYBOX_TUNCTL
 	bool "tunctl"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  tunctl creates or deletes tun devices.
 
@@ -988,6 +1017,7 @@ config BUSYBOX_UDPSVD
 config BUSYBOX_VCONFIG
 	bool "vconfig"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	help
 	  Creates, removes, and configures VLAN interfaces
 
@@ -1019,9 +1049,22 @@ config BUSYBOX_FEATURE_WGET_LONG_OPTIONS
 	help
 	  Support long options for the wget applet.
 
+config BUSYBOX_FEATURE_WGET_TIMEOUT
+	bool "Enable read timeout option -T SEC"
+	default y
+	depends on BUSYBOX_WGET
+	help
+	  Supports network read timeout for wget, so that wget will give
+	  up and timeout when reading network data, through the -T command
+	  line option.  Currently only network data read timeout is
+	  supported (i.e., timeout is not applied to the DNS nor TCP
+	  connection initialization).  When FEATURE_WGET_LONG_OPTIONS is
+	  also enabled, the --timeout option will work in addition to -T.
+
 config BUSYBOX_ZCIP
 	bool "zcip"
 	default y
+	depends on BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  ZCIP provides ZeroConf IPv4 address selection, according to RFC 3927.

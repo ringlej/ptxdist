@@ -195,7 +195,7 @@ config BUSYBOX_LZOP
 	  Lzop compression/decompresion.
 
 config BUSYBOX_LZOP_COMPR_HIGH
-	bool "lzop complession levels 7,8,9 (not very useful)"
+	bool "lzop compression levels 7,8,9 (not very useful)"
 	default n
 	depends on BUSYBOX_LZOP
 	help
@@ -207,7 +207,7 @@ config BUSYBOX_RPM2CPIO
 	bool "rpm2cpio"
 	default y
 	help
-	  Converts an RPM file into a CPIO archive.
+	  Converts a RPM file into a CPIO archive.
 
 config BUSYBOX_RPM
 	bool "rpm"
