@@ -133,10 +133,12 @@ UDEV_AUTOCONF	+= --disable-edd
 endif
 endif
 
+ifndef PTXCONF_UDEV_EXPERIMENTAL
 ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
 UDEV_AUTOCONF	+= --enable-action_modeswitch
 else
 UDEV_AUTOCONF	+= --disable-action_modeswitch
+endif
 endif
 
 ifdef PTXCONF_UDEV_SELINUX
