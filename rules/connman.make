@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 #
 # Paths and names
 #
-CONNMAN_VERSION	:= 0.75
-CONNMAN_MD5	:= 9973cb89a11fff6b51fc85b51c13b711
+CONNMAN_VERSION	:= 0.76
+CONNMAN_MD5	:= 59b4cfd9fa4f736f7a2d88ee0c758fe9
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= http://www.kernel.org/pub/linux/network/connman/$(CONNMAN).$(CONNMAN_SUFFIX)
