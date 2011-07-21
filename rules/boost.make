@@ -64,7 +64,8 @@ BOOST_JAM	:= \
 	-sZLIB_LIBPATH=$(SYSROOT)/usr/lib \
 	variant=$(subst $(space),$(comma),$(strip $(JAM_LIB_DEBUG) $(JAM_LIB_RELEASE))) \
 	threading=$(subst $(space),$(comma),$(strip $(JAM_LIB_SINGLE) $(JAM_LIB_MULTI))) \
-	link=shared
+	link=shared \
+	toolset=gcc-$(PTXCONF_ARCH_STRING)
 
 JAM_MAKE_OPT	:= \
 	$(PARALLELMFLAGS) \
@@ -101,7 +102,7 @@ $(STATEDIR)/boost.prepare:
 	@$(call targetinfo)
 	cd $(BOOST_DIR) && ./bootstrap.sh $(BOOST_CONF_OPT)
 	@cd $(BOOST_DIR) && \
-		echo "using gcc : `$(BOOST_PATH) $(CROSS_CXX) -dumpversion` : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
+		echo "using gcc : $(PTXCONF_ARCH_STRING) : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
 	@echo "all:"					>  $(BOOST_DIR)/Makefile
 	@echo "	@$(BOOST_JAM) $(JAM_MAKE_OPT)"		>> $(BOOST_DIR)/Makefile
 	@echo "install:"				>> $(BOOST_DIR)/Makefile
