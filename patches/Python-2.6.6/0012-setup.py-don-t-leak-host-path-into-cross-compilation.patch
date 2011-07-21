@@ -1,6 +1,7 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 28 Apr 2009 19:07:54 +0200
-Subject: [PATCH] setup.py: don't leak host path into cross compilation environment
+Subject: [PATCH] setup.py: don't leak host path into cross compilation
+ environment
 
 During cross compilation we don't host path (neither include nor library
 search patch) to leak into our environment.
@@ -92,6 +93,3 @@ index 6e02114..08208bd 100644
  
          if sys.platform == 'darwin':
              if is_macosx_sdk_path(f):
--- 
-1.7.2.3
-

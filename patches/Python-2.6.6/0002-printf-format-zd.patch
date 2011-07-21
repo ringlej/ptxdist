@@ -48,6 +48,3 @@ index e9b5cf0..87fad98 100644
  
  AC_CHECK_TYPE(socklen_t,,
    AC_DEFINE(socklen_t,int,
--- 
-1.7.2.3
-

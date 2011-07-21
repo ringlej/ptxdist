@@ -22,6 +22,3 @@ index 2895a7d..9de0dcc 100644
  AC_MSG_RESULT(no)
  buggygetaddrinfo=yes
  ])
--- 
-1.7.2.3
-

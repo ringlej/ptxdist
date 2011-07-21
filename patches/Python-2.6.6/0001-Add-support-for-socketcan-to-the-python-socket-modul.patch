@@ -222,6 +222,3 @@ index a3b96ae..e9b5cf0 100644
  # checks for typedefs
  was_it_defined=no
  AC_MSG_CHECKING(for clock_t in time.h)
--- 
-1.7.2.3
-

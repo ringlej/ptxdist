@@ -1,7 +1,10 @@
 From: unknown author <unknown.author@example.com>
 Date: Tue, 8 Feb 2011 15:10:31 +0100
-Subject: [PATCH] 0017-fix-for-new-autoconf.diff
+Subject: [PATCH] python: fix long long autoconf test
 
+New autoconf versions have AC_TYPE_LONG_LONG_INT, use it.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.in |    3 ++-
  1 files changed, 2 insertions(+), 1 deletions(-)
@@ -21,6 +24,3 @@ index 9b80a5d..2895a7d 100644
    AC_DEFINE(HAVE_LONG_LONG, 1, [Define this if you have the type long long.])
  fi
  
--- 
-1.7.2.3
-

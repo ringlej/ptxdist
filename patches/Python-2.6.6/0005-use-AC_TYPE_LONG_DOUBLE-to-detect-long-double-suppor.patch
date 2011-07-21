@@ -33,6 +33,3 @@ index c85e89b..cb09bf7 100644
  
  AC_MSG_CHECKING(for _Bool support)
  have_c99_bool=no
--- 
-1.7.2.3
-

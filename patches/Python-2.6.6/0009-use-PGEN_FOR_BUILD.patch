@@ -31,6 +31,3 @@ index 8b1e44b..703c6aa 100644
  		-touch Parser/pgen.stamp
  
  $(PGEN):	$(PGENOBJS)
--- 
-1.7.2.3
-

@@ -176,6 +176,3 @@ index 1066880..52de250 100644
  # generate output files
  AC_CONFIG_FILES(Makefile.pre Modules/Setup.config)
  AC_OUTPUT
--- 
-1.7.2.3
-

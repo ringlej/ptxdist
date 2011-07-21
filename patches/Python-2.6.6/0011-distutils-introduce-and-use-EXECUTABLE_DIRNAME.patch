@@ -50,6 +50,3 @@ index 350e48c..83af687 100644
                              "Makefile")
      lib_dir = get_python_lib(plat_specific=1, standard_lib=1)
      return os.path.join(lib_dir, "config", "Makefile")
--- 
-1.7.2.3
-

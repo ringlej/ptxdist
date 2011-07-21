@@ -69,6 +69,3 @@ index 87fad98..8d130b4 100644
      ac_cv_olimit_ok=no)
    CC="$ac_save_cc"])
    AC_MSG_RESULT($ac_cv_olimit_ok)
--- 
-1.7.2.3
-

@@ -26,6 +26,3 @@ index 0329d67..f8a8d36 100644
  	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
  	esac
  
--- 
-1.7.2.3
-

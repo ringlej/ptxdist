@@ -1,7 +1,10 @@
 From: unknown author <unknown.author@example.com>
 Date: Tue, 8 Feb 2011 15:10:31 +0100
-Subject: [PATCH] 0018-dont-add-rpaths.diff
+Subject: [PATCH] python: don't add rpaths in setup.py
 
+We don't add rpaths.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  setup.py |    3 ---
  1 files changed, 0 insertions(+), 3 deletions(-)
@@ -34,6 +37,3 @@ index d3aac1b..8c86ed8 100644
                                         include_dirs=db_incs,
                                         define_macros=[('HAVE_BERKDB_H',None),
                                                        ('DB_DBM_HSEARCH',None)],
--- 
-1.7.2.3
-

@@ -139,6 +139,3 @@ index 01b0ffc..d3aac1b 100644
  
                  # Pass empty CFLAGS because we'll just append the resulting
                  # CFLAGS to Python's; -g or -O2 is to be avoided.
--- 
-1.7.2.3
-

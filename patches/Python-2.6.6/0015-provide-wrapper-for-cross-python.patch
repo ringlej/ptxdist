@@ -44,6 +44,3 @@ index 0000000..9cfd36f
 +export CROSS_COMPILING _python_sysroot _python_prefix _python_exec_prefix
 +
 +exec @PYTHON_FOR_BUILD@ "${@}"
--- 
-1.7.2.3
-

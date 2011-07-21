@@ -56,6 +56,3 @@ index f8a8d36..8b1e44b 100644
  		config.cache config.log pyconfig.h Modules/config.c
  	-rm -rf build platform
  	-rm -rf $(PYTHONFRAMEWORKDIR)
--- 
-1.7.2.3
-
