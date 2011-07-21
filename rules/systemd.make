@@ -40,6 +40,8 @@ SYSTEMD_CONF_OPT += \
 	--disable-tcpwrap \
 	--disable-pam \
 	--disable-gtk \
+	--disable-acl \
+	--disable-plymouth \
 	--with-distro=other \
 	--without-sysvinit-path \
 	--without-sysvrcd-path \
