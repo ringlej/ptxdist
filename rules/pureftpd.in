@@ -26,6 +26,12 @@ config PUREFTPD_UPLOADSCRIPT
 	help
 	  Allow running an external script after an upload
 
+	  Do not enable this option if no upload script is defined.
+	  Otherwise pure-ftpd will hang waiting for pure-uploadscript to
+	  start, because the -o switch to the server is set when this
+	  option is enabled.
+
+
 if PUREFTPD_UPLOADSCRIPT
 
 config PUREFTPD_UPLOADSCRIPT_ARGS
@@ -38,6 +44,7 @@ config PUREFTPD_UPLOADSCRIPT_SCRIPT
 	prompt "script path"
 	help
 	  Full path of the upload script
+	  Must not be left emtpy or unconfigured
 
 endif
 
