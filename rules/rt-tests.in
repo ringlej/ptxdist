@@ -28,11 +28,17 @@ config RT_TESTS_HACKBENCH
 	bool
 	prompt "hackbench"
 	help
-	  Hackbench  is  both a benchmark and a stress test for the Linux
+	  Hackbench is both a benchmark and a stress test for the Linux
 	  kernel scheduler. It's main job is to create a specified number
-	  of pairs of schedulable enti‐ ties (either threads or traditional
+	  of pairs of schedulable entities (either threads or traditional
 	  processes) which communicate via either sockets or pipes and time
-	  how long it takes for each pair to send data  back  and forth.
+	  how long it takes for each pair to send data back and forth.
+
+	  This is the improved hackbench implementation, taken from (and
+	  described inline in)
+	  http://people.redhat.com/mingo/cfs-scheduler/tools/hackbench.c
+
+	  It uses a default of 100 loops, 10 groups and 20 FDs.
 
 config RT_TESTS_PIP
 	bool
