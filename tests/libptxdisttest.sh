@@ -129,7 +129,7 @@ test_end() {
 }
 
 checking() {
-	printf "%-71s\n" "checking $1" >&2
+	printf "%-71s" "checking $1" >&2
 	reportwrite checking "$1"
 }
 
