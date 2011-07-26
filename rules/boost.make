@@ -137,7 +137,7 @@ $(STATEDIR)/boost.targetinstall:
 		read BOOST_LIB <<< $$BOOST_LIB; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_DBG) ]; then \
 			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
-				 -type f -name "*-d-*" ! -name "*-mt-*"`; do \
+				 -type f -name "*-d*" ! -name "*-mt*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
 				$(call install_link, boost, \
@@ -147,7 +147,7 @@ $(STATEDIR)/boost.targetinstall:
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_RED) ]; then \
 			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
-				 -type f ! -name "*-d-*" ! -name "*-mt-*"`; do \
+				 -type f ! -name "*-d*" ! -name "*-mt*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
 				$(call install_link, boost, \
@@ -157,7 +157,7 @@ $(STATEDIR)/boost.targetinstall:
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_DBG) ]; then \
 			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
-				  -type f -name "*-d-*" -name "*-mt-*"`; do \
+				  -type f -name "*-d*" -name "*-mt*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
 				$(call install_link, boost, \
@@ -167,7 +167,7 @@ $(STATEDIR)/boost.targetinstall:
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_RED) ]; then \
 			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
-				 -type f ! -name "*-d-*" -name "*-mt-*"`; do \
+				 -type f ! -name "*-d*" -name "*-mt*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
 				$(call install_link, boost, \
