@@ -1,0 +1,10 @@
+## SECTION=scientific
+config LIBMODBUS3
+	tristate
+	prompt "libmodbus3"
+	help
+	  libmodbus is a library that implements the Modbus protocol
+	  (TCP and serial) (Version 3.0.x).
+
+	  WWW: http://http://libmodbus.org/
+
