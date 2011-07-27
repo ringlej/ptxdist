@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_DCONF) += dconf
 #
 # Paths and names
 #
-DCONF_VERSION	:= 0.7.2
-DCONF_MD5	:= 1583be314e3ea0ab483d104e791ef653
+DCONF_VERSION	:= 0.9.0
+DCONF_MD5	:= bd59d7ad24a1cb42092f80beddce4632
 DCONF		:= dconf-$(DCONF_VERSION)
 DCONF_SUFFIX	:= tar.bz2
-DCONF_URL	:= http://download.gnome.org/sources/dconf/0.7/$(DCONF).$(DCONF_SUFFIX)
+DCONF_URL	:= http://download.gnome.org/sources/dconf/0.9/$(DCONF).$(DCONF_SUFFIX)
 DCONF_SOURCE	:= $(SRCDIR)/$(DCONF).$(DCONF_SUFFIX)
 DCONF_DIR	:= $(BUILDDIR)/$(DCONF)
 DCONF_LICENSE	:= LGPLv2.1
