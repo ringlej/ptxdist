@@ -313,6 +313,7 @@ ifdef PTXCONF_QT4_PREPARE_EXAMPLES
 #	# some examples will may fail to build because of missing libraries
 #	# these cannot be installed but all are built
 	@$(call compile, QT4, -k sub-examples) || true
+	@$(call compile, QT4, -k sub-demos) || true
 endif
 	@$(call touch)
 

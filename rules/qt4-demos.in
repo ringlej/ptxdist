@@ -1,0 +1,247 @@
+## SECTION=qt
+# WARNING: this file is generated with qt4_mk_demos.sh
+# do not edit
+
+menuconfig QT4_DEMOS
+	tristate
+	select QT4
+	select QT4_PREPARE_EXAMPLES
+	prompt "Qt Embedded Demos          "
+
+if QT4_DEMOS
+
+config QT4_DEMOS_INSTALL_DIR
+	string
+	default "/usr/bin/qt4-demos"
+	prompt "install dir"
+
+config QT4_DEMOS_BROWSER
+	bool
+	prompt "browser"
+	depends on QT4_BUILD_WEBKIT
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_INTERVIEW
+	bool
+	prompt "interview"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_SQLBROWSER
+	bool
+	prompt "sqlbrowser"
+	depends on BROKEN
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_QMEDIAPLAYER
+	bool
+	prompt "qmediaplayer"
+	depends on BROKEN
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_PATHSTROKE
+	bool
+	prompt "pathstroke"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_CHIP
+	bool
+	prompt "chip"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_BOOKS
+	bool
+	prompt "books"
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_BOXES
+	bool
+	prompt "boxes"
+	depends on !QT4_OPENGL_NONE
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_AFFINE
+	bool
+	prompt "affine"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_COMPOSITION
+	bool
+	prompt "composition"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DEFORM
+	bool
+	prompt "deform"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_GRADIENTS
+	bool
+	prompt "gradients"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDEDDIALOGS
+	bool
+	prompt "embeddeddialogs"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_TEXTEDIT
+	bool
+	prompt "textedit"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_MAINWINDOW
+	bool
+	prompt "mainwindow"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_SPREADSHEET
+	bool
+	prompt "spreadsheet"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+menuconfig QT4_DEMOS_DECLARATIVE
+	bool
+	prompt "declarative"
+
+if QT4_DEMOS_DECLARATIVE
+
+config QT4_DEMOS_DECLARATIVE_MINEHUNT
+	bool
+	prompt "minehunt"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+endif
+
+config QT4_DEMOS_SUB_ATTAQ
+	bool
+	prompt "sub-attaq"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_UNDO
+	bool
+	prompt "undo"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+menuconfig QT4_DEMOS_EMBEDDED
+	bool
+	prompt "embedded"
+
+if QT4_DEMOS_EMBEDDED
+
+config QT4_DEMOS_EMBEDDED_ANOMALY
+	bool
+	prompt "anomaly"
+	depends on QT4_BUILD_WEBKIT
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_STYLEDEMO
+	bool
+	prompt "styledemo"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_RAYCASTING
+	bool
+	prompt "raycasting"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_EMBEDDEDSVGVIEWER
+	bool
+	prompt "embeddedsvgviewer"
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_LIGHTMAPS
+	bool
+	prompt "lightmaps"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_FLICKABLE
+	bool
+	prompt "flickable"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_DESKTOPSERVICES
+	bool
+	prompt "desktopservices"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_FLIGHTINFO
+	bool
+	prompt "flightinfo"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_FLUIDLAUNCHER
+	bool
+	prompt "fluidlauncher"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+if QT4_DEMOS_EMBEDDED_FLUIDLAUNCHER
+config QT4_DEMOS_EMBEDDED_FLUIDLAUNCHER_LOCALCONFIG
+       bool
+       prompt "install local config"
+       help
+         install config.xml, slides and screenshots from projectroot
+endif
+config QT4_DEMOS_EMBEDDED_DIGIFLIP
+	bool
+	prompt "digiflip"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_EMBEDDED_WEATHERINFO
+	bool
+	prompt "weatherinfo"
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+endif
+
+config QT4_DEMOS_QTDEMO
+	bool
+	prompt "qtdemo"
+	depends on BROKEN
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_XML
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+endif
+
