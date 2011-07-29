@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.4.8
-IPTABLES_MD5		:= 697ed89f37af4473a5f6349ba2700f2d
+IPTABLES_VERSION	:= 1.4.12
+IPTABLES_MD5		:= d3f145c2c91daecbb4251bc79390b46c
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -72,7 +72,7 @@ endif
 $(STATEDIR)/iptables.install:
 	@$(call targetinfo)
 	@$(call install, IPTABLES)
-	install $(IPTABLES_DIR)/iptables-apply $(IPTABLES_PKGDIR)/usr/sbin
+	install $(IPTABLES_DIR)/iptables/iptables-apply $(IPTABLES_PKGDIR)/usr/sbin
 	@$(touch)
 
 
@@ -93,12 +93,12 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_lib, iptables, 0, 0, 0644, libiptc)
 	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
 
-# 	# IPv6 part
-ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES_MULTI
-	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/ip6tables-multi)
-	@$(call install_lib, iptables, 0, 0, 0644, libip6tc)
+ifdef PTXCONF_IPTABLES_INSTALL_XTABLES_MULTI
+	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/xtables-multi)
+	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
 endif
 
+# 	# IPv6 part
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES
 	@$(call install_link, iptables, ip6tables-multi, /usr/sbin/ip6tables)
 endif
@@ -119,13 +119,7 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPV6_TOOLS
 
 endif
 
-
 # IPv4 part
-ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_MULTI
-	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/iptables-multi)
-	@$(call install_lib, iptables, 0, 0, 0644, libip4tc)
-endif
-
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES
 	@$(call install_link, iptables, iptables-multi, /usr/sbin/iptables)
 endif
@@ -139,7 +133,7 @@ endif
 # install all shared feature libraries to get full runtime support
 ifdef PTXCONF_IPTABLES_INSTALL_IPV4_TOOLS
 	@cd $(IPTABLES_PKGDIR)/usr/lib && \
-		for file in libipt_*.so libxt_*.so; do \
+		for file in libipt_*.so libxt_*.so libip4tc* ; do \
 			$(call install_copy, iptables, 0, 0, 0644, -,\
 				/usr/lib/$$file); \
 		done
