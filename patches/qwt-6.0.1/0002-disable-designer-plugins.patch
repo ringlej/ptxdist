@@ -1,12 +1,17 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 3 Aug 2011 16:09:42 +0200
+Subject: [PATCH] disable designer plugins
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  qwtconfig.pri |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: b/qwtconfig.pri
-===================================================================
+diff --git a/qwtconfig.pri b/qwtconfig.pri
+index 21cf28b..b54abeb 100644
 --- a/qwtconfig.pri
 +++ b/qwtconfig.pri
-@@ -98,7 +98,7 @@
+@@ -98,7 +98,7 @@ QWT_CONFIG     += QwtMathML
  # Otherwise you have to build it from the designer directory.
  ######################################################################
  

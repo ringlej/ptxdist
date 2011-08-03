@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 3 Aug 2011 16:09:23 +0200
+Subject: [PATCH] fix prefix
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qwtconfig.pri |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/qwtconfig.pri b/qwtconfig.pri
+index da52a53..21cf28b 100644
+--- a/qwtconfig.pri
++++ b/qwtconfig.pri
+@@ -19,7 +19,7 @@ QWT_VERSION      = $${QWT_VER_MAJ}.$${QWT_VER_MIN}.$${QWT_VER_PAT}
+ QWT_INSTALL_PREFIX = $$[QT_INSTALL_PREFIX]
+ 
+ unix {
+-    QWT_INSTALL_PREFIX    = /usr/local/qwt-$$QWT_VERSION
++    QWT_INSTALL_PREFIX    = /usr
+ }
+ 
+ win32 {

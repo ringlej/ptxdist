@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by 
+# Copyright (C) 2009,2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QWT) += qwt
 #
 # Paths and names
 #
-QWT_VERSION	:= 6.0.0
-QWT_MD5		:= 1795cf075ebce3ae048255d2060cbac0
+QWT_VERSION	:= 6.0.1
+QWT_MD5		:= ace68558eab873e2da7e641179c4ef0c
 QWT		:= qwt-$(QWT_VERSION)
 QWT_SUFFIX	:= tar.bz2
 QWT_URL		:= $(PTXCONF_SETUP_SFMIRROR)/qwt/$(QWT).$(QWT_SUFFIX)
@@ -26,19 +26,14 @@ QWT_DIR		:= $(BUILDDIR)/$(QWT)
 QWT_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(QWT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, QWT)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-QWT_PATH	:= PATH=$(CROSS_PATH)
-QWT_CONF_ENV	:= $(CROSS_ENV)
+QWT_CONF_OPT	:= $(CROSS_QMAKE_OPT)
+
+ifdef PTXCONF_QWT_SVG
+QWT_CONF_OPT += QWT_CONFIG+=QwtSvg
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

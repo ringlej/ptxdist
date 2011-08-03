@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 3 Aug 2011 15:08:05 +0200
+Subject: [PATCH] disable svg by default
+
+it can be enabled with QWT_CONFIG+=QwtSvg as qmake option.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qwtconfig.pri |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/qwtconfig.pri b/qwtconfig.pri
+index b54abeb..89ea0ef 100644
+--- a/qwtconfig.pri
++++ b/qwtconfig.pri
+@@ -79,7 +79,7 @@ QWT_CONFIG     += QwtWidgets
+ # export a plot to a SVG document
+ ######################################################################
+ 
+-QWT_CONFIG     += QwtSvg
++# QWT_CONFIG     += QwtSvg
+ 
+ ######################################################################
+ # You can use the MathML renderer of the Qt solutions package to 
