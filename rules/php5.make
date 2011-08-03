@@ -24,9 +24,12 @@ PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
+# Note: older releases are moved to the 'museum', but the 'de.php.net'
+# response with a HTML file instead of the archive. So, try the 'museum'
+# URL first
 PHP5_URL	:= \
-	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX) \
-	http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
+	http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX) \
+	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
