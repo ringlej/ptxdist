@@ -1,0 +1,62 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Fix a small Linux-3.x issue
+
+Without this patch cyclictest states:
+
+"Most functions require kernel 2.6"
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ src/cyclictest/cyclictest.c |   38 ++++++++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
+
+Index: rt-tests-0.73/src/cyclictest/cyclictest.c
+===================================================================
+--- rt-tests-0.73.orig/src/cyclictest/cyclictest.c
++++ rt-tests-0.73/src/cyclictest/cyclictest.c
+@@ -1104,22 +1104,28 @@ static int check_kernel(void)
+ 		return KV_NOT_26;
+ 	}
+ 	sscanf(kname.release, "%d.%d.%d", &maj, &min, &sub);
+-	if (maj == 2 && min == 6) {
+-		if (sub < 18)
+-			kv = KV_26_LT18;
+-		else if (sub < 24)
+-			kv = KV_26_LT24;
+-		else if (sub < 28) {
+-			kv = KV_26_CURR;
+-			strcpy(functiontracer, "ftrace");
+-			strcpy(traceroptions, "iter_ctrl");
+-		} else {
+-			kv = KV_26_CURR;
+-			strcpy(functiontracer, "function");
+-			strcpy(traceroptions, "trace_options");
+-		}
+-	} else
+-		kv = KV_NOT_26;
++	if (maj == 3) {
++		kv = KV_26_CURR;
++		strcpy(functiontracer, "function");
++		strcpy(traceroptions, "trace_options");
++	} else {
++		if (maj == 2 && min == 6) {
++			if (sub < 18)
++				kv = KV_26_LT18;
++			else if (sub < 24)
++				kv = KV_26_LT24;
++			else if (sub < 28) {
++				kv = KV_26_CURR;
++				strcpy(functiontracer, "ftrace");
++				strcpy(traceroptions, "iter_ctrl");
++			} else {
++				kv = KV_26_CURR;
++				strcpy(functiontracer, "function");
++				strcpy(traceroptions, "trace_options");
++			}
++		} else
++			kv = KV_NOT_26;
++	}
+ 
+ 	return kv;
+ }
