@@ -1,0 +1,22 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Thu, 21 Jul 2011 12:29:58 +0200
+Subject: [PATCH] python: don't call cross python
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Makefile.pre.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index 8b6a6b4..40f64e1 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -918,7 +918,7 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
+ $(srcdir)/Lib/$(PLATDIR):
+ 	mkdir $(srcdir)/Lib/$(PLATDIR)
+ 	cp $(srcdir)/Lib/plat-generic/regen $(srcdir)/Lib/$(PLATDIR)/regen
+-	export PATH; PATH="`pwd`:$$PATH"; \
++	export PATH; \
+ 	export PYTHONPATH; PYTHONPATH="`pwd`/Lib"; \
+ 	export DYLD_FRAMEWORK_PATH; DYLD_FRAMEWORK_PATH="`pwd`"; \
+ 	export EXE; EXE="$(BUILDEXE)"; \

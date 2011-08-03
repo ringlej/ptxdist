@@ -19,3 +19,4 @@
 0019-add-cache-for-sem-getvalue.diff
 0020-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
 0021-fix-parallel-building.patch
+0022-python-don-t-call-cross-python.patch
