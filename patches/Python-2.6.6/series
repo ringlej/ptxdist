@@ -18,5 +18,4 @@
 0016-python-fix-long-long-autoconf-test.patch
 0017-python-don-t-add-rpaths-in-setup.py.patch
 0018-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
-0019-python-don-t-call-cross-python.patch
-# 37771ea7224779995d66f92208a8f093  - git-ptx-patches magic
+# e4b2d0366f87ef051c7b5151c479533e  - git-ptx-patches magic

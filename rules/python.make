@@ -45,6 +45,9 @@ PYTHON_PATH	:= PATH=$(CROSS_PATH)
 PYTHON_ENV 	:= \
 	$(CROSS_ENV) \
 	PYTHON_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
+	ac_sys_system=Linux \
+	ac_sys_release=2 \
+	MACHDEP=linux2 \
 	ac_cv_have_chflags=no \
 	ac_cv_have_lchflags=no \
 	ac_cv_py_format_size_t=yes \
