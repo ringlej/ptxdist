@@ -1,0 +1,33 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 28 Apr 2009 14:05:30 +0200
+Subject: [PATCH] use PGEN_FOR_BUILD
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile.pre.in |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index e96cc25..503d34d 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -220,6 +220,7 @@ GRAMMAR_INPUT=	$(srcdir)/Grammar/Grammar
+ ##########################################################################
+ # Parser
+ PGEN=		Parser/pgen$(EXE)
++PGEN_FOR_BUILD=	$(PGEN)
+ 
+ POBJS=		\
+ 		Parser/acceler.o \
+@@ -544,9 +545,9 @@ $(IO_OBJS): $(IO_H)
+ 
+ # Use a stamp file to prevent make -j invoking pgen twice
+ $(GRAMMAR_H) $(GRAMMAR_C): Parser/pgen.stamp
+-Parser/pgen.stamp: $(PGEN) $(GRAMMAR_INPUT)
++Parser/pgen.stamp: $(PGEN_FOR_BUILD) $(GRAMMAR_INPUT)
+ 		-@$(INSTALL) -d Include
+-		$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		$(PGEN_FOR_BUILD) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+ 		-touch Parser/pgen.stamp
+ 
+ $(PGEN):	$(PGENOBJS)

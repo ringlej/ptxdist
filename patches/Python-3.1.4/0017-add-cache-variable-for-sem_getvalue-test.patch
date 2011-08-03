@@ -1,5 +1,6 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: add cache variable for sem_getvalue test
+Date: Wed, 3 Aug 2011 17:25:10 +0200
+Subject: [PATCH] add cache variable for sem_getvalue test
 
 AC_TRY_RUN is used to check for a broken sem_getvalue.
 This patch adds a cache variable (ac_cv_broken_sem_getvalue)
@@ -8,13 +9,13 @@ that can be set when cross-compiling.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.in |   13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ 1 files changed, 9 insertions(+), 4 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index eee0809..415d3ca 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -3376,7 +3376,8 @@ fi
+@@ -3460,7 +3460,8 @@ fi
  
  # Multiprocessing check for broken sem_getvalue
  AC_MSG_CHECKING(for broken sem_getvalue)
@@ -24,7 +25,7 @@ Index: b/configure.in
  #include <unistd.h>
  #include <fcntl.h>
  #include <stdio.h>
-@@ -3398,10 +3399,14 @@ int main(void){
+@@ -3482,10 +3483,14 @@ int main(void){
    return res==-1 ? 1 : 0;
  }
  ]

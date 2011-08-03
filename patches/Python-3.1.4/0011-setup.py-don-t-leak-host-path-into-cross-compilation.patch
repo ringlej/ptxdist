@@ -1,34 +1,36 @@
-From 2733013612e513e4756fafd82f33f66f7f7036f3 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 28 Apr 2009 19:07:54 +0200
-Subject: [PATCH] setup.py: don't leak host path into cross compilation environment
+Subject: [PATCH] setup.py: don't leak host path into cross compilation
+ environment
 
 During cross compilation we don't host path (neither include nor library
 search patch) to leak into our environment.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- setup.py |   33 ++++++++++++++++++++++++++-------
- 1 file changed, 26 insertions(+), 7 deletions(-)
+ setup.py |   35 +++++++++++++++++++++++++++--------
+ 1 files changed, 27 insertions(+), 8 deletions(-)
 
-Index: b/setup.py
-===================================================================
+diff --git a/setup.py b/setup.py
+index 1e15b7a..d0118ae 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -295,8 +295,10 @@ class PyBuildExt(build_ext):
+@@ -363,9 +363,11 @@ class PyBuildExt(build_ext):
  
      def detect_modules(self):
          # Ensure that /usr/local is always used
 -        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
 -        add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
+-        self.add_multiarch_paths()
 +
 +        if os.environ.get('CROSS_COMPILING') != 'yes':
 +            add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
 +            add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
++            self.add_multiarch_paths()
  
          # Add paths specified in the environment variables LDFLAGS and
          # CPPFLAGS for header and library files.
-@@ -310,6 +312,10 @@ class PyBuildExt(build_ext):
+@@ -379,6 +381,10 @@ class PyBuildExt(build_ext):
                  ('CPPFLAGS', '-I', self.compiler.include_dirs)):
              env_val = sysconfig.get_config_var(env_var)
              if env_val:
@@ -39,7 +41,7 @@ Index: b/setup.py
                  # To prevent optparse from raising an exception about any
                  # options in env_val that it doesn't know about we strip out
                  # all double dashes and any dashes followed by a character
-@@ -341,11 +347,18 @@ class PyBuildExt(build_ext):
+@@ -415,11 +421,18 @@ class PyBuildExt(build_ext):
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
          # be assumed that no additional -I,-L directives are needed.
@@ -63,7 +65,7 @@ Index: b/setup.py
          exts = []
          missing = []
  
-@@ -697,6 +710,9 @@ class PyBuildExt(build_ext):
+@@ -809,6 +822,9 @@ class PyBuildExt(build_ext):
              db_inc_paths.append('/pkg/db-3.%d/include' % x)
              db_inc_paths.append('/opt/db-3.%d/include' % x)
  
@@ -73,7 +75,7 @@ Index: b/setup.py
          # Add some common subdirectories for Sleepycat DB to the list,
          # based on the standard include directories. This way DB3/4 gets
          # picked up when it is installed in a non-standard prefix and
-@@ -815,6 +831,9 @@ class PyBuildExt(build_ext):
+@@ -949,6 +965,9 @@ class PyBuildExt(build_ext):
          MIN_SQLITE_VERSION = ".".join([str(x)
                                      for x in MIN_SQLITE_VERSION_NUMBER])
  

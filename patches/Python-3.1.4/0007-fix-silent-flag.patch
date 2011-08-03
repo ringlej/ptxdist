@@ -1,0 +1,28 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 28 Apr 2009 13:08:35 +0200
+Subject: [PATCH] fix silent flag
+
+make uses "-s" as silent flag.
+only pass it (as "-q") to setup.py if a "s" (guarded by spaces)
+is detected in $MAKEFLAGS, "*s*" is not sufficient.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile.pre.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index ed1dc33..e96cc25 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -419,8 +419,8 @@ platform: $(BUILDPYTHON)
+ 
+ # Build the shared modules
+ sharedmods: $(BUILDPYTHON)
+-	@case $$MAKEFLAGS in \
+-	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
++	@case "$(MAKEFLAGS)" in \
++	s|*\ s|s\ *|*\ s\ *) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
+ 	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
+ 	esac
+ 

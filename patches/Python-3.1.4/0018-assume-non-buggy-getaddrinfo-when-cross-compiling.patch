@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 89acf25..34dd048 100644
+index 415d3ca..245cf3b 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -2909,8 +2909,8 @@ AC_MSG_RESULT(good)
+@@ -2951,8 +2951,8 @@ AC_MSG_RESULT(good)
  buggygetaddrinfo=no,
  AC_MSG_RESULT(buggy)
  buggygetaddrinfo=yes,
@@ -22,6 +22,3 @@ index 89acf25..34dd048 100644
  AC_MSG_RESULT(no)
  buggygetaddrinfo=yes
  ])
--- 
-1.7.1
-

@@ -1,7 +1,7 @@
-From 648a7538c36f67696d88ee99ddccc2bc78a1ef75 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Fri, 24 Apr 2009 19:10:14 +0200
-Subject: [PATCH] use AC_CHECK_SIZEOF rather than handcrafted test with AC_TRY_RUN
+Subject: [PATCH] use AC_CHECK_SIZEOF rather than handcrafted test with
+ AC_TRY_RUN
 
 AC_TRY_RUN doesn't work in the cross compilation scenario. Recent
 versions of autoconf support AC_CHECK_SIZEOF even while cross compiling.
@@ -14,13 +14,13 @@ This patch converts the following tests to AC_CHECK_SIZEOF:
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure.in |   58 ++++------------------------------------------------------
- 1 file changed, 4 insertions(+), 54 deletions(-)
+ 1 files changed, 4 insertions(+), 54 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index 5894ffe..315c435 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -1425,23 +1425,9 @@ AC_CHECK_TYPES(uintptr_t, 
+@@ -1495,23 +1495,9 @@ AC_CHECK_TYPES(uintptr_t,
          #endif])
  
  
@@ -45,7 +45,7 @@ Index: b/configure.in
  AC_DEFINE_UNQUOTED(SIZEOF_OFF_T, $ac_cv_sizeof_off_t,
  [The number of bytes in an off_t.])
  
-@@ -1464,22 +1450,9 @@ else
+@@ -1534,22 +1520,9 @@ else
  fi
  
  # AC_CHECK_SIZEOF() doesn't include <time.h>.
@@ -69,7 +69,7 @@ Index: b/configure.in
  AC_DEFINE_UNQUOTED(SIZEOF_TIME_T, $ac_cv_sizeof_time_t, 
  [The number of bytes in a time_t.])
  
-@@ -1493,32 +1466,9 @@ then CC="$CC -Kthread"
+@@ -1563,32 +1536,9 @@ then CC="$CC -Kthread"
  elif test "$ac_cv_pthread" = "yes"
  then CC="$CC -pthread"
  fi

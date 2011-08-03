@@ -1,4 +1,3 @@
-From 430893ea1bad2245f00d44fef62bbfb75db27f96 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Mon, 4 May 2009 14:39:18 +0200
 Subject: [PATCH] add cross compilation support
@@ -13,8 +12,8 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  setup.py                   |    6 +++++-
  4 files changed, 50 insertions(+), 10 deletions(-)
 
-Index: b/Lib/distutils/sysconfig.py
-===================================================================
+diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
+index 3c970a3..c3df55b 100644
 --- a/Lib/distutils/sysconfig.py
 +++ b/Lib/distutils/sysconfig.py
 @@ -19,9 +19,16 @@ import sys
@@ -23,7 +22,7 @@ Index: b/Lib/distutils/sysconfig.py
  # These are needed in a couple of spots, so just compute them once.
 -PREFIX = os.path.normpath(sys.prefix)
 -EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
- EXECUTABLE_DIRNAME = os.path.dirname(os.path.abspath(sys.executable))
+ EXECUTABLE_DIRNAME = os.path.dirname(os.path.realpath(sys.executable))
 +if os.environ.get('CROSS_COMPILING') == 'yes':
 +    _sysroot=os.environ.get('_python_sysroot')
 +    PREFIX = os.path.normpath(_sysroot + os.environ.get('_python_prefix'))
@@ -36,11 +35,11 @@ Index: b/Lib/distutils/sysconfig.py
  
  # Path to the base directory of the project. On Windows the binary may
  # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
-Index: b/Makefile.pre.in
-===================================================================
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index c438baf..e031a37 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -75,6 +75,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
+@@ -78,6 +78,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
  # C flags used for building the interpreter object files
  PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED) -DPy_BUILD_CORE
  
@@ -51,12 +50,12 @@ Index: b/Makefile.pre.in
  
  # Machine-dependent subdirectories
  MACHDEP=	@MACHDEP@
-@@ -90,11 +94,11 @@ datarootdir=    @datarootdir@
+@@ -93,11 +97,11 @@ datarootdir=    @datarootdir@
  
  # Expanded directories
- BINDIR=		$(exec_prefix)/bin
--LIBDIR=		$(exec_prefix)/lib
-+LIBDIR=		$(sysroot)$(exec_prefix)/lib
+ BINDIR=		@bindir@
+-LIBDIR=		@libdir@
++LIBDIR=		$(sysroot)@libdir@
  MANDIR=		@mandir@
 -INCLUDEDIR=	@includedir@
 -CONFINCLUDEDIR=	$(exec_prefix)/include
@@ -67,8 +66,8 @@ Index: b/Makefile.pre.in
  
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index 2233584..394d686 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -21,6 +21,9 @@ if test "$prefix" != "/"; then
@@ -81,7 +80,7 @@ Index: b/configure.in
  dnl This is for stuff that absolutely must end up in pyconfig.h.
  dnl Please use pyport.h instead, if possible.
  AH_TOP([
-@@ -760,9 +763,9 @@ fi
+@@ -764,9 +767,9 @@ fi
  
  AC_MSG_RESULT($LDLIBRARY)
  
@@ -94,7 +93,7 @@ Index: b/configure.in
  
  # tweak ARFLAGS only if the user didn't set it on the command line
  AC_SUBST(ARFLAGS)
-@@ -4027,6 +4030,28 @@ AC_SUBST(PYTHON_FOR_BUILD)
+@@ -4111,6 +4114,28 @@ AC_SUBST(PYTHON_FOR_BUILD)
  AC_ARG_VAR(PYTHON_FOR_BUILD,[build system python (default: python)])
  
  
@@ -122,12 +121,12 @@ Index: b/configure.in
 +
  # generate output files
  AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc)
- AC_OUTPUT
-Index: b/setup.py
-===================================================================
+ AC_CONFIG_FILES([Modules/ld_so_aix], [chmod +x Modules/ld_so_aix])
+diff --git a/setup.py b/setup.py
+index d397504..2156621 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -1494,7 +1494,11 @@ class PyBuildExt(build_ext):
+@@ -1649,7 +1649,11 @@ class PyBuildExt(build_ext):
                                           ffi_configfile):
                  from distutils.dir_util import mkpath
                  mkpath(ffi_builddir)
