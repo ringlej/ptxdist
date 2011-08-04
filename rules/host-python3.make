@@ -24,7 +24,11 @@ HOST_PYTHON3_DIR	=  $(HOST_BUILDDIR)/$(PYTHON3)
 # ----------------------------------------------------------------------------
 
 HOST_PYTHON3_PATH	:= PATH=$(HOST_PATH)
-HOST_PYTHON3_ENV 	:= $(HOST_ENV)
+HOST_PYTHON3_ENV	:= \
+	$(HOST_ENV) \
+	ac_sys_system=Linux \
+	ac_sys_release=2 \
+	MACHDEP=linux2
 
 #
 # autoconf
