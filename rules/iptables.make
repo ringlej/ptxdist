@@ -96,17 +96,24 @@ $(STATEDIR)/iptables.targetinstall:
 ifdef PTXCONF_IPTABLES_INSTALL_XTABLES_MULTI
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/xtables-multi)
 	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
+
+	@cd $(IPTABLES_PKGDIR)/usr/lib && \
+		for file in libxt_*.so; do \
+			$(call install_copy, iptables, 0, 0, 0644, -,\
+				/usr/lib/$$file); \
+		done
+	$(call install_lib, iptables, 0, 0, 0644, libiptc)
 endif
 
 # 	# IPv6 part
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES
-	@$(call install_link, iptables, ip6tables-multi, /usr/sbin/ip6tables)
+	@$(call install_link, iptables, xtables-multi, /usr/sbin/ip6tables)
 endif
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES_RESTORE
-	@$(call install_link, iptables, ip6tables-multi, /usr/sbin/ip6tables-restore)
+	@$(call install_link, iptables, xtables-multi, /usr/sbin/ip6tables-restore)
 endif
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES_SAVE
-	@$(call install_link, iptables, ip6tables-multi, /usr/sbin/ip6tables-save)
+	@$(call install_link, iptables, xtables-multi, /usr/sbin/ip6tables-save)
 endif
 
 # install the IPv6 relevant shared feature libraries
@@ -116,31 +123,33 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPV6_TOOLS
 			$(call install_copy, iptables, 0, 0, 0644, -, \
 				/usr/lib/$$file); \
 		done
+	$(call install_lib, iptables, 0, 0, 0644, libip6tc)
 
 endif
 
 # IPv4 part
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES
-	@$(call install_link, iptables, iptables-multi, /usr/sbin/iptables)
+	@$(call install_link, iptables, xtables-multi, /usr/sbin/iptables)
 endif
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_RESTORE
-	@$(call install_link, iptables, iptables-multi, /usr/sbin/iptables-restore)
+	@$(call install_link, iptables, xtables-multi, /usr/sbin/iptables-restore)
 endif
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE
-	@$(call install_link, iptables, iptables-multi, /usr/sbin/iptables-save)
+	@$(call install_link, iptables, xtables-multi, /usr/sbin/iptables-save)
 endif
 
 # install all shared feature libraries to get full runtime support
 ifdef PTXCONF_IPTABLES_INSTALL_IPV4_TOOLS
 	@cd $(IPTABLES_PKGDIR)/usr/lib && \
-		for file in libipt_*.so libxt_*.so libip4tc* ; do \
+		for file in libipt_*.so; do \
 			$(call install_copy, iptables, 0, 0, 0644, -,\
 				/usr/lib/$$file); \
 		done
+	$(call install_lib, iptables, 0, 0, 0644, libip4tc)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_XML
-	@$(call install_link, iptables, ../sbin/iptables-multi, /usr/bin/iptables-xml)
+	@$(call install_link, iptables, ../sbin/xtables-multi, /usr/bin/iptables-xml)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_APPLY
