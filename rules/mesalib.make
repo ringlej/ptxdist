@@ -55,7 +55,9 @@ $(STATEDIR)/mesalib.get:
 	@$(call targetinfo)
 	@$(call world/get, MESALIB)
 	@$(call world/check_src, MESALIB)
+ifdef PTXCONF_MESALIB_TOOLS
 	@$(call check_src, MESADEMOS)
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
