@@ -18,7 +18,7 @@ config QT4_EXAMPLES_INSTALL_DIR
 
 menuconfig QT4_EXAMPLES_ANIMATION
 	bool
-	prompt "animation"
+	prompt "animation                   "
 
 if QT4_EXAMPLES_ANIMATION
 
@@ -64,7 +64,7 @@ endif
 
 menuconfig QT4_EXAMPLES_DBUS
 	bool
-	prompt "dbus"
+	prompt "dbus                        "
 
 if QT4_EXAMPLES_DBUS
 
@@ -141,7 +141,7 @@ endif
 
 menuconfig QT4_EXAMPLES_DECLARATIVE
 	bool
-	prompt "declarative"
+	prompt "declarative                 "
 
 if QT4_EXAMPLES_DECLARATIVE
 
@@ -404,7 +404,7 @@ endif
 
 menuconfig QT4_EXAMPLES_DESIGNER
 	bool
-	prompt "designer"
+	prompt "designer                    "
 
 if QT4_EXAMPLES_DESIGNER
 
@@ -436,7 +436,7 @@ endif
 
 menuconfig QT4_EXAMPLES_DESKTOP
 	bool
-	prompt "desktop"
+	prompt "desktop                     "
 
 if QT4_EXAMPLES_DESKTOP
 
@@ -460,7 +460,7 @@ endif
 
 menuconfig QT4_EXAMPLES_DIALOGS
 	bool
-	prompt "dialogs"
+	prompt "dialogs                     "
 
 if QT4_EXAMPLES_DIALOGS
 
@@ -518,7 +518,7 @@ endif
 
 menuconfig QT4_EXAMPLES_DRAGANDDROP
 	bool
-	prompt "draganddrop"
+	prompt "draganddrop                 "
 
 if QT4_EXAMPLES_DRAGANDDROP
 
@@ -565,7 +565,7 @@ endif
 
 menuconfig QT4_EXAMPLES_EFFECTS
 	bool
-	prompt "effects"
+	prompt "effects                     "
 
 if QT4_EXAMPLES_EFFECTS
 
@@ -593,7 +593,7 @@ endif
 
 menuconfig QT4_EXAMPLES_GESTURES
 	bool
-	prompt "gestures"
+	prompt "gestures                    "
 
 if QT4_EXAMPLES_GESTURES
 
@@ -609,7 +609,7 @@ endif
 
 menuconfig QT4_EXAMPLES_GRAPHICSVIEW
 	bool
-	prompt "graphicsview"
+	prompt "graphicsview                "
 
 if QT4_EXAMPLES_GRAPHICSVIEW
 
@@ -673,7 +673,7 @@ endif
 
 menuconfig QT4_EXAMPLES_HELP
 	bool
-	prompt "help"
+	prompt "help                        "
 
 if QT4_EXAMPLES_HELP
 
@@ -703,7 +703,7 @@ endif
 
 menuconfig QT4_EXAMPLES_IPC
 	bool
-	prompt "ipc"
+	prompt "ipc                         "
 
 if QT4_EXAMPLES_IPC
 
@@ -731,7 +731,7 @@ endif
 
 menuconfig QT4_EXAMPLES_ITEMVIEWS
 	bool
-	prompt "itemviews"
+	prompt "itemviews                   "
 
 if QT4_EXAMPLES_ITEMVIEWS
 
@@ -844,7 +844,7 @@ endif
 
 menuconfig QT4_EXAMPLES_LAYOUTS
 	bool
-	prompt "layouts"
+	prompt "layouts                     "
 
 if QT4_EXAMPLES_LAYOUTS
 
@@ -878,7 +878,7 @@ endif
 
 menuconfig QT4_EXAMPLES_LINGUIST
 	bool
-	prompt "linguist"
+	prompt "linguist                    "
 
 if QT4_EXAMPLES_LINGUIST
 
@@ -906,7 +906,7 @@ endif
 
 menuconfig QT4_EXAMPLES_MAINWINDOWS
 	bool
-	prompt "mainwindows"
+	prompt "mainwindows                 "
 
 if QT4_EXAMPLES_MAINWINDOWS
 
@@ -952,7 +952,7 @@ endif
 
 menuconfig QT4_EXAMPLES_MULTIMEDIA
 	bool
-	prompt "multimedia"
+	prompt "multimedia                  "
 
 if QT4_EXAMPLES_MULTIMEDIA
 
@@ -997,7 +997,7 @@ endif
 
 menuconfig QT4_EXAMPLES_NETWORK
 	bool
-	prompt "network"
+	prompt "network                     "
 
 if QT4_EXAMPLES_NETWORK
 
@@ -1109,7 +1109,7 @@ endif
 
 menuconfig QT4_EXAMPLES_OPENGL
 	bool
-	prompt "opengl"
+	prompt "opengl                      "
 
 if QT4_EXAMPLES_OPENGL
 
@@ -1207,7 +1207,7 @@ endif
 
 menuconfig QT4_EXAMPLES_OPENVG
 	bool
-	prompt "openvg"
+	prompt "openvg                      "
 
 if QT4_EXAMPLES_OPENVG
 
@@ -1224,7 +1224,7 @@ endif
 
 menuconfig QT4_EXAMPLES_PAINTING
 	bool
-	prompt "painting"
+	prompt "painting                    "
 
 if QT4_EXAMPLES_PAINTING
 
@@ -1285,7 +1285,7 @@ endif
 
 menuconfig QT4_EXAMPLES_PHONON
 	bool
-	prompt "phonon"
+	prompt "phonon                      "
 
 if QT4_EXAMPLES_PHONON
 
@@ -1311,7 +1311,7 @@ endif
 
 menuconfig QT4_EXAMPLES_QTCONCURRENT
 	bool
-	prompt "qtconcurrent"
+	prompt "qtconcurrent                "
 
 if QT4_EXAMPLES_QTCONCURRENT
 
@@ -1351,7 +1351,7 @@ endif
 
 menuconfig QT4_EXAMPLES_QTESTLIB
 	bool
-	prompt "qtestlib"
+	prompt "qtestlib                    "
 
 if QT4_EXAMPLES_QTESTLIB
 
@@ -1396,7 +1396,7 @@ endif
 
 menuconfig QT4_EXAMPLES_QWS
 	bool
-	prompt "qws"
+	prompt "qws                         "
 
 if QT4_EXAMPLES_QWS
 
@@ -1425,7 +1425,7 @@ endif
 
 menuconfig QT4_EXAMPLES_RICHTEXT
 	bool
-	prompt "richtext"
+	prompt "richtext                    "
 
 if QT4_EXAMPLES_RICHTEXT
 
@@ -1460,7 +1460,7 @@ endif
 
 menuconfig QT4_EXAMPLES_SCRIPT
 	bool
-	prompt "script"
+	prompt "script                      "
 
 if QT4_EXAMPLES_SCRIPT
 
@@ -1509,7 +1509,7 @@ endif
 
 menuconfig QT4_EXAMPLES_SQL
 	bool
-	prompt "sql"
+	prompt "sql                         "
 
 if QT4_EXAMPLES_SQL
 
@@ -1569,7 +1569,7 @@ endif
 
 menuconfig QT4_EXAMPLES_STATEMACHINE
 	bool
-	prompt "statemachine"
+	prompt "statemachine                "
 
 if QT4_EXAMPLES_STATEMACHINE
 
@@ -1611,7 +1611,7 @@ endif
 
 menuconfig QT4_EXAMPLES_THREADS
 	bool
-	prompt "threads"
+	prompt "threads                     "
 
 if QT4_EXAMPLES_THREADS
 
@@ -1636,7 +1636,7 @@ endif
 
 menuconfig QT4_EXAMPLES_TOOLS
 	bool
-	prompt "tools"
+	prompt "tools                       "
 
 if QT4_EXAMPLES_TOOLS
 
@@ -1724,7 +1724,7 @@ endif
 
 menuconfig QT4_EXAMPLES_TOUCH
 	bool
-	prompt "touch"
+	prompt "touch                       "
 
 if QT4_EXAMPLES_TOUCH
 
@@ -1758,7 +1758,7 @@ endif
 
 menuconfig QT4_EXAMPLES_TUTORIALS
 	bool
-	prompt "tutorials"
+	prompt "tutorials                   "
 
 if QT4_EXAMPLES_TUTORIALS
 
@@ -1876,7 +1876,7 @@ endif
 
 menuconfig QT4_EXAMPLES_UITOOLS
 	bool
-	prompt "uitools"
+	prompt "uitools                     "
 
 if QT4_EXAMPLES_UITOOLS
 
@@ -1900,7 +1900,7 @@ endif
 
 menuconfig QT4_EXAMPLES_WEBKIT
 	bool
-	prompt "webkit"
+	prompt "webkit                      "
 
 if QT4_EXAMPLES_WEBKIT
 
@@ -1952,7 +1952,7 @@ endif
 
 menuconfig QT4_EXAMPLES_WIDGETS
 	bool
-	prompt "widgets"
+	prompt "widgets                     "
 
 if QT4_EXAMPLES_WIDGETS
 
@@ -2100,7 +2100,7 @@ endif
 
 menuconfig QT4_EXAMPLES_XML
 	bool
-	prompt "xml"
+	prompt "xml                         "
 
 if QT4_EXAMPLES_XML
 
@@ -2149,7 +2149,7 @@ endif
 
 menuconfig QT4_EXAMPLES_XMLPATTERNS
 	bool
-	prompt "xmlpatterns"
+	prompt "xmlpatterns                 "
 
 if QT4_EXAMPLES_XMLPATTERNS
 

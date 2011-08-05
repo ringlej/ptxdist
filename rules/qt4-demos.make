@@ -13,40 +13,10 @@ $(STATEDIR)/qt4.targetinstall3: $(STATEDIR)/qt4.targetinstall
 	@$(call install_fixup, qt4-demos,AUTHOR,"Christian Hemp <c.hemp@phytec.de")
 	@$(call install_fixup, qt4-demos,DESCRIPTION,missing)
 
-ifdef PTXCONF_QT4_DEMOS_BROWSER
+ifdef PTXCONF_QT4_DEMOS_AFFINE
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/browser/browser, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/browser/browser)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_INTERVIEW
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/interview/interview, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/interview/interview)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_SQLBROWSER
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/sqlbrowser/sqlbrowser, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/sqlbrowser/sqlbrowser)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_QMEDIAPLAYER
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/qmediaplayer/qmediaplayer, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/qmediaplayer/qmediaplayer)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_PATHSTROKE
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/pathstroke/pathstroke, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/pathstroke/pathstroke)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_CHIP
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/chip/chip, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/chip/chip)
+		$(QT4_DIR)-build/demos/affine/affine, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/affine/affine)
 endif
 
 ifdef PTXCONF_QT4_DEMOS_BOOKS
@@ -61,52 +31,22 @@ ifdef PTXCONF_QT4_DEMOS_BOXES
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/boxes/boxes)
 endif
 
-ifdef PTXCONF_QT4_DEMOS_AFFINE
+ifdef PTXCONF_QT4_DEMOS_BROWSER
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/affine/affine, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/affine/affine)
+		$(QT4_DIR)-build/demos/browser/browser, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/browser/browser)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_CHIP
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/chip/chip, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/chip/chip)
 endif
 
 ifdef PTXCONF_QT4_DEMOS_COMPOSITION
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
 		$(QT4_DIR)-build/demos/composition/composition, \
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/composition/composition)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_DEFORM
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/deform/deform, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/deform/deform)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_GRADIENTS
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/gradients/gradients, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/gradients/gradients)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_EMBEDDEDDIALOGS
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/embeddeddialogs/embeddeddialogs, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embeddeddialogs/embeddeddialogs)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_TEXTEDIT
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/textedit/textedit, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/textedit/textedit)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_MAINWINDOW
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/mainwindow/mainwindow, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/mainwindow/mainwindow)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_SPREADSHEET
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/spreadsheet/spreadsheet, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/spreadsheet/spreadsheet)
 endif
 
 ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_MINEHUNT
@@ -116,16 +56,10 @@ ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_MINEHUNT
 
 endif
 
-ifdef PTXCONF_QT4_DEMOS_SUB_ATTAQ
+ifdef PTXCONF_QT4_DEMOS_DEFORM
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/sub-attaq/sub-attaq, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/sub-attaq/sub-attaq)
-endif
-
-ifdef PTXCONF_QT4_DEMOS_UNDO
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/undo/undo, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/undo/undo)
+		$(QT4_DIR)-build/demos/deform/deform, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/deform/deform)
 endif
 
 ifdef PTXCONF_QT4_DEMOS_EMBEDDED_ANOMALY
@@ -135,17 +69,17 @@ ifdef PTXCONF_QT4_DEMOS_EMBEDDED_ANOMALY
 
 endif
 
-ifdef PTXCONF_QT4_DEMOS_EMBEDDED_STYLEDEMO
+ifdef PTXCONF_QT4_DEMOS_EMBEDDED_DESKTOPSERVICES
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/embedded/styledemo/styledemo, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/styledemo/styledemo)
+		$(QT4_DIR)-build/demos/embedded/desktopservices/desktopservices, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/desktopservices/desktopservices)
 
 endif
 
-ifdef PTXCONF_QT4_DEMOS_EMBEDDED_RAYCASTING
+ifdef PTXCONF_QT4_DEMOS_EMBEDDED_DIGIFLIP
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/embedded/raycasting/raycasting, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/raycasting/raycasting)
+		$(QT4_DIR)-build/demos/embedded/digiflip/digiflip, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/digiflip/digiflip)
 
 endif
 
@@ -156,24 +90,10 @@ ifdef PTXCONF_QT4_DEMOS_EMBEDDED_EMBEDDEDSVGVIEWER
 
 endif
 
-ifdef PTXCONF_QT4_DEMOS_EMBEDDED_LIGHTMAPS
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/embedded/lightmaps/lightmaps, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/lightmaps/lightmaps)
-
-endif
-
 ifdef PTXCONF_QT4_DEMOS_EMBEDDED_FLICKABLE
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
 		$(QT4_DIR)-build/demos/embedded/flickable/flickable, \
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/flickable/flickable)
-
-endif
-
-ifdef PTXCONF_QT4_DEMOS_EMBEDDED_DESKTOPSERVICES
-	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/embedded/desktopservices/desktopservices, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/desktopservices/desktopservices)
 
 endif
 
@@ -212,10 +132,24 @@ endif
 
 endif
 
-ifdef PTXCONF_QT4_DEMOS_EMBEDDED_DIGIFLIP
+ifdef PTXCONF_QT4_DEMOS_EMBEDDED_LIGHTMAPS
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
-		$(QT4_DIR)-build/demos/embedded/digiflip/digiflip, \
-		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/digiflip/digiflip)
+		$(QT4_DIR)-build/demos/embedded/lightmaps/lightmaps, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/lightmaps/lightmaps)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_EMBEDDED_RAYCASTING
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/embedded/raycasting/raycasting, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/raycasting/raycasting)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_EMBEDDED_STYLEDEMO
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/embedded/styledemo/styledemo, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embedded/styledemo/styledemo)
 
 endif
 
@@ -226,10 +160,76 @@ ifdef PTXCONF_QT4_DEMOS_EMBEDDED_WEATHERINFO
 
 endif
 
+ifdef PTXCONF_QT4_DEMOS_EMBEDDEDDIALOGS
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/embeddeddialogs/embeddeddialogs, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embeddeddialogs/embeddeddialogs)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_GRADIENTS
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/gradients/gradients, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/gradients/gradients)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_INTERVIEW
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/interview/interview, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/interview/interview)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_MAINWINDOW
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/mainwindow/mainwindow, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/mainwindow/mainwindow)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_PATHSTROKE
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/pathstroke/pathstroke, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/pathstroke/pathstroke)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_QMEDIAPLAYER
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/qmediaplayer/qmediaplayer, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/qmediaplayer/qmediaplayer)
+endif
+
 ifdef PTXCONF_QT4_DEMOS_QTDEMO
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
 		$(QT4_DIR)-build/demos/qtdemo/../../bin/qtdemo, \
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/qtdemo/../../bin/qtdemo)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_SPREADSHEET
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/spreadsheet/spreadsheet, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/spreadsheet/spreadsheet)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_SQLBROWSER
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/sqlbrowser/sqlbrowser, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/sqlbrowser/sqlbrowser)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_SUB_ATTAQ
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/sub-attaq/sub-attaq, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/sub-attaq/sub-attaq)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_TEXTEDIT
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/textedit/textedit, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/textedit/textedit)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_UNDO
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/undo/undo, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/undo/undo)
 endif
 
 
