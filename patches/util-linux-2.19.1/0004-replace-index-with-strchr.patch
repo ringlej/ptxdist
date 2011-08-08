@@ -8,13 +8,13 @@ replace with strchr
 Signed-off-by: Jon Ringle <jon@ringle.org>
 ---
  shlibs/mount/src/tab_parse.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-Index: util-linux-2.19.1/shlibs/mount/src/tab_parse.c
-===================================================================
---- util-linux-2.19.1.orig/shlibs/mount/src/tab_parse.c
-+++ util-linux-2.19.1/shlibs/mount/src/tab_parse.c
-@@ -285,14 +285,14 @@ static int mnt_table_parse_next(struct l
+diff --git a/shlibs/mount/src/tab_parse.c b/shlibs/mount/src/tab_parse.c
+index 2fb37b7..bd76c18 100644
+--- a/shlibs/mount/src/tab_parse.c
++++ b/shlibs/mount/src/tab_parse.c
+@@ -286,14 +286,14 @@ static int mnt_table_parse_next(struct libmnt_table *tb, FILE *f, struct libmnt_
  		if (fgets(buf, sizeof(buf), f) == NULL)
  			return -EINVAL;
  		++*nlines;

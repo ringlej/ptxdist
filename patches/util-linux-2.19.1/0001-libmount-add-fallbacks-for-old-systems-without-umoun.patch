@@ -1,17 +1,18 @@
 From: Karel Zak <kzak@redhat.com>
 Date: Fri, 11 Feb 2011 10:45:09 +0100
-Subject: [PATCH] libmount: add fallbacks for old systems without umount2() syscall
+Subject: [PATCH] libmount: add fallbacks for old systems without umount2()
+ syscall
 
 Reported-by: Peter Breitenlohner <peb@mppmu.mpg.de>
 Signed-off-by: Karel Zak <kzak@redhat.com>
 ---
  shlibs/mount/src/context_umount.c |   28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ 1 files changed, 28 insertions(+), 0 deletions(-)
 
-Index: util-linux-2.19.1/shlibs/mount/src/context_umount.c
-===================================================================
---- util-linux-2.19.1.orig/shlibs/mount/src/context_umount.c
-+++ util-linux-2.19.1/shlibs/mount/src/context_umount.c
+diff --git a/shlibs/mount/src/context_umount.c b/shlibs/mount/src/context_umount.c
+index 69819e5..f7678a6 100644
+--- a/shlibs/mount/src/context_umount.c
++++ b/shlibs/mount/src/context_umount.c
 @@ -49,6 +49,34 @@ umount2(const char *path, int flags) {
  #endif
  
