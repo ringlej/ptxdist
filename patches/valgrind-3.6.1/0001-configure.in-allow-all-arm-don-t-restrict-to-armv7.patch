@@ -1,0 +1,24 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 8 Jun 2011 00:58:59 +0200
+Subject: [PATCH] configure.in: allow all arm, don't restrict to armv7
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+[mol: change configure.in not configure]
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 3878619..6674f9d 100644
+--- a/configure.in
++++ b/configure.in
+@@ -158,7 +158,7 @@ case "${host_cpu}" in
+         esac
+         ;;
+ 
+-     armv7*)
++     arm*)
+ 	AC_MSG_RESULT([ok (${host_cpu})])
+ 	ARCH_MAX="arm"
+ 	;;

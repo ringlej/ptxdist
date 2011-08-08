@@ -41,7 +41,9 @@ $(VALGRIND_SOURCE):
 # ----------------------------------------------------------------------------
 
 VALGRIND_PATH	:= PATH=$(CROSS_PATH)
-VALGRIND_ENV 	:= $(CROSS_ENV)
+VALGRIND_ENV	:= \
+	$(CROSS_ENV) \
+	valgrind_cv_sys_kernel_version=$(KERNEL_HEADER_VERSION)
 
 #
 # autoconf
