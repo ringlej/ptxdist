@@ -1,5 +1,0 @@
-## SECTION=hosttools
-
-menu "gtk+ & friends                "
-source "generated/host_gtk.in"
-endmenu
