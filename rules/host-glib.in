@@ -1,4 +1,4 @@
-## SECTION=host_gtk
+## SECTION=hosttools_noprompt
 
 config HOST_GLIB
 	tristate
