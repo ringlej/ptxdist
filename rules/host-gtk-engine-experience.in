@@ -1,9 +1,0 @@
-## SECTION=host_gtk
-
-config HOST_GTK_ENGINE_EXPERIENCE
-	tristate
-	select HOST_GTK
-	prompt "eXperience engine"
-	help
-	  A pixmap engine that is somewhat like XP, but way better...
-
