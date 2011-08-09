@@ -1623,7 +1623,7 @@ do_select_toolchain_guess()
 	    hint="/opt/${vendor}*/${target}/${gcc}${java}${libc}*/bin"
 	    ptxd_get_path ${hint}
 	fi
-	toolchain="${ptxd_reply[@]}"
+	toolchain=("${ptxd_reply[@]}")
 
 	# number of items in array == number of found toolchains
 	local num="${#ptxd_reply[@]}"
@@ -1640,18 +1640,15 @@ do_select_toolchain_guess()
 		local old_ifs="${IFS}"
 		IFS="
 "
-		toolchain="${toolchain[*]}"
+		local list="${toolchain[*]}"
 		IFS="${old_ifs}"
 
 		ptxd_dialog_msgbox \
-			"error: more than one toolchain found, matching\n" \
+			"warning: more than one toolchain found, matching\n" \
 			"	'${hint}':\n\n" \
-			"${toolchain}" \
-		        "\n" \
-			"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
-
-		return 1
+			"${list}"
 	fi
+	toolchain="${toolchain[$[num-1]]}"
 }
 
 
