@@ -107,7 +107,6 @@ QT4_AUTOCONF := \
 	-no-sse4.1 \
 	-no-sse4.2 \
 	-no-avx \
-	-no-neon \
 	-no-optimized-qmake \
 	-no-nis \
 	-no-cups \
@@ -122,6 +121,7 @@ QT4_AUTOCONF := \
 QT4_AUTOCONF-$(call ptx,ifdef, PTXCONF_QT4_ACCESSIBILITY,y,no)	+= accessibility
 QT4_AUTOCONF-$(call ptx/ifdef, PTXCONF_ICONV,y,no)		+= iconv
 QT4_AUTOCONF-$(call ptx/ifdef, PTXCONF_GLOBAL_LARGE_FILE,y,no)	+= largefile
+QT4_AUTOCONF-$(call ptx/ifdef, PTXCONF_ARCH_ARM_NEON,,no)	+= neon
 
 QT4_AUTOCONF += -$(call ptx/ifdef, PTXCONF_ENDIAN_LITTLE, little, big)-endian
 
