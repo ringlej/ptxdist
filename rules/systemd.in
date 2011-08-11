@@ -3,6 +3,7 @@
 menuconfig SYSTEMD
 	tristate
 	select HOST_INTLTOOL
+	select HOST_GPERF
 	select ROOTFS_RUN
 	select LIBC_PTHREAD
 	select LIBC_RT

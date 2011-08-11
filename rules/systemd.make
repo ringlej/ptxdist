@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 30
-SYSTEMD_MD5	:= dafd6d2471e2bf80d35525df9801a40f
+SYSTEMD_VERSION	:= 33
+SYSTEMD_MD5	:= 361cad7c3debbdd81c211527509ba181
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.bz2
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -94,6 +94,8 @@ $(STATEDIR)/systemd.targetinstall:
 #	#
 #	# - we don't care about a user systemd yet
 #	#
+
+	@$(call install_lib, systemd, 0, 0, 0644, libsystemd-daemon)
 
 	# daemon + tools
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd)
