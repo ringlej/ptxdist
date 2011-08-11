@@ -215,6 +215,13 @@ config ARCH_ARM_IWMMXT
 	  This enables the iwmmxt extension. This is present on some
 	  but not all pxa processors.
 
+config ARCH_ARM_NEON
+	bool "support NEON extension"
+	depends on ARCH_ARM
+	help
+	  This enables the NEON extension. This is e.g. present on
+	  Cortex A8 processors.
+
 #
 # hardware / software floating point
 #
