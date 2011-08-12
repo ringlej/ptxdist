@@ -13,6 +13,15 @@ choice
 		help
 		  This is support for the Alpha processor architecture.
 
+	config ARCH_AVR32
+		bool "avr32      "
+		select ARCH_SUPPORTS_ENDIAN_BIG
+		select HAS_MMU
+		help
+		  This is support for the Atmel AVR32 processors.
+		  Note: Only some (obsoleted AP7000 series) support
+		  linux.
+
 	config ARCH_AVR
 		bool "avr 8 bit "
 		select ARCH_SUPPORTS_ENDIAN_LITTLE
@@ -263,6 +272,7 @@ config ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM
 	default "avr"			if ARCH_AVR
+	default "avr32"			if ARCH_AVR32
 	default "alpha"			if ARCH_ALPHA
 	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86

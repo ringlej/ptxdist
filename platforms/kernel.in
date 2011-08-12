@@ -84,6 +84,7 @@ config KERNEL_ARCH_STRING
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM && !HAS_MMU
 	default "alpha"			if ARCH_ALPHA
+	default "avr32"			if ARCH_AVR32
 	default "blackfin"		if ARCH_BLACKFIN
 	default "m68k"			if ARCH_M68K
 	default "sparc"			if ARCH_SPARC
