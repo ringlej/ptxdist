@@ -96,6 +96,7 @@ $(STATEDIR)/systemd.targetinstall:
 #	#
 
 	@$(call install_lib, systemd, 0, 0, 0644, libsystemd-daemon)
+	@$(call install_lib, systemd, 0, 0, 0644, libsystemd-login)
 
 	# daemon + tools
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd)
