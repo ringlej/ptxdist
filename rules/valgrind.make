@@ -40,10 +40,18 @@ $(VALGRIND_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifdef KERNEL_VERSION
+VALGRIND_KERNEL_VERSION := $(KERNEL_VERSION)
+endif
+
+ifdef KERNEL_HEADER_VERSION
+VALGRIND_KERNEL_VERSION := $(KERNEL_HEADER_VERSION)
+endif
+
 VALGRIND_PATH	:= PATH=$(CROSS_PATH)
 VALGRIND_ENV	:= \
 	$(CROSS_ENV) \
-	valgrind_cv_sys_kernel_version=$(KERNEL_HEADER_VERSION)
+	valgrind_cv_sys_kernel_version=$(VALGRIND_KERNEL_VERSION)
 
 #
 # autoconf
