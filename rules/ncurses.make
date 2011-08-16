@@ -88,17 +88,6 @@ NCURSES_AUTOCONF := \
 	$(NCURSES_AUTOCONF_SHARED)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ncurses.compile:
-	@$(call targetinfo)
-	#cd $(NCURSES_DIR)/ncurses && make make_keys make_hash
-	#cp $(PTXCONF_SYSROOT_HOST)/bin/make_hash $(NCURSES_DIR)/ncurses/
-	@$(call compile, NCURSES)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
