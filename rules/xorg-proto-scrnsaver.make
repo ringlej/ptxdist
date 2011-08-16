@@ -45,7 +45,9 @@ XORG_PROTO_SCRNSAVER_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_PROTO_SCRNSAVER_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_PROTO_SCRNSAVER_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-specs
 
 # ----------------------------------------------------------------------------
 # Target-Install
