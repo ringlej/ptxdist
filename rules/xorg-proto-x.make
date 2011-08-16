@@ -44,7 +44,9 @@ XORG_PROTO_X_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_PROTO_X_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_PROTO_X_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-specs
 
 #
 # this was valid for an x86 target. Check on other
