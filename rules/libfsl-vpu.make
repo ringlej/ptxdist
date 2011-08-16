@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBFSL_VPU) += libfsl-vpu
 # Paths and names
 #
 LIBFSL_VPU_VERSION	:= 0.1.0
-LIBFSL_VPU_MD5		:= ffe5b0de6487a173077fee1fb6699cf6
+LIBFSL_VPU_MD5		:= c98dd0c638d66d0648b5d2e1a964dd6b
 LIBFSL_VPU		:= libfsl-vpu-$(LIBFSL_VPU_VERSION)
 LIBFSL_VPU_SUFFIX	:= tar.bz2
 LIBFSL_VPU_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBFSL_VPU).$(LIBFSL_VPU_SUFFIX)
