@@ -197,7 +197,7 @@ endif
 QT4_AUTOCONF-$(call ptx/qt-no, STL)			+= stl
 QT4_AUTOCONF-$(call ptx/qt-no, GLIB)			+= glib
 QT4_AUTOCONF-$(call ptx/qt-no, OPENSSL)			+= openssl
-QT4_AUTOCONF-$(call ptx/qt-no, EGL)			+= egl
+QT4_AUTOCONF-$(call ptx/qt-no, OPENGL_EGL)		+= egl
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_QTXMLPATTERNS)	+= xmlpatterns exceptions
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_MULTIMEDIA)	+= multimedia audio-backend
 QT4_AUTOCONF-$(call ptx/qt-no, BUILD_PHONON)		+= phonon phonon-backend
