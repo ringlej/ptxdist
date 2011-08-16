@@ -1,19 +1,19 @@
 From: Roland Hostettler <r.hostettler@gmx.ch>
-Subject: [patch] make makefile cross compilation aware
+Date: Tue, 16 Aug 2011 17:35:19 +0200
+Subject: [PATCH] make makefile cross compilation aware
 
 The upstream makefile is not usable for cross compilation.
 [wsa] Simplified 'strip' support
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
-
 ---
- Makefile |   10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ Makefile |   11 +++++------
+ 1 files changed, 5 insertions(+), 6 deletions(-)
 
-Index: Makefile
-===================================================================
---- a/Makefile.orig
+diff --git a/Makefile b/Makefile
+index 14c63cb..252b098 100644
+--- a/Makefile
 +++ b/Makefile
 @@ -4,13 +4,12 @@
  ###
