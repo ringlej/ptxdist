@@ -29,6 +29,8 @@ HOST_XORG_PROTO_KB_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_XORG_PROTO_KB_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_XORG_PROTO_KB_AUTOCONF := \
+	$(HOST_AUTOCONF) \
+	--disable-specs
 
 # vim: syntax=make
