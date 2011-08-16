@@ -9,6 +9,7 @@ menuconfig GST_PLUGINS_BAD
 	select SDL		if GST_PLUGINS_BAD_SDL
 	select BZIP2		if GST_PLUGINS_BAD_BZ2
 	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD_BZ2
+	select ORC		if GST_PLUGINS_BAD_ORC
 
 	prompt "gst-plugins-bad               "
 	help
@@ -20,6 +21,9 @@ menuconfig GST_PLUGINS_BAD
 
 
 if GST_PLUGINS_BAD
+
+config GST_PLUGINS_BAD_ORC
+	bool
 
 config GST_PLUGINS_BAD_ADPCMDEC
 	bool
@@ -291,6 +295,7 @@ config GST_PLUGINS_BAD_DIRAC
 
 config GST_PLUGINS_BAD_DTS
 	bool
+	select GST_PLUGINS_BAD_ORC
 	prompt "dts"
 	depends on BROKEN
 
@@ -497,6 +502,7 @@ config GST_PLUGINS_BAD_COLOREFFECTS
 
 config GST_PLUGINS_BAD_COLORSPACE
 	bool
+	select GST_PLUGINS_BAD_ORC
 	prompt "colorspace"
 
 config GST_PLUGINS_BAD_DVBSUBOVERLAY
@@ -518,6 +524,10 @@ config GST_PLUGINS_BAD_INTERLACE
 config GST_PLUGINS_BAD_IVFPARSE
 	bool
 	prompt "ivfparse"
+
+config GST_PLUGINS_BAD_VIDEOMAXRATE
+	bool
+	prompt "videomaxrate"
 
 config GST_PLUGINS_BAD_JP2DECIMATOR
 	bool
