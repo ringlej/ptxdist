@@ -16,6 +16,7 @@ menuconfig GST_PLUGINS_BASE
 	select UDEV_LIBGUDEV	if GST_PLUGINS_BASE_GST_V4L
 	select LIBXML2		if GST_PLUGINS_BASE_SUBPARSE
 	select LIBXML2_HTML	if GST_PLUGINS_BASE_SUBPARSE
+	select ORC		if GST_PLUGINS_BASE_ORC
 
 	# x features need libx11 + Xv
 	select XORG		if GST_PLUGINS_BASE_X
@@ -36,11 +37,15 @@ menuconfig GST_PLUGINS_BASE
 
 if GST_PLUGINS_BASE
 
+	config GST_PLUGINS_BASE_ORC
+		bool
+
 	comment "dependency-less plugins"
 	# -------------------------------
 
 	config GST_PLUGINS_BASE_ADDER
 		bool
+		select GST_PLUGINS_BASE_ORC
 		prompt "adder"
 
 	config GST_PLUGINS_BASE_APP
@@ -49,6 +54,7 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE_AUDIOCONVERT
 		bool
+		select GST_PLUGINS_BASE_ORC
 		prompt "audioconvert"
 
 	config GST_PLUGINS_BASE_AUDIORATE
@@ -87,6 +93,7 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE_AUDIORESAMPLE
 		bool
+		select GST_PLUGINS_BASE_ORC
 		prompt "audioresample"
 
 	config GST_PLUGINS_BASE_SUBPARSE
@@ -103,6 +110,7 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE_VIDEOTESTSRC
 		bool
+		select GST_PLUGINS_BASE_ORC
 		prompt "videotestsrc"
 
 	config GST_PLUGINS_BASE_VIDEORATE
@@ -111,10 +119,12 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE_VIDEOSCALE
 		bool
+		select GST_PLUGINS_BASE_ORC
 		prompt "videoscale"
 
 	config GST_PLUGINS_BASE_VOLUME
 		bool
+		select GST_PLUGINS_BASE_ORC
 		prompt "volume"
 
 	config GST_PLUGINS_BASE_ISO_CODES
