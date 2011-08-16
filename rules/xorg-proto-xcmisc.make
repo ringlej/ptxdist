@@ -45,7 +45,9 @@ XORG_PROTO_XCMISC_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_PROTO_XCMISC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_PROTO_XCMISC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-specs
 
 # ----------------------------------------------------------------------------
 # Target-Install
