@@ -716,10 +716,6 @@ config QT4_OPENGL_ES1
 	bool "ES 1.x   "
 	select QT4_BUILD_OPENGL
 
-config QT4_OPENGL_ES1CL
-	bool "ES 1.x CL"
-	select QT4_BUILD_OPENGL
-
 config QT4_OPENGL_ES2
 	bool "ES 2.x   "
 	select QT4_BUILD_OPENGL

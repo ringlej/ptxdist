@@ -237,9 +237,6 @@ endif
 ifdef PTXCONF_QT4_OPENGL_ES1
 QT4_AUTOCONF += -opengl es1
 endif
-ifdef PTXCONF_QT4_OPENGL_ES1CL
-QT4_AUTOCONF += -opengl es1cl
-endif
 ifdef PTXCONF_QT4_OPENGL_ES2
 QT4_AUTOCONF += -opengl es2
 endif
