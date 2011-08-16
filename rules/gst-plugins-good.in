@@ -18,8 +18,9 @@ menuconfig GST_PLUGINS_GOOD
 	select SPEEX		if GST_PLUGINS_GOOD_SPEEX
 	select FLAC		if GST_PLUGINS_GOOD_FLAC
 	select CAIRO		if GST_PLUGINS_GOOD_CAIRO
-	select UDEV		if GST_PLUGINS_BASE_GST_V4L2
-	select UDEV_LIBGUDEV	if GST_PLUGINS_BASE_GST_V4L2
+	select UDEV		if GST_PLUGINS_GOOD_GST_V4L2
+	select UDEV_LIBGUDEV	if GST_PLUGINS_GOOD_GST_V4L2
+	select ORC		if GST_PLUGINS_GOOD_ORC
 
 	prompt "gst-plugins-good              "
 	help
@@ -30,6 +31,9 @@ menuconfig GST_PLUGINS_GOOD
 	  supporting library).
 
 if GST_PLUGINS_GOOD
+
+	config GST_PLUGINS_GOOD_ORC
+		bool
 
 	config GST_PLUGINS_GOOD_BROKEN
 		bool
@@ -88,6 +92,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_DEINTERLACE
 		bool
+		select GST_PLUGINS_GOOD_ORC
 		prompt "deinterlace"
 
 	config GST_PLUGINS_GOOD_EFFECTV
@@ -120,6 +125,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_GOOM
 		bool
+		select GST_PLUGINS_GOOD_ORC
 		prompt "goom"
 
 	config GST_PLUGINS_GOOD_GOOM2K1
@@ -192,6 +198,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_VIDEOBOX
 		bool
+		select GST_PLUGINS_GOOD_ORC
 		prompt "videobox"
 
 	config GST_PLUGINS_GOOD_VIDEOCROP
@@ -200,6 +207,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_VIDEOMIXER
 		bool
+		select GST_PLUGINS_GOOD_ORC
 		prompt "videomixer"
 
 	config GST_PLUGINS_GOOD_WAVENC
