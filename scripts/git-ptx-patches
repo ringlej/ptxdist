@@ -32,6 +32,11 @@ if grep -q "$PTX_PATCHES_HEADER" .ptxdist/series; then
 	fi
 fi
 
+if [ "x$1" = "x--force-remove" ]; then
+	remove_old="force"
+	shift
+fi
+
 while getopts "ft:n:" opt; do
 	case "${opt}" in
 		f)
@@ -44,11 +49,6 @@ while getopts "ft:n:" opt; do
 	esac
 done
 shift $((${OPTIND} - 1))
-
-if [ "x$1" = "x--force-remove" ]; then
-	remove_old="force"
-	shift
-fi
 
 tag2=$(grep "#tag:" .ptxdist/series | awk "/#tag:${tag}/{if (getline) print \$1}" | sed 's,#tag:,,')
 range="${tag}..${tag2}"
