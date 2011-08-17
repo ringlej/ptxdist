@@ -35,11 +35,20 @@ endif
 KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
 KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include
 
+kernel/url = \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/$($(1)).$($(1)_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/testing/$($(1)).$($(1)_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/testing/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR).$($(1)_VERSION_MICRO)/$($(1)).$($(1)_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/longterm/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR).$($(1)_VERSION_MICRO)/$($(1)).$($(1)_SUFFIX) \
+	\
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).x/$($(1)).$($(1)_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).x/testing/$($(1)).$($(1)_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).x/testing/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/$($(1)).$($(1)_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$($(1)_VERSION_MAJOR).x/longterm/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/$($(1)).$($(1)_SUFFIX)
+
 kernel-url = \
-	http://www.kernel.org/pub/linux/kernel/v$($(strip $(1))_VERSION_MAJOR).$($(strip $(1))_VERSION_MINOR)/$($(strip $(1))).$($(strip $(1))_SUFFIX) \
-	http://www.kernel.org/pub/linux/kernel/v$($(strip $(1))_VERSION_MAJOR).$($(strip $(1))_VERSION_MINOR)/testing/$($(strip $(1))).$($(strip $(1))_SUFFIX) \
-	http://www.kernel.org/pub/linux/kernel/v$($(strip $(1))_VERSION_MAJOR).$($(strip $(1))_VERSION_MINOR)/testing/v$($(strip $(1))_VERSION_MAJOR).$($(strip $(1))_VERSION_MINOR).$($(strip $(1))_VERSION_MICRO)/$($(strip $(1))).$($(strip $(1))_SUFFIX) \
-	http://www.kernel.org/pub/linux/kernel/v$($(strip $(1))_VERSION_MAJOR).$($(strip $(1))_VERSION_MINOR)/longterm/v$($(strip $(1))_VERSION_MAJOR).$($(strip $(1))_VERSION_MINOR).$($(strip $(1))_VERSION_MICRO)/$($(strip $(1))).$($(strip $(1))_SUFFIX)
+	$(call kernel/url,$(strip $(1)))
+
 #
 # handle special compiler
 #
