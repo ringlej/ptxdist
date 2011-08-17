@@ -47,6 +47,11 @@ $(UDEV_SOURCE):
 
 #
 # autoconf
+
+UDEV_CONF_ENV := \
+	$(CROSS_ENV) \
+	CPPFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR) $(CROSS_CPPFLAGS)"
+
 #
 # Note: explicit sbindir to avoid "${exec_prefix}/sbin/" on the target.
 UDEV_AUTOCONF := \
