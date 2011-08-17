@@ -59,6 +59,8 @@ NCURSES_AUTOCONF_SHARED := \
 	--disable-term-driver \
 	--disable-ext-mouse \
 	--disable-interop \
+	--disable-rpath \
+	--disable-rpath-hack \
 	--enable-reentrant
 
 # do this to get libncurses with threads but without a trailing "t":
