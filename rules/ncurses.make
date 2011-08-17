@@ -61,12 +61,11 @@ NCURSES_AUTOCONF_SHARED := \
 	--disable-interop \
 	--disable-rpath \
 	--disable-rpath-hack \
-	--enable-reentrant
+	--without-pthread \
+	--disable-reentrant
 
-# do this to get libncurses with threads but without a trailing "t":
-NCURSES_AUTOCONF_SHARED += \
-	--with-pthread=yes \
-	--enable-weak-symbols
+# NOTE: reentrant enables opaque, which breaks other packages
+# pthread enables reentrant, so don't enable it either
 
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
