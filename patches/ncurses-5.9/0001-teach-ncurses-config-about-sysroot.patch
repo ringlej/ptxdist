@@ -1,7 +1,6 @@
-From cedb5f7efc778670c52bd7d4077d96e8e4a93dee Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Thu, 17 Mar 2011 13:34:53 +0100
-Subject: [PATCH 2/3] teach ncurses-config about sysroot
+Subject: [PATCH] teach ncurses-config about sysroot
 
 This patch teaches ncurses-config about sysroot
 
@@ -51,6 +50,3 @@ index a9c0ac5..08d44bb 100644
  		;;
  	--mandir)
  		echo "${mandir}"
--- 
-1.7.5.3
-
