@@ -110,20 +110,13 @@ ifdef PTXCONF_NCURSES_PANEL
 NCURSES_LIBRARY_LIST += panel
 endif
 
-NCURSES_WIDE := w
 endif
-
-NCURSES_MAJOR := 6
-NCURSES_MINOR := 0
 
 $(STATEDIR)/ncurses.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, NCURSES)
 
-	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/ncurses$(NCURSES_WIDE)$(NCURSES_MAJOR)-config" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin"
-	@ln -sf -- "ncurses$(NCURSES_WIDE)$(NCURSES_MAJOR)-config" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/ncurses$(NCURSES_WIDE)5-config"
+	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
 
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 # Note: This tweak only works if we build the application with these settings!
@@ -140,6 +133,12 @@ endif
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+NCURSES_WIDE := w
+endif
+NCURSES_MAJOR := 6
+NCURSES_MINOR := 0
 
 $(STATEDIR)/ncurses.targetinstall:
 	@$(call targetinfo)
