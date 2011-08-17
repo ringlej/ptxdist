@@ -53,6 +53,7 @@ $(STATEDIR)/orc.targetinstall:
 	@$(call install_fixup, orc,DESCRIPTION,missing)
 
 	@$(call install_lib, orc, 0, 0, 0644, liborc-0.4)
+	@$(call install_lib, orc, 0, 0, 0644, liborc-test-0.4)
 
 	@$(call install_finish, orc)
 
