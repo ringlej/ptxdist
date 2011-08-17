@@ -2,6 +2,7 @@
 
 menuconfig KERNEL_HEADER
 	tristate
+	select BASE
 	prompt "Linux kernel headers          "
 	help
 	  Kernel headers used to build tools that need newer kernel
