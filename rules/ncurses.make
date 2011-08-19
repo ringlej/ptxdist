@@ -16,6 +16,7 @@ PACKAGES-$(PTXCONF_NCURSES) += ncurses
 # Paths and names
 #
 NCURSES_VERSION	:= 5.9
+NCURSES_MAJOR	:= $(word 1,$(subst ., ,$(NCURSES_VERSION)))
 NCURSES_MD5	:= 8cb9c412e5f2d96bc6f459aa8c6282a1
 NCURSES		:= ncurses-$(NCURSES_VERSION)
 NCURSES_SUFFIX	:= tar.gz
@@ -62,6 +63,7 @@ NCURSES_AUTOCONF_SHARED := \
 	--disable-interop \
 	--disable-rpath \
 	--disable-rpath-hack \
+	--disable-ext-colors \
 	--without-pthread \
 	--disable-reentrant
 
@@ -70,13 +72,9 @@ NCURSES_AUTOCONF_SHARED := \
 
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
-NCURSES_AUTOCONF_SHARED += \
-	--enable-widec \
-	--enable-ext-colors
+NCURSES_AUTOCONF_SHARED += --enable-widec
 else
-NCURSES_AUTOCONF_SHARED += \
-	--disable-widec \
-	--disable-ext-colors
+NCURSES_AUTOCONF_SHARED += --disable-widec
 endif
 
 ifdef PTXCONF_NCURSES_BIG_CORE
@@ -112,6 +110,7 @@ ifdef PTXCONF_NCURSES_PANEL
 NCURSES_LIBRARY_LIST += panel
 endif
 
+NCURSES_WIDE := w
 endif
 
 $(STATEDIR)/ncurses.install.post:
@@ -136,12 +135,6 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-NCURSES_WIDE := w
-endif
-NCURSES_MAJOR := 6
-NCURSES_MINOR := 0
-
 $(STATEDIR)/ncurses.targetinstall:
 	@$(call targetinfo)
 
@@ -154,22 +147,22 @@ $(STATEDIR)/ncurses.targetinstall:
 	@$(call install_lib, ncurses, 0, 0, 0644, libncurses$(NCURSES_WIDE))
 
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
-		/lib/libncurses.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
-	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_VERSION), \
+		/lib/libncurses.so.$(NCURSES_VERSION))
+	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_VERSION), \
 		/lib/libncurses.so.$(NCURSES_MAJOR))
-	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libncursesw.so.$(NCURSES_VERSION), \
 		/lib/libncurses.so)
 endif
 
 ifdef PTXCONF_NCURSES_FORM
 	@$(call install_lib, ncurses, 0, 0, 0644, libform$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libformw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
-		/lib/libform.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
-	@$(call install_link, ncurses, libformw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libformw.so.$(NCURSES_VERSION), \
+		/lib/libform.so.$(NCURSES_VERSION))
+	@$(call install_link, ncurses, libformw.so.$(NCURSES_VERSION), \
 		/lib/libform.so.$(NCURSES_MAJOR))
-	@$(call install_link, ncurses, libformw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libformw.so.$(NCURSES_VERSION), \
 		/lib/libform.so)
 endif
 endif
@@ -178,11 +171,11 @@ endif
 ifdef PTXCONF_NCURSES_MENU
 	@$(call install_lib, ncurses, 0, 0, 0644, libmenu$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
-		/lib/libmenu.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
-	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_VERSION), \
+		/lib/libmenu.so.$(NCURSES_VERSION))
+	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_VERSION), \
 		/lib/libmenu.so.$(NCURSES_MAJOR))
-	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libmenuw.so.$(NCURSES_VERSION), \
 		/lib/libmenu.so)
 endif
 endif
@@ -191,11 +184,11 @@ endif
 ifdef PTXCONF_NCURSES_PANEL
 	@$(call install_lib, ncurses, 0, 0, 0644, libpanel$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
-		/lib/libpanel.so.$(NCURSES_MAJOR).$(NCURSES_MINOR))
-	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_VERSION), \
+		/lib/libpanel.so.$(NCURSES_VERSION))
+	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_VERSION), \
 		/lib/libpanel.so.$(NCURSES_MAJOR))
-	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_MAJOR).$(NCURSES_MINOR), \
+	@$(call install_link, ncurses, libpanelw.so.$(NCURSES_VERSION), \
 		/lib/libpanel.so)
 endif
 endif
