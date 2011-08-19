@@ -3,7 +3,7 @@
 menuconfig ALSA_UTILS
 	tristate
 	prompt "alsa utils                    "
-	select NCURSES
+	select NCURSES if ALSA_UTILS_ALSAMIXER
 	select ALSA_LIB
 # alsa-utils fails with the salsa-lib
 	select ALSA_LIB_FULL

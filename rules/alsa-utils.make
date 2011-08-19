@@ -56,9 +56,13 @@ ALSA_UTILS_AUTOCONF := \
 	--disable-xmlto
 
 ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
-ALSA_UTILS_AUTOCONF += --enable-alsamixer
+ALSA_UTILS_AUTOCONF += \
+	--enable-alsamixer \
+	--with-curses=$(call ptx/ifdef,PTXCONF_NCURSES_WIDE_CHAR,ncursesw,ncurses)
 else
-ALSA_UTILS_AUTOCONF += --disable-alsamixer
+ALSA_UTILS_AUTOCONF += \
+	--disable-alsamixer \
+	--without-curses
 endif
 
 # ----------------------------------------------------------------------------
