@@ -25,14 +25,6 @@ NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(NCURSES_SOURCE):
-	@$(call targetinfo)
-	@$(call get, NCURSES)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -113,11 +105,9 @@ endif
 NCURSES_WIDE := w
 endif
 
-$(STATEDIR)/ncurses.install.post:
+$(STATEDIR)/ncurses.install:
 	@$(call targetinfo)
-	@$(call world/install.post, NCURSES)
-
-	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
+	@$(call world/install, NCURSES)
 
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 # Note: This tweak only works if we build the application with these settings!
@@ -125,13 +115,19 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 # For this, the links at runtime are required
 #
 	for lib in $(NCURSES_LIBRARY_LIST); do \
-		echo "INPUT(-l$${lib}w)" > $(SYSROOT)/lib/lib$${lib}.so ; \
+		echo "INPUT(-l$${lib}w)" > $(NCURSES_PKGDIR)/lib/lib$${lib}.so ; \
 	done
-	ln -sf libncurses++w.a $(SYSROOT)/lib/libncurses++.a
+	ln -sf libncurses++w.a $(NCURSES_PKGDIR)/lib/libncurses++.a
 
 	ln -sf -- "ncursesw$(NCURSES_MAJOR)-config" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/ncurses$(NCURSES_MAJOR)-config"
+		"$(NCURSES_PKGDIR)/usr/bin/ncurses$(NCURSES_MAJOR)-config"
 endif
+	@$(call touch)
+
+$(STATEDIR)/ncurses.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, NCURSES)
+	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
