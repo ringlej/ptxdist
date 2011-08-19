@@ -128,6 +128,9 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 		echo "INPUT(-l$${lib}w)" > $(SYSROOT)/lib/lib$${lib}.so ; \
 	done
 	ln -sf libncurses++w.a $(SYSROOT)/lib/libncurses++.a
+
+	ln -sf -- "ncursesw$(NCURSES_MAJOR)-config" \
+		"$(PTXCONF_SYSROOT_CROSS)/bin/ncurses$(NCURSES_MAJOR)-config"
 endif
 	@$(call touch)
 
