@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GSTREAMER) += gstreamer
 #
 # Paths and names
 #
-GSTREAMER_VERSION	:= 0.10.34
-GSTREAMER_MD5		:= e6938af242cd002be9f0b6441e848d83
+GSTREAMER_VERSION	:= 0.10.35
+GSTREAMER_MD5		:= 4a0a00edad7a2c83de5211ca679dfaf9
 GSTREAMER		:= gstreamer-$(GSTREAMER_VERSION)
 GSTREAMER_SUFFIX	:= tar.bz2
 GSTREAMER_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER).$(GSTREAMER_SUFFIX)
@@ -148,6 +148,9 @@ endif
 	@$(call install_lib, gstreamer, 0, 0, 0644, libgstdataprotocol-0.10)
 
 	@$(call install_lib, gstreamer, 0, 0, 0644, libgstbase-0.10)
+
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
+		/usr/libexec/gstreamer-0.10/gst-plugin-scanner)
 
 ifdef PTXCONF_PRELINK
 	@$(call install_alternative, gstreamer, 0, 0, 0644, \
