@@ -35,8 +35,9 @@ $(NCURSES_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-NCURSES_PATH	:= PATH=$(CROSS_PATH)
-NCURSES_ENV 	:= $(CROSS_ENV)
+NCURSES_ENV := \
+	$(CROSS_ENV) \
+	TIC_PATH="$(PTXCONF_SYSROOT_HOST)/bin/tic"
 
 NCURSES_AUTOCONF_SHARED := \
 	--disable-echo \
@@ -86,7 +87,8 @@ endif
 
 NCURSES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(NCURSES_AUTOCONF_SHARED)
+	$(NCURSES_AUTOCONF_SHARED) \
+	--without-progs
 
 # ----------------------------------------------------------------------------
 # Install
