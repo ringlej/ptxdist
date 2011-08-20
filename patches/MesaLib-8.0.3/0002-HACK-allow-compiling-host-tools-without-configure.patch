@@ -1,0 +1,48 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 7 Jul 2010 10:58:14 +0200
+Subject: [PATCH] HACK: allow compiling host tools without configure
+
+This patch modifies the Makefiles for the hosttools to allow
+compiling without configure. This way we can avoid
+unnecessary dependencies when only compiling host tools.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/glsl/Makefile |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/glsl/Makefile b/src/glsl/Makefile
+index d9ecbc8..c6726a7 100644
+--- a/src/glsl/Makefile
++++ b/src/glsl/Makefile
+@@ -3,7 +3,11 @@
+ 
+ TOP = ../..
+ 
++ifeq ($(wildcard $(TOP)/configs/current),)
++include $(TOP)/configs/default
++else
+ include $(TOP)/configs/current
++endif
+ 
+ LIBNAME = glsl
+ 
+@@ -118,7 +122,8 @@ endif
+ 
+ # Dummy target
+ install: $(DRICORE_INSTALL_TARGET)
+-	@echo -n ""
++	$(INSTALL) -d $(DESTDIR)/bin/mesa/
++	$(INSTALL) -m 755 builtin_compiler $(DESTDIR)/bin/mesa/
+ 
+ install-dricore: default
+ 	$(INSTALL) -d $(DESTDIR)$(DRI_DRIVER_INSTALL_DIR)
+@@ -165,7 +170,7 @@ glcpp/glcpp-parse.c: glcpp/glcpp-parse.y
+ builtin_compiler: $(GLSL2_OBJECTS) $(OBJECTS) builtin_stubs.o
+ 	$(APP_CXX) $(INCLUDES) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS) $(GLSL2_OBJECTS) builtin_stubs.o -o $@
+ 
+-builtin_function.cpp: builtins/profiles/* builtins/ir/* builtins/tools/generate_builtins.py builtins/tools/texture_builtins.py builtin_compiler
++builtin_function.cpp: builtins/profiles/* builtins/ir/* builtins/tools/generate_builtins.py builtins/tools/texture_builtins.py
+ 	@echo Regenerating builtin_function.cpp...
+ 	$(PYTHON2) $(PYTHON_FLAGS) builtins/tools/generate_builtins.py ./builtin_compiler > builtin_function.cpp || rm -f builtin_function.cpp
+ 

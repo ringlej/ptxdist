@@ -10,13 +10,13 @@ Signed-off-by: Erwin Rol <erwin@erwinrol.com>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure.ac |   16 ++++++++--------
- 1 files changed, 8 insertions(+), 8 deletions(-)
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index e711634..e8f32eb 100644
+index fbaa376..1777d91 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -317,14 +317,14 @@ GLAPI_ASM_SOURCES=""
+@@ -457,14 +457,14 @@ GLAPI_ASM_SOURCES=""
  AC_MSG_CHECKING([whether to enable assembly])
  test "x$enable_asm" = xno && AC_MSG_RESULT([no])
  # disable if cross compiling on x86/x86_64 since we must run gen_matypes
@@ -39,6 +39,3 @@ index e711634..e8f32eb 100644
  # check for supported arches
  if test "x$enable_asm" = xyes; then
      case "$host_cpu" in
--- 
-1.7.1
-

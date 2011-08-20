@@ -1,0 +1,115 @@
+## SECTION=multimedia_xorg_support_libs
+
+menuconfig MESA_DEMOS
+	bool
+	select MESALIB
+	select GLEW
+	prompt "mesa tools & demos            "
+
+if MESA_DEMOS
+
+config MESA_DEMOS_CORENDER
+	bool
+	prompt "corender"
+
+config MESA_DEMOS_GLSYNC
+	bool
+	prompt "glsync"
+
+config MESA_DEMOS_GLTHREADS
+	bool
+	prompt "glthreads"
+
+config MESA_DEMOS_GLXCONTEXTS
+	bool
+	prompt "glxcontexts"
+
+config MESA_DEMOS_GLXDEMO
+	bool
+	prompt "glxdemo"
+
+config MESA_DEMOS_GLXGEARS
+	bool
+	prompt "glxgears"
+
+config MESA_DEMOS_GLXGEARS_FBCONFIG
+	bool
+	prompt "glxgears_fbconfig"
+
+config MESA_DEMOS_GLXGEARS_PIXMAP
+	bool
+	prompt "glxgears_pixmap"
+
+config MESA_DEMOS_GLXHEADS
+	bool
+	prompt "glxheads"
+
+config MESA_DEMOS_GLXINFO
+	bool
+	prompt "glxinfo"
+
+config MESA_DEMOS_GLXPBDEMO
+	bool
+	prompt "glxpbdemo"
+
+config MESA_DEMOS_GLXPIXMAP
+	bool
+	prompt "glxpixmap"
+
+config MESA_DEMOS_GLXSNOOP
+	bool
+	prompt "glxsnoop"
+
+config MESA_DEMOS_GLXSWAPCONTROL
+	bool
+	prompt "glxswapcontrol"
+
+config MESA_DEMOS_MANYWIN
+	bool
+	prompt "manywin"
+
+config MESA_DEMOS_MULTICTX
+	bool
+	prompt "multictx"
+
+config MESA_DEMOS_OFFSET
+	bool
+	prompt "offset"
+
+config MESA_DEMOS_OVERLAY
+	bool
+	prompt "overlay"
+
+config MESA_DEMOS_PBDEMO
+	bool
+	prompt "pbdemo"
+
+config MESA_DEMOS_PBINFO
+	bool
+	prompt "pbinfo"
+
+config MESA_DEMOS_SHAREDTEX
+	bool
+	prompt "sharedtex"
+
+config MESA_DEMOS_SHAREDTEX_MT
+	bool
+	prompt "sharedtex_mt"
+
+config MESA_DEMOS_TEXTURE_FROM_PIXMAP
+	bool
+	prompt "texture_from_pixmap"
+
+config MESA_DEMOS_WINCOPY
+	bool
+	prompt "wincopy"
+
+config MESA_DEMOS_XFONT
+	bool
+	prompt "xfont"
+
+config MESA_DEMOS_XROTFONTDEMO
+	bool
+	prompt "xrotfontdemo"
+
+endif
