@@ -7,15 +7,15 @@ Still very hacky, need to be enhanced before submitting to mainline
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
- gst/ffmpegcolorspace/avcodec.h           |    1 
+ gst/ffmpegcolorspace/avcodec.h           |    1 +
  gst/ffmpegcolorspace/gstffmpegcodecmap.c |   26 ++++++++++-
- gst/ffmpegcolorspace/imgconvert.c        |   71 +++++++++++++++++++++++++++++--
+ gst/ffmpegcolorspace/imgconvert.c        |   71 ++++++++++++++++++++++++++++--
  3 files changed, 91 insertions(+), 7 deletions(-)
 
-Index: gst/ffmpegcolorspace/avcodec.h
-===================================================================
---- gst/ffmpegcolorspace/avcodec.h.orig
-+++ gst/ffmpegcolorspace/avcodec.h
+diff --git a/gst/ffmpegcolorspace/avcodec.h b/gst/ffmpegcolorspace/avcodec.h
+index 57f551c..3d06101 100644
+--- a/gst/ffmpegcolorspace/avcodec.h
++++ b/gst/ffmpegcolorspace/avcodec.h
 @@ -94,6 +94,7 @@ enum PixelFormat {
  
      PIX_FMT_AYUV4444,  ///< Packed pixel, A0 Y0 Cb Cr
@@ -24,11 +24,90 @@ Index: gst/ffmpegcolorspace/avcodec.h
      PIX_FMT_NB
  };
  
-Index: gst/ffmpegcolorspace/imgconvert.c
-===================================================================
---- gst/ffmpegcolorspace/imgconvert.c.orig
-+++ gst/ffmpegcolorspace/imgconvert.c
-@@ -488,7 +488,18 @@ static PixFmtInfo pix_fmt_info[PIX_FMT_N
+diff --git a/gst/ffmpegcolorspace/gstffmpegcodecmap.c b/gst/ffmpegcolorspace/gstffmpegcodecmap.c
+index 318a90e..2015a48 100644
+--- a/gst/ffmpegcolorspace/gstffmpegcodecmap.c
++++ b/gst/ffmpegcolorspace/gstffmpegcodecmap.c
+@@ -228,6 +228,14 @@ gst_ffmpeg_pixfmt_to_caps (enum PixelFormat pix_fmt, AVCodecContext * context)
+       b_mask = 0xff000000;
+ #endif
+       break;
++    case PIX_FMT_RGB666:
++      bpp = 32;
++      depth = 18;
++      endianness = G_BIG_ENDIAN;
++      r_mask = 0x0003f000;
++      g_mask = 0x00000fc0;
++      b_mask = 0x0000003f;
++      break;
+     case PIX_FMT_BGR32:
+       bpp = 32;
+       depth = 24;
+@@ -684,7 +692,6 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps * caps,
+     }
+   } else if (gst_structure_has_name (structure, "video/x-raw-rgb")) {
+     gint bpp = 0, rmask = 0, endianness = 0, amask = 0, depth = 0;
+-
+     if (gst_structure_get_int (structure, "bpp", &bpp) &&
+         gst_structure_get_int (structure, "endianness", &endianness)) {
+       if (gst_structure_get_int (structure, "red_mask", &rmask)) {
+@@ -696,6 +703,8 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps * caps,
+                 context->pix_fmt = PIX_FMT_BGRA32;
+               else if (rmask == 0x00ff0000)
+                 context->pix_fmt = PIX_FMT_RGBA32;
++              else if (rmask == 0x0003f000)
++                context->pix_fmt = PIX_FMT_RGB666;
+               else if (rmask == 0xff000000)
+                 context->pix_fmt = PIX_FMT_ARGB32;
+               else              // if (r_mask = 0x000000ff)
+@@ -705,6 +714,11 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps * caps,
+                 context->pix_fmt = PIX_FMT_BGRA32;
+               else if (rmask == 0x0000ff00)
+                 context->pix_fmt = PIX_FMT_RGBA32;
++	      /* XXX: Hack here, gstreamer seems not to treat endianess in a
++	       * consistent way between plugins. Since we only have RGB666 for
++	       * now, We have to hack it around here */
++              else if (rmask == 0x0003f000)
++                context->pix_fmt = PIX_FMT_RGB666;
+               else if (rmask == 0x000000ff)
+                 context->pix_fmt = PIX_FMT_ARGB32;
+               else              // if (rmask == 0xff000000)
+@@ -716,7 +730,9 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps * caps,
+                 context->pix_fmt = PIX_FMT_RGB32;
+               else if (rmask == 0x0000ff00)
+                 context->pix_fmt = PIX_FMT_BGR32;
+-              else if (rmask == 0xff000000)
++	      else if (rmask == 0x0003f000)
++		context->pix_fmt = PIX_FMT_RGB666;
++	      else if (rmask == 0xff000000)
+                 context->pix_fmt = PIX_FMT_xRGB32;
+               else              // if (rmask == 0x000000ff)
+                 context->pix_fmt = PIX_FMT_BGRx32;
+@@ -725,7 +741,10 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps * caps,
+                 context->pix_fmt = PIX_FMT_RGB32;
+               else if (rmask == 0x00ff0000)
+                 context->pix_fmt = PIX_FMT_BGR32;
+-              else if (rmask == 0x000000ff)
++	      /* XXX: Hack here, see XXX section above for more details */
++	      else if (rmask == 0x0003f000)
++		context->pix_fmt = PIX_FMT_RGB666;
++	      else if (rmask == 0x000000ff)
+                 context->pix_fmt = PIX_FMT_xRGB32;
+               else              // if (rmask == 0xff000000)
+                 context->pix_fmt = PIX_FMT_BGRx32;
+@@ -922,6 +941,7 @@ gst_ffmpegcsp_avpicture_fill (AVPicture * picture,
+       picture->linesize[0] = stride;
+       return size;
+     case PIX_FMT_AYUV4444:
++    case PIX_FMT_RGB666:
+     case PIX_FMT_RGB32:
+     case PIX_FMT_RGBA32:
+     case PIX_FMT_ARGB32:
+diff --git a/gst/ffmpegcolorspace/imgconvert.c b/gst/ffmpegcolorspace/imgconvert.c
+index cb145bb..d7be2bf 100644
+--- a/gst/ffmpegcolorspace/imgconvert.c
++++ b/gst/ffmpegcolorspace/imgconvert.c
+@@ -488,7 +488,18 @@ static PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
          /* .x_chroma_shift = */ 1,
          /* .y_chroma_shift = */ 1,
          /* .depth          = */ 8,
@@ -76,7 +155,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
          bits = pf->depth * pf->nb_channels;
        } else {
          bits = pf->depth + ((2 * pf->depth) >>
-@@ -740,7 +754,6 @@ avcodec_find_best_pix_fmt (int pix_fmt_m
+@@ -740,7 +754,6 @@ avcodec_find_best_pix_fmt (int pix_fmt_mask, int src_pix_fmt,
      ~FF_LOSS_DEPTH,
      0,
    };
@@ -205,7 +284,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_PAL8, PIX_FMT_RGB32, pal8_to_rgb32},
    {PIX_FMT_PAL8, PIX_FMT_BGR32, pal8_to_bgr32},
    {PIX_FMT_PAL8, PIX_FMT_xRGB32, pal8_to_xrgb32},
-@@ -3858,6 +3918,9 @@ img_get_alpha_info (const AVPicture * sr
+@@ -3858,6 +3918,9 @@ img_get_alpha_info (const AVPicture * src, int pix_fmt, int width, int height)
      case PIX_FMT_ABGR32:
        ret = get_alpha_info_abgr32 (src, width, height);
        break;
@@ -215,82 +294,3 @@ Index: gst/ffmpegcolorspace/imgconvert.c
      case PIX_FMT_RGB555:
        ret = get_alpha_info_rgb555 (src, width, height);
        break;
-Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
-===================================================================
---- gst/ffmpegcolorspace/gstffmpegcodecmap.c.orig
-+++ gst/ffmpegcolorspace/gstffmpegcodecmap.c
-@@ -228,6 +228,14 @@ gst_ffmpeg_pixfmt_to_caps (enum PixelFor
-       b_mask = 0xff000000;
- #endif
-       break;
-+    case PIX_FMT_RGB666:
-+      bpp = 32;
-+      depth = 18;
-+      endianness = G_BIG_ENDIAN;
-+      r_mask = 0x0003f000;
-+      g_mask = 0x00000fc0;
-+      b_mask = 0x0000003f;
-+      break;
-     case PIX_FMT_BGR32:
-       bpp = 32;
-       depth = 24;
-@@ -684,7 +692,6 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
-     }
-   } else if (gst_structure_has_name (structure, "video/x-raw-rgb")) {
-     gint bpp = 0, rmask = 0, endianness = 0, amask = 0, depth = 0;
--
-     if (gst_structure_get_int (structure, "bpp", &bpp) &&
-         gst_structure_get_int (structure, "endianness", &endianness)) {
-       if (gst_structure_get_int (structure, "red_mask", &rmask)) {
-@@ -696,6 +703,8 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
-                 context->pix_fmt = PIX_FMT_BGRA32;
-               else if (rmask == 0x00ff0000)
-                 context->pix_fmt = PIX_FMT_RGBA32;
-+              else if (rmask == 0x0003f000)
-+                context->pix_fmt = PIX_FMT_RGB666;
-               else if (rmask == 0xff000000)
-                 context->pix_fmt = PIX_FMT_ARGB32;
-               else              // if (r_mask = 0x000000ff)
-@@ -705,6 +714,11 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
-                 context->pix_fmt = PIX_FMT_BGRA32;
-               else if (rmask == 0x0000ff00)
-                 context->pix_fmt = PIX_FMT_RGBA32;
-+	      /* XXX: Hack here, gstreamer seems not to treat endianess in a
-+	       * consistent way between plugins. Since we only have RGB666 for
-+	       * now, We have to hack it around here */
-+              else if (rmask == 0x0003f000)
-+                context->pix_fmt = PIX_FMT_RGB666;
-               else if (rmask == 0x000000ff)
-                 context->pix_fmt = PIX_FMT_ARGB32;
-               else              // if (rmask == 0xff000000)
-@@ -716,7 +730,9 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
-                 context->pix_fmt = PIX_FMT_RGB32;
-               else if (rmask == 0x0000ff00)
-                 context->pix_fmt = PIX_FMT_BGR32;
--              else if (rmask == 0xff000000)
-+	      else if (rmask == 0x0003f000)
-+		context->pix_fmt = PIX_FMT_RGB666;
-+	      else if (rmask == 0xff000000)
-                 context->pix_fmt = PIX_FMT_xRGB32;
-               else              // if (rmask == 0x000000ff)
-                 context->pix_fmt = PIX_FMT_BGRx32;
-@@ -725,7 +741,10 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
-                 context->pix_fmt = PIX_FMT_RGB32;
-               else if (rmask == 0x00ff0000)
-                 context->pix_fmt = PIX_FMT_BGR32;
--              else if (rmask == 0x000000ff)
-+	      /* XXX: Hack here, see XXX section above for more details */
-+	      else if (rmask == 0x0003f000)
-+		context->pix_fmt = PIX_FMT_RGB666;
-+	      else if (rmask == 0x000000ff)
-                 context->pix_fmt = PIX_FMT_xRGB32;
-               else              // if (rmask == 0xff000000)
-                 context->pix_fmt = PIX_FMT_BGRx32;
-@@ -922,6 +941,7 @@ gst_ffmpegcsp_avpicture_fill (AVPicture
-       picture->linesize[0] = stride;
-       return size;
-     case PIX_FMT_AYUV4444:
-+    case PIX_FMT_RGB666:
-     case PIX_FMT_RGB32:
-     case PIX_FMT_RGBA32:
-     case PIX_FMT_ARGB32:
