@@ -8,6 +8,7 @@ menuconfig BUSYBOX
 	select LIBC_NSS_FILES	if !BUSYBOX_STATIC
 	select LIBC_M		if !BUSYBOX_STATIC && BUSYBOX_FEATURE_AWK_LIBM
 	select GCCLIBS_GCC_S	if !BUSYBOX_STATIC
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  BusyBox is the Swiss Army Knife of embedded Linux. It is a
 	  multi call program which hosts nearly all important unix
