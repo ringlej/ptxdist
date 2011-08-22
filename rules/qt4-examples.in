@@ -680,6 +680,7 @@ if QT4_EXAMPLES_HELP
 config QT4_EXAMPLES_HELP_CONTEXTSENSITIVEHELP
 	bool
 	prompt "contextsensitivehelp"
+	depends on QT4_BUILD_TOOLS
 	depends on QT4_BUILD_SQL
 	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_GUI
@@ -688,12 +689,14 @@ config QT4_EXAMPLES_HELP_CONTEXTSENSITIVEHELP
 config QT4_EXAMPLES_HELP_REMOTECONTROL
 	bool
 	prompt "remotecontrol"
+	depends on QT4_BUILD_TOOLS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES_HELP_SIMPLETEXTVIEWER
 	bool
 	prompt "simpletextviewer"
+	depends on QT4_BUILD_TOOLS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
