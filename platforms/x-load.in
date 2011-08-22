@@ -28,6 +28,10 @@ config X_LOAD_VERSION
 
 	    ${PTXDIST_WORKSPACE}/local_src/
 
+config X_LOAD_MD5
+	prompt "x-loader source md5sum"
+	string
+
 config X_LOAD_CONFIG
 	string
 	prompt "x-loader config target"
