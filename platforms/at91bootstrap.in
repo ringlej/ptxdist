@@ -40,6 +40,10 @@ config AT91BOOTSTRAP_VERSION
 	help
 	  Enter the AT91 Bootstrap version you want to build. Usally something like "1.11"
 
+config AT91BOOTSTRAP_MD5
+	prompt "AT91 Bootstrap source md5sum"
+	string
+
 config AT91BOOTSTRAP_CONFIG
 	string
 	prompt "AT91 Bootstrap config target"
