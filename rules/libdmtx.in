@@ -2,7 +2,7 @@
 
 menuconfig LIBDMTX
 	tristate
-	prompt "libdmtx"
+	prompt "libdmtx                       "
 	select PYTHON	if LIBDMTX_PYTHON
 	help
 	  libdmtx is open source software for reading and writing Data

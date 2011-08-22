@@ -6,7 +6,7 @@ menuconfig PYTHON_IMAGING
 	select ZLIB
 	select FREETYPE		if PYTHON_IMAGING_FREETYPE
 	select LIBJPEG		if PYTHON_IMAGING_JPEG
-	prompt "python-imaging"
+	prompt "python-imaging                "
 	help
 	  FIXME
 
