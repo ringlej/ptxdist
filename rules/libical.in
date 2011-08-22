@@ -6,7 +6,7 @@ menuconfig LIBICAL
 	select LIBC_M		if LIBICAL_CXX
 	select GCCLIBS_CXX	if LIBICAL_CXX
 	select GCCLIBS_GCC_S	if LIBICAL_CXX
-	prompt "libical"
+	prompt "libical                       "
 	help
 	  libical is an open source reference implementation of the icalendar data
 	  type and serialization format.
