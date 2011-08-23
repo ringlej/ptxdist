@@ -1699,6 +1699,9 @@ do_migrate()
 	for part in ptx platform; do
 		do_config oldconfig "${part}" || return
 	done
+	if [ -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
+		do_config oldconfig collection
+	fi
 }
 
 
