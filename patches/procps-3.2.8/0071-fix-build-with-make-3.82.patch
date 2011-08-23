@@ -1,0 +1,36 @@
+From 7d6a81c2324575ad7d6f394e98b5ae231e99ab5d Mon Sep 17 00:00:00 2001
+From: George McCollister <george.mccollister@gmail.com>
+Date: Tue, 23 Aug 2011 13:51:43 -0500
+Subject: [PATCH 71/71] fix build with make 3.82
+
+I pulled this patch from upstream.
+http://procps.cvs.sourceforge.net/viewvc/procps/procps/Makefile?r1=1.70&r2=1.71
+
+Revision 1.71
+Mon Feb 28 02:51:09 2011 UTC (5 months, 3 weeks ago) by albert
+Branch: MAIN
+CVS Tags: HEAD
+Changes since 1.70: +1 -1 lines
+possible to build with make 3.82    gen303120  -- thanks Elias Pipping
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+---
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index a83df5e..c1bf8f3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -174,7 +174,7 @@ INSTALL := $(BINFILES) $(MANFILES)
+ # want this rule first, use := on ALL, and ALL not filled in yet
+ all: do_all
+ 
+--include */module.mk
++-include proc/module.mk ps/module.mk
+ 
+ do_all:    $(ALL)
+ 
+-- 
+1.7.6
+

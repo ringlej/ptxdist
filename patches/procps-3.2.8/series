@@ -68,3 +68,4 @@
 0068-top_username_parse.patch
 0069-don-t-install-stuff-that-was-not-built.patch
 0070-remove-frename-registers-option-due-to-ICE-on-gcc-4..patch
+0071-fix-build-with-make-3.82.patch
