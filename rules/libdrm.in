@@ -5,6 +5,7 @@ menuconfig LIBDRM
 	prompt "libdrm                        "
 	select LIBC_RT
 	select UDEV
+	select LIBPTHREAD_STUBS
 	select LIBPCIACCESS	if LIBDRM_INTEL
 	help
 	  This library provides an user-level interface to the DRM
