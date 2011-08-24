@@ -95,7 +95,7 @@ menu "install options               "
 		bool
 		prompt "install default keymaps"
 		help
-	  	  This will install some of the common keymaps shipped by udev.
+		  This will install some of the common keymaps shipped by udev.
 
 	config UDEV_CUST_RULES
 		bool
@@ -173,7 +173,7 @@ if UDEV_EXTRAS
 		bool
 		prompt "firmware"
 		help
-	  	  This is a small helper binary to load some kind of firmware on demand
+		  This is a small helper binary to load some kind of firmware on demand
 
 	config UDEV_EXTRA_FLOPPY
 		bool
@@ -261,9 +261,9 @@ if UDEV_EXTRAS
 		bool
 		prompt "usb_id"
 		help
-		    This is a helper to generate unique information about some kind of
-		    USB device. This is required to ensure the same hotplugged device to
-		    appear always at the same device node (via link)
+		  This is a helper to generate unique information about some kind of
+		  USB device. This is required to ensure the same hotplugged device to
+		  appear always at the same device node (via link)
 
 	config UDEV_EXTRA_V4L_ID
 		bool
