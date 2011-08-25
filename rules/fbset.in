@@ -3,6 +3,7 @@
 config FBSET
 	tristate
 	prompt "fbset"
+	select HOST_FLEX
 	help
 	  fbset is a system utility to show or change the settings
 	  of the frame buffer device. The frame buffer device pro-
