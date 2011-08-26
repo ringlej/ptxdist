@@ -9,11 +9,12 @@ menuconfig SYSTEMD
 	select LIBC_RT
 	select DBUS
 	select LIBCAP
-	select PYTHON if SYSTEMD_ANALYZE
-	select DBUS_PYTHON if SYSTEMD_ANALYZE
 	select UDEV
 	select UDEV_LIBUDEV
 	select UDEV_EXPERIMENTAL
+	select PYTHON		if SYSTEMD_ANALYZE
+	select DBUS_PYTHON	if SYSTEMD_ANALYZE
+	select TCPWRAPPER	if SYSTEMD_TCPWRAP
 	prompt "systemd                       "
 	help
 	  systemd is a system and session manager for Linux, compatible with SysV
@@ -28,6 +29,10 @@ menuconfig SYSTEMD
 	  http://www.freedesktop.org/wiki/Software/systemd
 
 if SYSTEMD
+
+config SYSTEMD_TCPWRAP
+	bool
+	prompt "TCP wrappers support"
 
 config SYSTEMD_DISABLE_RANDOM_SEED
 	bool

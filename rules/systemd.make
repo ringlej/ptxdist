@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 33
-SYSTEMD_MD5	:= 361cad7c3debbdd81c211527509ba181
+SYSTEMD_VERSION	:= 34
+SYSTEMD_MD5	:= 35761c50d5fe8fa8d15a3c651ab8bace
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.bz2
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -37,10 +37,16 @@ SYSTEMD_CONF_OPT += \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
 	--disable-selinux \
-	--disable-tcpwrap \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_TCPWRAP)-tcpwrap \
 	--disable-pam \
-	--disable-gtk \
 	--disable-acl \
+	--disable-audit \
+	--disable-libcryptsetup \
+	--enable-binfmt \
+	--enable-hostnamed \
+	--enable-timedated \
+	--enable-localed \
+	--disable-gtk \
 	--disable-plymouth \
 	--with-distro=other \
 	--without-sysvinit-path \
@@ -55,9 +61,9 @@ SYSTEMD_CONF_OPT += \
 
 # SYSTEMD_MAKEVARS	:= V=1
 
-# FIXME kernel:
-# - autofs4 is mandatory. Is this necessary?
-# - ipv6 is mandatory. Is this necessary?
+# FIXME kernel from systemd README:
+# - devtmpfs, cgroups are mandatory.
+# - autofs4, ipv6  optional but strongly recommended
 
 # FIXME busybox tools:
 # - modprobe fails
