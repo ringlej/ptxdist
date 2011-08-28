@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/qwtconfig.pri b/qwtconfig.pri
-index b54abeb..89ea0ef 100644
+index 54f8059..32117ee 100644
 --- a/qwtconfig.pri
 +++ b/qwtconfig.pri
 @@ -79,7 +79,7 @@ QWT_CONFIG     += QwtWidgets

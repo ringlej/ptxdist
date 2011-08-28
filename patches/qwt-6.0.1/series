@@ -3,4 +3,5 @@
 0001-fix-prefix.patch
 0002-disable-designer-plugins.patch
 0003-disable-svg-by-default.patch
-# a74c74195506b5a6708b7527b8bbfa72  - git-ptx-patches magic
+0004-Disable-the-textengines-to-be-less-depended-on-the-Q.patch
+# 8284e163940123ec689fea7298eb4cb1  - git-ptx-patches magic

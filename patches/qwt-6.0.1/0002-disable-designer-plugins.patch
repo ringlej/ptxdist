@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/qwtconfig.pri b/qwtconfig.pri
-index 21cf28b..b54abeb 100644
+index 86265e1..54f8059 100644
 --- a/qwtconfig.pri
 +++ b/qwtconfig.pri
 @@ -98,7 +98,7 @@ QWT_CONFIG     += QwtMathML
