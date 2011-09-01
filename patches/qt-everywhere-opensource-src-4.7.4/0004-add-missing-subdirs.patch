@@ -38,7 +38,7 @@ index ead2214..fe681ed 100644
  # install
  sources.files = README *.pro
 diff --git a/examples/tutorials/tutorials.pro b/examples/tutorials/tutorials.pro
-index 34723c2..4728dac 100644
+index 1b4667e..12adac4 100644
 --- a/examples/tutorials/tutorials.pro
 +++ b/examples/tutorials/tutorials.pro
 @@ -1,5 +1,6 @@
@@ -46,5 +46,5 @@ index 34723c2..4728dac 100644
  SUBDIRS       = \
 +                widgets \
                  addressbook \
-                 modelview
- 
+                 modelview \
+                 threads

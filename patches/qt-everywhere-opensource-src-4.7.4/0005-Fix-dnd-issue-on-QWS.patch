@@ -12,7 +12,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/src/gui/kernel/qdnd_qws.cpp b/src/gui/kernel/qdnd_qws.cpp
-index 4a0b9cc..65563a5 100644
+index 96bdaed..5582404 100644
 --- a/src/gui/kernel/qdnd_qws.cpp
 +++ b/src/gui/kernel/qdnd_qws.cpp
 @@ -162,10 +162,10 @@ void QDragManager::updateCursor()

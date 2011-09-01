@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/3rdparty/webkit/WebCore/WebCore.pro b/src/3rdparty/webkit/WebCore/WebCore.pro
-index 37d216d..3470570 100644
+index c70a168..baa7102 100644
 --- a/src/3rdparty/webkit/WebCore/WebCore.pro
 +++ b/src/3rdparty/webkit/WebCore/WebCore.pro
-@@ -89,8 +89,8 @@ unix {
+@@ -88,8 +88,8 @@ unix {
      QMAKE_PKGCONFIG_REQUIRES = QtCore QtGui QtNetwork
  }
  

@@ -10,9 +10,9 @@ Add a mkspec for ptxdist:
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- mkspecs/linux-ptx-g++/qmake.conf.in       |   40 ++++++++++++++++++++++++++++++++++++++
+ mkspecs/linux-ptx-g++/qmake.conf.in       |   40 +++++++++++++++++++++++++++++
  mkspecs/linux-ptx-g++/qplatformdefs.h     |    2 +
- mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   31 +++++++++++++++++++++++++++++
+ mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   31 ++++++++++++++++++++++
  mkspecs/qws/linux-ptx-g++/qplatformdefs.h |    2 +
  4 files changed, 75 insertions(+), 0 deletions(-)
  create mode 100644 mkspecs/linux-ptx-g++/qmake.conf.in
@@ -22,7 +22,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
 diff --git a/mkspecs/linux-ptx-g++/qmake.conf.in b/mkspecs/linux-ptx-g++/qmake.conf.in
 new file mode 100644
-index 0000000..495c53e
+index 0000000..5153cf3
 --- /dev/null
 +++ b/mkspecs/linux-ptx-g++/qmake.conf.in
 @@ -0,0 +1,40 @@
@@ -76,7 +76,7 @@ index 0000000..05c77d1
 +#include "../linux-g++/qplatformdefs.h"
 diff --git a/mkspecs/qws/linux-ptx-g++/qmake.conf.in b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
 new file mode 100644
-index 0000000..6b5c824
+index 0000000..014b71f
 --- /dev/null
 +++ b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
 @@ -0,0 +1,31 @@

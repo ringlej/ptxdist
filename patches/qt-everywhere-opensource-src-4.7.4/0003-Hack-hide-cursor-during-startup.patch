@@ -13,7 +13,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/src/gui/embedded/qwscursor_qws.cpp b/src/gui/embedded/qwscursor_qws.cpp
-index 439d412..5a2e0a4 100644
+index 9e8c235..0ff0dc3 100644
 --- a/src/gui/embedded/qwscursor_qws.cpp
 +++ b/src/gui/embedded/qwscursor_qws.cpp
 @@ -344,7 +344,7 @@ void QWSServerPrivate::initializeCursor()

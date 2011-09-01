@@ -12,7 +12,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/qmake/generators/unix/unixmake.cpp b/qmake/generators/unix/unixmake.cpp
-index 188df0f..c95169d 100644
+index bbddc5e..8087d3c 100644
 --- a/qmake/generators/unix/unixmake.cpp
 +++ b/qmake/generators/unix/unixmake.cpp
 @@ -217,7 +217,7 @@ UnixMakefileGenerator::init()
@@ -25,10 +25,10 @@ index 188df0f..c95169d 100644
          QString compiler = comps[i];
          if (compiler == "C")
 diff --git a/qmake/generators/unix/unixmake2.cpp b/qmake/generators/unix/unixmake2.cpp
-index df580fd..eeaedd2 100644
+index 911b617..ae53c75 100644
 --- a/qmake/generators/unix/unixmake2.cpp
 +++ b/qmake/generators/unix/unixmake2.cpp
-@@ -977,7 +977,7 @@ UnixMakefileGenerator::writeMakeParts(QTextStream &t)
+@@ -978,7 +978,7 @@ UnixMakefileGenerator::writeMakeParts(QTextStream &t)
                  compiler = "$(CXX)";
  
              // compile command
