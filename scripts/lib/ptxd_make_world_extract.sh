@@ -71,7 +71,7 @@ extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
     fi
     local depth=$[${pkg_strip_level:=1}+1]
     if [ -e "${pkg_dir}" ]; then
-	tar -C "${tmpdir}" --remove-files -c . | \
+	tar -C "$(dirname "${tmpdir}")" --remove-files -c "$(basename "${tmpdir}")" | \
 	    tar -x --strip-components=${depth} -C "${pkg_dir}"
 	check_pipe_status
     else
