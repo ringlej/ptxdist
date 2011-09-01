@@ -20,8 +20,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_TZDATABASE) += host-tz-database
 HOST_TZDATABASE		:= tz-database
 HOST_TZDATABASE_DIR	:= $(HOST_BUILDDIR)/$(HOST_TZDATABASE)
 
-TZCODE_VERSION		:= 2010f
-TZCODE_MD5		:=
+TZCODE_VERSION		:= 2011i
+TZCODE_MD5		:= cf7f4335b7c8682899fa2814e711c1b2
 TZCODE			:= tzcode$(TZCODE_VERSION)
 TZCODE_SUFFIX		:= tar.gz
 TZCODE_URL		:= \
@@ -31,8 +31,8 @@ TZCODE_SOURCE		:= $(SRCDIR)/$(TZCODE).$(TZCODE_SUFFIX)
 TZCODE_DIR		:= $(HOST_TZDATABASE_DIR)
 TZCODE_STRIP_LEVEL	:= 0
 
-TZDATA_VERSION		:= 2010h
-TZCODE_MD5		:=
+TZDATA_VERSION		:= 2011i
+TZDATA_MD5		:= c7a86ec34f30f8d6aa77ef94902a3047
 TZDATA			:= tzdata$(TZDATA_VERSION)
 TZDATA_SUFFIX		:= tar.gz
 TZDATA_URL		:= \
@@ -53,6 +53,8 @@ $(TZDATA_SOURCE):
 
 $(STATEDIR)/host-tz-database.get: $(TZCODE_SOURCE) $(TZDATA_SOURCE)
 	@$(call targetinfo)
+	@$(call check_src, TZCODE)
+	@$(call check_src, TZDATA)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -73,14 +75,8 @@ $(STATEDIR)/host-tz-database.extract:
 HOST_TZDATABASE_PATH		:= PATH=$(HOST_PATH)
 HOST_TZDATABASE_CONF_TOOL	:= NO
 HOST_TZDATABASE_MAKE_OPT	:= \
-	posix_only TZDIR=$(PTXDIST_SYSROOT_HOST)/usr/share/zoneinfo
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-tz-database.install:
-	$(call targetinfo)
-	$(call touch)
+	zic TZDIR=/usr/share/zoneinfo
+HOST_TZDATABASE_INSTALL_OPT	:= \
+	posix_only TZDIR=$(HOST_TZDATABASE_PKGDIR)/usr/share/zoneinfo
 
 # vim: syntax=make
