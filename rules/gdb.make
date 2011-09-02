@@ -68,6 +68,7 @@ GDB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT) \
+	--disable-tui \
 	--disable-werror
 
 # ----------------------------------------------------------------------------
