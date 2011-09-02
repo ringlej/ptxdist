@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_USBUTILS) += usbutils
 #
 # Paths and names
 #
-USBUTILS_VERSION	:= 0.90
-USBUTILS_MD5		:= cf542098627c77484c671be4fc5e7271
+USBUTILS_VERSION	:= 004
+USBUTILS_MD5		:= fc69cde51b2094aa4bbd804c0ba97e35
 USBUTILS		:= usbutils-$(USBUTILS_VERSION)
 USBUTILS_SUFFIX		:= tar.bz2
 USBUTILS_URL		:= http://www.kernel.org/pub/linux/utils/usb/usbutils/$(USBUTILS).$(USBUTILS_SUFFIX)
@@ -63,11 +63,15 @@ $(STATEDIR)/usbutils.targetinstall:
 	@$(call install_fixup, usbutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_USBUTILS_LSUSB
-	@$(call install_copy, usbutils, 0, 0, 0755, -, \
-		/usr/sbin/lsusb)
+	@$(call install_copy, usbutils, 0, 0, 0755, -, /usr/bin/lsusb)
 endif
-	@$(call install_copy, usbutils, 0, 0, 0644, -, \
-		/usr/share/usb.ids,n)
+ifdef PTXCONF_USBUTILS_USBHIDDUMP
+	@$(call install_copy, usbutils, 0, 0, 0755, -, /usr/bin/usbhid-dump)
+endif
+ifdef PTXCONF_USBUTILS_USBDEVICES
+	@$(call install_copy, usbutils, 0, 0, 0755, -, /usr/bin/usb-devices)
+endif
+	@$(call install_copy, usbutils, 0, 0, 0644, -, /usr/share/usb.ids,n)
 
 	@$(call install_finish, usbutils)
 

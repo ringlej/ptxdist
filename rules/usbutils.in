@@ -1,7 +1,7 @@
 ## SECTION=shell_and_console
 
 menuconfig USBUTILS
-	select LIBUSB_COMPAT
+	select LIBUSB
 	tristate
 	prompt "usbutils                      "
 	help
@@ -35,5 +35,17 @@ config USBUTILS_LSUSB
 
 comment "busybox' lsusb is selected"
 	depends on BUSYBOX_LSUSB
+
+config USBUTILS_USBHIDDUMP
+	bool
+	prompt "usbhid-dump"
+	help
+	  A tool to dump USB device HID report descriptors and/or streams.
+
+config USBUTILS_USBDEVICES
+	bool
+	prompt "usbdevices"
+	help
+	  Print out sysfs information about usb devices.
 
 endif
