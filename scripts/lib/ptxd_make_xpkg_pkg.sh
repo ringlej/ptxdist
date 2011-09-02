@@ -355,6 +355,9 @@ ptxd_install_replace() {
     local mod_nfs mod_rw
 
     echo "\
+install replace:
+  file=${dst}
+  '${placeholder}' -> '${value}'
 "
 
     ptxd_install_setup &&
