@@ -162,6 +162,42 @@ ifdef PTXCONF_ROOTFS_HOSTNAME
 		@HOSTNAME@, \
 		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
 endif
+# must be after HOSTNAME!
+ifdef PTXCONF_ROOTFS_ISSUE
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/issue)
+
+	@$(call install_replace, rootfs, /etc/issue, \
+		@PROJECT@, $(PTXCONF_PROJECT))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@PRJVERSION@, $(PTXCONF_PROJECT_VERSION))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@PLATFORM@, $(PTXCONF_PLATFORM))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@PLATVERSION@, $(PTXCONF_PLATFORM_VERSION))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@PTXDIST@, ptxdist)
+	@$(call install_replace, rootfs, /etc/issue, \
+		@VERSION@, $(PTXDIST_VERSION_YEAR))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@PATCHLEVEL@, $(PTXDIST_VERSION_MONTH))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@SUBLEVEL@, $(PTXDIST_VERSION_BUGFIX))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@EXTRAVERSION@, $(PTXDIST_VERSION_SCM))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@DATE@, $(shell date -Iseconds))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@VENDOR@, $(PTXCONF_PROJECT_VENDOR))
+	@$(call install_replace, rootfs, /etc/issue, \
+		@HOSTNAME@, \
+		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
+	@$(call install_replace_figlet, rootfs, /etc/issue, \
+		@FIGLET:VENDOR@, $(PTXCONF_PROJECT_VENDOR))
+	@$(call install_replace_figlet, rootfs, /etc/issue, \
+		@FIGLET:HOSTNAME@, \
+		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
+endif
+
 ifdef PTXCONF_ROOTFS_HOSTS
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hosts)
 endif

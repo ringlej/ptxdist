@@ -9,6 +9,7 @@ config ROOTFS
 	prompt "Create Directories in /"
 	default y
 	select BUSYBOX_FEATURE_SHADOWPASSWDS if BUSYBOX
+	select HOST_FIGLET if ROOTFS_ISSUE
 	help
 	  In order to support a standard root filesystem some subdirectories are
 	  mandatory. They will be created by ptxdist automatically. Some
@@ -347,6 +348,14 @@ config ROOTFS_HOSTS
 	help
 	  If enabled, it installs the "./projectroot/etc/hosts" file if
 	  present, else a generic one from the ptxdist directory.
+
+config ROOTFS_ISSUE
+	bool
+	prompt "install /etc/issue"
+	default y
+	help
+	  If enabled, it installs the "./projectroot/etc/issue" file if
+	  present, else a generic one will be generated using 'figlet'.
 
 config ROOTFS_NSSWITCH_CONF
 	bool
