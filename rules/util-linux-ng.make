@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.19.1
-UTIL_LINUX_NG_MD5	:= 3eab06f05163dfa65479c44e5231932c
+UTIL_LINUX_NG_VERSION	:= 2.20.1
+UTIL_LINUX_NG_MD5	:= 079b37517fd4e002a2e6e992e8b4e361
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.19/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.20/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2+
@@ -42,6 +42,7 @@ UTIL_LINUX_NG_PATH	:= PATH=$(CROSS_PATH)
 UTIL_LINUX_NG_ENV 	:= \
 	$(CROSS_ENV) \
 	$(call ptx/ncurses, PTXCONF_UTIL_LINUX_NG_USES_NCURSES) \
+	scanf_cv_type_modifier=as \
 	ac_cv_lib_termcap_tgetnum=no \
 	ac_cv_path_BLKID=no \
 	ac_cv_path_PERL=no \
@@ -62,11 +63,9 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-cramfs \
 	--disable-elvtune \
 	--disable-fallocate \
-	--disable-init \
 	--disable-kill \
 	--disable-last \
 	--disable-mesg \
-	--disable-partx \
 	--disable-raw \
 	--disable-rename \
 	--disable-reset \
@@ -86,6 +85,30 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-selinux \
 	--without-audit \
 	--without-utempter
+
+ifdef PTXCONF_UTIL_LINUX_NG_LINE
+UTIL_LINUX_NG_AUTOCONF += --enable-line
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-line
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_DDATE
+UTIL_LINUX_NG_AUTOCONF += --enable-ddate
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-ddate
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
+UTIL_LINUX_NG_AUTOCONF += --enable-mountpoint
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-mountpoint
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS
+UTIL_LINUX_NG_AUTOCONF += --enable-partx
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-partx
+endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_FSCK
 UTIL_LINUX_NG_AUTOCONF += --enable-fsck
@@ -118,6 +141,24 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
 
+ifdef PTXCONF_UTIL_LINUX_NG_LINE
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/line)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_DDATE
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ddate)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mountpoint)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_ADDPART
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/addpart)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_DELPART
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/delpart)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_PARTX
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/partx)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_AGETTY
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/agetty)
 endif

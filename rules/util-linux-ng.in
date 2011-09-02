@@ -23,11 +23,53 @@ config UTIL_LINUX_NG_LIBMOUNT
 config UTIL_LINUX_NG_USES_NCURSES
 	bool
 
+config UTIL_LINUX_NG_PARTX_TOOLS
+	bool
+
 config UTIL_LINUX_NG_AGETTY
 	bool
 	prompt "agetty"
 	help
 	  A small getty.
+
+config UTIL_LINUX_NG_LINE
+	bool
+	prompt "line"
+	help
+	  The line utility.
+
+config UTIL_LINUX_NG_ADDPART
+	bool
+	select UTIL_LINUX_NG_PARTX_TOOLS
+	prompt "addpart"
+	help
+	  The addpart utility.
+
+config UTIL_LINUX_NG_DELPART
+	bool
+	select UTIL_LINUX_NG_PARTX_TOOLS
+	prompt "delpart"
+	help
+	  The delpart utility.
+
+config UTIL_LINUX_NG_PARTX
+	bool
+	select UTIL_LINUX_NG_PARTX_TOOLS
+	prompt "partx"
+	help
+	  The partx utility.
+
+config UTIL_LINUX_NG_MOUNTPOINT
+	bool
+	prompt "mountpoint"
+	help
+	  The mountpoint utility.
+
+config UTIL_LINUX_NG_DDATE
+	bool
+	prompt "ddate"
+	help
+	  The ddate utility.
 
 config UTIL_LINUX_NG_FDISK
 	bool

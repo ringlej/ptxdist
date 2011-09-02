@@ -2,6 +2,5 @@
 #tag:base --start-number 1
 0001-libmount-add-fallbacks-for-old-systems-without-umoun.patch
 0002-__progname-redefinition-fix.patch
-0003-_s-undeclared-fix.patch
 0004-replace-index-with-strchr.patch
 # b65ec9e159027bf7fdcbd29dd04b3d78  - git-ptx-patches magic
