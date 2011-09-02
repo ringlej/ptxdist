@@ -2,22 +2,6 @@
 
 if INITMETHOD_BBINIT
 
-config INITMETHOD_BBINIT_ETC_INITD_BANNER
-	bool
-	default y
-	depends on FIGLET
-	prompt "install /etc/init.d/banner"
-	help
-	  This Option adds a specific vendor string to
-	  the script which displays a nifty ptxdist
-	   _
-	  | |__   __ _ _ __  _ __   ___ _ __
-	  | '_ \ / _` | '_ \| '_ \ / _ \ '__|
-	  | |_) | (_| | | | | | | |  __/ |
-	  |_.__/ \__,_|_| |_|_| |_|\___|_|
-	  page with the hostname and other stuff at
-	  startup.
-
 config INITMETHOD_BBINIT_ETC_INITD_MODULES
 	bool
 	prompt "install /etc/init.d/modules"
@@ -58,12 +42,6 @@ config INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
 menu "service startup configuration "
 
 source "generated/initmethod_bbinit.in"
-
-config INITMETHOD_BBINIT_LINK_BANNER
-	string
-	depends on INITMETHOD_BBINIT_ETC_INITD_BANNER
-	prompt "banner"
-	default "S99banner"
 
 config INITMETHOD_BBINIT_LINK_LOGROTATE
 	string

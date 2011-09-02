@@ -86,31 +86,6 @@ $(STATEDIR)/initmethod-bbinit.targetinstall:
 #	#
 #	# start scripts
 #	#
-ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_BANNER
-	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /etc/init.d/banner, n)
-
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PROJECT@, $(PTXCONF_PROJECT))
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PRJVERSION@, $(PTXCONF_PROJECT_VERSION))
-
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PTXDIST@, ptxdist)
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@VERSION@, $(PTXDIST_VERSION_YEAR))
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PATCHLEVEL@, $(PTXDIST_VERSION_MONTH))
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@SUBLEVEL@, $(PTXDIST_VERSION_BUGFIX))
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@EXTRAVERSION@, $(PTXDIST_VERSION_SCM))
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@DATE@, $(shell date -Iseconds))
-
-	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@VENDOR@, $(PTXCONF_PROJECT_VENDOR))
-endif
-
 ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_MODULES
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /etc/init.d/modules, n)
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0644, /etc/modules, n)
@@ -136,13 +111,6 @@ endif
 #	#
 #	# collect start links
 #	#
-
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_BANNER)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/banner, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_BANNER))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_LOGROTATE)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/logrotate, \
