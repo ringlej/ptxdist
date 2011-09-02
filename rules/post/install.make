@@ -234,6 +234,26 @@ install_replace = \
 	echo "ptxd_install_replace '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
+# install_replace_figlet
+#
+# Replace placeholder with `figlet value` in a previously
+# installed file
+# Note: packages using this need to select host-figlet!
+#
+# $1: xpkg label
+# $2: filename
+# $3: placeholder
+# $4: value
+#
+install_replace_figlet = \
+	XPKG=$(subst _,-,$(strip $(1)));							\
+	FILE=$(strip $(2));									\
+	PLACEHOLDER=$(strip $(3));								\
+	VALUE=$(strip $(4));									\
+	$(call install_check, install_replace);							\
+	echo "ptxd_install_replace_figlet '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$XPKG.cmds"
+
+#
 # install_copy_toolchain_lib
 #
 # $1: xpkg label

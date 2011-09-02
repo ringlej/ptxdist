@@ -369,6 +369,30 @@ install replace:
 }
 export -f ptxd_install_replace
 
+ptxd_install_replace_figlet() {
+    local dst="$1"
+    local placeholder="$2"
+    local value="$3"
+    local -a dirs ndirs pdirs sdirs
+    local mod_nfs mod_rw
+
+    echo "\
+install replace figlet:
+  file=${dst}
+  '${placeholder}' -> '\`figlet ${value}\`'
+"
+
+    ptxd_install_setup &&
+
+    ptxd_exist "${dirs[@]/%/${dst}}" &&
+    figlet="$(figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
+	awk '{ gsub("\\\\", "`"); if ($0 !~ "^ *$") printf("%s\\n", $0) }')" &&
+    sed -i -e "s#${placeholder}#${figlet}#g" "${dirs[@]/%/${dst}}" ||
+
+    ptxd_install_error "install_replace failed!"
+}
+export -f ptxd_install_replace_figlet
+
 ptxd_install_generic() {
     local file="$1"
     local dst="$2"
