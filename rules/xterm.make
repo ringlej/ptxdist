@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XTERM) += xterm
 #
 # Paths and names
 #
-XTERM_VERSION	:= 267
-XTERM_MD5	:= 3945ab70cfa2a9e95804157ee1b0f8e8
+XTERM_VERSION	:= 271
+XTERM_MD5	:= e07b05bd3d3a666a8cf086fcc8d227f3
 XTERM		:= xterm-$(XTERM_VERSION)
 XTERM_SUFFIX	:= tgz
 XTERM_URL	:= ftp://invisible-island.net/xterm/$(XTERM).$(XTERM_SUFFIX)
