@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.3.1
-MTD_UTILS_MD5		:= c6dd37cc732fb8f7b95c5b82e172ea90
+MTD_UTILS_VERSION	:= 1.4.6
+MTD_UTILS_MD5		:= a0418afcf6026824a5fa5e9051793f3c
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
@@ -72,6 +72,14 @@ $(STATEDIR)/mtd-utils.targetinstall:
 	@$(call install_fixup, mtd-utils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, mtd-utils,DESCRIPTION,missing)
 
+ifdef PTXCONF_MTD_UTILS_DOC_LOADBIOS
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/doc_loadbios)
+endif
+ifdef PTXCONF_MTD_UTILS_DOCFDISK
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/docfdisk)
+endif
 ifdef PTXCONF_MTD_UTILS_FLASH_ERASE
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/flash_erase)
@@ -87,6 +95,14 @@ endif
 ifdef PTXCONF_MTD_UTILS_FLASH_LOCK
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/flash_lock)
+endif
+ifdef PTXCONF_MTD_UTILS_FLASH_OTP_DUMP
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/flash_otp_dump)
+endif
+ifdef PTXCONF_MTD_UTILS_FLASH_OTP_INFO
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/flash_otp_info)
 endif
 ifdef PTXCONF_MTD_UTILS_FLASH_UNLOCK
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
@@ -108,7 +124,6 @@ ifdef PTXCONF_MTD_UTILS_JFFS2_DUMP
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/jffs2dump)
 endif
-
 ifdef PTXCONF_MTD_UTILS_MTDDEBUG
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/mtd_debug)
@@ -116,6 +131,10 @@ endif
 ifdef PTXCONF_MTD_UTILS_NANDDUMP
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/nanddump)
+endif
+ifdef PTXCONF_MTD_UTILS_NANDTEST
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/nandtest)
 endif
 ifdef PTXCONF_MTD_UTILS_NANDWRITE
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
@@ -133,11 +152,26 @@ ifdef PTXCONF_MTD_UTILS_MKJFFS2
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/mkfs.jffs2)
 endif
+ifdef PTXCONF_MTD_UTILS_RECV_IMAGE
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/recv_image)
+endif
+ifdef PTXCONF_MTD_UTILS_RFDDUMP
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/rfddump)
+endif
+ifdef PTXCONF_MTD_UTILS_RFDFORMAT
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/rfdformat)
+endif
+ifdef PTXCONF_MTD_UTILS_SERVE_IMAGE
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/serve_image)
+endif
 ifdef PTXCONF_MTD_UTILS_SUMTOOL
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/sumtool)
 endif
-
 ifdef PTXCONF_MTD_UTILS_UBIATTACH
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/ubiattach)
@@ -153,6 +187,14 @@ endif
 ifdef PTXCONF_MTD_UTILS_UBIMKVOL
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/ubimkvol)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIRENAME
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/ubirename)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIRSVOL
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/ubirsvol)
 endif
 ifdef PTXCONF_MTD_UTILS_UBIRMVOL
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \

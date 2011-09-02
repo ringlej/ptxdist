@@ -21,6 +21,18 @@ config MTD_UTILS_USE_LIBLZO
 	help
 	  Enable LZO support
 
+config MTD_UTILS_DOC_LOADBIOS
+	bool
+	prompt "doc_loadbios"
+	help
+	  Tool for DoC.
+
+config MTD_UTILS_DOCFDISK
+	bool
+	prompt "docfdisk"
+	help
+	  Modify INFTL partition tables.
+
 config MTD_UTILS_FLASH_ERASE
 	bool
 	prompt "flash_erase"
@@ -44,6 +56,18 @@ config MTD_UTILS_FLASH_LOCK
 	prompt "flash_lock"
 	help
 	  This utility locks one or more sectors of flash device.
+
+config MTD_UTILS_FLASH_OTP_DUMP
+	bool
+	prompt "flash_otp_dump"
+	help
+	  Display one time programm data.
+
+config MTD_UTILS_FLASH_OTP_INFO
+	bool
+	prompt "flash_otp_info"
+	help
+	  Print info about one time program data.
 
 config MTD_UTILS_FLASH_UNLOCK
 	bool
@@ -105,6 +129,12 @@ config MTD_UTILS_NANDDUMP
 	  This utility dumps the contents of raw NAND chips or NAND
 	  chips contained in DoC devices.
 
+config MTD_UTILS_NANDTEST
+	bool
+	prompt "nandtest"
+	help
+	  NAND flash test program.
+
 config MTD_UTILS_NANDWRITE
 	bool
 	prompt "nandwrite"
@@ -131,6 +161,30 @@ config MTD_UTILS_MKJFFS2
 	help
 	  Build a JFFS2 image in a file, from a given directory tree.
 
+config MTD_UTILS_RECV_IMAGE
+	bool
+	prompt "recv_image"
+	help
+	  Receive an image via multicast.
+
+config MTD_UTILS_RFDDUMP
+	bool
+	prompt "rfddump"
+	help
+	  Dumps the contents of a resident flash disk.
+
+config MTD_UTILS_RFDFORMAT
+	bool
+	prompt "rfdformat"
+	help
+	  Formats NOR flash for resident flash disk.
+
+config MTD_UTILS_SERVE_IMAGE
+	bool
+	prompt "serve_image"
+	help
+	  Distribute flash image to network.
+
 config MTD_UTILS_SUMTOOL
 	bool
 	prompt "sumtool"
@@ -139,7 +193,7 @@ config MTD_UTILS_SUMTOOL
 	  information for a jffs2 image. This way we can do faster
 	  filesystem mount. To use this the JFFS2_SUMMARY option must
 	  be enabled in kernel.
-	  
+
 menuconfig MTD_UTILS_UBI_UTILS
 	bool
 	prompt "ubi utils"
@@ -178,6 +232,18 @@ config MTD_UTILS_UBIMKVOL
 	prompt "ubimkvol"
 	help
 	  Creates a volume on a UBI device
+
+config MTD_UTILS_UBIRENAME
+	bool
+	prompt "ubirename"
+	help
+	  Rename a volume on a UBI device
+
+config MTD_UTILS_UBIRSVOL
+	bool
+	prompt "ubirsvol"
+	help
+	  Resize UBI volumes.
 
 config MTD_UTILS_UBINFO
 	bool
