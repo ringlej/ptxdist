@@ -78,24 +78,6 @@ config SETUP_SRCDIR
 	prompt "Source Directory"
 	string
 
-config SETUP_KERNELDIR_PREFIX
-	prompt "Prefix for kernel trees"
-	string
-	help
-	  You can set this prefix to a directory where you collect
-	  kernel trees (like a collection of working trees from one
-	  or more GIT repositories). This is used in combination with
-	  'Local kernel tree' in platformconfig.
-
-	  The kernel actually used depends on the configured
-	  'kernel version', e.g. for
-
-	  SETUP_KERNELDIR_PREFIX=/home/foo/my_kernel_sources
-	  KERNEL_VERSION=2.6.29
-
-	  ptxdist will use the kernel in:
-	  "/home/foo/my_kernel_sources/2.6.29"
-
 endmenu
 
 menu "Source Download   "
