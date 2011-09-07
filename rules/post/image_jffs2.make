@@ -31,7 +31,7 @@ $(IMAGEDIR)/root.sum.jffs2: $(IMAGEDIR)/root.jffs2
 	@echo -n "(--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "
 	@echo "$(call remove_quotes,$(PTXCONF_IMAGE_JFFS2_SUM_EXTRA_ARGS)))"
 	@cd $(image/work_dir);						\
-	(								\
+	((								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/sumtool ";	\
 		echo -n "-i $< ";					\
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
