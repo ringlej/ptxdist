@@ -41,9 +41,10 @@ config MTD_UTILS_FLASH_ERASE
 
 config MTD_UTILS_FLASH_ERASEALL
 	bool
-	prompt "flash_eraseall"
+	prompt "flash_eraseall (deprecated)"
+	select MTD_UTILS_FLASH_ERASE
 	help
-	  erase the whole of a MTD device
+	  ...use flash_erase instead
 
 config MTD_UTILS_FLASH_INFO
 	bool
