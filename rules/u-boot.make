@@ -64,12 +64,12 @@ $(STATEDIR)/u-boot.install:
 $(STATEDIR)/u-boot.targetinstall:
 	@$(call targetinfo)
 	@install -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
-#ifdef PTXCONF_U_BOOT_INSTALL_SREC
+ifdef PTXCONF_U_BOOT_INSTALL_SREC
 	@install -D -m644 $(U_BOOT_DIR)/u-boot.srec $(IMAGEDIR)/u-boot.srec
-#endif
-#ifdef PTXCONF_U_BOOT_INSTALL_ELF
+endif
+ifdef PTXCONF_U_BOOT_INSTALL_ELF
 	@install -D -m644 $(U_BOOT_DIR)/u-boot $(IMAGEDIR)/u-boot.elf
-#endif
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
