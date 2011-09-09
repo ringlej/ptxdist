@@ -8,4 +8,5 @@
 0006-Hack-disable-Wl-gc-sections-on-ppc.patch
 0007-qmake-make-sure-local-include-dirs-come-first.patch
 0008-phonon-fix-colors-for-video-on-qgraphicsview.patch
-# 208e139d5e06ac81409dceacfb019dd0  - git-ptx-patches magic
+0009-QSslCertificate-block-all-DigiNotar-intermediate-and.patch
+# ebf5354566171c6e57153abe3f922d5b  - git-ptx-patches magic
