@@ -28,13 +28,6 @@ config AVAHI_GOBJECT
 	help
 	  --enable-gobject
 
-config AVAHI_QT3
-	bool
-	depends on BROKEN
-	prompt "enable qt3 support"
-	help
-	  --enable-qt3
-
 config AVAHI_QT4
 	bool
 	prompt "enable qt4 support"
@@ -57,59 +50,39 @@ config AVAHI_LIBAVAHI_CLIENT
 	  It is recommend using this API in C or C++ progams.
 	  The D-Bus internals are hidden completely.
 
-menuconfig AVAHI_DBUS
+config AVAHI_DBUS
 	bool
 	prompt "enable dbus support"
 	help
 	  --enable-dbus
 
-if AVAHI_DBUS
-
-config AVAHI_DBUS_SYS
-        string
-        prompt "Path to D-Bus system.d directory"
-        default "/etc/dbus-1/system.d"
-        help
-          Enter the Path to the D-Bus system.d directory
-
-config AVAHI_DBUS_SOCKET
-        string
-        prompt "Path to the D-Bus system socket"
-        default "unix:path=/var/run/dbus/system_bus_socket"
-        help
-          Enter the Path to the D-Bus system socket, you probably want
-          to put unix:path= at the start. Only needed for very
-          old D-Bus releases
-
-endif
-
 menuconfig AVAHI_DAEMON
 	bool
-	prompt "avahi-daemon"
+	prompt "avahi-daemon                "
 	help
 	  Install the avahi-daemon program
 
 if AVAHI_DAEMON
 
 config AVAHI_USER
-        string
-        prompt "user for running the avahi (mDNS/DNS-SD) daemon"
-        default "avahi"
-        help
-          Enter the user name to run the avahi (mDNS/DNS-SD) daemon with.
-          The PTXdist standard configuration has only root, so if you want
-          to use the avahi default user "avahi" you have to create 
-          a related user yourself.
+	string
+	prompt "user for running the avahi (mDNS/DNS-SD) daemon"
+	default "avahi"
+	help
+	  Enter the user name to run the avahi (mDNS/DNS-SD) daemon with.
+	  The PTXdist standard configuration has only root, so if you want
+	  to use the avahi default user "avahi" you have to create
+	  a related user yourself.
 
 config AVAHI_GROUP
-        string
-        prompt "group for running the avahi (mDNS/DNS-SD) daemon"
-        default "avahi"
-        help
-          Enter the group name to run the avahi (mDNS/DNS-SD) daemon with.
-          The PTXdist standard configuration has only root, so if you want
-          to use the avahi default group "avahi" you have to create 
-          a related group yourself.
+	string
+	prompt "group for running the avahi (mDNS/DNS-SD) daemon"
+	default "avahi"
+	help
+	  Enter the group name to run the avahi (mDNS/DNS-SD) daemon with.
+	  The PTXdist standard configuration has only root, so if you want
+	  to use the avahi default group "avahi" you have to create
+	  a related group yourself.
 
 config AVAHI_SERVICES
 	bool
@@ -128,12 +101,12 @@ config AVAHI_DNSCONFD
 	  avahi-dnsconfd connects to a running avahi-daemon and runs the
 	  script /etc/avahi/dnsconfd.action for each unicast DNS server
 	  that is announced on the local LAN. This is useful for
-	  configuring unicast DNS servers in a DHCP-like fashion 
+	  configuring unicast DNS servers in a DHCP-like fashion
 	  with mDNS.
 
 menuconfig AVAHI_AUTOIP
 	bool
-	prompt "avahi-autoipd"
+	prompt "avahi-autoipd               "
 	help
 	  Install the avahi-autoipd daemon (IPv4 link-local address autoconfiguration)
 	  Please check: You need CONFIG_FILE_LOCKING=y in your Kernel Config.
@@ -141,24 +114,24 @@ menuconfig AVAHI_AUTOIP
 if AVAHI_AUTOIP
 
 config AVAHI_AUTOIP_USER
-        string
-        prompt "user for running the avahi autoip (IPv4LL) daemon"
-        default "avahi-autoipd"
-        help
-          Enter the user name to run the avahi autoip (IPv4LL) daemon with.
-          The PTXdist standard configuration has only root, so if you want
-          to use the avahi default user "avahi-autoipd" you have to create 
-          a related user yourself.
+	string
+	prompt "user for running the avahi autoip (IPv4LL) daemon"
+	default "avahi-autoipd"
+	help
+	  Enter the user name to run the avahi autoip (IPv4LL) daemon with.
+	  The PTXdist standard configuration has only root, so if you want
+	  to use the avahi default user "avahi-autoipd" you have to create
+	  a related user yourself.
 
 config AVAHI_AUTOIP_GROUP
-        string
-        prompt "group for running the avahi autoip (IPv4LL) daemon"
-        default "avahi-autoipd"
-        help
-          Enter the group name to run the avahi autoip (IPv4LL) daemon with.
-          The PTXdist standard configuration has only root, so if you want
-          to use the avahi default group "avahi-autoipd" you have to create 
-          a related group yourself.
+	string
+	prompt "group for running the avahi autoip (IPv4LL) daemon"
+	default "avahi-autoipd"
+	help
+	  Enter the group name to run the avahi autoip (IPv4LL) daemon with.
+	  The PTXdist standard configuration has only root, so if you want
+	  to use the avahi default group "avahi-autoipd" you have to create
+	  a related group yourself.
 endif
 
 endif

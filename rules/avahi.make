@@ -42,10 +42,18 @@ AVAHI_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-AVAHI_AUTOCONF := \
+AVAHI_CONF_TOOL	:= autoconf
+AVAHI_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-fast-install \
+	--disable-stack-protector \
 	--disable-nls \
+	--$(call ptx/endis, PTXCONF_AVAHI_GLIB)-glib \
+	--$(call ptx/endis, PTXCONF_AVAHI_GOBJECT)-gobject \
+	--disable-introspection \
+	--disable-qt3 \
+	--$(call ptx/endis, PTXCONF_AVAHI_QT4)-qt4 \
+	--$(call ptx/endis, PTXCONF_AVAHI_GTK)-gtk \
+	--$(call ptx/endis, PTXCONF_AVAHI_DBUS)-dbus \
 	--disable-dbm \
 	--disable-gdbm \
 	--enable-libdaemon \
@@ -72,61 +80,13 @@ AVAHI_AUTOCONF := \
 	--disable-compat-libdns_sd \
 	--disable-compat-howl \
 	--with-distro=none \
+	--with-dbus-sys=/etc/dbus-1/system.d \
 	--with-xml=expat \
+	--with-avahi-user=$(PTXCONF_AVAHI_USER) \
+	--with-avahi-group=$(PTXCONF_AVAHI_GROUP) \
 	--with-avahi-priv-access-group=netdev \
-	--disable-stack-protector
-
-ifdef PTXCONF_AVAHI_DAEMON
-AVAHI_AUTOCONF += 				\
-	--with-avahi-user=$(PTXCONF_AVAHI_USER)	\
-	--with-avahi-group=$(PTXCONF_AVAHI_GROUP)
-endif
-
-ifdef PTXCONF_AVAHI_AUTOIP
-AVAHI_AUTOCONF += 						\
-	--with-autoipd-user=$(PTXCONF_AVAHI_AUTOIP_USER)	\
+	--with-autoipd-user=$(PTXCONF_AVAHI_AUTOIP_USER) \
 	--with-autoipd-group=$(PTXCONF_AVAHI_AUTOIP_GROUP)
-endif
-
-ifdef PTXCONF_AVAHI_GLIB
-AVAHI_AUTOCONF += --enable-glib
-else
-AVAHI_AUTOCONF += --disable-glib
-endif
-
-ifdef PTXCONF_AVAHI_GOBJECT
-AVAHI_AUTOCONF += --enable-gobject
-else
-AVAHI_AUTOCONF += --disable-gobject
-endif
-
-ifdef PTXCONF_AVAHI_QT3
-AVAHI_AUTOCONF += --enable-qt3
-else
-AVAHI_AUTOCONF += --disable-qt3
-endif
-
-ifdef PTXCONF_AVAHI_QT4
-AVAHI_AUTOCONF += --enable-qt4
-else
-AVAHI_AUTOCONF += --disable-qt4
-endif
-
-ifdef PTXCONF_AVAHI_GTK
-AVAHI_AUTOCONF += --enable-gtk
-else
-AVAHI_AUTOCONF += --disable-gtk
-endif
-
-ifdef PTXCONF_AVAHI_DBUS
-AVAHI_AUTOCONF += 					\
-	--enable-dbus					\
-	--with-dbus-sys=$(PTXCONF_AVAHI_DBUS_SYS)	\
-	--with-dbus-system-socket=$(PTXCONF_AVAHI_DBUS_SOCKET)
-else
-AVAHI_AUTOCONF += --disable-dbus
-endif
-
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,15 +101,18 @@ $(STATEDIR)/avahi.targetinstall:
 	@$(call install_fixup, avahi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, avahi,DESCRIPTION,missing)
 
-	@$(call install_copy, avahi, 0, 0, 0644, -, /usr/share/avahi/service-types)
-	@$(call install_copy, avahi, 0, 0, 0644, -, /usr/share/avahi/avahi-service.dtd)
+	@$(call install_copy, avahi, 0, 0, 0644, -, \
+		/usr/share/avahi/service-types)
+	@$(call install_copy, avahi, 0, 0, 0644, -, \
+		/usr/share/avahi/avahi-service.dtd)
 
 #	avahi core libs
 	@$(call install_lib, avahi, 0, 0, 0644, libavahi-core)
 	@$(call install_lib, avahi, 0, 0, 0644, libavahi-common)
 
 ifdef PTXCONF_AVAHI_DBUS
-	@$(call install_alternative, avahi, 0, 0, 0644, $(PTXCONF_AVAHI_DBUS_SYS)/avahi-dbus.conf)
+	@$(call install_alternative, avahi, 0, 0, 0644, \
+		/etc/dbus-1/system.d/avahi-dbus.conf)
 endif
 
 ifdef PTXCONF_AVAHI_QT4
@@ -164,24 +127,37 @@ ifdef PTXCONF_AVAHI_DAEMON
 #	avahi daemon (avahi mDNS/DNS-SD Implementation)
 #	depends on expat
 	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/sbin/avahi-daemon)
-	@$(call install_copy, avahi, 0, 0, 0644, -, /etc/avahi/avahi-daemon.conf)
-	@$(call install_copy, avahi, 0, 0, 0644, -, /etc/avahi/hosts)
+
+	@$(call install_alternative, avahi, 0, 0, 0644, \
+		/etc/avahi/avahi-daemon.conf)
+	@$(call install_alternative, avahi, 0, 0, 0644, /etc/avahi/hosts)
+
+ifdef PTXCONF_INITMETHOD_BBINIT
 	@$(call install_alternative, avahi, 0, 0, 0755, /etc/init.d/avahi-daemon)
-	@$(call install_link, avahi, ../init.d/avahi-daemon, /etc/rc.d/S35avahi-daemon)
+	@$(call install_link, avahi, ../init.d/avahi-daemon, \
+		/etc/rc.d/S35avahi-daemon)
+endif
+ifdef PTXCONF_INITMETHOD_UPSTART
+	@$(call install_alternative, avahi, 0, 0, 0644, \
+		/etc/init/avahi-daemon.conf)
+endif
 endif
 
 ifdef PTXCONF_AVAHI_SERVICES
 #	avahi service descriptions
 #	depends on avahi-daemon
-	@$(call install_copy, avahi, 0, 0, 0644, -, /etc/avahi/services/sftp-ssh.service)
-	@$(call install_copy, avahi, 0, 0, 0644, -, /etc/avahi/services/ssh.service)
+	@$(call install_copy, avahi, 0, 0, 0644, -, \
+		/etc/avahi/services/sftp-ssh.service)
+	@$(call install_copy, avahi, 0, 0, 0644, -, \
+		/etc/avahi/services/ssh.service)
 endif
 
 ifdef PTXCONF_AVAHI_DNSCONFD
 #	avahi dnsconfd (Unicast DNS server from mDNS/DNS-SD configuration daemon)
 #	depends on avahi-daemon
 	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/sbin/avahi-dnsconfd)
-	@$(call install_copy, avahi, 0, 0, 0755, -, /etc/avahi/avahi-dnsconfd.action)
+	@$(call install_copy, avahi, 0, 0, 0755, -, \
+		/etc/avahi/avahi-dnsconfd.action)
 endif
 
 ifdef PTXCONF_AVAHI_AUTOIP
@@ -190,13 +166,13 @@ ifdef PTXCONF_AVAHI_AUTOIP
 #	depends on libdaemon
 #	be shure to set CONFIG_FILE_LOCKING=y in your Kernel Config
 	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/sbin/avahi-autoipd)
-	@$(call install_copy, avahi, 0, 0, 0755, -, /etc/avahi/avahi-autoipd.action)
+	@$(call install_copy, avahi, 0, 0, 0755, -, \
+		/etc/avahi/avahi-autoipd.action)
+
+ifdef PTXCONF_INITMETHOD_BBINIT
 	@$(call install_alternative, avahi, 0, 0, 0755, /etc/init.d/zeroconf)
 	@$(call install_link, avahi, ../init.d/zeroconf, /etc/rc.d/S30zeroconf)
 endif
-
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, avahi, 0, 0, 0644, /etc/init/avahi-daemon.conf)
 endif
 
 	@$(call install_finish, avahi)
