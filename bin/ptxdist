@@ -913,6 +913,14 @@ clean() {
 		return
 	fi
 
+	if [ ! -n "${PTX_FORCE}${PTXDIST_QUIET}" ]; then
+		read -e -p "really clean all? [y/N] " r
+		case "${r}" in
+			y|Y) ;;
+			*) exit 1 ;;
+		esac
+	fi
+
 	echo
 	echo "${PTXDIST_LOG_PROMPT}removing build directories..."
 	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${KLIBC_BUILDDIR}" "${HOST_BUILDDIR}"; do
