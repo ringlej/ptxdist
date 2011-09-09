@@ -46,6 +46,7 @@ XTERM_ENV 	:= $(CROSS_ENV)
 XTERM_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-freetype \
+	--disable-rpath-hack \
 	--without-x
 
 #
