@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_AVAHI) += avahi
 #
 # Paths and names
 #
-AVAHI_VERSION	:= 0.6.25
-AVAHI_MD5	:= a83155a6e29e3988f07e5eea3287b21e
+AVAHI_VERSION	:= 0.6.30
+AVAHI_MD5	:= e4db89a2a403ff4c47d66ac66fad1f43
 AVAHI		:= avahi-$(AVAHI_VERSION)
 AVAHI_SUFFIX	:= tar.gz
 AVAHI_URL	:= http://avahi.org/download/$(AVAHI).$(AVAHI_SUFFIX)
@@ -53,6 +53,7 @@ AVAHI_CONF_OPT	:= \
 	--disable-qt3 \
 	--$(call ptx/endis, PTXCONF_AVAHI_QT4)-qt4 \
 	--$(call ptx/endis, PTXCONF_AVAHI_GTK)-gtk \
+	--disable-gtk3 \
 	--$(call ptx/endis, PTXCONF_AVAHI_DBUS)-dbus \
 	--disable-dbm \
 	--disable-gdbm \
@@ -86,7 +87,8 @@ AVAHI_CONF_OPT	:= \
 	--with-avahi-group=$(PTXCONF_AVAHI_GROUP) \
 	--with-avahi-priv-access-group=netdev \
 	--with-autoipd-user=$(PTXCONF_AVAHI_AUTOIP_USER) \
-	--with-autoipd-group=$(PTXCONF_AVAHI_AUTOIP_GROUP)
+	--with-autoipd-group=$(PTXCONF_AVAHI_AUTOIP_GROUP) \
+	--with-systemdsystemunitdir=/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,6 +143,16 @@ ifdef PTXCONF_INITMETHOD_UPSTART
 	@$(call install_alternative, avahi, 0, 0, 0644, \
 		/etc/init/avahi-daemon.conf)
 endif
+ifdef PTXCONF_INITMETHOD_SYSTEMD
+ifdef PTXCONF_AVAHI_SYSTEMD_UNIT
+	@$(call install_alternative, avahi, 0, 0, 0644, \
+		/lib/systemd/system/avahi-daemon.socket)
+	@$(call install_alternative, avahi, 0, 0, 0644, \
+		/lib/systemd/system/avahi-daemon.service)
+	@$(call install_link, avahi, ../avahi-daemon.service, \
+		/lib/systemd/system/multi-user.target.wants/avahi-daemon.service)
+endif
+endif
 endif
 
 ifdef PTXCONF_AVAHI_SERVICES
@@ -158,6 +170,14 @@ ifdef PTXCONF_AVAHI_DNSCONFD
 	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/sbin/avahi-dnsconfd)
 	@$(call install_copy, avahi, 0, 0, 0755, -, \
 		/etc/avahi/avahi-dnsconfd.action)
+ifdef PTXCONF_INITMETHOD_SYSTEMD
+ifdef PTXCONF_AVAHI_SYSTEMD_UNIT
+	@$(call install_alternative, avahi, 0, 0, 0644, \
+		/lib/systemd/system/avahi-dnsconfd.service)
+	@$(call install_link, avahi, ../avahi-dnsconfd.service, \
+		/lib/systemd/system/multi-user.target.wants/avahi-dnsconfd.service)
+endif
+endif
 endif
 
 ifdef PTXCONF_AVAHI_AUTOIP

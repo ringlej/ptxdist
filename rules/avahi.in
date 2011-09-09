@@ -16,6 +16,12 @@ menuconfig AVAHI
 
 if AVAHI
 
+config AVAHI_SYSTEMD_UNIT
+	bool
+	default y
+	depends on AVAHI_DAEMON && SYSTEMD
+	prompt "install systemd unit files for avahi-daemon"
+
 config AVAHI_GLIB
 	bool
 	prompt "enable glib support"
