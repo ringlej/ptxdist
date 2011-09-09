@@ -287,6 +287,11 @@ config SETUP_NFS_REL_SYMLINK
 	  for broken links.
 	  The link installed into the image remains absolute.
 
+config SETUP_DIRECT_CLEAN
+	bool "ptxdist clean without check"
+	help
+	  I'm a developer. I know what I'm doing. Just clean the BSP.
+
 config SETUP_HOST_CC
 	prompt "host CC"
 	string

@@ -913,7 +913,7 @@ clean() {
 		return
 	fi
 
-	if [ ! -n "${PTX_FORCE}${PTXDIST_QUIET}" ]; then
+	if [ ! -n "${PTX_FORCE}${PTXDIST_QUIET}${PTXCONF_SETUP_DIRECT_CLEAN}" ]; then
 		read -e -p "really clean all? [y/N] " r
 		case "${r}" in
 			y|Y) ;;
