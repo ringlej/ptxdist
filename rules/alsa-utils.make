@@ -108,9 +108,8 @@ endif
 endif
 
 ifdef PTXCONF_ALSA_UTILS_ASOUND_STATE
-	@$(call install_copy, alsa-utils, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/asound.state, \
-		/etc/asound.state)
+	@$(call install_alternative, alsa-utils, 0, 0, 0644, \
+		/etc/asound.state, n)
 endif
 	@$(call install_finish, alsa-utils)
 
