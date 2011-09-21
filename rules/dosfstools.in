@@ -8,21 +8,30 @@ if DOSFSTOOLS
 
 config DOSFSTOOLS_MKDOSFS
 	bool
+	depends on !BUSYBOX_MKFS_VFAT || ALLYES
 	prompt "mkdosfs"
 	help
 	  mkdosfs - create an MS-DOS file system under Linux
 
+comment "BusyBox' mkdosfs is selected!"
+	depends on BUSYBOX_MKFS_VFAT
+
 config DOSFSTOOLS_MKDOSFS_MSDOS
 	bool
+	depends on !BUSYBOX_MKFS_VFAT || ALLYES
 	prompt "create mkfs.msdos link"
 	help
 	  FAT 12 / MSDOS Format
 
 config DOSFSTOOLS_MKDOSFS_VFAT
 	bool
+	depends on !BUSYBOX_MKFS_VFAT || ALLYES
 	prompt "create mkfs.vfat link"
 	help
 	  VFAT Format - Long Filenames, big files, etc.
+
+comment "BusyBox' mkfs.vfat is selected!"
+	depends on BUSYBOX_MKFS_VFAT
 
 config DOSFSTOOLS_DOSFSCK
 	bool
