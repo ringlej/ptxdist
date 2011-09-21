@@ -17,7 +17,7 @@ PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_PLATFORMCONFIG_FALLBACK='${PTXDIST_WORKSPACE}/configs/*/platformconfig'
 PTXDIST_COLLECTIONCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_collectionconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
-PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdist/ptxdistrc-${PTXDIST_VERSION_PTXRC}'
+PTXDIST_PTXRC_DEFAULT=${PTXDIST_PTXRC_DEFAULT:-'${HOME}/.ptxdist/ptxdistrc-${PTXDIST_VERSION_PTXRC}'}
 
 
 #
@@ -2149,7 +2149,7 @@ setup_env() {
 
 	unset $(/usr/bin/env | \
 		sed -n -e "s/^\([^=[:space:]]\+\)=.*$/\1/p" | \
-		egrep -v "^(PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|ftp_proxy${whitelist})$" )
+		egrep -v "^(PTXDIST_PTXRC_DEFAULT|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|ftp_proxy${whitelist})$" )
 
 	######## the environment is clean now ########
 
