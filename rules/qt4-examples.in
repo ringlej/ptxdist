@@ -119,7 +119,17 @@ config QT4_EXAMPLES_DBUS_PONG
 	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DBUS_CAR
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DBUS_REMOTECONTROLLEDCAR
+	bool
+	prompt "dbus/remotecontrolledcar    "
+
+if QT4_EXAMPLES_DBUS_REMOTECONTROLLEDCAR
+
+config QT4_EXAMPLES_DBUS_REMOTECONTROLLEDCAR_CAR
 	bool
 	prompt "car"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -127,7 +137,7 @@ config QT4_EXAMPLES_DBUS_CAR
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DBUS_CONTROLLER
+config QT4_EXAMPLES_DBUS_REMOTECONTROLLEDCAR_CONTROLLER
 	bool
 	prompt "controller"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -139,15 +149,364 @@ config QT4_EXAMPLES_DBUS_CONTROLLER
 endif
 
 
+menuconfig QT4_EXAMPLES_DECLARATIVE_ANIMATION_BASICS
+	bool
+	prompt "declarative/animation/basics"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_ANIMATION_BASICS
+
+config QT4_EXAMPLES_DECLARATIVE_ANIMATION_BASICS_COLOR_ANIMATION
+	bool
+	prompt "color-animation"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_ANIMATION_BASICS_PROPERTY_ANIMATION
+	bool
+	prompt "property-animation"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_ANIMATION_BEHAVIORS
+	bool
+	prompt "declarative/animation/behaviors"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_ANIMATION_BEHAVIORS
+
+config QT4_EXAMPLES_DECLARATIVE_ANIMATION_BEHAVIORS_BEHAVIOR_EXAMPLE
+	bool
+	prompt "behavior-example"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_ANIMATION_BEHAVIORS_WIGGLYTEXT
+	bool
+	prompt "wigglytext"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_ANIMATION
+	bool
+	prompt "declarative/animation       "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_ANIMATION
+
+config QT4_EXAMPLES_DECLARATIVE_ANIMATION_EASING
+	bool
+	prompt "easing"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_ANIMATION_STATES
+	bool
+	prompt "states"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS
+	bool
+	prompt "declarative/cppextensions   "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_NETWORKACCESSMANAGERFACTORY
+	bool
+	prompt "networkaccessmanagerfactory"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS
+	bool
+	prompt "declarative/cppextensions/qgraphicslayouts"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS_LAYOUTITEM
+	bool
+	prompt "layoutitem"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS_QGRAPHICSGRIDLAYOUT
+	bool
+	prompt "qgraphicsgridlayout"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS_QGRAPHICSLINEARLAYOUT
+	bool
+	prompt "qgraphicslinearlayout"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES
+	bool
+	prompt "declarative/cppextensions/referenceexamples"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_ADDING
+	bool
+	prompt "adding"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_ATTACHED
+	bool
+	prompt "attached"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_BINDING
+	bool
+	prompt "binding"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_COERCION
+	bool
+	prompt "coercion"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_DEFAULT
+	bool
+	prompt "default"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_EXTENDED
+	bool
+	prompt "extended"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_GROUPED
+	bool
+	prompt "grouped"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_METHODS
+	bool
+	prompt "methods"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_PROPERTIES
+	bool
+	prompt "properties"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_SIGNAL
+	bool
+	prompt "signal"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_VALUESOURCE
+	bool
+	prompt "valuesource"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
 menuconfig QT4_EXAMPLES_DECLARATIVE
 	bool
 	prompt "declarative                 "
+	# installing everything must be fixed first
+	depends on BROKEN
 
 if QT4_EXAMPLES_DECLARATIVE
 
-config QT4_EXAMPLES_DECLARATIVE_NETWORKACCESSMANAGERFACTORY
+config QT4_EXAMPLES_DECLARATIVE_I18N
 	bool
-	prompt "networkaccessmanagerfactory"
+	prompt "i18n"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -156,9 +515,23 @@ config QT4_EXAMPLES_DECLARATIVE_NETWORKACCESSMANAGERFACTORY
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_LAYOUTITEM
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_IMAGEELEMENTS
 	bool
-	prompt "layoutitem"
+	prompt "declarative/imageelements   "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_IMAGEELEMENTS
+
+config QT4_EXAMPLES_DECLARATIVE_IMAGEELEMENTS_BORDERIMAGE
+	bool
+	prompt "borderimage"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -167,9 +540,11 @@ config QT4_EXAMPLES_DECLARATIVE_LAYOUTITEM
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_QGRAPHICSGRIDLAYOUT
+config QT4_EXAMPLES_DECLARATIVE_IMAGEELEMENTS_IMAGE
 	bool
-	prompt "qgraphicsgridlayout"
+	prompt "image"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -178,9 +553,11 @@ config QT4_EXAMPLES_DECLARATIVE_QGRAPHICSGRIDLAYOUT
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_QGRAPHICSLINEARLAYOUT
+config QT4_EXAMPLES_DECLARATIVE_IMAGEELEMENTS_SHADOWS
 	bool
-	prompt "qgraphicslinearlayout"
+	prompt "shadows"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -189,9 +566,23 @@ config QT4_EXAMPLES_DECLARATIVE_QGRAPHICSLINEARLAYOUT
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_ADDING
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_KEYINTERACTION
 	bool
-	prompt "adding"
+	prompt "declarative/keyinteraction  "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_KEYINTERACTION
+
+config QT4_EXAMPLES_DECLARATIVE_KEYINTERACTION_FOCUS
+	bool
+	prompt "focus"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -200,119 +591,23 @@ config QT4_EXAMPLES_DECLARATIVE_ADDING
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_ATTACHED
-	bool
-	prompt "attached"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_BINDING
-	bool
-	prompt "binding"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
+endif
 
-config QT4_EXAMPLES_DECLARATIVE_COERCION
-	bool
-	prompt "coercion"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_DEFAULT
+menuconfig QT4_EXAMPLES_DECLARATIVE_MODELVIEWS
 	bool
-	prompt "default"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
+	prompt "declarative/modelviews      "
+	# installing everything must be fixed first
+	depends on BROKEN
 
-config QT4_EXAMPLES_DECLARATIVE_EXTENDED
-	bool
-	prompt "extended"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
+if QT4_EXAMPLES_DECLARATIVE_MODELVIEWS
 
-config QT4_EXAMPLES_DECLARATIVE_GROUPED
-	bool
-	prompt "grouped"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_DECLARATIVE_METHODS
-	bool
-	prompt "methods"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_DECLARATIVE_PROPERTIES
-	bool
-	prompt "properties"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_DECLARATIVE_SIGNAL
-	bool
-	prompt "signal"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_DECLARATIVE_VALUESOURCE
-	bool
-	prompt "valuesource"
-	depends on QT4_BUILD_DECLARATIVE
-	depends on QT4_BUILD_SCRIPT
-	depends on QT4_BUILD_SVG
-	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_QTXMLPATTERNS
-	depends on QT4_BUILD_GUI
-	depends on QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES_DECLARATIVE_ABSTRACTITEMMODEL
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_ABSTRACTITEMMODEL
 	bool
 	prompt "abstractitemmodel"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -321,9 +616,113 @@ config QT4_EXAMPLES_DECLARATIVE_ABSTRACTITEMMODEL
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_OBJECTLISTMODEL
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_GRIDVIEW
+	bool
+	prompt "gridview"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW
+	bool
+	prompt "declarative/modelviews/listview"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_DYNAMICLIST
+	bool
+	prompt "dynamiclist"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_EXPANDINGDELEGATES
+	bool
+	prompt "expandingdelegates"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_HIGHLIGHT
+	bool
+	prompt "highlight"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_HIGHLIGHTRANGES
+	bool
+	prompt "highlightranges"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_SECTIONS
+	bool
+	prompt "sections"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_MODELVIEWS
+	bool
+	prompt "declarative/modelviews      "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_MODELVIEWS
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_OBJECTLISTMODEL
 	bool
 	prompt "objectlistmodel"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -332,9 +731,50 @@ config QT4_EXAMPLES_DECLARATIVE_OBJECTLISTMODEL
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_STRINGLISTMODEL
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_PACKAGE
+	bool
+	prompt "package"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_PARALLAX
+	bool
+	prompt "parallax"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_PATHVIEW
+	bool
+	prompt "pathview"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_STRINGLISTMODEL
 	bool
 	prompt "stringlistmodel"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -343,9 +783,507 @@ config QT4_EXAMPLES_DECLARATIVE_STRINGLISTMODEL
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_CHAPTER1_BASICS
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_VISUALITEMMODEL
+	bool
+	prompt "visualitemmodel"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW
+	bool
+	prompt "declarative/modelviews/webview"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW_ALERTS
+	bool
+	prompt "alerts"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW_AUTOSIZE
+	bool
+	prompt "autosize"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW_GOOGLEMAPS
+	bool
+	prompt "googlemaps"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW_INLINEHTML
+	bool
+	prompt "inlinehtml"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_MODELVIEWS_WEBVIEW_NEWWINDOWS
+	bool
+	prompt "newwindows"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE
+	bool
+	prompt "declarative                 "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE
+
+config QT4_EXAMPLES_DECLARATIVE_POSITIONERS
+	bool
+	prompt "positioners"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_RIGHTTOLEFT
+	bool
+	prompt "declarative/righttoleft     "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_RIGHTTOLEFT
+
+config QT4_EXAMPLES_DECLARATIVE_RIGHTTOLEFT_LAYOUTDIRECTION
+	bool
+	prompt "layoutdirection"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_RIGHTTOLEFT_LAYOUTMIRRORING
+	bool
+	prompt "layoutmirroring"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_RIGHTTOLEFT_TEXTALIGNMENT
+	bool
+	prompt "textalignment"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE
+	bool
+	prompt "declarative                 "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE
+
+config QT4_EXAMPLES_DECLARATIVE_SHADEREFFECTS
+	bool
+	prompt "shadereffects"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on !QT4_OPENGL_NONE
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_SQLLOCALSTORAGE
+	bool
+	prompt "sqllocalstorage"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TEXT_FONTS
+	bool
+	prompt "declarative/text/fonts      "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TEXT_FONTS
+
+config QT4_EXAMPLES_DECLARATIVE_TEXT_FONTS_AVAILABLEFONTS
+	bool
+	prompt "availableFonts"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TEXT_FONTS_BANNER
+	bool
+	prompt "banner"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TEXT_FONTS_FONTS
+	bool
+	prompt "fonts"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TEXT_FONTS_HELLO
+	bool
+	prompt "hello"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TEXT
+	bool
+	prompt "declarative/text            "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TEXT
+
+config QT4_EXAMPLES_DECLARATIVE_TEXT_TEXTSELECTION
+	bool
+	prompt "textselection"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_THREADING
+	bool
+	prompt "declarative/threading       "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_THREADING
+
+config QT4_EXAMPLES_DECLARATIVE_THREADING_THREADEDLISTMODEL
+	bool
+	prompt "threadedlistmodel"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_THREADING_WORKERSCRIPT
+	bool
+	prompt "workerscript"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_GESTURES
+	bool
+	prompt "declarative/touchinteraction/gestures"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_GESTURES
+
+config QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_GESTURES_EXPERIMENTALGESTURES
+	bool
+	prompt "experimentalgestures"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_MOUSEAREA
+	bool
+	prompt "declarative/touchinteraction/mousearea"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_MOUSEAREA
+
+config QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_MOUSEAREA_MOUSEAREAEXAMPLE
+	bool
+	prompt "mouseareaexample"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION
+	bool
+	prompt "declarative/touchinteraction"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION
+
+config QT4_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_PINCHAREA
+	bool
+	prompt "pincharea"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TOYS
+	bool
+	prompt "declarative/toys            "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TOYS
+
+config QT4_EXAMPLES_DECLARATIVE_TOYS_CLOCKS
+	bool
+	prompt "clocks"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TOYS_CORKBOARDS
+	bool
+	prompt "corkboards"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TOYS_DYNAMICSCENE
+	bool
+	prompt "dynamicscene"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TOYS_TIC_TAC_TOE
+	bool
+	prompt "tic-tac-toe"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_TOYS_TVTENNIS
+	bool
+	prompt "tvtennis"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING
+	bool
+	prompt "declarative/tutorials/extending"
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING
+
+config QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER1_BASICS
 	bool
 	prompt "chapter1-basics"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -354,9 +1292,11 @@ config QT4_EXAMPLES_DECLARATIVE_CHAPTER1_BASICS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_CHAPTER2_METHODS
+config QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER2_METHODS
 	bool
 	prompt "chapter2-methods"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -365,9 +1305,11 @@ config QT4_EXAMPLES_DECLARATIVE_CHAPTER2_METHODS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_CHAPTER3_BINDINGS
+config QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER3_BINDINGS
 	bool
 	prompt "chapter3-bindings"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -376,9 +1318,11 @@ config QT4_EXAMPLES_DECLARATIVE_CHAPTER3_BINDINGS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_CHAPTER4_CUSTOMPROPERTYTYPES
+config QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER4_CUSTOMPROPERTYTYPES
 	bool
 	prompt "chapter4-customPropertyTypes"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -387,9 +1331,165 @@ config QT4_EXAMPLES_DECLARATIVE_CHAPTER4_CUSTOMPROPERTYTYPES
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_DECLARATIVE_CHAPTER5_LISTPROPERTIES
+config QT4_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER5_LISTPROPERTIES
 	bool
 	prompt "chapter5-listproperties"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS
+	bool
+	prompt "declarative/ui-components   "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_DIALCONTROL
+	bool
+	prompt "dialcontrol"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_FLIPABLE
+	bool
+	prompt "flipable"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_MAIN
+	bool
+	prompt "main"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_PROGRESSBAR
+	bool
+	prompt "progressbar"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SCROLLBAR
+	bool
+	prompt "scrollbar"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SEARCHBOX
+	bool
+	prompt "searchbox"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SLIDESWITCH
+	bool
+	prompt "slideswitch"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SPINNER
+	bool
+	prompt "spinner"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_DECLARATIVE_UI_COMPONENTS_TABWIDGET
+	bool
+	prompt "tabwidget"
+	# installing everything must be fixed first
+	depends on BROKEN
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_DECLARATIVE_XML
+	bool
+	prompt "declarative/xml             "
+	# installing everything must be fixed first
+	depends on BROKEN
+
+if QT4_EXAMPLES_DECLARATIVE_XML
+
+config QT4_EXAMPLES_DECLARATIVE_XML_XMLHTTPREQUESTEXAMPLE
+	bool
+	prompt "xmlhttprequestexample"
+	# installing everything must be fixed first
+	depends on BROKEN
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -682,7 +1782,6 @@ config QT4_EXAMPLES_HELP_CONTEXTSENSITIVEHELP
 	prompt "contextsensitivehelp"
 	depends on QT4_BUILD_TOOLS
 	depends on QT4_BUILD_SQL
-	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1075,6 +2174,18 @@ config QT4_EXAMPLES_NETWORK_LOOPBACK
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
+config QT4_EXAMPLES_NETWORK_MULTICASTRECEIVER
+	bool
+	prompt "multicastreceiver"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_NETWORK_MULTICASTSENDER
+	bool
+	prompt "multicastsender"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
 config QT4_EXAMPLES_NETWORK_NETWORK_CHAT
 	bool
 	prompt "network-chat"
@@ -1123,11 +2234,18 @@ config QT4_EXAMPLES_OPENGL_2DPAINTING
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
+config QT4_EXAMPLES_OPENGL_CUBE
+	bool
+	prompt "cube"
+	depends on !QT4_OPENGL_NONE
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
 config QT4_EXAMPLES_OPENGL_FRAMEBUFFEROBJECT
 	bool
 	prompt "framebufferobject"
-	depends on QT4_BUILD_SVG
 	depends on !QT4_OPENGL_NONE
+	depends on QT4_BUILD_SVG
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1160,10 +2278,9 @@ config QT4_EXAMPLES_OPENGL_HELLOGL_ES
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_OPENGL_HELLOGL_ES2
+config QT4_EXAMPLES_OPENGL_HELLOGLESTWO
 	bool
-	prompt "hellogl_es2"
-	depends on QT4_OPENGL_ES2
+	prompt "helloglestwo"
 	depends on !QT4_OPENGL_NONE
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
@@ -1185,8 +2302,8 @@ config QT4_EXAMPLES_OPENGL_PBUFFERS
 config QT4_EXAMPLES_OPENGL_PBUFFERS2
 	bool
 	prompt "pbuffers2"
-	depends on QT4_BUILD_SVG
 	depends on !QT4_OPENGL_NONE
+	depends on QT4_BUILD_SVG
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1432,9 +2549,9 @@ menuconfig QT4_EXAMPLES_RICHTEXT
 
 if QT4_EXAMPLES_RICHTEXT
 
-config QT4_EXAMPLES_RICHTEXT_CALENDAR
+config QT4_EXAMPLES_RICHTEXT_CALENDARAPP
 	bool
-	prompt "calendar"
+	prompt "calendarapp"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1627,10 +2744,13 @@ config QT4_EXAMPLES_THREADS_MANDELBROT
 config QT4_EXAMPLES_THREADS_SEMAPHORES
 	bool
 	prompt "semaphores"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES_THREADS_WAITCONDITIONS
 	bool
 	prompt "waitconditions"
+	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
 
@@ -1667,11 +2787,31 @@ config QT4_EXAMPLES_TOOLS_CUSTOMCOMPLETER
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TOOLS_ECHOPLUGIN
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TOOLS_ECHOPLUGIN
+	bool
+	prompt "tools/echoplugin            "
+
+if QT4_EXAMPLES_TOOLS_ECHOPLUGIN
+
+config QT4_EXAMPLES_TOOLS_ECHOPLUGIN_ECHOPLUGIN
 	bool
 	prompt "echoplugin"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TOOLS
+	bool
+	prompt "tools                       "
+
+if QT4_EXAMPLES_TOOLS
 
 config QT4_EXAMPLES_TOOLS_I18N
 	bool
@@ -1703,11 +2843,31 @@ config QT4_EXAMPLES_TOOLS_SETTINGSEDITOR
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TOOLS_STYLEPLUGIN
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TOOLS_STYLEPLUGIN
+	bool
+	prompt "tools/styleplugin           "
+
+if QT4_EXAMPLES_TOOLS_STYLEPLUGIN
+
+config QT4_EXAMPLES_TOOLS_STYLEPLUGIN_STYLEPLUGIN
 	bool
 	prompt "styleplugin"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TOOLS
+	bool
+	prompt "tools                       "
+
+if QT4_EXAMPLES_TOOLS
 
 config QT4_EXAMPLES_TOOLS_TREEMODELCOMPLETER
 	bool
@@ -1759,115 +2919,213 @@ config QT4_EXAMPLES_TOUCH_PINCHZOOM
 endif
 
 
-menuconfig QT4_EXAMPLES_TUTORIALS
+menuconfig QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK
 	bool
-	prompt "tutorials                   "
+	prompt "tutorials/addressbook       "
 
-if QT4_EXAMPLES_TUTORIALS
+if QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK
 
-config QT4_EXAMPLES_TUTORIALS_PART1
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART1
 	bool
 	prompt "part1"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_PART2
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART2
 	bool
 	prompt "part2"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_PART3
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART3
 	bool
 	prompt "part3"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_PART4
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART4
 	bool
 	prompt "part4"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_PART5
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART5
 	bool
 	prompt "part5"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_PART6
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART6
 	bool
 	prompt "part6"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_PART7
+config QT4_EXAMPLES_TUTORIALS_ADDRESSBOOK_PART7
 	bool
 	prompt "part7"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_READONLY
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT
+	bool
+	prompt "tutorials/gettingStarted/gsQt"
+	depends on BROKEN
+
+if QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT
+
+config QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT_PART1
+	bool
+	prompt "part1"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT_PART2
+	bool
+	prompt "part2"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT_PART3
+	bool
+	prompt "part3"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT_PART4
+	bool
+	prompt "part4"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_GETTINGSTARTED_GSQT_PART5
+	bool
+	prompt "part5"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TUTORIALS_MODELVIEW
+	bool
+	prompt "tutorials/modelview         "
+
+if QT4_EXAMPLES_TUTORIALS_MODELVIEW
+
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_READONLY
 	bool
 	prompt "mv_readonly"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_FORMATTING
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_FORMATTING
 	bool
 	prompt "mv_formatting"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_CHANGINGMODEL
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_CHANGINGMODEL
 	bool
 	prompt "mv_changingmodel"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_HEADERS
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_HEADERS
 	bool
 	prompt "mv_headers"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_EDIT
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_EDIT
 	bool
 	prompt "mv_edit"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_TREE
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_TREE
 	bool
 	prompt "mv_tree"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_MV_SELECTIONS
+config QT4_EXAMPLES_TUTORIALS_MODELVIEW_MV_SELECTIONS
 	bool
 	prompt "mv_selections"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_CHILDWIDGET
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TUTORIALS_THREADS
+	bool
+	prompt "tutorials/threads           "
+
+if QT4_EXAMPLES_TUTORIALS_THREADS
+
+config QT4_EXAMPLES_TUTORIALS_THREADS_CLOCK
+	bool
+	prompt "clock"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_THREADS_HELLOCONCURRENT
+	bool
+	prompt "helloconcurrent"
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_THREADS_HELLOTHREAD
+	bool
+	prompt "hellothread"
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_THREADS_HELLOTHREADPOOL
+	bool
+	prompt "hellothreadpool"
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_TUTORIALS_THREADS_MOVEDOBJECT
+	bool
+	prompt "movedobject"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+
+endif
+
+
+menuconfig QT4_EXAMPLES_TUTORIALS_WIDGETS
+	bool
+	prompt "tutorials/widgets           "
+
+if QT4_EXAMPLES_TUTORIALS_WIDGETS
+
+config QT4_EXAMPLES_TUTORIALS_WIDGETS_CHILDWIDGET
 	bool
 	prompt "childwidget"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_NESTEDLAYOUTS
+config QT4_EXAMPLES_TUTORIALS_WIDGETS_NESTEDLAYOUTS
 	bool
 	prompt "nestedlayouts"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_TOPLEVEL
+config QT4_EXAMPLES_TUTORIALS_WIDGETS_TOPLEVEL
 	bool
 	prompt "toplevel"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_TUTORIALS_WINDOWLAYOUT
+config QT4_EXAMPLES_TUTORIALS_WIDGETS_WINDOWLAYOUT
 	bool
 	prompt "windowlayout"
 	depends on QT4_BUILD_GUI
@@ -1949,6 +3207,27 @@ config QT4_EXAMPLES_WEBKIT_SIMPLESELECTOR
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
+config QT4_EXAMPLES_WEBKIT_SIMPLEWEBPLUGIN
+	bool
+	prompt "simplewebplugin"
+	depends on QT4_BUILD_WEBKIT
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_WEBKIT_WEBFTPCLIENT
+	bool
+	prompt "webftpclient"
+	depends on QT4_BUILD_WEBKIT
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_WEBKIT_WEBPLUGIN
+	bool
+	prompt "webplugin"
+	depends on QT4_BUILD_WEBKIT
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
 
 endif
 
@@ -1962,6 +3241,12 @@ if QT4_EXAMPLES_WIDGETS
 config QT4_EXAMPLES_WIDGETS_ANALOGCLOCK
 	bool
 	prompt "analogclock"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_WIDGETS_APPLICATIONICON
+	bool
+	prompt "applicationicon"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -1995,6 +3280,12 @@ config QT4_EXAMPLES_WIDGETS_DIGITALCLOCK
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
+config QT4_EXAMPLES_WIDGETS_ELIDEDLABEL
+	bool
+	prompt "elidedlabel"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
 config QT4_EXAMPLES_WIDGETS_GROUPBOX
 	bool
 	prompt "groupbox"
@@ -2007,9 +3298,9 @@ config QT4_EXAMPLES_WIDGETS_ICONS
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES_WIDGETS_IMAGEVIEWER
+config QT4_EXAMPLES_WIDGETS_IMAGEVIEWEREXAMPLE
 	bool
-	prompt "imageviewer"
+	prompt "imageviewerexample"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
@@ -2022,6 +3313,12 @@ config QT4_EXAMPLES_WIDGETS_LINEEDITS
 config QT4_EXAMPLES_WIDGETS_MOVIE
 	bool
 	prompt "movie"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_WIDGETS_ORIENTATION
+	bool
+	prompt "orientation"
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 

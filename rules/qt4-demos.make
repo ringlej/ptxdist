@@ -49,10 +49,66 @@ ifdef PTXCONF_QT4_DEMOS_COMPOSITION
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/composition/composition)
 endif
 
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_CALCULATOR
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/calculator/calculator, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/calculator/calculator)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_FLICKR
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/flickr/flickr, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/flickr/flickr)
+
+endif
+
 ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_MINEHUNT
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
 		$(QT4_DIR)-build/demos/declarative/minehunt/minehunt, \
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/minehunt/minehunt)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_PHOTOVIEWER
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/photoviewer/photoviewer, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/photoviewer/photoviewer)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_RSSNEWS
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/rssnews/rssnews, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/rssnews/rssnews)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_SAMEGAME
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/samegame/samegame, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/samegame/samegame)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_SNAKE
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/snake/snake, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/snake/snake)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_TWITTER
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/twitter/twitter, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/twitter/twitter)
+
+endif
+
+ifdef PTXCONF_QT4_DEMOS_DECLARATIVE_WEBBROWSER
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/declarative/webbrowser/webbrowser, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/declarative/webbrowser/webbrowser)
 
 endif
 
@@ -164,6 +220,12 @@ ifdef PTXCONF_QT4_DEMOS_EMBEDDEDDIALOGS
 	@$(call install_copy, qt4-demos, 0, 0, 0755, \
 		$(QT4_DIR)-build/demos/embeddeddialogs/embeddeddialogs, \
 		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/embeddeddialogs/embeddeddialogs)
+endif
+
+ifdef PTXCONF_QT4_DEMOS_GLHYPNOTIZER
+	@$(call install_copy, qt4-demos, 0, 0, 0755, \
+		$(QT4_DIR)-build/demos/glhypnotizer/glhypnotizer, \
+		$(PTXCONF_QT4_DEMOS_INSTALL_DIR)/glhypnotizer/glhypnotizer)
 endif
 
 ifdef PTXCONF_QT4_DEMOS_GRADIENTS

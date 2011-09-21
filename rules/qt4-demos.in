@@ -61,9 +61,97 @@ menuconfig QT4_DEMOS_DECLARATIVE
 
 if QT4_DEMOS_DECLARATIVE
 
+config QT4_DEMOS_DECLARATIVE_CALCULATOR
+	bool
+	prompt "calculator"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_FLICKR
+	bool
+	prompt "flickr"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
 config QT4_DEMOS_DECLARATIVE_MINEHUNT
 	bool
 	prompt "minehunt"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_PHOTOVIEWER
+	bool
+	prompt "photoviewer"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_RSSNEWS
+	bool
+	prompt "rssnews"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_SAMEGAME
+	bool
+	prompt "samegame"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_SNAKE
+	bool
+	prompt "snake"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_TWITTER
+	bool
+	prompt "twitter"
+	depends on QT4_BUILD_DECLARATIVE
+	depends on QT4_BUILD_SCRIPT
+	depends on QT4_BUILD_SVG
+	depends on QT4_BUILD_SQL
+	depends on QT4_BUILD_QTXMLPATTERNS
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_DECLARATIVE_WEBBROWSER
+	bool
+	prompt "webbrowser"
 	depends on QT4_BUILD_DECLARATIVE
 	depends on QT4_BUILD_SCRIPT
 	depends on QT4_BUILD_SVG
@@ -168,6 +256,14 @@ endif
 config QT4_DEMOS_EMBEDDEDDIALOGS
 	bool
 	prompt "embeddeddialogs"
+	depends on QT4_BUILD_GUI
+	depends on QT4_BUILD_NETWORK
+
+config QT4_DEMOS_GLHYPNOTIZER
+	bool
+	prompt "glhypnotizer"
+	depends on QT4_BUILD_SVG
+	depends on !QT4_OPENGL_NONE
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
