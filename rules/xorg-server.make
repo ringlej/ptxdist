@@ -313,6 +313,24 @@ else
 XORG_SERVER_AUTOCONF += --disable-xfbdev
 endif
 
+ifdef PTXCONF_XORG_SERVER_KDRIVE_KBD
+XORG_SERVER_AUTOCONF += --enable-kdrive-kbd
+else
+XORG_SERVER_AUTOCONF += --disable-kdrive-kbd
+endif
+
+ifdef PTXCONF_XORG_SERVER_KDRIVE_MOUSE
+XORG_SERVER_AUTOCONF += --enable-kdrive-mouse
+else
+XORG_SERVER_AUTOCONF += --disable-kdrive-mouse
+endif
+
+ifdef PTXCONF_XORG_SERVER_KDRIVE_EVDEV
+XORG_SERVER_AUTOCONF += --enable-kdrive-evdev
+else
+XORG_SERVER_AUTOCONF += --disable-kdrive-evdev
+endif
+
 ifdef PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID
 XORG_SERVER_AUTOCONF += --enable-install-setuid
 else
@@ -393,6 +411,10 @@ endif
 ifdef PTXCONF_XORG_SERVER_XWIN
 	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/Xwin)
+endif
+ifdef PTXCONF_XORG_SERVER_XFBDEV
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xfbdev)
 endif
 
 ifdef PTXCONF_XORG_SERVER_XORG

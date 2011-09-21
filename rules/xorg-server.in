@@ -90,9 +90,11 @@ menuconfig XORG_SERVER
 	# xinerama triggered
 	select XORG_PROTO_XINERAMA	if XORG_SERVER_EXT_XINERAMA
 
+	# for kdrive
+	select TSLIB			if XORG_SERVER_TSLIB
+
 	# FIXME: unclear dependencies
 	#select XORG_LIB_XXF86VM	if XORG_SERVER_EXT_XV
-	#select TSLIB			if XORG_SERVER_TSLIB
 	#select XORG_LIB_X11
 	#select XORG_LIB_XAW
 	#select XORG_PROTO_XF86MISC
@@ -201,6 +203,7 @@ config XORG_SERVER_XFAKE
 
 config XORG_SERVER_XFBDEV
 	bool
+	select XORG_SERVER_KDRIVE
 	prompt "xfbdev server"
 	help
 	  FIXME
@@ -247,12 +250,6 @@ config XORG_SERVER_OPT_SECURE_RPC
 	help
 	  Use secure RPC authentication (SUN-DES-1)
 
-config XORG_SERVER_TSLIB
-	bool
-	prompt "tslib"
-	help
-	  FIXME
-
 config XORG_SERVER_UDEV
 	bool
 	select UDEV_LIBUDEV
@@ -263,6 +260,38 @@ config XORG_SERVER_UDEV
 	  FIXME
 
 endmenu
+
+if XORG_SERVER_KDRIVE
+
+menu "kdrive options                "
+
+config XORG_SERVER_TSLIB
+	bool
+	prompt "tslib support"
+	help
+	  Build kdrive tslib touchscreen support
+
+config XORG_SERVER_KDRIVE_KBD
+	bool
+	prompt "kbd driver"
+	help
+	  Build kbd driver for kdrive
+
+config XORG_SERVER_KDRIVE_MOUSE
+	bool
+	prompt "mouse driver"
+	help
+	  Build mouse driver for kdrive
+
+config XORG_SERVER_KDRIVE_EVDEV
+	bool
+	prompt "evdev driver"
+	help
+	  Build evdev driver for kdrive
+
+endmenu
+
+endif
 
 # ----------------------------------------------------------------------------
 
