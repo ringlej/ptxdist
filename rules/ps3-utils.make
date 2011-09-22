@@ -21,7 +21,7 @@ PS3_UTILS_MD5		:= 40ec16f4a7612c67c0ef5ea1828d1c7f
 PS3_UTILS_LICENSE	:= GPLv2
 PS3_UTILS		:= ps3-utils-$(PS3_UTILS_VERSION)
 PS3_UTILS_SUFFIX	:= tar.gz
-PS3_UTILS_URL		:= http://www.kernel.org/pub/linux/kernel/people/geoff/cell/ps3-utils/$(PS3_UTILS).$(PS3_UTILS_SUFFIX)
+PS3_UTILS_URL		:= $(PTXCONF_SETUP_KERNELMIRROR)/kernel/people/geoff/cell/ps3-utils/$(PS3_UTILS).$(PS3_UTILS_SUFFIX)
 PS3_UTILS_SOURCE	:= $(SRCDIR)/$(PS3_UTILS).$(PS3_UTILS_SUFFIX)
 PS3_UTILS_DIR		:= $(BUILDDIR)/$(PS3_UTILS)
 
