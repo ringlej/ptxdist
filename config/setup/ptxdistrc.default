@@ -39,6 +39,7 @@ PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian"
 PTXCONF_SETUP_SFMIRROR="http://downloads.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="http://ftp.uni-kl.de/pub/gnu"
 PTXCONF_SETUP_XORGMIRROR="http://ftp.sunet.se/pub/X11/ftp.x.org"
+PTXCONF_SETUP_KERNELMIRROR="http://www.kernel.org/pub/linux"
 PTXCONF_SETUP_CHECK_ALWAYS=y
 # PTXCONF_SETUP_CHECK_NOTEMPTY is not set
 # PTXCONF_SETUP_CHECK_NEVER is not set

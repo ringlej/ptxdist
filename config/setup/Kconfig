@@ -149,6 +149,13 @@ config SETUP_XORGMIRROR
 	help
 	  For all x.org related packages enter an available mirror here.
 
+config SETUP_KERNELMIRROR
+	string
+	default "http://www.kernel.org/pub/linux"
+	prompt "kernel.org Mirror"
+	help
+	  For all kernel.org related packages enter an available mirror here.
+
 endif	# !SETUP_PTXMIRROR_ONLY
 endif	# !SETUP_NO_DOWNLOAD
 
