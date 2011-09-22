@@ -1,11 +1,17 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 1.99.svn
+# PTXdist 2011.09.0-00029-gd149989
 #
 
 #
 # PTXDIST Setup Menu
 #
+
+#
+# User              
+#
+PTXCONF_SETUP_USER_NAME=""
+PTXCONF_SETUP_USER_EMAIL=""
 
 #
 # Proxies           
@@ -24,13 +30,19 @@ PTXCONF_SETUP_PROJECTPATH="${PTXDIST_TOPDIR}/projects"
 PTXCONF_SETUP_SRCDIR="${PTXDIST_WORKSPACE}/src"
 
 #
-# Mirrors           
+# Source Download   
 #
+# PTXCONF_SETUP_NO_DOWNLOAD is not set
+# PTXCONF_SETUP_PTXMIRROR_ONLY is not set
+PTXCONF_SETUP_PTXMIRROR="http://www.pengutronix.de/software/ptxdist/temporary-src"
 PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian"
 PTXCONF_SETUP_SFMIRROR="http://downloads.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="http://ftp.uni-kl.de/pub/gnu"
 PTXCONF_SETUP_XORGMIRROR="http://ftp.sunet.se/pub/X11/ftp.x.org"
-PTXCONF_SETUP_PTXMIRROR="http://www.pengutronix.de/software/ptxdist/temporary-src"
+PTXCONF_SETUP_CHECK_ALWAYS=y
+# PTXCONF_SETUP_CHECK_NOTEMPTY is not set
+# PTXCONF_SETUP_CHECK_NEVER is not set
+PTXCONF_SETUP_CHECK="always"
 
 #
 # IPKG Repository   
@@ -45,9 +57,15 @@ PTXCONF_SETUP_JAVA_SDK="/usr"
 #
 # Developer Options 
 #
+# PTXCONF_SETUP_DISABLE_LOCAL_CHECK is not set
+PTXCONF_SETUP_ENV_WHITELIST=""
+# PTXCONF_SETUP_COMMON_CACHE is not set
 # PTXCONF_SETUP_GEN_DEP_TREE is not set
 # PTXCONF_SETUP_CHECK_EXIT_ON_ERROR is not set
 # PTXCONF_SETUP_CCACHE is not set
+# PTXCONF_SETUP_PATCHIN_GIT is not set
+# PTXCONF_SETUP_NFS_REL_SYMLINK is not set
+# PTXCONF_SETUP_DIRECT_CLEAN is not set
 PTXCONF_SETUP_HOST_CC="gcc"
 PTXCONF_SETUP_HOST_CXX="g++"
 PTXCONF_SETUP_HOST_MAKE="make"
