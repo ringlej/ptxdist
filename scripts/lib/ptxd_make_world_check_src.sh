@@ -58,6 +58,7 @@ ptxd_make_world_update_md5() {
 
     local PKG_MD5="PTXCONF_${PKG}_MD5"
     for conf in "${PTXDIST_PLATFORMCONFIG}" "${PTXDIST_PTXCONFIG}"; do
+	conf="$(readlink -f "${conf}")"
 	if [ $(grep "^${PKG_MD5}=\"" "${conf}" 2> /dev/null | wc -l) = 1 ]; then
 	    sed -i "s/^${PKG_MD5}=\".*$/${PKG_MD5}=\"${md5}\"/" "${conf}"
 	    ptxd_warning "New checksum for ${pkg_label}: ${md5} in $(ptxd_print_path "${conf}")"
@@ -68,7 +69,7 @@ ptxd_make_world_update_md5() {
     if ! ptxd_find_pkg_makefile "${pkg_label}"; then
 	ptxd_bailout "Could not update md5sum for '${pkg_label}': makefile not found"
     else
-	makefile="${ptxd_reply}"
+	makefile="$(readlink -f "${ptxd_reply}")"
     fi
     local count=$(grep "\<${PKG}_MD5[ 	]*:=" "${makefile}" 2> /dev/null | wc -l)
     if [ "${count}" -gt 1 ]; then
