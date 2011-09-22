@@ -24,7 +24,7 @@ RT_TESTS_MD5		:= 98da46135f0a91c96cb7e5b27c7e3bb6
 RT_TESTS_LICENSE	:= GPLv2, GPLv2+
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.bz2
-RT_TESTS_URL		:= http://www.kernel.org/pub/linux/kernel/people/clrkwllms/rt-tests/$(RT_TESTS).$(RT_TESTS_SUFFIX)
+RT_TESTS_URL		:= $(PTXCONF_SETUP_KERNELMIRROR)/kernel/people/clrkwllms/rt-tests/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_SOURCE		:= $(SRCDIR)/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_DIR		:= $(BUILDDIR)/$(RT_TESTS)
 
