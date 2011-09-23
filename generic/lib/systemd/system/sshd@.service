@@ -5,4 +5,3 @@ After=syslog.target
 [Service]
 ExecStart=/usr/sbin/sshd -i
 StandardInput=socket
-StandardOutput=inherit
