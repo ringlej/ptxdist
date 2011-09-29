@@ -31,7 +31,7 @@ ptxd_make_world_clean() {
 	rm -f "${ptx_state_dir}/${pkg_label}".*
 	echo
     fi
-    if [ -d "${pkg_dir}" ]; then
+    if [ -d "${pkg_dir}" -o -L "${pkg_dir}" ]; then
 	echo "Deleting src dir:"
 	echo "${pkg_dir}"
 	rm -rf "${pkg_dir}"
