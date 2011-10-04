@@ -1,0 +1,56 @@
+## SECTION=bootloader
+
+menuconfig AT91BOOTSTRAP2
+	tristate
+	prompt "AT91 bootstrap 2.x            "
+	help
+	  Note: this is for AT91 bootstrap version 2.x
+
+	  The AT91Bootstrap application is a first level bootloader
+	  for Atmel AT91SAM9 ARM Thumb-based microcontrollers.
+	  It is used for booting these microcontrollers from SPI dataflash
+	  or NAND-flash.
+
+	  For example, using this bootstrap, it is possible to
+	  obtain a basic bootloader that is located in DataFlash and is
+	  copied to internal SRAM by SAM-BA Boot (internal bootROM). The
+	  bootloader performs the processor initialization (PLLs, PIOs,
+	  SDRAMC, SPI), loads UBoot from DataFlash sectors to SDRAM and
+	  then jumps to it.
+
+	  It is required for these microcontrollers, because the bootROM of some
+	  of these cores can only handle a miximum of 4kB of the 1st stage
+	  bootloader (e.g. SRAM limits). U-boot is usually much larger
+	  than this.
+
+	  U-boot is normally build with the options CONFIG_SKIP_LOWLEVEL_INIT
+	  and CONFIG_SKIP_RELOCATE_UBOOT
+
+	  AT91Bootstrap integrates several sets of algorithms:
+	  - Device initialization such as clock speed configuration, PIO settings, etc.
+	  - Peripheral drivers such as PIO, PMC, SDRAMC, etc.
+	  - Physical media algorithms such as DataFlash, NANDFlash, Parallel Flash, etc.
+
+if AT91BOOTSTRAP2
+
+config AT91BOOTSTRAP2_VERSION
+	string
+	default "2.13"
+	prompt "AT91 Bootstrap version"
+	help
+	  Enter the AT91 Bootstrap version you want to build. Usally something like "1.11"
+
+config AT91BOOTSTRAP2_MD5
+	prompt "AT91 Bootstrap source md5sum"
+	string
+
+config AT91BOOTSTRAP2_CONFIG
+	prompt "config file"
+	string
+	default "at91bootstrap.config"
+	help
+	  This entry specifies the .config file used to compile
+	  at91bootstrap.
+
+endif
+
