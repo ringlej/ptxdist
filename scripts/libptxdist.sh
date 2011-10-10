@@ -156,12 +156,12 @@ ptxd_kconfig_migrate() {
 	local part="${1}"
 	local assistent="${PTX_MIGRATEDIR}/migrate_${part}"
 
-	if [ \! -x "${assistent}" ]; then
+	if [ \! -f "${assistent}" ]; then
 		return 0
 	fi
 
 	cp -- ".config" ".config.old" || return
-	"${assistent}" ".config.old" > ".config"
+	sed -f "${assistent}" ".config.old" > ".config"
 	retval=$?
 
 	if [ $retval -ne 0 ]; then
