@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.0.23
-ALSA_LIB_MD5		:= f48b50421d8a69d2d806d9c47e534f0d
+ALSA_LIB_VERSION	:= 1.0.24.1
+ALSA_LIB_MD5		:= 7cc05f25e1d5b65da8fb3fdcd540f226
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -63,7 +63,6 @@ ALSA_LIB_AUTOCONF := \
 	--enable-fast-install \
 	--enable-libtool-lock \
 	--enable-symbolic-functions \
-	--disable-debug \
 	--disable-old-symbols \
 	--disable-python \
 	--with-tmpdir=/tmp \
@@ -117,6 +116,12 @@ ifdef PTXCONF_ALSA_LIB_SEQ
 ALSA_LIB_AUTOCONF += --enable-seq
 else
 ALSA_LIB_AUTOCONF += --disable-seq
+endif
+
+ifdef PTXCONF_ALSA_LIB_UCM
+ALSA_LIB_AUTOCONF += --enable-ucm
+else
+ALSA_LIB_AUTOCONF += --disable-ucm
 endif
 
 ifdef PTXCONF_ALSA_LIB_ALISP

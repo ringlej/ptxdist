@@ -87,6 +87,13 @@ config ALSA_LIB_SEQ
 	help
 	  Disable the sequencer component if you do not need it
 
+config ALSA_LIB_UCM
+	bool
+	default y
+	prompt "use-case-manager"
+	help
+	  Disable the use-case-manager component if you do not need it
+
 config ALSA_LIB_ALISP
 	bool
 	default y
