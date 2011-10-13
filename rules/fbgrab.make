@@ -26,28 +26,14 @@ FBGRAB_SOURCE	:= $(SRCDIR)/$(FBGRAB).$(FBGRAB_SUFFIX)
 FBGRAB_DIR	:= $(BUILDDIR)/$(FBGRAB)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(FBGRAB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, FBGRAB)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-FBGRAB_PATH	:= PATH=$(CROSS_PATH)
-FBGRAB_MAKE_ENV	:= $(CROSS_ENV)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 # overwrite some vars in the makefile
 
-FBGRAB_MAKE_OPT = \
+FBGRAB_MAKE_ENV	:= $(CROSS_ENV)
+FBGRAB_MAKE_OPT	= \
 	$(CROSS_ENV_CC) \
-	LDFLAGS='`$(CROSS_ENV) eval $$PKG_CONFIG --libs libpng` `$(CROSS_ENV) eval $$PKG_CONFIG --libs libz` $(CROSS_LDFLAGS)'
+	LDFLAGS='`$(CROSS_ENV) eval PATH=$(CROSS_PATH) $$PKG_CONFIG --libs libpng` $(CROSS_LDFLAGS)'
 
 # ----------------------------------------------------------------------------
 # Target-Install
