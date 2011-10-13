@@ -4,7 +4,6 @@ config XORG_APP_XKBCOMP
 	tristate
 	depends on XORG_KEYBOARD_MAPPING_SUPPORT
 	prompt "xorg xkbcomp"
-	select XKEYBOARD_CONFIG
 	select XORG_LIB_X11_XKB
 	select XORG_LIB_XKBFILE
 	help
