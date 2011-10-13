@@ -12,6 +12,7 @@ menuconfig ALSA_UTILS
 	select ALSA_LIB_PCM
 	select ALSA_LIB_RAWMIDI
 	select ALSA_LIB_SEQ
+	select ALSA_LIB_UCM
 	select LIBC_PTHREAD
 	help
 	  Some utils to handle the Advanced Linux Sound Architecture.
