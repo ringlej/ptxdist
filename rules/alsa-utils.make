@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_ALSA_UTILS) += alsa-utils
 #
 # Paths and names
 #
-ALSA_UTILS_VERSION	:= 1.0.22
-ALSA_UTILS_MD5		:= f7180316188552ee1e6759a03f1fe98d
+ALSA_UTILS_VERSION	:= 1.0.24.2
+ALSA_UTILS_MD5		:= 8238cd57cb301d1c36bcf0ecb59ce6b2
 ALSA_UTILS		:= alsa-utils-$(ALSA_UTILS_VERSION)
 ALSA_UTILS_SUFFIX	:= tar.bz2
 ALSA_UTILS_URL		:= \
@@ -53,7 +53,14 @@ ALSA_UTILS_AUTOCONF := \
 	--disable-nls \
 	--disable-rpath \
 	--disable-alsatest \
-	--disable-xmlto
+	--disable-xmlto \
+	--with-asound-state-dir=/etc
+
+ifdef PTXCONF_ALSA_UTILS_SYSTEMD_UNIT
+ALSA_UTILS_AUTOCONF += --with-systemdsystemunitdir=/lib/systemd/system
+else
+ALSA_UTILS_AUTOCONF += --without-systemdsystemunitdir
+endif
 
 ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
 ALSA_UTILS_AUTOCONF += \
@@ -63,6 +70,12 @@ else
 ALSA_UTILS_AUTOCONF += \
 	--disable-alsamixer \
 	--without-curses
+endif
+
+ifdef PTXCONF_ALSA_UTILS_ALSALOOP
+ALSA_UTILS_AUTOCONF += --enable-alsaloop
+else
+ALSA_UTILS_AUTOCONF += --disable-alsaloop
 endif
 
 # ----------------------------------------------------------------------------
@@ -95,6 +108,9 @@ $(STATEDIR)/alsa-utils.targetinstall:
 ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/alsamixer)
 endif
+ifdef PTXCONF_ALSA_UTILS_ALSALOOP
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/alsaloop)
+endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_ALSA_UTILS_STARTSCRIPT
@@ -105,6 +121,16 @@ ifneq ($(call remove_quotes,$(PTXCONF_ALSA_UTILS_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_ALSA_UTILS_BBINIT_LINK))
 endif
 endif
+endif
+ifdef PTXCONF_ALSA_UTILS_SYSTEMD_UNIT
+	@$(call install_copy, alsa-utils, 0, 0, 0644, -, \
+		/lib/systemd/system/alsa-restore.service)
+	@$(call install_link, alsa-utils, ../alsa-restore.service, \
+		/lib/systemd/system/basic.target.wants/alsa-restore.service)
+	@$(call install_copy, alsa-utils, 0, 0, 0644, -, \
+		/lib/systemd/system/alsa-store.service)
+	@$(call install_link, alsa-utils, ../alsa-store.service, \
+		/lib/systemd/system/shutdown.target.wants/alsa-store.service)
 endif
 
 ifdef PTXCONF_ALSA_UTILS_ASOUND_STATE
