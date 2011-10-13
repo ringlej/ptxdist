@@ -4,5 +4,6 @@ config XKEYBOARD_CONFIG
 	tristate
 	prompt "xkeyboard-config"
 	select HOST_INTLTOOL
+	select HOST_XORG_APP_XKBCOMP
 	help
 	  FIXME
