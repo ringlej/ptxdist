@@ -37,6 +37,7 @@ JS_CONF_ENV := \
 	ac_cv_path_WHOAMI=/bin/true \
 	ac_cv_path_AUTOCONF=/bin/true \
 	ac_cv_path_UNZIP=/bin/true \
+	ac_cv_path_ZIP=/bin/true \
 	ac_cv_va_copy=yes \
 	ac_cv___va_copy=yes
 
