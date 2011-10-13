@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 13 Oct 2011 14:29:14 +0200
+Subject: [PATCH] only look for Python with version number
+
+PTXdist will provide the correct Python version.
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Modules/FindPythonInterp.cmake |    3 ---
+ 1 files changed, 0 insertions(+), 3 deletions(-)
+
+diff --git a/Modules/FindPythonInterp.cmake b/Modules/FindPythonInterp.cmake
+index a10ec23..ea37124 100644
+--- a/Modules/FindPythonInterp.cmake
++++ b/Modules/FindPythonInterp.cmake
+@@ -26,9 +26,6 @@
+ # (To distribute this file outside of CMake, substitute the full
+ #  License text for the above reference.)
+ 
+-# Search for the current active python version first
+-find_program(PYTHON_EXECUTABLE NAMES python)
+-
+ # Set up the versions we know about, in the order we will search. Always add
+ # the user supplied additional versions to the front.
+ set(_Python_VERSIONS
