@@ -6,8 +6,6 @@ config LIBXCB
 	select XCB_PROTO
 	select LIBPTHREAD_STUBS
 	select XORG_LIB_XAU
-# configure tries to autodetect XDMCP support.
-# Is the line below the correct solution for this behavior?
 	select XORG_LIB_XDMCP if XORG_SERVER_EXT_XDMCP
 	select HOST_LIBXSLT
 	help
