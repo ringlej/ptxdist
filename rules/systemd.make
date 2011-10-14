@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 36
-SYSTEMD_MD5	:= e1213338efb697abc8215d9a66a7f082
+SYSTEMD_VERSION	:= 37
+SYSTEMD_MD5	:= 1435f23be79c8c38d1121c6b150510f3
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.bz2
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
