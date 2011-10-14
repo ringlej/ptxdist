@@ -140,4 +140,10 @@ config AVAHI_AUTOIP_GROUP
 	  a related group yourself.
 endif
 
+config AVAHI_COMPAT
+	bool
+	prompt "compat libdns_sd"
+	help
+	  compatibility layer for libdns_sd
+
 endif

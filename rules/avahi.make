@@ -78,7 +78,7 @@ AVAHI_CONF_OPT	:= \
 	--disable-manpages \
 	--disable-xmltoman \
 	--disable-tests \
-	--disable-compat-libdns_sd \
+	--$(call ptx/endis, PTXCONF_AVAHI_COMPAT)-compat-libdns_sd \
 	--disable-compat-howl \
 	--with-distro=none \
 	--with-dbus-sys=/etc/dbus-1/system.d \
@@ -123,6 +123,10 @@ endif
 
 ifdef PTXCONF_AVAHI_LIBAVAHI_CLIENT
 	@$(call install_lib, avahi, 0, 0, 0644, libavahi-client)
+endif
+
+ifdef PTXCONF_AVAHI_COMPAT
+	@$(call install_lib, avahi, 0, 0, 0644, libdns_sd)
 endif
 
 ifdef PTXCONF_AVAHI_DAEMON
