@@ -1,0 +1,57 @@
+## SECTION=qt
+
+menuconfig LIBQXT
+	tristate
+	select QT4
+	select QT4_BUILD_GUI		if LIBQXT_GUI
+	select QT4_BUILD_NETWORK	if LIBQXT_NETWORK
+	select DB			if LIBQXT_BERKELEY
+	select AVAHI			if LIBQXT_ZEROCONF
+	select AVAHI_COMPAT		if LIBQXT_ZEROCONF
+	prompt "libqxt                        "
+	help
+	  LibQxt is an extension library for Qt providing a suite of
+	  cross-platform utility classes to add functionality not readily
+	  available in the Qt toolkit.
+
+if LIBQXT
+
+config LIBQXT_CORE
+	bool
+	prompt "core"
+
+config LIBQXT_GUI
+	bool
+	select LIBQXT_CORE
+	prompt "gui"
+
+config LIBQXT_NETWORK
+	bool
+	select LIBQXT_CORE
+	prompt "network"
+
+config LIBQXT_SQL
+	bool
+	select LIBQXT_CORE
+	prompt "sql"
+
+config LIBQXT_BERKELEY
+	bool
+	select LIBQXT_CORE
+	prompt "berkeley"
+
+comment "berkeley needs berkeley db 4.4.x"
+	depends on LIBQXT_BERKELEY && !DB_44
+
+config LIBQXT_ZEROCONF
+	bool
+	select LIBQXT_NETWORK
+	prompt "zeroconf"
+
+config LIBQXT_WEB
+	bool
+	select LIBQXT_NETWORK
+	prompt "web"
+
+endif
+
