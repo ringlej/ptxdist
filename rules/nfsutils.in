@@ -6,6 +6,7 @@ menuconfig NFSUTILS
 	# we need libblkid
 	select LIBBLKID
 	select TCPWRAPPER	if NFSUTILS_WITH_TCPWRAPPERS
+	select LIBEVENT		if NFSUTILS_V4
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
    	  access to shared files across networks.  The NFS protocol is designed
@@ -27,27 +28,20 @@ if NFSUTILS
 
 comment "build options"
 
-config	NFSUTILS_V3
-	bool
-	prompt "Enable support for NFSv3"
-	help
-	  Enable support for version 3 of the NFS protocol.
-	  Revision 3 of the NFS protocol addresses new
-	  requirements. The need to support larger files
-	  and file systems has prompted extensions to
-	  allow 64 bit file sizes and offsets. The revision
-	  enhances security by adding support for an access
-	  check to be done on the server.
-
-	  See RFC1813 for Details:
-	  http://www.ietf.org/rfc/rfc1813.txt
-
 config	NFSUTILS_V4
 	bool
 	depends on BROKEN
 	prompt "Enable support for NFSv4"
 	help
           Enable support for version 4 of the NFS protocol.
+
+config	NFSUTILS_V41
+	bool
+	depends on NFSUTILS_V4
+	depends on BROKEN
+	prompt "Enable support for NFSv4.1"
+	help
+          Enable support for version 4.1 of the NFS protocol.
 
 config	NFSUTILS_WITH_TCPWRAPPERS
 	bool
@@ -77,11 +71,12 @@ comment "install options"
 
 config	NFSUTILS_INSTALL_EXPORTFS
 	bool
-	prompt "Install /sbin/exportfs"
+	prompt "Install exportfs"
 
 config	NFSUTILS_INSTALL_MOUNTD
 	bool
-	prompt "Install /sbin/mountd"
+	select NFSUTILS_INSTALL_EXPORTFS
+	prompt "Install rpc.mountd"
 
 config  NFSUTILS_INSTALL_MOUNT
 	bool
@@ -89,19 +84,19 @@ config  NFSUTILS_INSTALL_MOUNT
 
 config	NFSUTILS_INSTALL_NFSD
 	bool
-	prompt "Install /sbin/nfsd"
+	prompt "Install rpc.nfsd"
 
 config	NFSUTILS_INSTALL_NFSSTAT
 	bool
-	prompt "Install /sbin/nfsstat"
+	prompt "Install nfsstat"
 
 config  NFSUTILS_INSTALL_SHOWMOUNT
 	bool
-	prompt "Install /sbin/showmount"
+	prompt "Install showmount"
 
 config  NFSUTILS_INSTALL_STATD
 	bool
-	prompt "Install /sbin/statd"
+	prompt "Install rpc.statd"
 # this feature needs /var/lib
 	select ROOTFS_VAR
 	select ROOTFS_VAR_LIB

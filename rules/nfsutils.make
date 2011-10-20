@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NFSUTILS) += nfsutils
 #
 # Paths and names
 #
-NFSUTILS_VERSION	:= 1.2.3
-NFSUTILS_MD5		:= 1131dc5f27c4f3905a6e7ee0d594fd4d
+NFSUTILS_VERSION	:= 1.3.0
+NFSUTILS_MD5		:= 3ac3726eda563946d1f44ac3e5b61d56
 NFSUTILS		:= nfs-utils-$(NFSUTILS_VERSION)
 NFSUTILS_SUFFIX		:= tar.bz2
 NFSUTILS_URL		:= $(call ptx/mirror, SF, nfs/$(NFSUTILS).$(NFSUTILS_SUFFIX))
@@ -39,7 +39,6 @@ NFSUTILS_ENV 	:= \
 NFSUTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--sbindir=/sbin \
 	--disable-gss \
 	--disable-kprefix \
 	--disable-tirpc \
@@ -47,21 +46,24 @@ NFSUTILS_AUTOCONF := \
 	--disable-caps \
 	--enable-shared \
 	--enable-static \
-	--with-rpcgen=internal
+	--with-rpcgen=internal \
+	--disable-libmount-mount
 
 # don't trust the default value. Set it as we use it here
-NFSUTILS_AUTOCONF += --with-statedir=/var/lib/nfs
-
-ifdef PTXCONF_NFSUTILS_V3
-NFSUTILS_AUTOCONF += --enable-nfsv3
-else
-NFSUTILS_AUTOCONF += --disable-nfsv3
-endif
+NFSUTILS_AUTOCONF += \
+	--with-statedir=/var/lib/nfs \
+	--with-statdpath=/var/lib/nfs
 
 ifdef PTXCONF_NFSUTILS_V4
 NFSUTILS_AUTOCONF += --enable-nfsv4
 else
 NFSUTILS_AUTOCONF += --disable-nfsv4
+endif
+
+ifdef PTXCONF_NFSUTILS_V41
+NFSUTILS_AUTOCONF += --enable-nfsv41
+else
+NFSUTILS_AUTOCONF += --disable-nfsv41
 endif
 
 ifdef PTXCONF_NFSUTILS_WITH_TCPWRAPPERS
@@ -71,10 +73,10 @@ NFSUTILS_AUTOCONF += --without-tcp-wrappers
 endif
 
 ifdef PTXCONF_NFSUTILS_RPCUSER_UID
-NFSUTILS_RPCUSER_UID := 65534
+NFSUTILS_RPCUSER_UID := 65533
 endif
 ifdef PTXCONF_NFSUTILS_NOBODY_UID
-NFSUTILS_RPCUSER_UID := 99
+NFSUTILS_RPCUSER_UID := 65534
 endif
 
 NFSUTILS_AUTOCONF += --with-statduser=$(NFSUTILS_RPCUSER_UID)
@@ -103,36 +105,37 @@ $(STATEDIR)/nfsutils.targetinstall:
 	@$(call install_fixup, nfsutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_NFSUTILS_INSTALL_EXPORTFS
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/exportfs)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/exportfs)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_MOUNTD
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/rpc.mountd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.mountd)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NFSD
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/rpc.nfsd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.nfsd)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NFSSTAT
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/nfsstat)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsstat)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/showmount)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/showmount)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_STATD
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/rpc.statd)
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/start-statd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.statd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/start-statd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/sm-notify)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_MOUNT
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/mount.nfs)
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/umount.nfs)
+	@$(call install_link, nfsutils, mount.nfs, /sbin/umount.nfs)
 ifdef PTXCONF_NFSUTILS_V4
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/mount.nfs4)
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/umount.nfs4)
+	@$(call install_link, nfsutils, mount.nfs, /sbin/mount.nfs4)
+	@$(call install_link, nfsutils, mount.nfs, /sbin/umount.nfs4)
 endif
 endif
 
@@ -142,35 +145,25 @@ endif
 #	# Do not use tmpfs or any other non persistent filesystem.
 #	#
 
-	@$(call install_copy, nfsutils, 0, 0, 0755, /var/lib/nfs)
-
-	mkdir -p $(NFSUTILS_DIR)/ptxdist_install_tmp
-
-	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/etab
-	@$(call install_copy, nfsutils, 0, 0, 0644, \
-		$(NFSUTILS_DIR)/ptxdist_install_tmp/etab, \
-		/var/lib/nfs/etab, n)
-
-	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab
-	@$(call install_copy, nfsutils, 0, 0, 0644, \
-		$(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab, \
-		/var/lib/nfs/rmtab, n)
-
-	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/xtab
-	@$(call install_copy, nfsutils, 0, 0, 0644, \
-		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
-		/var/lib/nfs/xtab, n)
-
-	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/state
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0600, \
-		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
-		/var/lib/nfs/xtab, n)
-
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0700, \
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0755, \
+		/var/lib/nfs)
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
+		/var/lib/nfs/etab)
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
+		/var/lib/nfs/rmtab)
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
+		/var/lib/nfs/xtab)
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
+		/var/lib/nfs/state)
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0755, \
 		/var/lib/nfs/sm)
-
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0700, \
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0755, \
 		/var/lib/nfs/sm.bak)
+
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/usr/lib/tmpfiles.d/nfs.conf)
+	@$(call install_replace, nfsutils, /usr/lib/tmpfiles.d/nfs.conf, \
+		@RPCUSER@, $(NFSUTILS_RPCUSER_UID))
 
 ifdef PTXCONF_NFSUTILS_INSTALL_USER_EXPORTS
 #	# install user defined exportfs
@@ -197,7 +190,6 @@ endif
 
 # FIXME: not installed yet:
 # /sbin/rpcdebug
-# /sbin/sm-notify
 
 	@$(call touch)
 
