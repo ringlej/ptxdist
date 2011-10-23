@@ -1,5 +1,5 @@
 From: Juergen Beisert <jbe@pengutronix.de>
-Subject: Check for DBUS only, if enabled
+Subject: Check for DBUS only if dbus support is enabled
 
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 
