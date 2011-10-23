@@ -1,5 +1,5 @@
 From: Juergen Beisert <jbe@pengutronix.de>
-Subject: Check for LIBUSB only, if enabled
+Subject: Check for LIBUDEV only if udev support is enabled
 
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 ---
