@@ -1,5 +1,5 @@
 From: Juergen Beisert <jbe@pengutronix.de>
-Subject: Check for HAL only, if enabled
+Subject: Check for HAL only if hal support is enabled
 
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 ---
