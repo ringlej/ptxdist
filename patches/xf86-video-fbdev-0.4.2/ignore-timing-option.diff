@@ -7,6 +7,7 @@ option to tell X to leave the timing values untouched.
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 
 ---
+FIXME rsc: what's the purpose of this patch?
 
 Index: xf86-video-fbdev-0.3.1/src/fbdev.c
 ===================================================================
