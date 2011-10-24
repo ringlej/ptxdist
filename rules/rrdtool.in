@@ -9,7 +9,7 @@ menuconfig RRDTOOL
 	select CAIRO_PS
 	select PANGO
 	select LIBXML2
-	prompt "rrdtool"
+	prompt "rrdtool                       "
 	help
 	  The Round Robin Database Tool (RRDtool) is a system to store and
 	  display time-series data (e.g. network bandwidth, machine-room
