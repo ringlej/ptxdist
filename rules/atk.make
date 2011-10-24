@@ -18,21 +18,14 @@ PACKAGES-$(PTXCONF_ATK) += atk
 #
 # Paths and names
 #
-ATK_VERSION	:= 1.28.0
-ATK_MD5		:= 010a85478adc053c016a0a5c9bb52004
+ATK_VERSION	:= 2.2.0
+ATK_MD5		:= 4894e9b04f0a9f1c37a624a1e8d6d73f
 ATK		:= atk-$(ATK_VERSION)
 ATK_SUFFIX	:= tar.bz2
-ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/1.28/$(ATK).$(ATK_SUFFIX)
+ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/2.2/$(ATK).$(ATK_SUFFIX)
 ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		:= $(BUILDDIR)/$(ATK)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(ATK_SOURCE):
-	@$(call targetinfo)
-	@$(call get, ATK)
+ATK_LICENSE	:= LGPLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
