@@ -11,6 +11,7 @@ menuconfig UDEV
 	select LIBUSB_COMPAT	if UDEV_EXTRA_HID2HCI
 	select LIBUSB_COMPAT	if UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
 	select PCIUTILS		if UDEV_EXTRA_PCI_DB
+	select LIBC_RT		if UDEV_EXPERIMENTAL
 	help
 	  udev provides a dynamic device directory containing only the files for
 	  actually present devices. It creates or removes device node files in the
