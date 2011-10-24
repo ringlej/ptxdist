@@ -46,6 +46,7 @@ config LIBC_THREAD_DB
 config LIBC_RT
 	bool
 	select GLIBC_RT			if LIBC_GLIBC
+	select GLIBC_PTHREAD		if LIBC_GLIBC
 	select UCLIBC_RT		if LIBC_UCLIBC
 
 config LIBC_DL
