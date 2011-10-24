@@ -9,3 +9,4 @@ config HOST_GLIB
 	# FIXME what to do if we build a target system without iconv?
 	select HOST_LIBICONV
 	select HOST_ZLIB
+	select HOST_LIBFFI

@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.28.8
-GLIB_MD5	:= 789e7520f71c6a4bf08bc683ec764d24
+GLIB_VERSION	:= 2.30.2
+GLIB_MD5	:= b40f3889e8d24e1b367763673ca6deb5
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -51,7 +51,9 @@ GLIB_PATH	:= PATH=$(CROSS_PATH)
 GLIB_ENV 	:= \
 	$(CROSS_ENV) \
 	glib_cv_uscore=no \
-	glib_cv_stack_grows=no
+	glib_cv_stack_grows=no \
+	glib_cv_have_qsort_r=yes \
+	ac_cv_func_statfs=yes
 
 #
 # autoconf
