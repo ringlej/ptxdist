@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_POPPLER) += poppler
 #
 # Paths and names
 #
-POPPLER_VERSION	:= 0.16.6
-POPPLER_MD5	:= 592a564fb7075a845f75321ed6425424
+POPPLER_VERSION	:= 0.18.0
+POPPLER_MD5	:= 4cd3bf2a0a13fa8eaf00d31368915f77
 POPPLER		:= poppler-$(POPPLER_VERSION)
 POPPLER_SUFFIX	:= tar.gz
 POPPLER_URL	:= http://poppler.freedesktop.org/$(POPPLER).$(POPPLER_SUFFIX)
@@ -46,26 +46,31 @@ POPPLER_ENV 	:= $(CROSS_ENV)
 POPPLER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-abiword-output \
-	--disable-gdk \
-	--disable-gtk-test \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-poppler-cpp \
-	--disable-poppler-qt \
-	--without-x \
-	--$(call ptx/endis, PTXCONF_POPPLER_GLIB)-poppler-glib \
-	--$(call ptx/endis, PTXCONF_POPPLER_QT4)-poppler-qt4 \
-	--$(call ptx/endis, PTXCONF_POPPLER_CAIRO)-cairo-output \
-	--$(call ptx/endis, PTXCONF_POPPLER_SPLASH)-splash-output \
+	--disable-xpdf-headers \
+	--$(call ptx/disen, PTXCONF_HAS_HARDFLOAT)-single-precision \
+	--disable-fixedpoint \
+	--disable-libopenjpeg \
+	--disable-libtiff \
 	--$(call ptx/endis, PTXCONF_POPPLER_ZLIB)-zlib \
 	--$(call ptx/endis, PTXCONF_POPPLER_LIB)-libcurl \
 	--$(call ptx/endis, PTXCONF_POPPLER_JPEG)-libjpeg \
 	--$(call ptx/endis, PTXCONF_POPPLER_PNG)-libpng \
-	--$(call ptx/endis, PTXCONF_POPPLER_CMS)-cms \
+	--$(call ptx/endis, PTXCONF_POPPLER_SPLASH)-splash-output \
+	--$(call ptx/endis, PTXCONF_POPPLER_CAIRO)-cairo-output \
+	--$(call ptx/endis, PTXCONF_POPPLER_GLIB)-poppler-glib \
+	--disable-introspection \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--$(call ptx/endis, PTXCONF_POPPLER_QT4)-poppler-qt4 \
+	--disable-poppler-cpp \
+	--disable-gtk-test \
 	--$(call ptx/endis, PTXCONF_POPPLER_BIN)-utils \
-	--$(call ptx/disen, PTXCONF_HAS_HARDFLOAT)-single-precision
+	--disable-compile-warnings \
+	--$(call ptx/endis, PTXCONF_POPPLER_CMS)-cms \
+	--without-x \
+	--with-font-configuration=fontconfig \
+	--without-libiconv-prefix
 
 # ----------------------------------------------------------------------------
 # Target-Install
