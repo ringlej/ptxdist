@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_BLUEZ) += bluez
 #
 # Paths and names
 #
-BLUEZ_VERSION	:= 4.69
-BLUEZ_MD5	:= 986a08fb5c94ebd7d1a4d702e45ee34e
+BLUEZ_VERSION	:= 4.96
+BLUEZ_MD5	:= 296111afac49e3f9035085ac14daf518
 BLUEZ		:= bluez-$(BLUEZ_VERSION)
 BLUEZ_SUFFIX	:= tar.gz
 BLUEZ_URL	:= $(PTXCONF_SETUP_KERNELMIRROR)/bluetooth/$(BLUEZ).$(BLUEZ_SUFFIX)
@@ -40,18 +40,18 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-audio \
 	--enable-bccmd \
 	--disable-capng \
-	--enable-configfiles \
+	--enable-datafiles \
 	--disable-cups \
 	--enable-debug \
 	--disable-dfutool \
 	--disable-dund \
 	--disable-fortify \
+	--disable-hal \
 	--disable-hid2hci \
 	--disable-hidd \
 	--enable-input \
 	--enable-libtool-lock \
 	--disable-maemo6 \
-	--disable-netlink \
 	--enable-network \
 	--enable-optimization \
 	--disable-pand \
@@ -65,7 +65,6 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-test \
 	--disable-tracer \
 	--enable-tools \
-	--enable-udevrules \
 	--enable-usb
 
 ifdef PTXCONF_BLUEZ_ALSA
@@ -93,7 +92,7 @@ $(STATEDIR)/bluez.targetinstall:
 	@$(call install_fixup, bluez,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, bluez,DESCRIPTION,missing)
 
-	@$(foreach lib,libbluetooth.so.3.9.0, \
+	@$(foreach lib,libbluetooth.so.3.11.4, \
 	$(call install_copy, bluez, 0, 0, 0644, -, /usr/lib/$(lib)); \
 	$(call install_link, bluez, $(lib), /usr/lib/$(basename $(lib))); \
 	$(call install_link, bluez, $(lib), /usr/lib/$(basename $(basename $(lib)))); \
