@@ -57,7 +57,7 @@ ptxd_kgen_generate_sections()
 		continue
 	    fi
 	    # '! -name ".#*"' filters out emacs's lock files
-	    find "${dir}/" -name *.in \! -name ".#*" -print0
+	    find "${dir}/" -name "*.in" \! -name ".#*" -print0
 	done
     } | {
 	#
