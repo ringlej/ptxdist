@@ -61,6 +61,7 @@ config UTIL_LINUX_NG_PARTX
 
 config UTIL_LINUX_NG_MOUNTPOINT
 	bool
+	select UTIL_LINUX_NG_LIBMOUNT
 	prompt "mountpoint"
 	help
 	  The mountpoint utility.

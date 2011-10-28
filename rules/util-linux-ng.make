@@ -27,14 +27,6 @@ UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(UTIL_LINUX_NG_SOURCE):
-	@$(call targetinfo)
-	@$(call get, UTIL_LINUX_NG)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -84,49 +76,14 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-slang \
 	--without-selinux \
 	--without-audit \
-	--without-utempter
-
-ifdef PTXCONF_UTIL_LINUX_NG_LINE
-UTIL_LINUX_NG_AUTOCONF += --enable-line
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-line
-endif
-
-ifdef PTXCONF_UTIL_LINUX_NG_DDATE
-UTIL_LINUX_NG_AUTOCONF += --enable-ddate
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-ddate
-endif
-
-ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
-UTIL_LINUX_NG_AUTOCONF += --enable-mountpoint
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-mountpoint
-endif
-
-ifdef PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS
-UTIL_LINUX_NG_AUTOCONF += --enable-partx
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-partx
-endif
-
-ifdef PTXCONF_UTIL_LINUX_NG_FSCK
-UTIL_LINUX_NG_AUTOCONF += --enable-fsck
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-fsck
-endif
-
-ifdef PTXCONF_UTIL_LINUX_NG_AGETTY
-UTIL_LINUX_NG_AUTOCONF += --enable-agetty
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-agetty
-endif
-
-ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
-UTIL_LINUX_NG_AUTOCONF += --enable-libuuid
-else
-UTIL_LINUX_NG_AUTOCONF += --disable-libuuid
-endif
+	--without-utempter \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_DDATE)-ddate \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -211,27 +168,21 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_MCOOKIE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/mcookie)
 endif
-
 ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
 	@$(call install_lib, util-linux-ng, 0, 0, 0644, libblkid)
 endif
-
 ifdef PTXCONF_UTIL_LINUX_NG_BLKID
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/blkid)
 endif
-
 ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
 	@$(call install_lib, util-linux-ng, 0, 0, 0644, libuuid)
 endif
-
 ifdef PTXCONF_UTIL_LINUX_NG_LIBMOUNT
-	# FIXME - no user yet
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libmount)
 endif
-
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/uuidgen)
 endif
-
 ifdef PTXCONF_UTIL_LINUX_NG_FINDFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/findfs)
 endif
