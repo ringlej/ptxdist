@@ -23,6 +23,9 @@ menuconfig CAIRO
 
 if CAIRO
 
+config CAIRO_GOBJECT
+	bool
+
 config CAIRO_PS
 	bool
 	prompt "PostScript backend"

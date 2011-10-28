@@ -74,7 +74,7 @@ CAIRO_AUTOCONF := \
 	--disable-tee \
 	--disable-xml \
 	--enable-pthread \
-	--disable-gobject \
+	--$(call ptx/endis, PTXCONF_CAIRO_GOBJECT)-gobject \
 	--disable-full-testing \
 	--disable-trace \
 	--disable-interpreter \
