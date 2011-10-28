@@ -18,11 +18,11 @@ PACKAGES-$(PTXCONF_PANGO) += pango
 #
 # Paths and names
 #
-PANGO_VERSION	:= 1.26.0
-PANGO_MD5	:= 74ce18cfcc3ad0008a6ad56cfc535061
+PANGO_VERSION	:= 1.29.4
+PANGO_MD5	:= a5ee785f4f31d6bdd8625a09ea3f8b4b
 PANGO		:= pango-$(PANGO_VERSION)
 PANGO_SUFFIX	:= tar.bz2
-PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.26/$(PANGO).$(PANGO_SUFFIX)
+PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.29/$(PANGO).$(PANGO_SUFFIX)
 PANGO_SOURCE	:= $(SRCDIR)/$(PANGO).$(PANGO_SUFFIX)
 PANGO_DIR	:= $(BUILDDIR)/$(PANGO)
 
@@ -56,16 +56,17 @@ PANGO_MODULES-$(PTXCONF_PANGO_TIBETAN)	+= tibetan-fc
 
 PANGO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-static \
-	--enable-explicit-deps=yes \
-	--without-dynamic-modules \
-	--with-included-modules=$(subst $(space),$(comma),$(PANGO_MODULES-y))
-
-ifdef PTXCONF_PANGO_TARGET_X11
-PANGO_AUTOCONF += --with-x=$(SYSROOT)/usr
-else
-PANGO_AUTOCONF += --without-x
-endif
+	--x-includes=$(XORG_PREFIX)/include \
+	--x-libraries=$(XORG_LIBDIR) \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--disable-man \
+	--disable-doc-cross-references \
+	--enable-explicit-deps=no \
+	--$(call ptx/wwo, PTXCONF_PANGO_TARGET_X11)-x \
+	--with-included-modules=$(subst $(space),$(comma),$(PANGO_MODULES-y)) \
+	--without-dynamic-modules
 
 # ----------------------------------------------------------------------------
 # Target-Install
