@@ -1,30 +1,26 @@
 ## SECTION=multimedia_gtk
 
-menuconfig GTKCORE
+menuconfig GTK
 	tristate
 	prompt "gtk+                          "
 
-if GTKCORE
-
-config GTK
-	tristate
-	default GTKCORE
-	select HOST_GTK_DOC
+	# core dependencies
 	select GLIB
 	select ATK
 	select PANGO
-
 	select CAIRO
-	select CAIRO_PDF
-	select CAIRO_SVG
+	select CAIRO_GOBJECT
+	select GDK_PIXBUF
 
-#	select LIBTIFF		 if GTK_LOADER_TIFF
-	select LIBPNG		 if GTK_LOADER_PNG
-	select LIBJPEG		 if GTK_LOADER_JPEG
-
-	select XORG_LIB_XEXT	 if GTK_TARGET_X11
-	select XORG_LIB_XINERAMA if GTK_TARGET_X11_XINERAMA
-	select XORG_LIB_XRANDR	 if GTK_TARGET_X11_XRANDR
+	select XORG_LIB_X11		if GTK_XKB
+	select XORG_LIB_X11_XKB		if GTK_XKB
+	select XORG_LIB_XINERAMA	if GTK_XINERAMA
+	# FIXME - gtk's configure doesn't check for XInput.h. Should be patched.
+	select XORG_LIB_XI		if GTK_XINPUT
+	select XORG_LIB_XRANDR		if GTK_XRANDR
+	select XORG_LIB_XFIXES		if GTK_XFIXES
+	select XORG_LIB_XCOMPOSITE	if GTK_XCOMPOSITE
+	select XORG_LIB_XDAMAGE		if GTK_XDAMAGE
 
 	help
 	  The GTK+ is a multi-platform toolkit for creating graphical
@@ -32,106 +28,35 @@ config GTK
 	  is suitable for projects ranging from small one-off tools to complete
 	  application suites.
 
-menu "graphic loaders             "
+if GTK
 
-config GTK_LOADER_PNG
+config GTK_XKB
 	bool
-	prompt "png"
-	default y
+	prompt "XKB support"
 
-config GTK_LOADER_BMP
-	bool
-	prompt "bmp"
-
-config GTK_LOADER_WBMP
-	bool
-	prompt "wbmp"
-
-config GTK_LOADER_GIF
-	bool
-	prompt "gif"
-
-config GTK_LOADER_ICO
-	bool
-	prompt "ico"
-
-config GTK_LOADER_ANI
-	bool
-	prompt "ani"
-
-config GTK_LOADER_JPEG
-	bool
-	prompt "jpeg"
-
-#config GTK_LOADER_JPEG2000
-#	bool
-#	prompt "jpeg 2000"
-
-config GTK_LOADER_PNM
-	bool
-	prompt "pnm"
-
-config GTK_LOADER_RAS
-	bool
-	prompt "ras"
-
-#config GTK_LOADER_TIFF
-#	bool
-#	prompt "tiff"
-
-config GTK_LOADER_XPM
-	bool
-	prompt "xpm"
-
-config GTK_LOADER_TGA
-	bool
-	prompt "tga"
-
-config GTK_LOADER_PCX
-	bool
-	prompt "pcx"
-
-endmenu
-
-choice
-	prompt "gdk-target       "
-
-	config GTK_TARGET_X11
-		bool "X11     "
-		select CAIRO_XLIB
-		select CAIRO_PS
-
-	config GTK_TARGET_DIRECTFB
-		bool "directfb"
-		select CAIRO_DIRECTFB
-		select CAIRO_PS
-
-	config GTK_TARGET_WIN32
-		bool "Win32   "
-		select CAIRO_WIN32
-
-	config GTK_TARGET_HOST_X11
-		bool "host X11"
-		select CAIRO_XLIB
-		select CAIRO_PS
-
-endchoice
-
-config GTK_TARGET_X11_XINERAMA
+config GTK_XINERAMA
 	bool
 	prompt "Xinerama support"
-	depends on GTK_TARGET_X11
 
-config GTK_TARGET_X11_XRANDR
+config GTK_XINPUT
 	bool
-	prompt "Xrandr support"
-	depends on GTK_TARGET_X11
+	prompt "XInput support"
 
-
-config GTK_DEMO
+config GTK_XRANDR
 	bool
-	prompt "gtkdemo"
+	prompt "XRandR support"
 
+config GTK_XFIXES
+	bool
+	prompt "XFixes support"
+
+config GTK_XCOMPOSITE
+	bool
+	prompt "X Composite support"
+
+config GTK_XDAMAGE
+	bool
+	prompt "X Damage support"
 
 source "generated/multimedia_gtkcore.in"
 
