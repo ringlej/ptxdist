@@ -1,0 +1,8 @@
+## SECTION=multimedia_gtk
+
+config GDK_PIXBUF
+	tristate
+	prompt "gdk-pixbuf"
+	select GLIB
+	help
+	  GTK helper library for pixel handling.
