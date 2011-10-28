@@ -4,7 +4,6 @@ menuconfig WXWIDGETS
 	tristate
 	prompt "wxwidgets                     "
 	select GTK
-	select GTK_TARGET_X11
 	select LIBPNG		if WXWIDGETS_LIBPNG
 	select LIBJPEG		if WXWIDGETS_LIBPNG
 	select SDL		if WXWIDGETS_LIBPNG
