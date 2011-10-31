@@ -26,8 +26,7 @@ KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
 KLIBC_URL := \
-	$(PTXCONF_SETUP_KERNELMIRROR)/libs/klibc/1.5/$(KLIBC).$(KLIBC_SUFFIX) \
-	http://eu.kernel.org/pub/linux/libs/klibc/1.5/$(KLIBC).$(KLIBC_SUFFIX)
+	$(PTXCONF_SETUP_KERNELMIRROR)/libs/klibc/1.5/$(KLIBC).$(KLIBC_SUFFIX)
 
 ifdef PTXCONF_KLIBC
 $(STATEDIR)/kernel.compile: $(STATEDIR)/klibc.targetinstall.post
