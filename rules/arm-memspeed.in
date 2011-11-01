@@ -1,0 +1,10 @@
+## SECTION=test_suites
+
+config ARM_MEMSPEED
+	tristate
+	prompt "arm-memspeed"
+	help
+	  Measures the available bandwidth on ARM based CPUs into the external
+	  RAM. It can help to check chipset and RAM timing settings.
+	  Note: it does not work on a different architecture than ARM!
+
