@@ -1,19 +1,19 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [patch] we don't have _pk_debug any more
+Date: Sat, 29 Oct 2011 18:46:37 +0200
+Subject: [PATCH] we don't have _pk_debug any more
 
 ../../src/polkit/.libs/libpolkit.so: undefined reference to `_pk_debug'
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  src/polkit/polkit-authorization-db-dummy.c |    1 -
- 1 file changed, 1 deletion(-)
+ 1 files changed, 0 insertions(+), 1 deletions(-)
 
-Index: PolicyKit-0.9/src/polkit/polkit-authorization-db-dummy.c
-===================================================================
---- PolicyKit-0.9.orig/src/polkit/polkit-authorization-db-dummy.c
-+++ PolicyKit-0.9/src/polkit/polkit-authorization-db-dummy.c
-@@ -105,7 +105,6 @@ void 
+diff --git a/src/polkit/polkit-authorization-db-dummy.c b/src/polkit/polkit-authorization-db-dummy.c
+index 0b4c848..9615619 100644
+--- a/src/polkit/polkit-authorization-db-dummy.c
++++ b/src/polkit/polkit-authorization-db-dummy.c
+@@ -105,7 +105,6 @@ void
  polkit_authorization_db_debug (PolKitAuthorizationDB *authdb)
  {
          kit_return_if_fail (authdb != NULL);
