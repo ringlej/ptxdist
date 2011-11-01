@@ -1,6 +1,6 @@
-From: Wolfram Sang <w.sang@pengutronix.de>
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: Adapt makefile for Linux, add destdir support
+Date: Sat, 29 Oct 2011 18:55:06 +0200
+Subject: [PATCH] Adapt makefile for Linux, add destdir support
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
@@ -8,12 +8,12 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 # 20081124: wsa: there is no upstream anymore :(
 
  Makefile |   16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ 1 files changed, 8 insertions(+), 8 deletions(-)
 
-Index: Makefile
-===================================================================
---- Makefile.orig
-+++ Makefile
+diff --git a/Makefile b/Makefile
+index 0964851..4281cb4 100644
+--- a/Makefile
++++ b/Makefile
 @@ -9,9 +9,9 @@
  #
  ##########

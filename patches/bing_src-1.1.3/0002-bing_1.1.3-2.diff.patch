@@ -1,9 +1,19 @@
-From: http://ftp.de.debian.org/debian/pool/main/b/bing/bing_1.1.3-2.diff.gz
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:55:06 +0200
+Subject: [PATCH] bing_1.1.3-2.diff
+
+From http://ftp.de.debian.org/debian/pool/main/b/bing/bing_1.1.3-2.diff.gz
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
---- bing-1.1.3.orig/bing.c
-+++ bing-1.1.3/bing.c
-@@ -104,7 +104,9 @@
+---
+ bing.c |   63 ++++++++++++++++++++++++++++++---------------------------------
+ 1 files changed, 30 insertions(+), 33 deletions(-)
+
+diff --git a/bing.c b/bing.c
+index aa078f9..e1094e9 100644
+--- a/bing.c
++++ b/bing.c
+@@ -104,7 +104,9 @@ static char rcsid[] = "$Id: bing.c,v 1.17 1997/01/23 21:00:03 pb Exp $";
  #include <math.h>
  
  /* More specific includes/declarations */
@@ -13,7 +23,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  #include <ctype.h>
  #include <string.h>
  #include <memory.h>
-@@ -152,7 +154,9 @@
+@@ -152,7 +154,9 @@ char* __progname;
   * standard libraries.
   */
  #include <netinet/ip.h>
@@ -23,7 +33,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  #include <netinet/ip_icmp.h>
  
  #include "mod_icmp.h"
-@@ -320,9 +324,7 @@
+@@ -320,9 +324,7 @@ struct timestats {
  
  struct hoststats {
  	/* Host info */
@@ -33,7 +43,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  	struct sockaddr_in *to;
  	struct timestats *ts;
  };
-@@ -365,28 +367,19 @@
+@@ -365,28 +367,19 @@ void set_ip(hs, target)
  	struct hoststats *hs;
  	char *target;
  {
@@ -73,7 +83,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  }
  
  void randomfill(bp, len, seed)
-@@ -677,18 +670,22 @@
+@@ -677,18 +670,22 @@ char *
  pr_addr(l)
  	u_long l;
  {
@@ -82,17 +92,6 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 +	static char buf[MAXHOSTNAMELEN+19];
 +	struct sockaddr_in sa;
 +	int r;
-+
-+	sa.sin_family = AF_INET;
-+	sa.sin_port = 0;
-+	memcpy(&sa.sin_addr, &l, sizeof l);
-+
-+	r = getnameinfo((struct sockaddr *) &sa, sizeof sa, buf, sizeof buf,
-+			NULL, 0, (options & F_NUMERIC) ? NI_NUMERICHOST : 0);
-+	if(r) {
-+		fprintf(stderr, "bing: getaddrinfo: %s\n", gai_strerror(r));
-+		exit(1);
-+	}
  
 -	if ((options & F_NUMERIC) ||
 -	    !(hp = gethostbyaddr((char *)&l, 4, AF_INET)))
@@ -103,6 +102,17 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 -			   hp->h_name,
 -			   inet_ntoa(*(struct in_addr *)&l));
 -	return(buf);
++	sa.sin_family = AF_INET;
++	sa.sin_port = 0;
++	memcpy(&sa.sin_addr, &l, sizeof l);
++
++	r = getnameinfo((struct sockaddr *) &sa, sizeof sa, buf, sizeof buf,
++			NULL, 0, (options & F_NUMERIC) ? NI_NUMERICHOST : 0);
++	if(r) {
++		fprintf(stderr, "bing: getaddrinfo: %s\n", gai_strerror(r));
++		exit(1);
++	}
++
 +	return buf;
  }
  
