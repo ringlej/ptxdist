@@ -1,5 +1,6 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: fix parallel build
+Date: Sat, 29 Oct 2011 18:51:39 +0200
+Subject: [PATCH] fix parallel build
 
 We have to create the objects dir before saving gcc's output into it.
 
@@ -13,12 +14,12 @@ V1:
   mkl: patch for 1.2.8
 
  Makefile.in |    8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ 1 files changed, 4 insertions(+), 4 deletions(-)
 
-Index: SDL_mixer-1.2.11/Makefile.in
-===================================================================
---- SDL_mixer-1.2.11.orig/Makefile.in
-+++ SDL_mixer-1.2.11/Makefile.in
+diff --git a/Makefile.in b/Makefile.in
+index 76fdd3c..26961b7 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -71,13 +71,13 @@ $(objects):
  -include $(PLAYMUS_OBJECTS:.lo=.d)
  @PLAYMUS_DEPENDS@

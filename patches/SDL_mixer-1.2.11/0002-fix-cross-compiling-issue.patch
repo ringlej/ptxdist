@@ -1,16 +1,16 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: fix cross-compiling issue
+Date: Sat, 29 Oct 2011 18:51:39 +0200
+Subject: [PATCH] fix cross-compiling issue
 
 use AC_COMPILE_IFELSE instead of AC_TRY_RUN
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  configure.in |   14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ 1 files changed, 8 insertions(+), 6 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index 7d23387..a3f440b 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -417,15 +417,17 @@ if test x$enable_music_flac = xyes; then
