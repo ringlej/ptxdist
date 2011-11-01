@@ -1,16 +1,20 @@
-Subject: Add IOBASE and pseudo-timer (will give RND-functionality)
 From: Wolfram Sang <ninja@the-dreams.de>
+Date: Sat, 29 Oct 2011 19:01:11 +0200
+Subject: [PATCH] Add IOBASE and pseudo-timer (will give RND-functionality)
 
 Signed-off-by: Wolfram Sang <ninja@the-dreams.de>
 
 # ---
 # 20091210 rsc: check if there is another upstream version
 # 20081127 wsa: already sent mainline and accepted.
+---
+ runtime.c |   14 ++++++++++++--
+ 1 files changed, 12 insertions(+), 2 deletions(-)
 
-Index: basic/runtime.c
-===================================================================
---- basic.orig/runtime.c	2008-11-17 05:16:31.000000000 +0100
-+++ basic/runtime.c	2008-11-17 05:43:31.000000000 +0100
+diff --git a/runtime.c b/runtime.c
+index 454000e..2c3c54b 100644
+--- a/runtime.c
++++ b/runtime.c
 @@ -29,6 +29,7 @@
  #include <stdlib.h>
  #include <stdio.h>
@@ -19,7 +23,7 @@ Index: basic/runtime.c
  
  unsigned char RAM[65536];
  
-@@ -155,6 +156,7 @@
+@@ -155,6 +156,7 @@ init_os(int argc, char **argv) {
  		interactive = 1;
  		f = NULL;
  	}
@@ -27,7 +31,7 @@ Index: basic/runtime.c
  }
  
  static void
-@@ -565,8 +567,16 @@
+@@ -565,8 +567,16 @@ PLOT() {
  /* IOBASE */
  static void
  IOBASE() {
