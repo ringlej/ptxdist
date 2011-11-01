@@ -1,5 +1,6 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [patch] make freetype-config $SYSROOT aware
+Date: Sun, 30 Oct 2011 22:27:04 +0100
+Subject: [PATCH] make freetype-config $SYSROOT aware
 
 Currently, freetype-config is not $SYSROOT aware, which is fixed by this
 patch.
@@ -9,12 +10,12 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 # 20091221 rsc: submitted as https://savannah.nongnu.org/patch/index.php?7040
 
  builds/unix/freetype-config.in |   22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ 1 files changed, 11 insertions(+), 11 deletions(-)
 
-Index: freetype-2.3.9/builds/unix/freetype-config.in
-===================================================================
---- freetype-2.3.9.orig/builds/unix/freetype-config.in
-+++ freetype-2.3.9/builds/unix/freetype-config.in
+diff --git a/builds/unix/freetype-config.in b/builds/unix/freetype-config.in
+index 9606d31..0a7a767 100644
+--- a/builds/unix/freetype-config.in
++++ b/builds/unix/freetype-config.in
 @@ -101,11 +101,11 @@ if test "$local_prefix" = "yes" ; then
  fi
  
