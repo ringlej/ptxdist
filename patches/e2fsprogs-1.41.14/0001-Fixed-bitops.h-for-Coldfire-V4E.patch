@@ -1,21 +1,20 @@
 From: Carsten Schlote <schlote@vahanus.net>
 Date: Tue, 11 Mar 2008 00:32:20 +0100
-Subject: [PATCH] [e2fsprogs-1.40.4] Fixed bitops.h for Coldfire V4E
+Subject: [PATCH] Fixed bitops.h for Coldfire V4E
 
 Commented out assembly inline code for mc68020 or higher.
 These mnemonics aren't available on Coldfire. Using C routines
 now.
 
 Signed-off-by: Carsten Schlote <schlote@vahanus.net>
-
 ---
  lib/ext2fs/bitops.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: e2fsprogs-1.41.12/lib/ext2fs/bitops.h
-===================================================================
---- e2fsprogs-1.41.12.orig/lib/ext2fs/bitops.h
-+++ e2fsprogs-1.41.12/lib/ext2fs/bitops.h
+diff --git a/lib/ext2fs/bitops.h b/lib/ext2fs/bitops.h
+index ce70539..7e05ec3 100644
+--- a/lib/ext2fs/bitops.h
++++ b/lib/ext2fs/bitops.h
 @@ -244,7 +244,7 @@ _INLINE_ __u16 ext2fs_swab16(__u16 val)
  #endif	/* i386 */
  
