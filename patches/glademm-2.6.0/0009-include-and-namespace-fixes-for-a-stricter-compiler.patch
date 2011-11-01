@@ -1,5 +1,6 @@
-Subject: include and namespace fixes for a stricter compiler
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 15:08:54 +0100
+Subject: [PATCH] include and namespace fixes for a stricter compiler
 
 g++-4.3 is a lot stricter with respect to the C++ standard.
 This patch adds various includes that used to be implicit.
@@ -12,20 +13,8 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  src/writers/xpmname.cc    |    1 +
  4 files changed, 7 insertions(+), 3 deletions(-)
 
-Index: b/src/writers/WriterBase.hh
-===================================================================
---- a/src/writers/WriterBase.hh
-+++ b/src/writers/WriterBase.hh
-@@ -22,6 +22,7 @@
- #define WRITER_BASE_HH
- #include <safemap.hh>
- #include <string>
-+#include <string.h>
- #include "../Enums.hh"
- // these are not necessary for all widgets, 
- // but it's convenient to have them defined
-Index: b/src/Tag.hh
-===================================================================
+diff --git a/src/Tag.hh b/src/Tag.hh
+index 2732a3a..d6fe055 100644
 --- a/src/Tag.hh
 +++ b/src/Tag.hh
 @@ -23,6 +23,7 @@
@@ -36,19 +25,8 @@ Index: b/src/Tag.hh
  #include <vector>
  #include <algorithm> // for find
  #include <stdexcept>
-Index: b/src/writers/xpmname.cc
-===================================================================
---- a/src/writers/xpmname.cc
-+++ b/src/writers/xpmname.cc
-@@ -1,5 +1,6 @@
- #include <cstdio>
- #include <string>
-+#include <string.h>
- #include <Configuration.hh>
- 
- // parts taken from
-Index: b/src/TagStream.cc
-===================================================================
+diff --git a/src/TagStream.cc b/src/TagStream.cc
+index 213ba2d..d220562 100644
 --- a/src/TagStream.cc
 +++ b/src/TagStream.cc
 @@ -18,9 +18,10 @@
@@ -63,7 +41,7 @@ Index: b/src/TagStream.cc
  
  //#define REMEMBER_EMPTY_SPACE
  
-@@ -73,10 +74,10 @@ std::string TagStream::de_xml(const std:
+@@ -73,10 +74,10 @@ std::string TagStream::de_xml(const std::string &cont)
  {  std::string ret;
     std::string::const_iterator i(cont.begin());
     while (i!=cont.end())
@@ -76,3 +54,26 @@ Index: b/src/TagStream.cc
           if (endtag!=cont.end()) ++endtag;
           std::string tag(verbatim,endtag);
           if (tag[1]=='#' && tag[2]=='x')
+diff --git a/src/writers/WriterBase.hh b/src/writers/WriterBase.hh
+index 5c6f97d..f1d6e7c 100644
+--- a/src/writers/WriterBase.hh
++++ b/src/writers/WriterBase.hh
+@@ -22,6 +22,7 @@
+ #define WRITER_BASE_HH
+ #include <safemap.hh>
+ #include <string>
++#include <string.h>
+ #include "../Enums.hh"
+ // these are not necessary for all widgets, 
+ // but it's convenient to have them defined
+diff --git a/src/writers/xpmname.cc b/src/writers/xpmname.cc
+index 626b98e..5c336c2 100644
+--- a/src/writers/xpmname.cc
++++ b/src/writers/xpmname.cc
+@@ -1,5 +1,6 @@
+ #include <cstdio>
+ #include <string>
++#include <string.h>
+ #include <Configuration.hh>
+ 
+ // parts taken from

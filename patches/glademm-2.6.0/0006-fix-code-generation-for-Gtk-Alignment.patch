@@ -1,18 +1,20 @@
-Subject: fix code generation for Gtk::Alignment
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-  Produce correct code even if some properties have the default values and
-  are not specified in the glade file.
+Date: Tue, 1 Nov 2011 15:08:54 +0100
+Subject: [PATCH] fix code generation for Gtk::Alignment
+
+Produce correct code even if some properties have the default values and
+are not specified in the glade file.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/writers/alignment.cc |   13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ 1 files changed, 4 insertions(+), 9 deletions(-)
 
-Index: b/src/writers/alignment.cc
-===================================================================
+diff --git a/src/writers/alignment.cc b/src/writers/alignment.cc
+index 23e68b4..7187767 100644
 --- a/src/writers/alignment.cc
 +++ b/src/writers/alignment.cc
-@@ -43,15 +43,10 @@ const std::string Gtk_Alignment::Include
+@@ -43,15 +43,10 @@ const std::string Gtk_Alignment::IncludeName(const Widget &w) const
  
  void Gtk_Alignment::ConstructionArgs(const Widget &w, CxxFile &f) const
  {

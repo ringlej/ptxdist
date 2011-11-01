@@ -1,9 +1,11 @@
-Subject: make pkg-config binary configurable
-By: Luotao Fu <l.fu@pengutronix.de>
-  glademm calls directly pkg-config in $PATH. We however need that customizable
-  pkg-config to be called, i.E. our host built pkg-config in BSP. Hence we make
-  the path to the pkg-config we want to call configurable via parameter.
-  not determined for upstream
+From: Luotao Fu <l.fu@pengutronix.de>
+Date: Sun, 30 Oct 2011 22:29:02 +0100
+Subject: [PATCH] make pkg-config binary configurable
+
+glademm calls directly pkg-config in $PATH. We however need that customizable
+pkg-config to be called, i.E. our host built pkg-config in BSP. Hence we make
+the path to the pkg-config we want to call configurable via parameter.
+not determined for upstream
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
@@ -11,8 +13,20 @@ Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
  src/glade--.cc       |   21 ++++++++++++++++-----
  2 files changed, 17 insertions(+), 5 deletions(-)
 
-Index: b/src/glade--.cc
-===================================================================
+diff --git a/src/Configuration.hh b/src/Configuration.hh
+index e6c3698..bd4d5dc 100644
+--- a/src/Configuration.hh
++++ b/src/Configuration.hh
+@@ -83,6 +83,7 @@ struct Configuration : public Naming
+    std::string pixmap_dir_relative_to_src;
+    std::string author_name;
+    std::string author_email;
++   std::string pkgconfig_bin;
+    bool debug:1;
+    bool sample_code:1;
+    bool bare_bones:1;
+diff --git a/src/glade--.cc b/src/glade--.cc
+index 0347d97..662df30 100644
 --- a/src/glade--.cc
 +++ b/src/glade--.cc
 @@ -93,7 +93,7 @@ const static struct option options[]=
@@ -24,7 +38,7 @@ Index: b/src/glade--.cc
    { NULL,		0,		   NULL, 0 }
  };
  
-@@ -134,7 +134,15 @@ static bool CheckVersion(const std::stri
+@@ -134,7 +134,15 @@ static bool CheckVersion(const std::string &cmd, Pkg_Version &v, Pkg_Version::So
  {  if (v.source==Pkg_Version::Command_Line) return true;
     char buf[80];
     bool result=false;
@@ -41,7 +55,7 @@ Index: b/src/glade--.cc
     if (f)
     {  if (fgets(buf,sizeof(buf),f))
        {  if (!ignore_letters)
-@@ -144,11 +152,11 @@ static bool CheckVersion(const std::stri
+@@ -144,11 +152,11 @@ static bool CheckVersion(const std::string &cmd, Pkg_Version &v, Pkg_Version::So
           // not installed/found
           if (!strncmp(buf,"Package ",8) && strstr(buf," not ")) result=false;
           else if (parse_version(buf,v,src,ignore_letters)) result=true;
@@ -81,15 +95,3 @@ Index: b/src/glade--.cc
           	 "\t--version\tprints 'glademm V"VERSION"'\n";
           return 1;
     }
-Index: b/src/Configuration.hh
-===================================================================
---- a/src/Configuration.hh
-+++ b/src/Configuration.hh
-@@ -83,6 +83,7 @@ struct Configuration : public Naming
-    std::string pixmap_dir_relative_to_src;
-    std::string author_name;
-    std::string author_email;
-+   std::string pkgconfig_bin;
-    bool debug:1;
-    bool sample_code:1;
-    bool bare_bones:1;

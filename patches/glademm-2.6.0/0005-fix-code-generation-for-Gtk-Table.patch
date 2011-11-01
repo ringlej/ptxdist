@@ -1,15 +1,17 @@
-Subject: fix code generation for Gtk::Table
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-  Use the correct default values.
-  Note: this may break old glade files (glade-2 and older).
+Date: Tue, 1 Nov 2011 15:08:54 +0100
+Subject: [PATCH] fix code generation for Gtk::Table
+
+Use the correct default values.
+Note: this may break old glade files (glade-2 and older).
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/writers/table.cc |   14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ 1 files changed, 9 insertions(+), 5 deletions(-)
 
-Index: b/src/writers/table.cc
-===================================================================
+diff --git a/src/writers/table.cc b/src/writers/table.cc
+index 69b530a..5092fc7 100644
 --- a/src/writers/table.cc
 +++ b/src/writers/table.cc
 @@ -51,7 +51,7 @@ Gtk_Table::Gtk_Table()
@@ -21,7 +23,7 @@ Index: b/src/writers/table.cc
  }
  
  std::string getAttachOptions(const ChildParamList& ch, const std::string which)
-@@ -68,6 +68,10 @@ std::string getAttachOptions(const Child
+@@ -68,6 +68,10 @@ std::string getAttachOptions(const ChildParamList& ch, const std::string which)
           if (*i == "fill") options += "|GTK_FILL";
           else if (*i == "expand") options += "|GTK_EXPAND";
           else if (*i == "shrink") options += "|GTK_SHRINK";
@@ -32,7 +34,7 @@ Index: b/src/writers/table.cc
     }
     else // glade1 style
     {  if (ch.getBoolProperty(which+"expand",true)) options+="|GTK_EXPAND";
-@@ -86,10 +90,10 @@ std::string getAttachOptions(const Child
+@@ -86,10 +90,10 @@ std::string getAttachOptions(const ChildParamList& ch, const std::string which)
  
  void Gtk_Table::AddChild(const Widget &w,CxxFile &f,const std::string &instance) const
  {  const ChildParamList ch=w.get_Child_params();

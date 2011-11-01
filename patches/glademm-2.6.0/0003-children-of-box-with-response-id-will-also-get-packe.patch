@@ -1,0 +1,34 @@
+From: Luotao Fu <l.fu@pengutronix.de>
+Date: Sun, 30 Oct 2011 22:29:02 +0100
+Subject: [PATCH] children of box with response id will also get packed
+
+Box addchild function returns before adding pack...() call if "response_id"
+is set in property. This is bad because the most objects have a response_id,
+though marked to 0. Without this patch we will only be able to see few
+objects like radiobuttons in a box, most objects don't appear at all. To
+solve this problem we acquire the property value now and only return if it's
+not 0. (I'm not quite sure what this response_id is actually for, question to
+developer is pending)
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ src/writers/box.cc |    6 ++++--
+ 1 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/writers/box.cc b/src/writers/box.cc
+index e7e070a..b86629b 100644
+--- a/src/writers/box.cc
++++ b/src/writers/box.cc
+@@ -55,8 +55,10 @@ void Gtk_Box::AddChild(const Widget &w,CxxFile &f,const std::string &instance) c
+    int padding(ch.getIntProperty("padding",0));
+ 
+    // this is for dialog (see there)
+-   if (GTKMM2 && w.hasProperty("response_id")) return;
+-   
++   if (GTKMM2 && w.hasProperty("response_id")) {
++		if (w.getIntProperty("response_id")!=0)
++			return;
++	}
+    f.Statement() << instance 
+         << (pack_end?"pack_end":"pack_start")
+         << '(' << Reference(w);

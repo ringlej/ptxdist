@@ -1,7 +1,9 @@
-Subject: fix --gladeonly
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-  Don't do things that are not needed to create *_glade.* files.
-  This fixes a crash and various bogus output.
+Date: Tue, 1 Nov 2011 15:08:54 +0100
+Subject: [PATCH] fix --gladeonly
+
+Don't do things that are not needed to create *_glade.* files.
+This fixes a crash and various bogus output.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -9,11 +11,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  src/glade--.cc     |   15 ++++++++++-----
  2 files changed, 16 insertions(+), 5 deletions(-)
 
-Index: b/src/Cxx_Fileset.cc
-===================================================================
+diff --git a/src/Cxx_Fileset.cc b/src/Cxx_Fileset.cc
+index 17d84cd..616c304 100644
 --- a/src/Cxx_Fileset.cc
 +++ b/src/Cxx_Fileset.cc
-@@ -180,6 +180,8 @@ void Cxx_Fileset::WriteClasses(const Wid
+@@ -180,6 +180,8 @@ void Cxx_Fileset::WriteClasses(const Widget &w)
     }
     
     /******* H: class Xyz ******/
@@ -22,7 +24,7 @@ Index: b/src/Cxx_Fileset.cc
     if (Configuration.baseclass)
     {  bc.Definition().Class(Configuration.TypeName(w.Name())+"_base");
        bc.StartBlock();
-@@ -210,6 +212,7 @@ void Cxx_Fileset::WriteClasses(const Wid
+@@ -210,6 +212,7 @@ void Cxx_Fileset::WriteClasses(const Widget &w)
  
     DeclareSignalHandler(top_wr,w,w,true);
     h.EndBlock();
@@ -30,7 +32,7 @@ Index: b/src/Cxx_Fileset.cc
     
     /****** GC: include, definitions **************/
     
-@@ -405,6 +408,8 @@ void Cxx_Fileset::WriteClasses(const Wid
+@@ -405,6 +408,8 @@ void Cxx_Fileset::WriteClasses(const Widget &w)
     
     /****** C: signal handler stubs *******/
     
@@ -39,7 +41,7 @@ Index: b/src/Cxx_Fileset.cc
     if (Configuration.debug) 
        std::cout << "======== C signal stubs ============\n";
     for (Widget::const_contained_iterator i=w.begin_contained(Internal_Both);
-@@ -416,6 +421,7 @@ void Cxx_Fileset::WriteClasses(const Wid
+@@ -416,6 +421,7 @@ void Cxx_Fileset::WriteClasses(const Widget &w)
     }
  
     DefineSignalHandler(top_wr,w,w);
@@ -47,11 +49,11 @@ Index: b/src/Cxx_Fileset.cc
     
     /****** other classes/files ********/
     // recurse
-Index: b/src/glade--.cc
-===================================================================
+diff --git a/src/glade--.cc b/src/glade--.cc
+index 662df30..d13238e 100644
 --- a/src/glade--.cc
 +++ b/src/glade--.cc
-@@ -160,10 +160,8 @@ static bool CheckVersion(const std::stri
+@@ -160,10 +160,8 @@ static bool CheckVersion(const std::string &cmd, Pkg_Version &v, Pkg_Version::So
     return result;
  }
  
