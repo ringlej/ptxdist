@@ -1,4 +1,3 @@
-From dbc28fc8a50f47329ce7e579e35629318f95bf4b Mon Sep 17 00:00:00 2001
 From: Luotao Fu <l.fu@pengutronix.de>
 Date: Thu, 23 Apr 2009 18:18:54 +0200
 Subject: [PATCH] fix link breakage if some drivers are not enabled
@@ -12,17 +11,16 @@ I only did this quick hack. Better ideas are highly welcome.
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
-
-[20110222 wsa: fixed in master meanwhile. Like this.]
+# 20110222 wsa: fixed in master meanwhile. Like this.
 
  gpsdecode.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ 1 files changed, 6 insertions(+), 0 deletions(-)
 
-Index: gpsd-2.39/gpsdecode.c
-===================================================================
---- gpsd-2.39/gpsdecode.c.orig
-+++ gpsd-2.39/gpsdecode.c
-@@ -57,19 +57,25 @@ static void decode(FILE *fpin, FILE *fpo
+diff --git a/gpsdecode.c b/gpsdecode.c
+index ffe898b..e18c698 100644
+--- a/gpsdecode.c
++++ b/gpsdecode.c
+@@ -57,19 +57,25 @@ static void decode(FILE *fpin, FILE *fpout)
  	else if (lexer.type == COMMENT_PACKET)
  	    continue;
  	else if (lexer.type == RTCM2_PACKET) {

@@ -13,17 +13,15 @@ python check condition, which cause that these will be failed to be set if
 python is not enabled.
 
 Signed-off-by: FIXME
-
 ---
-
-[20110222 wsa: fixed in master meanwhile]
+# 20110222 wsa: fixed in master meanwhile
 
  configure.ac |   21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ 1 files changed, 21 insertions(+), 0 deletions(-)
 
-Index: configure.ac
-===================================================================
---- a/configure.ac.orig
+diff --git a/configure.ac b/configure.ac
+index 7db2a6c..67e9253 100644
+--- a/configure.ac
 +++ b/configure.ac
 @@ -5,6 +5,27 @@ dnl AC_PREFIX_PROGRAM(gcc)
  AM_CONFIG_HEADER(gpsd_config.h)

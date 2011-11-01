@@ -1,4 +1,5 @@
 From: Juergen Beisert <jbeisert@pengutronix.de>
+Date: Sun, 30 Oct 2011 22:33:40 +0100
 Subject: [PATCH] fix a simple compile error
 
 This fixes the following compile error:
@@ -6,19 +7,17 @@ This fixes the following compile error:
 .libs/drivers.o drivers.c:938: error: expected '}' before ';' token
 
 Signed-off-by: Juergen Beisert <jbeisert@pengutronix.de>
-
 ---
-
-[20110222 wsa: fixed in master meanwhile]
+# 20110222 wsa: fixed in master meanwhile
 
  drivers.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: gpsd-2.39/drivers.c
-===================================================================
---- gpsd-2.39/drivers.c.orig
-+++ gpsd-2.39/drivers.c
-@@ -935,7 +935,7 @@ static gps_mask_t garmintxt_parse_input(
+diff --git a/drivers.c b/drivers.c
+index 89cd772..373476f 100644
+--- a/drivers.c
++++ b/drivers.c
+@@ -935,7 +935,7 @@ static gps_mask_t garmintxt_parse_input(struct gps_device_t *session)
  
  static const struct gps_type_t garmintxt = {
      .type_name     = "Garmin Simple Text",		/* full name of type */

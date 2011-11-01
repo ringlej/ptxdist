@@ -1,19 +1,19 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: just rely on AM_PATH_PYTHON to work propperly
+Date: Sun, 30 Oct 2011 22:33:40 +0100
+Subject: [PATCH] just rely on AM_PATH_PYTHON to work propperly
 
 remove hand crafted python detection and detection of
 PYTHON_LIBS and PYTHON_CFLAGS, they are not used anyway.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
 ---
- configure.ac |   77 +++--------------------------------------------------------
- 1 file changed, 5 insertions(+), 72 deletions(-)
+ configure.ac |   77 ++++------------------------------------------------------
+ 1 files changed, 5 insertions(+), 72 deletions(-)
 
-Index: gpsd-2.39/configure.ac
-===================================================================
---- gpsd-2.39.orig/configure.ac
-+++ gpsd-2.39/configure.ac
+diff --git a/configure.ac b/configure.ac
+index 67e9253..08f99a8 100644
+--- a/configure.ac
++++ b/configure.ac
 @@ -27,82 +27,15 @@ ACREQUIRE_BUGFIX
  # ACREQUIRE_BUGFIX done
  
@@ -50,7 +50,7 @@ Index: gpsd-2.39/configure.ac
 -		fi
 -		if test "x$ac_python" = "xyes"; then
 -			AC_MSG_RESULT(yes)
- 
+-
 -			PYTHON_CFLAGS="-DHAVE_PYTHON -I$PYTHON_PREFIX/include/python$PYTHON_VERSION"
 -
 -			OLD_CPPFLAGS="$CPPFLAGS"
@@ -63,7 +63,7 @@ Index: gpsd-2.39/configure.ac
 -					[AC_MSG_WARN([*** Python include files not found! You should install the Python development package. Python support disabled]); ac_python=no])
 -			CPPFLAGS="$OLD_CPPFLAGS"
 -			CXXFLAGS="$OLD_CXXFLAGS"
--
+ 
 -			if test "x$ac_python" = "xyes"; then
 -				AC_SUBST([PYTHON_CFLAGS])
 -

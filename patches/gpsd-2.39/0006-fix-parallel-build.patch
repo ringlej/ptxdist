@@ -1,4 +1,5 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Sun, 30 Oct 2011 22:33:40 +0100
 Subject: [PATCH] fix parallel build
 
 The build system has a race with the creation of the python bindings; if
@@ -7,15 +8,14 @@ same time, the build "sometimes" breaks; this can be triggered with only
 a few cycles when built with -j16 on a 8-way box.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  Makefile.am |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ 1 files changed, 7 insertions(+), 2 deletions(-)
 
-Index: gpsd-2.39/Makefile.am
-===================================================================
---- gpsd-2.39.orig/Makefile.am
-+++ gpsd-2.39/Makefile.am
+diff --git a/Makefile.am b/Makefile.am
+index 05e31f0..818c57a 100644
+--- a/Makefile.am
++++ b/Makefile.am
 @@ -187,12 +187,17 @@ if HAVE_PYTHON
  PYEXTENSIONS = gpspacket.so gpslib.so
  noinst_SCRIPTS = gpspacket.so gpslib.so setup.py

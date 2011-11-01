@@ -1,4 +1,5 @@
 From: Luotao Fu <l.fu@pengutronix.de>
+Date: Sun, 30 Oct 2011 22:33:40 +0100
 Subject: [PATCH] fix core compiling with nmea disabled
 
 struct nmea is only defined in the driver union if NMEA_ENABLED is set.
@@ -8,14 +9,13 @@ NMEA_ENABLE to fix this.
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
-
-[20110222 wsa: fixed in master meanwhile]
+# 20110222 wsa: fixed in master meanwhile
 
  libgpsd_core.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/libgpsd_core.c b/libgpsd_core.c
-index 8220eae..71dd5ba 100644
+index 28f787d..4109369 100644
 --- a/libgpsd_core.c
 +++ b/libgpsd_core.c
 @@ -206,7 +206,7 @@ static /*@null@*/void *gpsd_ppsmonitor(void *arg)
@@ -27,6 +27,3 @@ index 8220eae..71dd5ba 100644
  		  && session->driver.nmea.ignore_trailing_edge
  #endif /* GPSCLOCK_ENABLE */
  		  ) {
--- 
-1.6.2.1
-
