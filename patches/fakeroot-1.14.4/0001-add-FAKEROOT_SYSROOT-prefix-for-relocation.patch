@@ -1,5 +1,6 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: add FAKEROOT_SYSROOT prefix for relocation
+Date: Sun, 30 Oct 2011 22:16:53 +0100
+Subject: [PATCH] add FAKEROOT_SYSROOT prefix for relocation
 
 Prefix all paths with FAKEROOT_SYSROOT
 It will be replaced by the current sysroot.
@@ -7,13 +8,12 @@ It will be replaced by the current sysroot.
 Not for upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  scripts/fakeroot.in |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
-Index: b/scripts/fakeroot.in
-===================================================================
+diff --git a/scripts/fakeroot.in b/scripts/fakeroot.in
+index d4f888d..4c998c8 100755
 --- a/scripts/fakeroot.in
 +++ b/scripts/fakeroot.in
 @@ -30,12 +30,12 @@ fatal ()
