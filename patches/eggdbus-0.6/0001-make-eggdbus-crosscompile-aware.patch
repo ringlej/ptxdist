@@ -1,5 +1,6 @@
-Subject: [patch] make eggdbus crosscompile aware
 From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Sat, 29 Oct 2011 19:14:59 +0200
+Subject: [PATCH] make eggdbus crosscompile aware
 
 The build system compiles tools like eggdbus-glib-genmarshal and
 eggdbus-binding-tool; if you cross compile the package, these fines are
@@ -9,17 +10,16 @@ Makefile tries to run the cross compiled binaries then.
 Make it possible to overwrite them from the configure command line.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  configure.ac            |   10 ++++++++++
  src/eggdbus/Makefile.am |    2 +-
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ 2 files changed, 11 insertions(+), 1 deletions(-)
 
-Index: eggdbus-0.6/configure.ac
-===================================================================
---- eggdbus-0.6.orig/configure.ac
-+++ eggdbus-0.6/configure.ac
-@@ -34,6 +34,16 @@ AM_CONDITIONAL(MAN_PAGES_ENABLED, test x
+diff --git a/configure.ac b/configure.ac
+index 497cb7f..a4e792a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -34,6 +34,16 @@ AM_CONDITIONAL(MAN_PAGES_ENABLED, test x$enable_man_pages = xyes)
  
  GTK_DOC_CHECK([1.3])
  
@@ -36,10 +36,10 @@ Index: eggdbus-0.6/configure.ac
  #### gcc warning flags
  
  if test "x$GCC" = "xyes"; then
-Index: eggdbus-0.6/src/eggdbus/Makefile.am
-===================================================================
---- eggdbus-0.6.orig/src/eggdbus/Makefile.am
-+++ eggdbus-0.6/src/eggdbus/Makefile.am
+diff --git a/src/eggdbus/Makefile.am b/src/eggdbus/Makefile.am
+index aebb984..95615cd 100644
+--- a/src/eggdbus/Makefile.am
++++ b/src/eggdbus/Makefile.am
 @@ -130,7 +130,7 @@ BUILT_SOURCES =								\
  	$(NULL)
  

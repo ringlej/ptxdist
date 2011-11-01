@@ -1,5 +1,6 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: update autotoolization
+Date: Sat, 29 Oct 2011 19:14:59 +0200
+Subject: [PATCH] update autotoolization
 
 This patch updates the autotool-infrastructure for recent tools.
 
@@ -13,8 +14,20 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  src/tests/Makefile.am    |    2 +-
  6 files changed, 14 insertions(+), 11 deletions(-)
 
-Index: b/configure.ac
-===================================================================
+diff --git a/Makefile.am b/Makefile.am
+index c1f1470..9ab8648 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,5 +1,7 @@
+ ## Process this file with automake to produce Makefile.in
+ 
++ACLOCAL_AMFLAGS = -I m4
++
+ SUBDIRS = src docs
+ 
+ NULL =
+diff --git a/configure.ac b/configure.ac
+index 0f31dea..5ad85af 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1,16 +1,16 @@
@@ -57,8 +70,8 @@ Index: b/configure.ac
  
  dnl ==========================================================================
  echo "
-Index: b/docs/eggdbus/Makefile.am
-===================================================================
+diff --git a/docs/eggdbus/Makefile.am b/docs/eggdbus/Makefile.am
+index 94c00bf..e30e6c3 100644
 --- a/docs/eggdbus/Makefile.am
 +++ b/docs/eggdbus/Makefile.am
 @@ -34,7 +34,7 @@ IGNORE_HFILES= 			\
@@ -70,8 +83,8 @@ Index: b/docs/eggdbus/Makefile.am
  	$(DBUS_GLIB_CFLAGS)						\
  	$(GLIB_CFLAGS)							\
  	$(GIO_CFLAGS)							\
-Index: b/docs/tests/Makefile.am
-===================================================================
+diff --git a/docs/tests/Makefile.am b/docs/tests/Makefile.am
+index 5f7940c..3ba5cba 100644
 --- a/docs/tests/Makefile.am
 +++ b/docs/tests/Makefile.am
 @@ -29,7 +29,7 @@ IGNORE_HFILES= 			\
@@ -83,8 +96,8 @@ Index: b/docs/tests/Makefile.am
  	$(DBUS_GLIB_CFLAGS)						\
  	$(GLIB_CFLAGS)							\
  	$(GIO_CFLAGS)							\
-Index: b/src/eggdbus/Makefile.am
-===================================================================
+diff --git a/src/eggdbus/Makefile.am b/src/eggdbus/Makefile.am
+index 95615cd..0f96181 100644
 --- a/src/eggdbus/Makefile.am
 +++ b/src/eggdbus/Makefile.am
 @@ -1,7 +1,7 @@
@@ -96,8 +109,8 @@ Index: b/src/eggdbus/Makefile.am
  	-I$(top_builddir)/src                           		\
  	-I$(top_srcdir)/src                             		\
  	-DPACKAGE_LIBEXEC_DIR=\""$(libexecdir)"\"       		\
-Index: b/src/tests/Makefile.am
-===================================================================
+diff --git a/src/tests/Makefile.am b/src/tests/Makefile.am
+index 7bc1b24..71a3e82 100644
 --- a/src/tests/Makefile.am
 +++ b/src/tests/Makefile.am
 @@ -1,7 +1,7 @@
@@ -109,15 +122,3 @@ Index: b/src/tests/Makefile.am
  	-I$(top_builddir)/src                           		\
  	-I$(top_srcdir)/src                             		\
  	-DPACKAGE_LIBEXEC_DIR=\""$(libexecdir)"\"       		\
-Index: b/Makefile.am
-===================================================================
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -1,5 +1,7 @@
- ## Process this file with automake to produce Makefile.in
- 
-+ACLOCAL_AMFLAGS = -I m4
-+
- SUBDIRS = src docs
- 
- NULL =

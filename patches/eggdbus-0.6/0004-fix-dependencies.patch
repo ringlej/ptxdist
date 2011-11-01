@@ -1,15 +1,16 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: fix dependencies
+Date: Sat, 29 Oct 2011 19:14:59 +0200
+Subject: [PATCH] fix dependencies
 
 sone source files of eggdbus-binding-tool need eggdbusenumtypes.h
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/eggdbus/Makefile.am |    2 ++
- 1 file changed, 2 insertions(+)
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-Index: b/src/eggdbus/Makefile.am
-===================================================================
+diff --git a/src/eggdbus/Makefile.am b/src/eggdbus/Makefile.am
+index 0f96181..ab0269d 100644
 --- a/src/eggdbus/Makefile.am
 +++ b/src/eggdbus/Makefile.am
 @@ -81,6 +81,8 @@ eggdbus_binding_tool_SOURCES = 						\
