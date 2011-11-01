@@ -1,19 +1,19 @@
-Subject: [patch] fixup Makefile
 From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:59:40 +0200
+Subject: [PATCH] fixup Makefile
 
 This patch fixes various problems in the makefile and disables compile
 time test. It was taken from Debinan.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
 # 20091210 rsc: needs probably another look before going mainline
 
- Makefile |  134 ++++++++++++++++++++++++++++++++-------------------------------
- 1 file changed, 69 insertions(+), 65 deletions(-)
+ Makefile |  134 ++++++++++++++++++++++++++++++++------------------------------
+ 1 files changed, 69 insertions(+), 65 deletions(-)
 
-Index: b/Makefile
-===================================================================
+diff --git a/Makefile b/Makefile
+index eb09753..8b1bf77 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -12,6 +12,8 @@
