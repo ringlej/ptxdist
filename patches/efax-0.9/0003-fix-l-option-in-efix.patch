@@ -1,5 +1,6 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [efax] fix -l option in efix
+Date: Sat, 29 Oct 2011 19:13:38 +0200
+Subject: [PATCH] fix -l option in efix
 
 This patch fixes the '-l' option in efix 0.3 which is part of efax 0.9.
 Without this patch, lines on page 2 and subsequent are missing if the
@@ -9,11 +10,12 @@ This patch was taken from redhat, probably first written by
 mschwendt@yahoo.com.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  efix.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/efix.c b/efix.c
+index 57f96ff..984f158 100644
 --- a/efix.c
 +++ b/efix.c
 @@ -297,6 +297,9 @@ int main( int argc, char **argv)

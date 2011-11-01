@@ -1,12 +1,14 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [efax] add missing include file
+Date: Sat, 29 Oct 2011 19:13:38 +0200
+Subject: [PATCH] add missing include file
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  efaxio.c |    1 +
- 1 file changed, 1 insertion(+)
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
+diff --git a/efaxio.c b/efaxio.c
+index 5b8dbde..1e3a1fd 100644
 --- a/efaxio.c
 +++ b/efaxio.c
 @@ -2,6 +2,7 @@

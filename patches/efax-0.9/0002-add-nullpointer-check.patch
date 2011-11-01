@@ -1,15 +1,17 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [efax] add nullpointer check
+Date: Sat, 29 Oct 2011 19:13:38 +0200
+Subject: [PATCH] add nullpointer check
 
 Patch taken from redhat.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  efax.c   |    1 +
  efaxos.c |    4 ++--
  2 files changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/efax.c b/efax.c
+index bdcd462..28f7fca 100644
 --- a/efax.c
 +++ b/efax.c
 @@ -2186,6 +2186,7 @@ int main( int argc, char **argv)
@@ -20,6 +22,8 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
    verb[1] = "ewia" ;
    msg ( "I " Version " " Copyright ) ;
    argv0 = efaxbasename ( argv0 ) ;
+diff --git a/efaxos.c b/efaxos.c
+index 6b346d6..dc3ae33 100644
 --- a/efaxos.c
 +++ b/efaxos.c
 @@ -482,7 +482,7 @@ int lockall ( char **lkfiles, int log )
