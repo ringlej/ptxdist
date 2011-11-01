@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 14:54:45 +0100
+Subject: [PATCH] add makefile from debian patches
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile |   12 ++++++++++++
+ 1 files changed, 12 insertions(+), 0 deletions(-)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..b58e278
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,12 @@
++CFLAGS	= -Wall
++INSTALL = /usr/bin/install
++CC	= gcc
++
++all:
++	$(CC) $(CFLAGS) -o etherwake ether-wake.c
++
++clean:
++	rm etherwake
++
++install:
++	$(INSTALL) etherwake $(DESTDIR)/usr/sbin
