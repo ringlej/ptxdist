@@ -282,7 +282,7 @@ ptxd_make_world_patchin_apply()
 	    -name "*.patch" -o \
 	    -name "*.bz2" -o \
 	    -name "*.gz" | \
-	    sed -e "s:^[.]/::" > \
+	    sed -e "s:^[.]/::" | sort > \
 	    "${pkg_patch_series}" &&
 	popd > /dev/null
 
