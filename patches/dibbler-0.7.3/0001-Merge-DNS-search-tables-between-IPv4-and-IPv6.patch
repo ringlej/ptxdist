@@ -1,4 +1,6 @@
-Merge DNS search tables between IPv4 and IPv6
+From: Remy Bohmer <linux@bohmer.net>
+Date: Sat, 29 Oct 2011 19:10:22 +0200
+Subject: [PATCH] Merge DNS search tables between IPv4 and IPv6
 
 Without this patch the IPv4 search tables will be overwritten
 once an IPv6 domain is added. With this patch both tables
@@ -8,13 +10,13 @@ Signed-off-by: Bart vdr. Meulen <bartvdrmeulen@gmail.com>
 Signed-off-by: Remy Bohmer <linux@bohmer.net>
 ---
  Port-linux/lowlevel-options-linux.c |   13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ 1 files changed, 8 insertions(+), 5 deletions(-)
 
-Index: dibbler-0.7.3/Port-linux/lowlevel-options-linux.c
-===================================================================
---- dibbler-0.7.3.orig/Port-linux/lowlevel-options-linux.c
-+++ dibbler-0.7.3/Port-linux/lowlevel-options-linux.c
-@@ -199,11 +199,14 @@ int domain_add(const char* ifname, int i
+diff --git a/Port-linux/lowlevel-options-linux.c b/Port-linux/lowlevel-options-linux.c
+index d5be379..929b24b 100644
+--- a/Port-linux/lowlevel-options-linux.c
++++ b/Port-linux/lowlevel-options-linux.c
+@@ -199,11 +199,14 @@ int domain_add(const char* ifname, int ifaceid, const char* domain) {
  	return LOWLEVEL_ERROR_FILE;
      while (fgets(buf,511,f)) {
  	if ( (!found) && (strstr(buf, "search")) ) {

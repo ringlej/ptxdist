@@ -1,4 +1,6 @@
-Fix incremental build of dibbler package
+From: Remy Bohmer <linux@bohmer.net>
+Date: Sat, 29 Oct 2011 19:10:22 +0200
+Subject: [PATCH] Fix incremental build of dibbler package
 
 The make install fails if the changelog.gz already exists.
 So, the repair incremental builds make sure the changelog.gz
@@ -7,13 +9,13 @@ file does not exist before generating a new one.
 Signed-off-by: Remy Bohmer <linux@bohmer.net>
 ---
  Makefile |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
- 
-Index: dibbler-0.7.3/Makefile
-===================================================================
---- dibbler-0.7.3.orig/Makefile
-+++ dibbler-0.7.3/Makefile
-@@ -428,7 +428,7 @@ install: 
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index b8895c1..48707a5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -428,7 +428,7 @@ install:
  	$(INSTALL) -m 644 doc/dibbler-devel.pdf $(INST_DOCDIR)/dibbler/dibbler-devel.pdf
  	@echo "[INSTALL] CHANGELOG"
  	$(INSTALL) -m 644 CHANGELOG $(INST_DOCDIR)/dibbler/changelog
