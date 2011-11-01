@@ -1,15 +1,20 @@
-Subject: MPlayer: Suport RGB frambuffers in vo_fbdev.c
+From: unknown author <unknown.author@example.com>
+Date: Sat, 29 Oct 2011 18:44:33 +0200
+Subject: [PATCH] MPlayer: Suport RGB frambuffers in vo_fbdev.c
 
 Using this upstream patch (r33289) mplayer supports a RGB framebuffer.
 Before only BGR framebuffers were supported.
 
 Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
+---
+ libvo/vo_fbdev.c |   20 +++++++++++++-------
+ 1 files changed, 13 insertions(+), 7 deletions(-)
 
-Index: libvo/vo_fbdev.c
-===================================================================
---- libvo/vo_fbdev.c	(Revision 33288)
-+++ libvo/vo_fbdev.c	(Revision 33289)
-@@ -487,7 +487,7 @@
+diff --git a/libvo/vo_fbdev.c b/libvo/vo_fbdev.c
+index 7ddf2ad..92bad49 100644
+--- a/libvo/vo_fbdev.c
++++ b/libvo/vo_fbdev.c
+@@ -491,7 +491,7 @@ static fb_mode_t *find_best_mode(int xres, int yres, range_t *hfreq,
      return best;
  }
  
@@ -18,7 +23,7 @@ Index: libvo/vo_fbdev.c
  {
      p->bits_per_pixel = FFALIGN(bpp, 2);
      p->red.msb_right  = p->green.msb_right = p->blue.msb_right = p->transp.msb_right = 0;
-@@ -526,15 +526,19 @@
+@@ -530,15 +530,19 @@ static void set_bpp(struct fb_var_screeninfo *p, int bpp)
          p->blue.length  = 4;
          break;
      }
@@ -40,7 +45,7 @@ Index: libvo/vo_fbdev.c
      v->pixclock     = m->pixclock;
      v->left_margin  = m->left;
      v->right_margin = m->right;
-@@ -570,6 +574,7 @@
+@@ -574,6 +578,7 @@ static struct fb_var_screeninfo fb_vinfo;
  static unsigned short fb_ored[256], fb_ogreen[256], fb_oblue[256];
  static struct fb_cmap fb_oldcmap = { 0, 256, fb_ored, fb_ogreen, fb_oblue };
  static int fb_cmap_changed = 0;
@@ -48,7 +53,7 @@ Index: libvo/vo_fbdev.c
  static int fb_pixel_size;       // 32:  4  24:  3  16:  2  15:  2
  static int fb_bpp;              // 32: 32  24: 24  16: 16  15: 15
  static int fb_bpp_we_want;      // 32: 32  24: 24  16: 16  15: 15
-@@ -694,6 +699,7 @@
+@@ -698,6 +703,7 @@ static int fb_preinit(int reset)
          mp_msg(MSGT_VO, MSGL_ERR, "notice: Can't open /dev/tty: %s\n", strerror(errno));
      }
  
@@ -56,7 +61,7 @@ Index: libvo/vo_fbdev.c
      fb_bpp = fb_vinfo.bits_per_pixel;
      if (fb_bpp == 16)
          fb_bpp = fb_vinfo.red.length  + fb_vinfo.green.length + fb_vinfo.blue.length;
-@@ -787,7 +793,7 @@
+@@ -791,7 +797,7 @@ static int config(uint32_t width, uint32_t height, uint32_t d_width,
              mp_msg(MSGT_VO, MSGL_ERR, "can't find requested video mode\n");
              return 1;
          }
@@ -65,7 +70,7 @@ Index: libvo/vo_fbdev.c
      } else if (vm) {
          monitor_hfreq = str2range(monitor_hfreq_str);
          monitor_vfreq = str2range(monitor_vfreq_str);
-@@ -804,10 +810,10 @@
+@@ -808,10 +814,10 @@ static int config(uint32_t width, uint32_t height, uint32_t d_width,
          }
          mp_msg(MSGT_VO, MSGL_V, "using mode %dx%d @ %.1fHz\n", fb_mode->xres,
                 fb_mode->yres, vsf(fb_mode));
@@ -78,7 +83,7 @@ Index: libvo/vo_fbdev.c
      fb_vinfo.xres_virtual = fb_vinfo.xres;
      fb_vinfo.yres_virtual = fb_vinfo.yres;
      fb_page = 0;
-@@ -1012,7 +1018,7 @@
+@@ -1016,7 +1022,7 @@ static int query_format(uint32_t format)
      if (vidix_name)
          return vidix_query_fourcc(format);
  #endif
