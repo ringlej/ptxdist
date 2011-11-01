@@ -1,5 +1,6 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: fix PPC build
+Date: Sat, 29 Oct 2011 18:49:05 +0200
+Subject: [PATCH] fix PPC build
 
 From upstream SVN:
 ------------------------------------------------------------------------
@@ -45,13 +46,12 @@ a generic powerpc64 machine and not a PS3 only. ]
 ------------------------------------------------------------------------
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
 ---
  configure.in |    1 +
- 1 file changed, 1 insertion(+)
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index a7e9b18..b99c186 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -1317,6 +1317,7 @@ CheckPS3()

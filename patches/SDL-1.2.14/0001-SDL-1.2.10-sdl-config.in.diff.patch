@@ -1,20 +1,22 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:49:04 +0200
+Subject: [PATCH] SDL-1.2.10-sdl-config.in.diff
+
 Subject teach sdl-config about sysroot
 
 Teach sdl-config the concept of sysroot, but disable manual prefix overwriting.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
 ---
 # 20091210 rsc: is this patch ready for mainline?
 
  sdl-config.in |   14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ 1 files changed, 7 insertions(+), 7 deletions(-)
 
-Index: SDL-1.2.13/sdl-config.in
-===================================================================
---- SDL-1.2.13.orig/sdl-config.in
-+++ SDL-1.2.13/sdl-config.in
+diff --git a/sdl-config.in b/sdl-config.in
+index e0fcc0c..0159c47 100644
+--- a/sdl-config.in
++++ b/sdl-config.in
 @@ -23,10 +23,10 @@ while test $# -gt 0; do
  
    case $1 in
