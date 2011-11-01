@@ -1,18 +1,18 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: make sgutils2 dependency optional
+Date: Sat, 29 Oct 2011 18:38:26 +0200
+Subject: [PATCH] make sgutils2 dependency optional
 
 This patch adds a configure option for sgutils2.
 When disabled, the helper program using it will not be built.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  configure.ac    |   21 +++++++++++++--------
  src/Makefile.am |    5 ++++-
  2 files changed, 17 insertions(+), 9 deletions(-)
 
-Index: b/configure.ac
-===================================================================
+diff --git a/configure.ac b/configure.ac
+index 48d3320..e1888bd 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -109,15 +109,20 @@ if test "x$GCC" = "xyes"; then
@@ -44,11 +44,11 @@ Index: b/configure.ac
  
  
  PKG_CHECK_MODULES(GUDEV, [gudev-1.0 >= 001])
-Index: b/src/Makefile.am
-===================================================================
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 2d9a0c2..5eb4547 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -85,11 +85,14 @@ libexec_PROGRAMS += devkit-disks-helper-
+@@ -85,11 +85,14 @@ libexec_PROGRAMS += devkit-disks-helper-mkfs                    	\
  		    devkit-disks-helper-fstab-mounter			\
  		    devkit-disks-helper-ata-smart-collect		\
  		    devkit-disks-helper-ata-smart-selftest		\

@@ -1,21 +1,21 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: make devmapper dependency optional
+Date: Sat, 29 Oct 2011 18:38:26 +0200
+Subject: [PATCH] make devmapper dependency optional
 
 This patch adds a configure option for devmapper.
 When disabled, the helper program using it will not be built.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  configure.ac    |   11 ++++++++---
  src/Makefile.am |    5 ++++-
  2 files changed, 12 insertions(+), 4 deletions(-)
 
-Index: b/configure.ac
-===================================================================
+diff --git a/configure.ac b/configure.ac
+index fc99275..751cea7 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -160,9 +160,14 @@ if test "x$enable_libparted" = xyes; the
+@@ -162,9 +162,14 @@ if test "x$enable_libparted" = xyes; then
  fi
  AM_CONDITIONAL(LIBPARTED_ENABLED, test "x$enable_libparted" = xyes)
  
@@ -33,11 +33,11 @@ Index: b/configure.ac
  
  PKG_CHECK_MODULES(LIBATASMART, [libatasmart >= 0.14])
  AC_SUBST(LIBATASMART_CFLAGS)
-Index: b/src/Makefile.am
-===================================================================
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 51fa699..db15102 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -154,7 +154,7 @@ devkit_disks_helper_drive_poll_LDADD =  
+@@ -154,7 +154,7 @@ devkit_disks_helper_drive_poll_LDADD =  $(GLIB_LIBS)
  
  # TODO: move to udev
  udevhelperdir = $(slashlibdir)/udev
@@ -46,7 +46,7 @@ Index: b/src/Makefile.am
  
  if LIBPARTED_ENABLED
  udevhelper_PROGRAMS += devkit-disks-part-id
-@@ -163,9 +163,12 @@ devkit_disks_part_id_CPPFLAGS = $(AM_CPP
+@@ -163,9 +163,12 @@ devkit_disks_part_id_CPPFLAGS = $(AM_CPPFLAGS) $(LIBUDEV_CFLAGS)
  devkit_disks_part_id_LDADD = $(GLIB_LIBS) $(LIBUDEV_LIBS) libpartutil.la
  endif
  
