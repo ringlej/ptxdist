@@ -1,5 +1,7 @@
 From: Sascha Hauer <sha@pengutronix.de>
-Subject: provide a pre-generated penguin.c to get rid of this dependency
+Date: Sun, 30 Oct 2011 22:18:39 +0100
+Subject: [PATCH] provide a pre-generated penguin.c to get rid of this
+ dependency
 
 fbtest compiles pnmtohex for the host. pnmtohex generates
 penguin.c from penguin.ppm. pnmtohex needs libnetpbm which
@@ -9,17 +11,42 @@ is very painful to compile.
 [mkl: don't delete penguin.c on clean]
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
 ---
- Makefile         |    2 
- images/Makefile  |    3 
- images/penguin.c |  605 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Makefile         |    2 +-
+ images/Makefile  |    3 -
+ images/penguin.c |  605 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
  3 files changed, 606 insertions(+), 4 deletions(-)
+ create mode 100644 images/penguin.c
 
-Index: fbtest-20041102-1/images/penguin.c
-===================================================================
+diff --git a/Makefile b/Makefile
+index b628bd8..f78c67a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,7 +6,7 @@ TARGET = $(CROSS_COMPILE)fbtest
+ OBJS += drawops/drawops.o fonts/fonts.o images/images.o visops/visops.o \
+ 	tests/tests.o
+ 
+-SUBDIRS = drawops pnmtohex fonts images visops tests
++SUBDIRS = drawops fonts images visops tests
+ 
+ include $(TOPDIR)/Rules.make
+ 
+diff --git a/images/Makefile b/images/Makefile
+index 0883c46..209bdd9 100644
+--- a/images/Makefile
++++ b/images/Makefile
+@@ -19,6 +19,3 @@ include $(TOPDIR)/Rules.make
+ %.c:	%.pnm
+ 	../pnmtohex/pnmtohex $< $* > $@
+ 
+-clean::
+-	$(RM) $(SRCS)
+-
+diff --git a/images/penguin.c b/images/penguin.c
+new file mode 100644
+index 0000000..e454b99
 --- /dev/null
-+++ fbtest-20041102-1/images/penguin.c
++++ b/images/penguin.c
 @@ -0,0 +1,605 @@
 +    /*
 +     *  Image penguin
@@ -626,27 +653,3 @@ Index: fbtest-20041102-1/images/penguin.c
 +    0x59, 0x51, 0x42, 0x64, 0x52, 0x34, 0x5e, 0x56, 0x42,
 +};
 +
-Index: fbtest-20041102-1/Makefile
-===================================================================
---- fbtest-20041102-1.orig/Makefile
-+++ fbtest-20041102-1/Makefile
-@@ -6,7 +6,7 @@ TARGET = $(CROSS_COMPILE)fbtest
- OBJS += drawops/drawops.o fonts/fonts.o images/images.o visops/visops.o \
- 	tests/tests.o
- 
--SUBDIRS = drawops pnmtohex fonts images visops tests
-+SUBDIRS = drawops fonts images visops tests
- 
- include $(TOPDIR)/Rules.make
- 
-Index: fbtest-20041102-1/images/Makefile
-===================================================================
---- fbtest-20041102-1.orig/images/Makefile
-+++ fbtest-20041102-1/images/Makefile
-@@ -19,6 +19,3 @@ include $(TOPDIR)/Rules.make
- %.c:	%.pnm
- 	../pnmtohex/pnmtohex $< $* > $@
- 
--clean::
--	$(RM) $(SRCS)
--

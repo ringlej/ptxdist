@@ -1,17 +1,17 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: add install target
+Date: Sun, 30 Oct 2011 22:18:39 +0100
+Subject: [PATCH] add install target
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  Makefile |    3 +++
- 1 file changed, 3 insertions(+)
+ 1 files changed, 3 insertions(+), 0 deletions(-)
 
-Index: b/Makefile
-===================================================================
+diff --git a/Makefile b/Makefile
+index f78c67a..a4ef6df 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -10,3 +10,6 @@ SUBDIRS = drawops fonts images visops te
+@@ -10,3 +10,6 @@ SUBDIRS = drawops fonts images visops tests
  
  include $(TOPDIR)/Rules.make
  

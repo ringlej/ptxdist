@@ -1,19 +1,19 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: remove asm/page.h, use sysconf
+Date: Sun, 30 Oct 2011 22:18:39 +0100
+Subject: [PATCH] remove asm/page.h, use sysconf
 
 remove include asm/page.h, use susconf instead of hard coded PAGE_MASK and PAGE_SIZE
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
 ---
  fb.c   |   11 +++++------
  main.c |    3 +++
  2 files changed, 8 insertions(+), 6 deletions(-)
 
-Index: fbtest-20041102-1/fb.c
-===================================================================
---- fbtest-20041102-1.orig/fb.c
-+++ fbtest-20041102-1/fb.c
+diff --git a/fb.c b/fb.c
+index f0bef27..db576d2 100644
+--- a/fb.c
++++ b/fb.c
 @@ -19,8 +19,6 @@
  #include <sys/stat.h>
  #include <unistd.h>
@@ -53,10 +53,10 @@ Index: fbtest-20041102-1/fb.c
  	Fatal("munmap smem: %s\n", strerror(errno));
  }
  
-Index: fbtest-20041102-1/main.c
-===================================================================
---- fbtest-20041102-1.orig/main.c
-+++ fbtest-20041102-1/main.c
+diff --git a/main.c b/main.c
+index a13c800..6c646a1 100644
+--- a/main.c
++++ b/main.c
 @@ -13,6 +13,7 @@
  #include <stdio.h>
  #include <stdlib.h>

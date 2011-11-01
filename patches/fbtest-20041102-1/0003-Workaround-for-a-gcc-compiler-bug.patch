@@ -1,5 +1,6 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: Workaround for a gcc compiler bug
+Date: Sun, 30 Oct 2011 22:18:39 +0100
+Subject: [PATCH] Workaround for a gcc compiler bug
 
 With older or unpatched gccs, we get this error:
 
@@ -23,13 +24,14 @@ http://gcc.gnu.org/bugzilla/show_bug.cgi?id=28675
 It is closed in recent 4.1, 4.2 and later versions of gcc.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
+ Rules.make |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: fbtest-20041102-1/Rules.make
-===================================================================
---- fbtest-20041102-1.orig/Rules.make
-+++ fbtest-20041102-1/Rules.make
+diff --git a/Rules.make b/Rules.make
+index a002453..5ef8cef 100644
+--- a/Rules.make
++++ b/Rules.make
 @@ -5,7 +5,7 @@ HOSTCC = gcc
  
  IFLAGS = -I$(TOPDIR)/include

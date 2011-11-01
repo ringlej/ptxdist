@@ -1,17 +1,20 @@
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Subject: Don't use -Werror
+Date: Sun, 30 Oct 2011 22:18:39 +0100
+Subject: [PATCH] Don't use -Werror
 
 Remove the -Werror flag to compile it with gcc4. Yes I know, a real fix
 different ;)
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-
 ---
+ Rules.make |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff -urN fbtest-20041102-1.orig/Rules.make fbtest-20041102-1/Rules.make
---- fbtest-20041102-1.orig/Rules.make	2003-01-20 13:58:47.000000000 +0100
-+++ fbtest-20041102-1/Rules.make	2006-02-22 14:55:44.000000000 +0100
-@@ -6,7 +6,7 @@
+diff --git a/Rules.make b/Rules.make
+index d8ed6a0..a002453 100644
+--- a/Rules.make
++++ b/Rules.make
+@@ -6,7 +6,7 @@ HOSTCC = gcc
  IFLAGS = -I$(TOPDIR)/include
  #DFLAGS = -g
  OFLAGS = -O3 -fomit-frame-pointer
