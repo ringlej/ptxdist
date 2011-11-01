@@ -1,12 +1,19 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 15:23:06 +0100
+Subject: [PATCH] use packages gtkbuiltincache.h and don't generate it
+
+This way host gtk-update-icon-cache is not needed.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  gtk/Makefile.am |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
-Index: b/gtk/Makefile.am
-===================================================================
+diff --git a/gtk/Makefile.am b/gtk/Makefile.am
+index 267c499..2ce0bd4 100644
 --- a/gtk/Makefile.am
 +++ b/gtk/Makefile.am
-@@ -1300,11 +1300,11 @@ gtk_update_icon_cache_program =							\
+@@ -1304,11 +1304,11 @@ gtk_update_icon_cache_program =							\
  	   ./gtk-update-icon-cache
  endif
  

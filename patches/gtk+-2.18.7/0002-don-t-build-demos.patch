@@ -1,9 +1,14 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 15:24:25 +0100
+Subject: [PATCH] don't build demos
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  Makefile.am |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: b/Makefile.am
-===================================================================
+diff --git a/Makefile.am b/Makefile.am
+index 38f245b..1c06145 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -1,7 +1,7 @@
