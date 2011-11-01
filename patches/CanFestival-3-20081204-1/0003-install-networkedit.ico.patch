@@ -1,17 +1,20 @@
-Subject: install networkedit.ico
 From: Markus Messmer <mme@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:32:03 +0200
+Subject: [PATCH] install networkedit.ico
 
 networkedit.ico does not get installed by default, objdictedit complains about
 it. This patch adds it to the installed files.
 
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
-
 ---
-Index: CanFestival-3-20080926/objdictgen/Makefile.in
-===================================================================
---- CanFestival-3-20080926.orig/objdictgen/Makefile.in	2008-09-26 12:26:30.000000000 +0200
-+++ CanFestival-3-20080926/objdictgen/Makefile.in	2008-09-26 12:27:58.000000000 +0200
-@@ -36,7 +36,7 @@
+ objdictgen/Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/objdictgen/Makefile.in b/objdictgen/Makefile.in
+index 16a0f67..edeac27 100644
+--- a/objdictgen/Makefile.in
++++ b/objdictgen/Makefile.in
+@@ -36,7 +36,7 @@ gnosis/version.py:
  
  install: gnosis
  	mkdir -p $(DESTDIR)$(PREFIX)/objdictgen

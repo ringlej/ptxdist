@@ -1,0 +1,163 @@
+From: Markus Messmer <mme@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:32:03 +0200
+Subject: [PATCH] add $(DESTDIR) to Makefile.in
+
+Makefile is not $(DESTDIR) aware, this patch adds some $(DESTDIR)s.
+
+Signed-off-by: Markus Messmer <mme@pengutronix.de>
+---
+# 20081216 mme: ready for upstream, should be posted
+
+ drivers/can_socket/Makefile.in          |    4 ++--
+ drivers/timers_unix/Makefile.in         |    4 ++--
+ drivers/unix/Makefile.in                |    8 ++++----
+ examples/TestMasterMicroMod/Makefile.in |    4 ++--
+ examples/TestMasterSlave/Makefile.in    |    4 ++--
+ objdictgen/Makefile.in                  |   22 +++++++++++-----------
+ src/Makefile.in                         |   12 ++++++------
+ 7 files changed, 29 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/can_socket/Makefile.in b/drivers/can_socket/Makefile.in
+index 2c94b8c..34ecf1a 100644
+--- a/drivers/can_socket/Makefile.in
++++ b/drivers/can_socket/Makefile.in
+@@ -56,8 +56,8 @@ libcanfestival_$(CAN_DRIVER).so: $(OBJS)
+ 	$(CC) -shared -Wl,-soname,libcanfestival_$(CAN_DRIVER).so $(CAN_DLL_CFLAGS) -o $@ $<
+ 
+ install: libcanfestival_$(CAN_DRIVER).so
+-	mkdir -p $(PREFIX)/lib/
+-	cp $< $(PREFIX)/lib/
++	mkdir -p $(DESTDIR)$(PREFIX)/lib/
++	cp $< $(DESTDIR)$(PREFIX)/lib/
+ 	
+ uninstall:
+ 	rm -f $(TARGET_SOFILES)
+diff --git a/drivers/timers_unix/Makefile.in b/drivers/timers_unix/Makefile.in
+index d2bc080..a5c141d 100644
+--- a/drivers/timers_unix/Makefile.in
++++ b/drivers/timers_unix/Makefile.in
+@@ -48,8 +48,8 @@ driver: $(OBJS)
+ 	$(CC) $(CFLAGS) $(PROG_CFLAGS) ${PROGDEFINES} $(INCLUDES) -o $@ -c $<
+ 
+ install:
+-	mkdir -p $(PREFIX)/include/canfestival
+-	cp $(SRC_HFILES) $(PREFIX)/include/canfestival
++	mkdir -p $(DESTDIR)$(PREFIX)/include/canfestival
++	cp $(SRC_HFILES) $(DESTDIR)$(PREFIX)/include/canfestival
+ 
+ uninstall:
+ 	rm -f $(TARGET_HFILES)
+diff --git a/drivers/unix/Makefile.in b/drivers/unix/Makefile.in
+index 9c92293..f8cc854 100644
+--- a/drivers/unix/Makefile.in
++++ b/drivers/unix/Makefile.in
+@@ -97,10 +97,10 @@ libcanfestival_$(TARGET).a: $(OBJS)
+ 	$(BINUTILS_PREFIX)ranlib $@
+ 
+ install: libcanfestival_$(TARGET).a
+-	mkdir -p $(PREFIX)/lib/
+-	mkdir -p $(PREFIX)/include/canfestival
+-	cp libcanfestival_$(TARGET).a $(PREFIX)/lib/
+-	cp $(SRC_HFILES) $(PREFIX)/include/canfestival
++	mkdir -p $(DESTDIR)$(PREFIX)/lib/
++	mkdir -p $(DESTDIR)$(PREFIX)/include/canfestival
++	cp libcanfestival_$(TARGET).a $(DESTDIR)$(PREFIX)/lib/
++	cp $(SRC_HFILES) $(DESTDIR)$(PREFIX)/include/canfestival
+ 
+ uninstall:
+ 	rm -f $(PREFIX)/lib/libcanfestival_$(TARGET).a
+diff --git a/examples/TestMasterMicroMod/Makefile.in b/examples/TestMasterMicroMod/Makefile.in
+index bb15b55..97c3357 100644
+--- a/examples/TestMasterMicroMod/Makefile.in
++++ b/examples/TestMasterMicroMod/Makefile.in
+@@ -74,8 +74,8 @@ mrproper: clean
+ 	rm -f TestMaster.c
+ 	
+ install: TestMasterMicroMod
+-	mkdir -p $(PREFIX)/bin/
+-	cp $< $(PREFIX)/bin/
++	mkdir -p $(DESTDIR)$(PREFIX)/bin/
++	cp $< $(DESTDIR)$(PREFIX)/bin/
+ 	
+ uninstall:
+ 	rm -f $(PREFIX)/bin/TestMasterMicroMod
+diff --git a/examples/TestMasterSlave/Makefile.in b/examples/TestMasterSlave/Makefile.in
+index 862ee35..b8ffd2f 100644
+--- a/examples/TestMasterSlave/Makefile.in
++++ b/examples/TestMasterSlave/Makefile.in
+@@ -87,8 +87,8 @@ mrproper: clean
+ 	rm -f TestMaster.c
+ 	
+ install: TestMasterSlave
+-	mkdir -p $(PREFIX)/bin/
+-	cp $< $(PREFIX)/bin/
++	mkdir -p $(DESTDIR)$(PREFIX)/bin/
++	cp $< $(DESTDIR)$(PREFIX)/bin/
+ 	
+ uninstall:
+ 	rm -f $(PREFIX)/bin/TestMasterSlave
+diff --git a/objdictgen/Makefile.in b/objdictgen/Makefile.in
+index bd9db22..16a0f67 100644
+--- a/objdictgen/Makefile.in
++++ b/objdictgen/Makefile.in
+@@ -35,19 +35,19 @@ gnosis/version.py:
+ 	rm -rf gnosis_extract
+ 
+ install: gnosis
+-	mkdir -p $(PREFIX)/objdictgen
+-	cp -r *.py* config doc doc_index examples gnosis $(PREFIX)/objdictgen
+-	chmod -R a+r $(PREFIX)/objdictgen
+-	mkdir -p $(PREFIX)/bin
+-	ln -sf $(PREFIX)/objdictgen/objdictedit.py $(PREFIX)/bin/objdictedit
+-	chmod 755 $(PREFIX)/objdictgen/objdictedit.py
+-	ln -sf $(PREFIX)/objdictgen/objdictgen.py $(PREFIX)/bin/objdictgen
+-	chmod 755 $(PREFIX)/objdictgen/objdictgen.py
++	mkdir -p $(DESTDIR)$(PREFIX)/objdictgen
++	cp -r *.py* config doc doc_index examples gnosis $(DESTDIR)$(PREFIX)/objdictgen
++	chmod -R a+r $(DESTDIR)$(PREFIX)/objdictgen
++	mkdir -p $(DESTDIR)$(PREFIX)/bin
++	ln -sf $(DESTDIR)$(PREFIX)/objdictgen/objdictedit.py $(DESTDIR)$(PREFIX)/bin/objdictedit
++	chmod 755 $(DESTDIR)$(PREFIX)/objdictgen/objdictedit.py
++	ln -sf $(DESTDIR)$(PREFIX)/objdictgen/objdictgen.py $(DESTDIR)$(PREFIX)/bin/objdictgen
++	chmod 755 $(DESTDIR)$(PREFIX)/objdictgen/objdictgen.py
+ 
+ uninstall:
+-	rm -rf $(PREFIX)/objdictgen
+-	rm -f $(PREFIX)/bin/objdictedit
+-	rm -f $(PREFIX)/bin/objdictgen
++	rm -rf $(DESTDIR)$(PREFIX)/objdictgen
++	rm -f $(DESTDIR)$(PREFIX)/bin/objdictedit
++	rm -f $(DESTDIR)$(PREFIX)/bin/objdictgen
+ 
+ clean:
+ 
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 3613b92..2212908 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -87,8 +87,8 @@ clean:
+ 
+ install:
+ 	$(MAKE) -C $(KERNELDIR) M=$(shell pwd) modules_install
+-	mkdir -p $(PREFIX)/include/canfestival
+-	cp ../include/*.h $(PREFIX)/include/canfestival
++	mkdir -p $(DESTDIR)$(PREFIX)/include/canfestival
++	cp ../include/*.h $(DESTDIR)$(PREFIX)/include/canfestival
+ 
+ uninstall:
+ 	rm -rf $(PREFIX)/include/canfestival
+@@ -114,10 +114,10 @@ $(TARGET)_%o: %c
+ 	$(CC) $(CFLAGS) $(PROG_CFLAGS) ${PROGDEFINES} $(INCLUDES) -o $@ -c $<
+ 
+ install: libcanfestival.a
+-	mkdir -p $(PREFIX)/lib/
+-	mkdir -p $(PREFIX)/include/canfestival
+-	cp libcanfestival.a $(PREFIX)/lib/
+-	cp ../include/*.h $(PREFIX)/include/canfestival
++	mkdir -p $(DESTDIR)$(PREFIX)/lib/
++	mkdir -p $(DESTDIR)$(PREFIX)/include/canfestival
++	cp libcanfestival.a $(DESTDIR)$(PREFIX)/lib/
++	cp ../include/*.h $(DESTDIR)$(PREFIX)/include/canfestival
+ 
+ uninstall:
+ 	rm -f $(PREFIX)/lib/libcanfestival.a

@@ -1,5 +1,6 @@
-Subject: fix for CAN ID byteorder
 From: Markus Messmer <mme@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:32:03 +0200
+Subject: [PATCH] fix for CAN ID byteorder
 
 The can identifier does not need to get switched when compiling for big endian
 machines.
@@ -7,275 +8,24 @@ machines.
 FIXME rsc: needs to be made architecture independend.
 
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
-
 ---
-# datum: 16.12.08 mme: vielleicht auch nur ein hack der hier funktioniert
-Index: CanFestival-3-20080926/src/nmtMaster.c
-===================================================================
---- CanFestival-3-20080926.orig/src/nmtMaster.c	2008-01-25 19:01:58.000000000 +0100
-+++ CanFestival-3-20080926/src/nmtMaster.c	2008-09-30 16:07:54.000000000 +0200
-@@ -74,7 +74,7 @@
- 
-   /* message configuration */
-   UNS16 tmp = nodeId | (NODE_GUARD << 7); 
--  m.cob_id = UNS16_LE(tmp);
-+  m.cob_id = tmp;
-   m.rtr = REQUEST;
-   m.len = 1;
- 
-Index: CanFestival-3-20080926/src/lifegrd.c
-===================================================================
---- CanFestival-3-20080926.orig/src/lifegrd.c	2008-09-30 16:09:57.000000000 +0200
-+++ CanFestival-3-20080926/src/lifegrd.c	2008-09-30 16:10:14.000000000 +0200
-@@ -103,7 +103,7 @@
-         {
-           Message msg;
-           UNS16 tmp = *d->bDeviceNodeId + 0x700;
--          msg.cob_id = UNS16_LE(tmp);
-+          msg.cob_id = tmp;
-           msg.len = (UNS8)0x01;
-           msg.rtr = 0;
-           msg.data[0] = d->nodeState;
-@@ -180,7 +180,7 @@
-       ** the node-id of this device.
-       */
-       UNS16 tmp = *d->bDeviceNodeId + 0x700;
--      msg.cob_id = UNS16_LE(tmp);
-+      msg.cob_id = tmp;
-       msg.len = (UNS8)0x01;
-       msg.rtr = 0;
-       msg.data[0] = d->nodeState; /* No toggle for heartbeat !*/
-Index: CanFestival-3-20080926/src/nmtSlave.c
-===================================================================
---- CanFestival-3-20080926.orig/src/nmtSlave.c	2008-09-30 16:12:04.000000000 +0200
-+++ CanFestival-3-20080926/src/nmtSlave.c	2008-09-30 16:12:13.000000000 +0200
-@@ -128,7 +128,7 @@
-   /* message configuration */
-   {
- 	  UNS16 tmp = NODE_GUARD << 7 | *d->bDeviceNodeId; 
--	  m.cob_id = UNS16_LE(tmp);
-+	  m.cob_id = tmp;
-   }
-   m.rtr = NOT_A_REQUEST;
-   m.len = 1;
-Index: CanFestival-3-20080926/src/pdo.c
-===================================================================
---- CanFestival-3-20080926.orig/src/pdo.c	2008-09-30 16:10:42.000000000 +0200
-+++ CanFestival-3-20080926/src/pdo.c	2008-09-30 16:17:34.000000000 +0200
-@@ -57,7 +57,7 @@
-   UNS8 offset = 0x00;
-   const UNS8 *pMappingCount = (UNS8 *) TPDO_map->pSubindex[0].pObject;
- 
--  pdo->cob_id = UNS16_LE(*(UNS32*)TPDO_com->pSubindex[1].pObject & 0x7FF);
-+  pdo->cob_id = *(UNS32*)TPDO_com->pSubindex[1].pObject & 0x7FF;
-   pdo->rtr = NOT_A_REQUEST;
- 
-   MSG_WAR (0x3009, "  PDO CobId is : ",
-@@ -143,7 +143,7 @@
-           MSG_WAR (0x3930, "sendPDOrequest cobId is : ", *pwCobId);
-           {
-             Message pdo;
--            pdo.cob_id = UNS16_LE(*pwCobId);
-+            pdo.cob_id = *pwCobId;
-             pdo.rtr = REQUEST;
-             pdo.len = 0;
-             return canSend (d->canHandle, &pdo);
-@@ -186,7 +186,7 @@
- 
-   status = state2;
- 
--  MSG_WAR (0x3935, "proceedPDO, cobID : ", (UNS16_LE(m->cob_id) & 0x7ff));
-+  MSG_WAR (0x3935, "proceedPDO, cobID : ", (m->cob_id & 0x7ff));
-   offset = 0x00;
-   numPdo = 0;
-   numMap = 0;
-@@ -213,7 +213,7 @@
-                 /* check the CobId coherance */
-                 /*pwCobId is the cobId read in the dictionary at the state 3
-                  */
--                if (*pwCobId == UNS16_LE(m->cob_id))
-+                if (*pwCobId == m->cob_id)
-                   {
-                     /* The cobId is recognized */
-                     status = state4;
-@@ -291,7 +291,7 @@
- 
-                         MSG_WAR (0x3942,
-                                  "Variable updated by PDO cobid : ",
--                                 UNS16_LE(m->cob_id));
-+                                 m->cob_id);
-                         MSG_WAR (0x3943, "         Mapped at index : ",
-                                  (*pMappingParameter) >> 16);
-                         MSG_WAR (0x3944, "                subindex : ",
-@@ -308,7 +308,7 @@
-     }                           /* end if Donnees */
-   else if ((*m).rtr == REQUEST)
-     {
--      MSG_WAR (0x3946, "Receive a PDO request cobId : ", UNS16_LE(m->cob_id));
-+      MSG_WAR (0x3946, "Receive a PDO request cobId : ", m->cob_id);
-       status = state1;
-       offsetObjdict = d->firstIndex->PDO_TRS;
-       lastIndex = d->lastIndex->PDO_TRS;
-@@ -326,7 +326,7 @@
-                 pwCobId =
-                    (d->objdict +
-                              offsetObjdict)->pSubindex[1].pObject;
--                if (*pwCobId == UNS16_LE(m->cob_id))
-+                if (*pwCobId == m->cob_id)
-                   {
-                     status = state4;
-                     break;
-@@ -366,7 +366,7 @@
-                         /* DS301 do not tell what to do in such a case... */
-                         MSG_ERR (0x1947,
-                                  "Not ready RTR_SYNC TPDO send current data : ",
--                                 UNS16_LE(m->cob_id));
-+                                 m->cob_id);
-                         status = state5;
-                       }
-                     break;
-@@ -391,7 +391,7 @@
-                     /* The requested PDO is not to send on request. So, does
-                        nothing. */
-                     MSG_WAR (0x2947, "PDO is not to send on request : ",
--                             UNS16_LE(m->cob_id));
-+                             m->cob_id);
-                     return 0xFF;
-                   }
- 
-@@ -692,7 +692,7 @@
-             case state5:       /*Send the pdo */
-               /*store_as_last_message */
-               d->PDO_status[pdoNum].last_message = pdo;
--              MSG_WAR (0x396D, "sendPDO cobId :", UNS16_LE(pdo.cob_id));
-+              MSG_WAR (0x396D, "sendPDO cobId :", pdo.cob_id);
-               MSG_WAR (0x396E, "     Nb octets  : ", pdo.len);
- 
-               canSend (d->canHandle, &pdo);
-Index: CanFestival-3-20080926/src/sdo.c
-===================================================================
---- CanFestival-3-20080926.orig/src/sdo.c	2008-09-30 16:10:20.000000000 +0200
-+++ CanFestival-3-20080926/src/sdo.c	2008-09-30 16:13:29.000000000 +0200
-@@ -547,7 +547,7 @@
-     pwCobId = (UNS32*) d->objdict[offset].pSubindex[1].pObject;
-   }
-   /* message copy for sending */
--  m.cob_id = UNS16_LE(*pwCobId);
-+  m.cob_id = *pwCobId;
-   m.rtr = NOT_A_REQUEST;
-   /* the length of SDO must be 8 */
-   m.len = 8;
-@@ -640,7 +640,7 @@
- 	  return 0xFF;
- 	}
-       pCobId = (UNS32*) d->objdict[offset].pSubindex[1].pObject;
--      if ( *pCobId == UNS16_LE(m->cob_id) ) {
-+      if ( *pCobId == m->cob_id ) {
- 	whoami = SDO_SERVER;
- 	MSG_WAR(0x3A62, "proceedSDO. I am server. index : ", 0x1200 + j);
- 	/* In case of server, the node id of the client may be unknown. So we put the index minus offset */
-@@ -663,7 +663,7 @@
-        }
-        /* a) Looking for the cobid received. */
-        pCobId = (UNS32*) d->objdict[offset].pSubindex[2].pObject;
--       if (*pCobId == UNS16_LE(m->cob_id) ) {
-+       if (*pCobId == m->cob_id ) {
- 	 /* b) cobid found, so reading the node id of the server. */
- 	 pNodeId = (UNS8*) d->objdict[offset].pSubindex[3].pObject;
- 	 whoami = SDO_CLIENT;
-@@ -682,7 +682,7 @@
- 
-   /* Test if the size of the SDO is ok */
-   if ( (*m).len != 8) {
--    MSG_ERR(0x1A67, "Error size SDO. CobId  : ", UNS16_LE(m->cob_id));
-+    MSG_ERR(0x1A67, "Error size SDO. CobId  : ", m->cob_id);
-     failedSDO(d, nodeId, whoami, 0, 0, SDOABT_GENERAL_ERROR);
-     return 0xFF;
-   }
-@@ -691,7 +691,7 @@
-     MSG_WAR(0x3A68, "I am CLIENT. Received SDO from nodeId : ", nodeId);
-   }
-   else {
--    MSG_WAR(0x3A69, "I am SERVER. Received SDO cobId : ", UNS16_LE(m->cob_id));
-+    MSG_WAR(0x3A69, "I am SERVER. Received SDO cobId : ", m->cob_id);
-   }
- 
-   /* Testing the command specifier */
-Index: CanFestival-3-20080926/src/states.c
-===================================================================
---- CanFestival-3-20080926.orig/src/states.c	2008-09-30 16:11:21.000000000 +0200
-+++ CanFestival-3-20080926/src/states.c	2008-09-30 16:11:56.000000000 +0200
-@@ -62,7 +62,7 @@
- **/  
- void canDispatch(CO_Data* d, Message *m)
- {
--	UNS16 cob_id = UNS16_LE(m->cob_id);
-+	UNS16 cob_id = m->cob_id;
- 	 switch(cob_id >> 7)
- 	{
- 		case SYNC:		/* can be a SYNC or a EMCY message */
-Index: CanFestival-3-20080926/src/sync.c
-===================================================================
---- CanFestival-3-20080926.orig/src/sync.c	2008-09-30 16:11:08.000000000 +0200
-+++ CanFestival-3-20080926/src/sync.c	2008-09-30 16:11:16.000000000 +0200
-@@ -131,7 +131,7 @@
-   
-   MSG_WAR(0x3001, "sendSYNC ", 0);
-   
--  m.cob_id = UNS16_LE(*d->COB_ID_Sync);
-+  m.cob_id = *d->COB_ID_Sync;
-   m.rtr = NOT_A_REQUEST;
-   m.len = 0;
-   
-Index: CanFestival-3-20080926/src/emcy.c
-===================================================================
---- CanFestival-3-20080926.orig/src/emcy.c	2008-09-30 16:15:26.000000000 +0200
-+++ CanFestival-3-20080926/src/emcy.c	2008-09-30 16:16:00.000000000 +0200
-@@ -101,7 +101,7 @@
-   
- 	MSG_WAR(0x3051, "sendEMCY", 0);
-   
--	m.cob_id = UNS16_LE(*(UNS32*)d->error_cobid);
-+	m.cob_id = *(UNS32*)d->error_cobid;
- 	m.rtr = NOT_A_REQUEST;
- 	m.len = 8;
- 	m.data[0] = errCode & 0xFF;        /* LSB */
-@@ -239,7 +239,7 @@
- 	}
- 	
- 	/* post the received EMCY */
--	nodeID = UNS16_LE(m->cob_id) & 0x7F;
-+	nodeID = m->cob_id & 0x7F;
- 	errCode = m->data[0] | ((UNS16)m->data[1] << 8);
- 	errReg = m->data[2];
- 	(*d->post_emcy)(d, nodeID, errCode, errReg);
-Index: CanFestival-3-20080926/src/lss.c
-===================================================================
---- CanFestival-3-20080926.orig/src/lss.c	2008-09-30 16:16:12.000000000 +0200
-+++ CanFestival-3-20080926/src/lss.c	2008-09-30 16:16:34.000000000 +0200
-@@ -330,7 +330,7 @@
-   m.len = 8;
-   m.rtr = NOT_A_REQUEST;
-   m.data[0]=command;
--  m.cob_id=UNS16_LE(SLSS_ADRESS);
-+  m.cob_id=SLSS_ADRESS;
-   
-   /* Tha data sent with the msg depends on the command */
-   switch(command){
-@@ -397,7 +397,7 @@
-   m.len = 8;
-   m.rtr = NOT_A_REQUEST;
-   m.data[0]=command;
--  m.cob_id=UNS16_LE(MLSS_ADRESS);
-+  m.cob_id=MLSS_ADRESS;
-   
-   /* Tha data sent with the msg depends on the command */	
-   switch(command){
-Index: CanFestival-3-20080926/include/objdictdef.h
-===================================================================
---- CanFestival-3-20080926.orig/include/objdictdef.h	2008-09-30 16:17:53.000000000 +0200
-+++ CanFestival-3-20080926/include/objdictdef.h	2008-09-30 16:18:09.000000000 +0200
-@@ -118,7 +118,7 @@
+ include/objdictdef.h |    4 ++--
+ src/emcy.c           |    4 ++--
+ src/lifegrd.c        |    4 ++--
+ src/lss.c            |    4 ++--
+ src/nmtMaster.c      |    2 +-
+ src/nmtSlave.c       |    2 +-
+ src/pdo.c            |   20 ++++++++++----------
+ src/sdo.c            |   10 +++++-----
+ src/states.c         |    2 +-
+ src/sync.c           |    2 +-
+ 10 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/include/objdictdef.h b/include/objdictdef.h
+index 8361ee6..40ee460 100644
+--- a/include/objdictdef.h
++++ b/include/objdictdef.h
+@@ -118,7 +118,7 @@ typedef const indextable * (*scanIndexOD_t)(UNS16 wIndex, UNS32 * errorCode, ODC
  /************************** MACROS *********************************/
  
  /* CANopen usefull helpers */
@@ -285,3 +35,264 @@ Index: CanFestival-3-20080926/include/objdictdef.h
 +#define GET_FUNCTION_CODE(m)   (m.cob_id >> 7)
  
  #endif /* __objdictdef_h__ */
+diff --git a/src/emcy.c b/src/emcy.c
+index 272442a..0a3ca92 100644
+--- a/src/emcy.c
++++ b/src/emcy.c
+@@ -101,7 +101,7 @@ UNS8 sendEMCY(CO_Data* d, UNS16 errCode, UNS8 errRegister)
+   
+ 	MSG_WAR(0x3051, "sendEMCY", 0);
+   
+-	m.cob_id = UNS16_LE(*(UNS32*)d->error_cobid);
++	m.cob_id = *(UNS32*)d->error_cobid;
+ 	m.rtr = NOT_A_REQUEST;
+ 	m.len = 8;
+ 	m.data[0] = errCode & 0xFF;        /* LSB */
+@@ -239,7 +239,7 @@ void proceedEMCY(CO_Data* d, Message* m)
+ 	}
+ 	
+ 	/* post the received EMCY */
+-	nodeID = UNS16_LE(m->cob_id) & 0x7F;
++	nodeID = m->cob_id & 0x7F;
+ 	errCode = m->data[0] | ((UNS16)m->data[1] << 8);
+ 	errReg = m->data[2];
+ 	(*d->post_emcy)(d, nodeID, errCode, errReg);
+diff --git a/src/lifegrd.c b/src/lifegrd.c
+index 54b14f3..3a6530b 100644
+--- a/src/lifegrd.c
++++ b/src/lifegrd.c
+@@ -103,7 +103,7 @@ void proceedNODE_GUARD(CO_Data* d, Message* m )
+         {
+           Message msg;
+           UNS16 tmp = *d->bDeviceNodeId + 0x700;
+-          msg.cob_id = UNS16_LE(tmp);
++          msg.cob_id = tmp;
+           msg.len = (UNS8)0x01;
+           msg.rtr = 0;
+           msg.data[0] = d->nodeState;
+@@ -180,7 +180,7 @@ void ProducerHearbeatAlarm(CO_Data* d, UNS32 id)
+       ** the node-id of this device.
+       */
+       UNS16 tmp = *d->bDeviceNodeId + 0x700;
+-      msg.cob_id = UNS16_LE(tmp);
++      msg.cob_id = tmp;
+       msg.len = (UNS8)0x01;
+       msg.rtr = 0;
+       msg.data[0] = d->nodeState; /* No toggle for heartbeat !*/
+diff --git a/src/lss.c b/src/lss.c
+index 2febb62..d244d36 100644
+--- a/src/lss.c
++++ b/src/lss.c
+@@ -330,7 +330,7 @@ UNS8 sendSlaveLSSMessage(CO_Data* d, UNS8 command,void *dat1,void *dat2)
+   m.len = 8;
+   m.rtr = NOT_A_REQUEST;
+   m.data[0]=command;
+-  m.cob_id=UNS16_LE(SLSS_ADRESS);
++  m.cob_id=SLSS_ADRESS;
+   
+   /* Tha data sent with the msg depends on the command */
+   switch(command){
+@@ -397,7 +397,7 @@ UNS8 sendMasterLSSMessage(CO_Data* d, UNS8 command,void *dat1,void *dat2)
+   m.len = 8;
+   m.rtr = NOT_A_REQUEST;
+   m.data[0]=command;
+-  m.cob_id=UNS16_LE(MLSS_ADRESS);
++  m.cob_id=MLSS_ADRESS;
+   
+   /* Tha data sent with the msg depends on the command */	
+   switch(command){
+diff --git a/src/nmtMaster.c b/src/nmtMaster.c
+index 22b11c8..9e3a80f 100644
+--- a/src/nmtMaster.c
++++ b/src/nmtMaster.c
+@@ -74,7 +74,7 @@ UNS8 masterSendNMTnodeguard(CO_Data* d, UNS8 nodeId)
+ 
+   /* message configuration */
+   UNS16 tmp = nodeId | (NODE_GUARD << 7); 
+-  m.cob_id = UNS16_LE(tmp);
++  m.cob_id = tmp;
+   m.rtr = REQUEST;
+   m.len = 1;
+ 
+diff --git a/src/nmtSlave.c b/src/nmtSlave.c
+index 0ff2eba..ee6efee 100644
+--- a/src/nmtSlave.c
++++ b/src/nmtSlave.c
+@@ -128,7 +128,7 @@ UNS8 slaveSendBootUp(CO_Data* d)
+   /* message configuration */
+   {
+ 	  UNS16 tmp = NODE_GUARD << 7 | *d->bDeviceNodeId; 
+-	  m.cob_id = UNS16_LE(tmp);
++	  m.cob_id = tmp;
+   }
+   m.rtr = NOT_A_REQUEST;
+   m.len = 1;
+diff --git a/src/pdo.c b/src/pdo.c
+index 457c495..c435d7a 100644
+--- a/src/pdo.c
++++ b/src/pdo.c
+@@ -55,7 +55,7 @@ UNS8 buildPDO (CO_Data * d, UNS8 numPdo, Message * pdo)
+   UNS8 offset = 0x00;
+   const UNS8 *pMappingCount = (UNS8 *) TPDO_map->pSubindex[0].pObject;
+ 
+-  pdo->cob_id = UNS16_LE(*(UNS32*)TPDO_com->pSubindex[1].pObject & 0x7FF);
++  pdo->cob_id = *(UNS32*)TPDO_com->pSubindex[1].pObject & 0x7FF;
+   pdo->rtr = NOT_A_REQUEST;
+ 
+   MSG_WAR (0x3009, "  PDO CobId is : ",
+@@ -141,7 +141,7 @@ sendPDOrequest (CO_Data * d, UNS16 RPDOIndex)
+           MSG_WAR (0x3930, "sendPDOrequest cobId is : ", *pwCobId);
+           {
+             Message pdo;
+-            pdo.cob_id = UNS16_LE(*pwCobId);
++            pdo.cob_id = *pwCobId;
+             pdo.rtr = REQUEST;
+             pdo.len = 0;
+             return canSend (d->canHandle, &pdo);
+@@ -184,7 +184,7 @@ proceedPDO (CO_Data * d, Message * m)
+ 
+   status = state2;
+ 
+-  MSG_WAR (0x3935, "proceedPDO, cobID : ", (UNS16_LE(m->cob_id) & 0x7ff));
++  MSG_WAR (0x3935, "proceedPDO, cobID : ", (m->cob_id & 0x7ff));
+   offset = 0x00;
+   numPdo = 0;
+   numMap = 0;
+@@ -211,7 +211,7 @@ proceedPDO (CO_Data * d, Message * m)
+                 /* check the CobId coherance */
+                 /*pwCobId is the cobId read in the dictionary at the state 3
+                  */
+-                if (*pwCobId == UNS16_LE(m->cob_id))
++                if (*pwCobId == m->cob_id)
+                   {
+                     /* The cobId is recognized */
+                     status = state4;
+@@ -289,7 +289,7 @@ proceedPDO (CO_Data * d, Message * m)
+ 
+                         MSG_WAR (0x3942,
+                                  "Variable updated by PDO cobid : ",
+-                                 UNS16_LE(m->cob_id));
++                                 m->cob_id);
+                         MSG_WAR (0x3943, "         Mapped at index : ",
+                                  (*pMappingParameter) >> 16);
+                         MSG_WAR (0x3944, "                subindex : ",
+@@ -306,7 +306,7 @@ proceedPDO (CO_Data * d, Message * m)
+     }                           /* end if Donnees */
+   else if ((*m).rtr == REQUEST)
+     {
+-      MSG_WAR (0x3946, "Receive a PDO request cobId : ", UNS16_LE(m->cob_id));
++      MSG_WAR (0x3946, "Receive a PDO request cobId : ", m->cob_id);
+       status = state1;
+       offsetObjdict = d->firstIndex->PDO_TRS;
+       lastIndex = d->lastIndex->PDO_TRS;
+@@ -324,7 +324,7 @@ proceedPDO (CO_Data * d, Message * m)
+                 pwCobId =
+                    (d->objdict +
+                              offsetObjdict)->pSubindex[1].pObject;
+-                if (*pwCobId == UNS16_LE(m->cob_id))
++                if (*pwCobId == m->cob_id)
+                   {
+                     status = state4;
+                     break;
+@@ -364,7 +364,7 @@ proceedPDO (CO_Data * d, Message * m)
+                         /* DS301 do not tell what to do in such a case... */
+                         MSG_ERR (0x1947,
+                                  "Not ready RTR_SYNC TPDO send current data : ",
+-                                 UNS16_LE(m->cob_id));
++                                 m->cob_id);
+                         status = state5;
+                       }
+                     break;
+@@ -389,7 +389,7 @@ proceedPDO (CO_Data * d, Message * m)
+                     /* The requested PDO is not to send on request. So, does
+                        nothing. */
+                     MSG_WAR (0x2947, "PDO is not to send on request : ",
+-                             UNS16_LE(m->cob_id));
++                             m->cob_id);
+                     return 0xFF;
+                   }
+ 
+@@ -690,7 +690,7 @@ _sendPDOevent (CO_Data * d, UNS8 isSyncEvent)
+             case state5:       /*Send the pdo */
+               /*store_as_last_message */
+               d->PDO_status[pdoNum].last_message = pdo;
+-              MSG_WAR (0x396D, "sendPDO cobId :", UNS16_LE(pdo.cob_id));
++              MSG_WAR (0x396D, "sendPDO cobId :", pdo.cob_id);
+               MSG_WAR (0x396E, "     Nb octets  : ", pdo.len);
+ 
+               canSend (d->canHandle, &pdo);
+diff --git a/src/sdo.c b/src/sdo.c
+index 4e26652..1262cf9 100644
+--- a/src/sdo.c
++++ b/src/sdo.c
+@@ -547,7 +547,7 @@ UNS8 sendSDO (CO_Data* d, UNS8 whoami, s_SDO sdo)
+     pwCobId = (UNS32*) d->objdict[offset].pSubindex[1].pObject;
+   }
+   /* message copy for sending */
+-  m.cob_id = UNS16_LE(*pwCobId);
++  m.cob_id = *pwCobId;
+   m.rtr = NOT_A_REQUEST;
+   /* the length of SDO must be 8 */
+   m.len = 8;
+@@ -640,7 +640,7 @@ UNS8 proceedSDO (CO_Data* d, Message *m)
+ 	  return 0xFF;
+ 	}
+       pCobId = (UNS32*) d->objdict[offset].pSubindex[1].pObject;
+-      if ( *pCobId == UNS16_LE(m->cob_id) ) {
++      if ( *pCobId == m->cob_id ) {
+ 	whoami = SDO_SERVER;
+ 	MSG_WAR(0x3A62, "proceedSDO. I am server. index : ", 0x1200 + j);
+ 	/* In case of server, the node id of the client may be unknown. So we put the index minus offset */
+@@ -663,7 +663,7 @@ UNS8 proceedSDO (CO_Data* d, Message *m)
+        }
+        /* a) Looking for the cobid received. */
+        pCobId = (UNS32*) d->objdict[offset].pSubindex[2].pObject;
+-       if (*pCobId == UNS16_LE(m->cob_id) ) {
++       if (*pCobId == m->cob_id ) {
+ 	 /* b) cobid found, so reading the node id of the server. */
+ 	 pNodeId = (UNS8*) d->objdict[offset].pSubindex[3].pObject;
+ 	 whoami = SDO_CLIENT;
+@@ -682,7 +682,7 @@ UNS8 proceedSDO (CO_Data* d, Message *m)
+ 
+   /* Test if the size of the SDO is ok */
+   if ( (*m).len != 8) {
+-    MSG_ERR(0x1A67, "Error size SDO. CobId  : ", UNS16_LE(m->cob_id));
++    MSG_ERR(0x1A67, "Error size SDO. CobId  : ", m->cob_id);
+     failedSDO(d, nodeId, whoami, 0, 0, SDOABT_GENERAL_ERROR);
+     return 0xFF;
+   }
+@@ -691,7 +691,7 @@ UNS8 proceedSDO (CO_Data* d, Message *m)
+     MSG_WAR(0x3A68, "I am CLIENT. Received SDO from nodeId : ", nodeId);
+   }
+   else {
+-    MSG_WAR(0x3A69, "I am SERVER. Received SDO cobId : ", UNS16_LE(m->cob_id));
++    MSG_WAR(0x3A69, "I am SERVER. Received SDO cobId : ", m->cob_id);
+   }
+ 
+   /* Testing the command specifier */
+diff --git a/src/states.c b/src/states.c
+index c7d5df7..208dcc9 100644
+--- a/src/states.c
++++ b/src/states.c
+@@ -62,7 +62,7 @@ e_nodeState getState(CO_Data* d)
+ **/  
+ void canDispatch(CO_Data* d, Message *m)
+ {
+-	UNS16 cob_id = UNS16_LE(m->cob_id);
++	UNS16 cob_id = m->cob_id;
+ 	 switch(cob_id >> 7)
+ 	{
+ 		case SYNC:		/* can be a SYNC or a EMCY message */
+diff --git a/src/sync.c b/src/sync.c
+index bae1925..7ff65f2 100644
+--- a/src/sync.c
++++ b/src/sync.c
+@@ -131,7 +131,7 @@ UNS8 sendSYNCMessage(CO_Data* d)
+   
+   MSG_WAR(0x3001, "sendSYNC ", 0);
+   
+-  m.cob_id = UNS16_LE(*d->COB_ID_Sync);
++  m.cob_id = *d->COB_ID_Sync;
+   m.rtr = NOT_A_REQUEST;
+   m.len = 0;
+   

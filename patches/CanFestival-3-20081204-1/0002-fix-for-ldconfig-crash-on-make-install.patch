@@ -1,0 +1,24 @@
+From: Markus Messmer <mme@pengutronix.de>
+Date: Sat, 29 Oct 2011 18:32:03 +0200
+Subject: [PATCH] fix for ldconfig crash on make install
+
+Installing fails due to ldconfig failure when running as non root user.
+
+Signed-off-by: Markus Messmer <mme@pengutronix.de>
+---
+ Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 957281e..bdfff24 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -46,7 +46,7 @@ install: canfestival driver
+ 	$(MAKE) -C src $@
+ 	$(MAKE) -C examples $@
+ 	$(MAKE) -C objdictgen $@
+-	ldconfig
++	-ldconfig
+ 
+ uninstall:
+ 	$(MAKE) -C drivers $@
