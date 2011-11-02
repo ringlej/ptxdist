@@ -37,47 +37,42 @@ BLUEZ_MAKE_PAR	:= NO
 #
 BLUEZ_CONF_TOOL	:= autoconf
 BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
-	--enable-audio \
-	--enable-bccmd \
-	--disable-capng \
-	--enable-datafiles \
-	--disable-cups \
-	--enable-debug \
-	--disable-dfutool \
-	--disable-dund \
-	--disable-fortify \
-	--disable-hal \
-	--disable-hid2hci \
-	--disable-hidd \
-	--enable-input \
-	--enable-libtool-lock \
-	--disable-maemo6 \
-	--enable-network \
 	--enable-optimization \
-	--disable-pand \
-	--disable-pcmcia \
+	--disable-fortify \
 	--disable-pie \
-	--disable-pnat \
+	--enable-network \
+	--disable-sap \
+	--disable-proximity \
 	--enable-serial \
+	--enable-input \
+	--enable-audio \
 	--enable-service \
-	--enable-shared \
-	--disable-static \
-	--enable-test \
+	--disable-health \
+	--disable-pnat \
+	--disable-gatt-example \
+	--$(call ptx/endis, PTXCONF_BLUEZ_GSTREAMER)-gstreamer \
+	--$(call ptx/endis, PTXCONF_BLUEZ_ALSA)-alsa \
+	--enable-usb \
 	--disable-tracer \
 	--enable-tools \
-	--enable-usb
-
-ifdef PTXCONF_BLUEZ_ALSA
-BLUEZ_CONF_OPT += --enable-alsa
-else
-BLUEZ_CONF_OPT += --disable-alsa
-endif
-
-ifdef PTXCONF_BLUEZ_GSTREAMER
-BLUEZ_CONF_OPT += --enable-gstreamer
-else
-BLUEZ_CONF_OPT += --disable-gstreamer
-endif
+	--enable-bccmd \
+	--disable-pcmcia \
+	--disable-hid2hci \
+	--disable-dfutool \
+	--disable-hidd \
+	--disable-pand \
+	--disable-dund \
+	--disable-cups \
+	--enable-test \
+	--enable-datafiles \
+	--enable-debug \
+	--disable-maemo6 \
+	--disable-dbusoob \
+	--disable-wiimote \
+	--disable-hal \
+	--disable-thermometer \
+	--disable-capng \
+	--with-systemdunitdir=/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -92,46 +87,51 @@ $(STATEDIR)/bluez.targetinstall:
 	@$(call install_fixup, bluez,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, bluez,DESCRIPTION,missing)
 
-	@$(foreach lib,libbluetooth.so.3.11.4, \
-	$(call install_copy, bluez, 0, 0, 0644, -, /usr/lib/$(lib)); \
-	$(call install_link, bluez, $(lib), /usr/lib/$(basename $(lib))); \
-	$(call install_link, bluez, $(lib), /usr/lib/$(basename $(basename $(lib)))); \
-	)
+	@$(call install_lib, bluez, 0, 0, 0644, libbluetooth)
 
 ifdef PTXCONF_BLUEZ_ALSA
-	@$(foreach alsamod,ctl_bluetooth pcm_bluetooth, \
-	$(call install_copy, bluez, 0, 0, 0644, -, /usr/lib/alsa-lib/libasound_module_$(alsamod).so); \
-	)
+	@$(foreach alsamod, ctl_bluetooth pcm_bluetooth, \
+		$(call install_lib, bluez, 0, 0, 0644, \
+			alsa-lib/libasound_module_$(alsamod));)
 endif
 
 ifdef PTXCONF_BLUEZ_GSTREAMER
-	@$(call install_copy, bluez, 0, 0, 0644, -, /usr/lib/gstreamer-0.10/libgstbluetooth.so)
+	@$(call install_lib, bluez, 0, 0, 0644, gstreamer-0.10/libgstbluetooth)
 endif
 
 ifdef PTXCONF_BLUEZ_UTILS
-	@$(foreach binprogram,ciptool l2ping hcitool rctest rfcomm sdptool, \
-	$(call install_copy, bluez, 0, 0, 0755, -, /usr/bin/$(binprogram)); \
-	)
+	@$(foreach binprogram, ciptool l2ping hcitool rctest rfcomm sdptool, \
+		$(call install_copy, bluez, 0, 0, 0755, -, \
+			/usr/bin/$(binprogram));)
 
-	@$(foreach sbinprogram,bccmd hciattach hciconfig, \
-	$(call install_copy, bluez, 0, 0, 0755, -, /usr/sbin/$(sbinprogram)); \
-	)
+	@$(foreach sbinprogram, bccmd hciattach hciconfig, \
+		$(call install_copy, bluez, 0, 0, 0755, -, \
+			/usr/sbin/$(sbinprogram));)
 endif
 
 ifdef PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS
-	@$(foreach testprog, simple-agent simple-service test-telephony test-adapter test-audio \
-		test-device test-discovery test-input test-manager test-network test-serial \
-		test-service test-telephony test-textfile monitor-bluetooth, \
-	$(call install_alternative, bluez, 0, 0, 0755, /test/$(testprog), n, /usr/share/doc/bluez/examples/$(testprog)); \
-	)
+	@$(foreach testprog, simple-agent simple-service test-telephony \
+			test-adapter test-audio test-device test-discovery \
+			test-input test-manager test-network test-serial \
+			test-service test-telephony test-textfile \
+			monitor-bluetooth, \
+		$(call install_copy, bluez, 0, 0, 0755, \
+			$(BLUEZ_DIR)/test/$(testprog), \
+			/usr/share/doc/bluez/examples/$(testprog));)
 endif
 
 	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/sbin/bluetoothd)
 
-	@$(call install_copy, bluez, 0, 0, 0644, -, /etc/dbus-1/system.d/bluetooth.conf)
-	@$(foreach udevrule, $(notdir $(wildcard $(BLUEZ_PKGDIR)/lib/udev/rules.d/*.rules)), \
-	$(call install_copy, bluez, 0, 0, 0644, -, /lib/udev/rules.d/$(udevrule)); \
-	)
+	@$(call install_copy, bluez, 0, 0, 0644, -, \
+		/etc/dbus-1/system.d/bluetooth.conf)
+	@$(call install_tree, bluez, 0, 0, -, /lib/udev/rules.d/)
+
+ifdef PTXCONF_BLUEZ_SYSTEMD_UNIT
+	@$(call install_copy, bluez, 0, 0, 0644, -, \
+		/lib/systemd/system/bluetooth.service)
+	@$(call install_link, bluez, ../bluetooth.service, \
+		/lib/systemd/system/multi-user.target.wants/bluetooth.service)
+endif
 
 	@$(call install_finish, bluez)
 	@$(call touch)
