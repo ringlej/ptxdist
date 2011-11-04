@@ -34,7 +34,7 @@ ptxd_make_check_src_impl() {
 	return
     fi
 
-    echo "${md5}  ${src}" | md5sum --check --quiet > /dev/null 2>&1
+    echo "${md5}  ${src}" | md5sum --check > /dev/null 2>&1
 }
 export -f ptxd_make_check_src_impl
 
