@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 #
 # Paths and names
 #
-CONNMAN_VERSION	:= 0.76
-CONNMAN_MD5	:= 59b4cfd9fa4f736f7a2d88ee0c758fe9
+CONNMAN_VERSION	:= 0.77
+CONNMAN_MD5	:= 2e95edb0ead4fff3e84458f7fa192a64
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= $(PTXCONF_SETUP_KERNELMIRROR)/network/connman/$(CONNMAN).$(CONNMAN_SUFFIX)
@@ -98,7 +98,6 @@ CONNMAN_TESTS := \
 	test-connman \
 	test-counter \
 	test-manager \
-	test-profile \
 	test-session
 
 # ----------------------------------------------------------------------------
