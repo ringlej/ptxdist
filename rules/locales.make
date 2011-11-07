@@ -42,6 +42,9 @@ endif
 ifdef PTXCONF_LOCALES_DE_DE_EURO
 	@$(call add_locale, de_DE@euro, de_DE@euro, ISO-8859-15, $(LOCALES_PKGDIR))
 endif
+ifdef PTXCONF_LOCALES_DE_DE_UTF8
+	@$(call add_locale, de_DE.UTF-8, de_DE, UTF-8, $(LOCALES_PKGDIR))
+endif
 ifdef PTXCONF_LOCALES_ZH_CN
 	@$(call add_locale, zh_CN, zh_CN, GB2312, $(LOCALES_PKGDIR))
 endif

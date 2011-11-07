@@ -40,6 +40,12 @@ config LOCALES_DE_DE
 	help
 	  German language support (Germany).
 
+config LOCALES_DE_DE_UTF8
+	bool
+	prompt "de_DE (utf-8)"
+	help
+	  German language support with utf-8 (Germany).
+
 config LOCALES_DE_DE_EURO
 	bool
 	prompt "de_DE.euro (ISO8859-15)"
