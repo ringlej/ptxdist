@@ -1,4 +1,4 @@
 ## SECTION=hosttools_noprompt
 
-config HOST_TZDATABASE
+config HOST_TZ_DATABASE
 	tristate

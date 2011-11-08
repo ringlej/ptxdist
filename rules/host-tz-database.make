@@ -12,13 +12,13 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_TZDATABASE) += host-tz-database
+HOST_PACKAGES-$(PTXCONF_HOST_TZ_DATABASE) += host-tz-database
 
 #
 # Paths and names
 #
-HOST_TZDATABASE		:= tz-database
-HOST_TZDATABASE_DIR	:= $(HOST_BUILDDIR)/$(HOST_TZDATABASE)
+HOST_TZ_DATABASE	:= tz-database
+HOST_TZ_DATABASE_DIR	:= $(HOST_BUILDDIR)/$(HOST_TZ_DATABASE)
 
 TZCODE_VERSION		:= 2011i
 TZCODE_MD5		:= cf7f4335b7c8682899fa2814e711c1b2
@@ -28,7 +28,7 @@ TZCODE_URL		:= \
 	ftp://elsie.nci.nih.gov/pub/$(TZCODE).$(TZCODE_SUFFIX) \
 	ftp://munnari.oz.au/pub/oldtz/$(TZCODE).$(TZCODE_SUFFIX)
 TZCODE_SOURCE		:= $(SRCDIR)/$(TZCODE).$(TZCODE_SUFFIX)
-TZCODE_DIR		:= $(HOST_TZDATABASE_DIR)
+TZCODE_DIR		:= $(HOST_TZ_DATABASE_DIR)
 TZCODE_STRIP_LEVEL	:= 0
 
 TZDATA_VERSION		:= 2011n
@@ -39,7 +39,7 @@ TZDATA_URL		:= \
 	ftp://elsie.nci.nih.gov/pub/$(TZDATA).$(TZDATA_SUFFIX) \
 	ftp://munnari.oz.au/pub/oldtz/$(TZDATA).$(TZDATA_SUFFIX)
 TZDATA_SOURCE		:= $(SRCDIR)/$(TZDATA).$(TZDATA_SUFFIX)
-TZDATA_DIR		:= $(HOST_TZDATABASE_DIR)
+TZDATA_DIR		:= $(HOST_TZ_DATABASE_DIR)
 TZDATA_STRIP_LEVEL	:= 0
 
 # ----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ $(STATEDIR)/host-tz-database.get: $(TZCODE_SOURCE) $(TZDATA_SOURCE)
 
 $(STATEDIR)/host-tz-database.extract:
 	@$(call targetinfo)
-	@$(call clean, $(HOST_TZDATABASE_DIR))
+	@$(call clean, $(HOST_TZ_DATABASE_DIR))
 	@$(call extract, TZCODE)
 	@$(call extract, TZDATA)
 	@$(call touch)
@@ -72,11 +72,11 @@ $(STATEDIR)/host-tz-database.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_TZDATABASE_PATH		:= PATH=$(HOST_PATH)
-HOST_TZDATABASE_CONF_TOOL	:= NO
-HOST_TZDATABASE_MAKE_OPT	:= \
+HOST_TZ_DATABASE_PATH		:= PATH=$(HOST_PATH)
+HOST_TZ_DATABASE_CONF_TOOL	:= NO
+HOST_TZ_DATABASE_MAKE_OPT	:= \
 	zic TZDIR=/usr/share/zoneinfo
-HOST_TZDATABASE_INSTALL_OPT	:= \
-	posix_only TZDIR=$(HOST_TZDATABASE_PKGDIR)/usr/share/zoneinfo
+HOST_TZ_DATABASE_INSTALL_OPT	:= \
+	posix_only TZDIR=$(HOST_TZ_DATABASE_PKGDIR)/usr/share/zoneinfo
 
 # vim: syntax=make

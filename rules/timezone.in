@@ -7,7 +7,7 @@ menuconfig TIMEZONE
 	tristate
 	prompt "Timezone Files                "
 	depends on GLIBC
-	select HOST_TZDATABASE if TIMEZONE_LOCAL_DATABASE
+	select HOST_TZ_DATABASE if TIMEZONE_LOCAL_DATABASE
 	help
 	  installs timezone files
 
