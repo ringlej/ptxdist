@@ -207,6 +207,10 @@ endif
 		/usr/share/alsa/pcm/dsnoop.conf)
 endif
 
+ifdef PTXCONF_ALSA_LIB_ASOUND_CONF
+	@$(call install_alternative, alsa-lib, 0, 0, 0644, /etc/asound.conf)
+endif
+
 	@$(call install_finish, alsa-lib)
 
 	@$(call touch)
