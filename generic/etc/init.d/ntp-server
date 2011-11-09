@@ -1,8 +1,7 @@
 #!/bin/sh
 #
 # This is a ntp init.d script which ist called by init(1) with [start|stop] as argument
-# PII ntp config
-# Wed May 25 14:36:31 CEST 2005
+#
 
 PATH=/sbin:/bin:/usr/bin
 BINARY=/usr/sbin/ntpd
