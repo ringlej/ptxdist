@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2008 by Robert Schwebel
+#               2011 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -25,17 +26,12 @@ GSTREAMER_SOURCE	:= $(SRCDIR)/$(GSTREAMER).$(GSTREAMER_SUFFIX)
 GSTREAMER_DIR		:= $(BUILDDIR)/$(GSTREAMER)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GSTREAMER_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GSTREAMER)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
+#
+# autoconf
+#
 GSTREAMER_GENERIC_CONF_OPT = \
 	--disable-nls \
 	--disable-rpath \
@@ -50,9 +46,6 @@ GSTREAMER_GENERIC_CONF_OPT = \
 	--without-libintl-prefix \
 	--disable-gobject-cast-checks
 
-#
-# autoconf
-#
 GSTREAMER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
