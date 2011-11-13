@@ -435,30 +435,29 @@ ptxd_install_generic() {
 export -f ptxd_install_generic
 
 ptxd_install_find() {
-    local dir="${1%/}"
-    local dstdir="${2%/}"
+    local src="${1%/}"
+    local dst="${2%/}"
     local usr="${3#-}"
     local grp="${4#-}"
     local strip="${5}"
 
-    test -d "${dir}" &&
+    ptxd_install_setup_src &&
+    test -d "${src}" &&
 
-    find "${dir}" -path "*/.svn" -prune -o -path "*/.git" -prune -o \
+    find "${src}" -path "*/.svn" -prune -o -path "*/.git" -prune -o \
 		-path "*/.pc" -prune -o -path "*/CVS" -prune -o \
-		! -path "${dir}" -print | while read file; do
-	local dst="${dstdir}${file#${dir}}"
-	ptxd_install_generic "${file}" "${dst}" "${usr}" "${grp}" "${strip}" || return
+		! -path "${src}" -print | while read file; do
+	local dst_file="${dst}${file#${src}}"
+	ptxd_install_generic "${file}" "${dst_file}" "${usr}" "${grp}" "${strip}" || return
     done
 }
 export -f ptxd_install_find
 
 ptxd_install_tree() {
+    local cmd="file"
     local src="${1}"
     local dst="${2}"
     shift 2
-    if [ "${src}" = "-" ]; then
-	src="${pkg_pkg_dir}${dst}"
-    fi
     ptxd_install_find "${src}" "${dst}" "$@" ||
     ptxd_install_error "install_tree failed!"
 }
