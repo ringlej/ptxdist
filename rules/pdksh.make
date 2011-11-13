@@ -22,7 +22,7 @@ PDKSH_VERSION		:= 5.2.14
 PDKSH_MD5		:=
 PDKSH			:= pdksh-$(PDKSH_VERSION)
 PDKSH_SUFFIX		:= tar.gz
-PDKSH_URL		:= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).$(PDKSH_SUFFIX)
+PDKSH_URL		:= http://gd.tuwien.ac.at/utils/shells/pdksh/$(PDKSH).$(PDKSH_SUFFIX)
 PDKSH_SOURCE		:= $(SRCDIR)/$(PDKSH).tar.gz
 PDKSH_DIR		:= $(BUILDDIR)/$(PDKSH)
 
