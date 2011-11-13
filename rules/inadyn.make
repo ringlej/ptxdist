@@ -22,7 +22,7 @@ INADYN_VERSION	:= 1.96.2
 INADYN_MD5	:= fecb4c970811cb0c8b8d2ffcd7792879
 INADYN		:= inadyn-$(INADYN_VERSION)
 INADYN_SUFFIX	:= tar.bz2
-INADYN_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-sr/$(INADYN).$(INADYN_SUFFIX)
+INADYN_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(INADYN).$(INADYN_SUFFIX)
 INADYN_SOURCE	:= $(SRCDIR)/$(INADYN).$(INADYN_SUFFIX)
 INADYN_DIR	:= $(BUILDDIR)/$(INADYN)
 
