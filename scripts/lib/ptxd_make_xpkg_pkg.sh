@@ -463,6 +463,16 @@ ptxd_install_tree() {
 }
 export -f ptxd_install_tree
 
+ptxd_install_alternative_tree() {
+    local cmd="alternative"
+    local src="${1}"
+    local dst="${2}"
+    shift 2
+    ptxd_install_find "${src}" "${dst:-${src}}" "$@" ||
+    ptxd_install_error "install_alternative_tree failed!"
+}
+export -f ptxd_install_alternative_tree
+
 ptxd_install_archive() {
     local archive="$1"
     shift

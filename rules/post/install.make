@@ -139,6 +139,30 @@ install_tree =			\
 	echo "ptxd_install_tree '$$DIR' '$$DST' '$$OWN' '$$GRP' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
+# install_alternative_tree
+#
+# Installs all files and subdirectories with user/group ownership and
+# permissions via fakeroot.
+#
+#
+# $1: xpkg label
+# $2: OWN, use '-' to use the real UID of each file/directory
+# $3: GID, use '-' to use the real GID of each file/directory
+# $4: the toplevel directory, searched for like install_alternative
+# $5: strip
+# $6: the target directory (optional)
+#
+install_alternative_tree =	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
+	OWN=$(strip $(2));	\
+	GRP=$(strip $(3));	\
+	DIR=$(strip $(4));	\
+	STRIP=$(strip $(5));	\
+	DST=$(strip $(6));	\
+	$(call install_check, install_alternative_tree);	\
+	echo "ptxd_install_alternative_tree '$$DIR' '$$DST' '$$OWN' '$$GRP' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
+
+#
 # install_archive
 #
 # Installs all files and directories in an archive with user/group ownership and
