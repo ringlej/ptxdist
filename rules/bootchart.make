@@ -21,7 +21,7 @@ BOOTCHART_MD5		:= dd8b06d0a31c2ee92178c5355502eea7
 BOOTCHART_SUFFIX	:= tar.gz
 BOOTCHART		:= bootchart-$(BOOTCHART_VERSION)
 BOOTCHART_TARBALL	:= bootchart_$(BOOTCHART_VERSION)-3.$(BOOTCHART_SUFFIX)
-BOOTCHART_URL		:= http://archive.ubuntu.com/ubuntu/pool/universe/b/bootchart/$(BOOTCHART_TARBALL)
+BOOTCHART_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BOOTCHART_TARBALL)
 BOOTCHART_SOURCE	:= $(SRCDIR)/$(BOOTCHART_TARBALL)
 BOOTCHART_DIR		:= $(BUILDDIR)/$(BOOTCHART)
 
