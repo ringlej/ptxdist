@@ -20,7 +20,7 @@ MYODBC_VERSION	:= 3.51.27r695
 MYODBC_MD5	:= bb3df0778a7dc99d88ce1146ea709cbe
 MYODBC		:= mysql-connector-odbc-$(MYODBC_VERSION)
 MYODBC_SUFFIX	:= tar.gz
-MYODBC_URL	:= http://mysql.cbn.net.id/Downloads/Connector-ODBC/3.51/$(MYODBC).$(MYODBC_SUFFIX)
+MYODBC_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_SOURCE	:= $(SRCDIR)/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_DIR	:= $(BUILDDIR)/$(MYODBC)
 
