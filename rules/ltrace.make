@@ -21,7 +21,7 @@ LTRACE_MD5	:= 7dae92a19979e65bbf8ec50c0ed54d9a
 LTRACE_SUFFIX	:= orig.tar.gz
 LTRACE		:= ltrace-$(LTRACE_VERSION)
 LTRACE_TARBALL	:= ltrace_$(LTRACE_VERSION).$(LTRACE_SUFFIX)
-LTRACE_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/l/ltrace/$(LTRACE_TARBALL)
+LTRACE_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LTRACE_TARBALL)
 LTRACE_SOURCE	:= $(SRCDIR)/$(LTRACE_TARBALL)
 LTRACE_DIR	:= $(BUILDDIR)/$(LTRACE)
 
