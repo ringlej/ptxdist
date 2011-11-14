@@ -23,7 +23,7 @@ EXPAT_MD5	:= e4b08e8477e1dccb56b95078c6d6ff88
 EXPAT		:= expat-$(EXPAT_VERSION)
 # Note: repackaged tar.bz2 as tar.gz seems broken.
 EXPAT_SUFFIX	:= tar.bz2
-EXPAT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/expat/$(EXPAT).$(EXPAT_SUFFIX)
+EXPAT_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_SOURCE	:= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR	:= $(BUILDDIR)/$(EXPAT)
 
