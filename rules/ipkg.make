@@ -21,7 +21,7 @@ IPKG_VERSION	:= 0.99.163
 IPKG_MD5	:= 0b10ad2924611bccaea8ddf98481a192
 IPKG		:= ipkg-$(IPKG_VERSION)
 IPKG_SUFFIX	:= tar.gz
-IPKG_URL	:= http://handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
+IPKG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(IPKG).$(IPKG_SUFFIX)
 IPKG_SOURCE	:= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
 IPKG_DIR	:= $(BUILDDIR)/$(IPKG)
 
