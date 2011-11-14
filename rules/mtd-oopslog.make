@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_MTD_OOPSLOG) += mtd-oopslog
 MTD_OOPSLOG_VERSION	:= 2007
 MTD_OOPSLOG_MD5		:= d243a1d0efa3770ee2a6a498be6632e9
 MTD_OOPSLOG		:= mtd-oopslog-$(MTD_OOPSLOG_VERSION)
-MTD_OOPSLOG_URL		:= http://folks.o-hand.com/richard/oopslog.c
+MTD_OOPSLOG_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/oopslog.c
 MTD_OOPSLOG_SOURCE	:= $(SRCDIR)/oopslog.c
 MTD_OOPSLOG_DIR		:= $(BUILDDIR)/$(MTD_OOPSLOG)
 
