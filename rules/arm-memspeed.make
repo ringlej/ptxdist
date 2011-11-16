@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_ARM_MEMSPEED) += arm-memspeed
+PACKAGES-$(PTXCONF_ARCH_ARM)-$(PTXCONF_ARM_MEMSPEED) += arm-memspeed
 
 #
 # Paths and names
