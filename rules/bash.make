@@ -187,7 +187,9 @@ $(STATEDIR)/bash.targetinstall:
 	@$(call install_fixup, bash,DESCRIPTION,missing)
 
 	@$(call install_copy, bash, 0, 0, 0755, -, /bin/bash)
+ifdef PTXCONF_BUSYBOX_FEATURE_SH_IS_NONE
 	@$(call install_link, bash, bash, /bin/sh)
+endif
 
 	@$(call install_finish, bash)
 
