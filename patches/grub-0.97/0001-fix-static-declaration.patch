@@ -1,15 +1,20 @@
-Subject: fix static declaration
 From: Benedikt Spranger <b.spranger@pengutronix.de>
+Date: Tue, 22 Nov 2011 15:19:52 +0100
+Subject: [PATCH] fix static declaration
 
 GCC 4.x declares non-static declaration and static definition and vice
 versa as error.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
-diff -ruN grub-0.97.orig/netboot/main.c grub-0.97/netboot/main.c
---- grub-0.97.orig/netboot/main.c	2004-05-21 00:19:33.000000000 +0200
-+++ grub-0.97/netboot/main.c	2005-09-15 17:33:34.383904479 +0200
-@@ -54,9 +54,9 @@
+ netboot/main.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/netboot/main.c b/netboot/main.c
+index 82759b6..abd9212 100644
+--- a/netboot/main.c
++++ b/netboot/main.c
+@@ -54,9 +54,9 @@ struct rom_info rom;
  
  static int vendorext_isvalid;
  static unsigned long netmask;

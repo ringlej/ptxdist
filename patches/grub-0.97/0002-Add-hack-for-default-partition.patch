@@ -1,5 +1,6 @@
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Subject: Add hack for default partition
+Date: Tue, 22 Nov 2011 15:19:52 +0100
+Subject: [PATCH] Add hack for default partition
 
 Let grub find the default partition the rootfs is installed
 on. There must be a better (proper) way to archieve this,
@@ -7,10 +8,13 @@ but I don't know any.
 
 Signed-off-by: (not for upstream)
 ---
-Index: grub-0.97/stage2/asm.S
-===================================================================
---- grub-0.97.orig/stage2/asm.S
-+++ grub-0.97/stage2/asm.S
+ stage2/asm.S |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/stage2/asm.S b/stage2/asm.S
+index 34b6e7d..bf157cf 100644
+--- a/stage2/asm.S
++++ b/stage2/asm.S
 @@ -86,7 +86,7 @@ ENTRY(main)
  	. = EXT_C(main) + 0x8
  
