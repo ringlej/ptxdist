@@ -1,0 +1,21 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Nov 2011 16:50:31 +0100
+Subject: [PATCH] fix typo in md5-compress.asm
+
+without this building with gcc-4.6 is broken.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/nettle/x86/md5-compress.asm |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/nettle/x86/md5-compress.asm b/src/nettle/x86/md5-compress.asm
+index 9664754..e3c51f3 100644
+--- a/src/nettle/x86/md5-compress.asm
++++ b/src/nettle/x86/md5-compress.asm
+@@ -171,4 +171,4 @@ PROLOGUE(_nettle_md5_compress)
+ 	popl	%ebp
+ 	popl	%ebx
+ 	ret
+-EPILOGUE(_nettle_sha1_compress)
++EPILOGUE(_nettle_md5_compress)
