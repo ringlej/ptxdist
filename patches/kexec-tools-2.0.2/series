@@ -1,1 +1,2 @@
 0001-revert-toolchain-problem.patch
+0002-build-Pass-no-undefined-as-a-linker-option.patch

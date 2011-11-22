@@ -1,0 +1,29 @@
+From 8880e5b8a295788dcae8f5cc038de92cd97b6807 Mon Sep 17 00:00:00 2001
+From: Simon Horman <horms@verge.net.au>
+Date: Wed, 30 Mar 2011 08:34:39 +0900
+Subject: [PATCH] build: Pass --no-undefined as a linker option
+
+gcc-4.6 does not accept --no-undefined as a compiler option
+
+Reported-by: Civil <civil.over@gmail.com>
+Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Signed-off-by: Simon Horman <horms@verge.net.au>
+---
+ purgatory/Makefile |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/purgatory/Makefile b/purgatory/Makefile
+index ea0c19a..ee1679c 100644
+--- a/purgatory/Makefile
++++ b/purgatory/Makefile
+@@ -56,8 +56,8 @@ $(PURGATORY): CPPFLAGS=$($(ARCH)_PURGATORY_EXTRA_CFLAGS) \
+ 			-I$(srcdir)/include \
+ 			-I$(shell $(CC) -print-file-name=include)
+ $(PURGATORY): LDFLAGS=$($(ARCH)_PURGATORY_EXTRA_CFLAGS)\
+-			--no-undefined -nostartfiles -nostdlib -nodefaultlibs \
+-			-e purgatory_start -r
++			-Wl,--no-undefined -nostartfiles -nostdlib \
++			-nodefaultlibs -e purgatory_start -r
+ 
+ $(PURGATORY): $(PURGATORY_OBJS)
+ 	$(MKDIR) -p $(@D)
