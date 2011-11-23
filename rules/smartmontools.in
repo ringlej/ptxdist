@@ -45,4 +45,10 @@ config SMARTMONTOOLS_SMARTD_INITD
 	help
 	  SMART Disk Monitoring Daemon Configuration File
 
+config SMARTMONTOOLS_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit file for smartd"
+
 endif

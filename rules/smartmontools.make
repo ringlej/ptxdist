@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SMARTMONTOOLS) += smartmontools
 #
 # Paths and names
 #
-SMARTMONTOOLS_VERSION	:= 5.39.1
-SMARTMONTOOLS_MD5	:= f6f7380ae45587161c0adae8862110e9
+SMARTMONTOOLS_VERSION	:= 5.42
+SMARTMONTOOLS_MD5	:= 4460bf9a79a1252ff5c00ba52cf76b2a
 SMARTMONTOOLS		:= smartmontools-$(SMARTMONTOOLS_VERSION)
 SMARTMONTOOLS_SUFFIX	:= tar.gz
 SMARTMONTOOLS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/smartmontools/$(SMARTMONTOOLS).$(SMARTMONTOOLS_SUFFIX)
@@ -40,7 +40,10 @@ $(SMARTMONTOOLS_SOURCE):
 SMARTMONTOOLS_CONF_TOOL	:= autoconf
 SMARTMONTOOLS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-sample
+	--disable-sample \
+	--with-systemdsystemunitdir=/lib/systemd/system \
+	--without-selinux \
+	--without-libcap-ng
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -72,6 +75,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_SMARTMONTOOLS_BBINIT_LINK)),)
 		../init.d/smartd, \
 		/etc/rc.d/$(PTXCONF_SMARTMONTOOLS_BBINIT_LINK))
 endif
+endif
+ifdef PTXCONF_SMARTMONTOOLS_SYSTEMD_UNIT
+	@$(call install_copy, smartmontools, 0, 0, 0644, -, \
+		/lib/systemd/system/smartd.service)
+	@$(call install_link, smartmontools, ../smartd.service, \
+		/lib/systemd/system/multi-user.target.wants/smartd.service)
 endif
 
 	@$(call install_finish, smartmontools)
