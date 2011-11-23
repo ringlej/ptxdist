@@ -1,21 +1,28 @@
-Subject: Use serial port addresses provided by BIOS
+From: Alexander Stein <alexander.stein@systec-electronic.com>
+Date: Wed, 23 Nov 2011 16:30:13 +0100
+Subject: [PATCH] Use serial port addresses provided by BIOS
 
 Using this patch memtest86+ uses the serial port addresses provided by BIOS rather hardcoded defaults.
 
 Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
+---
+ lib.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
---- memtest86+-4.20/lib.c	2011-01-23 19:11:04.000000000 +0100
-+++ memtest86+-4.20/lib.c	2011-03-30 09:31:38.519674571 +0200
-@@ -24,7 +24,7 @@
+diff --git a/lib.c b/lib.c
+index d107039..91ea950 100644
+--- a/lib.c
++++ b/lib.c
+@@ -24,7 +24,7 @@ short serial_cons = SERIAL_CONSOLE_DEFAULT;
  #error Bad SERIAL_TTY. Only ttyS0 and ttyS1 are supported.
  #endif
  short serial_tty = SERIAL_TTY;
 -const short serial_base_ports[] = {0x3f8, 0x2f8, 0x3e8, 0x2e8};
 +unsigned short serial_base_ports[] = {0x3f8, 0x2f8, 0x3e8, 0x2e8};
-
+ 
  #if ((115200%SERIAL_BAUD_RATE) != 0)
  #error Bad default baud rate
-@@ -1112,6 +1112,8 @@
+@@ -1112,6 +1112,8 @@ void serial_console_setup(char *param)
  	serial_baud_rate = (int) baud_rate;
   save_tty:
  	serial_tty = (short) tty;
@@ -23,4 +30,4 @@ Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
 +	serial_base_ports[serial_tty] = ((const unsigned short *) 0x0400)[serial_tty];
  	serial_cons = 1;
  }
-
+ 
