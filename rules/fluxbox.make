@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_FLUXBOX) += fluxbox
 #
 # Paths and names
 #
-FLUXBOX_VERSION	:= 1.1.1
-FLUXBOX_MD5	:= fa9fa8fe9a44f86522de5754f8b285ca
+FLUXBOX_VERSION	:= 1.3.2
+FLUXBOX_MD5	:= f95b0bdb9ee41bfac124bd0fc601f248
 FLUXBOX		:= fluxbox-$(FLUXBOX_VERSION)
 FLUXBOX_SUFFIX	:= tar.bz2
-FLUXBOX_URL	:= http://prdownloads.sourceforge.net/fluxbox/$(FLUXBOX).$(FLUXBOX_SUFFIX)
+FLUXBOX_URL	:= $(PTXCONF_SETUP_SFMIRROR)/fluxbox/$(FLUXBOX).$(FLUXBOX_SUFFIX)
 FLUXBOX_SOURCE	:= $(SRCDIR)/$(FLUXBOX).$(FLUXBOX_SUFFIX)
 FLUXBOX_DIR	:= $(BUILDDIR)/$(FLUXBOX)
 FLUXBOX_LICENSE	:= unknown
@@ -42,15 +42,16 @@ FLUXBOX_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-randr \
 	--disable-randr1.2 \
 	--disable-xrender \
-	--disable-gnome \
 	--disable-debug \
+	--disable-test \
 	--enable-newwmspec \
 	--disable-shape \
 	--disable-slit \
 	--enable-remember \
 	--disable-nls \
 	--disable-timed-cache \
-	--disable-xmb
+	--disable-xmb \
+	--disable-fribidi
 
 # force specific path
 FLUXBOX_CONF_OPT += \
