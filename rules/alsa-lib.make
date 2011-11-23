@@ -186,25 +186,8 @@ ifdef PTXCONF_ALSA_LIB_MIXER
 		/usr/lib/alsa-lib/smixer/smixer-hda.so)
 endif
 
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/share/alsa/alsa.conf)
-
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/share/alsa/pcm/default.conf)
-
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/share/alsa/cards/aliases.conf)
-
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/share/alsa/pcm/dmix.conf)
-
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/share/alsa/pcm/dsnoop.conf)
+	@$(call install_tree, alsa-lib, \
+		0, 0, -, /usr/share/alsa/)
 endif
 
 ifdef PTXCONF_ALSA_LIB_ASOUND_CONF
