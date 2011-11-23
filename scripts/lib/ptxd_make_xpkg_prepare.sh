@@ -93,13 +93,6 @@ install_init:	@DEPENDS@ -> ${dep}"
 		"${pkg_xpkg_control_dir}/${script}" || return
 
 	    echo "packaging: '$(ptxd_print_path "${ptxd_reply}")'"
-
-	    # FIXME: install ipkg rather than executing script
-	    if [ "${script}" = "preinst" ]; then
-		echo "install_init:	executing '${ptxd_reply}'"
-		DESTDIR="${ptx_nfsroot}" /bin/sh "${ptxd_reply}"
-		DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${ptxd_reply}"
-	    fi
 	else
 	    echo "not available"
 	fi

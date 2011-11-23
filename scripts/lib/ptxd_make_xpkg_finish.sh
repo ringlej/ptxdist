@@ -72,6 +72,16 @@ EOF
     rm -f "${ptx_pkg_dir}/${pkg_xpkg}"_*"${PTXDIST_IPKG_ARCH_STRING}.ipk"
 
     #
+    # add pre-/postinst runs to the command list
+    # 
+    (
+	echo "ptxd_install_run preinst"
+	cat "${pkg_xpkg_cmds}"
+	echo "ptxd_install_run postinst"
+    ) > "${pkg_xpkg_cmds}.tmp"
+    mv "${pkg_xpkg_cmds}.tmp" "${pkg_xpkg_cmds}"
+
+    #
     # create pkg
     #
     echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
@@ -83,18 +93,5 @@ EOF
     }
 
     echo "done."
-
-
-    #
-    # post install
-    #
-    # FIXME: install ipkg rather than executing script
-    if ptxd_in_path PTXDIST_PATH_RULES "${pkg_xpkg}.postinst"; then
-	echo "xpkg_finish:	running postinst"
-	DESTDIR="${ptx_nfsroot}" /bin/sh "${ptxd_reply}"
-	DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${ptxd_reply}"
-    fi
-
-    return
 }
 export -f ptxd_make_xpkg_finish

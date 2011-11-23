@@ -627,6 +627,20 @@ ptxd_install_lib() {
 }
 export -f ptxd_install_lib
 
+ptxd_install_run() {
+    local script="${pkg_xpkg_control_dir}/${1}"
+
+    if [ -e "${script}" ]; then
+	echo "\
+executing '${pkg_label}.${1}'
+"
+	DESTDIR="${ptx_nfsroot}" /bin/sh "${script}" &&
+	DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${script}"
+    fi ||
+    ptxd_install_error "running '${1}' script failed!"
+}
+export -f ptxd_install_run
+
 ptxd_make_xpkg_pkg() {
     local pkg_xpkg_tmp="$1"
     local pkg_xpkg_cmds="$2"
