@@ -10,11 +10,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 3878619..6674f9d 100644
+index c04cabe..c84462c 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -158,7 +158,7 @@ case "${host_cpu}" in
-         esac
+@@ -175,7 +175,7 @@ case "${host_cpu}" in
+         ARCH_MAX="s390x"
          ;;
  
 -     armv7*)

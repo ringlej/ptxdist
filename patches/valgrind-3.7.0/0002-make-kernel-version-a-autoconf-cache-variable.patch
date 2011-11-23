@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 36fe45f..9845dd3 100644
+index c84462c..bf934ef 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -217,21 +217,22 @@ case "${host_os}" in
+@@ -234,21 +234,22 @@ case "${host_os}" in
          # Ok, this is linux. Check the kernel version
          AC_MSG_CHECKING([for the kernel version])
  
@@ -21,10 +21,10 @@ index 36fe45f..9845dd3 100644
  
 -        case "${kernel}" in
 +        case "${valgrind_cv_sys_kernel_version}" in
-              2.6.*|3.*)
--        	    AC_MSG_RESULT([2.6 family (${kernel})])
-+        	    AC_MSG_RESULT([2.6 family (${valgrind_cv_sys_kernel_version})])
-         	    AC_DEFINE([KERNEL_2_6], 1, [Define to 1 if you're using Linux 2.6.x])
+              2.6.*|3.*) 
+-        	    AC_MSG_RESULT([2.6.x/3.x family (${kernel})])
++        	    AC_MSG_RESULT([2.6.x/3.x family (${valgrind_cv_sys_kernel_version})])
+         	    AC_DEFINE([KERNEL_2_6], 1, [Define to 1 if you're using Linux 2.6.x or Linux 3.x])
          	    ;;
  
               2.4.*) 
