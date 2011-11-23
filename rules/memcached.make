@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MEMCACHED) += memcached
 #
 # Paths and names
 #
-MEMCACHED_VERSION	:= 1.4.5
-MEMCACHED_MD5		:= 583441a25f937360624024f2881e5ea8
+MEMCACHED_VERSION	:= 1.4.10
+MEMCACHED_MD5		:= 8e18054ec5edfd96f7de87f02622052a
 MEMCACHED		:= memcached-$(MEMCACHED_VERSION)
 MEMCACHED_SUFFIX	:= tar.gz
 MEMCACHED_URL		:= http://memcached.googlecode.com/files/$(MEMCACHED).$(MEMCACHED_SUFFIX)
@@ -30,7 +30,10 @@ MEMCACHED_DIR		:= $(BUILDDIR)/$(MEMCACHED)
 
 MEMCACHED_ENV := \
 	$(CROSS_ENV) \
-	ac_cv_c_alignment=need
+	ac_cv_c_alignment=need \
+	ac_cv_c_endian=$(call ptx/ifdef, PTXCONF_ENDIAN_LITTLE, little, big)
+
+
 
 # ----------------------------------------------------------------------------
 # Target-Install
