@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 23 Nov 2011 13:56:05 +0100
+Subject: [PATCH] fix building with glibc-2.14.1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ failmalloc.c |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/failmalloc.c b/failmalloc.c
+index fc33552..cecc7b5 100644
+--- a/failmalloc.c
++++ b/failmalloc.c
+@@ -204,5 +204,9 @@ failmalloc_init (void)
+   failmalloc_install ();
+ }
+ 
++#ifdef __MALLOC_HOOK_VOLATILE
++void (*__MALLOC_HOOK_VOLATILE __malloc_initialize_hook) (void) = failmalloc_init;
++#else
+ void (*__malloc_initialize_hook) (void) = failmalloc_init;
++#endif
+ 
