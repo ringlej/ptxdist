@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	:= 0.9.6
-OPROFILE_MD5		:= 4e407093ac06200185d5a5e6437d7242
+OPROFILE_VERSION	:= 0.9.7
+OPROFILE_MD5		:= 8b5d1d9b65f84420bcc3234777ad3be3
 OPROFILE		:= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		:= tar.gz
 OPROFILE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
@@ -42,7 +42,9 @@ $(OPROFILE_SOURCE):
 OPROFILE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
+	--disable-gui \
 	--with-kernel-support \
+	--without-java \
 	--without-x
 
 # ----------------------------------------------------------------------------
