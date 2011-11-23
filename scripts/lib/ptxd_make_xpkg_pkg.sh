@@ -369,6 +369,24 @@ install replace:
 }
 export -f ptxd_install_replace
 
+ptxd_install_script_replace() {
+    local dst="$1"
+    local placeholder="$2"
+    local value="$3"
+
+    echo "\
+install script replace:
+  script=${dst}
+  '${placeholder}' -> '${value}'
+"
+
+    ptxd_exist "${pkg_xpkg_control_dir}/${dst}" &&
+    sed -i -e "s,${placeholder},${value},g" "${pkg_xpkg_control_dir}/${dst}" ||
+
+    ptxd_install_error "install_script_replace failed!"
+}
+export -f ptxd_install_script_replace
+
 ptxd_install_replace_figlet() {
     local dst="$1"
     local placeholder="$2"

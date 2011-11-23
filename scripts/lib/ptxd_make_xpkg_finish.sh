@@ -73,10 +73,12 @@ EOF
 
     #
     # add pre-/postinst runs to the command list
+    # make sure we replace in preinst first
     # 
     (
+	cat "${pkg_xpkg_cmds}" | grep ptxd_install_script_replace
 	echo "ptxd_install_run preinst"
-	cat "${pkg_xpkg_cmds}"
+	cat "${pkg_xpkg_cmds}" | grep -v ptxd_install_script_replace
 	echo "ptxd_install_run postinst"
     ) > "${pkg_xpkg_cmds}.tmp"
     mv "${pkg_xpkg_cmds}.tmp" "${pkg_xpkg_cmds}"

@@ -278,6 +278,24 @@ install_replace_figlet = \
 	echo "ptxd_install_replace_figlet '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
+# install_script_replace
+#
+# Replace placeholder with value in a script
+#
+# $1: xpkg label
+# $2: script (preinst, postinst, ...)
+# $3: placeholder
+# $4: value
+#
+install_script_replace = \
+	XPKG=$(subst _,-,$(strip $(1)));							\
+	FILE=$(strip $(2));									\
+	PLACEHOLDER=$(strip $(3));								\
+	VALUE=$(strip $(4));									\
+	$(call install_check, install_script_replace);						\
+	echo "ptxd_install_script_replace '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$XPKG.cmds"
+
+#
 # install_copy_toolchain_lib
 #
 # $1: xpkg label
