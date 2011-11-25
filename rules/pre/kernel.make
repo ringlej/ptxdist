@@ -9,20 +9,20 @@
 # see the README file.
 #
 
+kernel-version-split = $(subst -, ,$(subst ., ,$($(strip $(1))_VERSION)))
+kernel-major = $(word 1,$(call kernel-version-split, $(1)))
+kernel-minor = $(word 2,$(call kernel-version-split, $(1)))
+kernel-micro = $(word 3,$(call kernel-version-split, $(1)))
+
 KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
-_version_temp		:= $(subst ., ,$(KERNEL_VERSION))
-_version_temp		:= $(subst -, ,$(_version_temp))
-KERNEL_VERSION_MAJOR	:= $(word 1,$(_version_temp))
-KERNEL_VERSION_MINOR	:= $(word 2,$(_version_temp))
-KERNEL_VERSION_MICRO	:= $(word 3,$(_version_temp))
+KERNEL_VERSION_MAJOR	:= $(call kernel-major,KERNEL)
+KERNEL_VERSION_MINOR	:= $(call kernel-minor,KERNEL)
+KERNEL_VERSION_MICRO	:= $(call kernel-micro,KERNEL)
 
 KERNEL_HEADER_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_HEADER_VERSION))
-_version_temp			:= $(subst ., ,$(KERNEL_HEADER_VERSION))
-_version_temp			:= $(subst -, ,$(_version_temp))
-KERNEL_HEADER_VERSION_MAJOR	:= $(word 1,$(_version_temp))
-KERNEL_HEADER_VERSION_MINOR	:= $(word 2,$(_version_temp))
-KERNEL_HEADER_VERSION_MICRO	:= $(word 3,$(_version_temp))
-_version_temp			:=
+KERNEL_HEADER_VERSION_MAJOR	:= $(call kernel-major,KERNEL_HEADER)
+KERNEL_HEADER_VERSION_MINOR	:= $(call kernel-minor,KERNEL_HEADER)
+KERNEL_HEADER_VERSION_MICRO	:= $(call kernel-micro,KERNEL_HEADER)
 
 GENERIC_KERNEL_ARCH := $(PTXCONF_ARCH_STRING)
 ifdef PTXCONF_ARCH_X86
@@ -36,15 +36,15 @@ KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
 KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include
 
 kernel/url = \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/testing/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/testing/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR).$($(1)_VERSION_MICRO)/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/longterm/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR).$($(1)_VERSION_MICRO)/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/testing/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/testing/v$(call kernel-major,$(1)).$(call kernel-minor,$(1)).$(call kernel-micro,$(1))/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/longterm/v$(call kernel-major,$(1)).$(call kernel-minor,$(1)).$(call kernel-micro,$(1))/$($(1)).$($(1)_SUFFIX) \
 	\
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).x/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).x/testing/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).x/testing/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$($(1)_VERSION_MAJOR).x/longterm/v$($(1)_VERSION_MAJOR).$($(1)_VERSION_MINOR)/$($(1)).$($(1)_SUFFIX)
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/testing/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/testing/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX) \
+	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/longterm/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX)
 
 kernel-url = \
 	$(call kernel/url,$(strip $(1)))
