@@ -34,7 +34,7 @@ KERNEL_HEADER_PATH		:= PATH=$(CROSS_PATH)
 KERNEL_HEADER_CONF_TOOL		:= NO
 KERNEL_HEADER_MAKE_OPT		:= \
 	HOSTCC=$(HOSTCC) \
-	ARCH=$(KERNEL_HEADER_ARCH) \
+	ARCH=$(GENERIC_KERNEL_ARCH) \
 	CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
 
 # ----------------------------------------------------------------------------
