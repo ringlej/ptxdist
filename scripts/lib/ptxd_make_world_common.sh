@@ -281,10 +281,13 @@ ptxd_make_world_init() {
 	if [ $(ls "${pkg_conf_dir}/"*.pro 2>/dev/null | wc -l) -eq 1 ]; then
 	    pkg_conf_tool=${pkg_conf_tool}qmake
 	fi
+	if [ -n "${pkg_config}" ]; then
+	    pkg_conf_tool=${pkg_conf_tool}kconfig
+	fi
     fi
 
     case "${pkg_conf_tool}" in
-	autoconf|cmake|qmake)
+	autoconf|cmake|qmake|kconfig)
 	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}${conf_opt_ext}"
 	    local conf_env_ptr="ptx_conf_env_${pkg_type}"
 

@@ -84,6 +84,19 @@ export -f ptxd_make_world_prepare_autoconf
 
 
 #
+# prepare for kconfig based pkgs
+#
+ptxd_make_world_prepare_kconfig() {
+    if [ -n "${PTXDIST_QUIET}" ]; then
+	ptxd_make_kconfig silentoldconfig
+    else
+	ptxd_make_kconfig oldconfig
+    fi
+}
+export -f ptxd_make_world_prepare_kconfig
+
+
+#
 # generic prepare
 #
 ptxd_make_world_prepare() {
@@ -102,7 +115,7 @@ ptxd_make_world_prepare() {
     fi
 
     case "${pkg_conf_tool}" in
-	autoconf|cmake|qmake)
+	autoconf|cmake|qmake|kconfig)
 	    cd -- "${pkg_build_dir}" &&
 	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
 	"NO") echo "prepare stage disabled." ;;
