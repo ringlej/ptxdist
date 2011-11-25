@@ -152,6 +152,19 @@ ptxd_template_write_rules() {
 }
 export -f ptxd_template_write_rules
 
+ptxd_template_write_platform_rules() {
+    local template_file filename
+
+    template_file="${TEMPLATESDIR}/${template}-make"
+    filename="${PTXDIST_PLATFORMCONFIGDIR}/rules/${class}${package_filename}.make"
+    ptxd_template_filter "${template_file}" "${filename}"
+
+    template_file="${TEMPLATESDIR}/${template}-in"
+    filename="${PTXDIST_PLATFORMCONFIGDIR}/platforms/${class}${package_filename}.in"
+    ptxd_template_filter "${template_file}" "${filename}"
+}
+export -f ptxd_template_write_rules
+
 ptxd_template_write_src() {
     local dst="${PTXDIST_WORKSPACE}/local_src/${package}${VERSION:+-${VERSION}}"
 
@@ -345,3 +358,14 @@ ptxd_template_new_file() {
 export -f ptxd_template_new_file
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="file"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package to install existing files"
+
+ptxd_template_new_kernel() {
+    export class="kernel-"
+    ptxd_template_read_basic &&
+    ptxd_template_read "enter kernel image" image "zImage"
+    ptxd_template_read_author &&
+    ptxd_template_write_platform_rules
+}
+export -f ptxd_template_new_kernel
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="kernel"
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for an extra kernel"

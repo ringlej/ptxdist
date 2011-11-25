@@ -1,0 +1,9 @@
+## SECTION=kernel
+
+config KERNEL_@PACKAGE@
+	tristate
+	prompt "Linux kernel (@package@)"
+	select CROSS_MODULE_INIT_TOOLS
+	#select HOST_UMKIMAGE
+	help
+	  FIXME

@@ -1,0 +1,108 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_KERNEL_@PACKAGE@) += kernel-@package@
+
+#
+# Paths and names
+#
+KERNEL_@PACKAGE@_VERSION	:= @VERSION@
+KERNEL_@PACKAGE@_MD5		:=
+KERNEL_@PACKAGE@		:= linux-$(KERNEL_@PACKAGE@_VERSION)
+KERNEL_@PACKAGE@_SUFFIX		:= tar.bz2
+KERNEL_@PACKAGE@_DIR		:= $(BUILDDIR)/linux-@package@-$(KERNEL_@PACKAGE@_VERSION)
+KERNEL_@PACKAGE@_CONFIG		:= $(PTXDIST_PLATFORMCONFIGDIR)/kernelconfig-@package@
+KERNEL_@PACKAGE@_LICENSE	:= GPLv2
+KERNEL_@PACKAGE@_URL		:= $(call kernel-url, KERNEL_@PACKAGE@)
+KERNEL_@PACKAGE@_SOURCE		:= $(SRCDIR)/$(KERNEL_@PACKAGE@).$(KERNEL_@PACKAGE@_SUFFIX)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+KERNEL_@PACKAGE@_PATH		:= PATH=$(CROSS_PATH)
+KERNEL_@PACKAGE@_ENV		:= KCONFIG_NOTIMESTAMP=1
+KERNEL_@PACKAGE@_CONF_OPT	:= $(call kernel-opts, KERNEL_@PACKAGE@)
+
+KERNEL_@PACKAGE@_IMAGES := @image@
+KERNEL_@PACKAGE@_IMAGES := $(addprefix $(KERNEL_@PACKAGE@_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/,$(KERNEL_@PACKAGE@_IMAGES))
+
+ifdef PTXCONF_KERNEL_@PACKAGE@
+$(KERNEL_@PACKAGE@_CONFIG):
+	@echo
+	@echo "*************************************************************************"
+	@echo " Please generate a kernelconfig with 'ptxdist menuconfig kernel-@package@'"
+	@echo "*************************************************************************"
+	@echo
+	@echo
+	@exit 1
+endif
+
+$(STATEDIR)/kernel-@package@.prepare: $(KERNEL_@PACKAGE@_CONFIG)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+KERNEL_@PACKAGE@_MAKE_OPT := \
+	$(call kernel-opts, KERNEL_@PACKAGE@) \
+	@image@ modules
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+KERNEL_@PACKAGE@_INSTALL_OPT := \
+	$(call kernel-opts, KERNEL_@PACKAGE@) \
+	modules_install
+
+$(STATEDIR)/kernel-@package@.install:
+	@$(call targetinfo)
+	@$(call world/install, KERNEL_@PACKAGE@)
+	@$(foreach image, $(KERNEL_@PACKAGE@_IMAGES), \
+		install -m 644 $(image) $(IMAGEDIR)/$(notdir $(image))-@package@;)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/kernel-@package@.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init,  kernel-@package@)
+	@$(call install_fixup, kernel-@package@, PRIORITY,optional)
+	@$(call install_fixup, kernel-@package@, SECTION,base)
+	@$(call install_fixup, kernel-@package@, AUTHOR,"@AUTHOR@")
+	@$(call install_fixup, kernel-@package@, DESCRIPTION,missing)
+
+	@$(call install_copy, kernel-@package@, 0, 0, 0644, \
+		$(IMAGEDIR)/@image@-@package@, /boot/@image@-@package@, n)
+
+	@cd $(KERNEL_@PACKAGE@_PKGDIR) && \
+		find lib -type f | while read file; do \
+			$(call install_copy, kernel-@package@, \
+				0, 0, 0644, -, /$${file}, k) \
+	done
+	@$(call install_finish, kernel-@package@)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# oldconfig / menuconfig
+# ----------------------------------------------------------------------------
+
+kernel-@package@_oldconfig kernel-@package@_menuconfig: $(STATEDIR)/kernel-@package@.extract
+	@$(call world/kconfig, KERNEL_@PACKAGE@, $(subst kernel-@package@_,,$@))
+
+# vim: syntax=make
