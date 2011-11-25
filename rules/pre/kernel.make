@@ -49,6 +49,19 @@ kernel/url = \
 kernel-url = \
 	$(call kernel/url,$(strip $(1)))
 
+kernel/opts = \
+	$(PARALLELMFLAGS) \
+	HOSTCC=$(HOSTCC) \
+	ARCH=$(GENERIC_KERNEL_ARCH) \
+	CROSS_COMPILE=$(COMPILER_PREFIX) \
+	DEPMOD=$(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod \
+	\
+	INSTALL_MOD_PATH=$($(1)_PKGDIR) \
+	PTX_KERNEL_DIR=$($(1)_DIR)
+
+kernel-opts = \
+	$(call kernel/opts,$(strip $(1)))
+
 #
 # handle special compiler
 #
