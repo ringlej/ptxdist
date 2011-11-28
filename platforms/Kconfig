@@ -37,6 +37,9 @@ source "platforms/kernel.in"
 source "platforms/dtc.in"
 source "platforms/console.in"
 
+menu "extra kernel                  "
+source "generated/kernel.in"
+endmenu
 
 menu "bootloaders                   "
 source "generated/bootloader.in"

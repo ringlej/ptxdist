@@ -1,0 +1,2 @@
+## SECTION=kernel
+# make sure generated/kernel.in exists
