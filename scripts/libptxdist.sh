@@ -739,6 +739,49 @@ ptxd_ipkg_arch() {
 
 #
 #
+ptxd_ipkg_rev_decimal_convert() {
+	local ver=$*
+	while echo $ver | grep -q '[^0-9.]'
+	do
+		local char=`echo -n $ver | sed 's/.*\([^0-9.]\).*/\1/'`
+		local char_dec=`echo -n $char | od -b | head -n 1 | awk '{print $2}'`
+		ver=`echo $ver | sed "s/$char/.$char_dec/g"`
+	done
+
+	ver=`echo $ver | sed 's/\.\./.0/g'`
+
+	echo "$ver"
+}
+
+#
+#
+ptxd_ipkg_do_version_check() {
+	local ver1=$1
+	local ver2=$2
+
+	[ "$ver1" == "$ver2" ] && return 10
+
+	local ver1front=`echo $ver1 | cut -d . -f 1`
+	local ver1back=`echo $ver1 | cut -d . -f 2-`
+	local ver2front=`echo $ver2 | cut -d . -f 1`
+	local ver2back=`echo $ver2 | cut -d . -f 2-`
+
+	if [ "$ver1front" != "$ver1" -o "$ver2front" != "$ver2" ]
+	then
+		[ "$ver1front" -lt "$ver2front" ] && return 9
+		[ "$ver1front" -gt "$ver2front" ] && return 11
+
+		[ "$ver1front" == "$ver1" ] || [ -z "$ver1back" ] && ver1back=0
+		[ "$ver2front" == "$ver2" ] || [ -z "$ver2back" ] && ver2back=0
+		ptxd_ipkg_do_version_check "$ver1back" "$ver2back"
+		return $?
+	else
+		[ "$ver1" -lt "$ver2" ] && return 9 || return 11
+	fi
+}
+
+#
+#
 ptxd_ipkg_rev_smaller() {
 
 	local first=`ptxd_ipkg_split $1`
@@ -747,19 +790,26 @@ ptxd_ipkg_rev_smaller() {
 	local second=`ptxd_ipkg_split $2`
 	local second_rev_upstream=`ptxd_ipkg_rev_upstream $second`
 	local second_rev_packet=`ptxd_ipkg_rev_package $second`
-	local first_major=`echo $first_rev_upstream | awk -F. '{print $1}'`
-	local first_minor=`echo $first_rev_upstream | awk -F. '{print $2}'`
-	local first_micro=`echo $first_rev_upstream | awk -F. '{print $3}'`
-	local second_major=`echo $second_rev_upstream | awk -F. '{print $1}'`
-	local second_minor=`echo $second_rev_upstream | awk -F. '{print $2}'`
-	local second_micro=`echo $second_rev_upstream | awk -F. '{print $3}'`
 
-	[ $first_major -lt $second_major ] && return 0
-	[ $first_major -gt $second_major ] && return 1
-	[ $first_minor -lt $second_minor ] && return 0
-	[ $first_minor -gt $second_minor ] && return 1
-	[ $first_micro -lt $second_micro ] && return 0
-	[ $first_micro -gt $second_micro ] && return 1
+	if [ "$first_rev_upstream" != "$second_rev_upstream" ]
+	then
+		local first_rev_upstream_decimal=`ptxd_ipkg_rev_decimal_convert $first_rev_upstream`
+		local second_rev_upstream_decimal=`ptxd_ipkg_rev_decimal_convert $second_rev_upstream`
+		ptxd_ipkg_do_version_check "$first_rev_upstream_decimal" "$second_rev_upstream_decimal"
+		case "$?" in
+			9)
+				return 0;
+				;;
+			10)
+				;;
+			11)
+				return 1;
+				;;
+			*)
+				ptxd_error "issue while checking upstream revisions"
+		esac
+	fi
+
 	[ $first_rev_packet -lt $second_rev_packet ] && return 0
 	[ $first_rev_packet -gt $second_rev_packet ] && return 1
 
