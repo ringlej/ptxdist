@@ -133,6 +133,20 @@ case "$SED_VERSION" in
 esac
 AC_MSG_RESULT([$SED_VERSION])
 
+dnl check for gnu coreutils
+AC_DEFUN([GNU_COREUTILS],
+	[AC_CACHE_CHECK([for $1 from GNU coreutils], [ac_cv_path_gnu_$1],
+		[AC_PATH_PROGS_FEATURE_CHECK([gnu_$1], [g$1 $1.gnu $1],
+			[[out=`$ac_path_gnu_$1 --version 2>/dev/null | $SED -ne "s/.*\(GNU\) coreutils.*/\1/p"`
+				test "x$out" = xGNU && ac_cv_path_gnu_$1=$ac_path_gnu_$1 ac_path_gnu_$1_found=:]],
+			[AC_MSG_ERROR([could not find $1 from GNU coreutils])])])
+	AC_SUBST([GNU_$1], [$ac_cv_path_gnu_$1])])
+
+GNU_COREUTILS(chmod)
+GNU_COREUTILS(mv)
+GNU_COREUTILS(rm)
+GNU_COREUTILS(md5sum)
+
 dnl Check for egrep
 AC_PROG_EGREP
 
