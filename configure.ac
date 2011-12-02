@@ -170,6 +170,7 @@ fi
 
 dnl Check for awk
 AC_PROG_AWK
+AC_PATH_PROGS(AWK, ${AWK},)
 AC_MSG_CHECKING([awk version])
 AWK_VERSION=`$AWK --version 2>/dev/null | $SED -ne "s/GNU [[Aa]]wk \([[0-9\.]]*\)/\1/p"`
 case "$AWK_VERSION" in

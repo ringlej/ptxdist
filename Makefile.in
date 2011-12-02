@@ -41,6 +41,7 @@ kconfig:
 environment:
 	@echo -n "preparing PTXdist environment ..."
 	@ln -sf @SED@ $(abs_srcdir)/bin/sed
+	@ln -sf @AWK@ $(abs_srcdir)/bin/awk
 	@ln -sf @GNU_chmod@ $(abs_srcdir)/bin/chmod
 	@ln -sf @GNU_mv@ $(abs_srcdir)/bin/mv
 	@ln -sf @GNU_rm@ $(abs_srcdir)/bin/rm
@@ -51,6 +52,7 @@ environment:
 clean:
 	@rm -f .done
 	@rm -f $(abs_srcdir)/bin/sed
+	@rm -f $(abs_srcdir)/bin/awk
 	@rm -f $(abs_srcdir)/bin/chmod
 	@rm -f $(abs_srcdir)/bin/mv
 	@rm -f $(abs_srcdir)/bin/rm
