@@ -21,7 +21,9 @@ export SHELL
 
 @BUILD_NCONF_TRUE@NCONF = nconf
 
-all:
+all: kconfig environment
+
+kconfig:
 	@echo "building conf and mconf ..."
 	@CC="$(CC)" \
 	CXX="$(CXX)" \
@@ -35,10 +37,16 @@ all:
 		CURSES_LOC="@CURSES_LOC@" \
 		conf mconf $(NCONF)
 	@echo "done."
+
+environment:
+	@echo -n "preparing PTXdist environment ..."
+	@ln -sf @SED@ $(abs_srcdir)/bin/sed
+	@echo " done"
 	@touch .done
 
 clean:
 	@rm -f .done
+	@rm -f $(abs_srcdir)/bin/sed
 	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
 dirty-check:

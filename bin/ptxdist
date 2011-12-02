@@ -2155,6 +2155,9 @@ setup_env() {
 
 	export LANG=C
 	export LC_ALL=POSIX
+
+	# ${PTXDIST_TOPDIR}/bin contains links to sane tools found by configure
+	export PATH="${PTXDIST_TOPDIR}/bin:${PATH}"
 }
 
 
