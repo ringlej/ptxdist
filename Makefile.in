@@ -22,6 +22,7 @@ export SHELL
 @BUILD_NCONF_TRUE@NCONF = nconf
 
 all: kconfig environment
+	@touch .done
 
 kconfig:
 	@echo "building conf and mconf ..."
@@ -40,25 +41,18 @@ kconfig:
 
 environment:
 	@echo -n "preparing PTXdist environment ..."
-	@ln -sf @SED@ $(abs_srcdir)/bin/sed
-	@ln -sf @AWK@ $(abs_srcdir)/bin/awk
-	@ln -sf @PYTHON@ $(abs_srcdir)/bin/python
-	@ln -sf @GNU_chmod@ $(abs_srcdir)/bin/chmod
-	@ln -sf @GNU_mv@ $(abs_srcdir)/bin/mv
-	@ln -sf @GNU_rm@ $(abs_srcdir)/bin/rm
-	@ln -sf @GNU_md5sum@ $(abs_srcdir)/bin/md5sum
+	@ln -sf @SED@ "$(abs_srcdir)/bin/sed"
+	@ln -sf @AWK@ "$(abs_srcdir)/bin/awk"
+	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
+	@ln -sf @GNU_chmod@ "$(abs_srcdir)/bin/chmod"
+	@ln -sf @GNU_mv@ "$(abs_srcdir)/bin/mv"
+	@ln -sf @GNU_rm@ "$(abs_srcdir)/bin/rm"
+	@ln -sf @GNU_md5sum@ "$(abs_srcdir)/bin/md5sum"
 	@echo " done"
-	@touch .done
 
 clean:
 	@rm -f .done
-	@rm -f $(abs_srcdir)/bin/sed
-	@rm -f $(abs_srcdir)/bin/awk
-	@rm -f $(abs_srcdir)/bin/python
-	@rm -f $(abs_srcdir)/bin/chmod
-	@rm -f $(abs_srcdir)/bin/mv
-	@rm -f $(abs_srcdir)/bin/rm
-	@rm -f $(abs_srcdir)/bin/md5sum
+	@find "$(abs_srcdir)/bin" -type l -print0 | xargs -0 rm
 	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
 dirty-check:
