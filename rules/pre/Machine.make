@@ -53,7 +53,7 @@ ifdef PTXCONF_ARCH_MICROBLAZE
     CPUFLAGS-$(PTXCONF_XILINX_MICROBLAZE0_USE_PCMP_INSTR) += -mxl-pattern-compare
 
     ifdef PTXCONF_HAS_HARDFLOAT
-       # XILINX_MICROBLAZE0_USE_FPU can be 0 (NONE), 1 (BASIC), or 2 (EXTENDED)
+      # XILINX_MICROBLAZE0_USE_FPU can be 0 (NONE), 1 (BASIC), or 2 (EXTENDED)
       CPUFLAGS-$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU) += -mhard-float
       CPUFLAGS-$(subst 1,,$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU)) += -mxl-float-convert
       CPUFLAGS-$(subst 1,,$(PTXCONF_XILINX_MICROBLAZE0_USE_FPU)) += -mxl-float-sqrt
@@ -61,7 +61,9 @@ ifdef PTXCONF_ARCH_MICROBLAZE
 
     CPUFLAGS-1 += -mcpu=v$(CPU_VER)
 
-    CPUFLAGS := $(CPUFLAGS-1) $(CPUFLAGS-2)
+    # r31 holds current-give me pointer to task,
+    # generated code should never refer to it
+    CPUFLAGS := -ffixed-r31 $(CPUFLAGS-1) $(CPUFLAGS-2)
 
     PTXCONF_TARGET_EXTRA_CFLAGS += $(CPUFLAGS)
     PTXCONF_TARGET_EXTRA_CXXFLAGS += $(CPUFLAGS)
