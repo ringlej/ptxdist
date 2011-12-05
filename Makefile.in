@@ -52,7 +52,7 @@ environment:
 
 clean:
 	@rm -f .done
-	@find "$(abs_srcdir)/bin" -type l -print0 | xargs -0 rm
+	@find "$(abs_srcdir)/bin" -type l -print0 | xargs -r -0 rm
 	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
 dirty-check:
