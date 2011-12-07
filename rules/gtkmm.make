@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_GTKMM) += gtkmm
 #
 # Paths and names
 #
-GTKMM_VERSION	:= 2.18.2
-GTKMM_MD5	:= 3e43e9eef1da8988a76a2815d6b31c91
+GTKMM_VERSION	:= 3.2.0
+GTKMM_MD5	:= 686c41d0ff584d3d10b4503df02bb3dc
 GTKMM		:= gtkmm-$(GTKMM_VERSION)
 GTKMM_SUFFIX	:= tar.bz2
-GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.18/$(GTKMM).$(GTKMM_SUFFIX)
+GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/3.2/$(GTKMM).$(GTKMM_SUFFIX)
 GTKMM_SOURCE	:= $(SRCDIR)/$(GTKMM).$(GTKMM_SUFFIX)
 GTKMM_DIR	:= $(BUILDDIR)/$(GTKMM)
 
@@ -59,9 +59,8 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_fixup, gtkmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gtkmm,DESCRIPTION,missing)
 
-	@$(call install_lib, gtkmm, 0, 0, 0644, libgtkmm-2.4)
-	@$(call install_lib, gtkmm, 0, 0, 0644, libgdkmm-2.4)
-	@$(call install_lib, gtkmm, 0, 0, 0644, libatkmm-1.6)
+	@$(call install_lib, gtkmm, 0, 0, 0644, libgtkmm-3.0)
+	@$(call install_lib, gtkmm, 0, 0, 0644, libgdkmm-3.0)
 
 	@$(call install_finish, gtkmm)
 
