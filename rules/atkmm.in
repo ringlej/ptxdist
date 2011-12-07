@@ -1,0 +1,11 @@
+## SECTION=multimedia_gtk
+
+config ATKMM
+	tristate
+	prompt "atkmm"
+	select GLIBMM
+	select ATK
+	help
+	  atkmm is the official C++ interface for the ATK accessibility
+	  toolkit library. It may be used, for instance, by user interfaces
+	  implemented with gtkmm.
