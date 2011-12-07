@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_CAIROMM) += cairomm
 #
 # Paths and names
 #
-CAIROMM_VERSION	:= 1.8.0
-CAIROMM_MD5	:= 15c0f56eee57bb418c38463a6297d715
+CAIROMM_VERSION	:= 1.10.0
+CAIROMM_MD5	:= 9c63fb1c04c8ecd3c5e6473075b8c39f
 CAIROMM		:= cairomm-$(CAIROMM_VERSION)
 CAIROMM_SUFFIX	:= tar.gz
 CAIROMM_URL	:= http://cairographics.org/releases/$(CAIROMM).$(CAIROMM_SUFFIX)
@@ -45,7 +45,8 @@ CAIROMM_ENV 	:= $(CROSS_ENV)
 #
 CAIROMM_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-docs
+	--disable-documentation \
+	--disable-tests
 
 # ----------------------------------------------------------------------------
 # Target-Install
