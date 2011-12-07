@@ -51,8 +51,8 @@ GDK_PIXBUF_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-Bsymbolic \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
-	--without-libpng \
-	--without-libjpeg \
+	--$(call ptx/wwo, PTXCONF_GDK_PIXBUF_LOADER_PNG)-libpng \
+	--$(call ptx/wwo, PTXCONF_GDK_PIXBUF_LOADER_JPEG)-libjpeg \
 	--without-libtiff \
 	--without-libjasper \
 	--without-gdiplus
@@ -70,8 +70,8 @@ $(STATEDIR)/gdk-pixbuf.targetinstall:
 	@$(call install_fixup, gdk-pixbuf,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gdk-pixbuf,DESCRIPTION,missing)
 
-	@$(call install_copy, gdk-pixbuf, 0, 0, 0755, -, /usr/bin/gdk-pixbuf-query-loaders)
-	@$(call install_copy, gdk-pixbuf, 0, 0, 0755, -, /usr/bin/gdk-pixbuf-csource)
+# currently no module loading enable
+#	@$(call install_copy, gdk-pixbuf, 0, 0, 0755, -, /usr/bin/gdk-pixbuf-query-loaders)
 
 	@$(call install_lib, gdk-pixbuf, 0, 0, 0644, libgdk_pixbuf_xlib-2.0)
 	@$(call install_lib, gdk-pixbuf, 0, 0, 0644, libgdk_pixbuf-2.0)

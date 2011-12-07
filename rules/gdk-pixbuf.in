@@ -1,8 +1,24 @@
 ## SECTION=multimedia_gtk
 
-config GDK_PIXBUF
+menuconfig GDK_PIXBUF
 	tristate
-	prompt "gdk-pixbuf"
+	prompt "gdk-pixbuf                    "
 	select GLIB
+	select LIBPNG		 if GDK_PIXBUF_LOADER_PNG
+	select LIBJPEG		 if GDK_PIXBUF_LOADER_JPEG
 	help
 	  GTK helper library for pixel handling.
+
+if GDK_PIXBUF
+
+config GDK_PIXBUF_LOADER_PNG
+	bool
+	prompt "png loader"
+	default y
+
+config GDK_PIXBUF_LOADER_JPEG
+	bool
+	prompt "jpeg loader"
+
+endif
+
