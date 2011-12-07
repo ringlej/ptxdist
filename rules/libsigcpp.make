@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBSIGCPP) += libsigcpp
 #
 # Paths and names
 #
-LIBSIGCPP_VERSION	:= 2.2.3
-LIBSIGCPP_MD5		:= f4574b343eebc4bff66a9e1e5ce6e490
+LIBSIGCPP_VERSION	:= 2.2.10
+LIBSIGCPP_MD5		:= 6d350ae0bc17b8915a06ce6b7e4240e8
 LIBSIGCPP		:= libsigc++-$(LIBSIGCPP_VERSION)
 LIBSIGCPP_SUFFIX	:= tar.bz2
 LIBSIGCPP_URL		:= http://ftp.gnome.org/pub/GNOME/sources/libsigc++/2.2/$(LIBSIGCPP).$(LIBSIGCPP_SUFFIX)
@@ -43,7 +43,9 @@ LIBSIGCPP_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBSIGCPP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBSIGCPP_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-documentation
 
 # ----------------------------------------------------------------------------
 # Target-Install
