@@ -1,0 +1,32 @@
+From a0e82265587327b15635b61517601cb7c74de07e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
+Date: Tue, 6 Dec 2011 14:18:20 +0100
+Subject: [PATCH 05/11] debug.getfenv does not check whether it has an argument.
+
+Comes from http://www.lua.org/bugs.html#5.1.4-5
+
+reported by Patrick Donnelly on 30 Jul 2009.
+Example:
+ --
+ debug.getfenv()   -- should raise an error
+ --
+
+Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
+
+---
+
+diff --git a/src/ldblib.c b/src/ldblib.c
+index 67de122..21116ac 100644
+--- a/src/ldblib.c
++++ b/src/ldblib.c
+@@ -45,6 +45,7 @@ static int db_setmetatable (lua_State *L) {
+ 
+ 
+ static int db_getfenv (lua_State *L) {
++  luaL_checkany(L, 1);
+   lua_getfenv(L, 1);
+   return 1;
+ }
+-- 
+1.7.2.5
+

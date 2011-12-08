@@ -1,0 +1,31 @@
+From 23449ee61f062a18926f11a216f9906155f259b9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
+Date: Tue, 6 Dec 2011 14:28:19 +0100
+Subject: [PATCH 11/11] Parser may collect a prototype while building it.
+
+Comes from http://www.lua.org/bugs.html#5.1.4-11
+
+reported by Ingo van Lil on 13 Oct 2011.
+
+Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
+
+---
+
+diff --git a/src/lparser.c b/src/lparser.c
+index 1e2a9a8..a2721d2 100644
+--- a/src/lparser.c
++++ b/src/lparser.c
+@@ -374,9 +374,9 @@ static void close_func (LexState *ls) {
+   lua_assert(luaG_checkcode(f));
+   lua_assert(fs->bl == NULL);
+   ls->fs = fs->prev;
+-  L->top -= 2;  /* remove table and prototype from the stack */
+   /* last token read was anchored in defunct function; must reanchor it */
+   if (fs) anchor_token(ls);
++  L->top -= 2;  /* remove table and prototype from the stack */
+ }
+ 
+ 
+-- 
+1.7.2.5
+

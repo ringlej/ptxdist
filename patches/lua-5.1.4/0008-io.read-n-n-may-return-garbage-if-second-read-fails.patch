@@ -1,0 +1,37 @@
+From 224bbe29a295851544712b4470f7a48f338cddaa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
+Date: Tue, 6 Dec 2011 14:23:53 +0100
+Subject: [PATCH 08/11] io.read("*n", "*n") may return garbage if second read fails.
+
+Comes from http://www.lua.org/bugs.html#5.1.4-8
+
+reported by Roberto on 12 Apr 2010.
+Example:
+ --
+ print(io.read("*n", "*n"))   --<< enter "10   hi"
+ --> file (0x884420)	nil
+ --
+
+Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
+
+---
+
+diff --git a/src/liolib.c b/src/liolib.c
+index e79ed1c..8de2547 100644
+--- a/src/liolib.c
++++ b/src/liolib.c
+@@ -276,7 +276,10 @@ static int read_number (lua_State *L, FILE *f) {
+     lua_pushnumber(L, d);
+     return 1;
+   }
+-  else return 0;  /* read fails */
++  else {
++    lua_pushnil(L);  /* "result" to be removed */
++    return 0;  /* read fails */
++  }
+ }
+ 
+ 
+-- 
+1.7.2.5
+

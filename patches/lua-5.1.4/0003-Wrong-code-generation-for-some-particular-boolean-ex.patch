@@ -1,0 +1,72 @@
+From b40f5fc4341153fc53fa2d0e839223944b022e6e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
+Date: Tue, 6 Dec 2011 14:10:56 +0100
+Subject: [PATCH 03/11] Wrong code generation for some particular boolean expressions. (see also
+ 9)
+
+Comes from http://www.lua.org/bugs.html#5.1.4-3
+
+ reported by Brian Kelley on 15 Apr 2009.
+ Example:
+ --
+ print(((1 or false) and true) or false)   --> 1, but should be 'true'
+ --
+
+Patch: (partial solution; see also 9)
+
+Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
+
+---
+
+diff --git a/src/lcode.c b/src/lcode.c
+index cff626b..84f286b 100644
+--- a/src/lcode.c
++++ b/src/lcode.c
+@@ -544,15 +544,18 @@ void luaK_goiftrue (FuncState *fs, expdesc *e) {
+       pc = NO_JUMP;  /* always true; do nothing */
+       break;
+     }
+-    case VFALSE: {
+-      pc = luaK_jump(fs);  /* always jump */
+-      break;
+-    }
+     case VJMP: {
+       invertjump(fs, e);
+       pc = e->u.s.info;
+       break;
+     }
++    case VFALSE: {
++      if (!hasjumps(e)) {
++        pc = luaK_jump(fs);  /* always jump */
++        break;
++      }
++      /* else go through */
++    }
+     default: {
+       pc = jumponcond(fs, e, 0);
+       break;
+@@ -572,14 +575,17 @@ static void luaK_goiffalse (FuncState *fs, expdesc *e) {
+       pc = NO_JUMP;  /* always false; do nothing */
+       break;
+     }
+-    case VTRUE: {
+-      pc = luaK_jump(fs);  /* always jump */
+-      break;
+-    }
+     case VJMP: {
+       pc = e->u.s.info;
+       break;
+     }
++    case VTRUE: {
++      if (!hasjumps(e)) {
++        pc = luaK_jump(fs);  /* always jump */
++        break;
++      }
++      /* else go through */
++    }
+     default: {
+       pc = jumponcond(fs, e, 1);
+       break;
+-- 
+1.7.2.5
+

@@ -1,3 +1,14 @@
 remove-Makefile.diff
 autoconfize.diff
 automakize.diff
+#0001-Maliciously-crafted-precompiled-code-can-crash-Lua.patch
+#0002-It-is-possible-to-create-functions-that-return-too-m.patch
+0003-Wrong-code-generation-for-some-particular-boolean-ex.patch
+0004-luaV_settable-may-invalidate-a-reference-to-a-table-.patch
+0005-debug.getfenv-does-not-check-whether-it-has-an-argum.patch
+0006-GC-may-get-stuck-during-parsing-and-avoids-proper-re.patch
+0007-string.format-may-get-buffer-as-an-argument-when-the.patch
+0008-io.read-n-n-may-return-garbage-if-second-read-fails.patch
+0009-Wrong-code-generation-for-some-particular-boolean-ex.patch
+0010-__newindex-metamethod-may-not-work-if-metatable-is-i.patch
+0011-Parser-may-collect-a-prototype-while-building-it.patch

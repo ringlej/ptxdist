@@ -1,0 +1,55 @@
+From 14c92823c5877a458ddcfa2c90d0b03ea873baa3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
+Date: Tue, 6 Dec 2011 14:25:18 +0100
+Subject: [PATCH 09/11] Wrong code generation for some particular boolean expressions.
+
+Comes from http://www.lua.org/bugs.html#5.1.4-9
+
+reported by Thierry Van Elsuwe on 20 Jan 2011.
+Example:
+ --
+ print((('hi' or true) and true) or true)
+ --> hi     (should be true)
+ print(((nil and nil) or false) and true)
+ --> nil    (should be false)
+ --
+
+Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
+
+---
+
+diff --git a/src/lcode.c b/src/lcode.c
+index 84f286b..c13066e 100644
+--- a/src/lcode.c
++++ b/src/lcode.c
+@@ -549,13 +549,6 @@ void luaK_goiftrue (FuncState *fs, expdesc *e) {
+       pc = e->u.s.info;
+       break;
+     }
+-    case VFALSE: {
+-      if (!hasjumps(e)) {
+-        pc = luaK_jump(fs);  /* always jump */
+-        break;
+-      }
+-      /* else go through */
+-    }
+     default: {
+       pc = jumponcond(fs, e, 0);
+       break;
+@@ -579,13 +572,6 @@ static void luaK_goiffalse (FuncState *fs, expdesc *e) {
+       pc = e->u.s.info;
+       break;
+     }
+-    case VTRUE: {
+-      if (!hasjumps(e)) {
+-        pc = luaK_jump(fs);  /* always jump */
+-        break;
+-      }
+-      /* else go through */
+-    }
+     default: {
+       pc = jumponcond(fs, e, 1);
+       break;
+-- 
+1.7.2.5
+

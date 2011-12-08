@@ -1,0 +1,51 @@
+From 41f746c9be4330bac1466ab994f147aeef88675d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
+Date: Tue, 6 Dec 2011 14:13:59 +0100
+Subject: [PATCH 04/11] luaV_settable may invalidate a reference to a table and try to reuse it
+
+Comes from http://www.lua.org/bugs.html#5.1.4-4
+
+reported by Mark Feldman on 27 Jun 2009.
+Example:
+ --
+ grandparent = {}
+ grandparent.__newindex = function(s,_,_) print(s) end
+ 
+ parent = {}
+ parent.__newindex = parent
+ setmetatable(parent, grandparent)
+ 
+ child = setmetatable({}, parent)
+ child.foo = 10      --> (crash on some machines)
+ --
+
+Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
+
+---
+
+diff --git a/src/lvm.c b/src/lvm.c
+index ee3256a..4ac2e71 100644
+--- a/src/lvm.c
++++ b/src/lvm.c
+@@ -133,6 +133,7 @@ void luaV_gettable (lua_State *L, const TValue *t, TValue *key, StkId val) {
+ 
+ void luaV_settable (lua_State *L, const TValue *t, TValue *key, StkId val) {
+   int loop;
++  TValue temp;
+   for (loop = 0; loop < MAXTAGLOOP; loop++) {
+     const TValue *tm;
+     if (ttistable(t)) {  /* `t' is a table? */
+@@ -152,7 +153,9 @@ void luaV_settable (lua_State *L, const TValue *t, TValue *key, StkId val) {
+       callTM(L, tm, t, key, val);
+       return;
+     }
+-    t = tm;  /* else repeat with `tm' */ 
++    /* else repeat with `tm' */
++    setobj(L, &temp, tm);  /* avoid pointing inside table (may rehash) */
++    t = &temp;
+   }
+   luaG_runerror(L, "loop in settable");
+ }
+-- 
+1.7.2.5
+
