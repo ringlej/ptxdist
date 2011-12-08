@@ -1,0 +1,7 @@
+## SECTION=multimedia_gtk
+
+config GTK_ENGINES
+	tristate
+	select GTK
+	prompt "gtk engines"
+

@@ -58,7 +58,5 @@ config GTK_XDAMAGE
 	bool
 	prompt "X Damage support"
 
-source "generated/multimedia_gtkcore.in"
-
 endif
 

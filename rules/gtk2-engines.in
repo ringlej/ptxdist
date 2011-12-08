@@ -1,7 +1,0 @@
-## SECTION=multimedia_gtkcore
-
-config GTK2_ENGINES
-	tristate
-	default GTKCORE
-	select GTK
-
