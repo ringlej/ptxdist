@@ -5,10 +5,13 @@ menuconfig PHP5
 	tristate
 	prompt "php5                          "
 	select APACHE2	if PHP5_SAPI_APXS2
+	select LIBCURL  if PHP5_EXT_CURL
 	select LIBXML2	if PHP5_XML_LIBXML2
 	select LIBXSLT	if PHP5_XML_LIBXML2_XSLT
 	select MYSQL	if PHP5_EXT_MYSQL
 	select PHP5_XML	if PHP5_EXT_SOAP
+	select XMLRPC_C if PHP5_XML_LIBXML2_XMLRPC
+	select ZLIB     if PHP5_EXT_ZLIB
 
 if PHP5
 
@@ -213,6 +216,16 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 	help
 	  simple xml support
 
+#  --with-xmlrpc[=DIR]     Include XMLRPC-EPI support
+#  --with-libexpat-dir=DIR   XMLRPC-EPI: libexpat dir for XMLRPC-EPI (deprecated)
+#  --with-iconv-dir=DIR      XMLRPC-EPI: iconv dir for XMLRPC-EPI
+
+config PHP5_XML_LIBXML2_XMLRPC
+	bool
+	prompt "xmlrpc support"
+	help
+	  xmlrpc support
+
 endif	# PHP5_XML_LIBXML2
 
 endif	# PHP5_XML
@@ -272,12 +285,16 @@ menu "Extensions                  "
 #                          support. Use --with-pcre-regex=DIR to specify DIR
 #                          where PCRE's include and library files are located,
 #                          if not using bundled library.
-#  --with-zlib[=DIR]       Include ZLIB support (requires zlib >= 1.0.9)
-#  --with-zlib-dir=<DIR>   Define the location of zlib install directory
 #  --enable-bcmath         Enable bc style precision math functions
 #  --with-bz2[=DIR]        Include BZip2 support
 #  --enable-calendar       Enable support for calendar conversion
 #  --disable-ctype         Disable ctype functions
+config PHP5_EXT_CURL
+	bool
+	prompt "curl"
+	help
+	  Enable CURL support for PHP.
+
 #  --with-curl[=DIR]       Include CURL support
 #  --with-curlwrappers     Use CURL for url streams
 #  --enable-dba            Build DBA with builtin modules. To build shared DBA
@@ -473,6 +490,14 @@ config PHP5_EXT_SQLITE3
 	help
 	  Enable sqlite3 support for PHP.
 
+#  --with-zlib[=DIR]       Include ZLIB support (requires zlib >= 1.0.9)
+#  --with-zlib-dir=<DIR>   Define the location of zlib install directory
+config PHP5_EXT_ZLIB
+	bool
+	prompt "zlib"
+	help
+	  Enable zlib support for PHP.
+
 #  --disable-spl           Disable Standard PHP Library
 #  --without-sqlite        Do not include sqlite support.
 #                          Use --with-sqlite=DIR to specify DIR where
@@ -492,10 +517,6 @@ config PHP5_EXT_SQLITE3
 #  --disable-tokenizer     Disable tokenizer support
 #  --enable-wddx           Enable WDDX support
 #  --with-libexpat-dir=DIR   XML: libexpat install prefix (deprecated)
-
-#  --with-xmlrpc[=DIR]     Include XMLRPC-EPI support
-#  --with-libexpat-dir=DIR   XMLRPC-EPI: libexpat dir for XMLRPC-EPI (deprecated)
-#  --with-iconv-dir=DIR      XMLRPC-EPI: iconv dir for XMLRPC-EPI
 
 #PEAR:
 #

@@ -86,7 +86,7 @@ else
 endif
 
 ifdef PTXCONF_PHP5_SAPI_APXS2
-PHP5_AUTOCONF += --with-apxs2=$(SYSROOT)/usr/bin/apxs
+PHP5_AUTOCONF += --with-apxs2=$(PTXDIST_SYSROOT_TARGET)/usr/bin/apxs
 else
 # PHP5_AUTOCONF += --without-apxs2
 endif
@@ -221,6 +221,26 @@ ifdef PTXCONF_PHP5_XML_LIBXML2_SIMPLEXML
 PHP5_AUTOCONF += --enable-simplexml
 else
 PHP5_AUTOCONF += --disable-simplexml
+endif
+
+ifdef PTXCONF_PHP5_XML_LIBXML2_XMLRPC
+PHP5_AUTOCONF += --with-xmlrpc
+else
+PHP5_AUTOCONF += --without-xmlrpc
+endif
+
+ifdef PTXCONF_PHP5_EXT_ZLIB
+PHP5_AUTOCONF += --with-zlib=$(SYSROOT)/usr
+else
+PHP5_AUTOCONF += --without-zlib
+endif
+
+ifdef PTXCONF_PHP5_EXT_CURL
+PHP5_AUTOCONF += \
+	--with-curl=$(SYSROOT)/usr \
+	--with-curl-wrappers
+else
+PHP5_AUTOCONF += --without-curl
 endif
 
 ifdef PTXCONF_PHP5_EXT_MYSQL
