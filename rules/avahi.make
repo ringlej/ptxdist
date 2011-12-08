@@ -52,8 +52,8 @@ AVAHI_CONF_OPT	:= \
 	--disable-introspection \
 	--disable-qt3 \
 	--$(call ptx/endis, PTXCONF_AVAHI_QT4)-qt4 \
-	--$(call ptx/endis, PTXCONF_AVAHI_GTK)-gtk \
-	--disable-gtk3 \
+	--disable-gtk \
+	--$(call ptx/endis, PTXCONF_AVAHI_GTK)-gtk3 \
 	--$(call ptx/endis, PTXCONF_AVAHI_DBUS)-dbus \
 	--disable-dbm \
 	--disable-gdbm \

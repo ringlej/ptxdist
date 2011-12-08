@@ -9,7 +9,6 @@ menuconfig AVAHI
 	select QT4	if AVAHI_QT4
 	select DBUS	if AVAHI_DBUS
 	select GTK	if AVAHI_GTK
-	select LIBGLADE	if AVAHI_GTK
 	prompt "avahi                         "
 	help
 	  Avahi is a system which facilitates service discovery on a local network.
