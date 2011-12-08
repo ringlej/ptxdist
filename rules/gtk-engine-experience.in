@@ -1,9 +1,0 @@
-## SECTION=multimedia_gtk
-
-config GTK_ENGINE_EXPERIENCE
-	tristate
-	prompt "experience engine"
-	select GTK
-	help
-	  A pixmap engine that is somewhat like XP, but way better...
-
