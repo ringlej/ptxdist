@@ -60,7 +60,7 @@ ifdef PTXCONF_LUA_INSTALL_LUAC
 	@$(call install_copy, lua, 0, 0, 0755, -, /usr/bin/luac)
 endif
 ifdef PTXCONF_LUA_INSTALL_LIBLUA
-	@$(call install_lib, lua, 0, 0, 0644, liblua-5.1.3)
+	@$(call install_lib, lua, 0, 0, 0644, liblua-$(LUA_VERSION))
 endif
 	@$(call install_finish, lua)
 

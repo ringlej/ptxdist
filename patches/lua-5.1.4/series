@@ -1,4 +1,3 @@
-lua-5.1.3-remove-Makefile.diff
-lua-5.1.3-autoconfize.diff
-lua-5.1.3-automakize.diff
-lua-5.1.3-autogen.sh.diff
+remove-Makefile.diff
+autoconfize.diff
+automakize.diff
