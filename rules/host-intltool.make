@@ -28,32 +28,21 @@ endif
 #
 # Paths and names
 #
-HOST_INTLTOOL_VERSION	:= 0.40.6
-HOST_INTLTOOL_MD5	:= 69bc0353323112f42ad4f9cf351bc3e5
+HOST_INTLTOOL_VERSION	:= 0.50.0
+HOST_INTLTOOL_MD5	:= 0da9847a60391ca653df35123b1f7cc0
 HOST_INTLTOOL		:= intltool-$(HOST_INTLTOOL_VERSION)
-HOST_INTLTOOL_SUFFIX	:= tar.bz2
-HOST_INTLTOOL_URL	:= http://ftp.gnome.org/pub/gnome/sources/intltool/0.40/$(HOST_INTLTOOL).$(HOST_INTLTOOL_SUFFIX)
+HOST_INTLTOOL_SUFFIX	:= tar.gz
+HOST_INTLTOOL_URL	:= http://launchpad.net/intltool/trunk/0.50.0/+download/$(HOST_INTLTOOL).$(HOST_INTLTOOL_SUFFIX)
 HOST_INTLTOOL_SOURCE	:= $(SRCDIR)/$(HOST_INTLTOOL).$(HOST_INTLTOOL_SUFFIX)
 HOST_INTLTOOL_DIR	:= $(HOST_BUILDDIR)/$(HOST_INTLTOOL)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_INTLTOOL_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_INTLTOOL)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_INTLTOOL_PATH	:= PATH=$(HOST_PATH)
-HOST_INTLTOOL_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_INTLTOOL_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_INTLTOOL_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
