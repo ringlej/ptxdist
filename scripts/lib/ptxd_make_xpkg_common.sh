@@ -70,9 +70,11 @@ ptxd_make_xpkg_init() {
     #
     # sanitize pkg_version
     #
+    # separate (alpha|beta|gamma|rc) with "~"
     # replace "_" by "."
+    # replace "-" by "+"
     #
-    pkg_xpkg_version="${pkg_version//_/.}"
+    pkg_xpkg_version="$(sed -r 's/[~-]?(alpha|beta|gamma|rc)/~\1/g' <<< ${pkg_version} | tr '_-' '.+')"
     if [ -z ${pkg_xpkg_version} ]; then
 	ptxd_bailout "${FUNCNAME}: please define <PKG>_VERSION"
     fi
