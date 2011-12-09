@@ -1,7 +1,9 @@
-From 293f82d33cd67b7f48e078788af6a4b2887c16bf Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:05:35 +0100
-Subject: [PATCH 01/11] Maliciously crafted precompiled code can crash Lua
+Subject: [PATCH] Maliciously crafted precompiled code can crash Lua
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-1
 

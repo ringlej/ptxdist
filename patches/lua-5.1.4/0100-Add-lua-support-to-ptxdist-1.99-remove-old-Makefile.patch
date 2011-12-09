@@ -1,5 +1,6 @@
-Subject: Add lua support to ptxdist 1.99: remove old Makefile
 From: Erwin Rol <erwin@erwinrol.com>
+Date: Fri, 9 Dec 2011 11:32:11 +0100
+Subject: [PATCH] Add lua support to ptxdist 1.99: remove old Makefile
 
 This patch add lua support to ptxdist 1.99. It has a menu entry under
 scripting languages. And a patch that makes it possible to use autoconf
@@ -9,14 +10,15 @@ This part of the patch removes the old Makefile.
 
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
- Makefile |  128 ---------------------------------------------------------------
- 1 file changed, 128 deletions(-)
+ Makefile |  128 --------------------------------------------------------------
+ 1 files changed, 0 insertions(+), 128 deletions(-)
+ delete mode 100644 Makefile
 
-Index: lua-5.1.4/Makefile
-===================================================================
---- lua-5.1.4.orig/Makefile
+diff --git a/Makefile b/Makefile
+deleted file mode 100644
+index 6e78f66..0000000
+--- a/Makefile
 +++ /dev/null
 @@ -1,128 +0,0 @@
 -# makefile for installing Lua

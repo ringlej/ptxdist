@@ -1,8 +1,10 @@
-From e5973b1ca3ad83d500f0c85abb78b2a0bf5fbdc5 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:07:18 +0100
-Subject: [PATCH 02/11] It is possible to create functions that return too many arguments and
- overflow the stack of C functions.
+Subject: [PATCH] It is possible to create functions that return too many
+ arguments and overflow the stack of C functions.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-2
 

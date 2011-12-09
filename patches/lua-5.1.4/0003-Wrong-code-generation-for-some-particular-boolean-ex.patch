@@ -1,8 +1,10 @@
-From b40f5fc4341153fc53fa2d0e839223944b022e6e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:10:56 +0100
-Subject: [PATCH 03/11] Wrong code generation for some particular boolean expressions. (see also
- 9)
+Subject: [PATCH] Wrong code generation for some particular boolean
+ expressions. (see also 9)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-3
 
@@ -15,8 +17,9 @@ Comes from http://www.lua.org/bugs.html#5.1.4-3
 Patch: (partial solution; see also 9)
 
 Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
-
 ---
+ src/lcode.c |   22 ++++++++++++++--------
+ 1 files changed, 14 insertions(+), 8 deletions(-)
 
 diff --git a/src/lcode.c b/src/lcode.c
 index cff626b..84f286b 100644
@@ -67,6 +70,3 @@ index cff626b..84f286b 100644
      default: {
        pc = jumponcond(fs, e, 1);
        break;
--- 
-1.7.2.5
-

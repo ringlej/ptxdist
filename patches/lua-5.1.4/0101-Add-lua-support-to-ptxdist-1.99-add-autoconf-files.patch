@@ -1,5 +1,6 @@
-Subject: Add lua support to ptxdist 1.99: add autoconf files
 From: Erwin Rol <erwin@erwinrol.com>
+Date: Fri, 9 Dec 2011 11:32:12 +0100
+Subject: [PATCH] Add lua support to ptxdist 1.99: add autoconf files
 
 This patch add lua support to ptxdist 1.99. It has a menu entry under
 scripting languages. And a patch that makes it possible to use autoconf
@@ -9,17 +10,20 @@ This part of the patch adds the autoconf files.
 
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
- configure.ac              |   68 ++++
- etc/lua.pc.in             |   32 +
- src/luaconf.h.template.in |  777 ++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 877 insertions(+)
+ configure.ac              |   70 ++++
+ etc/lua.pc.in             |   32 ++
+ src/luaconf.h.template.in |  777 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 879 insertions(+), 0 deletions(-)
+ create mode 100644 configure.ac
+ create mode 100644 etc/lua.pc.in
+ create mode 100644 src/luaconf.h.template.in
 
-Index: lua-5.1.4/configure.ac
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/configure.ac	2011-12-06 11:47:49.675076314 +0100
+diff --git a/configure.ac b/configure.ac
+new file mode 100644
+index 0000000..d879a86
+--- /dev/null
++++ b/configure.ac
 @@ -0,0 +1,70 @@
 +AC_PREREQ([2.67])
 +AC_INIT([Autotoolized Lua],[5.1.4],[],[lua-at])
@@ -91,10 +95,11 @@ Index: lua-5.1.4/configure.ac
 +                 doc/Makefile
 +		 test/Makefile])
 +AC_OUTPUT
-Index: lua-5.1.4/etc/lua.pc.in
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/etc/lua.pc.in	2011-12-06 11:44:52.103826880 +0100
+diff --git a/etc/lua.pc.in b/etc/lua.pc.in
+new file mode 100644
+index 0000000..7f33cff
+--- /dev/null
++++ b/etc/lua.pc.in
 @@ -0,0 +1,32 @@
 +# lua.pc -- pkg-config data for Lua
 +
@@ -128,10 +133,11 @@ Index: lua-5.1.4/etc/lua.pc.in
 +Cflags: -I${includedir}
 +
 +# (end of lua.pc)
-Index: lua-5.1.4/src/luaconf.h.template.in
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/src/luaconf.h.template.in	2011-12-06 11:44:52.103826880 +0100
+diff --git a/src/luaconf.h.template.in b/src/luaconf.h.template.in
+new file mode 100644
+index 0000000..41b234d
+--- /dev/null
++++ b/src/luaconf.h.template.in
 @@ -0,0 +1,777 @@
 +/*
 +** $Id: luaconf.h,v 1.82a 2006/04/10 18:27:23 roberto Exp $

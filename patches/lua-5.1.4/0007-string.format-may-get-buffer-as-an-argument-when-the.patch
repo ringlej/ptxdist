@@ -1,8 +1,10 @@
-From ce47c22d52dcc4996c03e073ddf94398aa42411e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:21:46 +0100
-Subject: [PATCH 07/11] string.format may get buffer as an argument when there are missing
- arguments and format string is too long.
+Subject: [PATCH] string.format may get buffer as an argument when there are
+ missing arguments and format string is too long.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-7
 
@@ -14,8 +16,9 @@ Example:
  --
 
 Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
-
 ---
+ src/lstrlib.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
 diff --git a/src/lstrlib.c b/src/lstrlib.c
 index 1b4763d..fe452ce 100644
@@ -39,6 +42,3 @@ index 1b4763d..fe452ce 100644
        strfrmt = scanformat(L, strfrmt, form);
        switch (*strfrmt++) {
          case 'c': {
--- 
-1.7.2.5
-

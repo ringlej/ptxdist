@@ -1,15 +1,18 @@
-From 23449ee61f062a18926f11a216f9906155f259b9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:28:19 +0100
-Subject: [PATCH 11/11] Parser may collect a prototype while building it.
+Subject: [PATCH] Parser may collect a prototype while building it.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-11
 
 reported by Ingo van Lil on 13 Oct 2011.
 
 Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
-
 ---
+ src/lparser.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/src/lparser.c b/src/lparser.c
 index 1e2a9a8..a2721d2 100644
@@ -26,6 +29,3 @@ index 1e2a9a8..a2721d2 100644
  }
  
  
--- 
-1.7.2.5
-

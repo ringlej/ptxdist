@@ -1,8 +1,11 @@
-From 4a37f37706e3f89d379a827c8da646d34d136c3c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:20:15 +0100
-Subject: [PATCH 06/11] GC may get stuck during parsing and avoids proper resizing of the string
- table, making its lists grow too much and degrading performance.
+Subject: [PATCH] GC may get stuck during parsing and avoids proper resizing
+ of the string table, making its lists grow too much and
+ degrading performance.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-6
 
@@ -10,8 +13,9 @@ Comes from http://www.lua.org/bugs.html#5.1.4-6
 
 
 Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
-
 ---
+ src/llex.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
 diff --git a/src/llex.c b/src/llex.c
 index 6dc3193..92d6575 100644
@@ -29,6 +33,3 @@ index 6dc3193..92d6575 100644
    return ts;
  }
  
--- 
-1.7.2.5
-

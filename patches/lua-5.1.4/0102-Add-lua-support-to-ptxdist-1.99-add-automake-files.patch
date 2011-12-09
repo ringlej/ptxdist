@@ -1,5 +1,6 @@
-Subject: Add lua support to ptxdist 1.99: add automake files
 From: Erwin Rol <erwin@erwinrol.com>
+Date: Fri, 9 Dec 2011 11:32:12 +0100
+Subject: [PATCH] Add lua support to ptxdist 1.99: add automake files
 
 This patch add lua support to ptxdist 1.99. It has a menu entry under
 scripting languages. And a patch that makes it possible to use autoconf
@@ -9,29 +10,46 @@ This part of the patch adds the automake files.
 
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
- Makefile.am      |    3 +++
+ Makefile.am      |    5 +++++
  doc/Makefile.am  |    5 +++++
  etc/Makefile.am  |    8 ++++++++
  src/Makefile.am  |   45 +++++++++++++++++++++++++++++++++++++++++++++
  test/Makefile.am |    5 +++++
- 5 files changed, 66 insertions(+)
+ 5 files changed, 68 insertions(+), 0 deletions(-)
+ create mode 100644 Makefile.am
+ create mode 100644 doc/Makefile.am
+ create mode 100644 etc/Makefile.am
+ create mode 100644 src/Makefile.am
+ create mode 100644 test/Makefile.am
 
-Index: lua-5.1.4/doc/Makefile.am
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/doc/Makefile.am	2011-12-06 11:49:03.491826945 +0100
+diff --git a/Makefile.am b/Makefile.am
+new file mode 100644
+index 0000000..de78a24
+--- /dev/null
++++ b/Makefile.am
+@@ -0,0 +1,5 @@
++ACLOCAL_AMFLAGS = -I m4
++
++SUBDIRS = src doc etc test
++
++EXTRA_DIST = autogen.sh COPYRIGHT HISTORY INSTALL README
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+new file mode 100644
+index 0000000..574b6f8
+--- /dev/null
++++ b/doc/Makefile.am
 @@ -0,0 +1,5 @@
 +man1_MANS = lua.1 luac.1
 +
 +EXTRA_DIST = \
 +	contents.html  lua.1   luac.html  lua.html     manual.html \
 +	logo.gif       luac.1  lua.css    readme.html
-Index: lua-5.1.4/etc/Makefile.am
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/etc/Makefile.am	2011-12-06 11:49:03.491826945 +0100
+diff --git a/etc/Makefile.am b/etc/Makefile.am
+new file mode 100644
+index 0000000..23edd92
+--- /dev/null
++++ b/etc/Makefile.am
 @@ -0,0 +1,8 @@
 +include_HEADERS = lua.hpp
 +
@@ -41,20 +59,11 @@ Index: lua-5.1.4/etc/Makefile.am
 +EXTRA_DIST = \
 +	all.c      lua.ico    lua.pc.in  noparser.c  strict.lua \
 +	luavs.bat  min.c      README
-Index: lua-5.1.4/Makefile.am
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/Makefile.am	2011-12-06 11:50:14.559076265 +0100
-@@ -0,0 +1,5 @@
-+ACLOCAL_AMFLAGS = -I m4
-+
-+SUBDIRS = src doc etc test
-+
-+EXTRA_DIST = autogen.sh COPYRIGHT HISTORY INSTALL README
-Index: lua-5.1.4/src/Makefile.am
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/src/Makefile.am	2011-12-06 11:49:03.491826945 +0100
+diff --git a/src/Makefile.am b/src/Makefile.am
+new file mode 100644
+index 0000000..81dfde9
+--- /dev/null
++++ b/src/Makefile.am
 @@ -0,0 +1,45 @@
 +AM_CFLAGS = -Wall
 +
@@ -101,10 +110,11 @@ Index: lua-5.1.4/src/Makefile.am
 +	rm -f luaconf.h luaconf.h.tmp
 +	$(edit) luaconf.h.template > luaconf.h.tmp
 +	mv luaconf.h.tmp luaconf.h
-Index: lua-5.1.4/test/Makefile.am
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ lua-5.1.4/test/Makefile.am	2011-12-06 11:49:03.491826945 +0100
+diff --git a/test/Makefile.am b/test/Makefile.am
+new file mode 100644
+index 0000000..bab7eac
+--- /dev/null
++++ b/test/Makefile.am
 @@ -0,0 +1,5 @@
 +EXTRA_DIST = \
 +	bisect.lua  env.lua         fib.lua      life.lua          printf.lua \

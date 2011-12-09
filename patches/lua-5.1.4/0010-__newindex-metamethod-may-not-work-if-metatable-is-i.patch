@@ -1,7 +1,10 @@
-From 81ff350a91cb1c248e96366eed3049386c5f2cba Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Beno=C3=AEt=20Burnichon?= <benoit.burnichon@airtag.com>
 Date: Tue, 6 Dec 2011 14:27:04 +0100
-Subject: [PATCH 10/11] __newindex metamethod may not work if metatable is its own metatable.
+Subject: [PATCH] __newindex metamethod may not work if metatable is its own
+ metatable.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Comes from http://www.lua.org/bugs.html#5.1.4-10
 
@@ -16,8 +19,9 @@ Example:
  --
 
 Signed-off-by: Benoît Burnichon <benoit.burnichon@airtag.com>
-
 ---
+ src/lvm.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
 diff --git a/src/lvm.c b/src/lvm.c
 index 4ac2e71..ca7bea0 100644
@@ -31,6 +35,3 @@ index 4ac2e71..ca7bea0 100644
          luaC_barriert(L, h, val);
          return;
        }
--- 
-1.7.2.5
-
