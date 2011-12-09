@@ -1,0 +1,5 @@
+## SECTION=rootfs
+
+config OS_RELEASE
+	tristate
+	default ROOTFS
