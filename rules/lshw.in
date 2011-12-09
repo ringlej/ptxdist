@@ -17,6 +17,8 @@ if LSHW
 
 config LSHW_GUI
 	bool
+	# gtk2 only
+	depends on BROKEN
 	prompt "install GUI"
 
 endif
