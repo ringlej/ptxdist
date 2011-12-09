@@ -741,14 +741,16 @@ ptxd_ipkg_arch() {
 #
 ptxd_ipkg_rev_decimal_convert() {
 	local ver=$*
-	while echo $ver | grep -q '[^0-9.]'
+	while echo $ver | grep -q '[^0-9.~]'
 	do
-		local char=`echo -n $ver | sed 's/.*\([^0-9.]\).*/\1/'`
-		local char_dec=`echo -n $char | od -b | head -n 1 | awk '{print $2}'`
-		ver=`echo $ver | sed "s/$char/.$char_dec/g"`
+		local char="$(sed 's/.*\([^0-9.~]\).*/\1/' <<< $ver)"
+		local char_dec="$(echo $(od -b -N1 -An <<< $char))"
+		ver="${ver//$char/.$char_dec}"
 	done
 
-	ver=`echo $ver | sed 's/\.\./.0/g'`
+	ver="$(sed -r "s/\.?~/.-1./g" <<< $ver)"
+	ver="${ver//../.0}"
+	ver="${ver#.}"
 
 	echo "$ver"
 }
