@@ -25,6 +25,8 @@ if LIBIODBC
 config LIBIODBC_GUI
 	bool
 	prompt "gui"
+	# needs gtk2
+	depends on BROKEN
 	help
 	 build GUI applications
 
