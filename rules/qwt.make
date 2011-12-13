@@ -23,7 +23,6 @@ QWT_SUFFIX	:= tar.bz2
 QWT_URL		:= $(PTXCONF_SETUP_SFMIRROR)/qwt/$(QWT).$(QWT_SUFFIX)
 QWT_SOURCE	:= $(SRCDIR)/$(QWT).$(QWT_SUFFIX)
 QWT_DIR		:= $(BUILDDIR)/$(QWT)
-QWT_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
