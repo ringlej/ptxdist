@@ -25,3 +25,6 @@ scripts/kconfig/zconf.hash.c
 scripts/kconfig/zconf.tab.c
 scripts/kconfig/*.o
 scripts/kconfig/lxdialog/*.o
+
+/bin/*
+!/bin/ptxdist
