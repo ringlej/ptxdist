@@ -39,7 +39,7 @@ then
     test -z "$v" \
 	&& echo "$0: WARNING: $tarball_version_file seems to be damaged" 1>&2
 
-    echo -n "$v"
+    printf '%s' $v
     exit
 fi
 
