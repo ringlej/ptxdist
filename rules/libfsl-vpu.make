@@ -39,7 +39,9 @@ $(LIBFSL_VPU_SOURCE):
 #
 # autoconf
 #
-LIBFSL_VPU_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBFSL_VPU_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
