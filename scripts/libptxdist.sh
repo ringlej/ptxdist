@@ -395,10 +395,10 @@ ptxd_make_log() {
 #
 ptxd_replace_magic() {
 	gawk '
-$0 ~ /@[A-Z0-9_]+@/ {
+$0 ~ /@[A-Za-z0-9_]+@/ {
 	line = $0
 
-	while (match(line, "@[A-Z0-9_]+@")) {
+	while (match(line, "@[A-Za-z0-9_]+@")) {
 		var = substr(line, RSTART + 1, RLENGTH - 2);
 		line = substr(line, RSTART + RLENGTH);
 
