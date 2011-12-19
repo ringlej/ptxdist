@@ -157,6 +157,9 @@ $(STATEDIR)/cairo.targetinstall:
 	@$(call install_fixup, cairo,DESCRIPTION,missing)
 
 	@$(call install_lib, cairo, 0, 0, 0644, libcairo)
+ifdef PTXCONF_CAIRO_GOBJECT
+	@$(call install_lib, cairo, 0, 0, 0644, libcairo-gobject)
+endif
 
 	@$(call install_finish, cairo)
 
