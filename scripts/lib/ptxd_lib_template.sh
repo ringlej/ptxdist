@@ -214,7 +214,7 @@ ptxd_template_new() {
     export template_src="${RULESDIR}/templates/${action}"
     export YEAR="$(date +%Y)"
 
-    local func="ptxd_template_new_${action}"
+    local func="ptxd_template_new_${action//-/_}"
     if ! declare -F | grep -q "${func}$"; then
 	ptxd_template_help
 	return
@@ -287,59 +287,59 @@ ptxd_template_help_list[${#ptxd_template_help_list[@]}]="klibc"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for initramfs built against klibc"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]=""
 
-ptxd_template_new_src-autoconf-lib() {
+ptxd_template_new_src_autoconf_lib() {
     ptxd_template_autoconf_base
 }
-export -f ptxd_template_new_src-autoconf-lib
+export -f ptxd_template_new_src_autoconf_lib
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-autoconf-lib"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create autotoolized library"
 
-ptxd_template_new_src-autoconf-prog() {
+ptxd_template_new_src_autoconf_prog() {
     ptxd_template_autoconf_base
 }
-export -f ptxd_template_new_src-autoconf-prog
+export -f ptxd_template_new_src_autoconf_prog
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-autoconf-prog"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create autotoolized binary"
 
-ptxd_template_new_src-autoconf-proglib() {
+ptxd_template_new_src_autoconf_proglib() {
     ptxd_template_autoconf_base
 }
-export -f ptxd_template_new_src-autoconf-proglib
+export -f ptxd_template_new_src_autoconf_proglib
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-autoconf-proglib"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create autotoolized binary+library"
 
-ptxd_template_new_src-cmake-prog() {
+ptxd_template_new_src_cmake_prog() {
     ptxd_template_src_base
 }
-export -f ptxd_template_new_src-cmake-prog
+export -f ptxd_template_new_src_cmake_prog
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-cmake-prog"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create cmake binary"
 
-ptxd_template_new_src-qmake-prog() {
+ptxd_template_new_src_qmake_prog() {
     ptxd_template_src_base
 }
-export -f ptxd_template_new_src-qmake-prog
+export -f ptxd_template_new_src_qmake_prog
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-qmake-prog"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create qmake binary"
 
-ptxd_template_new_src-linux-driver() {
+ptxd_template_new_src_linux_driver() {
     ptxd_template_src_base
 }
-export -f ptxd_template_new_src-linux-driver
+export -f ptxd_template_new_src_linux_driver
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-linux-driver"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create a linux kernel driver"
 
-ptxd_template_new_src-make-prog() {
+ptxd_template_new_src_make_prog() {
     ptxd_template_src_base
 }
-export -f ptxd_template_new_src-make-prog
+export -f ptxd_template_new_src_make_prog
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-make-prog"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create a plain makefile binary"
 
-ptxd_template_new_src-stellaris() {
+ptxd_template_new_src_stellaris() {
     ptxd_template_src_base
 }
-export -f ptxd_template_new_src-stellaris
+export -f ptxd_template_new_src_stellaris
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-stellaris"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create stellaris firmware"
 
