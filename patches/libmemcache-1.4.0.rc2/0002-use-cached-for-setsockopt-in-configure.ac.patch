@@ -78,6 +78,3 @@ index a1c8bf1..827e124 100644
  ])
  
  dnl check for SO_RCVTIMEO and SO_SNDTIMEO
--- 
-1.7.2.3
-
