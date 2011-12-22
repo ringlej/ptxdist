@@ -5,12 +5,21 @@ menuconfig LIGHTTPD
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_CRYPT
-	select ZLIB		if LIGHTTPD_ZLIB
-	select BZIP2		if LIGHTTPD_BZ2LIB
-	select BZIP2_LIBBZ2	if LIGHTTPD_BZ2LIB
-	select LIBPCRE		if LIGHTTPD_PCRE
-	select OPENSSL		if LIGHTTPD_OPENSSL
-	select OPENSSL_SHARED	if LIGHTTPD_OPENSSL
+	select ZLIB			if LIGHTTPD_ZLIB
+	select BZIP2			if LIGHTTPD_BZ2LIB
+	select BZIP2_LIBBZ2		if LIGHTTPD_BZ2LIB
+	select ATTR			if LIGHTTPD_ATTR
+	select LIBPCRE			if LIGHTTPD_PCRE
+	select FAM			if LIGHTTPD_FAM
+	select FAM_LIBRARY		if LIGHTTPD_FAM
+	select LIBXML2			if LIGHTTPD_WEBDAV_PROPS
+	select SQLITE			if LIGHTTPD_WEBDAV_PROPS
+	select LIBUUID			if LIGHTTPD_WEBDAV_LOCKS
+	select OPENSSL			if LIGHTTPD_OPENSSL
+	select OPENSSL_SHARED		if LIGHTTPD_OPENSSL
+	select LIBMEMCACHE		if LIGHTTPD_MEMCACHE
+	select LUA			if LIGHTTPD_LUA
+	select LUA_INSTALL_LIBLUA	if LIGHTTPD_LUA
 	select BUSYBOX_START_STOP_DAEMON			if LIGHTTPD_STARTSCRIPT
 	select BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY		if LIGHTTPD_STARTSCRIPT
 	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS	if LIGHTTPD_STARTSCRIPT
@@ -43,12 +52,6 @@ config LIGHTTPD_BZ2LIB
 	help
 	  Enable bzip2 support for mod_compress.
 
-config LIGHTTPD_LFS
-	bool
-	prompt "large file system support"
-	help
-	  Turn on Large File System.
-
 config LIGHTTPD_MYSQL
 	bool
 #	prompt "MySQL support"
@@ -62,7 +65,7 @@ config LIGHTTPD_LDAP
 
 config LIGHTTPD_ATTR
 	bool
-#	prompt "extended attribute support"
+	prompt "extended attribute support"
 	help
 	  Enable extended attribute support.
 
@@ -88,19 +91,20 @@ config LIGHTTPD_PCRE
 
 config LIGHTTPD_FAM
 	bool
-#	prompt "fam"
+	prompt "fam"
 	help
 	  fam/gamin for reducing number of stat() calls.
 
 config LIGHTTPD_WEBDAV_PROPS
 	bool
-#	prompt "properties in mod_webdav"
+	prompt "properties in mod_webdav"
 	help
 	  properties in mod_webdav
 
 config LIGHTTPD_WEBDAV_LOCKS
 	bool
-#	prompt "locks in mod_webdav"
+	select LIGHTTPD_WEBDAV_PROPS
+	prompt "locks in mod_webdav"
 	help
 	  locks in mod_webdav
 
@@ -112,13 +116,13 @@ config LIGHTTPD_GDBM
 
 config LIGHTTPD_MEMCACHE
 	bool
-#	prompt "memcached storage for mod_trigger_b4_dl"
+	prompt "memcached storage for mod_trigger_b4_dl"
 	help
 	  memcached storage for mod_trigger_b4_dl
 
 config LIGHTTPD_LUA
 	bool
-#	prompt "lua engine for mod_cml"
+	prompt "lua engine for mod_cml"
 	help
 	  lua engine for mod_cml
 
