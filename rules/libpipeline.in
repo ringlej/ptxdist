@@ -1,0 +1,20 @@
+## SECTION=system_libraries
+
+menuconfig LIBPIPELINE
+	tristate
+	prompt "libpipeline                   "
+	help
+	  libpipeline is a C library for setting up and running pipelines of
+	  processes, without needing to involve shell command-line parsing which
+	  is often error-prone and insecure. This alleviates programmers of the
+	  need to laboriously construct pipelines using lower-level primitives
+	  such as fork and execve.
+
+if LIBPIPELINE
+config LIBPIPELINE_SOCKETPAIR
+	bool
+	prompt "Use socketpair"
+	help
+	  Use socketpair(2) as fast replacement for pipe(2)
+
+endif
