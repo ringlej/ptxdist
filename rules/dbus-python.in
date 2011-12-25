@@ -1,4 +1,4 @@
-## SECTION=scripting_languages
+## SECTION=python
 
 config DBUS_PYTHON
 	tristate

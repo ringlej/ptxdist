@@ -1,4 +1,4 @@
-## SECTION=multimedia_libs
+## SECTION=python
 
 menuconfig PYTHON_IMAGING
 	tristate

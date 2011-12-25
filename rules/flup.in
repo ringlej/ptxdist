@@ -1,4 +1,4 @@
-## SECTION=networking
+## SECTION=python
 
 config FLUP
 	tristate
