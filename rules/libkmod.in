@@ -1,0 +1,39 @@
+## SECTION=system_libraries
+
+menuconfig LIBKMOD
+	tristate
+	select ZLIB if LIBKMOD_ZLIB
+	prompt "libkmod                       "
+	help
+	  libkmod is a library with a set of tools frontends to handle common
+	  tasks with Linux kernel modules like insert, remove, list, check
+	  properties, resolve dependencies and aliases.
+
+if LIBKMOD
+
+config LIBKMOD_TOOLS
+	bool
+	prompt "install tools"
+	help
+	  Install tool frontends that provide same functionality as the
+	  module-init-tools
+
+config LIBKMOD_ZLIB
+	bool
+	prompt "use zlib"
+	help
+	  Use the 'zlib' to handle compressed modules
+
+config LIBKMOD_LOGGING
+	bool
+	prompt "enable syslog"
+	help
+	  Enable syslog based logging
+
+config LIBKMOD_DEBUG
+	bool
+	prompt "enable debug output"
+	help
+	  Make the package more noisy
+
+endif
