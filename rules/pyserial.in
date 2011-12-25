@@ -1,0 +1,41 @@
+## SECTION=python
+
+menuconfig PYSERIAL
+	tristate
+	select PYTHON
+	prompt "pyserial                      "
+	help
+	  This module encapsulates the access for the serial port. It provides
+	  backends for Python running on Windows, Linux, BSD (possibly any
+	  POSIX compliant system), Jython and IronPython (.NET and Mono). The
+	  module named "serial" automatically selects the appropriate backend.
+
+	  - Project Homepage: http://pyserial.sourceforge.net
+	  - Project page on SourceForge: http://sourceforge.net/projects/pyserial/
+	  - SVN repository: http://sourceforge.net/svn/?group_id=46487
+	  - Download Page: http://sourceforge.net/project/showfiles.php?group_id=46487
+
+if PYSERIAL
+
+config PYSERIAL_MINITERM
+	bool
+	prompt "Install 'miniterm'"
+	help
+	  Install the miniterm script coming with this package.
+
+config PYSERIAL_EXAMPLES
+	bool
+	prompt "Install usage examples"
+	help
+	  Install the examples coming with this package (for example a serial
+	  to network forwarder).
+
+config PYSERIAL_TESTS
+	bool
+	prompt "Install test scripts"
+	help
+	  Install the test scripts coming with this package. They could be useful
+	  to check if the installation is complete and working. So, they are
+	  more for development or debugging. Nothing really required.
+
+endif
