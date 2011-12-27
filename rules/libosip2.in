@@ -1,0 +1,24 @@
+## SECTION=system_libraries
+
+menuconfig LIBOSIP2
+	tristate
+	select LIBC_NSL
+	prompt "libosip2                      "
+	help
+	  The GNU oSIP library is an implementation of SIP - rfc3261.
+
+if LIBOSIP2
+
+config LIBOSIP2_DEBUG
+	bool
+	prompt "enable debug"
+	help
+	  Make the library larger and more noisy.
+
+config LIBOSIP2_TRACE
+	bool
+	prompt "enable log trace"
+	help
+	  Enable trace in the logfile.
+
+endif
