@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_I2C_TOOLS) += i2c-tools
 #
 # Paths and names
 #
-I2C_TOOLS_VERSION	:= 3.0.3
-I2C_TOOLS_MD5		:= 511376eed04455cdb277ef19c5f73bb4
+I2C_TOOLS_VERSION	:= 3.1.0
+I2C_TOOLS_MD5		:= f15019e559e378c6e9d5d6299a00df21
 I2C_TOOLS		:= i2c-tools-$(I2C_TOOLS_VERSION)
 I2C_TOOLS_SUFFIX	:= tar.bz2
 I2C_TOOLS_URL		:= http://dl.lm-sensors.org/i2c-tools/releases/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
