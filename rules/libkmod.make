@@ -32,16 +32,12 @@ LIBKMOD_LICENSE	:= GPLv2/LGPLv2
 
 LIBKMOD_CONF_TOOL	:= autoconf
 LIBKMOD_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR)  \
-	--enable-option-checking \
-	--enable-silent-rules \
-	--enable-dependency-tracking \
+	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
 	--enable-shared \
-	--enable-fast-install \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_TOOLS)-tools \
-	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging  \
+	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_ZLIB)-zlib \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug
 

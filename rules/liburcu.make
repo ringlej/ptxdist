@@ -35,11 +35,8 @@ LIBURCU_LICENSE	:= LGPLv2.1
 LIBURCU_CONF_TOOL	:= autoconf
 LIBURCU_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-silent-rules \
-	--enable-dependency-tracking \
 	--enable-shared \
 	--disable-static \
-	--enable-fast-install \
 	--$(call ptx/endis, PTXCONF_LIBURCU_SMP)-smp-support
 
 # ----------------------------------------------------------------------------

@@ -38,12 +38,8 @@ LIBPIPELINE_CONF_TOOL	:= autoconf
 # (but 'configure' cannot check it due to cross compiling)
 LIBPIPELINE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-option-checking \
-	--enable-silent-rules \
-	--enable-dependency-tracking \
 	--disable-static \
 	--enable-shared \
-	--enable-fast-install \
 	--enable-threads=posix \
 	--disable-rpath \
 	--$(call ptx/endis,PTXCONF_LIBPIPELINE_SOCKETPAIR)-socketpair-pipe \
