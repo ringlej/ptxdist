@@ -46,6 +46,7 @@ environment:
 	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
 	@ln -sf @GNU_chmod@ "$(abs_srcdir)/bin/chmod"
 	@ln -sf @GNU_mv@ "$(abs_srcdir)/bin/mv"
+	@ln -sf @GNU_cp@ "$(abs_srcdir)/bin/cp"
 	@ln -sf @GNU_rm@ "$(abs_srcdir)/bin/rm"
 	@ln -sf @GNU_md5sum@ "$(abs_srcdir)/bin/md5sum"
 	@echo " done"
