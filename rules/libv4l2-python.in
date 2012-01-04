@@ -1,4 +1,4 @@
-## SECTION=multimedia_libs
+## SECTION=python
 
 config LIBV4L2_PYTHON
 	tristate
