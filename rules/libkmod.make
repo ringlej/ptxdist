@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 2
-LIBKMOD_MD5	:= 6017364434377f6724f749d7a28c5d7a
+LIBKMOD_VERSION	:= 3
+LIBKMOD_MD5	:= bc0e69f75c2ac22c091f05e166e86c5d
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= http://packages.profusion.mobi/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX)
@@ -38,8 +38,9 @@ LIBKMOD_CONF_OPT	:= \
 	--enable-shared \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_TOOLS)-tools \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
-	--$(call ptx/endis, PTXCONF_LIBKMOD_ZLIB)-zlib \
-	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug
+	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug \
+	--without-xz \
+	--$(call ptx/wwo, PTXCONF_LIBKMOD_ZLIB)-zlib
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -57,9 +58,7 @@ $(STATEDIR)/libkmod.targetinstall:
 	@$(call install_lib, libkmod, 0, 0, 0644, libkmod)
 
 ifdef PTXCONF_LIBKMOD_TOOLS
-	@$(foreach tool, kmod-insmod kmod-lsmod kmod-modinfo kmod-modprobe kmod-rmmod, \
-		$(call install_copy, libkmod, 0, 0, 0755, -, /usr/bin/$(tool));)
-
+	@$(call install_copy, libkmod, 0, 0, 0755, -, /usr/bin/kmod)
 endif
 	@$(call install_finish, libkmod)
 
