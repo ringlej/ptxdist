@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 # Paths and names
 #
 CONNMAN_VERSION	:= 0.77
-CONNMAN_MD5	:= 2e95edb0ead4fff3e84458f7fa192a64
+CONNMAN_MD5	:= 6cad9f9c9dd216a148bb8aef5732c9aa 2e95edb0ead4fff3e84458f7fa192a64
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= $(call ptx/mirror, KERNEL, network/connman/$(CONNMAN).$(CONNMAN_SUFFIX))
