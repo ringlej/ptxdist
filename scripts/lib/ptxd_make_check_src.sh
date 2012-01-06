@@ -15,6 +15,7 @@
 ptxd_make_check_src_impl() {
     local src="${1}"
     local md5="${2}"
+    local md5sum
 
     if [ -z "${src}" ]; then
 	ptxd_bailout "ptxd_make_check_src called without source file."
@@ -34,7 +35,10 @@ ptxd_make_check_src_impl() {
 	return
     fi
 
-    echo "${md5}  ${src}" | md5sum --check > /dev/null 2>&1
+    for md5sum in ${md5}; do
+	echo "${md5sum}  ${src}" | md5sum --check > /dev/null 2>&1 && return
+    done
+    return 1
 }
 export -f ptxd_make_check_src_impl
 
