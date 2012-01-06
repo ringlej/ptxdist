@@ -112,6 +112,7 @@ export -f ptxd_make_get_download_permitted
 #
 ptxd_make_get() {
 	local -a argv
+	local ptxmirror_url
 	local mrd=false		# is mirror already part of urls?
 
 	local path="${1}"
@@ -158,7 +159,7 @@ ptxd_make_get() {
 
 			# add mirror to URLs, but only once
 			if ! ${mrd}; then
-				argv[${#argv[@]}]="${url/#*:\/\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
+				ptxmirror_url="${url/#*:\/\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
 				mrd=true
 			fi
 			;;
@@ -167,6 +168,9 @@ ptxd_make_get() {
 			argv[${#argv[@]}]="${url}"
 		esac
 	done
+	if [ -n "${ptxmirror_url}" ]; then
+		argv[${#argv[@]}]="${ptxmirror_url}"
+	fi
 
 	set -- "${argv[@]}"
 
