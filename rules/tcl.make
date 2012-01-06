@@ -23,7 +23,7 @@ TCL_VERSION	:= $(TCL_MAJOR).$(TCL_MINOR).$(TCL_PL)
 TCL_MD5		:= f70ad8f78b5e4a9f792fe101f22b125f
 TCL		:= tcl$(TCL_VERSION)
 TCL_SUFFIX	:= -src.tar.gz
-TCL_URL		:= $(PTXCONF_SETUP_SFMIRROR)/tcl/$(TCL)$(TCL_SUFFIX)
+TCL_URL		:= $(call ptx/mirror, SF, tcl/$(TCL)$(TCL_SUFFIX))
 TCL_SOURCE	:= $(SRCDIR)/$(TCL)$(TCL_SUFFIX)
 TCL_DIR		:= $(BUILDDIR)/$(TCL)
 

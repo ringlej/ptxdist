@@ -27,7 +27,7 @@ MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
 MESALIB_URL	:= \
-	$(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESALIB).$(MESALIB_SUFFIX) \
+	$(call ptx/mirror, SF, mesa3d/$(MESALIB).$(MESALIB_SUFFIX)) \
 	ftp://ftp.freedesktop.org/pub/mesa/7.8.2/$(MESALIB).$(MESALIB_SUFFIX)
 
 MESADEMOS		:= MesaDemos-$(MESALIB_VERSION)
@@ -36,7 +36,7 @@ MESADEMOS_SOURCE	:= $(SRCDIR)/$(MESADEMOS).$(MESALIB_SUFFIX)
 MESADEMOS_DIR		:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
 MESADEMOS_URL		:= \
-	$(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESADEMOS).$(MESALIB_SUFFIX) \
+	$(call ptx/mirror, SF, mesa3d/$(MESADEMOS).$(MESALIB_SUFFIX)) \
 	ftp://ftp.freedesktop.org/pub/mesa/7.8.2/$(MESADEMOS).$(MESALIB_SUFFIX)
 
 # ----------------------------------------------------------------------------

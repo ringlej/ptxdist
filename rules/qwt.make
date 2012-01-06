@@ -20,7 +20,7 @@ QWT_VERSION	:= 6.0.1
 QWT_MD5		:= ace68558eab873e2da7e641179c4ef0c
 QWT		:= qwt-$(QWT_VERSION)
 QWT_SUFFIX	:= tar.bz2
-QWT_URL		:= $(PTXCONF_SETUP_SFMIRROR)/qwt/$(QWT).$(QWT_SUFFIX)
+QWT_URL		:= $(call ptx/mirror, SF, qwt/$(QWT).$(QWT_SUFFIX))
 QWT_SOURCE	:= $(SRCDIR)/$(QWT).$(QWT_SUFFIX)
 QWT_DIR		:= $(BUILDDIR)/$(QWT)
 

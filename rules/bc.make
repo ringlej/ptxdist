@@ -21,7 +21,7 @@ BC_VERSION	:= 1.06
 BC_MD5		:= d44b5dddebd8a7a7309aea6c36fda117
 BC		:= bc-$(BC_VERSION)
 BC_SUFFIX	:= tar.gz
-BC_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/bc/$(BC).$(BC_SUFFIX)
+BC_URL		:= $(call ptx/mirror, GNU, bc/$(BC).$(BC_SUFFIX))
 BC_SOURCE	:= $(SRCDIR)/$(BC).$(BC_SUFFIX)
 BC_DIR		:= $(BUILDDIR)/$(BC)
 

@@ -24,7 +24,7 @@ TK_VERSION	:= $(TK_MAJOR).$(TK_MINOR).$(TK_PL)
 TK_MD5		:= 7da2e00adddc7eed6080df904579d94e
 TK		:= tk$(TK_VERSION)
 TK_SUFFIX	:= -src.tar.gz
-TK_URL		:= $(PTXCONF_SETUP_SFMIRROR)/tcl/$(TK)$(TK_SUFFIX)
+TK_URL		:= $(call ptx/mirror, SF, tcl/$(TK)$(TK_SUFFIX))
 TK_SOURCE	:= $(SRCDIR)/$(TK)$(TK_SUFFIX)
 TK_DIR		:= $(BUILDDIR)/$(TK)
 

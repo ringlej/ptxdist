@@ -21,7 +21,7 @@ LSOF_MD5	:= 138b628cb1b6a3b16b32b792f77abcce
 LSOF_SUFFIX	:= tar.gz
 LSOF		:= lsof-$(LSOF_VERSION)
 LSOF_TARBALL	:= lsof_$(LSOF_VERSION).orig.$(LSOF_SUFFIX)
-LSOF_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/l/lsof/$(LSOF_TARBALL)
+LSOF_URL	:= $(call ptx/mirror, DEB, pool/main/l/lsof/$(LSOF_TARBALL))
 LSOF_SOURCE	:= $(SRCDIR)/$(LSOF_TARBALL)
 LSOF_DIR	:= $(BUILDDIR)/$(LSOF)
 

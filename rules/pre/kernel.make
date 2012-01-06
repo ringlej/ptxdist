@@ -36,15 +36,15 @@ KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
 KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include
 
 kernel/url = \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/testing/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/testing/v$(call kernel-major,$(1)).$(call kernel-minor,$(1)).$(call kernel-micro,$(1))/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/longterm/v$(call kernel-major,$(1)).$(call kernel-minor,$(1)).$(call kernel-micro,$(1))/$($(1)).$($(1)_SUFFIX) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX)) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/testing/$($(1)).$($(1)_SUFFIX)) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/testing/v$(call kernel-major,$(1)).$(call kernel-minor,$(1)).$(call kernel-micro,$(1))/$($(1)).$($(1)_SUFFIX)) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/longterm/v$(call kernel-major,$(1)).$(call kernel-minor,$(1)).$(call kernel-micro,$(1))/$($(1)).$($(1)_SUFFIX)) \
 	\
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/testing/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/testing/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX) \
-	$(PTXCONF_SETUP_KERNELMIRROR)/kernel/v$(call kernel-major,$(1)).x/longterm/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX)
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).x/$($(1)).$($(1)_SUFFIX)) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).x/testing/$($(1)).$($(1)_SUFFIX)) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).x/testing/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX)) \
+	$(call ptx/mirror, KERNEL, kernel/v$(call kernel-major,$(1)).x/longterm/v$(call kernel-major,$(1)).$(call kernel-minor,$(1))/$($(1)).$($(1)_SUFFIX))
 
 kernel-url = \
 	$(call kernel/url,$(strip $(1)))

@@ -29,7 +29,7 @@ UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
 
 UDEV_URL := \
-	$(PTXCONF_SETUP_KERNELMIRROR)/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
+	$(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
 
 # ----------------------------------------------------------------------------
 # Get

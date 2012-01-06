@@ -28,7 +28,7 @@ GDB_BUILDDIR	:= $(BUILDDIR)/$(GDB)-build
 GDB_LICENSE	:= GPLv3+
 
 GDB_URL		:= \
-	$(PTXCONF_SETUP_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX) \
+	$(call ptx/mirror, GNU, gdb/$(GDB).$(GDB_SUFFIX)) \
 	ftp://sourceware.org/pub/gdb/snapshots/current/$(GDB).$(GDB_SUFFIX)
 
 # ----------------------------------------------------------------------------
