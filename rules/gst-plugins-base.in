@@ -2,6 +2,10 @@
 
 menuconfig GST_PLUGINS_BASE
 	tristate
+
+	# needed for autogen.sh
+	select HOST_GETTEXT
+
 	select GLIB
 	select LIBOIL
 	select GSTREAMER
