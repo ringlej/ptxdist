@@ -14,6 +14,7 @@ menuconfig SYSTEMD
 	select RC_ONCE
 	select DBUS_PYTHON	if SYSTEMD_ANALYZE && RUNTIME
 	select TCPWRAPPER	if SYSTEMD_TCPWRAP
+	select XZ		if SYSTEMD_XZ
 	prompt "systemd                       "
 	help
 	  systemd is a system and session manager for Linux, compatible with SysV
@@ -32,6 +33,10 @@ if SYSTEMD
 config SYSTEMD_TCPWRAP
 	bool
 	prompt "TCP wrappers support"
+
+config SYSTEMD_XZ
+	bool
+	prompt "XZ compressed journal support"
 
 config SYSTEMD_DISABLE_RANDOM_SEED
 	bool
