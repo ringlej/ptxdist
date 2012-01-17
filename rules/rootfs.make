@@ -202,6 +202,9 @@ endif
 ifdef PTXCONF_ROOTFS_HOSTS
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hosts)
 endif
+ifdef PTXCONF_ROOTFS_MODPROBE_CONF
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/modprobe.conf)
+endif
 ifdef PTXCONF_ROOTFS_NSSWITCH_CONF
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/nsswitch.conf)
 endif

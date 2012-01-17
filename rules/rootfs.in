@@ -357,6 +357,16 @@ config ROOTFS_ISSUE
 	  If enabled, it installs the "./projectroot/etc/issue" file if
 	  present, else a generic one will be generated using 'figlet'.
 
+config ROOTFS_MODPROBE_CONF
+	bool
+	default n
+	prompt "install /etc/modprobe.conf"
+	help
+	  If enabled, it installs the "./projectroot/etc/modprobe.conf" file if
+	  present. Default options for kernel modules can be configured in that
+	  file. It's read either in busybox modprobe or in the module-init-tools
+	  modprobe implementation.
+
 config ROOTFS_NSSWITCH_CONF
 	bool
 	default y
