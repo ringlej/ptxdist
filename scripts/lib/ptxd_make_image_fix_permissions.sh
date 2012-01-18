@@ -53,22 +53,28 @@ ptxd_make_image_fix_permissions_check() {
 		0${prm_is} -ne 0${prm_should} ]; then
 		fixup=true
 
-	    # for dev-nodes check major/minor and type
+	    # for dev-nodes and pipes
 	    elif [ "${kind}" = "n" ]; then
-		local major_is minor_is
-		eval $(stat -c"major_is=0x%t minor_is=0x%T" "${file}")
-
-		# convert from hex to dec
-		major_is=$(( major_is ))
-		minor_is=$(( minor_is ))
-
 		if [ \
-		    ${major_is} -ne ${major_should} -o \
-		    ${minor_is} -ne ${minor_should} -o \
-		    \
+		    "${type}" = "p" -a ! -p "${file}" -o \
 		    "${type}" = "c" -a ! -c "${file}" -o \
 		    "${type}" = "b" -a ! -b "${file}" ]; then
 		    fixup=true
+
+		# for dev-nodes check major/minor
+		elif [ "${type}" != "p" ]; then
+		    local major_is minor_is
+		    eval $(stat -c"major_is=0x%t minor_is=0x%T" "${file}")
+
+		    # convert from hex to dec
+		    major_is=$(( major_is ))
+		    minor_is=$(( minor_is ))
+
+		    if [ \
+			${major_is} -ne ${major_should} -o \
+			${minor_is} -ne ${minor_should} ]; then
+			fixup=true
+		    fi
 		fi
 	    fi
 	fi
