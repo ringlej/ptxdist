@@ -51,6 +51,7 @@ environment:
 	@ln -sf @GNU_rmdir@ "$(abs_srcdir)/bin/rmdir"
 	@ln -sf @GNU_md5sum@ "$(abs_srcdir)/bin/md5sum"
 	@ln -sf @GNU_install@ "$(abs_srcdir)/bin/install"
+	@ln -sf @GNU_stat@ "$(abs_srcdir)/bin/stat"
 	@echo " done"
 
 clean:
