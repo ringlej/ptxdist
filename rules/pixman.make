@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
+# Copyright (C) 2007,2012 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.21.2
-PIXMAN_MD5	:= 4bc4cf052635265f7a98ad3e890ae329
+PIXMAN_VERSION	:= 0.24.2
+PIXMAN_MD5	:= 2ce7d12750664d2eebd51bf0a07b6205
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
 PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(call ptx/mirror, XORG, individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX))
@@ -25,37 +25,23 @@ PIXMAN_SOURCE	:= $(SRCDIR)/$(PIXMAN).$(PIXMAN_SUFFIX)
 PIXMAN_DIR	:= $(BUILDDIR)/$(PIXMAN)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(PIXMAN_SOURCE):
-	@$(call targetinfo)
-	@$(call get, PIXMAN)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-PIXMAN_PATH	:= PATH=$(CROSS_PATH)
-PIXMAN_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 PIXMAN_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-timers \
-	--disable-gtk \
+	--disable-openmp \
+	--$(call ptx/endis, PTXCONF_ARCH_X86)-mmx \
+	--$(call ptx/endis, PTXCONF_ARCH_X86)-sse2 \
 	--disable-vmx \
 	--disable-arm-simd \
-	--disable-arm-neon \
-	--disable-gcc-inline-asm
-
-ifdef PTXCONF_ARCH_X86
-PIXMAN_AUTOCONF += --enable-mmx --enable-sse2
-else
-PIXMAN_AUTOCONF += --disable-mmx --disable-sse2
-endif
+	--$(call ptx/endis, PTXCONF_ARCH_ARM_NEON)-arm-neon \
+	--enable-gcc-inline-asm \
+	--disable-timers \
+	--disable-gtk
 
 # ----------------------------------------------------------------------------
 # Target-Install
