@@ -41,10 +41,7 @@ kconfig:
 
 environment:
 	@echo -n "preparing PTXdist environment ..."
-	@ln -sf @SED@ "$(abs_srcdir)/bin/sed"
 	@ln -sf @AWK@ "$(abs_srcdir)/bin/awk"
-	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
-	@ln -sf @TAR@ "$(abs_srcdir)/bin/tar"
 	@ln -sf @GNU_chmod@ "$(abs_srcdir)/bin/chmod"
 	@ln -sf @GNU_chown@ "$(abs_srcdir)/bin/chown"
 	@ln -sf @GNU_mv@ "$(abs_srcdir)/bin/mv"
@@ -54,6 +51,9 @@ environment:
 	@ln -sf @GNU_md5sum@ "$(abs_srcdir)/bin/md5sum"
 	@ln -sf @GNU_install@ "$(abs_srcdir)/bin/install"
 	@ln -sf @GNU_stat@ "$(abs_srcdir)/bin/stat"
+	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
+	@ln -sf @SED@ "$(abs_srcdir)/bin/sed"
+	@ln -sf @TAR@ "$(abs_srcdir)/bin/tar"
 	@echo " done"
 
 clean:
