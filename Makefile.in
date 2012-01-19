@@ -49,6 +49,7 @@ environment:
 	@ln -sf @GNU_cp@ "$(abs_srcdir)/bin/cp"
 	@ln -sf @GNU_rm@ "$(abs_srcdir)/bin/rm"
 	@ln -sf @GNU_md5sum@ "$(abs_srcdir)/bin/md5sum"
+	@ln -sf @GNU_install@ "$(abs_srcdir)/bin/install"
 	@echo " done"
 
 clean:
