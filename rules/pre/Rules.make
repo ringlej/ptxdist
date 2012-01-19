@@ -13,7 +13,8 @@ GNU_BUILD	:= $(shell $(SCRIPTSDIR)/autoconf/config.guess)
 GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
 INSTALL		:= install
-FAKEROOT	:= $(PTXDIST_SYSROOT_HOST)/bin/fakeroot -l $(PTXDIST_SYSROOT_HOST)/lib/libfakeroot.so
+
+FAKEROOT	:= $(PTXDIST_SYSROOT_HOST)/bin/fakeroot
 
 CHECK_PIPE_STATUS := \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
