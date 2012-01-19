@@ -45,6 +45,7 @@ environment:
 	@ln -sf @AWK@ "$(abs_srcdir)/bin/awk"
 	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
 	@ln -sf @GNU_chmod@ "$(abs_srcdir)/bin/chmod"
+	@ln -sf @GNU_chown@ "$(abs_srcdir)/bin/chown"
 	@ln -sf @GNU_mv@ "$(abs_srcdir)/bin/mv"
 	@ln -sf @GNU_cp@ "$(abs_srcdir)/bin/cp"
 	@ln -sf @GNU_rm@ "$(abs_srcdir)/bin/rm"
