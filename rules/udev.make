@@ -30,6 +30,7 @@ UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
 
 UDEV_URL := \
 	$(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
+UDEV_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
@@ -226,12 +227,7 @@ endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
 	@if [ -d $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/ ]; then \
-		cd $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/; \
-		for file in `find . -type f`; do \
-			$(call install_copy, udev, 0, 0, 0644, \
-				$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, \
-				/lib/udev/rules.d/$$file, n); \
-		done; \
+		$(call install_tree, udev, 0, 0, $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d, /lib/udev/rules.d); \
 	else \
 		echo "UDEV_CUST_RULES is enabled but Directory containing" \
 			"customized udev rules is missing!"; \
