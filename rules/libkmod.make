@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 3
-LIBKMOD_MD5	:= bc0e69f75c2ac22c091f05e166e86c5d
+LIBKMOD_VERSION	:= 4
+LIBKMOD_MD5	:= e14450a066a48accd0af1995b3c0232d
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= http://packages.profusion.mobi/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX)
@@ -39,6 +39,9 @@ LIBKMOD_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_TOOLS)-tools \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
 	--without-xz \
 	--$(call ptx/wwo, PTXCONF_LIBKMOD_ZLIB)-zlib
 
