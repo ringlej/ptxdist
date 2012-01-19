@@ -1,0 +1,44 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Thu, 19 Jan 2012 22:31:46 +0100
+Subject: [PATCH] Fix compilation on Darwin
+
+The patch is inspired by the patch at
+http://sourceforge.net/tracker/?func=detail&aid=3140289&group_id=2406&atid=102406
+(bug tracker of the upstream project).
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ lib/ext2fs/unix_io.c |   11 +++++++++++
+ 1 files changed, 11 insertions(+), 0 deletions(-)
+
+diff --git a/lib/ext2fs/unix_io.c b/lib/ext2fs/unix_io.c
+index 1df1fdd..cbd3d70 100644
+--- a/lib/ext2fs/unix_io.c
++++ b/lib/ext2fs/unix_io.c
+@@ -463,8 +463,10 @@ static errcode_t unix_open(const char *name, int flags, io_channel *channel)
+ 	open_flags = (flags & IO_FLAG_RW) ? O_RDWR : O_RDONLY;
+ 	if (flags & IO_FLAG_EXCLUSIVE)
+ 		open_flags |= O_EXCL;
++#ifdef O_DIRECT
+ 	if (flags & IO_FLAG_DIRECT_IO)
+ 		open_flags |= O_DIRECT;
++#endif
+ 	data->flags = flags;
+ 
+ #ifdef HAVE_OPEN64
+@@ -477,6 +479,15 @@ static errcode_t unix_open(const char *name, int flags, io_channel *channel)
+ 		goto cleanup;
+ 	}
+ 
++#if !defined(O_DIRECT) && defined(F_NOCACHE)
++	if (flags & IO_FLAG_DIRECT_IO) {
++		if (fcntl(data->dev, F_NOCACHE, 1) < 0) {
++			retval = errno;
++			goto cleanup;
++		}
++	}
++#endif
++
+ #ifdef BLKSSZGET
+ 	if (flags & IO_FLAG_DIRECT_IO) {
+ 		if (ioctl(data->dev, BLKSSZGET, &data->align) != 0)
