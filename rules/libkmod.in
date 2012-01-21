@@ -13,10 +13,69 @@ if LIBKMOD
 
 config LIBKMOD_TOOLS
 	bool
-	prompt "install tools"
+
+config LIBKMOD_INSMOD
+	bool
+	prompt "Install insmod"
+	depends on !BUSYBOX_INSMOD || ALLYES
+	select LIBKMOD_TOOLS
 	help
-	  Install tool frontends that provide same functionality as the
-	  module-init-tools
+	  simple program to insert a module into the Linux Kernel
+
+comment "BusyBox' insmod is selected!"
+	depends on BUSYBOX_INSMOD
+
+config LIBKMOD_RMMOD
+	bool
+	prompt "Install rmmod"
+	depends on !BUSYBOX_RMMOD || ALLYES
+	select LIBKMOD_TOOLS
+	help
+	  simple program to remove a module from the Linux Kernel
+
+comment "BusyBox' rmmod is selected!"
+	depends on BUSYBOX_RMMOD
+
+config LIBKMOD_LSMOD
+	bool
+	prompt "Install lsmod"
+	depends on !BUSYBOX_LSMOD || ALLYES
+	select LIBKMOD_TOOLS
+	help
+	  program to show the status of modules in the Linux Kernel
+
+comment "BusyBox' lsmod is selected!"
+	depends on BUSYBOX_LSMOD
+
+config LIBKMOD_MODINFO
+	bool
+	prompt "Install modinfo"
+	depends on !BUSYBOX_MODINFO || ALLYES
+	select LIBKMOD_TOOLS
+	help
+	  program to show information about a Linux Kernel module
+
+comment "BusyBox' modinfo is selected!"
+	depends on BUSYBOX_MODINFO
+
+config LIBKMOD_MODPROBE
+	bool
+	prompt "Install modprobe"
+	depends on !BUSYBOX_MODPROBE || ALLYES
+	select LIBKMOD_TOOLS
+	help
+	  program to add and remove modules from the Linux Kernel
+
+comment "BusyBox' modprobe is selected!"
+	depends on BUSYBOX_MODPROBE
+
+config LIBKMOD_DEPMOD
+	bool
+	prompt "Install depmod"
+	depends on !BUSYBOX_DEPMOD || ALLYES
+	select LIBKMOD_TOOLS
+	help
+	  program to generate modules.dep and map files
 
 config LIBKMOD_ZLIB
 	bool

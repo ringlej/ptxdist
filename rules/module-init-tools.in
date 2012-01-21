@@ -14,57 +14,72 @@ if MODULE_INIT_TOOLS
 config MODULE_INIT_TOOLS_INSMOD
 	bool
 	prompt "Install insmod on target"
-	depends on !BUSYBOX_INSMOD || ALLYES
+	depends on (!BUSYBOX_INSMOD && !LIBKMOD_INSMOD) || ALLYES
 	help
 	  simple program to insert a module into the Linux Kernel
 
 comment "BusyBox' insmod is selected!"
 	depends on BUSYBOX_INSMOD
 
+comment "kmod insmod is selected!"
+	depends on LIBKMOD_INSMOD
+
 config MODULE_INIT_TOOLS_RMMOD
 	bool
 	prompt "Install rmmod on target"
-	depends on !BUSYBOX_RMMOD || ALLYES
+	depends on (!BUSYBOX_RMMOD && !LIBKMOD_RMMOD) || ALLYES
 	help
 	  simple program to remove a module from the Linux Kernel
 
 comment "BusyBox' rmmod is selected!"
 	depends on BUSYBOX_RMMOD
 
+comment "kmod rmmod is selected!"
+	depends on LIBKMOD_RMMOD
+
 config MODULE_INIT_TOOLS_LSMOD
 	bool
 	prompt "Install lsmod on target"
-	depends on !BUSYBOX_LSMOD || ALLYES
+	depends on (!BUSYBOX_LSMOD && !LIBKMOD_LSMOD) || ALLYES
 	help
 	  program to show the status of modules in the Linux Kernel
 
 comment "BusyBox' lsmod is selected!"
 	depends on BUSYBOX_LSMOD
 
+comment "kmod lsmod is selected!"
+	depends on LIBKMOD_LSMOD
+
 config MODULE_INIT_TOOLS_MODINFO
 	bool
 	prompt "Install modinfo on target"
-	depends on !BUSYBOX_MODINFO || ALLYES
+	depends on (!BUSYBOX_MODINFO && !LIBKMOD_MODINFO) || ALLYES
 	help
 	  program to show information about a Linux Kernel module
 
 comment "BusyBox' modinfo is selected!"
 	depends on BUSYBOX_MODINFO
 
+comment "kmod modinfo is selected!"
+	depends on LIBKMOD_MODINFO
+
 config MODULE_INIT_TOOLS_MODPROBE
 	bool
 	prompt "Install modprobe on target"
-	depends on !BUSYBOX_MODPROBE || ALLYES
+	depends on (!BUSYBOX_MODPROBE && !LIBKMOD_MODPROBE) || ALLYES
 	help
 	  program to add and remove modules from the Linux Kernel
 
 comment "BusyBox' modprobe is selected!"
 	depends on BUSYBOX_MODPROBE
 
+comment "kmod modprobe is selected!"
+	depends on LIBKMOD_MODPROBE
+
 config MODULE_INIT_TOOLS_DEPMOD
 	bool
 	prompt "Install depmod on target"
-	depends on !BUSYBOX_DEPMOD || ALLYES
+	depends on (!BUSYBOX_DEPMOD && !LIBKMOD_DEPMOD) || ALLYES
 	help
 	  program to generate modules.dep and map files
 
