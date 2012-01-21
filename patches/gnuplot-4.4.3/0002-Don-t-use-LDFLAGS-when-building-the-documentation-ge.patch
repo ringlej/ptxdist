@@ -1,0 +1,30 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sun, 22 Jan 2012 00:03:59 +0100
+Subject: [PATCH] Don't use LDFLAGS when building the documentation generator
+
+The documentation generator is a tool running on the build machine.
+Therefore the LDFLAGS computed for the cross compiler may not work, such
+as the "-Wl,-rpath-link" flag which is not understood by the Darwin
+linker.
+
+The doc2gih is simple and doesn't require an external library. So we
+don't also need special LDFLAGS. Omit them.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ docs/Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/docs/Makefile.in b/docs/Makefile.in
+index 591d818..0e2ef8f 100644
+--- a/docs/Makefile.in
++++ b/docs/Makefile.in
+@@ -83,7 +83,7 @@ LIBS =
+ 
+ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+ CCLD = $(CC)
+-LINK = $(CCLD) $(CFLAGS) $(LDFLAGS) -o $@
++LINK = $(CCLD) $(CFLAGS) -o $@
+ 
+ .c.o:
+ 	$(COMPILE) -c $<
