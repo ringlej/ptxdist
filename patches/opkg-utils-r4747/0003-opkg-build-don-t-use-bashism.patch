@@ -20,6 +20,3 @@ index 1c323c3..f9251ea 100755
  	pkg_file=$dest_dir/${pkg}_${version}_${arch}.opk
  else
  	pkg_file=$dest_dir/${pkg}_${version}_${arch}.ipk
--- 
-1.7.5.1
-

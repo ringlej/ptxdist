@@ -48,6 +48,3 @@ index 012afd3..1c323c3 100755
  else
    ( cd $tmp_dir && tar -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
  fi
--- 
-1.7.5.1
-

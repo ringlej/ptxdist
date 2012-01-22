@@ -27,7 +27,8 @@ install_finish = \
 # $1: xpkg label
 #
 xpkg/finish = \
-	$(call xpkg/env, $(1)) \
+	CROSS_COMPILE="$(COMPILER_PREFIX)"	\
+	$(call xpkg/env, $(1))			\
 	ptxd_make_xpkg_finish
 
 # vim: syntax=make

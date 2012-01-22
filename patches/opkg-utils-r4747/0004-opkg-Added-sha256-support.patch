@@ -1,7 +1,6 @@
-From a3c1fe9c1ec7e5257fd186a7720f412fe44440cc Mon Sep 17 00:00:00 2001
 From: George McCollister <george.mccollister@gmail.com>
 Date: Mon, 11 Jul 2011 12:32:37 -0500
-Subject: [PATCH 4/4] opkg: Added sha256 support.
+Subject: [PATCH] opkg: Added sha256 support.
 
 MD5 and SHA256 hashes are generated for each package now.
 
@@ -88,6 +87,3 @@ index 3fda9b5..b000082 100644
          if self.size: out = out + "Size: %d\n" % int(self.size)
          if self.installed_size: out = out + "InstalledSize: %d\n" % int(self.installed_size)
          if self.filename: out = out + "Filename: %s\n" % (self.filename)
--- 
-1.7.1
-
