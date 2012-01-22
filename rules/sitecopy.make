@@ -42,6 +42,14 @@ SITECOPY_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--without-socks \
 	--without-gssapi
 
+# m4/neon/neon.m4 uses uname to check for Darwin and adds some special compiler
+# options in that case. sitecopy doesn't build host tools, so anything built
+# is for the target. We can force the target operating system to Linux. That's simpler
+# than fixing the m4/neon/neon.m4 and doesn't need autoreconf to run.
+SITECOPY_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ne_cv_os_uname=Linux
+
 ifdef PTXCONF_SITECOPY_SFTP
 SITECOPY_AUTOCONF += --enable-sftp
 else
