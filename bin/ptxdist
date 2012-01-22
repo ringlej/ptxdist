@@ -2270,6 +2270,9 @@ setup_logfile()
 	if [ \! -e "${PTX_LOGFILE}" ]; then
 		# let emacs outline mode be compatible to vi's fold mode
 		echo -e "# -*- mode:outline; outline-regexp:\"{""{{\" -*-\n" > "${PTX_LOGFILE}"
+		# help vim to recognise the fold markers and expand the first level of folding
+		# which in fact is the Emacs setting above
+		echo "# vim: set fdm=marker fdl=1:" > "${PTX_LOGFILE}"
 	fi
 
 	#
