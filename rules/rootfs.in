@@ -8,7 +8,7 @@ config ROOTFS
 	bool
 	prompt "Create Directories in /"
 	default y
-	select BUSYBOX_FEATURE_SHADOWPASSWDS if BUSYBOX
+	select BUSYBOX_FEATURE_SHADOWPASSWDS if ROOTFS_SHADOW
 	select HOST_FIGLET if ROOTFS_ISSUE
 	help
 	  In order to support a standard root filesystem some subdirectories are
