@@ -2088,12 +2088,14 @@ setup_config() {
 	local pmf_extern="-j1"
 	local cpus
 
+	# this one is for Linux
 	if [ -r /proc/cpuinfo ]; then
 		cpus="$(egrep '^(processor|cpu	)' /proc/cpuinfo | wc -l)"
 		if [ ${cpus} -eq 0 ]; then
 			cpus=1
 		fi
-	else
+	# and this one is tested on Darwin and should work on BSDs
+	elif ! cpus="$(/usr/sbin/sysctl -n hw.ncpu)" 2> /dev/null; then
 		cpus=1
 	fi
 	local pmf_intern="-j$(( ${cpus} * 2 ))"
