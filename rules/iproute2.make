@@ -88,7 +88,7 @@ $(STATEDIR)/iproute2.targetinstall:
 	@$(call install_fixup, iproute2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, iproute2,DESCRIPTION,missing)
 
-	for i in $(IPROUTE2_INSTALL_FILES-y); do \
+	@for i in $(IPROUTE2_INSTALL_FILES-y); do \
 		$(call install_copy, iproute2, 0, 0, 0755, -, $$i) \
 	done
 
