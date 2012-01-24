@@ -43,7 +43,9 @@ SDL_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SDL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+SDL_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis,PTXCONF_SDL_TSLIB)-input-tslib \
 
 ifdef PTXCONF_SDL_SHARED
 SDL_AUTOCONF += --enable-shared

@@ -17,6 +17,7 @@ menuconfig SDL
 	select ALSA_LIB			if SDL_ALSA
 	select DIRECTFB			if SDL_DIRECTFB
 	select CROSS_NASM		if SDL_NASM
+	select TSLIB			if SDL_TSLIB
 	help
 	  Simple DirectMedia Layer is a cross-platform multimedia
 	  library designed to provide low level access to audio,
@@ -251,5 +252,11 @@ config SDL_PTH
 	default y
 	help
 	  Turn on support for GNU Portable Threads
+
+config SDL_TSLIB
+	bool
+	prompt "tslib Support"
+	help
+	  Turn on support for the touchscreen library 'tslib'
 
 endif
