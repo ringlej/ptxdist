@@ -21,7 +21,9 @@ IPROUTE2_VERSION	:= 2.6.39
 IPROUTE2_MD5		:= 8a3b6bc77c2ecf752284aa4a6fc630a6
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.gz
-IPROUTE2_URL		:= http://devresources.linuxfoundation.org/dev/iproute2/download/$(IPROUTE2).$(IPROUTE2_SUFFIX)
+IPROUTE2_URL		:= \
+	http://devresources.linuxfoundation.org/dev/iproute2/download/$(IPROUTE2).$(IPROUTE2_SUFFIX) \
+	http://www.linuxgrill.com/anonymous/iproute2/NEW-OSDL/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
 IPROUTE2_LICENSE	:= GPLv2
