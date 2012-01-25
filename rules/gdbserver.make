@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #               2002-2008 by Pengutronix e.K., Hildesheim, Germany
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -15,52 +15,32 @@
 #
 PACKAGES-$(PTXCONF_GDBSERVER) += gdbserver
 
-GDBSERVER_VERSION	= $(GDB_VERSION)
-GDBSERVER		= gdbserver-$(GDB_VERSION)
-GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
+GDBSERVER_VERSION	:= $(call remove_quotes,$(PTXCONF_GDB_VERSION))
+GDBSERVER_MD5		:= $(call remove_quotes,$(PTXCONF_GDB_MD5))
+GDBSERVER		:= gdb-$(GDBSERVER_VERSION)
+GDBSERVER_SUFFIX	:= tar.bz2
+GDBSERVER_SOURCE	:= $(SRCDIR)/$(GDBSERVER).$(GDBSERVER_SUFFIX)
+GDBSERVER_DIR		:= $(BUILDDIR)/gdbserver-$(GDBSERVER_VERSION)
 GDBSERVER_LICENSE	:= GPLv3+
 
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gdbserver.get: $(STATEDIR)/gdb.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gdbserver.extract: $(STATEDIR)/gdb.extract
-	@$(call targetinfo)
-	@$(call touch)
+GDBSERVER_URL := \
+	$(call ptx/mirror, GNU, gdb/$(GDBSERVER).$(GDBSERVER_SUFFIX)) \
+	ftp://sourceware.org/pub/gdb/snapshots/current/$(GDBSERVER).$(GDBSERVER_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-GDBSERVER_PATH	:= $(GDB_PATH)
-GDBSERVER_ENV	:= $(GDB_ENV)
+GDBSERVER_ENV := $(GDB_ENV)
 
 ifndef PTXCONF_GDBSERVER_SHARED
-GDBSERVER_ENV	+=  LDFLAGS=-static
+GDBSERVER_ENV +=  LDFLAGS=-static
 endif
 
-#
-# autoconf
-#
-GDBSERVER_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--with-build-sysroot=$(SYSROOT)
+GDBSERVER_CONF_TOOL := autoconf
 
-$(STATEDIR)/gdbserver.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(GDBSERVER_BUILDDIR))
-	mkdir -p $(GDBSERVER_BUILDDIR)
-	cd $(GDBSERVER_BUILDDIR) && $(GDBSERVER_PATH) $(GDBSERVER_ENV) \
-		$(GDB_DIR)/gdb/gdbserver/configure $(GDBSERVER_AUTOCONF)
-	@$(call touch)
+GDBSERVER_BUILD_OOT := YES
+GDBSERVER_SUBDIR := gdb/gdbserver
 
 # ----------------------------------------------------------------------------
 # Target-Install
