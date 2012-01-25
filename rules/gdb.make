@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
 #               2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,41 +24,22 @@ GDB		:= gdb-$(GDB_VERSION)
 GDB_SUFFIX	:= tar.bz2
 GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		:= $(BUILDDIR)/$(GDB)
-GDB_BUILDDIR	:= $(BUILDDIR)/$(GDB)-build
 GDB_LICENSE	:= GPLv3+
 
-GDB_URL		:= \
+GDB_URL := \
 	$(call ptx/mirror, GNU, gdb/$(GDB).$(GDB_SUFFIX)) \
 	ftp://sourceware.org/pub/gdb/snapshots/current/$(GDB).$(GDB_SUFFIX)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GDB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GDB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-#
-# extra dep for the gdbserver
-#
-$(STATEDIR)/gdb.extract: $(GDB_SOURCE)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-GDB_PATH	:= PATH=$(CROSS_PATH)
-GDB_ENV		:= \
+GDB_ENV := \
 	$(CROSS_ENV) \
 	$(CROSS_ENV_FLAGS_FOR_TARGET)
 
 ifndef PTXCONF_GDB_SHARED
-GDB_MAKEVARS	:=  LDFLAGS=-static
+GDB_MAKEVARS := LDFLAGS=-static
 endif
 
 #
@@ -72,6 +53,8 @@ GDB_AUTOCONF := \
 	--disable-rpath \
 	--disable-werror \
 	--without-expat
+
+GDB_BUILD_OOT := YES
 
 # ----------------------------------------------------------------------------
 # Target-Install
