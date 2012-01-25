@@ -8,11 +8,11 @@ if GDB || GDBSERVER
 
 config GDB_VERSION
        string "gdb version"
-       default "7.0.1"
+       default "7.2"
 
 config GDB_MD5
-	prompt "gdb source md5sum"
-	string
+	string "gdb source md5sum"
+	default "64260e6c56979ee750a01055f16091a5"
 
 endif
 
