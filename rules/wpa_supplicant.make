@@ -80,6 +80,23 @@ $(STATEDIR)/wpa_supplicant.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/wpa_supplicant.install:
+	@$(call targetinfo)
+	@$(call world/install, WPA_SUPPLICANT)
+
+	install -D -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/dbus-wpa_supplicant.conf" \
+		"$(WPA_SUPPLICANT_PKGDIR)/etc/dbus-1/system.d/wpa_supplicant.conf"
+	install -D -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.epitest.hostap.WPASupplicant.service" \
+		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service"
+	install -D -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.w1.wpa_supplicant1.service" \
+		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service"
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -96,6 +113,15 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 		/sbin/wpa_supplicant)
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
 		/sbin/wpa_cli)
+
+ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
+	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
+		/etc/dbus-1/system.d/wpa_supplicant.conf)
+	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
+		/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service)
+	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
+		/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service)
+endif
 
 	@$(call install_finish, wpa_supplicant)
 

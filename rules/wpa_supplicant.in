@@ -5,10 +5,25 @@ menuconfig WPA_SUPPLICANT
 	prompt "wpa_supplicant                "
 	select OPENSSL
 	select LIBNL
+	select DBUS if WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	help
 	  IEEE 802.1X/WPA supplicant for secure wireless transfers
 
 if WPA_SUPPLICANT
+
+config WPA_SUPPLICANT_CTRL_IFACE_DBUS
+	bool
+	prompt "dbus control interface"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_CTRL_IFACE_DBUS_NEW
+	bool
+	default WPA_SUPPLICANT_CTRL_IFACE_DBUS
+
+config WPA_SUPPLICANT_CTRL_IFACE_DBUS_INTRO
+	bool
+	default WPA_SUPPLICANT_CTRL_IFACE_DBUS
 
 config WPA_SUPPLICANT_DRIVER_HOSTAP
 	bool
