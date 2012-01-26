@@ -1,19 +1,16 @@
 #!/bin/sh
 
 DAEMON=/usr/sbin/connmand
-PIDFILE=/var/run/connmand.pid
 DESC="Connection Manager"
 
 set -e
 
 do_start() {
-	start-stop-daemon --start --oknodo \
-		--pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
+	start-stop-daemon --start --oknodo --exec $DAEMON -- $DAEMON_OPTS
 }
 
 do_stop() {
-	start-stop-daemon --stop --oknodo --quiet \
-		--pidfile $PIDFILE --exec $DAEMON
+	start-stop-daemon --stop --oknodo --quiet --exec $DAEMON
 }
 
 case "$1" in
