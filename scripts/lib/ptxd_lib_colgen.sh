@@ -52,7 +52,7 @@ ptxd_colgen_generate_sections()
 				"\t"	"prompt \"" pkg_lc "\" if COLLECTION_MANUAL\n"\
 				"\t"	"default COLLECTION_ALL\n"	> col_in;
 
-			m = split(deps[pkg], dep, ":");
+			m = split(deps[pkg], dep, " ");
 			for (j = 1; j <= m; j++) {
 				if (dep[j] in module_pkgs)
 					print "\tselect " dep[j]	> col_in;

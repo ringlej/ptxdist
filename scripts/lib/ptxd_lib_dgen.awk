@@ -127,46 +127,36 @@ $1 ~ /^PTX_MAP_DEP/ {
 	if (n == 0)
 		next;
 
-	found = 0;
+	this_PKG_DEP = ""
+	this_PKG_dep = ""
 	for (i = 1; i <= n; i++) {
 		this_DEP = this_DEP_array[i];
 
-		if (this_DEP in PKG_to_pkg) {
-			if (this_DEP ~ /^BASE$/) {
-				base_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
+		if (!(this_DEP in PKG_to_pkg))
+			continue
 
-				if (!("BASE" in PKG_to_DEP)) {
-					PKG_to_DEP["BASE"] = this_PKG;
-				} else{
-					PKG_to_DEP["BASE"] = PKG_to_DEP["BASE"] ":" this_PKG;
-				}
+		if (this_DEP ~ /^BASE$/) {
+			base_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
-				continue;
-			}
+			PKG_to_DEP["BASE"] = PKG_to_DEP["BASE"] " " this_PKG;
 
-			this_dep = PKG_to_pkg[this_DEP];
-
-			if (found == 0) {
-				found = 1;
-				this_PKG_DEP = this_DEP;
-				this_PKG_dep = this_dep;
-			} else {
-				this_PKG_DEP = this_PKG_DEP ":" this_DEP;
-				this_PKG_dep = this_PKG_dep ":" this_dep;
-			}
+			continue;
 		}
+
+		this_dep = PKG_to_pkg[this_DEP];
+
+		this_PKG_DEP = this_PKG_DEP " " this_DEP;
+		this_PKG_dep = this_PKG_dep " " this_dep;
 	}
 
 	# no deps to pkgs
-	if (found == 0)
+	if (this_PKG_DEP == "")
 		next;
 
 	PKG_to_DEP[this_PKG] = this_PKG_DEP;
 	print "PTX_MAP_DEP_" this_PKG "=" this_PKG_DEP		> MAP_DEPS;
 	print "PTX_MAP_dep_" this_PKG "=" this_PKG_dep		> MAP_DEPS;
-
-	print "PTX_MAP_dep_" this_PKG "=" gensub(/:/, " ", "g",  this_PKG_dep) \
-								> MAP_ALL_MAKE;
+	print "PTX_MAP_dep_" this_PKG "=" this_PKG_dep		> MAP_ALL_MAKE;
 
 	next;
 }
@@ -313,7 +303,7 @@ END {
 		# add dep to pkgs we depend on
 		#
 		this_PKG_DEPS = PKG_to_DEP[this_PKG];
-		n = split(this_PKG_DEPS, this_DEP_array, ":");
+		n = split(this_PKG_DEPS, this_DEP_array, " ");
 		for (i = 1; i <= n; i++) {
 			this_dep = PKG_to_pkg[this_DEP_array[i]]
 
