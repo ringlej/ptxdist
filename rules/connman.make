@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 #
 # Paths and names
 #
-CONNMAN_VERSION	:= 0.77
-CONNMAN_MD5	:= 6cad9f9c9dd216a148bb8aef5732c9aa 2e95edb0ead4fff3e84458f7fa192a64
+CONNMAN_VERSION	:= 0.78
+CONNMAN_MD5	:= 91be619c28af2bed4c79a771c4845a33
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= $(call ptx/mirror, KERNEL, network/connman/$(CONNMAN).$(CONNMAN_SUFFIX))
@@ -43,9 +43,10 @@ CONNMAN_CONF_OPT	:= \
 	--disable-hh2serial-gps \
 	--disable-ofono \
 	--disable-openconnect \
-	--disable-portal \
 	--disable-openvpn \
 	--disable-vpnc \
+	--disable-l2tp \
+	--disable-pptp \
 	--$(call ptx/endis, PTXCONF_CONNMAN_LOOPBACK)-loopback \
 	--disable-pacrunner \
 	--disable-google \

@@ -1,0 +1,23 @@
+From a4ae1cf0ac362fdda02522eb8bed94059d3ed3e8 Mon Sep 17 00:00:00 2001
+From: Daniel Mack <zonque@gmail.com>
+Date: Wed, 21 Dec 2011 11:18:20 +0100
+Subject: [PATCH] iptables: Avoid NULL pointer dereference in table_cleanup()
+
+---
+ src/iptables.c |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/src/iptables.c b/src/iptables.c
+index 807f22c..1494216 100644
+--- a/src/iptables.c
++++ b/src/iptables.c
+@@ -1152,6 +1152,9 @@ static void table_cleanup(struct connman_iptables *table)
+ 	GList *list;
+ 	struct connman_iptables_entry *entry;
+ 
++	if (table == NULL)
++		return;
++
+ 	close(table->ipt_sock);
+ 
+ 	for (list = table->entries; list; list = list->next) {
