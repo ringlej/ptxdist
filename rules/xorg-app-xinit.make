@@ -27,48 +27,22 @@ XORG_APP_XINIT_DIR	:= $(BUILDDIR)/$(XORG_APP_XINIT)
 
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XINIT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XINIT)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XINIT_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XINIT_ENV 	:= $(CROSS_ENV)
-XORG_APP_XINIT_MAKEVARS :=  XINITDIR=/etc/X11/xinit \
-			RAWCPP=$(COMPILER_PREFIX)cpp
-	#FIXME: damm ugly hack, should fix cpp check in configure instead
+XORG_APP_XINIT_CONF_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_path_RAWCPP=$(COMPILER_PREFIX)cpp \
+	ac_cv_path_MCOOKIE=/usr/bin/mcookie
 
 #
 # autoconf
 #
-XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-#
-# if no value is given ignore the "--datadir" switch
-#
-ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
-	XORG_APP_XINIT_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
-endif
-# startx and xinitrc shall use configfiles out of /etc/X11/xinit
-XORG_APP_XINIT_AUTOCONF += --libdir=/etc
-
-# what else is required?
-#
-# --with-xrdb=XRDB        Path to xrdb
-# --with-xmodmap=XMODMAP  Path to xmodmap
-# --with-twm=TWM          Path to twm
-# --with-xclock=XCLOCK    Path to xclock
-# --with-xterm=XTERM      Path to xterm
-# --with-xserver=XSERVER  Path to default X server
-# --with-xauth=XAUTH      Path to xauth
-# --with-xinit=XINIT      Path to xinit
-#
+XORG_APP_XINIT_CONF_TOOL := autoconf
+XORG_APP_XINIT_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-xinitdir=/etc/X11/xinit \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
