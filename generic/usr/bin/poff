@@ -1,4 +1,15 @@
 #!/bin/sh
 
-echo "poff: implement me!"
+DEV="${1}"
 
+if [ -z "${DEV}" ]; then
+    if [ -n "${IFACE}" ]; then
+	DEV="${IFACE}"
+    else
+	DEV=ppp0
+    fi
+else
+    shift
+fi
+
+exec /sbin/start-stop-daemon -K -p /var/run/${DEV}.pid

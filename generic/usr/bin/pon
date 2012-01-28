@@ -1,4 +1,15 @@
 #!/bin/sh
 
-echo "pon: implement me!"
+PROVIDER="${1}"
 
+if [ -z "${PROVIDER}" ]; then
+    if [ -n "${IF_PROVIDER}" ]; then
+	PROVIDER="${IF_PROVIDER}"
+    else
+	PROVIDER=provider
+    fi
+else
+    shift
+fi
+
+exec start-stop-daemon -S -x /usr/sbin/pppd -- call "${PROVIDER}" "${@}"
