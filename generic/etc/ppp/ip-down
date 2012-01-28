@@ -37,10 +37,10 @@ export PPP_TTYNAME
 
 # If /var/log/ppp-ipupdown.log exists use it for logging.
 if [ -e /var/log/ppp-ipupdown.log ]; then
-  exec >> /var/log/ppp-ipupdown.log 2>&1
-  echo $0 $*
-  echo
+    exec >> /var/log/ppp-ipupdown.log 2>&1
+    echo $0 "$@"
+    echo
 fi
 
 run-parts /etc/ppp/ip-down.d \
-  --arg="$1" --arg="$2" --arg="$3" --arg="$4" --arg="$5" --arg="$6"
+  -a "$1" -a "$2" -a "$3" -a "$4" -a "$5" -a "$6"
