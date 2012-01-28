@@ -1,2 +1,7 @@
-# Machine-generated file - use "minicom -s" to change parameters.
-pu port             /dev/ttyS0
+pu port		/dev/ttyS0
+pu baudrate	115200
+pu bits		8
+pu parity	N
+pu stopbits	1
+pu minit
+pu mreset
