@@ -37,6 +37,34 @@ choice
 
 endchoice
 
+choice
+	prompt "squashfs compression mode"
+	depends on HOST_SQUASHFS_TOOLS_V4X
+	help
+	  Select your prefered compression mode. GZIP seems to have a better
+	  compression rate while LZO is faster then GZIP. This will make a difference
+	  in mount time of your filesystem depending on your hardware configuration.
+
+	config HOST_SQUASHFS_COMPRESSION_MODE_GZIP
+	bool "gzip"
+	help
+	  Select your prefered compression mode. GZIP seems to have a better
+	  compression rate while LZO is faster then GZIP. This will make a difference
+	  in mount time of your filesystem depending on your hardware configuration.
+
+	config HOST_SQUASHFS_COMPRESSION_MODE_LZO
+	bool "lzo"
+	help
+	  Select your prefered compression mode. GZIP seems to have a better
+	  compression rate while LZO is faster then GZIP. This will make a difference
+	  in mount time of your filesystem depending on your hardware configuration.
+endchoice
+
+config HOST_SQUASHFS_COMPRESSION_MODE
+        string
+        default "gzip" if HOST_SQUASHFS_COMPRESSION_MODE_GZIP
+        default "lzo" if HOST_SQUASHFS_COMPRESSION_MODE_LZO
+
 config IMAGE_SQUASHFS_BLOCK_SIZE
 	string
 	default "${PTXCONF_FLASH_BLOCKSIZE}"

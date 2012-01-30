@@ -12,6 +12,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_SQUASHFS)	+= $(IMAGEDIR)/root.squashfs
 
 IMAGE_SQUASHFS_EXTRA_ARGS := \
 	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V3X, $(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le), ) \
+	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V4X, -comp $(PTXCONF_HOST_SQUASHFS_COMPRESSION_MODE), ) \
 	$(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS)
 
 $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install.post
