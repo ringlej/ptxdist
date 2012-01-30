@@ -1,0 +1,24 @@
+From 950569f6b46e141ccaf48d834438925ddb261baf Mon Sep 17 00:00:00 2001
+From: Flavio Ceolin <flavio.ceolin@profusion.mobi>
+Date: Thu, 5 Jan 2012 11:01:45 +0100
+Subject: [PATCH] storage: Using the right free func
+
+Fixing a segfault when it fails to store an information,
+just using g_error_free instead of g_free.
+---
+ src/storage.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/storage.c b/src/storage.c
+index 7dcf2e3..54c023d 100644
+--- a/src/storage.c
++++ b/src/storage.c
+@@ -68,7 +68,7 @@ static void storage_save(GKeyFile *keyfile, char *pathname)
+ 
+ 	if (!g_file_set_contents(pathname, data, length, &error)) {
+ 		DBG("Failed to store information: %s", error->message);
+-		g_free(error);
++		g_error_free(error);
+ 	}
+ 
+ 	g_free(data);
