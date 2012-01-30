@@ -3,4 +3,5 @@
 config HOST_SQUASHFS_TOOLS
 	tristate
 	select HOST_ZLIB
+	select HOST_LIBLZO
 	default ALLYES

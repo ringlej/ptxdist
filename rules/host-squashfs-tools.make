@@ -23,6 +23,7 @@ HOST_SQUASHFS_TOOLS_SUBDIR	:= squashfs-tools
 # Compile
 # ----------------------------------------------------------------------------
 
+HOST_SQUASHFS_TOOLS_MAKE_OPT := LZO_SUPPORT=1
 HOST_SQUASHFS_TOOLS_MAKE_ENV := $(HOST_ENV)
 HOST_SQUASHFS_TOOLS_MAKE_PAR := NO
 HOST_SQUASHFS_TOOLS_INSTALL_OPT = install INSTALL_DIR="$(HOST_SQUASHFS_TOOLS_PKGDIR)/sbin"
