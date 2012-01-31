@@ -167,6 +167,10 @@ ifdef PTXCONF_CONNMAN_SYSTEMD_UNIT
 		/lib/systemd/connman-ignore)
 endif
 
+#	# ship settings which enable wired interfaces per default
+	@$(call install_alternative, connman, 0, 0, 0600, \
+		/var/lib/connman/settings)
+
 #	# dbus config
 	@$(call install_alternative, connman, 0, 0, 0644, /etc/dbus-1/system.d/connman.conf)
 
