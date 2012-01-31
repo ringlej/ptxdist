@@ -1,0 +1,12 @@
+[Unit]
+Description=Connection Manager configuration (ignore kernel activated network interfaces)
+Before=connman.service
+ConditionPathExists=!/run/connman-ignore
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/lib/systemd/connman-ignore
+
+[Install]
+WantedBy=connman.service

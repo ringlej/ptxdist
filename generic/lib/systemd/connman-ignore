@@ -1,0 +1,11 @@
+#!/bin/sh
+CONNMAN_IGNORE_OPTS=""
+for IF in $(ls /sys/class/net); do
+	IF_FLAGS="$(cat /sys/class/net/$IF/flags)"
+	if [ "$((IF_FLAGS&1))" = "1" -a "$IF" != "lo" ]; then
+		CONNMAN_IGNORE_OPTS="$CONNMAN_IGNORE_OPTS -I $IF"
+	fi
+done
+
+echo "CONNMAN_IGNORE_OPTS=\"$CONNMAN_IGNORE_OPTS\"" > /run/connman-ignore
+

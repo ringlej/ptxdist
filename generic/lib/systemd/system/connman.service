@@ -1,0 +1,12 @@
+[Unit]
+Description=Connection service
+After=syslog.target
+
+[Service]
+Type=dbus
+BusName=net.connman
+EnvironmentFile=-/run/connman-ignore
+ExecStart=/usr/sbin/connmand -n $CONNMAN_IGNORE_OPTS
+
+[Install]
+WantedBy=multi-user.target

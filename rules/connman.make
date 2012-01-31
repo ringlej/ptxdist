@@ -155,10 +155,16 @@ endif
 endif
 endif
 ifdef PTXCONF_CONNMAN_SYSTEMD_UNIT
-	@$(call install_copy, connman, 0, 0, 0644, -, \
+	@$(call install_alternative, connman, 0, 0, 0644, \
 		/lib/systemd/system/connman.service)
 	@$(call install_link, connman, ../connman.service, \
 		/lib/systemd/system/multi-user.target.wants/connman.service)
+	@$(call install_alternative, connman, 0, 0, 0644, \
+		/lib/systemd/system/connman-ignore.service)
+	@$(call install_link, connman, ../connman-ignore.service, \
+		/lib/systemd/system/connman.service.wants/connman-ignore.service)
+	@$(call install_alternative, connman, 0, 0, 0755, \
+		/lib/systemd/connman-ignore)
 endif
 
 #	# dbus config
