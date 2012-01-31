@@ -7,7 +7,6 @@ menuconfig CONNMAN
 	select LIBC_PTHREAD
 	select DBUS
 	select IPTABLES
-	select UDEV				if CONNMAN_UDEV
 	select POLICYKIT			if CONNMAN_POLKIT
 	select DBUS_PYTHON			if CONNMAN_TESTS
 	select WPA_SUPPLICANT			if CONNMAN_WIFI
