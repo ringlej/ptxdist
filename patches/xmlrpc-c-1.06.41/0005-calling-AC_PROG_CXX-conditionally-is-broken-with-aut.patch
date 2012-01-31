@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 31 Jan 2012 21:04:17 +0100
+Subject: [PATCH] calling AC_PROG_CXX conditionally is broken with autoconf >
+ 2.52
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    4 +---
+ 1 files changed, 1 insertions(+), 3 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index dfbc6a4..f362127 100644
+--- a/configure.in
++++ b/configure.in
+@@ -213,9 +213,7 @@ dnl Checks for programs.
+ dnl =======================================================================
+ 
+ AC_PROG_CC
+-if test x"$enable_cplusplus" != xno; then
+-    AC_PROG_CXX
+-fi
++AC_PROG_CXX
+ 
+ 
+ dnl =======================================================================

@@ -1,7 +1,6 @@
-From 1c3b0db175dbcf173c5c733662041b324c714c0e Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 2 Feb 2010 18:57:47 +0100
-Subject: [PATCH 3/4] xmlrpc-c-config.in: use pkg-config to get curl's libs
+Subject: [PATCH] xmlrpc-c-config.in: use pkg-config to get curl's libs
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
@@ -21,6 +20,3 @@ index db6afdb..2baafe9 100644
          the_rpath="@CURL_RPATH@ $the_rpath"
          the_wl_rpath="@CURL_WL_RPATH@ $the_wl_rpath"
        fi
--- 
-1.6.6.1
-

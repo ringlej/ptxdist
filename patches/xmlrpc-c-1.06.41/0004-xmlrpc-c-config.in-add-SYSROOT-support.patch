@@ -1,7 +1,6 @@
-From 1ba9eae3e631850748f0fc471abc29103ccd6188 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 2 Feb 2010 18:59:27 +0100
-Subject: [PATCH 4/4] xmlrpc-c-config.in: add SYSROOT support
+Subject: [PATCH] xmlrpc-c-config.in: add SYSROOT support
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
@@ -30,6 +29,3 @@ index 2baafe9..699f697 100644
  
  while test $# -gt 0; do
    case $1 in
--- 
-1.6.6.1
-
