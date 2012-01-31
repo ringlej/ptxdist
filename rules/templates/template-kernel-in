@@ -4,6 +4,6 @@ config KERNEL_@PACKAGE@
 	tristate
 	prompt "Linux kernel (@package@)"
 	select CROSS_MODULE_INIT_TOOLS
-	#select HOST_UMKIMAGE
+	#select HOST_U_BOOT_TOOLS
 	help
 	  FIXME

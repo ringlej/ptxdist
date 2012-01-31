@@ -3,7 +3,7 @@
 menuconfig IMAGE_UIMAGE
 	bool
 	prompt "Generate images/uRamdisk      "
-	select HOST_UMKIMAGE
+	select HOST_U_BOOT_TOOLS
 	help
 	  The file images/uRamdisk can be loaded separatly by the bootloader U-Boot
 
@@ -43,16 +43,16 @@ config IMAGE_UIMAGE_NAME
 config IMAGE_UIMAGE_EXTRA_ARGS
 	string
 	default ""
-	prompt "extra arguments passed to umkimage"
+	prompt "extra arguments passed to mkimage"
 	help
-	  If needed you can add extra arguments for umkimage here
+	  If needed you can add extra arguments for mkimage here
 	  (e.g. -a 0xaa00000 -e 0xaa00000 )
 
 # TODO: See comment in rules/post/images.make for this topic
 #config IMAGE_UIMAGE_MULTI
 #	bool
 #	prompt "Generate a multi image images/muimage"
-#	select HOST_UMKIMAGE
+#	select HOST_U_BOOT_TOOLS
 #	select KERNEL
 #	select IMAGE_CPIO
 #	help

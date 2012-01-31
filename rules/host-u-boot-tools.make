@@ -1,7 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
-#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
+# Copyright (C) 2012 by Andreas Bießmann <andreas@biessmann.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,26 +11,25 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_UMKIMAGE) += host-umkimage
+HOST_PACKAGES-$(PTXCONF_HOST_U_BOOT_TOOLS) += host-u-boot-tools
 
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_UMKIMAGE_CONF_TOOL	:= NO
-HOST_UMKIMAGE_MAKE_OPT := \
-	$(HOST_ENV_CPPFLAGS) \
-	$(HOST_ENV_LDFLAGS) \
-	$(HOST_ENV_CC)
+HOST_U_BOOT_TOOLS_CONF_TOOL	:= NO
+HOST_U_BOOT_TOOLS_MAKE_OPT	:= tools
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-umkimage.install:
+$(STATEDIR)/host-u-boot-tools.install:
 	@$(call targetinfo)
-	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_SYSROOT_HOST)/bin/mkimage
+	install -D $(HOST_U_BOOT_TOOLS_DIR)/tools/mkimage \
+		$(HOST_U_BOOT_TOOLS_PKGDIR)/bin/mkimage
+
 	@$(call touch)
 
 # vim: syntax=make
