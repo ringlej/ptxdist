@@ -1,0 +1,31 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Wed, 1 Feb 2012 12:49:15 +0100
+Subject: [PATCH] elf32-littlearm.lds: fix overlap linker error
+
+circumvent gcc 4.6.x linker overlap error, suggestion from AT91 forum at
+http://www.at91.com/forum/viewtopic.php/f,12/t,20624/
+
+This patch applies to Bootstrap-v1.16.
+
+Signed-off-by: Alexander Dahl <post@lespocky.de>
+---
+ elf32-littlearm.lds |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
+
+diff --git a/elf32-littlearm.lds b/elf32-littlearm.lds
+index bf02b93..d85680c 100644
+--- a/elf32-littlearm.lds
++++ b/elf32-littlearm.lds
+@@ -14,7 +14,11 @@ SECTIONS
+ 	}
+ 
+ 	/* collect all initialized .data sections */
+-	.data : AT ( ADDR (.text) + SIZEOF (.text) ) { 
++	. = ALIGN(4);
++	.dummy : {
++		_edummy = .;
++	}
++	.data : AT ( LOADADDR(.dummy) ) {
+ 		_sdata = .;
+ 		*(.vectors)
+ 		*(.data)
