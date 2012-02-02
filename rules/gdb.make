@@ -69,7 +69,9 @@ GDB_AUTOCONF := \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT) \
 	--disable-tui \
-	--disable-werror
+	--disable-rpath \
+	--disable-werror \
+	--without-expat
 
 # ----------------------------------------------------------------------------
 # Target-Install
