@@ -110,8 +110,8 @@ ptxd_make_world_install_pack() {
 
     # remove empty dirs
     test \! -e "${pkg_pkg_dir}" || \
-	find "${pkg_pkg_dir}" -type d -print0 | xargs -r -0 -- \
-	rmdir --ignore-fail-on-non-empty -p -- &&
+	find "${pkg_pkg_dir}" -depth -type d -print0 | xargs -r -0 -- \
+	rmdir --ignore-fail-on-non-empty -- &&
     check_pipe_status &&
 
     if [ \! -e "${pkg_pkg_dir}" ]; then
