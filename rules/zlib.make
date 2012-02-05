@@ -47,7 +47,8 @@ ZLIB_CONF_ENV := \
 # autoconf
 #
 ZLIB_AUTOCONF := \
-	--prefix=/usr
+	--prefix=/usr \
+	--uname=Linux
 
 ifdef PTXCONF_ZLIB_STATIC
 ZLIB_AUTOCONF += --static
