@@ -141,6 +141,7 @@ endif
 
 config AVAHI_COMPAT
 	bool
+	select AVAHI_LIBAVAHI_CLIENT
 	prompt "compat libdns_sd"
 	help
 	  compatibility layer for libdns_sd
