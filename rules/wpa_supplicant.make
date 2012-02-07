@@ -60,6 +60,9 @@ $(STATEDIR)/wpa_supplicant.prepare:
 	echo "LDFLAGS += -L$(PTXDIST_SYSROOT_TARGET)/lib"		>> $(WPA_SUPPLICANT_CONFIG) && \
 	echo "LDFLAGS += -L$(PTXDIST_SYSROOT_TARGET)/usr/lib"		>> $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CONFIG_BACKEND=file"			>> $(WPA_SUPPLICANT_CONFIG) && \
+	echo "CONFIG_WPS=y"				>> $(WPA_SUPPLICANT_CONFIG) && \
+	echo "CONFIG_WPS2=y"				>> $(WPA_SUPPLICANT_CONFIG) && \
+	echo "CONFIG_IEEE80211N=y"			>> $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CONFIG_CTRL_IFACE=y"			>> $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CONFIG_EAP_GTC=y"				>> $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CONFIG_EAP_LEAP=y"			>> $(WPA_SUPPLICANT_CONFIG) && \

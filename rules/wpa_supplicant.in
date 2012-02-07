@@ -25,6 +25,19 @@ config WPA_SUPPLICANT_CTRL_IFACE_DBUS_INTRO
 	bool
 	default WPA_SUPPLICANT_CTRL_IFACE_DBUS
 
+config WPA_SUPPLICANT_AP
+	bool
+	prompt "AP mode"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_P2P
+	bool
+	prompt "P2P (direct) mode"
+	select WPA_SUPPLICANT_AP
+	help
+	  TBD
+
 config WPA_SUPPLICANT_DRIVER_HOSTAP
 	bool
 	prompt "hostap"
