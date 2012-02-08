@@ -398,7 +398,7 @@ check_dirs_mkdir() {
 
 	# create dir if not exiting
 	if [ ! -d "${dir}" ]; then
-		if ! mkdir -m755 -p -- "${dir}" 2> /dev/null; then
+		if ! install -m755 -d "${dir}" 2> /dev/null; then
 			echo
 			echo "error: '${dir}'"
 			echo "	     does not exist and cannot be created!"
@@ -410,8 +410,8 @@ check_dirs_mkdir() {
 				exit 1
 			fi
 			echo
-			echo sudo mkdir -p "${dir}"
-			sudo mkdir -p "${dir}"
+			echo sudo install -m755 -d "${dir}"
+			sudo install -m755 -d "${dir}"
 			echo sudo chown "${UID}" "${dir}"
 			sudo chown "${UID}" "${dir}"
 		fi
@@ -488,7 +488,7 @@ check_dirs() {
 		"${ptxconf_sysroot_target}" \
 		"${ptxconf_sysroot_target}/usr" \
 		; do
-		mkdir -m755 -p -- "${dir}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+		install -m755 -d "${dir}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 	done
 
 	# create build and output dirs
@@ -505,7 +505,7 @@ check_dirs() {
 	        "${PTXDIST_GEN_CONFIG_DIR}" \
 		; do
 		if [ \! -d "${dir}" ]; then
-			mkdir -m 755 -p -- "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
+			install -m755 -d "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
 		fi
 	done
 
