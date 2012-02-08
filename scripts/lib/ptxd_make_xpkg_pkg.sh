@@ -80,25 +80,31 @@ ptxd_install_setup_src() {
 	    "${src}" \
 	    )
     fi
-
+    # Since the dependency to the source files is dynamic we store
+    # the dependency information in a dependency file that can be
+    # included in the make files itself.
+    # We depend on the first available file, which is the one that will
+    # be used. If one with a higher priority is created, the dependency
+    # will cause the package to be recreated.
+    local deprule=""
     for src in "${list[@]}"; do
-	if [ -e "${src}" ]; then
-	    # don't provide dependencies for files in PTXDIST_PLATFORMDIR.
-	    if [ "${src}" = "${src#${PTXDIST_PLATFORMDIR}}" ]; then
-		# Since the dependency to the source files is dynamic we store
-		# the dependency information in a dependency file that can be
-		# included in the make files itself.
-		deprule="${ptx_state_dir}/${pkg_stamp}: \$(wildcard ${src})"
-
-		# Make the deps rule robust for varying installation paths, and
-		# make the deps rules file more readable.
-		deprule=${deprule//${PTXDIST_TOPDIR}/\$(PTXDIST_TOPDIR)}
-		deprule=${deprule//${PTXDIST_WORKSPACE}/\$(PTXDIST_WORKSPACE)}
-		echo "${deprule}" >> ${pkg_xpkg_install_deps}
-	    fi
-	    return
+	# don't provide dependencies for files in PTXDIST_PLATFORMDIR.
+	if [ "${src}" != "${src#${PTXDIST_PLATFORMDIR}}" -o -z "${src}" ]; then
+		deprule="${deprule} ${src}"
 	fi
     done
+    if [ -n "${deprule}" ]; then
+	deprule="${ptx_state_dir}/${pkg_stamp}: \$(firstword \$(wildcard ${deprule}))"
+	# Make the deps rule robust for varying installation paths, and
+	# make the deps rules file more readable.
+	deprule=${deprule//${PTXDIST_TOPDIR}/\$(PTXDIST_TOPDIR)}
+	deprule=${deprule//${PTXDIST_WORKSPACE}/\$(PTXDIST_WORKSPACE)}
+	echo "${deprule}" >> ${pkg_xpkg_install_deps}
+    fi
+    if ptxd_get_path "${list[@]}"; then
+	src="${ptxd_reply}"
+	return
+    fi
 
     echo -e "\nNo suitable file '${dst}' could be found in any of these locations:"
     local orig_IFS="${IFS}"
