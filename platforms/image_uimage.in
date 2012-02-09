@@ -4,12 +4,34 @@ menuconfig IMAGE_UIMAGE
 	bool
 	prompt "Generate images/uRamdisk      "
 	select HOST_UMKIMAGE
-	select IMAGE_EXT2
-	select IMAGE_EXT2_GZIP
 	help
 	  The file images/uRamdisk can be loaded separatly by the bootloader U-Boot
 
 if IMAGE_UIMAGE
+
+choice
+	prompt "Type of uRamdisk"
+	default IMAGE_UIMAGE_RAMDISK
+	help
+	  specify the type of the uRamdisk that is used.
+
+config IMAGE_UIMAGE_RAMDISK
+	bool
+	prompt "ramdisk"
+	select IMAGE_EXT2
+	select IMAGE_EXT2_GZIP
+	help
+	  Use a gzip-compressed ext2 ramdisk image.
+
+config IMAGE_UIMAGE_INITRAMFS
+	bool
+	prompt "initramfs"
+	select IMAGE_CPIO
+	select IMAGE_CPIO_GZ
+	help
+	  Use a gzip-compressed initramfs (cpio).
+
+endchoice
 
 config IMAGE_UIMAGE_NAME
 	string

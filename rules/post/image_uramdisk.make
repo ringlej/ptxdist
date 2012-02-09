@@ -21,11 +21,19 @@ else
 MKIMAGE_ARCH := $(PTXCONF_ARCH_STRING)
 endif
 
+ifdef PTXCONF_IMAGE_UIMAGE_RAMDISK
+URAMDISK_IMAGEFILE := $(IMAGEDIR)/root.ext2.gz
+endif
+
+ifdef PTXCONF_IMAGE_UIMAGE_INITRAMFS
+URAMDISK_IMAGEFILE := $(IMAGEDIR)/root.cpio.gz
+endif
+
 #
 # TODO
 #
-$(IMAGEDIR)/uRamdisk: $(IMAGEDIR)/root.ext2.gz
-	@echo -n "Creating U-Boot ramdisk from root.ext2.gz...";
+$(IMAGEDIR)/uRamdisk: $(URAMDISK_IMAGEFILE)
+	@echo -n "Creating U-Boot ramdisk from $(notdir $(URAMDISK_IMAGEFILE))...";
 	@$(PTXCONF_SYSROOT_HOST)/bin/mkimage \
 		-A $(MKIMAGE_ARCH) \
 		-O Linux \
@@ -33,7 +41,7 @@ $(IMAGEDIR)/uRamdisk: $(IMAGEDIR)/root.ext2.gz
 		-C gzip \
 		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
 		-d $< \
-		$@
+		$@ > /dev/null
 	@echo "done."
 
 # vim: syntax=make
