@@ -22,33 +22,23 @@ DHCP_VERSION	:= 4.1.2
 DHCP_MD5	:= 23bc6016297aa831dc9f321403e30ddc
 DHCP		:= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	:= tar.gz
+DHCP_URL	:= \
+	http://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX) \
+	http://ftp.isc.org/isc/dhcp/dhcp-4.1-history/$(DHCP).$(DHCP_SUFFIX)
 DHCP_SOURCE	:= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
 DHCP_DIR	:= $(BUILDDIR)/$(DHCP)
 
-DHCP_URL := \
-	http://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX) \
-	http://ftp.isc.org/isc/dhcp/dhcp-4.1-history/$(DHCP).$(DHCP_SUFFIX)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(DHCP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, DHCP)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-DHCP_PATH	:= PATH=$(CROSS_PATH)
 
 #
 # autoconf
 #
 DHCP_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
-	--disable-dhcpv6
+	--enable-dhcpv6
 
 # overwrite CFLAGS to remove -Werror
 DHCP_MAKE_OPT := \
