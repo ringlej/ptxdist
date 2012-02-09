@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 4
-LIBKMOD_MD5	:= e14450a066a48accd0af1995b3c0232d
+LIBKMOD_VERSION	:= 5
+LIBKMOD_MD5	:= b271c2ec54aba1c67bda63c8579d8c15
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= http://packages.profusion.mobi/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX)
