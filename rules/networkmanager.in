@@ -1,19 +1,36 @@
-## SECTION=shell_and_console
+## SECTION=networking
 
-config NETWORKMANAGER
+menuconfig NETWORKMANAGER
 	tristate
-	depends on BROKEN
+	select DHCP
+	select DHCP_CLIENT
 	select WIRELESS
+	select UDEV
+	select UDEV_LIBGUDEV
 	select DBUS_GLIB
 	select LIBNL
 	select LIBUUID
-	# FIXME: hal can be configured without policy-kit, but networkmanager depends on it
-	select HAL
-	select HAL_POLKIT
-	prompt "networkmanager"
+	select WPA_SUPPLICANT
+	select GNUTLS
+	select HOST_INTLTOOL
+	prompt "networkmanager                "
 	help
 	  NetworkManager is a tool to automate network configuration as far as
 	  possible. The project web site is here:
 
 	  http://projects.gnome.org/NetworkManager/
 
+if NETWORKMANAGER
+
+config NETWORKMANAGER_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/NetworkManager"
+
+config NETWORKMANAGER_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for Network Manager"
+
+endif

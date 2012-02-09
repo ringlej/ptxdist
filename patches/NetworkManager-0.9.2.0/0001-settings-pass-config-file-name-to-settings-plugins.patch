@@ -1,0 +1,409 @@
+From 7b7e426b653a3a342d7b0522957283d0999a9070 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ji=C5=99=C3=AD=20Klime=C5=A1?= <jklimes@redhat.com>
+Date: Tue, 15 Nov 2011 13:30:16 +0100
+Subject: [PATCH] settings: pass config file name to settings plugins
+
+Thus plugins will use the correct configuration file, even in case the name
+is specified on command line with --config.
+---
+ src/settings/nm-settings.c                |    7 +++--
+ src/settings/nm-system-config-interface.h |    2 +-
+ src/settings/plugins/ifcfg-rh/plugin.c    |    2 +-
+ src/settings/plugins/ifcfg-suse/plugin.c  |    4 +-
+ src/settings/plugins/ifnet/net_parser.c   |   13 +++++++---
+ src/settings/plugins/ifnet/plugin.c       |   35 ++++++++++++++++++++++++-----
+ src/settings/plugins/ifnet/plugin.h       |    2 +
+ src/settings/plugins/ifupdown/plugin.c    |   28 +++++++++++-----------
+ src/settings/plugins/keyfile/plugin.c     |   29 +++++++++++------------
+ src/settings/plugins/keyfile/plugin.h     |    4 +-
+ 10 files changed, 78 insertions(+), 48 deletions(-)
+
+diff --git a/src/settings/nm-settings.c b/src/settings/nm-settings.c
+index 09433cc..d9ee2dc 100644
+--- a/src/settings/nm-settings.c
++++ b/src/settings/nm-settings.c
+@@ -550,6 +550,7 @@ find_plugin (GSList *list, const char *pname)
+ static gboolean
+ load_plugins (NMSettings *self, const char **plugins, GError **error)
+ {
++	NMSettingsPrivate *priv = NM_SETTINGS_GET_PRIVATE (self);
+ 	GSList *list = NULL;
+ 	const char **iter;
+ 	gboolean success = TRUE;
+@@ -559,7 +560,7 @@ load_plugins (NMSettings *self, const char **plugins, GError **error)
+ 		char *full_name, *path;
+ 		const char *pname = *iter;
+ 		GObject *obj;
+-		GObject * (*factory_func) (void);
++		GObject * (*factory_func) (const char *);
+ 
+ 		/* strip leading spaces */
+ 		while (isblank (*pname))
+@@ -602,7 +603,7 @@ load_plugins (NMSettings *self, const char **plugins, GError **error)
+ 			break;
+ 		}
+ 
+-		obj = (*factory_func) ();
++		obj = (*factory_func) (priv->config_file);
+ 		if (!obj || !NM_IS_SYSTEM_CONFIG_INTERFACE (obj)) {
+ 			g_set_error (error, 0, 0,
+ 			             "Plugin '%s' returned invalid system config object.",
+@@ -1573,7 +1574,7 @@ nm_settings_new (const char *config_file,
+ 	}
+ 
+ 	/* Add the keyfile plugin last */
+-	keyfile_plugin = nm_settings_keyfile_plugin_new ();
++	keyfile_plugin = nm_settings_keyfile_plugin_new (config_file);
+ 	g_assert (keyfile_plugin);
+ 	add_plugin (self, NM_SYSTEM_CONFIG_INTERFACE (keyfile_plugin));
+ 
+diff --git a/src/settings/nm-system-config-interface.h b/src/settings/nm-system-config-interface.h
+index 96a6406..bbe74d4 100644
+--- a/src/settings/nm-system-config-interface.h
++++ b/src/settings/nm-system-config-interface.h
+@@ -39,7 +39,7 @@ G_BEGIN_DECLS
+ /* Plugin's factory function that returns a GObject that implements
+  * NMSystemConfigInterface.
+  */
+-GObject * nm_system_config_factory (void);
++GObject * nm_system_config_factory (const char *config_file);
+ 
+ #define NM_TYPE_SYSTEM_CONFIG_INTERFACE      (nm_system_config_interface_get_type ())
+ #define NM_SYSTEM_CONFIG_INTERFACE(obj)      (G_TYPE_CHECK_INSTANCE_CAST ((obj), NM_TYPE_SYSTEM_CONFIG_INTERFACE, NMSystemConfigInterface))
+diff --git a/src/settings/plugins/ifcfg-rh/plugin.c b/src/settings/plugins/ifcfg-rh/plugin.c
+index b4be4cb..39c323c 100644
+--- a/src/settings/plugins/ifcfg-rh/plugin.c
++++ b/src/settings/plugins/ifcfg-rh/plugin.c
+@@ -790,7 +790,7 @@ system_config_interface_init (NMSystemConfigInterface *system_config_interface_c
+ }
+ 
+ G_MODULE_EXPORT GObject *
+-nm_system_config_factory (void)
++nm_system_config_factory (const char *config_file)
+ {
+ 	static SCPluginIfcfg *singleton = NULL;
+ 	SCPluginIfcfgPrivate *priv;
+diff --git a/src/settings/plugins/ifcfg-suse/plugin.c b/src/settings/plugins/ifcfg-suse/plugin.c
+index 78db56e..2ec90d8 100644
+--- a/src/settings/plugins/ifcfg-suse/plugin.c
++++ b/src/settings/plugins/ifcfg-suse/plugin.c
+@@ -18,7 +18,7 @@
+  * with this program; if not, write to the Free Software Foundation, Inc.,
+  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  *
+- * (C) Copyright 2007 - 2009 Red Hat, Inc.
++ * (C) Copyright 2007 - 2011 Red Hat, Inc.
+  * (C) Copyright 2007 - 2008 Novell, Inc.
+  */
+ 
+@@ -309,7 +309,7 @@ system_config_interface_init (NMSystemConfigInterface *system_config_interface_c
+ }
+ 
+ G_MODULE_EXPORT GObject *
+-nm_system_config_factory (void)
++nm_system_config_factory (const char *config_file)
+ {
+ 	static SCPluginIfcfg *singleton = NULL;
+ 
+diff --git a/src/settings/plugins/ifnet/net_parser.c b/src/settings/plugins/ifnet/net_parser.c
+index a48103d..29a1f34 100644
+--- a/src/settings/plugins/ifnet/net_parser.c
++++ b/src/settings/plugins/ifnet/net_parser.c
+@@ -22,6 +22,7 @@
+ #include <string.h>
+ #include <nm-system-config-interface.h>
+ #include <stdio.h>
++#include "plugin.h"
+ #include "net_parser.h"
+ #include "net_utils.h"
+ 
+@@ -106,7 +107,6 @@ ignore_connection_name (const char *name)
+ 	if (strlen (name) == 12 && is_hex (name))
+ 		result = TRUE;
+ 	return result;
+-
+ }
+ 
+ static gboolean
+@@ -195,26 +195,31 @@ destroy_connection_config (GHashTable * conn)
+ 	g_hash_table_destroy (conn);
+ }
+ 
+-// read settings from /etc/NetworkManager/nm-system-settings.conf
++/* Read settings from NetworkManager's config file */
+ const char *
+ ifnet_get_global_setting (const char *group, const char *key)
+ {
+ 	GError *error = NULL;
+ 	GKeyFile *keyfile = g_key_file_new ();
+ 	gchar *result = NULL;
++	const char *conf_file;
++
++	/* Get confing file name from plugin. */
++	conf_file = ifnet_plugin_get_conf_file ();
+ 
+ 	if (!g_key_file_load_from_file (keyfile,
+-					IFNET_SYSTEM_SETTINGS_KEY_FILE,
++					conf_file,
+ 					G_KEY_FILE_NONE, &error)) {
+ 		PLUGIN_WARN (IFNET_PLUGIN_NAME,
+ 			     "loading system config file (%s) caused error: (%d) %s",
+-			     IFNET_SYSTEM_SETTINGS_KEY_FILE,
++			     conf_file,
+ 			     error ? error->code : -1, error
+ 			     && error->message ? error->message : "(unknown)");
+ 	} else {
+ 		result = g_key_file_get_string (keyfile, group, key, &error);
+ 	}
+ 	g_key_file_free (keyfile);
++
+ 	return result;
+ }
+ 
+diff --git a/src/settings/plugins/ifnet/plugin.c b/src/settings/plugins/ifnet/plugin.c
+index 5908368..8e66297 100644
+--- a/src/settings/plugins/ifnet/plugin.c
++++ b/src/settings/plugins/ifnet/plugin.c
+@@ -48,6 +48,7 @@
+ typedef struct {
+ 	GHashTable *config_connections;
+ 	gchar *hostname;
++	char *conf_file;
+ 	gboolean unmanaged_well_known;
+ 
+ 	GFileMonitor *hostname_monitor;
+@@ -494,6 +495,7 @@ dispose (GObject * object)
+ 	}
+ 
+ 	g_free (priv->hostname);
++	g_free (priv->conf_file);
+ 	ifnet_destroy ();
+ 	wpa_parser_destroy ();
+ 	G_OBJECT_CLASS (sc_plugin_ifnet_parent_class)->dispose (object);
+@@ -527,16 +529,37 @@ sc_plugin_ifnet_class_init (SCPluginIfnetClass * req_class)
+ 					  NM_SYSTEM_CONFIG_INTERFACE_HOSTNAME);
+ }
+ 
++const char *
++ifnet_plugin_get_conf_file (void)
++{
++	SCPluginIfnet *ifnet_plugin;
++	SCPluginIfnetPrivate *priv;
++
++	/* Get config file name. Plugin's singleton has already been created
++	 * with correct config file path, so the string passed here has no efect
++	 * and we get the valid file name.
++	 */
++	ifnet_plugin = SC_PLUGIN_IFNET (nm_system_config_factory ("fake string"));
++	priv = SC_PLUGIN_IFNET_GET_PRIVATE (ifnet_plugin);
++	g_object_unref (ifnet_plugin);
++
++	return priv->conf_file;
++}
++
+ G_MODULE_EXPORT GObject *
+-nm_system_config_factory (void)
++nm_system_config_factory (const char *config_file)
+ {
+ 	static SCPluginIfnet *singleton = NULL;
++	SCPluginIfnetPrivate *priv;
+ 
+-	if (!singleton)
+-		singleton
+-		    =
+-		    SC_PLUGIN_IFNET (g_object_new (SC_TYPE_PLUGIN_IFNET, NULL));
+-	else
++	if (!singleton) {
++		singleton = SC_PLUGIN_IFNET (g_object_new (SC_TYPE_PLUGIN_IFNET, NULL));
++		if (singleton) {
++			priv = SC_PLUGIN_IFNET_GET_PRIVATE (singleton);
++			priv->conf_file = strdup (config_file);
++		}
++	} else
+ 		g_object_ref (singleton);
++
+ 	return G_OBJECT (singleton);
+ }
+diff --git a/src/settings/plugins/ifnet/plugin.h b/src/settings/plugins/ifnet/plugin.h
+index 83099b6..eecab15 100644
+--- a/src/settings/plugins/ifnet/plugin.h
++++ b/src/settings/plugins/ifnet/plugin.h
+@@ -43,5 +43,7 @@ struct _SCPluginIfnetClass {
+ 	GObjectClass parent;
+ };
+ 
++const char * ifnet_plugin_get_conf_file (void);
++
+ GType sc_plugin_ifnet_get_type (void);
+ #endif
+diff --git a/src/settings/plugins/ifupdown/plugin.c b/src/settings/plugins/ifupdown/plugin.c
+index 9679ede..c0c509a 100644
+--- a/src/settings/plugins/ifupdown/plugin.c
++++ b/src/settings/plugins/ifupdown/plugin.c
+@@ -19,7 +19,7 @@
+  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  *
+  * (C) Copyright 2007,2008 Canonical Ltd.
+- * (C) Copyright 2009 Red Hat, Inc.
++ * (C) Copyright 2009 - 2011 Red Hat, Inc.
+  */
+ 
+ #include <string.h>
+@@ -60,9 +60,6 @@
+ #define IFUPDOWN_PLUGIN_INFO "(C) 2008 Canonical Ltd.  To report bugs please use the NetworkManager mailing list."
+ #define IFUPDOWN_SYSTEM_HOSTNAME_FILE "/etc/hostname"
+ 
+-#define IFUPDOWN_SYSTEM_SETTINGS_KEY_FILE SYSCONFDIR "/NetworkManager/NetworkManager.conf"
+-#define IFUPDOWN_OLD_SYSTEM_SETTINGS_KEY_FILE SYSCONFDIR "/NetworkManager/nm-system-settings.conf"
+-
+ #define IFUPDOWN_KEY_FILE_GROUP "ifupdown"
+ #define IFUPDOWN_KEY_FILE_KEY_MANAGED "managed"
+ #define IFUPDOWN_UNMANAGE_WELL_KNOWN_DEFAULT TRUE
+@@ -81,7 +78,7 @@ typedef struct {
+ 	GHashTable *well_known_interfaces;
+ 	GHashTable *well_known_ifaces;
+ 	gboolean unmanage_well_known;
+-	const char *conf_file;
++	char *conf_file;
+ 
+ 	gulong inotify_event_id;
+ 	int inotify_system_hostname_wd;
+@@ -448,12 +445,7 @@ SCPluginIfupdown_init (NMSystemConfigInterface *config)
+ 	g_list_free (keys);
+ 	g_hash_table_destroy (auto_ifaces);
+ 
+-	/* Find the config file */
+-	if (g_file_test (IFUPDOWN_SYSTEM_SETTINGS_KEY_FILE, G_FILE_TEST_EXISTS))
+-		priv->conf_file = IFUPDOWN_SYSTEM_SETTINGS_KEY_FILE;
+-	else
+-		priv->conf_file = IFUPDOWN_OLD_SYSTEM_SETTINGS_KEY_FILE;
+-
++	/* Read the config file to find out whether to manage interfaces */
+ 	keyfile = g_key_file_new ();
+ 	if (!g_key_file_load_from_file (keyfile,
+ 	                                priv->conf_file,
+@@ -706,20 +698,28 @@ GObject__dispose (GObject *object)
+ 	if (priv->well_known_interfaces)
+ 		g_hash_table_destroy(priv->well_known_interfaces);
+ 
++	g_free (priv->conf_file);
++
+ 	if (priv->client)
+ 		g_object_unref (priv->client);
+ 
++
+ 	G_OBJECT_CLASS (sc_plugin_ifupdown_parent_class)->dispose (object);
+ }
+ 
+ G_MODULE_EXPORT GObject *
+-nm_system_config_factory (void)
++nm_system_config_factory (const char *config_file)
+ {
+ 	static SCPluginIfupdown *singleton = NULL;
++	SCPluginIfupdownPrivate *priv;
+ 
+-	if (!singleton)
++	if (!singleton) {
+ 		singleton = SC_PLUGIN_IFUPDOWN (g_object_new (SC_TYPE_PLUGIN_IFUPDOWN, NULL));
+-	else
++		if (singleton) {
++			priv = SC_PLUGIN_IFUPDOWN_GET_PRIVATE (singleton);
++			priv->conf_file = strdup (config_file);
++		}
++	} else
+ 		g_object_ref (singleton);
+ 
+ 	return G_OBJECT (singleton);
+diff --git a/src/settings/plugins/keyfile/plugin.c b/src/settings/plugins/keyfile/plugin.c
+index af69c20..8d093df 100644
+--- a/src/settings/plugins/keyfile/plugin.c
++++ b/src/settings/plugins/keyfile/plugin.c
+@@ -42,9 +42,6 @@
+ #include "common.h"
+ #include "utils.h"
+ 
+-#define CONF_FILE SYSCONFDIR "/NetworkManager/NetworkManager.conf"
+-#define OLD_CONF_FILE SYSCONFDIR "/NetworkManager/nm-system-settings.conf"
+-
+ static char *plugin_get_hostname (SCPluginKeyfile *plugin);
+ static void system_config_interface_init (NMSystemConfigInterface *system_config_interface_class);
+ 
+@@ -60,7 +57,7 @@ typedef struct {
+ 	GFileMonitor *monitor;
+ 	guint monitor_id;
+ 
+-	const char *conf_file;
++	char *conf_file;
+ 	GFileMonitor *conf_file_monitor;
+ 	guint conf_file_monitor_id;
+ 
+@@ -517,14 +514,6 @@ plugin_set_hostname (SCPluginKeyfile *plugin, const char *hostname)
+ static void
+ sc_plugin_keyfile_init (SCPluginKeyfile *plugin)
+ {
+-	SCPluginKeyfilePrivate *priv = SC_PLUGIN_KEYFILE_GET_PRIVATE (plugin);
+-
+-	if (g_file_test (CONF_FILE, G_FILE_TEST_EXISTS))
+-		priv->conf_file = CONF_FILE;
+-	else
+-		priv->conf_file = OLD_CONF_FILE;
+-
+-	priv->hostname = plugin_get_hostname (plugin);
+ }
+ 
+ static void
+@@ -597,6 +586,7 @@ dispose (GObject *object)
+ 	}
+ 
+ 	g_free (priv->hostname);
++	g_free (priv->conf_file);
+ 
+ 	if (priv->hash)
+ 		g_hash_table_destroy (priv->hash);
+@@ -642,13 +632,22 @@ system_config_interface_init (NMSystemConfigInterface *system_config_interface_c
+ }
+ 
+ GObject *
+-nm_settings_keyfile_plugin_new (void)
++nm_settings_keyfile_plugin_new (const char *config_file)
+ {
+ 	static SCPluginKeyfile *singleton = NULL;
++	SCPluginKeyfilePrivate *priv;
+ 
+-	if (!singleton)
++	if (!singleton) {
+ 		singleton = SC_PLUGIN_KEYFILE (g_object_new (SC_TYPE_PLUGIN_KEYFILE, NULL));
+-	else
++		if (singleton) {
++			priv = SC_PLUGIN_KEYFILE_GET_PRIVATE (singleton);
++
++			priv->conf_file = strdup (config_file);
++
++			/* plugin_set_hostname() has to be called *after* priv->conf_file is set */
++			priv->hostname = plugin_get_hostname (singleton);
++		}
++	} else
+ 		g_object_ref (singleton);
+ 
+ 	return G_OBJECT (singleton);
+diff --git a/src/settings/plugins/keyfile/plugin.h b/src/settings/plugins/keyfile/plugin.h
+index af5147e..05d4e2b 100644
+--- a/src/settings/plugins/keyfile/plugin.h
++++ b/src/settings/plugins/keyfile/plugin.h
+@@ -16,7 +16,7 @@
+  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  *
+  * Copyright (C) 2008 Novell, Inc.
+- * Copyright (C) 2008 Red Hat, Inc.
++ * Copyright (C) 2008 - 2011 Red Hat, Inc.
+  */
+ 
+ #ifndef _PLUGIN_H_
+@@ -43,6 +43,6 @@ GType sc_plugin_keyfile_get_type (void);
+ 
+ GQuark keyfile_plugin_error_quark (void);
+ 
+-GObject *nm_settings_keyfile_plugin_new (void);
++GObject *nm_settings_keyfile_plugin_new (const char *config_file);
+ 
+ #endif	/* _PLUGIN_H_ */
