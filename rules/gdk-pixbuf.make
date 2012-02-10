@@ -73,7 +73,9 @@ $(STATEDIR)/gdk-pixbuf.targetinstall:
 # currently no module loading enable
 #	@$(call install_copy, gdk-pixbuf, 0, 0, 0755, -, /usr/bin/gdk-pixbuf-query-loaders)
 
+ifdef PTXCONF_GDK_PIXBUF_X11
 	@$(call install_lib, gdk-pixbuf, 0, 0, 0644, libgdk_pixbuf_xlib-2.0)
+endif
 	@$(call install_lib, gdk-pixbuf, 0, 0, 0644, libgdk_pixbuf-2.0)
 
 	@$(call install_finish, gdk-pixbuf)
