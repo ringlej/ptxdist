@@ -35,7 +35,19 @@ ptxd_init_arch() {
 	    ;;
 
 	microblaze)
-	    ipkg_arch=mb
+	    local target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
+
+	    case "${target}" in
+		microblaze-*gnu)
+		    ipkg_arch=mbeb
+		    ;;
+		microblazeel-*gnu)
+		    ipkg_arch=mbel
+		    ;;
+		*)
+		    ipkg_arch=mb
+		    ;;
+	    esac
 	    ;;
     esac
 

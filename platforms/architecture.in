@@ -83,6 +83,7 @@ choice
 	config ARCH_MICROBLAZE
 		bool "microblaze "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the Xilinx MicroBlaze architecture (with MMU).
@@ -192,7 +193,8 @@ config ARCH_SUPPORTS_ENDIAN_LITTLE
 
 choice
 	prompt "endianess       "
-	default ENDIAN_LITTLE
+	default ENDIAN_LITTLE if !ARCH_MICROBLAZE
+	default ENDIAN_BIG if ARCH_MICROBLAZE
 
 	config ENDIAN_BIG
 		bool "big        "
