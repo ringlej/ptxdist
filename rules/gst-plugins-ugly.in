@@ -8,6 +8,8 @@ menuconfig GST_PLUGINS_UGLY
 	select LIBMAD		if GST_PLUGINS_UGLY_MAD
 	select LIBID3TAG	if GST_PLUGINS_UGLY_MAD
 	select LIBMPEG2		if GST_PLUGINS_UGLY_MPEG2DEC
+	select LAME		if GST_PLUGINS_UGLY_LAME
+	select TWOLAME		if GST_PLUGINS_UGLY_TWOLAME
 	prompt "gst-plugins-ugly              "
 	help
 	  GStreamer Ugly Plug-ins is a set of plug-ins that
@@ -78,7 +80,6 @@ config GST_PLUGINS_UGLY_DVDREADSRC
 
 config GST_PLUGINS_UGLY_LAME
 	bool
-	depends on BROKEN
 	prompt "lame"
 
 config GST_PLUGINS_UGLY_MAD
@@ -94,9 +95,8 @@ config GST_PLUGINS_UGLY_SID
 	depends on BROKEN
 	prompt "sid"
 
-config ST_PLUGINS_UGLY_TWOLAME
+config GST_PLUGINS_UGLY_TWOLAME
 	bool
-	depends on BROKEN
 	prompt "twolame"
 
 config GST_PLUGINS_UGLY_X264
