@@ -153,3 +153,15 @@ s/^\(\(# \)\?PTXCONF_OWFS_\)_\(.*$\)/\1\3/
 #
 s/^\(\(# \)\?PTXCONF_\)E2FSPROGS_INSTALL\(_UUIDD\)/\1UTIL_LINUX_NG\3/
 
+#
+# from   : ptxdist-2011.02.0
+# to     : ptxdist-2011.03.0
+# reason : udev rules rewrite
+#
+s/^\(\(# \)\?PTXCONF_UDEV_\)DEFAULT_\(.*\)/\1\3/
+s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_\(.*\)_ID/\1PERSISTENT_\3/
+s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_RULE_\(GENERATOR\)/\1PERSISTENT_\3/
+s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_\(.*\)_DB/\1PERSISTENT_\3/
+s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_UDEV_ACL/\1ACL/
+s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_COLLECT/\1COLLECT/
+

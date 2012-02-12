@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005-2008 by Robert Schwebel
+#               2012 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,29 +17,19 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-ifndef PTXCONF_UDEV_EXPERIMENTAL
-UDEV_VERSION	:= 162
-UDEV_MD5	:= dd7099242e92084605e07db0c7299a02
-else
+ifdef PTXCONF_UDEV_LEGACY
 UDEV_VERSION	:= 172
 UDEV_MD5	:= bd122d04cf758441f498aad0169a454f
+else
+UDEV_VERSION	:= 181
+UDEV_MD5	:= 135c5acfd371febc5ed8326d48028922
 endif
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
+UDEV_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
-
-UDEV_URL := \
-	$(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
 UDEV_LICENSE	:= GPLv2
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(UDEV_SOURCE):
-	@$(call targetinfo)
-	@$(call get, UDEV)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -46,115 +37,95 @@ $(UDEV_SOURCE):
 
 #
 # autoconf
-
+#
 UDEV_CONF_ENV := \
 	$(CROSS_ENV) \
 	CPPFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR) $(CROSS_CPPFLAGS)"
 
-#
-# Note: explicit sbindir to avoid "${exec_prefix}/sbin/" on the target.
-UDEV_AUTOCONF := \
+UDEV_CONF_TOOL	:= autoconf
+UDEV_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_ROOT) \
-	--libexecdir=/lib/udev \
-	--sbindir=/sbin \
-	\
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-static \
+	--enable-shared \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--$(call ptx/endis,PTXCONF_UDEV_DEBUG)-debug \
+	--$(call ptx/endis,PTXCONF_UDEV_SYSLOG)-logging \
+	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--disable-introspection \
-	--enable-shared
+	--$(call ptx/endis,PTXCONF_UDEV_KEYMAPS)-keymap \
+	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_GENERATOR)-rule_generator \
+	--$(call ptx/endis,PTXCONF_UDEV_ACL)-udev_acl \
+	--disable-floppy \
+	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_EDD)-edd \
+	--with-usb-ids-path=/usr/share/usb.ids \
+	--with-pci-ids-path=/usr/share/pci.ids$(call ptx/ifdef, PTXCONF_PCIUTILS_COMPRESS,.gz,) \
+	--without-selinux \
+	--with-systemdsystemunitdir=/lib/systemd/system
 
-ifdef PTXCONF_PCIUTILS_COMPRESS
-UDEV_AUTOCONF += --with-pci-ids-path=/usr/share/pci.ids.gz
+ifdef PTXCONF_UDEV_LEGACY
+UDEV_CONF_OPT += \
+	--libexecdir=/lib/udev \
+	--enable-hwdb
 else
-UDEV_AUTOCONF += --with-pci-ids-path=/usr/share/pci.ids
-endif
-
-ifdef PTXCONF_UDEV_DEBUG
-UDEV_AUTOCONF	+= --enable-debug
-else
-UDEV_AUTOCONF	+= --disable-debug
-endif
-
-ifdef PTXCONF_UDEV_LIBGUDEV
-UDEV_AUTOCONF	+= --enable-gudev
-else
-UDEV_AUTOCONF	+= --disable-gudev
-endif
-
-ifdef PTXCONF_UDEV_SYSTEMD
-UDEV_AUTOCONF	+= --with-systemdsystemunitdir=/lib/systemd/system
-else
-UDEV_AUTOCONF	+= --without-systemdsystemunitdir
+UDEV_CONF_OPT += \
+	--libexecdir=/lib \
+	--$(call ptx/endis,PTXCONF_UDEV_MTD_PROBE)-mtd_probe
 endif
 
-ifndef PTXCONF_UDEV_EXPERIMENTAL
-ifeq ($(PTXCONF_ARCH_ARM)-$(PTXCONF_UDEV_EXTRA_HID2HCI),-y)
-UDEV_AUTOCONF	+= --enable-bluetooth
-else
-UDEV_AUTOCONF	+= --disable-bluetooth
-endif
-endif
+UDEV_RULES-y := \
+	50-udev-default.rules \
+	60-persistent-alsa.rules \
+	60-persistent-input.rules \
+	60-persistent-serial.rules \
+	60-persistent-storage-tape.rules \
+	60-persistent-storage.rules \
+	75-net-description.rules \
+	75-tty-description.rules \
+	78-sound-card.rules \
+	95-udev-late.rules
 
-ifdef PTXCONF_UDEV_EXTRA_KEYMAP
-UDEV_AUTOCONF	+= --enable-keymap
+UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
+ifdef PTXCONF_UDEV_LEGACY
+UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-acl.rules
 else
-UDEV_AUTOCONF	+= --disable-keymap
+UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-udev-acl.rules
 endif
+UDEV_RULES-$(PTXCONF_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
+UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keyboard-force-release.rules
+UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keymap.rules
+UDEV_RULES-$(PTXCONF_UDEV_MTD_PROBE)		+= 75-probe_mtd.rules
+UDEV_RULES-$(PTXCONF_UDEV_PERSISTENT_CDROM)	+= 60-cdrom_id.rules
+UDEV_RULES-$(PTXCONF_UDEV_PERSISTENT_EDD)	+= 61-persistent-storage-edd.rules
+UDEV_RULES-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= 75-cd-aliases-generator.rules
+UDEV_RULES-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= 75-persistent-net-generator.rules
+UDEV_RULES-$(PTXCONF_UDEV_PERSISTENT_V4L)	+= 60-persistent-v4l.rules
 
-ifdef PTXCONF_UDEV_EXTRA_UDEV_ACL
-UDEV_AUTOCONF	+= --enable-udev_acl
-else
-UDEV_AUTOCONF	+= --disable-udev_acl
-endif
+UDEV_HELPER-$(PTXCONF_UDEV_ACCELEROMETER)		+= accelerometer
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_ATA)		+= ata_id
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_CDROM)		+= cdrom_id
+UDEV_HELPER-$(PTXCONF_UDEV_COLLECT)			+= collect
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_EDD)		+= edd_id
+UDEV_HELPER-$(PTXCONF_UDEV_KEYMAPS)			+= findkeyboards
+UDEV_HELPER-$(PTXCONF_UDEV_KEYMAPS)			+= keyboard-force-release.sh
+UDEV_HELPER-$(PTXCONF_UDEV_KEYMAPS)			+= keymap
+UDEV_HELPER-$(PTXCONF_UDEV_MTD_PROBE)			+= mtd_probe
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= rule_generator.functions
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_SCSI)		+= scsi_id
+UDEV_HELPER-$(PTXCONF_UDEV_ACL)				+= udev-acl
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_V4L)		+= v4l_id
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= write_cd_rules
+UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= write_net_rules
 
-ifndef PTXCONF_UDEV_EXPERIMENTAL
-ifdef PTXCONF_UDEV_EXTRA_USB_DB
-UDEV_AUTOCONF	+= --enable-usbdb
-else
-UDEV_AUTOCONF	+= --disable-usbdb
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_PCI_DB
-UDEV_AUTOCONF	+= --enable-pcidb
-else
-UDEV_AUTOCONF	+= --disable-pcidb
-endif
-else
-ifneq ($(PTXCONF_UDEV_EXTRA_USB_DB)$(PTXCONF_UDEV_EXTRA_PCI_DB),)
-UDEV_AUTOCONF	+= --enable-hwdb
-else
-UDEV_AUTOCONF	+= --disable-hwdb
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FLOPPY
-UDEV_AUTOCONF	+= --enable-floppy
-else
-UDEV_AUTOCONF	+= --disable-floppy
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_EDD_ID
-UDEV_AUTOCONF	+= --enable-edd
-else
-UDEV_AUTOCONF	+= --disable-edd
-endif
-endif
-
-ifndef PTXCONF_UDEV_EXPERIMENTAL
-ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
-UDEV_AUTOCONF	+= --enable-action_modeswitch
-else
-UDEV_AUTOCONF	+= --disable-action_modeswitch
-endif
-endif
-
-ifdef PTXCONF_UDEV_SELINUX
-UDEV_AUTOCONF	+= --with-selinux
-else
-UDEV_AUTOCONF	+= --without-selinux
-endif
-
-ifdef PTXCONF_UDEV_SYSLOG
-UDEV_AUTOCONF	+= --enable-logging
-else
-UDEV_AUTOCONF	+= --disable-logging
+ifdef PTXCONF_UDEV_LEGACY
+DEV_HELPER-$(PTXCONF_UDEV_LEGACY)			+= firmware
+DEV_HELPER-$(PTXCONF_UDEV_LEGACY)			+= input_id
+DEV_HELPER-$(PTXCONF_UDEV_LEGACY)			+= path_id
+DEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_PCI)		+= pci-db
+DEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_USB)		+= usb-db
+DEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_USB)		+= usb_id
 endif
 
 # ----------------------------------------------------------------------------
@@ -170,64 +141,34 @@ $(STATEDIR)/udev.targetinstall:
 	@$(call install_fixup, udev,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, udev,DESCRIPTION,missing)
 
-#	#
-#	# binaries
-#	#
+ifdef PTXCONF_UDEV_ETC_CONF
+	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
+endif
 
+ifdef PTXCONF_UDEV_LEGACY
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevadm)
+else
+	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udevd)
+	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
+endif
 
-#	#
-#	# default rules
-#	#
-
-# install everything apart of drivers rule.
-ifdef PTXCONF_UDEV_DEFAULT_RULES
-	@for rule in \
-			50-udev-default.rules \
-			60-persistent-alsa.rules \
-			60-persistent-input.rules \
-			60-persistent-serial.rules \
-			60-persistent-storage-tape.rules \
-			60-persistent-storage.rules \
-			95-udev-late.rules; \
-			do \
+	@$(foreach rule, $(UDEV_RULES-y), \
 		$(call install_copy, udev, 0, 0, 0644, -, \
-			/lib/udev/rules.d/$$rule); \
-	done
-ifdef PTXCONF_UDEV_EXTRA_USB_DB
-ifdef PTXCONF_UDEV_EXTRA_PCI_DB
-	@for rule in \
-			75-net-description.rules \
-			75-tty-description.rules \
-			78-sound-card.rules; \
-			do \
-		$(call install_copy, udev, 0, 0, 0644, -, \
-			/lib/udev/rules.d/$$rule); \
-	done
-endif
-endif
-endif
+			/lib/udev/rules.d/$(rule));)
 
-# install drivers rules.
-ifdef PTXCONF_UDEV_DEFAULT_DRIVERS_RULES
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/80-drivers.rules)
-endif
-
-# install default keymaps.
-ifdef PTXCONF_UDEV_DEFAULT_KEYMAPS
-	@cd $(UDEV_PKGDIR)/lib/udev/keymaps; \
-	for file in `find . -type f`; do \
-		$(call install_copy, udev, 0, 0, 0644, \
-			$(UDEV_PKGDIR)/lib/udev/keymaps/$$file, \
-			/lib/udev/keymaps/$$file, n); \
+ifdef PTXCONF_UDEV_KEYMAPS
+	@cd $(UDEV_PKGDIR) && \
+	for keymap in `find lib/udev/keymaps/ -type f`; do \
+		$(call install_copy, udev, 0, 0, 0644, -, /$$keymap); \
 	done
 endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
 	@if [ -d $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/ ]; then \
-		$(call install_tree, udev, 0, 0, $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d, /lib/udev/rules.d); \
+		$(call install_tree, udev, 0, 0, \
+			$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d, \
+			/lib/udev/rules.d); \
 	else \
 		echo "UDEV_CUST_RULES is enabled but Directory containing" \
 			"customized udev rules is missing!"; \
@@ -235,9 +176,23 @@ ifdef PTXCONF_UDEV_CUST_RULES
 	fi
 endif
 
-#	#
-#	# startup script
-#	#
+	@$(foreach helper, $(UDEV_HELPER-y), \
+		$(call install_copy, udev, 0, 0, 0644, -, \
+			/lib/udev//$(helper));)
+
+ifdef PTXCONF_UDEV_ACL
+	@$(call install_link, udev, ../../udev/udev-acl, \
+		/lib/ConsoleKit/run-seat.d/udev-acl.ck)
+endif
+
+ifdef PTXCONF_UDEV_LIBUDEV
+	@$(call install_lib, udev, 0, 0, 0644, libudev)
+endif
+
+ifdef PTXCONF_UDEV_LIBGUDEV
+	@$(call install_lib, udev, 0, 0, 0644, libgudev-1.0)
+endif
+
 ifdef PTXCONF_UDEV_STARTSCRIPT
 ifdef PTXCONF_INITMETHOD_BBINIT
 	@$(call install_alternative, udev, 0, 0, 0755, /etc/init.d/udev)
@@ -255,152 +210,6 @@ ifdef PTXCONF_INITMETHOD_UPSTART
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udev-finish.conf)
 endif
 endif
-
-
-#	#
-#	# Install a configuration on demand only
-#	#
-ifdef PTXCONF_UDEV_ETC_CONF
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
-endif
-
-#	#
-#	# utilities from extra/
-#	#
-ifdef PTXCONF_UDEV_EXTRA_ATA_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/ata_id)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_CDROM_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/cdrom_id)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/60-cdrom_id.rules,n)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/75-cd-aliases-generator.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_COLLECT
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/collect)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_EDD_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/edd_id)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/61-persistent-storage-edd.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FINDKEYBOARDS
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/findkeyboards)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FIRMWARE
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/firmware)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/50-firmware.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FLOPPY
-	@$(call install_copy, udev, 0, 0, 0755, -, \
-		/lib/udev/create_floppy_devices)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/60-floppy.rules)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FSTAB_IMPORT
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/fstab_import)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/79-fstab_import.rules)
-endif
-
-ifndef PTXCONF_ARCH_ARM
-ifdef PTXCONF_UDEV_EXTRA_HID2HCI
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/hid2hci)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/70-hid2hci.rules,n)
-endif
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_INPUT_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/input_id)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_KEYBOARD_FORCE_RELEASE
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/keyboard-force-release.sh, n)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/95-keyboard-force-release.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_KEYMAP
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/keymap)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/95-keymap.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/mobile-action-modeswitch)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/61-mobile-action.rules)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_PATH_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/path_id)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_PCI_DB
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/pci-db)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_RULE_GENERATOR
-	@$(call install_copy, udev, 0, 0, 0755, -, \
-		/lib/udev/rule_generator.functions)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_SCSI_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/scsi_id)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_UDEV_ACL
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udev-acl)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/70-acl.rules,n)
-	@$(call install_link, udev, ../../udev/udev-acl, \
-		/lib/ConsoleKit/run-seat.d/udev-acl.ck)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_USB_DB
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/usb-db)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_USB_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/usb_id)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_V4L_ID
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/v4l_id)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/60-persistent-v4l.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_WRITE_CD_RULES
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev//write_cd_rules)
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_WRITE_NET_RULES
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev//write_net_rules)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/75-net-description.rules,n)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/75-persistent-net-generator.rules,n)
-endif
-
-ifdef PTXCONF_UDEV_LIBUDEV
-	@$(call install_lib, udev, 0, 0, 0644, libudev)
-endif
-
-ifdef PTXCONF_UDEV_LIBGUDEV
-	@$(call install_lib, udev, 0, 0, 0644, libgudev-1.0)
-endif
-
 ifdef PTXCONF_UDEV_SYSTEMD
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/systemd/system/udev-kernel.socket)
