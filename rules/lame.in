@@ -1,0 +1,19 @@
+## SECTION=multimedia_sound
+
+menuconfig LAME
+	tristate
+	select LIBC_M
+	prompt "lame                          "
+	help
+	  LAME is a high quality MPEG Audio Layer III (MP3) encoder
+	  licensed under the LGPL.
+
+
+if LAME
+
+config LAME_FRONTEND
+	bool
+	prompt "install frontend"
+
+endif
+
