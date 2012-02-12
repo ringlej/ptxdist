@@ -60,5 +60,24 @@ config U_BOOT_INSTALL_ELF
 	help
 	  Installing the U-Boot ELF binary into platform image directory.
 
+config U_BOOT_INSTALL_MLO
+	prompt "install MLO"
+        bool
+	depends on !X_LOAD
+	help
+	  Installing the U-Boot SPL ("MLO") binary needed for OMAP CPUs into platform
+	  image directory.
+
+if U_BOOT_INSTALL_MLO
+
+config U_BOOT_INSTALL_U_BOOT_IMG
+	prompt "install u-boot.img"
+        bool
+	help
+	  Installing the u-boot image with header ("u-boot.img") which is executed
+	  by u-boot SPL ("MLO") into platform image directory.
+
+endif
+
 endif
 

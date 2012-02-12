@@ -70,6 +70,12 @@ endif
 ifdef PTXCONF_U_BOOT_INSTALL_ELF
 	@install -D -m644 $(U_BOOT_DIR)/u-boot $(IMAGEDIR)/u-boot.elf
 endif
+ifdef PTXCONF_U_BOOT_INSTALL_MLO
+	@install -D -m644 $(U_BOOT_DIR)/MLO $(IMAGEDIR)/MLO
+endif
+ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMG
+	@install -D -m644 $(U_BOOT_DIR)/u-boot.img $(IMAGEDIR)/u-boot.img
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
