@@ -1,0 +1,7 @@
+## SECTION=multimedia_sound
+
+config TWOLAME
+	tristate
+	prompt "twolame"
+	help
+	  FIXME
