@@ -62,7 +62,7 @@ config U_BOOT_INSTALL_ELF
 
 config U_BOOT_INSTALL_MLO
 	prompt "install MLO"
-        bool
+	bool
 	depends on !X_LOAD
 	help
 	  Installing the U-Boot SPL ("MLO") binary needed for OMAP CPUs into platform
@@ -72,7 +72,7 @@ if U_BOOT_INSTALL_MLO
 
 config U_BOOT_INSTALL_U_BOOT_IMG
 	prompt "install u-boot.img"
-        bool
+	bool
 	help
 	  Installing the u-boot image with header ("u-boot.img") which is executed
 	  by u-boot SPL ("MLO") into platform image directory.
