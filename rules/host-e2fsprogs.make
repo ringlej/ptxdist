@@ -30,7 +30,7 @@ HOST_E2FSPROGS_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
-HOST_E2FSPROGS_INSTALL_OPT := install install-libs
+HOST_E2FSPROGS_INSTALL_OPT := install
 
 # vim: syntax=make
 
