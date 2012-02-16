@@ -54,6 +54,10 @@ WPA_SUPPLICANT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/wpa_supplicant.prepare:
 	@$(call targetinfo)
 
+#	# run 'make clean' as wpa_supplicant's build system does not recognize config changes
+	@-cd $(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR) && \
+		$(WPA_SUPPLICANT_ENV) $(WPA_SUPPLICANT_PATH) $(MAKE) clean
+
 	@echo "CC=$(CROSS_CC)"				>  $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CFLAGS += -I$(PTXDIST_SYSROOT_TARGET)/include"		>> $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CFLAGS += -I$(PTXDIST_SYSROOT_TARGET)/usr/include"	>> $(WPA_SUPPLICANT_CONFIG) && \
