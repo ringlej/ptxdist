@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.4.12
-IPTABLES_MD5		:= d3f145c2c91daecbb4251bc79390b46c
+IPTABLES_VERSION	:= 1.4.12.2
+IPTABLES_MD5		:= 212112389c7f10c72efb31a4ed193a4c
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
