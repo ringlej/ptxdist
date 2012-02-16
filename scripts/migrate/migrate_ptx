@@ -165,3 +165,11 @@ s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_\(.*\)_DB/\1PERSISTENT_\3/
 s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_UDEV_ACL/\1ACL/
 s/^\(\(# \)\?PTXCONF_UDEV_\)EXTRA_COLLECT/\1COLLECT/
 
+#
+# symbol : PTXCONF_IPTABLES_*
+# reason : consolidate protocol and tool symbols
+#
+s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_IPV6_TOOLS/\1_IPV6/
+s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_IPV4_TOOLS/\1_IPV4/
+s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_XTABLES_MULTI/\1_INSTALL_TOOLS/
+

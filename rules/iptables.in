@@ -16,76 +16,21 @@ menuconfig IPTABLES
 
 if IPTABLES
 
-config IPTABLES_INSTALL_IPV6_TOOLS
+config IPTABLES_IPV6
 	bool
-	prompt "IPv6 tools"
+	prompt "IPv6 support"
 
-if IPTABLES_INSTALL_IPV6_TOOLS
-
-config IPTABLES_INSTALL_XTABLES_MULTI
+config IPTABLES_IPV4
 	bool
+	prompt "IPv4 support"
 
-config IPTABLES_INSTALL_IP6TABLES
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install ip6tables"
+config IPTABLES_INSTALL_TOOLS
+	bool "install executables"
 	help
-	  Install the IPv6 Version of iptables
-
-config IPTABLES_INSTALL_IP6TABLES_RESTORE
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install ip6tables-restore"
-	help
-	  The ip6tables-restore command is used to restore
-	  the ip6tables rule-set that was saved with the
-	  ip6tables-save command.
-
-config IPTABLES_INSTALL_IP6TABLES_SAVE
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install ip6tables-save"
-	help
-	  The ip6tables-save command is a tool to save the current rule-set
-	  into a file that ip6tables-restore can use.
-
-endif
-
-
-config IPTABLES_INSTALL_IPV4_TOOLS
-	bool
-	prompt "IPv4 tools"
-
-if IPTABLES_INSTALL_IPV4_TOOLS
-
-config IPTABLES_INSTALL_IPTABLES
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install iptables"
-	help
-	  install the IPv4 Version of iptables
-
-config IPTABLES_INSTALL_IPTABLES_RESTORE
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install iptables-restore"
-	help
-	  The iptables-restore command is used to restore
-	  the iptables rule-set that was saved with the
-	  iptables-save command.
-
-config IPTABLES_INSTALL_IPTABLES_SAVE
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install iptables-save"
-	help
-	  The iptables-save command is a tool to save
-	  the current rule-set into a file that
-	  iptables-restore can use.
-
-endif
-
-config IPTABLES_INSTALL_IPTABLES_XML
-	select IPTABLES_INSTALL_XTABLES_MULTI
-	bool "install iptables-xml"
-	help
-	  iptables-xml is used to convert the output of iptables-save into an
-	  easily manipulatable XML format to STDOUT. Use I/O-redirection
-	  provided by your shell to write to a file.
+	  depending on the selected protocols install the links to
+	  xtables-multi:
+	    IPv4: iptables, iptables-save, iptables-restore
+	    IPv6: ip6tables, ip6tables-save, ip6tables-restore
 
 comment "iptables-apply depends on bash"
 	depends on !BASH
@@ -93,6 +38,7 @@ comment "iptables-apply depends on bash"
 config IPTABLES_INSTALL_IPTABLES_APPLY
 	bool
 	prompt "install iptables-apply"
+	select IPTABLES_INSTALL_TOOLS
 	depends on BASH
 	help
 	  iptables-apply will try to apply a new ruleset (as output by
