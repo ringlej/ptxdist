@@ -252,9 +252,6 @@ config XORG_SERVER_OPT_SECURE_RPC
 
 config XORG_SERVER_UDEV
 	bool
-	select UDEV_LIBUDEV
-	select UDEV_EXTRAS
-	select UDEV_EXTRA_INPUT_ID
 	prompt "detect input devices via udev"
 	help
 	  FIXME
