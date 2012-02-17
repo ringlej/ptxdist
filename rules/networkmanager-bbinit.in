@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config NETWORKMANAGER_BBINIT_LINK
+	string
+	depends on NETWORKMANAGER_STARTSCRIPT
+	prompt "NetworkManager"
+	default "S26NetworkManager"
+
