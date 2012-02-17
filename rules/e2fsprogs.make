@@ -26,28 +26,19 @@ E2FSPROGS_SOURCE	:= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(E2FSPROGS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, E2FSPROGS)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-E2FSPROGS_PATH	:= PATH=$(CROSS_PATH)
-E2FSPROGS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-E2FSPROGS_AUTOCONF := \
+E2FSPROGS_CONF_TOOL	:= autoconf
+E2FSPROGS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-symlink-install \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_COMPRESSION)-compression \
 	--enable-htree \
 	--enable-elf-shlibs \
 	--disable-bsd-shlibs \
@@ -59,43 +50,17 @@ E2FSPROGS_AUTOCONF := \
 	--disable-libuuid \
 	--disable-libblkid \
 	--disable-debugfs \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_IMAGER)-imager \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_RESIZER)-resizer \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_E2FSCK)-fsck \
 	--disable-e2initrd-helper \
 	--disable-tls \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_UUIDD)-uuidd \
 	--disable-nls \
 	--disable-rpath \
 	--without-diet-libc
 
-ifdef PTXCONF_E2FSPROGS_COMPRESSION
-E2FSPROGS_AUTOCONF += --enable-compression
-else
-E2FSPROGS_AUTOCONF += --disable-compression
-endif
-
-ifdef PTXCONF_E2FSPROGS_IMAGER
-E2FSPROGS_AUTOCONF += --enable-imager
-else
-E2FSPROGS_AUTOCONF += --disable-imager
-endif
-
-ifdef PTXCONF_E2FSPROGS_RESIZER
-E2FSPROGS_AUTOCONF += --enable-resizer
-else
-E2FSPROGS_AUTOCONF += --disable-resizer
-endif
-
-ifdef PTXCONF_E2FSPROGS_INSTALL_E2FSCK
-E2FSPROGS_AUTOCONF += --enable-fsck
-else
-E2FSPROGS_AUTOCONF += --disable-fsck
-endif
-
-ifdef PTXCONF_E2FSPROGS_INSTALL_UUIDD
-E2FSPROGS_AUTOCONF += --enable-uuidd
-else
-E2FSPROGS_AUTOCONF += --disable-uuidd
-endif
-
-E2FSPROGS_INSTALL_OPT := install install-libs
+E2FSPROGS_INSTALL_OPT := install
 
 # ----------------------------------------------------------------------------
 # Target-Install
