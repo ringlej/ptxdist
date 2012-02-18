@@ -89,7 +89,7 @@ ptxd_install_setup_src() {
     local deprule=""
     for src in "${list[@]}"; do
 	# don't provide dependencies for files in PTXDIST_PLATFORMDIR.
-	if [ "${src}" != "${src#${PTXDIST_PLATFORMDIR}}" -o -z "${src}" ]; then
+	if [ "${src}" == "${src#${PTXDIST_PLATFORMDIR}}" -a -n "${src}" ]; then
 		deprule="${deprule} ${src}"
 	fi
     done
