@@ -235,6 +235,16 @@ config UTIL_LINUX_NG_MCOOKIE
 	  mcookie generates a 128-bit random hexadecimal number for
 	  use with the X authority system.
 
+config UTIL_LINUX_NG_UUIDD
+	bool
+	select UTIL_LINUX_NG_LIBUUID
+	prompt "uuidd"
+	help
+	  The  uuidd  daemon  is  used by the UUID library to generate
+	  universally unique identifiers (UUIDs), especially time-based UUIDs,
+	  in a secure and guaranteed- unique fashion, even in the face of large
+	  numbers of threads running on different CPUs trying to grab UUIDs.
+
 config UTIL_LINUX_NG_UUIDGEN
 	bool
 	select UTIL_LINUX_NG_LIBUUID

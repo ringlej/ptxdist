@@ -45,45 +45,56 @@ UTIL_LINUX_NG_ENV 	:= \
 #
 UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--enable-shared \
-	--enable-static \
+	--disable-static \
+	--disable-gtk-doc \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-tls \
+	--enable-mount \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
+	--disable-libmount-mount \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
 	--disable-nls \
 	--disable-rpath \
 	--disable-arch \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_DDATE)-ddate \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
 	--disable-cramfs \
-	--disable-elvtune \
+	--disable-switch_root \
+	--disable-pivot_root \
 	--disable-fallocate \
+	--disable-unshare \
+	--disable-elvtune \
 	--disable-kill \
 	--disable-last \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
 	--disable-mesg \
 	--disable-raw \
 	--disable-rename \
 	--disable-reset \
-	--enable-schedutils \
 	--disable-login-utils \
+	--enable-schedutils \
 	--disable-wall \
 	--disable-write \
 	--disable-chsh-only-listed \
 	--disable-login-chown-vcs \
 	--disable-login-stat-mail \
-	--disable-makeinstall-chown \
 	--disable-pg-bell \
 	--disable-require-password \
 	--disable-use-tty-group \
-	--without-pam \
+	--disable-makeinstall-chown \
+	--disable-makeinstall-setuid \
+	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
-	--without-selinux \
-	--without-audit \
 	--without-utempter \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_DDATE)-ddate \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid
+	--without-pam \
+	--without-selinux \
+	--without-audit
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -179,6 +190,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_LIBMOUNT
 	@$(call install_lib, util-linux-ng, 0, 0, 0644, libmount)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_UUIDD
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/uuidd)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/uuidgen)
