@@ -260,12 +260,6 @@ config E2FSPROGS_INSTALL_TUNE2FS
 	help
 	  Enable support for tune2fs program.
 
-config E2FSPROGS_INSTALL_UUIDD
-	bool
-	prompt "uuid"
-	help
-	  Enable support for uuid program.
-
 endmenu
 
 endif

@@ -57,7 +57,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_E2FSCK)-fsck \
 	--disable-e2initrd-helper \
 	--disable-tls \
-	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_UUIDD)-uuidd \
+	--disable-uuidd \
 	--disable-nls \
 	--disable-rpath \
 	--without-diet-libc
@@ -182,10 +182,6 @@ endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_TUNE2FS
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/tune2fs)
-endif
-
-ifdef PTXCONF_E2FSPROGS_INSTALL_UUIDD
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/uuidd)
 endif
 
 	@$(call install_alternative, e2fsprogs, 0, 0, 0644, /etc/mke2fs.conf, n)
