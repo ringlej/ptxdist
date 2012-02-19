@@ -9,6 +9,8 @@ menuconfig RRDTOOL
 	select CAIRO_PS
 	select PANGO
 	select LIBXML2
+# for autotools only
+	select HOST_GETTEXT
 	prompt "rrdtool                       "
 	help
 	  The Round Robin Database Tool (RRDtool) is a system to store and
