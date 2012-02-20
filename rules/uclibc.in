@@ -2,7 +2,7 @@
 
 config UCLIBC
 	tristate
-	select BASE
+	select BASE if RUNTIME
 
 if UCLIBC
 
