@@ -11,8 +11,7 @@ menuconfig SYSTEMD
 	select LIBCAP
 	select UDEV
 	select UDEV_LIBUDEV
-	select PYTHON		if SYSTEMD_ANALYZE
-	select DBUS_PYTHON	if SYSTEMD_ANALYZE
+	select DBUS_PYTHON	if SYSTEMD_ANALYZE && RUNTIME
 	select TCPWRAPPER	if SYSTEMD_TCPWRAP
 	prompt "systemd                       "
 	help
