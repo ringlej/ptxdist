@@ -2,7 +2,7 @@
 
 config GLIBC
 	tristate
-	select BASE
+	select BASE if RUNTIME
 
 if GLIBC
 
