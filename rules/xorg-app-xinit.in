@@ -3,9 +3,9 @@
 menuconfig XORG_APP_XINIT
 	tristate
 	select XORG_LIB_X11
-	select XORG_APP_XAUTH if XORG_APP_XINIT_STARTX
-	select UTIL_LINUX_NG if XORG_APP_XINIT_STARTX
-	select UTIL_LINUX_NG_MCOOKIE if XORG_APP_XINIT_STARTX
+	select XORG_APP_XAUTH		if XORG_APP_XINIT_STARTX && RUNTIME
+	select UTIL_LINUX_NG		if XORG_APP_XINIT_STARTX && RUNTIME
+	select UTIL_LINUX_NG_MCOOKIE	if XORG_APP_XINIT_STARTX
 	prompt "xorg xinit"
 	help
 	  This package provides 'xinit' and 'startx', utilities for starting
