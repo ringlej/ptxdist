@@ -6,6 +6,7 @@ menuconfig UDEV
 	select LIBC_RT
 	select LIBKMOD		if !UDEV_LEGACY
 	select LIBBLKID		if !UDEV_LEGACY
+	select HOST_GPERF	if UDEV_KEYMAPS
 	select ACL		if UDEV_ACL
 	select ACL_SHARED	if UDEV_ACL
 	select GLIB		if UDEV_ACL || UDEV_LIBGUDEV
