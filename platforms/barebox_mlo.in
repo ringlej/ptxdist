@@ -1,0 +1,19 @@
+## SECTION=bootloader
+
+menuconfig BAREBOX_MLO
+	prompt "barebox mlo                   "
+	bool
+	depends on BAREBOX
+	help
+	  Build mlo from barebox sources.
+
+if BAREBOX_MLO
+
+config BAREBOX_MLO_CONFIG
+	prompt "mlo config file"
+	string
+	default "barebox_mlo.config"
+	help
+	  This entry specifies the .config file used to compile mlo.
+
+endif
