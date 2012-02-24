@@ -51,6 +51,28 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-distro=debian
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/networkmanager.install:
+	@$(call targetinfo)
+	@$(call world/install, NETWORKMANAGER)
+
+ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
+	@cd $(NETWORKMANAGER_DIR)/examples/C/glib/ && for FILE in `find -name "*-glib" -printf '%f\n'`; do \
+		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+	done
+	@cd $(NETWORKMANAGER_DIR)/examples/python/ && for FILE in `find -name "*.py" -printf '%f\n'`; do \
+		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+	done
+	@cd $(NETWORKMANAGER_DIR)/examples/shell/ && for FILE in `find -name "*.sh" -printf '%f\n'`; do \
+		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+	done
+endif
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -105,6 +127,18 @@ endif
 
 	@$(call install_tree, networkmanager, 0, 0, -, /etc/dbus-1/system.d/)
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
+
+ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
+	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*-glib" -printf '%f\n'`; do \
+		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
+	done
+	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*.py" -printf '%f\n'`; do \
+		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
+	done
+	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*.sh" -printf '%f\n'`; do \
+		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
+	done
+endif
 
 	@$(call install_finish, networkmanager)
 

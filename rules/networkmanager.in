@@ -13,6 +13,7 @@ menuconfig NETWORKMANAGER
 	select WPA_SUPPLICANT
 	select GNUTLS
 	select HOST_INTLTOOL
+	select DBUS_PYTHON                      if NETWORKMANAGER_EXAMPLES
 	prompt "networkmanager                "
 	help
 	  NetworkManager is a tool to automate network configuration as far as
@@ -32,5 +33,10 @@ config NETWORKMANAGER_SYSTEMD_UNIT
 	default y
 	depends on SYSTEMD
 	prompt "install systemd unit files for Network Manager"
+
+config NETWORKMANAGER_EXAMPLES
+	bool
+	default n
+	prompt "install examples for Network Manager"
 
 endif
