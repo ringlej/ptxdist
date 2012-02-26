@@ -133,26 +133,29 @@ case "$SED_VERSION" in
 esac
 AC_MSG_RESULT([$SED_VERSION])
 
-dnl check for gnu coreutils
-AC_DEFUN([GNU_COREUTILS],
-	[AC_CACHE_CHECK([for $1 from GNU coreutils], [ac_cv_path_gnu_$1],
+dnl check for gnu tools
+dnl   $1: tool to search for
+dnl   $2: package where the tool is (e.g. 'coreutils')
+AC_DEFUN([GNU_TOOL],
+	[AC_CACHE_CHECK([for GNU $1], [ac_cv_path_gnu_$1],
 		[AC_PATH_PROGS_FEATURE_CHECK([gnu_$1], [g$1 $1.gnu $1],
-			[[out=`$ac_path_gnu_$1 --version 2>/dev/null | $SED -ne "s/.*\(GNU\) coreutils.*/\1/p"`
+			[[out=`$ac_path_gnu_$1 --version 2>/dev/null | $SED -ne "s/.*\(GNU\) $2.*/\1/p"`
 				test "x$out" = xGNU && ac_cv_path_gnu_$1=$ac_path_gnu_$1 ac_path_gnu_$1_found=:]],
-			[AC_MSG_ERROR([could not find $1 from GNU coreutils])])])
+			[AC_MSG_ERROR([could not find GNU $1])])])
 	AC_SUBST([GNU_$1], [$ac_cv_path_gnu_$1])])
 
-GNU_COREUTILS(chmod)
-GNU_COREUTILS(chown)
-GNU_COREUTILS(mv)
-GNU_COREUTILS(cp)
-GNU_COREUTILS(rm)
-GNU_COREUTILS(rmdir)
-GNU_COREUTILS(md5sum)
-GNU_COREUTILS(mkdir)
-GNU_COREUTILS(install)
-GNU_COREUTILS(stat)
-GNU_COREUTILS(mknod)
+GNU_TOOL(chmod, coreutils)
+GNU_TOOL(chown, coreutils)
+GNU_TOOL(mv, coreutils)
+GNU_TOOL(cp, coreutils)
+GNU_TOOL(rm, coreutils)
+GNU_TOOL(rmdir, coreutils)
+GNU_TOOL(md5sum, coreutils)
+GNU_TOOL(mkdir, coreutils)
+GNU_TOOL(install, coreutils)
+GNU_TOOL(stat, coreutils)
+GNU_TOOL(mknod, coreutils)
+GNU_TOOL(tar, tar)
 
 dnl Check for egrep
 AC_PROG_EGREP
@@ -259,12 +262,6 @@ dnl Check for wget
 AC_PATH_PROGS(WGET, wget,, $PATH)
 if test -z "$WGET"; then
 	AC_MSG_ERROR([wget could not be found, please install])
-fi
-
-dnl Check for tar
-AC_PATH_PROGS(TAR, tar,, $PATH)
-if test -z "$TAR"; then
-	AC_MSG_ERROR([tar could not be found, please install])
 fi
 
 dnl Check for dirname
