@@ -152,6 +152,7 @@ GNU_COREUTILS(md5sum)
 GNU_COREUTILS(mkdir)
 GNU_COREUTILS(install)
 GNU_COREUTILS(stat)
+GNU_COREUTILS(mknod)
 
 dnl Check for egrep
 AC_PROG_EGREP
