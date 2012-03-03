@@ -18,46 +18,6 @@ PACKAGES-$(PTXCONF_INITMETHOD_BBINIT) += initmethod-bbinit
 #
 INITMETHOD_BBINIT_VERSION	:= 1.0.0
 INITMETHOD_BBINIT		:= initmethod-bbinit-$(INITMETHOD_BBINIT_VERSION)
-INITMETHOD_BBINIT_DIR		:= $(BUILDDIR)/$(INITMETHOD_BBINIT)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(INITMETHOD_BBINIT_SOURCE):
-	@$(call targetinfo)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/initmethod-bbinit.extract:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/initmethod-bbinit.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/initmethod-bbinit.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/initmethod-bbinit.install:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
