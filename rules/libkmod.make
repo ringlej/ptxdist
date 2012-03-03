@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 5
-LIBKMOD_MD5	:= b271c2ec54aba1c67bda63c8579d8c15
+LIBKMOD_VERSION	:= 6
+LIBKMOD_MD5	:= bad08102fad212cd34405136d9a7eb94
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
-LIBKMOD_URL	:= http://packages.profusion.mobi/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX)
+LIBKMOD_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX))
 LIBKMOD_SOURCE	:= $(SRCDIR)/$(LIBKMOD).$(LIBKMOD_SUFFIX)
 LIBKMOD_DIR	:= $(BUILDDIR)/$(LIBKMOD)
 # note: library: LGPLv2, tools: GPLv2
