@@ -36,25 +36,16 @@ AC_SEARCH_LIBS(regcomp, [regex gnuregex],,
 CONF_LIBS=${LIBS}
 AC_SUBST(CONF_LIBS)
 
-AC_SEARCH_LIBS(mvaddch, [ncurses curses pdcurses], [CURSES_LIB=$ac_lib],
-	[AC_MSG_ERROR([ncurses development library not found, please install libncurses-dev])])
+AC_SEARCH_LIBS(mvaddch, [curses ncurses pdcurses], [CURSES_LIB=$ac_lib],
+	[AC_MSG_ERROR([curses development library not found, please install libncurses-dev])])
 MCONF_LIBS=${LIBS}
 AC_SUBST(MCONF_LIBS)
 
-if test "$CURSES_LIB" = "ncurses"
-then
-	AC_CHECK_HEADER(
-		[ncurses.h],
-		[CURSES_LOC='<ncurses.h>'],
-		AC_MSG_ERROR([Cannot find ncurses.h.])
-	)
-else
-	AC_CHECK_HEADER(
-		[curses.h],
-		[CURSES_LOC='<curses.h>'],
-		AC_MSG_ERROR([Cannot find curses.h.])
-	)
-fi
+AC_CHECK_HEADERS(
+	[curses.h ncurses.h ncurses/curses.h ncurses/ncurses.h pdcurses.h pdcurses/curses.h pdcurses/pdcurses.h],
+	[CURSES_LOC="<$ac_header>";found_curses_headers=yes; break;])
+AS_IF([test "x$CURSES_LOC" = "x"],
+	[AC_MSG_ERROR([curses headers not found])])
 AC_SUBST(CURSES_LOC)
 
 AC_ARG_WITH(ncurses, AS_HELP_STRING([--with-ncurses],[Include path to the ncurses headers]),
