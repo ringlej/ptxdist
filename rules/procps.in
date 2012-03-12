@@ -21,7 +21,7 @@ config PROCPS_TOP
 	  system.
 	  Note: This command enlarges your system by the ncurses library.
 
-comment "top is disabled by busybox top"
+comment "busybox' top is selected!"
 	depends on BUSYBOX_TOP
 
 config PROCPS_SLABTOP
@@ -38,7 +38,7 @@ config PROCPS_SYSCTL
 	help
 	  configure kernel parameters at runtime
 
-comment "sysctl is disabled by busybox sysctl"
+comment "busybox' sysctl is selected!"
 	depends on BUSYBOX_BB_SYSCTL
 
 config PROCPS_PS
@@ -50,7 +50,7 @@ config PROCPS_PS
 	  analyse current states of all processes running on
 	  the system
 
-comment "ps is disabled by busybox ps"
+comment "busybox' ps is selected!"
 	depends on BUSYBOX_PS
 
 config PROCPS_W
@@ -66,7 +66,7 @@ config PROCPS_PGREP
 	help
 	  look up processes based on name and other attributes
 
-comment "pgrep is disabled by busybox pgrep"
+comment "busybox' pgrep is selected!"
 	depends on BUSYBOX_PGREP
 
 endif
