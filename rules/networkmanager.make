@@ -65,9 +65,6 @@ ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
 	@cd $(NETWORKMANAGER_DIR)/examples/python/ && for FILE in `find -name "*.py" -printf '%f\n'`; do \
 		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
-	@cd $(NETWORKMANAGER_DIR)/examples/shell/ && for FILE in `find -name "*.sh" -printf '%f\n'`; do \
-		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
-	done
 endif
 
 	@$(call touch)
@@ -133,9 +130,6 @@ ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
 		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
 	done
 	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*.py" -printf '%f\n'`; do \
-		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
-	done
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*.sh" -printf '%f\n'`; do \
 		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
 	done
 endif
