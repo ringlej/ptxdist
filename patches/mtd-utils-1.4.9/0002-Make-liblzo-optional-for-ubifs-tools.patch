@@ -1,0 +1,54 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sun, 11 Mar 2012 20:11:14 +0100
+Subject: [PATCH] Make liblzo optional for ubifs tools
+
+Based on patch from Marc Kleine-Budde <mkl@pengutronix.de>.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ mkfs.ubifs/compr.c |   17 +++++++++++++++++
+ 1 files changed, 17 insertions(+), 0 deletions(-)
+
+diff --git a/mkfs.ubifs/compr.c b/mkfs.ubifs/compr.c
+index 4152b6a..244d450 100644
+--- a/mkfs.ubifs/compr.c
++++ b/mkfs.ubifs/compr.c
+@@ -24,7 +24,11 @@
+ #include <stdio.h>
+ #include <stdint.h>
+ #include <string.h>
++#ifndef WITHOUT_LZO
+ #include <lzo/lzo1x.h>
++#else
++#define LZO1X_999_MEM_COMPRESS	0
++#endif
+ #include <linux/types.h>
+ 
+ #define crc32 __zlib_crc32
+@@ -86,6 +90,8 @@ static int zlib_deflate(void *in_buf, size_t in_len, void *out_buf,
+ 	return 0;
+ }
+ 
++
++#ifndef WITHOUT_LZO
+ static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
+ 			size_t *out_len)
+ {
+@@ -103,6 +109,17 @@ static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
+ 
+ 	return 0;
+ }
++#else
++static inline int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
++			size_t *out_len)
++{
++	(void)in_buf;
++	(void)in_len;
++	(void)out_buf;
++	(void)out_len;
++	return -1;
++}
++#endif
+ 
+ static int no_compress(void *in_buf, size_t in_len, void *out_buf,
+ 		       size_t *out_len)

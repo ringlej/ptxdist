@@ -46,12 +46,6 @@ config MTD_UTILS_FLASH_ERASEALL
 	help
 	  ...use flash_erase instead
 
-config MTD_UTILS_FLASH_INFO
-	bool
-	prompt "flash_info"
-	help
-	  print info about a MTD device
-
 config MTD_UTILS_FLASH_LOCK
 	bool
 	prompt "flash_lock"
@@ -276,12 +270,12 @@ config MTD_UTILS_MKFS_UBIFS
 	help
 	  Create ubifs filesystems
 
-endif
-
 config MTD_UTILS_MTDINFO
 	bool
 	prompt "mtdinfo"
 	help
 	  Print UBI specific information about mtd devices
+
+endif
 
 endif

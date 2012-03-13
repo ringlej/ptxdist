@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.4.6
-MTD_UTILS_MD5		:= a0418afcf6026824a5fa5e9051793f3c
+MTD_UTILS_VERSION	:= 1.4.9
+MTD_UTILS_MD5		:= 82b8e714b90674896570968f70ca778b
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
@@ -53,7 +53,6 @@ MTD_UTILS_COMPILE_ENV += WITHOUT_MKUBIFS=1
 endif
 
 MTD_UTILS_MAKEVARS := BUILDDIR=$(MTD_UTILS_DIR)
-MTD_UTILS_MAKE_PAR := NO
 
 $(STATEDIR)/mtd-utils.prepare:
 	@$(call targetinfo)
@@ -87,10 +86,6 @@ endif
 ifdef PTXCONF_MTD_UTILS_FLASH_ERASEALL
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/flash_eraseall)
-endif
-ifdef PTXCONF_MTD_UTILS_FLASH_INFO
-	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
-		/usr/sbin/flash_info)
 endif
 ifdef PTXCONF_MTD_UTILS_FLASH_LOCK
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
