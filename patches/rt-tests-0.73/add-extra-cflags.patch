@@ -1,0 +1,32 @@
+CFLAGS are specified in environment as well
+
+If the environment already has specified CFLAGS we shall
+not overwrite them
+
+Signed-off-by: Remy Bohmer <linux@bohmer.net>
+---
+ Makefile |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: rt-tests-0.73/Makefile
+===================================================================
+--- rt-tests-0.73.orig/Makefile
++++ rt-tests-0.73/Makefile
+@@ -6,7 +6,7 @@ sources = cyclictest.c signaltest.c pi_s
+ 
+ TARGETS = $(sources:.c=)
+ 
+-LIBS 	= -lrt -lpthread
++LIBS	= $(LDFLAGS) -lrt -lpthread
+ EXTRA_LIBS ?= -ldl	# for get_cpu
+ DESTDIR	?=
+ prefix  ?= /usr/local
+@@ -14,7 +14,7 @@ bindir  ?= $(prefix)/bin
+ mandir	?= $(prefix)/share/man
+ srcdir	?= $(prefix)/src
+ 
+-CFLAGS = -D_GNU_SOURCE -Wall -Wno-nonnull -Isrc/include
++CFLAGS := $(CPPFLAGS) -D_GNU_SOURCE -Wall -Wno-nonnull -Isrc/include $(CFLAGS)
+ 
+ PYLIB  := $(shell python -c 'import distutils.sysconfig;  print distutils.sysconfig.get_python_lib()')
+ 

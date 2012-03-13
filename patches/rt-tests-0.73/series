@@ -1,1 +1,2 @@
 fix_3_0_issue.diff
+add-extra-cflags.patch

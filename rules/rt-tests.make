@@ -34,6 +34,7 @@ RT_TESTS_DIR		:= $(BUILDDIR)/$(RT_TESTS)
 
 RT_TESTS_CONF_TOOL	:= NO
 RT_TESTS_MAKE_OPT	:= $(CROSS_ENV_CC) prefix=/usr
+RT_TESTS_MAKE_ENV	:= $(CROSS_ENV_FLAGS)
 RT_TESTS_INSTALL_OPT	:= $(RT_TESTS_MAKE_OPT) install
 
 # ----------------------------------------------------------------------------
