@@ -5,6 +5,7 @@
 mainmenu "PTXdist $PLATFORMCONFIG_VERSION"
 
 source "platforms/ptxdist-version.in"
+source "rules/ptxdist-dgen.in"
 
 config _platformconfig_MAGIC__
         bool

@@ -16,16 +16,16 @@
 # in some rare cases there is more than one xpkg per package and/or
 # the names don't correspond, so we have to use the mapping file
 #
-# in:	$pkg_deps	(space seperated)
+# in:	$pkg_run_deps	(space seperated)
 # out:	$pkg_xpkg_deps	(array)
 #
 ptxd_make_xpkg_deps() {
     # do deps
-    if [ -z "${pkg_deps}" ]; then
+    if [ -z "${pkg_run_deps}" ]; then
 	return
     fi
 
-    set -- ${pkg_deps[*]}
+    set -- ${pkg_run_deps[*]}
 
     local dep
     while [ ${#} -ne 0 ]; do

@@ -20,8 +20,8 @@ ptxd_colgen_generate_sections()
 		next;
 	}
 
-	$1 ~ /^PTX_MAP_DEP/ {
-		pkg = gensub(/PTX_MAP_DEP_/, "", "g", $1);
+	$1 ~ /^PTX_MAP_._DEP/ {
+		pkg = gensub(/PTX_MAP_._DEP_/, "", "g", $1);
 		deps[pkg] = $2;
 
 		next;

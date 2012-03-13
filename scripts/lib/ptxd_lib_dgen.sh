@@ -26,7 +26,7 @@ ptxd_kconfig_dep_all() {
 #
 # generates:
 #
-# PTX_MAP_DEP_<PACKAGE>=<DEP>:<DEP>
+# PTX_MAP_[BR]_DEP_<PACKAGE>=<DEP>:<DEP>
 #
 ptxd_dgen_configdeps() {
     local i
@@ -38,7 +38,9 @@ ptxd_dgen_configdeps() {
 
     {
 	PTXDIST_DEP_TARGET="build" ptxd_kconfig_dep_all "${config[@]}" \
-	    | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p"
+	    | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_B_DEP_\1=\2~p"
+	PTXDIST_DEP_TARGET="run" ptxd_kconfig_dep_all "${config[@]}" \
+	    | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_R_DEP_\1=\2~p"
     } > "${PTX_MAP_DEPS}.tmp"
     check_pipe_status || return
 }

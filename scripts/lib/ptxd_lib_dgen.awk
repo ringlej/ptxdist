@@ -109,12 +109,13 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 }
 
 #
-# parses "PTX_MAP_DEP_PKG=FOO" lines, which are the raw dependencies
+# parses "PTX_MAP_[BR]_DEP_PKG=FOO" lines, which are the raw dependencies
 # generated from kconfig. these deps usually contain non pkg symbols,
 # these are filtered out here.
 #
-$1 ~ /^PTX_MAP_DEP/ {
-	this_PKG = gensub(/PTX_MAP_DEP_/, "", "g", $1);
+$1 ~ /^PTX_MAP_._DEP/ {
+	this_PKG = gensub(/PTX_MAP_._DEP_/, "", "g", $1);
+	dep_type = gensub(/PTX_MAP_(.)_DEP_.*/, "\\1", "g", $1);
 
 	# no pkg
 	if (!(this_PKG in PKG_to_pkg))
@@ -138,7 +139,7 @@ $1 ~ /^PTX_MAP_DEP/ {
 		if (this_DEP ~ /^BASE$/) {
 			base_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
-			PKG_to_DEP["BASE"] = PKG_to_DEP["BASE"] " " this_PKG;
+			PKG_to_DEP[dep_type]["BASE"] = PKG_to_DEP[dep_type]["BASE"] " " this_PKG;
 
 			continue;
 		}
@@ -153,10 +154,10 @@ $1 ~ /^PTX_MAP_DEP/ {
 	if (this_PKG_DEP == "")
 		next;
 
-	PKG_to_DEP[this_PKG] = this_PKG_DEP;
-	print "PTX_MAP_DEP_" this_PKG "=" this_PKG_DEP		> MAP_DEPS;
-	print "PTX_MAP_dep_" this_PKG "=" this_PKG_dep		> MAP_DEPS;
-	print "PTX_MAP_dep_" this_PKG "=" this_PKG_dep		> MAP_ALL_MAKE;
+	PKG_to_DEP[dep_type][this_PKG] = this_PKG_DEP;
+	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
+	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
+	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_ALL_MAKE;
 
 	next;
 }
@@ -302,7 +303,7 @@ END {
 		#
 		# add dep to pkgs we depend on
 		#
-		this_PKG_DEPS = PKG_to_DEP[this_PKG];
+		this_PKG_DEPS = PKG_to_DEP["B"][this_PKG];
 		n = split(this_PKG_DEPS, this_DEP_array, " ");
 		for (i = 1; i <= n; i++) {
 			this_dep = PKG_to_pkg[this_DEP_array[i]]
@@ -313,6 +314,12 @@ END {
 			print \
 				"$(STATEDIR)/" this_pkg	".install.unpack: " \
 				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
+
+		}
+		this_PKG_DEPS = PKG_to_DEP["R"][this_PKG];
+		n = split(this_PKG_DEPS, this_DEP_array, " ");
+		for (i = 1; i <= n; i++) {
+			this_dep = PKG_to_pkg[this_DEP_array[i]]
 
 			#
 			# only target packages have targetinstall rules
