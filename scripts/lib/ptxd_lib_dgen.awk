@@ -139,7 +139,10 @@ $1 ~ /^PTX_MAP_._DEP/ {
 		if (this_DEP ~ /^BASE$/) {
 			base_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
-			PKG_to_DEP[dep_type]["BASE"] = PKG_to_DEP[dep_type]["BASE"] " " this_PKG;
+			if (dep_type == "R")
+				PKG_to_R_DEP["BASE"] = PKG_to_B_DEP["BASE"] " " this_PKG;
+			else
+				PKG_to_B_DEP["BASE"] = PKG_to_B_DEP["BASE"] " " this_PKG;
 
 			continue;
 		}
@@ -154,7 +157,10 @@ $1 ~ /^PTX_MAP_._DEP/ {
 	if (this_PKG_DEP == "")
 		next;
 
-	PKG_to_DEP[dep_type][this_PKG] = this_PKG_DEP;
+	if (dep_type == "R")
+		PKG_to_R_DEP[this_PKG] = this_PKG_DEP;
+	else
+		PKG_to_B_DEP[this_PKG] = this_PKG_DEP;
 	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
 	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
 	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_ALL_MAKE;
@@ -303,7 +309,7 @@ END {
 		#
 		# add dep to pkgs we depend on
 		#
-		this_PKG_DEPS = PKG_to_DEP["B"][this_PKG];
+		this_PKG_DEPS = PKG_to_B_DEP[this_PKG];
 		n = split(this_PKG_DEPS, this_DEP_array, " ");
 		for (i = 1; i <= n; i++) {
 			this_dep = PKG_to_pkg[this_DEP_array[i]]
@@ -316,7 +322,7 @@ END {
 				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
 
 		}
-		this_PKG_DEPS = PKG_to_DEP["R"][this_PKG];
+		this_PKG_DEPS = PKG_to_R_DEP[this_PKG];
 		n = split(this_PKG_DEPS, this_DEP_array, " ");
 		for (i = 1; i <= n; i++) {
 			this_dep = PKG_to_pkg[this_DEP_array[i]]
