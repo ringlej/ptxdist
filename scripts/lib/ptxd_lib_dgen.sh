@@ -11,6 +11,18 @@
 
 export PTXDIST_DGEN_DIR="${PTXDIST_TEMPDIR}/dgen"
 
+ptxd_kconfig_dep_all() {
+    while [ ${#} -gt 0 ]; do
+	ptxd_kconfig dep "${1}" || {
+	    ptxd_dialog_msgbox \
+		"error: error during generation of dependencies\n" \
+		"	(maybe amd64 executable on x86)"
+	    return 1
+	}
+	shift
+    done
+}
+
 #
 # generates:
 #
@@ -25,15 +37,9 @@ ptxd_dgen_configdeps() {
     fi
 
     {
-	for ((i = 0; i < ${#config[@]}; i++)); do
-	    ptxd_kconfig dep "${config[i]}" || {
-		ptxd_dialog_msgbox \
-		    "error: error during generation of dependencies\n" \
-		    "	(maybe amd64 executable on x86)"
-		return 1
-	    }
-	done
-    } | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p" > "${PTX_MAP_DEPS}.tmp"
+	PTXDIST_DEP_TARGET="build" ptxd_kconfig_dep_all "${config[@]}" \
+	    | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p"
+    } > "${PTX_MAP_DEPS}.tmp"
     check_pipe_status || return
 }
 
