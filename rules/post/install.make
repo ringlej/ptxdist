@@ -317,17 +317,14 @@ install_copy_toolchain_lib =									\
 # install_copy_toolchain_dl
 #
 # $1: xpkg label
-# $2: destination
-# $3: strip (y|n)	default is to strip
+# $2: strip (y|n)	default is to strip
 #
 install_copy_toolchain_dl =									\
 	XPKG=$(subst _,-,$(strip $(1)));							\
-	DST="$(strip $2)";									\
-	STRIP="$(strip $3)";									\
-	test "$${DST}" != "" && DST="-d $${DST}";						\
+	STRIP="$(strip $2)";									\
 	$(call install_check, install_copy_toolchain_dl);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
-		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${XPKG}" -l LINKER $${DST} -s "$${STRIP}"
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${XPKG}" -l LINKER -s "$${STRIP}"
 
 #
 # install_copy_toolchain_other

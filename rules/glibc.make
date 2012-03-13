@@ -36,7 +36,7 @@ $(STATEDIR)/glibc.targetinstall:
 	@$(call install_fixup, glibc,DESCRIPTION,missing)
 
 ifdef PTXCONF_GLIBC_LD
-	@$(call install_copy_toolchain_dl, glibc, /lib)
+	@$(call install_copy_toolchain_dl, glibc)
 endif
 
 ifdef PTXCONF_GLIBC_C

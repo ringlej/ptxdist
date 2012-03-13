@@ -30,7 +30,7 @@ $(STATEDIR)/uclibc.targetinstall:
 	@$(call install_fixup, uclibc,DESCRIPTION,missing)
 
 ifdef PTXCONF_UCLIBC
-	@$(call install_copy_toolchain_dl, uclibc, /lib)
+	@$(call install_copy_toolchain_dl, uclibc)
 endif
 
 ifdef PTXCONF_UCLIBC_C
