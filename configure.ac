@@ -155,6 +155,7 @@ GNU_TOOL(mkdir, coreutils)
 GNU_TOOL(install, coreutils)
 GNU_TOOL(stat, coreutils)
 GNU_TOOL(mknod, coreutils)
+GNU_TOOL(readlink, coreutils)
 GNU_TOOL(tar, tar)
 
 dnl Check for egrep
