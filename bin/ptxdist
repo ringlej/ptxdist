@@ -1235,13 +1235,13 @@ do_config()
 
 	case "${part}" in
 	"ptx"|"ptxdist"|"")
-		ptxd_kconfig "${config}" "ptx"
+		PTXDIST_DEP_TARGET="all" ptxd_kconfig "${config}" "ptx"
 		;;
 	"setup")
 		ptxd_kconfig "${config}" "user"
 		;;
 	"platform"|"board"|"user")
-		ptxd_kconfig "${config}" "${part}"
+		PTXDIST_DEP_TARGET="all" ptxd_kconfig "${config}" "${part}"
 		;;
 	"collection")
 		local file_dotconfig="${3}"
