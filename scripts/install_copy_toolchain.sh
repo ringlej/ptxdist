@@ -50,12 +50,14 @@ ptxd_abs2rel() {
 # out: $lib_path
 #
 ptxd_get_lib_path() {
-    local lib lib_dir lib_path
+    local lib lib_dir lib_path extra_cflags
 
     lib="${1}"
+    extra_cppflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CPPFLAGS)"
+    extra_cflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CFLAGS)"
 
     # ask the compiler for the lib
-    lib_path="$(${CC} -print-file-name=${lib})"
+    lib_path="$(${CC} ${extra_cppflags} ${extra_cflags} -print-file-name=${lib})"
     if test "${lib_path}" = "${lib}"; then
 	echo "install_copy_toolchain_lib: ${lib} not found" >&2
 	return 1
@@ -77,9 +79,11 @@ ptxd_get_lib_path() {
 #
 ptxd_get_dl() {
     local dl
+    extra_cppflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CPPFLAGS)"
+    extra_cflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CFLAGS)"
 
     dl="$(echo 'int main(void){return 0;}' | \
-    	${CC} -x c -o /dev/null -v - 2>&1 | \
+	${CC} ${extra_cppflags} ${extra_cflags} -x c -o /dev/null -v - 2>&1 | \
 	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
 
     echo "${dl##*/}"
