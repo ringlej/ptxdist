@@ -49,8 +49,12 @@ config MTD_UTILS_FLASH_ERASEALL
 config MTD_UTILS_FLASH_LOCK
 	bool
 	prompt "flash_lock"
+	depends on !BUSYBOX_FLASH_LOCK || ALLYES
 	help
 	  This utility locks one or more sectors of flash device.
+
+comment "busybox' flash_lock is selected!"
+	depends on BUSYBOX_FLASH_LOCK
 
 config MTD_UTILS_FLASH_OTP_DUMP
 	bool
@@ -67,14 +71,22 @@ config MTD_UTILS_FLASH_OTP_INFO
 config MTD_UTILS_FLASH_UNLOCK
 	bool
 	prompt "flash_unlock"
+	depends on !BUSYBOX_FLASH_UNLOCK || ALLYES
 	help
 	  This utility unlock all sectors of flash device.
+
+comment "busybox' flash_unlock is selected!"
+	depends on BUSYBOX_FLASH_UNLOCK
 
 config MTD_UTILS_FLASHCP
 	bool
 	prompt "flashcp"
+	depends on !BUSYBOX_FLASHCP || ALLYES
 	help
 	  Flash Copy - Written by Abraham van der Merwe
+
+comment "busybox' flashcp is selected!"
+	depends on BUSYBOX_FLASHCP
 
 config MTD_UTILS_FTL_CHECK
 	bool
@@ -120,9 +132,13 @@ config MTD_UTILS_MTDDEBUG
 config MTD_UTILS_NANDDUMP
 	bool
 	prompt "nanddump"
+	depends on !BUSYBOX_NANDDUMP || ALLYES
 	help
 	  This utility dumps the contents of raw NAND chips or NAND
 	  chips contained in DoC devices.
+
+comment "busybox' nanddump is selected!"
+	depends on BUSYBOX_NANDDUMP
 
 config MTD_UTILS_NANDTEST
 	bool
@@ -133,10 +149,14 @@ config MTD_UTILS_NANDTEST
 config MTD_UTILS_NANDWRITE
 	bool
 	prompt "nandwrite"
+	depends on !BUSYBOX_NANDWRITE || ALLYES
 	help
 	  This utility writes a binary image directly to a NAND flash
 	  chip or NAND chips contained in DoC devices. This is the
 	  "inverse operation" of nanddump.
+
+comment "busybox' nandwrite is selected!"
+	depends on BUSYBOX_NANDWRITE
 
 config MTD_UTILS_NFTL_FORMAT
 	bool
@@ -200,8 +220,12 @@ if MTD_UTILS_UBI_UTILS
 config MTD_UTILS_UBIATTACH
 	bool
 	prompt "ubiattach"
+	depends on !BUSYBOX_UBIATTACH || ALLYES
 	help
 	  Attach an ubi device to a mtd device
+
+comment "busybox' ubiattach is selected!"
+	depends on BUSYBOX_UBIATTACH
 
 config MTD_UTILS_UBICRC32
 	bool
@@ -212,8 +236,12 @@ config MTD_UTILS_UBICRC32
 config MTD_UTILS_UBIDETACH
 	bool
 	prompt "ubidetach"
+	depends on !BUSYBOX_UBIDETACH || ALLYES
 	help
 	  Detach an ubi device from a mtd device
+
+comment "busybox' ubidetach is selected!"
+	depends on BUSYBOX_UBIDETACH
 
 config MTD_UTILS_UBIFORMAT
 	bool
