@@ -9,15 +9,15 @@ menuconfig BAREBOX_MLO
 if BAREBOX_MLO
 
 config BAREBOX_MLO_VERSION
-	prompt "barebox version"	if !BAREBOX
+	prompt "barebox version"		if !BAREBOX
 	string
-	default "${BAREBOX_VERSION}"	if BAREBOX
-	default "2010.10.0"		if !BAREBOX
+	default "${PTXCONF_BAREBOX_VERSION}"	if BAREBOX
+	default "2010.10.0"			if !BAREBOX
 
 config BAREBOX_MLO_MD5
-	prompt "barebox source md5sum"	if !BAREBOX
+	prompt "barebox source md5sum"		if !BAREBOX
 	string
-	default "${BAREBOX_MD5}"	if BAREBOX
+	default "${PTXCONF_BAREBOX_MD5}"	if BAREBOX
 
 config BAREBOX_MLO_ARCH_STRING
 	string
