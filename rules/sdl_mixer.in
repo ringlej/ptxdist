@@ -6,6 +6,7 @@ menuconfig SDL_MIXER
 	select SDL
 	select LIBVORBIS	if SDL_MIXER_OGG
 	select LIBMAD		if SDL_MIXER_MP3
+	select LIBMIKMOD	if SDL_MIXER_MOD
 	select FLAC		if SDL_MIXER_FLAC
 
 	help
@@ -22,7 +23,6 @@ config SDL_MIXER_WAVE
 
 config SDL_MIXER_MOD
 	bool
-	depends on BROKEN
 	prompt "MOD support"
 
 config SDL_MIXER_MIDI_TIMIDITY
