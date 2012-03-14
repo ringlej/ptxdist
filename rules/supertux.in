@@ -5,6 +5,7 @@ config SUPERTUX
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	select SDL_MIXER
+	select SDL_MIXER_MOD
 	select SDL_IMAGE
 	select SDL_JOYSTICK
 	select SDL_IMAGE__PNG
