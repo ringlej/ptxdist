@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYSIDE) += pyside
 #
 # Paths and names
 #
-PYSIDE_VERSION	:= 4.7+1.0.3
-PYSIDE_MD5	:= 1a390fb502ae624ca3f70ef333bdffe8
+PYSIDE_VERSION	:= 4.7+1.1.0
+PYSIDE_MD5	:= 233f0c6d2b3daf58cf88877d7f74557b
 PYSIDE		:= pyside-qt$(PYSIDE_VERSION)
 PYSIDE_SUFFIX	:= tar.bz2
 PYSIDE_URL	:= http://www.pyside.org/files/$(PYSIDE).$(PYSIDE_SUFFIX)
