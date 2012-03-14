@@ -33,7 +33,7 @@ usage() {
 	echo "  --dist     <distname>      use this to make a dist release (optional)"
 	echo "  --type     <package type>  specify package type (default: ipkg)"
 	echo
-	exit 0
+	exit 1
 }
 
 IPKGDIR=
