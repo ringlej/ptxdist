@@ -3,6 +3,8 @@
 config PYSIDE
 	tristate
 	prompt "pyside-qt4"
+	# not yet released for Qt 4.8
+	depends on BROKEN
 	select QT4
 	select SHIBOKEN
 	select HOST_CMAKE
