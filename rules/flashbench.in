@@ -1,0 +1,31 @@
+## SECTION=test_suites
+
+menuconfig FLASHBENCH
+	tristate
+	prompt "flashbench                    "
+	help
+	  Identify characteristics of flash media
+
+	  This is the tool used to identify the properties of
+	  SD cards and other media for the Linaro flash memory
+	  survey at [1]. The latest version should be available
+	  at [2]. Please also check out the article on lwn.net [3].
+
+	  [1] https://wiki.linaro.org/WorkingGroups/KernelConsolidation/Projects/FlashCardSurvey
+	  [2] git clone git://git.linaro.org/people/arnd/flashbench.git
+	  [3] http://lwn.net/Articles/428584/
+
+if FLASHBENCH
+
+config FLASHBENCH_MAX_BUFSIZE
+	string
+	prompt "Maximum flashbench buffer size in megabytes"
+	default 64
+	help
+	  This is the maximum buffer size flashbench uses during operationg.
+	  The buffer gets allocated 4 times, so take that into account when
+	  choosing a buffer. The default is 64 MiB.
+
+endif
+
+# vim: set ft=kconfig:

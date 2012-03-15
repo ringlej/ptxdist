@@ -1,0 +1,37 @@
+From: Bernhard Walle <walle@corscience.de>
+Date: Wed, 14 Mar 2012 16:52:47 +0100
+Subject: [PATCH] Allow to specify MAX_BUFSIZE during compile time
+
+The default value of 64 MiB is too large for small embedded systems.
+
+Signed-off-by: Bernhard Walle <walle@corscience.de>
+---
+ Makefile |    2 +-
+ dev.c    |    2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 8fbd119..01771b0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ CC	:= gcc
+-CFLAGS	:= -O2 -Wall -Wextra -Wno-missing-field-initializers -Wno-unused-parameter -g2
++CFLAGS	:= -O2 -Wall -Wextra -Wno-missing-field-initializers -Wno-unused-parameter -g2 $(EXTRA_CFLAGS)
+ LDFLAGS := -lrt
+ 
+ all: flashbench erase
+diff --git a/dev.c b/dev.c
+index f1718be..73a9b3f 100644
+--- a/dev.c
++++ b/dev.c
+@@ -22,7 +22,9 @@
+ 
+ #include "dev.h"
+ 
++#ifndef MAX_BUFSIZE
+ #define MAX_BUFSIZE (64 * 1024 * 1024)
++#endif
+ 
+ static inline long long time_to_ns(struct timespec *ts)
+ {
