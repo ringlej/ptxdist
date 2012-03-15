@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 # Paths and names
 #
-PROFTPD_VERSION		:= 1.3.3e
-PROFTPD_MD5		:= f7a40961b7b677961659632386292fb0
+PROFTPD_VERSION		:= 1.3.3g
+PROFTPD_MD5		:= 8d7cb79cecfd81acec755c6130a8ddd5
 PROFTPD			:= proftpd-$(PROFTPD_VERSION)
 PROFTPD_SUFFIX		:= tar.gz
 PROFTPD_URL		:= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD).$(PROFTPD_SUFFIX)
