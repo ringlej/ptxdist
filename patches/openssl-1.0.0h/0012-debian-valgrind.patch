@@ -1,6 +1,7 @@
+From 6bc9a385b1c9d38e57a6a44b409f21e709231c80 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian valgrind
+Subject: [PATCH 12/18] debian valgrind
 
 Applied valgrind.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -30,5 +31,5 @@ index b2f04ff..79d46c6 100644
  		k=(st_idx+MD_DIGEST_LENGTH/2)-st_num;
  		if (k > 0)
 -- 
-1.7.4.1
+1.7.8.4
 

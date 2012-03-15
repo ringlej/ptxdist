@@ -1,6 +1,7 @@
+From 62634fda2e619295a70e05e7b64b2fcd55818c95 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian make-targets
+Subject: [PATCH 06/18] debian make-targets
 
 Applied make-targets.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -10,7 +11,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index 0a1550b..246abc4 100644
+index fafe30d..ec07d38 100644
 --- a/Makefile.org
 +++ b/Makefile.org
 @@ -109,7 +109,7 @@ LIBKRB5=
@@ -23,5 +24,5 @@ index 0a1550b..246abc4 100644
  SHLIBDIRS= crypto ssl
  
 -- 
-1.7.4.1
+1.7.8.4
 

@@ -1,6 +1,7 @@
+From 7d5cbc0a8a01c47cf7f8899a45551f622d7e4a11 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian no-symbolic
+Subject: [PATCH 10/18] debian no-symbolic
 
 Applied no-symbolic.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -23,5 +24,5 @@ index 6e3f886..44e3d9c 100644
  DO_GNU_APP=LDFLAGS="$(CFLAGS)"
  
 -- 
-1.7.4.1
+1.7.8.4
 

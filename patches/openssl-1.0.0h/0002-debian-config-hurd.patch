@@ -1,6 +1,7 @@
+From f246dd52f00c8d6291fa4b26cf03a11e9118b484 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian config-hurd
+Subject: [PATCH 02/18] debian config-hurd
 
 Applied config-hurd.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -10,7 +11,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/config b/config
-index 965884a..05239c1 100755
+index cf64ec5..512074c 100755
 --- a/config
 +++ b/config
 @@ -170,8 +170,8 @@ case "${SYSTEM}:${RELEASE}:${VERSION}:${MACHINE}" in
@@ -25,5 +26,5 @@ index 965884a..05239c1 100755
  
      LynxOS:*)
 -- 
-1.7.4.1
+1.7.8.4
 

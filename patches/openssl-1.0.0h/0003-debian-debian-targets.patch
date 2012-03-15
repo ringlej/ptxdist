@@ -1,6 +1,7 @@
+From bdb352b3a22e26c0c949b3e2adf58bbae9d54604 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian debian-targets
+Subject: [PATCH 03/18] debian debian-targets
 
 Applied debian-targets.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -10,7 +11,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 files changed, 41 insertions(+), 0 deletions(-)
 
 diff --git a/Configure b/Configure
-index 429ab2e..52e0dc6 100755
+index 93d708b..7dc0016 100755
 --- a/Configure
 +++ b/Configure
 @@ -331,6 +331,47 @@ my %table=(
@@ -62,5 +63,5 @@ index 429ab2e..52e0dc6 100755
  #### Variety of LINUX:-)
  ####
 -- 
-1.7.4.1
+1.7.8.4
 

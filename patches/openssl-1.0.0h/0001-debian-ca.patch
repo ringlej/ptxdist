@@ -1,6 +1,7 @@
+From 23350fabedeb0ebc4af9ebe394b2de96c66c31bc Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian ca
+Subject: [PATCH 01/18] debian ca
 
 Applied ca.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -30,5 +31,5 @@ index c783a6e..fa665b7 100644
  	}
  }
 -- 
-1.7.4.1
+1.7.8.4
 

@@ -1,6 +1,7 @@
+From 081f2bc05a7231de8eb5b4763840966c4974f2fe Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian pic
+Subject: [PATCH 11/18] debian pic
 
 Applied pic.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -111,7 +112,7 @@ index eec0088..ab6f524 100644
  	&stack_pop(3);
  	&mov($L,&DWP(0,"ebx","",0));
 diff --git a/crypto/perlasm/cbc.pl b/crypto/perlasm/cbc.pl
-index e43dc9a..688d38b 100644
+index 6fc2510..f2c8139 100644
 --- a/crypto/perlasm/cbc.pl
 +++ b/crypto/perlasm/cbc.pl
 @@ -122,7 +122,11 @@ sub cbc
@@ -127,7 +128,7 @@ index e43dc9a..688d38b 100644
  
  	&mov("eax",	&DWP($data_off,"esp","",0));
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));
-@@ -187,7 +191,11 @@ sub cbc
+@@ -185,7 +189,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put in array for call
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -140,7 +141,7 @@ index e43dc9a..688d38b 100644
  
  	&mov("eax",	&DWP($data_off,"esp","",0));
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));
-@@ -220,7 +228,11 @@ sub cbc
+@@ -218,7 +226,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put back
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -153,7 +154,7 @@ index e43dc9a..688d38b 100644
  
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
-@@ -263,7 +275,11 @@ sub cbc
+@@ -261,7 +273,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put back
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -167,10 +168,10 @@ index e43dc9a..688d38b 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86_64-xlate.pl b/crypto/perlasm/x86_64-xlate.pl
-index bd7676c..10c477d 100755
+index 8d50b67..311cbcf 100755
 --- a/crypto/perlasm/x86_64-xlate.pl
 +++ b/crypto/perlasm/x86_64-xlate.pl
-@@ -638,7 +638,7 @@ while($line=<>) {
+@@ -639,7 +639,7 @@ while($line=<>) {
  
      chomp($line);
  
@@ -259,5 +260,5 @@ index c96821a..b35762b 100644
  .text
  
 -- 
-1.7.4.1
+1.7.8.4
 

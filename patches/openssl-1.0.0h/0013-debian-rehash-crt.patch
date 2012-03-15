@@ -1,6 +1,7 @@
+From d74285cc45273fc0e3f91c699a3425b5d8744dbe Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH] debian rehash-crt
+Subject: [PATCH 13/18] debian rehash-crt
 
 Applied rehash-crt.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -43,5 +44,5 @@ index bfc4a69..4958e3d 100644
  		chomp $fprint;
  		$fprint =~ s/^.*=//;
 -- 
-1.7.4.1
+1.7.8.4
 

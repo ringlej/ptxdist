@@ -1,6 +1,7 @@
+From 79baef912d453d8bda525e5d3c280a0e66270edd Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH] debian stddef
+Subject: [PATCH 16/18] debian stddef
 
 Applied stddef.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -22,5 +23,5 @@ index 16cacf9..204514d 100644
  #include <stddef.h>
  
 -- 
-1.7.4.1
+1.7.8.4
 

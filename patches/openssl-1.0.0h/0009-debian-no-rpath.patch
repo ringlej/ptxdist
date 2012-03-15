@@ -1,6 +1,7 @@
+From 97971ff31e5e3539a69bf29457ba55357d28ca1a Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH] debian no-rpath
+Subject: [PATCH 09/18] debian no-rpath
 
 Applied no-rpath.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -23,5 +24,5 @@ index e753f44..6e3f886 100644
  #This is rather special.  It's a special target with which one can link
  #applications without bothering with any features that have anything to
 -- 
-1.7.4.1
+1.7.8.4
 

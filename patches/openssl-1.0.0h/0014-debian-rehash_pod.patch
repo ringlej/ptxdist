@@ -1,6 +1,7 @@
+From 63c1537fa5ea3500c28cd2a0c3b5a5415418e74f Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH] debian rehash_pod
+Subject: [PATCH 14/18] debian rehash_pod
 
 Applied rehash_pod.patch from openssl_1.0.0c-2.debian.tar.gz
 
@@ -72,5 +73,5 @@ index 0000000..5f0c985
 +
 +=cut
 -- 
-1.7.4.1
+1.7.8.4
 
