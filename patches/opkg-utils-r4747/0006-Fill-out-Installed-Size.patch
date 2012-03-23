@@ -1,0 +1,36 @@
+From: George McCollister <george.mccollister@gmail.com>
+Date: Fri, 23 Mar 2012 13:13:41 -0500
+Subject: [PATCH] Fill out Installed-Size
+
+Fill out Installed-Size so opkg can check to make sure there is enough
+space to install the package before attempting to do so.
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+---
+ opkg.py |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
+
+diff --git a/opkg.py b/opkg.py
+index b000082..2531871 100644
+--- a/opkg.py
++++ b/opkg.py
+@@ -162,6 +162,10 @@ class Package:
+             ## sys.stderr.write("  extracting control.tar.gz from %s\n"% (fn,)) 
+ 
+             ar = arfile.ArFile(f)
++            tarStream = ar.open("data.tar.gz")
++            tarf = tarfile.open("data.tar.gz", "r", tarStream)
++            self.installed_size = sum([f.size for f in tarf.getmembers()])
++
+             tarStream = ar.open("control.tar.gz")
+             tarf = tarfile.open("control.tar.gz", "r", tarStream)
+ 
+@@ -437,7 +441,7 @@ class Package:
+         if self.md5: out = out + "MD5Sum: %s\n" % (self.md5)
+         if self.sha256: out = out + "SHA256Sum: %s\n" % (self.sha256)
+         if self.size: out = out + "Size: %d\n" % int(self.size)
+-        if self.installed_size: out = out + "InstalledSize: %d\n" % int(self.installed_size)
++        if self.installed_size: out = out + "Installed-Size: %d\n" % int(self.installed_size)
+         if self.filename: out = out + "Filename: %s\n" % (self.filename)
+         if self.source: out = out + "Source: %s\n" % (self.source)
+         if self.description: out = out + "Description: %s\n" % (self.description)

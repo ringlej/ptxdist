@@ -5,4 +5,5 @@
 0003-opkg-build-don-t-use-bashism.patch
 0004-opkg-Added-sha256-support.patch
 0005-opkg-build-use-CROSS_COMPILE-ar.patch
-# 3a9d9f3edf82a47598bc29fe4458b0fd  - git-ptx-patches magic
+0006-Fill-out-Installed-Size.patch
+# 5aded1e9c50a39f9e0f80584cc2f2aaf  - git-ptx-patches magic

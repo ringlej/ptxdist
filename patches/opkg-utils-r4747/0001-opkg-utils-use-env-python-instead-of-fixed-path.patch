@@ -16,7 +16,7 @@ Signed-off-by: George McCollister <george.mccollister@gmail.com>
  5 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/opkg-list-fields b/opkg-list-fields
-index d263b90..da78d53 100755
+index d263b90..96057f0 100755
 --- a/opkg-list-fields
 +++ b/opkg-list-fields
 @@ -1,4 +1,4 @@
@@ -26,7 +26,7 @@ index d263b90..da78d53 100755
  import sys, opkg
  
 diff --git a/opkg-make-index b/opkg-make-index
-index ae829e6..6ebba5f 100755
+index ae829e6..e691f3c 100755
 --- a/opkg-make-index
 +++ b/opkg-make-index
 @@ -1,4 +1,4 @@
@@ -36,7 +36,7 @@ index ae829e6..6ebba5f 100755
  import sys, os, posixpath
  from glob import glob
 diff --git a/opkg-show-deps b/opkg-show-deps
-index a6681f4..9de1aac 100755
+index a6681f4..af6e7e5 100755
 --- a/opkg-show-deps
 +++ b/opkg-show-deps
 @@ -1,4 +1,4 @@
@@ -46,7 +46,7 @@ index a6681f4..9de1aac 100755
  import sys, os, posixpath
  from glob import glob
 diff --git a/opkg-unbuild b/opkg-unbuild
-index eff604b..b5c5227 100755
+index eff604b..d39791c 100755
 --- a/opkg-unbuild
 +++ b/opkg-unbuild
 @@ -1,4 +1,4 @@
@@ -56,7 +56,7 @@ index eff604b..b5c5227 100755
  import sys, os, re
  
 diff --git a/opkg-update-index b/opkg-update-index
-index 807f8f4..3864fa5 100755
+index 807f8f4..3f3a98f 100755
 --- a/opkg-update-index
 +++ b/opkg-update-index
 @@ -1,4 +1,4 @@
