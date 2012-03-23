@@ -18,7 +18,7 @@ menuconfig FLASHBENCH
 if FLASHBENCH
 
 config FLASHBENCH_MAX_BUFSIZE
-	string
+	int
 	prompt "Maximum flashbench buffer size in megabytes"
 	default 64
 	help
