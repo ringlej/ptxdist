@@ -6,9 +6,23 @@ Based on patch from Marc Kleine-Budde <mkl@pengutronix.de>.
 
 Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
 ---
+ Makefile           |    2 +-
  mkfs.ubifs/compr.c |   17 +++++++++++++++++
- 1 files changed, 17 insertions(+), 0 deletions(-)
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
+diff --git a/Makefile b/Makefile
+index 000dc86..83eb9ce 100644
+--- a/Makefile
++++ b/Makefile
+@@ -103,7 +103,7 @@ $(call _mkdep,lib/,libmtd.a)
+ #
+ obj-mkfs.ubifs = crc16.o lpt.o compr.o devtable.o \
+ 	hashtable/hashtable.o hashtable/hashtable_itr.o
+-LDLIBS_mkfs.ubifs = -lz -llzo2 -lm -luuid
++LDLIBS_mkfs.ubifs = -lz $(LZOLDLIBS) -lm -luuid
+ $(call mkdep,mkfs.ubifs/,mkfs.ubifs,,ubi-utils/libubi.a)
+ 
+ #
 diff --git a/mkfs.ubifs/compr.c b/mkfs.ubifs/compr.c
 index 4152b6a..244d450 100644
 --- a/mkfs.ubifs/compr.c
