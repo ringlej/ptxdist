@@ -53,11 +53,9 @@ ptxd_get_lib_path() {
     local lib lib_dir lib_path extra_cflags
 
     lib="${1}"
-    extra_cppflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CPPFLAGS)"
-    extra_cflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CFLAGS)"
 
     # ask the compiler for the lib
-    lib_path="$(${CC} ${extra_cppflags} ${extra_cflags} -print-file-name=${lib})"
+    lib_path="$(ptxd_cross_cc -print-file-name=${lib})"
     if test "${lib_path}" = "${lib}"; then
 	echo "install_copy_toolchain_lib: ${lib} not found" >&2
 	return 1
@@ -79,11 +77,8 @@ ptxd_get_lib_path() {
 #
 ptxd_get_dl() {
     local dl
-    extra_cppflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CPPFLAGS)"
-    extra_cflags="$(ptxd_get_ptxconf PTXCONF_TARGET_EXTRA_CFLAGS)"
 
-    dl="$(echo 'int main(void){return 0;}' | \
-	${CC} ${extra_cppflags} ${extra_cflags} -x c -o /dev/null -v - 2>&1 | \
+    dl="$(ptxd_cross_cc_v | \
 	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
 
     echo "${dl##*/}"
@@ -243,8 +238,7 @@ ptxd_install_toolchain_lib() {
 _ptxd_get_sysroot_usr_by_sysroot() {
     local sysroot
 
-    sysroot="$(echo 'int main(void){return 0;}' | \
-	${CC} -x c -o /dev/null -v - 2>&1 | \
+    sysroot="$(ptxd_cross_cc_v | \
 	sed -ne "/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p")"
 
     test -n "${sysroot}" || return 1
@@ -256,7 +250,7 @@ _ptxd_get_sysroot_usr_by_sysroot() {
 _ptxd_get_sysroot_usr_by_progname() {
     local prog_name
 
-    prog_name="$(${CC} -print-prog-name=gcc)"
+    prog_name="$(ptxd_cross_cc -print-prog-name=gcc)"
     case "${prog_name}" in
 	/*)
 	    prog_name="$(ptxd_abspath ${prog_name%/bin/gcc})"
