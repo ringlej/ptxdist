@@ -142,6 +142,8 @@ endif
 	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/cache/man)
 
+	@$(call install_alternative, systemd, 0, 0, 0755, /etc/rc.once.d/machine-id)
+
 	@$(call install_finish, systemd)
 
 	@$(call touch)

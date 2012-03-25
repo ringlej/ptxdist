@@ -1,0 +1,4 @@
+#!/bin/sh
+
+touch "$DESTDIR/etc/machine-id"
+
