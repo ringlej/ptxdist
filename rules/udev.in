@@ -133,6 +133,7 @@ config UDEV_PERSISTENT_CDROM
 
 config UDEV_PERSISTENT_EDD
 	bool
+	depends on UDEV_LEGACY
 	prompt "BIOS EDD data"
 
 config UDEV_PERSISTENT_GENERATOR
@@ -174,6 +175,7 @@ config UDEV_ACCELEROMETER
 
 config UDEV_ACL
 	bool
+	depends on UDEV_LEGACY
 	prompt "local user acl permissions support"
 	help
 	  FIXME

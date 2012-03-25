@@ -21,8 +21,8 @@ ifdef PTXCONF_UDEV_LEGACY
 UDEV_VERSION	:= 172
 UDEV_MD5	:= bd122d04cf758441f498aad0169a454f
 else
-UDEV_VERSION	:= 181
-UDEV_MD5	:= 135c5acfd371febc5ed8326d48028922
+UDEV_VERSION	:= 182
+UDEV_MD5	:= e31c83159b017e8ab0fa2f4bca758a41
 endif
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
@@ -53,20 +53,21 @@ UDEV_CONF_OPT	:= \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/endis,PTXCONF_UDEV_DEBUG)-debug \
 	--$(call ptx/endis,PTXCONF_UDEV_SYSLOG)-logging \
+	--disable-manpages \
 	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--disable-introspection \
 	--$(call ptx/endis,PTXCONF_UDEV_KEYMAPS)-keymap \
 	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_GENERATOR)-rule_generator \
-	--$(call ptx/endis,PTXCONF_UDEV_ACL)-udev_acl \
 	--disable-floppy \
-	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_EDD)-edd \
+	--without-selinux \
 	--with-usb-ids-path=/usr/share/usb.ids \
 	--with-pci-ids-path=/usr/share/pci.ids$(call ptx/ifdef, PTXCONF_PCIUTILS_COMPRESS,.gz,) \
-	--without-selinux \
 	--with-systemdsystemunitdir=/lib/systemd/system
 
 ifdef PTXCONF_UDEV_LEGACY
 UDEV_CONF_OPT += \
+	--$(call ptx/endis,PTXCONF_UDEV_ACL)-udev_acl \
+	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_EDD)-edd \
 	--libexecdir=/lib/udev \
 	--enable-hwdb
 else
