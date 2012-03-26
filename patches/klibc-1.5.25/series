@@ -1,0 +1,4 @@
+0001-klibc-use-kernel-header-installed-by-headers_install.patch
+0002-Patch-to-add-support-for-detection-of-vfat-and-jffs2.patch
+0003-define-__socklen_t_defined.patch
+0004-fix-warning-include-signal.h-47-5-warning-SIGRTMAX-i.patch

@@ -1,0 +1,60 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 5 Jan 2009 17:46:47 +0100
+Subject: [PATCH 17/21] [klibc] use kernel header installed by "headers_install"
+
+Originally klibc directly sets the compiler header search path
+directly into the kernel tree. This causes compilation to fail on modern
+kernel with a changed include dir layout.
+
+This patch uses the "headers_install" to extract the includes from the
+kernel. Against these headers klibc is build.
+
+Ported from 1.5.15
+
+Index: klibc-1.5.25/Makefile
+===================================================================
+--- klibc-1.5.25.orig/Makefile
++++ klibc-1.5.25/Makefile
+@@ -6,6 +6,7 @@ SRCROOT = .
+ # kbuild compatibility
+ export srctree  := $(shell pwd)
+ export objtree  := $(shell pwd)
++export LINUX_HEADERS := $(objtree)/linux-headers
+ export KLIBCSRC := usr/klibc
+ export VERSION := $(shell cat $(srctree)/$(KLIBCSRC)/version)
+ export KLIBCINC := usr/include
+@@ -102,16 +103,19 @@ $(KLIBCKERNELSRC):
+ 	@echo "KLIBCKERNELSRC=<path> to the build."
+ 	@false
+ 
++$(LINUX_HEADERS): linux
++	$(Q)$(MAKE) -C $(KLIBCKERNELSRC) ARCH=$(KLIBCARCH) INSTALL_HDR_PATH="$@" headers_install
++
+ rpmbuild = $(shell which rpmbuild 2>/dev/null || which rpm)
+ 
+ klibc.spec: klibc.spec.in $(KLIBCSRC)/version
+ 	sed -e 's/@@VERSION@@/$(VERSION)/g' < $< > $@
+ 
+ # Build klcc - it is the first target
+-klcc: $(objtree)/.config
++klcc: $(objtree)/.config  $(LINUX_HEADERS)
+ 	$(Q)$(MAKE) $(klibc)=klcc
+ 
+-klibc: $(objtree)/.config
++klibc: $(objtree)/.config  $(LINUX_HEADERS)
+ 	$(Q)$(MAKE) $(klibc)=.
+ 
+ test: klibc
+Index: klibc-1.5.25/scripts/Kbuild.klibc
+===================================================================
+--- klibc-1.5.25.orig/scripts/Kbuild.klibc
++++ klibc-1.5.25/scripts/Kbuild.klibc
+@@ -113,7 +113,7 @@ KLIBCCPPFLAGS    := -nostdinc -iwithpref
+ # kernel include paths
+ KLIBCKERNELSRC	 ?= $(srctree)
+ KLIBCKERNELOBJ	 ?= $(objtree)
+-KLIBCCPPFLAGS    += -I$(KLIBCKERNELSRC)/include				    \
++KLIBCCPPFLAGS    += -I$(LINUX_HEADERS)/include				    \
+                      $(if $(KBUILD_SRC),-I$(KLIBCKERNELOBJ)/include2 	    \
+ 		       -I$(KLIBCKERNELOBJ)/include -I$(srctree)/include)    \
+ 		     $(KLIBCARCHINCFLAGS)
