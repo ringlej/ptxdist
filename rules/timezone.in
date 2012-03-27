@@ -14,14 +14,16 @@ menuconfig TIMEZONE
 comment "Timezone support"
 	depends on TIMEZONE
 
-config GLIBC_LOCALTIME_LINK
-	prompt "Link of /etc/localtime"
+config GLIBC_LOCALTIME
+	prompt "Timezone for /etc/localtime and /etc/timezone"
 	depends on TIMEZONE
-	default "/usr/share/zoneinfo/Europe/Berlin"
+	default "Europe/Berlin"
 	string
 	help
-	  Where should /etc/localtime point to.
-	  (e.g. /usr/share/zoneinfo/Europe/Berlin)
+	  Where should /etc/localtime point to? (e.g. put in "Europe/Berlin"
+	  here to let it point to /usr/share/zoneinfo/Europe/Berlin)
+	  Additionally this value is written to /etc/timezone like on Debian
+	  or for systemd.
 
 config TIMEZONE_LOCAL_DATABASE
 	bool
