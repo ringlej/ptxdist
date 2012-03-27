@@ -25,7 +25,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 @PACKAGE@_DIR		:= $(KLIBC_BUILDDIR)/$(@PACKAGE@)
 
 ifdef PTXCONF_@PACKAGE@
-$(STATEDIR)/klibc-targetinstall.post: $(STATEDIR)/@package@.targetinstall
+$(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
 
 # ----------------------------------------------------------------------------
