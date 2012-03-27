@@ -120,7 +120,7 @@ install_initramfs_link =							\
 	SRC=$(strip $(2));							\
 	DST=$(strip $(3));							\
 	echo "install_initramfs_link: src=$$SRC dst=$$DST "; 			\
-	echo "slink $$DST $$SRC 0755 0 0" >> $(INITRAMFS_CONTROL)
+	echo "slink $$SRC $$DST 0755 0 0" >> $(INITRAMFS_CONTROL)
 
 #
 # install_initramfs_node
