@@ -5,10 +5,10 @@ menuconfig GSTREAMER
 	prompt "gstreamer                     "
 	select LIBC_M
 	select GLIB
-	select LIBXML2		if GSTREAMER__LOADSAVE
-	select LIBXML2_READER	if GSTREAMER__LOADSAVE
-	select LIBXML2_OUTPUT	if GSTREAMER__LOADSAVE
-	select LIBXML2_SAX1	if GSTREAMER__LOADSAVE
+	select LIBXML2		if GSTREAMER_LOADSAVE
+	select LIBXML2_READER	if GSTREAMER_LOADSAVE
+	select LIBXML2_OUTPUT	if GSTREAMER_LOADSAVE
+	select LIBXML2_SAX1	if GSTREAMER_LOADSAVE
 	select HOST_FLEX
 	help
 	  GStreamer is a streaming media framework, based on graphs of
@@ -23,48 +23,48 @@ if GSTREAMER
 
 	comment "compile options"
 
-	config GSTREAMER__DEBUG
+	config GSTREAMER_DEBUG
 		bool
 		prompt "debug support"
 
-	config GSTREAMER__LOADSAVE
+	config GSTREAMER_LOADSAVE
 		bool
 		prompt "pipleline xml load/save"
 
-	config GSTREAMER__CMDLINEPARSER
+	config GSTREAMER_CMDLINEPARSER
 		bool
 		prompt "commandline parser"
 
-	config GSTREAMER__OPTIONPARSING
+	config GSTREAMER_OPTIONPARSING
 		bool
 		prompt "option parsing when gst init"
 
-	config GSTREAMER__NETDIST
+	config GSTREAMER_NETDIST
 		bool
 		prompt "network distribution"
 
 	comment "install options"
 
-	config GSTREAMER__INSTALL_TYPEFIND
+	config GSTREAMER_INSTALL_TYPEFIND
 		bool
 		prompt "install gst-typefind"
 
-	config GSTREAMER__INSTALL_INSPECT
+	config GSTREAMER_INSTALL_INSPECT
 		bool
 		prompt "install gst-inspect"
 
-	config GSTREAMER__INSTALL_XMLINSPECT
+	config GSTREAMER_INSTALL_XMLINSPECT
 		bool
 		prompt "install gst-xmlinspect"
 
-	config GSTREAMER__INSTALL_XMLLAUNCH
+	config GSTREAMER_INSTALL_XMLLAUNCH
 		bool
-		depends on GSTREAMER__LOADSAVE
+		depends on GSTREAMER_LOADSAVE
 		prompt "install gst-xmllaunch"
 
-	config GSTREAMER__INSTALL_LAUNCH
+	config GSTREAMER_INSTALL_LAUNCH
 		bool
-		depends on GSTREAMER__CMDLINEPARSER
+		depends on GSTREAMER_CMDLINEPARSER
 		prompt "install gst-launch"
 
 endif

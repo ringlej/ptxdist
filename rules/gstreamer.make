@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER) += gstreamer
 #
 # Paths and names
 #
-GSTREAMER_VERSION	:= 0.10.35
-GSTREAMER_MD5		:= 4a0a00edad7a2c83de5211ca679dfaf9
+GSTREAMER_VERSION	:= 0.10.36
+GSTREAMER_MD5		:= a0cf7d6877f694a1a2ad2b4d1ecb890b
 GSTREAMER		:= gstreamer-$(GSTREAMER_VERSION)
 GSTREAMER_SUFFIX	:= tar.bz2
 GSTREAMER_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER).$(GSTREAMER_SUFFIX)
@@ -48,45 +48,24 @@ GSTREAMER_GENERIC_CONF_OPT = \
 
 GSTREAMER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	$(GSTREAMER_GENERIC_CONF_OPT) \
+	--$(call ptx/endis,PTXCONF_GSTREAMER_DEBUG)-gst-debug \
+	--$(call ptx/endis,PTXCONF_GSTREAMER_LOADSAVE)-loadsave \
+	--$(call ptx/endis,PTXCONF_GSTREAMER_CMDLINEPARSER)-parse \
+	--$(call ptx/endis,PTXCONF_GSTREAMER_OPTIONPARSING)-option-parsing \
 	--disable-trace \
 	--disable-alloc-trace \
 	--enable-registry \
+	--$(call ptx/endis,PTXCONF_GSTREAMER_NETDIST)-net \
 	--enable-plugin \
 	--disable-tests \
-	--disable-failing-tests	\
+	--disable-failing-tests \
 	--disable-poisoning \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-introspection \
 	--disable-docbook \
 	--disable-check \
 	--enable-Bsymbolic
-
-ifdef PTXCONF_GSTREAMER__DEBUG
-GSTREAMER_AUTOCONF += --enable-gst-debug
-else
-GSTREAMER_AUTOCONF += --disable-gst-debug
-endif
-ifdef PTXCONF_GSTREAMER__LOADSAVE
-GSTREAMER_AUTOCONF += --enable-loadsave
-else
-GSTREAMER_AUTOCONF += --disable-loadsave
-endif
-ifdef PTXCONF_GSTREAMER__CMDLINEPARSER
-GSTREAMER_AUTOCONF += --enable-parse
-else
-GSTREAMER_AUTOCONF += --disable-parse
-endif
-ifdef PTXCONF_GSTREAMER__OPTIONPARSING
-GSTREAMER_AUTOCONF += --enable-option-parsing
-else
-GSTREAMER_AUTOCONF += --disable-option-parsing
-endif
-ifdef PTXCONF_GSTREAMER__NETDIST
-GSTREAMER_AUTOCONF += --enable-net
-else
-GSTREAMER_AUTOCONF += --disable-net
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -101,46 +80,49 @@ $(STATEDIR)/gstreamer.targetinstall:
 	@$(call install_fixup, gstreamer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gstreamer,DESCRIPTION,missing)
 
-ifdef PTXCONF_GSTREAMER__INSTALL_TYPEFIND
+ifdef PTXCONF_GSTREAMER_INSTALL_TYPEFIND
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-typefind)
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
+		/usr/bin/gst-typefind-0.10)
 endif
-ifdef PTXCONF_GSTREAMER__INSTALL_INSPECT
+ifdef PTXCONF_GSTREAMER_INSTALL_INSPECT
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-inspect)
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-inspect-0.10)
 endif
-ifdef PTXCONF_GSTREAMER__INSTALL_XMLINSPECT
+ifdef PTXCONF_GSTREAMER_INSTALL_XMLINSPECT
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-xmlinspect)
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
+		/usr/bin/gst-xmlinspect-0.10)
 endif
-ifdef PTXCONF_GSTREAMER__INSTALL_XMLLAUNCH
+ifdef PTXCONF_GSTREAMER_INSTALL_XMLLAUNCH
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-xmllaunch)
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
+		/usr/bin/gst-xmllaunch-0.10)
 endif
-ifdef PTXCONF_GSTREAMER__INSTALL_LAUNCH
+ifdef PTXCONF_GSTREAMER_INSTALL_LAUNCH
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-launch)
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-launch-0.10)
 endif
-ifdef PTXCONF_GSTREAMER__NETDIST
-	@$(call install_lib, gstreamer, 0, 0, 0644, libgstnet-0.10)
-endif
-	@$(call install_lib, gstreamer, 0, 0, 0644, libgstcontroller-0.10)
-
-	@$(call install_lib, gstreamer, 0, 0, 0644, libgstreamer-0.10)
-
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstcoreelements.so)
-
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstcoreindexers.so)
-
-	@$(call install_lib, gstreamer, 0, 0, 0644, libgstdataprotocol-0.10)
 
 	@$(call install_lib, gstreamer, 0, 0, 0644, libgstbase-0.10)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstcontroller-0.10)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstdataprotocol-0.10)
+ifdef PTXCONF_GSTREAMER_NETDIST
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstnet-0.10)
+endif
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstreamer-0.10)
+
+	@$(call install_lib, gstreamer, 0, 0, 0644, \
+		gstreamer-0.10/libgstcoreelements)
+	@$(call install_lib, gstreamer, 0, 0, 0644, \
+		gstreamer-0.10/libgstcoreindexers)
 
 	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/libexec/gstreamer-0.10/gst-plugin-scanner)

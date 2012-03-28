@@ -181,3 +181,11 @@ s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_XTABLES_MULTI/\1_INSTALL_TOOLS/
 #
 s,^\(PTXCONF_GLIBC_LOCALTIME_LINK="\)/usr/share/zoneinfo/\(.*\)$,\1\2,
 s/^\(\(# \)\?PTXCONF_GLIBC_LOCALTIME\)_LINK\(.*\)/\1\3/
+
+#
+# from   : ptxdist-2010.04.0
+# to     : ptxdist-2010.05.0
+# symbol : GSTREAMER__*	-> GSTREAMER_*
+# reason : cleanup
+#
+s/^\(\(# \)\?PTXCONF_GSTREAMER_\)_\(.*$\)/\1\3/
