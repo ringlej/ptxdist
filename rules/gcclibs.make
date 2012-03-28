@@ -36,15 +36,15 @@ $(STATEDIR)/gcclibs.targetinstall:
 	@$(call install_fixup, gcclibs,DESCRIPTION,missing)
 
 ifdef PTXCONF_GCCLIBS_GCC_S
-	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s.so, /lib)
+	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s.so)
 endif
 
 ifdef PTXCONF_GCCLIBS_CXX
-	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so, /usr/lib)
+	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCJ
-	@$(call install_copy_toolchain_lib, gcclibs, libgcj.so, /usr/lib)
+	@$(call install_copy_toolchain_lib, gcclibs, libgcj.so)
 endif
 
 	@$(call install_finish, gcclibs)
