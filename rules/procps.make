@@ -51,7 +51,7 @@ PROCPS_MAKEVARS	:= \
 	CFLAGS=-O2 \
 	CPPFLAGS='$(CROSS_CPPFLAGS)' \
 	LDFLAGS='$(CROSS_LDFLAGS)' \
-	lib64=lib \
+	lib64=$(CROSS_LIB_DIR) \
 	ldconfig=true \
 	MANFILES="" \
 	BINFILES="$(PROCPS_ALL-y)"
@@ -73,8 +73,7 @@ $(STATEDIR)/procps.targetinstall:
 	@$(call install_fixup, procps,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, procps,DESCRIPTION,missing)
 
-	@$(call install_copy, procps, 0, 0, 0644, -, \
-		/lib/libproc-3.2.8.so)
+	@$(call install_lib, procps, 0, 0, 0644, libproc-3.2.8)
 
 ifdef PTXCONF_PROCPS_TOP
 	@$(call install_copy, procps, 0, 0, 0755, -,\
