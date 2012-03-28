@@ -44,7 +44,8 @@ TERMCAP_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 TERMCAP_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	--prefix= \
+	$(CROSS_AUTOCONF_ARCH) \
 	--enable-install-termcap
 
 # ----------------------------------------------------------------------------

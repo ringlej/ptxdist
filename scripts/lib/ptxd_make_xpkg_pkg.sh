@@ -597,6 +597,8 @@ ptxd_install_spec() {
 export -f ptxd_install_spec
 
 ptxd_install_package() {
+    local lib_dir=$(ptxd_get_lib_dir)
+
     for dir in "${pkg_pkg_dir}/"{,usr/}{bin,sbin,libexec}; do
 	find "${dir}" \( -type f -o -type l \) \
 		    -perm /111 2>/dev/null | while read file; do
@@ -605,7 +607,7 @@ ptxd_install_package() {
 	done
     done
 
-    for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
+    for dir in "${pkg_pkg_dir}/"{,usr/}${lib_dir}; do
 	find "${dir}" \( -type f -o -type l \) \
 		    -a -name "*.so*" 2>/dev/null | while read file; do
 	    ptxd_install_generic - "${file#${pkg_pkg_dir}}" ||
@@ -635,10 +637,11 @@ ptxd_install_shared() {
 export -f ptxd_install_shared
 
 ptxd_install_lib() {
+    local lib_dir=$(ptxd_get_lib_dir)
     local lib="$1"
     shift
 
-    local file="$(for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
+    local file="$(for dir in "${pkg_pkg_dir}/"{,usr/}${lib_dir}; do
 	    find "${dir}" -type f -path "${dir}/${lib}.so*"; done 2>/dev/null)"
 
     if [ ! -f "${file}" ]; then

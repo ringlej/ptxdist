@@ -137,6 +137,19 @@ ptxd_init_collectionconfig() {
 
 
 #
+# out: 'lib' or 'lib64', derived from the ld-{linux,uClibc}.so.? from the compiler toolchain
+#
+ptxd_get_lib_dir() {
+    local dl lib_dir
+
+    dl="$(ptxd_cross_cc_v | \
+	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
+    lib_dir="${dl%%/ld-*.so.*}"
+    echo "${lib_dir#/}"
+}
+export -f ptxd_get_lib_dir
+
+#
 # setup compiler and pkgconfig environment
 #
 # in:
@@ -158,6 +171,9 @@ ptxd_init_cross_env() {
     prefix=( ${PTXDIST_PATH_SYSROOT_PREFIX} )
     IFS="${orig_IFS}"
 
+    local -a lib_dir
+    lib_dir=$(ptxd_get_lib_dir)
+
     # add "-isystem <DIR>/include"
     local -a cppflags
     cppflags=( "${prefix[@]/%//include}" )
@@ -165,7 +181,7 @@ ptxd_init_cross_env() {
 
     # add "-L<DIR>/lib -Wl,-rpath-link -Wl,<DIR>"
     local -a ldflags
-    ldflags=( "${prefix[@]/%//lib}" )
+    ldflags=( "${prefix[@]/%//${lib_dir}}" )
     ldflags=( "${ldflags[@]/#/-L}" "${ldflags[@]/#/-Wl,-rpath-link -Wl,}" )
 
     export \
@@ -184,7 +200,7 @@ ptxd_init_cross_env() {
 
     # add <DIR>/lib/pkgconfig and <DIR>/share/pkgconfig
     local -a pkg_libdir
-    pkg_libdir=( "${prefix[@]/%//lib/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
+    pkg_libdir=( "${prefix[@]/%//${lib_dir}/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
 
     #
     # PKG_CONFIG_PATH contains additional pkg-config search

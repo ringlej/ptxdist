@@ -174,6 +174,8 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_CPP_FOR_BUILD) \
 	$(CROSS_ENV_LINK_FOR_BUILD)
 
+CROSS_LIB_DIR   := $(shell ptxd_get_lib_dir)
+
 #
 # prepare to use pkg-config with wrapper which takes care of
 # $(PTXDIST_SYSROOT_TARGET). The wrapper's magic doesn't work when
@@ -266,10 +268,10 @@ CROSS_ENV := \
 #
 
 CROSS_AUTOCONF_SYSROOT_USR := \
-	--prefix=/usr --sysconfdir=/etc --localstatedir=/var
+	--prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/$(CROSS_LIB_DIR)
 
 CROSS_AUTOCONF_SYSROOT_ROOT := \
-	--prefix=
+	--libdir=/$(CROSS_LIB_DIR) --prefix=
 
 CROSS_AUTOCONF_ARCH := \
 	--host=$(PTXCONF_GNU_TARGET) \
