@@ -104,25 +104,24 @@ ifdef PTXCONF_GLIBC_NSL
 endif
 
 ifdef PTXCONF_GLIBC_GCONF_BASE
-	@$(call install_copy, glibc, 0, 0, 0755, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv, n)
+	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules,, n)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_DEF
-	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-15.so, /usr/lib/gconv)
+	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so)
+	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-15.so)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_UTF
-	@$(call install_copy_toolchain_lib, glibc, gconv/UNICODE.so, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/UTF-16.so, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/UTF-32.so, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/UTF-7.so, /usr/lib/gconv)
+	@$(call install_copy_toolchain_lib, glibc, gconv/UNICODE.so)
+	@$(call install_copy_toolchain_lib, glibc, gconv/UTF-16.so)
+	@$(call install_copy_toolchain_lib, glibc, gconv/UTF-32.so)
+	@$(call install_copy_toolchain_lib, glibc, gconv/UTF-7.so)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_ZH
-	@$(call install_copy_toolchain_lib, glibc, gconv/GBBIG5.so, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/GB18030.so, /usr/lib/gconv)
+	@$(call install_copy_toolchain_lib, glibc, gconv/GBBIG5.so)
+	@$(call install_copy_toolchain_lib, glibc, gconv/GB18030.so)
 endif
 
 ifdef PTXCONF_GLIBC_I18N_BIN_LOCALE

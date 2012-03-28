@@ -101,7 +101,7 @@ ptxd_split_lib_prefix_sysroot_eval() {
     lib_dir="${lib_path%/${lib}}"		# abs path to that lib
 
     # try to identify sysroot part of that path
-    for prefix in {/usr,}/lib{64,32,}{/tls,} ""; do
+    for prefix in {/usr,}/lib{64,32,}{/tls,/gconv,} ""; do
 	tmp="${lib_dir%${prefix}}"
 	if test "${lib_dir}" != "${tmp}"; then
 	    break
