@@ -48,7 +48,8 @@ ZLIB_CONF_ENV := \
 #
 ZLIB_AUTOCONF := \
 	--prefix=/usr \
-	--uname=Linux
+	--uname=Linux \
+	--libdir=/usr/$(CROSS_LIB_DIR)
 
 ifdef PTXCONF_ZLIB_STATIC
 ZLIB_AUTOCONF += --static
