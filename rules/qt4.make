@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.8.0
-QT4_MD5		:= e8a5fdbeba2927c948d9f477a6abe904
+QT4_VERSION	:= 4.8.1
+QT4_MD5		:= 7960ba8e18ca31f0c6e4895a312f92ff
 QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
