@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
 #
 # Paths and names
 #
-GST_PLUGINS_BASE_VERSION	:= 0.10.35
-GST_PLUGINS_BASE_MD5		:= 1d300983525f4f09030eb3ba47cb04b0
+GST_PLUGINS_BASE_VERSION	:= 0.10.36
+GST_PLUGINS_BASE_MD5		:= 776c73883e567f67b9c4a2847d8d041a
 GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
 GST_PLUGINS_BASE_SUFFIX		:= tar.bz2
 GST_PLUGINS_BASE_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
@@ -25,201 +25,92 @@ GST_PLUGINS_BASE_SOURCE		:= $(SRCDIR)/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUF
 GST_PLUGINS_BASE_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_BASE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GST_PLUGINS_BASE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GST_PLUGINS_BASE)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_APP)		+= app
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_ADDER)		+= adder
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_AUDIOCONVERT)	+= audioconvert
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_AUDIORATE)		+= audiorate
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_AUDIORESAMPLE)	+= audioresample
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_AUDIOTESTSRC)	+= audiotestsrc
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_DECODEBIN)		+= decodebin
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_DECODEBIN_2)	+= decodebin2
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_ENCODING)		+= encoding
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_ENCODING)		+= encodebin
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_FFMPEGCOLORSPACE)	+= ffmpegcolorspace
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_GDP)		+= gdp
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_PLAYBACK)		+= playback
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_PLAYBACK)		+= playbin
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_SUBPARSE)		+= subparse
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_TCP)		+= tcp
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_TYPEFIND)		+= typefind
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_TYPEFIND)		+= typefindfunctions
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_VIDEOTESTSRC)	+= videotestsrc
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_VIDEORATE)		+= videorate
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_VIDEOSCALE)		+= videoscale
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_VOLUME)		+= volume
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_X)			+= x
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_X)			+= ximagesink
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_XVIDEO)		+= xvideo
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_XVIDEO)		+= xvimagesink
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_GST_V4L)		+= gst_v4l
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_GST_V4L)		+= video4linux
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_ALSA)		+= alsa
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_CDPARANOIA)		+= cdparanoia
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_GNOME_VFS)		+= gnome_vfs
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_GNOME_VFS)		+= gnomevfs
+GST_PLUGINS_BASE_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE_IVORBIS)		+= ivorbis
+GST_PLUGINS_BASE_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE_IVORBIS)		+= ivorbisdec
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_GIO)		+= gio
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_LIBVISUAL)		+= libvisual
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_OGG)		+= ogg
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_PANGO)		+= pango
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_THEORA)		+= theora
+GST_PLUGINS_BASE_ENABLE-$(PTXCONF_GST_PLUGINS_BASE_VORBIS)		+= vorbis
+
+GST_PLUGINS_BASE_ENABLEC-y	+= $(GST_PLUGINS_BASE_ENABLE-y)
+GST_PLUGINS_BASE_ENABLEC-	+= $(GST_PLUGINS_BASE_ENABLE-)
+GST_PLUGINS_BASE_ENABLEP-y	+= $(GST_PLUGINS_BASE_ENABLE-y)
 
 #
 # autoconf
 #
-GST_PLUGINS_BASE_AUTOCONF = \
+GST_PLUGINS_BASE_CONF_TOOL	= autoconf
+GST_PLUGINS_BASE_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	$(GSTREAMER_GENERIC_CONF_OPT) \
 	--enable-external \
 	--disable-experimental \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-introspection \
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE_ORC)-orc \
+	--enable-Bsymbolic \
+	--disable-iso-codes \
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE_ZLIB)-zlib \
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE_XSHM)-xshm \
 	--disable-oggtest \
 	--disable-vorbistest \
 	--disable-freetypetest \
-	--enable-Bsymbolic
+	--$(call ptx/wwo,PTXCONF_GST_PLUGINS_BASE_GST_V4L)-gudev
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
 # when no plugins are given it falls back to its default which is
 # to enable all plugins, so --with-plugins is useless for us.
 
-ifdef PTXCONF_GST_PLUGINS_BASE_ADDER
-GST_PLUGINS_BASE_AUTOCONF += --enable-adder
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-adder
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_APP
-GST_PLUGINS_BASE_AUTOCONF += --enable-app
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-app
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOCONVERT
-GST_PLUGINS_BASE_AUTOCONF += --enable-audioconvert
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-audioconvert
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORATE
-GST_PLUGINS_BASE_AUTOCONF += --enable-audiorate
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-audiorate
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOTESTSRC
-GST_PLUGINS_BASE_AUTOCONF += --enable-audiotestsrc
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-audiotestsrc
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_ENCODING
-GST_PLUGINS_BASE_AUTOCONF += --enable-encoding
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-encoding
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_FFMPEGCOLORSPACE
-GST_PLUGINS_BASE_AUTOCONF += --enable-ffmpegcolorspace
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-ffmpegcolorspace
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GDP
-GST_PLUGINS_BASE_AUTOCONF += --enable-gdp
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-gdp
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_PLAYBACK
-GST_PLUGINS_BASE_AUTOCONF += --enable-playback
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-playback
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORESAMPLE
-GST_PLUGINS_BASE_AUTOCONF += --enable-audioresample
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-audioresample
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_SUBPARSE
-GST_PLUGINS_BASE_AUTOCONF += --enable-subparse
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-subparse
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_TCP
-GST_PLUGINS_BASE_AUTOCONF += --enable-tcp
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-tcp
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_TYPEFIND
-GST_PLUGINS_BASE_AUTOCONF += --enable-typefind
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-typefind
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VIDEOTESTSRC
-GST_PLUGINS_BASE_AUTOCONF += --enable-videotestsrc
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-videotestsrc
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VIDEORATE
-GST_PLUGINS_BASE_AUTOCONF += --enable-videorate
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-videorate
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VIDEOSCALE
-GST_PLUGINS_BASE_AUTOCONF += --enable-videoscale
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-videoscale
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VOLUME
-GST_PLUGINS_BASE_AUTOCONF += --enable-volume
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-volume
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_ISO_CODES
-GST_PLUGINS_BASE_AUTOCONF += --enable-iso-codes
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-iso-codes
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_X
-GST_PLUGINS_BASE_AUTOCONF += --enable-x
-GST_PLUGINS_BASE_AUTOCONF += --with-x=$(SYSROOT)/usr
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-x
-GST_PLUGINS_BASE_AUTOCONF += --without-x
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_XVIDEO
-GST_PLUGINS_BASE_AUTOCONF += --enable-xvideo
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-xvideo
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_XSHM
-GST_PLUGINS_BASE_AUTOCONF += --enable-xshm
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-xshm
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GST_V4L
-GST_PLUGINS_BASE_AUTOCONF += --enable-gst_v4l --with-gudev
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-gst_v4l --without-gudev
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_ALSA
-GST_PLUGINS_BASE_AUTOCONF += --enable-alsa
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-alsa
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_CDPARANOIA
-GST_PLUGINS_BASE_AUTOCONF += --enable-cdparanoia
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-cdparanoia
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GNOME_VFS
-GST_PLUGINS_BASE_AUTOCONF += --enable-gnome_vfs
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-gnome_vfs
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_IVORBIS
-GST_PLUGINS_BASE_AUTOCONF += --enable-ivorbis
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-ivorbis
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GIO
-GST_PLUGINS_BASE_AUTOCONF += --enable-gio
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-gio
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_LIBVISUAL
-GST_PLUGINS_BASE_AUTOCONF += --enable-libvisual
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-libvisual
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_OGG
-GST_PLUGINS_BASE_AUTOCONF += --enable-ogg
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-ogg
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_PANGO
-GST_PLUGINS_BASE_AUTOCONF += --enable-pango
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-pango
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_THEORA
-GST_PLUGINS_BASE_AUTOCONF += --enable-theora
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-theora
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VORBIS
-GST_PLUGINS_BASE_AUTOCONF += --enable-vorbis
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-vorbis
+ifneq ($(call remove_quotes,$(GST_PLUGINS_BASE_ENABLEC-y)),)
+GST_PLUGINS_BASE_CONF_OPT +=  --enable-$(subst $(space),$(space)--enable-,$(strip $(GST_PLUGINS_BASE_ENABLEC-y)))
 endif
 
-# --enable-introspection=[no/auto/yes] Enable introspection for this build
-# --with-plugins          comma-separated list of dependencyless plug-ins to compile
+ifneq ($(call remove_quotes,$(GST_PLUGINS_BASE_ENABLEC-)),)
+GST_PLUGINS_BASE_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_BASE_ENABLEC-)))
+endif
+
+ifdef PTXCONF_GST_PLUGINS_BASE_X
+GST_PLUGINS_BASE_CONF_OPT += --with-x=$(SYSROOT)/usr
+else
+GST_PLUGINS_BASE_CONF_OPT += --without-x
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -234,135 +125,19 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 	@$(call install_fixup, gst-plugins-base,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gst-plugins-base,DESCRIPTION,missing)
 
-	@$(call install_copy, gst-plugins-base, 0, 0, 0755, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/bin/gst-visualise-0.10, \
-		/usr/bin/gst-visualise)
+	@$(call install_copy, gst-plugins-base, 0, 0, 0755, -, \
+		/usr/bin/gst-discoverer-0.10)
 
 	# install all activated libs
-	@cd $(GST_PLUGINS_BASE_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so" -printf '%f\n'`; do \
+	@cd $(GST_PLUGINS_BASE_PKGDIR)/usr/lib/ && \
+	for libs in `find -name "*-0.10.so" -printf '%f\n'`; do \
 		$(call install_lib, gst-plugins-base, 0, 0, 0644, $${libs%.so}); \
 	done
 
-ifdef PTXCONF_GST_PLUGINS_BASE_APP
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstapp.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_ADDER
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstadder.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOCONVERT
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstaudioconvert.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORATE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstaudiorate.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORESAMPLE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstaudioresample.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOTESTSRC
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstaudiotestsrc.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_DECODEBIN
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstdecodebin.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_DECODEBIN_2
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstdecodebin2.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_FFMPEGCOLORSPACE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstffmpegcolorspace.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GDP
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstgdp.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_PLAYBACK
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstplaybin.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_SUBPARSE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstsubparse.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_TCP
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgsttcp.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_TYPEFIND
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgsttypefindfunctions.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VIDEOTESTSRC
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstvideotestsrc.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VIDEORATE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstvideorate.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VIDEOSCALE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstvideoscale.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VOLUME
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstvolume.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_X
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstximagesink.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_XVIDEO
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstxvimagesink.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GST_V4L
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstvideo4linux.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_ALSA
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstalsa.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_CDPARANOIA
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstcdparanoia.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GNOME_VFS
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstgnomevfs.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_GIO
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstgio.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_LIBVISUAL
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstlibvisual.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_OGG
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstogg.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_PANGO
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstpango.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_THEORA
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgsttheora.so)
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_VORBIS
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
-		/usr/lib/gstreamer-0.10/libgstvorbis.so)
-endif
+	@$(foreach plugin, $(GST_PLUGINS_BASE_ENABLEP-y), \
+		$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
+			/usr/lib/gstreamer-0.10/libgst$(plugin).so);)
+
 	@$(call install_finish, gst-plugins-base)
 
 	@$(call touch)

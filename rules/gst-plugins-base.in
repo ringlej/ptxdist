@@ -3,14 +3,13 @@
 menuconfig GST_PLUGINS_BASE
 	tristate
 
-	# needed for autogen.sh
-	select HOST_GETTEXT
-
 	select GLIB
 	select LIBOIL
 	select GSTREAMER
 
 	select ALSA_LIB		if GST_PLUGINS_BASE_ALSA
+	select ALSA_LIB_PCM	if GST_PLUGINS_BASE_ALSA
+	select ALSA_LIB_MIXER	if GST_PLUGINS_BASE_ALSA
 	select GLIB		if GST_PLUGINS_BASE_GIO
 	select LIBOGG		if GST_PLUGINS_BASE_OGG
 	select LIBTHEORA	if GST_PLUGINS_BASE_THEORA
@@ -21,6 +20,7 @@ menuconfig GST_PLUGINS_BASE
 	select LIBXML2		if GST_PLUGINS_BASE_SUBPARSE
 	select LIBXML2_HTML	if GST_PLUGINS_BASE_SUBPARSE
 	select ORC		if GST_PLUGINS_BASE_ORC
+	select ZLIB		if GST_PLUGINS_BASE_ZLIB
 
 	# x features need libx11 + Xv
 	select XORG		if GST_PLUGINS_BASE_X
@@ -131,10 +131,6 @@ if GST_PLUGINS_BASE
 		select GST_PLUGINS_BASE_ORC
 		prompt "volume"
 
-	config GST_PLUGINS_BASE_ISO_CODES
-		bool
-		prompt "iso codes"
-
 	comment "plugins with dependencies"
 
 	config GST_PLUGINS_BASE_X
@@ -147,11 +143,6 @@ if GST_PLUGINS_BASE
 		prompt "xv"
 		help
 		  This plugin offers an xlib based window that can display a video stream.
-
-	config GST_PLUGINS_BASE_XSHM
-		bool
-		depends on GST_PLUGINS_BASE_X
-		prompt "xshm"
 
 	config GST_PLUGINS_BASE_GST_V4L
 		bool
@@ -173,6 +164,7 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE_IVORBIS
 		bool
+		depends on BROKEN
 		prompt "ivorbis"
 
 	config GST_PLUGINS_BASE_GIO
@@ -199,5 +191,20 @@ if GST_PLUGINS_BASE
 	config GST_PLUGINS_BASE_VORBIS
 		bool
 		prompt "vorbis"
+
+	comment "Support options"
+
+	config GST_PLUGINS_BASE_XSHM
+		bool
+		depends on GST_PLUGINS_BASE_X
+		prompt "xshm"
+		help
+		  xshm support for X and XVideo plaugins
+
+	config GST_PLUGINS_BASE_ZLIB
+		bool
+		prompt "zlib"
+		help
+		  zlib support for ID3 parsing in libgsttag
 
 endif
