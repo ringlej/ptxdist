@@ -6,21 +6,23 @@ menuconfig GST_PLUGINS_GOOD
 	select LIBOIL
 	select GSTREAMER
 	select GST_PLUGINS_BASE
-	select LIBPNG		if GST_PLUGINS_GOOD_LIBPNG
-	select LIBJPEG		if GST_PLUGINS_GOOD_JPEG
-	select ZLIB		if GST_PLUGINS_GOOD_ZLIB
-	select BZIP2		if GST_PLUGINS_GOOD_BZ2
-	select BZIP2_LIBBZ2	if GST_PLUGINS_GOOD_BZ2
-	select LIBCACA		if GST_PLUGINS_GOOD_LIBCACA
-	select XORG_LIB_X11	if GST_PLUGINS_GOOD_X
-	select XORG_LIB_X11	if GST_PLUGINS_GOOD_XVIDEO
-	select GTK		if GST_PLUGINS_GOOD_GDK_PIXBUF
-	select SPEEX		if GST_PLUGINS_GOOD_SPEEX
-	select FLAC		if GST_PLUGINS_GOOD_FLAC
-	select CAIRO		if GST_PLUGINS_GOOD_CAIRO
-	select UDEV		if GST_PLUGINS_GOOD_GST_V4L2
-	select UDEV_LIBGUDEV	if GST_PLUGINS_GOOD_GST_V4L2
-	select ORC		if GST_PLUGINS_GOOD_ORC
+	select LIBPNG			if GST_PLUGINS_GOOD_LIBPNG
+	select LIBJPEG			if GST_PLUGINS_GOOD_JPEG
+	select ZLIB			if GST_PLUGINS_GOOD_ZLIB
+	select BZIP2			if GST_PLUGINS_GOOD_BZ2
+	select BZIP2_LIBBZ2		if GST_PLUGINS_GOOD_BZ2
+	select LIBCACA			if GST_PLUGINS_GOOD_LIBCACA
+	select XORG_LIB_X11		if GST_PLUGINS_GOOD_X
+	select XORG_LIB_X11		if GST_PLUGINS_GOOD_XVIDEO
+	select GDK_PIXBUF		if GST_PLUGINS_GOOD_GDK_PIXBUF
+	select SPEEX			if GST_PLUGINS_GOOD_SPEEX
+	select FLAC			if GST_PLUGINS_GOOD_FLAC
+	select CAIRO			if GST_PLUGINS_GOOD_CAIRO
+	select UDEV			if GST_PLUGINS_GOOD_GST_V4L2
+	select UDEV_LIBGUDEV		if GST_PLUGINS_GOOD_GST_V4L2
+	select V4L_UTILS		if GST_PLUGINS_GOOD_GST_V4L2_LIBV4L2
+	select V4L_UTILS_LIBV4L2	if GST_PLUGINS_GOOD_GST_V4L2_LIBV4L2
+	select ORC			if GST_PLUGINS_GOOD_ORC
 
 	prompt "gst-plugins-good              "
 	help
@@ -34,17 +36,6 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_ORC
 		bool
-
-	config GST_PLUGINS_GOOD_BROKEN
-		bool
-		prompt "show also broken plugins"
-		help
-		  Some of the plugins which require external dependencies
-		  have not yet ported properly into ptxdist. If you want
-		  to play with these plugins, enable this switch.
-
-		  And don't forget to send patches after you have fixed
-		  a plugin! :-)
 
 	# ------------------------------
 	comment "dependency-less plugins"
@@ -228,7 +219,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_DIRECTSOUND
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "directsound"
 
 	config GST_PLUGINS_GOOD_OSS
@@ -241,22 +232,27 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_SUNAUDIO
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "sunaudio"
 
 	config GST_PLUGINS_GOOD_OSX_AUDIO
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "osx_audio"
 
 	config GST_PLUGINS_GOOD_OSX_VIDEO
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "osx_video"
 
 	config GST_PLUGINS_GOOD_GST_V4L2
 		bool
 		prompt "gst_v4l2"
+
+	config GST_PLUGINS_GOOD_GST_V4L2_LIBV4L2
+		bool
+		depends on GST_PLUGINS_GOOD_GST_V4L2
+		prompt "build v4l2 plugin with libv4l2 support"
 
 	config GST_PLUGINS_GOOD_XVIDEO
 		bool
@@ -274,12 +270,12 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_AALIB
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "aalib"
 
 	config GST_PLUGINS_GOOD_ANNODEX
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "annodex"
 
 	config GST_PLUGINS_GOOD_CAIRO
@@ -288,7 +284,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_ESD
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "esd"
 
 	config GST_PLUGINS_GOOD_FLAC
@@ -297,7 +293,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_GCONF
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "gconf"
 
 	config GST_PLUGINS_GOOD_GDK_PIXBUF
@@ -306,7 +302,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_HAL
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "hal"
 
 	config GST_PLUGINS_GOOD_JPEG
@@ -324,7 +320,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_LIBDV
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "libdv"
 
 	config GST_PLUGINS_GOOD_LIBPNG
@@ -333,22 +329,22 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_PULSE
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "pulse"
 
 	config GST_PLUGINS_GOOD_DV1394
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "dv1394"
 
 	config GST_PLUGINS_GOOD_SHOUT2
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "shout2"
 
 	config GST_PLUGINS_GOOD_SOUP
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "soup"
 
 	config GST_PLUGINS_GOOD_SPEEX
@@ -357,12 +353,12 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_TAGLIB
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "taglib"
 
 	config GST_PLUGINS_GOOD_WAVPACK
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
+		depends on BROKEN
 		prompt "wavpack"
 
 	comment "Support options"
@@ -380,31 +376,3 @@ if GST_PLUGINS_GOOD
 		  bz2 support for matroska
 
 endif
-
-#  --with-libintl-prefix=DIR  search for libintl in DIR/include and DIR/lib
-#  --without-libintl-prefix     don't search for libintl in includedir and libdir
-#  --with-pkg-config-path  colon-separated list of pkg-config(1) dirs
-#  --with-package-name     specify package name to use in plugins
-#  --with-package-origin   specify package origin URL to use in plugins
-#  --with-plugins          comma-separated list of dependencyless plug-ins to
-#                          compile
-#  --with-gconf-source=sourceaddress      Config database for installing schema files.
-#  --with-gconf-schema-file-dir=dir        Directory for installing schema files.
-#  --with-html-dir=PATH    path to installed docs
-#  --with-default-audiosink
-#                          specify default audio sink
-#  --with-default-audiosrc specify default audio source
-#  --with-default-videosink
-#                          specify default video sink
-#  --with-default-videosrc specify default video source
-#  --with-default-visualizer
-#                          specify default visualizer
-#  --with-x                use the X Window System
-#  --with-aalib-prefix=PFX prefix where AALIB is installed (optional)
-#  --with-aalib-exec-prefix=PFX
-#                          exec prefix where AALIB is installed (optional)
-#  --with-esd-prefix=PFX   prefix where ESD is installed (optional)
-#  --with-esd-exec-prefix=PFX
-#                          exec prefix where ESD is installed (optional)
-#  --with-jpeg-mmx, path to MMX'ified JPEG library
-#  --with-shout2-prefix=PFX   Prefix where libshout2 is installed (optional)

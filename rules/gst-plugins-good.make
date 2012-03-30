@@ -16,21 +16,13 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_GOOD) += gst-plugins-good
 #
 # Paths and names
 #
-GST_PLUGINS_GOOD_VERSION	:= 0.10.30
-GST_PLUGINS_GOOD_MD5		:= 62fd7a3ef187c4f99b3d7c352d58dae9
+GST_PLUGINS_GOOD_VERSION	:= 0.10.31
+GST_PLUGINS_GOOD_MD5		:= 24f98a294a2b521e1b29412bdadae2e6
 GST_PLUGINS_GOOD		:= gst-plugins-good-$(GST_PLUGINS_GOOD_VERSION)
 GST_PLUGINS_GOOD_SUFFIX		:= tar.bz2
 GST_PLUGINS_GOOD_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD).$(GST_PLUGINS_GOOD_SUFFIX)
 GST_PLUGINS_GOOD_SOURCE		:= $(SRCDIR)/$(GST_PLUGINS_GOOD).$(GST_PLUGINS_GOOD_SUFFIX)
 GST_PLUGINS_GOOD_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_GOOD)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GST_PLUGINS_GOOD_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GST_PLUGINS_GOOD)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -120,8 +112,6 @@ GST_PLUGINS_GOOD_ENABLE-$(PTXCONF_GST_PLUGINS_GOOD_SOUP)	+= soup
 GST_PLUGINS_GOOD_ENABLE-$(PTXCONF_GST_PLUGINS_GOOD_SPEEX)	+= speex
 GST_PLUGINS_GOOD_ENABLE-$(PTXCONF_GST_PLUGINS_GOOD_TAGLIB)	+= taglib
 GST_PLUGINS_GOOD_ENABLE-$(PTXCONF_GST_PLUGINS_GOOD_WAVPACK)	+= wavpack
-GST_PLUGINS_GOOD_ENABLEC-$(PTXCONF_GST_PLUGINS_GOOD_ZLIB)	+= zlib
-GST_PLUGINS_GOOD_ENABLEC-$(PTXCONF_GST_PLUGINS_GOOD_BZ2)	+= bz2
 
 GST_PLUGINS_GOOD_ENABLEC-y	+= $(GST_PLUGINS_GOOD_ENABLE-y)
 GST_PLUGINS_GOOD_ENABLEC-	+= $(GST_PLUGINS_GOOD_ENABLE-)
@@ -140,7 +130,10 @@ GST_PLUGINS_GOOD_CONF_OPT	= \
 	--disable-gconftool \
 	--disable-esdtest \
 	--disable-aalibtest \
-	--disable-shout2test
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_GOOD_ZLIB)-zlib \
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_GOOD_BZ2)-bz2 \
+	--$(call ptx/wwo,PTXCONF_GST_PLUGINS_GOOD_GST_V4L2)-gudev \
+	--$(call ptx/wwo,PTXCONF_GST_PLUGINS_GOOD_GST_V4L2_LIBV4L2)-libv4l2
 
 #
 # the --with-plugins sadly only applies to depencyless plugings
@@ -154,12 +147,6 @@ endif
 
 ifneq ($(call remove_quotes,$(GST_PLUGINS_GOOD_ENABLEC-)),)
 GST_PLUGINS_GOOD_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_GOOD_ENABLEC-)))
-endif
-
-ifdef PTXCONF_GST_PLUGINS_GOOD_GST_V4L2
-GST_PLUGINS_GOOD_CONF_OPT += --with-gudev
-else
-GST_PLUGINS_GOOD_CONF_OPT += --without-gudev
 endif
 
 # ----------------------------------------------------------------------------
