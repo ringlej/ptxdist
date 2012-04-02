@@ -41,6 +41,10 @@ config GST_PLUGINS_BAD_ASFMUX
 	bool
 	prompt "asfmux"
 
+config GST_PLUGINS_BAD_AUDIOVISUALIZERS
+	bool
+	prompt "audiovisualizers"
+
 config GST_PLUGINS_BAD_AUTOCONVERT
 	bool
 	prompt "autoconvert"
@@ -85,6 +89,10 @@ config GST_PLUGINS_BAD_DVDSPU
 	bool
 	prompt "dvdspu"
 
+config GST_PLUGINS_BAD_FACEOVERLAY
+	bool
+	prompt "faceoverlay"
+
 config GST_PLUGINS_BAD_FESTIVAL
 	bool
 	prompt "festival"
@@ -92,6 +100,10 @@ config GST_PLUGINS_BAD_FESTIVAL
 config GST_PLUGINS_BAD_FREEZE
 	bool
 	prompt "freeze"
+
+config GST_PLUGINS_BAD_FREEVERB
+	bool
+	prompt "freeverb"
 
 config GST_PLUGINS_BAD_FREI0R
 	bool
@@ -109,9 +121,9 @@ config GST_PLUGINS_BAD_ID3TAG
 	bool
 	prompt "id3tag"
 
-config GST_PLUGINS_BAD_INVTELECINE
+config GST_PLUGINS_BAD_INTER
 	bool
-	prompt "invtelecine"
+	prompt "inter"
 
 config GST_PLUGINS_BAD_JPEGFORMAT
 	bool
@@ -140,10 +152,6 @@ config GST_PLUGINS_BAD_MPEGPSMUX
 config GST_PLUGINS_BAD_MPEGVIDEOPARSE
 	bool
 	prompt "mpegvideoparse"
-
-config GST_PLUGINS_BAD_MPEG4VIDEOPARSE
-	bool
-	prompt "mpeg4videoparse"
 
 config GST_PLUGINS_BAD_MVE
 	bool
@@ -177,6 +185,10 @@ config GST_PLUGINS_BAD_REAL
 	bool
 	prompt "real"
 
+config GST_PLUGINS_BAD_REMOVESILENCE
+	bool
+	prompt "removesilence"
+
 config GST_PLUGINS_BAD_RTPMUX
 	bool
 	prompt "rtpmux"
@@ -196,6 +208,10 @@ config GST_PLUGINS_BAD_SEGMENTCLIP
 config GST_PLUGINS_BAD_SIREN
 	bool
 	prompt "siren"
+
+config GST_PLUGINS_BAD_SMOOTH
+	bool
+	prompt "smooth"
 
 config GST_PLUGINS_BAD_SPEED
 	bool
@@ -225,21 +241,14 @@ config GST_PLUGINS_BAD_VMNC
 	bool
 	prompt "vmnc"
 
-config GST_PLUGINS_BAD_DIRECTSOUND
+config GST_PLUGINS_BAD_AVC
 	bool
-	# windows only
+	prompt "avc"
+	depends on BROKEN
 
-config GST_PLUGINS_BAD_DIRECTDRAW
+config GST_PLUGINS_BAD_SHM
 	bool
-	# windows only
-
-config GST_PLUGINS_BAD_OSX_VIDEO
-	bool
-	# OSX only
-
-config GST_PLUGINS_BAD_QUICKTIME
-	bool
-	# OSX only
+	prompt "shm"
 
 config GST_PLUGINS_BAD_VCD
 	bool
@@ -250,9 +259,14 @@ config GST_PLUGINS_BAD_ASSRENDER
 	prompt "assrender"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD_AMRWB
+config GST_PLUGINS_BAD_VOAMRWBENC
 	bool
-	prompt "amrwb"
+	prompt "voamrwbenc"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_VOAACENC
+	bool
+	prompt "voaacenc"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD_APEXSINK
@@ -411,6 +425,26 @@ config GST_PLUGINS_BAD_OFA
 	prompt "ofa"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD_OPENAL
+	bool
+	prompt "openal"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_OPENCV
+	bool
+	prompt "opencv"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_OPUS
+	bool
+	prompt "opus"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_PVR
+	bool
+	prompt "pvr"
+	depends on BROKEN
+
 config GST_PLUGINS_BAD_RSVG
 	bool
 	prompt "rsvg"
@@ -419,6 +453,11 @@ config GST_PLUGINS_BAD_RSVG
 config GST_PLUGINS_BAD_TIMIDITY
 	bool
 	prompt "timidity"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_TELETEXTDEC
+	bool
+	prompt "teletextdec"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD_WILDMIDI
