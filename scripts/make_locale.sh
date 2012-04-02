@@ -63,7 +63,7 @@ add_locale() {
 		usage
 	fi
 
-	SYSROOT_USR=`ptxd_get_sysroot_usr`
+	SYSROOT_USR="${PTXDIST_SYSROOT_TOOLCHAIN}/usr"
 	[ ! -d ${SYSROOT_USR} ] && { echo "Toolchain sysroot dir not found"; exit 1; }
 	[ ! -d ${SYSROOT_USR}/share/i18n ] && { echo "I18NPATH source dir not found"; exit 1; }
 

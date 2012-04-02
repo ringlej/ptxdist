@@ -239,50 +239,6 @@ ptxd_install_toolchain_lib() {
 }
 
 
-_ptxd_get_sysroot_usr_by_sysroot() {
-    local sysroot
-
-    sysroot="$(ptxd_cross_cc_v | \
-	sed -ne "/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p")"
-
-    test -n "${sysroot}" || return 1
-
-    echo "$(ptxd_abspath ${sysroot}/usr)"
-}
-
-
-_ptxd_get_sysroot_usr_by_progname() {
-    local prog_name
-
-    prog_name="$(ptxd_cross_cc -print-prog-name=gcc)"
-    case "${prog_name}" in
-	/*)
-	    prog_name="$(ptxd_abspath ${prog_name%/bin/gcc})"
-	    ;;
-	*)
-	    if test "${NATIVE}" = "1"; then
-		prog_name="/usr"
-	    else
-		return 1
-	    fi
-	    ;;
-    esac
-
-    echo "${prog_name}"
-}
-
-
-ptxd_get_sysroot_usr() {
-    local sysroot_usr
-
-    sysroot_usr="$(_ptxd_get_sysroot_usr_by_sysroot)" ||
-    sysroot_usr="$(_ptxd_get_sysroot_usr_by_progname)" ||
-    ( echo "unable to identify your SYSROOT, giving up"; return $? )
-
-    echo "${sysroot_usr}"
-}
-
-
 #
 # $@:
 #     usr=<what to copy>
@@ -295,7 +251,7 @@ ptxd_install_toolchain_usr() {
 
     eval "${@}"
 
-    sysroot_usr="$(ptxd_get_sysroot_usr)" || return $?
+    sysroot_usr="${PTXDIST_SYSROOT_TOOLCHAIN}/usr"
 
     if test -z "$(find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d)"; then
 	echo "file ${usr} not found"
