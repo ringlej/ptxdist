@@ -1,0 +1,33 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 2 Apr 2012 22:02:03 +0200
+Subject: [PATCH] socket: if we fail to create an instantiated service for a
+ socket, don't put the socket in failure mode
+
+Based on upstream patch 9586cdfab6a2638078702b7fea7e16b3a71899e2
+
+An incoming connection that is immediately terminated might result in
+getpeername() or a similar call failing. Hence it is quite possible that
+while we are setting up an instantiated service for a socket we might
+get an error and we shouldn't take this as hint to take the listening
+socket down.
+
+https://bugs.freedesktop.org/show_bug.cgi?id=45297
+https://bugzilla.novell.com/show_bug.cgi?id=741590
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/socket.c |    1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/socket.c b/src/socket.c
+index 7ddf326..2208127 100644
+--- a/src/socket.c
++++ b/src/socket.c
+@@ -1445,7 +1445,6 @@ static void socket_enter_running(Socket *s, int cfd) {
+ 
+ fail:
+         log_warning("%s failed to queue socket startup job: %s", s->meta.id, bus_error(&error, r));
+-        socket_enter_stop_pre(s, false);
+ 
+         if (cfd >= 0)
+                 close_nointr_nofail(cfd);
