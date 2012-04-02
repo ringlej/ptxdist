@@ -88,6 +88,7 @@ ptxd_init_sysroot_toolchain() {
     # no compiler prefix specified means using plain "gcc"
     # which comes from the distribution, so no sysroot here
     #
+    local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
     if [ -z "${compiler_prefix}" ]; then
 	PTXDIST_SYSROOT_TOOLCHAIN="/"
     else
