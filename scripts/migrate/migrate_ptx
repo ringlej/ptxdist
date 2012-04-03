@@ -173,3 +173,11 @@ s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_IPV6_TOOLS/\1_IPV6/
 s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_IPV4_TOOLS/\1_IPV4/
 s/^\(\(# \)\?PTXCONF_IPTABLES\)_INSTALL_XTABLES_MULTI/\1_INSTALL_TOOLS/
 
+#
+# from   : ptxdist-2011.04.0
+# to     : ptxdist-2011.05.0
+# symbol : GLIBC_LOCALTIME_LINK -> GLIBC_LOCALTIME
+#          and remove /usr/share/zoneinfo/ prefix
+#
+s,^\(PTXCONF_GLIBC_LOCALTIME_LINK="\)/usr/share/zoneinfo/\(.*\)$,\1\2,
+s/^\(\(# \)\?PTXCONF_GLIBC_LOCALTIME\)_LINK\(.*\)/\1\3/
