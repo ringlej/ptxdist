@@ -1,0 +1,24 @@
+## SECTION=multimedia_framebuffer
+
+menuconfig FBTERM
+	tristate
+	prompt "fbterm                        "
+	select FREETYPE
+	select FONTCONFIG
+	select GPM if FBTERM_GPM
+	help
+	  Framebuffer terminal. Supports unicode and uses fontconfig and Freetype
+	  for font rendering. Thus is has support for anti-aliased fonts.
+
+if FBTERM
+
+config FBTERM_GPM
+	bool
+	prompt "Build fbterm with gpm support"
+	help
+	  If enabled, fbterm is built with console mouse support. The required
+	  'gpm' package is automatically selected.
+
+endif
+
+# vim: set ts=8 sw=8 noet ft=kconfig:
