@@ -5,20 +5,19 @@ Subject: [PATCH] make ubifs optional
 Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
 ---
  Makefile |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ 1 file changed, 2 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 17a1216..000dc86 100644
+index 17a1216..5e1692f 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -30,8 +30,10 @@ UBI_BINS = \
+@@ -30,7 +30,9 @@ UBI_BINS = \
  	ubidetach ubinize ubiformat ubirename mtdinfo ubirsvol
  
  BINS = $(MTD_BINS)
 +ifneq ($(WITHOUT_MKUBIFS), 1)
  BINS += mkfs.ubifs/mkfs.ubifs
- BINS += $(addprefix ubi-utils/,$(UBI_BINS))
 +endif
+ BINS += $(addprefix ubi-utils/,$(UBI_BINS))
  SCRIPTS = flash_eraseall
  
- TARGETS = $(BINS)
