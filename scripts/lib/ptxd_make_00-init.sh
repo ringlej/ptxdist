@@ -145,7 +145,7 @@ ptxd_get_lib_dir() {
 
     dl="$(ptxd_cross_cc_v | \
 	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
-    lib_dir="${dl%%/ld-*.so.*}"
+    lib_dir="${dl%%/ld*.so.*}"
     echo "${lib_dir#/}"
 }
 export -f ptxd_get_lib_dir
