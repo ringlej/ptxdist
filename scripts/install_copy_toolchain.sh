@@ -189,7 +189,9 @@ ptxd_install_toolchain_lib() {
 		    # deal with relative and absolute libs
 		    case "${script_lib}" in
 			/*.so*)
-			    script_lib="${sysroot}${script_lib}"
+			    if [ "${script_lib#${sysroot}}" = "${script_lib}" ]; then
+				script_lib="${sysroot}${script_lib}"
+			    fi
 			    ;;
 			*.so*)
 			    script_lib="$(ptxd_get_lib_path "${script_lib}")"
