@@ -563,14 +563,21 @@ export -f ptxd_in_path
 # convert a relative or absolute path into an absolute path
 #
 ptxd_abspath() {
+	local fn dn
 	if [ $# -ne 1 ]; then
 		echo "usage: ptxd_abspath <path>"
 		exit 1
 	fi
+	if [ -d "${1}" ]; then
+		fn=""
+		dn="${1}"
+	else
+		fn="/$(basename "${1}")"
+		dn="$(dirname "${1}")"
+	fi
 
-	local dn="$(dirname "${1}")"
 	[ ! -d "${dn}" ] && ptxd_bailout "directory '${dn}' does not exist"
-	echo "$(cd "${dn}" && pwd)/$(basename "${1}")"
+	echo "$(cd "${dn}" && pwd)${fn}"
 }
 export -f ptxd_abspath
 
