@@ -141,10 +141,6 @@ ptxd_install_toolchain_lib() {
 
 	# guess sysroot from given lib
 	eval $(ptxd_split_lib_prefix_sysroot_eval "${lib_path}")
-	if test -z "${prefix}" -a -z "${dest}"; then
-	    ptxd_bailout "cannot identify prefix and no user supplied dest"
-	fi
-
 	# if the user has given us a $dest use it
 	prefix="${dest:-${prefix}}"
 
@@ -170,10 +166,12 @@ ptxd_install_toolchain_lib() {
 	    eval $(ptxd_split_lib_prefix_sysroot_eval "${lnk_path}" lnk)
 	    lnk_prefix="${dest:-${lnk_prefix}}"
 
-	    lnk_prefix="$(ptxd_abs2rel "${prefix}" "${lnk_prefix}")"
-	    lnk_prefix="${lnk_prefix}${lnk_prefix:+/}"
-	    # now remember that link for later
-	    echo "ptxd_install_link \"${lnk_prefix}${lnk}\" \"${prefix}/${lib}\"" >> "${STATEDIR}/${packet}.cmds"
+	    if test -n "${prefix}"; then
+		lnk_prefix="$(ptxd_abs2rel "${prefix}" "${lnk_prefix}")"
+		lnk_prefix="${lnk_prefix}${lnk_prefix:+/}"
+		# now remember that link for later
+		echo "ptxd_install_link \"${lnk_prefix}${lnk}\" \"${prefix}/${lib}\"" >> "${STATEDIR}/${packet}.cmds"
+	    fi
 
 	    lib_path="${lnk_path}"
 	    continue
@@ -207,6 +205,10 @@ ptxd_install_toolchain_lib() {
 	    else
 		# ordinary shared lib, just copy it
 		echo "lib - ${lib_path}"
+
+		if test -z "${prefix}"; then
+		    ptxd_bailout "cannot identify prefix and no user supplied dest"
+		fi
 
 		perm="$(stat -c %a "${lib_path}")"
 
