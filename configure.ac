@@ -148,6 +148,7 @@ GNU_TOOL(stat, coreutils)
 GNU_TOOL(mknod, coreutils)
 GNU_TOOL(readlink, coreutils)
 GNU_TOOL(tar, tar)
+GNU_TOOL(find, findutils)
 
 dnl Check for egrep
 AC_PROG_EGREP
