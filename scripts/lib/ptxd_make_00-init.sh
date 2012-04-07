@@ -94,9 +94,14 @@ ptxd_init_sysroot_toolchain() {
     else
 	local sysroot
 
+	sysroot="$(ptxd_cross_cc -print-sysroot 2> /dev/null)" &&
+	    [ -n "${sysroot}" ] ||
 	sysroot="$(ptxd_cross_cc_v | \
 	sed -ne "/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p" && \
-	check_pipe_status)"
+	    check_pipe_status)" &&
+	    [ -n "${sysroot}" ] ||
+	sysroot="$(ptxd_lib_sysroot \
+	    "$(ptxd_cross_cc -print-file-name=libc.so 2> /dev/null)")"
 
 	if [ $? -ne 0 -o -z "${sysroot}" ]; then
 	    return 1

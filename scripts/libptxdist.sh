@@ -715,6 +715,30 @@ export -f check_pipe_status
 
 
 #
+# $1: lib_path	# cannolocilized path to lib or link
+#
+ptxd_lib_sysroot() {
+	local lib_path lib lib_dir prefix tmp
+
+	lib_path="${1}"
+	lib="$(basename "${lib_path}")"
+	lib_dir="$(dirname "${lib_path}")"
+
+	# try to identify sysroot part of that path
+	for prefix in {/usr,}/lib{64,32,}{/tls,/gconv,} ""; do
+		tmp="${lib_dir%${prefix}}"
+		if test "${lib_dir}" != "${tmp}"; then
+			echo "${tmp}"
+			return
+		fi
+	done
+
+	return 1
+}
+export -f ptxd_lib_sysroot
+
+
+#
 # split ipkg filename into it's parts
 #
 # input format:
