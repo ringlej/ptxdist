@@ -585,6 +585,50 @@ export -f ptxd_abspath
 
 
 #
+# calculate the relative path from one absolute path to another
+#
+# $1	from path
+# $2	to path
+#
+ptxd_abs2rel() {
+	local from from_parts to to_parts max orig_IFS
+	if [ $# -ne 2 ]; then
+		ptxd_bailout "usage: ptxd_abs2rel <from> <to>"
+	fi
+
+	from="${1}"
+	to="${2}"
+
+	orig_IFS="${IFS}"
+	IFS="/"
+	from_parts=(${from#/})
+	to_parts=(${to#/})
+
+	if [ ${#from_parts[@]} -gt ${#to_parts[@]} ]; then
+		max=${#from_parts[@]}
+	else
+		max=${#to_parts[@]}
+	fi
+
+	for ((i = 0; i < ${max}; i++)); do
+		from="${from_parts[i]}"
+		to="${to_parts[i]}"
+
+		if [ "${from}" = "${to}" ]; then
+			unset from_parts[$i]
+			unset to_parts[$i]
+		elif [ -n "${from}" ]; then
+			from_parts[$i]=".."
+		fi
+	done
+
+	echo "${from_parts[*]}${from_parts[*]:+/}${to_parts[*]}"
+	IFS="${orig_IFS}"
+}
+export -f ptxd_abs2rel
+
+
+#
 # prints a path but removes non interesting prefixes
 #
 ptxd_print_path() {
