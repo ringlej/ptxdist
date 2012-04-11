@@ -53,7 +53,6 @@ UDEV_CONF_OPT	:= \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/endis,PTXCONF_UDEV_DEBUG)-debug \
 	--$(call ptx/endis,PTXCONF_UDEV_SYSLOG)-logging \
-	--disable-manpages \
 	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--disable-introspection \
 	--$(call ptx/endis,PTXCONF_UDEV_KEYMAPS)-keymap \
@@ -72,6 +71,7 @@ UDEV_CONF_OPT += \
 	--enable-hwdb
 else
 UDEV_CONF_OPT += \
+	--disable-manpages \
 	--libexecdir=/lib \
 	--$(call ptx/endis,PTXCONF_UDEV_MTD_PROBE)-mtd_probe
 endif
