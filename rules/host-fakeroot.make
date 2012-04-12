@@ -27,18 +27,13 @@ HOST_FAKEROOT_SOURCE	:= $(SRCDIR)/$(HOST_FAKEROOT_TARBALL)
 HOST_FAKEROOT_DIR	:= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_FAKEROOT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_FAKEROOT)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 HOST_FAKEROOT_CONF_TOOL := autoconf
+HOST_FAKEROOT_CONF_OPT := \
+	$(HOST_AUTOCONF) \
+	--libdir=/lib/fakeroot
 
 # ----------------------------------------------------------------------------
 # Install
