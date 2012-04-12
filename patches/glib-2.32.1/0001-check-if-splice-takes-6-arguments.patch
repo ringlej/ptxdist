@@ -13,13 +13,13 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  configure.ac |   16 +++++++++++++++-
  1 file changed, 15 insertions(+), 1 deletion(-)
 
-Index: glib-2.27.93/configure.ac
-===================================================================
---- glib-2.27.93.orig/configure.ac
-+++ glib-2.27.93/configure.ac
-@@ -948,7 +948,21 @@ AC_CHECK_FUNCS(lstat strerror strsignal
- AC_CHECK_FUNCS(chown lchmod lchown fchmod fchown link statvfs statfs utimes getgrgid getpwuid)
- AC_CHECK_FUNCS(getmntent_r setmntent endmntent hasmntopt getmntinfo)
+diff --git a/configure.ac b/configure.ac
+index 48868d2..f186882 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -970,7 +970,21 @@ AC_CHECK_FUNCS(lstat strerror strsignal memmove vsnprintf stpcpy strcasecmp strn
+ AC_CHECK_FUNCS(chown lchmod lchown fchmod fchown link utimes getgrgid getpwuid)
+ AC_CHECK_FUNCS(getmntent_r setmntent endmntent hasmntopt getfsstat getvfsstat)
  # Check for high-resolution sleep functions
 -AC_CHECK_FUNCS(splice)
 +AC_CACHE_CHECK([for splice()],
@@ -37,6 +37,6 @@ Index: glib-2.27.93/configure.ac
 +AS_IF([test "x$ac_cv_func_splice" = "xyes"],[
 +  AC_DEFINE([HAVE_SPLICE],[1],[If we have splice])
 +])
+ AC_CHECK_FUNCS(prlimit)
  
- AC_CHECK_HEADERS(crt_externs.h)
- AC_CHECK_FUNCS(_NSGetEnviron)
+ # To avoid finding a compatibility unusable statfs, which typically

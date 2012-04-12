@@ -21,12 +21,12 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.30.2
-GLIB_MD5	:= b40f3889e8d24e1b367763673ca6deb5
+GLIB_VERSION	:= 2.32.1
+GLIB_MD5	:= 032c7cf9868c9aa186b490b155a41144
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
-GLIB_SUFFIX	:= tar.bz2
+GLIB_SUFFIX	:= tar.xz
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
@@ -68,7 +68,6 @@ GLIB_AUTOCONF := \
 	--enable-debug=minimum \
 	--disable-gc-friendly \
 	--enable-mem-pools \
-	--enable-threads \
 	--with-threads=posix \
 	--disable-rebuilds \
 	--disable-included-printf \
