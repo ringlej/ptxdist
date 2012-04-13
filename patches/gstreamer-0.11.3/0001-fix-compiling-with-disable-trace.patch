@@ -1,0 +1,50 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 13 Apr 2012 15:34:42 +0200
+Subject: [PATCH] fix compiling with --disable-trace
+
+Without this patch compiling fails with:
+
+../../../gst/.libs/libgstreamer-0.11.so: undefined reference to `_priv_gst_alloc_trace_initialize'
+../../../gst/.libs/libgstreamer-0.11.so: undefined reference to `_priv_gst_alloc_trace_deinit'
+collect2: ld returned 1 exit status
+make[5]: *** [gst-plugin-scanner] Error 1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ gst/gst.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/gst/gst.c b/gst/gst.c
+index 3165c9f..c4912aa 100644
+--- a/gst/gst.c
++++ b/gst/gst.c
+@@ -118,7 +118,9 @@
+ #include <locale.h>             /* for LC_ALL */
+ 
+ #include "gst.h"
++#ifndef GST_DISABLE_TRACE
+ #include "gsttrace.h"
++#endif
+ 
+ #define GST_CAT_DEFAULT GST_CAT_GST_INIT
+ 
+@@ -635,7 +637,9 @@ init_post (GOptionContext * context, GOptionGroup * group, gpointer data,
+   llf = G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_ERROR | G_LOG_FLAG_FATAL;
+   g_log_set_handler (g_log_domain_gstreamer, llf, debug_log_handler, NULL);
+ 
++#ifndef GST_DISABLE_TRACE
+   _priv_gst_alloc_trace_initialize ();
++#endif
+ 
+   _priv_gst_mini_object_initialize ();
+   _priv_gst_quarks_initialize ();
+@@ -1007,7 +1011,9 @@ gst_deinit (void)
+ 
+   _priv_gst_registry_cleanup ();
+ 
++#ifndef GST_DISABLE_TRACE
+   _priv_gst_alloc_trace_deinit ();
++#endif
+ 
+   g_type_class_unref (g_type_class_peek (gst_object_get_type ()));
+   g_type_class_unref (g_type_class_peek (gst_pad_get_type ()));

@@ -43,8 +43,12 @@ menu "framebuffer                   "
 source "generated/multimedia_framebuffer.in"
 endmenu
 
-menu "gstreamer                     "
+menu "gstreamer 0.10                "
 source "generated/multimedia_gstreamer.in"
+endmenu
+
+menu "gstreamer 0.11                "
+source "generated/multimedia_gstreamer11.in"
 endmenu
 
 menu "gtk+ & friends                "
