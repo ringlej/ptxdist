@@ -41,170 +41,170 @@ menuconfig GST_PLUGINS_BASE
 
 if GST_PLUGINS_BASE
 
-	config GST_PLUGINS_BASE_ORC
-		bool
+config GST_PLUGINS_BASE_ORC
+	bool
 
-	comment "dependency-less plugins"
-	# -------------------------------
+comment "dependency-less plugins"
+# -------------------------------
 
-	config GST_PLUGINS_BASE_ADDER
-		bool
-		select GST_PLUGINS_BASE_ORC
-		prompt "adder"
+config GST_PLUGINS_BASE_ADDER
+	bool
+	select GST_PLUGINS_BASE_ORC
+	prompt "adder"
 
-	config GST_PLUGINS_BASE_APP
-		bool
-		prompt "app"
+config GST_PLUGINS_BASE_APP
+	bool
+	prompt "app"
 
-	config GST_PLUGINS_BASE_AUDIOCONVERT
-		bool
-		select GST_PLUGINS_BASE_ORC
-		prompt "audioconvert"
+config GST_PLUGINS_BASE_AUDIOCONVERT
+	bool
+	select GST_PLUGINS_BASE_ORC
+	prompt "audioconvert"
 
-	config GST_PLUGINS_BASE_AUDIORATE
-		bool
-		prompt "audiorate"
+config GST_PLUGINS_BASE_AUDIORATE
+	bool
+	prompt "audiorate"
 
-	config GST_PLUGINS_BASE_AUDIOTESTSRC
-		bool
-		prompt "audiotestsrc"
+config GST_PLUGINS_BASE_AUDIOTESTSRC
+	bool
+	prompt "audiotestsrc"
 
-	config GST_PLUGINS_BASE_DECODEBIN
-		bool
-		select GST_PLUGINS_BASE_PLAYBACK
-		prompt "decodebin"
+config GST_PLUGINS_BASE_DECODEBIN
+	bool
+	select GST_PLUGINS_BASE_PLAYBACK
+	prompt "decodebin"
 
-	config GST_PLUGINS_BASE_DECODEBIN_2
-		bool
-		select GST_PLUGINS_BASE_PLAYBACK
-		prompt "decodebin2"
+config GST_PLUGINS_BASE_DECODEBIN_2
+	bool
+	select GST_PLUGINS_BASE_PLAYBACK
+	prompt "decodebin2"
 
-	config GST_PLUGINS_BASE_ENCODING
-		bool
-		prompt "encoding"
+config GST_PLUGINS_BASE_ENCODING
+	bool
+	prompt "encoding"
 
-	config GST_PLUGINS_BASE_FFMPEGCOLORSPACE
-		bool
-		prompt "ffmpegcolorspace"
+config GST_PLUGINS_BASE_FFMPEGCOLORSPACE
+	bool
+	prompt "ffmpegcolorspace"
 
-	config GST_PLUGINS_BASE_GDP
-		bool
-		prompt "gdp"
+config GST_PLUGINS_BASE_GDP
+	bool
+	prompt "gdp"
 
-	config GST_PLUGINS_BASE_PLAYBACK
-		bool
-		prompt "playback"
+config GST_PLUGINS_BASE_PLAYBACK
+	bool
+	prompt "playback"
 
-	config GST_PLUGINS_BASE_AUDIORESAMPLE
-		bool
-		select GST_PLUGINS_BASE_ORC
-		prompt "audioresample"
+config GST_PLUGINS_BASE_AUDIORESAMPLE
+	bool
+	select GST_PLUGINS_BASE_ORC
+	prompt "audioresample"
 
-	config GST_PLUGINS_BASE_SUBPARSE
-		bool
-		prompt "subparse"
+config GST_PLUGINS_BASE_SUBPARSE
+	bool
+	prompt "subparse"
 
-	config GST_PLUGINS_BASE_TCP
-		bool
-		prompt "tcp"
+config GST_PLUGINS_BASE_TCP
+	bool
+	prompt "tcp"
 
-	config GST_PLUGINS_BASE_TYPEFIND
-		bool
-		prompt "typefind"
+config GST_PLUGINS_BASE_TYPEFIND
+	bool
+	prompt "typefind"
 
-	config GST_PLUGINS_BASE_VIDEOTESTSRC
-		bool
-		select GST_PLUGINS_BASE_ORC
-		prompt "videotestsrc"
+config GST_PLUGINS_BASE_VIDEOTESTSRC
+	bool
+	select GST_PLUGINS_BASE_ORC
+	prompt "videotestsrc"
 
-	config GST_PLUGINS_BASE_VIDEORATE
-		bool
-		prompt "videorate"
+config GST_PLUGINS_BASE_VIDEORATE
+	bool
+	prompt "videorate"
 
-	config GST_PLUGINS_BASE_VIDEOSCALE
-		bool
-		select GST_PLUGINS_BASE_ORC
-		prompt "videoscale"
+config GST_PLUGINS_BASE_VIDEOSCALE
+	bool
+	select GST_PLUGINS_BASE_ORC
+	prompt "videoscale"
 
-	config GST_PLUGINS_BASE_VOLUME
-		bool
-		select GST_PLUGINS_BASE_ORC
-		prompt "volume"
+config GST_PLUGINS_BASE_VOLUME
+	bool
+	select GST_PLUGINS_BASE_ORC
+	prompt "volume"
 
-	comment "plugins with dependencies"
+comment "plugins with dependencies"
 
-	config GST_PLUGINS_BASE_X
-		bool
-		prompt "x based plugins"
+config GST_PLUGINS_BASE_X
+	bool
+	prompt "x based plugins"
 
-	config GST_PLUGINS_BASE_XVIDEO
-		bool
-		depends on GST_PLUGINS_BASE_X
-		prompt "xv"
-		help
-		  This plugin offers an xlib based window that can display a video stream.
+config GST_PLUGINS_BASE_XVIDEO
+	bool
+	depends on GST_PLUGINS_BASE_X
+	prompt "xv"
+	help
+	  This plugin offers an xlib based window that can display a video stream.
 
-	config GST_PLUGINS_BASE_GST_V4L
-		bool
-		prompt "gst_v4l"
+config GST_PLUGINS_BASE_GST_V4L
+	bool
+	prompt "gst_v4l"
 
-	config GST_PLUGINS_BASE_ALSA
-		bool
-		prompt "alsa"
+config GST_PLUGINS_BASE_ALSA
+	bool
+	prompt "alsa"
 
-	config GST_PLUGINS_BASE_CDPARANOIA
-		bool
-		depends on BROKEN
-		prompt "cdparanoia [BROKEN]"
+config GST_PLUGINS_BASE_CDPARANOIA
+	bool
+	depends on BROKEN
+	prompt "cdparanoia [BROKEN]"
 
-	config GST_PLUGINS_BASE_GNOME_VFS
-		bool
-		depends on BROKEN
-		prompt "gnome_vfs [BROKEN]"
+config GST_PLUGINS_BASE_GNOME_VFS
+	bool
+	depends on BROKEN
+	prompt "gnome_vfs [BROKEN]"
 
-	config GST_PLUGINS_BASE_IVORBIS
-		bool
-		depends on BROKEN
-		prompt "ivorbis"
+config GST_PLUGINS_BASE_IVORBIS
+	bool
+	depends on BROKEN
+	prompt "ivorbis"
 
-	config GST_PLUGINS_BASE_GIO
-		bool
-		prompt "gio"
+config GST_PLUGINS_BASE_GIO
+	bool
+	prompt "gio"
 
-	config GST_PLUGINS_BASE_LIBVISUAL
-		bool
-		depends on BROKEN
-		prompt "libvisual [BROKEN]"
+config GST_PLUGINS_BASE_LIBVISUAL
+	bool
+	depends on BROKEN
+	prompt "libvisual [BROKEN]"
 
-	config GST_PLUGINS_BASE_OGG
-		bool
-		prompt "ogg"
+config GST_PLUGINS_BASE_OGG
+	bool
+	prompt "ogg"
 
-	config GST_PLUGINS_BASE_PANGO
-		bool
-		prompt "pango"
+config GST_PLUGINS_BASE_PANGO
+	bool
+	prompt "pango"
 
-	config GST_PLUGINS_BASE_THEORA
-		bool
-		prompt "theora"
+config GST_PLUGINS_BASE_THEORA
+	bool
+	prompt "theora"
 
-	config GST_PLUGINS_BASE_VORBIS
-		bool
-		prompt "vorbis"
+config GST_PLUGINS_BASE_VORBIS
+	bool
+	prompt "vorbis"
 
-	comment "Support options"
+comment "Support options"
 
-	config GST_PLUGINS_BASE_XSHM
-		bool
-		depends on GST_PLUGINS_BASE_X
-		prompt "xshm"
-		help
-		  xshm support for X and XVideo plaugins
+config GST_PLUGINS_BASE_XSHM
+	bool
+	depends on GST_PLUGINS_BASE_X
+	prompt "xshm"
+	help
+	  xshm support for X and XVideo plaugins
 
-	config GST_PLUGINS_BASE_ZLIB
-		bool
-		prompt "zlib"
-		help
-		  zlib support for ID3 parsing in libgsttag
+config GST_PLUGINS_BASE_ZLIB
+	bool
+	prompt "zlib"
+	help
+	  zlib support for ID3 parsing in libgsttag
 
 endif
