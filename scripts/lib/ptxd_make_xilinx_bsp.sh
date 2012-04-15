@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2011 by Stephan Linz <linz@li-pro.net>
+# Copyright (C) 2011-2012 by Stephan Linz <linz@li-pro.net>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -60,7 +60,7 @@ ptxd_make_xilinx_bsp_apply_uboot()
 export -f ptxd_make_xilinx_bsp_apply_uboot
 
 #
-# apply Xilinx BSP for Linux kernel 2.6
+# apply Xilinx BSP for Linux kernel 2.x / 3.x
 #
 ptxd_make_xilinx_bsp_apply_kernel()
 {
@@ -78,7 +78,7 @@ ptxd_make_xilinx_bsp_apply_kernel()
 	    pkg_xlbsp_kernel_files=${pkg_xlbsp_kernel24_files};
 	    ptx_xlbsp_kernel_platform="uclinux-auto";
 	    ;;
-	linux-26*|linux-2.6*)
+	linux-26*|linux-2.6*|linux-3*)
 	    pkg_xlbsp_kernel_files=${pkg_xlbsp_kernel26_files};
 	    ptx_xlbsp_kernel_platform="generic";
 	    ;;
