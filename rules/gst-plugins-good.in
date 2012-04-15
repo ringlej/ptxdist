@@ -34,345 +34,345 @@ menuconfig GST_PLUGINS_GOOD
 
 if GST_PLUGINS_GOOD
 
-	config GST_PLUGINS_GOOD_ORC
-		bool
-
-	# ------------------------------
-	comment "dependency-less plugins"
-	# ------------------------------
-
-	config GST_PLUGINS_GOOD_VIDEOFILTER
-		bool
-		prompt "videofilter"
-
-	config GST_PLUGINS_GOOD_ALPHA
-		bool
-		prompt "alpha"
-
-	config GST_PLUGINS_GOOD_APETAG
-		bool
-		prompt "apetag"
-
-	config GST_PLUGINS_GOOD_AUDIOFX
-		bool
-		prompt "audiofx"
-
-	config GST_PLUGINS_GOOD_AUDIOPARSERS
-		bool
-		prompt "audioparsers"
-
-	config GST_PLUGINS_GOOD_AUPARSE
-		bool
-		prompt "auparse"
-
-	config GST_PLUGINS_GOOD_AUTODETECT
-		bool
-		prompt "autodetect"
-
-	config GST_PLUGINS_GOOD_AVI
-		bool
-		prompt "avi"
-
-	config GST_PLUGINS_GOOD_CUTTER
-		bool
-		prompt "cutter"
-
-	config GST_PLUGINS_GOOD_DEBUGUTILS
-		bool
-		prompt "debugutils"
-
-	config GST_PLUGINS_GOOD_DEINTERLACE
-		bool
-		select GST_PLUGINS_GOOD_ORC
-		prompt "deinterlace"
-
-	config GST_PLUGINS_GOOD_EFFECTV
-		bool
-		prompt "effectv"
-
-	config GST_PLUGINS_GOOD_EQUALIZER
-		bool
-		prompt "equalizer"
-
-	config GST_PLUGINS_GOOD_FLV
-		bool
-		prompt "flv"
-
-	config GST_PLUGINS_GOOD_ID3DEMUX
-		bool
-		prompt "id3demux"
-
-	config GST_PLUGINS_GOOD_ICYDEMUX
-		bool
-		prompt "icydemux"
-
-	config GST_PLUGINS_GOOD_INTERLEAVE
-		bool
-		prompt "interleave"
-
-	config GST_PLUGINS_GOOD_FLX
-		bool
-		prompt "flx"
-
-	config GST_PLUGINS_GOOD_GOOM
-		bool
-		select GST_PLUGINS_GOOD_ORC
-		prompt "goom"
-
-	config GST_PLUGINS_GOOD_GOOM2K1
-		bool
-		prompt "goom2k1"
-
-	config GST_PLUGINS_GOOD_IMAGEFREEZE
-		bool
-		prompt "imagefreeze"
-
-	config GST_PLUGINS_GOOD_LAW
-		bool
-		prompt "law"
-
-	config GST_PLUGINS_GOOD_LEVEL
-		bool
-		prompt "level"
-
-	config GST_PLUGINS_GOOD_MATROSKA
-		bool
-		prompt "matroska"
-
-	config GST_PLUGINS_GOOD_MONOSCOPE
-		bool
-		prompt "monoscope"
-
-	config GST_PLUGINS_GOOD_MULTIFILE
-		bool
-		prompt "multifile"
-
-	config GST_PLUGINS_GOOD_MULTIPART
-		bool
-		prompt "multipart"
-
-	config GST_PLUGINS_GOOD_QTDEMUX
-		bool
-		prompt "isomp4"
-
-	config GST_PLUGINS_GOOD_REPLAYGAIN
-		bool
-		prompt "replaygain"
-
-	config GST_PLUGINS_GOOD_RTP
-		bool
-		prompt "rtp"
-
-	config GST_PLUGINS_GOOD_RTPMANAGER
-		bool
-		prompt "rtpmanager"
-
-	config GST_PLUGINS_GOOD_RTSP
-		bool
-		prompt "rtsp"
-
-	config GST_PLUGINS_GOOD_SHAPEWIPE
-		bool
-		prompt "shapewipe"
-
-	config GST_PLUGINS_GOOD_SMPTE
-		bool
-		prompt "smpte"
-
-	config GST_PLUGINS_GOOD_SPECTRUM
-		bool
-		prompt "spectrum"
-
-	config GST_PLUGINS_GOOD_UDP
-		bool
-		prompt "udp"
-
-	config GST_PLUGINS_GOOD_VIDEOBOX
-		bool
-		select GST_PLUGINS_GOOD_ORC
-		prompt "videobox"
-
-	config GST_PLUGINS_GOOD_VIDEOCROP
-		bool
-		prompt "videocrop"
-
-	config GST_PLUGINS_GOOD_VIDEOMIXER
-		bool
-		select GST_PLUGINS_GOOD_ORC
-		prompt "videomixer"
-
-	config GST_PLUGINS_GOOD_WAVENC
-		bool
-		prompt "wavenc"
-
-	config GST_PLUGINS_GOOD_WAVPARSE
-		bool
-		prompt "wavparse"
-
-	config GST_PLUGINS_GOOD_Y4M
-		bool
-		prompt "y4m"
-
-	# ---------------------------------
-	comment "plugins with dependencies"
-	# ---------------------------------
-
-	config GST_PLUGINS_GOOD_DIRECTSOUND
-		bool
-		depends on BROKEN
-		prompt "directsound"
-
-	config GST_PLUGINS_GOOD_OSS
-		bool
-		prompt "oss"
-
-	config GST_PLUGINS_GOOD_OSS4
-		bool
-		prompt "oss4"
-
-	config GST_PLUGINS_GOOD_SUNAUDIO
-		bool
-		depends on BROKEN
-		prompt "sunaudio"
-
-	config GST_PLUGINS_GOOD_OSX_AUDIO
-		bool
-		depends on BROKEN
-		prompt "osx_audio"
-
-	config GST_PLUGINS_GOOD_OSX_VIDEO
-		bool
-		depends on BROKEN
-		prompt "osx_video"
-
-	config GST_PLUGINS_GOOD_GST_V4L2
-		bool
-		prompt "gst_v4l2"
-
-	config GST_PLUGINS_GOOD_GST_V4L2_LIBV4L2
-		bool
-		depends on GST_PLUGINS_GOOD_GST_V4L2
-		prompt "build v4l2 plugin with libv4l2 support"
-
-	config GST_PLUGINS_GOOD_XVIDEO
-		bool
-		depends on GST_PLUGINS_GOOD_GST_V4L2
-		prompt "xvideo support"
-
-	config GST_PLUGINS_GOOD_X
-		bool
-		prompt "x"
-
-	config GST_PLUGINS_GOOD_XSHM
-		bool
-		depends on GST_PLUGINS_GOOD_X
-		prompt "xshm support"
-
-	config GST_PLUGINS_GOOD_AALIB
-		bool
-		depends on BROKEN
-		prompt "aalib"
-
-	config GST_PLUGINS_GOOD_ANNODEX
-		bool
-		depends on BROKEN
-		prompt "annodex"
-
-	config GST_PLUGINS_GOOD_CAIRO
-		bool
-		prompt "cairo"
-
-	config GST_PLUGINS_GOOD_ESD
-		bool
-		depends on BROKEN
-		prompt "esd"
-
-	config GST_PLUGINS_GOOD_FLAC
-		bool
-		prompt "flac"
-
-	config GST_PLUGINS_GOOD_GCONF
-		bool
-		depends on BROKEN
-		prompt "gconf"
-
-	config GST_PLUGINS_GOOD_GDK_PIXBUF
-		bool
-		prompt "gdk_pixbuf"
-
-	config GST_PLUGINS_GOOD_HAL
-		bool
-		depends on BROKEN
-		prompt "hal"
-
-	config GST_PLUGINS_GOOD_JPEG
-		bool
-		prompt "jpeg"
-
-	config GST_PLUGINS_GOOD_JACK
-		bool
-		prompt "jack"
-		depends on BROKEN
-
-	config GST_PLUGINS_GOOD_LIBCACA
-		bool
-		prompt "libcaca"
-
-	config GST_PLUGINS_GOOD_LIBDV
-		bool
-		depends on BROKEN
-		prompt "libdv"
-
-	config GST_PLUGINS_GOOD_LIBPNG
-		bool
-		prompt "libpng"
-
-	config GST_PLUGINS_GOOD_PULSE
-		bool
-		depends on BROKEN
-		prompt "pulse"
-
-	config GST_PLUGINS_GOOD_DV1394
-		bool
-		depends on BROKEN
-		prompt "dv1394"
-
-	config GST_PLUGINS_GOOD_SHOUT2
-		bool
-		depends on BROKEN
-		prompt "shout2"
-
-	config GST_PLUGINS_GOOD_SOUP
-		bool
-		depends on BROKEN
-		prompt "soup"
-
-	config GST_PLUGINS_GOOD_SPEEX
-		bool
-		prompt "speex"
-
-	config GST_PLUGINS_GOOD_TAGLIB
-		bool
-		depends on BROKEN
-		prompt "taglib"
-
-	config GST_PLUGINS_GOOD_WAVPACK
-		bool
-		depends on BROKEN
-		prompt "wavpack"
-
-	comment "Support options"
-
-	config GST_PLUGINS_GOOD_ZLIB
-		bool
-		prompt "zlib"
-		help
-		  zlib support for id3demux/qtdemux/matroska
-
-	config GST_PLUGINS_GOOD_BZ2
-		bool
-		prompt "bz2"
-		help
-		  bz2 support for matroska
+config GST_PLUGINS_GOOD_ORC
+	bool
+
+# ------------------------------
+comment "dependency-less plugins"
+# ------------------------------
+
+config GST_PLUGINS_GOOD_VIDEOFILTER
+	bool
+	prompt "videofilter"
+
+config GST_PLUGINS_GOOD_ALPHA
+	bool
+	prompt "alpha"
+
+config GST_PLUGINS_GOOD_APETAG
+	bool
+	prompt "apetag"
+
+config GST_PLUGINS_GOOD_AUDIOFX
+	bool
+	prompt "audiofx"
+
+config GST_PLUGINS_GOOD_AUDIOPARSERS
+	bool
+	prompt "audioparsers"
+
+config GST_PLUGINS_GOOD_AUPARSE
+	bool
+	prompt "auparse"
+
+config GST_PLUGINS_GOOD_AUTODETECT
+	bool
+	prompt "autodetect"
+
+config GST_PLUGINS_GOOD_AVI
+	bool
+	prompt "avi"
+
+config GST_PLUGINS_GOOD_CUTTER
+	bool
+	prompt "cutter"
+
+config GST_PLUGINS_GOOD_DEBUGUTILS
+	bool
+	prompt "debugutils"
+
+config GST_PLUGINS_GOOD_DEINTERLACE
+	bool
+	select GST_PLUGINS_GOOD_ORC
+	prompt "deinterlace"
+
+config GST_PLUGINS_GOOD_EFFECTV
+	bool
+	prompt "effectv"
+
+config GST_PLUGINS_GOOD_EQUALIZER
+	bool
+	prompt "equalizer"
+
+config GST_PLUGINS_GOOD_FLV
+	bool
+	prompt "flv"
+
+config GST_PLUGINS_GOOD_ID3DEMUX
+	bool
+	prompt "id3demux"
+
+config GST_PLUGINS_GOOD_ICYDEMUX
+	bool
+	prompt "icydemux"
+
+config GST_PLUGINS_GOOD_INTERLEAVE
+	bool
+	prompt "interleave"
+
+config GST_PLUGINS_GOOD_FLX
+	bool
+	prompt "flx"
+
+config GST_PLUGINS_GOOD_GOOM
+	bool
+	select GST_PLUGINS_GOOD_ORC
+	prompt "goom"
+
+config GST_PLUGINS_GOOD_GOOM2K1
+	bool
+	prompt "goom2k1"
+
+config GST_PLUGINS_GOOD_IMAGEFREEZE
+	bool
+	prompt "imagefreeze"
+
+config GST_PLUGINS_GOOD_LAW
+	bool
+	prompt "law"
+
+config GST_PLUGINS_GOOD_LEVEL
+	bool
+	prompt "level"
+
+config GST_PLUGINS_GOOD_MATROSKA
+	bool
+	prompt "matroska"
+
+config GST_PLUGINS_GOOD_MONOSCOPE
+	bool
+	prompt "monoscope"
+
+config GST_PLUGINS_GOOD_MULTIFILE
+	bool
+	prompt "multifile"
+
+config GST_PLUGINS_GOOD_MULTIPART
+	bool
+	prompt "multipart"
+
+config GST_PLUGINS_GOOD_QTDEMUX
+	bool
+	prompt "isomp4"
+
+config GST_PLUGINS_GOOD_REPLAYGAIN
+	bool
+	prompt "replaygain"
+
+config GST_PLUGINS_GOOD_RTP
+	bool
+	prompt "rtp"
+
+config GST_PLUGINS_GOOD_RTPMANAGER
+	bool
+	prompt "rtpmanager"
+
+config GST_PLUGINS_GOOD_RTSP
+	bool
+	prompt "rtsp"
+
+config GST_PLUGINS_GOOD_SHAPEWIPE
+	bool
+	prompt "shapewipe"
+
+config GST_PLUGINS_GOOD_SMPTE
+	bool
+	prompt "smpte"
+
+config GST_PLUGINS_GOOD_SPECTRUM
+	bool
+	prompt "spectrum"
+
+config GST_PLUGINS_GOOD_UDP
+	bool
+	prompt "udp"
+
+config GST_PLUGINS_GOOD_VIDEOBOX
+	bool
+	select GST_PLUGINS_GOOD_ORC
+	prompt "videobox"
+
+config GST_PLUGINS_GOOD_VIDEOCROP
+	bool
+	prompt "videocrop"
+
+config GST_PLUGINS_GOOD_VIDEOMIXER
+	bool
+	select GST_PLUGINS_GOOD_ORC
+	prompt "videomixer"
+
+config GST_PLUGINS_GOOD_WAVENC
+	bool
+	prompt "wavenc"
+
+config GST_PLUGINS_GOOD_WAVPARSE
+	bool
+	prompt "wavparse"
+
+config GST_PLUGINS_GOOD_Y4M
+	bool
+	prompt "y4m"
+
+# ---------------------------------
+comment "plugins with dependencies"
+# ---------------------------------
+
+config GST_PLUGINS_GOOD_DIRECTSOUND
+	bool
+	depends on BROKEN
+	prompt "directsound"
+
+config GST_PLUGINS_GOOD_OSS
+	bool
+	prompt "oss"
+
+config GST_PLUGINS_GOOD_OSS4
+	bool
+	prompt "oss4"
+
+config GST_PLUGINS_GOOD_SUNAUDIO
+	bool
+	depends on BROKEN
+	prompt "sunaudio"
+
+config GST_PLUGINS_GOOD_OSX_AUDIO
+	bool
+	depends on BROKEN
+	prompt "osx_audio"
+
+config GST_PLUGINS_GOOD_OSX_VIDEO
+	bool
+	depends on BROKEN
+	prompt "osx_video"
+
+config GST_PLUGINS_GOOD_GST_V4L2
+	bool
+	prompt "gst_v4l2"
+
+config GST_PLUGINS_GOOD_GST_V4L2_LIBV4L2
+	bool
+	depends on GST_PLUGINS_GOOD_GST_V4L2
+	prompt "build v4l2 plugin with libv4l2 support"
+
+config GST_PLUGINS_GOOD_XVIDEO
+	bool
+	depends on GST_PLUGINS_GOOD_GST_V4L2
+	prompt "xvideo support"
+
+config GST_PLUGINS_GOOD_X
+	bool
+	prompt "x"
+
+config GST_PLUGINS_GOOD_XSHM
+	bool
+	depends on GST_PLUGINS_GOOD_X
+	prompt "xshm support"
+
+config GST_PLUGINS_GOOD_AALIB
+	bool
+	depends on BROKEN
+	prompt "aalib"
+
+config GST_PLUGINS_GOOD_ANNODEX
+	bool
+	depends on BROKEN
+	prompt "annodex"
+
+config GST_PLUGINS_GOOD_CAIRO
+	bool
+	prompt "cairo"
+
+config GST_PLUGINS_GOOD_ESD
+	bool
+	depends on BROKEN
+	prompt "esd"
+
+config GST_PLUGINS_GOOD_FLAC
+	bool
+	prompt "flac"
+
+config GST_PLUGINS_GOOD_GCONF
+	bool
+	depends on BROKEN
+	prompt "gconf"
+
+config GST_PLUGINS_GOOD_GDK_PIXBUF
+	bool
+	prompt "gdk_pixbuf"
+
+config GST_PLUGINS_GOOD_HAL
+	bool
+	depends on BROKEN
+	prompt "hal"
+
+config GST_PLUGINS_GOOD_JPEG
+	bool
+	prompt "jpeg"
+
+config GST_PLUGINS_GOOD_JACK
+	bool
+	prompt "jack"
+	depends on BROKEN
+
+config GST_PLUGINS_GOOD_LIBCACA
+	bool
+	prompt "libcaca"
+
+config GST_PLUGINS_GOOD_LIBDV
+	bool
+	depends on BROKEN
+	prompt "libdv"
+
+config GST_PLUGINS_GOOD_LIBPNG
+	bool
+	prompt "libpng"
+
+config GST_PLUGINS_GOOD_PULSE
+	bool
+	depends on BROKEN
+	prompt "pulse"
+
+config GST_PLUGINS_GOOD_DV1394
+	bool
+	depends on BROKEN
+	prompt "dv1394"
+
+config GST_PLUGINS_GOOD_SHOUT2
+	bool
+	depends on BROKEN
+	prompt "shout2"
+
+config GST_PLUGINS_GOOD_SOUP
+	bool
+	depends on BROKEN
+	prompt "soup"
+
+config GST_PLUGINS_GOOD_SPEEX
+	bool
+	prompt "speex"
+
+config GST_PLUGINS_GOOD_TAGLIB
+	bool
+	depends on BROKEN
+	prompt "taglib"
+
+config GST_PLUGINS_GOOD_WAVPACK
+	bool
+	depends on BROKEN
+	prompt "wavpack"
+
+comment "Support options"
+
+config GST_PLUGINS_GOOD_ZLIB
+	bool
+	prompt "zlib"
+	help
+	  zlib support for id3demux/qtdemux/matroska
+
+config GST_PLUGINS_GOOD_BZ2
+	bool
+	prompt "bz2"
+	help
+	  bz2 support for matroska
 
 endif
