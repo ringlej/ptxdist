@@ -8,4 +8,5 @@
 0006-qmake-make-sure-local-include-dirs-come-first.patch
 0007-phonon-fix-colors-for-video-on-qgraphicsview.patch
 0008-don-t-build-webkit-tests.patch
-# 8d5103d37d335eb55a93be1930c153b2  - git-ptx-patches magic
+0009-glib2-2.31.0-compatibility-fix-for-webkit.patch
+# 6da663d8ed96cbabdfe0697a0301cdc8  - git-ptx-patches magic

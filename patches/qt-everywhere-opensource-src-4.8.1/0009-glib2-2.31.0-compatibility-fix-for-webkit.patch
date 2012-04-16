@@ -1,0 +1,51 @@
+From: Mark Brand <mabrand@mabrand.nl>
+Date: Fri, 23 Mar 2012 17:24:15 +0100
+Subject: [PATCH] glib2 2.31.0 compatibility fix for webkit
+
+taken from
+https://lists.webkit.org/pipermail/webkit-unassigned/2011-November/385578.html
+and
+https://lists.webkit.org/pipermail/webkit-unassigned/2011-November/385579.html
+
+Change-Id: I4302cce407c9c55d20a6e60b62d50802d1df0a13
+
+Taken from https://codereview.qt-project.org/#change,21292
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GOwnPtr.h   |    1 +
+ src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GTypedefs.h |    2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GOwnPtr.h b/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GOwnPtr.h
+index 8c7e837..e85f2aa 100644
+--- a/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GOwnPtr.h
++++ b/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GOwnPtr.h
+@@ -24,6 +24,7 @@
+ 
+ #if ENABLE(GLIB_SUPPORT)
+ 
++#include <glib.h>
+ #include <algorithm>
+ #include <wtf/Assertions.h>
+ #include <wtf/Noncopyable.h>
+diff --git a/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GTypedefs.h b/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GTypedefs.h
+index c7f7ac4..136bde5 100644
+--- a/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GTypedefs.h
++++ b/src/3rdparty/webkit/Source/JavaScriptCore/wtf/gobject/GTypedefs.h
+@@ -39,7 +39,6 @@ typedef void* gpointer;
+ typedef struct _GAsyncResult GAsyncResult;
+ typedef struct _GCancellable GCancellable;
+ typedef struct _GCharsetConverter GCharsetConverter;
+-typedef struct _GCond GCond;
+ typedef struct _GDir GDir;
+ typedef struct _GdkAtom* GdkAtom;
+ typedef struct _GdkCursor GdkCursor;
+@@ -52,7 +51,6 @@ typedef struct _GFile GFile;
+ typedef struct _GHashTable GHashTable;
+ typedef struct _GInputStream GInputStream;
+ typedef struct _GList GList;
+-typedef struct _GMutex GMutex;
+ typedef struct _GPatternSpec GPatternSpec;
+ typedef struct _GPollableOutputStream GPollableOutputStream;
+ typedef struct _GSocketClient GSocketClient;
