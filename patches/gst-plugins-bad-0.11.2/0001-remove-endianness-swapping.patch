@@ -1,0 +1,45 @@
+From: Luotao Fu <lfu@pengutronix.de>
+Date: Thu, 11 Dec 2008 11:57:48 +0100
+Subject: [PATCH] remove endianness swapping
+
+ Swapping r- g- and bmask here is weird. It turns i.E. RGB888 to BGR888. For
+ formats like RGB666 it turns the mask into a mess. Seems that gstreamer
+ treat all True color as Big Endian. Still I doubt that it makes sense to
+ swap the masks. I'm however not quite sure about this, comments are highly
+ welcome.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ sys/fbdev/gstfbdevsink.c |   14 +-------------
+ 1 files changed, 1 insertions(+), 13 deletions(-)
+
+diff --git a/sys/fbdev/gstfbdevsink.c b/sys/fbdev/gstfbdevsink.c
+index 989d48f..62b9986 100644
+--- a/sys/fbdev/gstfbdevsink.c
++++ b/sys/fbdev/gstfbdevsink.c
+@@ -153,21 +153,9 @@ gst_fbdevsink_getcaps (GstBaseSink * bsink)
+ 
+   switch (fbdevsink->varinfo.bits_per_pixel) {
+     case 32:
+-      /* swap endian of masks */
+-      rmask = swapendian (rmask);
+-      gmask = swapendian (gmask);
+-      bmask = swapendian (bmask);
++    case 24:
+       endianness = 4321;
+       break;
+-    case 24:{
+-      /* swap red and blue masks */
+-      uint32_t t = rmask;
+-
+-      rmask = bmask;
+-      bmask = t;
+-      endianness = 4321;
+-      break;
+-    }
+     case 15:
+     case 16:
+       endianness = 1234;
+-- 
+1.7.4.1
+

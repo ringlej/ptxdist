@@ -1,0 +1,52 @@
+From: Luotao Fu <lfu@pengutronix.de>
+Date: Thu, 11 Dec 2008 12:03:59 +0100
+Subject: [PATCH] add rgb666 support
+
+ This one adds support for rgb666 to fbdevsink. It's an exotic format, but still
+ can be found on especially some embedded devices. The Modelines are taken
+ directly from video.h of the video plugin, which is included by gstdevsink.
+ It'd probably be cleaner to split this in a separate patch for plugins-base.
+ I put the stuffs together for now for easier review. Patches for some sources
+ with rgb666 capability are coming soon.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ sys/fbdev/gstfbdevsink.c |   19 +++++++++++++++++++
+ 1 files changed, 19 insertions(+), 0 deletions(-)
+
+diff --git a/sys/fbdev/gstfbdevsink.c b/sys/fbdev/gstfbdevsink.c
+index 62b9986..b7d3f1a 100644
+--- a/sys/fbdev/gstfbdevsink.c
++++ b/sys/fbdev/gstfbdevsink.c
+@@ -69,9 +69,28 @@ static GstCaps *gst_fbdevsink_getcaps (GstBaseSink * bsink);
+ 
+ static GstVideoSinkClass *parent_class = NULL;
+ 
++#define GST_VIDEO_BYTE1_MASK_18  "0x0003F000"
++#define GST_VIDEO_BYTE2_MASK_18  "0x00000FC0"
++#define GST_VIDEO_BYTE3_MASK_18  "0x0000003F"
++#define __GST_VIDEO_CAPS_MAKE_18(R, G, B)                         \
++    "video/x-raw-rgb, "                                                 \
++    "bpp = (int) 32, "                                                  \
++    "depth = (int) 18, "                                                \
++    "endianness = (int) BIG_ENDIAN, "                                   \
++    "red_mask = (int) " GST_VIDEO_BYTE ## R ## _MASK_18 ", "      \
++    "green_mask = (int) " GST_VIDEO_BYTE ## G ## _MASK_18 ", "    \
++    "blue_mask = (int) " GST_VIDEO_BYTE ## B ## _MASK_18 ", "     \
++    "width = " GST_VIDEO_SIZE_RANGE ", "                                \
++    "height = " GST_VIDEO_SIZE_RANGE ", "                               \
++    "framerate = " GST_VIDEO_FPS_RANGE
++
++#define GST_VIDEO_CAPS_RGB666 \
++    __GST_VIDEO_CAPS_MAKE_18 (1, 2, 3)
++
+ #define GST_FBDEV_TEMPLATE_CAPS \
+      GST_VIDEO_CAPS_RGB_15 \
+  ";" GST_VIDEO_CAPS_RGB_16 \
++ ";" GST_VIDEO_CAPS_RGB666 \
+  ";" GST_VIDEO_CAPS_BGR \
+  ";" GST_VIDEO_CAPS_BGRx \
+  ";" GST_VIDEO_CAPS_xBGR \
+-- 
+1.7.4.1
+
