@@ -1,0 +1,100 @@
+## SECTION=multimedia_gstreamer11
+
+menuconfig GST_PLUGINS_UGLY11
+	tristate
+	select GLIB
+	select GSTREAMER11
+	select GST_PLUGINS_BASE11
+	select LIBMAD		if GST_PLUGINS_UGLY11_MAD
+	select LIBID3TAG	if GST_PLUGINS_UGLY11_MAD
+	select LIBMPEG2		if GST_PLUGINS_UGLY11_MPEG2DEC
+	select LAME		if GST_PLUGINS_UGLY11_LAME
+	select TWOLAME		if GST_PLUGINS_UGLY11_TWOLAME
+	prompt "gst-plugins-ugly              "
+	help
+	  GStreamer Ugly Plug-ins is a set of plug-ins that
+	  have good quality and correct functionality, but
+	  distributing them might pose problems. The license
+	  on either the plug-ins or the supporting libraries
+	  might not be how we'd like. The code might be widely
+	  known to present patent problems.
+
+if GST_PLUGINS_UGLY11
+
+config GST_PLUGINS_UGLY11_ASFDEMUX
+	bool
+	prompt "asfdemux"
+
+config GST_PLUGINS_UGLY11_DVDLPCMDEC
+	bool
+	prompt "dvdlpcmdec"
+
+config GST_PLUGINS_UGLY11_DVDSUB
+	bool
+	prompt "dvdsub"
+
+config GST_PLUGINS_UGLY11_XINGMUX
+	bool
+	prompt "xingmux"
+
+config GST_PLUGINS_UGLY11_REALMEDIA
+	bool
+	prompt "realmedia"
+
+config GST_PLUGINS_UGLY11_SYNAESTHESIA
+	bool
+	prompt "synaesthesia"
+
+config GST_PLUGINS_UGLY11_A52DEC
+	bool
+	depends on BROKEN
+	prompt "a52dec"
+
+config GST_PLUGINS_UGLY11_AMRNB
+	bool
+	depends on BROKEN
+	prompt "amrnb"
+
+config GST_PLUGINS_UGLY11_AMRWBDEC
+	bool
+	depends on BROKEN
+	prompt "amrwbdec"
+
+config GST_PLUGINS_UGLY11_CDIO
+	bool
+	depends on BROKEN
+	prompt "cdio"
+
+config GST_PLUGINS_UGLY11_DVDREADSRC
+	bool
+	depends on BROKEN
+	prompt "dvdreadsrc"
+
+config GST_PLUGINS_UGLY11_LAME
+	bool
+	prompt "lame"
+
+config GST_PLUGINS_UGLY11_MAD
+	bool
+	prompt "mad"
+
+config GST_PLUGINS_UGLY11_MPEG2DEC
+	bool
+	prompt "mpeg2dec"
+
+config GST_PLUGINS_UGLY11_SID
+	bool
+	depends on BROKEN
+	prompt "sid"
+
+config GST_PLUGINS_UGLY11_TWOLAME
+	bool
+	prompt "twolame"
+
+config GST_PLUGINS_UGLY11_X264
+	bool
+	depends on BROKEN
+	prompt "x264"
+
+endif
+
