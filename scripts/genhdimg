@@ -79,7 +79,7 @@ echo "------------------------------------"
 echo "Creating hard disk's partition table"
 echo "------------------------------------"
 
-for i in $(seq 4); do
+for i in 1 2 3 4; do
 	part_opts "$i"
 
 	if [ $i -gt $partcount ]; then
@@ -100,7 +100,7 @@ for i in $(seq 4); do
 	extraarg=""
 done
 
-for i in $(seq 4); do
+for i in 1 2 3 4; do
 	part_opts "$i"
 
 	if [ -z "${pimage}" ]; then
