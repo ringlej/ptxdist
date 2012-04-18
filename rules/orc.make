@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ORC) += orc
 #
 # Paths and names
 #
-ORC_VERSION	:= 0.4.14
-ORC_MD5		:= 6b3ff209e9763ebe40e152538884bd71
+ORC_VERSION	:= 0.4.16
+ORC_MD5		:= e482932e544c847761449b106ecbc483
 ORC		:= orc-$(ORC_VERSION)
 ORC_SUFFIX	:= tar.gz
 ORC_URL		:= http://code.entropywave.com/download/orc/$(ORC).$(ORC_SUFFIX)
@@ -39,6 +39,16 @@ ORC_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+# don't install orcc it's for the target and should not be used
+$(STATEDIR)/orc.install:
+	@$(call targetinfo)
+	@$(call world/install, ORC)
+	@rm $(ORC_PKGDIR)/usr/bin/orcc
+	@$(call touch)
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
