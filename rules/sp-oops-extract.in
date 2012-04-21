@@ -1,0 +1,15 @@
+## SECTION=debug_tools
+
+config SP_OOPS_EXTRACT
+	tristate
+	prompt "sp-oops-extract"
+	help
+	  Tool to extract oopses generated with mtd-oops.ko driver.
+
+	  To use that mechanism, just select CONFIG_MTD_OOPS in the kernel
+	  configuration and add 'mtdoops.mtddev=<devno>' to your boot command
+	  line where '<devno>' is the MTD device number you want to use to save
+	  kernel oopses. Alternatively, load the 'mtdoops' module with
+	  'mtddev=<devno>' as module parameter. To extract that oops, just use
+	  'sp-oops-extract /dev/mtd<devno>'.
+
