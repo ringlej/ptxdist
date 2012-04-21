@@ -1,0 +1,41 @@
+From dd53fb42020b5a0612870924dd95e3a488ddf13d Mon Sep 17 00:00:00 2001
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sun, 8 Apr 2012 17:55:56 +0200
+Subject: [PATCH] Fix build on non-Linux host
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ libcap/include/linux/capability.h |    6 ++++++
+ libcap/include/sys/capability.h   |    1 -
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/libcap/include/linux/capability.h b/libcap/include/linux/capability.h
+index 4924f2a..6d2fdaf 100644
+--- a/libcap/include/linux/capability.h
++++ b/libcap/include/linux/capability.h
+@@ -13,7 +13,13 @@
+ #ifndef _LINUX_CAPABILITY_H
+ #define _LINUX_CAPABILITY_H
+ 
++#ifdef __linux__
+ #include <linux/types.h>
++#else
++#include <stdint.h>
++typedef uint32_t __u32;
++typedef uint32_t __le32;
++#endif
+ 
+ struct task_struct;
+ 
+diff --git a/libcap/include/sys/capability.h b/libcap/include/sys/capability.h
+index 4b54acc..d6ef07f 100644
+--- a/libcap/include/sys/capability.h
++++ b/libcap/include/sys/capability.h
+@@ -21,7 +21,6 @@ extern "C" {
+ 
+ #include <sys/types.h>
+ #include <stdint.h>
+-#include <linux/types.h>
+ 
+ /*
+  * Required to limit what gets defined in the kernel header file.
