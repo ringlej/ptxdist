@@ -1,0 +1,9 @@
+[Unit]
+Description=Telnet Server
+After=syslog.target
+
+[Service]
+ExecStart=/sbin/utelnetd
+
+[Install]
+WantedBy=multi-user.target

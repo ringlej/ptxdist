@@ -22,35 +22,17 @@ UTELNETD_URL		:= http://www.pengutronix.de/software/utelnetd/download/$(UTELNETD
 UTELNETD_SOURCE		:= $(SRCDIR)/$(UTELNETD).tar.gz
 UTELNETD_DIR		:= $(BUILDDIR)/$(UTELNETD)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(UTELNETD_SOURCE):
-	@$(call targetinfo)
-	@$(call get, UTELNETD)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/utelnetd.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-
-UTELNETD_PATH	:= PATH=$(CROSS_PATH)
-UTELNETD_ENV	:= PATH=$(CROSS_PATH)
 
 UTELNETD_COMPILE_ENV := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	$(CROSS_ENV_FLAGS)
 
-UTELNETD_MAKEVARS := INSTDIR=/sbin
+UTELNETD_INSTALL_OPT := \
+	INSTDIR=/sbin \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -81,6 +63,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_UTELNETD_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_UTELNETD_BBINIT_LINK))
 endif
 endif
+endif
+ifdef PTXCONF_UTELNETD_SYSTEMD_UNIT
+	@$(call install_alternative, utelnetd, 0, 0, 0644, \
+		/lib/systemd/system/utelnetd.service)
+	@$(call install_link, utelnetd, ../utelnetd.service, \
+		/lib/systemd/system/multi-user.target.wants/utelnetd.service)
 endif
 
 	@$(call install_finish, utelnetd)

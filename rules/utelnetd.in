@@ -13,4 +13,10 @@ config UTELNETD_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/utelnetd"
 
+config UTELNETD_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd service files"
+
 endif
