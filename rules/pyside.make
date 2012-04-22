@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYSIDE) += pyside
 #
 # Paths and names
 #
-PYSIDE_VERSION	:= 4.7+1.0.3
-PYSIDE_MD5	:= 1a390fb502ae624ca3f70ef333bdffe8
+PYSIDE_VERSION	:= 4.8+1.1.1
+PYSIDE_MD5	:= 0176d3746074afe47373d7302e1b4501
 PYSIDE		:= pyside-qt$(PYSIDE_VERSION)
 PYSIDE_SUFFIX	:= tar.bz2
 PYSIDE_URL	:= http://www.pyside.org/files/$(PYSIDE).$(PYSIDE_SUFFIX)
@@ -35,8 +35,7 @@ PYSIDE_LICENSE	:= unknown
 PYSIDE_CONF_TOOL	:= cmake
 PYSIDE_CONF_OPT	= \
 	$(CROSS_CMAKE_USR) \
-	-DQT_SRC_DIR:STRING='$(QT4_DIR)' \
-	-DPython_ADDITIONAL_VERSIONS=$(PYTHON_MAJORMINOR)
+	-DQT_SRC_DIR:STRING='$(QT4_DIR)'
 
 # ----------------------------------------------------------------------------
 # Target-Install
