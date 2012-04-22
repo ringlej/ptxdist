@@ -172,6 +172,15 @@ endif
 endif
 endif # PTXCONF_INITMETHOD_BBINIT
 
+ifdef PTXCONF_BUSYBOX_TELNETD_SYSTEMD_UNIT
+	@$(call install_alternative, busybox, 0, 0, 0644, \
+		/lib/systemd/system/telnetd.socket)
+	@$(call install_alternative, busybox, 0, 0, 0644, \
+		/lib/systemd/system/telnetd@.service)
+	@$(call install_link, busybox, ../telnetd.socket, \
+		/lib/systemd/system/sockets.target.wants/telnetd.socket)
+endif
+
 #	#
 #	# config files
 #	#
