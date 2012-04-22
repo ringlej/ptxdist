@@ -215,12 +215,12 @@ ifdef PTXCONF_UDEV_SYSTEMD
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/systemd/system/udev-kernel.socket)
 	@$(call install_link, udev, ../udev-kernel.socket, \
-		/lib/systemd/system/socket.target.wants/udev-kernel.socket)
+		/lib/systemd/system/sockets.target.wants/udev-kernel.socket)
 
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/systemd/system/udev-control.socket)
 	@$(call install_link, udev, ../udev-control.socket, \
-		/lib/systemd/system/socket.target.wants/udev-control.socket)
+		/lib/systemd/system/sockets.target.wants/udev-control.socket)
 
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/systemd/system/udev.service)
