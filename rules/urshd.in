@@ -26,4 +26,10 @@ config URSHD_STARSCRIPT
 	  /etc/init.d. If no local 'projectroot/etc/init.d/urshd' exists, a
 	  generic start script will be used.
 
+config URSHD_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd service files"
+
 endif

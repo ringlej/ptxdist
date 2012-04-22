@@ -66,6 +66,13 @@ ifdef PTXCONF_URSHD_STARSCRIPT
 	@$(call install_alternative, urshd, 0, 0, 0755, /etc/init.d/urshd)
 endif
 endif
+ifdef PTXCONF_URSHD_SYSTEMD_UNIT
+	@$(call install_alternative, urshd, 0, 0, 0644, \
+		/lib/systemd/system/urshd.service)
+	@$(call install_link, urshd, ../urshd.service, \
+		/lib/systemd/system/multi-user.target.wants/urshd.service)
+endif
+
 	@$(call install_finish, urshd)
 
 	@$(call touch)
