@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SHIBOKEN) += shiboken
 #
 # Paths and names
 #
-SHIBOKEN_VERSION	:= 1.0.3
-SHIBOKEN_MD5		:= d155d61156c8db25a418b80ade47962f
+SHIBOKEN_VERSION	:= 1.1.1
+SHIBOKEN_MD5		:= fa451b6c4f3e06cce283a84550a96fd2
 SHIBOKEN		:= shiboken-$(SHIBOKEN_VERSION)
 SHIBOKEN_SUFFIX		:= tar.bz2
 SHIBOKEN_URL		:= http://www.pyside.org/files/$(SHIBOKEN).$(SHIBOKEN_SUFFIX)
@@ -36,7 +36,7 @@ SHIBOKEN_CONF_TOOL	:= cmake
 SHIBOKEN_CONF_OPT	= \
 	$(CROSS_CMAKE_USR) \
 	-DBUILD_TESTS:BOOL=OFF \
-	-DPython_ADDITIONAL_VERSIONS=$(PYTHON_MAJORMINOR)
+	-DPython_PREFERRED_VERSION=python$(PYTHON_MAJORMINOR)
 
 SHIBOKEN_MAKE_OPT	:= -C libshiboken
 SHIBOKEN_INSTALL_OPT	:= -C libshiboken install
@@ -62,7 +62,7 @@ $(STATEDIR)/shiboken.install.post:
 		'$(SYSROOT)/usr/lib/cmake/Shiboken-$(SHIBOKEN_VERSION)/ShibokenConfig.cmake'
 	@sed -i -e 's,"SYSROOT_CROSS,"$(PTXCONF_SYSROOT_CROSS),g' \
 		-e 's,"SYSROOT/usr,"$(SYSROOT)/usr,g' \
-		-e 's,"/usr/bin,"$(PTXCONF_SYSROOT_HOST)/usr/bin,g' \
+		-e 's,"/usr/bin,"$(PTXCONF_SYSROOT_HOST)/bin,g' \
 		-e 's,"/usr,"$(SYSROOT)/usr,g' \
 		'$(SYSROOT)/usr/lib/cmake/Shiboken-$(SHIBOKEN_VERSION)/ShibokenConfig-python$(PYTHON_MAJORMINOR).cmake'
 	@$(call touch)

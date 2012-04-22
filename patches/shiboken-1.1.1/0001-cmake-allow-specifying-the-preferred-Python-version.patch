@@ -1,0 +1,19 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 15 Mar 2012 08:55:26 +0100
+Subject: [PATCH] cmake: allow specifying the preferred Python version
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ cmake/Modules/FindPythonInterpWithDebug.cmake |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/cmake/Modules/FindPythonInterpWithDebug.cmake b/cmake/Modules/FindPythonInterpWithDebug.cmake
+index 2b9cd09..7f258f4 100644
+--- a/cmake/Modules/FindPythonInterpWithDebug.cmake
++++ b/cmake/Modules/FindPythonInterpWithDebug.cmake
+@@ -1,4 +1,4 @@
+-find_program(PYTHON_EXECUTABLE NAMES python2.7 python2.6 python2.5)
++find_program(PYTHON_EXECUTABLE NAMES ${Python_PREFERRED_VERSION} python2.7 python2.6 python2.5)
+ 
+ if(NOT PYTHON_EXECUTABLE)
+     find_package(PythonInterp REQUIRED)

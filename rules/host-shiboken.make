@@ -28,7 +28,7 @@ HOST_SHIBOKEN_CONF_TOOL	:= cmake
 HOST_SHIBOKEN_CONF_OPT	= \
 	$(HOST_CMAKE_OPT) \
 	-DBUILD_TESTS:BOOL=OFF \
-	-DPython_ADDITIONAL_VERSIONS=$(PYTHON_MAJORMINOR)
+	-DPython_PREFERRED_VERSION=python$(PYTHON_MAJORMINOR)
 
 
 # ----------------------------------------------------------------------------
