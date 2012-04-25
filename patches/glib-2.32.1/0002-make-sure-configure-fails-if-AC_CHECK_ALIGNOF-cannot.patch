@@ -1,0 +1,35 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 25 Apr 2012 09:46:35 +0200
+Subject: [PATCH] make sure configure fails if AC_CHECK_ALIGNOF cannot detect
+ the alignment
+
+When cross-compiling with gcc >= 4.5 AC_CHECK_ALIGNOF fails to detect the
+correct alignment. Without a previous AC_CHECK_TYPE for the same type, the
+alignment is silently set to '0'.
+This makes sure that configure fails and reports the problem.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=674483
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index b904e6c..d5b336c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -3454,10 +3454,13 @@ $ac_cv_sizeof___int64)
+   ;;
+ esac
+ 
++AC_CHECK_TYPE([guint32],,,[typedef unsigned $gint32 guint32;])
+ AC_CHECK_ALIGNOF([guint32], [AC_INCLUDES_DEFAULT
+ typedef unsigned $gint32 guint32;])
++AC_CHECK_TYPE([guint64],,,[typedef unsigned $gint64 guint64;])
+ AC_CHECK_ALIGNOF([guint64], [AC_INCLUDES_DEFAULT
+ typedef unsigned $gint64 guint64;])
++AC_CHECK_TYPE([unsigned long])
+ AC_CHECK_ALIGNOF([unsigned long])
+ 
+ # Check for libdbus1 - Optional - is only used in the GDBus test cases
