@@ -1,0 +1,76 @@
+From beadde506169a71a89ba37e277c611a7b5b18154 Mon Sep 17 00:00:00 2001
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sun, 8 Apr 2012 17:38:20 +0200
+Subject: [PATCH] Fix build on Darwin
+
+The problem is the -rpath-link that is used even on host CC but this
+option is not available on Mac OS.
+
+Upstream solved it completely different
+http://cgit.freedesktop.org/fontconfig/commit/?id=2a6b235ff6d2750171e8dff7cfdfe3bccb0f630e
+now, so after updating fontconfig the patch will be obsolete. Applying
+that patch is not possible, however, since it would be needed to
+re-create the tarball.
+
+The first upstream version that contains the release is 2.9.0.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ fc-arch/Makefile.am      |    2 +-
+ fc-case/Makefile.am      |    2 +-
+ fc-glyphname/Makefile.am |    2 +-
+ fc-lang/Makefile.am      |    2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/fc-arch/Makefile.am b/fc-arch/Makefile.am
+index 7e1dd3e..ddc1fc1 100644
+--- a/fc-arch/Makefile.am
++++ b/fc-arch/Makefile.am
+@@ -24,7 +24,7 @@
+ 
+ CC = @CC_FOR_BUILD@
+ EXEEXT = @EXEEXT_FOR_BUILD@
+-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
++LINK = $(CCLD) $(AM_CFLAGS) $(AM_LDFLAGS) -o $@
+ 
+ INCLUDES=-I${top_srcdir}/src -I${top_srcdir} $(WARN_CFLAGS)
+ 
+diff --git a/fc-case/Makefile.am b/fc-case/Makefile.am
+index d4fa12d..1b63acf 100644
+--- a/fc-case/Makefile.am
++++ b/fc-case/Makefile.am
+@@ -24,7 +24,7 @@
+ 
+ CC = @CC_FOR_BUILD@
+ EXEEXT = @EXEEXT_FOR_BUILD@
+-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
++LINK = $(CCLD) $(AM_CFLAGS) $(AM_LDFLAGS) -o $@
+ 
+ INCLUDES=-I${top_srcdir}/src -I${top_srcdir} $(WARN_CFLAGS)
+ 
+diff --git a/fc-glyphname/Makefile.am b/fc-glyphname/Makefile.am
+index 412d663..ea55b98 100644
+--- a/fc-glyphname/Makefile.am
++++ b/fc-glyphname/Makefile.am
+@@ -24,7 +24,7 @@
+ 
+ CC = @CC_FOR_BUILD@
+ EXEEXT = @EXEEXT_FOR_BUILD@
+-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
++LINK = $(CCLD) $(AM_CFLAGS) $(AM_LDFLAGS) -o $@
+ 
+ INCLUDES=-I${top_srcdir}/src -I${top_srcdir} $(WARN_CFLAGS)
+ 
+diff --git a/fc-lang/Makefile.am b/fc-lang/Makefile.am
+index 60e4f31..44b103a 100644
+--- a/fc-lang/Makefile.am
++++ b/fc-lang/Makefile.am
+@@ -24,7 +24,7 @@
+ 
+ CC = @CC_FOR_BUILD@
+ EXEEXT = @EXEEXT_FOR_BUILD@
+-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
++LINK = $(CCLD) $(AM_CFLAGS) $(AM_LDFLAGS) -o $@
+ 
+ INCLUDES=-I${top_srcdir}/src -I${top_srcdir} $(WARN_CFLAGS)
+ 
