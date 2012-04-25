@@ -46,7 +46,7 @@ $(STATEDIR)/os-release.targetinstall: $(PTXDIST_PTXCONFIG) $(PTXDIST_PLATFORMCON
 		@PTXDIST_VERSION@, $(PTXDIST_VERSION_FULL))
 
 	@$(call install_replace, os-release, /etc/os-release, \
-		@DATE@, $(shell date +%Y-%M-%dT%H:%M:%S%z))
+		@DATE@, $(shell date +%FT%T%z))
 
 
 	@$(call install_finish,os-release)
