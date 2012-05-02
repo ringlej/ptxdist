@@ -4,11 +4,11 @@
 #
 
 PATH=/sbin:/bin:/usr/bin
-FUCNTIONS=/sbin/splash-functions.sh
+FUNCTIONS=/sbin/splash-functions.sh
 
 # --- nothing to change after this line ---
 
-. $FUCNTIONS
+. $FUNCTIONS
 
 mkdir -p /var/run/splash/cache/
 
