@@ -2,10 +2,8 @@
 #
 # /etc/init.d/apache2
 #
-# $Id:$
-#
-
 NAME=apache2
+
 #
 # This is an workaround, if the path targets into a ramfs
 #
@@ -13,33 +11,30 @@ mkdir -p @LOGPATH@
 
 case "$1" in
     start)
-            echo -n "${PREFIX}Starting $NAME: "
-	    /usr/sbin/apache2 -f @APACHECONFIG@ -k start
-	    if [ $? = 0 ]; then
-                echo "Done"
-            else
-	        echo "Failed"
-            fi
-        ;;
+	echo -n "Starting $NAME: "
+	if /usr/sbin/apache2 -f @APACHECONFIG@ -k start; then
+	    echo "Done"
+	else
+	    echo "Failed"
+	fi
+	;;
 
     stop)
-            echo -n "${PREFIX}Stopping $NAME: "
-	    /usr/sbin/apache2 -f @APACHECONFIG@ -k stop
-	    if [ $? = 0 ]; then
-                echo "Done"
-            else
-	        echo "Failed"
-            fi
-        ;;
+	echo -n "Stopping $NAME: "
+	if /usr/sbin/apache2 -f @APACHECONFIG@ -k stop; then
+	    echo "Done"
+	else
+	    echo "Failed"
+	fi
+	;;
 
     restart)
-            echo -n "${PREFIX}Restarting $NAME: "
-	    /usr/sbin/apache2 -f @APACHECONFIG@ -k restart
-	    if [ $? = 0 ]; then
-                echo "Done"
-            else
-	        echo "Failed"
-            fi
+	echo -n "Restarting $NAME: "
+	if /usr/sbin/apache2 -f @APACHECONFIG@ -k restart; then
+            echo "Done"
+        else
+	    echo "Failed"
+        fi
         ;;
 
     *)
@@ -47,4 +42,3 @@ case "$1" in
         exit 1
         ;;
 esac
-
