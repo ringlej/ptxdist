@@ -3,7 +3,7 @@
 # Copyright (C) 2004 by Ladislav Michl
 #               2009 by Juergen Beisert <j.beisert@pengtronix.de>
 #               2009 by Erwin Rol <erwin@erwinrol.com>
-#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #               2011 by Markus Rathgeb <rathgeb.markus@googlemail.com>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	:= 3071000
-SQLITE_MD5	:= 9ed2ca93577b58cfa0d01f64b9312ab9
+SQLITE_VERSION	:= 3071100
+SQLITE_MD5	:= 0552d71bda98ebdcaea305cd6058221b
 SQLITE		:= sqlite-autoconf-$(SQLITE_VERSION)
 SQLITE_SUFFIX	:= tar.gz
 SQLITE_URL	:= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -33,6 +33,17 @@ SQLITE_LICENSE	:= public_domain
 # Prepare
 # ----------------------------------------------------------------------------
 
+SQLITE_CONF_ENV := \
+	CPPFLAGS=" \
+	-DSQLITE_ENABLE_COLUMN_METADATA \
+	-DSQLITE_ENABLE_FTS3 \
+	-DSQLITE_ENABLE_RTREE=1 \
+	-DSQLITE_ENABLE_UNLOCK_NOTIFY \
+	-DSQLITE_ENABLE_UPDATE_DELETE_LIMIT=1\
+	-DSQLITE_OMIT_LOOKASIDE=1 \
+	-DSQLITE_SECURE_DELETE \
+	-DSQLITE_SOUNDEX=1 \
+	"
 
 SQLITE_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
