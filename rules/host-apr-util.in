@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_APR_UTIL
+	tristate
+	default ALLYES
+	select HOST_APR

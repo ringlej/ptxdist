@@ -1,0 +1,58 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 26 Apr 2012 13:03:39 +0200
+Subject: [PATCH] apu-config: add SYSROOT
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ apu-config.in |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/apu-config.in b/apu-config.in
+index f05360c..3d669e7 100644
+--- a/apu-config.in
++++ b/apu-config.in
+@@ -78,7 +78,7 @@ if test $# -eq 0; then
+ fi
+ 
+ if test "$location" = "installed"; then
+-    LA_FILE="$libdir/lib${APRUTIL_LIBNAME}.la"
++    LA_FILE="${SYSROOT}$libdir/lib${APRUTIL_LIBNAME}.la"
+ 
+     LIBS=`echo "$LIBS" | sed -e "s $APU_BUILD_DIR/xml/expat $prefix g" -e "s $prefix/libexpat.la -lexpat g"`
+     LDFLAGS=`echo "$LDFLAGS" | sed -e "s $APU_BUILD_DIR/xml/expat $prefix g"`
+@@ -114,7 +114,7 @@ while test $# -gt 0; do
+     ;;
+     --includedir)
+     if test "$location" = "installed"; then
+-        flags="$includedir"
++        flags="${SYSROOT}$includedir"
+     elif test "$location" = "source"; then
+         flags="$APU_SOURCE_DIR/include"
+     else
+@@ -126,7 +126,7 @@ while test $# -gt 0; do
+     ;;
+     --includes)
+     if test "$location" = "installed"; then
+-        flags="$flags -I$includedir $INCLUDES"
++        flags="$flags -I${SYSROOT}$includedir $INCLUDES"
+     elif test "$location" = "source"; then
+         flags="$flags -I$APU_SOURCE_DIR/include $INCLUDES"
+     else
+@@ -148,7 +148,7 @@ while test $# -gt 0; do
+     --link-ld)
+     if test "$location" = "installed"; then
+         ### avoid using -L if libdir is a "standard" location like /usr/lib
+-        flags="$flags -L$libdir -l$APRUTIL_LIBNAME"
++        flags="$flags -L${SYSROOT}$libdir -l$APRUTIL_LIBNAME"
+     else
+         flags="$flags -L$APU_BUILD_DIR -l$APRUTIL_LIBNAME"
+     fi
+@@ -162,7 +162,7 @@ while test $# -gt 0; do
+         flags="$flags $LA_FILE"
+     elif test "$location" = "installed"; then
+         ### avoid using -L if libdir is a "standard" location like /usr/lib
+-        flags="$flags -L$libdir -l$APRUTIL_LIBNAME"
++        flags="$flags -L${SYSROOT}$libdir -l$APRUTIL_LIBNAME"
+     else
+         flags="$flags $LA_FILE"
+     fi

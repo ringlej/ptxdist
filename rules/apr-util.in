@@ -1,0 +1,15 @@
+## SECTION=networking
+
+config APR_UTIL
+	tristate
+	select APR
+	select HOST_APR_UTIL
+	select EXPAT
+	prompt "apr-util"
+	help
+	  APR is Apache's Portable Runtime Library, designed to be a
+	  support library that provides a predictable and consistent
+	  interface to underlying platform-specific implementations.
+	  APR Util is a utilities library implemented on top of apr,
+	  providing database access, xml parsing, and other useful
+	  functionality.
