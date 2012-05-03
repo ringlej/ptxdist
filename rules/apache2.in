@@ -62,27 +62,6 @@ config APACHE2_INSTALL_CONFIG
 	  Install a $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf from a selectable
 	  source.
 
-	choice
-		prompt "Kind of httpd.conf"
-		depends on APACHE2_INSTALL_CONFIG
-		default APACHE2_DEFAULTCONFIG
-
-		config APACHE2_DEFAULTCONFIG
-			bool
-			prompt "Use generic"
-			help
-			  Install a generic httpd.conf file.
-			  See <ptxdist-install>/generic/etc/apache2/httpd.conf
-
-		config APACHE2_USERCONFIG
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined httpd.conf file.
-			  PTXdist uses file projectroot/etc/apache2/httpd.conf in your
-			  local project
-	endchoice
-
 config APACHE2_LISTEN
 	depends on APACHE2_INSTALL_CONFIG
 	string

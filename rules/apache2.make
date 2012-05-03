@@ -82,44 +82,39 @@ $(STATEDIR)/apache2.targetinstall:
 	@$(call install_fixup, apache2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, apache2,DESCRIPTION,missing)
 
-#	# the server binary
 	@$(call install_copy, apache2, 0, 0, 0755, \
 		$(APACHE2_PKGDIR)/usr/bin/httpd, /usr/sbin/apache2)
 
-#	# and some needed shared libraries
-	@$(call install_lib, apache2, 0, 0, 0644, libaprutil-0)
-	@$(call install_lib, apache2, 0, 0, 0644, libapr-0)
-
 ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
-	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT))
 
 ifdef PTXCONF_APACHE2_PUBLICDOMAINICONS
-#	# TODO: are all icons required?
-	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_PKGDIR)/usr/icons; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/icons/$$i, \
-			$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i, n); \
+		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/icons/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i); \
 	done
-	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/icons/small)
 	@cd $(APACHE2_PKGDIR)/usr/icons/small; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/icons/small/$$i, \
-			$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i, n); \
+		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/icons/small/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i); \
 	done
 endif
+
 ifdef PTXCONF_APACHE2_CUSTOMERRORS
-	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error)
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/error)
 	@cd $(APACHE2_PKGDIR)/usr/error; \
 	for i in *.html.var; do \
-		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/error/$$i, \
-			$(PTXCONF_APACHE2_SERVERROOT)/error/$$i, n); \
+		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/error/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/error/$$i); \
 	done
-	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error/include)
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/error/include)
 	@cd $(APACHE2_PKGDIR)/usr/error/include; \
 	for i in *.html; do \
-		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/error/include/$$i, \
-			$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i, n); \
+		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/error/include/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i); \
 	done
 endif
 
@@ -130,83 +125,63 @@ endif
 # -> magic: Definitions to detect the mime-type without extensions
 #
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/conf)
-	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(APACHE2_PKGDIR)/etc/magic, \
-		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic, n)
-	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(APACHE2_PKGDIR)/etc/mime.types, \
-		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types, n)
+	@$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/etc/magic, \
+		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic)
+	@$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/etc/mime.types, \
+		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types)
 
 endif
 
-ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/index.html, \
-		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html, n)
-endif
+		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html)
 endif
 
-ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
+ifneq ($(PTXCONF_APACHE2_CONFIGDIR), "")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
-# ---------------------------
-# generate a config file
-#
+
 ifdef PTXCONF_APACHE2_INSTALL_CONFIG
-ifdef PTXCONF_APACHE2_DEFAULTCONFIG
-# use generic one
-	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/apache2/httpd.conf, \
-		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
+	@$(call install_alternative, apache2, 12, 102, 0644, \
+		/etc/apache2/httpd.conf,, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf)
 endif
-ifdef PTXCONF_APACHE2_USERCONFIG
-# users one
-	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
-endif
-# modify placeholders with data from configuration
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@SERVERROOT@, $(PTXCONF_APACHE2_SERVERROOT) )
+		@SERVERROOT@, $(PTXCONF_APACHE2_SERVERROOT))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@DOCUMENTROOT@, $(PTXCONF_APACHE2_DOCUMENTROOT) )
+		@DOCUMENTROOT@, $(PTXCONF_APACHE2_DOCUMENTROOT))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@CONFIGDIR@, $(PTXCONF_APACHE2_CONFIGDIR) )
+		@CONFIGDIR@, $(PTXCONF_APACHE2_CONFIGDIR))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@LOGPATH@, $(PTXCONF_APACHE2_LOGDIR) )
+		@LOGPATH@, $(PTXCONF_APACHE2_LOGDIR))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@PIDFILE@, /var/run/apache2.pid )
+		@PIDFILE@, /var/run/apache2.pid)
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@LISTEN@, $(PTXCONF_APACHE2_LISTEN) )
+		@LISTEN@, $(PTXCONF_APACHE2_LISTEN))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@SERVERADMIN@, $(PTXCONF_APACHE2_SERVERADMIN) )
+		@SERVERADMIN@, $(PTXCONF_APACHE2_SERVERADMIN))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@SERVERNAME@, $(PTXCONF_APACHE2_SERVERNAME) )
-endif
+		@SERVERNAME@, $(PTXCONF_APACHE2_SERVERNAME))
 endif
 
 #	#
 #	# create the log dir if enabled
 #	#
-
-ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
+ifneq ($(PTXCONF_APACHE2_LOGDIR), "")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
 
 #	#
 #	# busybox init: startscript
 #	#
-
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_APACHE2_STARTSCRIPT
-	@$(call install_alternative, apache2, 0, 0, 0755, /etc/init.d/apache2, n)
+	@$(call install_alternative, apache2, 0, 0, 0755, /etc/init.d/apache2)
 
-#	# replace some placeholders
 	@$(call install_replace, apache2, /etc/init.d/apache2, \
-		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
+		@APACHECONFIG@, $(PTXCONF_APACHE2_CONFIGDIR))
 	@$(call install_replace, apache2, /etc/init.d/apache2, \
-		@LOGPATH@,  $(PTXCONF_APACHE2_LOGDIR) )
+		@LOGPATH@, $(PTXCONF_APACHE2_LOGDIR))
 
 ifneq ($(call remove_quotes, $(PTXCONF_APACHE2_BBINIT_LINK)),)
 	@$(call install_link, apache2, \
