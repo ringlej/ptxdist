@@ -57,8 +57,7 @@ SQLITE_AUTOCONF += --disable-dynamic-extensions
 endif
 
 ifdef PTXCONF_SQLITE_READLINE
-SQLITE_AUTOCONF += \
-	--enable-readline
+SQLITE_AUTOCONF += --enable-readline
 else
 SQLITE_AUTOCONF += --disable-readline
 endif
