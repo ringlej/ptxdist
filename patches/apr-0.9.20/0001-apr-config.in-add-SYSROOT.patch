@@ -1,0 +1,90 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 25 Apr 2012 20:05:58 +0200
+Subject: [PATCH] apr-config.in: add SYSROOT
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile.in   |    2 +-
+ apr-config.in |   14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 42139ea..a62c3ed 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -67,7 +67,7 @@ apr-config.out: apr-config
+ 
+ # Create apr_rules.mk suitable for the install tree
+ build/apr_rules.out: build/apr_rules.mk
+-	sed 's,^\(apr_build.*=\).*$$,\1$(installbuilddir),' < build/apr_rules.mk > $@
++	sed 's,^\(apr_build.*=\).*$$,\1@SYSROOT@$(installbuilddir),' < build/apr_rules.mk > $@
+ 
+ install: $(TARGET_LIB) apr-config.out build/apr_rules.out
+ 	if [ ! -d $(DESTDIR)$(includedir) ]; then \
+diff --git a/apr-config.in b/apr-config.in
+index 9eae645..129be96 100644
+--- a/apr-config.in
++++ b/apr-config.in
+@@ -92,7 +92,7 @@ if test $# -eq 0; then
+ fi
+ 
+ if test "$location" = "installed"; then
+-    LA_FILE="$libdir/lib${APR_LIBNAME}.la"
++    LA_FILE="@SYSROOT@$libdir/lib${APR_LIBNAME}.la"
+ else
+     LA_FILE="$APR_BUILD_DIR/lib${APR_LIBNAME}.la"
+ fi
+@@ -121,7 +121,7 @@ while test $# -gt 0; do
+     ;;
+     --includedir)
+     if test "$location" = "installed"; then
+-        flags="$includedir"
++        flags="@SYSROOT@$includedir"
+     elif test "$location" = "source"; then
+         flags="$APR_SOURCE_DIR/include"
+     else
+@@ -153,7 +153,7 @@ while test $# -gt 0; do
+     ;;
+     --includes)
+     if test "$location" = "installed"; then
+-        flags="$flags -I$includedir $EXTRA_INCLUDES"
++        flags="$flags -I@SYSROOT@$includedir $EXTRA_INCLUDES"
+     elif test "$location" = "source"; then
+         flags="$flags -I$APR_SOURCE_DIR/include $EXTRA_INCLUDES"
+     else
+@@ -167,7 +167,7 @@ while test $# -gt 0; do
+     ;;
+     --installbuilddir)
+     if test "$location" = "installed"; then
+-        echo "${installbuilddir}"
++        echo "@SYSROOT@${installbuilddir}"
+     elif test "$location" = "source"; then
+         echo "$APR_SOURCE_DIR/build"
+     else
+@@ -183,7 +183,7 @@ while test $# -gt 0; do
+     --link-ld)
+     if test "$location" = "installed"; then
+         ### avoid using -L if libdir is a "standard" location like /usr/lib
+-        flags="$flags -L$libdir -l${APR_LIBNAME}"
++        flags="$flags -L@SYSROOT@$libdir -l${APR_LIBNAME}"
+     else
+         ### this surely can't work since the library is in .libs?
+         flags="$flags -L$APR_BUILD_DIR -l${APR_LIBNAME}"
+@@ -198,7 +198,7 @@ while test $# -gt 0; do
+         flags="$flags $LA_FILE"
+     elif test "$location" = "installed"; then
+         ### avoid using -L if libdir is a "standard" location like /usr/lib
+-        flags="$flags -L$libdir -l${APR_LIBNAME}"
++        flags="$flags -L@SYSROOT@$libdir -l${APR_LIBNAME}"
+     else
+         flags="$flags $LA_FILE"
+     fi
+@@ -222,7 +222,7 @@ while test $# -gt 0; do
+     ;;
+     --apr-libtool)
+     if test "$location" = "installed"; then
+-        echo "${installbuilddir}/libtool"
++        echo "@SYSROOT@${installbuilddir}/libtool"
+     else
+         echo "$APR_BUILD_DIR/libtool"
+     fi

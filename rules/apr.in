@@ -1,0 +1,9 @@
+## SECTION=networking
+
+config APR
+	tristate
+	prompt "apr"
+	help
+	  APR is Apache's Portable Runtime Library, designed to be a
+	  support library that provides a predictable and consistent
+	  interface to underlying platform-specific implementations.
