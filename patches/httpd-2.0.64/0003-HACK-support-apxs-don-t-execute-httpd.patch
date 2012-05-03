@@ -1,6 +1,16 @@
-Index: support/apxs.in
-===================================================================
---- a/support/apxs.in.orig
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Thu, 26 Apr 2012 15:07:30 +0200
+Subject: [PATCH] HACK: support/apxs: don't execute httpd
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ support/apxs.in |   24 ++++++++++++------------
+ 1 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/support/apxs.in b/support/apxs.in
+index 135544c..cbefb3a 100644
+--- a/support/apxs.in
 +++ b/support/apxs.in
 @@ -199,18 +199,18 @@ if ($0 =~ m:support/apxs$:) {
      ($httpd = $0) =~ s:support/apxs$::;

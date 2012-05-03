@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005 by Robert Schwebel
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,41 +17,29 @@ PACKAGES-$(PTXCONF_APACHE2) += apache2
 #
 # Paths and names
 #
-APACHE2_VERSION	:= 2.0.58
-APACHE2_MD5	:= ac732a8b3ec5760baa582888f5dbad66
+APACHE2_VERSION	:= 2.0.64
+APACHE2_MD5	:= 762e250a3b981ce666bc10e6748a1ac1
 APACHE2		:= httpd-$(APACHE2_VERSION)
 APACHE2_SUFFIX	:= tar.bz2
 APACHE2_URL	:= http://archive.apache.org/dist/httpd/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
+APACHE2_LICENSE	:= APLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-# FIXME: find a real patch for ac_* apr_* (fix configure script)
-APACHE2_CONF_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_sizeof_ssize_t=4 \
-	ac_cv_sizeof_size_t=4 \
-	apr_cv_process_shared_works=yes \
-	apr_cv_mutex_robust_shared=no \
-	ac_cv_func_setpgrp_void=yes
-
-APACHE2_BINCONFIG_GLOB := ""
-
 #
 # autoconf
-#
-# - if we don't specify expat here, apache2 finds the internal one and
-#   installs it into sysroot, which overwrites our installed version
 #
 APACHE2_CONF_TOOL := autoconf
 APACHE2_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--includedir=/usr/include/apache2 \
 	--enable-so \
-	--with-expat=$(SYSROOT)/usr
+	--with-apr=$(PTXDIST_SYSROOT_CROSS)/bin/apr-config \
+	--with-apr-util=$(PTXDIST_SYSROOT_CROSS)/bin/apu-config
 
 ifdef PTXCONF_APACHE2_MPM_PREFORK
 APACHE2_CONF_OPT += --with-mpm=prefork
@@ -65,56 +53,6 @@ ifdef PTXCONF_APACHE2_MPM_WORKER
 APACHE2_CONF_OPT += --with-mpm=worker
 endif
 
-# FIXME
-# --without-apxs $(CROSS_AUTOCONF_USR)
-# --with-python \
-# --with-python-src=$(PYTHON24_DIR) \
-
-$(STATEDIR)/apache2.prepare:
-	@$(call targetinfo)
-	@$(call world/prepare, APACHE2)
-#	#
-#	# Tweak, Tweak ...
-#	#
-#	# The original object files are also used for other binaries, so
-#	# we generate a dummy dependency here
-#	#
-	sed -i -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
-
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/apache2.compile:
-	@$(call targetinfo)
-
-#	#
-#	# Tweak, tweak...
-#	#
-#	# These files are run during compilation, so they have to be
-#	# compiled for the host, not for the target
-#	#
-	touch $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims.lo
-	cp $(PTXCONF_SYSROOT_HOST)/bin/apache2/gen_uri_delims \
-		$(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
-	touch $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
-
-	touch $(APACHE2_DIR)/srclib/pcre/dftables.lo
-	cp $(PTXCONF_SYSROOT_HOST)/bin/apache2/dftables \
-		$(APACHE2_DIR)/srclib/pcre/dftables
-	touch $(APACHE2_DIR)/srclib/pcre/dftables
-
-	touch $(APACHE2_DIR)/server/dummy.lo
-	cp $(PTXCONF_SYSROOT_HOST)/bin/apache2/gen_test_char \
-		$(APACHE2_DIR)/server/gen_test_char
-	touch $(APACHE2_DIR)/server/gen_test_char
-
-	@$(call compile, APACHE2)
-
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
@@ -122,16 +60,13 @@ $(STATEDIR)/apache2.compile:
 $(STATEDIR)/apache2.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, APACHE2)
-	sed -i -e "s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
-		$(SYSROOT)/usr/build/apr_rules.mk \
-		$(SYSROOT)/usr/build/config.nice \
-		$(SYSROOT)/usr/bin/apr-config \
-		$(SYSROOT)/usr/bin/apu-config \
-		$(SYSROOT)/usr/bin/apxs
+	sed -i -e "s~\([ =\"]\)\(/usr\)~\1$(PTXDIST_SYSROOT_TARGET)\2~g" \
+		$(PTXDIST_SYSROOT_TARGET)/usr/build/config.nice \
+		$(PTXDIST_SYSROOT_TARGET)/usr/bin/apxs
 	sed -i \
-		-e "/AP._BINDIR/s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
-		-e "/^includedir/s~= \(.*\)~= $(SYSROOT)\1~g" \
-		$(SYSROOT)/usr/build/config_vars.mk
+		-e "/AP._BINDIR/s~\([ =\"]\)\(/usr\)~\1$(PTXDIST_SYSROOT_TARGET)\2~g" \
+		-e "/^includedir/s~= \(.*\)~= $(PTXDIST_SYSROOT_TARGET)\1~g" \
+		$(PTXDIST_SYSROOT_TARGET)/usr/build/config_vars.mk
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

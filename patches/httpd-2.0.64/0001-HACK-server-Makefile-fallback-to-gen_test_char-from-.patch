@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 26 Apr 2012 14:03:37 +0200
+Subject: [PATCH] HACK: server/Makefile: fallback to gen_test_char from $PATH
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ server/Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/server/Makefile.in b/server/Makefile.in
+index 12dc7d8..3590f0e 100644
+--- a/server/Makefile.in
++++ b/server/Makefile.in
+@@ -27,7 +27,7 @@ gen_test_char: $(gen_test_char_OBJECTS)
+ 	$(LINK) $(EXTRA_LDFLAGS) $(gen_test_char_OBJECTS) $(EXTRA_LIBS)
+ 
+ test_char.h: gen_test_char
+-	./gen_test_char > test_char.h
++	./gen_test_char > test_char.h || gen_test_char > test_char.h
+ 
+ util.lo: test_char.h
+ 
