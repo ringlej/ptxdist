@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006-2008 by Robert Schwebel
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,17 +17,19 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.3.3
-PHP5_MD5	:= 21ceeeb232813c10283a5ca1b4c87b48
+PHP5_VERSION	:= 5.3.10
+PHP5_MD5	:= 816259e5ca7d0a7e943e56a3bb32b17f
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
+#
 # Note: older releases are moved to the 'museum', but the 'de.php.net'
 # response with a HTML file instead of the archive. So, try the 'museum'
 # URL first
-PHP5_URL	:= \
+#
+PHP5_URL := \
 	http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX) \
 	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX)
 
@@ -35,7 +37,9 @@ PHP5_URL	:= \
 # Prepare
 # ----------------------------------------------------------------------------
 
-PHP5_BINCONFIG_GLOB	:= ""
+PHP5_CONF_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_c_bigendian_php=$(call ptx/ifdef, PTXCONF_ENDIAN_BIG, yes, no)
 
 #
 # autoconf
@@ -43,19 +47,7 @@ PHP5_BINCONFIG_GLOB	:= ""
 PHP5_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-config-file-path=/etc/php5 \
-	--without-pdo-sqlite \
-	--disable-phar \
 	--without-iconv
-
-PHP5_MAKE_OPT	:= \
-	PHP_NATIVE_DIR=$(PTXCONF_SYSROOT_HOST)/bin \
-	PHP_EXECUTABLE=$(PTXCONF_SYSROOT_HOST)/bin/php
-
-# FIXME: configure is broken beyond repair for glibc-libiconv
-
-# FIXME: phar doesn't cross compile
-
-# FIXME: PHP Data Objects -> sqlite doesn't link correctly
 
 # FIXME: php5 doesn't interprete "with_foo=no" correctly, so we cannot
 # give --without-foo options. Should be fixed in php5's configure.in.
@@ -255,10 +247,7 @@ PHP5_AUTOCONF += --disable-sockets
 endif
 
 ifdef PTXCONF_PHP5_EXT_SQLITE3
-PHP5_AUTOCONF += --with-sqlite3
-# broken config system: sqlite3 (local copy) uses it
-# but it is only linked to if used by external dependencies
-PHP5_CONF_ENV += PHP_LDFLAGS=-ldl
+PHP5_AUTOCONF += --with-sqlite3=$(PTXDIST_SYSROOT_TARGET)/usr
 else
 PHP5_AUTOCONF += --without-sqlite3
 endif
@@ -268,28 +257,6 @@ PHP5_AUTOCONF += --with-pear=FIXME
 else
 PHP5_AUTOCONF += --without-pear
 endif
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/php5.install:
-	@$(call targetinfo)
-
-	@$(call clean, $(PHP5_PKGDIR))
-	@mkdir -p -- "$(PHP5_PKGDIR)/etc"
-
-ifdef PTXCONF_PHP5_SAPI_APXS2
-	cp "$(SYSROOT)/etc/httpd.conf" "$(PHP5_PKGDIR)/etc"
-endif
-	cd $(PHP5_DIR) && \
-		$(PHP5_PATH) \
-		$(PHP5_ENV) \
-		make install \
-		INSTALL_ROOT=$(PHP5_PKGDIR)
-	install -m 755 -D "$(PHP5_DIR)/scripts/php-config" "$(PHP5_PKGDIR)/bin/php-config"
-	install -m 755 -D "$(PHP5_DIR)/scripts/phpize" "$(PHP5_PKGDIR)/bin/phpize"
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -11,6 +11,7 @@ menuconfig PHP5
 	select MYSQL	if PHP5_EXT_MYSQL
 	select PHP5_XML	if PHP5_EXT_SOAP
 	select XMLRPC_C	if PHP5_XML_LIBXML2_XMLRPC
+	select SQLITE	if PHP5_EXT_SQLITE3
 	select ZLIB	if PHP5_EXT_ZLIB
 
 if PHP5
