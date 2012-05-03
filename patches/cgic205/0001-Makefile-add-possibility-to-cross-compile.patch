@@ -1,0 +1,54 @@
+From: Marc Kleine-Budde <mkl@pengutronixd.de>
+Date: Wed, 2 May 2012 13:21:27 +0200
+Subject: [PATCH] Makefile: add possibility to cross compile
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile |   21 +++++++++++++--------
+ 1 files changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index ad782bb..080aa23 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,21 +1,26 @@
+-CFLAGS=-g -Wall
+-CC=gcc
++CFLAGS+=-g -O2 -Wall
+ AR=ar
+ RANLIB=ranlib
+ LIBS=-L./ -lcgic
++PREFIX=/usr/local
+ 
+-all: libcgic.a cgictest.cgi capture
++all: libcgic.a libcgic.so.2.05
+ 
+ install: libcgic.a
+-	cp libcgic.a /usr/local/lib
+-	cp cgic.h /usr/local/include
+-	@echo libcgic.a is in /usr/local/lib. cgic.h is in /usr/local/include.
++	cp libcgic.a libcgic.so.2.05 $(DESTDIR)$(PREFIX)/lib
++	cp cgic.h $(DESTDIR)$(PREFIX)/include
++	@echo libcgic.a is in $(PREFIX)/lib. cgic.h is in $(PREFIX)/include.
+ 
+-libcgic.a: cgic.o cgic.h
++libcgic.a: cgic.c cgic.h
+ 	rm -f libcgic.a
++	$(CC) $(CFLAGS) -D_REENTRANT -pipe -c cgic.c -o cgic.o
+ 	$(AR) rc libcgic.a cgic.o
+ 	$(RANLIB) libcgic.a
+ 
++libcgic.so.2.05: cgic.c cgic.h
++	$(CC) $(CFLAGS) -D_REENTRANT -fPIC -pipe -c cgic.c -o cgic.o
++	$(CC) -shared -Wl,-soname,libcgic.so.2 -o libcgic.so.2.05 cgic.o -lc
++
+ #mingw32 and cygwin users: replace .cgi with .exe
+ 
+ cgictest.cgi: cgictest.o libcgic.a
+@@ -25,5 +30,5 @@ capture: capture.o libcgic.a
+ 	gcc capture.o -o capture ${LIBS}
+ 
+ clean:
+-	rm -f *.o *.a cgictest.cgi capture
++	rm -f *.o *.a *.so.* cgictest.cgi capture
+ 

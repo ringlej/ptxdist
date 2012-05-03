@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config LIBCGIC
+	tristate
+	prompt "libcgic"
+	help
+	  Cgic is an ANSI-C library for the creation of CGI-based
+	  World Wide Web applications.
