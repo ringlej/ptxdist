@@ -5,13 +5,13 @@ menuconfig PHP5
 	tristate
 	prompt "php5                          "
 	select APACHE2	if PHP5_SAPI_APXS2
-	select LIBCURL  if PHP5_EXT_CURL
+	select LIBCURL	if PHP5_EXT_CURL
 	select LIBXML2	if PHP5_XML_LIBXML2
 	select LIBXSLT	if PHP5_XML_LIBXML2_XSLT
 	select MYSQL	if PHP5_EXT_MYSQL
 	select PHP5_XML	if PHP5_EXT_SOAP
-	select XMLRPC_C if PHP5_XML_LIBXML2_XMLRPC
-	select ZLIB     if PHP5_EXT_ZLIB
+	select XMLRPC_C	if PHP5_XML_LIBXML2_XMLRPC
+	select ZLIB	if PHP5_EXT_ZLIB
 
 if PHP5
 
