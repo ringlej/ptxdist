@@ -1,4 +1,4 @@
-## SECTION=microblaze_options
+## SECTION=architecture_options
 
 menu "microblaze options            "
 depends on ARCH_MICROBLAZE
