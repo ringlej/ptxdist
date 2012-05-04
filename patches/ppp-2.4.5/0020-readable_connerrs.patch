@@ -1,0 +1,24 @@
+From: Marco d'Itri <md@linux.it>
+Date: Wed, 25 Jan 2012 19:14:26 +0100
+Subject: [PATCH] readable_connerrs
+
+make _PATH_CONNERRS world readable
+
+There is nothing security-sensitive there.
+---
+ pppd/main.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/pppd/main.c b/pppd/main.c
+index 8513b1d..123a9d0 100644
+--- a/pppd/main.c
++++ b/pppd/main.c
+@@ -1637,7 +1637,7 @@ device_script(program, in, out, dont_wait)
+     if (log_to_fd >= 0)
+ 	errfd = log_to_fd;
+     else
+-	errfd = open(_PATH_CONNERRS, O_WRONLY | O_APPEND | O_CREAT, 0600);
++	errfd = open(_PATH_CONNERRS, O_WRONLY | O_APPEND | O_CREAT, 0644);
+ 
+     ++conn_running;
+     pid = safe_fork(in, out, errfd);

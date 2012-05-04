@@ -1,0 +1,31 @@
+From: Marco d'Itri <md@linux.it>
+Date: Wed, 25 Jan 2012 19:14:26 +0100
+Subject: [PATCH] chat_man
+
+---
+ chat/chat.8 |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/chat/chat.8 b/chat/chat.8
+index 60b2803..b5e7c26 100644
+--- a/chat/chat.8
++++ b/chat/chat.8
+@@ -35,7 +35,8 @@ Set the timeout for the expected string to be received. If the string
+ is not received within the time limit then the reply string is not
+ sent. An alternate reply may be sent or the script will fail if there
+ is no alternate reply string. A failed script will cause the
+-\fIchat\fR program to terminate with a non-zero error code.
++\fIchat\fR program to terminate with a non-zero error code. You can
++also use the TIMEOUT string in order to specify the timeout.
+ .TP
+ .B \-r \fI<report file>
+ Set the file for output of the report strings. If you use the keyword
+@@ -348,7 +349,7 @@ ogin:\-\-BREAK\-\-ogin: real_account
+ .LP
+ .SH TIMEOUT
+ The initial timeout value is 45 seconds. This may be changed using the \fB\-t\fR
+-parameter.
++parameter. You can also specify "TIMEOUT 0".
+ .LP
+ To change the timeout value for the next expect string, the following
+ example may be used:

@@ -18,11 +18,11 @@ PACKAGES-$(PTXCONF_PPP) += ppp
 #
 # Paths and names
 #
-PPP_VERSION	:= 2.4.4
-PPP_MD5		:= 183800762e266132218b204dfb428d29
+PPP_VERSION	:= 2.4.5
+PPP_MD5		:= 4621bc56167b6953ec4071043fe0ec57
 PPP		:= ppp-$(PPP_VERSION)
 PPP_SUFFIX	:= tar.gz
-PPP_URL		:= ftp://ftp.samba.org/pub/ppp/$(PPP).$(PPP_SUFFIX)
+PPP_URL		:= http://ftp.samba.org/pub/ppp/$(PPP).$(PPP_SUFFIX)
 PPP_SOURCE	:= $(SRCDIR)/$(PPP).$(PPP_SUFFIX)
 PPP_DIR		:= $(BUILDDIR)/$(PPP)
 PPP_LICENSE	:= BSD,GPLv2
@@ -49,6 +49,8 @@ $(STATEDIR)/ppp.prepare:
 	@$(call targetinfo)
 	@cd $(PPP_DIR) && $(PPP_PATH) $(PPP_CONF_ENV) \
 		./configure --prefix=/usr --sysconfdir=/etc
+
+	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,USE_PAM=y)
 
 ifdef PTXCONF_GLOBAL_IPV6
 	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,HAVE_INET6=y)

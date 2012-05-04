@@ -1,0 +1,36 @@
+From: Marco d'Itri <md@linux.it>
+Date: Wed, 25 Jan 2012 19:14:27 +0100
+Subject: [PATCH] setenv_call_file
+
+export $CALL_FILE to the link scripts
+---
+ pppd/options.c |    1 +
+ pppd/pppd.8    |    3 +++
+ 2 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/pppd/options.c b/pppd/options.c
+index 818e8b7..a42cb94 100644
+--- a/pppd/options.c
++++ b/pppd/options.c
+@@ -1456,6 +1456,7 @@ callfile(argv)
+     if ((fname = (char *) malloc(l)) == NULL)
+ 	novm("call file name");
+     slprintf(fname, l, "%s%s", _PATH_PEERFILES, arg);
++    script_setenv("CALL_FILE", arg, 0);
+ 
+     ok = options_from_file(fname, 1, 1, 1);
+ 
+diff --git a/pppd/pppd.8 b/pppd/pppd.8
+index 7d49321..8b0602a 100644
+--- a/pppd/pppd.8
++++ b/pppd/pppd.8
+@@ -1632,6 +1632,9 @@ the connection.
+ .B LINKNAME
+ The logical name of the link, set with the \fIlinkname\fR option.
+ .TP
++.B CALL_FILE
++The value of the \fIcall\fR option.
++.TP
+ .B DNS1
+ If the peer supplies DNS server addresses, this variable is set to the
+ first DNS server address supplied.

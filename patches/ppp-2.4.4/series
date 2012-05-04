@@ -1,7 +1,0 @@
-ppp-2.4.4-makefile-sysroot.diff -p0
-ppp-2.4.4-detect-crypt.diff -p0
-ppp-2.4.4-cross-awareness.diff -p0
-ppp-2.4.4-close-ppp-properly.diff -p0
-ppp-2.4.4-protect-update_db_entry.diff -p0
-ppp-2.4.4-cifdefroute.dif -p0
-ppp-2.4.4-fix-trigraph.dif -p0

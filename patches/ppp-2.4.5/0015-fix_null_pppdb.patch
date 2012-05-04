@@ -1,19 +1,24 @@
+From: Marco d'Itri <md@linux.it>
+Date: Wed, 25 Jan 2012 19:14:26 +0100
+Subject: [PATCH] fix_null_pppdb
+
+fix segfault in update_db_entry()
+
 From: Martin.Lottermoser@t-online.de
 Subject: Bug#308136: Debian bug 308136 (SEGV in pppd)
 
 The function update_db_entry() may only be called if pppdb is not NULL;
 unfortunately in this situation it is. Other calls to update_db_entry()
 are protected against this, see, e.g., the end of script_setenv().
-
 ---
  pppd/main.c |    8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ 1 files changed, 5 insertions(+), 3 deletions(-)
 
-Index: pppd/main.c
-===================================================================
---- pppd/main.c.orig
-+++ pppd/main.c
-@@ -1939,9 +1939,11 @@ script_setenv(var, value, iskey)
+diff --git a/pppd/main.c b/pppd/main.c
+index 8da4786..8513b1d 100644
+--- a/pppd/main.c
++++ b/pppd/main.c
+@@ -1961,9 +1961,11 @@ script_setenv(var, value, iskey)
  		free(p-1);
  		script_env[i] = newstring;
  #ifdef USE_TDB
@@ -21,9 +26,9 @@ Index: pppd/main.c
 -		    add_db_key(newstring);
 -		update_db_entry();
 +		if (pppdb != NULL) {
-+			if (iskey)
-+			    add_db_key(newstring);
-+			update_db_entry();
++		    if (iskey)
++			add_db_key(newstring);
++		    update_db_entry();
 +		}
  #endif
  		return;

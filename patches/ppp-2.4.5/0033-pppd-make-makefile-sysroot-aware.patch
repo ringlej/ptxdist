@@ -1,0 +1,37 @@
+From: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+Date: Wed, 25 Jan 2012 17:50:07 +0100
+Subject: [PATCH] pppd: make makefile sysroot aware
+
+The pppd Makefile is not SYSROOT aware. This patch replaces all
+occurrences of absolute paths by their corresponding SYSROOT relative
+ones.
+
+Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+---
+ pppd/Makefile.linux |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pppd/Makefile.linux b/pppd/Makefile.linux
+index 652fb6e..b713841 100644
+--- a/pppd/Makefile.linux
++++ b/pppd/Makefile.linux
+@@ -95,8 +95,8 @@ endif
+ # EAP SRP-SHA1
+ ifdef USE_SRP
+ COMPILE_FLAGS += -DUSE_SRP -DOPENSSL
+-INCLUDE_DIRS += -I/usr/local/ssl/include
+-LIBS	+= -lsrp -L/usr/local/ssl/lib -lcrypto
++INCLUDE_DIRS += -I$(SYSROOT)/usr/local/ssl/include
++LIBS	+= -lsrp -L$(SYSROOT)/usr/local/ssl/lib -lcrypto
+ TARGETS	+= srp-entry
+ EXTRAINSTALL = $(INSTALL) -c -m 555 srp-entry $(BINDIR)/srp-entry
+ MANPAGES += srp-entry.8
+@@ -119,7 +119,7 @@ endif
+ ifdef NO_CRYPT_HACK
+ COMPILE_FLAGS += -DNO_CRYPT_HACK
+ else
+-ifneq ($(wildcard /usr/include/crypt.h),)
++ifdef USE_CRYPT
+ COMPILE_FLAGS += -DHAVE_CRYPT_H=1
+ LIBS	+= -lcrypt
+ endif

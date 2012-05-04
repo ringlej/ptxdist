@@ -1,0 +1,44 @@
+From: Juergen Beisert <juergen@kreuzholzen.de>
+Date: Wed, 25 Jan 2012 17:50:07 +0100
+Subject: [PATCH] pppd: make the self made configure cross aware
+
+Give us a chance to setup targets Kernel and arch.
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
+---
+ configure                   |   10 ++++++++++
+ pppd/plugins/Makefile.linux |    2 +-
+ 2 files changed, 11 insertions(+), 1 deletions(-)
+
+diff --git a/configure b/configure
+index 56816b8..00143d3 100755
+--- a/configure
++++ b/configure
+@@ -14,6 +14,16 @@ SYSCONF=/etc
+ #  fi
+ state="unknown"
+ 
++if [ -n $TARGET_OS ]; then
++	system=$TARGET_OS
++fi
++if [ -n $TARGET_OS_VER ]; then
++	release=$TARGET_OS_VER
++fi
++if [ -n $TARGET_OS_ARCH ]; then
++	arch=$TARGET_OS_ARCH
++fi
++
+ case $system in
+   Linux)
+     makext="linux";
+diff --git a/pppd/plugins/Makefile.linux b/pppd/plugins/Makefile.linux
+index 47613d7..7950596 100644
+--- a/pppd/plugins/Makefile.linux
++++ b/pppd/plugins/Makefile.linux
+@@ -40,5 +40,5 @@ clean:
+ 	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d clean; done
+ 
+ depend:
+-	$(CPP) -M $(CFLAGS) *.c >.depend
++	$(CC) -M $(CFLAGS) *.c >.depend
+ 	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d depend; done
