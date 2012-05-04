@@ -1,0 +1,32 @@
+#!/bin/sh
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="GPS (Global Positioning System) daemon"
+NAME=gpsd
+DAEMON=/usr/sbin/$NAME
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+GPSD_OPTIONS="-n"
+DEVICES="/dev/ttyS2"
+
+case "$1" in
+    start)
+	echo -n "Starting $DESC" "$NAME"
+	if start-stop-daemon -S -q -p $PIDFILE -x $DAEMON -- \
+	    $GPSD_OPTIONS -P $PIDFILE $DEVICES; then
+	    echo done
+	else
+	    echo failed
+	    exit 1
+	fi
+	;;
+    stop)
+	echo "Stopping $DESC" "$NAME"
+	start-stop-daemon -K -q -p $PIDFILE --name $NAME
+	;;
+    *)
+	echo "Usage: $SCRIPTNAME {start|stop}" >&2
+	exit 3
+	;;
+esac

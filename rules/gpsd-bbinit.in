@@ -1,0 +1,7 @@
+## SECTION=initmethod_bbinit
+
+config GPSD_BBINIT_LINK
+	string
+	depends on GPSD
+	prompt "gpsd"
+	default "S50gpsd"
