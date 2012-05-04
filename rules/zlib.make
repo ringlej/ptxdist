@@ -21,7 +21,9 @@ ZLIB_VERSION	:= 1.2.6
 ZLIB_MD5	:= dc2cfa0d2313ca77224b4d932b2911e9
 ZLIB		:= zlib-$(ZLIB_VERSION)
 ZLIB_SUFFIX	:= tar.bz2
-ZLIB_URL	:= http://zlib.net/$(ZLIB).$(ZLIB_SUFFIX)
+ZLIB_URL	:= \
+	http://zlib.net/$(ZLIB).$(ZLIB_SUFFIX) \
+	$(call ptx/mirror, SF, libpng/$(ZLIB).$(ZLIB_SUFFIX))
 ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).$(ZLIB_SUFFIX)
 ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
 ZLIB_LICENSE	:= zlib
