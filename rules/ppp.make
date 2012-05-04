@@ -172,6 +172,7 @@ ifdef PTXCONF_PPP_INST_DEFAULT_CONFIG_FILES
 
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/peers/provider)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/chatscripts/provider)
+	@$(call install_alternative, ppp, 0, 0, 0600, /etc/chatscripts/disconnect)
 endif
 
 #	#
