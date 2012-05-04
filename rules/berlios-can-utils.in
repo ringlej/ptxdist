@@ -39,6 +39,24 @@ config BERLIOS_CAN_UTILS_CANSEND
 config BERLIOS_CAN_UTILS_CANSNIFFER
 	bool cansniffer
 
+config BERLIOS_CAN_UTILS_ISOTPDUMP
+	bool isotpdump
+
+config BERLIOS_CAN_UTILS_ISOTPRECV
+	bool isotprecv
+
+config BERLIOS_CAN_UTILS_ISOTPSEND
+	bool isotpsend
+
+config BERLIOS_CAN_UTILS_ISOTPSERVER
+	bool isotpserver
+
+config BERLIOS_CAN_UTILS_ISOTPSNIFFER
+	bool isotpsniffer
+
+config BERLIOS_CAN_UTILS_ISOTPTUN
+	bool isotptun
+
 config BERLIOS_CAN_UTILS_LOG2ASC
 	bool log2asc
 
