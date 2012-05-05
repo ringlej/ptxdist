@@ -202,10 +202,14 @@ config NTP_NTPD
 	bool
 	prompt "install ntpd"
 	depends on NTP
+	depends on !BUSYBOX_NTPD || ALLYES
 	help
 	  The ntpd program is an operating system daemon which sets and
 	  maintains the system time of day in synchronism with Internet
 	  standard time servers.
+
+comment "BusyBox' ntpd is selected"
+	depends on BUSYBOX_NTPD
 
 config NTP_NTPD_STARTSCRIPT
 	bool
