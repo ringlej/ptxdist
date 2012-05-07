@@ -3,6 +3,8 @@
 config HOST_GETTEXT
 	tristate
 	default ALLYES
+	# for Mac OS
+	select HOST_LIBICONV
 	help
 	  The gettext program translates a natural language
 	  message into the user's language, by looking up
