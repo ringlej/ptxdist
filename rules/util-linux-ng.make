@@ -149,6 +149,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_IPCS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcs)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_IPCRM
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcrm)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_READPROFILE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/readprofile)
 endif

@@ -169,6 +169,17 @@ config UTIL_LINUX_NG_IPCS
 comment "BusyBox' ipcs is selected!"
 	depends on BUSYBOX_IPCS
 
+config UTIL_LINUX_NG_IPCRM
+	bool
+	prompt "ipcrm"
+	depends on !BUSYBOX_IPCRM || ALLYES
+	help
+	  ipcrm removes ipc facilities for which the calling process has
+	  read access.
+
+comment "BusyBox' ipcrm is selected!"
+	depends on BUSYBOX_IPCRM
+
 config UTIL_LINUX_NG_READPROFILE
 	bool
 	prompt "readprofile"
