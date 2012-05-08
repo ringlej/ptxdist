@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #               2003-2008 by Pengutronix e.K., Hildesheim, Germany
-#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.6
-STRACE_MD5	:= e537b2b1afeec70c0e6e27a0d0fd671e
+STRACE_VERSION	:= 4.7
+STRACE_MD5	:= 6054c3880a00c6703f83b57f15e04642
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
