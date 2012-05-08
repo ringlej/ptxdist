@@ -15,9 +15,6 @@
 #
 # in:
 # - $image_work_dir		directory where ipkg are extracted
-# - $image_permissions		name of file that should contain all permissions
-# - $image_pkgs_selected_target	space seperated list of selected
-#				packages
 # - $PTXDIST_IPKG_ARCH_STRING	ARCH variable for ipkg files
 #
 # out:
@@ -63,21 +60,31 @@ ${list[*]}
 	ptxd_replace_magic "${ptxd_reply}" >> "${xpkg_conf}" &&
 
     DESTDIR="${image_work_dir}" \
-	fakeroot -- ${image_xpkg_type}-cl -f "${xpkg_conf}" -o "${image_work_dir}" \
-	install "${ptxd_reply_ipkg_files[@]}" &&
+	${image_xpkg_type}-cl -f "${xpkg_conf}" -o "${image_work_dir}" \
+	install "${ptxd_reply_ipkg_files[@]}"
+}
+export -f ptxd_make_image_extract_xpkg_files
+
+#
+# ptxd_make_image_prepare_work_dir_impl
+#
+# in:
+# - $image_work_dir		directory where ipkg are extracted
+# - $image_permissions		name of file that should contain all permissions
+# - $image_pkgs_selected_target	space seperated list of selected
+#
+ptxd_make_image_prepare_work_dir_impl() {
+    ptxd_make_image_init &&
+    ptxd_get_ipkg_files &&
+    ptxd_make_image_extract_xpkg_files &&
     if ! cat "${ptxd_reply_perm_files[@]}" > "${image_permissions}"; then
 	echo "${PTXDIST_LOG_PROMPT}error: failed read permission files" >&2
 	return 1
     fi
-
-    return
 }
-export -f ptxd_make_image_extract_xpkg_files
-
+export -f ptxd_make_image_prepare_work_dir_impl
 
 ptxd_make_image_prepare_work_dir() {
-    ptxd_make_image_init &&
-    ptxd_get_ipkg_files &&
-    ptxd_make_image_extract_xpkg_files
+    fakeroot ptxd_make_image_prepare_work_dir_impl
 }
 export -f ptxd_make_image_prepare_work_dir
