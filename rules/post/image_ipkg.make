@@ -16,7 +16,7 @@ ipkg-push : $(STATEDIR)/ipkg-push
 $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post $(STATEDIR)/world.targetinstall
 	@$(call targetinfo)
 ifdef PTXCONF_IMAGE_IPKG_FORCED_PUSH
-	rm  -rf $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)
+	rm  -rf "$(IMAGE_REPO_DIST_DIR)"
 endif
 	@echo "pushing ipkg packages to ipkg-repository..."
 	@$(HOST_ENV) $(PTXDIST_TOPDIR)/scripts/ipkg-push \
@@ -30,12 +30,12 @@ endif
 ifdef PTXCONF_IMAGE_IPKG_SIGN_OPENSSL
 	@echo "signing Packages..."
 	openssl smime -sign \
-		-in $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)/Packages \
+		-in "$(IMAGE_REPO_DIST_DIR)/Packages" \
 		-text -binary \
 		-outform PEM \
 		-signer $(PTXCONF_IMAGE_IPKG_SIGN_OPENSSL_SIGNER) \
 		-inkey $(PTXCONF_IMAGE_IPKG_SIGN_OPENSSL_KEY) \
-		-out $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)/Packages.sig
+		-out "$(IMAGE_REPO_DIST_DIR)/Packages.sig"
 	@echo "Packages.sig created"
 endif
 	@touch $@
