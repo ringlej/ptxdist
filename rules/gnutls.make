@@ -36,6 +36,7 @@ GNUTLS_CONF_TOOL	:= autoconf
 GNUTLS_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	--with-libgcrypt \
+	--with-libgcrypt-prefix=$(PTXDIST_SYSROOT_TARGET)/usr \
 	--without-p11-kit \
 	--disable-guile
 
