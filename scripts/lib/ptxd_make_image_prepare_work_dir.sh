@@ -14,7 +14,7 @@
 # ptxd_make_image_extract_ipkg_files - extract ipkg for later image generation
 #
 # in:
-# - $image_work_dir		directory where ipkg are extracted
+# - $1				directory where ipkg are extracted
 # - $PTXDIST_IPKG_ARCH_STRING	ARCH variable for ipkg files
 #
 # out:
@@ -24,6 +24,7 @@ ptxd_make_image_extract_xpkg_files() {
     # FIXME: consolidate "ptxd_install_setup_src"
     local src="/etc/ipkg.conf"
     local xpkg_conf="${PTXDIST_TEMPDIR}/${FUNCNAME}_xpkg.conf"
+    local work_dir="$1"
     local -a list ptxd_reply
     if ptxd_get_ptxconf "PTXCONF_HOST_PACKAGE_MANAGEMENT_OPKG" > /dev/null; then
 	echo "option force_postinstall 1" > "${xpkg_conf}"
@@ -49,8 +50,8 @@ ${list[*]}
 "
     fi
 
-    rm -rf "${image_work_dir}" &&
-    mkdir -p "${image_work_dir}" &&
+    rm -rf "${work_dir}" &&
+    mkdir -p "${work_dir}" &&
 
     ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
     SRC="" \
@@ -59,8 +60,8 @@ ${list[*]}
     CAFILE="" \
 	ptxd_replace_magic "${ptxd_reply}" >> "${xpkg_conf}" &&
 
-    DESTDIR="${image_work_dir}" \
-	${image_xpkg_type}-cl -f "${xpkg_conf}" -o "${image_work_dir}" \
+    DESTDIR="${work_dir}" \
+	${image_xpkg_type}-cl -f "${xpkg_conf}" -o "${work_dir}" \
 	install "${ptxd_reply_ipkg_files[@]}"
 }
 export -f ptxd_make_image_extract_xpkg_files
@@ -76,7 +77,7 @@ export -f ptxd_make_image_extract_xpkg_files
 ptxd_make_image_prepare_work_dir_impl() {
     ptxd_make_image_init &&
     ptxd_get_ipkg_files ${image_pkgs_selected_target} &&
-    ptxd_make_image_extract_xpkg_files &&
+    ptxd_make_image_extract_xpkg_files "${image_work_dir}" &&
     if ! cat "${ptxd_reply_perm_files[@]}" > "${image_permissions}"; then
 	echo "${PTXDIST_LOG_PROMPT}error: failed read permission files" >&2
 	return 1
