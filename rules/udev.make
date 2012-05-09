@@ -73,6 +73,8 @@ else
 UDEV_CONF_OPT += \
 	--disable-manpages \
 	--libexecdir=/lib \
+	--with-rootprefix= \
+	--with-rootlibdir=/lib \
 	--$(call ptx/endis,PTXCONF_UDEV_MTD_PROBE)-mtd_probe
 endif
 
