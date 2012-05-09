@@ -75,7 +75,7 @@ export -f ptxd_make_image_extract_xpkg_files
 #
 ptxd_make_image_prepare_work_dir_impl() {
     ptxd_make_image_init &&
-    ptxd_get_ipkg_files &&
+    ptxd_get_ipkg_files ${image_pkgs_selected_target} &&
     ptxd_make_image_extract_xpkg_files &&
     if ! cat "${ptxd_reply_perm_files[@]}" > "${image_permissions}"; then
 	echo "${PTXDIST_LOG_PROMPT}error: failed read permission files" >&2

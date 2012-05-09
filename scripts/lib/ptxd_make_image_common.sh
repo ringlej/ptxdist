@@ -13,8 +13,7 @@
 # ptxd_get_ipkg_files - get full path to ipkgs that should be installed
 #
 # in:
-# - $image_pkgs_selected_target	space seperated list of selected
-#				packages
+# - $*				list of selected packages
 #
 # out:
 # - $ptxd_reply_ipkg_files	array of ipkg files
@@ -23,7 +22,7 @@
 ptxd_get_ipkg_files() {
     # map pkg_label to pkg's ipkg files
     local -a ptxd_reply
-    ptxd_do_xpkg_map ${image_pkgs_selected_target}
+    ptxd_do_xpkg_map ${*}
 
     unset ptxd_reply_ipkg_files ptxd_reply_perm_files
 
