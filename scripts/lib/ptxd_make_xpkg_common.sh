@@ -56,8 +56,8 @@ export -f ptxd_do_xpkg_map
 # initialize variables needed for packaging
 #
 ptxd_make_xpkg_init() {
-    if [ -z "${pkg_xpkg_type}" -o -z "${pkg_xpkg}" ]; then
-	ptxd_bailout "'pkg_xpkg' or 'pkg_xpkg_type' undefined"
+    if [ -z "${ptx_xpkg_type}" -o -z "${pkg_xpkg}" ]; then
+	ptxd_bailout "'pkg_xpkg' or 'ptx_xpkg_type' undefined"
     fi
 
     #
@@ -94,6 +94,6 @@ ptxd_make_xpkg_init() {
     pkg_xpkg_cmds="${ptx_state_dir}/${pkg_xpkg}.cmds"
     pkg_xpkg_tmp="${ptx_pkg_dir}/${pkg_xpkg}.tmp"
 
-    "ptxd_make_${pkg_xpkg_type}_init"
+    "ptxd_make_${ptx_xpkg_type}_init"
 }
 export -f ptxd_make_xpkg_init

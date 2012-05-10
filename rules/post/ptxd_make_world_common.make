@@ -44,7 +44,11 @@ ptx/env = \
 	ptx_path_cross="$(call ptx/escape,$(HOST_CROSS_PATH))"			\
 	ptx_conf_env_cross="$(call ptx/escape,$(HOST_CROSS_ENV))"		\
 	ptx_conf_opt_autoconf_cross="$(call ptx/escape,$(HOST_CROSS_AUTOCONF))"	\
-	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"
+	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"\
+										\
+	ptx_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)			\
+	ptx_opkg_extra_args=$(PTXCONF_IMAGE_OPKG_EXTRA_ARGS)			\
+	ptx_xpkg_type=$(PTXCONF_HOST_PACKAGE_MANAGEMENT)
 
 world/env/impl = \
 	pkg_stamp="$(notdir $(@))"						\

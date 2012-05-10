@@ -17,10 +17,7 @@ xpkg/env/impl = \
 	$(call world/env, $(2))							\
 	CROSS_STRIP="$(call ptx/escape,$(CROSS_STRIP))"				\
 	pkg_xpkg="$(call ptx/escape,$(1))"					\
-	pkg_xpkg_version="$(call ptx/escape,$($(2)_XPKG_VERSION))"		\
-	pkg_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)			\
-	pkg_opkg_extra_args=$(PTXCONF_IMAGE_OPKG_EXTRA_ARGS)			\
-	pkg_xpkg_type=$(PTXCONF_HOST_PACKAGE_MANAGEMENT)
+	pkg_xpkg_version="$(call ptx/escape,$($(2)_XPKG_VERSION))"
 
 #
 # $1: xpkg label

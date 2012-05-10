@@ -20,7 +20,7 @@ ptxd_make_xpkg_finish_impl() {
     fake_args[${#fake_args[@]}]="-u"
 
     export ${!pkg_*} ${!ptx_*}
-    fakeroot "${fake_args[@]}" -- "ptxd_make_${pkg_xpkg_type}_finish_impl"
+    fakeroot "${fake_args[@]}" -- "ptxd_make_${ptx_xpkg_type}_finish_impl"
 }
 export -f ptxd_make_xpkg_finish_impl
 
@@ -86,7 +86,7 @@ EOF
     #
     # create pkg
     #
-    echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
+    echo "xpkg_finish:	creating ${ptx_xpkg_type} package ... " &&
     ptxd_make_xpkg_finish_impl &&
     rm -rf "${pkg_xpkg_tmp}" || {
 	local ret=$?

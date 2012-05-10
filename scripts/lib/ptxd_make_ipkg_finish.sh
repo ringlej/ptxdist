@@ -16,7 +16,7 @@
 ptxd_make_ipkg_finish_impl() {
     chown -R 0:0 "${pkg_xpkg_tmp}" &&
     ptxd_make_xpkg_pkg "${pkg_ipkg_tmp}" "${pkg_xpkg_cmds}" "${pkg_xpkg_perms}" &&
-    ipkg-build ${pkg_ipkg_extra_args} "${pkg_ipkg_tmp}" "${ptx_pkg_dir}"
+    ipkg-build ${ptx_ipkg_extra_args} "${pkg_ipkg_tmp}" "${ptx_pkg_dir}"
 }
 export -f ptxd_make_ipkg_finish_impl
 

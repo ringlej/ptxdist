@@ -61,7 +61,7 @@ ${list[*]}
 	ptxd_replace_magic "${ptxd_reply}" >> "${xpkg_conf}" &&
 
     DESTDIR="${work_dir}" \
-	${image_xpkg_type}-cl -f "${xpkg_conf}" -o "${work_dir}" \
+	${ptx_xpkg_type}-cl -f "${xpkg_conf}" -o "${work_dir}" \
 	install "${ptxd_reply_ipkg_files[@]}"
 }
 export -f ptxd_make_image_extract_xpkg_files
