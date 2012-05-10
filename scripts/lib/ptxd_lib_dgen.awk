@@ -241,6 +241,15 @@ function import_PKG(this_PKG,	this_pkg) {
 		target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
 		this_PKG_type = gensub(/^(HOST_|CROSS_).*/, "\\1", "", this_PKG);
 
+		if (this_pkg ~ /^host-/) {
+			print this_PKG "_PKGDIR = $(PKGDIR)/host-$(" \
+				this_PKG ")"				> DGEN_DEPS_PRE;
+			print this_PKG "_DEVPKG = host-" this_devpkg	> DGEN_DEPS_PRE;
+		} else if (this_pkg ~ /^cross-/) {
+			print this_PKG "_PKGDIR = $(PKGDIR)/cross-$(" \
+				this_PKG ")"				> DGEN_DEPS_PRE;
+			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
+		}
 		# define default ${PKG}, ${PKG}_SOURCE, ${PKG}_DIR
 		if (target_PKG in PKG_to_pkg) {
 			print this_PKG " = $(" target_PKG ")"		> DGEN_DEPS_PRE;
@@ -251,15 +260,6 @@ function import_PKG(this_PKG,	this_pkg) {
 				target_PKG "_URL)"			> DGEN_DEPS_PRE;
 			print this_PKG "_DIR = $(addprefix $(" this_PKG_type \
 				"BUILDDIR)/,$(" target_PKG "))"		> DGEN_DEPS_PRE;
-		}
-		if (this_pkg ~ /^host-/) {
-			print this_PKG "_PKGDIR = $(PKGDIR)/host-$(" \
-				this_PKG ")"				> DGEN_DEPS_PRE;
-			print this_PKG "_DEVPKG = host-" this_devpkg	> DGEN_DEPS_PRE;
-		} else if (this_pkg ~ /^cross-/) {
-			print this_PKG "_PKGDIR = $(PKGDIR)/cross-$(" \
-				this_PKG ")"				> DGEN_DEPS_PRE;
-			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
 		}
 	}
 }
