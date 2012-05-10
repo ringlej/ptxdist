@@ -115,7 +115,9 @@ ptxd_make_world_install_pack() {
     check_pipe_status &&
 
     if [ \! -e "${pkg_pkg_dir}" ]; then
-	ptxd_warning "PKG didn't install anything to '${pkg_pkg_dir}'"
+	if [ -e "${pkg_dir}" ]; then
+	    ptxd_warning "PKG didn't install anything to '${pkg_pkg_dir}'"
+	fi
 	return
     fi &&
 
