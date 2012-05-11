@@ -24,4 +24,15 @@ image/env = \
 	image_work_dir="$(call ptx/escape,$(image/work_dir))" \
 	image_permissions="$(call ptx/escape,$(image/permissions))"
 
+world/image/env/impl = \
+	$(call world/env, $(1))					\
+	image_repo_dist_dir="$(IMAGE_REPO_DIST_DIR)"		\
+	image_env="$(call ptx/escape,$($(1)_ENV))"		\
+	image_pkgs="$(call ptx/escape,$($(1)_PKGS))"		\
+	image_files="$(call ptx/escape,$($(1)_FILES))"		\
+	image_image="$(call ptx/escape,$($(1)_IMAGE))"
+
+world/image/env = \
+	$(call world/image/env/impl,$(strip $(1)))
+
 # vim: syntax=make
