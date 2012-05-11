@@ -324,24 +324,46 @@ function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
 	print "$(STATEDIR)/" this_pkg ".install.unpack: "             "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
 }
 
+function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
+	print "$(" this_PKG "_IMAGE): " \
+		"$(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(" this_PKG "_PKGS)))"		> DGEN_DEPS_POST;
+	print "$(" this_PKG "_IMAGE): "                               "$(" this_PKG "_FILES)"			> DGEN_DEPS_POST;
+	print "images: "                                              "$(" this_PKG "_IMAGE)"			> DGEN_DEPS_POST;
+	#
+	# add dep to pkgs we depend on
+	#
+	this_PKG_DEPS = PKG_to_B_DEP[this_PKG];
+	n = split(this_PKG_DEPS, this_DEP_array, " ");
+	for (i = 1; i <= n; i++) {
+		this_dep = PKG_to_pkg[this_DEP_array[i]]
+		print "$(" this_PKG "_IMAGE): "                   "$(STATEDIR)/" this_dep ".targetinstall.post"	> DGEN_DEPS_POST;
+	}
+}
+
 END {
 	# for all pkgs
 	for (this_PKG in PKG_to_pkg) {
 		this_pkg = PKG_to_pkg[this_PKG];
-		this_pkg_prefix = gensub(/^(host-|cross-|).*/, "\\1", "", this_pkg)
+		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", "", this_pkg)
 
 		write_include(this_PKG)
-		write_deps_pkg_all(this_PKG, this_pkg)
-		write_vars_pkg_all(this_PKG, this_pkg, this_pkg_prefix)
+		if (this_pkg_prefix != "image-") {
+			write_deps_pkg_all(this_PKG, this_pkg)
+			write_vars_pkg_all(this_PKG, this_pkg, this_pkg_prefix)
+		}
 	}
 
 	# for active pkgs
 	for (this_PKG in active_PKG_to_pkg) {
 		this_pkg = PKG_to_pkg[this_PKG];
-		this_pkg_prefix = gensub(/^(host-|cross-|).*/, "\\1", "", this_pkg)
+		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", "", this_pkg)
 
-		write_deps_pkg_active(this_PKG, this_pkg, this_pkg_prefix)
-		write_deps_pkg_active_virtual(this_PKG, this_pkg, this_pkg_prefix)
+		if (this_pkg_prefix != "image-") {
+			write_deps_pkg_active(this_PKG, this_pkg, this_pkg_prefix)
+			write_deps_pkg_active_virtual(this_PKG, this_pkg, this_pkg_prefix)
+		}
+		else
+			write_deps_pkg_active_image(this_PKG, this_pkg, this_pkg_prefix)
 	}
 
 	close(PKG_HASHFILE);
