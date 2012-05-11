@@ -43,7 +43,6 @@ include $(foreach dir, $(call reverse,$(subst :,$(space),$(PTXDIST_PATH_PRERULES
 
 include $(PTX_DGEN_DEPS_PRE)
 include $(PTX_DGEN_RULESFILES_MAKE)
-include $(PTX_DGEN_DEPS_POST)
 
 #
 # the extended format is:
@@ -99,6 +98,8 @@ include $(foreach dir, $(call reverse,$(subst :,$(space),$(PTXDIST_PATH_POSTRULE
 # install_alternative and install_copy has some configuration defined
 # dependencies. include the files specifying these dependencies.
 include $(wildcard $(STATEDIR)/*.deps)
+# include late so the *PACKAGES* variables are already defined
+include $(PTX_DGEN_DEPS_POST)
 
 # ----------------------------------------------------------------------------
 # just the "print" target
