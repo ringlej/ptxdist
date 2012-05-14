@@ -47,7 +47,7 @@ SYSTEMD_CONF_OPT += \
 	--disable-audit \
 	--disable-libcryptsetup \
 	--enable-binfmt \
-	--enable-vconsole \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-readahead \
 	--enable-quotacheck \
 	--$(call ptx/disen,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED)-randomseed \

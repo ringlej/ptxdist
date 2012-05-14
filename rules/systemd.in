@@ -34,6 +34,10 @@ config SYSTEMD_TCPWRAP
 	bool
 	prompt "TCP wrappers support"
 
+config SYSTEMD_VCONSOLE
+	bool
+	prompt "virtual console support"
+
 config SYSTEMD_XZ
 	bool
 	prompt "XZ compressed journal support"
