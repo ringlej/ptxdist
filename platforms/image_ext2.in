@@ -3,6 +3,7 @@
 menuconfig IMAGE_EXT2
 	bool
 	select HOST_GENEXT2FS
+	select HOST_E2FSPROGS
 	prompt "Generate images/root.ext2     "
 	help
 	  Build an ext2 image of the root filesystem
@@ -14,7 +15,7 @@ config IMAGE_EXT2_SIZE
 	default 20480
 	prompt "Size in kilobytes"
 	help
-	  FIXME: This item needs to be documented
+	  Size of the image in kilobytes
 
 config IMAGE_EXT2_EXTRA_ARGS
 	string
@@ -32,10 +33,17 @@ config IMAGE_EXT2_GZIP
 
 config IMAGE_EXT2_JOURNAL
 	bool
-	select HOST_E2FSPROGS
-	prompt "Add a journal to the ext2 file system image, making it ext3"
+	prompt "Upgrade the ext2 file system image to ext3 by adding a journal"
 	help
 	  Enable this option if you want to mount the root file system as
-	  ext3 image.
+	  an ext3 image.
+
+config IMAGE_EXT2_EXT4
+	bool
+	select IMAGE_EXT2_JOURNAL
+	prompt "Upgrade the ext2 file system image to ext4"
+	help
+	  Enable this option if you want to mount the root file system as
+	  an ext4 image.
 
 endif
