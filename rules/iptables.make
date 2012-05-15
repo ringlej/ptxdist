@@ -53,7 +53,7 @@ IPTABLES_AUTOCONF := \
 	--enable-devel \
 	--$(call ptx/endis, PTXCONF_IPTABLES_IPV4)-ipv4 \
 	--$(call ptx/endis, PTXCONF_IPTABLES_IPV6)-ipv6 \
-	--disable-libipq
+	--$(call ptx/endis, PTXCONF_IPTABLES_LIBIPQ)-libipq
 
 # ----------------------------------------------------------------------------
 # Install
@@ -82,6 +82,10 @@ $(STATEDIR)/iptables.targetinstall:
 # 	# install the basic libraries
 	@$(call install_lib, iptables, 0, 0, 0644, libiptc)
 	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
+
+ifdef PTXCONF_IPTABLES_LIBIPQ
+	@$(call install_lib, iptables, 0, 0, 0644, libipq)
+endif
 
 	@cd $(IPTABLES_PKGDIR)/usr/lib && \
 		for file in libxt_*.so; do \

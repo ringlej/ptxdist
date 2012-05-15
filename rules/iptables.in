@@ -24,6 +24,13 @@ config IPTABLES_IPV4
 	bool
 	prompt "IPv4 support"
 
+config IPTABLES_LIBIPQ
+	bool
+	prompt "Enable libipq"
+	help
+	  Builds and installs libipq (the iptables userspace packet
+	  queuing library).
+
 config IPTABLES_INSTALL_TOOLS
 	bool "install executables"
 	help
