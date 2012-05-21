@@ -6,6 +6,7 @@ menuconfig V4L_UTILS
 	select LIBC_RT		if V4L_UTILS_LIBV4LCONVERT
 	select LIBC_M		if V4L_UTILS_LIBV4LCONVERT
 	select LIBC_PTHREAD	if V4L_UTILS_LIBV4L2
+	select LIBJPEG		if V4L_UTILS_LIBV4LCONVERT
 	help
 	  Linux V4L2 and DVB API utilities and v4l libraries (libv4l).
 
