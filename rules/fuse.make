@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FUSE) += fuse
 #
 # Paths and names
 #
-FUSE_VERSION	:= 2.7.4
-FUSE_MD5	:= 4879f06570d2225667534c37fea04213
+FUSE_VERSION	:= 2.9.0
+FUSE_MD5	:= 894ee11674f89a915ae87524aed55bc4
 FUSE		:= fuse-$(FUSE_VERSION)
 FUSE_SUFFIX	:= tar.gz
 FUSE_URL	:= $(call ptx/mirror, SF, fuse/$(FUSE).$(FUSE_SUFFIX))
@@ -49,7 +49,6 @@ FUSE_AUTOCONF = \
 	--disable-example \
 	--disable-mtab \
 	--disable-rpath \
-	--disable-kernel-module \
 	--without-libiconv-prefix
 
 ifdef PTXCONF_FUSE__LIB
