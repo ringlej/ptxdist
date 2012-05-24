@@ -10,10 +10,10 @@ Otherwise the cursor returns when the mouse is moved.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/gui/embedded/qwscursor_qws.cpp |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/gui/embedded/qwscursor_qws.cpp b/src/gui/embedded/qwscursor_qws.cpp
-index 9e8c235..0ff0dc3 100644
+index c807b39..a51f910 100644
 --- a/src/gui/embedded/qwscursor_qws.cpp
 +++ b/src/gui/embedded/qwscursor_qws.cpp
 @@ -344,7 +344,7 @@ void QWSServerPrivate::initializeCursor()

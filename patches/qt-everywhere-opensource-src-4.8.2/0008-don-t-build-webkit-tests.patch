@@ -5,7 +5,7 @@ Subject: [PATCH] don't build webkit tests
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/3rdparty/webkit/Source/WebKit.pro |    4 ----
- 1 files changed, 0 insertions(+), 4 deletions(-)
+ 1 file changed, 4 deletions(-)
 
 diff --git a/src/3rdparty/webkit/Source/WebKit.pro b/src/3rdparty/webkit/Source/WebKit.pro
 index 9be0f4a..eee88fe 100644

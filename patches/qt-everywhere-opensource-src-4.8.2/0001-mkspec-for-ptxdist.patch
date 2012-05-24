@@ -11,10 +11,10 @@ Add a mkspec for ptxdist:
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  mkspecs/linux-ptx-g++/qmake.conf.in       |   41 +++++++++++++++++++++++++++++
- mkspecs/linux-ptx-g++/qplatformdefs.h     |    2 +
+ mkspecs/linux-ptx-g++/qplatformdefs.h     |    2 ++
  mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   32 ++++++++++++++++++++++
- mkspecs/qws/linux-ptx-g++/qplatformdefs.h |    2 +
- 4 files changed, 77 insertions(+), 0 deletions(-)
+ mkspecs/qws/linux-ptx-g++/qplatformdefs.h |    2 ++
+ 4 files changed, 77 insertions(+)
  create mode 100644 mkspecs/linux-ptx-g++/qmake.conf.in
  create mode 100644 mkspecs/linux-ptx-g++/qplatformdefs.h
  create mode 100644 mkspecs/qws/linux-ptx-g++/qmake.conf.in

@@ -14,10 +14,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  3 files changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/examples/examples.pro b/examples/examples.pro
-index cf12dd6..ed7db9c 100644
+index f7d5306..67b4cf8 100644
 --- a/examples/examples.pro
 +++ b/examples/examples.pro
-@@ -49,6 +49,10 @@ symbian: SUBDIRS = \
+@@ -51,6 +51,10 @@ contains(DEFINES, QT_NO_GESTURES): SUBDIRS -= gestures
      SUBDIRS += multimedia
  }
  
@@ -29,7 +29,7 @@ index cf12dd6..ed7db9c 100644
  
  contains(QT_CONFIG, phonon):!static: SUBDIRS += phonon
 diff --git a/projects.pro b/projects.pro
-index bf4dc5e..f095f0d 100644
+index 0b498f8..c0fdde4 100644
 --- a/projects.pro
 +++ b/projects.pro
 @@ -2,7 +2,6 @@
@@ -41,7 +41,7 @@ index bf4dc5e..f095f0d 100644
  
  cross_compile: CONFIG += nostrip
 diff --git a/src/src.pro b/src/src.pro
-index 9314fbd..3f528ee 100644
+index b9e48f4..4b1cf0d 100644
 --- a/src/src.pro
 +++ b/src/src.pro
 @@ -100,12 +100,13 @@ src_declarative.target = sub-declarative

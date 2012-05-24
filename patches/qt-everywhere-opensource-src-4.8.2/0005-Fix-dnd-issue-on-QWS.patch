@@ -9,10 +9,10 @@ This patch seems to fix it, but I'm not sure if it breaks anything.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/gui/kernel/qdnd_qws.cpp |    9 +++------
- 1 files changed, 3 insertions(+), 6 deletions(-)
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/src/gui/kernel/qdnd_qws.cpp b/src/gui/kernel/qdnd_qws.cpp
-index 96bdaed..5582404 100644
+index b9a2229..aaacd50 100644
 --- a/src/gui/kernel/qdnd_qws.cpp
 +++ b/src/gui/kernel/qdnd_qws.cpp
 @@ -162,10 +162,10 @@ void QDragManager::updateCursor()

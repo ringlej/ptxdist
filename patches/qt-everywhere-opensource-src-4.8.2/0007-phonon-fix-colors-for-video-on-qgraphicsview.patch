@@ -7,7 +7,7 @@ patch from http://bugreports.qt.nokia.com/browse/QTBUG-8737
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/3rdparty/phonon/gstreamer/qwidgetvideosink.cpp |    7 ++-----
- 1 files changed, 2 insertions(+), 5 deletions(-)
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/3rdparty/phonon/gstreamer/qwidgetvideosink.cpp b/src/3rdparty/phonon/gstreamer/qwidgetvideosink.cpp
 index 89d5a9d..8508001 100644
