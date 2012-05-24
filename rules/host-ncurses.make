@@ -25,4 +25,15 @@ HOST_NCURSES_CONF_OPT	= \
 	$(HOST_AUTOCONF) \
 	$(NCURSES_AUTOCONF_SHARED)
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-ncurses.install:
+	@$(call targetinfo)
+	@$(call world/install, HOST_NCURSES)
+#	# don't install headers, so packages like the kernel don't use it
+	@rm -r $(HOST_NCURSES_PKGDIR)/include
+	@$(call touch)
+
 # vim: syntax=make
