@@ -6,12 +6,13 @@ menuconfig CONNMAN
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select DBUS
+	select GLIB
+	select GNUTLS
 	select IPTABLES
 	select POLICYKIT			if CONNMAN_POLKIT
 	select DBUS_PYTHON			if CONNMAN_TESTS && RUNTIME
 	select WPA_SUPPLICANT			if CONNMAN_WIFI && RUNTIME
 	select WPA_SUPPLICANT_CTRL_IFACE_DBUS	if CONNMAN_WIFI
-	select GLIB
 	select BUSYBOX_START_STOP_DAEMON	if CONNMAN_STARTSCRIPT
 	prompt "connman                       "
 	help
@@ -39,10 +40,6 @@ menu "plugins"
 	config CONNMAN_ETHERNET
 		bool
 		prompt "ethernet support"
-
-	config CONNMAN_FAKE
-		bool
-		prompt "fake support"
 
 	config CONNMAN_LOOPBACK
 		bool
