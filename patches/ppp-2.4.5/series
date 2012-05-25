@@ -34,4 +34,5 @@
 0032-zzz_config.patch
 0033-pppd-make-makefile-sysroot-aware.patch
 0034-pppd-make-the-self-made-configure-cross-aware.patch
-# 6912a6919e6ed339deba83f42db89330  - git-ptx-patches magic
+0035-use-CPPFLAGS-when-compiling.patch
+# 68b3c6d4d161207f0259959bfdb5b85c  - git-ptx-patches magic

@@ -1,0 +1,64 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 25 May 2012 16:46:09 +0200
+Subject: [PATCH] use CPPFLAGS when compiling
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ pppd/Makefile.linux                |    2 +-
+ pppd/plugins/Makefile.linux        |    2 +-
+ pppd/plugins/radius/Makefile.linux |    2 +-
+ pppdump/Makefile.linux             |    2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/pppd/Makefile.linux b/pppd/Makefile.linux
+index b713841..074f4a7 100644
+--- a/pppd/Makefile.linux
++++ b/pppd/Makefile.linux
+@@ -209,7 +209,7 @@ install: pppd
+ 	$(INSTALL) -c -m 444 pppd.8 $(MANDIR)
+ 
+ %.o: %.c
+-	$(CC) $(COPTS) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(COPTS) $(CFLAGS) -c $<
+ 
+ pppd: $(PPPDOBJS)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o pppd $(PPPDOBJS) $(LIBS)
+diff --git a/pppd/plugins/Makefile.linux b/pppd/plugins/Makefile.linux
+index 7950596..403d8c5 100644
+--- a/pppd/plugins/Makefile.linux
++++ b/pppd/plugins/Makefile.linux
+@@ -23,7 +23,7 @@ all:	$(PLUGINS)
+ 	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d all; done
+ 
+ %.o: %.c
+-	$(CC) $(COPTS) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(COPTS) $(CFLAGS) -c $<
+ 
+ %.so: %.c
+ 	$(CC) -o $@ $(LDFLAGS) -shared $(COPTS) $(CFLAGS) $^
+diff --git a/pppd/plugins/radius/Makefile.linux b/pppd/plugins/radius/Makefile.linux
+index be5a669..3d90fb4 100644
+--- a/pppd/plugins/radius/Makefile.linux
++++ b/pppd/plugins/radius/Makefile.linux
+@@ -44,7 +44,7 @@ install: all
+ 	$(INSTALL) -c -m 444 pppd-radattr.8 $(MANDIR)
+ 
+ %.o: %.c
+-	$(CC) $(COPTS) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(COPTS) $(CFLAGS) -c $<
+ 
+ radius.so: radius.o libradiusclient.a
+ 	$(CC) $(LDFLAGS) -o radius.so -shared radius.o libradiusclient.a
+diff --git a/pppdump/Makefile.linux b/pppdump/Makefile.linux
+index fc6091c..5b3ebdb 100644
+--- a/pppdump/Makefile.linux
++++ b/pppdump/Makefile.linux
+@@ -35,7 +35,7 @@ INSTALL= install
+ all:	pppdump
+ 
+ %.o: %.c
+-	$(CC) $(COPTS) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(COPTS) $(CFLAGS) -c $<
+ 
+ pppdump: $(OBJS)
+ 	$(CC) $(LDFLAGS) -o pppdump $(OBJS) $(LIBS)
