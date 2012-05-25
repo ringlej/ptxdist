@@ -90,7 +90,7 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 # library even if they request for the non wide char library
 # Done by forcing the linker to use the right library instead
 #
-NCURSES_LIBRARY_LIST := curses ncurses
+NCURSES_LIBRARY_LIST := ncurses
 
 ifdef PTXCONF_NCURSES_FORM
 NCURSES_LIBRARY_LIST += form
@@ -117,6 +117,7 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 	for lib in $(NCURSES_LIBRARY_LIST); do \
 		echo "INPUT(-l$${lib}w)" > $(NCURSES_PKGDIR)/$(CROSS_LIB_DIR)/lib$${lib}.so ; \
 	done
+	echo "INPUT(-lncursesw)" > $(NCURSES_PKGDIR)/$(CROSS_LIB_DIR)/libcurses.so
 	ln -sf libncurses++w.a $(NCURSES_PKGDIR)/$(CROSS_LIB_DIR)/libncurses++.a
 
 	ln -sf -- "ncursesw$(NCURSES_MAJOR)-config" \
