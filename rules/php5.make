@@ -46,6 +46,7 @@ PHP5_CONF_ENV := \
 #
 PHP5_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-phar \
 	--with-config-file-path=/etc/php5 \
 	--without-iconv
 
