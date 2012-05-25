@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.20.1
-UTIL_LINUX_NG_MD5	:= 079b37517fd4e002a2e6e992e8b4e361
+UTIL_LINUX_NG_VERSION	:= 2.21.2
+UTIL_LINUX_NG_MD5	:= b75b3cfecb943f74338382fde693c2c3
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.20/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.21/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2+
@@ -49,26 +49,29 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-static \
 	--disable-gtk-doc \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--enable-tls \
-	--enable-mount \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
-	--disable-libmount-mount \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
 	--disable-nls \
 	--disable-rpath \
+	--enable-tls \
+	--disable-most-builds \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
+	--enable-mount \
+	--disable-losetup \
+	--disable-libmount-mount \
+	--disable-new-mount \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
+	--disable-fallocate \
+	--disable-unshare \
 	--disable-arch \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_DDATE)-ddate \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
 	--disable-cramfs \
 	--disable-switch_root \
 	--disable-pivot_root \
-	--disable-fallocate \
-	--disable-unshare \
 	--disable-elvtune \
 	--disable-kill \
 	--disable-last \
@@ -89,12 +92,12 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-use-tty-group \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
+	--without-selinux \
+	--without-audit \
+	--without-udev \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
-	--without-utempter \
-	--without-pam \
-	--without-selinux \
-	--without-audit
+	--without-utempter
 
 # ----------------------------------------------------------------------------
 # Target-Install
