@@ -21,10 +21,6 @@ ifeq ($(shell perl -e "require XML::Parser" 2>/dev/null || echo no),no)
 endif
 endif
 
-ifdef PTXCONF_HOST_INTLTOOL
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-intltool.install.post
-endif
-
 #
 # Paths and names
 #

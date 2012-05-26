@@ -19,10 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_FONT_UTIL) += host-xorg-font-util
 #
 HOST_XORG_FONT_UTIL_DIR	= $(HOST_BUILDDIR)/$(XORG_FONT_UTIL)
 
-ifdef PTXCONF_HOST_XORG_FONT_UTIL
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-font-util.install.post
-endif
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------

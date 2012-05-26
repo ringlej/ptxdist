@@ -19,18 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_SERVER) += host-xorg-server
 #
 HOST_XORG_SERVER_DIR	= $(HOST_BUILDDIR)/$(XORG_SERVER)
 
-#
-# well, well, what can I say: HACK-warning
-#
-# this way we fool the patching not to patch us
-# and the autogen_dep script, not to run autogen on us
-#
-HOST_XORG_SERVER	= host-$(XORG_SERVER)
-
-ifdef PTXCONF_HOST_XORG_SERVER
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-server.install.post
-endif
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------

@@ -24,10 +24,6 @@ HOST_GTK_DOC_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtk-doc/$(HOST_GTK_DO
 HOST_GTK_DOC_SOURCE	:= $(SRCDIR)/$(HOST_GTK_DOC).$(HOST_GTK_DOC_SUFFIX)
 HOST_GTK_DOC_DIR	:= $(HOST_BUILDDIR)/$(HOST_GTK_DOC)
 
-ifdef PTXCONF_HOST_GTK_DOC
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-gtk-doc.install.post
-endif
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

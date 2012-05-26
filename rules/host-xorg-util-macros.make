@@ -24,10 +24,6 @@ HOST_XORG_UTIL_MACROS_URL	:= $(call ptx/mirror, XORG, individual/util/$(HOST_XOR
 HOST_XORG_UTIL_MACROS_SOURCE	:= $(SRCDIR)/$(HOST_XORG_UTIL_MACROS).$(HOST_XORG_UTIL_MACROS_SUFFIX)
 HOST_XORG_UTIL_MACROS_DIR	:= $(HOST_BUILDDIR)/$(HOST_XORG_UTIL_MACROS)
 
-ifdef PTXCONF_HOST_XORG_UTIL_MACROS
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-util-macros.install.post
-endif
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

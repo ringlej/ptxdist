@@ -18,18 +18,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_GLIB) += host-glib
 #
 HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 
-#
-# well, well, what can I say: HACK-warning
-#
-# this way we fool the patching not to patch us
-# and the autogen_dep script, not to run autogen on us
-#
-HOST_GLIB	= host-$(GLIB)
-
-ifdef PTXCONF_HOST_GLIB
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-glib.install.post
-endif
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------

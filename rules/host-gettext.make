@@ -14,10 +14,6 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_GETTEXT) += host-gettext
 
-ifdef PTXCONF_HOST_GETTEXT
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-gettext.install.post
-endif
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
