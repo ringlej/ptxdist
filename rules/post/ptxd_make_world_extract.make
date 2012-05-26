@@ -23,6 +23,10 @@ extract = \
 	pkg_deprecated_extract_dir="$(call ptx/escape, $(strip $(2)))" \
 	ptxd_make_world_extract
 
+world/patchin/post = \
+	$(call world/env, $(1)) \
+	ptxd_make_world_patchin_post
+
 ### --- for KLIBC packages only ---
 
 $(STATEDIR)/klibc-%.extract:
@@ -39,6 +43,11 @@ $(STATEDIR)/%.extract:
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
 	@$(call extract, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_$(*)), $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
+	@$(call touch)
+
+$(STATEDIR)/%.extract.post:
+	@$(call targetinfo)
+	@$(call world/patchin/post, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 # vim: syntax=make

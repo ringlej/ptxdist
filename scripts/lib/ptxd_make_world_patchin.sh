@@ -15,31 +15,11 @@
 #
 # out:
 #
-# pkg_patch_autogen	path to autogen.sh
-# pkg_patch_dir		path to dir that contains the patches
 # pkg_patch_series	path to series file
 # pkg_patch_tool	tool used to apply the patch series
 #
 ptxd_make_world_patchin_apply_init()
 {
-    #
-    # find patch_dir
-    # for compatibility, look first in 'generic', then in standard
-    # location
-    #
-    if ! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg}/generic &&
-		! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg} ; then
-	echo "patchin: no patches found"
-	return
-    fi
-    pkg_patch_dir="${ptxd_reply}"
-
-    # look for autogen.sh
-    pkg_patch_autogen="${pkg_patch_dir}/autogen.sh"
-    if [ \! -x "${pkg_patch_autogen}" ]; then
-	unset pkg_patch_autogen
-    fi
-
     # look for series
     if [ -n "${pkg_patch_series}" ]; then
 	# check if specified series file can be found
@@ -224,8 +204,6 @@ export -f ptxd_make_world_patchin_apply_patch
 ptxd_make_world_patchin_apply()
 {
     local \
-	pkg_patch_autogen \
-	pkg_patch_dir \
 	pkg_patch_series \
 	pkg_patch_tool
 
@@ -339,9 +317,9 @@ ptxd_make_world_patchin_apply()
 	ln -sf ".ptxdist/patches" "${pkg_patchin_dir}/patches"
     fi || return
 
+    echo
     echo "pkg_patch_dir:     '$(ptxd_print_path "${pkg_patch_dir:-<none>}")'"
     echo "pkg_patch_series:  '$(ptxd_print_path "${pkg_patch_series:-<none>}")'"
-    echo "pkg_patch_autogen: '$(ptxd_print_path "${pkg_patch_autogen:-<none>}")'"
     echo
 
     # apply patches if series file is available
@@ -349,13 +327,6 @@ ptxd_make_world_patchin_apply()
 	echo    "patchin: ${pkg_patch_tool}: apply '$(ptxd_print_path ${pkg_patch_series})'"
 	"ptxd_make_world_patchin_apply_${pkg_patch_tool}" || return
 	echo -e "patchin: ${pkg_patch_tool}: done\n"
-    fi
-
-    # run autogen.sh if available
-    if [ -n "${pkg_patch_autogen}" ]; then
-	echo "patchin: autogen: running '${pkg_patch_autogen}'"
-	"${pkg_patch_autogen}" || return
-	echo -e "patchin: autogen: done\n"
     fi
 }
 export -f ptxd_make_world_patchin_apply
@@ -403,11 +374,39 @@ ptxd_make_world_patchin_fixup()
 }
 export -f ptxd_make_world_patchin_fixup
 
+#
+#
+#
+ptxd_make_world_autogen() {
+    # look for autogen.sh
+    local pkg_patch_autogen="${pkg_patch_dir}/autogen.sh"
+    if [ ! -x "${pkg_patch_autogen}" ]; then
+	unset pkg_patch_autogen
+    fi
+
+    echo "pkg_patch_autogen: '$(ptxd_print_path "${pkg_patch_autogen:-<none>}")'"
+    echo
+
+    # run autogen.sh if available
+    if [ -n "${pkg_patch_autogen}" ]; then
+	"${pkg_patch_autogen}" || return
+	echo -e "patchin: autogen: done\n"
+    fi
+}
+export -f ptxd_make_world_autogen
+
 
 #
-# FIXME
+# ptxd_make_world_patchin_init -
+# initialize variables used to apply the patches
 #
-ptxd_make_world_patchin()
+# out:
+#
+# pkg_patchin_dir	where to apply the patches
+# pkg_patch_dir		path to dir that contains the patches
+#			empty if no patches should be applied
+#
+ptxd_make_world_patchin_init()
 {
     ptxd_make_world_init || return
 
@@ -420,12 +419,11 @@ ptxd_make_world_patchin()
 	ptxd_bailout "a 3rd parameter to patchin ('${pkg_deprecated_patchin_series}') is obsolete, please define <PKG>_SERIES instead"
     fi
 
-    local pkg_patchin_dir=${pkg_deprecated_patchin_dir:-${pkg_dir}}
+    pkg_patchin_dir=${pkg_deprecated_patchin_dir:-${pkg_dir}}
 
     #
     # FIXME: do we still need this check?
     #
-    local apply_series
     case "${pkg_url}" in
 	file://)
 	    local dir="${pkg_url#file://}"
@@ -433,17 +431,46 @@ ptxd_make_world_patchin()
 		echo "local directory instead of tar file, skipping patch"
 	    fi
 	    ;;
-	*) apply_series="true" ;;
     esac
 
-    pushd "${pkg_patchin_dir}" > /dev/null &&
-    if [ -n "${apply_series}" ]; then
- 	ptxd_make_world_patchin_apply
-    fi &&
-    popd > /dev/null &&
+    #
+    # find patch_dir
+    # for compatibility, look first in 'generic', then in standard
+    # location
+    #
+    if ! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg}/generic &&
+		! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg} ; then
+	return
+    fi
+    pkg_patch_dir="${ptxd_reply}"
+}
+export -f ptxd_make_world_patchin_init
 
-    if [ "${pkg_type}" = "target" ]; then
-	ptxd_make_world_patchin_fixup
+ptxd_make_world_patchin()
+{
+    ptxd_make_world_patchin_init || return
+
+    if [ -n "${pkg_patch_dir}" ]; then (
+	cd "${pkg_patchin_dir}" &&
+	ptxd_make_world_patchin_apply
+     ) else
+	echo -e "patchin: no patches found"
     fi
 }
 export -f ptxd_make_world_patchin
+
+ptxd_make_world_patchin_post() {
+    ptxd_make_world_patchin_init || return
+
+    if [ -n "${pkg_patchin_dir}" ]; then (
+	cd "${pkg_patchin_dir}" &&
+	if [ -n "${pkg_patch_dir}" ]; then
+	    ptxd_make_world_autogen
+	fi &&
+
+	if [ "${pkg_type}" = "target" ]; then
+	    ptxd_make_world_patchin_fixup
+	fi
+    ) fi
+}
+export -f ptxd_make_world_patchin_post

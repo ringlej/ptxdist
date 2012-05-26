@@ -277,7 +277,8 @@ END {
 		# default deps
 		#
 		print "$(STATEDIR)/" this_pkg ".extract: "            "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".prepare: "            "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".extract.post: "       "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".prepare: "            "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".tags: "               "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".compile: "            "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".install: "            "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
@@ -315,7 +316,7 @@ END {
 			this_dep = PKG_to_pkg[this_DEP_array[i]]
 
 			print \
-				"$(STATEDIR)/" this_pkg	".prepare: " \
+				"$(STATEDIR)/" this_pkg	".extract.post: " \
 				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
 			print \
 				"$(STATEDIR)/" this_pkg	".install.unpack: " \
@@ -356,7 +357,7 @@ END {
 		}
 
 		print \
-			"$(STATEDIR)/" this_pkg ".prepare: " \
+			"$(STATEDIR)/" this_pkg ".extract.post: " \
 			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
 		print \
 			"$(STATEDIR)/" this_pkg ".install.unpack: " \
