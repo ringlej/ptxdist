@@ -11,18 +11,17 @@ In file included from ../include/writeall.h:7,
 
 Signed-off-by: Jon Ringle <jon@ringle.org>
 ---
- disk-utils/swaplabel.c   |    2 +-
  lib/at.c                 |    1 +
  lib/tt.c                 |    1 +
  libmount/src/cache.c     |    1 +
  libmount/src/iter.c      |    1 +
  libmount/src/tab_parse.c |    1 +
- 6 files changed, 6 insertions(+), 1 deletion(-)
+ 5 files changed, 5 insertions(+)
 
-Index: util-linux-2.20/lib/at.c
-===================================================================
---- util-linux-2.20.orig/lib/at.c
-+++ util-linux-2.20/lib/at.c
+diff --git a/lib/at.c b/lib/at.c
+index 062a10f..60f2a2a 100644
+--- a/lib/at.c
++++ b/lib/at.c
 @@ -7,6 +7,7 @@
  #include <stdlib.h>
  #include <fcntl.h>
@@ -31,10 +30,10 @@ Index: util-linux-2.20/lib/at.c
  
  #include "at.h"
  #include "c.h"
-Index: util-linux-2.20/lib/tt.c
-===================================================================
---- util-linux-2.20.orig/lib/tt.c
-+++ util-linux-2.20/lib/tt.c
+diff --git a/lib/tt.c b/lib/tt.c
+index 16a0098..930e85c 100644
+--- a/lib/tt.c
++++ b/lib/tt.c
 @@ -15,6 +15,7 @@
  #include <unistd.h>
  #include <string.h>
@@ -43,10 +42,10 @@ Index: util-linux-2.20/lib/tt.c
  #ifdef HAVE_SYS_IOCTL_H
  #include <sys/ioctl.h>
  #endif
-Index: util-linux-2.20/libmount/src/cache.c
-===================================================================
---- util-linux-2.20.orig/libmount/src/cache.c
-+++ util-linux-2.20/libmount/src/cache.c
+diff --git a/libmount/src/cache.c b/libmount/src/cache.c
+index f3156a5..ad32b24 100644
+--- a/libmount/src/cache.c
++++ b/libmount/src/cache.c
 @@ -23,6 +23,7 @@
  #include <unistd.h>
  #include <fcntl.h>
@@ -55,10 +54,10 @@ Index: util-linux-2.20/libmount/src/cache.c
  
  #include "canonicalize.h"
  #include "mountP.h"
-Index: util-linux-2.20/libmount/src/iter.c
-===================================================================
---- util-linux-2.20.orig/libmount/src/iter.c
-+++ util-linux-2.20/libmount/src/iter.c
+diff --git a/libmount/src/iter.c b/libmount/src/iter.c
+index 393c23e..211d465 100644
+--- a/libmount/src/iter.c
++++ b/libmount/src/iter.c
 @@ -16,6 +16,7 @@
  #include <stdio.h>
  #include <string.h>
@@ -67,11 +66,11 @@ Index: util-linux-2.20/libmount/src/iter.c
  
  #include "mountP.h"
  
-Index: util-linux-2.20/libmount/src/tab_parse.c
-===================================================================
---- util-linux-2.20.orig/libmount/src/tab_parse.c
-+++ util-linux-2.20/libmount/src/tab_parse.c
-@@ -9,6 +9,7 @@
+diff --git a/libmount/src/tab_parse.c b/libmount/src/tab_parse.c
+index 28c8536..0bfae8a 100644
+--- a/libmount/src/tab_parse.c
++++ b/libmount/src/tab_parse.c
+@@ -15,6 +15,7 @@
  #include <limits.h>
  #include <dirent.h>
  #include <fcntl.h>

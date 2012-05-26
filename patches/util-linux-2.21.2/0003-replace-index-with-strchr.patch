@@ -10,11 +10,11 @@ Signed-off-by: Jon Ringle <jon@ringle.org>
  libmount/src/tab_parse.c |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: util-linux-2.20/libmount/src/tab_parse.c
-===================================================================
---- util-linux-2.20.orig/libmount/src/tab_parse.c
-+++ util-linux-2.20/libmount/src/tab_parse.c
-@@ -280,14 +280,14 @@ static int mnt_table_parse_next(struct l
+diff --git a/libmount/src/tab_parse.c b/libmount/src/tab_parse.c
+index 0bfae8a..489ef1f 100644
+--- a/libmount/src/tab_parse.c
++++ b/libmount/src/tab_parse.c
+@@ -306,14 +306,14 @@ static int mnt_table_parse_next(struct libmnt_table *tb, FILE *f, struct libmnt_
  		if (fgets(buf, sizeof(buf), f) == NULL)
  			return -EINVAL;
  		++*nlines;

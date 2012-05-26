@@ -9,11 +9,11 @@ Signed-off-by: Karel Zak <kzak@redhat.com>
  libmount/src/context_umount.c |   28 ++++++++++++++++++++++++++++
  1 file changed, 28 insertions(+)
 
-Index: util-linux-2.20/libmount/src/context_umount.c
-===================================================================
---- util-linux-2.20.orig/libmount/src/context_umount.c
-+++ util-linux-2.20/libmount/src/context_umount.c
-@@ -38,6 +38,34 @@
+diff --git a/libmount/src/context_umount.c b/libmount/src/context_umount.c
+index 98019ce..3eb1212 100644
+--- a/libmount/src/context_umount.c
++++ b/libmount/src/context_umount.c
+@@ -39,6 +39,34 @@
  #endif
  
  
@@ -47,4 +47,4 @@ Index: util-linux-2.20/libmount/src/context_umount.c
 +
  static int lookup_umount_fs(struct libmnt_context *cxt)
  {
- 	int rc;
+ 	int rc, loopdev = 0;
