@@ -22,7 +22,7 @@ USPLASH_VERSION	:= 0.5.49
 USPLASH_MD5	:= 6b1fd6c109456f47cbad1b1ccaa2bf53
 USPLASH		:= usplash_$(USPLASH_VERSION)
 USPLASH_SUFFIX	:= tar.gz
-USPLASH_URL	:= http://archive.ubuntu.com/ubuntu/pool/main/u/usplash/$(USPLASH).$(USPLASH_SUFFIX)
+USPLASH_URL	:= http://usplash.sourcearchive.com/downloads/$(USPLASH_VERSION)/$(USPLASH).$(USPLASH_SUFFIX)
 USPLASH_SOURCE	:= $(SRCDIR)/$(USPLASH).$(USPLASH_SUFFIX)
 USPLASH_DIR	:= $(BUILDDIR)/$(USPLASH)
 
