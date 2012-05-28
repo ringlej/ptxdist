@@ -1,0 +1,10 @@
+## SECTION=editors
+
+config DHEX
+	tristate
+	prompt "dhex"
+	select NCURSES
+	help
+	  DHEX is a more than just another hex editor. It includes a diff mode,
+	  which can be used to easily and conveniently compare two binary files.
+
