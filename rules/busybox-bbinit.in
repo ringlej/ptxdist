@@ -30,3 +30,8 @@ config BUSYBOX_TELNETD_BBINIT_LINK
 	prompt "telnetd"
 	default "S16telnetd"
 
+config BUSYBOX_BB_SYSCTL_BBINIT_LINK
+	string
+	depends on BUSYBOX_BB_SYSCTL_STARTSCRIPT
+	prompt "sysctl"
+	default "S17sysctl"

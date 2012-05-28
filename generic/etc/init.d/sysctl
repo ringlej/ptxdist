@@ -1,0 +1,23 @@
+#! /bin/sh
+# /etc/init.d/sysctl: Set kernel variables from /etc/sysctl.conf
+#
+
+PATH=/sbin:$PATH
+which sysctl > /dev/null || exit 0
+
+case "$1" in
+	start|restart|force-reload)
+		for file in /etc/sysctl.conf /etc/sysctl.d/*.conf ; do
+			if [ -r "$file" ] ; then
+				sysctl -p "$file" > /dev/null 2>&1
+			fi
+		done
+		;;
+	stop)
+		;;
+	*)
+		echo "Usage: /etc/init.d/sysctl {start|stop|restart|force-reload}" >&2
+		exit 3
+		;;
+esac
+exit 0

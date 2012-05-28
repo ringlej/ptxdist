@@ -170,6 +170,17 @@ ifneq ($(call remove_quotes, $(PTXCONF_BUSYBOX_HWCLOCK_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_BUSYBOX_HWCLOCK_BBINIT_LINK))
 endif
 endif
+
+ifdef PTXCONF_BUSYBOX_BB_SYSCTL_STARTSCRIPT
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/sysctl)
+
+ifneq ($(call remove_quotes,$(PTXCONF_BUSYBOX_BB_SYSCTL_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/sysctl, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_BB_SYSCTL_BBINIT_LINK))
+endif
+endif
+
 endif # PTXCONF_INITMETHOD_BBINIT
 
 ifdef PTXCONF_BUSYBOX_TELNETD_SYSTEMD_UNIT
@@ -197,6 +208,10 @@ endif
 ifdef PTXCONF_BUSYBOX_CROND
 	@$(call install_copy, busybox, 0, 0, 0755, /etc/cron)
 	@$(call install_copy, busybox, 0, 0, 0755, /var/spool/cron/crontabs/)
+endif
+
+ifdef PTXCONF_BUSYBOX_BB_SYSCTL
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/sysctl.conf)
 endif
 
 	@$(call install_finish, busybox)

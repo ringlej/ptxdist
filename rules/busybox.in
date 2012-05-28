@@ -68,6 +68,12 @@ config BUSYBOX_HWCLOCK_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/hwclock"
 
+config BUSYBOX_BB_SYSCTL_STARTSCRIPT
+	bool
+	depends on BUSYBOX_BB_SYSCTL
+	default y
+	prompt "Install /etc/init.d/sysctl"
+
 comment "---"
 
 config BUSYBOX_TELNETD_SYSTEMD_UNIT
