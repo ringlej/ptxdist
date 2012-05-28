@@ -1,0 +1,12 @@
+## SECTION=networking
+
+config LIBNETFILTER_CONNTRACK
+	tristate
+	select LIBNFNETLINK
+	prompt "libnetfilter_conntrack"
+	help
+	  libnetfilter_conntrack is a userspace library providing a
+	  programming interface (API) to the in-kernel connection tracking
+	  state table.
+	  This library has been previously known as libnfnetlink_conntrack
+
