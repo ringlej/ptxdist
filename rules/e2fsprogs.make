@@ -119,6 +119,7 @@ endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2FSCK
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e2fsck)
+	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.auto)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT2
 	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext2)
