@@ -51,7 +51,8 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-distro=debian \
 	--with-dhclient=no \
 	--with-dhcpcd=no \
-	--with-resolvconf=no
+	--with-resolvconf=no \
+	--with-iptables=/usr/sbin
 
 # ----------------------------------------------------------------------------
 # Install
