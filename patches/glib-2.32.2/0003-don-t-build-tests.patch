@@ -1,0 +1,68 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 30 May 2012 13:02:19 +0200
+Subject: [PATCH] don't build tests
+
+Makes things faster, and we don't need xmllint
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am         |    2 +-
+ gio/Makefile.am     |    2 --
+ glib/Makefile.am    |    2 +-
+ gobject/Makefile.am |    2 +-
+ 4 files changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index f5c510d..4ae2b09 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -6,7 +6,7 @@ include $(top_srcdir)/Makefile.decl
+ 
+ ACLOCAL_AMFLAGS = -I m4macros ${ACLOCAL_FLAGS}
+ 
+-SUBDIRS = . m4macros glib gmodule gthread gobject gio tests po docs
++SUBDIRS = . m4macros glib gmodule gthread gobject gio po docs
+ DIST_SUBDIRS = $(SUBDIRS) build
+ 
+ bin_SCRIPTS = glib-gettextize
+diff --git a/gio/Makefile.am b/gio/Makefile.am
+index d4f0e88..720314b 100644
+--- a/gio/Makefile.am
++++ b/gio/Makefile.am
+@@ -323,8 +323,6 @@ giowin32include_HEADERS = \
+ 
+ endif
+ 
+-SUBDIRS += tests
+-
+ libgio_2_0_la_SOURCES =		\
+ 	gappinfo.c 		\
+ 	gasynchelper.c 		\
+diff --git a/glib/Makefile.am b/glib/Makefile.am
+index ac73a8c..82ab5bb 100644
+--- a/glib/Makefile.am
++++ b/glib/Makefile.am
+@@ -35,7 +35,7 @@ else
+ MAYBE_PCRE = pcre 
+ endif
+ 
+-SUBDIRS = libcharset $(PRINTF_SUBDIR) $(MAYBE_PCRE) update-pcre . tests
++SUBDIRS = libcharset $(PRINTF_SUBDIR) $(MAYBE_PCRE) update-pcre .
+ 
+ DIST_SUBDIRS = libcharset gnulib pcre update-pcre tests
+ 
+diff --git a/gobject/Makefile.am b/gobject/Makefile.am
+index cc265b4..7519ca0 100644
+--- a/gobject/Makefile.am
++++ b/gobject/Makefile.am
+@@ -4,7 +4,7 @@
+ ## Process this file with automake to produce Makefile.in
+ include $(top_srcdir)/Makefile.decl
+ 
+-SUBDIRS = . tests
++SUBDIRS = .
+ 
+ BUILT_SOURCES=
+ CLEANFILES=
