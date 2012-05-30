@@ -48,7 +48,10 @@ NETWORKMANAGER_CONF_OPT := \
 	--without-docs \
 	--with-gnu-ld \
 	--with-crypto=gnutls \
-	--with-distro=debian
+	--with-distro=debian \
+	--with-dhclient=no \
+	--with-dhcpcd=no \
+	--with-resolvconf=no
 
 # ----------------------------------------------------------------------------
 # Install
