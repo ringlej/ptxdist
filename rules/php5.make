@@ -248,9 +248,9 @@ PHP5_AUTOCONF += --disable-sockets
 endif
 
 ifdef PTXCONF_PHP5_EXT_SQLITE3
-PHP5_AUTOCONF += --with-sqlite3=$(PTXDIST_SYSROOT_TARGET)/usr
+PHP5_AUTOCONF += --with-sqlite3=$(PTXDIST_SYSROOT_TARGET)/usr --with-pdo-sqlite
 else
-PHP5_AUTOCONF += --without-sqlite3
+PHP5_AUTOCONF += --without-sqlite3 --without-pdo-sqlite
 endif
 
 ifdef PTXCONF_PHP5_EXT_PEAR
