@@ -32,6 +32,7 @@ LIBCGIC_LICENSE	:= LIBCGIC
 LIBCGIC_CONF_TOOL := NO
 LIBCGIC_MAKE_ENV := $(CROSS_ENV)
 LIBCGIC_MAKE_OPT := PREFIX=/usr $(CROSS_ENV_AR) $(CROSS_ENV_RANLIB)
+LIBCGIC_MAKE_PAR := NO
 LIBCGIC_INSTALL_OPT := $(LIBCGIC_MAKE_OPT) install
 
 # ----------------------------------------------------------------------------
