@@ -25,7 +25,7 @@ _ptxdist_completion()
 	# Complete depending on options
 	case ${COMP_WORDS[1]} in
 	menuconfig)
-		COMPREPLY=( $( compgen -W "${opts} kernel platform u-boot-v2" -- $cur) )
+		COMPREPLY=( $( compgen -W "${opts} kernel platform barebox board collection user" -- $cur) )
 		;;
 	clone)
 		#HACK! Enable filename completion without specifying '-o filenames' during complete (that will add slashes to commands if there is a dir of the same name :( )

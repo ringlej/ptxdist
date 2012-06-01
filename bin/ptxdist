@@ -791,6 +791,8 @@ Setup and Project Actions:
 
   menuconfig collection		configure the collection
 
+  menuconfig barebox		configure the bootloader Barebox
+
   menuconfig u-boot-v2
   u_boot_config			configure U-Boot V2
 
