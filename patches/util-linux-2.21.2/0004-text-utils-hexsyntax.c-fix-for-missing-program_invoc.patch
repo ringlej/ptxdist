@@ -1,0 +1,36 @@
+From: =?UTF-8?q?Andreas=20Bie=C3=9Fmann?= <biessmann@corscience.de>
+Date: Tue, 29 May 2012 09:51:24 +0200
+Subject: [PATCH] text-utils/hexsyntax.c: fix for missing
+ program_invocation_short_name
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Some libc do not expose program_invocation_short_name. Therefore util-linux
+comes with helpers in 'c.h'. Use the 'c.h' in hexsyntax.c where it was missed.
+
+This patch fixes following error for me:
+---8<---
+hexsyntax.c: In function 'newsyntax':
+hexsyntax.c:115: error: 'program_invocation_short_name' undeclared (first use in this function)
+hexsyntax.c:115: error: (Each undeclared identifier is reported only once
+hexsyntax.c:115: error: for each function it appears in.)
+--->8---
+
+Signed-off-by: Andreas Bießmann <biessmann@corscience.de>
+---
+ text-utils/hexsyntax.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/text-utils/hexsyntax.c b/text-utils/hexsyntax.c
+index 5cdd1de..74146c8 100644
+--- a/text-utils/hexsyntax.c
++++ b/text-utils/hexsyntax.c
+@@ -45,6 +45,7 @@
+ #include "hexdump.h"
+ #include "nls.h"
+ #include "strutils.h"
++#include "c.h"
+ 
+ off_t skip;				/* bytes to skip */
+ 

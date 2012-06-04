@@ -3,4 +3,5 @@
 0001-libmount-add-fallbacks-for-old-systems-without-umoun.patch
 0002-__progname-redefinition-fix.patch
 0003-replace-index-with-strchr.patch
-# 5460ef482e2f1fbfb2002773d7074ab5  - git-ptx-patches magic
+0004-text-utils-hexsyntax.c-fix-for-missing-program_invoc.patch
+# f153341f4051f66cbeedef2bbd15c9cf  - git-ptx-patches magic
