@@ -21,7 +21,9 @@ OPENSSH_VERSION	:= 5.8p2
 OPENSSH_MD5	:= 0541579adf9d55abb15ef927048d372e
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
-OPENSSH_URL	:= http://openssh.linux-mirror.org/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
+OPENSSH_URL	:= \
+	http://openbsd.cs.fau.de/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX) \
+	http://ftp.halifax.rwth-aachen.de/openbsd/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
 OPENSSH_LICENSE	:= BSD
