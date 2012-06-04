@@ -2,19 +2,20 @@
 
 menuconfig NETWORKMANAGER
 	tristate
-	select DHCP
+	select DHCP			if RUNTIME
 	select DHCP_CLIENT
 	select WIRELESS
+	select WIRELESS_SHARED
 	select UDEV
 	select UDEV_LIBGUDEV
 	select DBUS_GLIB
 	select LIBNL
 	select LIBUUID
-	select WPA_SUPPLICANT
+	select WPA_SUPPLICANT		if RUNTIME
 	select GNUTLS
 	select HOST_INTLTOOL
-	select DBUS_PYTHON                      if NETWORKMANAGER_EXAMPLES
-	select IPTABLES
+	select DBUS_PYTHON		if NETWORKMANAGER_EXAMPLES && RUNTIME
+	select IPTABLES			if RUNTIME
 # for the 'iptables' tool
 	select IPTABLES_IPV4
 	prompt "networkmanager                "

@@ -49,10 +49,10 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-gnu-ld \
 	--with-crypto=gnutls \
 	--with-distro=debian \
-	--with-dhclient=no \
+	--with-dhclient=/sbin/dhclient \
 	--with-dhcpcd=no \
 	--with-resolvconf=no \
-	--with-iptables=/usr/sbin
+	--with-iptables=/usr/sbin/iptables
 
 # ----------------------------------------------------------------------------
 # Install
