@@ -63,6 +63,11 @@ $(BAREBOX_CONFIG):
 	@exit 1
 endif
 
+ifdef PTXCONF_BAREBOX_EXTRA_ENV_PATH
+$(STATEDIR)/barebox.prepare: $(call remove_quotes,$(PTXCONF_BAREBOX_EXTRA_ENV_PATH))
+$(STATEDIR)/barebox.prepare: $(shell find $(call remove_quotes,$(PTXCONF_BAREBOX_EXTRA_ENV_PATH)) -print 2>/dev/null)
+endif
+
 $(STATEDIR)/barebox.prepare: $(BAREBOX_CONFIG)
 	@$(call targetinfo)
 
@@ -73,8 +78,13 @@ ifdef PTXCONF_BAREBOX_EXTRA_ENV
 	@rm -rf $(BAREBOX_DIR)/.ptxdist-defaultenv
 	@ptxd_source_kconfig "${PTXDIST_PTXCONFIG}" && \
 	ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}" && \
-	ptxd_filter_dir "$(PTXCONF_BAREBOX_EXTRA_ENV_PATH)" \
-		$(BAREBOX_DIR)/.ptxdist-defaultenv
+	$(foreach path, $(call remove_quotes,$(PTXCONF_BAREBOX_EXTRA_ENV_PATH)), \
+		if [ -d "$(path)" ]; then \
+			ptxd_filter_dir "$(path)" \
+			$(BAREBOX_DIR)/.ptxdist-defaultenv; \
+		else \
+			cp "$(path)" $(BAREBOX_DIR)/.ptxdist-defaultenv/; \
+		fi;)
 	@sed -i -e "s,^\(CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\)\"$$,\1 .ptxdist-defaultenv\"," \
 		$(BAREBOX_DIR)/.config
 endif
