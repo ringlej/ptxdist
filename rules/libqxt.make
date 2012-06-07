@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBQXT) += libqxt
 # Paths and names
 #
 LIBQXT_VERSION	:= 0.6.1
-LIBQXT_MD5	:= f566099a52adb9bcffb741a1a0f7b912
+LIBQXT_MD5	:= b83cb8c105366c4cf9d9282211d5db31
 LIBQXT		:= libqxt-$(LIBQXT_VERSION)
 LIBQXT_SUFFIX	:= tar.bz2
 LIBQXT_URL	:= http://dev.libqxt.org/libqxt/get/v$(LIBQXT_VERSION).$(LIBQXT_SUFFIX)
