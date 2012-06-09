@@ -122,8 +122,10 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
 		/sbin/wpa_supplicant)
-	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
-		/sbin/wpa_cli)
+
+ifdef PTXCONF_WPA_SUPPLICANT_INSTALL_CLI
+	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, /sbin/wpa_cli)
+endif
 
 ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \

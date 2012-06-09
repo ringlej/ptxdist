@@ -109,4 +109,22 @@ config WPA_SUPPLICANT_DRIVER_ROBOSWITCH
 	  Driver interface for the Broadcom RoboSwitch family
 	  untested
 
+config WPA_SUPPLICANT_INSTALL_CLI
+	bool
+	prompt "Install wpa_cli"
+	default y
+	help
+	  This option enables or disables installation of the wpa_cli tool in
+	  the root file system. The tool allows controlling wpa_supplicant
+	  if used in daemon mode.
+
+	  You need something like
+
+	      ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=network
+	      update_config=1
+
+	  in your /etc/wpa_supplicant.conf to make wpa_cli working. Often
+	  it's not necessary to have wpa_cli in the final (non-development)
+	  version of an Embedded System.
+
 endif
