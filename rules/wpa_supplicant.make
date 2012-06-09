@@ -136,6 +136,9 @@ ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
 		/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service)
 endif
 
+	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
+		/etc/wpa_supplicant.conf)
+
 	@$(call install_finish, wpa_supplicant)
 
 	@$(call touch)
