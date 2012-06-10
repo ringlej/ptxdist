@@ -38,7 +38,7 @@ DHCP_DIR	:= $(BUILDDIR)/$(DHCP)
 #
 DHCP_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
-	--enable-dhcpv6
+	--$(call ptx/endis, PTXCONF_GLOBAL_IPV6)-dhcpv6
 
 # overwrite CFLAGS to remove -Werror
 DHCP_MAKE_OPT := \
