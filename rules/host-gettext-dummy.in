@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_GETTEXT_DUMMY
+	tristate
+	default ALLYES
+	help
+	  This is a small do nothing replacement for the gettext monster
