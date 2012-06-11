@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_BOOT_MLO_VFAT
+	bool
+	select IMAGE_VFAT_TOOLS
+	prompt "Generate images/boot-mlo.vfat"
+	help
+	  Build a vfat filesystem for booting on OMAP-like systems.
+	  The boot-mlo.vfat filesystem image contains the MLO preloader,
+	  the full bootloader (barebox or u-boot) and the kernel.
+
