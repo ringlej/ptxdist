@@ -24,6 +24,13 @@ config BUSYBOX_ASH_BASH_COMPAT
 	help
 	  Enable bash-compatible extensions.
 
+config BUSYBOX_ASH_IDLE_TIMEOUT
+	bool "Idle timeout variable"
+	default n
+	depends on BUSYBOX_ASH
+	help
+	  Enables bash-like auto-logout after $TMOUT seconds of idle time.
+
 config BUSYBOX_ASH_JOB_CONTROL
 	bool "Job control"
 	default y
@@ -32,7 +39,7 @@ config BUSYBOX_ASH_JOB_CONTROL
 	  Enable job control in the ash shell.
 
 config BUSYBOX_ASH_ALIAS
-	bool "alias support"
+	bool "Alias support"
 	default y
 	depends on BUSYBOX_ASH
 	help
@@ -43,28 +50,28 @@ config BUSYBOX_ASH_GETOPTS
 	default y
 	depends on BUSYBOX_ASH
 	help
-	  Enable getopts builtin in the ash shell.
+	  Enable support for getopts builtin in ash.
 
 config BUSYBOX_ASH_BUILTIN_ECHO
 	bool "Builtin version of 'echo'"
 	default y
 	depends on BUSYBOX_ASH
 	help
-	  Enable support for echo, builtin to ash.
+	  Enable support for echo builtin in ash.
 
 config BUSYBOX_ASH_BUILTIN_PRINTF
 	bool "Builtin version of 'printf'"
 	default y
 	depends on BUSYBOX_ASH
 	help
-	  Enable support for printf, builtin to ash.
+	  Enable support for printf builtin in ash.
 
 config BUSYBOX_ASH_BUILTIN_TEST
 	bool "Builtin version of 'test'"
 	default y
 	depends on BUSYBOX_ASH
 	help
-	  Enable support for test, builtin to ash.
+	  Enable support for test builtin in ash.
 
 config BUSYBOX_ASH_CMDCMD
 	bool "'command' command to override shell builtins"
@@ -80,7 +87,7 @@ config BUSYBOX_ASH_MAIL
 	default n
 	depends on BUSYBOX_ASH
 	help
-	  Enable "check for new mail" in the ash shell.
+	  Enable "check for new mail" function in the ash shell.
 
 config BUSYBOX_ASH_OPTIMIZE_FOR_SIZE
 	bool "Optimize for size instead of speed"
@@ -113,18 +120,22 @@ config BUSYBOX_CTTYHACK
 	bool "cttyhack"
 	default y
 	help
-	  One common problem reported on the mailing list is "can't access tty;
-	  job control turned off" error message which typically appears when
-	  one tries to use shell with stdin/stdout opened to /dev/console.
+	  One common problem reported on the mailing list is the "can't
+	  access tty; job control turned off" error message, which typically
+	  appears when one tries to use a shell with stdin/stdout on
+	  /dev/console.
 	  This device is special - it cannot be a controlling tty.
 
-	  Proper solution is to use correct device instead of /dev/console.
+	  The proper solution is to use the correct device instead of
+	  /dev/console.
 
-	  cttyhack provides "quick and dirty" solution to this problem.
+	  cttyhack provides a "quick and dirty" solution to this problem.
 	  It analyzes stdin with various ioctls, trying to determine whether
 	  it is a /dev/ttyN or /dev/ttySN (virtual terminal or serial line).
-	  If it detects one, it closes stdin/out/err and reopens that device.
-	  Then it executes given program. Opening the device will make
+	  On Linux it also checks sysfs for a pointer to the active console.
+	  If cttyhack is able to find the real console device, it closes
+	  stdin/out/err and reopens that device.
+	  Then it executes the given program. Opening the device will make
 	  that device a controlling tty. This may require cttyhack
 	  to be a session leader.
 
@@ -145,6 +156,9 @@ config BUSYBOX_CTTYHACK
 
 	  # exec setsid sh -c 'exec sh </dev/tty1 >/dev/tty1 2>&1'
 
+	  Starting getty on a controlling tty from a shell script:
+
+	  # getty 115200 $(cttyhack)
 config BUSYBOX_HUSH
 	bool "hush"
 	default y
@@ -281,6 +295,7 @@ config BUSYBOX_MSH
 	  msh is deprecated and will be removed, please migrate to hush.
 
 
+
 choice
 	prompt "Choose which shell is aliased to 'sh' name"
 	default BUSYBOX_FEATURE_SH_IS_ASH
@@ -396,9 +411,9 @@ config BUSYBOX_FEATURE_SH_NOFORK
 	default n
 	depends on (BUSYBOX_HUSH || BUSYBOX_ASH) && BUSYBOX_FEATURE_PREFER_APPLETS
 	help
-	  This option causes busybox shells [currently only ash]
-	  to not execute typical fork/exec/wait sequence, but call <applet>_main
-	  directly, if possible. (Sometimes it is not possible: for example,
+	  This option causes busybox shells to not execute typical
+	  fork/exec/wait sequence, but call <applet>_main directly,
+	  if possible. (BUSYBOX_Sometimes it is not possible: for example,
 	  this is not possible in pipes).
 
 	  This will be done only for some applets (those which are marked
@@ -406,6 +421,17 @@ config BUSYBOX_FEATURE_SH_NOFORK
 
 	  This may significantly speed up some shell scripts.
 
-	  This feature is relatively new. Use with care.
+	  This feature is relatively new. Use with care. Report bugs
+	  to project mailing list.
+
+config BUSYBOX_FEATURE_SH_HISTFILESIZE
+	bool "Use $HISTFILESIZE"
+	default y
+	depends on BUSYBOX_HUSH || BUSYBOX_ASH
+	help
+	  This option makes busybox shells to use $HISTFILESIZE variable
+	  to set shell history size. Note that its max value is capped
+	  by "History size" setting in library tuning section.
+
 
 endmenu

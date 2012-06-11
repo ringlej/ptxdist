@@ -11,11 +11,22 @@ config BUSYBOX_IOSTAT
 	default y
 	help
 	  Report CPU and I/O statistics
+config BUSYBOX_LSOF
+	bool "lsof"
+	default y
+	help
+	  Show open files in the format of:
+	  PID <TAB> /path/to/executable <TAB> /path/to/opened/file
 config BUSYBOX_MPSTAT
 	bool "mpstat"
 	default y
 	help
 	  Per-processor statistics
+config BUSYBOX_NMETER
+	bool "nmeter"
+	default y
+	help
+	  Prints selected system stats continuously, one line per update.
 config BUSYBOX_PMAP
        bool "pmap"
        default y
@@ -26,17 +37,42 @@ config BUSYBOX_POWERTOP
 	default y
 	help
 	  Analyze power consumption on Intel-based laptops
+config BUSYBOX_PSTREE
+	bool "pstree"
+	default y
+	help
+	  Display a tree of processes.
+config BUSYBOX_PWDX
+	bool "pwdx"
+	default y
+	help
+	  Report current working directory of a process
 config BUSYBOX_SMEMCAP
 	bool "smemcap"
 	default y
 	help
 	  smemcap is a tool for capturing process data for smem,
 	  a memory usage statistic tool.
+config BUSYBOX_UPTIME
+	bool "uptime"
+	default y
+	select BUSYBOX_PLATFORM_LINUX #sysinfo()
+	help
+	  uptime gives a one line display of the current time, how long
+	  the system has been running, how many users are currently logged
+	  on, and the system load averages for the past 1, 5, and 15 minutes.
+
+config BUSYBOX_FEATURE_UPTIME_UTMP_SUPPORT
+	bool "Support for showing the number of users"
+	default y
+	depends on BUSYBOX_UPTIME && BUSYBOX_FEATURE_UTMP
+	help
+	  Makes uptime display the number of users currently logged on.
 
 config BUSYBOX_FREE
 	bool "free"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX #sysinfo()
+	select BUSYBOX_PLATFORM_LINUX #sysinfo()
 	help
 	  free displays the total amount of free and used physical and swap
 	  memory in the system, as well as the buffers used by the kernel.
@@ -71,12 +107,6 @@ config BUSYBOX_KILLALL5
 	bool "killall5"
 	default y
 	depends on BUSYBOX_KILL
-
-config BUSYBOX_NMETER
-	bool "nmeter"
-	default y
-	help
-	  Prints selected system stats continuously, one line per update.
 
 config BUSYBOX_PGREP
 	bool "pgrep"
@@ -122,16 +152,25 @@ config BUSYBOX_PS
 config BUSYBOX_FEATURE_PS_WIDE
 	bool "Enable wide output option (-w)"
 	default y
-	depends on BUSYBOX_PS
+	depends on BUSYBOX_PS && !BUSYBOX_DESKTOP
 	help
 	  Support argument 'w' for wide output.
 	  If given once, 132 chars are printed, and if given more
 	  than once, the length is unlimited.
 
+config BUSYBOX_FEATURE_PS_LONG
+	bool "Enable long output option (-l)"
+	default y
+	depends on BUSYBOX_PS && !BUSYBOX_DESKTOP
+	help
+	  Support argument 'l' for long output.
+	  Adds fields PPID, RSS, START, TIME & TTY
+
 config BUSYBOX_FEATURE_PS_TIME
 	bool "Enable time and elapsed time output"
 	default y
-	depends on BUSYBOX_PS && BUSYBOX_DESKTOP && BUSYBOX_PLATFORM_LINUX #sysinfo()
+	depends on BUSYBOX_PS && BUSYBOX_DESKTOP
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Support -o time and -o etime output specifiers.
 
@@ -218,20 +257,12 @@ config BUSYBOX_FEATURE_TOPMEM
 	  Enable 's' in top (gives lots of memory info).
 
 config BUSYBOX_FEATURE_SHOW_THREADS
-	bool "Support for showing threads in ps/top"
+	bool "Support for showing threads in ps/pstree/top"
 	default y
-	depends on BUSYBOX_PS || BUSYBOX_TOP
+	depends on BUSYBOX_PS || BUSYBOX_TOP || BUSYBOX_PSTREE
 	help
-	  Enables ps -T option and 'h' command in top
-
-config BUSYBOX_UPTIME
-	bool "uptime"
-	default y
-	depends on BUSYBOX_PLATFORM_LINUX #sysinfo()
-	help
-	  uptime gives a one line display of the current time, how long
-	  the system has been running, how many users are currently logged
-	  on, and the system load averages for the past 1, 5, and 15 minutes.
+	  Enables the ps -T option, showing of threads in pstree,
+	  and 'h' command in top.
 
 config BUSYBOX_WATCH
 	bool "watch"

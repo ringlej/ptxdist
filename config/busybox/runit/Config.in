@@ -7,7 +7,6 @@
 menu "Runit Utilities"
 
 
-
 config BUSYBOX_RUNSV
 	bool "runsv"
 	default y

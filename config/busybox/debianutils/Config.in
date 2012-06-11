@@ -7,7 +7,6 @@
 menu "Debian Utilities"
 
 
-
 config BUSYBOX_MKTEMP
 	bool "mktemp"
 	default y

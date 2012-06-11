@@ -6,6 +6,35 @@
 
 menu "Networking Utilities"
 
+config BUSYBOX_NAMEIF
+	bool "nameif"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_FEATURE_SYSLOG
+	help
+	  nameif is used to rename network interface by its MAC address.
+	  Renamed interfaces MUST be in the down state.
+	  It is possible to use a file (default: /etc/mactab)
+	  with list of new interface names and MACs.
+	  Maximum interface name length: IFNAMSIZ = 16
+	  File fields are separated by space or tab.
+	  File format:
+	  # Comment
+	  new_interface_name    XX:XX:XX:XX:XX:XX
+
+config BUSYBOX_FEATURE_NAMEIF_EXTENDED
+	bool "Extended nameif"
+	default y
+	depends on BUSYBOX_NAMEIF
+	help
+	  This extends the nameif syntax to support the bus_info, driver,
+	  phyaddr selectors. The syntax is compatible to the normal nameif.
+	  File format:
+	    new_interface_name  driver=asix bus=usb-0000:00:08.2-3
+	    new_interface_name  bus=usb-0000:00:08.2-3 00:80:C8:38:91:B5
+	    new_interface_name  phy_address=2 00:80:C8:38:91:B5
+	    new_interface_name  mac=00:80:C8:38:91:B5
+	    new_interface_name  00:80:C8:38:91:B5
 config BUSYBOX_NBDCLIENT
 	bool "nbd-client"
 	default y
@@ -43,6 +72,33 @@ config BUSYBOX_NC_110_COMPAT
 	  The code is about 2.5k bigger. It enables
 	  -s ADDR, -n, -u, -v, -o FILE, -z options, but loses
 	  busybox-specific extensions: -f FILE and -ll.
+config BUSYBOX_PING
+	bool "ping"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  ping uses the ICMP protocol's mandatory ECHO_REQUEST datagram to
+	  elicit an ICMP ECHO_RESPONSE from a host or gateway.
+
+config BUSYBOX_PING6
+	bool "ping6"
+	default y
+	depends on BUSYBOX_FEATURE_IPV6 && BUSYBOX_PING
+	help
+	  This will give you a ping that can talk IPv6.
+
+config BUSYBOX_FEATURE_FANCY_PING
+	bool "Enable fancy ping output"
+	default y
+	depends on BUSYBOX_PING
+	help
+	  Make the output from the ping applet include statistics, and at the
+	  same time provide full support for ICMP packets.
+config BUSYBOX_WHOIS
+	bool "whois"
+	default y
+	help
+	  whois is a client for the whois directory service
 
 config BUSYBOX_FEATURE_IPV6
 	bool "Enable IPv6 support"
@@ -88,21 +144,21 @@ config BUSYBOX_VERBOSE_RESOLUTION_ERRORS
 config BUSYBOX_ARP
 	bool "arp"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Manipulate the system ARP cache.
 
 config BUSYBOX_ARPING
 	bool "arping"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Ping hosts by ARP packets.
 
 config BUSYBOX_BRCTL
 	bool "brctl"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Manage ethernet bridges.
 	  Supports addbr/delbr and addif/delif.
@@ -135,7 +191,7 @@ config BUSYBOX_DNSD
 config BUSYBOX_ETHER_WAKE
 	bool "ether-wake"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Send a magic packet to wake up sleeping machines.
 
@@ -236,14 +292,22 @@ config BUSYBOX_FEATURE_HTTPD_BASIC_AUTH
 	help
 	  Utilizes password settings from /etc/httpd.conf for basic
 	  authentication on a per url basis.
+	  Example for httpd.conf file:
+	  /adm:toor:PaSsWd
 
 config BUSYBOX_FEATURE_HTTPD_AUTH_MD5
 	bool "Support MD5 crypted passwords for http Authentication"
 	default y
 	depends on BUSYBOX_FEATURE_HTTPD_BASIC_AUTH
 	help
-	  Enables basic per URL authentication from /etc/httpd.conf
-	  using md5 passwords.
+	  Enables encrypted passwords, and wildcard user/passwords
+	  in httpd.conf file.
+	  User '*' means 'any system user name is ok',
+	  password of '*' means 'use system password for this user'
+	  Examples:
+	  /adm:toor:$1$P/eKnWXS$aI1aPGxT.dJD5SzqAKWrF0
+	  /adm:root:*
+	  /wiki:*:*
 
 config BUSYBOX_FEATURE_HTTPD_CGI
 	bool "Support Common Gateway Interface (CGI)"
@@ -260,8 +324,8 @@ config BUSYBOX_FEATURE_HTTPD_CONFIG_WITH_SCRIPT_INTERPR
 	help
 	  This option enables support for running scripts through an
 	  interpreter. Turn this on if you want PHP scripts to work
-	  properly. You need to supply an additional line in your httpd
-	  config file:
+	  properly. You need to supply an additional line in your
+	  httpd.conf file:
 	  *.php:/path/to/your/php
 
 config BUSYBOX_FEATURE_HTTPD_SET_REMOTE_PORT_TO_ENV
@@ -318,7 +382,7 @@ config BUSYBOX_FEATURE_HTTPD_GZIP
 config BUSYBOX_IFCONFIG
 	bool "ifconfig"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Ifconfig is used to configure the kernel-resident network interfaces.
 
@@ -366,7 +430,7 @@ config BUSYBOX_FEATURE_IFCONFIG_BROADCAST_PLUS
 config BUSYBOX_IFENSLAVE
 	bool "ifenslave"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Userspace application to bind several interfaces
 	  to a logical interface (use with kernel bonding driver).
@@ -374,7 +438,7 @@ config BUSYBOX_IFENSLAVE
 config BUSYBOX_IFPLUGD
 	bool "ifplugd"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Network interface plug detection daemon.
 
@@ -416,7 +480,8 @@ config BUSYBOX_FEATURE_IFUPDOWN_IP
 config BUSYBOX_FEATURE_IFUPDOWN_IP_BUILTIN
 	bool "Use busybox ip applet"
 	default y
-	depends on BUSYBOX_FEATURE_IFUPDOWN_IP && BUSYBOX_PLATFORM_LINUX
+	depends on BUSYBOX_FEATURE_IFUPDOWN_IP
+	select BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_IP
 	select BUSYBOX_FEATURE_IP_ADDRESS
 	select BUSYBOX_FEATURE_IP_LINK
@@ -535,7 +600,7 @@ config BUSYBOX_FEATURE_INETD_RPC
 config BUSYBOX_IP
 	bool "ip"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  The "ip" applet is a TCP/IP interface configuration and routing
 	  utility. You generally don't need "ip" to use busybox with
@@ -648,39 +713,10 @@ config BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS
 	help
 	  Support long options for the ipcalc applet.
 
-config BUSYBOX_NAMEIF
-	bool "nameif"
-	default y
-	depends on BUSYBOX_PLATFORM_LINUX
-	select BUSYBOX_FEATURE_SYSLOG
-	help
-	  nameif is used to rename network interface by its MAC address.
-	  Renamed interfaces MUST be in the down state.
-	  It is possible to use a file (default: /etc/mactab)
-	  with list of new interface names and MACs.
-	  Maximum interface name length: IFNAMSIZ = 16
-	  File fields are separated by space or tab.
-	  File format:
-	  # Comment
-	  new_interface_name    XX:XX:XX:XX:XX:XX
-
-config BUSYBOX_FEATURE_NAMEIF_EXTENDED
-	bool "Extended nameif"
-	default y
-	depends on BUSYBOX_NAMEIF
-	help
-	  This extends the nameif syntax to support the bus_info and driver
-	  checks. The syntax is compatible to the normal nameif.
-	  File format:
-	    new_interface_name  driver=asix bus=usb-0000:00:08.2-3
-	    new_interface_name  bus=usb-0000:00:08.2-3 00:80:C8:38:91:B5
-	    new_interface_name  mac=00:80:C8:38:91:B5
-	    new_interface_name  00:80:C8:38:91:B5
-
 config BUSYBOX_NETSTAT
 	bool "netstat"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  netstat prints information about the Linux networking subsystem.
 
@@ -709,7 +745,7 @@ config BUSYBOX_NSLOOKUP
 config BUSYBOX_NTPD
 	bool "ntpd"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  The NTP client/server daemon.
 
@@ -721,29 +757,6 @@ config BUSYBOX_FEATURE_NTPD_SERVER
 	  Make ntpd usable as a NTP server. If you disable this option
 	  ntpd will be usable only as a NTP client.
 
-config BUSYBOX_PING
-	bool "ping"
-	default y
-	depends on BUSYBOX_PLATFORM_LINUX
-	help
-	  ping uses the ICMP protocol's mandatory ECHO_REQUEST datagram to
-	  elicit an ICMP ECHO_RESPONSE from a host or gateway.
-
-config BUSYBOX_PING6
-	bool "ping6"
-	default y
-	depends on BUSYBOX_FEATURE_IPV6 && BUSYBOX_PING
-	help
-	  This will give you a ping that can talk IPv6.
-
-config BUSYBOX_FEATURE_FANCY_PING
-	bool "Enable fancy ping output"
-	default y
-	depends on BUSYBOX_PING
-	help
-	  Make the output from the ping applet include statistics, and at the
-	  same time provide full support for ICMP packets.
-
 config BUSYBOX_PSCAN
 	bool "pscan"
 	default y
@@ -753,14 +766,14 @@ config BUSYBOX_PSCAN
 config BUSYBOX_ROUTE
 	bool "route"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Route displays or manipulates the kernel's IP routing tables.
 
 config BUSYBOX_SLATTACH
 	bool "slattach"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  slattach is a small utility to attach network interfaces to serial
 	  lines.
@@ -947,7 +960,7 @@ config BUSYBOX_TFTP_DEBUG
 config BUSYBOX_TRACEROUTE
 	bool "traceroute"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Utility to trace the route of IP packets.
 
@@ -984,7 +997,7 @@ config BUSYBOX_FEATURE_TRACEROUTE_USE_ICMP
 config BUSYBOX_TUNCTL
 	bool "tunctl"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  tunctl creates or deletes tun devices.
 
@@ -1017,7 +1030,7 @@ config BUSYBOX_UDPSVD
 config BUSYBOX_VCONFIG
 	bool "vconfig"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Creates, removes, and configures VLAN interfaces
 
@@ -1064,7 +1077,7 @@ config BUSYBOX_FEATURE_WGET_TIMEOUT
 config BUSYBOX_ZCIP
 	bool "zcip"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  ZCIP provides ZeroConf IPv4 address selection, according to RFC 3927.

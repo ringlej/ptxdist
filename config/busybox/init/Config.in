@@ -169,4 +169,16 @@ config BUSYBOX_MESG
 	  Mesg controls access to your terminal by others. It is typically
 	  used to allow or disallow other users to write to your terminal
 
+config BUSYBOX_FEATURE_MESG_ENABLE_ONLY_GROUP
+	bool "Enable writing to tty only by group, not by everybody"
+	default y
+	depends on BUSYBOX_MESG
+	help
+	  Usually, ttys are owned by group "tty", and "write" tool is
+	  setgid to this group. This way, "mesg y" only needs to enable
+	  "write by owning group" bit in tty mode.
+
+	  If you set this option to N, "mesg y" will enable writing
+	  by anybody at all. This is not recommended.
+
 endmenu

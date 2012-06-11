@@ -8,44 +8,153 @@ menu "Miscellaneous Utilities"
 
 config BUSYBOX_CONSPY
 	bool "conspy"
-	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	default y
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  A text-mode VNC like program for Linux virtual terminals.
 	  example:  conspy NUM      shared access to console num
 	  or        conspy -nd NUM  screenshot of console num
 	  or        conspy -cs NUM  poor man's GNU screen like
+config BUSYBOX_LESS
+	bool "less"
+	default y
+	help
+	  'less' is a pager, meaning that it displays text files. It possesses
+	  a wide array of features, and is an improvement over 'more'.
+
+config BUSYBOX_FEATURE_LESS_MAXLINES
+	int "Max number of input lines less will try to eat"
+	default 9999999
+	depends on BUSYBOX_LESS
+
+config BUSYBOX_FEATURE_LESS_BRACKETS
+	bool "Enable bracket searching"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  This option adds the capability to search for matching left and right
+	  brackets, facilitating programming.
+
+config BUSYBOX_FEATURE_LESS_FLAGS
+	bool "Enable -m/-M"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  The -M/-m flag enables a more sophisticated status line.
+
+config BUSYBOX_FEATURE_LESS_MARKS
+	bool "Enable marks"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  Marks enable positions in a file to be stored for easy reference.
+
+config BUSYBOX_FEATURE_LESS_REGEXP
+	bool "Enable regular expressions"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  Enable regular expressions, allowing complex file searches.
+
+config BUSYBOX_FEATURE_LESS_WINCH
+	bool "Enable automatic resizing on window size changes"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  Makes less track window size changes.
+
+config BUSYBOX_FEATURE_LESS_ASK_TERMINAL
+	bool "Use 'tell me cursor position' ESC sequence to measure window"
+	default y
+	depends on BUSYBOX_FEATURE_LESS_WINCH
+	help
+	  Makes less track window size changes.
+	  If terminal size can't be retrieved and $LINES/$COLUMNS are not set,
+	  this option makes less perform a last-ditch effort to find it:
+	  position cursor to 999,999 and ask terminal to report real
+	  cursor position using "ESC [ 6 n" escape sequence, then read stdin.
+
+	  This is not clean but helps a lot on serial lines and such.
+
+config BUSYBOX_FEATURE_LESS_DASHCMD
+	bool "Enable flag changes ('-' command)"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  This enables the ability to change command-line flags within
+	  less itself ('-' keyboard command).
+
+config BUSYBOX_FEATURE_LESS_LINENUMS
+	bool "Enable dynamic switching of line numbers"
+	default y
+	depends on BUSYBOX_FEATURE_LESS_DASHCMD
+	help
+	  Enables "-N" command.
 config BUSYBOX_NANDWRITE
 	bool "nandwrite"
-	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	default y
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Write to the specified MTD device, with bad blocks awareness
 
 config BUSYBOX_NANDDUMP
 	bool "nanddump"
-	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	default y
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Dump the content of raw NAND chip
+config BUSYBOX_SETSERIAL
+	bool "setserial"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Retrieve or set Linux serial port.
 config BUSYBOX_UBIATTACH
 	bool "ubiattach"
-	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	default y
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Attach MTD device to an UBI device.
 
 config BUSYBOX_UBIDETACH
 	bool "ubidetach"
-	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	default y
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Detach MTD device from an UBI device.
+
+config BUSYBOX_UBIMKVOL
+	bool "ubimkvol"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Create a UBI volume.
+
+config BUSYBOX_UBIRMVOL
+	bool "ubirmvol"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Delete a UBI volume.
+
+config BUSYBOX_UBIRSVOL
+	bool "ubirsvol"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Resize a UBI volume.
+
+config BUSYBOX_UBIUPDATEVOL
+	bool "ubiupdatevol"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Update a UBI volume.
 
 config BUSYBOX_ADJTIMEX
 	bool "adjtimex"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Adjtimex reads and optionally sets adjustment parameters for
 	  the Linux clock adjustment algorithm.
@@ -74,7 +183,7 @@ config BUSYBOX_FEATURE_COMPRESS_BBCONFIG
 config BUSYBOX_BEEP
 	bool "beep"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  The beep applets beeps in a given freq/Hz.
 
@@ -229,7 +338,7 @@ config BUSYBOX_FEATURE_DC_LIBM
 config BUSYBOX_DEVFSD
 	bool "devfsd (obsolete)"
 	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  This is deprecated and should NOT be used anymore.
@@ -273,7 +382,7 @@ config BUSYBOX_DEVFSD_VERBOSE
 config BUSYBOX_FEATURE_DEVFS
 	bool "Use devfs names for all devices (obsolete)"
 	default n
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  This is obsolete and should NOT be used anymore.
 	  Use linux >= 2.6 (optionally with hotplug) and mdev instead!
@@ -293,7 +402,7 @@ config BUSYBOX_DEVMEM
 config BUSYBOX_EJECT
 	bool "eject"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Used to eject cdroms. (defaults to /dev/cdrom)
 
@@ -308,7 +417,7 @@ config BUSYBOX_FEATURE_EJECT_SCSI
 config BUSYBOX_FBSPLASH
 	bool "fbsplash"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Shows splash image and progress bar on framebuffer device.
 	  Can be used during boot phase of an embedded device. ~2kb.
@@ -358,7 +467,7 @@ config BUSYBOX_FLASH_ERASEALL
 config BUSYBOX_IONICE
 	bool "ionice"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Set/set program io scheduling class and priority
 	  Requires kernel >= 2.6.13
@@ -395,76 +504,10 @@ config BUSYBOX_FEATURE_LAST_FANCY
 	  logged into the system (mimics sysvinit last). +900 bytes.
 endchoice
 
-config BUSYBOX_LESS
-	bool "less"
-	default y
-	help
-	  'less' is a pager, meaning that it displays text files. It possesses
-	  a wide array of features, and is an improvement over 'more'.
-
-config BUSYBOX_FEATURE_LESS_MAXLINES
-	int "Max number of input lines less will try to eat"
-	default 9999999
-	depends on BUSYBOX_LESS
-
-config BUSYBOX_FEATURE_LESS_BRACKETS
-	bool "Enable bracket searching"
-	default y
-	depends on BUSYBOX_LESS
-	help
-	  This option adds the capability to search for matching left and right
-	  brackets, facilitating programming.
-
-config BUSYBOX_FEATURE_LESS_FLAGS
-	bool "Enable extra flags"
-	default y
-	depends on BUSYBOX_LESS
-	help
-	  The extra flags provided do the following:
-
-	  The -M flag enables a more sophisticated status line.
-	  The -m flag enables a simpler status line with a percentage.
-
-config BUSYBOX_FEATURE_LESS_MARKS
-	bool "Enable marks"
-	default y
-	depends on BUSYBOX_LESS
-	help
-	  Marks enable positions in a file to be stored for easy reference.
-
-config BUSYBOX_FEATURE_LESS_REGEXP
-	bool "Enable regular expressions"
-	default y
-	depends on BUSYBOX_LESS
-	help
-	  Enable regular expressions, allowing complex file searches.
-
-config BUSYBOX_FEATURE_LESS_WINCH
-	bool "Enable automatic resizing on window size changes"
-	default y
-	depends on BUSYBOX_LESS
-	help
-	  Makes less track window size changes.
-
-config BUSYBOX_FEATURE_LESS_DASHCMD
-	bool "Enable flag changes ('-' command)"
-	default y
-	depends on BUSYBOX_LESS
-	help
-	  This enables the ability to change command-line flags within
-	  less itself ('-' keyboard command).
-
-config BUSYBOX_FEATURE_LESS_LINENUMS
-	bool "Enable dynamic switching of line numbers"
-	default y
-	depends on BUSYBOX_FEATURE_LESS_DASHCMD
-	help
-	  Enables "-N" command.
-
 config BUSYBOX_HDPARM
 	bool "hdparm"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Get/Set hard drive parameters. Primarily intended for ATA
 	  drives. Adds about 13k (or around 30k if you enable the
@@ -581,7 +624,7 @@ config BUSYBOX_MT
 config BUSYBOX_RAIDAUTORUN
 	bool "raidautorun"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  raidautorun tells the kernel md driver to
 	  search and start RAID arrays.
@@ -589,7 +632,8 @@ config BUSYBOX_RAIDAUTORUN
 config BUSYBOX_READAHEAD
 	bool "readahead"
 	default y
-	depends on BUSYBOX_LFS && BUSYBOX_PLATFORM_LINUX
+	depends on BUSYBOX_LFS
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Preload the files listed on the command line into RAM cache so that
 	  subsequent reads on these files will not block on disk I/O.
@@ -606,7 +650,7 @@ config BUSYBOX_READAHEAD
 config BUSYBOX_RFKILL
 	bool "rfkill"
 	default n  # doesn't build on Ubuntu 9.04
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Enable/disable wireless devices.
 
@@ -618,6 +662,7 @@ config BUSYBOX_RFKILL
 config BUSYBOX_RUNLEVEL
 	bool "runlevel"
 	default y
+	depends on BUSYBOX_FEATURE_UTMP
 	help
 	  find the current and previous system runlevel.
 
@@ -627,7 +672,7 @@ config BUSYBOX_RUNLEVEL
 config BUSYBOX_RX
 	bool "rx"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Receive files using the Xmodem protocol.
 
@@ -693,13 +738,14 @@ config BUSYBOX_VOLNAME
 config BUSYBOX_WALL
 	bool "wall"
 	default y
+	depends on BUSYBOX_FEATURE_UTMP
 	help
 	  Write a message to all users that are logged in.
 
 config BUSYBOX_WATCHDOG
 	bool "watchdog"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  The watchdog utility is used with hardware or software watchdog
 	  device drivers. It opens the specified watchdog device special file

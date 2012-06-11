@@ -11,13 +11,13 @@ This patch reactivates this feature.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  scripts/kconfig/conf.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 9befa2b..e65e25c 100644
+index ea2446a..8b70f99 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
-@@ -503,7 +503,7 @@ int main(int ac, char **av)
+@@ -498,7 +498,7 @@ int main(int ac, char **av)
  			break;
  		case 's':
  			input_mode = ask_silent;
@@ -26,6 +26,3 @@ index 9befa2b..e65e25c 100644
  			break;
  		case 'd':
  			input_mode = set_default;
--- 
-1.7.5.1
-

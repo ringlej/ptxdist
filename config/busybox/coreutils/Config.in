@@ -38,7 +38,8 @@ config BUSYBOX_FEATURE_DATE_ISOFMT
 config BUSYBOX_FEATURE_DATE_NANO
 	bool "Support %[num]N nanosecond format specifier"
 	default n
-	depends on BUSYBOX_DATE && BUSYBOX_PLATFORM_LINUX # syscall(BUSYBOX___NR_clockBUSYBOX__gettime)
+	depends on BUSYBOX_DATE  # syscall(__NR_clock_gettime)
+	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Support %[num]N format specifier. Adds ~250 bytes of code.
 
@@ -57,6 +58,22 @@ config BUSYBOX_FEATURE_DATE_COMPAT
 	  With this option off, 'date DATE' is 'date -s DATE' support
 	  the same format. With it on, 'date DATE' additionally supports
 	  MMDDhhmm[[YY]YY][.ss] format.
+config BUSYBOX_HOSTID
+	bool "hostid"
+	default y
+	help
+	  hostid prints the numeric identifier (in hexadecimal) for
+	  the current host.
+config BUSYBOX_ID
+	bool "id"
+	default y
+	help
+	  id displays the current user and group ID names.
+config BUSYBOX_GROUPS
+	bool "groups"
+	default y
+	help
+	  Print the group names associated with current user id.
 config BUSYBOX_TEST
 	bool "test"
 	default y
@@ -71,6 +88,19 @@ config BUSYBOX_FEATURE_TEST_64
 	depends on BUSYBOX_TEST || BUSYBOX_ASH_BUILTIN_TEST || BUSYBOX_HUSH
 	help
 	  Enable 64-bit support in test.
+config BUSYBOX_TOUCH
+	bool "touch"
+	default y
+	help
+	  touch is used to create or change the access and/or
+	  modification timestamp of specified files.
+
+config BUSYBOX_FEATURE_TOUCH_SUSV3
+	bool "Add support for SUSV3 features (-d -t -r)"
+	default y
+	depends on BUSYBOX_TOUCH
+	help
+	  Enable touch to use a reference file or a given date/time argument.
 config BUSYBOX_TR
 	bool "tr"
 	default y
@@ -101,6 +131,18 @@ config BUSYBOX_BASE64
 	default y
 	help
 	  Base64 encode and decode
+config BUSYBOX_WHO
+      bool "who"
+      default y
+      depends on BUSYBOX_FEATURE_UTMP
+      help
+        who is used to show who is logged on.
+config BUSYBOX_USERS
+      bool "users"
+      default y
+      depends on BUSYBOX_FEATURE_UTMP
+      help
+        Print users currently logged on.
 
 config BUSYBOX_CAL
 	bool "cal"
@@ -364,19 +406,6 @@ config BUSYBOX_FEATURE_FANCY_HEAD
 	help
 	  This enables the head options (-c, -q, and -v).
 
-config BUSYBOX_HOSTID
-	bool "hostid"
-	default y
-	help
-	  hostid prints the numeric identifier (in hexadecimal) for
-	  the current host.
-
-config BUSYBOX_ID
-	bool "id"
-	default y
-	help
-	  id displays the current user and group ID names.
-
 config BUSYBOX_INSTALL
 	bool "install"
 	default y
@@ -390,11 +419,11 @@ config BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS
 	help
 	  Support long options for the install applet.
 
-config BUSYBOX_LENGTH
-	bool "length"
-	default y
-	help
-	  length is used to print out the length of a specified string.
+####config LENGTH
+####	bool "length"
+####	default y
+####	help
+####	  length is used to print out the length of a specified string.
 
 config BUSYBOX_LN
 	bool "ln"
@@ -686,7 +715,7 @@ config BUSYBOX_FEATURE_SPLIT_FANCY
 config BUSYBOX_STAT
 	bool "stat"
 	default y
-	depends on BUSYBOX_PLATFORM_LINUX # statfs()
+	select BUSYBOX_PLATFORM_LINUX # statfs()
 	help
 	  display file or filesystem status.
 
@@ -755,13 +784,6 @@ config BUSYBOX_FEATURE_TEE_USE_BLOCK_IO
 	depends on BUSYBOX_TEE
 	help
 	  Enable this option for a faster tee, at expense of size.
-
-config BUSYBOX_TOUCH
-	bool "touch"
-	default y
-	help
-	  touch is used to create or change the access and/or
-	  modification timestamp of specified files.
 
 config BUSYBOX_TRUE
 	bool "true"
@@ -832,13 +854,6 @@ config BUSYBOX_FEATURE_WC_LARGE
 	depends on BUSYBOX_WC
 	help
 	  Use "unsigned long long" in wc for counter variables.
-
-config BUSYBOX_WHO
-	bool "who"
-	default y
-	depends on BUSYBOX_FEATURE_UTMP
-	help
-	  who is used to show who is logged on.
 
 config BUSYBOX_WHOAMI
 	bool "whoami"
