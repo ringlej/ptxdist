@@ -194,26 +194,14 @@ $1 ~ /^PTXCONF_/ {
 	next;
 }
 
-
-#
-# generate common stuff
-#
-# in:
-# $1: uppercase pkg name
-#
-function import_PKG(this_PKG,	this_pkg) {
-	this_pkg = PKG_to_pkg[this_PKG];
-
+function write_include(this_PKG) {
 	#
 	# include this rules file
 	#
 	print "include " PKG_to_filename[this_PKG]			> DGEN_RULESFILES_MAKE;
+}
 
-	#
-	# .get rule
-	#
-	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCE)"	> DGEN_DEPS_POST;
-
+function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
 	#
 	# post install hooks
 	#
@@ -227,141 +215,133 @@ function import_PKG(this_PKG,	this_pkg) {
 	this_devpkg = "$(" this_PKG ")-$(PTXCONF_ARCH_STRING)-$(" this_PKG "_CFGHASH)-dev.tar.gz"
 
 	#
-	# things depending on target or host-, cross- package
+	# define ${PKG}_PKGDIR & ${PKG}_DEVPKG
 	#
-	if (this_pkg !~ /^host-|^cross-/) {
-		# target packages
+	print this_PKG "_PKGDIR = $(PKGDIR)/" prefix "$(" this_PKG ")"	> DGEN_DEPS_PRE;
+	print this_PKG "_DEVPKG = " prefix this_devpkg			> DGEN_DEPS_PRE;
 
-		# define ${PKG}_PKGDIR
-		print this_PKG "_PKGDIR = $(PKGDIR)/$(" this_PKG ")"	> DGEN_DEPS_PRE;
-		print this_PKG "_DEVPKG = " this_devpkg			> DGEN_DEPS_PRE;
-	} else {
-		# host, cross packages
+	target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
+	PREFIX = gensub(/^(HOST_|CROSS_).*/, "\\1", "", this_PKG);
 
-		target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
-		this_PKG_type = gensub(/^(HOST_|CROSS_).*/, "\\1", "", this_PKG);
-
-		if (this_pkg ~ /^host-/) {
-			print this_PKG "_PKGDIR = $(PKGDIR)/host-$(" \
-				this_PKG ")"				> DGEN_DEPS_PRE;
-			print this_PKG "_DEVPKG = host-" this_devpkg	> DGEN_DEPS_PRE;
-		} else if (this_pkg ~ /^cross-/) {
-			print this_PKG "_PKGDIR = $(PKGDIR)/cross-$(" \
-				this_PKG ")"				> DGEN_DEPS_PRE;
-			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
-		}
-		# define default ${PKG}, ${PKG}_SOURCE, ${PKG}_DIR
-		if (target_PKG in PKG_to_pkg) {
-			print this_PKG " = $(" target_PKG ")"		> DGEN_DEPS_PRE;
-			print this_PKG "_MD5 = $(" target_PKG "_MD5)"	> DGEN_DEPS_PRE;
-			print this_PKG "_SOURCE = $(" \
-				target_PKG "_SOURCE)"			> DGEN_DEPS_PRE;
-			print this_PKG "_URL = $(" \
-				target_PKG "_URL)"			> DGEN_DEPS_PRE;
-			print this_PKG "_DIR = $(addprefix $(" this_PKG_type \
-				"BUILDDIR)/,$(" target_PKG "))"		> DGEN_DEPS_PRE;
-		}
+	# define default ${PKG}, ${PKG}_SOURCE, ${PKG}_DIR
+	if ((prefix != "") && (target_PKG in PKG_to_pkg)) {
+		print this_PKG " = $(" target_PKG ")"			> DGEN_DEPS_PRE;
+		print this_PKG "_MD5 = $(" target_PKG "_MD5)"		> DGEN_DEPS_PRE;
+		print this_PKG "_SOURCE = $(" target_PKG "_SOURCE)"	> DGEN_DEPS_PRE;
+		print this_PKG "_URL = $(" target_PKG "_URL)"		> DGEN_DEPS_PRE;
+		print this_PKG "_DIR = $(addprefix $(" PREFIX \
+			"BUILDDIR)/,$(" target_PKG "))"			> DGEN_DEPS_PRE;
 	}
+}
+
+function write_deps_pkg_all(this_PKG, this_pkg) {
+	#
+	# .get rule
+	#
+	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCE)"	> DGEN_DEPS_POST;
+}
+
+function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
+	#
+	# default deps
+	#
+	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".extract.post: "       "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".prepare: "            "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".tags: "                       "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".compile: "                    "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install: "                    "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install.pack: "               "$(STATEDIR)/" this_pkg ".install"	> DGEN_DEPS_POST;
+	print "ifeq ($(strip $(wildcard $(PTXDIST_DEVPKG_PLATFORMDIR)/$(" this_PKG "_DEVPKG))),)"		> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install.post: "               "$(STATEDIR)/" this_pkg ".install.pack"	> DGEN_DEPS_POST;
+	print "else"												> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install.post: "               "$(STATEDIR)/" this_pkg ".install.unpack"	> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+	if (prefix == "") {
+		print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
+	}
+
+	#
+	# conditional dependencies
+	#
+	print "ifneq ($(" this_PKG "),)"						> DGEN_DEPS_POST;
+	# on autogen script
+	print "ifneq ($(call autogen_dep,$(" this_PKG ")),)"				> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/autogen-tools"		> DGEN_DEPS_POST;
+	print "endif"									> DGEN_DEPS_POST;
+	# on lndir
+	print "ifneq ($(findstring lndir://,$(" this_PKG "_URL)),)"			> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/host-lndir.install.post"	> DGEN_DEPS_POST;
+	print "endif"									> DGEN_DEPS_POST;
+	print "endif"									> DGEN_DEPS_POST;
+
+	#
+	# add dep to pkgs we depend on
+	#
+	this_PKG_DEPS = PKG_to_B_DEP[this_PKG];
+	n = split(this_PKG_DEPS, this_DEP_array, " ");
+	for (i = 1; i <= n; i++) {
+		this_dep = PKG_to_pkg[this_DEP_array[i]]
+
+		print "$(STATEDIR)/" this_pkg	".extract.post: "     "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg	".install.unpack: "   "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
+
+	}
+	this_PKG_DEPS = PKG_to_R_DEP[this_PKG];
+	n = split(this_PKG_DEPS, this_DEP_array, " ");
+	for (i = 1; i <= n; i++) {
+		this_dep = PKG_to_pkg[this_DEP_array[i]]
+
+		#
+		# only target packages have targetinstall rules
+		#
+		if (this_dep ~ /^host-|^cross-/)
+			continue;
+
+		print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_dep ".targetinstall"	> DGEN_DEPS_POST;
+	}
+}
+
+#
+# add deps to virtual pkgs
+#
+function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
+	if (this_pkg ~ /^host-pkg-config$/)
+		return;
+	if (this_pkg ~ /^host-chrpath$/)
+		return;
+
+	if (prefix != "")
+		virtual = "virtual-host-tools";
+	else {
+		if (this_PKG in base_PKG_to_pkg || this_pkg ~ /^base$/)
+			virtual = "virtual-cross-tools";
+		else
+			virtual = "base";
+	}
+	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install.unpack: "             "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
 }
 
 END {
 	# for all pkgs
-	for (this_PKG in PKG_to_pkg)
-		import_PKG(this_PKG);
+	for (this_PKG in PKG_to_pkg) {
+		this_pkg = PKG_to_pkg[this_PKG];
+		this_pkg_prefix = gensub(/^(host-|cross-|).*/, "\\1", "", this_pkg)
+
+		write_include(this_PKG)
+		write_deps_pkg_all(this_PKG, this_pkg)
+		write_vars_pkg_all(this_PKG, this_pkg, this_pkg_prefix)
+	}
 
 	# for active pkgs
 	for (this_PKG in active_PKG_to_pkg) {
 		this_pkg = PKG_to_pkg[this_PKG];
+		this_pkg_prefix = gensub(/^(host-|cross-|).*/, "\\1", "", this_pkg)
 
-		#
-		# default deps
-		#
-		print "$(STATEDIR)/" this_pkg ".extract: "            "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".extract.post: "       "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".prepare: "            "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".tags: "               "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".compile: "            "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".install: "            "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".install.pack: "       "$(STATEDIR)/" this_pkg ".install"	> DGEN_DEPS_POST;
-		print "ifeq ($(strip $(wildcard $(PTXDIST_DEVPKG_PLATFORMDIR)/$(" this_PKG "_DEVPKG))),)"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".install.post: "       "$(STATEDIR)/" this_pkg ".install.pack"	> DGEN_DEPS_POST;
-		print "else"											> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".install.post: "       "$(STATEDIR)/" this_pkg ".install.unpack"	> DGEN_DEPS_POST;
-		print "endif"											> DGEN_DEPS_POST;
-		if (!(this_pkg ~ /^host-|^cross-/)) {
-			print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
-			print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
-		}
-
-		#
-		# conditional dependencies
-		#
-		print "ifneq ($(" this_PKG "),)"						> DGEN_DEPS_POST;
-		# on autogen script
-		print "ifneq ($(call autogen_dep,$(" this_PKG ")),)"				> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/autogen-tools"		> DGEN_DEPS_POST;
-		print "endif"									> DGEN_DEPS_POST;
-		# on lndir
-		print "ifneq ($(findstring lndir://,$(" this_PKG "_URL)),)"			> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/host-lndir.install.post"	> DGEN_DEPS_POST;
-		print "endif"									> DGEN_DEPS_POST;
-		print "endif"									> DGEN_DEPS_POST;
-
-		#
-		# add dep to pkgs we depend on
-		#
-		this_PKG_DEPS = PKG_to_B_DEP[this_PKG];
-		n = split(this_PKG_DEPS, this_DEP_array, " ");
-		for (i = 1; i <= n; i++) {
-			this_dep = PKG_to_pkg[this_DEP_array[i]]
-
-			print \
-				"$(STATEDIR)/" this_pkg	".extract.post: " \
-				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
-			print \
-				"$(STATEDIR)/" this_pkg	".install.unpack: " \
-				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
-
-		}
-		this_PKG_DEPS = PKG_to_R_DEP[this_PKG];
-		n = split(this_PKG_DEPS, this_DEP_array, " ");
-		for (i = 1; i <= n; i++) {
-			this_dep = PKG_to_pkg[this_DEP_array[i]]
-
-			#
-			# only target packages have targetinstall rules
-			#
-			if (this_dep ~ /^host-|^cross-/)
-				continue;
-
-			print \
-				"$(STATEDIR)/" this_pkg ".targetinstall: " \
-				"$(STATEDIR)/" this_dep ".targetinstall"	> DGEN_DEPS_POST;
-		}
-
-		#
-		# add deps to virtual pkgs
-		#
-		if (this_pkg ~ /^host-pkg-config$/)
-			continue;
-		if (this_pkg ~ /^host-chrpath$/)
-			continue;
-
-		if (this_pkg ~ /^host-|^cross-/)
-			virtual = "virtual-host-tools";
-		else {
-			if (this_PKG in base_PKG_to_pkg || this_pkg ~ /^base$/)
-				virtual = "virtual-cross-tools";
-			else
-				virtual = "base";
-		}
-
-		print \
-			"$(STATEDIR)/" this_pkg ".extract.post: " \
-			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
-		print \
-			"$(STATEDIR)/" this_pkg ".install.unpack: " \
-			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
+		write_deps_pkg_active(this_PKG, this_pkg, this_pkg_prefix)
+		write_deps_pkg_active_virtual(this_PKG, this_pkg, this_pkg_prefix)
 	}
 
 	close(PKG_HASHFILE);
