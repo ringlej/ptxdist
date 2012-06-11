@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 0.9.2.0
-NETWORKMANAGER_MD5	:= d7dce01e97758253bc4ed81d7b86045f
+NETWORKMANAGER_VERSION	:= 0.9.4.0
+NETWORKMANAGER_MD5	:= 66a54b51a4998c484613911b72a7e6ff
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
 NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/0.9/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
@@ -49,6 +49,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-gnu-ld \
 	--with-crypto=gnutls \
 	--with-distro=debian \
+	--with-session-tracking=none \
 	--with-dhclient=/sbin/dhclient \
 	--with-dhcpcd=no \
 	--with-resolvconf=no \
@@ -63,10 +64,16 @@ $(STATEDIR)/networkmanager.install:
 	@$(call world/install, NETWORKMANAGER)
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
-	@cd $(NETWORKMANAGER_DIR)/examples/C/glib/ && for FILE in `find -name "*-glib" -printf '%f\n'`; do \
+	@cd $(NETWORKMANAGER_DIR)/examples/C/glib/ \
+		&& for FILE in `find -name "*-glib" -printf '%f\n'`; do \
 		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
-	@cd $(NETWORKMANAGER_DIR)/examples/python/ && for FILE in `find -name "*.py" -printf '%f\n'`; do \
+	@cd $(NETWORKMANAGER_DIR)/examples/python/ \
+		&& for FILE in `find -name "*.py" -printf '%f\n'`; do \
+		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+	done
+	@cd $(NETWORKMANAGER_DIR)/examples/shell/ \
+		&& for FILE in `find -name "*.sh" -printf '%f\n'`; do \
 		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
 endif
@@ -130,10 +137,16 @@ endif
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*-glib" -printf '%f\n'`; do \
+	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
+		&& for FILE in `find -name "*-glib" -printf '%f\n'`; do \
 		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
 	done
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ && for FILE in `find -name "*.py" -printf '%f\n'`; do \
+	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
+		&& for FILE in `find -name "*.py" -printf '%f\n'`; do \
+		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
+	done
+	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
+		&& for FILE in `find -name "*.sh" -printf '%f\n'`; do \
 		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
 	done
 endif
