@@ -40,8 +40,8 @@ $(WPA_SUPPLICANT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-WPA_SUPPLICANT_PATH	:= PATH=$(CROSS_PATH)
-WPA_SUPPLICANT_ENV 	:= \
+WPA_SUPPLICANT_PATH		:= PATH=$(CROSS_PATH)
+WPA_SUPPLICANT_MAKE_ENV 	:= \
 	$(CROSS_ENV) \
 	LIBDIR=/lib \
 	BINDIR=/sbin
@@ -56,7 +56,7 @@ $(STATEDIR)/wpa_supplicant.prepare:
 
 #	# run 'make clean' as wpa_supplicant's build system does not recognize config changes
 	@-cd $(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR) && \
-		$(WPA_SUPPLICANT_ENV) $(WPA_SUPPLICANT_PATH) $(MAKE) clean
+		$(WPA_SUPPLICANT_MAKE_ENV) $(WPA_SUPPLICANT_PATH) $(MAKE) clean
 
 	@echo "CC=$(CROSS_CC)"				>  $(WPA_SUPPLICANT_CONFIG) && \
 	echo "CFLAGS += -I$(PTXDIST_SYSROOT_TARGET)/include"		>> $(WPA_SUPPLICANT_CONFIG) && \
@@ -91,6 +91,8 @@ $(STATEDIR)/wpa_supplicant.prepare:
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
+
+WPA_SUPPLICANT_INSTALL_ENV := $(WPA_SUPPLICANT_MAKE_ENV)
 
 $(STATEDIR)/wpa_supplicant.install:
 	@$(call targetinfo)
