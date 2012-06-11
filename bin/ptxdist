@@ -674,18 +674,10 @@ check_deps() {
 }
 
 
-
 #
 # checks if the given PTXCONF_ option is actually selected
 #
-check_if_selected() {
-	if [ -z "${1}" ]; then
-		echo
-		echo "${PTXDIST_LOG_PROMPT}error: please specify a target"
-		echo
-		exit 1
-	fi
-
+check_if_selected_single() {
 	local configvar="PTXCONF_$(ptxd_name_to_NAME "${1}")"	# FIXME
 	ptxd_get_ptxconf "${configvar}" > /dev/null || {
 		if [ ${?} -eq 2 ]; then
@@ -701,6 +693,44 @@ check_if_selected() {
 	}
 }
 
+
+#
+# checks if all the given PTXCONF_ option are actually selected
+#
+check_if_selected() {
+	if [ -z "${1}" ]; then
+		echo
+		echo "${PTXDIST_LOG_PROMPT}error: please specify a target"
+		echo
+		exit 1
+	fi
+
+	while [ ${#} -ne 0 ]; do
+	    check_if_selected_single "${1}" || return
+	    shift
+	done
+}
+
+
+#
+# check if the given packages can be targetinstalled
+#
+# (host and cross packaged
+#
+check_targetinstall_pkgs() {
+	while [ ${#} -ne 0 ]; do
+	    case "${1}" in
+		host-*|cross-*)
+		    ptxd_dialog_msgbox \
+			"error: 'host' or 'cross' packages cannot be targetinstalled!\n" \
+			"\n" \
+			"       You probably want to do: 'ptxdist install ${1}'"
+		    return 1
+		    ;;
+	    esac
+	    shift
+	done
+}
 
 
 #
@@ -910,8 +940,8 @@ clean() {
 
 	# we want to clean a single package
 	if [ -n "${1}" ]; then
-		check_if_selected "${1}" &&
-		ptxd_make_log "${1}_clean"
+		check_if_selected "${@}" &&
+		ptxd_make_log "${@/%/_clean}"
 		return
 	fi
 
@@ -1558,32 +1588,23 @@ parse_second()
 
 		extract|prepare|compile|install|targetinstall|tags)
 			local cmd_post
-			local pkg="${1}"
+			declare -a pkgs
 
 			check_premake_compiler &&
-			check_if_selected "${pkg}" &&
+			check_if_selected "${@}" &&
 
 			case "${cmd}" in
 			    install)
 				cmd_post=".post"
 				;;
-
 			    targetinstall)
 				cmd_post=".post"
-
-				case "${pkg}" in
-				    host-*|cross-*)
-					ptxd_dialog_msgbox \
-					    "error: 'host' or 'cross' packages cannot be '${cmd}'ed!\n" \
-					    "\n" \
-					    "       You probably want to do: 'ptxdist install ${pkg}'"
-					return 1
-					;;
-				esac
+				check_${cmd}_pkgs "${@}"
 				;;
 			esac &&
 
-			ptxd_make_log "${STATEDIR}/${pkg}.${cmd}${cmd_post}"
+			pkgs=( "${@/#/${STATEDIR}/}" ) &&
+			ptxd_make_log "${pkgs[@]/%/.${cmd}${cmd_post}}"
 			exit
 			;;
 
@@ -1672,7 +1693,7 @@ EOF
 		clean)
 			check_config &&
 			check_deps &&
-			clean "${1}"
+			clean "${@}"
 			exit
 			;;
 		clone)
@@ -1730,13 +1751,15 @@ EOF
 			exit
 			;;
 		get)
+			declare -a pkgs
 			check_premake &&
 
 			if [ ${#} -eq 0 ]; then
 				ptxd_make_log get
 			else
-				check_if_selected "${1}" &&
-				ptxd_make_log "${STATEDIR}/${1}.get"
+				check_if_selected "${@}" &&
+				pkgs=( "${@/#/${STATEDIR}/}" ) &&
+				ptxd_make_log "${pkgs[@]/%/.get}"
 			fi
 			exit
 			;;
