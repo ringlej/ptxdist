@@ -372,3 +372,14 @@ ptxd_template_new_kernel() {
 export -f ptxd_template_new_kernel
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="kernel"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for an extra kernel"
+
+ptxd_template_new_image_tgz() {
+    ptxd_template_read_name &&
+    ptxd_template_read_author &&
+    ptxd_template_read "add packages" PACKAGES '$(PTX_PACKAGES_INSTALL)'
+    ptxd_template_read "add files" FILES
+    ptxd_template_write_platform_rules
+}
+export -f ptxd_template_new_image_tgz
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="image-tgz"
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for a tgz image"
