@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config LIBSOUP
+	tristate
+	prompt "libsoup"
+	help
+	  HTTP library implementation in C.
