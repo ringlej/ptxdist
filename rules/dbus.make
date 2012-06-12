@@ -45,6 +45,9 @@ DBUS_ENV := $(CROSS_ENV)
 #
 # autoconf
 #
+DBUS_XML-$(PTXCONF_DBUS_XML_EXPAT)=expat
+DBUS_XML-$(PTXCONF_DBUS_XML_LIBXML2)=libxml
+
 DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
@@ -65,31 +68,15 @@ DBUS_AUTOCONF := \
 	--disable-kqueue \
 	--disable-console-owner-file \
 	--disable-userdb-cache \
-	--with-dbus-user=$(PTXCONF_DBUS_USER)
-
-ifdef PTXCONF_DBUS_XML_EXPAT
-DBUS_AUTOCONF += --with-xml=expat
-endif
-ifdef PTXCONF_DBUS_XML_LIBXML2
-DBUS_AUTOCONF += --with-xml=libxml
-endif
-
-ifdef PTXCONF_DBUS_SELINUX
-DBUS_AUTOCONF += --enable-selinux
-else
-DBUS_AUTOCONF += --disable-selinux
-endif
+	--with-dbus-user=$(PTXCONF_DBUS_USER) \
+	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
+	--with-xml=$(DBUS_XML-y) \
+	--with-systemdsystemunitdir=/lib/systemd/system
 
 ifdef PTXCONF_DBUS_X
 DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
 else
 DBUS_AUTOCONF += --without-x
-endif
-
-ifdef PTXCONF_DBUS_SYSTEMD_UNIT
-DBUS_AUTOCONF += --with-systemdsystemunitdir=/lib/systemd/system
-else
-DBUS_AUTOCONF += --without-systemdsystemunitdir
 endif
 
 # ----------------------------------------------------------------------------
