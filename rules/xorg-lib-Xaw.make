@@ -16,47 +16,28 @@ PACKAGES-$(PTXCONF_XORG_LIB_XAW) += xorg-lib-xaw
 #
 # Paths and names
 #
-XORG_LIB_XAW_VERSION	:= 1.0.8
-XORG_LIB_XAW_MD5	:= 030fced589e9128c3cf57564d4a2e1ab
+XORG_LIB_XAW_VERSION	:= 1.0.11
+XORG_LIB_XAW_MD5	:= f39942f2cab379fc9b4c3731bf191b84
 XORG_LIB_XAW		:= libXaw-$(XORG_LIB_XAW_VERSION)
 XORG_LIB_XAW_SUFFIX	:= tar.bz2
 XORG_LIB_XAW_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX))
 XORG_LIB_XAW_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAW)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XAW_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XAW)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XAW_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XAW_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XAW_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_XORG_LIB_XAW_V6
-XORG_LIB_XAW_AUTOCONF += --enable-xaw6
-else
-XORG_LIB_XAW_AUTOCONF += --disable-xaw6
-endif
-
-ifdef PTXCONF_XORG_LIB_XAW_V7
-XORG_LIB_XAW_AUTOCONF += --enable-xaw7
-else
-XORG_LIB_XAW_AUTOCONF += --disable-xaw7
-endif
+XORG_LIB_XAW_CONF_TOOL	:= autoconf
+XORG_LIB_XAW_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-specs \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_XAW_V6)-xaw6 \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_XAW_V7)-xaw7 \
+	$(XORG_OPTIONS_DOCS)
 
 # ----------------------------------------------------------------------------
 # Target-Install
