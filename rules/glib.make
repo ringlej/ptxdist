@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.32.2
-GLIB_MD5	:= 5bfdb6197afb90e4dbc7b1bb98f0eae0
+GLIB_VERSION	:= 2.32.3
+GLIB_MD5	:= 9bd3ac535c24b6c162be13b2c43c5adc
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
