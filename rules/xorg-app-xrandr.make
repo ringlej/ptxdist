@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_APP_XRANDR) += xorg-app-xrandr
 #
 # Paths and names
 #
-XORG_APP_XRANDR_VERSION	:= 1.3.4
-XORG_APP_XRANDR_MD5	:= d6d20038257eba5178b523e10239d51c
+XORG_APP_XRANDR_VERSION	:= 1.3.5
+XORG_APP_XRANDR_MD5	:= 9735173a84dca9b05e06fd4686196b07
 XORG_APP_XRANDR		:= xrandr-$(XORG_APP_XRANDR_VERSION)
 XORG_APP_XRANDR_SUFFIX	:= tar.bz2
 XORG_APP_XRANDR_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XRANDR).$(XORG_APP_XRANDR_SUFFIX))
@@ -26,24 +26,13 @@ XORG_APP_XRANDR_DIR	:= $(BUILDDIR)/$(XORG_APP_XRANDR)
 XORG_APP_XRANDR_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XRANDR_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XRANDR)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_XRANDR_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XRANDR_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_XRANDR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_APP_XRANDR_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
