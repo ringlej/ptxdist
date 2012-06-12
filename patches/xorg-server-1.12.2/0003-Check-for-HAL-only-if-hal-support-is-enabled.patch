@@ -1,16 +1,17 @@
 From: Juergen Beisert <jbe@pengutronix.de>
-Subject: Check for HAL only if hal support is enabled
+Date: Tue, 12 Jun 2012 16:14:22 +0200
+Subject: [PATCH] Check for HAL only if hal support is enabled
 
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 ---
  configure.ac |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: xorg-server-1.9.3/configure.ac
-===================================================================
---- xorg-server-1.9.3.orig/configure.ac
-+++ xorg-server-1.9.3/configure.ac
-@@ -864,8 +864,8 @@ if test "x$CONFIG_DBUS_API" = xyes; then
+diff --git a/configure.ac b/configure.ac
+index 524afea..be21976 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -863,8 +863,8 @@ if test "x$CONFIG_DBUS_API" = xyes; then
  fi
  AM_CONDITIONAL(CONFIG_DBUS_API, [test "x$CONFIG_DBUS_API" = xyes])
  

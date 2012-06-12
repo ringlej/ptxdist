@@ -42,6 +42,8 @@ menuconfig XORG_SERVER
 	select OPENSSL
 	select XORG_LIB_XKBFILE
 
+	select LIBDRM			if XORG_SERVER_LIBDRM
+
 	# input hotplug with udev
 	select UDEV			if XORG_SERVER_UDEV
 	select UDEV_LIBUDEV		if XORG_SERVER_UDEV
@@ -138,6 +140,9 @@ if XORG_SERVER
 #	  the build system do not work as expected.
 
 # ----------------------------------------------------------------------------
+
+config XORG_SERVER_LIBDRM
+	bool
 
 menu "xorg servers                  "
 
@@ -391,6 +396,7 @@ config XORG_SERVER_OPT_GLX_TLS
 
 config XORG_SERVER_EXT_DRI
 	bool
+	select XORG_SERVER_LIBDRM
 	prompt "dri extension"
 	help
 	  Enable support for the Direct Rendering Infrastructure to get 3D
@@ -401,6 +407,7 @@ config XORG_SERVER_EXT_DRI
 
 config XORG_SERVER_EXT_DRI2
 	bool
+	select XORG_SERVER_LIBDRM
 	prompt "dri2 extension"
 	help
 	  Enable support for the Direct Rendering Infrastructure 2 to get 3D
@@ -438,15 +445,6 @@ config XORG_SERVER_EXT_XSELINUX
 config XORG_SERVER_EXT_XCSECURITY
 	bool
 	prompt "xcsecurity"
-	help
-	  FIXME
-
-config XORG_SERVER_EXT_CALIBRATE
-	bool
-	depends on BROKEN
-	# seems to need xcalibrate proto, but there is no release of
-	# http://cgit.freedesktop.org/xorg/lib/libXCalibrate/ available
-	prompt "calibrate"
 	help
 	  FIXME
 

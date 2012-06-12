@@ -6,7 +6,7 @@ XORG_LIBDIR  := $(XORG_PREFIX)/lib
 XORG_FONTDIR := $(XORG_PREFIX)/share/fonts/X11
 XORG_BINDIR  := /usr/bin
 
-XORG_OPTIONS_TRANS	=
+XORG_OPTIONS_TRANS	= --disable-local-transport
 ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
 XORG_OPTIONS_TRANS	+= --enable-unix-transport
 else
@@ -20,5 +20,10 @@ XORG_OPTIONS_TRANS	+= --disable-tcp-transport
 endif
 
 XORG_OPTIONS_TRANS	+= $(GLOBAL_IPV6_OPTION)
+
+XORG_OPTIONS_DOCS	:= \
+	--without-xmlto \
+	--without-fop \
+	--without-xsltproc
 
 # vim: syntax=make

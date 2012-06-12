@@ -16,21 +16,13 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.9.3
-XORG_SERVER_MD5		:= 5bef6839a76d029204ab31aa2fcb5201
+XORG_SERVER_VERSION	:= 1.12.2
+XORG_SERVER_MD5		:= 791f0323b886abb7954de7f042bb7dc6
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(call ptx/mirror, XORG, individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX))
 XORG_SERVER_SOURCE	:= $(SRCDIR)/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_SERVER_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_SERVER)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -57,291 +49,80 @@ XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 # use "=" here
 XORG_SERVER_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
-	$(XORG_OPTIONS_TRANS) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--enable-option-checking \
-	--disable-maintainer-mode \
-	--enable-dependency-tracking \
 	--disable-strict-compilation \
-	--disable-debug \
-	--disable-unit-tests \
-	--disable-builddocs \
 	--disable-docs \
 	--disable-devel-docs \
-	--disable-xfree86-utils \
-	--disable-xquartz \
+	--disable-unit-tests \
+	--disable-static \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-debug \
 	--disable-sparkle \
+	--disable-install-libxf86config \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_AIGLX)-aiglx \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_GLX_TLS)-glx-tls \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_STRING_REGISTRY)-registry \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_COMPOSITE)-composite \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_SHM)-mitshm \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XRES)-xres \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_RECORD)-record \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XV)-xv \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XVMC)-xvmc \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DGA)-dga \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_SCREENSAVER)-screensaver \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XDMCP)-xdmcp \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XDM_AUTH_1)-xdm-auth-1 \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_GLX)-glx \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI)-dri \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI2)-dri2 \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XINERAMA)-xinerama \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XF86VIDMODE)-xf86vidmode \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XACE)-xace \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XSELINUX)-xselinux \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XCSECURITY)-xcsecurity \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_TSLIB)-tslib \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DBE)-dbe \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_XF86BIGFONT)-xf86bigfont \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DPMS)-dpms \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_UDEV)-config-udev \
+	--disable-config-dbus \
+	--disable-config-hal \
+	--disable-config-wscons
+	--disable-xfree86-utils \
+	--enable-xaa \
+	--enable-vgahw \
+	--enable-vbe \
+	--enable-int10-module \
+	--disable-windowswm \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_LIBDRM)-libdrm \
+	--enable-clientids \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XORG)-pciaccess \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XORG)-xorg \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_DMX)-dmx \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XVFB)-xvfb \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XNEST)-xnest \
+	--disable-xquartz \
 	--disable-standalone-xpbproxy \
-	--disable-local-transport \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWIN)-xwin \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE)-kdrive \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XEPHYR)-xephyr \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XFAKE)-xfake \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XFBDEV)-xfbdev \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_KBD)-kdrive-kbd \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_MOUSE)-drive-mouse \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_EVDEV)-kdrive-evdev \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID)-install-setuid \
+	$(XORG_OPTIONS_TRANS) \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_SECURE_RPC)-secure-rpc \
 	--without-doxygen \
-	--with-xkb-output=/tmp \
-	--with-sha1=libcrypto \
+	$(XORG_OPTIONS_DOCS) \
 	--with-vendor-name=Ptxdist \
 	--with-vendor-name-short=PTX \
 	--with-vendor-web=http://www.pengutronix.de/software/ptxdist/index_en.html \
 	--with-os-name=Linux-$(KERNEL_HEADER_VERSION) \
 	--with-os-vendor=Ptxdist \
-	--with-fontrootdir=$(XORG_FONTDIR)
-
-XORG_SERVER_AUTOCONF += \
-	--disable-config-dbus \
-	--disable-config-hal
-
-XORG_SERVER_AUTOCONF += \
-	--with-fontrootdir=/usr/share/fonts/X11
-
-# FIXME
-# --enable-shared
-# --enable-static
-# --enable-install-libxf86config
-
-# FIXME new options
-
-ifdef PTXCONF_XORG_SERVER_UDEV
-XORG_SERVER_AUTOCONF += --enable-config-udev
-else
-XORG_SERVER_AUTOCONF += --disable-config-udev
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_AIGLX
-XORG_SERVER_AUTOCONF += --enable-aiglx
-else
-XORG_SERVER_AUTOCONF += --disable-aiglx
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_GLX_TLS
-XORG_SERVER_AUTOCONF += --enable-glx-tls
-else
-XORG_SERVER_AUTOCONF += --disable-glx-tls
-endif
-
-ifdef PTXCONF_XORG_SERVER_STRING_REGISTRY
-XORG_SERVER_AUTOCONF += --enable-registry
-else
-XORG_SERVER_AUTOCONF += --disable-registry
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
-XORG_SERVER_AUTOCONF += --enable-composite
-else
-XORG_SERVER_AUTOCONF += --disable-composite
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_SHM
-XORG_SERVER_AUTOCONF += --enable-mitshm
-else
-XORG_SERVER_AUTOCONF += --disable-mitshm
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XRES
-XORG_SERVER_AUTOCONF += --enable-xres
-else
-XORG_SERVER_AUTOCONF += --disable-xres
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_RECORD
-XORG_SERVER_AUTOCONF += --enable-record
-else
-XORG_SERVER_AUTOCONF += --disable-record
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XV
-XORG_SERVER_AUTOCONF += --enable-xv
-else
-XORG_SERVER_AUTOCONF += --disable-xv
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XVMC
-XORG_SERVER_AUTOCONF += --enable-xvmc
-else
-XORG_SERVER_AUTOCONF += --disable-xvmc
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DGA
-XORG_SERVER_AUTOCONF += --enable-dga
-else
-XORG_SERVER_AUTOCONF += --disable-dga
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_SCREENSAVER
-XORG_SERVER_AUTOCONF += --enable-screensaver
-else
-XORG_SERVER_AUTOCONF += --disable-screensaver
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XDMCP
-XORG_SERVER_AUTOCONF += --enable-xdmcp
-else
-XORG_SERVER_AUTOCONF += --disable-xdmcp
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XDM_AUTH_1
-XORG_SERVER_AUTOCONF += --enable-xdm-auth-1
-else
-XORG_SERVER_AUTOCONF += --disable-xdm-auth-1
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_GLX
-XORG_SERVER_AUTOCONF += --enable-glx
-else
-XORG_SERVER_AUTOCONF += --disable-glx
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DRI
-XORG_SERVER_AUTOCONF += --enable-dri
-else
-XORG_SERVER_AUTOCONF += --disable-dri
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DRI2
-XORG_SERVER_AUTOCONF += --enable-dri2
-else
-XORG_SERVER_AUTOCONF += --disable-dri2
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
-XORG_SERVER_AUTOCONF += --enable-xinerama
-else
-XORG_SERVER_AUTOCONF += --disable-xinerama
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
-XORG_SERVER_AUTOCONF += --enable-xf86vidmode
-else
-XORG_SERVER_AUTOCONF += --disable-xf86vidmode
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XACE
-XORG_SERVER_AUTOCONF += --enable-xace
-else
-XORG_SERVER_AUTOCONF += --disable-xace
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XSELINUX
-XORG_SERVER_AUTOCONF += --enable-xselinux
-else
-XORG_SERVER_AUTOCONF += --disable-xselinux
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XCSECURITY
-XORG_SERVER_AUTOCONF += --enable-xcsecurity
-else
-XORG_SERVER_AUTOCONF += --disable-xcsecurity
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_CALIBRATE
-XORG_SERVER_AUTOCONF += --enable-xcalibrate
-else
-XORG_SERVER_AUTOCONF += --disable-xcalibrate
-endif
-
-ifdef PTXCONF_XORG_SERVER_TSLIB
-XORG_SERVER_AUTOCONF += --enable-tslib
-else
-XORG_SERVER_AUTOCONF += --disable-tslib
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DBE
-XORG_SERVER_AUTOCONF += --enable-dbe
-else
-XORG_SERVER_AUTOCONF += --disable-dbe
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_XF86BIGFONT
-XORG_SERVER_AUTOCONF += --enable-xf86bigfont
-else
-XORG_SERVER_AUTOCONF += --disable-xf86bigfont
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DPMS
-XORG_SERVER_AUTOCONF += --enable-dpms
-else
-XORG_SERVER_AUTOCONF += --disable-dpms
-endif
-
-ifdef PTXCONF_XORG_SERVER_XORG
-XORG_SERVER_AUTOCONF += --enable-xorg
-else
-XORG_SERVER_AUTOCONF += --disable-xorg
-endif
-
-ifdef PTXCONF_XORG_SERVER_DMX
-XORG_SERVER_AUTOCONF += --enable-dmx
-else
-XORG_SERVER_AUTOCONF += --disable-dmx
-endif
-
-ifdef PTXCONF_XORG_SERVER_XVFB
-XORG_SERVER_AUTOCONF += --enable-xvfb
-else
-XORG_SERVER_AUTOCONF += --disable-xvfb
-endif
-
-ifdef PTXCONF_XORG_SERVER_XNEST
-XORG_SERVER_AUTOCONF += --enable-xnest
-else
-XORG_SERVER_AUTOCONF += --disable-xnest
-endif
-
-ifdef PTXCONF_XORG_SERVER_XWIN
-XORG_SERVER_AUTOCONF += --enable-xwin
-else
-XORG_SERVER_AUTOCONF += --disable-xwin
-endif
-
-ifdef PTXCONF_XORG_SERVER_KDRIVE
-XORG_SERVER_AUTOCONF += --enable-kdrive
-else
-XORG_SERVER_AUTOCONF += --disable-kdrive
-endif
-
-ifdef PTXCONF_XORG_SERVER_XEPHYR
-XORG_SERVER_AUTOCONF += --enable-xephyr
-else
-XORG_SERVER_AUTOCONF += --disable-xephyr
-endif
-
-ifdef PTXCONF_XORG_SERVER_XFAKE
-XORG_SERVER_AUTOCONF += --enable-xfake
-else
-XORG_SERVER_AUTOCONF += --disable-xfake
-endif
-
-ifdef PTXCONF_XORG_SERVER_XFBDEV
-XORG_SERVER_AUTOCONF += --enable-xfbdev
-else
-XORG_SERVER_AUTOCONF += --disable-xfbdev
-endif
-
-ifdef PTXCONF_XORG_SERVER_KDRIVE_KBD
-XORG_SERVER_AUTOCONF += --enable-kdrive-kbd
-else
-XORG_SERVER_AUTOCONF += --disable-kdrive-kbd
-endif
-
-ifdef PTXCONF_XORG_SERVER_KDRIVE_MOUSE
-XORG_SERVER_AUTOCONF += --enable-kdrive-mouse
-else
-XORG_SERVER_AUTOCONF += --disable-kdrive-mouse
-endif
-
-ifdef PTXCONF_XORG_SERVER_KDRIVE_EVDEV
-XORG_SERVER_AUTOCONF += --enable-kdrive-evdev
-else
-XORG_SERVER_AUTOCONF += --disable-kdrive-evdev
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID
-XORG_SERVER_AUTOCONF += --enable-install-setuid
-else
-XORG_SERVER_AUTOCONF += --disable-install-setuid
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
-XORG_SERVER_AUTOCONF += --enable-secure-rpc
-else
-XORG_SERVER_AUTOCONF += --disable-secure-rpc
-endif
+	--with-fontrootdir=$(XORG_FONTDIR) \
+	--with-xkb-output=/tmp \
+	--with-sha1=libcrypto
 
 #
 # FIXME rsc: what's the reason for this hack?

@@ -1,5 +1,0 @@
-07-xfree86-fix-build-with-xv-disabled.diff
-loader-when-creating-sdksyms.c-only-include-shmint.h.patch
-remove_udev_if_disabled.diff
-remove_dbus_if_disabled.diff
-remove_hal_if_disabled.diff
