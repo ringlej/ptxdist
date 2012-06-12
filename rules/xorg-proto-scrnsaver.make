@@ -18,44 +18,26 @@ PACKAGES-$(PTXCONF_XORG_PROTO_SCRNSAVER) += xorg-proto-scrnsaver
 #
 # Paths and names
 #
-XORG_PROTO_SCRNSAVER_VERSION 	:= 1.2.1
-XORG_PROTO_SCRNSAVER_MD5	:= 6af0f2e3369f5f74e69345e214f5fd0d
+XORG_PROTO_SCRNSAVER_VERSION 	:= 1.2.2
+XORG_PROTO_SCRNSAVER_MD5	:= edd8a73775e8ece1d69515dd17767bfb
 XORG_PROTO_SCRNSAVER		:= scrnsaverproto-$(XORG_PROTO_SCRNSAVER_VERSION)
 XORG_PROTO_SCRNSAVER_SUFFIX	:= tar.bz2
 XORG_PROTO_SCRNSAVER_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_SCRNSAVER).$(XORG_PROTO_SCRNSAVER_SUFFIX))
 XORG_PROTO_SCRNSAVER_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_SCRNSAVER).$(XORG_PROTO_SCRNSAVER_SUFFIX)
 XORG_PROTO_SCRNSAVER_DIR	:= $(BUILDDIR)/$(XORG_PROTO_SCRNSAVER)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_SCRNSAVER_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_SCRNSAVER)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_SCRNSAVER_PATH	:= PATH=$(CROSS_PATH)
-XORG_PROTO_SCRNSAVER_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_PROTO_SCRNSAVER_AUTOCONF := \
+XORG_PROTO_SCRNSAVER_CONF_TOOL	:= autoconf
+XORG_PROTO_SCRNSAVER_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-specs
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-proto-scrnsaver.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
+	--disable-specs \
+	$(XORG_OPTIONS_DOCS)
 
 # vim: syntax=make
 
