@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_FIGLET) += figlet
 #
 # Paths and names
 #
-FIGLET_VERSION		:= 2.2.4
-FIGLET_MD5		:= ea048d8d0b56f9c58e55514d4eb04203
+FIGLET_VERSION		:= 2.2.5
+FIGLET_MD5		:= d88cb33a14f1469fff975d021ae2858e
 FIGLET			:= figlet-$(FIGLET_VERSION)
 FIGLET_SUFFIX		:= tar.gz
 FIGLET_URL		:= ftp://ftp.figlet.org/pub/figlet/program/unix/$(FIGLET).$(FIGLET_SUFFIX)
