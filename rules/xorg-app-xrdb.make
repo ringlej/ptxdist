@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_APP_XRDB) += xorg-app-xrdb
 #
 # Paths and names
 #
-XORG_APP_XRDB_VERSION	:= 1.0.7
-XORG_APP_XRDB_MD5	:= 93f54f04e0b531b5fb77d3f051cbf22a
+XORG_APP_XRDB_VERSION	:= 1.0.9
+XORG_APP_XRDB_MD5	:= ed2e48cf33584455d74615ad4bbe4246
 XORG_APP_XRDB		:= xrdb-$(XORG_APP_XRDB_VERSION)
 XORG_APP_XRDB_SUFFIX	:= tar.bz2
 XORG_APP_XRDB_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XRDB).$(XORG_APP_XRDB_SUFFIX))
@@ -25,24 +25,13 @@ XORG_APP_XRDB_SOURCE	:= $(SRCDIR)/$(XORG_APP_XRDB).$(XORG_APP_XRDB_SUFFIX)
 XORG_APP_XRDB_DIR	:= $(BUILDDIR)/$(XORG_APP_XRDB)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XRDB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XRDB)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_XRDB_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XRDB_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_XRDB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_APP_XRDB_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
