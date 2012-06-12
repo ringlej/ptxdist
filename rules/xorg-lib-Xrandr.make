@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XRANDR) += xorg-lib-xrandr
 #
 # Paths and names
 #
-XORG_LIB_XRANDR_VERSION	:= 1.3.1
-XORG_LIB_XRANDR_MD5	:= 7785c3f7cff2735c94657e8f87ed8ad3
+XORG_LIB_XRANDR_VERSION	:= 1.3.2
+XORG_LIB_XRANDR_MD5	:= 92473da2fccf5fac665be4fa4f2037fa
 XORG_LIB_XRANDR		:= libXrandr-$(XORG_LIB_XRANDR_VERSION)
 XORG_LIB_XRANDR_SUFFIX	:= tar.bz2
 XORG_LIB_XRANDR_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX))
@@ -26,24 +26,15 @@ XORG_LIB_XRANDR_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRANDR)
 
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XRANDR_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XRANDR)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_LIB_XRANDR_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XRANDR_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XRANDR_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_LIB_XRANDR_CONF_TOOL	:= autoconf
+XORG_LIB_XRANDR_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------
