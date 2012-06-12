@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_APP_XEV) += xorg-app-xev
 #
 # Paths and names
 #
-XORG_APP_XEV_VERSION	:= 1.1.0
-XORG_APP_XEV_MD5	:= 515cfd1fe857b66abe43ec3343634954
+XORG_APP_XEV_VERSION	:= 1.2.0
+XORG_APP_XEV_MD5	:= 2727c72f3eba0c23f8f6b2e618d195a2
 XORG_APP_XEV		:= xev-$(XORG_APP_XEV_VERSION)
 XORG_APP_XEV_SUFFIX	:= tar.bz2
 XORG_APP_XEV_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XEV).$(XORG_APP_XEV_SUFFIX))
@@ -25,24 +25,13 @@ XORG_APP_XEV_SOURCE	:= $(SRCDIR)/$(XORG_APP_XEV).$(XORG_APP_XEV_SUFFIX)
 XORG_APP_XEV_DIR	:= $(BUILDDIR)/$(XORG_APP_XEV)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XEV_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XEV)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_XEV_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XEV_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_XEV_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_APP_XEV_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
