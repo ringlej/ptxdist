@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XCB_PROTO) += xcb-proto
 #
 # Paths and names
 #
-XCB_PROTO_VERSION	:= 1.6
-XCB_PROTO_MD5		:= 04313e1d914b44d0e457f6c494fc178b
+XCB_PROTO_VERSION	:= 1.7.1
+XCB_PROTO_MD5		:= 948fec39dd42f3694edd5d9689735ec4
 XCB_PROTO		:= xcb-proto-$(XCB_PROTO_VERSION)
 XCB_PROTO_SUFFIX	:= tar.bz2
 XCB_PROTO_URL		:= http://xcb.freedesktop.org/dist/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
@@ -26,31 +26,12 @@ XCB_PROTO_SOURCE	:= $(SRCDIR)/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
 XCB_PROTO_DIR		:= $(BUILDDIR)/$(XCB_PROTO)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XCB_PROTO_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XCB_PROTO)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XCB_PROTO_PATH	:= PATH=$(CROSS_PATH)
-XCB_PROTO_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XCB_PROTO_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xcb-proto.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
+XCB_PROTO_CONF_TOOL := autoconf
 
 # vim: syntax=make
