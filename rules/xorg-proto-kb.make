@@ -18,42 +18,26 @@ PACKAGES-$(PTXCONF_XORG_PROTO_KB) += xorg-proto-kb
 #
 # Paths and names
 #
-XORG_PROTO_KB_VERSION 	:= 1.0.5
-XORG_PROTO_KB_MD5	:= e7edb59a3f54af15f749e8f3e314ee62
+XORG_PROTO_KB_VERSION 	:= 1.0.6
+XORG_PROTO_KB_MD5	:= 677ea8523eec6caca86121ad2dca0b71
 XORG_PROTO_KB		:= kbproto-$(XORG_PROTO_KB_VERSION)
 XORG_PROTO_KB_SUFFIX	:= tar.bz2
 XORG_PROTO_KB_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_KB).$(XORG_PROTO_KB_SUFFIX))
 XORG_PROTO_KB_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_KB).$(XORG_PROTO_KB_SUFFIX)
 XORG_PROTO_KB_DIR	:= $(BUILDDIR)/$(XORG_PROTO_KB)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_KB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_KB)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_KB_PATH	:= PATH=$(CROSS_PATH)
-XORG_PROTO_KB_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_PROTO_KB_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-proto-kb.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
+XORG_PROTO_KB_CONF_TOOL	:= autoconf
+XORG_PROTO_KB_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-specs \
+	$(XORG_OPTIONS_DOCS)
 
 # vim: syntax=make
 
