@@ -10,6 +10,10 @@ Fix: use 'signed char c;' instead.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
+
+wsa 20120612: Fixed upstream: http://netcat.svn.sourceforge.net/viewvc/netcat/branches/netcat-0.7.x/src/flagset.c?view=diff&r1=363&r2=336&diff_format=u
+Waiting for next release.
+
  src/flagset.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
