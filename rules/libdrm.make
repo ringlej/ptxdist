@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.26
-LIBDRM_MD5	:= 4ae2666aca6b78b20d36a4e64ce5556b
+LIBDRM_VERSION	:= 2.4.35
+LIBDRM_MD5	:= 77992a226118a55e214f315bf23d4273
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
@@ -35,11 +35,11 @@ LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 LIBDRM_CONF_TOOL := autoconf
 LIBDRM_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-radeon \
 	--enable-udev \
-
-LIBDRM_CONF_OPT += --$(call ptx/endis, PTXCONF_LIBDRM_INTEL)-intel
-LIBDRM_CONF_OPT += --$(call ptx/endis, PTXCONF_LIBDRM_LIBKMS)-libkms
+	--$(call ptx/endis, PTXCONF_LIBDRM_LIBKMS)-libkms \
+	--$(call ptx/endis, PTXCONF_LIBDRM_INTEL)-intel \
+	--disable-radeon \
+	--disable-nouveau
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,8 +59,10 @@ $(STATEDIR)/libdrm.targetinstall:
 ifdef PTXCONF_LIBDRM_LIBKMS
 	@$(call install_lib, libdrm, 0, 0, 0644, libkms)
 endif
+ifdef PTXCONF_ARCH_X86
 ifdef PTXCONF_LIBDRM_INTEL
 	@$(call install_lib, libdrm, 0, 0, 0644, libdrm_intel)
+endif
 endif
 	@$(call install_finish, libdrm)
 
