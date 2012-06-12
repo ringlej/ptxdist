@@ -17,35 +17,26 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_INPUT_MOUSE) += xorg-driver-input-mouse
 #
 # Paths and names
 #
-XORG_DRIVER_INPUT_MOUSE_VERSION	:= 1.6.0
-XORG_DRIVER_INPUT_MOUSE_MD5	:= cef849b1a2743d2e84de98422f372974
+XORG_DRIVER_INPUT_MOUSE_VERSION	:= 1.7.2
+XORG_DRIVER_INPUT_MOUSE_MD5	:= 871c828b88e9c973f1457724b35576fb
 XORG_DRIVER_INPUT_MOUSE		:= xf86-input-mouse-$(XORG_DRIVER_INPUT_MOUSE_VERSION)
 XORG_DRIVER_INPUT_MOUSE_SUFFIX	:= tar.bz2
 XORG_DRIVER_INPUT_MOUSE_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG_DRIVER_INPUT_MOUSE).$(XORG_DRIVER_INPUT_MOUSE_SUFFIX))
 XORG_DRIVER_INPUT_MOUSE_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_MOUSE).$(XORG_DRIVER_INPUT_MOUSE_SUFFIX)
 XORG_DRIVER_INPUT_MOUSE_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_MOUSE)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_INPUT_MOUSE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_INPUT_MOUSE)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_DRIVER_INPUT_MOUSE_PATH	:= PATH=$(CROSS_PATH)
-XORG_DRIVER_INPUT_MOUSE_ENV 	:=  $(CROSS_ENV) \
+XORG_DRIVER_INPUT_MOUSE_CONF_ENV :=  \
+	$(CROSS_ENV) \
 	ac_cv_file__usr_share_sgml_X11_defs_ent=no
 
 #
 # autoconf
 #
-XORG_DRIVER_INPUT_MOUSE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_DRIVER_INPUT_MOUSE_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
