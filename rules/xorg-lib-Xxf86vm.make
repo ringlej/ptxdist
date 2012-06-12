@@ -16,35 +16,25 @@ PACKAGES-$(PTXCONF_XORG_LIB_XXF86VM) += xorg-lib-xxf86vm
 #
 # Paths and names
 #
-XORG_LIB_XXF86VM_VERSION	:= 1.1.1
-XORG_LIB_XXF86VM_MD5		:= 34dc3df888c164378da89a7deeb245a0
+XORG_LIB_XXF86VM_VERSION	:= 1.1.2
+XORG_LIB_XXF86VM_MD5		:= ffd93bcedd8b2b5aeabf184e7b91f326
 XORG_LIB_XXF86VM		:= libXxf86vm-$(XORG_LIB_XXF86VM_VERSION)
 XORG_LIB_XXF86VM_SUFFIX		:= tar.bz2
 XORG_LIB_XXF86VM_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XXF86VM).$(XORG_LIB_XXF86VM_SUFFIX))
 XORG_LIB_XXF86VM_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XXF86VM).$(XORG_LIB_XXF86VM_SUFFIX)
 XORG_LIB_XXF86VM_DIR		:= $(BUILDDIR)/$(XORG_LIB_XXF86VM)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XXF86VM_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XXF86VM)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XXF86VM_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XXF86VM_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XXF86VM_AUTOCONF := $(CROSS_AUTOCONF_USR)
-XORG_LIB_XXF86VM_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_XXF86VM_CONF_TOOL	:= autoconf
+XORG_LIB_XXF86VM_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------
 # Target-Install
