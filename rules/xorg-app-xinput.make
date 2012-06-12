@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_APP_XINPUT) += xorg-app-xinput
 #
 # Paths and names
 #
-XORG_APP_XINPUT_VERSION	:= 1.5.3
-XORG_APP_XINPUT_MD5	:= 1e2f0ad4f3fa833b65c568907f171d28
+XORG_APP_XINPUT_VERSION	:= 1.6.0
+XORG_APP_XINPUT_MD5	:= d2459d35b4e0b41ded26a1d1159b7ac6
 XORG_APP_XINPUT		:= xinput-$(XORG_APP_XINPUT_VERSION)
 XORG_APP_XINPUT_SUFFIX	:= tar.bz2
 XORG_APP_XINPUT_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XINPUT).$(XORG_APP_XINPUT_SUFFIX))
@@ -49,3 +49,5 @@ $(STATEDIR)/xorg-app-xinput.targetinstall:
 	@$(call install_finish, xorg-app-xinput)
 
 	@$(call touch)
+
+# vim: syntax=make
