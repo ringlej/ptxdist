@@ -16,34 +16,24 @@ PACKAGES-$(PTXCONF_XORG_LIB_XINERAMA) += xorg-lib-xinerama
 #
 # Paths and names
 #
-XORG_LIB_XINERAMA_VERSION	:= 1.1.1
-XORG_LIB_XINERAMA_MD5		:= ecd4839ad01f6f637c6fb5327207f89b
+XORG_LIB_XINERAMA_VERSION	:= 1.1.2
+XORG_LIB_XINERAMA_MD5		:= cb45d6672c93a608f003b6404f1dd462
 XORG_LIB_XINERAMA		:= libXinerama-$(XORG_LIB_XINERAMA_VERSION)
 XORG_LIB_XINERAMA_SUFFIX	:= tar.bz2
 XORG_LIB_XINERAMA_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XINERAMA).$(XORG_LIB_XINERAMA_SUFFIX))
 XORG_LIB_XINERAMA_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XINERAMA).$(XORG_LIB_XINERAMA_SUFFIX)
 XORG_LIB_XINERAMA_DIR		:= $(BUILDDIR)/$(XORG_LIB_XINERAMA)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XINERAMA_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XINERAMA)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XINERAMA_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XINERAMA_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XINERAMA_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_LIB_XINERAMA_CONF_TOOL	:= autoconf
+XORG_LIB_XINERAMA_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------
