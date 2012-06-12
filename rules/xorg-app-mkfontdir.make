@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_APP_MKFONTDIR) += xorg-app-mkfontdir
 #
 # Paths and names
 #
-XORG_APP_MKFONTDIR_VERSION	:= 1.0.6
-XORG_APP_MKFONTDIR_MD5		:= dc342dd8858416254bb5f71a9ddce589
+XORG_APP_MKFONTDIR_VERSION	:= 1.0.7
+XORG_APP_MKFONTDIR_MD5		:= 18c429148c96c2079edda922a2b67632
 XORG_APP_MKFONTDIR		:= mkfontdir-$(XORG_APP_MKFONTDIR_VERSION)
 XORG_APP_MKFONTDIR_SUFFIX	:= tar.bz2
 XORG_APP_MKFONTDIR_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_MKFONTDIR).$(XORG_APP_MKFONTDIR_SUFFIX))
@@ -26,24 +26,14 @@ XORG_APP_MKFONTDIR_SOURCE	:= $(SRCDIR)/$(XORG_APP_MKFONTDIR).$(XORG_APP_MKFONTDI
 XORG_APP_MKFONTDIR_DIR		:= $(BUILDDIR)/$(XORG_APP_MKFONTDIR)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_MKFONTDIR_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_MKFONTDIR)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_MKFONTDIR_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_MKFONTDIR_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_MKFONTDIR_AUTOCONF := \
+XORG_APP_MKFONTDIR_CONF_TOOL	:= autoconf
+XORG_APP_MKFONTDIR_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
