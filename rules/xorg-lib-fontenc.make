@@ -16,34 +16,22 @@ PACKAGES-$(PTXCONF_XORG_LIB_FONTENC) += xorg-lib-fontenc
 #
 # Paths and names
 #
-XORG_LIB_FONTENC_VERSION	:= 1.1.0
-XORG_LIB_FONTENC_MD5		:= 11d3c292f05a90f6f67840a9e9c3d9b8
+XORG_LIB_FONTENC_VERSION	:= 1.1.1
+XORG_LIB_FONTENC_MD5		:= a2a861f142c3b4367f14fc14239fc1f7
 XORG_LIB_FONTENC		:= libfontenc-$(XORG_LIB_FONTENC_VERSION)
 XORG_LIB_FONTENC_SUFFIX		:= tar.bz2
 XORG_LIB_FONTENC_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_FONTENC).$(XORG_LIB_FONTENC_SUFFIX))
 XORG_LIB_FONTENC_SOURCE		:= $(SRCDIR)/$(XORG_LIB_FONTENC).$(XORG_LIB_FONTENC_SUFFIX)
 XORG_LIB_FONTENC_DIR		:= $(BUILDDIR)/$(XORG_LIB_FONTENC)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_FONTENC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_FONTENC)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_FONTENC_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_FONTENC_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_FONTENC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_FONTENC_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
