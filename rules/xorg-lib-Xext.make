@@ -16,36 +16,26 @@ PACKAGES-$(PTXCONF_XORG_LIB_XEXT) += xorg-lib-xext
 #
 # Paths and names
 #
-XORG_LIB_XEXT_VERSION	:= 1.2.0
-XORG_LIB_XEXT_MD5	:= 9bb236ff0193e9fc1c1fb504dd840331
+XORG_LIB_XEXT_VERSION	:= 1.3.1
+XORG_LIB_XEXT_MD5	:= 71251a22bc47068d60a95f50ed2ec3cf
 XORG_LIB_XEXT		:= libXext-$(XORG_LIB_XEXT_VERSION)
 XORG_LIB_XEXT_SUFFIX	:= tar.bz2
 XORG_LIB_XEXT_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XEXT).$(XORG_LIB_XEXT_SUFFIX))
 XORG_LIB_XEXT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XEXT).$(XORG_LIB_XEXT_SUFFIX)
 XORG_LIB_XEXT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XEXT)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XEXT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XEXT)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XEXT_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XEXT_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XEXT_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-XORG_LIB_XEXT_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_XEXT_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-specs \
+	--disable-malloc0returnsnull \
+	$(XORG_OPTIONS_DOCS)
 
 # ----------------------------------------------------------------------------
 # Target-Install
