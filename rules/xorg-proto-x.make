@@ -17,55 +17,37 @@ PACKAGES-$(PTXCONF_XORG_PROTO_X) += xorg-proto-x
 #
 # Paths and names
 #
-XORG_PROTO_X_VERSION 	:= 7.0.20
-XORG_PROTO_X_MD5	:= 65633168e5315c19defb4652cd3d83c1
+XORG_PROTO_X_VERSION 	:= 7.0.23
+XORG_PROTO_X_MD5	:= d4d241a4849167e4e694fe73371c328c
 XORG_PROTO_X		:= xproto-$(XORG_PROTO_X_VERSION)
 XORG_PROTO_X_SUFFIX	:= tar.bz2
 XORG_PROTO_X_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_X).$(XORG_PROTO_X_SUFFIX))
 XORG_PROTO_X_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_X).$(XORG_PROTO_X_SUFFIX)
 XORG_PROTO_X_DIR	:= $(BUILDDIR)/$(XORG_PROTO_X)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_X_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_X)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_X_PATH	:= PATH=$(CROSS_PATH)
-XORG_PROTO_X_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_PROTO_X_AUTOCONF := \
+XORG_PROTO_X_CONF_TOOL	:= autoconf
+XORG_PROTO_X_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-specs
+	--disable-specs \
+	$(XORG_OPTIONS_DOCS)
 
 #
 # this was valid for an x86 target. Check on other
 # architectures and do not trust the autodetection
 #
-XORG_PROTO_X_AUTOCONF += \
+XORG_PROTO_X_CONF_OPT += \
 	--enable-const-prototypes \
 	--enable-function-prototypes \
 	--enable-varargs-prototypes \
 	--enable-nested-prototypes \
 	--enable-wide-prototypes=no
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-proto-x.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
 
 # vim: syntax=make
 
