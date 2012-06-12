@@ -18,42 +18,22 @@ PACKAGES-$(PTXCONF_XORG_PROTO_XF86DRI) += xorg-proto-xf86dri
 #
 # Paths and names
 #
-XORG_PROTO_XF86DRI_VERSION	:= 2.1.0
-XORG_PROTO_XF86DRI_MD5		:= 309d552732666c3333d7dc63e80d042f
+XORG_PROTO_XF86DRI_VERSION	:= 2.1.1
+XORG_PROTO_XF86DRI_MD5		:= 1d716d0dac3b664e5ee20c69d34bc10e
 XORG_PROTO_XF86DRI		:= xf86driproto-$(XORG_PROTO_XF86DRI_VERSION)
 XORG_PROTO_XF86DRI_SUFFIX	:= tar.bz2
 XORG_PROTO_XF86DRI_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_XF86DRI).$(XORG_PROTO_XF86DRI_SUFFIX))
 XORG_PROTO_XF86DRI_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86DRI).$(XORG_PROTO_XF86DRI_SUFFIX)
 XORG_PROTO_XF86DRI_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86DRI)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_XF86DRI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_XF86DRI)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_XF86DRI_PATH	:= PATH=$(CROSS_PATH)
-XORG_PROTO_XF86DRI_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_PROTO_XF86DRI_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-proto-xf86dri.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
+XORG_PROTO_XF86DRI_CONF_TOOL := autoconf
 
 # vim: syntax=make
 
