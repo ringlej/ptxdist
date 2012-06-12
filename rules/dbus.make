@@ -64,7 +64,7 @@ DBUS_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
 	--with-xml=$(DBUS_XML-y) \
 	--with-systemdsystemunitdir=/lib/systemd/system \
-	--$(call ptx/endis, PTXCONF_INITMETHOD_SYSTEMD)-systemd \
+	--disable-systemd \
 	--with-dbus-session-bus-default-address=nonce-tcp: \
 	--enable-epoll \
 	--without-valgrind \
