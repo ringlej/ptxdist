@@ -16,35 +16,24 @@ PACKAGES-$(PTXCONF_XORG_APP_SETXKBMAP) += xorg-app-setxkbmap
 #
 # Paths and names
 #
-XORG_APP_SETXKBMAP_VERSION	:= 1.2.0
-XORG_APP_SETXKBMAP_MD5		:= 2f6df89201eb9a2cbfb905d6b82a191e
+XORG_APP_SETXKBMAP_VERSION	:= 1.3.0
+XORG_APP_SETXKBMAP_MD5		:= 1001771344608e120e943a396317c33a
 XORG_APP_SETXKBMAP		:= setxkbmap-$(XORG_APP_SETXKBMAP_VERSION)
 XORG_APP_SETXKBMAP_SUFFIX	:= tar.bz2
 XORG_APP_SETXKBMAP_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_SETXKBMAP).$(XORG_APP_SETXKBMAP_SUFFIX))
 XORG_APP_SETXKBMAP_SOURCE	:= $(SRCDIR)/$(XORG_APP_SETXKBMAP).$(XORG_APP_SETXKBMAP_SUFFIX)
 XORG_APP_SETXKBMAP_DIR		:= $(BUILDDIR)/$(XORG_APP_SETXKBMAP)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_SETXKBMAP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_SETXKBMAP)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_SETXKBMAP_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_SETXKBMAP_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-
-XORG_APP_SETXKBMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_APP_SETXKBMAP_CONF_TOOL	:= autoconf
+XORG_APP_SETXKBMAP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------
