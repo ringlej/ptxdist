@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_APP_XAUTH) += xorg-app-xauth
 #
 # Paths and names
 #
-XORG_APP_XAUTH_VERSION	:= 1.0.5
-XORG_APP_XAUTH_MD5	:= 46fc44e5e947d3720f3be5054044ff0e
+XORG_APP_XAUTH_VERSION	:= 1.0.7
+XORG_APP_XAUTH_MD5	:= cbcbd8f2156a53b609800bec4c6b6c0e
 XORG_APP_XAUTH		:= xauth-$(XORG_APP_XAUTH_VERSION)
 XORG_APP_XAUTH_SUFFIX	:= tar.bz2
 XORG_APP_XAUTH_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XAUTH).$(XORG_APP_XAUTH_SUFFIX))
@@ -25,24 +25,14 @@ XORG_APP_XAUTH_SOURCE	:= $(SRCDIR)/$(XORG_APP_XAUTH).$(XORG_APP_XAUTH_SUFFIX)
 XORG_APP_XAUTH_DIR	:= $(BUILDDIR)/$(XORG_APP_XAUTH)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XAUTH_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XAUTH)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_XAUTH_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XAUTH_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_XAUTH_AUTOCONF := \
+XORG_APP_XAUTH_CONF_TOOL	:= autoconf
+XORG_APP_XAUTH_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
