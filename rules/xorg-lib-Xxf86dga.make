@@ -16,34 +16,23 @@ PACKAGES-$(PTXCONF_XORG_LIB_XXF86DGA) += xorg-lib-xxf86dga
 #
 # Paths and names
 #
-XORG_LIB_XXF86DGA_VERSION	:= 1.1.2
-XORG_LIB_XXF86DGA_MD5		:= bbd5fdf63d4c107c8cb710d4df2012b4
+XORG_LIB_XXF86DGA_VERSION	:= 1.1.3
+XORG_LIB_XXF86DGA_MD5		:= b7f38465c46e7145782d37dbb9da8c09
 XORG_LIB_XXF86DGA		:= libXxf86dga-$(XORG_LIB_XXF86DGA_VERSION)
 XORG_LIB_XXF86DGA_SUFFIX	:= tar.bz2
 XORG_LIB_XXF86DGA_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XXF86DGA).$(XORG_LIB_XXF86DGA_SUFFIX))
 XORG_LIB_XXF86DGA_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XXF86DGA).$(XORG_LIB_XXF86DGA_SUFFIX)
 XORG_LIB_XXF86DGA_DIR		:= $(BUILDDIR)/$(XORG_LIB_XXF86DGA)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XXF86DGA_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XXF86DGA)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_LIB_XXF86DGA_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XXF86DGA_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XXF86DGA_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_LIB_XXF86DGA_CONF_TOOL	:= autoconf
+XORG_LIB_XXF86DGA_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------
