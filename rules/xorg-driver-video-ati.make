@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_XORG_DRIVER_VIDEO_ATI) += xorg-driver-vid
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_ATI_VERSION	:= 6.13.2
+XORG_DRIVER_VIDEO_ATI_VERSION	:= 6.14.5
 XORG_DRIVER_VIDEO_ATI_MD5	:= a8f92fe3c458e511f4e2ead7f92c02b0
 XORG_DRIVER_VIDEO_ATI		:= xf86-video-ati-$(XORG_DRIVER_VIDEO_ATI_VERSION)
 XORG_DRIVER_VIDEO_ATI_SUFFIX	:= tar.bz2
@@ -26,32 +26,17 @@ XORG_DRIVER_VIDEO_ATI_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG_D
 XORG_DRIVER_VIDEO_ATI_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_ATI).$(XORG_DRIVER_VIDEO_ATI_SUFFIX)
 XORG_DRIVER_VIDEO_ATI_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_ATI)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_VIDEO_ATI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_VIDEO_ATI)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_DRIVER_VIDEO_ATI_PATH	:= PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_ATI_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_DRIVER_VIDEO_ATI_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI
-XORG_DRIVER_VIDEO_ATI_AUTOCONF += --enable-dri
-else
-XORG_DRIVER_VIDEO_ATI_AUTOCONF += --disable-dri
-endif
+XORG_DRIVER_VIDEO_ATI_CONF_TOOL	:= autoconf
+XORG_DRIVER_VIDEO_ATI_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI)-dri
 
 # ----------------------------------------------------------------------------
 # Target-Install
