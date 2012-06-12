@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.4.14
-DBUS_MD5	:= ae6de2562a57516cfabaf56903375ba9
+DBUS_VERSION	:= 1.6.0
+DBUS_MD5	:= 16dcae2dd0c76e398381601ac9acdec4
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -63,7 +63,12 @@ DBUS_AUTOCONF := \
 	--with-dbus-user=$(PTXCONF_DBUS_USER) \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
 	--with-xml=$(DBUS_XML-y) \
-	--with-systemdsystemunitdir=/lib/systemd/system
+	--with-systemdsystemunitdir=/lib/systemd/system \
+	--$(call ptx/endis, PTXCONF_INITMETHOD_SYSTEMD)-systemd \
+	--with-dbus-session-bus-default-address=nonce-tcp: \
+	--enable-epoll \
+	--without-valgrind \
+	--disable-stats
 
 ifdef PTXCONF_DBUS_X
 DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
