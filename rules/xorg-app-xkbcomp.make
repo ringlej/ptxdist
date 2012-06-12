@@ -16,36 +16,28 @@ PACKAGES-$(PTXCONF_XORG_APP_XKBCOMP) += xorg-app-xkbcomp
 #
 # Paths and names
 #
-XORG_APP_XKBCOMP_VERSION	:= 1.2.0
-XORG_APP_XKBCOMP_MD5		:= 0f55995cd8da9b2d88553e1a2e17cd0a
+XORG_APP_XKBCOMP_VERSION	:= 1.2.4
+XORG_APP_XKBCOMP_MD5		:= a0fc1ac3fc4fe479ade09674347c5aa0
 XORG_APP_XKBCOMP		:= xkbcomp-$(XORG_APP_XKBCOMP_VERSION)
 XORG_APP_XKBCOMP_SUFFIX		:= tar.bz2
 XORG_APP_XKBCOMP_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XKBCOMP).$(XORG_APP_XKBCOMP_SUFFIX))
 XORG_APP_XKBCOMP_SOURCE		:= $(SRCDIR)/$(XORG_APP_XKBCOMP).$(XORG_APP_XKBCOMP_SUFFIX)
 XORG_APP_XKBCOMP_DIR		:= $(BUILDDIR)/$(XORG_APP_XKBCOMP)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XKBCOMP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XKBCOMP)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XKBCOMP_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XKBCOMP_ENV 	:= $(CROSS_ENV) \
+XORG_APP_XKBCOMP_CON_ENV := \
+	$(CROSS_ENV) \
 	ac_cv_file_$(call tr_sh,./xkbparse.c)=yes
 
 #
 # autoconf
 #
-
-XORG_APP_XKBCOMP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_APP_XKBCOMP_CONF_TOOL	:= autoconf
+XORG_APP_XKBCOMP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------
