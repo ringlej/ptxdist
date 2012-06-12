@@ -16,34 +16,26 @@ PACKAGES-$(PTXCONF_XORG_LIB_XPM) += xorg-lib-xpm
 #
 # Paths and names
 #
-XORG_LIB_XPM_VERSION	:= 3.5.9
-XORG_LIB_XPM_MD5	:= 2de3a1b9541f4b3a6f9d84b69d25530e
+XORG_LIB_XPM_VERSION	:= 3.5.10
+XORG_LIB_XPM_MD5	:= 7ae7eff7a14d411e84a67bd166bcec1a
 XORG_LIB_XPM		:= libXpm-$(XORG_LIB_XPM_VERSION)
 XORG_LIB_XPM_SUFFIX	:= tar.bz2
 XORG_LIB_XPM_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XPM).$(XORG_LIB_XPM_SUFFIX))
 XORG_LIB_XPM_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XPM).$(XORG_LIB_XPM_SUFFIX)
 XORG_LIB_XPM_DIR	:= $(BUILDDIR)/$(XORG_LIB_XPM)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XPM_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XPM)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XPM_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XPM_ENV 	:= $(CROSS_ENV)
+XORG_LIB_XPM_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_search_gettext=no
 
 #
 # autoconf
 #
-XORG_LIB_XPM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XPM_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
