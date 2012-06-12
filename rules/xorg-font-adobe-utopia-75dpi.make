@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_FONT_ADOBE_UTOPIA_75DPI) += xorg-font-adobe-utopia-75dpi
 #
 # Paths and names
 #
-XORG_FONT_ADOBE_UTOPIA_75DPI_VERSION	:= 1.0.3
-XORG_FONT_ADOBE_UTOPIA_75DPI_MD5	:= 0d694a5591e89d2315d841f414668344
+XORG_FONT_ADOBE_UTOPIA_75DPI_VERSION	:= 1.0.4
+XORG_FONT_ADOBE_UTOPIA_75DPI_MD5	:= e99276db3e7cef6dccc8a57bc68aeba7
 XORG_FONT_ADOBE_UTOPIA_75DPI		:= font-adobe-utopia-75dpi-$(XORG_FONT_ADOBE_UTOPIA_75DPI_VERSION)
 XORG_FONT_ADOBE_UTOPIA_75DPI_SUFFIX	:= tar.bz2
 XORG_FONT_ADOBE_UTOPIA_75DPI_URL	:= $(call ptx/mirror, XORG, individual/font/$(XORG_FONT_ADOBE_UTOPIA_75DPI).$(XORG_FONT_ADOBE_UTOPIA_75DPI_SUFFIX))
@@ -30,24 +30,14 @@ $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-adobe-utopia-75
 endif
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_FONT_ADOBE_UTOPIA_75DPI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_FONT_ADOBE_UTOPIA_75DPI)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_FONT_ADOBE_UTOPIA_75DPI_PATH	:= PATH=$(CROSS_PATH)
-XORG_FONT_ADOBE_UTOPIA_75DPI_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_FONT_ADOBE_UTOPIA_75DPI_AUTOCONF := \
+XORG_FONT_ADOBE_UTOPIA_75DPI_CONF_TOOL	:= autoconf
+XORG_FONT_ADOBE_UTOPIA_75DPI_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/75dpi
 
