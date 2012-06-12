@@ -16,34 +16,23 @@ PACKAGES-$(PTXCONF_XORG_LIB_XRENDER) += xorg-lib-xrender
 #
 # Paths and names
 #
-XORG_LIB_XRENDER_VERSION	:= 0.9.6
-XORG_LIB_XRENDER_MD5		:= 3b3b7d076c2384b6c600c0b5f4ba971f
+XORG_LIB_XRENDER_VERSION	:= 0.9.7
+XORG_LIB_XRENDER_MD5		:= ee62f4c7f0f16ced4da63308963ccad2
 XORG_LIB_XRENDER		:= libXrender-$(XORG_LIB_XRENDER_VERSION)
 XORG_LIB_XRENDER_SUFFIX		:= tar.bz2
 XORG_LIB_XRENDER_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XRENDER).$(XORG_LIB_XRENDER_SUFFIX))
 XORG_LIB_XRENDER_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XRENDER).$(XORG_LIB_XRENDER_SUFFIX)
 XORG_LIB_XRENDER_DIR		:= $(BUILDDIR)/$(XORG_LIB_XRENDER)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XRENDER_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XRENDER)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XRENDER_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XRENDER_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XRENDER_AUTOCONF := \
+XORG_LIB_XRENDER_CONF_TOOL	:= autoconf
+XORG_LIB_XRENDER_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
