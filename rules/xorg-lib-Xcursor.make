@@ -16,34 +16,22 @@ PACKAGES-$(PTXCONF_XORG_LIB_XCURSOR) += xorg-lib-xcursor
 #
 # Paths and names
 #
-XORG_LIB_XCURSOR_VERSION	:= 1.1.11
-XORG_LIB_XCURSOR_MD5		:= 866ed46f7e0d85b8c0003cebbb78a4af
+XORG_LIB_XCURSOR_VERSION	:= 1.1.13
+XORG_LIB_XCURSOR_MD5		:= 52efa81b7f26c8eda13510a2fba98eea
 XORG_LIB_XCURSOR		:= libXcursor-$(XORG_LIB_XCURSOR_VERSION)
 XORG_LIB_XCURSOR_SUFFIX		:= tar.bz2
 XORG_LIB_XCURSOR_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XCURSOR).$(XORG_LIB_XCURSOR_SUFFIX))
 XORG_LIB_XCURSOR_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XCURSOR).$(XORG_LIB_XCURSOR_SUFFIX)
 XORG_LIB_XCURSOR_DIR		:= $(BUILDDIR)/$(XORG_LIB_XCURSOR)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XCURSOR_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XCURSOR)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XCURSOR_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XCURSOR_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XCURSOR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XCURSOR_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
