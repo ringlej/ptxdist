@@ -17,36 +17,26 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_VIDEO_APM) += xorg-driver-video-apm
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_APM_VERSION	:= 1.2.3
-XORG_DRIVER_VIDEO_APM_MD5	:= a3743a971b3acb7de3d2eefc8b1a4834
+XORG_DRIVER_VIDEO_APM_VERSION	:= 1.2.4
+XORG_DRIVER_VIDEO_APM_MD5	:= 7692dac140c15172935872a77417bed2
 XORG_DRIVER_VIDEO_APM		:= xf86-video-apm-$(XORG_DRIVER_VIDEO_APM_VERSION)
 XORG_DRIVER_VIDEO_APM_SUFFIX	:= tar.bz2
 XORG_DRIVER_VIDEO_APM_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX))
 XORG_DRIVER_VIDEO_APM_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX)
 XORG_DRIVER_VIDEO_APM_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_APM)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_VIDEO_APM_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_VIDEO_APM)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_DRIVER_VIDEO_APM_PATH	:= PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_APM_ENV 	:= \
+XORG_DRIVER_VIDEO_APM_CONF_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_file__usr_share_X11_sgml_defs_ent=no
 
 #
 # autoconf
 #
-XORG_DRIVER_VIDEO_APM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_DRIVER_VIDEO_APM_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
