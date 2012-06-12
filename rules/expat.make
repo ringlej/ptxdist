@@ -18,12 +18,11 @@ PACKAGES-$(PTXCONF_EXPAT) += expat
 #
 # Paths and names
 #
-EXPAT_VERSION	:= 2.0.1
-EXPAT_MD5	:= e4b08e8477e1dccb56b95078c6d6ff88
+EXPAT_VERSION	:= 2.1.0
+EXPAT_MD5	:= dd7dab7a5fea97d2a6a43f511449b7cd
 EXPAT		:= expat-$(EXPAT_VERSION)
-# Note: repackaged tar.bz2 as tar.gz seems broken.
-EXPAT_SUFFIX	:= tar.bz2
-EXPAT_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(EXPAT).$(EXPAT_SUFFIX)
+EXPAT_SUFFIX	:= tar.gz
+EXPAT_URL	:= $(call ptx/mirror, SF, expat/$(EXPAT).$(EXPAT_SUFFIX))
 EXPAT_SOURCE	:= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR	:= $(BUILDDIR)/$(EXPAT)
 
