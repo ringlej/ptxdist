@@ -16,36 +16,27 @@ PACKAGES-$(PTXCONF_XORG_LIB_XMU) += xorg-lib-xmu
 #
 # Paths and names
 #
-XORG_LIB_XMU_VERSION	:= 1.1.0
-XORG_LIB_XMU_MD5	:= 6836883a0120e8346cf7f58dc42e465a
+XORG_LIB_XMU_VERSION	:= 1.1.1
+XORG_LIB_XMU_MD5	:= a4efff8de85bd45dd3da124285d10c00
 XORG_LIB_XMU		:= libXmu-$(XORG_LIB_XMU_VERSION)
 XORG_LIB_XMU_SUFFIX	:= tar.bz2
 XORG_LIB_XMU_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XMU).$(XORG_LIB_XMU_SUFFIX))
 XORG_LIB_XMU_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XMU).$(XORG_LIB_XMU_SUFFIX)
 XORG_LIB_XMU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XMU)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XMU_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XMU)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XMU_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XMU_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XMU_AUTOCONF := \
+XORG_LIB_XMU_CONF_TOOL	:= autoconf
+XORG_LIB_XMU_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(XORG_OPTIONS_TRANS)
+	--disable-docs \
+	$(XORG_OPTIONS_TRANS) \
+	$(XORG_OPTIONS_DOCS)
 
 # ----------------------------------------------------------------------------
 # Target-Install
