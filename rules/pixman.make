@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.24.2
-PIXMAN_MD5	:= 2ce7d12750664d2eebd51bf0a07b6205
+PIXMAN_VERSION	:= 0.26.0
+PIXMAN_MD5	:= d0c41a51db89efec669812e66a5582fa
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
 PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(call ptx/mirror, XORG, individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX))
@@ -40,6 +40,7 @@ PIXMAN_AUTOCONF := \
 	--disable-arm-simd \
 	--$(call ptx/endis, PTXCONF_ARCH_ARM_NEON)-arm-neon \
 	--enable-gcc-inline-asm \
+	--disable-static-testprogs \
 	--disable-timers \
 	--disable-gtk
 
