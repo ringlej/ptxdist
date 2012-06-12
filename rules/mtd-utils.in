@@ -253,8 +253,12 @@ config MTD_UTILS_UBIFORMAT
 config MTD_UTILS_UBIMKVOL
 	bool
 	prompt "ubimkvol"
+	depends on !BUSYBOX_UBIMKVOL || ALLYES
 	help
 	  Creates a volume on a UBI device
+
+comment "busybox' ubimkvol is selected!"
+	depends on BUSYBOX_UBIMKVOL
 
 config MTD_UTILS_UBIRENAME
 	bool
@@ -265,8 +269,12 @@ config MTD_UTILS_UBIRENAME
 config MTD_UTILS_UBIRSVOL
 	bool
 	prompt "ubirsvol"
+	depends on !BUSYBOX_UBIRSVOL || ALLYES
 	help
 	  Resize UBI volumes.
+
+comment "busybox' ubirsvol is selected!"
+	depends on BUSYBOX_UBIRSVOL
 
 config MTD_UTILS_UBINFO
 	bool
@@ -283,14 +291,22 @@ config MTD_UTILS_UBINIZE
 config MTD_UTILS_UBIRMVOL
 	bool
 	prompt "ubirmvol"
+	depends on !BUSYBOX_UBIRMVOL || ALLYES
 	help
 	  Deletes a volume on a UBI device
+
+comment "busybox' ubirmvol is selected!"
+	depends on BUSYBOX_UBIRMVOL
 
 config MTD_UTILS_UBIUPDATEVOL
 	bool
 	prompt "ubiupdatevol"
+	depends on !BUSYBOX_UBIUPDATEVOL || ALLYES
 	help
 	  Updates a volume with data from file
+
+comment "busybox' ubiupdatevol is selected!"
+	depends on BUSYBOX_UBIUPDATEVOL
 
 config MTD_UTILS_MKFS_UBIFS
 	bool
