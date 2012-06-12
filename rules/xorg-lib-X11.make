@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_X11) += xorg-lib-x11
 #
 # Paths and names
 #
-XORG_LIB_X11_VERSION	:= 1.4.0
-XORG_LIB_X11_MD5	:= b63d9f7493a61df51d0c0be04ac435e4
+XORG_LIB_X11_VERSION	:= 1.5.0
+XORG_LIB_X11_MD5	:= 78b4b3bab4acbdf0abcfca30a8c70cc6
 XORG_LIB_X11		:= libX11-$(XORG_LIB_X11_VERSION)
 XORG_LIB_X11_SUFFIX	:= tar.bz2
 XORG_LIB_X11_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_X11).$(XORG_LIB_X11_SUFFIX))
@@ -26,23 +26,14 @@ XORG_LIB_X11_DIR	:= $(BUILDDIR)/$(XORG_LIB_X11)
 
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_X11_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_X11)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_X11_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_X11_ENV 	:= $(CROSS_ENV)
+XORG_LIB_X11_CONF_ENV := $(CROSS_ENV)
 
 # configure states: "checking for working mmap...no"
 # is this a correct fix?
-XORG_LIB_X11_ENV += ac_cv_func_mmap_fixed_mapped=yes
+XORG_LIB_X11_CONF_ENV += ac_cv_func_mmap_fixed_mapped=yes
 
 # configure states: "checking for cpp... /usr/bin/cpp"
 # what is the correct fix?
@@ -50,57 +41,33 @@ XORG_LIB_X11_ENV += ac_cv_func_mmap_fixed_mapped=yes
 #
 # autoconf
 #
-XORG_LIB_X11_AUTOCONF := \
+XORG_LIB_X11_CONF_TOOL	:= autoconf
+XORG_LIB_X11_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(XORG_OPTIONS_TRANS) \
 	--disable-malloc0returnsnull \
 	--disable-specs \
+	$(XORG_OPTIONS_TRANS) \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_SECURE_RPC)-secure-rpc \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_I18N)-loadable-i18n \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_CURSOR)-loadable-xcursor \
 	--enable-xthreads \
 	--enable-xcms \
-	--enable-composecache
+	--enable-xlocale \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_XF86BIGFONT)-xf86bigfont \
+	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_XKB)-xkb \
+	--enable-composecache \
+	$(XORG_OPTIONS_DOCS) \
+	--without-perl \
+	--without-lint
 
 #
 # if no value is given ignore the "--datadir" switch
 #
 ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
-	XORG_LIB_X11_AUTOCONF   += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
-endif
-
-#
-# feature is marked as experimental if disabled!
-#
-ifdef PTXCONF_XORG_LIB_X11_XKB
-XORG_LIB_X11_AUTOCONF	+= --enable-xkb
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-xkb
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
-XORG_LIB_X11_AUTOCONF	+= --enable-secure-rpc
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-secure-rpc
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_XF86BIGFONT
-XORG_LIB_X11_AUTOCONF	+= --enable-xf86bigfont
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-xf86bigfont
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_I18N
-XORG_LIB_X11_AUTOCONF	+= --enable-loadable-i18n
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-loadable-i18n
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_CURSOR
-XORG_LIB_X11_AUTOCONF	+= --enable-loadable-xcursor
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-loadable-xcursor
+XORG_LIB_X11_CONF_OPT += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 endif
 
 # missing configure switches:
-# --disable-xlocale       Disable Xlib locale implementation *EXPERIMENTAL*
 # --enable-xlocaledir     Enable XLOCALEDIR environment variable support
 #
 

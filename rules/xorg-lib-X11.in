@@ -19,45 +19,43 @@ menuconfig XORG_LIB_X11
 	help
 	  This is the main X library
 
+if XORG_LIB_X11
+
 config XORG_LIB_X11_XCB_LOW_LEVEL
 	bool
 	default y
-	depends on XORG_LIB_X11
 	prompt "use XCB for low level protocol implementation"
 	help
 	  FIXME
 
 config XORG_LIB_X11_XF86BIGFONT
-	depends on XORG_LIB_X11
 	bool
 	prompt "XF86BigFont extension support"
 	help
 	  FIXME
 
 config XORG_LIB_X11_i18n
-	depends on XORG_LIB_X11
 	bool
 	prompt "Loadable i18n module support"
 	help
 	  FIXME
 
 config XORG_LIB_X11_CURSOR
-	depends on XORG_LIB_X11
 	bool
 	prompt "loadable xcursor library support"
 	help
 	  FIXME
 
 config XORG_LIB_X11_XKB
-	depends on XORG_LIB_X11
 	bool
+	default y
 	prompt "XKB Support"
 	help
 	  This adds the keyboard extension support to the base library. Various
 	  applications handling keyboards need it.
+	  Note: this feature is marked as experimental if disabled!
 
 config XORG_LIB_X11_INSTALL_LOCALE
-	depends on XORG_LIB_X11
 	depends on LOCALES
 	bool
 	prompt "XLOCALE Support"
@@ -112,4 +110,7 @@ config XORG_LIB_X11_INSTALL_LOCALE_CHN_TW
 	help
 	  install chinese locale files, including big5 and big5hkcks as used
 	  in Taiwan.
+
 endmenu
+
+endif
