@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBPCIACCESS) += libpciaccess
 #
 # Paths and names
 #
-LIBPCIACCESS_VERSION	:= 0.12.0
-LIBPCIACCESS_MD5	:= 285e07976274572e1f1e68edee09b70a
+LIBPCIACCESS_VERSION	:= 0.13.1
+LIBPCIACCESS_MD5	:= 399a419ac6a54f0fc07c69c9bdf452dc
 LIBPCIACCESS		:= libpciaccess-$(LIBPCIACCESS_VERSION)
 LIBPCIACCESS_SUFFIX	:= tar.bz2
 LIBPCIACCESS_URL	:= $(call ptx/mirror, XORG, individual/lib/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX))
@@ -25,34 +25,25 @@ LIBPCIACCESS_SOURCE	:= $(SRCDIR)/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX)
 LIBPCIACCESS_DIR	:= $(BUILDDIR)/$(LIBPCIACCESS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(LIBPCIACCESS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, LIBPCIACCESS)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPCIACCESS_PATH	:= PATH=$(CROSS_PATH)
-LIBPCIACCESS_ENV 	:= $(CROSS_ENV)
+LIBPCIACCESS_CONF_ENV	:= $(CROSS_ENV)
+
+ifdef PTXCONF_LIBPCIACCESS_MTRR
+LIBPCIACCESS_CONF_ENV += ac_cv_file__usr_include_asm_mtrr_h=yes
+else
+LIBPCIACCESS_CONF_ENV += ac_cv_file__usr_include_asm_mtrr_h=no
+endif
 
 #
 # autoconf
 #
-LIBPCIACCESS_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LIBPCIACCESS_STATIC
-LIBPCIACCESS_AUTOCONF += --enable-shared=no
-endif
-
-ifdef PTXCONF_LIBPCIACCESS_MTRR
-LIBPCIACCESS_ENV += ac_cv_file__usr_include_asm_mtrr_h=yes
-else
-LIBPCIACCESS_ENV += ac_cv_file__usr_include_asm_mtrr_h=no
-endif
+LIBPCIACCESS_CONF_TOOL	:= autoconf
+LIBPCIACCESS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_LIBPCIACCESS_STATIC)-static \
+	--$(call ptx/disen, PTXCONF_LIBPCIACCESS_STATIC)-shared \
 
 # ----------------------------------------------------------------------------
 # Target-Install
