@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_APP_XSET) += xorg-app-xset
 #
 # Paths and names
 #
-XORG_APP_XSET_VERSION	:= 1.2.1
-XORG_APP_XSET_MD5	:= 4e0ce390394416c9e2c5cd4d7413ba87
+XORG_APP_XSET_VERSION	:= 1.2.2
+XORG_APP_XSET_MD5	:= d44e0057d6722b25d5a314e82e0b7e7c
 XORG_APP_XSET		:= xset-$(XORG_APP_XSET_VERSION)
 XORG_APP_XSET_SUFFIX	:= tar.bz2
 XORG_APP_XSET_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XSET).$(XORG_APP_XSET_SUFFIX))
@@ -25,24 +25,14 @@ XORG_APP_XSET_SOURCE	:= $(SRCDIR)/$(XORG_APP_XSET).$(XORG_APP_XSET_SUFFIX)
 XORG_APP_XSET_DIR	:= $(BUILDDIR)/$(XORG_APP_XSET)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XSET_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XSET)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_XSET_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_XSET_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_XSET_AUTOCONF := \
+XORG_APP_XSET_CONF_TOOL	:= autoconf
+XORG_APP_XSET_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
 	--with-xf86misc
