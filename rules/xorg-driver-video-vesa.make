@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_VIDEO_VESA) += xorg-driver-video-vesa
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_VESA_VERSION	:= 2.3.0
-XORG_DRIVER_VIDEO_VESA_MD5	:= 07fa32958aff9b463dd3af5481ef6626
+XORG_DRIVER_VIDEO_VESA_VERSION	:= 2.3.1
+XORG_DRIVER_VIDEO_VESA_MD5	:= 02e6eacc2d1e07ac893b62481905d6f0
 XORG_DRIVER_VIDEO_VESA		:= xf86-video-vesa-$(XORG_DRIVER_VIDEO_VESA_VERSION)
 XORG_DRIVER_VIDEO_VESA_SUFFIX	:= tar.bz2
 XORG_DRIVER_VIDEO_VESA_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG_DRIVER_VIDEO_VESA).$(XORG_DRIVER_VIDEO_VESA_SUFFIX))
@@ -25,24 +25,13 @@ XORG_DRIVER_VIDEO_VESA_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_VESA).$(XORG_DRIV
 XORG_DRIVER_VIDEO_VESA_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_VESA)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_VIDEO_VESA_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_VIDEO_VESA)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_DRIVER_VIDEO_VESA_PATH	:= PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_VESA_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_DRIVER_VIDEO_VESA_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_DRIVER_VIDEO_VESA_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
