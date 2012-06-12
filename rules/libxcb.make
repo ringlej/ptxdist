@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBXCB) += libxcb
 #
 # Paths and names
 #
-LIBXCB_VERSION		:= 1.5
-LIBXCB_MD5		:= d19c0ba6ba42ebccd3d62d8bb147b551
+LIBXCB_VERSION		:= 1.8.1
+LIBXCB_MD5		:= 9da03df9e2f4c048202920d9f6a7e123
 LIBXCB			:= libxcb-$(LIBXCB_VERSION)
 LIBXCB_SUFFIX		:= tar.bz2
 LIBXCB_URL		:= http://xcb.freedesktop.org/dist/$(LIBXCB).$(LIBXCB_SUFFIX)
@@ -25,35 +25,47 @@ LIBXCB_SOURCE		:= $(SRCDIR)/$(LIBXCB).$(LIBXCB_SUFFIX)
 LIBXCB_DIR		:= $(BUILDDIR)/$(LIBXCB)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(LIBXCB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, LIBXCB)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBXCB_PATH	:= PATH=$(CROSS_PATH)
-LIBXCB_ENV 	:= $(CROSS_ENV) ac_cv_prog_BUILD_DOCS=no
+LIBXCB_CONF_ENV := $(CROSS_ENV) ac_cv_prog_BUILD_DOCS=no
 
 ifndef PTXCONF_XORG_SERVER_EXT_XDMCP
-LIBXCB_ENV += ac_cv_lib_Xdmcp_XdmcpWrap=no
+LIBXCB_CONF_ENV += ac_cv_lib_Xdmcp_XdmcpWrap=no
 endif
 
 #
 # autoconf
 #
-LIBXCB_AUTOCONF := \
+LIBXCB_CONF_TOOL	:= autoconf
+LIBXCB_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-build-docs
-#
-# configure outputs: checking for XDMCP... no
-# How to control this in a reliable way?
-# What's here detected depends on the build order!
-#
+	--disable-build-docs \
+	--enable-composite \
+	--enable-damage \
+	--enable-dpms \
+	--enable-dri2 \
+	--enable-glx \
+	--enable-randr \
+	--enable-record \
+	--enable-render \
+	--enable-resource \
+	--enable-screensaver \
+	--enable-shape \
+	--enable-shm \
+	--enable-sync \
+	--enable-xevie \
+	--enable-xfixes \
+	--enable-xfree86-dri \
+	--enable-xinerama \
+	--enable-xinput \
+	--enable-xkb \
+	--enable-xprint \
+	--disable-selinux \
+	--enable-xtest \
+	--enable-xv \
+	--enable-xvmc \
+	--without-doxygen
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -85,6 +97,8 @@ $(STATEDIR)/libxcb.targetinstall:
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xf86dri)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xfixes)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xinerama)
+	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xinput)
+	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xkb)
 #	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xlib)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xprint)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-xtest)
