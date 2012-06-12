@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XFT) += xorg-lib-xft
 #
 # Paths and names
 #
-XORG_LIB_XFT_VERSION	:= 2.2.0
-XORG_LIB_XFT_MD5	:= cce3c327258116493b753f157e0360c7
+XORG_LIB_XFT_VERSION	:= 2.3.1
+XORG_LIB_XFT_MD5	:= 78d64dece560c9e8699199f3faa521c0
 XORG_LIB_XFT		:= libXft-$(XORG_LIB_XFT_VERSION)
 XORG_LIB_XFT_SUFFIX	:= tar.bz2
 XORG_LIB_XFT_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XFT).$(XORG_LIB_XFT_SUFFIX))
@@ -25,24 +25,13 @@ XORG_LIB_XFT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFT).$(XORG_LIB_XFT_SUFFIX)
 XORG_LIB_XFT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFT)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XFT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XFT)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_LIB_XFT_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XFT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XFT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XFT_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
