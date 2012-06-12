@@ -16,35 +16,22 @@ PACKAGES-$(PTXCONF_XORG_LIB_XP) += xorg-lib-xp
 #
 # Paths and names
 #
-XORG_LIB_XP_VERSION	:= 1.0.0
-XORG_LIB_XP_MD5		:= 0f4ac39108c1ae8c443cdfac259b58fa
+XORG_LIB_XP_VERSION	:= 1.0.1
+XORG_LIB_XP_MD5		:= 7ae1d63748e79086bd51a633da1ff1a9
 XORG_LIB_XP		:= libXp-$(XORG_LIB_XP_VERSION)
 XORG_LIB_XP_SUFFIX	:= tar.bz2
 XORG_LIB_XP_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XP).$(XORG_LIB_XP_SUFFIX))
 XORG_LIB_XP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XP).$(XORG_LIB_XP_SUFFIX)
 XORG_LIB_XP_DIR		:= $(BUILDDIR)/$(XORG_LIB_XP)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XP)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XP_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XP_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull
+XORG_LIB_XP_CONF_TOOL	:= autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
