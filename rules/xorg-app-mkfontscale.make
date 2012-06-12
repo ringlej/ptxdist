@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_APP_MKFONTSCALE) += xorg-app-mkfontscale
 #
 # Paths and names
 #
-XORG_APP_MKFONTSCALE_VERSION	:= 1.0.8
-XORG_APP_MKFONTSCALE_MD5	:= 5210c9385c6cc4a00ce829d8dc9c819b
+XORG_APP_MKFONTSCALE_VERSION	:= 1.1.0
+XORG_APP_MKFONTSCALE_MD5	:= 414fcb053418fb1418e3a39f4a37e0f7
 XORG_APP_MKFONTSCALE		:= mkfontscale-$(XORG_APP_MKFONTSCALE_VERSION)
 XORG_APP_MKFONTSCALE_SUFFIX	:= tar.bz2
 XORG_APP_MKFONTSCALE_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_MKFONTSCALE).$(XORG_APP_MKFONTSCALE_SUFFIX))
@@ -26,24 +26,14 @@ XORG_APP_MKFONTSCALE_SOURCE	:= $(SRCDIR)/$(XORG_APP_MKFONTSCALE).$(XORG_APP_MKFO
 XORG_APP_MKFONTSCALE_DIR	:= $(BUILDDIR)/$(XORG_APP_MKFONTSCALE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_MKFONTSCALE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_MKFONTSCALE)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_APP_MKFONTSCALE_PATH	:= PATH=$(CROSS_PATH)
-XORG_APP_MKFONTSCALE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_APP_MKFONTSCALE_AUTOCONF := \
+XORG_APP_MKFONTSCALE_CONF_TOOL	:= autoconf
+XORG_APP_MKFONTSCALE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
