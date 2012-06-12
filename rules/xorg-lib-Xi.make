@@ -17,36 +17,28 @@ PACKAGES-$(PTXCONF_XORG_LIB_XI) += xorg-lib-xi
 #
 # Paths and names
 #
-XORG_LIB_XI_VERSION	:= 1.4.0
-XORG_LIB_XI_MD5		:= 4ccdfe866f94c99b9190d16ffcfb3bdc
+XORG_LIB_XI_VERSION	:= 1.6.1
+XORG_LIB_XI_MD5		:= 78ee882e1ff3b192cf54070bdb19938e
 XORG_LIB_XI		:= libXi-$(XORG_LIB_XI_VERSION)
 XORG_LIB_XI_SUFFIX	:= tar.bz2
 XORG_LIB_XI_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XI).$(XORG_LIB_XI_SUFFIX))
 XORG_LIB_XI_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XI).$(XORG_LIB_XI_SUFFIX)
 XORG_LIB_XI_DIR		:= $(BUILDDIR)/$(XORG_LIB_XI)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XI)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XI_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XI_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XI_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-XORG_LIB_XI_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_XI_CONF_TOOL	:= autoconf
+XORG_LIB_XI_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull \
+	--disable-docs \
+	--disable-specs \
+	$(XORG_OPTIONS_DOCS)
 
 # ----------------------------------------------------------------------------
 # Target-Install
