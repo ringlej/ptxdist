@@ -16,6 +16,12 @@ menuconfig XORG_APP_XDM
 
 if XORG_APP_XDM
 
+config XORG_APP_XDM_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for XDM"
+
 config XORG_APP_XDM_DEV_RANDOM
 	string
 	prompt "Random device for XDM"
