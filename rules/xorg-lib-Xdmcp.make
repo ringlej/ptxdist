@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XDMCP) += xorg-lib-xdmcp
 #
 # Paths and names
 #
-XORG_LIB_XDMCP_VERSION	:= 1.1.0
-XORG_LIB_XDMCP_MD5	:= 762b6bbaff7b7d0831ddb4f072f939a5
+XORG_LIB_XDMCP_VERSION	:= 1.1.1
+XORG_LIB_XDMCP_MD5	:= b94af6cef211cf3ee256f7e81f70fcd9
 XORG_LIB_XDMCP		:= libXdmcp-$(XORG_LIB_XDMCP_VERSION)
 XORG_LIB_XDMCP_SUFFIX	:= tar.bz2
 XORG_LIB_XDMCP_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XDMCP).$(XORG_LIB_XDMCP_SUFFIX))
@@ -26,24 +26,17 @@ XORG_LIB_XDMCP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XDMCP).$(XORG_LIB_XDMCP_SUFFIX)
 XORG_LIB_XDMCP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XDMCP)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XDMCP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XDMCP)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_LIB_XDMCP_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XDMCP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XDMCP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XDMCP_CONF_TOOL	:= autoconf
+XORG_LIB_XDMCP_CONF_OPT		= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-docs \
+	$(XORG_OPTIONS_DOCS)
 
 # ----------------------------------------------------------------------------
 # Target-Install
