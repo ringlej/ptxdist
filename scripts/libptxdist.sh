@@ -489,6 +489,36 @@ ptxd_dumpstack() {
 
 
 #
+# ptxd_get_alternative - look for files in platform, BSP and ptxdist
+#
+# $1	path prefix (relative to ptxdist etc.)
+# $2	filename
+#
+# return:
+# 0 if files/dirs are found
+# 1 if no files/dirs are found
+#
+# array "ptxd_reply" containing the found files
+#
+ptxd_get_alternative() {
+    local prefix="${1%/}"
+    local file="${2}"
+    [ -n "${prefix}" -a -n "${file}" ] || return
+
+    list=( \
+	"${PTXDIST_WORKSPACE}/${prefix}${PTXDIST_PLATFORMSUFFIX}/${file}" \
+	"${PTXDIST_WORKSPACE}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
+	"${PTXDIST_PLATFORMCONFIGDIR}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
+	"${PTXDIST_WORKSPACE}/${prefix}/${file}" \
+	"${PTXDIST_PLATFORMCONFIGDIR}/${prefix}/${file}" \
+	"${PTXDIST_TOPDIR}/${prefix}/${file}" \
+	)
+
+    ptxd_get_path "${list[@]}"
+}
+export -f ptxd_get_alternative
+
+#
 # ptxd_get_path - look for files and/or dirs
 #
 # return:
