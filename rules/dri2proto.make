@@ -17,21 +17,13 @@ PACKAGES-$(PTXCONF_DRI2PROTO) += dri2proto
 #
 # Paths and names
 #
-DRI2PROTO_VERSION	:= 2.3
-DRI2PROTO_MD5		:= 3407b494d5e90d584c9af52aa8f9f028
+DRI2PROTO_VERSION	:= 2.6
+DRI2PROTO_MD5		:= 2eb74959684f47c862081099059a11ab
 DRI2PROTO		:= dri2proto-$(DRI2PROTO_VERSION)
 DRI2PROTO_SUFFIX	:= tar.bz2
 DRI2PROTO_URL		:= $(call ptx/mirror, XORG, individual/proto/$(DRI2PROTO).$(DRI2PROTO_SUFFIX))
 DRI2PROTO_SOURCE	:= $(SRCDIR)/$(DRI2PROTO).$(DRI2PROTO_SUFFIX)
 DRI2PROTO_DIR		:= $(BUILDDIR)/$(DRI2PROTO)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(DRI2PROTO_SOURCE):
-	@$(call targetinfo)
-	@$(call get, DRI2PROTO)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -40,14 +32,6 @@ $(DRI2PROTO_SOURCE):
 #
 # autoconf
 #
-DRI2PROTO_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dri2proto.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
+DRI2PROTO_CONF_TOOL := autoconf
 
 # vim: syntax=make
