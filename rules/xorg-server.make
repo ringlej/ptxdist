@@ -86,7 +86,7 @@ XORG_SERVER_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_UDEV)-config-udev \
 	--disable-config-dbus \
 	--disable-config-hal \
-	--disable-config-wscons
+	--disable-config-wscons \
 	--disable-xfree86-utils \
 	--enable-xaa \
 	--enable-vgahw \
@@ -108,7 +108,7 @@ XORG_SERVER_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XFAKE)-xfake \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XFBDEV)-xfbdev \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_KBD)-kdrive-kbd \
-	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_MOUSE)-drive-mouse \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_MOUSE)-kdrive-mouse \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_EVDEV)-kdrive-evdev \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID)-install-setuid \
 	$(XORG_OPTIONS_TRANS) \
@@ -205,25 +205,25 @@ ifdef PTXCONF_XORG_SERVER_XORG
 
 ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		$(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libexa.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		$(XORG_PREFIX)/lib/xorg/modules/libint10.so)
+		$(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		$(XORG_PREFIX)/lib/xorg/modules/libshadowfb.so)
+		$(XORG_PREFIX)/lib/xorg/modules/libint10.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libshadowfb.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libvbe.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libwfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libvgahw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libxaa.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		$(XORG_PREFIX)/lib/xorg/modules/libxf8_16bpp.so)
 endif
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/extensions/libextmod.so)
