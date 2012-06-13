@@ -112,7 +112,6 @@ ptxd_install_setup_src() {
 "
     echo -e "${list[*]}\n"
     IFS="${orig_IFS}"
-
 }
 export -f ptxd_install_setup_src
 
@@ -124,15 +123,14 @@ ptxd_install_dir() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
+    ptxd_install_setup &&
     echo "\
 install directory:
   dir=${dir}
   owner=${usr}
   group=${grp}
   permissions=${mod}
-"
-
-    ptxd_install_setup &&
+" &&
 
     install -m "${mod_nfs}" -d "${ndirs[@]/%/${dir}}" &&
     install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
@@ -192,7 +190,7 @@ install ${cmd}:
   owner=${usr}
   group=${grp}
   permissions=${mod}
-"
+" &&
 
     ptxd_exist "${src}" &&
     rm -f "${dirs[@]/%/${dst}}" &&
@@ -247,13 +245,12 @@ ptxd_install_ln() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw rel
 
+    ptxd_install_setup &&
     echo "\
 install link:
   src=${src}
   dst=${dst}
-"
-
-    ptxd_install_setup &&
+" &&
 
     case "${src}" in
 	/*)
@@ -288,6 +285,7 @@ ptxd_install_mknod() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
+    ptxd_install_setup &&
     echo "\
 install device node:
   owner=${usr}
@@ -297,9 +295,7 @@ install device node:
   major=${major}
   minor=${minor}
   name=${dst}
-"
-
-    ptxd_install_setup &&
+" &&
 
     rm -f "${pdirs[@]/%/${dst}}" &&
     install -d "${dirs[@]/%/$(dirname "${dst}")}" &&
@@ -361,13 +357,12 @@ ptxd_install_replace() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
+    ptxd_install_setup &&
     echo "\
 install replace:
   file=${dst}
   '${placeholder}' -> '${value}'
-"
-
-    ptxd_install_setup &&
+" &&
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
     sed -i -e "s,${placeholder},${value},g" "${dirs[@]/%/${dst}}" ||
@@ -385,7 +380,7 @@ ptxd_install_script_replace() {
 install script replace:
   script=${dst}
   '${placeholder}' -> '${value}'
-"
+" &&
 
     ptxd_exist "${pkg_xpkg_control_dir}/${dst}" &&
     sed -i -e "s,${placeholder},${value},g" "${pkg_xpkg_control_dir}/${dst}" ||
@@ -401,13 +396,12 @@ ptxd_install_replace_figlet() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
+    ptxd_install_setup &&
     echo "\
 install replace figlet:
   file=${dst}
   '${placeholder}' -> '\`figlet ${value}\`'
-"
-
-    ptxd_install_setup &&
+" &&
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
     figlet="$(figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
