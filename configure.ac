@@ -280,6 +280,7 @@ AC_PATH_PROGS(FILE, file,, $PATH)
 if test -z "$FILE"; then
 	AC_MSG_ERROR([file could not be found, please install])
 fi
+AC_SUBST([PTXDIST_FILE], [$FILE])
 
 dnl Check for msgfmt
 AC_PATH_PROGS(MSGFMT, msgfmt,, $PATH)
