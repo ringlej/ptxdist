@@ -55,6 +55,7 @@ environment:
 	@ln -sf @GNU_mknod@ "$(abs_srcdir)/bin/mknod"
 	@ln -sf @GNU_tar@ "$(abs_srcdir)/bin/tar"
 	@ln -sf @GNU_find@ "$(abs_srcdir)/bin/find"
+	@ln -sf @GNU_dirname@ "$(abs_srcdir)/bin/dirname"
 	@ln -sf @GNU_readlink@ "$(abs_srcdir)/bin/readlink"
 	@ln -sf @GNU_sort@ "$(abs_srcdir)/bin/sort"
 	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
