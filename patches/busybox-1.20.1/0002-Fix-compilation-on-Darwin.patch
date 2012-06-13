@@ -1,0 +1,26 @@
+From 6b464e669163eee0fc71b57ba3530df812736541 Mon Sep 17 00:00:00 2001
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Wed, 13 Jun 2012 21:44:46 +0200
+Subject: [PATCH] Fix compilation on Darwin
+
+Upstream commit b83c9704128dd106071184e4b00335a3b8486857 [1] broke it.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+
+[1] http://git.busybox.net/busybox/commit/?id=b83c9704128dd106071184e4b00335a3b8486857
+---
+ scripts/kconfig/mconf.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
+index d3f69f8..322fc89 100644
+--- a/scripts/kconfig/mconf.c
++++ b/scripts/kconfig/mconf.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #define _XOPEN_SOURCE 700
++#define _DARWIN_C_SOURCE /* for SIGWINCH */
+ 
+ #include <sys/ioctl.h>
+ #include <sys/wait.h>

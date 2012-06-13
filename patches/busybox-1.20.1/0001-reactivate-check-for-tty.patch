@@ -1,3 +1,4 @@
+From 1bfae474d5bde25836fa996506f89018d6fbd6e1 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Fri, 6 Nov 2009 09:19:58 +0100
 Subject: [PATCH] reactivate check for tty
