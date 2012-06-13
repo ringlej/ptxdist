@@ -146,6 +146,7 @@ GNU_TOOL(mkdir, coreutils)
 GNU_TOOL(install, coreutils)
 GNU_TOOL(stat, coreutils)
 GNU_TOOL(mknod, coreutils)
+GNU_TOOL(sort, coreutils)
 GNU_TOOL(readlink, coreutils)
 GNU_TOOL(tar, tar)
 GNU_TOOL(find, findutils)
@@ -280,12 +281,6 @@ if test $? -ne 0; then
 	AC_MSG_ERROR([xargs with "-r" support needed, please install GNU xargs (unsually located in the "findutils" package])
 fi
 AC_MSG_RESULT([ok])
-
-dnl Check for sort
-AC_PATH_PROGS(SORT, sort,, $PATH)
-if test -z "$SORT"; then
-	AC_MSG_ERROR([sort could not be found, please install])
-fi
 
 dnl Check for make
 AC_PATH_PROGS(MAKE, gmake gnumake make,, $PATH)

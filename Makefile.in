@@ -56,6 +56,7 @@ environment:
 	@ln -sf @GNU_tar@ "$(abs_srcdir)/bin/tar"
 	@ln -sf @GNU_find@ "$(abs_srcdir)/bin/find"
 	@ln -sf @GNU_readlink@ "$(abs_srcdir)/bin/readlink"
+	@ln -sf @GNU_sort@ "$(abs_srcdir)/bin/sort"
 	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
 	@ln -sf @SED@ "$(abs_srcdir)/bin/sed"
 	@ln -sf @XARGS@ "$(abs_srcdir)/bin/xargs"
