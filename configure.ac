@@ -148,6 +148,7 @@ GNU_TOOL(stat, coreutils)
 GNU_TOOL(mknod, coreutils)
 GNU_TOOL(dirname, coreutils)
 GNU_TOOL(sort, coreutils)
+GNU_TOOL(cat, coreutils)
 GNU_TOOL(readlink, coreutils)
 GNU_TOOL(tar, tar)
 GNU_TOOL(find, findutils)
@@ -248,12 +249,6 @@ dnl Check for wget
 AC_PATH_PROGS(WGET, wget,, $PATH)
 if test -z "$WGET"; then
 	AC_MSG_ERROR([wget could not be found, please install])
-fi
-
-dnl Check for cat
-AC_PATH_PROGS(CAT, cat,, $PATH)
-if test -z "$CAT"; then
-	AC_MSG_ERROR([cat could not be found, please install])
 fi
 
 AC_MSG_CHECKING([find version])
