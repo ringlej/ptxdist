@@ -410,7 +410,7 @@ install replace figlet:
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
     figlet="$(figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
-	awk '{ gsub("\\\\", "`"); if ($0 !~ "^ *$") printf("%s\\n", $0) }')" &&
+	awk '{ gsub("\\\\", "`"); if ($0 !~ "^ *$") printf("%s\\n", $0) }')" && #`
     sed -i -e "s#${placeholder}#${figlet}#g" "${dirs[@]/%/${dst}}" ||
 
     ptxd_install_error "install_replace failed!"
