@@ -4,6 +4,8 @@ config XORG_APP_XEV
 	tristate
 	prompt "xorg xev"
 	select XORG_LIB_X11
+	select XORG_LIB_XRANDR
+	select XORG_PROTO_X
 	help
 	  Xev creates a window and then asks the X server to send it events
 	  whenever anything happens to the window (such as it being moved,
