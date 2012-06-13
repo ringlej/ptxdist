@@ -152,6 +152,7 @@ GNU_TOOL(cat, coreutils)
 GNU_TOOL(readlink, coreutils)
 GNU_TOOL(tar, tar)
 GNU_TOOL(find, findutils)
+GNU_TOOL(xargs, findutils)
 
 dnl Check for egrep
 AC_PROG_EGREP
@@ -258,19 +259,6 @@ case "$FIND_VERSION" in
 *)   AC_MSG_ERROR([we need at least GNU find 4.x]) ;;
 esac
 AC_MSG_RESULT([$FIND_VERSION])
-
-dnl Check for xargs
-AC_PATH_PROGS(XARGS, xargs,, $PATH)
-if test -z "$XARGS"; then
-	AC_MSG_ERROR([xargs could not be found, please install])
-fi
-
-AC_MSG_CHECKING([if xargs -r works as expected])
-echo | ${XARGS} -r false
-if test $? -ne 0; then
-	AC_MSG_ERROR([xargs with "-r" support needed, please install GNU xargs (unsually located in the "findutils" package])
-fi
-AC_MSG_RESULT([ok])
 
 dnl Check for make
 AC_PATH_PROGS(MAKE, gmake gnumake make,, $PATH)
