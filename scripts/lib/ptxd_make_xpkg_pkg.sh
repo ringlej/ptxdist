@@ -137,7 +137,8 @@ install directory:
     install -m "${mod_nfs}" -d "${ndirs[@]/%/${dir}}" &&
     install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
 
-    echo "f:${dir}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
+    echo "f:${dir}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}" ||
+    ptxd_install_error "install_dir failed!"
 }
 export -f ptxd_install_dir
 
