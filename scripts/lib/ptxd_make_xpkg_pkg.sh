@@ -24,6 +24,74 @@ ptxd_install_error() {
 }
 export -f ptxd_install_error
 
+#
+# ptxd_install_getent_id
+#
+# convert usr or grp into numeric value
+#
+# $1: "usr", "grp"
+#
+ptxd_install_getent_id() {
+    local key="${1}"
+    local db id
+
+    case "${key}" in
+	usr)
+	    id="user id"
+	    db="/etc/passwd"
+	    ;;
+	grp)
+	    id="group id"
+	    db="/etc/group"
+	    ;;
+    esac
+
+    eval ${key}_name='\(${!key}\)'
+
+    if ! ptxd_get_alternative "projectroot" "${db}"; then
+	ptxd_bailout "
+
+  Unable to find '${db}'.
+
+"
+    fi
+
+    local line
+    if ! line="$(grep -e "^${!key}" "${ptxd_reply}")"; then
+	ptxd_bailout "
+
+${id} '${!key}' not found in '$(ptxd_print_path ${ptxd_reply})' for:
+  '${dst:-${dir}}'
+
+"
+    fi
+    local orig_IFS="${IFS}"
+    local IFS=":"
+    set -- $line
+    IFS="${orig_IFS}"
+    eval ${key}="${3}"
+}
+export -f ptxd_install_getent_id
+
+#
+# ptxd_install_resolve_usr_grp
+#
+# convert usr/grp that contain names into numeric values
+#
+ptxd_install_resolve_usr_grp() {
+    if ! [ 0 -le $usr ] 2>/dev/null; then
+	ptxd_install_getent_id usr || return
+    else
+	unset usr_name
+    fi
+    if ! [ 0 -le $grp ] 2>/dev/null; then
+	ptxd_install_getent_id grp || return
+    else
+	unset grp_name
+    fi
+}
+export -f ptxd_install_resolve_usr_grp
+
 ptxd_install_setup() {
     case "${dst}" in
 	/*|"") ;;
@@ -47,6 +115,10 @@ ptxd_install_setup() {
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))" &&
 
+    #
+    # mangle user/group
+    #
+    ptxd_install_resolve_usr_grp
 }
 export -f ptxd_install_setup
 
