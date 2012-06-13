@@ -149,6 +149,7 @@ GNU_TOOL(mknod, coreutils)
 GNU_TOOL(dirname, coreutils)
 GNU_TOOL(sort, coreutils)
 GNU_TOOL(cat, coreutils)
+GNU_TOOL(tty, coreutils)
 GNU_TOOL(readlink, coreutils)
 GNU_TOOL(tar, tar)
 GNU_TOOL(find, findutils)
@@ -286,12 +287,6 @@ dnl Check for msgfmt
 AC_PATH_PROGS(MSGFMT, msgfmt,, $PATH)
 if test -z "$MSGFMT"; then
 	AC_MSG_ERROR([gettext could not be found, please install])
-fi
-
-dnl Check for tty
-AC_PATH_PROGS(TTY, tty,, $PATH)
-if test -z "$TTY"; then
-	AC_MSG_ERROR([tty could not be found, please install])
 fi
 
 dnl Check for gcc

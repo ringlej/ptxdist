@@ -53,6 +53,7 @@ environment:
 	@ln -sf @GNU_install@ "$(abs_srcdir)/bin/install"
 	@ln -sf @GNU_stat@ "$(abs_srcdir)/bin/stat"
 	@ln -sf @GNU_mknod@ "$(abs_srcdir)/bin/mknod"
+	@ln -sf @GNU_tty@ "$(abs_srcdir)/bin/tty"
 	@ln -sf @GNU_tar@ "$(abs_srcdir)/bin/tar"
 	@ln -sf @GNU_find@ "$(abs_srcdir)/bin/find"
 	@ln -sf @PTXDIST_FILE@ "$(abs_srcdir)/bin/file"
