@@ -236,12 +236,6 @@ if test -z "$UNZIP"; then
 	AC_MSG_ERROR([unzip could not be found, please install])
 fi
 
-dnl Check for readlink
-AC_PATH_PROGS(READLINK, readlink,, $PATH)
-if test -z "$READLINK"; then
-	AC_MSG_ERROR([readlink could not be found, please install])
-fi
-
 dnl Check for mktemp
 AC_PATH_PROGS(MKTEMP, mktemp,, $PATH)
 if test -z "$MKTEMP"; then
