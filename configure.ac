@@ -272,12 +272,6 @@ if test -z "$CAT"; then
 	AC_MSG_ERROR([cat could not be found, please install])
 fi
 
-dnl Check for find
-AC_PATH_PROGS(FIND, find,, $PATH)
-if test -z "$FIND"; then
-	AC_MSG_ERROR([find could not be found, please install])
-fi
-
 AC_MSG_CHECKING([find version])
 FIND_VERSION=`$FIND --version 2>/dev/null | $SED -ne "s/.*\s\+\([[0-9]]\+\.[[0-9]]\+\.[[0-9]]\+\).*$/\1/p"`
 case "$FIND_VERSION" in
