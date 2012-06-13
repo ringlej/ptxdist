@@ -273,7 +273,7 @@ if test -z "$CAT"; then
 fi
 
 AC_MSG_CHECKING([find version])
-FIND_VERSION=`$FIND --version 2>/dev/null | $SED -ne "s/.*\s\+\([[0-9]]\+\.[[0-9]]\+\.[[0-9]]\+\).*$/\1/p"`
+FIND_VERSION=`$GNU_find --version 2>/dev/null | $SED -ne "s/.*\s\+\([[0-9]]\+\.[[0-9]]\+\.[[0-9]]\+\).*$/\1/p"`
 case "$FIND_VERSION" in
 4.*) ;;
 *)   AC_MSG_ERROR([we need at least GNU find 4.x]) ;;
