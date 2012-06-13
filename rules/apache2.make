@@ -86,34 +86,34 @@ $(STATEDIR)/apache2.targetinstall:
 		$(APACHE2_PKGDIR)/usr/bin/httpd, /usr/sbin/apache2)
 
 ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT))
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_SERVERROOT))
 
 ifdef PTXCONF_APACHE2_PUBLICDOMAINICONS
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/icons)
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_PKGDIR)/usr/icons; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/icons/$$i, \
+		$(call install_copy, apache2, www, www, 0644, $(APACHE2_PKGDIR)/usr/icons/$$i, \
 			$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i); \
 	done
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/icons/small)
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_SERVERROOT)/icons/small)
 	@cd $(APACHE2_PKGDIR)/usr/icons/small; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/icons/small/$$i, \
+		$(call install_copy, apache2, www, www, 0644, $(APACHE2_PKGDIR)/usr/icons/small/$$i, \
 			$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i); \
 	done
 endif
 
 ifdef PTXCONF_APACHE2_CUSTOMERRORS
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/error)
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_SERVERROOT)/error)
 	@cd $(APACHE2_PKGDIR)/usr/error; \
 	for i in *.html.var; do \
-		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/error/$$i, \
+		$(call install_copy, apache2, www, www, 0644, $(APACHE2_PKGDIR)/usr/error/$$i, \
 			$(PTXCONF_APACHE2_SERVERROOT)/error/$$i); \
 	done
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/error/include)
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_SERVERROOT)/error/include)
 	@cd $(APACHE2_PKGDIR)/usr/error/include; \
 	for i in *.html; do \
-		$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/usr/error/include/$$i, \
+		$(call install_copy, apache2, www, www, 0644, $(APACHE2_PKGDIR)/usr/error/include/$$i, \
 			$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i); \
 	done
 endif
@@ -124,26 +124,26 @@ endif
 # -> mime.types: Definition of mime-type, their names and extensions
 # -> magic: Definitions to detect the mime-type without extensions
 #
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/conf)
-	@$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/etc/magic, \
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_SERVERROOT)/conf)
+	@$(call install_copy, apache2, www, www, 0644, $(APACHE2_PKGDIR)/etc/magic, \
 		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic)
-	@$(call install_copy, apache2, 12, 102, 0644, $(APACHE2_PKGDIR)/etc/mime.types, \
+	@$(call install_copy, apache2, www, www, 0644, $(APACHE2_PKGDIR)/etc/mime.types, \
 		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types)
 
 endif
 
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
-	@$(call install_copy, apache2, 12, 102, 0644, \
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
+	@$(call install_copy, apache2, www, www, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html)
 endif
 
 ifneq ($(PTXCONF_APACHE2_CONFIGDIR), "")
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
 
 ifdef PTXCONF_APACHE2_INSTALL_CONFIG
-	@$(call install_alternative, apache2, 12, 102, 0644, \
+	@$(call install_alternative, apache2, www, www, 0644, \
 		/etc/apache2/httpd.conf,, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf)
 endif
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
@@ -168,7 +168,7 @@ endif
 #	# create the log dir if enabled
 #	#
 ifneq ($(PTXCONF_APACHE2_LOGDIR), "")
-	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
+	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
 
 #	#
