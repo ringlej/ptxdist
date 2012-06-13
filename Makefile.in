@@ -64,6 +64,7 @@ environment:
 	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
 	@ln -sf @SED@ "$(abs_srcdir)/bin/sed"
 	@ln -sf @GNU_xargs@ "$(abs_srcdir)/bin/xargs"
+	@ln -sf @BASH@  "$(abs_srcdir)/bin/bash"
 	@ln -sf @SYSCTL@ "$(abs_srcdir)/bin/sysctl"
 	@echo " done"
 
