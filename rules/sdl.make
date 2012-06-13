@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SDL) += sdl
 #
 # Paths and names
 #
-SDL_VERSION	:= 1.2.14
-SDL_MD5		:= e52086d1b508fa0b76c52ee30b55bec4
+SDL_VERSION	:= 1.2.15
+SDL_MD5		:= 9d96df8417572a2afb781a7c4c811a85
 SDL		:= SDL-$(SDL_VERSION)
 SDL_SUFFIX	:= tar.gz
 SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)

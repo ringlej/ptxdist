@@ -7,18 +7,18 @@ We have to create the objects dir before saving gcc's output into it.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index e29dc6d..359ca12 100644
+index ab51035..6e24672 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -75,7 +75,7 @@ depend:
+@@ -71,7 +71,7 @@ depend:
  
  include $(depend)
  
 -$(objects)/$(TARGET): $(OBJECTS)
 +$(objects)/$(TARGET): $(OBJECTS) $(objects)
- 	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $^ $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
  
  $(objects)/$(SDLMAIN_TARGET): $(SDLMAIN_OBJECTS)

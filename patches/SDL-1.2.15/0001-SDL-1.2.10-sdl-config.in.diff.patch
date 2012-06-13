@@ -8,10 +8,8 @@ Teach sdl-config the concept of sysroot, but disable manual prefix overwriting.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
-# 20091210 rsc: is this patch ready for mainline?
-
  sdl-config.in |   14 +++++++-------
- 1 files changed, 7 insertions(+), 7 deletions(-)
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/sdl-config.in b/sdl-config.in
 index e0fcc0c..0159c47 100644

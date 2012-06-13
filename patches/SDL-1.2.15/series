@@ -2,5 +2,4 @@
 #tag:base --start-number 1
 0001-SDL-1.2.10-sdl-config.in.diff.patch
 0002-fix-parallel-build.patch
-0003-fix-PPC-build.patch
-# ca826873d4b4abf82521383d1de9d786  - git-ptx-patches magic
+# eae8d165e3519b04806e60b441740fc3  - git-ptx-patches magic
