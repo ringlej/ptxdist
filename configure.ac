@@ -110,7 +110,7 @@ fi
 
 
 dnl Check for sed >= 4.0
-AC_PATH_PROGS(SED, sed,, $PATH)
+AC_PATH_PROGS(SED, gsed sed,, $PATH)
 if test -z "$SED"; then
 	AC_MSG_ERROR([sed could not be found, please install])
 fi
