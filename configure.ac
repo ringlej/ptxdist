@@ -153,12 +153,6 @@ GNU_TOOL(find, findutils)
 dnl Check for egrep
 AC_PROG_EGREP
 
-dnl Check for install
-AC_PROG_INSTALL
-if test -z "${INSTALL}"; then
-	AC_MSG_ERROR([install could not be found, please install e.g.: GNU coreutils])
-fi
-
 dnl Check for gcc
 AC_PROG_CC
 if test -z "$CC"; then
