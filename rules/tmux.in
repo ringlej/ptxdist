@@ -1,0 +1,9 @@
+## SECTION=shell_and_console
+
+config TMUX
+	tristate
+	prompt "tmux"
+	select LIBEVENT
+	select NCURSES
+	help
+	  Terminal multiplexer, something like GNU screen.
