@@ -59,6 +59,7 @@ environment:
 	@ln -sf @PYTHON@ "$(abs_srcdir)/bin/python"
 	@ln -sf @SED@ "$(abs_srcdir)/bin/sed"
 	@ln -sf @XARGS@ "$(abs_srcdir)/bin/xargs"
+	@ln -sf @SYSCTL@ "$(abs_srcdir)/bin/sysctl"
 	@echo " done"
 
 clean:

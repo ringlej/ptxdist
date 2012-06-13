@@ -182,6 +182,9 @@ case "$AWK_VERSION" in
 esac
 AC_MSG_RESULT([$AWK_VERSION])
 
+# fall back to 'false' for systems which do not provide a 'sysctl' tool
+AC_PATH_PROGS(SYSCTL, sysctl false,, $PATH)
+
 dnl Check for lex
 AC_PROG_LEX
 AC_PATH_PROGS(LEX, ${LEX},, $PATH)

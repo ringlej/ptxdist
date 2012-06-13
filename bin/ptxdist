@@ -2140,7 +2140,7 @@ setup_config() {
 			cpus=1
 		fi
 	# and this one is tested on Darwin and should work on BSDs
-	elif ! cpus="$(/usr/sbin/sysctl -n hw.ncpu)" 2> /dev/null; then
+	elif ! cpus="$(sysctl -n hw.ncpu)" 2> /dev/null; then
 		cpus=1
 	fi
 	local pmf_intern="-j$(( ${cpus} * 2 ))"
