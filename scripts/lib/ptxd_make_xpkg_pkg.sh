@@ -199,8 +199,8 @@ ptxd_install_dir() {
     echo "\
 install directory:
   dir=${dir}
-  owner=${usr}
-  group=${grp}
+  owner=${usr} ${usr_name}
+  group=${grp} ${grp_name}
   permissions=${mod}
 " &&
 
@@ -259,8 +259,8 @@ ptxd_install_file_impl() {
 install ${cmd}:
   src=$(ptxd_print_path "${src}")
   dst=${dst}
-  owner=${usr}
-  group=${grp}
+  owner=${usr} ${usr_name}
+  group=${grp} ${grp_name}
   permissions=${mod}
 " &&
 
