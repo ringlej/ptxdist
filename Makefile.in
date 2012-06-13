@@ -66,6 +66,7 @@ environment:
 	@ln -sf @GNU_xargs@ "$(abs_srcdir)/bin/xargs"
 	@ln -sf @BASH@  "$(abs_srcdir)/bin/bash"
 	@ln -sf @SYSCTL@ "$(abs_srcdir)/bin/sysctl"
+	@ln -sf @MAKE@ "$(abs_srcdir)/bin/make"
 	@echo " done"
 
 clean:
