@@ -2,7 +2,7 @@
 
 choice
 	prompt "package management  "
-	default HOST_PACKAGE_MANAGEMENT_IPKG
+	default HOST_PACKAGE_MANAGEMENT_OPKG
 
 	config HOST_PACKAGE_MANAGEMENT_IPKG
 		bool
