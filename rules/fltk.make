@@ -45,16 +45,11 @@ FLTK_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--enable-localjpeg \
 	--enable-localzlib \
-	--enable-localpng
+	--enable-localpng \
+	--$(call ptx/endis, PTXCONF_FLTK_OPENGL)-gl
 
 ifdef PTXCONF_FLTK_THREADS
 FLTK_AUTOCONF  += --enable-threads
-endif
-
-ifdef PTXCONF_FLTK_OPENGL
-FLTK_AUTOCONF  += --enable-gl
-else
-FLTK_AUTOCONF  += --disable-gl
 endif
 
 ifdef PTXCONF_FLTK_XFT
