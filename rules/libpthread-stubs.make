@@ -25,14 +25,6 @@ LIBPTHREAD_STUBS_SOURCE		:= $(SRCDIR)/$(LIBPTHREAD_STUBS).$(LIBPTHREAD_STUBS_SUF
 LIBPTHREAD_STUBS_DIR		:= $(BUILDDIR)/$(LIBPTHREAD_STUBS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(LIBPTHREAD_STUBS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, LIBPTHREAD_STUBS)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
