@@ -310,7 +310,7 @@ endif
 
 HOST_PATH	:= $$PATH
 
-HOST_CPPFLAGS	:= -I$(PTXDIST_SYSROOT_HOST)/include
+HOST_CPPFLAGS	:= -isystem $(PTXDIST_SYSROOT_HOST)/include
 HOST_LDFLAGS	:= \
 	-L$(PTXDIST_SYSROOT_HOST)/lib \
 	-Wl,-rpath -Wl,$(PTXDIST_SYSROOT_HOST)/lib \
