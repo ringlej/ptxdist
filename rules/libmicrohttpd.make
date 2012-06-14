@@ -38,25 +38,10 @@ LIBMICROHTTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-curl \
-	--disable-coverage
-
-ifdef PTXCONF_LIBMICROHTTPD_HTTPS
-LIBMICROHTTPD_AUTOCONF += --enable-https
-else
-LIBMICROHTTPD_AUTOCONF += --disable-https
-endif
-
-ifdef PTXCONF_LIBMICROHTTPD_CLIENT_SIDE
-LIBMICROHTTPD_AUTOCONF += --enable-client-side
-else
-LIBMICROHTTPD_AUTOCONF += --disable-client-side
-endif
-
-ifdef PTXCONF_LIBMICROHTTPD_MESSAGES
-LIBMICROHTTPD_AUTOCONF += --enable-messages
-else
-LIBMICROHTTPD_AUTOCONF += --disable-messages
-endif
+	--disable-coverage \
+	--$(call ptx/endis, PTXCONF_LIBMICROHTTPD_HTTPS)-https \
+	--$(call ptx/endis, PTXCONF_LIBMICROHTTPD_CLIENT_SIDE)-client-side \
+	--$(call ptx/endis, PTXCONF_LIBMICROHTTPD_MESSAGES)-messages
 
 # ----------------------------------------------------------------------------
 # Target-Install
