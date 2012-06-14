@@ -14,23 +14,42 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_E2FSPROGS) += host-e2fsprogs
 
-#
-# Paths and names
-#
-HOST_E2FSPROGS		= $(E2FSPROGS)
-HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(HOST_E2FSPROGS)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_E2FSPROGS_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
-HOST_E2FSPROGS_INSTALL_OPT := install
+HOST_E2FSPROGS_CONF_TOOL	:= autoconf
+HOST_E2FSPROGS_CONF_OPT		:= \
+	$(HOST_AUTOCONF) \
+	--disable-symlink-install \
+	--disable-symlink-build \
+	--disable-verbose-makecmds \
+	--disable-compression \
+	--disable-htree \
+	--disable-elf-shlibs \
+	--disable-bsd-shlibs \
+	--disable-profile \
+	--disable-checker \
+	--disable-jbd-debug \
+	--disable-blkid-debug \
+	--disable-testio-debug \
+	--enable-libuuid \
+	--enable-libblkid \
+	--disable-quota \
+	--disable-debugfs \
+	--disable-imager \
+	--disable-resizer \
+	--disable-defrag \
+	--enable-fsck \
+	--disable-e2initrd-helper \
+	--disable-tls \
+	--disable-uuidd \
+	--disable-nls \
+	--disable-rpath \
+	--without-diet-libc
 
 # vim: syntax=make
 
