@@ -26,15 +26,6 @@ XORG_PROTO_XF86BIGFONT_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_P
 XORG_PROTO_XF86BIGFONT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86BIGFONT).$(XORG_PROTO_XF86BIGFONT_SUFFIX)
 XORG_PROTO_XF86BIGFONT_DIR	:= $(BUILDDIR)/$(XORG_PROTO_XF86BIGFONT)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_XF86BIGFONT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_XF86BIGFONT)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
