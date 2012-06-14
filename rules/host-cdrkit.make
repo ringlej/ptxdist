@@ -24,12 +24,4 @@ HOST_CDRKIT_URL		:= http://cdrkit.org/releases/$(HOST_CDRKIT).$(HOST_CDRKIT_SUFF
 HOST_CDRKIT_SOURCE	:= $(SRCDIR)/$(HOST_CDRKIT).$(HOST_CDRKIT_SUFFIX)
 HOST_CDRKIT_DIR		:= $(HOST_BUILDDIR)/$(HOST_CDRKIT)
 
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_CDRKIT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_CDRKIT)
-
 # vim: syntax=make
