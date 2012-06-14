@@ -44,25 +44,10 @@ LIBPV_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--enable-static \
-	--disable-debug
-
-ifdef PTXCONF_LIBPV_EVENT
-LIBPV_CONF_OPT += --enable-event
-else
-LIBPV_CONF_OPT += --disable-event
-endif
-
-ifdef PTXCONF_LIBPV_PYTHON
-LIBPV_CONF_OPT += --enable-python
-else
-LIBPV_CONF_OPT += --disable-python
-endif
-
-ifdef PTXCONF_LIBPV_XML_EXPAT
-LIBPV_CONF_OPT += --with-expat
-else
-LIBPV_CONF_OPT += --without-expat
-endif
+	--disable-debug \
+	--$(call ptx/endis, PTXCONF_LIBPV_EVENT)-event \
+	--$(call ptx/endis, PTXCONF_LIBPV_PYTHON)-python \
+	--$(call ptx/wwo, PTXCONF_LIBPV_XML_EXPAT)-expat
 
 # ----------------------------------------------------------------------------
 # Target-Install
