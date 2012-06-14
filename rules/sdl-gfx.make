@@ -8,7 +8,6 @@
 # see the README file.
 #
 
-
 #
 # We provide this package
 #
@@ -24,14 +23,6 @@ SDL_GFX_SUFFIX	:= tar.gz
 SDL_GFX_URL	:= http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL_GFX).$(SDL_GFX_SUFFIX)
 SDL_GFX_SOURCE	:= $(SRCDIR)/$(SDL_GFX).$(SDL_GFX_SUFFIX)
 SDL_GFX_DIR	:= $(BUILDDIR)/$(SDL_GFX)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(SDL_GFX_SOURCE):
-	@$(call targetinfo)
-	@$(call get, SDL_GFX)
 
 # ----------------------------------------------------------------------------
 # Prepare
