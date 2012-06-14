@@ -29,15 +29,6 @@ $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-bh-lucidatypewr
 endif
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_FONT_BH_LUCIDATYPEWRITER_100DPI)
-
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
