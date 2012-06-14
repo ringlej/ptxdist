@@ -18,7 +18,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_ATTR) += host-attr
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_ATTR_ENV := $(HOST_ENV)
+HOST_ATTR_CONF_ENV := \
+	$(HOST_ENV)
+	CONFIG_SHELL=bash
 
 HOST_ATTR_INSTALL_OPT := \
 	DIST_ROOT=$(HOST_ATTR_PKGDIR) \
