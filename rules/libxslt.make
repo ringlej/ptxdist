@@ -42,10 +42,10 @@ LIBXSLT_ENV	:= $(CROSS_ENV)
 LIBXSLT_AUTOCONF := \
 	 $(CROSS_AUTOCONF_USR) \
 	--without-python \
-	--$(call ptx/endis, PTXCONF_LIBXSLT_CRYPTO)-crypto \
-	--$(call ptx/endis, PTXCONF_LIBXSLT_PLUGINS)-plugins \
-	--$(call ptx/endis, PTXCONF_LIBXSLT_DEBUG)-debug \
-	--$(call ptx/endis, PTXCONF_LIBXSLT_DEBUG)-debugger
+	--$(call ptx/wwo, PTXCONF_LIBXSLT_CRYPTO)-crypto \
+	--$(call ptx/wwo, PTXCONF_LIBXSLT_PLUGINS)-plugins \
+	--$(call ptx/wwo, PTXCONF_LIBXSLT_DEBUG)-debug \
+	--$(call ptx/wwo, PTXCONF_LIBXSLT_DEBUG)-debugger
 
 # ----------------------------------------------------------------------------
 # Target-Install
