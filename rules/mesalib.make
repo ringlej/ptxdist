@@ -39,6 +39,7 @@ endif
 # ----------------------------------------------------------------------------
 
 MESALIB_CONF_ENV := \
+	$(CROSS_ENV) \
 	ac_cv_prog_PYTHON2=$(PTXDIST_TOPDIR)/bin/python
 
 ifdef PTXCONF_ARCH_X86
