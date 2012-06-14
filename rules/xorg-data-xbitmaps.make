@@ -25,15 +25,6 @@ XORG_DATA_XBITMAPS_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_DATA_X
 XORG_DATA_XBITMAPS_SOURCE	:= $(SRCDIR)/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
 XORG_DATA_XBITMAPS_DIR		:= $(BUILDDIR)/$(XORG_DATA_XBITMAPS)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DATA_XBITMAPS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DATA_XBITMAPS)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
