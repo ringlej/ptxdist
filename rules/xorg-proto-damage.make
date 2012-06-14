@@ -26,15 +26,6 @@ XORG_PROTO_DAMAGE_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO
 XORG_PROTO_DAMAGE_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_DAMAGE).$(XORG_PROTO_DAMAGE_SUFFIX)
 XORG_PROTO_DAMAGE_DIR		:= $(BUILDDIR)/$(XORG_PROTO_DAMAGE)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_DAMAGE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_DAMAGE)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
