@@ -25,14 +25,6 @@ XCURSOR_TRANSPARENT_THEME_SOURCE	:= $(SRCDIR)/$(XCURSOR_TRANSPARENT_THEME).$(XCU
 XCURSOR_TRANSPARENT_THEME_DIR		:= $(BUILDDIR)/$(XCURSOR_TRANSPARENT_THEME)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XCURSOR_TRANSPARENT_THEME_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XCURSOR_TRANSPARENT_THEME)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
