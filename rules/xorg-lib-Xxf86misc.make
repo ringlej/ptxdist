@@ -25,15 +25,6 @@ XORG_LIB_XXF86MISC_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XX
 XORG_LIB_XXF86MISC_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XXF86MISC).$(XORG_LIB_XXF86MISC_SUFFIX)
 XORG_LIB_XXF86MISC_DIR		:= $(BUILDDIR)/$(XORG_LIB_XXF86MISC)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XXF86MISC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XXF86MISC)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
