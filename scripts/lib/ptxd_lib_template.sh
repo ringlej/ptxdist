@@ -137,6 +137,7 @@ ptxd_template_filter() {
 	exit
 	fi
     fi
+    echo "generating $(ptxd_print_path ${filename})"
     mkdir -p "$(dirname "${filename}")"
     ptxd_replace_magic "${template_file}" > "${filename}" || return
 }
@@ -144,6 +145,7 @@ export -f ptxd_template_filter
 
 ptxd_template_write_rules() {
     local template_suffix
+    echo
     for template_suffix in "make" "in"; do
 	local template_file="${TEMPLATESDIR}/${template}-${template_suffix}"
 	local filename="${PTXDIST_WORKSPACE}/rules/${class}${package_filename}.${template_suffix}"
@@ -154,6 +156,7 @@ export -f ptxd_template_write_rules
 
 ptxd_template_write_platform_rules() {
     local template_file filename
+    echo
 
     template_file="${TEMPLATESDIR}/${template}-make"
     filename="${PTXDIST_PLATFORMCONFIGDIR}/rules/${class}${package_filename}.make"
