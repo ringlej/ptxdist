@@ -25,15 +25,6 @@ XORG_LIB_OLDX_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_OLDX).$(
 XORG_LIB_OLDX_SOURCE	:= $(SRCDIR)/$(XORG_LIB_OLDX).$(XORG_LIB_OLDX_SUFFIX)
 XORG_LIB_OLDX_DIR	:= $(BUILDDIR)/$(XORG_LIB_OLDX)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_OLDX_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_OLDX)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
