@@ -24,15 +24,6 @@ XORG_LIB_XCOMPOSITE_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_X
 XORG_LIB_XCOMPOSITE_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XCOMPOSITE).$(XORG_LIB_XCOMPOSITE_SUFFIX)
 XORG_LIB_XCOMPOSITE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XCOMPOSITE)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XCOMPOSITE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XCOMPOSITE)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
