@@ -31,15 +31,6 @@ XMLBENCH_URL		:= $(call ptx/mirror, SF, xmlbench/$(XMLBENCH).$(XMLBENCH_SUFFIX))
 XMLBENCH_SOURCE		:= $(SRCDIR)/$(XMLBENCH).$(XMLBENCH_SUFFIX)
 XMLBENCH_DIR		:= $(BUILDDIR)/$(XMLBENCH)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XMLBENCH_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XMLBENCH)
-
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
