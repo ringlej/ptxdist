@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_RRDTOOL) += rrdtool
 #
 # Paths and names
 #
-RRDTOOL_VERSION	:= 1.4.5
-RRDTOOL_MD5	:= 4d116dba9a0888d8aaac179e35d3980a
+RRDTOOL_VERSION	:= 1.4.7
+RRDTOOL_MD5	:= ffe369d8921b4dfdeaaf43812100c38f
 RRDTOOL		:= rrdtool-$(RRDTOOL_VERSION)
 RRDTOOL_SUFFIX	:= tar.gz
 RRDTOOL_URL	:= http://oss.oetiker.ch/rrdtool/pub/$(RRDTOOL).$(RRDTOOL_SUFFIX)
