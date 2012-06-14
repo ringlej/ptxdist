@@ -64,48 +64,19 @@ LIBCURL_AUTOCONF := \
 	--without-nss \
 	--without-ca-bundle \
 	--without-ca-path \
-	--without-libidn
-
-ifdef PTXCONF_LIBCURL_HTTP
-LIBCURL_AUTOCONF += --enable-http
-else
-LIBCURL_AUTOCONF += --disable-http
-endif
-
-ifdef PTXCONF_LIBCURL_COOKIES
-LIBCURL_AUTOCONF += --enable-cookies
-else
-LIBCURL_AUTOCONF += --disable-cookies
-endif
-
-ifdef PTXCONF_LIBCURL_FTP
-LIBCURL_AUTOCONF += --enable-ftp
-else
-LIBCURL_AUTOCONF += --disable-ftp
-endif
-
-ifdef PTXCONF_LIBCURL_FILE
-LIBCURL_AUTOCONF += --enable-file
-else
-LIBCURL_AUTOCONF += --disable-file
-endif
+	--without-libidn \
+	\
+	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
+	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
+	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
+	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
+	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
+	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2
 
 ifdef PTXCONF_LIBCURL_SSL
 LIBCURL_AUTOCONF += --with-ssl=$(SYSROOT)
 else
 LIBCURL_AUTOCONF += --without-ssl
-endif
-
-ifdef PTXCONF_LIBCURL_CRYPTO_AUTH
-LIBCURL_AUTOCONF += --enable-crypto-auth
-else
-LIBCURL_AUTOCONF += --disable-crypto-auth
-endif
-
-ifdef PTXCONF_LIBCURL_LIBSSH2
-LIBCURL_AUTOCONF += --with-libssh2
-else
-LIBCURL_AUTOCONF += --without-libssh2
 endif
 
 # ----------------------------------------------------------------------------
