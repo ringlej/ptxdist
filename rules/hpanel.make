@@ -26,12 +26,8 @@ HPANEL_SOURCE	:= $(SRCDIR)/$(HPANEL).$(HPANEL_SUFFIX)
 HPANEL_DIR	:= $(BUILDDIR)/$(HPANEL)
 
 # ----------------------------------------------------------------------------
-# Get
+# Prepare
 # ----------------------------------------------------------------------------
-
-$(HPANEL_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HPANEL)
 
 # hpanel has a very broken configure script. Don't use it!
 HPANEL_CONF_TOOL := NO
