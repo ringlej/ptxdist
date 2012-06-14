@@ -44,133 +44,31 @@ BASH_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_ROOT) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--without-bash-malloc \
-	--disable-net-redirections
-
-ifdef PTXCONF_BASH_SHLIKE
-BASH_AUTOCONF	+= --enable-minimal-config
-else
-BASH_AUTOCONF	+= --disable-minimal-config
-endif
-
-ifdef PTXCONF_BASH_ALIASES
-BASH_AUTOCONF	+= --enable-alias
-else
-BASH_AUTOCONF	+= --disable-alias
-endif
-
-ifdef PTXCONF_BASH_ARITHMETIC_FOR
-BASH_AUTOCONF	+= --enable-arith-for-command
-else
-BASH_AUTOCONF	+= --disable-arith-for-command
-endif
-
-ifdef PTXCONF_BASH_ARRAY
-BASH_AUTOCONF	+= --enable-array-variables
-else
-BASH_AUTOCONF	+= --disable-array-variables
-endif
-
-ifdef PTXCONF_BASH_HISTORY
-BASH_AUTOCONF	+= --enable-bang-history
-else
-BASH_AUTOCONF	+= --disable-bang-history
-endif
-
-ifdef PTXCONF_BASH_BRACE
-BASH_AUTOCONF	+= --enable-brace-expansion
-else
-BASH_AUTOCONF	+= --disable-brace-expansion
-endif
-
-ifdef PTXCONF_BASH_CONDITIONAL
-BASH_AUTOCONF	+= --enable-cond-command
-else
-BASH_AUTOCONF	+= --disable-cond-command
-endif
-
-ifdef PTXCONF_BASH_DIRSTACK
-BASH_AUTOCONF	+= --enable-directory-stack
-else
-BASH_AUTOCONF	+= --disable-directory-stack
-endif
-
-ifdef PTXCONF_BASH_EXTPATTERN
-BASH_AUTOCONF	+= --enable-extended-glob
-else
-BASH_AUTOCONF	+= --disable-extended-glob
-endif
-
-ifdef PTXCONF_BASH_HELP
-BASH_AUTOCONF	+= --enable-help-builtin
-else
-BASH_AUTOCONF	+= --disable-help-builtin
-endif
-
-ifdef PTXCONF_BASH_CMDHISTORY
-BASH_AUTOCONF	+= --enable-history
-else
-BASH_AUTOCONF	+= --disable-history
-endif
+	--disable-net-redirections \
+	--$(call ptx/endis, PTXCONF_BASH_SHLIKE)-minimal-config \
+	--$(call ptx/endis, PTXCONF_BASH_ALIAS)-alias \
+	--$(call ptx/endis, PTXCONF_BASH_ARITHMETIC_FOR)-arith-for-command \
+	--$(call ptx/endis, PTXCONF_BASH_ARRAY)-array-variables \
+	--$(call ptx/endis, PTXCONF_BASH_HISTORY)-bang-history \
+	--$(call ptx/endis, PTXCONF_BASH_BRACE)-brace-expansion \
+	--$(call ptx/endis, PTXCONF_BASH_CONDITIONAL)-cond-command \
+	--$(call ptx/endis, PTXCONF_BASH_DIRSTACK)-directory-stack \
+	--$(call ptx/endis, PTXCONF_BASH_EXTPATTERN)-extended-glob \
+	--$(call ptx/endis, PTXCONF_BASH_HELP)-help-builtin \
+	--$(call ptx/endis, PTXCONF_BASH_CMDHISTORY)-history \
+	--$(call ptx/endis, PTXCONF_BASH_JOBS)-job-control \
+	--$(call ptx/endis, PTXCONF_BASH_PROCSUBST)-process-substitution \
+	--$(call ptx/endis, PTXCONF_BASH_COMPLETION)-progcomp \
+	--$(call ptx/endis, PTXCONF_BASH_ESC)-prompt-string-decoding \
+	--$(call ptx/endis, PTXCONF_BASH_EDIT)-readline \
+	--$(call ptx/endis, PTXCONF_BASH_RESTRICTED)-restricted \
+	--$(call ptx/endis, PTXCONF_BASH_SELECT)-select \
+	--$(call ptx/endis, PTXCONF_BASH_GPROF)-profiling \
+	--$(call ptx/endis, PTXCONF_BASH_STATIC)-static-link \
+	--$(call ptx/endis, PTXCONF_BASH_CURSES)-curses
 
 ifdef PTXCONF_BASH_JOBS
 BASH_ENV	+= bash_cv_job_control_missing=present
-BASH_AUTOCONF	+= --enable-job-control
-else
-BASH_AUTOCONF	+= --disable-job-control
-endif
-
-ifdef PTXCONF_BASH_PROCSUBST
-BASH_AUTOCONF	+= --enable-process-substitution
-else
-BASH_AUTOCONF	+= --disable-process-substitution
-endif
-
-ifdef PTXCONF_BASH_COMPLETION
-BASH_AUTOCONF	+= --enable-progcomp
-else
-BASH_AUTOCONF	+= --disable-progcomp
-endif
-
-ifdef PTXCONF_BASH_ESC
-BASH_AUTOCONF	+= --enable-prompt-string-decoding
-else
-BASH_AUTOCONF	+= --disable-prompt-string-decoding
-endif
-
-ifdef PTXCONF_BASH_EDIT
-BASH_AUTOCONF	+= --enable-readline
-else
-BASH_AUTOCONF	+= --disable-readline
-endif
-
-ifdef PTXCONF_BASH_RESTRICTED
-BASH_AUTOCONF	+= --enable-restricted
-else
-BASH_AUTOCONF	+= --disable-restricted
-endif
-
-ifdef PTXCONF_BASH_SELECT
-BASH_AUTOCONF	+= --enable-select
-else
-BASH_AUTOCONF	+= --disable-select
-endif
-
-ifdef PTXCONF_BASH_GPROF
-BASH_AUTOCONF	+= --enable-profiling
-else
-BASH_AUTOCONF	+= --disable-profiling
-endif
-
-ifdef PTXCONF_BASH_STATIC
-BASH_AUTOCONF	+= --enable-static-link
-else
-BASH_AUTOCONF	+= --disable-static-link
-endif
-
-ifdef PTXCONF_BASH_CURSES
-BASH_AUTOCONF	+= --with-curses
-else
-BASH_AUTOCONF	+= --without-curses
 endif
 
 # ----------------------------------------------------------------------------
