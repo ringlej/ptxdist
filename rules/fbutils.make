@@ -24,15 +24,6 @@ FBUTILS_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBUTIL
 FBUTILS_SOURCE	:= $(SRCDIR)/$(FBUTILS).$(FBUTILS_SUFFIX)
 FBUTILS_DIR	:= $(BUILDDIR)/$(FBUTILS)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(FBUTILS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, FBUTILS)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
