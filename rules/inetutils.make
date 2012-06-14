@@ -52,7 +52,15 @@ INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-talk \
 	--disable-tftp \
 	--disable-whois \
-	--disable-ifconfig
+	--disable-ifconfig \
+	--$(call ptx/endis, PTXCONF_INETUTILS_INETD)-inetd \
+	--$(call ptx/endis, PTXCONF_INETUTILS_PING)-ping \
+	--$(call ptx/endis, PTXCONF_INETUTILS_RCP)-rcp \
+	--$(call ptx/endis, PTXCONF_INETUTILS_RLOGIND)-rlogind \
+	--$(call ptx/endis, PTXCONF_INETUTILS_RSH)-rsh \
+	--$(call ptx/endis, PTXCONF_INETUTILS_RSHD)-rshd \
+	--$(call ptx/endis, PTXCONF_INETUTILS_SYSLOGD)-syslogd \
+	--$(call ptx/endis, PTXCONF_INETUTILS_TFTPD)-tftpd
 #
 # FIXME: Unhandled options:
 # --enable-encryption
@@ -62,55 +70,6 @@ INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 # --with-krb[4|5]
 # --with-wrap
 # --with-pam
-
-# build only when enabled (speed up)
-ifdef PTXCONF_INETUTILS_INETD
-INETUTILS_AUTOCONF += --enable-inetd
-else
-INETUTILS_AUTOCONF += --disable-inetd
-endif
-
-ifdef PTXCONF_INETUTILS_PING
-INETUTILS_AUTOCONF += --enable-ping
-else
-INETUTILS_AUTOCONF += --disable-ping
-endif
-
-ifdef PTXCONF_INETUTILS_RCP
-INETUTILS_AUTOCONF += --enable-rcp
-else
-INETUTILS_AUTOCONF += --disable-rcp
-endif
-
-ifdef PTXCONF_INETUTILS_RLOGIND
-INETUTILS_AUTOCONF += --enable-rlogind
-else
-INETUTILS_AUTOCONF += --disable-rlogind
-endif
-
-ifdef PTXCONF_INETUTILS_RSH
-INETUTILS_AUTOCONF += --enable-rsh
-else
-INETUTILS_AUTOCONF += --disable-rsh
-endif
-
-ifdef PTXCONF_INETUTILS_RSHD
-INETUTILS_AUTOCONF += --enable-rshd
-else
-INETUTILS_AUTOCONF += --disable-rshd
-endif
-
-ifdef PTXCONF_INETUTILS_SYSLOGD
-INETUTILS_AUTOCONF += --enable-syslogd
-else
-INETUTILS_AUTOCONF += --disable-syslogd
-endif
-
-ifdef PTXCONF_INETUTILS_TFTPD
-INETUTILS_AUTOCONF += --enable-tftpd
-else
-INETUTILS_AUTOCONF += --disable-tftpd
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
