@@ -44,48 +44,19 @@ CVS_ENV 	:= $(CROSS_ENV)
 #
 CVS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--prefix=/usr \
-	--enable-case-sensitivity
+	--enable-case-sensitivity \
+	--$(call ptx/endis, PTXCONF_CVS_NDBM)-cvs-ndbm \
+	--$(call ptx/endis, PTXCONF_CVS_CLIENT)-client \
+	--$(call ptx/endis, PTXCONF_CVS_PSSWRD_CLIENT)-password-authenticated-client \
+	--$(call ptx/endis, PTXCONF_CVS_SERVER)-server \
+	--$(call ptx/endis, PTXCONF_CVS_ENCRYPTION)-encryption \
+	--$(call ptx/endis, PTXCONF_CVS_ROOTCOMMIT)-rootcommit
 
-ifdef PTXCONF_CVS_NDBM
-	CVS_AUTOCONF += --enable-cvs-ndbm
-else
-	CVS_AUTOCONF += --disable-cvs-ndbm
-endif
-
-ifdef PTXCONF_CVS_CLIENT
-	CVS_AUTOCONF += --enable-client
-else
-	CVS_AUTOCONF += --disable-client
-endif
-
-ifdef PTXCONF_CVS_PSSWRD_CLIENT
-	CVS_AUTOCONF += --enable-password-authenticated-client
-else
-	CVS_AUTOCONF += --disable-password-authenticated-client
-endif
-
-ifdef PTXCONF_CVS_SERVER
-	CVS_AUTOCONF += --enable-server
-else
-	CVS_AUTOCONF += --disable-server
-endif
 
 ifdef PTXCONF_CVS_FLOW_CONTROL
 	CVS_AUTOCONF += --enable-server-flow-control=1M,2M
 else
 	CVS_AUTOCONF += --disable-server-flow-control
-endif
-
-ifdef PTXCONF_CVS_ENCRYPTION
-	CVS_AUTOCONF += --enable-encryption
-else
-	CVS_AUTOCONF += --disable-encryption
-endif
-
-ifdef PTXCONF_CVS_ROOTCOMMIT
-	CVS_AUTOCONF += --enable-rootcommit
-else
-	CVS_AUTOCONF += --disable-rootcommit
 endif
 
 #
