@@ -24,15 +24,6 @@ XORG_LIB_XPRINTUTIL_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_X
 XORG_LIB_XPRINTUTIL_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XPRINTUTIL).$(XORG_LIB_XPRINTUTIL_SUFFIX)
 XORG_LIB_XPRINTUTIL_DIR		:= $(BUILDDIR)/$(XORG_LIB_XPRINTUTIL)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XPRINTUTIL_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XPRINTUTIL)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
