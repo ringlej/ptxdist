@@ -28,14 +28,6 @@ HOST_AUTOTOOLS_AUTOMAKE_DEVPKG	:= NO
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-automake.install.post
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_AUTOTOOLS_AUTOMAKE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_AUTOTOOLS_AUTOMAKE)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
