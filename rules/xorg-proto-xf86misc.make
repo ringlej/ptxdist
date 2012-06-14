@@ -26,15 +26,6 @@ XORG_PROTO_XF86MISC_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PRO
 XORG_PROTO_XF86MISC_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86MISC).$(XORG_PROTO_XF86MISC_SUFFIX)
 XORG_PROTO_XF86MISC_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86MISC)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_XF86MISC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_XF86MISC)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
