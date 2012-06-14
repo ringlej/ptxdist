@@ -9,13 +9,13 @@ now.
 Signed-off-by: Carsten Schlote <schlote@vahanus.net>
 ---
  lib/ext2fs/bitops.h |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/ext2fs/bitops.h b/lib/ext2fs/bitops.h
-index 83a01e4..55c6782 100644
---- a/lib/ext2fs/bitops.h
-+++ b/lib/ext2fs/bitops.h
-@@ -336,7 +336,7 @@ _INLINE_ __u16 ext2fs_swab16(__u16 val)
+Index: e2fsprogs-1.42.4/lib/ext2fs/bitops.h
+===================================================================
+--- e2fsprogs-1.42.4.orig/lib/ext2fs/bitops.h
++++ e2fsprogs-1.42.4/lib/ext2fs/bitops.h
+@@ -347,7 +347,7 @@ _INLINE_ __u16 ext2fs_swab16(__u16 val)
  #endif	/* i386 */
  
  #if ((defined __GNUC__) && !defined(_EXT2_USE_C_VERSIONS_) && \
