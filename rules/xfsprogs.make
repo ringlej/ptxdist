@@ -26,22 +26,16 @@ XFSPROGS_DIR	:= $(BUILDDIR)/$(XFSPROGS)
 XFSPROGS_LICENSE:= GPLv2, LGPLv2.1
 
 # ----------------------------------------------------------------------------
-# Get
+# Prepare
 # ----------------------------------------------------------------------------
 
-$(XFSPROGS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XFSPROGS)
-
-#
-# autoconf
-#
 XFSPROGS_CONF_TOOL:= autoconf
 XFSPROGS_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
+
 XFSPROGS_CPPFLAGS := $(strip $(PTXCONF_TARGET_EXTRA_CPPFLAGS) $(PTXDIST_CROSS_CPPFLAGS))
 XFSPROGS_MAKE_OPT := GCCFLAGS="$(XFSPROGS_CPPFLAGS)"
 
