@@ -26,15 +26,6 @@ MGETTY_URL	:= ftp://alpha.greenie.net/pub/mgetty/source/1.1/mgetty$(MGETTY_VERSI
 MGETTY_SOURCE	:= $(SRCDIR)/mgetty$(MGETTY_VERSION)-$(MGETTY_DATE).$(MGETTY_SUFFIX)
 MGETTY_DIR	:= $(BUILDDIR)/$(MGETTY)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(MGETTY_SOURCE):
-	@$(call targetinfo)
-	@$(call get, MGETTY)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
