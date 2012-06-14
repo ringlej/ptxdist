@@ -24,15 +24,6 @@ XORG_DRIVER_INPUT_TSLIB_URL	:= http://pengutronix.de/software/xf86-input-tslib/d
 XORG_DRIVER_INPUT_TSLIB_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_TSLIB).$(XORG_DRIVER_INPUT_TSLIB_SUFFIX)
 XORG_DRIVER_INPUT_TSLIB_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_TSLIB)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_INPUT_TSLIB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_INPUT_TSLIB)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
