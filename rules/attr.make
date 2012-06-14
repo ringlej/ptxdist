@@ -31,8 +31,9 @@ ATTR_URL	:= \
 # Prepare
 # ----------------------------------------------------------------------------
 
-ATTR_PATH	:= PATH=$(CROSS_PATH)
-ATTR_ENV 	:= $(CROSS_ENV)
+ATTR_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	CONFIG_SHELL=bash
 
 ATTR_INSTALL_OPT := \
 	DIST_ROOT=$(ATTR_PKGDIR) \
