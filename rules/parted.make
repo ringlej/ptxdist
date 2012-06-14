@@ -25,14 +25,6 @@ PARTED_SOURCE	:= $(SRCDIR)/$(PARTED).$(PARTED_SUFFIX)
 PARTED_DIR	:= $(BUILDDIR)/$(PARTED)
 PARTED_LICENSE	:= GPLv3
 
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(PARTED_SOURCE):
-	@$(call targetinfo)
-	@$(call get, PARTED)
-
 #
 # autoconf
 #
