@@ -25,14 +25,6 @@ GST_PLUGINS_FSL_VPU_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_FSL_VPU).$(GST_PLUGINS_FSL
 GST_PLUGINS_FSL_VPU_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_FSL_VPU)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GST_PLUGINS_FSL_VPU_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GST_PLUGINS_FSL_VPU)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
