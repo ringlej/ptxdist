@@ -19,7 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_ATTR) += host-attr
 # ----------------------------------------------------------------------------
 
 HOST_ATTR_CONF_ENV := \
-	$(HOST_ENV)
+	$(HOST_ENV) \
 	CONFIG_SHELL=bash
 
 HOST_ATTR_INSTALL_OPT := \
