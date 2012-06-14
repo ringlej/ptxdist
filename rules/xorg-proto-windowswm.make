@@ -26,15 +26,6 @@ XORG_PROTO_WINDOWSWM_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PRO
 XORG_PROTO_WINDOWSWM_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_WINDOWSWM).$(XORG_PROTO_WINDOWSWM_SUFFIX)
 XORG_PROTO_WINDOWSWM_DIR	:= $(BUILDDIR)/$(XORG_PROTO_WINDOWSWM)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_WINDOWSWM_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_WINDOWSWM)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
