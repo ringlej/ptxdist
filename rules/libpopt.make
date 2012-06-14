@@ -36,14 +36,9 @@ LIBPOPT_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBPOPT_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LIBPOPT_NLS
-LIBPOPT_AUTOCONF += --enable-nls
-else
-LIBPOPT_AUTOCONF += --disable-nls
-endif
-
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_LIBPOPT_NLS)-nls
+	
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
