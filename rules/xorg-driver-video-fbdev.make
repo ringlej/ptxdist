@@ -25,15 +25,6 @@ XORG_DRIVER_VIDEO_FBDEV_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG
 XORG_DRIVER_VIDEO_FBDEV_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_FBDEV).$(XORG_DRIVER_VIDEO_FBDEV_SUFFIX)
 XORG_DRIVER_VIDEO_FBDEV_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_FBDEV)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_VIDEO_FBDEV_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_VIDEO_FBDEV)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
