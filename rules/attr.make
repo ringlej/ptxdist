@@ -53,19 +53,9 @@ ATTR_INSTALL_OPT := \
 #
 ATTR_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--libexecdir=/usr/lib
-
-ifdef PTXCONF_ATTR_SHARED
-ATTR_AUTOCONF += --enable-shared
-else
-ATTR_AUTOCONF += --disable-shared
-endif
-
-ifdef PTXCONF_ATTR_GETTEXT
-ATTR_AUTOCONF += --enable-gettext
-else
-ATTR_AUTOCONF += --disable-gettext
-endif
+	--libexecdir=/usr/lib \
+	--$(call ptx/endis, PTXCONF_ATTR_SHARED)-shared \
+	--$(call ptx/endis, PTXCONF_ATTR_GETTEXT)-gettext
 
 # ----------------------------------------------------------------------------
 # Target-Install
