@@ -47,7 +47,7 @@ LIBTHEORA_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_LIBTHEORA__VORBIS)-vorbis \
 	--$(call ptx/endis, PTXCONF_LIBTHEORA__SDL)-sdl \
 	--$(call ptx/endis, PTXCONF_LIBTHEORA__FLOAT)-float \
-	--$(call ptx/endis, PTXCONF_LIBTHEORA__ENCODING)-encoding
+	--$(call ptx/endis, PTXCONF_LIBTHEORA__ENCODING)-encode
 
 ifndef PTXCONF_LIBTHEORA__DOC
 LIBTHEORA_AUTOCONF += \
