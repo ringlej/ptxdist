@@ -26,15 +26,6 @@ XORG_PROTO_RANDR_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_R
 XORG_PROTO_RANDR_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX)
 XORG_PROTO_RANDR_DIR	:= $(BUILDDIR)/$(XORG_PROTO_RANDR)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_RANDR_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_RANDR)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
