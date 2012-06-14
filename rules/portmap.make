@@ -26,15 +26,6 @@ PORTMAP_URL	:= http://neil.brown.name/portmap/portmap-$(PORTMAP_VERSION).$(PORTM
 PORTMAP_SOURCE	:= $(SRCDIR)/portmap-$(PORTMAP_VERSION).$(PORTMAP_SUFFIX)
 PORTMAP_DIR	:= $(BUILDDIR)/$(PORTMAP)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(PORTMAP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, PORTMAP)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
