@@ -24,15 +24,6 @@ XORG_FONT_ALIAS_URL	:= $(call ptx/mirror, XORG, individual/font/$(XORG_FONT_ALIA
 XORG_FONT_ALIAS_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX)
 XORG_FONT_ALIAS_DIR	:= $(BUILDDIR)/$(XORG_FONT_ALIAS)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_FONT_ALIAS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_FONT_ALIAS)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
