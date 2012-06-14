@@ -25,15 +25,6 @@ $(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/initramfs-kernel-modules.targe
 endif
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(INITRAMFS_KERNEL_MODULES_SOURCE):
-	@$(call targetinfo)
-	@$(call get, INITRAMFS_KERNEL_MODULES)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
