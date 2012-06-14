@@ -25,15 +25,6 @@ XORG_LIB_XKBUI_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XKBUI).
 XORG_LIB_XKBUI_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XKBUI).$(XORG_LIB_XKBUI_SUFFIX)
 XORG_LIB_XKBUI_DIR	:= $(BUILDDIR)/$(XORG_LIB_XKBUI)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XKBUI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XKBUI)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
