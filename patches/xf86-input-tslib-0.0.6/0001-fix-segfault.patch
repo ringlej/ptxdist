@@ -1,0 +1,41 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 14 Jun 2012 23:27:04 +0200
+Subject: [PATCH] fix segfault
+
+Based on a patch from Debian.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/tslib.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/tslib.c b/src/tslib.c
+index 08923b2..065e6cf 100644
+--- a/src/tslib.c
++++ b/src/tslib.c
+@@ -103,8 +103,6 @@ KeyControlProc(DeviceIntPtr pDev, KeybdCtrl * ctrl)
+ static void
+ PointerControlProc(DeviceIntPtr dev, PtrCtrl * ctrl)
+ {
+-	ErrorF("%s\n", __FUNCTION__);
+-	return;
+ }
+ 
+ static Bool
+@@ -406,6 +404,8 @@ xf86TslibControlProc(DeviceIntPtr device, int what)
+ 		xf86MotionHistoryAllocate(pInfo);
+ #endif
+ 
++		if (!InitPtrFeedbackClassDeviceStruct(device, PointerControlProc))
++			return !Success;
+ 		break;
+ 
+ 	case DEVICE_ON:
+@@ -435,6 +435,7 @@ xf86TslibUninit(InputDriverPtr drv, InputInfoPtr pInfo, int flags)
+ 	xf86TslibControlProc(pInfo->dev, DEVICE_OFF);
+ 	ts_close(priv->ts);
+ 	xfree(pInfo->private);
++	pInfo->private = NULL;
+ 	xf86DeleteInput(pInfo, 0);
+ }
+ 
