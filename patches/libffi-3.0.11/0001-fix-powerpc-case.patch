@@ -1,0 +1,29 @@
+libffi: fix duplicate case on powerpc 32 bit
+
+Without this fix, gcc complains about a duplicate case value:
+
+../src/powerpc/ffi.c: In function 'ffi_prep_cif_machdep':
+../src/powerpc/ffi.c:670:5: error: duplicate case value
+../src/powerpc/ffi.c:667:5: error: previously used here
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ src/powerpc/ffi.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: libffi-3.0.11/src/powerpc/ffi.c
+===================================================================
+--- libffi-3.0.11.orig/src/powerpc/ffi.c
++++ libffi-3.0.11/src/powerpc/ffi.c
+@@ -664,9 +664,11 @@ ffi_prep_cif_machdep (ffi_cif *cif)
+   switch (type)
+     {
+ #ifndef __NO_FPRS__
++#if FFI_TYPE_LONGDOUBLE != FFI_TYPE_DOUBLE
+     case FFI_TYPE_LONGDOUBLE:
+       flags |= FLAG_RETURNS_128BITS;
+       /* Fall through.  */
++#endif
+     case FFI_TYPE_DOUBLE:
+       flags |= FLAG_RETURNS_64BITS;
+       /* Fall through.  */
