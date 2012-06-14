@@ -25,15 +25,6 @@ INETUTILS_URL		:= $(call ptx/mirror, GNU, inetutils/$(INETUTILS).$(INETUTILS_SUF
 INETUTILS_SOURCE	:= $(SRCDIR)/$(INETUTILS).$(INETUTILS_SUFFIX)
 INETUTILS_DIR		:= $(BUILDDIR)/$(INETUTILS)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(INETUTILS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, INETUTILS)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
