@@ -37,295 +37,61 @@ GRUB_ENV	:= $(CROSS_ENV) CFLAGS=''
 GRUB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-curses \
-	--target=$(PTXCONF_GNU_TARGET)
-
-ifdef PTXCONF_GRUB_EXT2FS
-GRUB_AUTOCONF += --enable-ext2fs
-else
-GRUB_AUTOCONF += --disable-ext2fs
-endif
-
-ifdef PTXCONF_GRUB_FAT
-GRUB_AUTOCONF += --enable-fat
-else
-GRUB_AUTOCONF += --disable-fat
-endif
-
-ifdef PTXCONF_GRUB_FFS
-GRUB_AUTOCONF += --enable-ffs
-else
-GRUB_AUTOCONF += --disable-ffs
-endif
-
-ifdef PTXCONF_GRUB_UFS2
-GRUB_AUTOCONF += --enable-ufs2
-else
-GRUB_AUTOCONF += --disable-ufs2
-endif
-
-ifdef PTXCONF_GRUB_MINIX
-GRUB_AUTOCONF += --enable-minix
-else
-GRUB_AUTOCONF += --disable-minix
-endif
-
-ifdef PTXCONF_GRUB_REISERFS
-GRUB_AUTOCONF += --enable-reiserfs
-else
-GRUB_AUTOCONF += --disable-reiserfs
-endif
-
-ifdef PTXCONF_GRUB_VSTAFS
-GRUB_AUTOCONF += --enable-vstafs
-else
-GRUB_AUTOCONF += --disable-vstafs
-endif
-
-ifdef PTXCONF_GRUB_JFS
-GRUB_AUTOCONF += --enable-jfs
-else
-GRUB_AUTOCONF += --disable-jfs
-endif
-
-ifdef PTXCONF_GRUB_XFS
-GRUB_AUTOCONF += --enable-xfs
-else
-GRUB_AUTOCONF += --disable-xfs
-endif
-
-ifdef PTXCONF_GRUB_ISO9660
-GRUB_AUTOCONF += --enable-iso9660
-else
-GRUB_AUTOCONF += --disable-iso9660
-endif
-
-ifdef PTXCONF_GRUB_GUNZIP
-GRUB_AUTOCONF += --enable-gunzip
-else
-GRUB_AUTOCONF += --disable-gunzip
-endif
-
-ifdef PTXCONF_GRUB_MD5
-GRUB_AUTOCONF += --enable-md5-password
-else
-GRUB_AUTOCONF += --disable-md5-password
-endif
-
-ifdef PTXCONF_GRUB_PACKET_RETRANSMISSION
-GRUB_AUTOCONF += --enable-packet-retransmission
-else
-GRUB_AUTOCONF += --disable-packet-retransmission
-endif
-
-ifdef PTXCONF_GRUB_PCI_DIRECT
-GRUB_AUTOCONF += --enable-pci-direct
-else
-GRUB_AUTOCONF += --disable-pci-direct
-endif
-
-ifdef PTXCONF_GRUB_3C509
-GRUB_AUTOCONF += --enable-3c509
-else
-GRUB_AUTOCONF += --disable-3c509
-endif
-
-ifdef PTXCONF_GRUB_3C529
-GRUB_AUTOCONF += --enable-3c529
-else
-GRUB_AUTOCONF += --disable-3c529
-endif
-
-ifdef PTXCONF_GRUB_3C595
-GRUB_AUTOCONF += --enable-3c595
-else
-GRUB_AUTOCONF += --disable-3c595
-endif
-
-ifdef PTXCONF_GRUB_3C90X
-GRUB_AUTOCONF += --enable-3c90x
-else
-GRUB_AUTOCONF += --disable-3c90x
-endif
-
-ifdef PTXCONF_GRUB_CS89X0
-GRUB_AUTOCONF += --enable-cs89x0
-else
-GRUB_AUTOCONF += --disable-cs89x0
-endif
-
-ifdef PTXCONF_GRUB_DAVICOM
-GRUB_AUTOCONF += --enable-davicom
-else
-GRUB_AUTOCONF += --disable-davicom
-endif
-
-ifdef PTXCONF_GRUB_DEPCA
-GRUB_AUTOCONF += --enable-depca
-else
-GRUB_AUTOCONF += --disable-depca
-endif
-
-ifdef PTXCONF_GRUB_EEPRO
-GRUB_AUTOCONF += --enable-eepro
-else
-GRUB_AUTOCONF += --disable-eepro
-endif
-
-ifdef PTXCONF_GRUB_EEPRO100
-GRUB_AUTOCONF += --enable-eepro100
-else
-GRUB_AUTOCONF += --disable-eepro100
-endif
-
-ifdef PTXCONF_GRUB_EPIC100
-GRUB_AUTOCONF += --enable-epic100
-else
-GRUB_AUTOCONF += --disable-epic100
-endif
-
-ifdef PTXCONF_GRUB_3C507
-GRUB_AUTOCONF += --enable-3c507
-else
-GRUB_AUTOCONF += --disable-3c507
-endif
-
-ifdef PTXCONF_GRUB_EXOS205
-GRUB_AUTOCONF += --enable-exos205
-else
-GRUB_AUTOCONF += --disable-exos205
-endif
-
-ifdef PTXCONF_GRUB_NI5210
-GRUB_AUTOCONF += --enable-ni5210
-else
-GRUB_AUTOCONF += --disable-ni5210
-endif
-
-ifdef PTXCONF_GRUB_LANCE
-GRUB_AUTOCONF += --enable-lance
-else
-GRUB_AUTOCONF += --disable-lance
-endif
-
-ifdef PTXCONF_GRUB_NE2100
-GRUB_AUTOCONF += --enable-ne2100
-else
-GRUB_AUTOCONF += --disable-ne2100
-endif
-
-ifdef PTXCONF_GRUB_NI6510
-GRUB_AUTOCONF += --enable-ni6510
-else
-GRUB_AUTOCONF += --disable-ni6510
-endif
-
-ifdef PTXCONF_GRUB_NATSEMI
-GRUB_AUTOCONF += --enable-natsemi
-else
-GRUB_AUTOCONF += --disable-natsemi
-endif
-
-ifdef PTXCONF_GRUB_NI5010
-GRUB_AUTOCONF += --enable-ni5010
-else
-GRUB_AUTOCONF += --disable-ni5010
-endif
-
-ifdef PTXCONF_GRUB_3C503
-GRUB_AUTOCONF += --enable-3c503
-else
-GRUB_AUTOCONF += --disable-3c503
-endif
-
-ifdef PTXCONF_GRUB_NE
-GRUB_AUTOCONF += --enable-ne
-else
-GRUB_AUTOCONF += --disable-ne
-endif
-
-ifdef PTXCONF_GRUB_NS8390
-GRUB_AUTOCONF += --enable-ns8390
-else
-GRUB_AUTOCONF += --disable-ns8390
-endif
-
-ifdef PTXCONF_GRUB_WD
-GRUB_AUTOCONF += --enable-wd
-else
-GRUB_AUTOCONF += --disable-wd
-endif
-
-ifdef PTXCONF_GRUB_OTULIP
-GRUB_AUTOCONF += --enable-otulip
-else
-GRUB_AUTOCONF += --disable-otulip
-endif
-
-ifdef PTXCONF_GRUB_RTL8139
-GRUB_AUTOCONF += --enable-rtl8139
-else
-GRUB_AUTOCONF += --disable-rtl8139
-endif
-
-ifdef PTXCONF_GRUB_SIS900
-GRUB_AUTOCONF += --enable-sis900
-else
-GRUB_AUTOCONF += --disable-sis900
-endif
-
-ifdef PTXCONF_GRUB_SK_G16
-GRUB_AUTOCONF += --enable-sk-g16
-else
-GRUB_AUTOCONF += --disable-sk-g16
-endif
-
-ifdef PTXCONF_GRUB_SMC9000
-GRUB_AUTOCONF += --enable-smc9000
-else
-GRUB_AUTOCONF += --disable-smc9000
-endif
-
-ifdef PTXCONF_GRUB_TIARA
-GRUB_AUTOCONF += --enable-tiara
-else
-GRUB_AUTOCONF += --disable-tiara
-endif
-
-ifdef PTXCONF_GRUB_TULIP
-GRUB_AUTOCONF += --enable-tulip
-else
-GRUB_AUTOCONF += --disable-tulip
-endif
-
-ifdef PTXCONF_GRUB_VIA_RHINE
-GRUB_AUTOCONF += --enable-via-rhine
-else
-GRUB_AUTOCONF += --disable-via-rhine
-endif
-
-ifdef PTXCONF_GRUB_W89C840
-GRUB_AUTOCONF += --enable-w89c840
-else
-GRUB_AUTOCONF += --disable-w89c840
-endif
-
-ifdef PTXCONF_GRUB_3C503_SHMEM
-GRUB_AUTOCONF += --enable-3c503-shmem
-else
-GRUB_AUTOCONF += --disable-3c503-shmem
-endif
-
-ifdef PTXCONF_GRUB_3C503_AUI
-GRUB_AUTOCONF += --enable-3c503-aui
-else
-GRUB_AUTOCONF += --disable-3c503-aui
-endif
-
-ifdef PTXCONF_GRUB_COMPEX_RL2000_FIX
-GRUB_AUTOCONF += --enable-compex-rl2000-fix
-else
-GRUB_AUTOCONF += --disable-compex-rl2000-fix
-endif
+	--target=$(PTXCONF_GNU_TARGET) \
+	--$(call ptx/endis, PTXCONF_GRUB_EXT2FS)-ext2fs \
+	--$(call ptx/endis, PTXCONF_GRUB_FAT)-fat \
+	--$(call ptx/endis, PTXCONF_GRUB_FFS)-ffs \
+	--$(call ptx/endis, PTXCONF_GRUB_UFS2)-ufs2 \
+	--$(call ptx/endis, PTXCONF_GRUB_MINIX)-minix \
+	--$(call ptx/endis, PTXCONF_GRUB_REISERFS)-reiserfs \
+	--$(call ptx/endis, PTXCONF_GRUB_VSTAFS)-vstafs \
+	--$(call ptx/endis, PTXCONF_GRUB_JFS)-jfs \
+	--$(call ptx/endis, PTXCONF_GRUB_XFS)-xfs \
+	--$(call ptx/endis, PTXCONF_GRUB_ISO9660)-iso9660 \
+	--$(call ptx/endis, PTXCONF_GRUB_GUNZIP)-gunzip \
+	--$(call ptx/endis, PTXCONF_GRUB_MD5)-md5-password \
+	--$(call ptx/endis, PTXCONF_GRUB_PACKET_RETRANSMISSION)-packet-retransmission \
+	--$(call ptx/endis, PTXCONF_GRUB_PCI_DIRECT)-pci-direct \
+	--$(call ptx/endis, PTXCONF_GRUB_3C509)-3c509 \
+	--$(call ptx/endis, PTXCONF_GRUB_3C529)-3c529 \
+	--$(call ptx/endis, PTXCONF_GRUB_3C595)-3c595 \
+	--$(call ptx/endis, PTXCONF_GRUB_3C90X)-3c90x \
+	--$(call ptx/endis, PTXCONF_GRUB_CS89X0)-cs89x0 \
+	--$(call ptx/endis, PTXCONF_GRUB_DAVICOM)-davicom \
+	--$(call ptx/endis, PTXCONF_GRUB_DEPCA)-depca \
+	--$(call ptx/endis, PTXCONF_GRUB_EEPRO)-eepro \
+	--$(call ptx/endis, PTXCONF_GRUB_EEPRO100)-eepro100 \
+	--$(call ptx/endis, PTXCONF_GRUB_EPIC100)-epic100 \
+	--$(call ptx/endis, PTXCONF_GRUB_3C507)-3c507 \
+	--$(call ptx/endis, PTXCONF_GRUB_EXOS205)-exos205 \
+	--$(call ptx/endis, PTXCONF_GRUB_NI5210)-ni5210 \
+	--$(call ptx/endis, PTXCONF_GRUB_LANCE)-lance \
+	--$(call ptx/endis, PTXCONF_GRUB_NE2100)-ne2100 \
+	--$(call ptx/endis, PTXCONF_GRUB_NI6510)-ni5610 \
+	--$(call ptx/endis, PTXCONF_GRUB_NATSEMI)-natsemi \
+	--$(call ptx/endis, PTXCONF_GRUB_NI5010)-ni5010 \
+	--$(call ptx/endis, PTXCONF_GRUB_3C503)-3c503 \
+	--$(call ptx/endis, PTXCONF_GRUB_NE)-ne \
+	--$(call ptx/endis, PTXCONF_GRUB_NS8390)-ns8390 \
+	--$(call ptx/endis, PTXCONF_GRUB_WD)-wd \
+	--$(call ptx/endis, PTXCONF_GRUB_OTULIP)-otulip \
+	--$(call ptx/endis, PTXCONF_GRUB_RTL8139)-rtl8139 \
+	--$(call ptx/endis, PTXCONF_GRUB_SIS900)-sis900 \
+	--$(call ptx/endis, PTXCONF_GRUB_SK_G16)-sk-g16 \
+	--$(call ptx/endis, PTXCONF_GRUB_SMC9000)-smc9000 \
+	--$(call ptx/endis, PTXCONF_GRUB_TIARA)-tiara \
+	--$(call ptx/endis, PTXCONF_GRUB_TULIP)-tulip \
+	--$(call ptx/endis, PTXCONF_GRUB_VIA_RHINE)-via-rhine \
+	--$(call ptx/endis, PTXCONF_GRUB_W89C840)-w89c840 \
+	--$(call ptx/endis, PTXCONF_GRUB_3C503_SHMEM)-3c503-shmem \
+	--$(call ptx/endis, PTXCONF_GRUB_3C503_AUI)-3c503-aui \
+	--$(call ptx/endis, PTXCONF_GRUB_COMPEX_RL2000_FIX)-compex-rl2000-fix \
+	--$(call ptx/endis, PTXCONF_GRUB_DISKLESS)-diskless \
+	--$(call ptx/endis, PTXCONF_GRUB_HERCULES)-hercules \
+	--$(call ptx/endis, PTXCONF_GRUB_SERIAL)-serial \
+	--$(call ptx/endis, PTXCONF_GRUB_SERIAL_SPEED_SIMULATION)-serial-speed-simulation \
+	--$(call ptx/endis, PTXCONF_GRUB_EXAMPLE_KERNEL)-example-kernel \
+	--$(call ptx/endis, PTXCONF_GRUB_AUTO_LINUX_MEM_OPT)-auto-linux-mem-opt
 
 ifneq ("$(PTXCONF_GRUB_SMC9000_SCAN)","")
 GRUB_AUTOCONF += --enable-smc9000-scan=$(PTXCONF_GRUB_SMC9000_SCAN)
@@ -349,46 +115,10 @@ else
 GRUB_AUTOCONF += --disable-cs-scan
 endif
 
-ifdef PTXCONF_GRUB_DISKLESS
-GRUB_AUTOCONF += --enable-diskless
-else
-GRUB_AUTOCONF += --disable-diskless
-endif
-
-ifdef PTXCONF_GRUB_HERCULES
-GRUB_AUTOCONF += --enable-hercules
-else
-GRUB_AUTOCONF += --disable-hercules
-endif
-
-ifdef PTXCONF_GRUB_SERIAL
-GRUB_AUTOCONF += --enable-serial
-else
-GRUB_AUTOCONF += --disable-serial
-endif
-
-ifdef PTXCONF_GRUB_SERIAL_SPEED_SIMULATION
-GRUB_AUTOCONF += --enable-serial-speed-simulation
-else
-GRUB_AUTOCONF += --disable-serial-speed-simulation
-endif
-
 ifneq ("$(PTXCONF_GRUB_PRESET_MENU)","")
 GRUB_AUTOCONF += --enable-preset-menu=$(PTXCONF_GRUB_PRESET_MENU)
 else
 GRUB_AUTOCONF += --disable-preset-menu
-endif
-
-ifdef PTXCONF_GRUB_EXAMPLE_KERNEL
-GRUB_AUTOCONF += --enable-example-kernel
-else
-GRUB_AUTOCONF += --disable-example-kernel
-endif
-
-ifdef PTXCONF_GRUB_AUTO_LINUX_MEM_OPT
-GRUB_AUTOCONF += --enable-auto-linux-mem-opt
-else
-GRUB_AUTOCONF += --disable-auto-linux-mem-opt
 endif
 
 # ----------------------------------------------------------------------------
