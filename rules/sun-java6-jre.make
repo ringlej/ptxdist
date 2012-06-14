@@ -24,14 +24,6 @@ SUN_JAVA6_JRE_URL		:= http://javadl.sun.com/webapps/download/AutoDL?BundleId=112
 SUN_JAVA6_JRE_DIR		:= $(BUILDDIR)/$(SUN_JAVA6_JRE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(SUN_JAVA6_JRE_SOURCE):
-	@$(call targetinfo)
-	@wget --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
-
-# ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
