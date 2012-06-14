@@ -68,43 +68,14 @@ GNUPLOT_AUTOCONF = \
 	--without-row-help \
 	--without-tutorial \
 	--without-wx-config \
-	--without-lua
-
-ifdef PTXCONF_GNUPLOT_FITERRVARS
-GNUPLOT_AUTOCONF += --enable-fiterrvars
-else
-GNUPLOT_AUTOCONF += --disable-fiterrvars
-endif
-
-ifdef PTXCONF_GNUPLOT_X
-GNUPLOT_AUTOCONF += --with-x --enable-mouse
-else
-GNUPLOT_AUTOCONF += --without-x --disable-mouse
-endif
-
-ifdef PTXCONF_GNUPLOT_PLOT
-GNUPLOT_AUTOCONF += --with-plot
-else
-GNUPLOT_AUTOCONF += --without-plot
-endif
-
-ifdef PTXCONF_GNUPLOT_PNG
-GNUPLOT_AUTOCONF += --with-png
-else
-GNUPLOT_AUTOCONF += --without-png
-endif
-
-ifdef PTXCONF_GNUPLOT_GD
-GNUPLOT_AUTOCONF += --with-gd
-else
-GNUPLOT_AUTOCONF += --without-gd
-endif
-
-ifdef PTXCONF_GNUPLOT_PDF
-GNUPLOT_AUTOCONF += --with-pdf
-else
-GNUPLOT_AUTOCONF += --without-pdf
-endif
+	--without-lua \
+	--$(call ptx/endis, PTXCONF_GNUPLOT_FILTERRVARS)-filterrvars \
+	--$(call ptx/endis, PTXCONF_GNUPLOT_X)-mouse \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_X)-x \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_PLOT)-plot \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_PNG)-png \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_GD)-gd \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_PDF)-pdf
 
 # ----------------------------------------------------------------------------
 # Compile
