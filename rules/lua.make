@@ -32,13 +32,9 @@ LUA_DIR		:= $(BUILDDIR)/$(LUA)
 #
 # autoconf
 #
-LUA_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LUA_READLINE
-LUA_AUTOCONF += --with-readline
-else
-LUA_AUTOCONF += --without-readline
-endif
+LUA_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/wwo, PTXCONF_LUA_READLINE)-readline \
 
 # ----------------------------------------------------------------------------
 # Target-Install
