@@ -35,26 +35,12 @@ KEXEC_TOOLS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-KEXEC_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
-
-ifdef PTXCONF_KEXEC_TOOLS_GAMECUBE
-KEXEC_TOOLS_AUTOCONF += --with-gamecube
-else
-KEXEC_TOOLS_AUTOCONF += --without-gamecube
-endif
-
-ifdef PTXCONF_KEXEC_TOOLS_ZLIB
-KEXEC_TOOLS_AUTOCONF += --with-zlib
-else
-KEXEC_TOOLS_AUTOCONF += --without-zlib
-endif
-
-ifdef PTXCONF_KEXEC_TOOLS_XEN
-KEXEC_TOOLS_AUTOCONF += --with-xen
-else
-KEXEC_TOOLS_AUTOCONF += --without-xen
-endif
-
+KEXEC_TOOLS_AUTOCONF := \
+	$(CROSS_AUTOCONF_ROOT) \
+	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_GAMECUBE)-gamecube \
+	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_ZLIB)-zlib \
+	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_XEN)-xen
+	
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
