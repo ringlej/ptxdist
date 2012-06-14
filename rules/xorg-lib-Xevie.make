@@ -25,15 +25,6 @@ XORG_LIB_XEVIE_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XEVIE).
 XORG_LIB_XEVIE_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XEVIE).$(XORG_LIB_XEVIE_SUFFIX)
 XORG_LIB_XEVIE_DIR	:= $(BUILDDIR)/$(XORG_LIB_XEVIE)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_XEVIE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_XEVIE)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
