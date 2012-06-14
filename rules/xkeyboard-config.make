@@ -25,14 +25,6 @@ XKEYBOARD_CONFIG_SOURCE		:= $(SRCDIR)/$(XKEYBOARD_CONFIG).$(XKEYBOARD_CONFIG_SUF
 XKEYBOARD_CONFIG_DIR		:= $(BUILDDIR)/$(XKEYBOARD_CONFIG)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XKEYBOARD_CONFIG_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XKEYBOARD_CONFIG)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
