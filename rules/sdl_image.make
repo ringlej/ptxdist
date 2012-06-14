@@ -24,15 +24,6 @@ SDL_IMAGE_URL		:= http://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).
 SDL_IMAGE_SOURCE	:= $(SRCDIR)/$(SDL_IMAGE).$(SDL_IMAGE_SUFFIX)
 SDL_IMAGE_DIR		:= $(BUILDDIR)/$(SDL_IMAGE)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(SDL_IMAGE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, SDL_IMAGE)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
