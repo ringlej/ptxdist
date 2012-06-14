@@ -37,37 +37,34 @@ GPSD_ENV 	:= $(CROSS_ENV)
 #
 GPSD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-x
-
-ifdef PTXCONF_GPSD_PYTHON
-GPSD_AUTOCONF += --enable-python
-else
-GPSD_AUTOCONF += --disable-python
-endif
-
-ifdef PTXCONF_GPSD_PROFILING
-GPSD_AUTOCONF += --enable-profiling
-else
-GPSD_AUTOCONF += --disable-profiling
-endif
-
-ifdef PTXCONF_GPSD_NTPSHM
-GPSD_AUTOCONF += --enable-ntpshm
-else
-GPSD_AUTOCONF += --disable-ntpshm
-endif
-
-ifdef PTXCONF_GPSD_PPS
-GPSD_AUTOCONF += --enable-pps
-else
-GPSD_AUTOCONF += --disable-pps
-endif
-
-ifdef PTXCONF_GPSD_PPS_ON_CTS
-GPSD_AUTOCONF += --enable-pps-on-cts
-else
-GPSD_AUTOCONF += --disable-pps-on-cts
-endif
+	--without-x \
+	--$(call ptx/endis, PTXCONF_GPSD_PYTHON)-python \
+	--$(call ptx/endis, PTXCONF_GPSD_PROFILING)-profiling \
+	--$(call ptx/endis, PTXCONF_GPSD_NTPSHM)-ntpshm \
+	--$(call ptx/endis, PTXCONF_GPSD_PPS)-pps \
+	--$(call ptx/endis, PTXCONF_GPSD_PPS_ON_CTS)-pps-on-cts \
+	--$(call ptx/endis, PTXCONF_GPSD_DBUS)-dbus \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_NMEA)-nmea \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_SIRF)-sirf \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_TSIP)-tsip \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_FV18)-fv18 \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_TRIPMATE)-tripmate \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_EARTHMATE)-earthmate \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_ITRAX)-itrax \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_ASHTECH)-ashtech \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_NAVCOM)-navcom \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_GARMIN)-garmin \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_GARMINTXT)-garmintxt \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_TNT)-tnt \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_UBX)-ubx \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_EVERMORE)-evermore \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_GPSCLOCK)-gpsclock \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_RTCM104V2)-rtcm104v2 \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_RTCM104V3)-rtcm104v3 \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_NTRIP)-ntrip \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_SUPERSTAR2)-superstar2 \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_OCEANSERVER)-oceanserver \
+	--$(call ptx/endis, PTXCONF_GPSD_DRIVER_MKT3301)-mkt3301
 
 ifneq ($(call remove_quotes,$(PTXCONF_GPSD_USER)),)
 GPSD_AUTOCONF += --enable-gpsd-user=$(PTXCONF_GPSD_USER)
@@ -76,143 +73,11 @@ ifneq ($(call remove_quotes,$(PTXCONF_GPSD_FIXED_PORT_SPEED)),)
 GPSD_AUTOCONF += --enable-fixed-port-speed=$(PTXCONF_GPSD_FIXED_PORT_SPEED)
 endif
 
-ifdef PTXCONF_GPSD_DBUS
-GPSD_AUTOCONF += --enable-dbus
-else
-GPSD_AUTOCONF += --disable-dbus
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_GPSD_MAX_CLIENTS)),)
 GPSD_AUTOCONF += --enable-max-clients=$(PTXCONF_GPSD_MAX_CLIENTS)
 endif
 ifneq ($(call remove_quotes,$(PTXCONF_GPSD_MAX_DEVICES)),)
 GPSD_AUTOCONF += --enable-max-devices=$(PTXCONF_GPSD_MAX_DEVICES)
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_NMEA
-GPSD_AUTOCONF += --enable-nmea
-else
-GPSD_AUTOCONF += --disable-nmea
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_SIRF
-GPSD_AUTOCONF += --enable-sirf
-else
-GPSD_AUTOCONF += --disable-sirf
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_TSIP
-GPSD_AUTOCONF += --enable-tsip
-else
-GPSD_AUTOCONF += --disable-tsip
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_FV18
-GPSD_AUTOCONF += --enable-fv18
-else
-GPSD_AUTOCONF += --disable-fv18
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_TRIPMATE
-GPSD_AUTOCONF += --enable-tripmate
-else
-GPSD_AUTOCONF += --disable-tripmate
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_EARTHMATE
-GPSD_AUTOCONF += --enable-earthmate
-else
-GPSD_AUTOCONF += --disable-earthmate
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_ITRAX
-GPSD_AUTOCONF += --enable-itrax
-else
-GPSD_AUTOCONF += --disable-itrax
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_ASHTECH
-GPSD_AUTOCONF += --enable-ashtech
-else
-GPSD_AUTOCONF += --disable-ashtech
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_NAVCOM
-GPSD_AUTOCONF += --enable-navcom
-else
-GPSD_AUTOCONF += --disable-navcom
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_GARMIN
-GPSD_AUTOCONF += --enable-garmin
-else
-GPSD_AUTOCONF += --disable-garmin
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_GARMINTXT
-GPSD_AUTOCONF += --enable-garmintxt
-else
-GPSD_AUTOCONF += --disable-garmintxt
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_TNT
-GPSD_AUTOCONF += --enable-tnt
-else
-GPSD_AUTOCONF += --disable-tnt
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_UBX
-GPSD_AUTOCONF += --enable-ubx
-else
-GPSD_AUTOCONF += --disable-ubx
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_EVERMORE
-GPSD_AUTOCONF += --enable-evermore
-else
-GPSD_AUTOCONF += --disable-evermore
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_GPSCLOCK
-GPSD_AUTOCONF += --enable-gpsclock
-else
-GPSD_AUTOCONF += --disable-gpsclock
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_RTCM104V2
-GPSD_AUTOCONF += --enable-rtcm104v2
-else
-GPSD_AUTOCONF += --disable-rtcm104v2
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_RTCM104V3
-GPSD_AUTOCONF += --enable-rtcm104v3
-else
-GPSD_AUTOCONF += --disable-rtcm104v3
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_NTRIP
-GPSD_AUTOCONF += --enable-ntrip
-else
-GPSD_AUTOCONF += --disable-ntrip
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_SUPERSTAR2
-GPSD_AUTOCONF += --enable-superstar2
-else
-GPSD_AUTOCONF += --disable-superstar2
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_OCEANSERVER
-GPSD_AUTOCONF += --enable-oceanserver
-else
-GPSD_AUTOCONF += --disable-oceanserver
-endif
-
-ifdef PTXCONF_GPSD_DRIVER_MKT3301
-GPSD_AUTOCONF += --enable-mkt3301
-else
-GPSD_AUTOCONF += --disable-mkt3301
 endif
 
 # ----------------------------------------------------------------------------
