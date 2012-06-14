@@ -38,8 +38,8 @@ LIBGMP_ENV 	:= $(CROSS_ENV)
 #
 LIBGMP_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_LIBBMP_SHARED)-shared \
-	--$(call ptx/endis, PTXCONF_LIBBMP_STATIC)-static
+	--$(call ptx/endis, PTXCONF_LIBGMP_SHARED)-shared \
+	--$(call ptx/endis, PTXCONF_LIBGMP_STATIC)-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
