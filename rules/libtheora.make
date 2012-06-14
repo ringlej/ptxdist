@@ -42,8 +42,12 @@ LIBTHEORA_AUTOCONF := \
 	--disable-spec \
 	--disable-valgrind-testing \
 	--disable-telemetry \
-	--disable-examples
-
+	--disable-examples \
+	--$(call ptx/endis, PTXCONF_LIBTHEORA__OGG)-ogg \
+	--$(call ptx/endis, PTXCONF_LIBTHEORA__VORBIS)-vorbis \
+	--$(call ptx/endis, PTXCONF_LIBTHEORA__SDL)-sdl \
+	--$(call ptx/endis, PTXCONF_LIBTHEORA__FLOAT)-float \
+	--$(call ptx/endis, PTXCONF_LIBTHEORA__ENCODING)-encoding
 
 ifndef PTXCONF_LIBTHEORA__DOC
 LIBTHEORA_AUTOCONF += \
@@ -51,36 +55,6 @@ LIBTHEORA_AUTOCONF += \
 	ac_cv_prog_HAVE_PDFLATEX=no \
 	ac_cv_prog_HAVE_BIBTEX=no \
 	ac_cv_prog_HAVE_TRANSFIG=no
-endif
-
-ifdef PTXCONF_LIBTHEORA__OGG
-LIBTHEORA_AUTOCONF += --enable-ogg
-else
-LIBTHEORA_AUTOCONF += --disable-ogg
-endif
-
-ifdef PTXCONF_LIBTHEORA__VORBIS
-LIBTHEORA_AUTOCONF += --enable-vorbis
-else
-LIBTHEORA_AUTOCONF += --disable-vorbis
-endif
-
-ifdef PTXCONF_LIBTHEORA__SDL
-LIBTHEORA_AUTOCONF += --enable-sdl
-else
-LIBTHEORA_AUTOCONF += --disable-sdl
-endif
-
-ifdef PTXCONF_LIBTHEORA__FLOAT
-LIBTHEORA_AUTOCONF += --enable-float
-else
-LIBTHEORA_AUTOCONF += --disable-float
-endif
-
-ifdef PTXCONF_LIBTHEORA__ENCODING
-LIBTHEORA_AUTOCONF += --enable-encode
-else
-LIBTHEORA_AUTOCONF += --disable-encode
 endif
 
 # ----------------------------------------------------------------------------
