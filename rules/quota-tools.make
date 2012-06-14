@@ -26,14 +26,6 @@ QUOTA_TOOLS_SOURCE	:= $(SRCDIR)/$(QUOTA_TOOLS_PACKAGE)
 QUOTA_TOOLS_DIR		:= $(BUILDDIR)/$(QUOTA_TOOLS)
 QUOTA_TOOLS_LICENSE	:= GPLv2
 
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(QUOTA_TOOLS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, QUOTA_TOOLS)
-
 #
 # autoconf
 #
