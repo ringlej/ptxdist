@@ -41,19 +41,9 @@ FUSE_AUTOCONF = \
 	--disable-example \
 	--disable-mtab \
 	--disable-rpath \
-	--without-libiconv-prefix
-
-ifdef PTXCONF_FUSE__LIB
-FUSE_AUTOCONF += --enable-lib
-else
-FUSE_AUTOCONF += --disable-lib
-endif
-
-ifdef PTXCONF_FUSE__UTIL
-FUSE_AUTOCONF += --enable-util
-else
-FUSE_AUTOCONF += --disable-util
-endif
+	--without-libiconv-prefix \
+	--$(call ptx/endis, PTXCONF_FUSE__LIB)-lib \
+	--$(call ptx/endis, PTXCONF_FUSE__UTIL)-util
 
 # ----------------------------------------------------------------------------
 # Target-Install
