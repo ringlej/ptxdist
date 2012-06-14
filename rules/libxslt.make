@@ -41,30 +41,11 @@ LIBXSLT_ENV	:= $(CROSS_ENV)
 #
 LIBXSLT_AUTOCONF := \
 	 $(CROSS_AUTOCONF_USR) \
-	--without-python
-
-ifdef PTXCONF_LIBXSLT_CRYPTO
-LIBXSLT_AUTOCONF += --with-crypto
-else
-LIBXSLT_AUTOCONF += --without-crypto
-endif
-
-ifdef PTXCONF_LIBXSLT_PLUGINS
-LIBXSLT_AUTOCONF += --with-plugins
-else
-LIBXSLT_AUTOCONF += --without-plugins
-endif
-
-ifdef PTXCONF_LIBXSLT_DEBUG
-LIBXSLT_AUTOCONF += \
-	--with-debug \
-	--with-debugger
-else
-LIBXSLT_AUTOCONF += \
-	--without-debug \
-	--without-debugger
-endif
-
+	--without-python \
+	--$(call ptx/endis, PTXCONF_LIBXSLT_CRYPTO)-crypto \
+	--$(call ptx/endis, PTXCONF_LIBXSLT_PLUGINS)-plugins \
+	--$(call ptx/endis, PTXCONF_LIBXSLT_DEBUG)-debug \
+	--$(call ptx/endis, PTXCONF_LIBXSLT_DEBUG)-debugger
 
 # ----------------------------------------------------------------------------
 # Target-Install
