@@ -1,0 +1,7 @@
+## SECTION=image
+
+config IMAGE_@PACKAGE@
+	tristate
+	prompt "Generate @package@.@TYPE@"
+	help
+	  FIXME

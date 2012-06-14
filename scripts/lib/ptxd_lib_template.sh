@@ -383,3 +383,22 @@ ptxd_template_new_image_tgz() {
 export -f ptxd_template_new_image_tgz
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="image-tgz"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for a tgz image"
+
+ptxd_template_new_image_genimage() {
+    ptxd_template_read_name &&
+    ptxd_template_read_author &&
+    ptxd_template_read "image type" TYPE
+    ptxd_template_read "add archives" FILES "\$(IMAGEDIR)/root.tgz"
+    ptxd_template_read "genimage config" CONFIG "${TYPE}.config"
+    ptxd_template_write_platform_rules
+    local template_file="${TEMPLATESDIR}/${template}-config"
+    local filename="${PTXDIST_PLATFORMCONFIGDIR}/config/images/${CONFIG}"
+    if ptxd_get_alternative config/images "${CONFIG}"; then
+	echo "using existing config file $(ptxd_print_path ${ptxd_reply})"
+    else
+	ptxd_template_filter "${template_file}" "${filename}"
+    fi
+}
+export -f ptxd_template_new_image_genimage
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="image-genimage"
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for a genimage image"

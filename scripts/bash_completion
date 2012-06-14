@@ -50,7 +50,7 @@ _ptxdist_completion()
 		COMPREPLY=( $( compgen -W "${opts} $( pushd $(ptxdist print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
 	newpackage)
-		COMPREPLY=( $( compgen -W "${opts} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz" -- $cur) )
+		COMPREPLY=( $( compgen -W "${opts} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
 		;;
 	esac
 	return 0

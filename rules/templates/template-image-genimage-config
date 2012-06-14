@@ -1,0 +1,5 @@
+image @IMAGE@ {
+    @TYPE@ {}
+    name = @package@
+    mountpoint = "/"
+}
