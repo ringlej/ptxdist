@@ -24,15 +24,6 @@ TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(TCPDUMP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, TCPDUMP)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
