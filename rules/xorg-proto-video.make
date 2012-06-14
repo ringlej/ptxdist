@@ -26,15 +26,6 @@ XORG_PROTO_VIDEO_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_V
 XORG_PROTO_VIDEO_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_VIDEO).$(XORG_PROTO_VIDEO_SUFFIX)
 XORG_PROTO_VIDEO_DIR	:= $(BUILDDIR)/$(XORG_PROTO_VIDEO)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_VIDEO_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_VIDEO)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
