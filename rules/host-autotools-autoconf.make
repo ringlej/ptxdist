@@ -28,14 +28,6 @@ HOST_AUTOTOOLS_AUTOCONF_DEVPKG	:= NO
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-autoconf.install.post
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_AUTOTOOLS_AUTOCONF_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_AUTOTOOLS_AUTOCONF)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
