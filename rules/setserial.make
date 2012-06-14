@@ -24,15 +24,6 @@ SETSERIAL_URL		:= $(call ptx/mirror, SF, setserial/$(SETSERIAL).$(SETSERIAL_SUFF
 SETSERIAL_SOURCE	:= $(SRCDIR)/$(SETSERIAL).$(SETSERIAL_SUFFIX)
 SETSERIAL_DIR		:= $(BUILDDIR)/$(SETSERIAL)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(SETSERIAL_SOURCE):
-	@$(call targetinfo)
-	@$(call get, SETSERIAL)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
