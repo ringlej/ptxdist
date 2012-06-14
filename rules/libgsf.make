@@ -44,31 +44,11 @@ LIBGSF_AUTOCONF := \
 	--disable-schemas-install \
 	--without-bonobo \
 	--without-gdk-pixbuf \
-	--without-gnome-vfs
-
-ifdef PTXCONF_LIBGSF_NLS
-LIBGSF_AUTOCONF += --enable-nls
-else
-LIBGSF_AUTOCONF += --disable-nls
-endif
-
-ifdef PTXCONF_LIBGSF_PYTHON
-LIBGSF_AUTOCONF += --with-python
-else
-LIBGSF_AUTOCONF += --without-python
-endif
-
-ifdef PTXCONF_LIBGSF_BZ2
-LIBGSF_AUTOCONF += --with-bz2
-else
-LIBGSF_AUTOCONF += --without-bz2
-endif
-
-ifdef PTXCONF_LIBGSF_GIO
-LIBGSF_AUTOCONF += --with-gio
-else
-LIBGSF_AUTOCONF += --without-gio
-endif
+	--without-gnome-vfs \
+	--$(call ptx/endis, PTXCONF_LIBGSF_NLS)-nls \
+	--$(call ptx/wwo, PTXCONF_LIBGSF_PYTHON)-python \
+	--$(call ptx/wwo, PTXCONF_LIBGSF_BZ2)-bz2 \
+	--$(call ptx/wwo, PTXCONF_LIBGSF_GIO)-gio
 
 # ----------------------------------------------------------------------------
 # Target-Install
