@@ -26,15 +26,6 @@ XORG_PROTO_XF86DGA_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROT
 XORG_PROTO_XF86DGA_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86DGA).$(XORG_PROTO_XF86DGA_SUFFIX)
 XORG_PROTO_XF86DGA_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86DGA)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_XF86DGA_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_XF86DGA)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
