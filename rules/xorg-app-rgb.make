@@ -24,15 +24,6 @@ XORG_APP_RGB_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_RGB).$(XO
 XORG_APP_RGB_SOURCE	:= $(SRCDIR)/$(XORG_APP_RGB).$(XORG_APP_RGB_SUFFIX)
 XORG_APP_RGB_DIR	:= $(BUILDDIR)/$(XORG_APP_RGB)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_RGB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_RGB)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
