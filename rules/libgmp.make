@@ -36,19 +36,10 @@ LIBGMP_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBGMP_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LIBGMP_SHARED
-LIBGMP_AUTOCONF += --enable-shared
-else
-LIBGMP_AUTOCONF += --disable-shared
-endif
-
-ifdef PTXCONF_LIBGMP_STATIC
-LIBGMP_AUTOCONF += --enable-static
-else
-LIBGMP_AUTOCONF += --disable-static
-endif
+LIBGMP_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_LIBBMP_SHARED)-shared \
+	--$(call ptx/endis, PTXCONF_LIBBMP_STATIC)-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
