@@ -41,16 +41,11 @@ LIBUSB_AUTOCONF := \
 	--disable-debug-log \
 	--disable-examples-build \
 	--enable-static \
-	--enable-shared
+	--enable-shared \
+	--$(call ptx/endis, PTXCONF_LIBUSB_DISABLE_LOG)-log
 
 ifdef PTXCONF_LIBUSB_DEBUG_LOG
 LIBUSB_AUTOCONF += --enable-debug-log
-endif
-
-ifdef PTXCONF_LIBUSB_DISABLE_LOG
-LIBUSB_AUTOCONF += --disable-log
-else
-LIBUSB_AUTOCONF += --enable-log
 endif
 
 # ----------------------------------------------------------------------------
