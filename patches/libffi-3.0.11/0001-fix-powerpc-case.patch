@@ -8,6 +8,8 @@ Without this fix, gcc complains about a duplicate case value:
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
+# rsc: submitted as http://sourceware.org/ml/libffi-discuss/2012/msg00201.html
+
  src/powerpc/ffi.c |    2 ++
  1 file changed, 2 insertions(+)
 
