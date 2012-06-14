@@ -51,19 +51,9 @@ ACL_INSTALL_OPT := \
 #
 ACL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--libexecdir=/usr/lib 
-
-ifdef PTXCONF_ACL_SHARED
-ACL_AUTOCONF += --enable-shared
-else
-ACL_AUTOCONF += --disable-shared
-endif
-
-ifdef PTXCONF_ACL_GETTEXT
-ACL_AUTOCONF += --enable-gettext
-else
-ACL_AUTOCONF += --disable-gettext
-endif
+	--libexecdir=/usr/lib \
+	--$(call ptx/endis, PTXCONF_ACL_SHARED)-shared \
+	--$(call ptx/endis, PTXCONF_ACL_GETTEXT)-gettext
 
 # ----------------------------------------------------------------------------
 # Target-Install
