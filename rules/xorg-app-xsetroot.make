@@ -24,15 +24,6 @@ XORG_APP_XSETROOT_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XSE
 XORG_APP_XSETROOT_SOURCE	:= $(SRCDIR)/$(XORG_APP_XSETROOT).$(XORG_APP_XSETROOT_SUFFIX)
 XORG_APP_XSETROOT_DIR		:= $(BUILDDIR)/$(XORG_APP_XSETROOT)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XSETROOT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XSETROOT)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
