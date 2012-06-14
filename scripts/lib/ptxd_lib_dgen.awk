@@ -336,7 +336,10 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 	n = split(this_PKG_DEPS, this_DEP_array, " ");
 	for (i = 1; i <= n; i++) {
 		this_dep = PKG_to_pkg[this_DEP_array[i]]
-		print "$(" this_PKG "_IMAGE): "                   "$(STATEDIR)/" this_dep ".targetinstall.post"	> DGEN_DEPS_POST;
+		if (this_pkg_prefix == "")
+			print "$(" this_PKG "_IMAGE): "         "$(STATEDIR)/" this_dep ".targetinstall.post"	> DGEN_DEPS_POST;
+		else
+			print "$(" this_PKG "_IMAGE): "               "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
 	}
 }
 
