@@ -26,14 +26,6 @@ MODULE_INIT_TOOLS_SOURCE	:= $(SRCDIR)/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_S
 MODULE_INIT_TOOLS_DIR		:= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(MODULE_INIT_TOOLS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, MODULE_INIT_TOOLS)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
