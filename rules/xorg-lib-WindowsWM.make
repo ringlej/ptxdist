@@ -25,15 +25,6 @@ XORG_LIB_WINDOWSWM_URL		:= $(call ptx/mirror, XORG, individual/lib//$(XORG_LIB_W
 XORG_LIB_WINDOWSWM_SOURCE	:= $(SRCDIR)/$(XORG_LIB_WINDOWSWM).$(XORG_LIB_WINDOWSWM_SUFFIX)
 XORG_LIB_WINDOWSWM_DIR		:= $(BUILDDIR)/$(XORG_LIB_WINDOWSWM)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_LIB_WINDOWSWM_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_LIB_WINDOWSWM)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
