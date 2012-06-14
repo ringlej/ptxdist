@@ -26,15 +26,6 @@ XORG_PROTO_COMPOSITE_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PRO
 XORG_PROTO_COMPOSITE_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_COMPOSITE).$(XORG_PROTO_COMPOSITE_SUFFIX)
 XORG_PROTO_COMPOSITE_DIR	:= $(BUILDDIR)/$(XORG_PROTO_COMPOSITE)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_PROTO_COMPOSITE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_PROTO_COMPOSITE)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
