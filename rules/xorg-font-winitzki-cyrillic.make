@@ -30,14 +30,6 @@ $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-winitzki-cyrill
 endif
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_FONT_WINITZKI_CYRILLIC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_FONT_WINITZKI_CYRILLIC)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -50,7 +42,6 @@ XORG_FONT_WINITZKI_CYRILLIC_ENV 	:= $(CROSS_ENV)
 XORG_FONT_WINITZKI_CYRILLIC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/cyrillic
-
 
 # ----------------------------------------------------------------------------
 # Install
