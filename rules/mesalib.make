@@ -27,6 +27,13 @@ MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
+ifdef PTXCONF_MESALIB
+ifeq ($(shell $(PTXDIST_TOPDIR)/bin/python -c 'import libxml2' 2>/dev/null || echo no),no)
+    $(warning *** libxml2 Python module is required for Mesa)
+    $(error please install python-libxml2 (debian))
+endif
+endif
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
