@@ -40,25 +40,10 @@ LIBRSVG_AUTOCONF := \
 	--disable-gtk-theme  \
 	--disable-mozilla-plugin \
 	--disable-gtk-doc \
-	--without-x
-
-ifdef PTXCONF_LIBRSVG_PIXBUF_LOADER
-LIBRSVG_AUTOCONF += --enable-pixbuf-loader
-else
-LIBRSVG_AUTOCONF += --disable-pixbuf-loader
-endif
-
-ifdef PTXCONF_LIBRSVG_SVGZ
-LIBRSVG_AUTOCONF += --with-svgz
-else
-LIBRSVG_AUTOCONF += --without-svgz
-endif
-
-ifdef PTXCONF_LIBRSVG_CROCO
-LIBRSVG_AUTOCONF += --with-croco
-else
-LIBRSVG_AUTOCONF += --without-croco
-endif
+	--without-x \
+	--$(call ptx/endis, PTXCONF_LIBRSVG_PIXBUF_LOADER)-pixbuf-loader \
+	--$(call ptx/wwo, PTXCONF_LIBRSVG_SVGZ)-svgz \
+	--$(call ptx/wwo, PTXCONF_LIBRSVG_CROCO)-croco
 
 # ----------------------------------------------------------------------------
 # Target-Install
