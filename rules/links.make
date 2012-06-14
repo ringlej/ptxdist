@@ -32,7 +32,19 @@ LINKS_ENV      := $(CROSS_ENV)
 #
 # autoconf
 #
-LINKS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LINKS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/wwo, PTXCONF_LINKS_SSL)-ssl \
+	--$(call ptx/wwo, PTXCONF_LINKS_GPM)-gpm \
+	--$(call ptx/wwo, PTXCONF_LINKS_PNG)-png \
+	--$(call ptx/wwo, PTXCONF_LINKS_JPEG)-libjpeg \
+	--$(call ptx/wwo, PTXCONF_LINKS_FB)-fb \
+	--$(call ptx/wwo, PTXCONF_LINKS_TIFF)-libtiff \
+	--$(call ptx/wwo, PTXCONF_LINKS_X)-x \
+	--$(call ptx/wwo, PTXCONF_LINKS_DIRECTFB)-directfb \
+	--$(call ptx/wwo, PTXCONF_LINKS_SDL)-sdl \
+	--$(call ptx/wwo, PTXCONF_LINKS_ZLIB)-zlib \
+	--$(call ptx/wwo, PTXCONF_LINKS_BZIP2)-bzip2
 
 ifneq ($(PTXCONF_LINKS_X)$(PTXCONF_LINKS_FBCON)$(PTXCONF_LINKS_DIRECTFB),)
 LINKS_AUTOCONF += --enable-graphics
@@ -40,73 +52,10 @@ else
 LINKS_AUTOCONF += --disable-graphics
 endif
 
-ifdef PTXCONF_LINKS_SSL
-LINKS_AUTOCONF += --with-ssl
-else
-LINKS_AUTOCONF += --without-ssl
-endif
-
-ifdef PTXCONF_LINKS_GPM
-LINKS_AUTOCONF += --with-gpm
-else
-LINKS_AUTOCONF += --without-gpm
 # Note: ./configure only support 'gpm' features auto-detection, so
 # we use the autoconf trick (see Gentoo ebuild)
+ifndef PTXCONF_LINKS_GPM
 LINKS_ENV += ac_cv_lib_gpm_Gpm_Open=no
-endif
-
-ifdef PTXCONF_LINKS_PNG
-LINKS_AUTOCONF += --with-libpng
-else
-LINKS_AUTOCONF += --without-libpng
-endif
-
-ifdef PTXCONF_LINKS_JPEG
-LINKS_AUTOCONF += --with-libjpeg
-else
-LINKS_AUTOCONF += --without-libjpeg
-endif
-
-ifdef PTXCONF_LINKS_FBCON
-LINKS_AUTOCONF += --with-fb
-else
-LINKS_AUTOCONF += --without-fb
-endif
-
-ifdef PTXCONF_LINKS_TIFF
-LINKS_AUTOCONF += --with-libtiff
-else
-LINKS_AUTOCONF += --without-libtiff
-endif
-
-ifdef PTXCONF_LINKS_X
-LINKS_AUTOCONF += --with-x
-else
-LINKS_AUTOCONF += --without-x
-endif
-
-ifdef PTXCONF_LINKS_DIRECTFB
-LINKS_AUTOCONF += --with-directfb
-else
-LINKS_AUTOCONF += --without-directfb
-endif
-
-ifdef PTXCONF_LINKS_SDL
-LINKS_AUTOCONF += --with-sdl
-else
-LINKS_AUTOCONF += --without-sdl
-endif
-
-ifdef PTXCONF_LINKS_ZLIB
-LINKS_AUTOCONF += --with-zlib
-else
-LINKS_AUTOCONF += --without-zlib
-endif
-
-ifdef PTXCONF_LINKS_BZIP2
-LINKS_AUTOCONF += --with-bzip2
-else
-LINKS_AUTOCONF += --without-bzip2
 endif
 
 # ----------------------------------------------------------------------------
