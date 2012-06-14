@@ -35,19 +35,10 @@ LIBLZO_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBLZO_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LIBLZO_SHARED
-LIBLZO_AUTOCONF += --enable-shared
-else
-LIBLZO_AUTOCONF += --disable-shared
-endif
-
-ifdef PTXCONF_LIBLZO_STATIC
-LIBLZO_AUTOCONF += --enable-static
-else
-LIBLZO_AUTOCONF += --disable-static
-endif
+LIBLZO_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_LIBLZO_SHARED)-shared \
+	--$(call ptx/endis, PTXCONF_LIBLZO_STATIC)-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
