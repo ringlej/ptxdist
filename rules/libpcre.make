@@ -35,22 +35,13 @@ LIBPCRE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPCRE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBPCRE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_PCREGREP_LIBZ)-pcregrep-libz \
+	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_UTF8)-enable-utf8
 
 ifdef PTXCONF_LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF
 LIBPCRE_AUTOCONF += --enable-newline-is-anycrlf
-endif
-
-ifdef PTXCONF_LIBPCRE_ENABLE_PCREGREP_LIBZ
-LIBPCRE_AUTOCONF += --enable-pcregrep-libz
-else
-LIBPCRE_AUTOCONF += --disable-pcregrep-libz
-endif
-
-ifdef PTXCONF_LIBPCRE_ENABLE_UTF8
-LIBPCRE_AUTOCONF += --enable-utf8
-else
-LIBPCRE_AUTOCONF += --disable-utf8
 endif
 
 # ----------------------------------------------------------------------------
