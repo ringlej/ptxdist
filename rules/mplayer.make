@@ -297,39 +297,18 @@ MPLAYER_AUTOCONF += \
 # Configurable Video Inputs
 #
 
-ifdef PTXCONF_MPLAYER_VI_V4L1
-MPLAYER_AUTOCONF += --enable-tv-v4l1
-else
-MPLAYER_AUTOCONF += --disable-tv-v4l1
-endif
-
-ifdef PTXCONF_MPLAYER_VI_V4L2
-MPLAYER_AUTOCONF += --enable-tv-v4l2
-else
-MPLAYER_AUTOCONF += --disable-tv-v4l2
-endif
+MPLAYER_AUTOCONF += \
+	--$(call ptx/endis, PTXCONF_MPLAYER_VI_V4L1)-tv-v4l1 \
+	--$(call ptx/endis, PTXCONF_MPLAYER_VI_V4L2)-tv-v4l2
 
 #
 # Configurable Video Outputs
 #
 
-ifdef PTXCONF_MPLAYER_VO_XV
-MPLAYER_AUTOCONF += --enable-xv
-else
-MPLAYER_AUTOCONF += --disable-xv
-endif
-
-ifdef PTXCONF_MPLAYER_VO_X11
-MPLAYER_AUTOCONF += --enable-x11
-else
-MPLAYER_AUTOCONF += --disable-x11
-endif
-
-ifdef PTXCONF_MPLAYER_VO_FBDEV
-MPLAYER_AUTOCONF += --enable-fbdev
-else
-MPLAYER_AUTOCONF += --disable-fbdev
-endif
+MPLAYER_AUTOCONF += \
+	--$(call ptx/endis, PTXCONF_MPLAYER_VO_XV)-xv \
+	--$(call ptx/endis, PTXCONF_MPLAYER_VO_X11)-x11 \
+	--$(call ptx/endis, PTXCONF_MPLAYER_VO_FBDEV)-fbdev
 
 # enable tv and pthreads if any of the tv options are on
 ifeq ($(or $(PTXCONF_MPLAYER_VI_V4L1),$(PTXCONF_MPLAYER_VI_V4L2)),)
@@ -343,32 +322,17 @@ endif
 #
 # Configurable Codecs
 #
-ifdef PTXCONF_MPLAYER_CODEC_JPEG
-MPLAYER_AUTOCONF += --enable-jpeg
-else
-MPLAYER_AUTOCONF += --disable-jpeg
-endif
-
-ifdef PTXCONF_MPLAYER_CODEC_MPEG2
-MPLAYER_AUTOCONF += --enable-libmpeg2 --enable-libmpeg2-internal
-else
-MPLAYER_AUTOCONF += --disable-libmpeg2 --disable-libmpeg2-internal
-endif
+MPLAYER_AUTOCONF += \
+	--$(call ptx/endis, PTXCONF_MPLAYER_CODEC_JPEG)-jpeg \
+	--$(call ptx/endis, PTXCONF_MPLAYER_CODEC_MPEG2)-libmpeg2 \
+	--$(call ptx/endis, PTXCONF_MPLAYER_CODEC_MPEG2)-libmpeg2-internal
 
 #
 # Advanced Options
 #
-ifdef PTXCONF_MPLAYER_IWMMXT
-MPLAYER_AUTOCONF += --enable-iwmmxt
-else
-MPLAYER_AUTOCONF += --disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_ARM_V6
-MPLAYER_AUTOCONF += --enable-armv6
-else
-MPLAYER_AUTOCONF += --disable-armv6
-endif
+MPLAYER_AUTOCONF += \
+	--$(call ptx/endis, PTXCONF_MPLAYER_IWMMXT)-iwmmxt \
+	--$(call ptx/endis, PTXCONF_ARCH_ARM_V6)-armv6
 
 # ----------------------------------------------------------------------------
 # Target-Install
