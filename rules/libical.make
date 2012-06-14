@@ -44,13 +44,8 @@ LIBICAL_CONF_OPT := \
 	--without-builtintz \
 	--without-bdb4 \
 	--without-backtrace \
-	--without-devel
-
-ifdef PTXCONF_LIBICAL_CXX
-LIBICAL_CONF_OPT	+= --enable-cxx
-else
-LIBICAL_CONF_OPT	+= --disable-cxx
-endif
+	--without-devel \
+	--$(call ptx/endis, PTXCONF_LIBICAL_CXX)-cxx
 
 # ----------------------------------------------------------------------------
 # Target-Install
