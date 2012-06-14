@@ -26,14 +26,6 @@ HOST_XORG_APP_BDFTOPCF_SOURCE	:= $(SRCDIR)/$(HOST_XORG_APP_BDFTOPCF).$(HOST_XORG
 HOST_XORG_APP_BDFTOPCF_DIR	:= $(HOST_BUILDDIR)/$(HOST_XORG_APP_BDFTOPCF)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_XORG_APP_BDFTOPCF_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_XORG_APP_BDFTOPCF)
-
-# ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
