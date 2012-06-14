@@ -79,60 +79,20 @@ CAIRO_AUTOCONF := \
 	--disable-trace \
 	--disable-interpreter \
 	--disable-symbol-lookup \
-	--disable-test-surfaces
+	--disable-test-surfaces \
+	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib \
+	--$(call ptx/endis, PTXCONF_CAIRO_WIN32)-win32 \
+	--$(call ptx/endis, PTXCONF_CAIRO_WIN32)-win32-font \
+	--$(call ptx/endis, PTXCONF_CAIRO_SVG)-svg \
+	--$(call ptx/endis, PTXCONF_CAIRO_PNG)-png \
+	--$(call ptx/endis, PTXCONF_CAIRO_DIRECTFB)-directfb \
+	--$(call ptx/endis, PTXCONF_CAIRO_FREETYPE)-ft \
+	--$(call ptx/endis, PTXCONF_CAIRO_FREETYPE)-fc \
+	--$(call ptx/endis, PTXCONF_CAIRO_PS)-ps \
+	--$(call ptx/endis, PTXCONF_CAIRO_PDF)-pdf
 
-ifdef PTXCONF_CAIRO_XLIB
-CAIRO_AUTOCONF += --enable-xlib
-else
-CAIRO_AUTOCONF += \
-	--disable-xlib \
-	--without-x
-endif
-
-ifdef PTXCONF_CAIRO_WIN32
-CAIRO_AUTOCONF += \
-	--enable-win32 \
-	--enable-win32-font
-else
-CAIRO_AUTOCONF += \
-	--disable-win32 \
-	--disable-win32-font
-endif
-
-ifdef PTXCONF_CAIRO_SVG
-CAIRO_AUTOCONF += --enable-svg
-else
-CAIRO_AUTOCONF += --disable-svg
-endif
-
-ifdef PTXCONF_CAIRO_PNG
-CAIRO_AUTOCONF += --enable-png
-else
-CAIRO_AUTOCONF += --disable-png
-endif
-
-ifdef PTXCONF_CAIRO_DIRECTFB
-CAIRO_AUTOCONF += --enable-directfb
-else
-CAIRO_AUTOCONF += --disable-directfb
-endif
-
-ifdef PTXCONF_CAIRO_FREETYPE
-CAIRO_AUTOCONF += --enable-ft --enable-fc
-else
-CAIRO_AUTOCONF += --disable-ft --disable-fc
-endif
-
-ifdef PTXCONF_CAIRO_PS
-CAIRO_AUTOCONF += --enable-ps
-else
-CAIRO_AUTOCONF += --disable-ps
-endif
-
-ifdef PTXCONF_CAIRO_PDF
-CAIRO_AUTOCONF += --enable-pdf
-else
-CAIRO_AUTOCONF += --disable-pdf
+ifndef PTXCONF_CAIRO_XLIB
+CAIRO_AUTOCONF += --without-x
 endif
 
 ifdef PTXCONF_HAS_HARDFLOAT
@@ -140,8 +100,6 @@ CAIRO_AUTOCONF += --enable-some-floating-point
 else
 CAIRO_AUTOCONF += --disable-some-floating-point
 endif
-
-#  --with-x                use the X Window System
 
 # ----------------------------------------------------------------------------
 # Target-Install
