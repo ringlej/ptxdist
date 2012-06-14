@@ -72,25 +72,15 @@ ALSA_LIB_AUTOCONF := \
 	--with-librt \
 	--with-alsa-devdir=/dev/snd \
 	--with-aload-devdir=/dev \
-	--with-versioned
-
-ifdef PTXCONF_ALSA_LIB_RESMGR
-ALSA_LIB_AUTOCONF += --enable-resmgr
-else
-ALSA_LIB_AUTOCONF += --disable-resmgr
-endif
-
-ifdef PTXCONF_ALSA_LIB_READ
-ALSA_LIB_AUTOCONF += --enable-aload
-else
-ALSA_LIB_AUTOCONF += --disable-aload
-endif
-
-ifdef PTXCONF_ALSA_LIB_MIXER
-ALSA_LIB_AUTOCONF += --enable-mixer
-else
-ALSA_LIB_AUTOCONF += --disable-mixer
-endif
+	--with-versioned \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_RESMGR)-resmgr \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_READ)-aload \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_MIXER)-mixer \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_RAWMIDI)-rawmidi \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_HWDEP)-hwdep \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_SEQ)-seq \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_UCM)-ucm \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_ALISP)-alisp
 
 ifdef PTXCONF_ALSA_LIB_PCM
 ALSA_LIB_AUTOCONF += \
@@ -98,36 +88,6 @@ ALSA_LIB_AUTOCONF += \
 	--with-pcm-plugins=all
 else
 ALSA_LIB_AUTOCONF += --disable-pcm
-endif
-
-ifdef PTXCONF_ALSA_LIB_RAWMIDI
-ALSA_LIB_AUTOCONF += --enable-rawmidi
-else
-ALSA_LIB_AUTOCONF += --disable-rawmidi
-endif
-
-ifdef PTXCONF_ALSA_LIB_HWDEP
-ALSA_LIB_AUTOCONF += --enable-hwdep
-else
-ALSA_LIB_AUTOCONF += --disable-hwdep
-endif
-
-ifdef PTXCONF_ALSA_LIB_SEQ
-ALSA_LIB_AUTOCONF += --enable-seq
-else
-ALSA_LIB_AUTOCONF += --disable-seq
-endif
-
-ifdef PTXCONF_ALSA_LIB_UCM
-ALSA_LIB_AUTOCONF += --enable-ucm
-else
-ALSA_LIB_AUTOCONF += --disable-ucm
-endif
-
-ifdef PTXCONF_ALSA_LIB_ALISP
-ALSA_LIB_AUTOCONF += --enable-alisp
-else
-ALSA_LIB_AUTOCONF += --disable-alisp
 endif
 
 ifndef PTXCONF_HAS_HARDFLOAT
