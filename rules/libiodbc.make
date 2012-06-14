@@ -40,21 +40,10 @@ LIBIODBC_MAKE_PAR	:= NO
 LIBIODBC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-libodbc \
-	--enable-pthreads
-
-ifdef PTXCONF_LIBIODBC_GUI
-LIBIODBC_AUTOCONF += --enable-gui
-else
-LIBIODBC_AUTOCONF += \
-	--disable-gui \
-	--disable-gtktest
-endif
-
-ifdef PTXCONF_LIBIODBC_DRIVER_VERSION_3
-LIBIODBC_AUTOCONF += --enable-odbc3
-else
-LIBIODBC_AUTOCONF += --disable-odbc3
-endif
+	--enable-pthreads \
+	--disable-gtktest \
+	--$(call ptx/endis, PTXCONF_LIBIODBC_GUI)-gui \
+	--$(call ptx/endis, PTXCONF_LIBIODBC_DRIVER_VERSION_3)-odbc3
 
 # ----------------------------------------------------------------------------
 # Target-Install
