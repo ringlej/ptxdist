@@ -28,14 +28,6 @@ HOST_AUTOTOOLS_LIBTOOL_DEVPKG	:= NO
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-libtool.install.post
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_AUTOTOOLS_LIBTOOL_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_AUTOTOOLS_LIBTOOL)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
