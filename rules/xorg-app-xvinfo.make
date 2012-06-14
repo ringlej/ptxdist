@@ -25,15 +25,6 @@ XORG_APP_XVINFO_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XVINFO
 XORG_APP_XVINFO_SOURCE	:= $(SRCDIR)/$(XORG_APP_XVINFO).$(XORG_APP_XVINFO_SUFFIX)
 XORG_APP_XVINFO_DIR	:= $(BUILDDIR)/$(XORG_APP_XVINFO)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XVINFO_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XVINFO)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
