@@ -67,7 +67,7 @@ LIBXML2_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_SCHEMAS)-schemas \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_SCHEMATRON)-schematron \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_THREADS)-threads \
-	--$(call ptx/wwo, PTXCONF_LIBXML2_THREADS_ALLOC)-threads-alloc \
+	--$(call ptx/wwo, PTXCONF_LIBXML2_THREADS_ALLOC)-thread-alloc \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_DOM)-tree \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_DTD)-valid \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_WRITER)-writer \
