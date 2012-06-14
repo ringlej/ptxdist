@@ -27,8 +27,8 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-symlink-install \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
-	--disable-compression \
-	--disable-htree \
+	--enable-compression \
+	--enable-htree \
 	--disable-elf-shlibs \
 	--disable-bsd-shlibs \
 	--disable-profile \
