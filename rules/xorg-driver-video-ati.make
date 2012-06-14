@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_XORG_DRIVER_VIDEO_ATI) += xorg-driver-vid
 # Paths and names
 #
 XORG_DRIVER_VIDEO_ATI_VERSION	:= 6.14.5
-XORG_DRIVER_VIDEO_ATI_MD5	:= a8f92fe3c458e511f4e2ead7f92c02b0
+XORG_DRIVER_VIDEO_ATI_MD5	:= 5ea726eed9cd5a9cc5132cbee18ad686
 XORG_DRIVER_VIDEO_ATI		:= xf86-video-ati-$(XORG_DRIVER_VIDEO_ATI_VERSION)
 XORG_DRIVER_VIDEO_ATI_SUFFIX	:= tar.bz2
 XORG_DRIVER_VIDEO_ATI_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG_DRIVER_VIDEO_ATI).$(XORG_DRIVER_VIDEO_ATI_SUFFIX))
@@ -36,7 +36,9 @@ XORG_DRIVER_VIDEO_ATI_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_ATI)
 XORG_DRIVER_VIDEO_ATI_CONF_TOOL	:= autoconf
 XORG_DRIVER_VIDEO_ATI_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI)-dri
+	--$(call ptx/endis, PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI)-dri \
+	--enable-exa \
+	--enable-kms
 
 # ----------------------------------------------------------------------------
 # Target-Install

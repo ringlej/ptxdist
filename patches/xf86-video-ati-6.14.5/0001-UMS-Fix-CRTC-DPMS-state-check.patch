@@ -1,0 +1,51 @@
+From 248e912c487636d7352cfad43c03fc9f19fc2215 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>
+Date: Fri, 8 Jun 2012 12:18:48 +0200
+Subject: [PATCH] UMS: Fix CRTC DPMS state check.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Michel Dänzer <michel.daenzer@amd.com>
+---
+ src/radeon_video.c |   19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/src/radeon_video.c b/src/radeon_video.c
+index 01703a0..fcca507 100644
+--- a/src/radeon_video.c
++++ b/src/radeon_video.c
+@@ -143,6 +143,22 @@ radeon_box_area(BoxPtr box)
+     return (int) (box->x2 - box->x1) * (int) (box->y2 - box->y1);
+ }
+ 
++static Bool
++radeon_crtc_is_enabled(xf86CrtcPtr crtc)
++{
++    RADEONCrtcPrivatePtr radeon_crtc;
++
++#ifdef XF86DRM_MODE
++    if (RADEONPTR(crtc->scrn)->cs) {
++	drmmode_crtc_private_ptr drmmode_crtc = crtc->driver_private;
++	return drmmode_crtc->dpms_mode == DPMSModeOn;
++    }
++#endif
++
++    radeon_crtc = crtc->driver_private;
++    return radeon_crtc->enabled;
++}
++
+ xf86CrtcPtr
+ radeon_pick_best_crtc(ScrnInfoPtr pScrn,
+ 		      int x1, int x2, int y1, int y2)
+@@ -171,9 +187,8 @@ radeon_pick_best_crtc(ScrnInfoPtr pScrn,
+ 
+     for (c = 0; c < xf86_config->num_crtc; c++) {
+ 	xf86CrtcPtr crtc = xf86_config->crtc[c];
+-	drmmode_crtc_private_ptr drmmode_crtc = crtc->driver_private;
+ 
+-	if (drmmode_crtc->dpms_mode == DPMSModeOff)
++	if (!radeon_crtc_is_enabled(crtc))
+ 	    continue;
+ 
+ 	radeon_crtc_box(crtc, &crtc_box);
