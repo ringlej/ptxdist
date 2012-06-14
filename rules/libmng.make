@@ -36,13 +36,8 @@ LIBMNG_ENV	:= $(CROSS_ENV)
 #
 LIBMNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-jpeg
-
-ifdef PTXCONF_LIBMNG_LCMS
-LIBMNG_AUTOCONF += --with-lcms
-else
-LIBMNG_AUTOCONF += --without-lcms
-endif
+	--with-jpeg \
+	--$(call ptx/wwo, PTXCONF_LIBMNG_LCMS)-lcms
 
 # ----------------------------------------------------------------------------
 # Target-Install
