@@ -25,14 +25,6 @@ XORG_DRIVER_VIDEO_V4L_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_V4L).$(XORG_DRIVER
 XORG_DRIVER_VIDEO_V4L_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_V4L)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_DRIVER_VIDEO_V4L_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_DRIVER_VIDEO_V4L)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
