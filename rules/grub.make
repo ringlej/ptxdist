@@ -67,7 +67,7 @@ GRUB_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_GRUB_NI5210)-ni5210 \
 	--$(call ptx/endis, PTXCONF_GRUB_LANCE)-lance \
 	--$(call ptx/endis, PTXCONF_GRUB_NE2100)-ne2100 \
-	--$(call ptx/endis, PTXCONF_GRUB_NI6510)-ni5610 \
+	--$(call ptx/endis, PTXCONF_GRUB_NI6510)-ni6510 \
 	--$(call ptx/endis, PTXCONF_GRUB_NATSEMI)-natsemi \
 	--$(call ptx/endis, PTXCONF_GRUB_NI5010)-ni5010 \
 	--$(call ptx/endis, PTXCONF_GRUB_3C503)-3c503 \
