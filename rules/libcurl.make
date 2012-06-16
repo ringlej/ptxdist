@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.21.0
-LIBCURL_MD5	:= 6dfb911a254a1b5ca8b534b98f2196aa
+LIBCURL_VERSION	:= 7.26.0
+LIBCURL_MD5	:= 3fa4d5236f2a36ca5c3af6715e837691
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.gz
 LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -65,6 +65,8 @@ LIBCURL_AUTOCONF := \
 	--without-ca-bundle \
 	--without-ca-path \
 	--without-libidn \
+	--without-axtls \
+	--without-cyassl \
 	\
 	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
 	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
