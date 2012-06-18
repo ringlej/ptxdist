@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 18 Jun 2012 09:25:09 +0200
+Subject: [PATCH] fix name collision with Xorg macro
+
+If xorg-server is compiled with --enable-tslib (for kdrive) then
+xorg-server.h contains '#define TSLIB 1'.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/tslib.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/tslib.c b/src/tslib.c
+index 0446148..4824fc4 100644
+--- a/src/tslib.c
++++ b/src/tslib.c
+@@ -594,7 +594,7 @@ xf86TslibInit(InputDriverPtr drv, IDevPtr dev, int flags)
+ #endif
+ }
+ 
+-_X_EXPORT InputDriverRec TSLIB = {
++_X_EXPORT InputDriverRec TSLIB_REC = {
+ 	1,			/* driver version */
+ 	"tslib",		/* driver name */
+ 	NULL,			/* identify */
+@@ -631,7 +631,7 @@ static pointer xf86TslibPlug(pointer module, pointer options, int *errmaj, int *
+ {
+ 	static Bool Initialised = FALSE;
+ 
+-	xf86AddInputDriver(&TSLIB, module, 0);
++	xf86AddInputDriver(&TSLIB_REC, module, 0);
+ 
+ 	return module;
+ }

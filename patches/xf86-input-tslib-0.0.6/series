@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-fix-segfault.patch
 0002-add-support-for-ABI-12.patch
-# 11df7c3371f5b4ed9d1d4047978ba553  - git-ptx-patches magic
+0003-fix-name-collision-with-Xorg-macro.patch
+# fd8f57a2d8b01331dcdfb70b7bf274a4  - git-ptx-patches magic
