@@ -175,5 +175,10 @@ ptxd_make_world_install_post() {
     done &&
 
     cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}"
+
+    # host and cross packages
+    if [ "${pkg_type}" != "target" ]; then
+	ptxd_make_world_install_library_path
+    fi
 }
 export -f ptxd_make_world_install_post
