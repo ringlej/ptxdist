@@ -3,6 +3,8 @@
 menuconfig WXWIDGETS
 	tristate
 	prompt "wxwidgets                     "
+	# no gtk3 support yet
+	depends on BROKEN
 	select GTK
 	select LIBPNG		if WXWIDGETS_LIBPNG
 	select LIBJPEG		if WXWIDGETS_LIBPNG
