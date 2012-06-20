@@ -67,7 +67,7 @@ $(STATEDIR)/xorg-app-xdm.targetinstall:
 ifdef PTXCONF_XORG_APP_XDM_SYSTEMD_UNIT
 	@$(call install_alternative, xorg-app-xdm, 0, 0, 0644, \
 		/lib/systemd/system/xdm.service)
-	@$(call install_link, xorg-app-xdm, ../xmd.service, \
+	@$(call install_link, xorg-app-xdm, ../xdm.service, \
 		/lib/systemd/system/graphical.target.wants/xdm.service)
 endif
 
