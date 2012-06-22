@@ -4,6 +4,9 @@ menuconfig DIFFUTILS
 	select LIBC_RT if DIFFUTILS_DIFF
 	select GCCLIBS_GCC_S if DIFFUTILS_CMP
 	prompt "gnu diffutils                 "
+	help
+	  The GNU diffutils package, containing
+	  cmp, diff, diff3 and sdiff
 
 if DIFFUTILS
 

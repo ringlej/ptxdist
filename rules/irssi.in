@@ -17,5 +17,7 @@ if IRSSI
 config IRSSI_SSL
 	bool
 	prompt "support for SSL"
+	help
+	  Activate SSL support in Irssi using OpenSSL
 
 endif

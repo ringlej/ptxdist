@@ -34,6 +34,8 @@ config INETUTILS_INETD_STARTSCRIPT
 	bool
 	default y
 	prompt "install /etc/init.d/inetd"
+	help
+	  Install an init script for the network super daemon inetd
 
 endif
 

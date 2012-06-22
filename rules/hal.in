@@ -20,5 +20,7 @@ if HAL
 config HAL_POLKIT
 	bool
 	prompt "policy kit support"
+	help
+	  Enable PolicyKit usage, which will also select ConsoleKit
 
 endif

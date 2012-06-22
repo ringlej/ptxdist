@@ -35,6 +35,6 @@ config LIBCACA_X11
 config LIBCACA_CXX
 	bool "C++ bindings"
 	help
-	  select this, if you want to use libcaca from C++ progamms
+	  Select this if you want to use libcaca from C++ progams.
 
 endif

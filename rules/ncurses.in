@@ -43,7 +43,7 @@ config NCURSES_TERMCAP
 	bool "install minimal set of termcap data files"
 	default y
 	help
-		Installes the following termcap files:
+		Installs the following termcap files:
 		- xterm
 		- xterm-color
 		- xterm-xfree86

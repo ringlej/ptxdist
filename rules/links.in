@@ -23,18 +23,27 @@ if LINKS
 config LINKS_SSL
 	bool
 	prompt "support for SSL"
+	help
+	  Include support for Secure Socket Layer (SSL) transfers
 
 config LINKS_GPM
 	bool
 	prompt "support for GPM"
+	help
+	  Activate support for General Purpose Mouse (GPM) service
 
 config LINKS_PNG
 	bool
 	prompt "support for png"
+	help
+	  Activate support for Portable Network Graphics (PNG) image format
 
 config LINKS_JPEG
 	bool
 	prompt "support for jpeg"
+	help
+	  Activate support for Joint Photographic Experts Group (JPEG)
+	  image format
 
 config LINKS_FBCON
 	bool
@@ -42,6 +51,8 @@ config LINKS_FBCON
 	select LINKS_JPEG
 	select LINKS_GPM
 	prompt "support for fbcon"
+	help
+	  Activate support for Framebuffer Console mode
 
 config LINKS_TIFF
 	bool

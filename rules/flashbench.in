@@ -22,7 +22,7 @@ config FLASHBENCH_MAX_BUFSIZE
 	prompt "Maximum flashbench buffer size in megabytes"
 	default 64
 	help
-	  This is the maximum buffer size flashbench uses during operationg.
+	  This is the maximum buffer size flashbench uses during operation.
 	  The buffer gets allocated 4 times, so take that into account when
 	  choosing a buffer. The default is 64 MiB.
 

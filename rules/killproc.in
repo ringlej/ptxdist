@@ -3,25 +3,34 @@
 menuconfig KILLPROC
 	tristate "killproc                      "
 	help
-	  Utilities for starting and stopping of programs.
+	  Utilities for starting and stopping of programs
+	  (Werner Fink's killproc package)
 
 config KILLPROC_CHECKPROC
 	bool
 	depends on KILLPROC
 	prompt "checkproc"
+	help
+	  Checks process(es) of the named program
 
 config KILLPROC_KILLPROC
 	bool
 	depends on KILLPROC
 	prompt "killproc"
+	help
+	  Kill all running processes of a named program
 
 config KILLPROC_STARTPROC
 	bool
 	depends on KILLPROC
 	prompt "startproc"
+	help
+	  Start process(es) of the named program
 
 config KILLPROC_USLEEP
 	bool
 	depends on KILLPROC
 	prompt "usleep"
+	help
+	  Sleep for the specified number of microseconds
 

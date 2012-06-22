@@ -32,15 +32,21 @@ config IPROUTE2_ARPD
 config IPROUTE2_CTSTAT
 	bool
 	prompt "ctstat"
+	help
+	  The connection status utility. Maybe linked to lnstat.
 
 config IPROUTE2_GENL
 	bool
 	prompt "genl"
+	help
+	  Generic Netlink
 
 config IPROUTE2_IP
 	bool
 	depends on !BUSYBOX_IP || ALLYES
 	prompt "ip"
+	help
+	  The main tool. Well known as in "ip addr" or "ip route".
 
 comment "busybox' ip is selected"
 	depends on BUSYBOX_IP
@@ -48,49 +54,81 @@ comment "busybox' ip is selected"
 config IPROUTE2_IFCFG
 	bool
 	prompt "ifcfg"
+	help
+	  ifcfg is a script wrapping ip, written as replacement for
+	  ifconfig.
+	  Needs arping and rdisk programs from the iputils package.
 
 config IPROUTE2_IFSTAT
 	bool
 	prompt "ifstat"
+	help
+	  handy utility to read net interface statistics
 
 config IPROUTE2_LNSTAT
 	bool
 	prompt "lnstat"
+	help
+	  lnstat is a generalized and more feature-complete replacement
+	  for the old rtstat program. In addition to routing cache
+	  statistics, it supports any kind of statistics the linux
+	  kernel exports via a file in /proc/net/stat/.
 
 config IPROUTE2_NSTAT
 	bool
 	prompt "nstat"
+	help
+	  handy utility to read counters /proc/net/netstat and snmp
 
 config IPROUTE2_ROUTEF
 	bool
 	prompt "routef"
+	help
+	  Component of ip route for flushing the routing tables
 
 config IPROUTE2_ROUTEL
 	bool
 	prompt "routel"
+	help
+	  Component of ip route for listing the routing tables
 
 config IPROUTE2_RTACCT
 	bool
 	prompt "rtacct"
+	help
+	  Used to display the contents of /proc/net/rt_acct
 
 config IPROUTE2_RTMON
 	bool
 	prompt "rtmon"
+	help
+	  Route monitoring
 
 config IPROUTE2_RTPR
 	bool
 	prompt "rtpr"
+	help
+	  A tool to make the output of "ip -o" readable
 
 config IPROUTE2_RTSTAT
 	bool
 	prompt "rtstat"
+	help
+	  Route status utility, maybe linked to lnstat.
 
 config IPROUTE2_SS
 	bool
 	prompt "ss"
+	help
+	  ss is used to dump socket statistics. It allows showing
+	  information similar to netstat. It can display more TCP
+	  and state informations than other tools.
 
 config IPROUTE2_TC
 	bool
 	prompt "tc"
+	help
+	  In Quality Of Service (QOS) and Class Of Service (COS)
+	  scenarios used for traffic controlling
 
 endif

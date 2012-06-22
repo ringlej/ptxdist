@@ -14,21 +14,23 @@ if LSH
 
 config LSH_EXECUV
 	bool
-	prompt "Install lsh-execuf"
+	prompt "Install lsh-execuv"
 	help
-	  FIXME: This item needs to be documented
+	  lsh-execuv is a utility program for the lsh server that
+	  securely executes a program as a different user.
 
 config LSH_LSHD
 	bool
 	prompt "Install lshd"
 	help
-	  FIXME: This item needs to be documented
+	  lshd is a server for the SSH-2 (secsh) protocol.
 
 config LSH_SFTPD
 	bool
 	prompt  "Install sftp-server"
 	help
-	  FIXME: This item needs to be documented
+	  Server for the sftp subsystem, see the --subsystems option
+	  to lshd.
 
 config LSH_MAKESEED
 	bool

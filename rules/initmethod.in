@@ -3,6 +3,8 @@
 menuconfig INITMETHOD
 	bool  "init                          "
 	default y
+	help
+	  Choose the system startup init method here
 
 if INITMETHOD
 
