@@ -27,21 +27,28 @@ DOSFSTOOLS_SOURCE	:= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		:= $(BUILDDIR)/$(DOSFSTOOLS)
 
 # ----------------------------------------------------------------------------
-# Prepare
+# Prepare (nothing to be done here)
 # ----------------------------------------------------------------------------
 
-DOSFSTOOLS_PATH	:= PATH=$(CROSS_PATH)
-DOSFSTOOLS_ENV 	:= $(CROSS_ENV)
+DOSFSTOOLS_CONF_TOOL := NO
 
-DOSFSTOOLS_MAKEVARS := \
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+DOSFSTOOLS_MAKE_ENV := $(CROSS_ENV)
+DOSFSTOOLS_MAKE_OPT := \
 	OPTFLAGS='-O2 -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' \
 	PREFIX=/usr \
-	SBINDIR=/sbin \
-	$(CROSS_ENV_CC)
+	SBINDIR=/sbin
 
-$(STATEDIR)/dosfstools.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+DOSFSTOOLS_INSTALL_OPT := \
+	$(DOSFSTOOLS_MAKE_OPT) \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
