@@ -20,13 +20,13 @@ IMAGE_@PACKAGE@		:= image-@package@
 IMAGE_@PACKAGE@_DIR	:= $(BUILDDIR)/$(IMAGE_@PACKAGE@)
 IMAGE_@PACKAGE@_IMAGE	:= $(IMAGEDIR)/@package@.@TYPE@
 IMAGE_@PACKAGE@_FILES	:= @FILES@
-IMAGE_@PACKAGE@_CONFIG	:= $(call genimage/config, @CONFIG@)
+IMAGE_@PACKAGE@_CONFIG	:= @CONFIG@
 
 # ----------------------------------------------------------------------------
 # Image
 # ----------------------------------------------------------------------------
 
-$(IMAGE_@PACKAGE@_IMAGE): $(IMAGE_@PACKAGE@_CONFIG)
+$(IMAGE_@PACKAGE@_IMAGE):
 	@$(call targetinfo)
 	@$(call image/archive, IMAGE_@PACKAGE@)
 	@$(call finish)
