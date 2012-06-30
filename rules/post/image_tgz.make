@@ -10,6 +10,7 @@
 
 SEL_ROOTFS-$(PTXCONF_IMAGE_TGZ)		+= $(IMAGEDIR)/root.tgz
 
+ifdef PTXCONF_IMAGE_TGZ
 $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 	@echo -n "Creating root.tgz from working dir..."
 	@cd $(image/work_dir);							\
@@ -18,5 +19,6 @@ $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 		echo -n "$@ ." )					\
 	) | $(FAKEROOT) --
 	@echo "done."
+endif
 
 # vim: syntax=make

@@ -13,6 +13,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_ISO) += $(IMAGEDIR)/bootcd.iso
 image_iso/workdir := $(IMAGEDIR)/image_iso-workdir
 image_iso/isolinux_bin := $(PTXDIST_SYSROOT_TARGET)/usr/share/syslinux/isolinux.bin
 
+ifdef PTXCONF_IMAGE_ISO
 $(IMAGEDIR)/bootcd.iso: $(IMAGEDIR)/root.cpio.gz $(IMAGEDIR)/linuximage $(image_iso/isolinux_bin)
 	@echo -n "Creating '$(notdir $(@))' from '$(notdir $(<))'..."
 	@rm -rf "$(image_iso/workdir)"
@@ -42,5 +43,6 @@ $(IMAGEDIR)/bootcd.iso: $(IMAGEDIR)/root.cpio.gz $(IMAGEDIR)/linuximage $(image_
 		"$(image_iso/workdir)" >/dev/null 2>&1
 	@rm -rf "$(image_iso/workdir)"
 	@echo "done."
+endif
 
 # vim: syntax=make

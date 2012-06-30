@@ -32,6 +32,7 @@ endif
 #
 # TODO
 #
+ifdef PTXCONF_IMAGE_UIMAGE
 $(IMAGEDIR)/uRamdisk: $(URAMDISK_IMAGEFILE)
 	@echo -n "Creating U-Boot ramdisk from $(notdir $(URAMDISK_IMAGEFILE))...";
 	@$(PTXCONF_SYSROOT_HOST)/bin/mkimage \
@@ -43,5 +44,6 @@ $(IMAGEDIR)/uRamdisk: $(URAMDISK_IMAGEFILE)
 		-d $< \
 		$@ > /dev/null
 	@echo "done."
+endif
 
 # vim: syntax=make

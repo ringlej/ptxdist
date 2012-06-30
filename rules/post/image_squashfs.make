@@ -15,6 +15,7 @@ IMAGE_SQUASHFS_EXTRA_ARGS := \
 	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V4X, -comp $(PTXCONF_HOST_SQUASHFS_COMPRESSION_MODE), ) \
 	$(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS)
 
+ifdef PTXCONF_IMAGE_SQUASHFS
 $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install.post
 	@echo -n "Creating root.squashfs from working dir..."
 	@cd $(image/work_dir);							\
@@ -28,5 +29,6 @@ $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squash
 		echo -n $(IMAGE_SQUASHFS_EXTRA_ARGS) )	\
 	) | $(FAKEROOT) --
 	@echo "done."
+endif
 
 # vim: syntax=make

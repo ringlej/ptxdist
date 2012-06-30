@@ -11,6 +11,7 @@
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2)	+= $(IMAGEDIR)/root.ext2
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
 
+ifdef PTXCONF_IMAGE_EXT2
 $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 	@echo -n "Creating root.ext2 from working dir..."
 	@cd $(image/work_dir);						\
@@ -49,11 +50,14 @@ endif
 
 	@echo -n "Summary of root.ext2:"
 	@e2fsck -pvf "$(IMAGEDIR)/root.ext2"
+endif
 
+ifdef PTXCONF_IMAGE_EXT2_GZIP
 $(IMAGEDIR)/root.ext2.gz: $(IMAGEDIR)/root.ext2
 	@echo -n "Creating root.ext2.gz from root.ext2...";
 	@rm -f $@
 	@cat $< | gzip -v9 > $@
 	@echo "done."
+endif
 
 # vim: syntax=make

@@ -11,6 +11,7 @@
 SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2)	+= $(IMAGEDIR)/root.jffs2
 SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2_SUM)	+= $(IMAGEDIR)/root.sum.jffs2
 
+ifdef PTXCONF_IMAGE_JFFS2
 $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating root.jffs2 from working dir... "
 	@echo -n "(--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "
@@ -25,7 +26,9 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 		echo  "-o $@" ) | tee -a "$(PTX_LOGFILE)"		\
 	) | $(FAKEROOT) --
 	@echo "done."
+endif
 
+ifdef PTXCONF_IMAGE_JFFS2_SUM
 $(IMAGEDIR)/root.sum.jffs2: $(IMAGEDIR)/root.jffs2
 	@echo -n "Creating root.sum.jffs2 with summary... "
 	@echo -n "(--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "
@@ -39,5 +42,6 @@ $(IMAGEDIR)/root.sum.jffs2: $(IMAGEDIR)/root.jffs2
 		echo "-o $@" ) | tee -a "$(PTX_LOGFILE)"		\
 	) | $(FAKEROOT) --
 	@echo "done."
+endif
 
 # vim: syntax=make

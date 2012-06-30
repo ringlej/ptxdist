@@ -27,6 +27,7 @@ $(IMAGEDIR)/hd.img: $(call remove_quotes,$(PTXCONF_IMAGE_HD_PART4_CONTENT))
 GENHDIMARGS += -p $(PTXCONF_IMAGE_HD_PART4_START):$(PTXCONF_IMAGE_HD_PART4_END):$(PTXCONF_IMAGE_HD_PART4_TYPE):$(PTXCONF_IMAGE_HD_PART4_CONTENT)
 endif
 
+ifdef PTXCONF_IMAGE_HD
 $(IMAGEDIR)/hd.img:
 	@echo "Creating hdimg from root.ext2";					\
 	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
@@ -34,5 +35,6 @@ $(IMAGEDIR)/hd.img:
 	@$(call ptx/env) \
 		ptxd_make_bootable $@ $(PTXCONF_IMAGE_HD_PART1_START)
 	@echo "done."
+endif
 
 # vim: syntax=make

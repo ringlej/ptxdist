@@ -16,6 +16,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_UBI_DATA)	+= $(IMAGEDIR)/data.ubi
 #
 # create the UBIFS image
 #
+ifdef PTXCONF_IMAGE_UBIFS_ROOT
 $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating $(notdir $(@)) from working dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
 	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT)"
@@ -32,7 +33,9 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 		echo -n "-o $@" )						\
 	) | $(FAKEROOT) --
 	@echo "done."
+endif
 
+ifdef PTXCONF_IMAGE_UBIFS_DATA
 $(IMAGEDIR)/data.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating $(notdir $(@)) from empty dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
 	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_DATA_MAX_LEB_COUNT)"
@@ -48,6 +51,7 @@ $(IMAGEDIR)/data.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 	 -o $@								\
 	| $(FAKEROOT) --
 	@echo "done."
+endif
 
 #
 # create the UBI image
@@ -61,6 +65,7 @@ ifdef PTXCONF_IMAGE_UBI_DATA_VOL
 $(IMAGEDIR)/root.ubi: $(IMAGEDIR)/data.ubifs
 endif
 
+ifdef PTXCONF_IMAGE_UBI
 $(IMAGEDIR)/root.ubi: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating $(notdir $(@)) from"
 	@echo -n " $(notdir $(filter %.ubifs,$(^))) ... "
@@ -101,7 +106,9 @@ endif
 		$(PTXDIST_TEMPDIR)/ubi_root.ini;					\
 
 	@echo "done."
+endif
 
+ifdef PTXCONF_IMAGE_UBI_DATA
 $(IMAGEDIR)/data.ubi: $(STATEDIR)/host-mtd-utils.install.post $(IMAGEDIR)/data.ubifs
 	@echo -n "Creating $(notdir $(@)) from"
 	@echo -n " $(notdir $(filter %.ubifs,$(^))) ... "
@@ -125,6 +132,7 @@ $(IMAGEDIR)/data.ubi: $(STATEDIR)/host-mtd-utils.install.post $(IMAGEDIR)/data.u
 		$(PTXDIST_TEMPDIR)/ubi_data.ini;
 
 	@echo "done."
+endif
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
