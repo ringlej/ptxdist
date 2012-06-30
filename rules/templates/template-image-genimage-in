@@ -2,6 +2,7 @@
 
 config IMAGE_@PACKAGE@
 	tristate
-	prompt "Generate @package@.@TYPE@"
+	select HOST_GENIMAGE
+	prompt "Generate images/@package@.@TYPE@"
 	help
 	  FIXME

@@ -2,6 +2,6 @@
 
 config IMAGE_@PACKAGE@_TGZ
 	tristate
-	prompt "Generate @package@.tgz"
+	prompt "Generate images/@package@.tgz"
 	help
 	  FIXME
