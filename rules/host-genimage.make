@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_GENIMAGE) += host-genimage
 #
 # Paths and names
 #
-HOST_GENIMAGE_VERSION	:= 1
-HOST_GENIMAGE_MD5	:= 1565bb7a6d07a01bf79da660f18d512b
+HOST_GENIMAGE_VERSION	:= 2
+HOST_GENIMAGE_MD5	:= 0ea3dbff06cb89725ca10a0ae5042b05
 HOST_GENIMAGE		:= genimage-$(HOST_GENIMAGE_VERSION)
 HOST_GENIMAGE_SUFFIX	:= tar.xz
 HOST_GENIMAGE_URL	:= http://www.pengutronix.de/software/genimage/download/$(HOST_GENIMAGE).$(HOST_GENIMAGE_SUFFIX)
@@ -32,5 +32,8 @@ HOST_GENIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_GENIMAGE)
 # autoconf
 #
 HOST_GENIMAGE_CONF_TOOL	:= autoconf
+HOST_GENIMAGE_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--enable-largefile
 
 # vim: syntax=make
