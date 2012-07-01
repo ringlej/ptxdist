@@ -28,7 +28,7 @@ IMAGE_@PACKAGE@_CONFIG	:= @CONFIG@
 
 $(IMAGE_@PACKAGE@_IMAGE):
 	@$(call targetinfo)
-	@$(call image/archive, IMAGE_@PACKAGE@)
+	@$(call image/genimage, IMAGE_@PACKAGE@)
 	@$(call finish)
 
 # vim: syntax=make
