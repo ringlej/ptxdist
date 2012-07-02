@@ -65,8 +65,11 @@ endif
 $(STATEDIR)/barebox.prepare: $(BAREBOX_CONFIG)
 	@$(call targetinfo)
 
-	@echo "Using barebox config file: $(BAREBOX_CONFIG)"
-	@install -m 644 $(BAREBOX_CONFIG) $(BAREBOX_DIR)/.config
+	@echo "Using barebox config file: $(<)"
+	@install -m 644 "$(<)" "$(BAREBOX_DIR)/.config"
+
+	@$(call ptx/oldconfig, BAREBOX)
+	@diff -q -I "# [^C]" "$(BAREBOX_DIR)/.config" "$(<)" > /dev/null || cp "$(BAREBOX_DIR)/.config" "$(<)"
 
 ifdef PTXCONF_BAREBOX_EXTRA_ENV
 	@rm -rf $(BAREBOX_DIR)/.ptxdist-defaultenv
@@ -82,8 +85,6 @@ ifdef PTXCONF_BAREBOX_EXTRA_ENV
 	@sed -i -e "s,^\(CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\)\"$$,\1 .ptxdist-defaultenv\"," \
 		$(BAREBOX_DIR)/.config
 endif
-
-	@$(call ptx/oldconfig, BAREBOX)
 
 	@$(call touch)
 
