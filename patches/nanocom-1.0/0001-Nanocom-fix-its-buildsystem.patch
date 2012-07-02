@@ -1,0 +1,37 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Date: Mon, 2 Jul 2012 10:36:35 +0200
+Subject: [PATCH] Nanocom: fix its buildsystem
+
+This existing Makefile tries to be smarter than Make is. And it fails badly.
+ - it is not able to compile twice
+ - it does not honor external flags, nor does it list the binaries sources for
+   dependency detection
+
+Signed-off.by: Juergen Beisert <jbe@pengutronix.de>
+---
+ Makefile |   10 ++++------
+ 1 files changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index df28d22..1ef2aed 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,13 +12,11 @@
+ #** GNU General Public License for more details at www.gnu.org
+ #****************************************************************************/
+ 
+-CC=gcc
++all: nanocom
+ 
+-all: clean nanocom
++nanocom: mux.c menu.c nanocom.c
+ 
+-nanocom: 
+-	$(CC) mux.c nanocom.c menu.c -o nanocom
+-    
+ clean:
+ 	rm -rf *.o nanocom
+-    
+\ No newline at end of file
++
++.PHONY: all clean
