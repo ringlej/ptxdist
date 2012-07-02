@@ -328,6 +328,7 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 	print "$(" this_PKG "_IMAGE): " \
 		"$(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(" this_PKG "_PKGS)))"		> DGEN_DEPS_POST;
 	print "$(" this_PKG "_IMAGE): "                               "$(" this_PKG "_FILES)"			> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install.post: "               "$(" this_PKG "_IMAGE)"			> DGEN_DEPS_POST;
 	print "images: "                                              "$(" this_PKG "_IMAGE)"			> DGEN_DEPS_POST;
 	#
 	# add dep to pkgs we depend on
