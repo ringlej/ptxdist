@@ -38,7 +38,7 @@ BASH_AUTOCONF	:= \
 	--without-bash-malloc \
 	--disable-net-redirections \
 	--$(call ptx/endis, PTXCONF_BASH_SHLIKE)-minimal-config \
-	--$(call ptx/endis, PTXCONF_BASH_ALIAS)-alias \
+	--$(call ptx/endis, PTXCONF_BASH_ALIASES)-alias \
 	--$(call ptx/endis, PTXCONF_BASH_ARITHMETIC_FOR)-arith-for-command \
 	--$(call ptx/endis, PTXCONF_BASH_ARRAY)-array-variables \
 	--$(call ptx/endis, PTXCONF_BASH_HISTORY)-bang-history \
