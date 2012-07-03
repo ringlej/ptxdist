@@ -38,7 +38,7 @@ LINKS_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LINKS_GPM)-gpm \
 	--$(call ptx/wwo, PTXCONF_LINKS_PNG)-png \
 	--$(call ptx/wwo, PTXCONF_LINKS_JPEG)-libjpeg \
-	--$(call ptx/wwo, PTXCONF_LINKS_FB)-fb \
+	--$(call ptx/wwo, PTXCONF_LINKS_FBCON)-fb \
 	--$(call ptx/wwo, PTXCONF_LINKS_TIFF)-libtiff \
 	--$(call ptx/wwo, PTXCONF_LINKS_X)-x \
 	--$(call ptx/wwo, PTXCONF_LINKS_DIRECTFB)-directfb \
