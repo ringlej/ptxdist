@@ -383,6 +383,7 @@ ptxd_template_help_list[${#ptxd_template_help_list[@]}]="kernel"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for an extra kernel"
 
 ptxd_template_new_image_tgz() {
+    export class="image-"
     ptxd_template_read_name &&
     ptxd_template_read_author &&
     ptxd_template_read "add packages" PACKAGES '$(PTX_PACKAGES_INSTALL)'
@@ -394,6 +395,7 @@ ptxd_template_help_list[${#ptxd_template_help_list[@]}]="image-tgz"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for a tgz image"
 
 ptxd_template_new_image_genimage() {
+    export class="image-"
     ptxd_template_read_name &&
     ptxd_template_read_author &&
     ptxd_template_read "image type" TYPE
