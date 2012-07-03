@@ -31,6 +31,7 @@ ptxd_template_read() {
     read -e -p "${prompt}: " "${iargs[@]}" "${2}" &&
     export "${2}"
 }
+export -f ptxd_template_read
 
 ptxd_template_read_name() {
     ptxd_template_read "enter package name" package_name
@@ -110,6 +111,14 @@ ptxd_template_read_local() {
 }
 export -f ptxd_template_read_local
 
+ptxd_template_print_path() {
+    if [ $# -ne 1 ]; then
+	ptxd_bailout "number of arguments must be 1"
+    fi
+    echo "${1#${PWD}/}"
+}
+export -f ptxd_template_print_path
+
 ptxd_template_setup_class() {
     export AUTOCONF_CLASS="${1}"
     export class="${action}-"
@@ -130,14 +139,14 @@ ptxd_template_filter() {
     if [ -f "${filename}" ]; then
 	echo
 	local overwrite
-	read -e -p "${PTXDIST_LOG_PROMPT}warning: ${filename} does already exist, overwrite? [y/n] " overwrite
+	read -e -p "${PTXDIST_LOG_PROMPT}warning: $(ptxd_template_print_path "${filename}") does already exist, overwrite? [y/n] " overwrite
 	if [ "${overwrite}" != "y" ]; then
 	echo "${PTXDIST_LOG_PROMPT}aborted."
 	echo
 	exit
 	fi
     fi
-    echo "generating $(ptxd_print_path ${filename})"
+    echo "generating $(ptxd_template_print_path ${filename})"
     mkdir -p "$(dirname "${filename}")"
     ptxd_replace_magic "${template_file}" > "${filename}" || return
 }
@@ -394,7 +403,7 @@ ptxd_template_new_image_genimage() {
     local template_file="${TEMPLATESDIR}/${template}-config"
     local filename="${PTXDIST_PLATFORMCONFIGDIR}/config/images/${CONFIG}"
     if ptxd_get_alternative config/images "${CONFIG}"; then
-	echo "using existing config file $(ptxd_print_path ${ptxd_reply})"
+	echo "using existing config file $(ptxd_template_print_path ${ptxd_reply})"
     else
 	ptxd_template_filter "${template_file}" "${filename}"
     fi
