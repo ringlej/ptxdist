@@ -45,9 +45,9 @@ config IPROUTE2_IP
 comment "busybox' ip is selected"
 	depends on BUSYBOX_IP
 
-config IPROUTE2_IPCFG
+config IPROUTE2_IFCFG
 	bool
-	prompt "ipcfg"
+	prompt "ifcfg"
 
 config IPROUTE2_IFSTAT
 	bool
