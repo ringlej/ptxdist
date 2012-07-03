@@ -44,7 +44,7 @@ POPPLER_AUTOCONF := \
 	--disable-libopenjpeg \
 	--disable-libtiff \
 	--$(call ptx/endis, PTXCONF_POPPLER_ZLIB)-zlib \
-	--$(call ptx/endis, PTXCONF_POPPLER_LIB)-libcurl \
+	--$(call ptx/endis, PTXCONF_POPPLER_CURL)-libcurl \
 	--$(call ptx/endis, PTXCONF_POPPLER_JPEG)-libjpeg \
 	--$(call ptx/endis, PTXCONF_POPPLER_PNG)-libpng \
 	--$(call ptx/endis, PTXCONF_POPPLER_SPLASH)-splash-output \
