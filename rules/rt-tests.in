@@ -52,6 +52,12 @@ config RT_TESTS_PI_STRESS
 	help
 	  priority inheritance stress test
 
+config RT_TESTS_PMQTEST
+	bool
+	prompt "pmqtest"
+	help
+	  test POSIX message queue latency
+
 config RT_TESTS_PTSEMATEST
 	bool
 	prompt "ptsematest"
