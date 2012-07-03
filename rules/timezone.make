@@ -77,7 +77,6 @@ TIMEZONE-$(PTXCONF_TIMEZONE_HONGKONG) += "Hongkong"
 TIMEZONE-$(PTXCONF_TIMEZONE_JAMAICA) += "Jamaica"
 TIMEZONE-$(PTXCONF_TIMEZONE_MST) += "MST"
 TIMEZONE-$(PTXCONF_TIMEZONE_NZ_CHAT) += "NZ-CHAT"
-TIMEZONE-$(PTXCONF_TIMEZONE_SYSTEMV) += "SystemV"
 TIMEZONE-$(PTXCONF_TIMEZONE_UNIVERSAL) += "Universal"
 
 # ----------------------------------------------------------------------------
