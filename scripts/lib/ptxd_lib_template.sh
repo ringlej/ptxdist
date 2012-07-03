@@ -400,7 +400,7 @@ ptxd_template_new_image_genimage() {
     ptxd_template_read_author &&
     ptxd_template_read "image type" TYPE
     ptxd_template_read "add archives" FILES "\$(IMAGEDIR)/root.tgz"
-    ptxd_template_read "genimage config" CONFIG "${TYPE}.config"
+    ptxd_template_read "genimage config" CONFIG "${package_name}.config"
     ptxd_template_write_platform_rules
     local template_file="${TEMPLATESDIR}/${template}-config"
     local filename="${PTXDIST_PLATFORMCONFIGDIR}/config/images/${CONFIG}"
