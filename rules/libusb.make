@@ -55,7 +55,6 @@ endif
 $(STATEDIR)/libusb.targetinstall:
 	@$(call targetinfo)
 
-ifndef PTXCONF_LIBUSB_BUILD_STATIC
 	@$(call install_init, libusb)
 	@$(call install_fixup, libusb,PRIORITY,optional)
 	@$(call install_fixup, libusb,SECTION,base)
@@ -65,7 +64,7 @@ ifndef PTXCONF_LIBUSB_BUILD_STATIC
 	@$(call install_lib, libusb, 0, 0, 0644, libusb-1.0)
 
 	@$(call install_finish, libusb)
-endif
+
 	@$(call touch)
 
 # vim: syntax=make
