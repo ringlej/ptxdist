@@ -34,7 +34,7 @@ config XORG_LIB_X11_XF86BIGFONT
 	help
 	  FIXME
 
-config XORG_LIB_X11_i18n
+config XORG_LIB_X11_I18N
 	bool
 	prompt "Loadable i18n module support"
 	help
