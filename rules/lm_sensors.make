@@ -65,9 +65,6 @@ $(STATEDIR)/lm_sensors.targetinstall:
 ifdef PTXCONF_LM_SENSORS_FANCONTROL
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/fancontrol)
 endif
-ifdef PTXCONF_LM_SENSORS_SENSORS_DETECT
-	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/sensors-detect)
-endif
 ifdef PTXCONF_LM_SENSORS_PWMCONFIG
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/pwmconfig)
 endif
