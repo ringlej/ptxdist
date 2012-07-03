@@ -69,7 +69,6 @@ GNUPLOT_AUTOCONF = \
 	--without-tutorial \
 	--without-wx-config \
 	--without-lua \
-	--$(call ptx/endis, PTXCONF_GNUPLOT_FILTERRVARS)-filterrvars \
 	--$(call ptx/endis, PTXCONF_GNUPLOT_X)-mouse \
 	--$(call ptx/wwo, PTXCONF_GNUPLOT_X)-x \
 	--$(call ptx/wwo, PTXCONF_GNUPLOT_PLOT)-plot \

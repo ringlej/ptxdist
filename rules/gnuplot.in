@@ -43,10 +43,6 @@ config GNUPLOT_JS
 	  Installs some JavaScript files and PNG images which will be needed if
 	  HTML5 output should be generated. Requires about 300 kByte of disk space.
 
-config GNUPLOT_FITERRVARS
-	bool
-	prompt "Support for fitting error variables"
-
 config GNUPLOT_X
 	bool
 	prompt "X support"
