@@ -2235,7 +2235,8 @@ setup_platform() {
 		[ -e "${cfg_file}" ] || continue
 
 		cfg_file="$(readlink -f "${cfg_file}")" || return
-		cfg_dir="${cfg_file%/*}"
+		cfg_dir="$(dirname "${cfg_file}")"
+		cfg_dir="${cfg_dir/#$(readlink -f "${PTXDIST_WORKSPACE}")/${PTXDIST_WORKSPACE}}"
 		break
 	done
 
