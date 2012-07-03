@@ -61,10 +61,10 @@ else
 INITNG_CONF_OPT += -DBUILD_DEBUG=OFF
 endif
 
-ifdef PTXCONF_INITNG_FORCE_NO_COLOR
-INITNG_CONF_OPT += -DFORCE_NO_COLOR=ON
+ifdef PTXCONF_INITNG_FORCE_NOCOLOR
+INITNG_CONF_OPT += -DFORCE_NOCOLOR=ON
 else
-INITNG_CONF_OPT += -DFORCE_NO_COLOR=OFF
+INITNG_CONF_OPT += -DFORCE_NOCOLOR=OFF
 endif
 
 ifdef PTXCONF_INITNG_ALSO
@@ -308,10 +308,10 @@ else
 INITNG_CONF_OPT += -DBUILD_SYSLOG=OFF
 endif
 
-ifdef PTXCONF_INITNG_SYSRQ
-INITNG_CONF_OPT += -DBUILD_SYSRQ=ON
+ifdef PTXCONF_INITNG_SYSREQ
+INITNG_CONF_OPT += -DBUILD_SYSREQ=ON
 else
-INITNG_CONF_OPT += -DBUILD_SYSRQ=OFF
+INITNG_CONF_OPT += -DBUILD_SYSREQ=OFF
 endif
 
 
@@ -482,8 +482,8 @@ ifdef PTXCONF_INITNG_SYSLOG
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libsyslog.so)
 endif
 
-ifdef PTXCONF_INITNG_SYSRQ
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libsysrq.so)
+ifdef PTXCONF_INITNG_SYSREQ
+	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libsysreq.so)
 endif
 
 ifdef PTXCONF_INITNG_IDLEPROBE
