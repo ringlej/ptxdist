@@ -53,7 +53,7 @@ else
 SPLASHUTILS_AUTOCONF += --without-png
 endif
 
-ifdef PTXCONF_SPLASHUTILS_TTG
+ifdef PTXCONF_SPLASHUTILS_TTF
 SPLASHUTILS_AUTOCONF += --with-ttf --with-ttf-kernel
 else
 SPLASHUTILS_AUTOCONF += --without-ttf --without-ttf-kernel
