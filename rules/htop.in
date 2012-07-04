@@ -2,6 +2,7 @@
 config HTOP
 	tristate
 	select LIBC_M
+	select GCCLIBS_GCC_S
 	select NCURSES
 	prompt "htop"
 	help

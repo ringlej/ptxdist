@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 0.8.3
-HTOP_MD5	:= 5c9f093f9eaddf6e77aa6d54c2116d0c
+HTOP_VERSION	:= 1.0.1
+HTOP_MD5	:= d3b80d905a6bff03f13896870787f901
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= $(call ptx/mirror, SF, htop/$(HTOP).$(HTOP_SUFFIX))
@@ -29,8 +29,7 @@ HTOP_DIR	:= $(BUILDDIR)/$(HTOP)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HTOP_PATH	:= PATH=$(CROSS_PATH)
-HTOP_ENV 	:= \
+HTOP_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	ac_cv_file__proc_stat=yes \
 	ac_cv_file__proc_meminfo=yes
@@ -38,7 +37,10 @@ HTOP_ENV 	:= \
 #
 # autoconf
 #
-HTOP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+HTOP_CONF_TOOL	:= autoconf
+HTOP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-unicode
 
 # ----------------------------------------------------------------------------
 # Target-Install
