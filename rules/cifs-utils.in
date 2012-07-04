@@ -1,0 +1,7 @@
+## SECTION=disk_and_file
+
+config CIFS_UTILS
+	tristate
+	prompt "cifs-utils"
+	help
+	  Userspace tools for the CIFS filesystem, such as mount.cifs
