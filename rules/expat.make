@@ -25,18 +25,19 @@ EXPAT_SUFFIX	:= tar.gz
 EXPAT_URL	:= $(call ptx/mirror, SF, expat/$(EXPAT).$(EXPAT_SUFFIX))
 EXPAT_SOURCE	:= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR	:= $(BUILDDIR)/$(EXPAT)
+EXPAT_LICENSE	:= as is
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-EXPAT_PATH	:= PATH=$(CROSS_PATH)
-EXPAT_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-EXPAT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+EXPAT_CONF_TOOL	:= autoconf
+EXPAT_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
