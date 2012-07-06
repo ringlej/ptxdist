@@ -3,6 +3,7 @@ menuconfig UDEV
 	tristate
 	prompt "udev                          "
 	select ROOTFS_DEV
+	select ROOTFS_RUN	if !UDEV_LEGACY
 	select LIBC_RT
 	select LIBKMOD		if !UDEV_LEGACY
 	select LIBBLKID		if !UDEV_LEGACY
