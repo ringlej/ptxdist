@@ -9,6 +9,9 @@
 # see the README file.
 #
 
+SEL_ROOTFS-$(PTXCONF_IMAGE_BOOT_MLO_VFAT) += $(IMAGEDIR)/boot-mlo.vfat
+
+ifdef PTXCONF_IMAGE_BOOT_MLO_VFAT
 $(IMAGEDIR)/boot-mlo.vfat.map:
 	@echo "$(IMAGEDIR)/MLO:MLO"				>  "$@"
 ifdef PTXCONF_U_BOOT
@@ -29,8 +32,6 @@ endif
 ifdef PTXCONF_BAREBOX
 $(IMAGEDIR)/boot-mlo.vfat: $(IMAGEDIR)/barebox-image
 endif
-
-ifdef PTXCONF_IMAGE_BOOT_MLO_VFAT
-images: $(IMAGEDIR)/boot-mlo.vfat
 endif
 
+# vim: syntax=make
