@@ -1,0 +1,10 @@
+## SECTION=image2
+
+config IMAGE_BOOT_MLO
+	tristate
+	select HOST_GENIMAGE
+	select U_BOOT
+	select KERNEL
+	prompt "Generate images/boot-mlo.vfat"
+	help
+	  FIXME

@@ -1,0 +1,45 @@
+## SECTION=image2
+
+menuconfig IMAGE_ROOT_EXT
+	tristate
+	select HOST_GENIMAGE
+	select HOST_GENEXT2FS
+	select HOST_E2FSPROGS
+	select IMAGE_ROOT_TGZ
+	prompt "Generate images/root.ext2     "
+	help
+	  FIXME
+
+if IMAGE_ROOT_EXT
+
+config IMAGE_ROOT_EXT_SIZE
+	string
+	default "20M"
+	prompt "image size"
+	help
+	  The image size in bytes or with unit, e.g. 42M, 23G, etc.
+
+choice
+	prompt "ext2fs type          "
+
+config IMAGE_ROOT_EXT_EXT2
+	bool
+	prompt "ext2"
+
+config IMAGE_ROOT_EXT_EXT3
+	bool
+	prompt "ext3"
+
+config IMAGE_ROOT_EXT_EXT4
+	bool
+	prompt "ext4"
+
+endchoice
+
+config IMAGE_ROOT_EXT_TYPE
+	string
+	default "ext2" if IMAGE_ROOT_EXT_EXT2
+	default "ext3" if IMAGE_ROOT_EXT_EXT3
+	default "ext4" if IMAGE_ROOT_EXT_EXT4
+
+endif

@@ -1,0 +1,7 @@
+## SECTION=image2
+
+config IMAGE_ROOT_TGZ
+	tristate
+	prompt "Generate images/root.tgz"
+	help
+	  FIXME
