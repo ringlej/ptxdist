@@ -116,6 +116,19 @@ endif
 
 $(STATEDIR)/barebox.targetinstall:
 	@$(call targetinfo)
+
+ifdef PTXCONF_BAREBOX_BAREBOXENV
+	@$(call install_init, barebox)
+	@$(call install_fixup, barebox,PRIORITY,optional)
+	@$(call install_fixup, barebox,SECTION,base)
+	@$(call install_fixup, barebox,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, barebox,DESCRIPTION,missing)
+
+	@$(call install_copy, barebox, 0, 0, 0755, $(BAREBOX_DIR)/scripts/bareboxenv-target, \
+		/usr/bin/bareboxenv)
+
+	@$(call install_finish, barebox)
+endif
 	@install -D -m644 $(BAREBOX_DIR)/barebox.bin $(IMAGEDIR)/barebox-image
 	@install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment
 	@$(call touch)

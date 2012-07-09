@@ -51,4 +51,12 @@ config BAREBOX_EXTRA_ENV_PATH
 	default "${PTXDIST_PLATFORMCONFIGDIR}/barebox-defaultenv"
 	depends on BAREBOX_EXTRA_ENV
 
+config BAREBOX_BAREBOXENV
+	prompt "install 'bareboxenv'"
+	bool
+	help
+	  The tool 'bareboxenv' can be used to manipulate the barebox
+	  environment. Enable this option access the barebox environment
+	  from the target Linux system.
+
 endif
