@@ -5,7 +5,7 @@ Subject: [PATCH] xmlrpc-c-config.in: use pkg-config to get curl's libs
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  xmlrpc-c-config.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/xmlrpc-c-config.in b/xmlrpc-c-config.in
 index db6afdb..2baafe9 100644

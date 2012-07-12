@@ -13,10 +13,10 @@ information.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.in b/configure.in
-index 8f1f890..dfbc6a4 100644
+index 4a4f916..a83076a 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -227,7 +227,7 @@ dnl =======================================================================

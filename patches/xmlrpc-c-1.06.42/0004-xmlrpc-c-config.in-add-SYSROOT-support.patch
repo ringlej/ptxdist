@@ -5,7 +5,7 @@ Subject: [PATCH] xmlrpc-c-config.in: add SYSROOT support
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  xmlrpc-c-config.in |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/xmlrpc-c-config.in b/xmlrpc-c-config.in
 index 2baafe9..699f697 100644

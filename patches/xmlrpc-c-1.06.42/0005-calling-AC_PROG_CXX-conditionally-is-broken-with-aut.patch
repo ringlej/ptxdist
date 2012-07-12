@@ -6,10 +6,10 @@ Subject: [PATCH] calling AC_PROG_CXX conditionally is broken with autoconf >
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.in |    4 +---
- 1 files changed, 1 insertions(+), 3 deletions(-)
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index dfbc6a4..f362127 100644
+index a83076a..705eb35 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -213,9 +213,7 @@ dnl Checks for programs.

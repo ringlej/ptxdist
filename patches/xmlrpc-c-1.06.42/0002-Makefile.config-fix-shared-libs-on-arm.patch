@@ -12,7 +12,7 @@ considered to compile for a linux system.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.config.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.config.in b/Makefile.config.in
 index 07f37af..a79ca1e 100644

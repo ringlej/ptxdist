@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XMLRPC_C) += xmlrpc-c
 #
 # Paths and names
 #
-XMLRPC_C_VERSION	:= 1.06.41
-XMLRPC_C_MD5		:= 02c6b89b8ff911341b6b6d4a6c621ea9
+XMLRPC_C_VERSION	:= 1.06.42
+XMLRPC_C_MD5		:= 248bacf3a998ceca6f491a213337c592
 XMLRPC_C		:= xmlrpc-c-$(XMLRPC_C_VERSION)
 XMLRPC_C_SUFFIX		:= tgz
 XMLRPC_C_URL		:= $(call ptx/mirror, SF, xmlrpc-c/Xmlrpc-c%20Super%20Stable/$(XMLRPC_C_VERSION)/$(XMLRPC_C).$(XMLRPC_C_SUFFIX))
@@ -73,7 +73,8 @@ XMLRPC_C_CONF_OPT += --disable-libxml2-backend
 endif
 
 XMLRPC_C_MAKE_OPT := \
-	CADD=-fPIC \
+	CADD="$(CROSS_CPPFLAGS) $(CROSS_CFLAGS) -fPIC" \
+	LADD="$(CROSS_LDFLAGS)" \
 	BUILDTOOL_CC=$(HOSTCC) \
 	BUILDTOOL_CCLD=$(HOSTCC)
 
