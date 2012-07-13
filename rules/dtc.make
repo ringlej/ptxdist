@@ -23,10 +23,6 @@ DTC_VERSION := 1.0.0
 
 ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 
-# .dtb depends on the .dts and dtc.install for all other dependencies
-$(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
-	$(eval $(IMAGEDIR)/$(call ptx/dtb, $(dts)): $(dts)  $(STATEDIR)/dtc.install))
-
 %.dtb:
 	@$(call targetinfo)
 	@$(PTXCONF_SYSROOT_HOST)/bin/dtc \
