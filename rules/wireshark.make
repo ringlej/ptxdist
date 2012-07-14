@@ -81,8 +81,9 @@ $(STATEDIR)/wireshark.targetinstall:
 #
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/capinfos)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/dumpcap)
-	@$(call install_copy, wireshark, 0, 0, 0755, -, \
-		/usr/bin/tshark)
+ifdef PTXCONF_WIRESHARK_TSHARK
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/tshark)
+endif
 #
 # libraries used by some of the executables
 #
