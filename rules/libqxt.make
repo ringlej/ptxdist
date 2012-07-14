@@ -45,7 +45,7 @@ LIBQXT_CONF_OPT	:= \
 	-prefix /usr \
 	-featuredir /usr/mkspecs/features \
 	-release \
-	-nomake "$(shell echo $(LIBQXT_MODULES-) | tr "a-z-" "A-Z_")"
+	-nomake "$(shell echo $(LIBQXT_MODULES-) | tr "A-Z" "a-z")"
 
 ifdef PTXCONF_QT4_PLATFORM_EMBEDDED
 LIBQXT_CONF_OPT += -qws
