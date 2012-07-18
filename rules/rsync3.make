@@ -39,6 +39,8 @@ RSYNC3_AUTOCONF  := \
 	 $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_RSYNC3_ACL)-acl-support \
+	--$(call ptx/endis, PTXCONF_RSYNC3_ATTR)-xattr-support \
 	--with-included-popt \
 	--disable-debug \
 	--disable-locale

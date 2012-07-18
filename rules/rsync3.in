@@ -3,6 +3,8 @@ menuconfig RSYNC3
 	tristate
 	prompt "rsync v3                      "
 	select OPENSSH_SSH
+	select ACL	if RSYNC3_ACL
+	select ATTR	if RSYNC3_ATTR
 	help
 	  rsync is a program that behaves in much the same way that rcp does,
 	  but has many more options and uses the rsync remote-update protocol to
@@ -16,4 +18,15 @@ config RSYNC3_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/rsync"
 
+config RSYNC3_ACL
+	bool
+	prompt "enable ACL support"
+	help
+	  --enable-acl-support
+
+config RSYNC3_ATTR
+	bool
+	prompt "enable extended attribute support"
+	help
+	  --enable-xattr-support
 endif
