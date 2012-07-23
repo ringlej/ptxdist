@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.4.9
-MTD_UTILS_MD5		:= 82b8e714b90674896570968f70ca778b
+MTD_UTILS_VERSION	:= 1.5.0
+MTD_UTILS_MD5		:= 7332f1143be4ba8ee2de3096cbd3b03b
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
