@@ -1,7 +1,10 @@
 ## SECTION=shell_and_console
+comment "BusyBox' lsof is selected!"
+	depends on BUSYBOX_LSOF
 
 config LSOF
 	tristate
+	depends on !BUSYBOX_LSOF || ALLYES
 	prompt "lsof"
 	help
 	  Lsof is a Unix-specific diagnostic tool.  Its name stands
