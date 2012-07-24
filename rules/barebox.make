@@ -146,7 +146,7 @@ $(STATEDIR)/barebox.clean:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-barebox_oldconfig barebox_menuconfig: $(STATEDIR)/barebox.extract
+barebox_oldconfig barebox_menuconfig barebox_nconfig: $(STATEDIR)/barebox.extract
 	@if test -e $(BAREBOX_CONFIG); then \
 		cp $(BAREBOX_CONFIG) $(BAREBOX_DIR)/.config; \
 	fi
