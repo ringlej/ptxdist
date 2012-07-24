@@ -251,7 +251,7 @@ $(STATEDIR)/kernel.clean:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
+kernel_oldconfig kernel_menuconfig kernel_nconfig: $(STATEDIR)/kernel.extract
 	@if [ -e $(KERNEL_CONFIG) ]; then \
 		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
 	fi
