@@ -3,6 +3,7 @@
 config IMAGE_BOOT_MLO
 	tristate
 	select HOST_GENIMAGE
+	select IMAGE_VFAT_TOOLS
 	select U_BOOT
 	select KERNEL
 	prompt "Generate images/boot-mlo.vfat"
