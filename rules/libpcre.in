@@ -34,4 +34,7 @@ config LIBPCRE_LIBPCREPOSIX
 config LIBPCRE_LIBPCRECPP
        bool "install libpcrecpp (c++ bindings for libpcre)"
 
+config LIBPCRE_PCREGREP
+       bool "install pcregrep on the target"
+
 endif

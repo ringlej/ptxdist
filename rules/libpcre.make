@@ -66,6 +66,11 @@ endif
 ifdef PTXCONF_LIBPCRE_LIBPCRECPP
 	@$(call install_lib, libpcre, 0, 0, 0644, libpcrecpp)
 endif
+
+ifdef PTXCONF_LIBPCRE_PCREGREP
+	@$(call install_copy, libpcre, 0, 0, 0755, -, /usr/bin/pcregrep)
+endif
+
 	@$(call install_finish, libpcre)
 
 	@$(call touch)
