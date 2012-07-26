@@ -5,6 +5,8 @@ menuconfig LIBPCRE
 	prompt "libpcre                       "
 	select GCCLIBS_CXX	if LIBPCRE_LIBPCRECPP
 	select ZLIB		if LIBPCRE_ENABLE_PCREGREP_LIBZ
+	select BZIP2		if LIBPCRE_ENABLE_PCREGREP_LIBBZ2
+	select BZIP2_LIBBZ2	if LIBPCRE_ENABLE_PCREGREP_LIBBZ2
 	help
 	  Perl 5 Compatible Regular Expression Library
 
@@ -19,6 +21,9 @@ config LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF
 
 config LIBPCRE_ENABLE_PCREGREP_LIBZ
        bool "Enable grep libz"
+
+config LIBPCRE_ENABLE_PCREGREP_LIBBZ2
+       bool "Enable grep libbz2"
 
 config LIBPCRE_ENABLE_UTF8
        bool "Enable UTF8"
