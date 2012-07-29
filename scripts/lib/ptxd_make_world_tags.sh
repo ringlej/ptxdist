@@ -13,7 +13,7 @@
 ptxd_make_world_tags() {
     ptxd_make_world_init &&
 
-    eval \
+    ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_make_env}" \

@@ -708,6 +708,28 @@ ptxd_warning() {
 }
 export -f ptxd_warning
 
+#
+# print a message if verbose building is enabled
+# the message will always be written to the logfile
+#
+ptxd_verbose() {
+	if [ "${PTXDIST_VERBOSE}" = "true" ]; then
+		echo "${PTXDIST_LOG_PROMPT}""${@}" >&2
+	else
+		echo "${PTXDIST_LOG_PROMPT}""${@}" >&7
+	fi
+}
+export -f ptxd_verbose
+
+#
+# execute the arguments with eval
+#
+ptxd_eval() {
+	ptxd_verbose "executing:" "${@}
+"
+	eval "${@}"
+}
+export -f ptxd_eval
 
 #
 # check if a previously executed pipe returned an error

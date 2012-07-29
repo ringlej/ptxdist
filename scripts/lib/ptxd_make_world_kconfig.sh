@@ -16,7 +16,7 @@ ptxd_make_kconfig() {
     if [ -e "${pkg_config}" ]; then
 	cp "${pkg_config}" .config
     fi &&
-    eval \
+    ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \

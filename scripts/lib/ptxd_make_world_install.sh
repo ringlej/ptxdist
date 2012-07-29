@@ -25,7 +25,7 @@ export -f ptxd_make_world_install_prepare
 # FIXME: kick ${pkg_install_env}
 #
 ptxd_make_world_install() {
-    local -a fakeargs
+    local -a fakeargs cmd
 
     ptxd_make_world_init &&
 
@@ -48,7 +48,7 @@ ptxd_make_world_install() {
 
     ptxd_make_world_install_prepare &&
 
-    "${echo:-echo}" \
+    cmd=( \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_make_env}" \
@@ -57,6 +57,12 @@ ptxd_make_world_install() {
 	-C "${pkg_build_dir}" \
 	"${pkg_install_opt}" \
 	-j1 \
+    ) &&
+
+    ptxd_verbose "executing:" "${cmd[@]}" &&
+
+    "${echo:-echo}" \
+	"${cmd[@]}" \
 	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" --
     check_pipe_status
 }

@@ -156,11 +156,11 @@ ptxd_make_world_init_compat() {
     esac
     export pkg_sysroot_dir
 
-
     # pkg_env
+    pkg_env="SYSROOT='${pkg_sysroot_dir}' V=${PTXDIST_VERBOSE} VERBOSE=${PTXDIST_VERBOSE}"
     case "${pkg_type}" in
-	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} SYSROOT='${pkg_sysroot_dir}'" ;;
-	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig:${PTXDIST_SYSROOT_HOST}/share/pkgconfig' SYSROOT='${pkg_sysroot_dir}'" ;;
+	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} ${pkg_env}" ;;
+	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig:${PTXDIST_SYSROOT_HOST}/share/pkgconfig' ${pkg_env}" ;;
     esac
 }
 export -f ptxd_make_world_init_compat

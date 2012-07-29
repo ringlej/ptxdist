@@ -40,7 +40,7 @@ ptxd_make_world_prepare_cmake() {
     [ "${pkg_type}" == "cross" ] && \
 	ptxd_bailout "sorry - cmake 'cross' packages are not supported"
 
-    eval \
+    ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \
@@ -58,7 +58,7 @@ ptxd_make_world_prepare_qmake() {
     [ "${pkg_type}" != "target" ] && \
 	ptxd_bailout "only qmake taget packages are supported"
 
-    eval \
+    ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \
@@ -73,7 +73,7 @@ export -f ptxd_make_world_prepare_qmake
 # prepare for autoconf based pkgs
 #
 ptxd_make_world_prepare_autoconf() {
-    eval \
+    ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \

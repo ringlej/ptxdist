@@ -60,7 +60,7 @@ ptxd_make_image_genimage_impl() {
 	ptxd_make_extract_archive "${image_files}" "${pkg_dir}"
     done &&
 
-    eval \
+    ptxd_eval \
 	"${image_env}" \
 	genimage \
 	--rootpath "${pkg_dir}" \

@@ -18,7 +18,7 @@ ptxd_make_world_compile() {
 	return
     fi &&
 
-    eval \
+    ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_make_env}" \

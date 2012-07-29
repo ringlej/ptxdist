@@ -51,6 +51,7 @@ kernel-url = \
 
 kernel/opts = \
 	$(PARALLELMFLAGS) \
+	V=$(PTXDIST_VERBOSE) \
 	HOSTCC=$(HOSTCC) \
 	ARCH=$(GENERIC_KERNEL_ARCH) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
