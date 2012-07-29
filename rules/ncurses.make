@@ -38,8 +38,8 @@ NCURSES_AUTOCONF_SHARED := \
 	--enable-const \
 	--enable-overwrite \
 	--libdir=/$(CROSS_LIB_DIR) \
-	--with-debug \
-	--with-normal \
+	--without-debug \
+	--without-normal \
 	--with-shared \
 	--without-ada \
 	--without-gpm \
