@@ -28,12 +28,12 @@ HOST_XZ_DIR	:= $(HOST_BUILDDIR)/$(HOST_XZ)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_XZ_PATH	:= PATH=$(HOST_PATH)
-HOST_XZ_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_XZ_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_XZ_CONF_TOOL	:= autoconf
+HOST_XZ_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--disable-static
 
 # vim: syntax=make
