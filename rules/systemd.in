@@ -11,7 +11,7 @@ menuconfig SYSTEMD
 	select LIBCAP
 	select UDEV
 	select UDEV_LIBUDEV
-	select RC_ONCE
+	select RC_ONCE		if RUNTIME
 	select DBUS_PYTHON	if SYSTEMD_ANALYZE && RUNTIME
 	select TCPWRAPPER	if SYSTEMD_TCPWRAP
 	select XZ		if SYSTEMD_XZ

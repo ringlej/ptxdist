@@ -4,7 +4,7 @@ menuconfig PRELINK
 	tristate
 	select GCCLIBS_GCC_S
 	select LIBELF
-	select RC_ONCE if PRELINK_RC_ONCE
+	select RC_ONCE if PRELINK_RC_ONCE && RUNTIME
 	prompt "prelink                       "
 	help
 	  ELF prelinking utility to speed up dynamic linking.  The
