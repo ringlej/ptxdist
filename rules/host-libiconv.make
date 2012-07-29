@@ -29,13 +29,12 @@ HOST_LIBICONV_DIR	:= $(HOST_BUILDDIR)/$(HOST_LIBICONV)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_LIBICONV_PATH	:= PATH=$(HOST_PATH)
-HOST_LIBICONV_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_LIBICONV_AUTOCONF	:= \
-	$(HOST_AUTOCONF)
+HOST_LIBICONV_CONF_TOOL	:= autoconf
+HOST_LIBICONV_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--disable-static
 
 # vim: syntax=make
