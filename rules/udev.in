@@ -32,6 +32,8 @@ menuconfig UDEV
 
 if UDEV
 
+if !SYSTEMD
+
 menu "build options                 "
 
 config UDEV_LEGACY
@@ -57,6 +59,8 @@ config UDEV_SYSLOG
 	  Note: To use this feature the syslog daemon must start before udev
 
 endmenu
+
+endif
 
 menu "install options               "
 
@@ -114,12 +118,6 @@ config UDEV_STARTSCRIPT
 	  Install the startup magic for either bbinit or upstart.
 	  Select Y here, as this is what you usually want.
 
-config UDEV_SYSTEMD
-	bool
-	default y
-	depends on SYSTEMD
-	prompt "install systemd service files"
-
 endmenu
 
 menu "persistent device node links  "
@@ -139,6 +137,7 @@ config UDEV_PERSISTENT_EDD
 
 config UDEV_PERSISTENT_GENERATOR
 	bool
+	depends on !SYSTEMD
 	prompt "cd / network generator"
 	help
 	  This will generate udev-based persistent naming rules for

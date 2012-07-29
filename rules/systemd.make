@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 44
-SYSTEMD_MD5	:= 11f44ff74c87850064e4351518bcff17
+SYSTEMD_VERSION	:= 189
+SYSTEMD_MD5	:= ac2eb313f5dce79622f60aac56bca66d
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -37,15 +37,21 @@ SYSTEMD_CONF_OPT += \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-silent-rules \
-	--disable-nls \
 	--disable-static \
+	--disable-nls \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--disable-ima \
 	--disable-selinux \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TCPWRAP)-tcpwrap \
 	--disable-pam \
 	--disable-acl \
+	--disable-gcrypt \
 	--disable-audit \
 	--disable-libcryptsetup \
+	--disable-qrencode \
 	--enable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-readahead \
@@ -56,10 +62,12 @@ SYSTEMD_CONF_OPT += \
 	--enable-timedated \
 	--enable-localed \
 	--disable-coredump \
+	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
+	--$(call ptx/endis,PTXCONF_UDEV_KEYMAPS)-keymap \
 	--disable-manpages \
-	--disable-gtk \
-	--disable-plymouth \
 	--enable-split-usr \
+	--with-usb-ids-path=/usr/share/usb.ids \
+	--with-pci-ids-path=/usr/share/pci.ids$(call ptx/ifdef, PTXCONF_PCIUTILS_COMPRESS,.gz,) \
 	--with-distro=other \
 	--with-sysvinit-path="" \
 	--with-sysvrcd-path="" \
@@ -67,7 +75,6 @@ SYSTEMD_CONF_OPT += \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
 	--with-dbusinterfacedir=/usr/share/dbus-1/interfaces \
-	--with-udevrulesdir=/lib/udev/rules.d \
 	--with-pamlibdir=/lib/security \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
@@ -83,8 +90,44 @@ SYSTEMD_CONF_OPT += \
 # - mount fails
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/systemd.install:
+	@$(call targetinfo)
+	@$(call world/install, SYSTEMD)
+	@ln -sf multi-user.target "$(SYSTEMD_PKGDIR)/lib/systemd/system/default.target"
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+SYSTEMD_HELPER := \
+	systemd \
+	systemd-ac-power \
+	systemd-binfmt \
+	systemd-cgroups-agent \
+	systemd-fsck \
+	systemd-hostnamed \
+	systemd-initctl \
+	systemd-journald \
+	systemd-localed \
+	systemd-logind \
+	systemd-modules-load \
+	systemd-multi-seat-x \
+	systemd-quotacheck \
+	systemd-readahead \
+	systemd-remount-fs \
+	systemd-reply-password \
+	systemd-shutdown \
+	systemd-shutdownd \
+	systemd-sleep \
+	systemd-sysctl \
+	systemd-timedated \
+	systemd-timestamp \
+	systemd-update-utmp \
+	systemd-user-sessions
 
 $(STATEDIR)/systemd.targetinstall:
 	@$(call targetinfo)
@@ -108,17 +151,30 @@ $(STATEDIR)/systemd.targetinstall:
 
 #	# daemon + tools
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/journalctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/loginctl)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-ask-password)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-journalctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-inhibit)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-machine-id-setup)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tmpfiles)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-notify)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tty-ask-password-agent)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cat)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgtop)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-detect-virt)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-nspawn)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
 ifdef PTXCONF_SYSTEMD_ANALYZE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-analyze)
 endif
+
+	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system-generators/)
+	@$(foreach helper, $(SYSTEMD_HELPER), \
+		$(call install_copy, systemd, 0, 0, 755, -, \
+			/lib/systemd/$(helper));)
+
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_link, systemd, ../lib/systemd/systemd, /sbin/init)
@@ -131,9 +187,9 @@ endif
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/system.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
-		/etc/systemd/systemd-journald.conf)
+		/etc/systemd/journald.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
-		/etc/systemd/systemd-logind.conf)
+		/etc/systemd/logind.conf)
 	@$(call install_tree, systemd, 0, 0, -, /etc/systemd/system/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/rules.d/99-systemd.rules)
@@ -144,7 +200,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/share/systemd/kbd-model-map)
 
 #	# units
-	@$(call install_tree, systemd, 0, 0, -, /lib/systemd)
+	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
 
