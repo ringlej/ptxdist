@@ -25,6 +25,7 @@ HOST_GETTEXT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-csharp \
 	--disable-java \
+	--disable-static \
 	--disable-libasprintf \
 	--disable-native-java \
 	--disable-openmp \
