@@ -20,6 +20,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_GETTEXT_DUMMY) += host-gettext-dummy
 #
 # autoconf
 #
-HOST_GETTEXT_DUMMY_AUTOCONF := $(HOST_AUTOCONF)
+HOST_GETTEXT_DUMMY_AUTOCONF := \
+	$(HOST_AUTOCONF) \
+	--disable-static \
 
 # vim: syntax=make
