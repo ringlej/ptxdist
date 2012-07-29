@@ -18,5 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBFFI) += host-libffi
 # ----------------------------------------------------------------------------
 
 HOST_LIBFFI_CONF_TOOL	:= autoconf
+HOST_LIBFFI_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--disable-static
 
 # vim: syntax=make
