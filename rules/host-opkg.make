@@ -34,6 +34,7 @@ HOST_OPKG_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-shave \
 	--with-opkglockfile=/lock \
+	--disable-static \
 	--disable-pathfinder \
 	--disable-curl \
 	--disable-sha256 \
