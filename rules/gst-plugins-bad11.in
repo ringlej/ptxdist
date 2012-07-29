@@ -10,6 +10,7 @@ menuconfig GST_PLUGINS_BAD11
 	select BZIP2		if GST_PLUGINS_BAD11_BZ2
 	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD11_BZ2
 	select ORC		if GST_PLUGINS_BAD11_ORC
+	select RTMPDUMP		if GST_PLUGINS_BAD11_RTMP
 
 	prompt "gst-plugins-bad               "
 	help
@@ -230,6 +231,10 @@ config GST_PLUGINS_BAD11_REAL
 config GST_PLUGINS_BAD11_REMOVESILENCE
 	bool
 	prompt "removesilence"
+
+config GST_PLUGINS_BAD11_RTMP
+	bool
+	prompt "rtmp"
 
 config GST_PLUGINS_BAD11_RTPMUX
 	bool
