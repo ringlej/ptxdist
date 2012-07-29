@@ -367,6 +367,7 @@ ptxd_make_log() {
 	{
 		export PTXDIST_FD_STDOUT=5
 		export PTXDIST_FD_STDERR=6
+		export PTXDIST_FD_LOGFILE=7
 		{
 			if [ -z "${PTXDIST_QUIET}" ]; then
 				ptxd_make "${@}" 4>&- |
@@ -377,7 +378,7 @@ ptxd_make_log() {
 				exec 4>&-
 				ptxd_make "${@}" 1>> "${PTX_LOGFILE}"
 			fi
-		} 2>&1 1>&3 3>&- |
+		} 2>&1 1>&3 3>&- 7>> "${PTX_LOGFILE}" |
 		# make's stderr on fd0
 		tee -a "${PTX_LOGFILE}" 1>&2 3>&- 4>&- 5>&- 6>&-
 		check_pipe_status || return
