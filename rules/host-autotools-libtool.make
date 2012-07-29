@@ -35,5 +35,8 @@ $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-libtool.install.post
 # autoconf
 #
 HOST_AUTOTOOLS_LIBTOOL_CONF_TOOL	:= autoconf
+HOST_AUTOTOOLS_LIBTOOL_CONF_OPT		:= \
+	$(HOST_AUTOCONF_SYSROOT) \
+	--disable-static
 
 # vim: syntax=make
