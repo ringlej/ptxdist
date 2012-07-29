@@ -48,9 +48,8 @@ ifdef PTXCONF_INITMETHOD_SYSTEMD
 
 	@$(call install_alternative, rc-once, 0, 0, 0644, \
 		/lib/systemd/system/rc-once.service)
-	@$(call install_alternative, rc-once, 0, 0, 0644, \
-		/lib/systemd/system/rc-once.target)
-	@$(call install_copy, rc-once, 0, 0, 0755, /etc/systemd/system)
+	@$(call install_link, rc-once, ../rc-once.service, \
+		/lib/systemd/system/system-update.target.wants/rc-once.service)
 endif
 
 	@$(call install_copy, rc-once, 0, 0, 0755, /etc/rc.once.d)

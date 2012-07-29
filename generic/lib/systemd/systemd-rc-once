@@ -6,7 +6,7 @@
 start() {
 	mount_root_rw || exit 1
 	if run_rc_once; then
-		systemctl disable --quiet rc-once.target
+		rm -f /system-update
 	fi
 	systemctl daemon-reexec
 	sleep 1
@@ -17,7 +17,7 @@ umount() {
 	if ! mount_root_restore; then
 		# remounting rw/ro during the second boot will flush anything
 		# left in the filesystem journal
-		systemctl enable --quiet rc-once.target
+		ln -sf /etc/rc.once.d /system-update
 		systemctl reboot
 	else
 		systemctl default
