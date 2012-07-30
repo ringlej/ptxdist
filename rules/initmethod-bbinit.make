@@ -60,8 +60,10 @@ ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0644, /etc/network/interfaces, n)
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-down.d)
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-up.d)
+	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-pre-down.d)
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-post-down.d)
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-pre-up.d)
+	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-post-up.d)
 endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
