@@ -895,6 +895,7 @@ Options:
 
   --debug, -d			print out additional info (like make decisions)
   --quiet, -q			suppress output, show only stderr
+  --verbose, -v			be more verbose, print command before execute them
 
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
 				(default = 2*CPUs)
