@@ -713,7 +713,7 @@ export -f ptxd_warning
 # the message will always be written to the logfile
 #
 ptxd_verbose() {
-	if [ "${PTXDIST_VERBOSE}" = "true" ]; then
+	if [ -z "${PTXDIST_VERBOSE}" ]; then
 		echo "${PTXDIST_LOG_PROMPT}""${@}" >&2
 	else
 		echo "${PTXDIST_LOG_PROMPT}""${@}" >&7
