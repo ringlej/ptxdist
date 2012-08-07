@@ -70,11 +70,13 @@ $(STATEDIR)/lighttpd.targetinstall:
 	@$(call install_fixup, lighttpd,AUTHOR,"Daniel Schnell <danielsch@marel.com>")
 	@$(call install_fixup, lighttpd,DESCRIPTION,missing)
 
+#	# bins
 	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/sbin/lighttpd)
 	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/sbin/lighttpd-angel)
 
+#	# modules
 	@cd $(LIGHTTPD_PKGDIR) && \
 		find ./usr/lib -name "*.so" | \
 		while read file; do \
