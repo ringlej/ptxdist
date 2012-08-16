@@ -19,8 +19,8 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_UBI_DATA)	+= $(IMAGEDIR)/data.ubi
 ifdef PTXCONF_IMAGE_UBIFS_ROOT
 $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating $(notdir $(@)) from working dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
-	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT)"
-	@echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS)) "
+	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT) "
+	@echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS))"
 	@cd $(image/work_dir);								\
 	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&			\
 	(									\
@@ -38,8 +38,8 @@ endif
 ifdef PTXCONF_IMAGE_UBIFS_DATA
 $(IMAGEDIR)/data.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating $(notdir $(@)) from empty dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
-	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_DATA_MAX_LEB_COUNT)"
-	@echo -n "$(PTXCONF_IMAGE_UBIFS_DATA_EXTRA_ARGS)) "
+	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_DATA_MAX_LEB_COUNT) "
+	@echo -n "$(PTXCONF_IMAGE_UBIFS_DATA_EXTRA_ARGS))"
 	@cd $(PTXDIST_TEMPDIR);						\
 	DATA_TMPDIR="$$(mktemp -d $(PTXDIST_TEMPDIR)/data.XXXXXX)";	\
 	echo $(PTXCONF_SYSROOT_HOST)/sbin/mkfs.ubifs			\
