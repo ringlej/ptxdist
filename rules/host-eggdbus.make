@@ -20,6 +20,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_EGGDBUS) += host-eggdbus
 
 HOST_EGGDBUS_AUTOCONF := \
 	$(HOST_AUTOCONF) \
+	--disable-static \
 	--disable-man-pages \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
