@@ -32,6 +32,7 @@ EGGDBUS_LICENSE	:= LGPLv2
 EGGDBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-static \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-man-pages \
