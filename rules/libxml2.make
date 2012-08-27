@@ -42,6 +42,7 @@ LIBXML2_ENV	:= $(CROSS_ENV)
 #
 LIBXML2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	$(GLOBAL_IPV6_OPTION) \
 	--oldincludedir=$(SYSROOT)/usr/include \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_C14N)-c14n \
