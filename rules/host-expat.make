@@ -26,12 +26,12 @@ HOST_EXPAT_DIR	= $(HOST_BUILDDIR)/$(HOST_EXPAT)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_EXPAT_PATH	:= PATH=$(HOST_PATH)
-HOST_EXPAT_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_EXPAT_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_EXPAT_CONF_TOOL	:= autoconf
+HOST_EXPAT_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--disable-static
 
 # vim: syntax=make
