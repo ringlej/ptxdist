@@ -5,7 +5,7 @@ Subject: [PATCH] use PGEN_FOR_BUILD
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.pre.in |    5 +++--
- 1 files changed, 3 insertions(+), 2 deletions(-)
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index 8b1e44b..703c6aa 100644

@@ -8,7 +8,7 @@ compiled modules into the build python. This patch skips this check.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  setup.py |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+ 1 file changed, 4 insertions(+)
 
 diff --git a/setup.py b/setup.py
 index 08208bd..01b0ffc 100644

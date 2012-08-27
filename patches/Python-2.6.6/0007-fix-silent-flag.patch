@@ -9,7 +9,7 @@ is detected in $MAKEFLAGS, "*s*" is not sufficient.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.pre.in |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index 0329d67..f8a8d36 100644

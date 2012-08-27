@@ -12,7 +12,7 @@ scenario. (see later patch)
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Lib/distutils/sysconfig.py |    7 ++++---
- 1 files changed, 4 insertions(+), 3 deletions(-)
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
 index 350e48c..83af687 100644

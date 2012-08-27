@@ -26,7 +26,7 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  Makefile.pre.in |    9 ++++++---
- 1 files changed, 6 insertions(+), 3 deletions(-)
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index f8a8d36..8b1e44b 100644

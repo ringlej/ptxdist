@@ -9,7 +9,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure.in            |    2 +-
  cross-python-wrapper.in |   13 +++++++++++++
- 2 files changed, 14 insertions(+), 1 deletions(-)
+ 2 files changed, 14 insertions(+), 1 deletion(-)
  create mode 100644 cross-python-wrapper.in
 
 diff --git a/configure.in b/configure.in

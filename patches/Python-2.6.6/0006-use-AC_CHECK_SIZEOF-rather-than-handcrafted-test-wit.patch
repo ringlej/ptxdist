@@ -14,7 +14,7 @@ This patch converts the following tests to AC_CHECK_SIZEOF:
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure.in |   58 ++++------------------------------------------------------
- 1 files changed, 4 insertions(+), 54 deletions(-)
+ 1 file changed, 4 insertions(+), 54 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index cb09bf7..1066880 100644

@@ -18,4 +18,5 @@
 0016-python-fix-long-long-autoconf-test.patch
 0017-python-don-t-add-rpaths-in-setup.py.patch
 0018-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
-# e4b2d0366f87ef051c7b5151c479533e  - git-ptx-patches magic
+0019-also-build-_sha256-_sha512-if-openssl-is-not-found.patch
+# 31950c9abe57324bafb77406b67f36fb  - git-ptx-patches magic

@@ -7,7 +7,7 @@ New autoconf versions have AC_TYPE_LONG_LONG_INT, use it.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.in |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/configure.in b/configure.in
 index 9b80a5d..2895a7d 100644

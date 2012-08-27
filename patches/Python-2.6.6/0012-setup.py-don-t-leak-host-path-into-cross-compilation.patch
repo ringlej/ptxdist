@@ -9,7 +9,7 @@ search patch) to leak into our environment.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  setup.py |   36 +++++++++++++++++++++++++++++-------
- 1 files changed, 29 insertions(+), 7 deletions(-)
+ 1 file changed, 29 insertions(+), 7 deletions(-)
 
 diff --git a/setup.py b/setup.py
 index 6e02114..08208bd 100644
