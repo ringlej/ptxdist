@@ -35,6 +35,7 @@ HOST_DBUS_GLIB_AUTOCONF := \
 	--disable-doxygen-docs \
 	--disable-gcov \
 	--disable-gtk-doc \
+	--disable-static \
 	--disable-tests
 
 # ----------------------------------------------------------------------------
