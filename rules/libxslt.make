@@ -41,6 +41,7 @@ LIBXSLT_ENV	:= $(CROSS_ENV)
 #
 LIBXSLT_AUTOCONF := \
 	 $(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	--without-python \
 	--$(call ptx/wwo, PTXCONF_LIBXSLT_CRYPTO)-crypto \
 	--$(call ptx/wwo, PTXCONF_LIBXSLT_PLUGINS)-plugins \
