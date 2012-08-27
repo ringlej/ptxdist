@@ -31,6 +31,7 @@ HOST_LIBXML2_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBXML2_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
+	--disable-static \
 	--with-iconv=yes
 
 # vim: syntax=make
