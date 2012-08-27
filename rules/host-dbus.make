@@ -22,17 +22,34 @@ HOST_DBUS_DIR	= $(HOST_BUILDDIR)/$(DBUS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_DBUS_PATH	:= PATH=$(HOST_PATH)
-HOST_DBUS_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_DBUS_AUTOCONF := \
+HOST_DBUS_CONF_TOOL	:= autoconf
+HOST_DBUS_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--disable-static \
+	--disable-tests \
+	--disable-embedded-tests \
+	--disable-modular-tests \
+	--disable-ansi \
+	--disable-verbose-mode \
+	--disable-asserts \
+	--disable-checks \
+	--disable-xml-docs \
+	--disable-doxygen-docs \
+	--disable-compiler-coverage \
 	--enable-abstract-sockets=yes \
-	--with-xml=expat \
+	--disable-libaudit \
+	--disable-dnotify \
+	--disable-inotify \
+	--disable-kqueue \
+	--disable-console-owner-file \
+	--disable-userdb-cache \
 	--disable-selinux \
-	--disable-libaudit   
+	--with-xml=expat \
+	--disable-systemd \
+	--without-valgrind \
+	--disable-stats
 
 # vim: syntax=make
