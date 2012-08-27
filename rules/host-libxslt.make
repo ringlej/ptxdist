@@ -31,6 +31,7 @@ HOST_LIBXSLT_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBXSLT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
+	--disable-static \
 	--without-crypto
 
 # vim: syntax=make
