@@ -23,12 +23,12 @@ HOST_FREETYPE_DIR	= $(HOST_BUILDDIR)/$(FREETYPE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_FREETYPE_PATH	:= PATH=$(HOST_PATH)
-HOST_FREETYPE_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_FREETYPE_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_FREETYPE_CONF_TOOL	:= autoconf
+HOST_FREETYPE_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--disable-static
 
 # vim: syntax=make
