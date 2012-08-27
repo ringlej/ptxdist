@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.6.0
-DBUS_MD5	:= 16dcae2dd0c76e398381601ac9acdec4
+DBUS_VERSION	:= 1.6.4
+DBUS_MD5	:= 5ec43dc4554cba638917317b2b4f7640
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -31,18 +31,17 @@ DBUS_LICENSE	:= AFLv2.1, GPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
-DBUS_PATH := PATH=$(CROSS_PATH)
-DBUS_ENV := $(CROSS_ENV)
-
 #
 # autoconf
 #
 DBUS_XML-$(PTXCONF_DBUS_XML_EXPAT)=expat
 DBUS_XML-$(PTXCONF_DBUS_XML_LIBXML2)=libxml
 
-DBUS_AUTOCONF := \
+DBUS_CONF_TOOL	:= autoconf
+DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
+	--disable-static \
 	--disable-tests \
 	--disable-embedded-tests \
 	--disable-modular-tests \
@@ -71,9 +70,9 @@ DBUS_AUTOCONF := \
 	--disable-stats
 
 ifdef PTXCONF_DBUS_X
-DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
+DBUS_CONF_OPT += --with-x=$(SYSROOT)/usr
 else
-DBUS_AUTOCONF += --without-x
+DBUS_CONF_OPT += --without-x
 endif
 
 # ----------------------------------------------------------------------------
