@@ -42,6 +42,7 @@ DBUS_GLIB_AUTOCONF = \
 	--disable-doxygen-docs \
 	--disable-gcov \
 	--disable-gtk-doc \
+	--disable-static \
 	--disable-tests \
 	--with-dbus-binding-tool=$(PTXCONF_SYSROOT_HOST)/bin/dbus-binding-tool \
 	--with-introspect-xml=$(PTXCONF_SYSROOT_HOST)/share/dbus-glib/dbus-bus-introspect.xml
