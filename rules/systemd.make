@@ -127,7 +127,8 @@ SYSTEMD_HELPER := \
 	systemd-timedated \
 	systemd-timestamp \
 	systemd-update-utmp \
-	systemd-user-sessions
+	systemd-user-sessions \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
 
 $(STATEDIR)/systemd.targetinstall:
 	@$(call targetinfo)
