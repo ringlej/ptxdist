@@ -1,4 +1,3 @@
-From 4871690d9e32608bbd9b18505b5326c2079c9690 Mon Sep 17 00:00:00 2001
 From: Allin Cottrell <cottrell@wfu.edu>
 Date: Fri, 24 Aug 2012 01:46:38 +0200
 Subject: [PATCH] journald: add missing includes
@@ -83,6 +82,3 @@ index daed095..9db9198 100644
  #include <sys/epoll.h>
  
  #include "socket-util.h"
--- 
-1.7.10.4
-

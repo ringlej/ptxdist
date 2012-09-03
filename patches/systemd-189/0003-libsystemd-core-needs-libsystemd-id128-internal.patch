@@ -1,0 +1,32 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 3 Sep 2012 13:45:34 +0200
+Subject: [PATCH] libsystemd-core needs libsystemd-id128-internal
+
+Otherwise compiling may fail with e.g.:
+
+./.libs/libsystemd-core.a(libsystemd_core_la-condition.o): In function `test_host':
+[...]/systemd-189/src/core/condition.c:205: undefined reference to `sd_id128_from_string'
+[...]/systemd-189/src/core/condition.c:207: undefined reference to `sd_id128_get_machine'
+collect2: ld returned 1 exit status
+
+It seems that in most cases the compiler removes the relevant functions
+when optimizing. In some cases this does not happen, e.g. here with a PPC
+toolchain.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Makefile.am b/Makefile.am
+index d200dc3..cc98722 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1003,6 +1003,7 @@ libsystemd_core_la_LIBADD = \
+ 	libsystemd-label.la \
+ 	libsystemd-shared.la \
+ 	libsystemd-dbus.la \
++	libsystemd-id128-internal.la \
+ 	libudev.la \
+ 	$(LIBWRAP_LIBS) \
+ 	$(PAM_LIBS) \

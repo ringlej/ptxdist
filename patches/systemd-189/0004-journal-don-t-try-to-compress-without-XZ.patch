@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 3 Sep 2012 15:38:37 +0200
+Subject: [PATCH] journal: don't try to compress without XZ
+
+otherwise the header contains the HEADER_INCOMPATIBLE_COMPRESSED
+flag even though the data is not compressed and reading the journal
+fails.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/journal/journal-file.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/journal/journal-file.c b/src/journal/journal-file.c
+index 79f7598..81ba45c 100644
+--- a/src/journal/journal-file.c
++++ b/src/journal/journal-file.c
+@@ -2007,7 +2007,9 @@ int journal_file_open(
+         f->flags = flags;
+         f->prot = prot_from_flags(flags);
+         f->writable = (flags & O_ACCMODE) != O_RDONLY;
++#ifdef HAVE_XZ
+         f->compress = compress;
++#endif
+         f->seal = seal;
+ 
+         if (mmap_cache)
