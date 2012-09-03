@@ -49,8 +49,10 @@ ifdef PTXCONF_INITMETHOD_SYSTEMD_IFUPDOWN
 	@$(call install_alternative, initmethod-systemd, 0, 0, 0644, /etc/network/interfaces)
 	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-down.d)
 	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-up.d)
+	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-pre-down.d)
 	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-post-down.d)
 	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-pre-up.d)
+	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-post-up.d)
 endif
 
 	@$(call install_finish,initmethod-systemd)
