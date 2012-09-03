@@ -172,6 +172,10 @@ config GST_PLUGINS_BAD11_MPEGDEMUX
 	bool
 	prompt "mpegdemux"
 
+config GST_PLUGINS_BAD11_MPEGTSDEMUX
+	bool
+	prompt "mpegtsdemux"
+
 config GST_PLUGINS_BAD11_MPEGTSMUX
 	bool
 	# Non ported plugin
@@ -240,6 +244,10 @@ config GST_PLUGINS_BAD11_RTPMUX
 	bool
 	prompt "rtpmux"
 
+config GST_PLUGINS_BAD11_RTPVP8
+	bool
+	prompt "rtpvp8"
+
 config GST_PLUGINS_BAD11_SCALETEMPO
 	bool
 	prompt "scaletempo"
@@ -286,11 +294,21 @@ config GST_PLUGINS_BAD11_TTA
 	depends on BROKEN
 	prompt "tta"
 
+config GST_PLUGINS_BAD11_VIDEOFILTERS
+	bool
+	# Non ported plugin
+	depends on BROKEN
+	prompt "videofilters"
+
 config GST_PLUGINS_BAD11_VIDEOMEASURE
 	bool
 	# Non ported plugin
 	depends on BROKEN
 	prompt "videomeasure"
+
+config GST_PLUGINS_BAD11_VIDEOPARSERS
+	bool
+	prompt "videoparsers"
 
 config GST_PLUGINS_BAD11_VIDEOSIGNAL
 	bool
