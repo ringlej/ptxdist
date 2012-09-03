@@ -3,7 +3,9 @@
 menuconfig LIBPCRE
 	tristate
 	prompt "libpcre                       "
+	select LIBC_M		if LIBPCRE_LIBPCRECPP
 	select GCCLIBS_CXX	if LIBPCRE_LIBPCRECPP
+	select GCCLIBS_GCC_S	if LIBPCRE_LIBPCRECPP
 	select ZLIB		if LIBPCRE_ENABLE_PCREGREP_LIBZ
 	select BZIP2		if LIBPCRE_ENABLE_PCREGREP_LIBBZ2
 	select BZIP2_LIBBZ2	if LIBPCRE_ENABLE_PCREGREP_LIBBZ2
@@ -35,6 +37,7 @@ config LIBPCRE_LIBPCRECPP
        bool "install libpcrecpp (c++ bindings for libpcre)"
 
 config LIBPCRE_PCREGREP
+       select LIBPCRE_LIBPCREPOSIX
        bool "install pcregrep on the target"
 
 endif
