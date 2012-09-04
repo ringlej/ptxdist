@@ -20,9 +20,9 @@ PACKAGES-$(PTXCONF_UNZIP) += unzip
 UNZIP_VERSION	:= 5.52
 UNZIP_MD5	:= 9d23919999d6eac9217d1f41472034a9
 UNZIP_AVERSION	:= 552
-UNZIP_ARCHIVE	:= unzip$(UNZIP_AVERSION).tgz
+UNZIP_ARCHIVE	:= unzip$(UNZIP_AVERSION).tar.gz
 UNZIP		:= unzip-$(UNZIP_VERSION)
-UNZIP_URL	:= http://www.mirrorservice.org/sites/ftp.info-zip.org/pub/infozip/src/$(UNZIP_ARCHIVE)
+UNZIP_URL	:= $(call ptx/mirror, SF, infozip/$(UNZIP_ARCHIVE))
 UNZIP_SOURCE	:= $(SRCDIR)/$(UNZIP_ARCHIVE)
 UNZIP_DIR	:= $(BUILDDIR)/$(UNZIP)
 
