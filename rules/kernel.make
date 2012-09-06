@@ -133,7 +133,7 @@ endif
 $(STATEDIR)/kernel.tags:
 	@$(call targetinfo)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) TAGS cscope
+		$(KERNEL_MAKEVARS) tags TAGS cscope
 
 # ----------------------------------------------------------------------------
 # Compile
