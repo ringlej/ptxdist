@@ -382,6 +382,17 @@ export -f ptxd_template_new_kernel
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="kernel"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for an extra kernel"
 
+ptxd_template_new_barebox() {
+    export class="barebox-"
+    ptxd_template_read_basic &&
+    ptxd_template_read "enter barebox image" image "barebox.bin"
+    ptxd_template_read_author &&
+    ptxd_template_write_platform_rules
+}
+export -f ptxd_template_new_barebox
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="barebox"
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for an extra barebox"
+
 ptxd_template_new_image_tgz() {
     export class="image-"
     ptxd_template_read_name &&

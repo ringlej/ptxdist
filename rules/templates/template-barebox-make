@@ -1,0 +1,89 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_BAREBOX_@PACKAGE@) += barebox-@package@
+
+#
+# Paths and names
+#
+BAREBOX_@PACKAGE@_VERSION	:= @VERSION@
+BAREBOX_@PACKAGE@_MD5		:=
+BAREBOX_@PACKAGE@		:= barebox-$(BAREBOX_@PACKAGE@_VERSION)
+BAREBOX_@PACKAGE@_SUFFIX	:= tar.bz2
+BAREBOX_@PACKAGE@_DIR		:= $(BUILDDIR)/barebox-@package@-$(BAREBOX_@PACKAGE@_VERSION)
+BAREBOX_@PACKAGE@_CONFIG	:= $(PTXDIST_PLATFORMCONFIGDIR)/barebox-@package@.config.$(BAREBOX_@PACKAGE@_VERSION)
+BAREBOX_@PACKAGE@_LICENSE	:= GPLv2
+BAREBOX_@PACKAGE@_URL		:= $(call barebox-url, BAREBOX_@PACKAGE@)
+BAREBOX_@PACKAGE@_SOURCE	:= $(SRCDIR)/$(BAREBOX_@PACKAGE@).$(BAREBOX_@PACKAGE@_SUFFIX)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+BAREBOX_@PACKAGE@_CONF_ENV := KCONFIG_NOTIMESTAMP=1 HOST_EXTRACFLAGS="$(HOST_CPPFLAGS)"
+BAREBOX_@PACKAGE@_CONF_OPT := $(call barebox-opts, BAREBOX_@PACKAGE@)
+
+BAREBOX_@PACKAGE@_MAKE_ENV := $(BAREBOX_@PACKAGE@_CONF_ENV)
+BAREBOX_@PACKAGE@_MAKE_OPT := $(BAREBOX_@PACKAGE@_CONF_OPT)
+
+BAREBOX_@PACKAGE@_IMAGES := @image@
+BAREBOX_@PACKAGE@_IMAGES := $(addprefix $(BAREBOX_@PACKAGE@_DIR)/,$(BAREBOX_@PACKAGE@_IMAGES))
+
+ifdef PTXCONF_BAREBOX_@PACKAGE@
+$(BAREBOX_@PACKAGE@_CONFIG):
+	@echo
+	@echo "****************************************************************************"
+	@echo " Please generate a bareboxconfig with 'ptxdist menuconfig barebox-@package@'"
+	@echo "****************************************************************************"
+	@echo
+	@echo
+	@exit 1
+endif
+
+$(STATEDIR)/barebox-@package@.prepare: $(BAREBOX_@PACKAGE@_CONFIG)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+BAREBOX_@PACKAGE@_INSTALL_OPT := \
+	$(call barebox-opts, BAREBOX_@PACKAGE@)
+
+$(STATEDIR)/barebox-@package@.install:
+	@$(call targetinfo)
+#	@mkdir -p $(BAREBOX_@PACKAGE@_PKGDIR)/usr/lib/$(BAREBOX_@PACKAGE@)
+#		install -m 644 $(image)
+#			$(BAREBOX_@PACKAGE@_PKGDIR)/usr/lib/$(BAREBOX_@PACKAGE@)/$(notdir $(image));
+	@$(foreach image, $(BAREBOX_@PACKAGE@_IMAGES), \
+		install -m 644 \
+			$(image) $(IMAGEDIR)/$(notdir $(image))-@package@;)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-@package@.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, BAREBOX_@PACKAGE@)
+	@$(foreach image, $(BAREBOX_@PACKAGE@_IMAGES), \
+		rm -fv $(IMAGEDIR)/$(notdir $(image))-@package@;)
+
+# ----------------------------------------------------------------------------
+# oldconfig / menuconfig
+# ----------------------------------------------------------------------------
+
+barebox-@package@_oldconfig barebox-@package@_menuconfig barebox-@package@_nconfig: $(STATEDIR)/barebox-@package@.extract
+	@$(call world/kconfig, BAREBOX_@PACKAGE@, $(subst barebox-@package@_,,$@))
+
+# vim: syntax=make
