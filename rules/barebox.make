@@ -32,8 +32,7 @@ BAREBOX_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_B
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_PATH	:= PATH=$(CROSS_PATH)
-BAREBOX_ENV 	:= KCONFIG_NOTIMESTAMP=1
+BAREBOX_ENV := KCONFIG_NOTIMESTAMP=1
 BAREBOX_MAKEVARS := \
 	V=$(PTXDIST_VERBOSE) \
 	HOSTCC=$(HOSTCC) \
