@@ -92,8 +92,7 @@ ifdef PTXCONF_IPTABLES_IPV6
 			$(call install_copy, iptables, 0, 0, 0644, -, \
 				/usr/lib/$$file); \
 		done
-	$(call install_lib, iptables, 0, 0, 0644, libip6tc)
-
+	@$(call install_lib, iptables, 0, 0, 0644, libip6tc)
 endif
 
 ifdef PTXCONF_IPTABLES_IPV4
@@ -103,7 +102,7 @@ ifdef PTXCONF_IPTABLES_IPV4
 			$(call install_copy, iptables, 0, 0, 0644, -,\
 				/usr/lib/$$file); \
 		done
-	$(call install_lib, iptables, 0, 0, 0644, libip4tc)
+	@$(call install_lib, iptables, 0, 0, 0644, libip4tc)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_TOOLS
