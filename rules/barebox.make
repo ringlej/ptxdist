@@ -135,7 +135,7 @@ endif
 $(STATEDIR)/barebox.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX)
-	rm -rf $(IMAGEDIR)/barebox-image
+	rm -rf $(IMAGEDIR)/barebox-image $(IMAGEDIR)/barebox-default-environment
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
