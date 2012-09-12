@@ -20,7 +20,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_ACL) += host-acl
 
 HOST_ACL_ENV := $(HOST_ENV)
 
-HOST_ACL_INSTALL_OPT := \
+# don't use := here
+HOST_ACL_INSTALL_OPT = \
 	DIST_ROOT=$(HOST_ACL_PKGDIR) \
 	install \
 	install-lib \
