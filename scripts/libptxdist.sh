@@ -112,35 +112,40 @@ export -f ptxd_source_kconfig
 
 
 #
+# get a symbol from the kconfig file
+#
+# $1: the config file
+# $2: the symbol name
+#
+# return:
+# 1: symbol not found
+# 2: symbol invalid
+#
+ptxd_get_kconfig() {
+	local config="${1}"
+	unset "${2}" 2>/dev/null || return 2
+
+	if test -f "${config}"; then
+		source "${config}" || \
+		ptxd_bailout "unable to source '${config}' (maybe git conflict?)" 3
+	fi
+	if [ -n "${!2}" ]; then
+		echo "${!2}"
+		return
+	fi
+	return 1;
+}
+export -f ptxd_get_kconfig
+#
 # get a symbol from the ptx or platformconfig
 #
 # return:
 # 1: symbol not found
 # 2: symbol invalid
-# 3: config file broken
 #
 ptxd_get_ptxconf() {
-	unset "${1}" 2>/dev/null || return 2
-
-	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
-		source "${PTXDIST_PLATFORMCONFIG}" || \
-		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe git conflict?)" 3
-	fi
-	if [ -n "${!1}" ]; then
-		echo "${!1}"
-		return
-	fi
-
-	if test -f "${PTXDIST_PTXCONFIG}"; then
-		source "${PTXDIST_PTXCONFIG}"  || \
-		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe git conflict?)" 3
-	fi
-	if [ -n "${!1}" ]; then
-		echo "${!1}"
-		return
-	fi
-
-	return 1;
+	ptxd_get_kconfig "${PTXDIST_PLATFORMCONFIG}" "${1}" ||
+	ptxd_get_kconfig "${PTXDIST_PTXCONFIG}" "${1}"
 }
 export -f ptxd_get_ptxconf
 
