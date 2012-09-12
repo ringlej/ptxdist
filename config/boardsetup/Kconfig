@@ -62,6 +62,14 @@ config BOARDSETUP_ETH_INTERFACE
 	  If running virtual hardware (simulated by qemu/kvm), qemu needs to know
 	  about a tap interface for virtual networking. Specify it here.
 
+config BOARDSETUP_NFSPORT
+	int
+	prompt "NFS service port"
+	default 2049
+	help
+	  When exporting the rootfs with unfsd, this port will be used as NFS
+	  service and MOUNT service port
+
 endmenu
 
 menu "Host's Serial Configuration   "

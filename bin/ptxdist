@@ -876,6 +876,7 @@ Misc:
   test <testname>		run tests
   newpackage <type>		create a new package Makefile in a rules dir
 				use 'newpackage help' for a longer description
+  nfsroot			run a userspace NFS server and export the nfsroot
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   bash				enter a ptxdist environment bash shell
@@ -1798,6 +1799,10 @@ EOF
 				exit 1
 			fi
 			ptxd_template_new "${1}"
+			exit
+			;;
+		nfsroot)
+			ptxd_make_log ptxd_make_nfsd
 			exit
 			;;
 		print)
