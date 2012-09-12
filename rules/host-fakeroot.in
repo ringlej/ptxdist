@@ -3,6 +3,7 @@
 config HOST_FAKEROOT
 	tristate
 	default y
+	select HOST_ACL
 	help
 	  fakeroot lets you create archives with "real" owners and
 	  permissions, without being root.
