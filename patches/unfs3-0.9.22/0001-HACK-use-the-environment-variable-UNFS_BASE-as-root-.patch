@@ -1,0 +1,52 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 12 Sep 2012 09:24:54 +0200
+Subject: [PATCH] HACK: use the environment variable UNFS_BASE as root
+ directory
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ backend_unix.h |    3 ++-
+ readdir.c      |   12 ++++++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/backend_unix.h b/backend_unix.h
+index 713288d..62dad83 100644
+--- a/backend_unix.h
++++ b/backend_unix.h
+@@ -23,6 +23,7 @@
+ /*
+  * system calls
+  */
++char *realpath_unix(const char *path, char *resolved_path);
+ #define backend_chmod chmod
+ #define backend_chown chown
+ #define backend_close close
+@@ -49,7 +50,7 @@
+ #define backend_pwrite pwrite
+ #define backend_readdir readdir
+ #define backend_readlink readlink
+-#define backend_realpath realpath
++#define backend_realpath realpath_unix
+ #define backend_remove remove
+ #define backend_rename rename
+ #define backend_rmdir rmdir
+diff --git a/readdir.c b/readdir.c
+index 0e7290c..556ebf9 100644
+--- a/readdir.c
++++ b/readdir.c
+@@ -213,3 +213,15 @@ READDIR3res read_dir(const char *path, cookie3 cookie, cookieverf3 verf,
+ 
+     return result;
+ }
++
++char *realpath_unix(const char *path, char *resolved_path)
++{
++    int l = 0;
++    char *base = getenv("UNFS_BASE");
++    if (base) {
++	strcpy(resolved_path, base);
++	l = strlen(base);
++    }
++    return realpath(path, resolved_path + l) ? resolved_path : NULL;
++}
++
