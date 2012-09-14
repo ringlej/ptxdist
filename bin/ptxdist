@@ -1802,6 +1802,7 @@ EOF
 			exit
 			;;
 		nfsroot)
+			check_premake_compiler &&
 			ptxd_make_log ptxd_make_nfsd
 			exit
 			;;
