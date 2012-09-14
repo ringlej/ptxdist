@@ -32,6 +32,12 @@ config UTIL_LINUX_NG_AGETTY
 	help
 	  A small getty.
 
+config UTIL_LINUX_NG_COLUMN
+	bool
+	prompt "column"
+	help
+	  Columnate lists.
+
 config UTIL_LINUX_NG_LINE
 	bool
 	prompt "line"

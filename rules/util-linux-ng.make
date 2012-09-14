@@ -112,6 +112,9 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
 
+ifdef PTXCONF_UTIL_LINUX_NG_COLUMN
+	@$(call install_copy, util-linux-ng, root, root, 0755, -, /usr/bin/column)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_LINE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/line)
 endif
