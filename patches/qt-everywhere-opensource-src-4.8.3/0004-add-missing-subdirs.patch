@@ -10,9 +10,8 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  examples/declarative/modelviews/modelviews.pro |    1 +
  examples/examples.pro                          |    2 +-
  examples/itemviews/itemviews.pro               |    4 +++-
- examples/mainwindows/mainwindows.pro           |    1 +
  examples/tutorials/tutorials.pro               |    1 +
- 5 files changed, 7 insertions(+), 2 deletions(-)
+ 4 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/examples/declarative/modelviews/modelviews.pro b/examples/declarative/modelviews/modelviews.pro
 index 00e07fe..7f7d673 100644
@@ -61,17 +60,6 @@ index 137599c..547694d 100644
  
  # install
  sources.files = README *.pro
-diff --git a/examples/mainwindows/mainwindows.pro b/examples/mainwindows/mainwindows.pro
-index 0b9b299..462327b 100644
---- a/examples/mainwindows/mainwindows.pro
-+++ b/examples/mainwindows/mainwindows.pro
-@@ -1,5 +1,6 @@
- TEMPLATE      = subdirs
- SUBDIRS       = application \
-+                dockwidgets \
-                 mdi \
-                 menus \
-                 recentfiles \
 diff --git a/examples/tutorials/tutorials.pro b/examples/tutorials/tutorials.pro
 index ba1769d..cb1ca6e 100644
 --- a/examples/tutorials/tutorials.pro

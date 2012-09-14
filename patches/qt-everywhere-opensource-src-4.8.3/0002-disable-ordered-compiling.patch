@@ -29,7 +29,7 @@ index f7d5306..67b4cf8 100644
  
  contains(QT_CONFIG, phonon):!static: SUBDIRS += phonon
 diff --git a/projects.pro b/projects.pro
-index 0b498f8..c0fdde4 100644
+index a2bc4b3..839670d 100644
 --- a/projects.pro
 +++ b/projects.pro
 @@ -2,7 +2,6 @@
