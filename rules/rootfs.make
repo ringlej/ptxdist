@@ -215,7 +215,7 @@ endif
 ifdef PTXCONF_ROOTFS_PROTOCOLS
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/protocols)
 endif
-ifdef PTXCONF_ROOTFS_RESOLV
+ifdef PTXCONF_ROOTFS_RESOLV_FILE
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/resolv.conf)
 #	# replace either by PTXCONF_BOARDSETUP_GATEWAY or nothing if not defined
 ifneq ($(PTXCONF_BOARDSETUP_GATEWAY),)
@@ -225,6 +225,9 @@ ifneq ($(PTXCONF_BOARDSETUP_GATEWAY),)
 else
 	@$(call install_replace, rootfs, /etc/resolv.conf, @NAMESERVER_LINE@, "")
 endif
+endif
+ifdef PTXCONF_ROOTFS_RESOLV_LINK
+	@$(call install_link, rootfs, /proc/net/pnp, /etc/resolv.conf)
 endif
 ifdef PTXCONF_ROOTFS_SERVICES
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/services)
