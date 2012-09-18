@@ -6,8 +6,8 @@ Subject: [PATCH] HACK: use the environment variable UNFS_BASE as root
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  backend_unix.h |    3 ++-
- readdir.c      |   12 ++++++++++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ readdir.c      |   16 ++++++++++++++++
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/backend_unix.h b/backend_unix.h
 index 713288d..62dad83 100644
@@ -31,22 +31,26 @@ index 713288d..62dad83 100644
  #define backend_rename rename
  #define backend_rmdir rmdir
 diff --git a/readdir.c b/readdir.c
-index 0e7290c..556ebf9 100644
+index 0e7290c..53b0bfc 100644
 --- a/readdir.c
 +++ b/readdir.c
-@@ -213,3 +213,15 @@ READDIR3res read_dir(const char *path, cookie3 cookie, cookieverf3 verf,
+@@ -213,3 +213,19 @@ READDIR3res read_dir(const char *path, cookie3 cookie, cookieverf3 verf,
  
      return result;
  }
 +
 +char *realpath_unix(const char *path, char *resolved_path)
 +{
-+    int l = 0;
 +    char *base = getenv("UNFS_BASE");
-+    if (base) {
-+	strcpy(resolved_path, base);
-+	l = strlen(base);
-+    }
-+    return realpath(path, resolved_path + l) ? resolved_path : NULL;
-+}
++    char *p;
 +
++    if (base) {
++	p = malloc(strlen(base) + strlen(path) + 1);
++	strcpy(p, base);
++	strcat(p, path);
++	resolved_path = realpath(p, resolved_path);
++	free(p);
++	return resolved_path;
++    }
++    return realpath(path, resolved_path);
++}
