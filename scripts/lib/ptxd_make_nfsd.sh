@@ -21,7 +21,7 @@ ptxd_make_nfsd_exec() {
     echo "Mount rootfs with nfsroot=${root},v3,tcp,port=${port},mountport=${port}"
     echo
 
-    echo "${root} (rw,no_root_squash)" > "${PTXDIST_TEMPDIR}/exports" &&
+    echo "/ (rw,no_root_squash)" > "${PTXDIST_TEMPDIR}/exports" &&
     UNFS_BASE="${base}" unfsd -e "${PTXDIST_TEMPDIR}/exports" -n ${port} -m ${port} -p -d
 }
 export -f ptxd_make_nfsd_exec
