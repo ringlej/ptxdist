@@ -342,7 +342,6 @@ $(STATEDIR)/initng.targetinstall:
 ifdef PTXCONF_INITNG_LOCKFILE
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/liblockfile.so)
 endif
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libsysreq.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, -, /sbin/initng)
 
