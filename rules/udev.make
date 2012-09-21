@@ -85,7 +85,6 @@ endif
 endif # PTXCONF_SYSTEMD
 
 UDEV_RULES-y := \
-	42-usb-hid-pm.rules \
 	50-udev-default.rules \
 	60-persistent-alsa.rules \
 	60-persistent-input.rules \
@@ -96,6 +95,11 @@ UDEV_RULES-y := \
 	75-tty-description.rules \
 	78-sound-card.rules \
 	95-udev-late.rules
+
+ifndef PTXCONF_UDEV_LEGACY
+UDEV_RULES-y += \
+	42-usb-hid-pm.rules
+endif
 
 ifdef PTXCONF_SYSTEMD
 
