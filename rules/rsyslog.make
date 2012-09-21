@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_RSYSLOG) += rsyslog
 #
 # Paths and names
 #
-RSYSLOG_VERSION	:= 5.8.12
-RSYSLOG_MD5	:= e4a105a004ca7113ec5948b30c6af20c
+RSYSLOG_VERSION	:= 5.8.13
+RSYSLOG_MD5	:= 8d228a8b622f90b320c95f38be7fc5bb
 RSYSLOG		:= rsyslog-$(RSYSLOG_VERSION)
 RSYSLOG_SUFFIX	:= tar.gz
 RSYSLOG_URL	:= http://www.rsyslog.com/files/download/rsyslog/$(RSYSLOG).$(RSYSLOG_SUFFIX)
@@ -138,6 +138,8 @@ ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
 		/lib/systemd/system/rsyslog.service)
 	@$(call install_link, rsyslog, ../rsyslog.service, \
 		/lib/systemd/system/multi-user.target.wants/rsyslog.service)
+	@$(call install_link, rsyslog, rsyslog.service, \
+		/lib/systemd/system/syslog.service)
 endif
 
 	@for plugin in $(RSYSLOG_PLUGINS-y); do \
