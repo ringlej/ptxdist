@@ -35,4 +35,14 @@ config SSMTP_MD5AUTH
 	help
 	  Support for MD5 authentication.
 
+config SSMTP_SENDMAIL
+	bool
+	prompt "sendmail link"
+	depends on !BUSYBOX_SENDMAIL || ALLYES
+	help
+	  Install 'sendmail' as a symlink to ssmtp.
+
+comment "busybox' sendmail is selected!"
+	depends on BUSYBOX_SENDMAIL
+
 endif

@@ -73,6 +73,11 @@ $(STATEDIR)/ssmtp.targetinstall:
 
 	@$(call install_copy, ssmtp, 0, 0, 0755, -, /sbin/ssmtp)
 
+ifdef PTXCONF_SSMTP_SENDMAIL
+	@$(call install_link, ssmtp, /sbin/ssmtp, /usr/sbin/sendmail)
+	@$(call install_link, ssmtp, /usr/sbin/sendmail, /usr/lib/sendmail)
+endif
+
 	@$(call install_finish, ssmtp)
 
 	@$(call touch)
