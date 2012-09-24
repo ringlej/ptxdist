@@ -7,6 +7,7 @@ menuconfig SYSTEMD
 	select ROOTFS_RUN
 	select LIBC_PTHREAD
 	select LIBC_RT
+	select LIBC_DL
 	select DBUS
 	select LIBCAP
 	select UDEV
