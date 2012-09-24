@@ -407,6 +407,14 @@ choice
 		help
 		  If enabled, it installs /etc/resolv.conf as a link to /proc/net/pnp.
 
+	config ROOTFS_RESOLV_RUN
+		bool
+		prompt "link to /run/resolv.conf"
+		help
+		  If enabled, it installs /etc/resolv.conf as a link to
+		  /run/resolv.conf. This is useful if the root filesystem is mounted
+		  read-only.
+
 	config ROOTFS_RESOLV_NONE
 		bool
 		prompt "none"

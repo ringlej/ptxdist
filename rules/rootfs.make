@@ -229,6 +229,9 @@ endif
 ifdef PTXCONF_ROOTFS_RESOLV_LINK
 	@$(call install_link, rootfs, /proc/net/pnp, /etc/resolv.conf)
 endif
+ifdef PTXCONF_ROOTFS_RESOLV_RUN
+	@$(call install_link, rootfs, /run/resolv.conf, /etc/resolv.conf)
+endif
 ifdef PTXCONF_ROOTFS_SERVICES
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/services)
 endif
