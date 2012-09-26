@@ -1,0 +1,9 @@
+## SECTION=test_suites
+
+config DT
+	tristate
+	prompt "dt"
+	help
+	  'dt' is a generic data test program used to verify proper operation of
+	  peripherals and for obtaining performance information. Since verification
+	  of data is performed, 'dt' can be thought of as a generic diagnostic tool.
