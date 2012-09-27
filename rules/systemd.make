@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 189
-SYSTEMD_MD5	:= ac2eb313f5dce79622f60aac56bca66d
+SYSTEMD_VERSION	:= 193
+SYSTEMD_MD5	:= 732a9de2b1d2a15cab639c987ff9e90e
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -29,11 +29,16 @@ SYSTEMD_LICENSE	:= GPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
+# python is used for the journal python bindings, which are not installed
+SYSTEMD_CONF_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_path_PYTHON=:
+
 #
 # autoconf
 #
 SYSTEMD_CONF_TOOL	:= autoconf
-SYSTEMD_CONF_OPT += \
+SYSTEMD_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-silent-rules \
