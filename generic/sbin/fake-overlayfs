@@ -1,0 +1,25 @@
+#!/bin/sh
+
+OVERLAY_DIRS="@OVERLAY_DIRLIST@"
+
+bdir=/tmp/.fake-overlay-root
+
+mkdir $bdir
+mount -o bind,ro / $bdir
+IFS=:
+set $OVERLAY_DIRS
+while [ $# -gt 0 ]; do
+	if [ -z "$1" ]; then
+		shift
+		continue
+	fi
+	echo $1
+	src="$bdir$1"
+	dst="$1/"
+	test -e "$dst" || mkdir $dst
+	cp -a "$src/"* "$src/".[^.]* "$src/"..?* $dst 2> /dev/null
+	shift
+done
+umount $bdir
+rmdir $bdir
+

@@ -49,14 +49,25 @@ $(STATEDIR)/fake-overlayfs.targetinstall:
 	@$(call install_fixup, fake-overlayfs,DESCRIPTION,missing)
 
 	@$(call install_alternative, fake-overlayfs, 0, 0, 0755, \
-		/etc/init.d/fake-overlayfs)
-	@$(call install_replace, fake-overlayfs, /etc/init.d/fake-overlayfs, \
+		/sbin/fake-overlayfs)
+	@$(call install_replace, fake-overlayfs, /sbin/fake-overlayfs, \
 		@OVERLAY_DIRLIST@, $(FAKE_OVERLAYFS_DIRS))
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+	@$(call install_alternative, fake-overlayfs, 0, 0, 0755, \
+		/etc/init.d/fake-overlayfs)
 
 ifneq ($(call remove_quotes,$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK)),)
 	@$(call install_link, fake-overlayfs, \
 		../init.d/fake-overlayfs, \
 		/etc/rc.d/$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK))
+endif
+endif
+ifdef PTXCONF_LIGHTTPD_SYSTEMD_UNIT
+	@$(call install_alternative, fake-overlayfs, 0, 0, 0644, \
+		/lib/systemd/system/fake-overlayfs.service)
+	@$(call install_link, fake-overlayfs, ../fake-overlayfs.service, \
+		/lib/systemd/system/sysinit.target.wants/fake-overlayfs.service)
 endif
 
 	@$(call install_finish, fake-overlayfs)
