@@ -4,4 +4,5 @@ After=syslog.target
 
 [Service]
 ExecStart=/usr/sbin/sshd -i
+SuccessExitStatus=0 255
 StandardInput=socket
