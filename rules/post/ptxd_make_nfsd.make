@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-ptxd_make_nfsd: $(STATEDIR)/host-unfs3.install.post $(STATEDIR)/world.targetinstall
+ptxd_make_nfsd: $(STATEDIR)/host-unfs3.install.post
 	@$(call image/env) \
 	ptxd_make_nfsd
 
