@@ -63,23 +63,50 @@ config BOOST_INST_MT_RED
 
 comment "Boost Libraries"
 
+config BOOST_CHRONO
+	bool
+	select BOOST_SYSTEM
+	prompt "chrono"
+	help
+	  Boost chrono library
+
+config BOOST_CONTEXT
+	bool
+	prompt "context"
+	help
+	  Boost context library
+
 config BOOST_DATE_TIME
- 	bool
- 	prompt "date_time"
- 	help
+	bool
+	prompt "date_time"
+	help
 	  Boost date time library
+
+config BOOST_EXCEPTION
+	bool
+	prompt "exception"
+	help
+	  Boost exception library
 
 config BOOST_FILESYSTEM
 	bool
+	select BOOST_SYSTEM
 	prompt "filesystem"
 	help
 	  Boost filesystem library
 
 config BOOST_GRAPH
 	bool
+	select BOOST_REGEX
 	prompt "graph"
 	help
 	  Boost graph library
+
+config BOOST_GRAPH_PARALLEL
+	bool
+	prompt "graph_parallel"
+	help
+	  Boost graph_parallel library
 
 config BOOST_IOSTREAMS
 	bool
@@ -87,11 +114,36 @@ config BOOST_IOSTREAMS
 	help
 	  Boost iostream library
 
+config BOOST_LOCALE
+	bool
+	select BOOST_SYSTEM
+	prompt "locale"
+	help
+	  Boost iostream library
+
+config BOOST_MATH
+	bool
+	prompt "math"
+	help
+	  Boost iostream library
+
+config BOOST_MPI
+	bool
+	prompt "mpi"
+	help
+	  Boost iostream library
+
 config BOOST_PROGRAM_OPTIONS
 	bool
- 	prompt "program options"
- 	help
+	prompt "program options"
+	help
 	  Boost program option parser
+
+config BOOST_RANDOM
+	bool
+	prompt "random"
+	help
+	  Boost iostream library
 
 config BOOST_REGEX
 	bool
@@ -100,31 +152,51 @@ config BOOST_REGEX
 	  Boost regex library
 
 config BOOST_SERIALIZATION
- 	bool
- 	prompt "serialization"
- 	help
+	bool
+	prompt "serialization"
+	help
 	  Boost serialization library
 
 config BOOST_SIGNALS
- 	bool
- 	prompt "signals"
- 	help
+	bool
+	prompt "signals"
+	help
 	  Boost signals library
 
+config BOOST_SYSTEM
+	bool
+	prompt "system"
+	help
+	  Boost system library
+
 config BOOST_TEST
- 	bool
- 	prompt "test"
- 	help
+	bool
+	prompt "test"
+	help
 	  Boost test framework
 
 config BOOST_THREAD
 	bool
+	select BOOST_CHRONO
+	select BOOST_SYSTEM
 	prompt "thread"
 	help
 	  Portable C++ multi-threading library
 
+config BOOST_TIMER
+	bool
+	select BOOST_CHRONO
+	select BOOST_SYSTEM
+	prompt "timer"
+	help
+	  Boost iostream library
+
 config BOOST_WAVE
 	bool
+	select BOOST_THREAD
+	select BOOST_CHRONO
+	select BOOST_FILESYSTEM
+	select BOOST_SYSTEM
 	prompt "wave"
 	help
 	  Boost wave library
