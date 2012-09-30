@@ -1,0 +1,10 @@
+## SECTION=image2
+
+config IMAGE_ROOT_CPIO_GZ
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_TGZ
+	prompt "Generate images/root.cpio.gz"
+	help
+	  Build the traditionally initrd RAM disk to be used
+	  as initramfs by the kernel.
