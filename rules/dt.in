@@ -2,6 +2,9 @@
 
 config DT
 	tristate
+	select LIBC_RT
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	prompt "dt"
 	help
 	  'dt' is a generic data test program used to verify proper operation of

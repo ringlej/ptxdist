@@ -33,10 +33,12 @@ DT_LICENSE	:= MIT style
 
 DT_CONF_TOOL	:= NO
 # Standard CFLAGS do not set -DFIFO, -DTAPE and -Wextra, also prefer -O2
+DT_MAKE_ENV	:= $(CROSS_ENV)
 DT_MAKE_OPT	:= \
 	$(CROSS_ENV_PROGS) \
+	$(CROSS_ENV_LDFLAGS) \
 	CFLAGS="-O2 -DAIO -DFIFO -DMMAP -DTAPE -DTTY -D__linux__ -D_GNU_SOURCE \
-		-D_FILE_OFFSET_BITS=64 -DTHREADS -Wextra" \
+		-D_FILE_OFFSET_BITS=64 -DTHREADS -Wextra $(CROSS_CFLAGS)" \
 	-f Makefile.linux
 
 # ----------------------------------------------------------------------------
