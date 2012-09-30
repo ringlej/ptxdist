@@ -1,5 +1,6 @@
 [Unit]
 Conflicts=telnetd.service
+ConditionKernelCommandLine=ptxdist-devel
 
 [Socket]
 ListenStream=23

@@ -1,6 +1,7 @@
 [Unit]
 Description=urshd Server
 After=syslog.target
+ConditionKernelCommandLine=ptxdist-devel
 
 [Service]
 ExecStart=/usr/bin/urshd -D
