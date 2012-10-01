@@ -1,0 +1,7 @@
+## SECTION=shell_and_console
+
+config SCHEDTOOL
+	tristate
+	prompt "schedtool"
+	help
+	  schedtool can be used to query or alter a process' scheduling policy under linux
