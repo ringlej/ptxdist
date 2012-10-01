@@ -8,7 +8,13 @@ if have ptxdist; then
 
 _ptxdist_completion()
 {
-	local cur cmds opts
+	local cur cmds opts _ptxdist_cmd
+
+	if [ "${COMP_WORDS[0]}" = "ptxdist" ]; then
+		_ptxdist_cmd="ptxdist"
+	else
+		_ptxdist_cmd="${COMP_WORDS[0]}"
+	fi
 
 	COMPREPLY=()
 	cur=( $(_get_cword) )
@@ -41,13 +47,13 @@ _ptxdist_completion()
 		[ $COMP_CWORD -lt 3 ] && _filedir
 		;;
 	get|extract|prepare|compile|install|targetinstall|tags)
-		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PTX_PACKAGES_SELECTED )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${opts} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED )" -- $cur ) )
 		;;
 	clean)
-		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PTX_PACKAGES_SELECTED ) root" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${opts} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED ) root" -- $cur ) )
 		;;
 	drop)
-		COMPREPLY=( $( compgen -W "${opts} $( pushd $(ptxdist print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${opts} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
 	newpackage)
 		COMPREPLY=( $( compgen -W "${opts} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
