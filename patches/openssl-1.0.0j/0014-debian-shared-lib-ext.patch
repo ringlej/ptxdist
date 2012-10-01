@@ -1,14 +1,13 @@
-From fef3b40c57e6187fe5806a6aacf9bd7de8b2bed4 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH 15/18] debian shared-lib-ext
+Subject: [PATCH] debian shared-lib-ext
 
 Applied shared-lib-ext.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Configure |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ Configure | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
 index 6ec6823..5a1c3b7 100755
@@ -24,6 +23,3 @@ index 6ec6823..5a1c3b7 100755
  		}
  	elsif ($shared_extension ne "" && $shared_extension =~ /^\.[^\.]*\.[^\.]*\.dylib$/)
  		{
--- 
-1.7.8.4
-

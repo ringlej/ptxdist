@@ -1,16 +1,15 @@
-From 08195640a349a041872d64be956691a9e15aad0c Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH 17/18] debian version-script
+Subject: [PATCH] debian version-script
 
 Applied version-script.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Configure          |    2 ++
- engines/openssl.ld |    5 +++++
- openssl.ld         |    5 +++++
- 3 files changed, 12 insertions(+), 0 deletions(-)
+ Configure          | 2 ++
+ engines/openssl.ld | 5 +++++
+ openssl.ld         | 5 +++++
+ 3 files changed, 12 insertions(+)
  create mode 100644 engines/openssl.ld
  create mode 100644 openssl.ld
 
@@ -49,6 +48,3 @@ index 0000000..5f26d60
 +		 *;
 +};
 +
--- 
-1.7.8.4
-

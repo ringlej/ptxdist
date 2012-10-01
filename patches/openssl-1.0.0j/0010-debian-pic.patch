@@ -1,22 +1,21 @@
-From 081f2bc05a7231de8eb5b4763840966c4974f2fe Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH 11/18] debian pic
+Subject: [PATCH] debian pic
 
 Applied pic.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- crypto/Makefile                |    4 ++--
- crypto/aes/Makefile            |    2 +-
- crypto/aes/asm/aes-x86_64.pl   |    4 ++++
- crypto/des/asm/desboth.pl      |   17 ++++++++++++++---
- crypto/perlasm/cbc.pl          |   24 ++++++++++++++++++++----
- crypto/perlasm/x86_64-xlate.pl |    2 +-
- crypto/perlasm/x86gas.pl       |   10 ++++++++++
- crypto/rc4/Makefile            |    2 +-
- crypto/rc4/asm/rc4-x86_64.pl   |    8 ++++++++
- crypto/x86_64cpuid.pl          |    4 ++++
+ crypto/Makefile                |  4 ++--
+ crypto/aes/Makefile            |  2 +-
+ crypto/aes/asm/aes-x86_64.pl   |  4 ++++
+ crypto/des/asm/desboth.pl      | 17 ++++++++++++++---
+ crypto/perlasm/cbc.pl          | 24 ++++++++++++++++++++----
+ crypto/perlasm/x86_64-xlate.pl |  2 +-
+ crypto/perlasm/x86gas.pl       | 10 ++++++++++
+ crypto/rc4/Makefile            |  2 +-
+ crypto/rc4/asm/rc4-x86_64.pl   |  8 ++++++++
+ crypto/x86_64cpuid.pl          |  4 ++++
  10 files changed, 65 insertions(+), 12 deletions(-)
 
 diff --git a/crypto/Makefile b/crypto/Makefile
@@ -168,10 +167,10 @@ index 6fc2510..f2c8139 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86_64-xlate.pl b/crypto/perlasm/x86_64-xlate.pl
-index 8d50b67..311cbcf 100755
+index 544fa93..8a85b61 100755
 --- a/crypto/perlasm/x86_64-xlate.pl
 +++ b/crypto/perlasm/x86_64-xlate.pl
-@@ -639,7 +639,7 @@ while($line=<>) {
+@@ -635,7 +635,7 @@ while($line=<>) {
  
      chomp($line);
  
@@ -259,6 +258,3 @@ index c96821a..b35762b 100644
  
  .text
  
--- 
-1.7.8.4
-

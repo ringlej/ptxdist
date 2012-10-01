@@ -1,17 +1,16 @@
-From c0c5c223f5e25672d34ed53ebea28266033e41af Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH 07/18] debian man-dir
+Subject: [PATCH] debian man-dir
 
 Applied man-dir.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Makefile.org |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ Makefile.org | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index ec07d38..ff33e42 100644
+index 21304f1..572fe1d 100644
 --- a/Makefile.org
 +++ b/Makefile.org
 @@ -131,7 +131,7 @@ TESTS = alltests
@@ -23,6 +22,3 @@ index ec07d38..ff33e42 100644
  MAN1=1
  MAN3=3
  MANSUFFIX=
--- 
-1.7.8.4
-

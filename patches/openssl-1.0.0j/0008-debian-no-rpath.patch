@@ -1,14 +1,13 @@
-From 97971ff31e5e3539a69bf29457ba55357d28ca1a Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH 09/18] debian no-rpath
+Subject: [PATCH] debian no-rpath
 
 Applied no-rpath.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Makefile.shared |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ Makefile.shared | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.shared b/Makefile.shared
 index e753f44..6e3f886 100644
@@ -23,6 +22,3 @@ index e753f44..6e3f886 100644
  
  #This is rather special.  It's a special target with which one can link
  #applications without bothering with any features that have anything to
--- 
-1.7.8.4
-

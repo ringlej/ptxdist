@@ -1,14 +1,13 @@
-From 23350fabedeb0ebc4af9ebe394b2de96c66c31bc Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH 01/18] debian ca
+Subject: [PATCH] debian ca
 
 Applied ca.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- apps/CA.pl.in |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ apps/CA.pl.in | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/apps/CA.pl.in b/apps/CA.pl.in
 index c783a6e..fa665b7 100644
@@ -30,6 +29,3 @@ index c783a6e..fa665b7 100644
  	    exit 1;
  	}
  }
--- 
-1.7.8.4
-

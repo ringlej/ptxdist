@@ -1,14 +1,13 @@
-From 75a7228beeec79b8edae51575a7f76a1d4c49695 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH 18/18] debian gnu_source
+Subject: [PATCH] debian gnu_source
 
 Applied gnu_source.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- crypto/dso/dso_dlfcn.c |    6 ++----
- 1 files changed, 2 insertions(+), 4 deletions(-)
+ crypto/dso/dso_dlfcn.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/crypto/dso/dso_dlfcn.c b/crypto/dso/dso_dlfcn.c
 index c2bc617..0de9fbe 100644
@@ -27,6 +26,3 @@ index c2bc617..0de9fbe 100644
  #endif
  
  #include <stdio.h>
--- 
-1.7.8.4
-

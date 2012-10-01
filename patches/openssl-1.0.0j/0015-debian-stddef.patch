@@ -1,14 +1,13 @@
-From 79baef912d453d8bda525e5d3c280a0e66270edd Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH 16/18] debian stddef
+Subject: [PATCH] debian stddef
 
 Applied stddef.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- crypto/sha/sha.h |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ crypto/sha/sha.h | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/crypto/sha/sha.h b/crypto/sha/sha.h
 index 16cacf9..204514d 100644
@@ -22,6 +21,3 @@ index 16cacf9..204514d 100644
  #include <openssl/e_os2.h>
  #include <stddef.h>
  
--- 
-1.7.8.4
-

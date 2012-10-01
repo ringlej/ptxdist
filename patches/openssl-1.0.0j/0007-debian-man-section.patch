@@ -1,17 +1,16 @@
-From 82beb140cb033c499f4f8087fb3764c1433e3f58 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 22 Feb 2011 13:56:43 +0100
-Subject: [PATCH 08/18] debian man-section
+Subject: [PATCH] debian man-section
 
 Applied man-section.patch from openssl_1.0.0c-2.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Makefile.org |    7 ++++---
- 1 files changed, 4 insertions(+), 3 deletions(-)
+ Makefile.org | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index ff33e42..ce30b46 100644
+index 572fe1d..ae37b94 100644
 --- a/Makefile.org
 +++ b/Makefile.org
 @@ -134,7 +134,8 @@ MAKEFILE= Makefile
@@ -42,6 +41,3 @@ index ff33e42..ce30b46 100644
  			--release=$(VERSION) `basename $$i`") \
  			>  $(INSTALL_PREFIX)$(MANDIR)/man$$sec/$$fn.$${sec}$(MANSUFFIX); \
  		$(PERL) util/extract-names.pl < $$i | \
--- 
-1.7.8.4
-
