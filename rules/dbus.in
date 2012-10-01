@@ -6,7 +6,7 @@ menuconfig DBUS
 	select EXPAT		if DBUS_XML_EXPAT
 	select LIBXML2		if DBUS_XML_LIBXML2
 	select XORG_LIB_X11	if DBUS_X
-	select RC_ONCE		if RUNTIME && DBUS_MACHINE_ID
+	select MACHINE_ID	if RUNTIME
 	select LIBC_PTHREAD
 	select LIBC_RT
 	help
@@ -25,10 +25,6 @@ menuconfig DBUS
 	  and Java.
 
 if DBUS
-
-config DBUS_MACHINE_ID
-	bool
-	default !SYSTEMD
 
 config DBUS_SELINUX
 	prompt "selinux support [BROKEN]"

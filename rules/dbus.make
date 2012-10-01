@@ -105,11 +105,6 @@ $(STATEDIR)/dbus.targetinstall:
 
 	@$(call install_lib, dbus, 0, 0, 0644, libdbus-1)
 
-ifndef PTXCONF_DBUS_MACHINE_ID
-	@$(call install_alternative, dbus, 0, 0, 0755, \
-		/etc/rc.once.d/dbus)
-endif
-
 #	#
 #	# create system.d and event.d directories, which are used by the configuration and startup files
 #	#

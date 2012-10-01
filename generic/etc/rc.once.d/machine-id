@@ -2,10 +2,13 @@
 
 MACHINE_ID="/etc/machine-id"
 
-if mount | grep -q "$MACHINE_ID"; then
-	id="$(cat "$MACHINE_ID")" &&
-	umount "$MACHINE_ID" &&
-	echo $id > "$MACHINE_ID" &&
-	chmod 0444 "$MACHINE_ID"
-fi
+if mount | grep -q "${MACHINE_ID}"; then
+	id="$(cat "${MACHINE_ID}")" &&
+	umount "${MACHINE_ID}" &&
+	echo $id > "${MACHINE_ID}"
+else
+	id="$(uuidgen)" &&
+	echo ${id//-} > "${MACHINE_ID}"
+fi &&
+chmod 0444 "${MACHINE_ID}"
 
