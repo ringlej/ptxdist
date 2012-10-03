@@ -25,8 +25,13 @@ ptxd_make_xpkg_fixup() {
 	    ;;
     esac
 
-    echo -n "install_fixup:	@${pkg_xpkg_fixup_from}@ -> ${pkg_xpkg_fixup_to} ... "
-    sed -i -e "s,@$pkg_xpkg_fixup_from@,$pkg_xpkg_fixup_to,g" "${pkg_xpkg_control}" || return
+    if [ -n "${pkg_xpkg_fixup_to}" ]; then
+	echo -n "install_fixup:	@${pkg_xpkg_fixup_from}@ -> ${pkg_xpkg_fixup_to} ... "
+	sed -i -e "s,@$pkg_xpkg_fixup_from@,$pkg_xpkg_fixup_to,g" "${pkg_xpkg_control}" || return
+    else
+	echo -n "install_fixup:	append '${pkg_xpkg_fixup_from}' ... "
+	echo "${pkg_xpkg_fixup_from}" >> "${pkg_xpkg_control}" || return
+    fi
     echo "done."
 }
 
