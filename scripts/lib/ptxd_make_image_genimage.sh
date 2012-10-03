@@ -59,6 +59,10 @@ ptxd_make_image_genimage_impl() {
     for file in ${image_files}; do
 	ptxd_make_extract_archive "${image_files}" "${pkg_dir}"
     done &&
+    if [ -n "${image_pkgs}" ]; then
+	ptxd_get_ipkg_files ${image_pkgs} &&
+	ptxd_make_image_extract_xpkg_files "${pkg_dir}"
+    fi &&
 
     ptxd_eval \
 	"${image_env}" \
