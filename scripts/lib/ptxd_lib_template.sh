@@ -399,6 +399,7 @@ ptxd_template_new_image_tgz() {
     ptxd_template_read_author &&
     ptxd_template_read "add packages" PACKAGES '$(PTX_PACKAGES_INSTALL)'
     ptxd_template_read "add files" FILES
+    package_filename="${package_filename}-tgz"
     ptxd_template_write_platform_rules
 }
 export -f ptxd_template_new_image_tgz
