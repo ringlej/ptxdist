@@ -10,11 +10,7 @@ _ptxdist_completion()
 {
 	local cur cmds opts _ptxdist_cmd
 
-	if [ "${COMP_WORDS[0]}" = "ptxdist" ]; then
-		_ptxdist_cmd="ptxdist"
-	else
-		_ptxdist_cmd="${COMP_WORDS[0]}"
-	fi
+	_ptxdist_cmd="${COMP_WORDS[0]}"
 
 	COMPREPLY=()
 	cur=( $(_get_cword) )
