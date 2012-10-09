@@ -97,6 +97,9 @@ $(STATEDIR)/wpa_supplicant.install:
 	install -D -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.w1.wpa_supplicant1.service" \
 		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service"
 
+	install -D -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/systemd/wpa_supplicant.service" \
+		"$(WPA_SUPPLICANT_PKGDIR)/lib/systemd/system/wpa_supplicant.service"
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -126,6 +129,10 @@ ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
 		/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service)
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
 		/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service)
+endif
+ifdef PTXCONF_INITMETHOD_SYSTEMD
+	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
+		/lib/systemd/system/wpa_supplicant.service)
 endif
 
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
