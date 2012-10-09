@@ -1,0 +1,47 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 8 Oct 2012 08:42:52 +0200
+Subject: [PATCH] check for name_to_handle_at declaration instead of its
+ definition
+
+AC_CHECK_FUNCS may be successful, even though name_to_handle_at and
+'struct file_handle'  are not available.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac         |    7 ++++---
+ src/shared/missing.h |    2 +-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 5d7d0c2..b543dbc 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -172,11 +172,12 @@ CAP_LIBS="$LIBS"
+ LIBS="$save_LIBS"
+ AC_SUBST(CAP_LIBS)
+ 
+-AC_CHECK_FUNCS([fanotify_init fanotify_mark name_to_handle_at])
++AC_CHECK_FUNCS([fanotify_init fanotify_mark])
+ AC_CHECK_FUNCS([__secure_getenv secure_getenv])
+-AC_CHECK_DECLS([gettid, pivot_root], [], [], [[#include <sys/types.h>
++AC_CHECK_DECLS([gettid, pivot_root, name_to_handle_at], [], [], [[#include <sys/types.h>
+ #include <unistd.h>
+-#include <sys/mount.h>]])
++#include <sys/mount.h>
++#include <fcntl.h>]])
+ 
+ # This makes sure pkg.m4 is available.
+ m4_pattern_forbid([^_?PKG_[A-Z_]+$],[*** pkg.m4 missing, please install pkg-config])
+diff --git a/src/shared/missing.h b/src/shared/missing.h
+index 14abe4e..de68327 100644
+--- a/src/shared/missing.h
++++ b/src/shared/missing.h
+@@ -218,7 +218,7 @@ static inline pid_t gettid(void) {
+ #  endif
+ #endif
+ 
+-#ifndef HAVE_NAME_TO_HANDLE_AT
++#if !HAVE_DECL_NAME_TO_HANDLE_AT
+ struct file_handle {
+         unsigned int handle_bytes;
+         int handle_type;
