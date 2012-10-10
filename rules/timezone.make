@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_TIMEZONE) += timezone
 TIMEZONE_VERSION	:= 1.0
 TIMEZONE		:= timezone-$(TIMEZONE_VERSION)
 
-TIMEZONE_LOCALTIME_FILE	:= /usr/share/zoneinfo/$(PTXCONF_GLIBC_LOCALTIME)
+TIMEZONE_LOCALTIME_FILE	:= /usr/share/zoneinfo/$(PTXCONF_TIMEZONE_LOCALTIME)
 
 TIMEZONE-$(PTXCONF_TIMEZONE_AFRICA) := "Africa"
 TIMEZONE-$(PTXCONF_TIMEZONE_ATLANTIC) += "Atlantic"
@@ -118,12 +118,12 @@ $(STATEDIR)/timezone.targetinstall:
 		$(call install_copy, timezone, 0, 0, 0644, -, /usr/share/zoneinfo/$$f,n); \
         done
 
-ifdef PTXCONF_GLIBC_LOCALTIME
+ifneq ($(call remove_quotes,$(PTXCONF_TIMEZONE_LOCALTIME)),)
 	@$(call install_link, timezone, ..$(TIMEZONE_LOCALTIME_FILE), \
 		/etc/localtime)
 	@$(call install_alternative, timezone, 0, 0, 0644, /etc/timezone)
 	@$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
-		$(PTXCONF_GLIBC_LOCALTIME))
+		$(PTXCONF_TIMEZONE_LOCALTIME))
 endif
 
 	@$(call install_finish, timezone)
