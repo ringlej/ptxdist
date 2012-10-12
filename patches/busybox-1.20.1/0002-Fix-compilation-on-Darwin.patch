@@ -1,4 +1,3 @@
-From 6b464e669163eee0fc71b57ba3530df812736541 Mon Sep 17 00:00:00 2001
 From: Bernhard Walle <bernhard@bwalle.de>
 Date: Wed, 13 Jun 2012 21:44:46 +0200
 Subject: [PATCH] Fix compilation on Darwin

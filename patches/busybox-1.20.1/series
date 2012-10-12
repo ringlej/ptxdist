@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-reactivate-check-for-tty.patch
 0002-Fix-compilation-on-Darwin.patch
-# 0f71f4e1223df5ecf36d97b5851e1c4c  - git-ptx-patches magic
+0003-Fix-the-format-warning-when-building-applets-usage_p.patch
+# 5f3f3ac2bf84d7c201d42388a92d64f8  - git-ptx-patches magic
