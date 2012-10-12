@@ -23,12 +23,6 @@ config SSMTP_SSL
 	help
 	  Support for secure connection to mail server (needs SSL shared libraries).
 
-config SSMTP_INET6
-	bool
-	prompt "ipv6 support"
-	help
-	  Support for IPv6 transport.
-
 config SSMTP_MD5AUTH
 	bool
 	prompt "md5sum support"
