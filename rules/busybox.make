@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.20.1
-BUSYBOX_MD5	:= af2fededb6dca804544c05684636e574
+BUSYBOX_VERSION	:= 1.20.2
+BUSYBOX_MD5	:= e025414bc6cd79579cc7a32a45d3ae1c
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
 BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
