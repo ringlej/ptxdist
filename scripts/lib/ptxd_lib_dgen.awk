@@ -103,6 +103,7 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 	PKG_to_filename[this_PKG] = FILENAME;
 
 	print "PTX_MAP_TO_package_" this_PKG "=\"" this_pkg "\""	> MAP_ALL;
+	print "PTX_MAP_TO_package_" this_PKG "="   this_pkg 		> MAP_ALL_MAKE;
 	print "PTX_MAP_TO_PACKAGE_" this_pkg "="   this_PKG		> MAP_ALL_MAKE;
 
 	next;
