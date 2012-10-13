@@ -14,18 +14,14 @@
 static inline const char *gettext(const char *txt) { return txt; }
 static inline void textdomain(const char *domainname) {}
 static inline void bindtextdomain(const char *name, const char *dir) {}
+static inline char *bind_textdomain_codeset(const char *dn, char *c) { return c; }
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifdef LKC_DIRECT_LINK
 #define P(name,type,arg)	extern type name arg
-#else
-#include "lkc_defs.h"
-#define P(name,type,arg)	extern type (*name ## _p) arg
-#endif
 #include "lkc_proto.h"
 #undef P
 
@@ -67,19 +63,16 @@ struct kconf_id {
 	enum symbol_type stype;
 };
 
+extern int zconfdebug;
+
 int zconfparse(void);
 void zconfdump(FILE *out);
-
-extern int zconfdebug;
 void zconf_starthelp(void);
 FILE *zconf_fopen(const char *name);
 void zconf_initscan(const char *name);
 void zconf_nextfile(const char *name);
 int zconf_lineno(void);
 const char *zconf_curname(void);
-
-/* conf.c */
-void xfgets(char *str, int size, FILE *in);
 
 /* confdata.c */
 const char *conf_get_configname(void);
@@ -89,15 +82,19 @@ void sym_set_change_count(int count);
 void sym_add_change_count(int count);
 void conf_set_all_new_symbols(enum conf_def_mode mode);
 
+struct conf_printer {
+	void (*print_symbol)(FILE *, struct symbol *, const char *, void *);
+	void (*print_comment)(FILE *, const char *, void *);
+};
+
 /* confdata.c and expr.c */
 static inline void xfwrite(const void *str, size_t len, size_t count, FILE *out)
 {
-	if (fwrite(str, len, count, out) < count)
-		fprintf(stderr, "\nError in writing or end of file.\n");
-}
+	assert(len != 0);
 
-/* kconfig_load.c */
-void kconfig_load(void);
+	if (fwrite(str, len, count, out) != count)
+		fprintf(stderr, "Error in writing or end of file.\n");
+}
 
 /* menu.c */
 void _menu_init(void);

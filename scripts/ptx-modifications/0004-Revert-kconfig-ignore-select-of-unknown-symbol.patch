@@ -1,7 +1,7 @@
-From 631cb793027b476a8576f23bbaada799ceb59478 Mon Sep 17 00:00:00 2001
+From c7a4639c729b5700c89ddcc8a7d932b3b55478e7 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Thu, 11 Nov 2010 06:00:37 +0100
-Subject: [PATCH 04/10] Revert "kconfig: ignore select of unknown symbol"
+Subject: [PATCH] Revert "kconfig: ignore select of unknown symbol"
 
 We have had warnings for a long time about select of unknow symbol
 but the warnings does not really makes sense since we may
@@ -22,13 +22,13 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  scripts/kconfig/menu.c |    9 ++++++---
- 1 files changed, 6 insertions(+), 3 deletions(-)
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index 7e83aef..3c5c089 100644
+index a3cade6..5d5ff16 100644
 --- a/scripts/kconfig/menu.c
 +++ b/scripts/kconfig/menu.c
-@@ -208,9 +208,12 @@ static void sym_check_prop(struct symbol *sym)
+@@ -237,9 +237,12 @@ static void sym_check_prop(struct symbol *sym)
  				prop_warn(prop,
  				    "config symbol '%s' uses select, but is "
  				    "not boolean or tristate", sym->name);
@@ -44,6 +44,3 @@ index 7e83aef..3c5c089 100644
  				prop_warn(prop,
  				    "'%s' has wrong type. 'select' only "
  				    "accept arguments of boolean and "
--- 
-1.7.2.3
-

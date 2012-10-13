@@ -1,7 +1,7 @@
-From 929964f782a141e788fae51f4bb487b37f9691c9 Mon Sep 17 00:00:00 2001
+From f9f72e3b50d3c43d88879452fbb14ae369523a42 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Thu, 11 Nov 2010 06:01:25 +0100
-Subject: [PATCH 03/10] Revert "kconfig: make comments stand out in menuconfig"
+Subject: [PATCH] Revert "kconfig: make comments stand out in menuconfig"
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -21,13 +21,13 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  scripts/kconfig/mconf.c |    8 --------
- 1 files changed, 0 insertions(+), 8 deletions(-)
+ 1 file changed, 8 deletions(-)
 
 diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
-index d433c7a..6168020 100644
+index 48f6744..04d58b0 100644
 --- a/scripts/kconfig/mconf.c
 +++ b/scripts/kconfig/mconf.c
-@@ -376,14 +376,6 @@ static void build_conf(struct menu *menu)
+@@ -441,14 +441,6 @@ static void build_conf(struct menu *menu)
  				if (single_menu_mode && menu->data)
  					goto conf_childs;
  				return;
@@ -42,6 +42,3 @@ index d433c7a..6168020 100644
  			default:
  				if (prompt) {
  					child_count++;
--- 
-1.7.2.3
-

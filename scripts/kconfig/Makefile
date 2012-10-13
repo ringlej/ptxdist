@@ -75,7 +75,7 @@ nconf: $(nconf-objs)
 lkc_defs.h: lkc_proto.h
 	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
 
-zconf.tab.o: lex.zconf.c zconf.hash.c zconf.tab.c confdata.c expr.c symbol.c menu.c $(lkc-deps)
+zconf.tab.o: zconf.lex.c zconf.hash.c zconf.tab.c confdata.c expr.c symbol.c menu.c $(lkc-deps)
 
 kconfig_load.o: $(lkc-deps)
 
@@ -99,7 +99,7 @@ zconf.hash.c: zconf.gperf
 	bison -l -b $* -p $(notdir $*) $<
 	cp $@ $@_shipped
 
-lex.%.c: %.l
+%.lex.c: %.l
 	flex -L -P$(notdir $*) -o$@ $<
 	cp $@ $@_shipped
 
@@ -112,7 +112,7 @@ else
 %.tab.c: %.y
 	cp $@_shipped $@
 
-lex.%.c: %.l
+%.lex.c: %.l
 	cp $@_shipped $@
 
 %.hash.c: %.gperf
@@ -122,4 +122,4 @@ endif
 
 clean:
 	rm -f $(conf-objs) $(mconf-objs) $(nconf-objs) conf mconf nconf gconf qconf
-	rm -f lkc_defs.h zconf.tab.o zconf.tab.c zconf.hash.c lex.zconf.c
+	rm -f lkc_defs.h zconf.tab.o zconf.tab.c zconf.hash.c zconf.lex.c

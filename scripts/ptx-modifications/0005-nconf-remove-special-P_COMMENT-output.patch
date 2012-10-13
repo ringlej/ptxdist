@@ -1,17 +1,17 @@
-From fdf1eb4771301a7e9e75bb42411d753457ecde7a Mon Sep 17 00:00:00 2001
+From 75671d19736751b8bdf2714598f0a908ddef08b6 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 2 Nov 2010 20:16:11 +0100
-Subject: [PATCH 05/10] nconf: remove special P_COMMENT output
+Subject: [PATCH] nconf: remove special P_COMMENT output
 
 This is like the patch reversing 48874077ddd6c0c444758059af2cf77c10204ece
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  scripts/kconfig/nconf.c |    9 ---------
- 1 files changed, 0 insertions(+), 9 deletions(-)
+ 1 file changed, 9 deletions(-)
 
 diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
-index 272a987..ecba639 100644
+index 87d4b15..1dac689 100644
 --- a/scripts/kconfig/nconf.c
 +++ b/scripts/kconfig/nconf.c
 @@ -766,15 +766,6 @@ static void build_conf(struct menu *menu)
@@ -30,6 +30,3 @@ index 272a987..ecba639 100644
  			default:
  				if (prompt) {
  					child_count++;
--- 
-1.7.2.3
-

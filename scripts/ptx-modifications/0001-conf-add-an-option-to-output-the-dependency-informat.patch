@@ -1,26 +1,26 @@
-From aee97396d42a5c030162fcd7247058ddf91e279c Mon Sep 17 00:00:00 2001
+From 72a38d63dbcb7c4dfdcd32ba4f14600d2ea55c4b Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Mon, 1 Nov 2010 19:49:21 +0100
-Subject: [PATCH 01/10] conf: add an option to output the dependency information
+Subject: [PATCH] conf: add an option to output the dependency information
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  scripts/kconfig/conf.c |   39 +++++++++++++++++++++++++++++++++++++++
- 1 files changed, 39 insertions(+), 0 deletions(-)
+ 1 file changed, 39 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 5459a38..2a11cbe 100644
+index 4da3b4a..9f5db95 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
 @@ -33,6 +33,7 @@ enum input_mode {
  	savedefconfig,
  	listnewconfig,
- 	oldnoconfig,
+ 	olddefconfig,
 +	writedepend,
  } input_mode = oldaskconfig;
  
- char *defconfig_file;
-@@ -440,6 +441,36 @@ static void check_conf(struct menu *menu)
+ static int indent = 1;
+@@ -442,6 +443,36 @@ static void check_conf(struct menu *menu)
  		check_conf(child);
  }
  
@@ -57,23 +57,23 @@ index 5459a38..2a11cbe 100644
  static struct option long_opts[] = {
  	{"oldaskconfig",    no_argument,       NULL, oldaskconfig},
  	{"oldconfig",       no_argument,       NULL, oldconfig},
-@@ -453,6 +484,7 @@ static struct option long_opts[] = {
- 	{"randconfig",      no_argument,       NULL, randconfig},
- 	{"listnewconfig",   no_argument,       NULL, listnewconfig},
- 	{"oldnoconfig",     no_argument,       NULL, oldnoconfig},
+@@ -461,6 +492,7 @@ static struct option long_opts[] = {
+ 	 * value but not 'n') with the counter-intuitive name.
+ 	 */
+ 	{"oldnoconfig",     no_argument,       NULL, olddefconfig},
 +	{"writedepend",     no_argument,       NULL, writedepend},
  	{NULL, 0, NULL, 0}
  };
  
-@@ -461,6 +493,7 @@ int main(int ac, char **av)
+@@ -490,6 +522,7 @@ int main(int ac, char **av)
  	int opt;
- 	const char *name;
+ 	const char *name, *defconfig_file = NULL /* gcc uninit */;
  	struct stat tmpstat;
 +	int dep_output = 0;
  
  	setlocale(LC_ALL, "");
  	bindtextdomain(PACKAGE, LOCALEDIR);
-@@ -469,6 +502,10 @@ int main(int ac, char **av)
+@@ -498,6 +531,10 @@ int main(int ac, char **av)
  	while ((opt = getopt_long(ac, av, "", long_opts, NULL)) != -1) {
  		input_mode = (enum input_mode)opt;
  		switch (opt) {
@@ -84,8 +84,8 @@ index 5459a38..2a11cbe 100644
  		case silentoldconfig:
  			sync_kconfig = 1;
  			break;
-@@ -616,6 +653,8 @@ int main(int ac, char **av)
- 			  input_mode != oldnoconfig));
+@@ -663,6 +700,8 @@ int main(int ac, char **av)
+ 			  input_mode != olddefconfig));
  		break;
  	}
 +	if (dep_output)
@@ -93,6 +93,3 @@ index 5459a38..2a11cbe 100644
  
  	if (sync_kconfig) {
  		/* silentoldconfig is used during the build so we shall update autoconf.
--- 
-1.7.2.3
-

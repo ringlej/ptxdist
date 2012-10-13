@@ -3,14 +3,14 @@
  * Released under the terms of the GNU GPL v2.0.
  */
 
+#include <ctype.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define LKC_DIRECT_LINK
 #include "lkc.h"
 
-static const char nohelp_text[] = N_(
-	"There is no help available for this option.\n");
+static const char nohelp_text[] = "There is no help available for this option.";
 
 struct menu rootmenu;
 static struct menu **last_entry_ptr;
@@ -140,6 +140,20 @@ struct property *menu_add_prop(enum prop_type type, char *prompt, struct expr *e
 		}
 		if (current_entry->prompt && current_entry != &rootmenu)
 			prop_warn(prop, "prompt redefined");
+
+		/* Apply all upper menus' visibilities to actual prompts. */
+		if(type == P_PROMPT) {
+			struct menu *menu = current_entry;
+
+			while ((menu = menu->parent) != NULL) {
+				if (!menu->visibility)
+					continue;
+				prop->visible.expr
+					= expr_alloc_and(prop->visible.expr,
+							 menu->visibility);
+			}
+		}
+
 		current_entry->prompt = prop;
 	}
 	prop->text = prompt;
@@ -189,7 +203,7 @@ void menu_add_option(int token, char *arg)
 	}
 }
 
-static int menu_range_valid_sym(struct symbol *sym, struct symbol *sym2)
+static int menu_validate_number(struct symbol *sym, struct symbol *sym2)
 {
 	return sym2->type == S_INT || sym2->type == S_HEX ||
 	       (sym2->type == S_UNKNOWN && sym_string_valid(sym, sym2->name));
@@ -207,6 +221,15 @@ static void sym_check_prop(struct symbol *sym)
 				prop_warn(prop,
 				    "default for config symbol '%s'"
 				    " must be a single symbol", sym->name);
+			if (prop->expr->type != E_SYMBOL)
+				break;
+			sym2 = prop_get_symbol(prop);
+			if (sym->type == S_HEX || sym->type == S_INT) {
+				if (!menu_validate_number(sym, sym2))
+					prop_warn(prop,
+					    "'%s': number is invalid",
+					    sym->name);
+			}
 			break;
 		case P_SELECT:
 			sym2 = prop_get_symbol(prop);
@@ -229,8 +252,8 @@ static void sym_check_prop(struct symbol *sym)
 			if (sym->type != S_INT && sym->type != S_HEX)
 				prop_warn(prop, "range is only allowed "
 				                "for int or hex symbols");
-			if (!menu_range_valid_sym(sym, prop->expr->left.sym) ||
-			    !menu_range_valid_sym(sym, prop->expr->right.sym))
+			if (!menu_validate_number(sym, prop->expr->left.sym) ||
+			    !menu_validate_number(sym, prop->expr->right.sym))
 				prop_warn(prop, "range is invalid");
 			break;
 		default:
@@ -330,7 +353,7 @@ void menu_finalize(struct menu *parent)
 			last_menu->next = NULL;
 		}
 
-		sym->dir_dep.expr = parent->dep;
+		sym->dir_dep.expr = expr_alloc_or(sym->dir_dep.expr, parent->dep);
 	}
 	for (menu = parent->list; menu; menu = menu->next) {
 		if (sym && sym_is_choice(sym) &&
@@ -487,10 +510,12 @@ const char *menu_get_help(struct menu *menu)
 		return "";
 }
 
-static void get_prompt_str(struct gstr *r, struct property *prop)
+static void get_prompt_str(struct gstr *r, struct property *prop,
+			   struct jk_head *head)
 {
 	int i, j;
-	struct menu *submenu[8], *menu;
+	struct menu *submenu[8], *menu, *location = NULL;
+	struct jump_key *jump;
 
 	str_printf(r, _("Prompt: %s\n"), _(prop->text));
 	str_printf(r, _("  Defined at %s:%d\n"), prop->menu->file->name,
@@ -501,13 +526,43 @@ static void get_prompt_str(struct gstr *r, struct property *prop)
 		str_append(r, "\n");
 	}
 	menu = prop->menu->parent;
-	for (i = 0; menu != &rootmenu && i < 8; menu = menu->parent)
+	for (i = 0; menu != &rootmenu && i < 8; menu = menu->parent) {
+		bool accessible = menu_is_visible(menu);
+
 		submenu[i++] = menu;
+		if (location == NULL && accessible)
+			location = menu;
+	}
+	if (head && location) {
+		jump = malloc(sizeof(struct jump_key));
+
+		if (menu_is_visible(prop->menu)) {
+			/*
+			 * There is not enough room to put the hint at the
+			 * beginning of the "Prompt" line. Put the hint on the
+			 * last "Location" line even when it would belong on
+			 * the former.
+			 */
+			jump->target = prop->menu;
+		} else
+			jump->target = location;
+
+		if (CIRCLEQ_EMPTY(head))
+			jump->index = 0;
+		else
+			jump->index = CIRCLEQ_LAST(head)->index + 1;
+
+		CIRCLEQ_INSERT_TAIL(head, jump, entries);
+	}
+
 	if (i > 0) {
 		str_printf(r, _("  Location:\n"));
 		for (j = 4; --i >= 0; j += 2) {
 			menu = submenu[i];
-			str_printf(r, "%*c-> %s", j, ' ', _(menu_get_prompt(menu)));
+			if (head && location && menu == location)
+				jump->offset = r->len - 1;
+			str_printf(r, "%*c-> %s", j, ' ',
+				   _(menu_get_prompt(menu)));
 			if (menu->sym) {
 				str_printf(r, " (%s [=%s])", menu->sym->name ?
 					menu->sym->name : _("<choice>"),
@@ -518,7 +573,10 @@ static void get_prompt_str(struct gstr *r, struct property *prop)
 	}
 }
 
-void get_symbol_str(struct gstr *r, struct symbol *sym)
+/*
+ * head is optional and may be NULL
+ */
+void get_symbol_str(struct gstr *r, struct symbol *sym, struct jk_head *head)
 {
 	bool hit;
 	struct property *prop;
@@ -537,7 +595,7 @@ void get_symbol_str(struct gstr *r, struct symbol *sym)
 		}
 	}
 	for_all_prompts(sym, prop)
-		get_prompt_str(r, prop);
+		get_prompt_str(r, prop, head);
 	hit = false;
 	for_all_properties(sym, prop, P_SELECT) {
 		if (!hit) {
@@ -557,14 +615,14 @@ void get_symbol_str(struct gstr *r, struct symbol *sym)
 	str_append(r, "\n\n");
 }
 
-struct gstr get_relations_str(struct symbol **sym_arr)
+struct gstr get_relations_str(struct symbol **sym_arr, struct jk_head *head)
 {
 	struct symbol *sym;
 	struct gstr res = str_new();
 	int i;
 
 	for (i = 0; sym_arr && (sym = sym_arr[i]); i++)
-		get_symbol_str(&res, sym);
+		get_symbol_str(&res, sym, head);
 	if (!i)
 		str_append(&res, _("No matches found.\n"));
 	return res;
@@ -574,16 +632,14 @@ struct gstr get_relations_str(struct symbol **sym_arr)
 void menu_get_ext_help(struct menu *menu, struct gstr *help)
 {
 	struct symbol *sym = menu->sym;
+	const char *help_text = nohelp_text;
 
 	if (menu_has_help(menu)) {
-		if (sym->name) {
+		if (sym->name)
 			str_printf(help, "%s%s:\n\n", CONFIG_, sym->name);
-			str_append(help, _(menu_get_help(menu)));
-			str_append(help, "\n");
-		}
-	} else {
-		str_append(help, nohelp_text);
+		help_text = menu_get_help(menu);
 	}
+	str_printf(help, "%s\n", _(help_text));
 	if (sym)
-		get_symbol_str(help, sym);
+		get_symbol_str(help, sym, NULL);
 }
