@@ -125,7 +125,11 @@ ifdef PTXCONF_BAREBOX_BAREBOXENV
 	@$(call install_finish, barebox)
 endif
 	@install -D -m644 $(BAREBOX_DIR)/barebox.bin $(IMAGEDIR)/barebox-image
-	@install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment
+	@if [ -e $(BAREBOX_DIR)/common/barebox_default_env ]; then \
+		install -D -m644 $(BAREBOX_DIR)/common/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
+	else \
+		install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
+	fi
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
