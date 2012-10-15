@@ -863,6 +863,7 @@ Build Actions:
   tags <package>		try to build tags for the package
 
   images			build images for target system
+  image <image>			build the specified image
 
 Clean Actions:
 
@@ -1771,6 +1772,12 @@ EOF
 			;;
 		go|images)
 			do_${cmd}
+			exit
+			;;
+		image)
+			check_premake_compiler &&
+			images=( "${@/#/${IMAGEDIR}/}" ) &&
+			ptxd_make_log "${images[@]}"
 			exit
 			;;
 		make)
