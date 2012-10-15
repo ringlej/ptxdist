@@ -16,7 +16,7 @@ _ptxdist_completion()
 	cur=( $(_get_cword) )
 
 	opts=' --collectionconfig --debug --force --force-download --j-extern --j-intern -k --platformconfig --ptxconfig --quiet --toolchain'
-	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go images install kernelconfig menu menuconfig migrate newpackage oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
+	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go image images install kernelconfig menu menuconfig migrate newpackage nfsroot oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
 
 	# if no commands were given, complete on commands themselves
 	if [ $COMP_CWORD -eq 1 ]; then
