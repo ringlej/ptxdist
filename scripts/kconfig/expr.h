@@ -16,6 +16,7 @@ extern "C" {
 #ifndef __cplusplus
 #include <stdbool.h>
 #endif
+#include "missing.h"
 
 struct file {
 	struct file *next;
