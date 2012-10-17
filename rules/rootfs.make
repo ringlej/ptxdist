@@ -38,8 +38,8 @@ ifdef PTXCONF_ROOTFS_DEV
 	@$(call install_copy, rootfs, 0, 0, 0755, /dev)
 endif
 ifdef PTXCONF_ROOTFS_DEV_INITIAL
-	@$(call install_node, rootfs, 0, 0, 0644, c, 1, 3, /dev/null)
-	@$(call install_node, rootfs, 0, 0, 0644, c, 1, 5, /dev/zero)
+	@$(call install_node, rootfs, 0, 0, 0666, c, 1, 3, /dev/null)
+	@$(call install_node, rootfs, 0, 0, 0666, c, 1, 5, /dev/zero)
 	@$(call install_node, rootfs, 0, 0, 0600, c, 5, 1, /dev/console)
 endif
 ifdef PTXCONF_ROOTFS_HOME
