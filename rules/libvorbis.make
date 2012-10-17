@@ -37,6 +37,7 @@ LIBVORBIS_ENV 	:= $(CROSS_ENV)
 LIBVORBIS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-docs \
+	--disable-examples \
 	--disable-oggtest
 
 # ----------------------------------------------------------------------------
