@@ -15,7 +15,7 @@ Index: libcgi-1.0/Makefile.in
 @@ -6,9 +6,9 @@ prefix = @prefix@
  exec_prefix = @exec_prefix@
  
- SHAREDOPT = -shared -shared -fPIC,-Wl,-soname,libcgi.so.0
+ SHAREDOPT = -shared -shared -fPIC -Wl,-soname,libcgi.so.0
 -LIBDIR = $(prefix)/lib
 -INCDIR = $(prefix)/include/libcgi
 -MANDIR	= $(prefix)/man/man3
