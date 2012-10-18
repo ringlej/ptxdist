@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_DBUS_GLIB) += dbus-glib
 #
 # Paths and names
 #
-DBUS_GLIB_VERSION	:= 0.92
-DBUS_GLIB_MD5		:= b595b36890c4f9f8f5d5dec131c495f8
+DBUS_GLIB_VERSION	:= 0.100
+DBUS_GLIB_MD5		:= d33959a9c0c6a158f5ac6d640316e89e
 DBUS_GLIB		:= dbus-glib-$(DBUS_GLIB_VERSION)
 DBUS_GLIB_SUFFIX	:= tar.gz
 DBUS_GLIB_URL		:= http://dbus.freedesktop.org/releases/dbus-glib/$(DBUS_GLIB).$(DBUS_GLIB_SUFFIX)
@@ -39,7 +39,6 @@ DBUS_GLIB_ENV	:= $(CROSS_ENV)
 DBUS_GLIB_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-bash-completion \
-	--disable-doxygen-docs \
 	--disable-gcov \
 	--disable-gtk-doc \
 	--disable-static \
