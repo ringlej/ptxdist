@@ -8,7 +8,7 @@ Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
 ---
  configure                   |   10 ++++++++++
  pppd/plugins/Makefile.linux |    2 +-
- 2 files changed, 11 insertions(+), 1 deletions(-)
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/configure b/configure
 index 56816b8..00143d3 100755

@@ -4,7 +4,7 @@ Subject: [PATCH] chat_man
 
 ---
  chat/chat.8 |    5 +++--
- 1 files changed, 3 insertions(+), 2 deletions(-)
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/chat/chat.8 b/chat/chat.8
 index 60b2803..b5e7c26 100644

@@ -4,7 +4,7 @@ Subject: [PATCH] resolv.conf_no_log
 
 ---
  pppd/ipcp.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/pppd/ipcp.c b/pppd/ipcp.c
 index 8509c6a..d36078c 100644

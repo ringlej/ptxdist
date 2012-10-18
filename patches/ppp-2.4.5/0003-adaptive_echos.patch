@@ -5,7 +5,7 @@ Subject: [PATCH] adaptive_echos
 ---
  pppd/lcp.c  |   19 +++++++++++++++++++
  pppd/pppd.8 |    5 +++++
- 2 files changed, 24 insertions(+), 0 deletions(-)
+ 2 files changed, 24 insertions(+)
 
 diff --git a/pppd/lcp.c b/pppd/lcp.c
 index 8ed2778..c97a64b 100644

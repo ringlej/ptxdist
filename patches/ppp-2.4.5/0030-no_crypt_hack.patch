@@ -9,7 +9,7 @@ for dialout.
  pppd/Makefile.linux |    4 ++++
  pppd/auth.c         |    2 ++
  pppd/session.c      |    2 ++
- 3 files changed, 8 insertions(+), 0 deletions(-)
+ 3 files changed, 8 insertions(+)
 
 diff --git a/pppd/Makefile.linux b/pppd/Makefile.linux
 index 44cf309..c001679 100644

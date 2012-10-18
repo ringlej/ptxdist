@@ -6,7 +6,7 @@ export $CALL_FILE to the link scripts
 ---
  pppd/options.c |    1 +
  pppd/pppd.8    |    3 +++
- 2 files changed, 4 insertions(+), 0 deletions(-)
+ 2 files changed, 4 insertions(+)
 
 diff --git a/pppd/options.c b/pppd/options.c
 index 818e8b7..a42cb94 100644

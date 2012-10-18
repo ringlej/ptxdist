@@ -12,7 +12,7 @@ unfortunately in this situation it is. Other calls to update_db_entry()
 are protected against this, see, e.g., the end of script_setenv().
 ---
  pppd/main.c |    8 +++++---
- 1 files changed, 5 insertions(+), 3 deletions(-)
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/pppd/main.c b/pppd/main.c
 index 8da4786..8513b1d 100644

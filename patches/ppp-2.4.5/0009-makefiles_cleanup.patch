@@ -7,15 +7,15 @@ Makefiles cleanup
 Factor-out $CFLAGS and $LDFLAGS to allow distributions to easily override
 them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
 ---
- chat/Makefile.linux                  |   11 +++----
- pppd/Makefile.linux                  |   46 ++++++++++++++++++---------------
+ chat/Makefile.linux                  |   11 ++++----
+ pppd/Makefile.linux                  |   46 ++++++++++++++++++----------------
  pppd/plugins/Makefile.linux          |   11 +++++---
- pppd/plugins/pppoatm/Makefile.linux  |   12 ++++----
- pppd/plugins/pppol2tp/Makefile.linux |   10 +++---
- pppd/plugins/radius/Makefile.linux   |   24 ++++++++++-------
+ pppd/plugins/pppoatm/Makefile.linux  |   12 ++++-----
+ pppd/plugins/pppol2tp/Makefile.linux |   10 ++++----
+ pppd/plugins/radius/Makefile.linux   |   24 ++++++++++--------
  pppd/plugins/rp-pppoe/Makefile.linux |   22 ++++++++--------
- pppdump/Makefile.linux               |   10 +++++--
- pppstats/Makefile.linux              |   14 ++++------
+ pppdump/Makefile.linux               |   10 +++++---
+ pppstats/Makefile.linux              |   14 +++++------
  9 files changed, 86 insertions(+), 74 deletions(-)
 
 diff --git a/chat/Makefile.linux b/chat/Makefile.linux

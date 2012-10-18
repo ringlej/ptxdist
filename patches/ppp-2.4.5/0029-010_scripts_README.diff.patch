@@ -4,7 +4,7 @@ Subject: [PATCH] 010_scripts_README.diff
 
 ---
  scripts/README |   14 ++++++++++++++
- 1 files changed, 14 insertions(+), 0 deletions(-)
+ 1 file changed, 14 insertions(+)
 
 diff --git a/scripts/README b/scripts/README
 index 00e032c..439c900 100644

@@ -1,4 +1,4 @@
-From: peter@endian.com <peter@endian.com>
+From: "peter@endian.com" <peter@endian.com>
 Date: Wed, 25 Jan 2012 19:14:26 +0100
 Subject: [PATCH] dont-exit-pado-timeout
 
@@ -26,7 +26,7 @@ I moved the status = EXIT_NEGOTIATION_FAILED which will be set later within
 start_link, at the top of it. That seems to work out, patch is attached:
 ---
  pppd/auth.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/pppd/auth.c b/pppd/auth.c
 index fb71944..031c030 100644

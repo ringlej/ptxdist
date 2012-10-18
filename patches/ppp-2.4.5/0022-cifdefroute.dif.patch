@@ -3,13 +3,13 @@ Date: Wed, 25 Jan 2012 19:14:27 +0100
 Subject: [PATCH] cifdefroute.dif
 
 ---
- pppd/ipcp.c        |   37 ++++++++++++++++++++-----
+ pppd/ipcp.c        |   37 +++++++++++++++++++-----
  pppd/ipcp.h        |    1 +
  pppd/pppd.8        |   12 +++++++-
  pppd/pppd.h        |    2 +-
- pppd/sys-linux.c   |   76 +++++++++++++++++++++++++++++++++++++++++++--------
- pppd/sys-solaris.c |    8 +++++-
- 6 files changed, 113 insertions(+), 23 deletions(-)
+ pppd/sys-linux.c   |   82 ++++++++++++++++++++++++++++++++++++++++++----------
+ pppd/sys-solaris.c |    8 ++++-
+ 6 files changed, 116 insertions(+), 26 deletions(-)
 
 diff --git a/pppd/ipcp.c b/pppd/ipcp.c
 index 12bcc61..6af53d1 100644

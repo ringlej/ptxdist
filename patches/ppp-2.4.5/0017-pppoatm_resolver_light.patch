@@ -16,7 +16,7 @@ plugin with the real libatm. I really doubt anybody cares, anyway.
  pppd/plugins/pppoatm/Makefile.linux |    4 ++++
  pppd/plugins/pppoatm/pppoatm.c      |    4 ++++
  pppd/plugins/pppoatm/text2atm.c     |    4 ++++
- 3 files changed, 12 insertions(+), 0 deletions(-)
+ 3 files changed, 12 insertions(+)
 
 diff --git a/pppd/plugins/pppoatm/Makefile.linux b/pppd/plugins/pppoatm/Makefile.linux
 index f3cb5c4..7996f45 100644

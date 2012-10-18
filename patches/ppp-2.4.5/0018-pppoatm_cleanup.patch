@@ -7,7 +7,7 @@ cosmetic cleanup of the pppoatm plugin
 Removed some debugging messages and generally cleaned up the source.
 ---
  pppd/plugins/pppoatm/pppoatm.c |   23 +++++++++++++----------
- 1 files changed, 13 insertions(+), 10 deletions(-)
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
 diff --git a/pppd/plugins/pppoatm/pppoatm.c b/pppd/plugins/pppoatm/pppoatm.c
 index a7560e9..90d0c9a 100644

@@ -3,8 +3,8 @@ Date: Wed, 25 Jan 2012 19:14:27 +0100
 Subject: [PATCH] 011_scripts_redialer.diff
 
 ---
- scripts/redialer |  133 +++++++++++++++++++++--------------------------------
- 1 files changed, 53 insertions(+), 80 deletions(-)
+ scripts/redialer |  133 ++++++++++++++++++++++--------------------------------
+ 1 file changed, 53 insertions(+), 80 deletions(-)
 
 diff --git a/scripts/redialer b/scripts/redialer
 index 5bbde4e..c0b748a 100755

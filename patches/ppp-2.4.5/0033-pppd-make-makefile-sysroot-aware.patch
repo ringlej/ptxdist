@@ -9,7 +9,7 @@ ones.
 Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 ---
  pppd/Makefile.linux |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/pppd/Makefile.linux b/pppd/Makefile.linux
 index 652fb6e..b713841 100644

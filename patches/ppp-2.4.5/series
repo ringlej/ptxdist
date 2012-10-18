@@ -35,4 +35,5 @@
 0033-pppd-make-makefile-sysroot-aware.patch
 0034-pppd-make-the-self-made-configure-cross-aware.patch
 0035-use-CPPFLAGS-when-compiling.patch
-# 68b3c6d4d161207f0259959bfdb5b85c  - git-ptx-patches magic
+0036-Remove-old-version-of-Linux-if_pppol2tp.h.patch
+# 0c85b7e722333cbd8a6d8bd40a3a7d11  - git-ptx-patches magic

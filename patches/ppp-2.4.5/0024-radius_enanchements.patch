@@ -32,7 +32,7 @@ additional radius attributes:
 --------------------------------------------
 ---
  pppd/plugins/radius/radius.c       |   56 ++++++++++++++++++++++++++++++++++--
- pppd/plugins/radius/radiusclient.h |    4 ++
+ pppd/plugins/radius/radiusclient.h |    4 +++
  2 files changed, 57 insertions(+), 3 deletions(-)
 
 diff --git a/pppd/plugins/radius/radius.c b/pppd/plugins/radius/radius.c

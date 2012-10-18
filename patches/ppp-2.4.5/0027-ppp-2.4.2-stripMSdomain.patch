@@ -4,7 +4,7 @@ Subject: [PATCH] ppp-2.4.2-stripMSdomain
 
 ---
  pppd/chap-new.c |   11 +++++++++++
- 1 files changed, 11 insertions(+), 0 deletions(-)
+ 1 file changed, 11 insertions(+)
 
 diff --git a/pppd/chap-new.c b/pppd/chap-new.c
 index 1386486..80c644b 100644

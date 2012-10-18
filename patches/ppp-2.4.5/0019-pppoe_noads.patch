@@ -4,7 +4,7 @@ Subject: [PATCH] pppoe_noads
 
 ---
  pppd/plugins/rp-pppoe/plugin.c |    3 ---
- 1 files changed, 0 insertions(+), 3 deletions(-)
+ 1 file changed, 3 deletions(-)
 
 diff --git a/pppd/plugins/rp-pppoe/plugin.c b/pppd/plugins/rp-pppoe/plugin.c
 index 9bd6643..88678b4 100644

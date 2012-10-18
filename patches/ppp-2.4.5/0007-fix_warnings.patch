@@ -8,7 +8,7 @@ Fix warnings, missing prototypes, an incomplete clean target.
 ---
  pppd/ipv6cp.c |    2 +-
  pppd/pppd.h   |    2 ++
- 2 files changed, 3 insertions(+), 1 deletions(-)
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/pppd/ipv6cp.c b/pppd/ipv6cp.c
 index 4a09c9a..d01b778 100644

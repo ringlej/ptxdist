@@ -21,7 +21,7 @@ This patch allows radius plugin to deal with Framed-MTU Radius attribute and to
 set MTU on interface.
 ---
  pppd/plugins/radius/radius.c |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+ 1 file changed, 3 insertions(+)
 
 diff --git a/pppd/plugins/radius/radius.c b/pppd/plugins/radius/radius.c
 index edbc0b3..379f67f 100644

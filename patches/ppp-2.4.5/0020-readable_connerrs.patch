@@ -7,7 +7,7 @@ make _PATH_CONNERRS world readable
 There is nothing security-sensitive there.
 ---
  pppd/main.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/pppd/main.c b/pppd/main.c
 index 8513b1d..123a9d0 100644

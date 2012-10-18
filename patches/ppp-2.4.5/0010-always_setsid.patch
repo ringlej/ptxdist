@@ -14,7 +14,7 @@ http://ppp.samba.org/cgi-bin/ppp-bugs/incoming?id=1411
 http://ppp.samba.org/cgi-bin/ppp-bugs/incoming?id=1589
 ---
  pppd/main.c |    9 +++++++--
- 1 files changed, 7 insertions(+), 2 deletions(-)
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/pppd/main.c b/pppd/main.c
 index 014d614..58a5bdb 100644

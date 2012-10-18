@@ -4,7 +4,7 @@ Subject: [PATCH] update_if_pppol2tp
 
 ---
  include/linux/if_pppol2tp.h |   24 +++++++++++++++++++-----
- 1 files changed, 19 insertions(+), 5 deletions(-)
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
 diff --git a/include/linux/if_pppol2tp.h b/include/linux/if_pppol2tp.h
 index 4113d6a..7ee86b2 100644

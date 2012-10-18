@@ -4,7 +4,7 @@ Subject: [PATCH] use_system_logwtmp
 
 ---
  pppd/sys-linux.c |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ 1 file changed, 2 insertions(+)
 
 diff --git a/pppd/sys-linux.c b/pppd/sys-linux.c
 index b675c97..1643ac5 100644

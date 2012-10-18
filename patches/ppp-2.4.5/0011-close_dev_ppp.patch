@@ -21,7 +21,7 @@ The problem also occurs with the upstream version, but does not occur
 when a pty/tty device is used for the ppp connection.
 ---
  pppd/sys-linux.c |    7 +++++++
- 1 files changed, 7 insertions(+), 0 deletions(-)
+ 1 file changed, 7 insertions(+)
 
 diff --git a/pppd/sys-linux.c b/pppd/sys-linux.c
 index 1643ac5..39568f1 100644
