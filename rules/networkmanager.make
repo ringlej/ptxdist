@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 0.9.4.0
-NETWORKMANAGER_MD5	:= 66a54b51a4998c484613911b72a7e6ff
+NETWORKMANAGER_VERSION	:= 0.9.6.0
+NETWORKMANAGER_MD5	:= 85f9ed7fe08533a33c5117488f81e7ac
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
 NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/0.9/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
@@ -45,6 +45,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-polkit \
 	--enable-more-warnings \
 	--disable-gtk-doc \
+	--disable-vala \
 	--without-docs \
 	--with-gnu-ld \
 	--with-crypto=gnutls \
