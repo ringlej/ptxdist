@@ -310,6 +310,13 @@ config COREUTILS_READLINK
 	help
 	  the readlink tool
 
+config COREUTILS_REALPATH
+	bool
+	prompt "realpath"
+	depends on !BUSYBOX_REALPATH || ALLYES
+	help
+	  return the canonicalised absolute pathname
+
 config COREUTILS_TAC
 	bool
 	prompt "tac"
@@ -334,6 +341,13 @@ config COREUTILS_DD
 	depends on !BUSYBOX_DD || ALLYES
 	help
 	  convert and copy a file
+
+config COREUTILS_DF
+	bool
+	prompt "df"
+	depends on !BUSYBOX_DF || ALLYES
+	help
+	  report file system disk space usage
 
 comment "BusyBox' dd is selected!"
 	depends on COREUTILS && BUSYBOX_DD
