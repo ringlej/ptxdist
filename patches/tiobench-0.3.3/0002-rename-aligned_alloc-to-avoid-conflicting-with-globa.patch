@@ -1,0 +1,32 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 18 Oct 2012 14:25:50 +0200
+Subject: [PATCH] rename aligned_alloc to avoid conflicting with global
+ definitions
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tiotest.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tiotest.c b/tiotest.c
+index 6407d70..611fb76 100644
+--- a/tiotest.c
++++ b/tiotest.c
+@@ -31,7 +31,7 @@ static const char* versionStr = "tiotest v0.3.3 (C) 1999-2000 Mika Kuoppala <mik
+ */
+ ArgumentOptions args;
+ 
+-static void * aligned_alloc(ssize_t size)
++static void * _aligned_alloc(ssize_t size)
+ {
+ 	caddr_t a;
+ 	a = mmap((caddr_t )0, size, 
+@@ -284,7 +284,7 @@ void initialize_test( ThreadTest *d )
+ 		pthread_attr_setscope(&(d->threads[i].thread_attr),
+ 				      PTHREAD_SCOPE_SYSTEM);
+ 
+-		d->threads[i].buffer = aligned_alloc( d->threads[i].blockSize );
++		d->threads[i].buffer = _aligned_alloc( d->threads[i].blockSize );
+ 		if( d->threads[i].buffer == NULL )
+ 		{
+ 			perror("Error allocating memory");

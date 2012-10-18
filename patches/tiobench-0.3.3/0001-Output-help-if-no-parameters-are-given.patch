@@ -1,11 +1,11 @@
-Subject: Output help if no parameters are given
 From: Juergen Beisert <j.beisert@pengutronix.de>
+Date: Thu, 18 Oct 2012 14:25:03 +0200
+Subject: [PATCH] Output help if no parameters are given
 
 Output a help, if a user omit any parameter instead of silently start the
 job and do something.
 
 Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
-
 ---
 
 #20091205: rsc: added to the sourceforge tracker
@@ -14,11 +14,11 @@ Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
  tiotest.c |    3 +++
  1 file changed, 3 insertions(+)
 
-Index: tiotest.c
-===================================================================
---- tiotest.c.orig
-+++ tiotest.c
-@@ -112,6 +112,9 @@ void parse_args( ArgumentOptions* args, 
+diff --git a/tiotest.c b/tiotest.c
+index 38f54e7..6407d70 100644
+--- a/tiotest.c
++++ b/tiotest.c
+@@ -112,6 +112,9 @@ void parse_args( ArgumentOptions* args, int argc, char *argv[] )
  	int c;
  	int once = 0;
  
