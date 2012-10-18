@@ -33,7 +33,7 @@ index 5d7d0c2..b543dbc 100644
  # This makes sure pkg.m4 is available.
  m4_pattern_forbid([^_?PKG_[A-Z_]+$],[*** pkg.m4 missing, please install pkg-config])
 diff --git a/src/shared/missing.h b/src/shared/missing.h
-index 14abe4e..de68327 100644
+index 14abe4e..1a31066 100644
 --- a/src/shared/missing.h
 +++ b/src/shared/missing.h
 @@ -218,7 +218,7 @@ static inline pid_t gettid(void) {
