@@ -1,0 +1,9 @@
+## SECTION=hosttools_noprompt
+
+config HOST_WRAPPER
+	bool
+	default y
+	select BASE
+	help
+	  This activates wrappers for cc, c++ and ld, which are used to
+	  to configure hardening features.

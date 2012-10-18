@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. ${PTXDIST_PLATFORMCONFIG}
+
+ARG_LIST=""
+
+if [ "${PTXCONF_TARGET_HARDEN_RELRO}" = "y" ]; then
+	ARG_LIST+="-z relro "
+fi
+if [ "${PTXCONF_TARGET_HARDEN_BINDNOW}" = "y" ]; then
+	ARG_LIST+="-z now "
+fi
+if [[ "${PTXCONF_TARGET_LINKER_GNUHASH}" = "y" ]]; then
+	ARG_LIST+="--hash-style=gnu "
+fi
+
+#echo $0 $ARG_LIST "$@" >&2
+
+exec $0.real $ARG_LIST "$@"
