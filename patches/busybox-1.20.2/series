@@ -3,4 +3,6 @@
 0001-reactivate-check-for-tty.patch
 0002-Fix-compilation-on-Darwin.patch
 0003-Fix-the-format-warning-when-building-applets-usage_p.patch
-# 5f3f3ac2bf84d7c201d42388a92d64f8  - git-ptx-patches magic
+0004-get_linux_version_code-don-t-fail-on-Linux-version-s.patch
+0005-include-sys-resource.h-where-needed.patch
+# 08fb26216d522c9b1a701c2776df0e38  - git-ptx-patches magic
