@@ -5,13 +5,13 @@ Subject: [PATCH] make kernel version a autoconf cache variable
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.in |   11 ++++++-----
- 1 files changed, 6 insertions(+), 5 deletions(-)
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index c84462c..bf934ef 100644
+index 616ed34..b632f77 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -234,21 +234,22 @@ case "${host_os}" in
+@@ -260,21 +260,22 @@ case "${host_os}" in
          # Ok, this is linux. Check the kernel version
          AC_MSG_CHECKING([for the kernel version])
  

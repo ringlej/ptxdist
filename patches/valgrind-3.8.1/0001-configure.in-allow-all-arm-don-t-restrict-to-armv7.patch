@@ -7,13 +7,13 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.in b/configure.in
-index c04cabe..c84462c 100644
+index 1da3a2c..616ed34 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -175,7 +175,7 @@ case "${host_cpu}" in
+@@ -186,7 +186,7 @@ case "${host_cpu}" in
          ARCH_MAX="s390x"
          ;;
  
