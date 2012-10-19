@@ -30,7 +30,7 @@ $(IMAGEDIR)/linuximage: $(STATEDIR)/kernel.targetinstall
 
 $(IMAGEDIR)/linuximage.lzo: $(IMAGEDIR)/linuximage
 	@echo -n "Creating '$(notdir $(@))' from '$(notdir $(<))'..."
-	@lzop -f $(call remove_quotes,$(PTXCONF_IMAGE_KERNEL_LZOP_EXTRA_ARGS)) -o "$(@)" "$(<)"
+	@lzop -f $(call remove_quotes,$(PTXCONF_IMAGE_KERNEL_LZOP_EXTRA_ARGS)) -c "$(<)" > "$(@)"
 	@echo "done."
 
 # vim: syntax=make
