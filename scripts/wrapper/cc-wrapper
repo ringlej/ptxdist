@@ -1,50 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 . ${PTXDIST_PLATFORMCONFIG}
+. "$(dirname "$(readlink -f "$0")")/libwrapper.sh" || exit
 
-LINKING=1
-FORTIFY=1
-STDLIB=1
+cc_check_args "${@}"
 
-for ARG in "$@"; do
-	if [[ "${ARG}" = "-c" ]]; then
- 		LINKING=0
-	fi
-	if [[ "${ARG}" =~ -D_FORTIFY_SOURCE(=|$) ]]; then
- 		FORTIFY=0
-	fi
-	if [[ "${ARG}" = "-nostdlib" ||
-	      "${ARG}" = "-ffreestanding" ]]; then
- 		STDLIB=0
-	fi
-done
+cc_add_ld_args
+cc_add_fortify
+cc_add_stack
+cc_add_extra
 
-ARG_LIST=""
-
-if [[ "${LINKING}" = 1 ]]; then
-	if [[ "${PTXCONF_TARGET_HARDEN_RELRO}" = "y" ]]; then
-		ARG_LIST+="-Wl,-z,relro "
-	fi
-	if [[ "${PTXCONF_TARGET_HARDEN_BINDNOW}" = "y" ]]; then
-		ARG_LIST+="-Wl,-z,now "
-	fi
-	if [[ "${PTXCONF_TARGET_LINKER_GNUHASH}" = "y" ]]; then
-		ARG_LIST+="-Wl,--hash-style=gnu "
-	fi
-fi
-
-if [[ "${FORTIFY}" = 1 ]]; then
-	if [[ "${PTXCONF_TARGET_HARDEN_FORTIFY}" = "y" ]]; then
-		ARG_LIST+="-D_FORTIFY_SOURCE=2 "
-	fi
-fi
-
-if [[ "${STDLIB}" = 1 ]]; then
-	if [[ "${PTXCONF_TARGET_HARDEN_STACK}" = "y" ]]; then
-		ARG_LIST+="-fstack-protector --param=ssp-buffer-size=4 "
-	fi
-fi
-
-#echo $0 $ARG_LIST "$@" >&2
-
-exec $0.real $ARG_LIST "$@"
+exec $0.real "${ARG_LIST[@]}" "$@"
