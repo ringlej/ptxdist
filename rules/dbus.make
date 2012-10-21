@@ -55,10 +55,10 @@ DBUS_CONF_OPT	:= \
 	--enable-abstract-sockets=yes \
 	--disable-libaudit \
 	--disable-dnotify \
-	--disable-inotify \
+	--enable-inotify \
 	--disable-kqueue \
 	--disable-console-owner-file \
-	--disable-userdb-cache \
+	--enable-userdb-cache \
 	--with-dbus-user=$(PTXCONF_DBUS_USER) \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
 	--with-xml=$(DBUS_XML-y) \
