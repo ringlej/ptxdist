@@ -41,7 +41,6 @@ LIBFFI_CONF_TOOL := autoconf
 $(STATEDIR)/libffi.install:
 	@$(call targetinfo)
 	@$(call install, LIBFFI)
-	mv "$(LIBFFI_PKGDIR)/usr/lib/$(LIBFFI)/include/"* "$(LIBFFI_PKGDIR)/usr/include"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

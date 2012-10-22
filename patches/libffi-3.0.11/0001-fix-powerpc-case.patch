@@ -1,4 +1,6 @@
-libffi: fix duplicate case on powerpc 32 bit
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Thu, 14 Jun 2012 11:44:29 +0200
+Subject: [PATCH] libffi: fix duplicate case on powerpc 32 bit
 
 Without this fix, gcc complains about a duplicate case value:
 
@@ -6,17 +8,17 @@ Without this fix, gcc complains about a duplicate case value:
 ../src/powerpc/ffi.c:670:5: error: duplicate case value
 ../src/powerpc/ffi.c:667:5: error: previously used here
 
+rsc: submitted as http://sourceware.org/ml/libffi-discuss/2012/msg00201.html
+
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
-# rsc: submitted as http://sourceware.org/ml/libffi-discuss/2012/msg00201.html
-
  src/powerpc/ffi.c |    2 ++
  1 file changed, 2 insertions(+)
 
-Index: libffi-3.0.11/src/powerpc/ffi.c
-===================================================================
---- libffi-3.0.11.orig/src/powerpc/ffi.c
-+++ libffi-3.0.11/src/powerpc/ffi.c
+diff --git a/src/powerpc/ffi.c b/src/powerpc/ffi.c
+index baca694..257f02f 100644
+--- a/src/powerpc/ffi.c
++++ b/src/powerpc/ffi.c
 @@ -664,9 +664,11 @@ ffi_prep_cif_machdep (ffi_cif *cif)
    switch (type)
      {
