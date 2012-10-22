@@ -9,6 +9,9 @@ menuconfig GTK
 	select ATK
 	select PANGO
 	select CAIRO
+	select CAIRO_PDF
+	select CAIRO_PS
+	select CAIRO_SVG
 	select CAIRO_GOBJECT
 	select GDK_PIXBUF
 
