@@ -1,0 +1,57 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 23 Oct 2012 07:32:47 +0200
+Subject: [PATCH] fix parallel building
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ build/rules/compile |   16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/build/rules/compile b/build/rules/compile
+index 1945e3c..59fca71 100644
+--- a/build/rules/compile
++++ b/build/rules/compile
+@@ -33,35 +33,35 @@ $(OBJPATH_RELEASE_STATIC) $(OBJPATH_DEBUG_STATIC) $(OBJPATH_RELEASE_SHARED) $(OB
+ #
+ # Rules for compiling
+ #	
+-$(OBJPATH_DEBUG_STATIC)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d
++$(OBJPATH_DEBUG_STATIC)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(debug, static)"
+ 	$(CXX) $(INCLUDE) $(CXXFLAGS) $(DEBUGOPT_CXX) $(STATICOPT_CXX) -c $< -o $@
+ 
+-$(OBJPATH_RELEASE_STATIC)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d
++$(OBJPATH_RELEASE_STATIC)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(release, static)"
+ 	$(CXX) $(INCLUDE) $(CXXFLAGS) $(RELEASEOPT_CXX) $(STATICOPT_CXX) -c $< -o $@
+ 
+-$(OBJPATH_DEBUG_STATIC)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d
++$(OBJPATH_DEBUG_STATIC)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(debug, static)"
+ 	$(CC) $(INCLUDE) $(CFLAGS) $(DEBUGOPT_CC) $(STATICOPT_CC) -c $< -o $@
+ 
+-$(OBJPATH_RELEASE_STATIC)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d
++$(OBJPATH_RELEASE_STATIC)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(release, static)"
+ 	$(CC) $(INCLUDE) $(CFLAGS) $(RELEASEOPT_CC) $(STATICOPT_CC) -c $< -o $@
+ 
+-$(OBJPATH_DEBUG_SHARED)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d
++$(OBJPATH_DEBUG_SHARED)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(debug, shared)"
+ 	$(CXX) $(INCLUDE) $(CXXFLAGS) $(DEBUGOPT_CXX) $(SHAREDOPT_CXX) -c $< -o $@
+ 
+-$(OBJPATH_RELEASE_SHARED)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d
++$(OBJPATH_RELEASE_SHARED)/%.o: $(SRCDIR)/%.cpp $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(release, shared)"
+ 	$(CXX) $(INCLUDE) $(CXXFLAGS) $(RELEASEOPT_CXX) $(SHAREDOPT_CXX) -c $< -o $@
+ 
+-$(OBJPATH_DEBUG_SHARED)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d
++$(OBJPATH_DEBUG_SHARED)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(debug, shared)"
+ 	$(CC) $(INCLUDE) $(CFLAGS) $(DEBUGOPT_CC) $(SHAREDOPT_CC) -c $< -o $@
+ 
+-$(OBJPATH_RELEASE_SHARED)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d
++$(OBJPATH_RELEASE_SHARED)/%.o: $(SRCDIR)/%.c $(DEPPATH)/%.d objdirs
+ 	@echo "** Compiling" $< "(release, shared)"
+ 	$(CC) $(INCLUDE) $(CFLAGS) $(RELEASEOPT_CC) $(SHAREDOPT_CC) -c $< -o $@
+ 

@@ -10,7 +10,7 @@ the commandline and use any cross compiler.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  build/config/Linux |   17 +++++++++--------
- 1 files changed, 9 insertions(+), 8 deletions(-)
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/build/config/Linux b/build/config/Linux
 index 4781a12..1b3b3d2 100644
