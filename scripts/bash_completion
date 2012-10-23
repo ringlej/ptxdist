@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # bash_completion for PTXdist by Wolfram Sang, Pengutronix e.K., in 2008-2010
+#                             by Michael Olbrich, Pengutronix e.K., in 2012
 # part of PTXdist, so same licence.
 #
 
@@ -8,39 +9,99 @@ if have ptxdist; then
 
 _ptxdist_completion()
 {
-	local cur cmds opts _ptxdist_cmd
+	local cur prev words cword split
+	local cmds opts _ptxdist_cmd cmd
+	local -a args
+	local last word
 
 	_ptxdist_cmd="${COMP_WORDS[0]}"
 
 	COMPREPLY=()
 	cur=( $(_get_cword) )
 
-	opts=' --collectionconfig --debug --force --force-download --j-extern --j-intern -k --platformconfig --ptxconfig --quiet --toolchain'
+	opts=' --collectionconfig= --debug --force --force-download --j-extern= --j-intern= -k --platformconfig= --ptxconfig= --quiet --toolchain='
 	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go image images install kernelconfig menu menuconfig migrate newpackage nfsroot oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
 
-	# if no commands were given, complete on commands themselves
-	if [ $COMP_CWORD -eq 1 ]; then
-		COMPREPLY=( $( compgen -W "${cmds} help" -- $cur ) )
+	words=()
+	last=
+	split=false
+	cword=${COMP_CWORD}
+	if [ "${cur}" = "=" ]; then
+		cur=
+		cword=$[cword+1]
+	fi
+	for (( i=0 ; i<${cword}; i++ )); do
+		word="${COMP_WORDS[i]}"
+		if [ "${last}" = "=" ]; then
+			words[${#words[@]}-1]+="=${word}"
+		elif [ "${word}" != "=" ]; then
+			words[${#words[@]}]="${word}"
+		fi
+		last="${word}"
+	done
+	if [ "${last}" = "=" ]; then
+		split=true
+	fi
+	prev=${words[${#words[@]}-1]}
+	cword=${#words[@]}
+
+	if ${split}; then
+		case "${prev}" in
+		--toolchain)
+			_filedir -d
+			;;
+		--*config)
+			COMPREPLY=( $( compgen -f -X "*.old" $cur ) )
+			compopt -o filenames
+			;;
+		esac
 		return 0
 	fi
 
+	for (( i=1 ; i<${cword}; i++ )); do
+		local tmp="${words[i]}"
+		if grep -q "\<${tmp}\>" <<< "${cmds}"; then
+			# the command that is currently completed
+			cmd="${tmp}"
+			continue
+		fi
+		case "${tmp}" in
+		--*config=*|--toolchain=*|--force|-f)
+			# extra options for ptxdist for 'ptxdist print ...'
+			_ptxdist_cmd="${_ptxdist_cmd} ${tmp}"
+			;;
+		-*)
+			continue
+			;;
+		*)
+			if [ -n "${cmd}" ]; then
+				args[${#args[@]}]="${tmp}"
+			fi
+			;;
+		esac
+	done
+
 	# Complete depending on options
-	case ${COMP_WORDS[1]} in
+	case ${cmd} in
+	"")
+		# if no commands were given, complete on commands themselves
+		COMPREPLY=( $( compgen -W "${opts} ${cmds} help" -- $cur ) )
+		;;
 	menuconfig)
 		COMPREPLY=( $( compgen -W "${opts} kernel platform barebox board collection user" -- $cur) )
 		;;
 	clone)
 		#HACK! Enable filename completion without specifying '-o filenames' during complete (that will add slashes to commands if there is a dir of the same name :( )
 		compgen -f /dummy >/dev/null
-		[ $COMP_CWORD -lt 4 ] && _filedir -d
+		[ ${#args[@]} -lt 2 ] && _filedir -d
 		;;
 	toolchain|export_src)
 		compgen -f /dummy >/dev/null
-		[ $COMP_CWORD -lt 3 ] && _filedir -d
+		[ ${#args[@]} -lt 1 ] && _filedir -d
 		;;
 	select|platform|collection)
 		compgen -f /dummy >/dev/null
-		[ $COMP_CWORD -lt 3 ] && _filedir
+		[ ${#args[@]} -lt 1 ] && _filedir
 		;;
 	get|extract|prepare|compile|install|targetinstall|tags)
 		COMPREPLY=( $( compgen -W "${opts} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED )" -- $cur ) )
@@ -52,9 +113,12 @@ _ptxdist_completion()
 		COMPREPLY=( $( compgen -W "${opts} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
 	newpackage)
-		COMPREPLY=( $( compgen -W "${opts} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
+		if [ ${#args[@]} -lt 1 ]; then
+			COMPREPLY=( $( compgen -W "${opts} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
+		fi
 		;;
 	esac
+	[[ $COMPREPLY == *= ]] && compopt -o nospace
 	return 0
 }
 
