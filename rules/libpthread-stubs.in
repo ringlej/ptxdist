@@ -1,4 +1,4 @@
-## SECTION=multimedia_xorg_lib
+## SECTION=system_libraries
 
 config LIBPTHREAD_STUBS
 	tristate
