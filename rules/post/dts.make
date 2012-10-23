@@ -16,6 +16,6 @@ $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
 	$(eval $(IMAGEDIR)/$(call ptx/dtb, $(dts)): $(dts)  $(STATEDIR)/dtc.install))
 
 $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
-	$(dts):  $(STATEDIR)/kernel.extract.post)
+	$(eval $(dts):  $(STATEDIR)/kernel.extract.post))
 
 # vim: syntax=make
