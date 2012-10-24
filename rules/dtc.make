@@ -31,6 +31,9 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 
 DTC_DTB = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), $(IMAGEDIR)/$(call ptx/dtb, $(dts)))
 
+# make sure "ptxdist targetinstall kernel" generates a new device trees
+$(STATEDIR)/kernel.targetinstall.post: $(DTC_DTB)
+
 $(STATEDIR)/dtc.targetinstall: $(DTC_DTB)
 	@$(call targetinfo)
 
