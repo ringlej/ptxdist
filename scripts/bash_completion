@@ -7,10 +7,11 @@
 
 if have ptxdist; then
 
+declare -a _ptxdist_completion_opts
 _ptxdist_completion()
 {
 	local cur prev words cword split
-	local cmds opts _ptxdist_cmd cmd
+	local cmds _ptxdist_cmd cmd
 	local -a args
 	local last word
 
@@ -19,7 +20,9 @@ _ptxdist_completion()
 	COMPREPLY=()
 	cur=( $(_get_cword) )
 
-	opts=' --collectionconfig= --debug --force --force-download --j-extern= --j-intern= -k --platformconfig= --ptxconfig= --quiet --toolchain='
+	if [ ${#_ptxdist_completion_opts[@]} -eq 0 ]; then
+		_ptxdist_completion_opts=( $(${_ptxdist_cmd} | sed -n 's,.*\(--[a-z0-9-]*=\?\).*,\1,p') )
+	fi
 	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go image images install kernelconfig menu menuconfig migrate newpackage nfsroot oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
 
 	words=()
@@ -85,10 +88,10 @@ _ptxdist_completion()
 	case ${cmd} in
 	"")
 		# if no commands were given, complete on commands themselves
-		COMPREPLY=( $( compgen -W "${opts} ${cmds} help" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} ${cmds} help" -- $cur ) )
 		;;
 	menuconfig)
-		COMPREPLY=( $( compgen -W "${opts} kernel platform barebox board collection user" -- $cur) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} kernel platform barebox board collection user" -- $cur) )
 		;;
 	clone)
 		#HACK! Enable filename completion without specifying '-o filenames' during complete (that will add slashes to commands if there is a dir of the same name :( )
@@ -104,17 +107,17 @@ _ptxdist_completion()
 		[ ${#args[@]} -lt 1 ] && _filedir
 		;;
 	get|extract|prepare|compile|install|targetinstall|tags)
-		COMPREPLY=( $( compgen -W "${opts} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED )" -- $cur ) )
 		;;
 	clean)
-		COMPREPLY=( $( compgen -W "${opts} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED ) root" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED ) root" -- $cur ) )
 		;;
 	drop)
-		COMPREPLY=( $( compgen -W "${opts} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
 	newpackage)
 		if [ ${#args[@]} -lt 1 ]; then
-			COMPREPLY=( $( compgen -W "${opts} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
+			COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
 		fi
 		;;
 	esac
