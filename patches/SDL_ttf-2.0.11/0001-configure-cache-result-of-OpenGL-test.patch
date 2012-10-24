@@ -1,0 +1,37 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 24 Oct 2012 18:22:53 +0200
+Subject: [PATCH] configure: cache result of OpenGL test
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 865075e..38ac8b0 100644
+--- a/configure.in
++++ b/configure.in
+@@ -166,17 +166,17 @@ case "$host" in
+         fi
+         ;;
+ esac
+-AC_MSG_CHECKING(for OpenGL support)
+-have_opengl=no
++AC_CACHE_CHECK([for OpenGL support],[sdl_cv_lib_opengl],[
++sdl_cv_lib_opengl=no
+ AC_TRY_COMPILE([
+  #include "SDL_opengl.h"
+ ],[
+  GLuint texture;
+ ],[
+-have_opengl=yes
+-])
+-AC_MSG_RESULT($have_opengl)
+-if test x$have_opengl = xyes; then
++sdl_cv_lib_opengl=yes
++])])
++AC_MSG_RESULT($sdl_cv_lib_opengl)
++if test x$sdl_cv_lib_opengl = xyes; then
+     CFLAGS="$CFLAGS -DHAVE_OPENGL"
+     GL_LIBS="$SYS_GL_LIBS"
+ else

@@ -30,7 +30,9 @@ SDL_TTF_LICENSE := zlib
 # ----------------------------------------------------------------------------
 
 SDL_TTF_PATH	:= PATH=$(CROSS_PATH)
-SDL_TTF_ENV 	:= $(CROSS_ENV)
+SDL_TTF_ENV 	:= \
+	$(CROSS_ENV) \
+	sdl_cv_lib_opengl=no
 
 #
 # autoconf
