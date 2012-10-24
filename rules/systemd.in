@@ -2,9 +2,6 @@
 
 menuconfig SYSTEMD
 	tristate
-	# for autogen.sh
-	select HOST_LIBGCRYPT
-
 	select HOST_INTLTOOL
 	select HOST_GPERF
 	select ROOTFS_RUN
