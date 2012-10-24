@@ -8,7 +8,7 @@ menuconfig PROTOBUF
 	select GCCLIBS_GCC_S
 	select HOST_PROTOBUF
 	select ZLIB		if PROTOBUF_ZLIB
-	prompt "protobuf"
+	prompt "protobuf                      "
 	help
 	  Protocol Buffers are a way of encoding structured data in an
 	  efficient yet extensible format.
