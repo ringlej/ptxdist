@@ -2,10 +2,6 @@
 
 menu "extra toolchain options       "
 
-config TARGET_LINKER_GNUHASH
-	bool
-	prompt "Enable hash-style 'gnu' (ld --hash-style=gnu)"
-
 config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"

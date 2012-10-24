@@ -75,8 +75,6 @@ world/env/impl = \
 	pkg_build_oot="$(call ptx/escape,$($(1)_BUILD_OOT))"			\
 	pkg_build_dir="$(call ptx/escape,$($(1)_BUILD_DIR))"			\
 										\
-	pkg_wrapper_blacklist="$(call ptx/escape,$($(1)_WRAPPER_BLACKLIST))"	\
-										\
 	pkg_conf_tool="$(call ptx/escape,$($(1)_CONF_TOOL))"			\
 	pkg_conf_env="$(call ptx/escape,$($(1)_CONF_ENV))"			\
 	pkg_conf_opt="$(call ptx/escape,$($(1)_CONF_OPT))"			\

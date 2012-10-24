@@ -1,8 +1,0 @@
-#!/bin/bash
-
-. ${PTXDIST_PLATFORMCONFIG}
-. "$(dirname "$(readlink -f "$0")")/libwrapper.sh" || exit
-
-add_ld_args
-
-exec $0.real "${ARG_LIST[@]}" "$@"
