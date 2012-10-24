@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. "$(dirname "$(readlink -f "$0")")/libwrapper.sh" || exit
+
+ld_add_ld_args
+
+wrapper_exec "$@"

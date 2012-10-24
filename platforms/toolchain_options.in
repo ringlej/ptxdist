@@ -2,6 +2,35 @@
 
 menu "extra toolchain options       "
 
+choice
+	prompt "linker hash-style"
+	default TARGET_LINKER_HASH_DEFAULT
+
+	config TARGET_LINKER_HASH_DEFAULT
+		bool
+		prompt "default   "
+		help
+		  don't change the default linker hash style
+
+	config TARGET_LINKER_HASH_SYSV
+		bool
+		prompt "sysv      "
+		help
+		  add "--hash-style=sysv" to the linker options
+
+	config TARGET_LINKER_HASH_GNU
+		bool
+		prompt "gnu       "
+		help
+		  add "--hash-style=gnu" to the linker options
+
+	config TARGET_LINKER_HASH_BOTH
+		bool
+		prompt "gnu & sysv"
+		help
+		  add "--hash-style=both" to the linker options
+endchoice
+
 config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"

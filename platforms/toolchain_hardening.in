@@ -1,0 +1,50 @@
+## SECTION=architecture_options
+
+menu "hardening options             "
+
+config TARGET_HARDEN_STACK
+	bool
+	prompt "Enable stack protector (cc -fstack-protector)"
+	help
+	  This is a mainline GCC feature, which adds safety checks against
+	  stack overwrites. This renders many potential code injection
+	  attacks into aborting situations. In the best case this turns
+	  code injection vulnerabilities into denial of service or into
+	  non-issues (depending on the application).
+	  http://en.wikipedia.org/wiki/Stack-smashing_protection
+
+config TARGET_HARDEN_FORTIFY
+	bool
+	prompt "Enable glibc protections (cc -D_FORTIFY_SOURCE=2)"
+	help
+	  During code generation the compiler knows a great deal of
+	  information about buffer sizes (where possible), and attempts to
+	  replace insecure unlimited length buffer function calls with
+	  length-limited ones. This is especially useful for old, crufty
+	  code.
+
+config TARGET_HARDEN_RELRO
+	bool
+	prompt "Enable 'RELocation Read-Only' (ld -z relro)"
+	help
+	  Several ELF sections need to be written to by the linker, but can
+	  be turned read-only after starting. Most notably this prevents
+	  GOT overwrites attacks.
+
+config TARGET_HARDEN_BINDNOW
+	bool
+	prompt "Enable 'Bind Now' (ld -z now)"
+	help
+	  Perform all dynamic bindings at start-up instead of on-demand.
+	  This prevents PLT overwrite attacks.
+
+config TARGET_HARDEN_PIE
+	bool
+	prompt "Enable 'Position Independent Executables' (-fPIE -pie)"
+	help
+	  Position Independent Executable are needed for effective Address
+	  Space Layout randomization.
+	  http://en.wikipedia.org/wiki/ASLR
+
+
+endmenu

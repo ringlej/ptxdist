@@ -515,6 +515,9 @@ check_dirs() {
 		mkdir -p -- "${PTX_CCACHE_DIR}" || ptxd_bailout "cannot create dir: '${PTX_CCACHE_DIR}'"
 	fi
 
+	rm -rf -- "${PTX_WRAPPER_DIR}" &&
+	mkdir -p -- "${PTX_WRAPPER_DIR}" || ptxd_bailout "cannot create dir: '${PTX_WRAPPER_DIR}'"
+
 	# check for case sensitive file system
 	for dir in \
 		"${BUILDDIR}" \
@@ -649,18 +652,14 @@ check_compiler() {
 		fi
 	}
 
-	if [ -n "${PTX_CCACHE_DIR}" ]; then
-		for cc in \
-			gcc \
-			g++ \
-			; do
-			ln -sf "$(which "ccache")" "${PTX_CCACHE_DIR}/${compiler_prefix}${cc}" || \
-				ptxd_bailout "unable to create ccache link"
-		done
-	fi
 	local toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
+	local sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 	rm -f "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
-	ln -s "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain"
+	ln -sf "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
+	for cc in gcc g++ cpp ld; do
+		ln -sf "$(which ${compiler_prefix}${cc})" "${PTX_WRAPPER_DIR}/${compiler_prefix}${cc}.real" &&
+		ln -sf "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${PTX_WRAPPER_DIR}/${compiler_prefix}${cc}"
+	done
 }
 
 
@@ -2296,7 +2295,8 @@ setup_path() {
 	fi
 
 	if [ -n "${PTXCONF_SETUP_CCACHE}" ]; then
-		if [ -x "$(which ccache 2>/dev/null)" ]; then
+		PTXDIST_CCACHE="$(which ccache 2>/dev/null)"
+		if [ -n "${PTXDIST_CCACHE}" ]; then
 			PTX_CCACHE_DIR="${sysroot_host}/lib/ccache"
 			PATH="${PTX_CCACHE_DIR}:${PATH}"
 		else
@@ -2308,6 +2308,9 @@ setup_path() {
 			sleep 3
 		fi
 	fi
+
+	PTX_WRAPPER_DIR="${sysroot_host}/lib/wrapper"
+	PATH="${PTX_WRAPPER_DIR}:${PATH}"
 }
 
 
@@ -2383,6 +2386,7 @@ setup_export() {
 		PTXDIST_PARALLELMFLAGS_INTERN \
 		PTXDIST_LOADMFLAGS_INTERN \
 		\
+		PTXDIST_CCACHE \
 		PTXDIST_FORCE_DOWNLOAD \
 		PTXDIST_LOG_PROMPT \
 		PTXDIST_PEDANTIC \
