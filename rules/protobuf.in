@@ -1,0 +1,22 @@
+## SECTION=system_libraries
+
+menuconfig PROTOBUF
+	tristate
+	select LIBC_M
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select HOST_PROTOBUF
+	select ZLIB		if PROTOBUF_ZLIB
+	prompt "protobuf"
+	help
+	  Protocol Buffers are a way of encoding structured data in an
+	  efficient yet extensible format.
+
+if PROTOBUF
+
+config PROTOBUF_ZLIB
+	bool
+	prompt "support zlib compressed streaming"
+
+endif
