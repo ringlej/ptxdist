@@ -225,7 +225,7 @@ ptxd_make_get() {
 	done
 
 	echo
-	echo "Could not download packet"
+	echo "Could not download package"
 	echo "URL: ${orig_argv[@]}"
 	echo
 	exit 1
