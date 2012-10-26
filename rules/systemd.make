@@ -29,6 +29,12 @@ SYSTEMD_LICENSE	:= GPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
+# x86: systemd segfaults at startup when built with PIE
+# PPC: compiling fails when building with PIE
+ifneq ($(PTXCONF_ARCH_X86)$(PTXCONF_ARCH_PPC),)
+SYSTEMD_WRAPPER_BLACKLIST := TARGET_HARDEN_PIE
+endif
+
 # python is used for the journal python bindings, which are not installed
 SYSTEMD_CONF_ENV := \
 	$(CROSS_ENV) \
