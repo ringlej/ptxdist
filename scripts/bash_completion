@@ -8,6 +8,7 @@
 if have ptxdist; then
 
 declare -a _ptxdist_completion_opts
+declare -a _ptxdist_completion_newpkg
 _ptxdist_completion()
 {
 	local cur prev words cword split
@@ -116,8 +117,11 @@ _ptxdist_completion()
 		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
 	newpackage)
+		if [ ${#_ptxdist_completion_newpkg[@]} -eq 0 ]; then
+			_ptxdist_completion_newpkg=( $(${_ptxdist_cmd} newpackage | sed -n 's/^  \([^ ]*\) .*$/\1/p') )
+		fi
 		if [ ${#args[@]} -lt 1 ]; then
-			COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} target host cross klibc src-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-qmake-prog src-make-prog src-linux-driver src-stellaris font simple kernel image-tgz image-genimage" -- $cur) )
+			COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} ${_ptxdist_completion_newpkg[*]}" -- $cur) )
 		fi
 		;;
 	esac
