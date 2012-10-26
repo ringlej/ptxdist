@@ -46,40 +46,6 @@ ptxd_init_get_sysroot_base_platform() {
 
 
 #
-# gather all sysroots
-#
-# out:
-# PTXDIST_PATH_SYSROOT			additional sysroots (without toolchain)
-# PTXDIST_PATH_SYSROOT_ALL		all sysroots (including toolchain)
-# PTXDIST_PATH_SYSROOT_PREFIX		prefixes (/, /usr) of additional sysroots (without toolchain)
-# PTXDIST_PATH_SYSROOT_PREFIX_ALL	prefixes (/, /usr) of all sysroots (including toolchain)
-#
-ptxd_init_ptxdist_path_sysroot() {
-    local sysroot="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
-    local sysroot_prefix="${sysroot}:${sysroot}/usr"
-
-    local sysroot_base_platform
-    if ptxd_init_get_sysroot_base_platform; then
-	sysroot="${sysroot}:${sysroot_base_platform}"
-	sysroot_prefix="${sysroot_prefix}:${sysroot_base_platform}:${sysroot_base_platform}/usr"
-    fi
-
-    local sysroot_all="${sysroot}"
-    local sysroot_prefix_all="${sysroot_prefix}"
-    if [ -n "${PTXDIST_SYSROOT_TOOLCHAIN}" ]; then
-	sysroot_all="${sysroot_all}:${PTXDIST_SYSROOT_TOOLCHAIN}"
-	sysroot_prefix_all="${sysroot_prefix}:${PTXDIST_SYSROOT_TOOLCHAIN}:${PTXDIST_SYSROOT_TOOLCHAIN}/usr"
-    fi
-
-    export \
-	PTXDIST_PATH_SYSROOT="${sysroot}" \
-	PTXDIST_PATH_SYSROOT_ALL="${sysroot_all}" \
-	PTXDIST_PATH_SYSROOT_PREFIX="${sysroot_prefix}" \
-	PTXDIST_PATH_SYSROOT_PREFIX_ALL="${sysroot_prefix_all}"
-}
-
-
-#
 #
 #
 ptxd_init_ptxdist_path() {
@@ -106,8 +72,6 @@ ptxd_init_ptxdist_path() {
 
     PTXDIST_PATH_PLATFORMS_XLBSP="${PTXDIST_PATH_PLATFORMS//://xlbsp:}"
     export PTXDIST_PATH_PLATFORMS_XLBSP
-
-    ptxd_init_ptxdist_path_sysroot
 }
 
 
