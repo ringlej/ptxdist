@@ -110,11 +110,11 @@ _ptxdist_completion()
 		compgen -f /dummy >/dev/null
 		[ ${#args[@]} -lt 1 ] && _filedir
 		;;
-	get|extract|prepare|compile|install|targetinstall|tags)
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED )" -- $cur ) )
-		;;
 	clean)
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED ) root" -- $cur ) )
+		COMPREPLY=( root )
+		;&
+	get|extract|prepare|compile|install|targetinstall|tags)
+		COMPREPLY+=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED 2> /dev/null)" -- $cur ) )
 		;;
 	drop)
 		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
