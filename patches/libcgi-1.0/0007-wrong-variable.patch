@@ -1,19 +1,18 @@
-Subject: [patch] wrong variable
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 26 Oct 2012 21:46:21 +0200
+Subject: [PATCH] wrong variable
 
 We use a wrong variable here.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
----
-
 ---
  src/string.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: libcgi-1.0/src/string.c
-===================================================================
---- libcgi-1.0.orig/src/string.c
-+++ libcgi-1.0/src/string.c
+diff --git a/src/string.c b/src/string.c
+index 2cfcbe2..3dc437f 100644
+--- a/src/string.c
++++ b/src/string.c
 @@ -584,7 +584,7 @@ char *make_string(char *s, ...)
  
  	va_start(ptr, s);

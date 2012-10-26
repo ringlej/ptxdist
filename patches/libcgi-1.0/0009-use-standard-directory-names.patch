@@ -1,17 +1,18 @@
-Subject: [patch] use standard directory names
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 26 Oct 2012 21:46:21 +0200
+Subject: [PATCH] use standard directory names
 
 In usual makefiles, directory names are written in lower case.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  Makefile.in |   36 ++++++++++++++++++------------------
  1 file changed, 18 insertions(+), 18 deletions(-)
 
-Index: libcgi-1.0/Makefile.in
-===================================================================
---- libcgi-1.0.orig/Makefile.in
-+++ libcgi-1.0/Makefile.in
+diff --git a/Makefile.in b/Makefile.in
+index 4491b68..bd00413 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -6,9 +6,9 @@ prefix = @prefix@
  exec_prefix = @exec_prefix@
  

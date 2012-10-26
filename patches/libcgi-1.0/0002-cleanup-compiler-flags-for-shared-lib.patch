@@ -1,17 +1,18 @@
-Subject: [patch] cleanup compiler flags for shared lib
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 26 Oct 2012 21:46:21 +0200
+Subject: [PATCH] cleanup compiler flags for shared lib
 
 Separate building of shared and non-shared objects.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  Makefile.in |   15 ++++++++++-----
  1 file changed, 10 insertions(+), 5 deletions(-)
 
-Index: libcgi-1.0/Makefile.in
-===================================================================
---- libcgi-1.0.orig/Makefile.in
-+++ libcgi-1.0/Makefile.in
+diff --git a/Makefile.in b/Makefile.in
+index 7591b48..e38e776 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -5,7 +5,7 @@ INSTALL_DATA = @INSTALL_DATA@
  prefix = @prefix@
  exec_prefix = @exec_prefix@

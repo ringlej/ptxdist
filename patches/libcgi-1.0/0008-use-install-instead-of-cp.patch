@@ -1,18 +1,19 @@
-Subject: [patch] use install instead of cp
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 26 Oct 2012 21:46:21 +0200
+Subject: [PATCH] use install instead of cp
 
 Use install, not cp. It is able to create directories and apply proper
 permissions to them.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
  Makefile.in |   17 ++++++++---------
  1 file changed, 8 insertions(+), 9 deletions(-)
 
-Index: libcgi-1.0/Makefile.in
-===================================================================
---- libcgi-1.0.orig/Makefile.in
-+++ libcgi-1.0/Makefile.in
+diff --git a/Makefile.in b/Makefile.in
+index 68a0fa6..4491b68 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -1,6 +1,6 @@
 -INSTALL = @INSTALL@
 -INSTALL_PROGRAM = @INSTALL_PROGRAM@
