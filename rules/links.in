@@ -15,6 +15,7 @@ menuconfig LINKS
 	select SDL		if LINKS_SDL
 	select ZLIB		if LINKS_ZLIB
 	select BZIP2		if LINKS_BZIP2
+	select XZ		if LINKS_LZMA
 	help
 	  links is a fast lightweight text and graphic web-browser
 
@@ -80,4 +81,8 @@ config LINKS_ZLIB
 config LINKS_BZIP2
 	bool
 	prompt "support for bzip2"
+
+config LINKS_LZMA
+	bool
+	prompt "support for lzma"
 endif

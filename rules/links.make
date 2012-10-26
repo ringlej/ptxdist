@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_LINKS) += links
 # Paths and names
 #
 LINKS_NAME	:= links
-LINKS_VERSION	:= 2.2
-LINKS_MD5	:= bf5b20529a2a811701c5af52b28ebdd4
+LINKS_VERSION	:= 2.7
+LINKS_MD5	:= d06aa6e14b2172d73188871a5357185a
 LINKS		:= $(LINKS_NAME)-$(LINKS_VERSION)
 LINKS_SUFFIX	:= tar.bz2
 LINKS_URL	:= http://links.twibright.com/download/$(LINKS).$(LINKS_SUFFIX)
@@ -44,7 +44,8 @@ LINKS_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LINKS_DIRECTFB)-directfb \
 	--$(call ptx/wwo, PTXCONF_LINKS_SDL)-sdl \
 	--$(call ptx/wwo, PTXCONF_LINKS_ZLIB)-zlib \
-	--$(call ptx/wwo, PTXCONF_LINKS_BZIP2)-bzip2
+	--$(call ptx/wwo, PTXCONF_LINKS_BZIP2)-bzip2 \
+	--$(call ptx/wwo, PTXCONF_LINKS_LZMA)-lzma \
 
 ifneq ($(PTXCONF_LINKS_X)$(PTXCONF_LINKS_FBCON)$(PTXCONF_LINKS_DIRECTFB),)
 LINKS_AUTOCONF += --enable-graphics
