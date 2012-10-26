@@ -29,6 +29,7 @@ SYSLINUX_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
+SYSLINUX_WRAPPER_BLACKLIST := TARGET_HARDEN_PIE
 SYSLINUX_MAKE_OPT := $(CROSS_ENV_PROGS)
 SYSLINUX_INSTALL_OPT := install INSTALLROOT=$(SYSLINUX_PKGDIR)
 
