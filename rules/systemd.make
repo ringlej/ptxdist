@@ -47,16 +47,19 @@ SYSTEMD_CONF_OPT := \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
+	--disable-introspection \
 	--disable-ima \
 	--disable-selinux \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TCPWRAP)-tcpwrap \
 	--disable-pam \
 	--disable-acl \
+	--disable-xattr \
 	--disable-gcrypt \
 	--disable-audit \
 	--disable-libcryptsetup \
 	--disable-qrencode \
+	--disable-microhttpd \
 	--enable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-readahead \
