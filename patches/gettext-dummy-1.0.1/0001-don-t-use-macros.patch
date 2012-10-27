@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 27 Oct 2012 10:41:46 +0200
+Subject: [PATCH] don't use macros
+
+This may confuse other code, e.g. boost where it replaces function
+definitions in a class
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ libintl.h |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/libintl.h b/libintl.h
+index 0327165..d9d9559 100644
+--- a/libintl.h
++++ b/libintl.h
+@@ -11,13 +11,13 @@
+ #ifndef _LIBINTL_H
+ #define _LIBINTL_H
+ 
+-#define gettext(msg) (msg)
+-#define dgettext(domain,msg) (msg)
+-#define dcgettext(domain,msg,category) (msg)
++char *gettext(const char *msg);
++char *dgettext(const char *domain, const char *msg);
++char *dcgettext(const char *domain, const char *msg, const char *category);
+ 
+-#define ngettext(msg,pmsg,n) ((n == 1) ? (msg) : (pmsg))
+-#define dngettext(domain,msg,pmsg,n) ((n == 1) ? (msg) : (pmsg))
+-#define dcngettext(domain,msg,pmsg,n,category) ((n == 1) ? (msg) : (pmsg))
++char *ngettext(char *msg, char *msg_plural, unsigned long int n);
++char *dngettext(const char *domain, char *msg, char *msg_plural, unsigned long int n);
++char *dcngettext(const char *domain, char *msg, char *msg_plural, unsigned long int n, int category);
+ 
+ char *textdomain(const char *domain);
+ char *bindtextdomain(const char *domain, const char *dir);
