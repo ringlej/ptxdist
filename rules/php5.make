@@ -39,6 +39,7 @@ PHP5_URL := \
 
 PHP5_CONF_ENV := \
 	$(CROSS_ENV) \
+	ac_cv_prog_cc_cross=yes \
 	ac_cv_c_bigendian_php=$(call ptx/ifdef, PTXCONF_ENDIAN_BIG, yes, no)
 
 #
