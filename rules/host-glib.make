@@ -34,6 +34,19 @@ HOST_GLIB_ENV 	:= $(HOST_ENV)
 #
 HOST_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
+	--enable-silent-rules \
+	--disable-debug \
+	--disable-rebuilds \
+	--disable-modular-tests \
+	--disable-static \
+	--enable-shared \
+	--disable-fam \
+	--disable-libelf \
+	--disable-gtk-doc \
+	--disable-man \
+	--disable-dtrace \
+	--disable-systemtap \
+	--disable-gcov \
 	--with-libiconv=gnu
 
 # vim: syntax=make

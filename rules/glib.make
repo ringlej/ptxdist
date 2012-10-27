@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.32.3
-GLIB_MD5	:= 9bd3ac535c24b6c162be13b2c43c5adc
+GLIB_VERSION	:= 2.34.1
+GLIB_MD5	:= ee779493b083be9348a841e0a51f1b27
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -60,19 +60,24 @@ GLIB_AUTOCONF := \
 	--enable-debug=minimum \
 	--disable-gc-friendly \
 	--enable-mem-pools \
-	--with-threads=posix \
 	--disable-rebuilds \
+	--disable-modular-tests \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-static \
+	--enable-shared \
 	--disable-included-printf \
 	--disable-selinux \
 	--disable-fam \
 	--disable-xattr \
+	--disable-libelf \
 	--disable-gtk-doc \
 	--disable-man \
-	--with-pcre=internal \
-	--enable-static \
-	--enable-shared \
+	--disable-dtrace \
+	--disable-systemtap \
+	--disable-gcov \
 	--with-libiconv=no \
-	--disable-gcov
+	--with-threads=posix \
+	--with-pcre=internal
 
 # ----------------------------------------------------------------------------
 # Target-Install
