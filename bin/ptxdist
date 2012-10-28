@@ -909,7 +909,7 @@ Options:
   --nice=<n>, -n<n>		run with reduced scheduling priority (i.e. nice)
 				(default = 10)
 
-  -k				keep going. Continue as much as possible
+  --keep-going, -k		keep going. Continue as much as possible
 				after an error.
 
   --git				use git to apply patches
@@ -1139,7 +1139,7 @@ parse_first()
 		-v|--verbose)
 			PTXDIST_VERBOSE=1
 			;;
-		-k)
+		-k|--keep-going)
 			PTX_MAKE_ARGS[${#PTX_MAKE_ARGS[@]}]="-k"
 			;;
 		-p|--pedantic)
