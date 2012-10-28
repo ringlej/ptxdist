@@ -117,7 +117,7 @@ _ptxdist_completion()
 		COMPREPLY+=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED 2> /dev/null)" -- $cur ) )
 		;;
 	drop)
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( pushd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( cd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state; ls *.+(get|extract|prepare|compile|install|targetinstall) )" -- $cur ) )
 		;;
 	newpackage)
 		if [ ${#_ptxdist_completion_newpkg[@]} -eq 0 ]; then
