@@ -1,11 +1,12 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Fri, 1 Jan 2010 16:08:33 +0100
-Subject: [PATCH] inotify-syscalls: don't define inotofy syscalls if already defined
+Subject: [PATCH] inotify-syscalls: don't define inotofy syscalls if already
+ defined
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  plugins/fmon/inotify-syscalls.h |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ 1 file changed, 2 insertions(+)
 
 diff --git a/plugins/fmon/inotify-syscalls.h b/plugins/fmon/inotify-syscalls.h
 index 8cfa879..495d592 100644
@@ -27,6 +28,3 @@ index 8cfa879..495d592 100644
  
  static inline int inotify_init(void)
  {
--- 
-1.7.2.3
-

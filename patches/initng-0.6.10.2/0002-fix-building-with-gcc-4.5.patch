@@ -24,7 +24,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  CMakeLists.txt             |    2 +-
  plugins/find/initng_find.c |    1 +
- 2 files changed, 2 insertions(+), 1 deletions(-)
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 18c5d54..8307378 100644
@@ -51,6 +51,3 @@ index 195b38c..a1fbcdf 100644
  #include <errno.h>
  #include <dirent.h>
  
--- 
-1.7.2.3
-
