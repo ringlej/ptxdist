@@ -8,6 +8,7 @@
 if have ptxdist; then
 
 declare -a _ptxdist_completion_opts
+declare -a _ptxdist_completion_cmds
 declare -a _ptxdist_completion_newpkg
 _ptxdist_completion()
 {
@@ -24,7 +25,9 @@ _ptxdist_completion()
 	if [ ${#_ptxdist_completion_opts[@]} -eq 0 ]; then
 		_ptxdist_completion_opts=( $(${_ptxdist_cmd} | sed -n 's,.*\(--[a-z0-9-]*=\?\).*,\1,p') )
 	fi
-	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go image images install kernelconfig menu menuconfig migrate newpackage nfsroot oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
+	if [ ${#_ptxdist_completion_cmds[@]} -eq 0 ]; then
+		_ptxdist_completion_cmds=( $(${_ptxdist_cmd} | sed -n 's/^  \([a-z][^ \t]*\)[ \t].*/\1/p' | sort -u | grep -v ptxdist) )
+	fi
 
 	words=()
 	last=
@@ -64,7 +67,7 @@ _ptxdist_completion()
 
 	for (( i=1 ; i<${cword}; i++ )); do
 		local tmp="${words[i]}"
-		if grep -q "\<${tmp}\>" <<< "${cmds}"; then
+		if grep -q "\<${tmp}\>" <<< "${_ptxdist_completion_cmds[*]}"; then
 			# the command that is currently completed
 			cmd="${tmp}"
 			continue
@@ -89,7 +92,7 @@ _ptxdist_completion()
 	case ${cmd} in
 	"")
 		# if no commands were given, complete on commands themselves
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} ${cmds} help" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} ${_ptxdist_completion_cmds[*]} help" -- $cur ) )
 		;;
 	menuconfig)
 		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} kernel platform barebox board collection user" -- $cur) )
