@@ -53,7 +53,7 @@ $(STATEDIR)/libcgi.targetinstall:
 	@$(call install_fixup, libcgi,AUTHOR,"Guillaume GOURAT <guillaume.gourat@nexvision.fr>")
 	@$(call install_fixup, libcgi,DESCRIPTION,missing)
 
-	@$(call install_copy, libcgi, 0, 0, 0644, -, /usr/lib/libcgi.so)
+	@$(call install_lib, libcgi, 0, 0, 0644, libcgi)
 
 	@$(call install_finish, libcgi)
 
