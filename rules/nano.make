@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		:= 1.3.12
-NANO_MD5		:= 1450892aac7ae31d00817d42636d9a0d
+NANO_VERSION		:= 2.3.1
+NANO_MD5		:= af09f8828744b0ea0808d6c19a2b4bfd
 NANO			:= nano-$(NANO_VERSION)
 NANO_SUFFIX		:= tar.gz
-NANO_URL		:= http://www.nano-editor.org/dist/v1.3/$(NANO).$(NANO_SUFFIX)
+NANO_URL		:= http://www.nano-editor.org/dist/v2.3/$(NANO).$(NANO_SUFFIX)
 NANO_SOURCE		:= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
 NANO_DIR		:= $(BUILDDIR)/$(NANO)
 
@@ -29,13 +29,31 @@ NANO_DIR		:= $(BUILDDIR)/$(NANO)
 # Prepare
 # ----------------------------------------------------------------------------
 
-NANO_PATH	:= PATH=$(CROSS_PATH)
-NANO_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-NANO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+NAN_CONF_TOOL	:= autoconf
+NANO_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-rpath \
+	--disable-nls \
+	--disable-debug \
+	--disable-tiny \
+	--disable-extra \
+	--disable-browser \
+	--disable-help \
+	--enable-justify \
+	--disable-mouse \
+	--disable-operatingdir \
+	--disable-speller \
+	--enable-tabcomp \
+	--enable-wrapping \
+	--enable-color \
+	--enable-multibuffer \
+	--disable-nanorc \
+	--disable-utf8 \
+	--disable-glibtest
 
 # ----------------------------------------------------------------------------
 # Target-Install
