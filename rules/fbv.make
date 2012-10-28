@@ -32,7 +32,10 @@ FBV_DIR		:= $(BUILDDIR)/$(FBV)
 #
 # autoconf
 #
-FBV_AUTOCONF := $(CROSS_AUTOCONF_USR)
+FBV_CONF_TOOL	:= autoconf
+FBV_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
