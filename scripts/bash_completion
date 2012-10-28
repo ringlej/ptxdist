@@ -92,10 +92,10 @@ _ptxdist_completion()
 	case ${cmd} in
 	"")
 		# if no commands were given, complete on commands themselves
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} ${_ptxdist_completion_cmds[*]} help" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${_ptxdist_completion_cmds[*]} help" -- $cur ) )
 		;;
 	menuconfig)
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} kernel platform barebox board collection user" -- $cur) )
+		COMPREPLY=( $( compgen -W "kernel platform barebox board collection user" -- $cur) )
 		;;
 	clone)
 		#HACK! Enable filename completion without specifying '-o filenames' during complete (that will add slashes to commands if there is a dir of the same name :( )
@@ -114,20 +114,21 @@ _ptxdist_completion()
 		COMPREPLY=( root )
 		;&
 	get|extract|prepare|compile|install|targetinstall|tags)
-		COMPREPLY+=( $( compgen -W "${_ptxdist_completion_opts[*]} $( $_ptxdist_cmd print PTX_PACKAGES_SELECTED 2> /dev/null)" -- $cur ) )
+		COMPREPLY+=( $( compgen -W "$( $_ptxdist_cmd print PTX_PACKAGES_SELECTED 2> /dev/null)" -- $cur ) )
 		;;
 	drop)
-		COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} $( cd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state; ls *.+(get|extract|prepare|compile|install|targetinstall) )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "$( cd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state; ls *.+(get|extract|prepare|compile|install|targetinstall) )" -- $cur ) )
 		;;
 	newpackage)
 		if [ ${#_ptxdist_completion_newpkg[@]} -eq 0 ]; then
 			_ptxdist_completion_newpkg=( $(${_ptxdist_cmd} newpackage | sed -n 's/^  \([^ ]*\) .*$/\1/p') )
 		fi
 		if [ ${#args[@]} -lt 1 ]; then
-			COMPREPLY=( $( compgen -W "${_ptxdist_completion_opts[*]} ${_ptxdist_completion_newpkg[*]}" -- $cur) )
+			COMPREPLY=( $( compgen -W "${_ptxdist_completion_newpkg[*]}" -- $cur) )
 		fi
 		;;
 	esac
+	COMPREPLY+=( $( compgen -W "${_ptxdist_completion_opts[*]}" -- $cur ) )
 	[[ $COMPREPLY == *= ]] && compopt -o nospace
 	return 0
 }
