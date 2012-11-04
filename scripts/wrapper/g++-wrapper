@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 . "$(dirname "$(readlink -f "$0")")/libwrapper.sh" || exit
 
