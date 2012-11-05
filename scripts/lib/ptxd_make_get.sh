@@ -52,12 +52,12 @@ ptxd_make_get_http() {
 	    --progress=bar:force \
 	    --timeout=30 \
 	    --tries=5 \
-	    --no-use-server-timestamps \
 	    ${PTXDIST_QUIET:+--quiet} \
 	    "${opts[@]}" \
 	    -O "${temp_file}" \
 	    "${url}" && {
 		chmod 644 -- "${temp_file}" &&
+		touch -- "${temp_file}" &&
 		mv -- "${temp_file}" "${path}"
 		return
 	}
