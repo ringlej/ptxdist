@@ -4,28 +4,12 @@ menuconfig CANUTILS
 	tristate
 	prompt "canutils                      "
 	select KERNEL_HEADER
-	select LIBSOCKETCAN	if CANUTILS_4
+	select LIBSOCKETCAN
 	help
 	  The canutils package contains tools to configure
 	  and test the Socket CAN framework.
 
 if CANUTILS
-
-config CANUTILS_VERSION
-	prompt "Version"
-	string
-	default "4.0.6"
-
-config CANUTILS_MD5
-	prompt "canutils source md5sum"
-	string
-
-config CANUTILS_4
-	bool "canutils version >= 4.0"
-	help
-	  Select this if you're using a canutils version >= 4.0
-
-	  This will enable extra an extra dependency to libsocketcan.
 
 config CANUTILS_CANCONFIG
 	bool
