@@ -343,6 +343,13 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 		else
 			print "$(" this_PKG "_IMAGE): "               "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
 	}
+	#
+	# images don't depend on world, so this is needed to extract the packages
+	#
+	print "ifneq ($(strip $(" this_PKG "_PKGS)),)"									> DGEN_DEPS_POST
+	print "$(" this_PKG "_IMAGE):" " \
+		$(STATEDIR)/host-$(call remove_quotes,$(PTXCONF_HOST_PACKAGE_MANAGEMENT)).install.post"		> DGEN_DEPS_POST
+	print "endif"												> DGEN_DEPS_POST
 }
 
 END {
