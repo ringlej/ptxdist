@@ -18,3 +18,4 @@ r75-Rely-on-SYN-Events-when-pen-is-lifted.patch
 r78-input-raw-Handling-of-EVIOCGBIT-ioctl-coding.patch
 0001-Relax-EV_VERSION-check.patch
 0001-Fix-current-values-for-input-raw.patch
+0001-tslib-fails-to-compile-on-Ubuntu-8.10-easy-patch.patch
