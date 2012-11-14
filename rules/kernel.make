@@ -42,8 +42,20 @@ KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 # Prepare
 # ----------------------------------------------------------------------------
 
+# use CONFIG_CC_STACKPROTECTOR if available. The rest makes no sense for the kernel
+KERNEL_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACK \
+	TARGET_HARDEN_FORTIFY \
+	TARGET_HARDEN_RELRO \
+	TARGET_HARDEN_BINDNOW \
+	TARGET_HARDEN_PIE
+
 KERNEL_PATH	:= PATH=$(CROSS_PATH)
-KERNEL_ENV 	:= KCONFIG_NOTIMESTAMP=1 HOST_EXTRACFLAGS="$(HOST_CPPFLAGS)"
+KERNEL_ENV 	:= \
+	KCONFIG_NOTIMESTAMP=1 \
+	HOST_EXTRACFLAGS="$(HOST_CPPFLAGS)" \
+	pkg_wrapper_blacklist="$(KERNEL_WRAPPER_BLACKLIST)"
+
 KERNEL_MAKEVARS := \
 	$(PARALLELMFLAGS) \
 	V=$(PTXDIST_VERBOSE) \
@@ -58,7 +70,6 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 KERNEL_MAKEVARS += \
 	DEPMOD=$(PTXCONF_SYSROOT_HOST)/sbin/depmod
 endif
-
 
 #
 # support the different kernel image formats
