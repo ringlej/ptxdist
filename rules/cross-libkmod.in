@@ -1,0 +1,4 @@
+## SECTION=hosttools_noprompt
+
+config CROSS_LIBKMOD
+	tristate
