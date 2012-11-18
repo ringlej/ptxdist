@@ -3,7 +3,7 @@
 config KERNEL_@PACKAGE@
 	tristate
 	prompt "Linux kernel (@package@)"
-	select CROSS_MODULE_INIT_TOOLS
+	select CROSS_LIBKMOD
 	#select HOST_U_BOOT_TOOLS
 	help
 	  FIXME
