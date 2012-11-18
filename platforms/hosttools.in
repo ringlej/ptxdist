@@ -1,5 +1,4 @@
 source "rules/cross-libkmod.in"
-source "rules/cross-module-init-tools.in"
 source "rules/cross-nasm.in"
 source "rules/host-cdrkit.in"
 source "rules/host-cmake.in"
