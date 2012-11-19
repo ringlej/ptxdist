@@ -3,7 +3,7 @@
 menuconfig CPUFREQUTILS
 	tristate
 	prompt "cpufrequtils                  "
-	select HOST_AUTOTOOLS_LIBTOOL
+	select CROSS_LIBTOOL
 	select LIBSYSFS
 	help
 	  To make access to the Linux kernel cpufreq subsystem easier for
