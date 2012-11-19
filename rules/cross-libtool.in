@@ -1,5 +1,0 @@
-## SECTION=crosstools
-
-config CROSS_LIBTOOL
-	bool
-
