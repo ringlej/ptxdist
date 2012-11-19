@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-CROSS_PACKAGES-$(PTXCONF_CROSS_LIBKMOD) += cross-libkmod
+HOST_PACKAGES-$(PTXCONF_HOST_LIBKMOD) += host-libkmod
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -20,9 +20,9 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_LIBKMOD) += cross-libkmod
 #
 # autoconf
 #
-CROSS_LIBKMOD_CONF_TOOL	:= autoconf
-CROSS_LIBKMOD_CONF_OPT	:= \
-	$(HOST_CROSS_AUTOCONF) \
+HOST_LIBKMOD_CONF_TOOL	:= autoconf
+HOST_LIBKMOD_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
 	--disable-static \
 	--enable-shared \
 	--enable-tools \
@@ -38,10 +38,10 @@ CROSS_LIBKMOD_CONF_OPT	:= \
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/cross-libkmod.install:
+$(STATEDIR)/host-libkmod.install:
 	@$(call targetinfo)
-	@$(call world/install, CROSS_LIBKMOD)
-	@ln -s ../bin/kmod $(CROSS_LIBKMOD_PKGDIR)/sbin/depmod
+	@$(call world/install, HOST_LIBKMOD)
+	@ln -s ../bin/kmod $(HOST_LIBKMOD_PKGDIR)/sbin/depmod
 	@$(call touch)
 
 # vim: syntax=make

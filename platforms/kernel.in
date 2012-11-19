@@ -5,7 +5,7 @@ menuconfig KERNEL
 	select HOST_U_BOOT_TOOLS	if KERNEL_IMAGE_U || (KERNEL_IMAGE_SIMPLE && ARCH_MICROBLAZE)
 	select HOST_XZ			if KERNEL_XZ
 	select HOST_LZOP		if KERNEL_LZOP
-	select CROSS_LIBKMOD		if KERNEL_MODULES
+	select HOST_LIBKMOD		if KERNEL_MODULES
 	prompt "Linux kernel                  "
 
 if KERNEL
