@@ -30,8 +30,7 @@ DHEX_LICENSE	:= GPLv2
 # ----------------------------------------------------------------------------
 
 DHEX_CONF_TOOL		:= NO
-DHEX_MAKE_OPT		:= $(CROSS_ENV)
-DHEX_INSTALL_OPT	:= install $(CROSS_ENV)
+DHEX_MAKE_OPT		:= $(CROSS_ENV_PROGS) LDFLAGS="" CPPFLAGS=""
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,3 +54,4 @@ $(STATEDIR)/dhex.targetinstall:
 
 	@$(call touch)
 
+# vim: syntax=make
