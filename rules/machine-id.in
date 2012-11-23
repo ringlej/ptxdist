@@ -3,7 +3,7 @@
 config MACHINE_ID
 	tristate
 	prompt "create /etc/machine-id"
-	select RC_ONCE
+	select RC_ONCE			if RUNTIME
 	select UTIL_LINUX_NG		if !INITMETHOD_SYSTEMD
 	select UTIL_LINUX_NG_UUIDGEN	if !INITMETHOD_SYSTEMD
 	help
