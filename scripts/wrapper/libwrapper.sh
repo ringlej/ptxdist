@@ -46,6 +46,11 @@ cc_check_args() {
 			-O*)
 				OPTIMIZE=true
 				;;
+			-I/usr/include | -L/usr/lib | -L/lib )
+				echo "wrapper: Bad search path in:" >&2
+				echo "${0##*/} $*" >&2
+				exit 1
+				;;
 		esac
 	done
 	# Used e.g. by the kernel to get the compiler version. Adding
