@@ -34,12 +34,6 @@ IOZONE_LICENSE	:= Freeware
 #
 IOZONE_CONF_TOOL	:= autoconf
 
-$(STATEDIR)/iozone.prepare:
-	@$(call targetinfo)
-	@chmod +x $(IOZONE_DIR)/configure
-	@$(call world/prepare, IOZONE)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
