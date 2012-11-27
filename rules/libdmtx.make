@@ -29,6 +29,10 @@ LIBDMTX_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
+LIBDMTX_CONF_ENV = \
+	$(CROSS_ENV) \
+	PYTHON=$(CROSS_PYTHON)
+
 #
 # autoconf
 #

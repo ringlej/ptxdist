@@ -1,0 +1,61 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 27 Nov 2012 11:37:29 +0100
+Subject: [PATCH] use python from AM_PATH_PYTHON
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac               |    1 +
+ wrapper/python/Makefile    |   11 -----------
+ wrapper/python/Makefile.in |   13 +++++++++++++
+ 3 files changed, 14 insertions(+), 11 deletions(-)
+ delete mode 100755 wrapper/python/Makefile
+ create mode 100755 wrapper/python/Makefile.in
+
+diff --git a/configure.ac b/configure.ac
+index f457730..c9667cc 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -12,6 +12,7 @@ AC_CONFIG_FILES([
+    test/simple_test/Makefile
+    test/unit_test/Makefile
+    wrapper/Makefile
++   wrapper/python/Makefile
+ ])
+ 
+ AC_PROG_CC
+diff --git a/wrapper/python/Makefile b/wrapper/python/Makefile
+deleted file mode 100755
+index 4f4d9d2..0000000
+--- a/wrapper/python/Makefile
++++ /dev/null
+@@ -1,11 +0,0 @@
+-all:
+-	python setup.py build
+-
+-install:
+-	python setup.py install --prefix=$$DESTDIR/usr
+-
+-clean:
+-	rm -Rf build
+-	rm -f *.pyc hello.png
+-
+-.PHONY: all install clean
+diff --git a/wrapper/python/Makefile.in b/wrapper/python/Makefile.in
+new file mode 100755
+index 0000000..64d46ba
+--- /dev/null
++++ b/wrapper/python/Makefile.in
+@@ -0,0 +1,13 @@
++PYTHON = @PYTHON@
++
++all:
++	$(PYTHON) setup.py build
++
++install:
++	$(PYTHON) setup.py install --prefix=$$DESTDIR/usr
++
++clean:
++	rm -Rf build
++	rm -f *.pyc hello.png
++
++.PHONY: all install clean

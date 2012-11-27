@@ -41,6 +41,3 @@ index 2cb10d4..7d9404b 100755
                   libraries = ['dmtx'],
                   sources = ['pydmtxmodule.c'] )
  
--- 
-1.7.5.1
-
