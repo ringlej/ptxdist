@@ -105,9 +105,6 @@ $(STATEDIR)/python.install.post:
 							>> "$(CROSS_PYTHON)"
 
 #	@cp "$(PYTHON_PKGDIR)/usr/bin/cross-python-wrapper" "$(CROSS_PYTHON)"
-	@ln -sf "python$(PYTHON_MAJORMINOR)" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/python"
-
 	@chmod a+x "$(CROSS_PYTHON)"
 
 	@echo "#!/bin/sh" \
