@@ -29,6 +29,10 @@ PYGOBJECT_LICENSE	:= LGPLv2.1+
 # Prepare
 # ----------------------------------------------------------------------------
 
+PYGOBJECT_CONF_ENV = \
+	$(CROSS_ENV) \
+	PYTHON=$(CROSS_PYTHON)
+
 PYGOBJECT_CONF_TOOL := autoconf
 PYGOBJECT_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
@@ -52,7 +56,7 @@ $(STATEDIR)/pygobject.targetinstall:
 	@$(call install_fixup, pygobject,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, pygobject,DESCRIPTION,missing)
 
-	@$(call install_lib, pygobject, 0, 0, 0644, libpyglib-2.0-python)
+	@$(call install_lib, pygobject, 0, 0, 0644, libpyglib-2.0-python$(PYTHON_MAJORMINOR))
 
 	@$(call install_copy, pygobject, 0, 0, 0644, -, $(PYTHON_SITEPACKAGES)/pygtk.pth)
 
