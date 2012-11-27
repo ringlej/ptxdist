@@ -58,6 +58,7 @@ ptxd_make_get_http() {
 	    -O "${temp_file}" \
 	    "${url}" && {
 		chmod 644 -- "${temp_file}" &&
+		file "${temp_file}" | grep -vq " HTML " &&
 		touch -- "${temp_file}" &&
 		mv -- "${temp_file}" "${path}"
 		return
