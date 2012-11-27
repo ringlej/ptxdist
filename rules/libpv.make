@@ -49,6 +49,9 @@ LIBPV_CONF_OPT := \
 	--$(call ptx/endis, PTXCONF_LIBPV_PYTHON)-python \
 	--$(call ptx/wwo, PTXCONF_LIBPV_XML_EXPAT)-expat
 
+LIBPV_MAKE_OPT		= HOSTPYTHON=$(CROSS_PYTHON)
+LIBPV_INSTALL_OPT	= $(LIBPV_MAKE_OPT) install
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
