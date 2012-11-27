@@ -52,6 +52,7 @@ ptxd_make_get_http() {
 	    --progress=bar:force \
 	    --timeout=30 \
 	    --tries=5 \
+	    --user-agent="PTXdist ${PTXDIST_VERSION_FULL}" \
 	    ${PTXDIST_QUIET:+--quiet} \
 	    "${opts[@]}" \
 	    -O "${temp_file}" \
