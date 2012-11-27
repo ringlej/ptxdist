@@ -41,7 +41,7 @@ $(STATEDIR)/python-imaging.compile:
 	@$(call targetinfo)
 	cd $(PYTHON_IMAGING_DIR) && \
 		$(PYTHON_IMAGING_PATH) $(PYTHON_IMAGING_MAKE_ENV) \
-		python setup.py build
+		$(CROSS_PYTHON) setup.py build
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ $(STATEDIR)/python-imaging.install:
 	@$(call targetinfo)
 	cd $(PYTHON_IMAGING_DIR) && \
 		$(PYTHON_IMAGING_PATH) $(PYTHON_IMAGING_MAKE_ENV) \
-		python setup.py install --root=$(PYTHON_IMAGING_PKGDIR) --prefix=/usr
+		python$(PYTHON_MAJORMINOR) setup.py install --root=$(PYTHON_IMAGING_PKGDIR) --prefix=/usr
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
