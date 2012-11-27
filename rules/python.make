@@ -29,6 +29,8 @@ PYTHON_URL		:= \
 	http://python.org/ftp/python/$(PYTHON_VERSION)/$(PYTHON).$(PYTHON_SUFFIX) \
 	http://python.org/ftp/python/$(PYTHON_MAJORMINOR)/$(PYTHON).$(PYTHON_SUFFIX)
 
+CROSS_PYTHON		:= $(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
@@ -85,36 +87,37 @@ $(STATEDIR)/python.install.post:
 		-e "s:@SYSROOT_HOST@:$(PTXCONF_SYSROOT_HOST):g" \
 		$(PYTHON_PKGDIR)/usr/lib/python$(PYTHON_MAJORMINOR)/config/Makefile
 	@$(call world/install.post, PYTHON)
-	@rm -f "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo '#!/bin/sh'				>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo 'prefix="/usr"'				>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo 'exec_prefix="$${prefix}"'		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo 'CROSS_COMPILING=yes'			>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo '_python_sysroot="$(SYSROOT)"'		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo '_python_prefix="$${prefix}"'		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo '_python_exec_prefix="$${exec_prefix}"'	>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
+	@rm -f "$(CROSS_PYTHON)"
+	@echo '#!/bin/sh'				>> "$(CROSS_PYTHON)"
+	@echo ''					>> "$(CROSS_PYTHON)"
+	@echo 'prefix="/usr"'				>> "$(CROSS_PYTHON)"
+	@echo 'exec_prefix="$${prefix}"'		>> "$(CROSS_PYTHON)"
+	@echo ''					>> "$(CROSS_PYTHON)"
+	@echo 'CROSS_COMPILING=yes'			>> "$(CROSS_PYTHON)"
+	@echo '_python_sysroot="$(SYSROOT)"'		>> "$(CROSS_PYTHON)"
+	@echo '_python_prefix="$${prefix}"'		>> "$(CROSS_PYTHON)"
+	@echo '_python_exec_prefix="$${exec_prefix}"'	>> "$(CROSS_PYTHON)"
+	@echo ''					>> "$(CROSS_PYTHON)"
 	@echo 'export CROSS_COMPILING _python_sysroot _python_prefix _python_exec_prefix' \
-							>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
+							>> "$(CROSS_PYTHON)"
+	@echo ''					>> "$(CROSS_PYTHON)"
 	@echo 'exec $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) "$${@}"' \
-							>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
+							>> "$(CROSS_PYTHON)"
 
-#	@cp "$(PYTHON_PKGDIR)/usr/bin/cross-python-wrapper" "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
-	@chmod a+x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
+#	@cp "$(PYTHON_PKGDIR)/usr/bin/cross-python-wrapper" "$(CROSS_PYTHON)"
 	@ln -sf "python$(PYTHON_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python"
 
+	@chmod a+x "$(CROSS_PYTHON)"
+
 	@echo "#!/bin/sh" \
-		> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
+		> "$(CROSS_PYTHON)-config"
 	@echo "exec \
-		\"$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)\" \
+		\"$(CROSS_PYTHON)\" \
 		\"$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR)-config\" \
 		\"\$${@}\"" \
-		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
-	@chmod a+x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
+		>> "$(CROSS_PYTHON)-config"
+	@chmod a+x "$(CROSS_PYTHON)-config"
 	@ln -sf "python$(PYTHON_MAJORMINOR)-config" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python-config"
 
