@@ -28,8 +28,9 @@ DBUS_PYTHON_DIR		:= $(BUILDDIR)/$(DBUS_PYTHON)
 # Prepare
 # ----------------------------------------------------------------------------
 
-DBUS_PYTHON_PATH	:= PATH=$(CROSS_PATH)
-DBUS_PYTHON_ENV 	:= $(CROSS_ENV)
+DBUS_PYTHON_ENV = \
+	$(CROSS_ENV) \
+	PYTHON=$(CROSS_PYTHON)
 
 #
 # autoconf
