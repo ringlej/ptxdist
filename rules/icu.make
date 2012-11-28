@@ -1,0 +1,84 @@
+# -*-makefile-*-
+#
+# Copyright (C) 2012 by Michael Olbrich <m.olbrich@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_ICU) += icu
+
+#
+# Paths and names
+#
+ICU_VERSION	:= 50.1
+ICU_MD5		:= cf7bf9e56aa6c2057a8b6f464046483e
+ICU		:= icu4c-$(subst .,_,$(ICU_VERSION))-src
+ICU_SUFFIX	:= tgz
+ICU_URL		:= http://download.icu-project.org/files/icu4c/$(ICU_VERSION)/$(ICU).$(ICU_SUFFIX)
+ICU_SOURCE	:= $(SRCDIR)/$(ICU).$(ICU_SUFFIX)
+ICU_DIR		:= $(BUILDDIR)/$(ICU)
+ICU_SUBDIR	:= source
+ICU_LICENSE	:= unknown
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+#ICU_CONF_ENV	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+ICU_CONF_TOOL	:= autoconf
+ICU_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--enable-release \
+	--enable-shared \
+	--disable-static \
+	--enable-draft \
+	--enable-renaming \
+	--disable-tracing \
+	--enable-dyload \
+	--disable-rpath \
+	--disable-weak-threads \
+	--disable-extras \
+	--enable-icuio \
+	--enable-layout \
+	--disable-tests \
+	--disable-samples \
+	--with-cross-build=$(HOST_ICU_DIR)/$(ICU_SUBDIR)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/icu.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init, icu)
+	@$(call install_fixup, icu,PRIORITY,optional)
+	@$(call install_fixup, icu,SECTION,base)
+	@$(call install_fixup, icu,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
+	@$(call install_fixup, icu,DESCRIPTION,missing)
+
+	@$(call install_lib, icu, 0, 0, 0644, libicudata)
+	@$(call install_lib, icu, 0, 0, 0644, libicui18n)
+	@$(call install_lib, icu, 0, 0, 0644, libicuio)
+	@$(call install_lib, icu, 0, 0, 0644, libicule)
+	@$(call install_lib, icu, 0, 0, 0644, libiculx)
+	@$(call install_lib, icu, 0, 0, 0644, libicutu)
+	@$(call install_lib, icu, 0, 0, 0644, libicuuc)
+
+
+	@$(call install_finish, icu)
+
+	@$(call touch)
+
+# vim: syntax=make
