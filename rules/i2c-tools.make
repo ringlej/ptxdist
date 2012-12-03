@@ -23,6 +23,7 @@ I2C_TOOLS_SUFFIX	:= tar.bz2
 I2C_TOOLS_URL		:= http://dl.lm-sensors.org/i2c-tools/releases/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_SOURCE	:= $(SRCDIR)/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_DIR		:= $(BUILDDIR)/$(I2C_TOOLS)
+I2C_TOOLS_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare
