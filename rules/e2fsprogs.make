@@ -24,6 +24,7 @@ E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
 E2FSPROGS_SOURCE	:= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
+E2FSPROGS_LICENSE	:= GPLv2+, LGPLv2+, BSD, MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
