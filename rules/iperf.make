@@ -23,6 +23,7 @@ IPERF_SUFFIX	:= tar.gz
 IPERF_URL	:= $(call ptx/mirror, SF, iperf/$(IPERF).$(IPERF_SUFFIX))
 IPERF_SOURCE	:= $(SRCDIR)/$(IPERF).$(IPERF_SUFFIX)
 IPERF_DIR	:= $(BUILDDIR)/$(IPERF)
+IPERF_LICENSE	:= BSD
 
 # ----------------------------------------------------------------------------
 # Prepare
