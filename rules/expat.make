@@ -25,7 +25,7 @@ EXPAT_SUFFIX	:= tar.gz
 EXPAT_URL	:= $(call ptx/mirror, SF, expat/$(EXPAT).$(EXPAT_SUFFIX))
 EXPAT_SOURCE	:= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR	:= $(BUILDDIR)/$(EXPAT)
-EXPAT_LICENSE	:= as is
+EXPAT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
