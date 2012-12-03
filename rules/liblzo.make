@@ -24,6 +24,7 @@ LIBLZO_SUFFIX	:= tar.gz
 LIBLZO_URL	:= http://www.oberhumer.com/opensource/lzo/download/$(LIBLZO).$(LIBLZO_SUFFIX)
 LIBLZO_SOURCE	:= $(SRCDIR)/$(LIBLZO).$(LIBLZO_SUFFIX)
 LIBLZO_DIR	:= $(BUILDDIR)/$(LIBLZO)
+LIBLZO_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare
