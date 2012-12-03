@@ -24,7 +24,7 @@ UTIL_LINUX_NG_SUFFIX	:= tar.bz2
 UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.21/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
-UTIL_LINUX_NG_LICENSE	:= GPLv2+
+UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
 
 # ----------------------------------------------------------------------------
 # Prepare
