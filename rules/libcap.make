@@ -23,7 +23,7 @@ LIBCAP_SUFFIX	:= tar.bz2
 LIBCAP_URL	:= $(call ptx/mirror, KERNEL, libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX))
 LIBCAP_SOURCE	:= $(SRCDIR)/$(LIBCAP).$(LIBCAP_SUFFIX)
 LIBCAP_DIR	:= $(BUILDDIR)/$(LIBCAP)
-LIBCAP_LICENSE	:= unknown
+LIBCAP_LICENSE	:= BSD, GPL
 
 # ----------------------------------------------------------------------------
 # Prepare
