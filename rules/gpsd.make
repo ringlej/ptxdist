@@ -29,8 +29,9 @@ GPSD_DIR	:= $(BUILDDIR)/$(GPSD)
 # Prepare
 # ----------------------------------------------------------------------------
 
-GPSD_PATH	:= PATH=$(CROSS_PATH)
-GPSD_ENV 	:= $(CROSS_ENV)
+GPSD_ENV = \
+	$(CROSS_ENV) \
+	PYTHON=$(CROSS_PYTHON)
 
 #
 # autoconf
