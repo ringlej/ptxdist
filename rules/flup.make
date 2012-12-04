@@ -49,7 +49,7 @@ $(STATEDIR)/flup.install:
 	@$(call targetinfo)
 	@cd $(FLUP_DIR) && \
 		$(FLUP_PATH) $(FLUP_MAKE_ENV) \
-		python setup.py install --root=$(FLUP_PKGDIR) --prefix=/usr
+		$(CROSS_PYTHON) setup.py install --root=$(FLUP_PKGDIR) --prefix=/usr
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
