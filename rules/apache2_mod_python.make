@@ -39,7 +39,7 @@ APACHE2_MOD_PYTHON_CONF_ENV := \
 APACHE2_MOD_PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-apxs=$(SYSROOT)/usr/bin/apxs \
-	--with-python=$(PTXCONF_SYSROOT_CROSS)/bin/python
+	--with-python=$(CROSS_PYTHON)
 
 # ----------------------------------------------------------------------------
 # Target-Install
