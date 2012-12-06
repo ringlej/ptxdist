@@ -29,7 +29,7 @@ CALIBRATOR_DIR		:= $(BUILDDIR)/$(CALIBRATOR)
 # ----------------------------------------------------------------------------
 
 CALIBRATOR_PATH		:= PATH=$(CROSS_PATH)
-CALIBRATOR_MAKE_ENV	:= $(CROSS_ENV) LDFLAGS=-lm
+CALIBRATOR_MAKE_ENV	:= $(CROSS_ENV) LDLIBS=-lm
 CALIBRATOR_MAKE_OPT	:= calibrator
 
 # ----------------------------------------------------------------------------
