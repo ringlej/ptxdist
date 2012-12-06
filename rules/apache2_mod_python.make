@@ -29,14 +29,15 @@ APACHE2_MOD_PYTHON_DIR		:= $(BUILDDIR)/$(APACHE2_MOD_PYTHON)
 # Prepare
 # ----------------------------------------------------------------------------
 
-APACHE2_MOD_PYTHON_CONF_ENV := \
+APACHE2_MOD_PYTHON_CONF_ENV = \
 	$(CROSS_ENV) \
-	LIBEXECDIR=/usr/modules
+	LIBEXECDIR=/usr/modules \
+	PYTHON=$(CROSS_PYTHON)
 
 #
 # autoconf
 #
-APACHE2_MOD_PYTHON_AUTOCONF := \
+APACHE2_MOD_PYTHON_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-apxs=$(SYSROOT)/usr/bin/apxs \
 	--with-python=$(CROSS_PYTHON)
