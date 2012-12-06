@@ -1,0 +1,48 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 6 Dec 2012 07:46:44 +0100
+Subject: [PATCH] check if gets is defined before doing something with it
+
+glibc 2.16 has removed gets completely
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ gl/stdio.in.h     |    2 ++
+ lib/gl/stdio.in.h |    2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/gl/stdio.in.h b/gl/stdio.in.h
+index 9dc7c4a..8cb19d7 100644
+--- a/gl/stdio.in.h
++++ b/gl/stdio.in.h
+@@ -710,11 +710,13 @@ _GL_CXXALIAS_RPL (gets, char *, (char *s));
+ _GL_CXXALIAS_SYS (gets, char *, (char *s));
+ #  undef gets
+ # endif
++# if defined gets
+ _GL_CXXALIASWARN (gets);
+ /* It is very rare that the developer ever has full control of stdin,
+    so any use of gets warrants an unconditional warning.  Assume it is
+    always declared, since it is required by C89.  */
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++# endif
+ #endif
+ 
+ 
+diff --git a/lib/gl/stdio.in.h b/lib/gl/stdio.in.h
+index 03bea2a..cb6483b 100644
+--- a/lib/gl/stdio.in.h
++++ b/lib/gl/stdio.in.h
+@@ -710,11 +710,13 @@ _GL_CXXALIAS_RPL (gets, char *, (char *s));
+ _GL_CXXALIAS_SYS (gets, char *, (char *s));
+ #  undef gets
+ # endif
++# if defined gets
+ _GL_CXXALIASWARN (gets);
+ /* It is very rare that the developer ever has full control of stdin,
+    so any use of gets warrants an unconditional warning.  Assume it is
+    always declared, since it is required by C89.  */
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++# endif
+ #endif
+ 
+ 
