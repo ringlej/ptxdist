@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 0.8.4
-V4L_UTILS_MD5		:= f2ded401b9b8d77f5ec7fac4683cfadf
+V4L_UTILS_VERSION	:= 0.9.1
+V4L_UTILS_MD5		:= dce548c1b497a39e59bb52387cf18dc1
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
@@ -29,9 +29,10 @@ V4L_UTILS_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
-V4L_UTILS_CONF_TOOL	:= NO
-V4L_UTILS_MAKE_ENV	:= $(CROSS_ENV)
-V4L_UTILS_INSTALL_OPT	:= PREFIX=/usr install
+V4L_UTILS_CONF_TOOL	:= autoconf
+V4L_UTILS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-qv4l2
 
 # ----------------------------------------------------------------------------
 # Target-Install
