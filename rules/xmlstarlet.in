@@ -3,6 +3,7 @@ config XMLSTARLET
 	tristate
 	select LIBC_PTHREAD
 	select LIBXML2
+	select LIBXML2_SAX1
 	select LIBXSLT
 	prompt "xmlstarlet"
 	help
