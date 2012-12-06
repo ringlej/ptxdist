@@ -15,7 +15,8 @@
 PACKAGES-$(PTXCONF_LIBUUID) += libuuid
 
 # ----------------------------------------------------------------------------
-# Virtual fake package
+# Virtual fake package (spawned from util-linux)
 # ----------------------------------------------------------------------------
+LIBUUID_LICENSE	:= BSD
 
 # vim: syntax=make
