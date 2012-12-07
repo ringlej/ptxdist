@@ -211,7 +211,7 @@ ifdef PTXCONF_UDEV_CUST_RULES
 endif
 
 	@$(foreach helper, $(UDEV_HELPER-y), \
-		$(call install_copy, udev, 0, 0, 0644, -, \
+		$(call install_copy, udev, 0, 0, 0755, -, \
 			/lib/udev//$(helper));)
 
 ifdef PTXCONF_UDEV_ACL
