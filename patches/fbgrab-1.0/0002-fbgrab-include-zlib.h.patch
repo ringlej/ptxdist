@@ -8,7 +8,7 @@ we use symbols from there, we should include zlib.h directly.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  fbgrab.c |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ 1 file changed, 1 insertion(+)
 
 diff --git a/fbgrab.c b/fbgrab.c
 index fc89f5a..0c959f6 100644

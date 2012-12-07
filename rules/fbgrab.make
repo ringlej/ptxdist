@@ -30,10 +30,9 @@ FBGRAB_DIR	:= $(BUILDDIR)/$(FBGRAB)
 # ----------------------------------------------------------------------------
 # overwrite some vars in the makefile
 
-FBGRAB_MAKE_ENV	:= $(CROSS_ENV)
 FBGRAB_MAKE_OPT	= \
 	$(CROSS_ENV_CC) \
-	LDFLAGS='`$(CROSS_ENV) eval PATH=$(CROSS_PATH) $$PKG_CONFIG --libs libpng` $(CROSS_LDFLAGS)'
+	LDLIBS='`$(CROSS_ENV) eval PATH=$(CROSS_PATH) $$PKG_CONFIG --libs libpng`'
 
 # ----------------------------------------------------------------------------
 # Target-Install

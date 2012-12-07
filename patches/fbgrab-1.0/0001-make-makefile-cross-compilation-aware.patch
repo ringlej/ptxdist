@@ -9,10 +9,10 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 ---
  Makefile |   11 +++++------
- 1 files changed, 5 insertions(+), 6 deletions(-)
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 14c63cb..252b098 100644
+index 14c63cb..8ae5dc8 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -4,13 +4,12 @@
@@ -22,7 +22,7 @@ index 14c63cb..252b098 100644
 -	splint +posixlib fbgrab.c
 -	gcc -g -Wall fbgrab.c -lpng -lz -o fbgrab
 +#	splint +posixlib fbgrab.c
-+	${CC} ${CPPFLAGS} ${LDFLAGS} fbgrab.c -o fbgrab
++	${CC} ${CPPFLAGS} fbgrab.c ${LDLIBS} -o fbgrab
  
  install:
 -	strip fbgrab
