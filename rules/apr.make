@@ -36,7 +36,8 @@ APR_CONF_ENV := \
 	ac_cv_sizeof_ssize_t=4 \
 	ac_cv_struct_rlimit=yes \
 	apr_cv_mutex_robust_shared=no \
-	apr_cv_process_shared_works=yes
+	apr_cv_process_shared_works=yes \
+	apr_cv_pthreads_lib="-lpthread"
 
 #
 # autoconf
