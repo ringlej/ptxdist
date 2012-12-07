@@ -5,6 +5,7 @@ menuconfig GAWK
 	select LIBC_M
 	select LIBC_DL
 	select GCCLIBS_GCC_S
+	depends on !BUSYBOX_AWK || ALLYES
 	help
 	  Gawk is the GNU Project's implementation of the AWK programming
 	  language. It conforms to the definition of the language in the POSIX
@@ -19,3 +20,7 @@ config GAWK_AWKLIB
 	bool "Install awklib"
 
 endif
+
+comment "BusyBox' awk is selected!"
+	depends on BUSYBOX_AWK
+
