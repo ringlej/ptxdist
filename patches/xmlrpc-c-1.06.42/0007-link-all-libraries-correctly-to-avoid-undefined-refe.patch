@@ -1,0 +1,58 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 7 Dec 2012 17:50:04 +0100
+Subject: [PATCH] link all libraries correctly to avoid undefined references
+ with newer toolchains
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ lib/expat/xmlparse/Makefile |    4 +++-
+ src/Makefile                |    6 +++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/lib/expat/xmlparse/Makefile b/lib/expat/xmlparse/Makefile
+index 96c0be8..572270d 100644
+--- a/lib/expat/xmlparse/Makefile
++++ b/lib/expat/xmlparse/Makefile
+@@ -26,8 +26,10 @@ LDFLAGS = $(LADD)
+ 
+ LIBLDFLAGS = $(LDFLAGS_VERSINFO) -rpath $(LIBINST_DIR) $(LADD)
+ 
++LIBXMLRPC_XMLPARSE_LIBDEP = -lxmlrpc_xmltok -L../xmltok/.libs
++
+ libxmlrpc_xmlparse.la: $(LIBXMLRPC_XMLPARSE_OBJS)
+-	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) $^
++	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) $(LIBXMLRPC_XMLPARSE_LIBDEP) $^
+ 
+ CFLAGS = $(CFLAGS_COMMON) $(CFLAGS_PERSONAL) $(CADD)
+ 
+diff --git a/src/Makefile b/src/Makefile
+index e78370d..18e2033 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -9,6 +9,7 @@ include $(BUILDDIR)/Makefile.config
+ 
+ ABYSS_LIBDIR = $(BUILDDIR)/lib/abyss/src/.libs
+ LIBUTIL_LIBDIR = $(BUILDDIR)/lib/libutil/.libs
++LIBXMLPARSE_LIBDIR = $(BUILDDIR)/lib/expat/xmlparse/.libs
+ 
+ default: all
+ 
+@@ -97,6 +98,9 @@ LIBXMLRPC_OBJS = \
+ 	xmlrpc_authcookie.lo \
+ 
+ LIBXMLRPC_LIBDEP = -lxmlrpc_util $(LIBXML_LIBS)
++ifneq ($(ENABLE_LIBXML2_BACKEND),yes)
++LIBXMLRPC_LIBDEP += -lxmlrpc_xmlparse
++endif
+ 
+ LIB_OBJS = $(LIBXMLRPC_CLIENT_OBJS) $(LIBXMLRPC_SERVER_OBJS)
+ 
+@@ -133,7 +137,7 @@ all: $(TARGET_LTLIBRARIES) $(SUBDIRS:%=%/all)
+ 
+ LDFLAGS = $(LADD)
+ 
+-LIBPATHS = -L.libs -L$(LIBUTIL_LIBDIR)
++LIBPATHS = -L.libs -L$(LIBUTIL_LIBDIR) -L$(LIBXMLPARSE_LIBDIR)
+ 
+ LIBLDFLAGS = $(LDFLAGS_VERSINFO) -rpath $(LIBINST_DIR) $(LIBPATHS) $(LADD)
+ 

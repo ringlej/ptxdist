@@ -6,4 +6,5 @@
 0004-xmlrpc-c-config.in-add-SYSROOT-support.patch
 0005-calling-AC_PROG_CXX-conditionally-is-broken-with-aut.patch
 0006-fix-building-with-libcurl-7.26.0.patch
-# 836dbd8535e2c51912651afb2ece2608  - git-ptx-patches magic
+0007-link-all-libraries-correctly-to-avoid-undefined-refe.patch
+# c9011b8fd7100d32e783121ec53f22bc  - git-ptx-patches magic
