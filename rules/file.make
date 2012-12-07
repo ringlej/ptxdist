@@ -17,14 +17,19 @@ PACKAGES-$(PTXCONF_FILE) += file
 # Paths and names
 #
 FILE_VERSION	:= 5.11
-FILE_MD5		:= 16a407bd66d6c7a832f3a5c0d609c27b
-FILE			:= file-$(FILE_VERSION)
-FILE_SUFFIX		:= tar.gz
-FILE_URL		:= ftp://ftp.astron.com/pub/file/$(FILE).$(FILE_SUFFIX)
-FILE_SOURCE		:= $(SRCDIR)/$(FILE).$(FILE_SUFFIX)
-FILE_DIR		:= $(BUILDDIR)/$(FILE)
+FILE_MD5	:= 16a407bd66d6c7a832f3a5c0d609c27b
+FILE		:= file-$(FILE_VERSION)
+FILE_SUFFIX	:= tar.gz
+FILE_URL	:= ftp://ftp.astron.com/pub/file/$(FILE).$(FILE_SUFFIX)
+FILE_SOURCE	:= $(SRCDIR)/$(FILE).$(FILE_SUFFIX)
+FILE_DIR	:= $(BUILDDIR)/$(FILE)
 FILE_LICENSE	:= unknown
 
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+FILE_PATH	:= PATH=$(PTXDIST_SYSROOT_HOST)/bin/file:$(CROSS_PATH)
 FILE_CONF_TOOL	:= autoconf
 
 # ----------------------------------------------------------------------------
