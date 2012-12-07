@@ -86,6 +86,10 @@ comment "BusyBox' nohup is selected!"
 config COREUTILS_GROUPS
 	bool
 	prompt "groups"
+	depends on !BUSYBOX_GROUPS || ALLYES
+
+comment "BusyBox' groups is selected!"
+	depends on BUSYBOX_GROUPS
 
 config COREUTILS_SHA224SUM
 	bool
@@ -262,6 +266,10 @@ comment "busybox' sum is selected!"
 config COREUTILS_USERS
 	bool
 	prompt "users"
+	depends on !BUSYBOX_USERS || ALLYES
+
+comment "BusyBox' users is selected!"
+	depends on BUSYBOX_USERS
 
 config COREUTILS_TOUCH
 	bool
