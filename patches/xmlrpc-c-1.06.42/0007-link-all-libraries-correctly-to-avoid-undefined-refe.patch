@@ -5,10 +5,24 @@ Subject: [PATCH] link all libraries correctly to avoid undefined references
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
+ lib/expat/Makefile          |    2 +-
  lib/expat/xmlparse/Makefile |    4 +++-
  src/Makefile                |    6 +++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ 3 files changed, 9 insertions(+), 3 deletions(-)
 
+diff --git a/lib/expat/Makefile b/lib/expat/Makefile
+index 7a85187..5e0e2ca 100644
+--- a/lib/expat/Makefile
++++ b/lib/expat/Makefile
+@@ -6,7 +6,7 @@ SUBDIR = lib/expat
+ include $(SRCDIR)/Makefile.config
+ 
+ # Build up SUBDIRS:
+-SUBDIRS = gennmtab xmlparse xmltok
++SUBDIRS = gennmtab xmltok xmlparse
+ 
+ default: all
+ 
 diff --git a/lib/expat/xmlparse/Makefile b/lib/expat/xmlparse/Makefile
 index 96c0be8..572270d 100644
 --- a/lib/expat/xmlparse/Makefile
