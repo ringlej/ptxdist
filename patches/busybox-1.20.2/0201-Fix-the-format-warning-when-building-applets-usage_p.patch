@@ -1,6 +1,9 @@
 From: Dinny Wu <dinny.wu@gmail.com>
 Date: Thu, 26 Jul 2012 14:12:51 +0000
 Subject: [PATCH] Fix the format warning when building applets/usage_pod.c
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 When compiling busybox with gcc 4.6.3, it shows below warning:
 
