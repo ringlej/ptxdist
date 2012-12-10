@@ -1,5 +1,6 @@
 #!/bin/sh
 
+COMPILING=false
 LINKING=true
 FORTIFY=true
 STDLIB=true
@@ -51,11 +52,19 @@ cc_check_args() {
 				echo "${0##*/} $*" >&2
 				exit 1
 				;;
+			-)
+				COMPILING=true
+				;;
+			-*)
+				;;
+			*)
+				COMPILING=true
+				;;
 		esac
 	done
 	# Used e.g. by the kernel to get the compiler version. Adding
 	# linker options confuses gcc because there is nothing to link.
-	if [ "$*" = "-v" ]; then
+	if ! $COMPILING; then
 		LINKING=false
 	fi
 }
