@@ -1,7 +1,17 @@
-Index: xawtv-3.95/Makefile.in
-===================================================================
---- xawtv-3.95.orig/Makefile.in
-+++ xawtv-3.95/Makefile.in
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 8 Dec 2012 12:46:27 +0100
+Subject: [PATCH] fix cross-compiling
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.in   |   31 ++++++++++++++++---------------
+ mk/Compile.mk |    4 ++--
+ 2 files changed, 18 insertions(+), 17 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 389a39c..a51b463 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -29,28 +29,29 @@ VERSION		:= @VERSION@
  # for CFLAGS
  WARN_FLAGS	:= -Wall -Wmissing-prototypes -Wstrict-prototypes -Wpointer-arith
@@ -47,10 +57,10 @@ Index: xawtv-3.95/Makefile.in
  
  # stuff configure has found
  FOUND_AALIB	:= @FOUND_AALIB@
-Index: xawtv-3.95/mk/Compile.mk
-===================================================================
---- xawtv-3.95.orig/mk/Compile.mk
-+++ xawtv-3.95/mk/Compile.mk
+diff --git a/mk/Compile.mk b/mk/Compile.mk
+index 75dadde..7771ef0 100644
+--- a/mk/Compile.mk
++++ b/mk/Compile.mk
 @@ -20,8 +20,8 @@ tmpdep		= mk/$(subst /,_,$*).tmp
  depfile		= mk/$(subst /,_,$*).dep
  depfiles	= mk/*.dep

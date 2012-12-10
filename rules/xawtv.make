@@ -41,8 +41,6 @@ XAWTV_AUTOCONF := \
 	--disable-mmx
 
 XAWTV_MAKE_OPT = \
-	CPPFLAGS="$(CROSS_CPPFLAGS)" \
-	LDFLAGS_CUST="$(CROSS_LDFLAGS)" \
 	SYSROOT=$(SYSROOT) \
 	verbose=yes
 
