@@ -1,0 +1,20 @@
+## SECTION=shell_and_console
+
+config GZIP
+	tristate
+	select LIBC_RT
+	select GCCLIBS_GCC_S
+	prompt "gzip"
+	depends on ( !BUSYBOX_GZIP && !BUSYBOX_GUNZIP ) || ALLYES
+	help
+	  gzip (GNU zip) is a compression utility designed to be a replacement
+	  for compress. Its main advantages over compress are much better
+	  compression and freedom from patented algorithms.
+
+
+comment "BusyBox' gzip is selected! (netkit-base)"
+	depends on BUSYBOX_GZIP
+
+comment "BusyBox' gunzip is selected! (netkit-base)"
+	depends on BUSYBOX_GUNZIP
+
