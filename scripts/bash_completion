@@ -111,7 +111,7 @@ _ptxdist_completion()
 		[ ${#args[@]} -lt 1 ] && _filedir
 		;;
 	clean)
-		COMPREPLY=( root )
+		COMPREPLY=( $( compgen -W root -- $cur ) )
 		;&
 	get|extract|prepare|compile|install|targetinstall|tags)
 		COMPREPLY+=( $( compgen -W "$( $_ptxdist_cmd print PTX_PACKAGES_SELECTED 2> /dev/null)" -- $cur ) )
