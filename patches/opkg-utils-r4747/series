@@ -6,4 +6,5 @@
 0004-opkg-Added-sha256-support.patch
 0005-opkg-build-use-CROSS_COMPILE-ar.patch
 0006-Fill-out-Installed-Size.patch
-# 5aded1e9c50a39f9e0f80584cc2f2aaf  - git-ptx-patches magic
+0007-opkg-build-force-tar-gnu-format.patch
+# fd5b7b6773ea606e9581496ef7e369f4  - git-ptx-patches magic

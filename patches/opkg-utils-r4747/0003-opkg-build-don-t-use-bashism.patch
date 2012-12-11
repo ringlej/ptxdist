@@ -5,7 +5,7 @@ Subject: [PATCH] opkg-build: don't use bashism
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  opkg-build |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/opkg-build b/opkg-build
 index 1c323c3..f9251ea 100755

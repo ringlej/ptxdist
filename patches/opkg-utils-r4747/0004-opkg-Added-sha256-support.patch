@@ -7,7 +7,7 @@ MD5 and SHA256 hashes are generated for each package now.
 Signed-off-by: George McCollister <george.mccollister@gmail.com>
 ---
  opkg.py |   24 +++++++++++++++++++++---
- 1 files changed, 21 insertions(+), 3 deletions(-)
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
 diff --git a/opkg.py b/opkg.py
 index 3fda9b5..b000082 100644

@@ -1,0 +1,39 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 11 Dec 2012 11:29:25 +0100
+Subject: [PATCH] opkg-build: force tar gnu format
+
+Since openSUSE 12.2 the installed tar uses posix instead of gnu encoding by
+default. This format is not fully supported by opkg and results in ipk
+packages not installable at the target.
+
+Based on a patch from OpenWrt.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ opkg-build |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/opkg-build b/opkg-build
+index 425faea..dc53982 100755
+--- a/opkg-build
++++ b/opkg-build
+@@ -233,8 +233,8 @@ tmp_dir=$dest_dir/IPKG_BUILD.$$
+ mkdir $tmp_dir
+ 
+ echo $CONTROL > $tmp_dir/tarX
+-( cd $pkg_dir && tar $ogargs -X $tmp_dir/tarX -czf $tmp_dir/data.tar.gz . )
+-( cd $pkg_dir/$CONTROL && tar $ogargs -czf $tmp_dir/control.tar.gz . )
++( cd $pkg_dir && tar $ogargs -X $tmp_dir/tarX --format=gnu -czf $tmp_dir/data.tar.gz . )
++( cd $pkg_dir/$CONTROL && tar $ogargs --format=gnu -czf $tmp_dir/control.tar.gz . )
+ rm $tmp_dir/tarX
+ 
+ echo "2.0" > $tmp_dir/debian-binary
+@@ -252,7 +252,7 @@ if [ "$outer" = "ar" ] ; then
+   ( cd $tmp_dir && chown 0:0 ./debian-binary ./data.tar.gz ./control.tar.gz &&
+ 	${CROSS_COMPILE}ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+ else
+-  ( cd $tmp_dir && tar -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
++  ( cd $tmp_dir && tar --format=gnu -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+ fi
+ 
+ rm $tmp_dir/debian-binary $tmp_dir/data.tar.gz $tmp_dir/control.tar.gz

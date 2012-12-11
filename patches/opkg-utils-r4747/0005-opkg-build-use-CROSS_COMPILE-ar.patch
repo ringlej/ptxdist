@@ -11,7 +11,7 @@ to cross-ar here.
 Signed-off-by: Andreas Bießmann <andreas@biessmann.de>
 ---
  opkg-build |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/opkg-build b/opkg-build
 index f9251ea..425faea 100755

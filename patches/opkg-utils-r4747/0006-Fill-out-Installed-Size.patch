@@ -8,7 +8,7 @@ space to install the package before attempting to do so.
 Signed-off-by: George McCollister <george.mccollister@gmail.com>
 ---
  opkg.py |    6 +++++-
- 1 files changed, 5 insertions(+), 1 deletions(-)
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/opkg.py b/opkg.py
 index b000082..2531871 100644

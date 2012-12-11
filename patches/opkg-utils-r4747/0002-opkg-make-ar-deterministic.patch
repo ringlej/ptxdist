@@ -30,7 +30,7 @@ Not for upstream!
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  opkg-build |    5 ++++-
- 1 files changed, 4 insertions(+), 1 deletions(-)
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/opkg-build b/opkg-build
 index 012afd3..1c323c3 100755
