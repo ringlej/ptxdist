@@ -4,8 +4,8 @@ Subject: [PATCH] ipkg-py-sane-vercompare
 
 Only in ipkg-utils: ipkg-py-sane-vercompare.patch
 ---
- ipkg.py |   26 ++++++++++++++++++++++----
- 1 files changed, 22 insertions(+), 4 deletions(-)
+ ipkg.py | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/ipkg.py b/ipkg.py
 index e175c8d..824ba4d 100644
@@ -58,6 +58,3 @@ index e175c8d..824ba4d 100644
      package = Package()
  
      package.set_package("FooBar")
--- 
-1.7.2.3
-

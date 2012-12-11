@@ -29,8 +29,8 @@ Not for upstream!
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- ipkg-build |    5 ++++-
- 1 files changed, 4 insertions(+), 1 deletions(-)
+ ipkg-build | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/ipkg-build b/ipkg-build
 index 77367ac..7234e64 100755
@@ -48,6 +48,3 @@ index 77367ac..7234e64 100755
  else
    ( cd $tmp_dir && tar -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
  fi
--- 
-1.7.2.3
-

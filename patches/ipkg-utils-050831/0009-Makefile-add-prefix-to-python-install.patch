@@ -4,8 +4,8 @@ Subject: [PATCH] Makefile: add prefix to python install
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
 index 7093a0d..249c687 100644
@@ -20,6 +20,3 @@ index 7093a0d..249c687 100644
  	chmod agu+rx ipkg-make-index
  	cp -f ipkg-make-index $(PREFIX)/bin
  	chmod agu+rx ipkg-list-fields
--- 
-1.7.2.3
-

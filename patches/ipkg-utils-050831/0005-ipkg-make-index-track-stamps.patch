@@ -3,8 +3,8 @@ Date: Fri, 22 Jan 2010 11:05:14 +0100
 Subject: [PATCH] ipkg-make-index-track-stamps
 
 ---
- ipkg-make-index |   29 ++++++++++++++++++++++++++---
- 1 files changed, 26 insertions(+), 3 deletions(-)
+ ipkg-make-index | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
 diff --git a/ipkg-make-index b/ipkg-make-index
 index 8924dd0..6a49849 100755
@@ -90,6 +90,3 @@ index 8924dd0..6a49849 100755
  if opt_s:
       sys.exit(0)
  
--- 
-1.7.2.3
-

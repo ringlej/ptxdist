@@ -3,12 +3,12 @@ Date: Fri, 22 Jan 2010 11:05:16 +0100
 Subject: [PATCH] ipkg-env
 
 ---
- ipkg-list-fields  |    2 +-
- ipkg-make-index   |    2 +-
- ipkg-show-deps    |    2 +-
- ipkg-unbuild      |    2 +-
- ipkg-update-index |    2 +-
- ipkg-upload       |    2 +-
+ ipkg-list-fields  | 2 +-
+ ipkg-make-index   | 2 +-
+ ipkg-show-deps    | 2 +-
+ ipkg-unbuild      | 2 +-
+ ipkg-update-index | 2 +-
+ ipkg-upload       | 2 +-
  6 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/ipkg-list-fields b/ipkg-list-fields
@@ -71,6 +71,3 @@ index 2fe5186..01e5815 100755
  
  import sys, os, os.path, re
  
--- 
-1.7.2.3
-

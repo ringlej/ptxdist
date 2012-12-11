@@ -3,9 +3,9 @@ Date: Fri, 22 Jan 2010 11:05:07 +0100
 Subject: [PATCH] ipkg-py-tarfile
 
 ---
- arfile.py |  124 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- ipkg.py   |  121 +++++++++++++++++++++++++++++++++--------------------------
- setup.py  |    2 +-
+ arfile.py | 124 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ ipkg.py   | 121 +++++++++++++++++++++++++++++++++---------------------------
+ setup.py  |   2 +-
  3 files changed, 192 insertions(+), 55 deletions(-)
  create mode 100644 arfile.py
 
@@ -326,6 +326,3 @@ index 1c0c96c..8b28392 100644
 +                      py_modules = [ 'ipkg', 'arfile' ],
  		      scripts = ['ipkg-compare-indexes', 'ipkg-make-index', 'ipkg-update-index', 'ipkg-build', 'ipkg-unbuild', 'ipkg-upload']
                        )
--- 
-1.7.2.3
-

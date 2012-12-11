@@ -3,8 +3,8 @@ Date: Fri, 22 Jan 2010 11:05:12 +0100
 Subject: [PATCH] arfile_even_alignment
 
 ---
- arfile.py |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ arfile.py | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arfile.py b/arfile.py
 index 0bcd8d0..597cb3d 100644
@@ -19,6 +19,3 @@ index 0bcd8d0..597cb3d 100644
              data = self.f.seek(size, 1)
  #            print hex(f.tell())
  
--- 
-1.7.2.3
-

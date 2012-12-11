@@ -3,8 +3,8 @@ Date: Fri, 22 Jan 2010 11:05:05 +0100
 Subject: [PATCH] ipkg-utils-fix
 
 ---
- ipkg.py |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ ipkg.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/ipkg.py b/ipkg.py
 index 02aab22..e175c8d 100644
@@ -22,6 +22,3 @@ index 02aab22..e175c8d 100644
              line = control.readline()
              while 1:
                  if not line: break
--- 
-1.7.2.3
-

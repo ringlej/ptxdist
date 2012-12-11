@@ -3,10 +3,10 @@ Date: Fri, 22 Jan 2010 11:05:15 +0100
 Subject: [PATCH] fields_tweaks
 
 ---
- Makefile         |    2 ++
- ipkg-list-fields |   13 +++++++++++++
- ipkg.py          |    8 +++++++-
- 3 files changed, 22 insertions(+), 1 deletions(-)
+ Makefile         |  2 ++
+ ipkg-list-fields | 13 +++++++++++++
+ ipkg.py          |  8 +++++++-
+ 3 files changed, 22 insertions(+), 1 deletion(-)
  create mode 100644 ipkg-list-fields
 
 diff --git a/Makefile b/Makefile
@@ -74,6 +74,3 @@ index 67c2aa3..d6f7e69 100644
  	out = out + "\n"
  
  	return out
--- 
-1.7.2.3
-

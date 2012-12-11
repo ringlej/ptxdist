@@ -6,8 +6,8 @@ it's not portable
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- ipkg.py |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ ipkg.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ipkg.py b/ipkg.py
 index d6f7e69..c951371 100644
@@ -22,6 +22,3 @@ index d6f7e69..c951371 100644
  
              self.read_control(control)
              control.close()
--- 
-1.7.2.3
-
