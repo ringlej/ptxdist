@@ -316,8 +316,8 @@ else
 fi
 
 AC_MSG_CHECKING(whether python development files are present)
-PYTHON_CONFDIR=`$PYTHON -v -c "import distutils" 2>&1 | $EGREP distutils | $EGREP directory | $SED -ne "s/^[[^\/]]*\([[^[:space:]]]*\).*/\1/p"`/../config/
-if test -e "$PYTHON_CONFDIR/Makefile"; then
+PYTHON_MAKEFILE=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_makefile_filename()" 2> /dev/null`
+if test -e "$PYTHON_MAKEFILE"; then
 	AC_MSG_RESULT(yes)
 else
 	AC_MSG_RESULT(no)
