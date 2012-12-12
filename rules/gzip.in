@@ -12,9 +12,9 @@ config GZIP
 	  compression and freedom from patented algorithms.
 
 
-comment "BusyBox' gzip is selected! (netkit-base)"
+comment "BusyBox' gzip is selected!"
 	depends on BUSYBOX_GZIP
 
-comment "BusyBox' gunzip is selected! (netkit-base)"
+comment "BusyBox' gunzip is selected!"
 	depends on BUSYBOX_GUNZIP
 
