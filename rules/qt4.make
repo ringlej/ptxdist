@@ -111,7 +111,7 @@ QT4_AUTOCONF := \
 	-no-optimized-qmake \
 	-no-nis \
 	-no-cups \
-	-pch \
+	-no-pch \
 	-reduce-relocations \
 	-force-pkg-config \
 	-prefix /usr \
