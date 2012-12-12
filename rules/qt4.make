@@ -57,7 +57,7 @@ $(STATEDIR)/qt4.extract:
 
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
 # 'strip' is our special wrapper to avoid stripping for root-debug
-QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)  STRIP=strip
+QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)  STRIP=strip MAKEFLAGS="$(PARALLELMFLAGS)"
 QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR)
 
 ifdef PTXCONF_ARCH_ARM_V6
