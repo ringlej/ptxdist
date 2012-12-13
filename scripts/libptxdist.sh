@@ -362,33 +362,29 @@ ptxd_make() {
 #
 # supress stdout in quiet mode
 #
-ptxd_make_log() {
-	#
-	# fd3 == stdout to logfile
-	# fd4 == stderr to logfile
-	# fd5 == clean stdout
-	# fd6 == clean stderr
-	#
-	{
-		export PTXDIST_FD_STDOUT=5
-		export PTXDIST_FD_STDERR=6
-		export PTXDIST_FD_LOGFILE=7
-		{
-			if [ -z "${PTXDIST_QUIET}" ]; then
-				ptxd_make "${@}" 4>&- |
-				# make's stdout on fd0
-				tee -a "${PTX_LOGFILE}" 2>&4 4>&- 5>&- 6>&-
-				check_pipe_status || return
-			else
-				exec 4>&-
-				ptxd_make "${@}" 1>> "${PTX_LOGFILE}"
-			fi
-		} 2>&1 1>&3 3>&- 7>> "${PTX_LOGFILE}" |
-		# make's stderr on fd0
-		tee -a "${PTX_LOGFILE}" 1>&2 3>&- 4>&- 5>&- 6>&-
-		check_pipe_status || return
-	} 3>&1 4>&2 5>&1 6>&2
-}
+ptxd_make_log() {(
+	# stdout only
+	exec {PTXDIST_FD_STDOUT}>&1
+	# stderr only
+	exec {PTXDIST_FD_STDERR}>&2
+	# logfile only
+	exec 9>> "${PTX_LOGFILE}"
+	export PTXDIST_FD_STDOUT
+	export PTXDIST_FD_STDERR
+	export PTXDIST_FD_LOGFILE=9
+
+	if [ -z "${PTXDIST_QUIET}" ]; then
+		# stdout and logfile
+		exec {logout}> >(tee -a "${PTX_LOGFILE}")
+	else
+		# logfile only
+		exec {logout}>> "${PTX_LOGFILE}"
+	fi
+	# stderr and logfile
+	exec {logerr}> >(tee -a "${PTX_LOGFILE}" >&2)
+
+	ptxd_make "${@}" 1>&${logout} 2>&${logerr}
+)}
 
 
 
