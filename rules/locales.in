@@ -20,6 +20,12 @@ config LOCALES_EN_US
 	help
 	  American English language support.
 
+config LOCALES_EN_US_UTF8
+	bool
+	prompt "en_US (UTF-8)"
+	help
+	  American English language support with utf-8.
+
 config LOCALES_EN_GB
 	bool
 	prompt "en.GB (ISO8859-1)"

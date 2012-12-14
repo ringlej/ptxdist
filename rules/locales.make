@@ -33,8 +33,14 @@ $(STATEDIR)/locales.install:
 ifdef PTXCONF_LOCALES_EN_US
 	@$(call add_locale, en_US, en_US, ISO-8859-1, $(LOCALES_PKGDIR))
 endif
+ifdef PTXCONF_LOCALES_EN_US_UTF8
+	@$(call add_locale, en_US.UTF-8, en_US, UTF-8, $(LOCALES_PKGDIR))
+endif
 ifdef PTXCONF_LOCALES_EN_GB
 	@$(call add_locale, en_GB, en_GB, ISO-8859-1, $(LOCALES_PKGDIR))
+endif
+ifdef PTXCONF_LOCALES_EN_GB_EURO
+	@$(call add_locale, en_GB@euro, en_GB, ISO-8859-15, $(LOCALES_PKGDIR))
 endif
 ifdef PTXCONF_LOCALES_DE_DE
 	@$(call add_locale, de_DE, de_DE, ISO-8859-1, $(LOCALES_PKGDIR))
