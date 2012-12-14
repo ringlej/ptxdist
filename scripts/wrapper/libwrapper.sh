@@ -8,14 +8,15 @@ FPIE=true
 PIE=true
 OPTIMIZE=false
 ARG_LIST=""
+LATE_ARG_LIST=""
 
 . ${PTXDIST_PLATFORMCONFIG}
 
 wrapper_exec() {
 	if [ "${PTXDIST_VERBOSE}" = 1 -a -n "${PTXDIST_FD_LOGFILE}" ]; then
-		echo "wrapper: ${PTXDIST_CCACHE} ${0##*/} ${ARG_LIST} $*" >&${PTXDIST_FD_LOGFILE}
+		echo "wrapper: ${PTXDIST_CCACHE} ${0##*/} ${ARG_LIST} $* ${LATE_ARG_LIST}" >&${PTXDIST_FD_LOGFILE}
 	fi
-	exec ${PTXDIST_CCACHE} $0.real ${ARG_LIST} "$@"
+	exec ${PTXDIST_CCACHE} $0.real ${ARG_LIST} "$@" ${LATE_ARG_LIST}
 }
 
 cc_check_args() {
@@ -70,9 +71,11 @@ cc_check_args() {
 }
 
 add_arg() {
-	for arg in "${@}"; do
-		ARG_LIST="${ARG_LIST} ${arg}"
-	done
+	ARG_LIST="${ARG_LIST} ${*}"
+}
+
+add_late_arg() {
+	LATE_ARG_LIST="${ARG_LIST} ${*}"
 }
 
 add_opt_arg() {
@@ -111,7 +114,7 @@ ld_add_ld_args() {
 cc_add_ld_args() {
 	if ${LINKING}; then
 		add_ld_args "-Wl,"
-		add_arg ${PTXDIST_CROSS_LDFLAGS}
+		add_late_arg ${PTXDIST_CROSS_LDFLAGS}
 		add_opt_arg TARGET_EXTRA_LDFLAGS ${PTXCONF_TARGET_EXTRA_LDFLAGS}
 	fi
 }
