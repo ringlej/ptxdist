@@ -31,6 +31,13 @@ choice
 		  add "--hash-style=both" to the linker options
 endchoice
 
+config TARGET_LINKER_AS_NEEDED
+	bool
+	prompt "Link only needed libraries (ld --as-needed)"
+	help
+	  tell the linker to link in the produced binary only the libraries
+	  containing symbols actually used by the binary itself.
+
 config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"

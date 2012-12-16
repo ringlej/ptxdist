@@ -101,6 +101,7 @@ add_ld_args() {
 	add_opt_arg TARGET_LINKER_HASH_GNU "${1}--hash-style=gnu"
 	add_opt_arg TARGET_LINKER_HASH_SYSV "${1}--hash-style=sysv"
 	add_opt_arg TARGET_LINKER_HASH_BOTH "${1}--hash-style=both"
+	add_opt_arg TARGET_LINKER_AS_NEEDED "${1}--as-needed"
 }
 
 ld_add_ld_args() {
