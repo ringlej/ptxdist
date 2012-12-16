@@ -75,7 +75,7 @@ add_arg() {
 }
 
 add_late_arg() {
-	LATE_ARG_LIST="${ARG_LIST} ${*}"
+	LATE_ARG_LIST="${LATE_ARG_LIST} ${*}"
 }
 
 add_opt_arg() {
