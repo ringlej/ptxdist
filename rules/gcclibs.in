@@ -4,6 +4,7 @@ menu "gcc libraries                 "
 
 config GCCLIBS
 	bool
+	select BASE if RUNTIME
 
 config GCCLIBS_GCC_S
 	bool "libgcc_s"
