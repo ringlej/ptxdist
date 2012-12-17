@@ -257,6 +257,4 @@ ptxd_install_copy_toolchain() {
 #
 # main()
 #
-# FIXME: ugly hack to use this script as library as well
-#
-[ $(basename $0) != "make_locale.sh" ] && [ $(basename $0) != "make_zoneinfo.sh" ] && ptxd_install_copy_toolchain "${@}"
+ptxd_install_copy_toolchain "${@}"

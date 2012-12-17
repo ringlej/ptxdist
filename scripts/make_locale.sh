@@ -7,7 +7,6 @@ fi
 
 . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh
 . ${SCRIPTSDIR}/libptxdist.sh
-. ${SCRIPTSDIR}/install_copy_toolchain.sh
 
 usage() {
 	echo
