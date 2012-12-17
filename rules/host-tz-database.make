@@ -42,6 +42,8 @@ TZDATA_SOURCE		:= $(SRCDIR)/$(TZDATA).$(TZDATA_SUFFIX)
 TZDATA_DIR		:= $(HOST_TZ_DATABASE_DIR)
 TZDATA_STRIP_LEVEL	:= 0
 
+HOST_TZ_DATABASE_SOURCES := $(TZCODE_SOURCE) $(TZDATA_SOURCE)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
