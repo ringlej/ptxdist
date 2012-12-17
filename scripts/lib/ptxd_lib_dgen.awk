@@ -216,10 +216,11 @@ function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
 	this_devpkg = "$(" this_PKG ")-$(PTXCONF_ARCH_STRING)-$(" this_PKG "_CFGHASH)-dev.tar.gz"
 
 	#
-	# define ${PKG}_PKGDIR & ${PKG}_DEVPKG
+	# define ${PKG}_PKGDIR, ${PKG}_DEVPKG & ${PKG}_SOURCES
 	#
 	print this_PKG "_PKGDIR = $(PKGDIR)/" prefix "$(" this_PKG ")"	> DGEN_DEPS_PRE;
 	print this_PKG "_DEVPKG = " prefix this_devpkg			> DGEN_DEPS_PRE;
+	print this_PKG "_SOURCES = $(" this_PKG "_SOURCE)"		> DGEN_DEPS_PRE
 
 	target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
 	PREFIX = gensub(/^(HOST_|CROSS_).*/, "\\1", "", this_PKG);

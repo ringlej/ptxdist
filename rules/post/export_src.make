@@ -8,9 +8,9 @@ endef
 
 # iterate over $(PACKAGES_SELECTED) "bash busybox" ->
 # convert to "BASH_SOURCE BUSYBOX_SOURCE"
-_ptx_export_packages := $(foreach source,$(PTX_PACKAGES_SELECTED),$(PTX_MAP_TO_PACKAGE_$(source))_SOURCE)
+_ptx_export_packages := $(foreach source,$(PTX_PACKAGES_SELECTED),$(PTX_MAP_TO_PACKAGE_$(source))_SOURCES)
 
-# iterate over $(_ptx_export_packages) "BASH_SOURCE BUSYBOX_SOURCE" ->
+# iterate over $(_ptx_export_packages) "BASH_SOURCES BUSYBOX_SOURCES" ->
 # convert to "/path/to/bash.tar.bz2 /path/to/busybox.tar.bz2"
 # remove duplicates
 _ptx_export_packages_src := $(sort $(foreach source,$(_ptx_export_packages),$(ptx/export/get_source)))
