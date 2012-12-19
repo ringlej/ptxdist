@@ -14,7 +14,11 @@ if BZIP2
 config BZIP2_BZIP2
 	bool
 	select BZIP2_LIBBZ2
+	depends on !BUSYBOX_BZIP2 || ALLYES
 	prompt "install bzip2 binary"
+
+comment "BusyBox' bzip2 is selected!"
+	depends on BUSYBOX_BZIP2
 
 config BZIP2_BZIP2RECOVER
 	bool
