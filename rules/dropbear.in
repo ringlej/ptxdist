@@ -314,9 +314,13 @@ config DROPBEAR_DROPBEAR_CONVERT
 
 config DROPBEAR_SCP
 	bool
+	depends on !OPENSSH_SCP || ALLYES
 	prompt	"Install dropbear's scp"
 	help
 	  This is dropbear's implementation of the scp utility.
+
+comment "OpenSSH scp is selected!"
+	depends on OPENSSH_SCP
 
 comment "runtime options   ---"
 
