@@ -68,9 +68,13 @@ config UTIL_LINUX_NG_PARTX
 config UTIL_LINUX_NG_MOUNTPOINT
 	bool
 	select UTIL_LINUX_NG_LIBMOUNT
+	depends on !BUSYBOX_MOUNTPOINT || ALLYES
 	prompt "mountpoint"
 	help
 	  The mountpoint utility.
+
+comment "BusyBox' mountpoint is selected!"
+	depends on BUSYBOX_MOUNTPOINT
 
 config UTIL_LINUX_NG_DDATE
 	bool
@@ -86,7 +90,7 @@ config UTIL_LINUX_NG_FDISK
 	  fdisk - Partition table manipulator for Linux
 
 comment "BusyBox' fdisk is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_FDISK
+	depends on BUSYBOX_FDISK
 
 config UTIL_LINUX_NG_SFDISK
 	bool
@@ -242,8 +246,12 @@ config UTIL_LINUX_NG_IONICE
 config UTIL_LINUX_NG_TASKSET
 	bool
 	prompt "taskset"
+	depends on !BUSYBOX_TASKSET || ALLYES
 	help
 	  taskset retrieves or sets a process's CPU affinity.
+
+comment "BusyBox' taskset is selected!"
+	depends on BUSYBOX_TASKSET
 
 config UTIL_LINUX_NG_MCOOKIE
 	bool
@@ -273,6 +281,7 @@ config UTIL_LINUX_NG_BLKID
 	bool
 	select UTIL_LINUX_NG_LIBBLKID
 	select UTIL_LINUX_NG_LIBUUID
+	depends on !BUSYBOX_BLKID || ALLYES
 	prompt "blkid"
 	help
 	  The  blkid  program is the command-line interface to working with libblkid
@@ -280,12 +289,19 @@ config UTIL_LINUX_NG_BLKID
 	  a block device holds, and also attributes (tokens, NAME=value pairs) from
 	  the content meta‐data (e.g. LABEL or UUID fields).
 
+comment "BusyBox' blkid is selected!"
+	depends on BUSYBOX_BLKID
+
 config UTIL_LINUX_NG_FINDFS
 	bool
 	select UTIL_LINUX_NG_LIBBLKID
+	depends on !BUSYBOX_FINDFS || ALLYES
 	prompt "findfs"
 	help
 	  findfs will search the disks in the system looking for a filesystem
 	  which has a label matching label or a UUID equal to uuid.
+
+comment "BusyBox' findfs is selected!"
+	depends on BUSYBOX_FINDFS
 
 endif
