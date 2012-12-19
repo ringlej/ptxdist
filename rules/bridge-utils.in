@@ -6,6 +6,7 @@ config BRIDGE_UTILS
 	prompt "bridge utils                  "
 	select GCCLIBS_GCC_S
 	select KERNEL_HEADER
+	depends on !BUSYBOX_BRCTL || ALLYES
 	help
 	  Utilities for configuring the Linux ethernet bridge
 
@@ -17,3 +18,6 @@ config BRIDGE_UTILS
 	  transparent: hosts connected to one ethernet device
 	  can see all hosts connected to any of the other
 	  ethernet devices directly.
+
+comment "BusyBox' brctl is selected!"
+	depends on BUSYBOX_BRCTL
