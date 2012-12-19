@@ -6,6 +6,7 @@ menuconfig OPENNTPD
 	tristate
 	prompt "openntpd                      "
 	select ROOTFS_VAR_RUN
+	depends on !BUSYBOX_NTPD || ALLYES
 	help
 	  This will install the BSD Open NTPD Daemon
 	  OpenNTPD is a FREE, easy to use implementation of the
@@ -30,4 +31,7 @@ config OPENNTPD_STARTSCRIPT
 	prompt "install /etc/init.d/openntpd"
 
 endif
+
+comment "BusyBox' ntpd is selected!"
+	depends on BUSYBOX_NTPD
 
