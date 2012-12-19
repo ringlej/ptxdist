@@ -3,6 +3,7 @@
 config BOOTCHART
 	tristate
 	prompt "bootchart"
+	depends on !BUSYBOX_BOOTCHARTD || ALLYES
 	help
 	  Bootchart allows you to audit the boot sequence of your
 	  computer and generate a pretty chart of the processes run,
@@ -13,4 +14,7 @@ config BOOTCHART
 	  your initramfs which lives inside is own tiny filesystem
 	  during the boot process and monitors the rest of the system
 	  booting
+
+comment "BusyBox' bootchartd is selected!"
+	depends on BUSYBOX_BOOTCHARTD
 
