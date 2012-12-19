@@ -64,7 +64,7 @@ $(STATEDIR)/gtk-engines.targetinstall:
 		$(call install_lib, gtk-engines, 0, 0, 0644, \
 			gtk-3.0/3.0.0/engines/lib$(engine));)
 
-	@$(call install_tree, gtk-engines, 0, 0, \
+	@$(call install_tree, gtk-engines, 0, 0, -, \
 		/usr/share/themes)
 
 	@$(call install_finish, gtk-engines)
