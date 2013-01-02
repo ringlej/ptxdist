@@ -240,7 +240,7 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 	#
 	# .get rule
 	#
-	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCE)"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCES)"	> DGEN_DEPS_POST;
 }
 
 function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
