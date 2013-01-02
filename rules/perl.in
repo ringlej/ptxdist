@@ -1,0 +1,10 @@
+## SECTION=scripting_languages
+
+config PERL
+	tristate
+	prompt "perl"
+	help
+	  Larry Wall's Practical Extraction and Report Language
+	  An interpreted scripting language, known among some as
+	  "Unix's Swiss Army Chainsaw".
+
