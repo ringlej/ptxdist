@@ -28,6 +28,7 @@ TZCODE_URL		:= \
 	ftp://elsie.nci.nih.gov/pub/$(TZCODE).$(TZCODE_SUFFIX) \
 	ftp://munnari.oz.au/pub/oldtz/$(TZCODE).$(TZCODE_SUFFIX)
 TZCODE_SOURCE		:= $(SRCDIR)/$(TZCODE).$(TZCODE_SUFFIX)
+$(TZCODE_SOURCE)	:= TZCODE
 TZCODE_DIR		:= $(HOST_TZ_DATABASE_DIR)
 TZCODE_STRIP_LEVEL	:= 0
 
@@ -39,25 +40,11 @@ TZDATA_URL		:= \
 	ftp://elsie.nci.nih.gov/pub/$(TZDATA).$(TZDATA_SUFFIX) \
 	ftp://munnari.oz.au/pub/oldtz/$(TZDATA).$(TZDATA_SUFFIX)
 TZDATA_SOURCE		:= $(SRCDIR)/$(TZDATA).$(TZDATA_SUFFIX)
+$(TZDATA_SOURCE)	:= TZDATA
 TZDATA_DIR		:= $(HOST_TZ_DATABASE_DIR)
 TZDATA_STRIP_LEVEL	:= 0
 
 HOST_TZ_DATABASE_SOURCES := $(TZCODE_SOURCE) $(TZDATA_SOURCE)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-$(TZCODE_SOURCE):
-	@$(call get, TZCODE)
-
-$(TZDATA_SOURCE):
-	@$(call get, TZDATA)
-
-$(STATEDIR)/host-tz-database.get: $(TZCODE_SOURCE) $(TZDATA_SOURCE)
-	@$(call targetinfo)
-	@$(call check_src, TZCODE)
-	@$(call check_src, TZDATA)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
