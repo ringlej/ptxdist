@@ -29,8 +29,10 @@ $(SRCDIR)/%:
 
 $(STATEDIR)/%.get:
 	@$(call targetinfo)
-	@$(call world/get, $(PTX_MAP_TO_PACKAGE_$(*)))
-	@$(call world/check_src, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
+		$(call world/get, $($(src)));)
+	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
+		$(call world/check_src, $($(src)));)
 	@$(call touch)
 
 world/get = \
