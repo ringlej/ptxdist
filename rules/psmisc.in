@@ -1,0 +1,18 @@
+## SECTION=shell_and_console
+
+config PSMISC
+	tristate
+	depends on ( !BUSYBOX_FUSER && !BUSYBOX_KILLALL && !BUSYBOX_PSTREE ) || ALLYES
+	select NCURSES
+	prompt "psmisc"
+	help
+	  utilities that use the proc file system
+
+comment "BusyBox' fuser is selected! (psmisc)"
+	depends on BUSYBOX_FUSER
+
+comment "BusyBox' killall is selected! (psmisc)"
+	depends on BUSYBOX_KILLALL
+
+comment "BusyBox' pstree is selected! (psmisc)"
+	depends on BUSYBOX_PSTREE
