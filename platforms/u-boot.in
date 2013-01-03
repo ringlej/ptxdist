@@ -18,26 +18,6 @@ config U_BOOT_MD5
 	string
 	prompt "U-Boot source md5"
 
-config U_BOOT_PROMPT
-	string
-	prompt "uboot prompt"
-	default "uboot> "
-	help
-	  Specify the uboot prompt here, be careful at this one. Wrong value can cause malfunction
-	  on the host side when using ptxdist's test and autosetup features.
-	  The value is used in regular expressions to communicate with the target via serial line.
-
-config U_BOOT_SERIES
-	prompt "patch series file"
-	string
-	default "series"
-	help
-	  This entry specifies a patch series file which has to live in
-	  the kernel patches directory:
-
-	  The series file contains lines with names of patch files which
-	  are then being applied to the kernel.
-
 config U_BOOT_CONFIG
 	string
 	prompt "U-Boot config target"
