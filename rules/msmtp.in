@@ -1,0 +1,36 @@
+## SECTION=networking
+
+menuconfig MSMTP
+	tristate
+	select OPENSSL	if MSMTP_OPENSSL
+	select GNUTLS	if MSMTP_GNUTLS
+	prompt "msmtp                         "
+	help
+	  light SMTP client with support for server profiles
+
+if MSMTP
+
+choice
+	prompt "SSL Support"
+
+config MSMTP_NOSSL
+	bool
+	prompt "none"
+
+config MSMTP_OPENSSL
+	bool
+	prompt "OpenSSL"
+
+config MSMTP_GNUTLS
+	bool
+	prompt "GnuTLS"
+
+endchoice
+
+config MSMTP_SSL
+	string
+	default "no"		if MSMTP_NOSSL
+	default "openssl"	if MSMTP_OPENSSL
+	default "gnutls"	if MSMTP_GNUTLS
+
+endif
