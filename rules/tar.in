@@ -1,0 +1,17 @@
+## SECTION=shell_and_console
+
+config TAR
+	tristate
+	select LIBC_RT
+	select GCCLIBS_GCC_S
+	depends on !BUSYBOX_TAR || ALLYES
+	prompt "tar"
+	help
+	  The Tar program provides the ability to create tar archives,
+	  as well as various other kinds of manipulation. For example,
+	  you can use Tar on previously created archives to extract files,
+	  to store additional files, or to update or list files which
+	  were already stored.
+
+comment "BusyBox' tar is selected!"
+	depends on BUSYBOX_TAR
