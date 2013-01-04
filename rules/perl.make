@@ -56,7 +56,8 @@ PERL_CONF_TOOL	:= autoconf
 PERL_CONF_OPT	:= \
 	--prefix=/usr \
 	$(CROSS_AUTOCONF_ARCH) \
-	--target=$(PTXCONF_GNU_TARGET)
+	--target=$(PTXCONF_GNU_TARGET) \
+	--set-ld=$(CROSS_CC)
 
 PERL_MAKE_PAR	:= NO
 
