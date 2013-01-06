@@ -49,7 +49,6 @@ $(STATEDIR)/xorg-fonts.targetinstall:
 $(STATEDIR)/xorg-fonts.targetinstall.post:
 	@$(call targetinfo)
 
-ifdef PTXCONF_XORG_FONTS_XORG
 	find $(XORG_FONTS_DIR_INSTALL) -mindepth 1 -type d | while read dir; do \
 		echo $$dir;\
 		case "$${dir}" in \
@@ -65,7 +64,6 @@ ifdef PTXCONF_XORG_FONTS_XORG
 					mkfontdir $${dir} ;; \
 		esac; \
 	done
-endif
 
 # FIXME: add fc-cache?
 
