@@ -1,0 +1,9 @@
+## SECTION=system_libraries
+
+config USTR
+	tristate
+	prompt "ustr"
+	help
+	  ustr (Micro string library) is a string API for C. It has tiny overhead over
+	  just plain strdup(), is much safer, is easier to use, is faster for many
+	  operations, can be used with read-only or automatically allocated data.

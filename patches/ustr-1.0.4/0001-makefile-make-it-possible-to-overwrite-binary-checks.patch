@@ -1,0 +1,61 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Date: Mon, 14 Jan 2013 13:20:11 +0100
+Subject: [PATCH] makefile: make it possible to overwrite binary checks
+
+ustr tries to determine 64bit and vsnprintf features by compiling and running
+test programs. Use value defined in ptxdist. Assume stdint.h as always there,
+as we are on linux.
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile |   16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7a0f317..9eab99b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -457,12 +457,24 @@ ustr-import: ustr-import.in autoconf_64b autoconf_vsnprintf
+ 
+ # Use CFLAGS so that CFLAGS="... -m32" does the right thing
+ autoconf_64b: autoconf_64b.c
++ifdef SZ64
++		$(HIDE)echo "Faking: auto configuration test:  64bit=$(SZ64)"
++		$(HIDE)echo "echo $(SZ64)" > $@
++		$(HIDE)chmod +x $@
++else
+ 		$(HIDE)echo Compiling: auto configuration test:  64bit
+ 		$(HIDE)$(CC) $(CFLAGS) -o $@ $<
++endif
+ 
+ autoconf_vsnprintf: autoconf_vsnprintf.c
++ifdef VSNP
++		$(HIDE)echo "Faking: auto configuration test:  vsnprintf=$(VSNP)"
++		$(HIDE)echo "echo $(VSNP)" > $@
++		$(HIDE)chmod +x $@
++else
+ 		$(HIDE)echo Compiling: auto configuration test:  vsnprintf
+ 		$(HIDE)$(CC) -o $@ $<
++endif
+ 
+ # Use LDFLAGS for LDFLAGS="-m32"
+ $(OPT_LIB_SHARED): $(LIB_SHARED_OPT)
+@@ -484,7 +496,7 @@ libustr-debug.a: $(LIB_STATIC_DBG)
+ 
+ ustr-conf.h: ustr-conf.h.in autoconf_64b autoconf_vsnprintf
+ 		$(HIDE)echo Creating $@
+-		$(HIDE)have_stdint_h=0; dbg1=0; dbg2=0; \
++		$(HIDE)have_stdint_h=1; dbg1=0; dbg2=0; \
+                 sz64=`./autoconf_64b`; vsnp=`./autoconf_vsnprintf`; \
+                 if test -f "/usr/include/stdint.h"; then have_stdint_h=1; fi; \
+                 if test -f "$(prefix)/include/stdint.h"; then have_stdint_h=1; fi; \
+@@ -493,7 +505,7 @@ ustr-conf.h: ustr-conf.h.in autoconf_64b autoconf_vsnprintf
+ 
+ ustr-conf-debug.h: ustr-conf.h.in autoconf_64b autoconf_vsnprintf
+ 		$(HIDE)echo Creating $@
+-		$(HIDE)have_stdint_h=0; dbg1=1; dbg2=1; \
++		$(HIDE)have_stdint_h=1; dbg1=1; dbg2=1; \
+                 sz64=`./autoconf_64b`; vsnp=`./autoconf_vsnprintf`; \
+                 if test -f "/usr/include/stdint.h"; then have_stdint_h=1; fi; \
+                 if test -f "$(prefix)/include/stdint.h"; then have_stdint_h=1; fi; \
