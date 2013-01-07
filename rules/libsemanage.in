@@ -1,0 +1,14 @@
+## SECTION=selinux
+
+config LIBSEMANAGE
+	tristate
+	prompt "libsemanage"
+	select BZIP2
+	select BZIP2_LIBBZ2
+	select LIBSEPOL
+	select LIBSELINUX
+	select USTR
+	help
+	  This package provides the shared libraries for SELinux policy management.
+	  It uses libsepol for binary policy manipulation and libselinux for
+	  interacting with the SELinux system.

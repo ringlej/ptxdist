@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 14 Jan 2013 20:01:55 +0100
+Subject: [PATCH] makefile: remove host path from list of header search dirs
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index c63bb22..eb4e6d5 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -60,7 +60,7 @@ CFLAGS ?= -Werror -Wall -W -Wundef -Wshadow -Wmissing-noreturn -Wmissing-format-
+ SWIG_CFLAGS += -Wno-error -Wno-unused-but-set-variable -Wno-unused-variable -Wno-shadow \
+ 		-Wno-unused-parameter
+ 
+-override CFLAGS += -I../include -I$(INCLUDEDIR) -D_GNU_SOURCE 
++override CFLAGS += -I../include -D_GNU_SOURCE
+ RANLIB=ranlib
+ 
+ SWIG = swig -Wall -python -o $(SWIGCOUT) -outdir ./
