@@ -1,0 +1,12 @@
+## SECTION=system_libraries
+
+config LIBCGROUP
+	tristate
+	prompt "libcgroup"
+	help
+	  Control Groups provide a mechanism for aggregating/partitioning sets of tasks,
+	  and all their future children, into hierarchical groups with specialized
+	  behaviour.
+
+	  This library allows applications to manipulate, control, administrate and
+	  monitor control groups and the associated controllers.
