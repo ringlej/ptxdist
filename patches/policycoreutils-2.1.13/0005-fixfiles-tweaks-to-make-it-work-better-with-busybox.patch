@@ -1,0 +1,69 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 24 Jan 2013 13:45:08 +0100
+Subject: [PATCH] fixfiles: tweaks to make it work better with busybox
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ scripts/fixfiles |   17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/scripts/fixfiles b/scripts/fixfiles
+index 989b1ae..0e74d49 100755
+--- a/scripts/fixfiles
++++ b/scripts/fixfiles
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # fixfiles
+ #
+ # Script to restore labels on a SELinux box
+@@ -25,7 +25,7 @@
+ # number if the current kernel version is greater than 2.6.30, a negative
+ # number if the current is less than 2.6.30 and 0 if they are the same.
+ #
+-function useseclabel {
++useseclabel() {
+         VER=`uname -r`
+         SUP=2.6.30
+         expr '(' "$VER" : '\([^.]*\)' ')' '-' '(' "$SUP" : '\([^.]*\)' ')' '|' \
+@@ -43,9 +43,9 @@ FS="`cat /proc/self/mounts | sort | uniq | awk '{print $2}'`"
+ for i in $FS; do
+ 	if [ `useseclabel` -ge 0 ]
+ 	then
+-		grep " $i " /proc/self/mounts | awk '{print $4}' | egrep --silent '(^|,)seclabel(,|$)' && echo $i
++		grep " $i " /proc/self/mounts | awk '{print $4}' | egrep -q '(^|,)seclabel(,|$)' && echo $i
+ 	else
+-		grep " $i " /proc/self/mounts | grep -v "context=" | egrep --silent '(ext[234]| ext4dev | gfs2 | xfs | jfs | btrfs )' && echo $i
++		grep " $i " /proc/self/mounts | grep -v "context=" | egrep -q '(ext[234]| ext4dev | gfs2 | xfs | jfs | btrfs )' && echo $i
+ 	fi
+ done
+ }
+@@ -53,14 +53,14 @@ done
+ get_rw_labeled_mounts() {
+ FS=`get_all_labeled_mounts | sort | uniq`
+ for i in $FS; do
+-	grep " $i " /proc/self/mounts | awk '{print $4}' | egrep --silent '(^|,)rw(,|$)' && echo $i
++	grep " $i " /proc/self/mounts | awk '{print $4}' | egrep -q '(^|,)rw(,|$)' && echo $i
+ done
+ }
+ 
+ get_ro_labeled_mounts() {
+ FS=`get_all_labeled_mounts | sort | uniq`
+ for i in $FS; do
+-	grep " $i " /proc/self/mounts | awk '{print $4}' | egrep --silent '(^|,)ro(,|$)' && echo $i
++	grep " $i " /proc/self/mounts | awk '{print $4}' | egrep -q '(^|,)ro(,|$)' && echo $i
+ done
+ }
+ 
+@@ -191,8 +191,9 @@ fi
+ }
+ 
+ rpmlist() {
+-rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" | grep '^0 ' | cut -f2- -d ' '
+-[ ${PIPESTATUS[0]} != 0 ] && echo "$1 not found" >/dev/stderr
++#rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" | grep '^0 ' | cut -f2- -d ' '
++#[ ${PIPESTATUS[0]} != 0 ] && echo "$1 not found" >/dev/stderr
++    return
+ }
+ 
+ # 

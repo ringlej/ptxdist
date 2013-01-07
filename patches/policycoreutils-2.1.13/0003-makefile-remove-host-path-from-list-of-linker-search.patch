@@ -1,0 +1,176 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 15 Jan 2013 11:13:24 +0100
+Subject: [PATCH] makefile: remove host path from list of linker search dirs
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ load_policy/Makefile      |    2 +-
+ newrole/Makefile          |    2 +-
+ run_init/Makefile         |    2 +-
+ sandbox/Makefile          |    2 +-
+ secon/Makefile            |    2 +-
+ semodule/Makefile         |    2 +-
+ semodule_expand/Makefile  |    2 +-
+ semodule_link/Makefile    |    2 +-
+ semodule_package/Makefile |    2 +-
+ sestatus/Makefile         |    2 +-
+ setfiles/Makefile         |    2 +-
+ setsebool/Makefile        |    2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/load_policy/Makefile b/load_policy/Makefile
+index fb2dcae..9478c0d 100644
+--- a/load_policy/Makefile
++++ b/load_policy/Makefile
+@@ -7,7 +7,7 @@ LOCALEDIR ?= /usr/share/locale
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS += $(LDFLAGS) -DUSE_NLS -DLOCALEDIR="\"$(LOCALEDIR)\"" -DPACKAGE="\"policycoreutils\""
+-LDLIBS += -lsepol -lselinux -L$(PREFIX)/lib
++LDLIBS += -lsepol -lselinux
+ 
+ TARGETS=$(patsubst %.c,%,$(wildcard *.c))
+ 
+diff --git a/newrole/Makefile b/newrole/Makefile
+index 734b162..e9834a3 100644
+--- a/newrole/Makefile
++++ b/newrole/Makefile
+@@ -23,7 +23,7 @@ VERSION = $(shell cat ../VERSION)
+ CFLAGS ?= -Werror -Wall -W
+ EXTRA_OBJS =
+ override CFLAGS += -DVERSION=\"$(VERSION)\" $(LDFLAGS) -DUSE_NLS -DLOCALEDIR="\"$(LOCALEDIR)\"" -DPACKAGE="\"policycoreutils\""
+-LDLIBS += -lselinux -L$(PREFIX)/lib
++LDLIBS += -lselinux
+ ifeq ($(PAMH), /usr/include/security/pam_appl.h)
+ 	override CFLAGS += -DUSE_PAM
+ 	EXTRA_OBJS += hashtab.o
+diff --git a/run_init/Makefile b/run_init/Makefile
+index 0949085..da45cc2 100644
+--- a/run_init/Makefile
++++ b/run_init/Makefile
+@@ -10,7 +10,7 @@ AUDITH = $(shell ls /usr/include/libaudit.h 2>/dev/null)
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS += -DUSE_NLS -DLOCALEDIR="\"$(LOCALEDIR)\"" -DPACKAGE="\"policycoreutils\""
+-LDLIBS += -lselinux -L$(PREFIX)/lib
++LDLIBS += -lselinux
+ ifeq ($(PAMH), /usr/include/security/pam_appl.h)
+ 	override CFLAGS += -DUSE_PAM
+ 	LDLIBS += -lpam -lpam_misc
+diff --git a/sandbox/Makefile b/sandbox/Makefile
+index fcaef50..d0a7d5a 100644
+--- a/sandbox/Makefile
++++ b/sandbox/Makefile
+@@ -8,7 +8,7 @@ MANDIR ?= $(PREFIX)/share/man
+ LOCALEDIR ?= /usr/share/locale
+ SHAREDIR ?= $(PREFIX)/share/sandbox
+ override CFLAGS += $(LDFLAGS) -DPACKAGE="\"policycoreutils\"" -Wall -Werror -Wextra -W
+-LDLIBS += -lcgroup -lselinux -lcap-ng -L$(LIBDIR)
++LDLIBS += -lcgroup -lselinux -lcap-ng
+ SEUNSHARE_OBJS = seunshare.o
+ 
+ all: sandbox seunshare sandboxX.sh start
+diff --git a/secon/Makefile b/secon/Makefile
+index 4bd6e18..1f074ff 100644
+--- a/secon/Makefile
++++ b/secon/Makefile
+@@ -9,7 +9,7 @@ WARNS=-Werror -W -Wall -Wundef -Wshadow -Wpointer-arith -Wbad-function-cast -Wca
+ VERSION = $(shell cat ../VERSION)
+ CFLAGS ?= $(WARNS) -O1
+ override CFLAGS += -DVERSION=\"$(VERSION)\"
+-LDLIBS = -lselinux -L$(LIBDIR)
++LDLIBS = -lselinux
+ 
+ all: secon
+ 
+diff --git a/semodule/Makefile b/semodule/Makefile
+index e45b705..5ac4393 100644
+--- a/semodule/Makefile
++++ b/semodule/Makefile
+@@ -7,7 +7,7 @@ LIBDIR ?= $(PREFIX)/lib
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS +=
+-LDLIBS = -lsepol -lselinux -lsemanage -L$(LIBDIR)
++LDLIBS = -lsepol -lselinux -lsemanage
+ SEMODULE_OBJS = semodule.o
+ 
+ all: semodule
+diff --git a/semodule_expand/Makefile b/semodule_expand/Makefile
+index 9bfecdf..9d9c3c9 100644
+--- a/semodule_expand/Makefile
++++ b/semodule_expand/Makefile
+@@ -7,7 +7,7 @@ MANDIR ?= $(PREFIX)/share/man
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS +=
+-LDLIBS = -lsepol -lselinux -L$(LIBDIR)
++LDLIBS = -lsepol -lselinux
+ 
+ all: semodule_expand
+ 
+diff --git a/semodule_link/Makefile b/semodule_link/Makefile
+index f8fc271..cbb7cb7 100644
+--- a/semodule_link/Makefile
++++ b/semodule_link/Makefile
+@@ -7,7 +7,7 @@ LIBDIR ?= $(PREFIX)/lib
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS +=
+-LDLIBS = -lsepol -lselinux -L$(LIBDIR)
++LDLIBS = -lsepol -lselinux
+ 
+ all: semodule_link
+ 
+diff --git a/semodule_package/Makefile b/semodule_package/Makefile
+index dad21ec..9238014 100644
+--- a/semodule_package/Makefile
++++ b/semodule_package/Makefile
+@@ -7,7 +7,7 @@ MANDIR ?= $(PREFIX)/share/man
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS +=
+-LDLIBS = -lsepol -lselinux -L$(LIBDIR)
++LDLIBS = -lsepol -lselinux
+ 
+ all: semodule_package semodule_unpackage
+ 
+diff --git a/sestatus/Makefile b/sestatus/Makefile
+index 46d4b81..1007d64 100644
+--- a/sestatus/Makefile
++++ b/sestatus/Makefile
+@@ -7,7 +7,7 @@ LIBDIR ?= $(PREFIX)/lib
+ 
+ CFLAGS = -Werror -Wall -W
+ override CFLAGS += -D_FILE_OFFSET_BITS=64
+-LDLIBS = -lselinux -L$(LIBDIR)
++LDLIBS = -lselinux
+ 
+ all: sestatus
+ 
+diff --git a/setfiles/Makefile b/setfiles/Makefile
+index 579dc34..33f1c11 100644
+--- a/setfiles/Makefile
++++ b/setfiles/Makefile
+@@ -10,7 +10,7 @@ ABORT_ON_ERRORS=$(shell grep "^\#define ABORT_ON_ERRORS" setfiles.c | awk -S '{
+ 
+ CFLAGS = -g -Werror -Wall -W
+ override CFLAGS +=
+-LDLIBS = -lselinux -lsepol -L$(LIBDIR)
++LDLIBS = -lselinux -lsepol
+ 
+ ifeq ($(AUDITH), /usr/include/libaudit.h)
+ 	override CFLAGS += -DUSE_AUDIT
+diff --git a/setsebool/Makefile b/setsebool/Makefile
+index 5fb13f2..f4bde6b 100644
+--- a/setsebool/Makefile
++++ b/setsebool/Makefile
+@@ -8,7 +8,7 @@ BASHCOMPLETIONDIR ?= $(DESTDIR)/etc/bash_completion.d/
+ 
+ CFLAGS ?= -Werror -Wall -W
+ override CFLAGS +=
+-LDLIBS = -lsepol -lselinux -lsemanage -L$(LIBDIR)
++LDLIBS = -lsepol -lselinux -lsemanage
+ SETSEBOOL_OBJS = setsebool.o
+ 
+ BASHCOMPLETIONS=setsebool-bash-completion.sh 

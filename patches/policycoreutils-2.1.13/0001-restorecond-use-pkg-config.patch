@@ -1,0 +1,34 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Date: Mon, 14 Jan 2013 20:04:50 +0100
+Subject: [PATCH] restorecond: use pkg-config
+
+...instead of hard coding paths.
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ restorecond/Makefile |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/restorecond/Makefile b/restorecond/Makefile
+index 3074542..16e60e8 100644
+--- a/restorecond/Makefile
++++ b/restorecond/Makefile
+@@ -10,13 +10,13 @@ autostart_DATA = sealertauto.desktop
+ INITDIR = $(DESTDIR)/etc/rc.d/init.d
+ SELINUXDIR = $(DESTDIR)/etc/selinux
+ 
+-DBUSFLAGS = -DHAVE_DBUS -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -I/usr/lib/dbus-1.0/include
+-DBUSLIB = -ldbus-glib-1 -ldbus-1
++DBUSFLAGS = -DHAVE_DBUS `pkg-config --cflags dbus-glib-1`
++DBUSLIB = `pkg-config --libs dbus-glib-1`
+ 
+ CFLAGS ?= -g -Werror -Wall -W
+-override CFLAGS += -I$(PREFIX)/include $(DBUSFLAGS) -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/lib/glib-2.0/include
++override CFLAGS += $(DBUSFLAGS)
+ 
+-LDLIBS += -lselinux $(DBUSLIB) -lglib-2.0 -L$(LIBDIR)
++LDLIBS += -lselinux $(DBUSLIB)
+ 
+ all: restorecond
+ 
