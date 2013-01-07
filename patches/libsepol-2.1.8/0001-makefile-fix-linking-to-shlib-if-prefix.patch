@@ -1,0 +1,25 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 25 Jan 2013 19:35:45 +0100
+Subject: [PATCH] makefile: fix linking to shlib if prefix=/
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/Makefile b/src/Makefile
+index cd8e767..03c26a4 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -43,7 +43,11 @@ install: all
+ 	install -m 755 $(LIBSO) $(SHLIBDIR)
+ 	test -d $(LIBDIR)/pkgconfig || install -m 755 -d $(LIBDIR)/pkgconfig
+ 	install -m 644 $(LIBPC) $(LIBDIR)/pkgconfig
++ifeq ($(SHLIBDIR),$(LIBDIR))
++	cd $(LIBDIR) && ln -sf $(LIBSO) $(TARGET)
++else
+ 	cd $(LIBDIR) && ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO) $(TARGET)
++endif
+ 
+ relabel:
+ 	/sbin/restorecon $(SHLIBDIR)/$(LIBSO)
