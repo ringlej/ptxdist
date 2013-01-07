@@ -1,0 +1,12 @@
+## SECTION=selinux
+
+config LIBSELINUX
+	tristate
+	prompt "libselinux"
+	select LIBPCRE
+	select LIBSEPOL
+	help
+	  libselinux provides an API for SELinux applications to get and set
+	  process and file security contexts and to obtain security policy
+	  decisions. Required for any applications that use the SELinux
+	  API.

@@ -1,0 +1,57 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 14 Jan 2013 19:53:14 +0100
+Subject: [PATCH] makefile: remove host path from list of linker search dirs
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile   |    8 ++++----
+ utils/Makefile |    2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index ef6910c..68eb950 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -106,17 +106,17 @@ $(SWIGRUBYLOBJ): $(SWIGRUBYCOUT)
+ 	$(CC) $(CFLAGS) $(SWIG_CFLAGS) $(RUBYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+ $(SWIGSO): $(SWIGLOBJ)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lselinux -L$(LIBDIR)
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lselinux
+ 
+ $(SWIGRUBYSO): $(SWIGRUBYLOBJ)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux -L$(LIBDIR)
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux
+ 
+ $(LIBA): $(OBJS)
+ 	$(AR) rcs $@ $^
+ 	$(RANLIB) $@
+ 
+ $(LIBSO): $(LOBJS)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -ldl -L$(LIBDIR) -Wl,-soname,$(LIBSO),-z,defs,-z,relro
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -ldl -Wl,-soname,$(LIBSO),-z,defs,-z,relro
+ 	ln -sf $@ $(TARGET) 
+ 
+ $(LIBPC): $(LIBPC).in ../VERSION
+@@ -129,7 +129,7 @@ $(AUDIT2WHYLOBJ): audit2why.c
+ 	$(CC) $(filter-out -Werror, $(CFLAGS)) $(PYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+ $(AUDIT2WHYSO): $(AUDIT2WHYLOBJ)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LIBDIR)/libsepol.a -L$(LIBDIR)
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LIBDIR)/libsepol.a
+ 
+ %.o:  %.c policy.h
+ 	$(CC) $(CFLAGS) $(TLSFLAGS) -c -o $@ $<
+diff --git a/utils/Makefile b/utils/Makefile
+index 5f3e047..2cbec29 100644
+--- a/utils/Makefile
++++ b/utils/Makefile
+@@ -24,7 +24,7 @@ CFLAGS ?= -O -Wall -W -Wundef -Wformat-y2k -Wformat-security -Winit-self -Wmissi
+           -fipa-pure-const -Wno-suggest-attribute=pure -Wno-suggest-attribute=const \
+           -Werror -Wno-aggregate-return -Wno-redundant-decls
+ override CFLAGS += -I../include -D_GNU_SOURCE $(EMFLAGS)
+-LDLIBS += -L../src -lselinux -L$(LIBDIR)
++LDLIBS += -L../src -lselinux
+ 
+ TARGETS=$(patsubst %.c,%,$(wildcard *.c))
+ 

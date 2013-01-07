@@ -1,0 +1,56 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 5 Feb 2013 18:19:22 +0100
+Subject: [PATCH] makefile: move -lpcre from beginning of gcc-linker call to
+ end
+
+...otherwise it won't link of --as-needed is enabled.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |   11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index 0d221bf..109d372 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -20,7 +20,8 @@ RUBYINC ?= $(shell pkg-config --cflags ruby-$(RUBYLIBVER))
+ RUBYINSTALL ?= $(LIBDIR)/ruby/site_ruby/$(RUBYLIBVER)/$(RUBYPLATFORM)
+ LIBBASE=$(shell basename $(LIBDIR))
+ 
+-LDFLAGS ?= -lpcre
++LDFLAGS ?=
++LDLIBS = -lpcre
+ 
+ VERSION = $(shell cat ../VERSION)
+ LIBVERSION = 1
+@@ -106,17 +107,17 @@ $(SWIGRUBYLOBJ): $(SWIGRUBYCOUT)
+ 	$(CC) $(CFLAGS) $(SWIG_CFLAGS) $(RUBYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+ $(SWIGSO): $(SWIGLOBJ)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lselinux
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lselinux $(LDLIBS)
+ 
+ $(SWIGRUBYSO): $(SWIGRUBYLOBJ)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LDLIBS)
+ 
+ $(LIBA): $(OBJS)
+ 	$(AR) rcs $@ $^
+ 	$(RANLIB) $@
+ 
+ $(LIBSO): $(LOBJS)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -ldl -Wl,-soname,$(LIBSO),-z,defs,-z,relro
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -ldl -Wl,-soname,$(LIBSO),-z,defs,-z,relro $(LDLIBS)
+ 	ln -sf $@ $(TARGET) 
+ 
+ $(LIBPC): $(LIBPC).in ../VERSION
+@@ -129,7 +130,7 @@ $(AUDIT2WHYLOBJ): audit2why.c
+ 	$(CC) $(filter-out -Werror, $(CFLAGS)) $(PYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+ $(AUDIT2WHYSO): $(AUDIT2WHYLOBJ)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LIBDIR)/libsepol.a
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LIBDIR)/libsepol.a $(LDLIBS)
+ 
+ %.o:  %.c policy.h
+ 	$(CC) $(CFLAGS) $(TLSFLAGS) -c -o $@ $<

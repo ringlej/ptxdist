@@ -1,0 +1,25 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 25 Jan 2013 19:39:03 +0100
+Subject: [PATCH] makefile: fix linking to shlib if prefix=/
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/Makefile b/src/Makefile
+index 68eb950..0d221bf 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -153,7 +153,11 @@ install: all
+ 	install -m 755 $(LIBSO) $(SHLIBDIR)
+ 	test -d $(LIBDIR)/pkgconfig || install -m 755 -d $(LIBDIR)/pkgconfig
+ 	install -m 644 $(LIBPC) $(LIBDIR)/pkgconfig
++ifeq ($(SHLIBDIR),$(LIBDIR))
++	cd $(LIBDIR) && ln -sf $(LIBSO) $(TARGET)
++else
+ 	cd $(LIBDIR) && ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO) $(TARGET)
++endif
+ 
+ install-pywrap: pywrap
+ 	test -d $(PYLIBDIR)/site-packages/selinux || install -m 755 -d $(PYLIBDIR)/site-packages/selinux
