@@ -116,7 +116,7 @@ if test -z "$SED"; then
 fi
 
 AC_MSG_CHECKING([sed version])
-SED_VERSION=`$SED --version 2>/dev/null | $SED -ne "s/.*version \([[0-9\.]]*\)/\1/p"`
+SED_VERSION=`$SED --version 2>/dev/null | $SED -ne "1 s/.*GNU.*\s\([[0-9\+\.]]\+\).*/\1/p"`
 case "$SED_VERSION" in
 3.*) AC_MSG_ERROR([we need at least GNU sed 4.x but found $SED_VERSION]) ;;
 4.*) ;;
