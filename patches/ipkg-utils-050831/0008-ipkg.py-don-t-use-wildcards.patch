@@ -6,11 +6,11 @@ it's not portable
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- ipkg.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ ipkg.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/ipkg.py b/ipkg.py
-index d6f7e69..c951371 100644
+index d6f7e69..02ca3e9 100644
 --- a/ipkg.py
 +++ b/ipkg.py
 @@ -166,7 +166,7 @@ class Package:
@@ -22,3 +22,12 @@ index d6f7e69..c951371 100644
  
              self.read_control(control)
              control.close()
+@@ -321,7 +321,7 @@ class Package:
+     	    self.file_list = tarf.getnames()
+     	    f.close()
+ 	else:
+-            f = os.popen("tar xfzO " + self.fn + " '*data.tar.gz' | tar tfz -","r") 
++            f = os.popen("tar xfzO " + self.fn + " './data.tar.gz' | tar tfz -","r")
+             while 1: 
+                 line = f.readline() 
+                 if not line: break 
