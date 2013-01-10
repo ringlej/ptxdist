@@ -1,0 +1,11 @@
+## SECTION=editors
+
+config ED
+	tristate
+	prompt "ed"
+	depends on !BUSYBOX_ED || ALLYES
+	help
+	  The classic UNIX line editor
+
+comment "BusyBox' ed is selected!"
+	depends on BUSYBOX_ED
