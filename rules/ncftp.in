@@ -1,0 +1,36 @@
+## SECTION=networking
+
+menuconfig NCFTP
+	tristate
+	select NCURSES if NCFTP_NCFTPBOOKMARKS
+	prompt "ncftp                         "
+	help
+	  A user-friendly and well-featured FTP client
+
+	  This program allows a user to transfer files to and from a
+	  remote network site, and offers additional features that are
+	  not found in the standard interface, ftp. This version has
+	  Readline support enabled.
+
+if NCFTP
+
+config NCFTP_NCTP
+	bool "ncftp"
+	default y
+
+config NCFTP_NCFTPBATCH_NCFTPSPOOLER
+	bool "ncftpbatch/ncftpspooler"
+
+config NCFTP_NCFTPBOOKMARKS
+	bool "ncftpbookmarks"
+
+config NCFTP_NCFTPGET
+	bool "ncftpget"
+
+config NCFTP_NCFTPLS
+	bool "ncftpls"
+
+config NCFTP_NCFTPPUT
+	bool "ncftpput"
+
+endif
