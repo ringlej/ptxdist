@@ -1,0 +1,11 @@
+## SECTION=shell_and_console
+
+config WHICH
+	tristate
+	prompt "which"
+	depends on !BUSYBOX_WHICH || ALLYES
+	help
+	  The standard 'which' utility.
+
+comment "BusyBox' which is selected!"
+	depends on BUSYBOX_WHICH
