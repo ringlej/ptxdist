@@ -10,7 +10,7 @@ menuconfig SYSTEMD
 	select LIBC_DL
 	select DBUS
 	select LIBCAP
-	select UDEV
+	select UDEV		if RUNTIME
 	select UDEV_LIBUDEV
 	select MACHINE_ID	if RUNTIME
 	select DBUS_PYTHON	if SYSTEMD_ANALYZE && RUNTIME
