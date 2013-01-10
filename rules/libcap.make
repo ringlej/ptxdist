@@ -32,7 +32,7 @@ LIBCAP_LICENSE	:= BSD, GPL
 # ----------------------------------------------------------------------------
 
 LIBCAP_MAKE_OPT	:= \
-	prefix= PAM_CAP=no LIBATTR=no lib=lib \
+	prefix= PAM_CAP=no DYNAMIC=yes LIBATTR=no lib=lib \
 	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC)
 
