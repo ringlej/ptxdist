@@ -1,0 +1,47 @@
+## SECTION=multimedia_sound
+
+menuconfig VORBIS_TOOLS
+	tristate
+	prompt "vorbis-tools                  "
+	select LIBOGG
+	select LIBVORBIS
+	select LIBAO if VORBIS_TOOLS_OGG123
+	select FLAC if VORBIS_TOOLS_OGG123 || VORBIS_TOOLS_OGGENC
+	select SPEEX if VORBIS_TOOLS_OGG123
+	select SPEEX_FLOAT_API if VORBIS_TOOLS_OGG123
+	help
+	  several Ogg Vorbis tools
+
+if VORBIS_TOOLS
+
+config VORBIS_TOOLS_OGG123
+	bool "ogg123"
+	help
+	  ogg123 (a playback tool)
+
+config VORBIS_TOOLS_OGGDEC
+	bool "oggdec"
+	help
+	  oggdec (decodes ogg files)
+
+config VORBIS_TOOLS_OGGENC
+	bool "oggenc"
+	help
+	  oggenc (an encoder)
+
+config VORBIS_TOOLS_OGGINFO
+	bool "ogginfo"
+	help
+	  ogginfo (displays ogg information)
+
+config VORBIS_TOOLS_VCUT
+	bool "vcut"
+	help
+	   vcut (ogg file splitter)
+
+config VORBIS_TOOLS_VORBISCOMMENT
+	bool "vorbiscomment"
+	help
+	  vorbiscomment (ogg comment editor)
+
+endif
