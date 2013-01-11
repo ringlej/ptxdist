@@ -1,0 +1,30 @@
+## SECTION=multimedia_libs
+
+menuconfig LIBSNDFILE
+	tristate
+	prompt "libsndfile                    "
+	select LIBOGG if LIBSNDFILE_EXT_LIBS
+	select LIBVORBIS if LIBSNDFILE_EXT_LIBS
+	select FLAC if LIBSNDFILE_EXT_LIBS
+	help
+	  Library for reading/writing audio files
+
+	  libsndfile is a library of C routines for reading and
+	  writing files containing sampled audio data.
+
+	  Various versions of WAV (integer, floating point, GSM, and
+	  compressed formats); Microsoft PCM, A-law and u-law formats;
+	  AIFF, AIFC and RIFX; various AU/SND formats (Sun/NeXT, Dec
+	  AU, G721 and G723 ADPCM); RAW header-less PCM files; Amiga
+	  IFF/8SVX/16SV PCM files; Ensoniq PARIS (.PAF); Apple's Core
+	  Audio Format (CAF) and others.
+
+if LIBSNDFILE
+
+config LIBSNDFILE_EXT_LIBS
+	bool "support ogg, vorbis, flac (needs external libs)"
+
+config LIBSNDFILE_TOOLS
+	bool "libsndfile tools"
+
+endif
