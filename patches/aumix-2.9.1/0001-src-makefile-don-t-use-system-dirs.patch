@@ -1,0 +1,30 @@
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Thu, 10 Jan 2013 14:42:21 +0100
+Subject: [PATCH] src/makefile: don't use system dirs
+
+Aumix's src/Makefile.am incorrect adds @includedir@ to the list of
+include paths and @libdir@ to the list of libraries paths. This is
+incorrect, as @includedir@ and @libdir@ are respectively /usr/include
+and /usr/lib, even in cross-compilation mode.
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile.am |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index d56c3e6..caeca31 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -9,9 +9,8 @@ aumix_SOURCES	= common.c curses.c dummy.c gpm-xterm.c gtk.c interactive.c \
+ 		mouse.c common.h curses.h gpm-xterm.h gtk.h interactive.h  \
+ 		mouse.h play.xpm record.xpm
+ localedir	= $(datadir)/locale
+-INCLUDES	= -I../intl -DLOCALEDIR=\"$(localedir)\" -I@includedir@
++INCLUDES	= -I../intl -DLOCALEDIR=\"$(localedir)\"
+ AM_CFLAGS	= @CFLAGS@ @GLIB_CFLAGS@ @GTK_CFLAGS@
+-LDADD		= -L@libdir@
+ LIBS		= @LIBS@ @GTK_LIBS@ @LIBINTL@
+ DEFS		= @DEFS@
+ 
