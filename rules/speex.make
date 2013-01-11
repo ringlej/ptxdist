@@ -23,7 +23,7 @@ SPEEX_SUFFIX	:= tar.gz
 SPEEX_URL	:= http://downloads.xiph.org/releases/speex/$(SPEEX).$(SPEEX_SUFFIX)
 SPEEX_SOURCE	:= $(SRCDIR)/$(SPEEX).$(SPEEX_SUFFIX)
 SPEEX_DIR	:= $(BUILDDIR)/$(SPEEX)
-SPEEX_LICENSE	:= unknown
+SPEEX_LICENSE	:= BSD-style
 
 # ----------------------------------------------------------------------------
 # Prepare
