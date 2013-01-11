@@ -54,7 +54,7 @@ $(STATEDIR)/aumix.targetinstall:
 	@$(call install_fixup, aumix,DESCRIPTION,missing)
 
 	@$(call install_copy, aumix, 0, 0, 0755, -, /usr/bin/aumix)
-	@$(call install_tree, aumix, 0, 0, 0644, /usr/share/aumix)
+	@$(call install_tree, aumix, 0, 0, -, /usr/share/aumix)
 
 	@$(call install_finish, aumix)
 
