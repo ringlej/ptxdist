@@ -1,0 +1,14 @@
+## SECTION=multimedia_libs
+
+menuconfig AUDIOFILE
+	tristate
+	prompt "audiofile                     "
+	help
+	  Open-source version of SGI's audiofile library
+
+if AUDIOFILE
+
+config AUDIOFILE_TOOLS
+	bool "install libaudiofile tools"
+
+endif
