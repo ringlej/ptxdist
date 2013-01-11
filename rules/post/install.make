@@ -227,7 +227,10 @@ install_package =		\
 #
 #
 # $1: xpkg label
-# $2: library name without suffix.
+# $2: UID
+# $3: GID
+# $4: permissions (octal)
+# $5: library name without suffix.
 #
 install_lib =			\
 	XPKG=$(subst _,-,$(strip $(1)));	\
