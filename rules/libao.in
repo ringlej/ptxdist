@@ -1,0 +1,12 @@
+## SECTION=multimedia_libs
+
+config LIBAO
+	tristate
+	prompt "libao"
+	select ALSA_LIB
+	help
+	  Cross Platform Audio Output Library
+
+	  Libao is a cross platform audio output library. It supports
+	  ALSA, ESD, OSS, Pulse, and several others.
+
