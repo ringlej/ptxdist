@@ -21,10 +21,13 @@ FREETYPE_VERSION	:= 2.3.11
 FREETYPE_MD5		:= 519c7cbf5cbd72ffa822c66844d3114c
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
-FREETYPE_URL		:= http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
 FREETYPE_LICENSE	:= BSD,GPLv2+
+
+FREETYPE_URL := \
+	http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX) \
+	http://download.savannah.gnu.org/releases/freetype/freetype-old/$(FREETYPE).$(FREETYPE_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Prepare
