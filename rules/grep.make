@@ -29,8 +29,12 @@ GREP_DIR	:= $(BUILDDIR)/$(GREP)
 # Prepare
 # ----------------------------------------------------------------------------
 
-GREP_PATH	:= PATH=$(CROSS_PATH)
-GREP_ENV 	:= $(CROSS_ENV)
+GREP_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_path_MSGFMT=: \
+	ac_cv_path_GMSGFMT=: \
+	ac_cv_path_XGETTEXT=: \
+	MAKEINFO=:
 
 #
 # autoconf
