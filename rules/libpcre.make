@@ -29,9 +29,6 @@ LIBPCRE_DIR	:= $(BUILDDIR)/$(LIBPCRE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPCRE_PATH	:= PATH=$(CROSS_PATH)
-LIBPCRE_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
