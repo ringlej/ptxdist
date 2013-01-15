@@ -47,7 +47,6 @@ choice
 	config ARCH_X86
 		bool "x86        "
 		select HAS_MMU
-		select HAS_PCI
 		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		help
 		  This is support for the Intel x86 architecture.
@@ -243,13 +242,6 @@ config HAS_HARDFLOAT
 	default y if ARCH_X86
 	default y if ARCH_SPARC
 	default n
-
-#
-# PCI bus
-#
-config HAS_PCI
-	bool
-	prompt "pci support" if ARCH_PPC
 
 #
 # memory management unit
