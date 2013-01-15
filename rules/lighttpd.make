@@ -42,25 +42,39 @@ LIGHTTPD_AUTOCONF := \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-mmap \
 	--without-libev \
-	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MYSQL)-mysql \
-	--$(call ptx/wwo, PTXCONF_LIGHTTPD_LDAP)-ldap \
+	--without-mysql \
+	--without-ldap \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ATTR)-attr \
 	--without-valgrind \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_OPENSSL)-openssl \
-	--$(call ptx/wwo, PTXCONF_LIGHTTPD_KERBEROS)-kerberos5 \
+	--without-kerberos5 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_PCRE)-pcre \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ZLIB)-zlib \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_BZ2LIB)-bzip2 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_FAM)-fam \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_PROPS)-webdav-props \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_LOCKS)-webdav-locks \
-	--$(call ptx/wwo, PTXCONF_LIGHTTPD_GDBM)-gdbm \
+	--without-gdbm \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MEMCACHE)-memcache \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_LUA)-lua
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+LIGHTTPD_MODULES-y :=
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_CML)		+= mod_cml
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_COMPRESS)	+= mod_compress
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_FASTCGI)	+= mod_fastcgi
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_MAGNET)		+= mod_magnet
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_TRIGGER_B4_DL)	+= mod_trigger_b4_dl
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_WEBDAV)		+= mod_webdav
+LIGHTTPD_MODULES-y += $(call remove_quotes,$(PTXCONF_LIGHTTPD_MOD_EXTRA))
+
+LIGHTTPD_MODULE_STRING := $(subst $(space),\\$(comma),$(addsuffix \",$(addprefix \",$(LIGHTTPD_MODULES-y))))
+
+# add modules that are always loaded
+LIGHTTPD_MODULES_INSTALL := mod_indexfile mod_dirlisting mod_staticfile $(LIGHTTPD_MODULES-y)
 
 $(STATEDIR)/lighttpd.targetinstall:
 	@$(call targetinfo)
@@ -77,29 +91,25 @@ $(STATEDIR)/lighttpd.targetinstall:
 	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/sbin/lighttpd-angel)
 
+ifdef PTXCONF_LIGHTTPD_INSTALL_SELECTED_MODULES
+	@$(foreach mod,$(LIGHTTPD_MODULES_INSTALL), \
+		$(call install_lib, lighttpd, 0, 0, 0644, lighttpd/$(mod));)
+else
 #	# modules
-	@cd $(LIGHTTPD_PKGDIR) && \
-		find ./usr/lib -name "*.so" | \
-		while read file; do \
-		$(call install_copy, lighttpd, 0, 0, 0644, -, \
-			$${file##.}) \
-	done
+	@$(call install_tree, lighttpd, 0, 0, -, /usr/lib/lighttpd)
+endif
 
 #	#
 #	# configs
 #	#
-	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd/lighttpd.conf)
-
+	@$(call install_alternative, lighttpd, 0, 0, 0644, \
+		/etc/lighttpd/lighttpd.conf)
 	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
-		@CGI@, $(call ptx/ifdef, PTXCONF_PHP5_SAPI_CGI,,#))
+		@MODULES@, $(LIGHTTPD_MODULE_STRING))
 
-	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
-		@NOCGI@, $(call ptx/ifdef, PTXCONF_PHP5_SAPI_CGI,#,))
-
-ifdef PTXCONF_PHP5_SAPI_CGI
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
-		/etc/lighttpd/mod_fastcgi.conf)
+ifdef PTXCONF_LIGHTTPD_MOD_FASTCGI_PHP
+	@$(call install_alternative, lighttpd, 0, 0, 0644, \
+		/etc/lighttpd/conf.d/mod_fastcgi_php.conf)
 endif
 
 #	#
@@ -132,7 +142,7 @@ ifdef PTXCONF_LIGHTTPD_SYSTEMD_UNIT
 endif
 
 ifdef PTXCONF_LIGHTTPD_GENERIC_SITE
-ifdef PTXCONF_PHP5_SAPI_CGI
+ifdef PTXCONF_LIGHTTPD_MOD_FASTCGI_PHP
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/lighttpd.html, \
 		/var/www/index.html)

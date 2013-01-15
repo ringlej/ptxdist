@@ -20,6 +20,7 @@ menuconfig LIGHTTPD
 	select LIBMEMCACHE		if LIGHTTPD_MEMCACHE
 	select LUA			if LIGHTTPD_LUA
 	select LUA_INSTALL_LIBLUA	if LIGHTTPD_LUA
+	select PHP5			if LIGHTTPD_MOD_FASTCGI_PHP && RUNTIME
 	select BUSYBOX_START_STOP_DAEMON			if LIGHTTPD_STARTSCRIPT
 	select BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY		if LIGHTTPD_STARTSCRIPT
 	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS	if LIGHTTPD_STARTSCRIPT
@@ -40,6 +41,64 @@ menuconfig LIGHTTPD
 
 if LIGHTTPD
 
+menu "base settings               "
+
+config LIGHTTPD_ATTR
+	bool
+	prompt "extended attribute support"
+	help
+	  Enable extended attribute support.
+
+config LIGHTTPD_FAM
+	bool
+	prompt "fam"
+	help
+	  fam/gamin for reducing number of stat() calls.
+
+config LIGHTTPD_LUA
+	bool
+	prompt "lua engine"
+	help
+	  lua engine for mod_cml and mod_magnet
+
+config LIGHTTPD_MEMCACHE
+	bool
+	prompt "memcached storage"
+	help
+	  memcached storage for mod_trigger_b4_dl and mod_cml
+
+config LIGHTTPD_OPENSSL
+	bool
+	prompt "openssl support"
+	help
+	  Include openssl support.
+
+config LIGHTTPD_PCRE
+	bool
+	select LIBPCRE
+	prompt "pcre support"
+	help
+	  Enable pcre support.
+
+endmenu
+
+menu "modules                     "
+
+config LIGHTTPD_MOD_CML
+	bool
+	select LIGHTTPD_LUA
+	prompt "mod_cml"
+	help
+	  Cache Meta Language
+
+config LIGHTTPD_MOD_COMPRESS
+	bool
+	prompt "mod_compress"
+	help
+	  Output compression support.
+
+if LIGHTTPD_COMPRESS
+
 config LIGHTTPD_ZLIB
 	bool
 	prompt "zlib support"
@@ -51,49 +110,49 @@ config LIGHTTPD_BZ2LIB
 	prompt "bz2lib support"
 	help
 	  Enable bzip2 support for mod_compress.
+endif
 
-config LIGHTTPD_MYSQL
+config LIGHTTPD_MOD_FASTCGI
 	bool
-#	prompt "MySQL support"
-	help
+	prompt "mod_fastcgi"
 
-config LIGHTTPD_LDAP
-	bool
-#	prompt "ldap"
-	help
-	  Enable LDAP support.
+if LIGHTTPD_MOD_FASTCGI
 
-config LIGHTTPD_ATTR
+config LIGHTTPD_MOD_FASTCGI_PHP
 	bool
-	prompt "extended attribute support"
+	prompt "setup php handling with fastcgi"
 	help
-	  Enable extended attribute support.
+	  Enables the necessary packages and configuration files
+	  to enable PHP support in lighttpd
 
-config LIGHTTPD_OPENSSL
-	bool
-	prompt "openssl support"
-	help
-	  Include openssl support.
+comment "PHP CGI SAPI must be enabled"
+	depends on LIGHTTPD_MOD_FASTCGI_PHP && !PHP5_SAPI_CGI
 
-config LIGHTTPD_KERBEROS
-	bool
-	select LIGHTTPD_OPENSSL
-#	prompt "kerberos5 support"
-	help
-	  Use Kerberos5 support with OpenSSL.
+endif
 
-config LIGHTTPD_PCRE
+config LIGHTTPD_MOD_MAGNET
 	bool
-	select LIBPCRE
-	prompt "pcre support"
+	select LIGHTTPD_LUA
+	prompt "mod_magnet"
 	help
-	  Enable pcre support.
+	  A module to control the request handling
 
-config LIGHTTPD_FAM
+config LIGHTTPD_MOD_TRIGGER_B4_DL
 	bool
-	prompt "fam"
+	select LIGHTTPD_MEMCACHE
+	select LIGHTTPD_PCRE
+	prompt "mod_trigger_b4_dl"
 	help
-	  fam/gamin for reducing number of stat() calls.
+	  Module for Anti Hotlinking
+
+config LIGHTTPD_MOD_WEBDAV
+	bool
+	prompt "mod_webdav"
+	help
+	  The WebDAV module is a very minimalistic implementation of RFC 2518.
+	  Minimalistic means that not all operations are implemented yet.
+
+if LIGHTTPD_MOD_WEBDAV
 
 config LIGHTTPD_WEBDAV_PROPS
 	bool
@@ -107,24 +166,24 @@ config LIGHTTPD_WEBDAV_LOCKS
 	prompt "locks in mod_webdav"
 	help
 	  locks in mod_webdav
+endif
 
-config LIGHTTPD_GDBM
-	bool
-#	prompt "gdbm storage for mod_trigger_b4_dl"
+config LIGHTTPD_MOD_EXTRA
+	string
+	prompt "extra modules"
+	default "mod_access mod_accesslog mod_auth"
 	help
-	  gdbm storage for mod_trigger_b4_dl
+	  Space sparated list of modules to add to lighttpd.conf
 
-config LIGHTTPD_MEMCACHE
-	bool
-	prompt "memcached storage for mod_trigger_b4_dl"
-	help
-	  memcached storage for mod_trigger_b4_dl
+comment "-----------------------------"
 
-config LIGHTTPD_LUA
+config LIGHTTPD_INSTALL_SELECTED_MODULES
 	bool
-	prompt "lua engine for mod_cml"
-	help
-	  lua engine for mod_cml
+	prompt "only install selected modules"
+
+endmenu
+
+menu "startup                     "
 
 config LIGHTTPD_STARTSCRIPT
 	bool
@@ -137,6 +196,8 @@ config LIGHTTPD_SYSTEMD_UNIT
 	depends on SYSTEMD
 	prompt "install systemd unit files for lighttpd"
 
+endmenu
+
 config LIGHTTPD_GENERIC_SITE
 	bool
 	default y
@@ -145,6 +206,5 @@ config LIGHTTPD_GENERIC_SITE
 	  This install a generic website into /var/www/index.html
 	  from <ptxdist-install>/generic/var/www/lighttpd.html
 	  and some php demos.
-
 
 endif
