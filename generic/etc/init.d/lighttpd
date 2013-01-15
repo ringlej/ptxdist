@@ -14,11 +14,6 @@ case $1 in
 	start)
 		echo "${PREFIX}starting"
 
-		if [ \! -d /var/log/lighttpd ]; then
-			mkdir -p /var/log/lighttpd
-			chown www:www /var/log/lighttpd
-		fi
-
 		if start-stop-daemon --start --quiet --oknodo --exec ${LIGHTTPD} -- -f ${LIGHTTPD_CONF}; then
 			echo "${PREFIX}done"
 		else
