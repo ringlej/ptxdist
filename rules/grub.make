@@ -100,7 +100,7 @@ else
 GRUB_AUTOCONF += --disable-smc9000-scan
 endif
 
-ifneq ($(strip $(call remove_quotes $(PTXCONF_GRUB_NE_SCAN))),)
+ifneq ($(strip $(call remove_quotes,$(PTXCONF_GRUB_NE_SCAN))),)
 GRUB_AUTOCONF += --enable-ne-scan=$(PTXCONF_GRUB_NE_SCAN)
 endif
 
