@@ -2,6 +2,8 @@
 
 . "$(dirname "$(readlink -f "$0")")/libwrapper.sh" || exit
 
+unset PTXDIST_CCACHE
+
 ld_add_ld_args "$@"
 
 wrapper_exec "$@"
