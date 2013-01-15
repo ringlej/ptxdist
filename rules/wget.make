@@ -28,8 +28,11 @@ WGET_DIR	:= $(BUILDDIR)/$(WGET)
 # Prepare
 # ----------------------------------------------------------------------------
 
-WGET_PATH	:= PATH=$(CROSS_PATH)
-WGET_ENV 	:= $(CROSS_ENV)
+WGET_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_prog_MAKEINFO=: \
+	ac_cv_path_PERL=: \
+	ac_cv_path_POD2MAN=:
 
 #
 # autoconf
