@@ -182,6 +182,13 @@ endchoice
 
 
 #
+# programming model (32 bit, 64 bit)
+#
+config ARCH_LP64
+	bool
+
+
+#
 # endianess
 #
 config ARCH_SUPPORTS_ENDIAN_BIG
