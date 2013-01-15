@@ -22,6 +22,7 @@ scripts/kconfig/lkc_defs.h
 scripts/kconfig/mconf
 scripts/kconfig/nconf
 scripts/kconfig/zconf.hash.c
+scripts/kconfig/zconf.lex.c
 scripts/kconfig/zconf.tab.c
 scripts/kconfig/*.o
 scripts/kconfig/lxdialog/*.o
