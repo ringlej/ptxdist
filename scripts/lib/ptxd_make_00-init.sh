@@ -104,7 +104,7 @@ ptxd_init_sysroot_toolchain() {
 	    "$(ptxd_cross_cc -print-file-name=libc.so 2> /dev/null)")"
 
 	if [ $? -ne 0 -o -z "${sysroot}" ]; then
-	    return 1
+	    ptxd_bailout "Could not detect toolchain sysroot! The toolchain is broken or not configured correctly."
 	fi
 
 	PTXDIST_SYSROOT_TOOLCHAIN="$(ptxd_abspath "${sysroot}")" || return
