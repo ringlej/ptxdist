@@ -943,6 +943,7 @@ clean() {
 	# we want to clean a single package
 	if [ -n "${1}" ]; then
 		check_if_selected "${@}" &&
+		check_premake_compiler &&
 		ptxd_make_log "${@/%/_clean}"
 		return
 	fi
