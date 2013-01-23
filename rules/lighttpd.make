@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 #
 # Paths and names
 #
-LIGHTTPD_VERSION	:= 1.4.30
-LIGHTTPD_MD5		:= 63f9df52dcae0ab5689a95c99c54e48a
+LIGHTTPD_VERSION	:= 1.4.32
+LIGHTTPD_MD5		:= 8e2d4ae8e918d4de1aeb9842584d170b
 LIGHTTPD		:= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX		:= tar.bz2
 LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
@@ -40,6 +40,7 @@ LIGHTTPD_AUTOCONF := \
 	--libdir=/usr/lib/lighttpd \
 	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-lfs \
 	$(GLOBAL_IPV6_OPTION) \
+	--disable-mmap \
 	--without-libev \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MYSQL)-mysql \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_LDAP)-ldap \
