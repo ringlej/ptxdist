@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBNL3) += libnl3
 #
 # Paths and names
 #
-LIBNL3_VERSION	:= 3.2.19
-LIBNL3_MD5	:= 1795c43bde05f650a43b085438e5da21
+LIBNL3_VERSION	:= 3.2.21
+LIBNL3_MD5	:= 6fe7136558a9071e70673dcda38545b3
 LIBNL3		:= libnl-$(LIBNL3_VERSION)
 LIBNL3_SUFFIX	:= tar.gz
 LIBNL3_URL	:= http://www.infradead.org/~tgr/libnl/files/$(LIBNL3).$(LIBNL3_SUFFIX)
