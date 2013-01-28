@@ -264,6 +264,12 @@ else
 GLOBAL_LARGE_FILE_OPTION := --disable-largefile
 endif
 
+ifdef PTXCONF_GLOBAL_SELINUX
+GLOBAL_SELINUX_OPTION := --enable-selinux
+else
+GLOBAL_SELINUX_OPTION := --disable-selinux
+endif
+
 # ----------------------------------------------------------------------------
 # HOST stuff
 # ----------------------------------------------------------------------------
