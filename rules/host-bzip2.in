@@ -1,6 +1,5 @@
 ## SECTION=hosttools_noprompt
 
-config HOST_LIBBZ2
+config HOST_BZIP2
 	tristate
 	default ALLYES
-
