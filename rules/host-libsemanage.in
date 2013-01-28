@@ -1,0 +1,9 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBSEMANAGE
+	tristate
+	default ALLYES
+	select HOST_LIBSEPOL
+	select HOST_LIBSELINUX
+	select HOST_USTR
+	select HOST_BZIP2
