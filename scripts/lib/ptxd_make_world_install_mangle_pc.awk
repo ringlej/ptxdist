@@ -21,6 +21,9 @@ BEGIN {
 	replace["exec_prefix"]	= "${prefix}";
 	replace["libdir"]	= "${exec_prefix}/lib";
 	replace["includedir"]	= "${prefix}/include";
+
+	replace[SYSROOT "/include"]	= replace["includedir"]
+	replace[SYSROOT "/lib"]		= replace["libdir"]
 }
 
 
@@ -48,7 +51,7 @@ $1 ~ /^(prefix|exec_prefix)$/ {
 
 $1 ~ /^(includedir|libdir)$/ {
 	# replace e.g. /usr/include
-	if (match($2, "^" prefix "(include|lib)")) {
+	if (match($2, "^" "(" prefix "|" SYSROOT "/" ")" "(include|lib)")) {
 		this_var = substr($2, RSTART, RLENGTH);
 		sub(this_var, replace[this_var]);
 	}
