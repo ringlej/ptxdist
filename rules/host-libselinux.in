@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBSELINUX
+	tristate
+	default ALLYES
+	select HOST_LIBPCRE
+	select HOST_LIBSEPOL
