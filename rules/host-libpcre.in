@@ -1,0 +1,5 @@
+## SECTION=project_specific
+
+config HOST_LIBPCRE
+	tristate
+	default ALLYES
