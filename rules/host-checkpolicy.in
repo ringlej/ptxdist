@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+
+config HOST_CHECKPOLICY
+	tristate
+	default ALLYES
+	select HOST_LIBSELINUX
+	select HOST_LIBSEPOL
+	select HOST_FLEX
