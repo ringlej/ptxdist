@@ -55,7 +55,7 @@ SYSTEMD_CONF_OPT := \
 	--disable-gtk-doc-pdf \
 	--disable-introspection \
 	--disable-ima \
-	--disable-selinux \
+	$(GLOBAL_SELINUX_OPTION) \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TCPWRAP)-tcpwrap \
 	--disable-pam \
