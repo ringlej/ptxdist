@@ -9,4 +9,5 @@
 #tag:ptx --start-number 200
 0200-reactivate-check-for-tty.patch
 0201-Fix-the-format-warning-when-building-applets-usage_p.patch
-# 4d2e7fce40a805b04514304f1b2eb017  - git-ptx-patches magic
+0202-build-system-only-pass-real-libs-to-SELINUX_LIBS.patch
+# 02e24253ac98ca59e1fffacb31293da0  - git-ptx-patches magic
