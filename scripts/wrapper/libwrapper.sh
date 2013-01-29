@@ -37,11 +37,11 @@ cc_check_args() {
 				;;
 			-fno-PIC | -fno-pic | -fno-PIE | -fno-pie | \
 			-nopie | -static | -shared | \
-			-D__KERNEL__ | -nostartfiles )
+			-D__KERNEL__ | -nostartfiles)
 				FPIE=false
 				PIE=false
 				;;
-			-fPIC | -fpic )
+			-fPIC | -fpic)
 				FPIE=false
 				;;
 			-O0)
@@ -49,7 +49,7 @@ cc_check_args() {
 			-O*)
 				OPTIMIZE=true
 				;;
-			-I/usr/include | -L/usr/lib | -L/lib )
+			-I/usr/include | -L/usr/lib | -L/lib)
 				echo "wrapper: Bad search path in:" >&2
 				echo "${0##*/} $*" >&2
 				exit 1
