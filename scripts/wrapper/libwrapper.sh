@@ -113,7 +113,7 @@ ld_add_ld_args() {
 	fi
 }
 
-cc_add_ld_args() {
+cc_add_target_ld_args() {
 	if ${LINKING}; then
 		add_ld_args "-Wl,"
 		add_late_arg ${PTXDIST_CROSS_LDFLAGS}
@@ -145,18 +145,18 @@ cc_add_pie() {
 	fi
 }
 
-cpp_add_extra() {
+cpp_add_target_extra() {
 	add_arg -frecord-gcc-switches
 	add_arg ${PTXDIST_CROSS_CPPFLAGS}
 	add_opt_arg TARGET_EXTRA_CPPFLAGS ${PTXCONF_TARGET_EXTRA_CPPFLAGS}
 }
 
-cc_add_extra() {
-	cpp_add_extra
+cc_add_target_extra() {
+	cpp_add_target_extra
 	add_opt_arg TARGET_EXTRA_CFLAGS ${PTXCONF_TARGET_EXTRA_CFLAGS}
 }
 
-cxx_add_extra() {
-	cpp_add_extra
+cxx_add_target_extra() {
+	cpp_add_target_extra
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
 }

@@ -4,10 +4,10 @@
 
 cc_check_args "${@}"
 
-cc_add_ld_args
+cc_add_target_ld_args
 cc_add_fortify
 cc_add_stack
 cc_add_pie
-cc_add_extra
+cc_add_target_extra
 
 wrapper_exec "$@"

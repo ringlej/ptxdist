@@ -8,6 +8,6 @@ LINKING=false
 unset PTXDIST_CCACHE
 
 cc_add_fortify
-cpp_add_extra
+cpp_add_target_extra
 
 wrapper_exec "$@"
