@@ -31,7 +31,8 @@ HOST_OPENSSL_MAKE_PAR	:= NO
 #
 # autoconf
 #
-HOST_OPENSSL_CONF_OPT := \
+# no ':=' here
+HOST_OPENSSL_CONF_OPT = \
 	--prefix=/ \
 	--install_prefix=$(HOST_OPENSSL_PKGDIR)
 
