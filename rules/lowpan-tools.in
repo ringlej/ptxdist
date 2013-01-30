@@ -1,0 +1,21 @@
+## SECTION=networking
+
+menuconfig LOWPAN_TOOLS
+	tristate
+	prompt "lowpan-tools                  "
+	select LIBNL3
+	select PYTHON if LOWPAN_TOOLS_TESTS
+	help
+	  This is a set of utils to manage the Linux LoWPAN stack.
+	  The LoWPAN stack aims for IEEE 802.15.4-2003 (and for
+	  lesser extent IEEE 802.15.4-2006) compatibility.
+
+if LOWPAN_TOOLS
+
+config LOWPAN_TOOLS_TESTS
+	bool
+	prompt "lowpan-tests"
+	help
+	  Install lowpan-test suites in /usr/libexec/lowpan-tools.
+
+endif # LOWPAN_TOOLS
