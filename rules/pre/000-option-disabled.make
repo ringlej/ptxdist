@@ -39,6 +39,20 @@ endef
 
 
 #
+# $(call ptx/ifeq, SYMBOL, val, yes, no) is equivalent to the C
+# construct (plus, strings can be compared here, too):
+#
+# SYMBOL == val ? "yes" : "no"
+#
+# $(call ptx/ifdeq, SYMBOL, val, yes, no)
+#                     $1,    $2,  $3, $4
+#
+define ptx/ifeq
+$(strip $(if $(filter $(strip $(2)),$($(strip $(1)))),$(3),$(4)))
+endef
+
+
+#
 # $(call ptx/endis, PTXCONF_SYMBOL) returns "enable" or "disable"
 # depending on the symbol is defined or not
 #
