@@ -65,6 +65,7 @@ ptxd_make_world_patchin_apply_git_init()
 	git tag "${pkg_pkg//\~/-}" &&
 	git tag base &&
 	git config alias.ptx-patches "!${PTXDIST_TOPDIR}/scripts/git-ptx-patches \"\${@}\"" &&
+	git config diff.renames false &&
 	echo "patchin: git: done"
     fi
 }
