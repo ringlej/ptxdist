@@ -1,0 +1,24 @@
+## SECTION=system_libraries
+
+menuconfig LOG4CPLUS
+	tristate
+	prompt "log4cplus                     "
+	select HOST_CMAKE
+	select GCCLIBS_GCC_S
+	select GCCLIBS_CXX
+	select GLIBC_PTHREAD
+	select QT4 if LOG4CPLUS_QT4
+	help
+	  The purpose of this project is to port the
+	  excellent Log for Java (log4j) logging
+	  library to C++.
+
+if LOG4CPLUS
+
+config LOG4CPLUS_QT4
+	bool
+	prompt "Qt4 debug appender"
+	help
+	  Build the log4cplus Qt4 debug appender
+
+endif
