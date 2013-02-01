@@ -28,6 +28,8 @@ endchoice
 
 source "generated/libc.in"
 
+endif
+
 config LIBC_C
 	bool
 	select GLIBC_C			if LIBC_GLIBC
@@ -105,8 +107,6 @@ config LIBC_NSL
 	bool
 	select GLIBC_NSL		if LIBC_GLIBC
 	select UCLIBC_NSL		if LIBC_UCLIBC
-
-endif
 
 #
 # needed to keep dependencies working
