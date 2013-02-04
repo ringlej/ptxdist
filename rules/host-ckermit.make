@@ -32,7 +32,7 @@ HOST_CKERMIT_CONF_TOOL	:= NO
 
 HOST_CKERMIT_MAKEVARS := \
 	xermit \
-	KTARGET=linuxa  \
+	KTARGET=linuxa \
 	prefix= \
 	CFLAGS='$(HOST_CPPFLAGS) $(HOST_CFLAGS) -O2 -g -DLINUX -DFNFLOAT -DCK_POSIX_SIG -DCK_NEWTERM -DTCPSOCKET -DLINUXFSSTND -DNOCOTFMC -DPOSIX -DUSE_STRERROR -DCK_NCURSES -DHAVE_PTMX' \
 	LNKFLAGS='$(HOST_LDFLAGS)' \
@@ -46,7 +46,7 @@ $(STATEDIR)/host-ckermit.install:
 	@$(call targetinfo)
 	@$(call install, HOST_CKERMIT)
 	@ln -sf kermit $(HOST_CKERMIT_PKGDIR)/bin/ckermit
-	@install -m755  $(HOST_CKERMIT_DIR)/wart $(HOST_CKERMIT_PKGDIR)/bin/
+	@install -m755 $(HOST_CKERMIT_DIR)/wart $(HOST_CKERMIT_PKGDIR)/bin/
 	@$(call touch)
 
 # vim: syntax=make
