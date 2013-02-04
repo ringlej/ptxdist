@@ -33,9 +33,6 @@ HOST_MKELFIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_MKELFIMAGE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_MKELFIMAGE_PATH	:= PATH=$(HOST_PATH)
-HOST_MKELFIMAGE_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
