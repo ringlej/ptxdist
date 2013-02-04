@@ -10,4 +10,5 @@
 0200-reactivate-check-for-tty.patch
 0201-Fix-the-format-warning-when-building-applets-usage_p.patch
 0202-build-system-only-pass-real-libs-to-SELINUX_LIBS.patch
-# 02e24253ac98ca59e1fffacb31293da0  - git-ptx-patches magic
+0203-scripts-trylink-honour-SKIP_STRIP-and-don-t-strip-if.patch
+# 2544a24a902f6d5ec4e021d62cdce8eb  - git-ptx-patches magic
