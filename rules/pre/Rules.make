@@ -270,30 +270,13 @@ endif
 
 HOST_PATH	:= $$PATH
 
-HOST_CPPFLAGS	:= -isystem $(PTXDIST_SYSROOT_HOST)/include
-HOST_LDFLAGS	:= \
-	-L$(PTXDIST_SYSROOT_HOST)/lib \
-	-Wl,-rpath -Wl,$(PTXDIST_SYSROOT_HOST)/lib \
-	-Wl,-rpath -Wl,/this/is/a/long/path/to/make/host/tools/relocateable/with/chrpath/when/using/dev/packages
-
-HOST_ENV_CC		:= CC="$(HOSTCC)"
-HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
-HOST_ENV_CPPFLAGS	:= CPPFLAGS="$(HOST_CPPFLAGS)"
-HOST_ENV_LDFLAGS	:= LDFLAGS="$(HOST_LDFLAGS)"
-
-HOST_ENV_PKG_CONFIG	:= \
-	PKG_CONFIG_PATH="" \
-	PKG_CONFIG_LIBDIR="$(PTXDIST_SYSROOT_HOST)/lib/pkgconfig:$(PTXDIST_SYSROOT_HOST)/share/pkgconfig"
+HOST_ENV_PKG_CONFIG	:= $(PTXDIST_HOST_ENV_PKG_CONFIG)
 
 HOST_ENV_PYTHONPATH	:= \
 	PYTHONPATH="$(shell python -c 'import distutils.sysconfig as sysconfig; \
 		print "%s" % sysconfig.get_python_lib(prefix="'"$(PTXDIST_SYSROOT_HOST)"'")')"
 
 HOST_ENV	:= \
-	$(HOST_ENV_CC) \
-	$(HOST_ENV_CXX) \
-	$(HOST_ENV_CPPFLAGS) \
-	$(HOST_ENV_LDFLAGS) \
 	$(HOST_ENV_PKG_CONFIG) \
 	$(HOST_ENV_PYTHONPATH)
 

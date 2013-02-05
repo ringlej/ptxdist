@@ -551,30 +551,57 @@ check_dirs() {
 # This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
-	local cc
+	local cc_ptr cc cc_abs cc_default cc_alternate
 
-	for cc in \
+	for cc_ptr in \
+		PTXCONF_SETUP_HOST_CPP \
 		PTXCONF_SETUP_HOST_CC \
 		PTXCONF_SETUP_HOST_CXX \
 		; do
-		if [ -z "${!cc}" ]; then
+		cc="${!cc_ptr}"
+		if [ -z "${cc}" ]; then
 			echo
-			echo "${PTXDIST_LOG_PROMPT}error: undefined host ${cc##*_} compiler"
+			echo "${PTXDIST_LOG_PROMPT}error: undefined host ${cc_ptr##*_} compiler"
 			echo "${PTXDIST_LOG_PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
 			echo "${PTXDIST_LOG_PROMPT}error: and specify the compiler"
 			echo
 			exit 1
 		fi
 
-		if [ \! -x "$(which "${!cc}" 2>/dev/null)" ]; then
+		cc_abs="$(which "${cc}" 2>/dev/null)"
+		if [ \! -x "${cc_abs}" ]; then
 			echo
-			echo "${PTXDIST_LOG_PROMPT}error: your host ${cc##*_} compiler: '${!cc}'"
+			echo "${PTXDIST_LOG_PROMPT}error: your host ${cc_ptr##*_} compiler: '${cc}'"
 			echo "${PTXDIST_LOG_PROMPT}error: cannot be found or isn't executable"
 			echo "${PTXDIST_LOG_PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
 			echo "${PTXDIST_LOG_PROMPT}error: and specify the compiler"
 			echo
 			exit 1
 		fi
+
+		case "${cc_ptr}" in
+		    PTXCONF_SETUP_HOST_CPP)
+			cc_default=cpp
+			unset cc_alternate
+			;;
+		    PTXCONF_SETUP_HOST_CC)
+			cc_default=gcc
+			cc_alternate=cc
+			;;
+		    PTXCONF_SETUP_HOST_CXX)
+			cc_default=g++
+			cc_alternate=c++
+			;;
+		esac
+
+		ln -sf "${cc_abs}" "${PTX_WRAPPER_DIR}/${cc_default}.real" &&
+		ln -sf "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${PTX_WRAPPER_DIR}/${cc_default}" &&
+
+		if [ -n "${cc_alternate}" ]; then
+		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/${cc_alternate}" &&
+		    ln -sf "${cc_default}.real" "${PTX_WRAPPER_DIR}/${cc_alternate}.real"
+		fi || \
+		    ptxd_bailout "unable to create compiler wrapper link"
 
 		if [ -n "${PTX_CCACHE_DIR}" ]; then
 			ln -sf "$(which "ccache")" "${PTX_CCACHE_DIR}/${!cc}" || ptxd_bailout "unable to create ccache link"
