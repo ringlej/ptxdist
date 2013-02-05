@@ -1,12 +1,13 @@
 #!/bin/sh
 
 COMPILING=false
-LINKING=true
 FORTIFY=true
-STDLIB=true
 FPIE=true
-PIE=true
+LINKING=true
 OPTIMIZE=false
+PIE=true
+STDLIB=true
+
 ARG_LIST=""
 LATE_ARG_LIST=""
 
