@@ -3,6 +3,7 @@
 COMPILING=false
 FORTIFY=true
 FPIE=true
+HOST=false
 LINKING=true
 OPTIMIZE=false
 PIE=true
@@ -50,9 +51,11 @@ cc_check_args() {
 				OPTIMIZE=true
 				;;
 			-I/usr/include | -L/usr/lib | -L/lib)
-				echo "wrapper: Bad search path in:" >&2
-				echo "${0##*/} $*" >&2
-				exit 1
+				if ! ${HOST}; then
+					echo "wrapper: Bad search path in:" >&2
+					echo "${0##*/} $*" >&2
+					exit 1
+				fi
 				;;
 			-)
 				COMPILING=true
@@ -121,6 +124,12 @@ cc_add_target_ld_args() {
 	fi
 }
 
+cc_add_host_ld_args() {
+	if ${LINKING}; then
+		add_late_arg ${PTXDIST_HOST_LDFLAGS}
+	fi
+}
+
 cc_add_fortify() {
 	# fortify only works when optimizing is enabled. The warning
 	# generated when combining -D_FORTIFY_SOURCE with -O0 can confuse
@@ -159,4 +168,16 @@ cc_add_target_extra() {
 cxx_add_target_extra() {
 	cpp_add_target_extra
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
+}
+
+cpp_add_host_extra() {
+	add_arg ${PTXDIST_HOST_CPPFLAGS}
+}
+
+cc_add_host_extra() {
+	cpp_add_host_extra
+}
+
+cxx_add_host_extra() {
+	cpp_add_host_extra
 }
