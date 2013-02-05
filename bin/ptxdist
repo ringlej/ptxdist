@@ -509,12 +509,6 @@ check_dirs() {
 		fi
 	done
 
-	# create dir for ccache links
-	if [ -n "${PTX_CCACHE_DIR}" ]; then
-		rm -rf -- "${PTX_CCACHE_DIR}" &&
-		mkdir -p -- "${PTX_CCACHE_DIR}" || ptxd_bailout "cannot create dir: '${PTX_CCACHE_DIR}'"
-	fi
-
 	rm -rf -- "${PTX_WRAPPER_DIR}" &&
 	mkdir -p -- "${PTX_WRAPPER_DIR}" || ptxd_bailout "cannot create dir: '${PTX_WRAPPER_DIR}'"
 
@@ -602,10 +596,6 @@ check_compiler() {
 		    ln -sf "${cc_default}.real" "${PTX_WRAPPER_DIR}/${cc_alternate}.real"
 		fi || \
 		    ptxd_bailout "unable to create compiler wrapper link"
-
-		if [ -n "${PTX_CCACHE_DIR}" ]; then
-			ln -sf "$(which "ccache")" "${PTX_CCACHE_DIR}/${!cc}" || ptxd_bailout "unable to create ccache link"
-		fi
 	done
 
 	ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null && return || true
@@ -2305,7 +2295,7 @@ setup_libs() {
 #
 # add PTXDIST_TOOLCHAIN and sysroots to path
 #
-# out: PATH, PTX_CCACHE_DIR
+# out: PATH
 #
 setup_path() {
 	# save PATH and reuse it later on
@@ -2324,10 +2314,7 @@ setup_path() {
 
 	if [ -n "${PTXCONF_SETUP_CCACHE}" ]; then
 		PTXDIST_CCACHE="$(which ccache 2>/dev/null)"
-		if [ -n "${PTXDIST_CCACHE}" ]; then
-			PTX_CCACHE_DIR="${sysroot_host}/lib/ccache"
-			PATH="${PTX_CCACHE_DIR}:${PATH}"
-		else
+		if [ -z "${PTXDIST_CCACHE}" ]; then
 			echo
 			echo "${PTXDIST_LOG_PROMPT}warning: ccache has been activated, but was not found on your system"
 			echo "${PTXDIST_LOG_PROMPT}warning: install ccache, disable it ('ptxdist setup' -> 'Developer Options' menu)"
