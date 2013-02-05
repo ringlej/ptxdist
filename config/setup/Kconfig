@@ -299,6 +299,13 @@ config SETUP_DIRECT_CLEAN
 	help
 	  I'm a developer. I know what I'm doing. Just clean the BSP.
 
+config SETUP_HOST_CPP
+	prompt "host CPP"
+	string
+	default "cpp"
+	help
+	  Specify the host preprocessor here.
+
 config SETUP_HOST_CC
 	prompt "host CC"
 	string
