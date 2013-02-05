@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 COMPILING=false
 FORTIFY=true
 FPIE=true
