@@ -21,6 +21,7 @@ HOST_MESALIB_SUBDIR	:= src/glsl
 # ----------------------------------------------------------------------------
 
 HOST_MESALIB_CONF_TOOL	:= NO
-HOST_MESALIB_MAKE_OPT	:= $(HOST_ENV) builtin_compiler
+# gcc & g++ are provided by the wrappers and call the correct tools
+HOST_MESALIB_MAKE_OPT	:= CC=gcc CXX=g++ builtin_compiler
 
 # vim: syntax=make
