@@ -4,7 +4,7 @@
 
 cc_check_args "${@}"
 
-LINKING=0
+LINKING=false
 unset PTXDIST_CCACHE
 
 cc_add_fortify
