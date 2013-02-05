@@ -62,7 +62,7 @@ config PROCPS_W
 config PROCPS_PGREP
 	bool
 	prompt "pgrep"
-	depends on !BUSYBOX_PS || ALLYES
+	depends on !BUSYBOX_PGREP || ALLYES
 	help
 	  look up processes based on name and other attributes
 
