@@ -18,6 +18,15 @@ config U_BOOT_MD5
 	string
 	prompt "U-Boot source md5"
 
+config U_BOOT_SERIES
+	prompt "patch series file"
+	string
+	default "series"
+	help
+	  This entry specifies a patch series file which has to live in
+	  the u-boot patches directory. This way you can set a different
+	  series file than the default.
+
 config U_BOOT_CONFIG
 	string
 	prompt "U-Boot config target"
