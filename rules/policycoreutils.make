@@ -30,8 +30,10 @@ POLICYCOREUTILS_LICENSE	:= GPLv2+
 # ----------------------------------------------------------------------------
 
 POLICYCOREUTILS_CONF_TOOL := NO
-POLICYCOREUTILS_MAKE_ENV := \
+# no ':=' because of $(PYTHON_SITEPACKAGES)
+POLICYCOREUTILS_MAKE_ENV = \
 	$(CROSS_ENV) \
+	PYTHONLIBDIR=$(POLICYCOREUTILS_PKGDIR)$(PYTHON_SITEPACKAGES)/..
 	CFLAGS="-O2 -Wall" \
 	INOTIFYH="/usr/include/sys/inotify.h" \
 	PAMH="" \
