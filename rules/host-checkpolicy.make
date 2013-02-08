@@ -18,7 +18,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_CHECKPOLICY) += host-checkpolicy
 # ----------------------------------------------------------------------------
 
 HOST_CHECKPOLICY_CONF_TOOL := NO
-HOST_CHECKPOLICY_MAKE_ENV := $(HOST_ENV)
+HOST_CHECKPOLICY_MAKE_ENV := \
+	$(HOST_ENV) \
+	CFLAGS="-O2 -Wall -g"
 HOST_CHECKPOLICY_MAKE_OPT := LIBDIR=$(PTXDIST_SYSROOT_HOST)/lib
 # no ":=" here
 HOST_CHECKPOLICY_INSTALL_OPT = \
