@@ -30,17 +30,19 @@ HOST_CKERMIT_CONF_TOOL	:= NO
 # Compile
 # ----------------------------------------------------------------------------
 
-HOST_CKERMIT_MAKEVARS := \
-	xermit \
-	KTARGET=linuxa \
+HOST_CKERMIT_MAKE_OPT := \
+	linuxa \
 	prefix= \
-	CFLAGS='$(HOST_CPPFLAGS) $(HOST_CFLAGS) -O2 -g -DLINUX -DFNFLOAT -DCK_POSIX_SIG -DCK_NEWTERM -DTCPSOCKET -DLINUXFSSTND -DNOCOTFMC -DPOSIX -DUSE_STRERROR -DCK_NCURSES -DHAVE_PTMX' \
-	LNKFLAGS='$(HOST_LDFLAGS)' \
-	LIBS='-lncurses -lutil -lresolv -lcrypt -lm'
+	KFLAGS='-O2 -DCK_NCURSES -DHAVE_PTMX' \
+	LIBS='-lncurses -lutil -lresolv -lcrypt'
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
+
+HOST_CKERMIT_INSTALL_OPT := \
+	prefix= \
+	install
 
 $(STATEDIR)/host-ckermit.install:
 	@$(call targetinfo)
