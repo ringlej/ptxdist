@@ -34,13 +34,12 @@ ZLIB_LICENSE	:= zlib
 
 ZLIB_CONF_ENV := \
 	$(CROSS_ENV) \
-	CROSS_PREFIX=$(PTXCONF_COMPILER_PREFIX) \
-	CFLAGS="$(CROSS_CPPFLAGS) -O2 -g"
+	CROSS_PREFIX=$(PTXCONF_COMPILER_PREFIX)
 
 #
 # autoconf
 #
-ZLIB_AUTOCONF := \
+ZLIB_CONF_OPT := \
 	--prefix=/usr \
 	--uname=Linux \
 	--libdir=/usr/$(CROSS_LIB_DIR)
