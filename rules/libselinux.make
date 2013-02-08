@@ -32,7 +32,7 @@ LIBSELINUX_LICENSE	:= public_domain
 LIBSELINUX_CONF_TOOL := NO
 LIBSELINUX_MAKE_ENV := \
 	$(CROSS_ENV) \
-	CFLAGS="-O2 -Wall"
+	CFLAGS="-O2 -Wall -g"
 
 # ----------------------------------------------------------------------------
 # Target-Install

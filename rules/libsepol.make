@@ -32,7 +32,7 @@ LIBSEPOL_LICENSE	:= LGPLv2.1+
 LIBSEPOL_CONF_TOOL := NO
 LIBSEPOL_MAKE_ENV := \
 	$(CROSS_ENV) \
-	CFLAGS="-O2 -Wall"
+	CFLAGS="-O2 -Wall -g"
 
 # ----------------------------------------------------------------------------
 # Target-Install

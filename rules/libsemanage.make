@@ -32,7 +32,7 @@ LIBSEMANAGE_LICENSE	:= LGPLv2.1+
 LIBSEMANAGE_CONF_TOOL := NO
 LIBSEMANAGE_MAKE_ENV := \
 	$(CROSS_ENV) \
-	CFLAGS="-O2 -Wall"
+	CFLAGS="-O2 -Wall -g"
 
 # ----------------------------------------------------------------------------
 # Target-Install
