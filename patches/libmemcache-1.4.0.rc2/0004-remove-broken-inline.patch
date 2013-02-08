@@ -9,8 +9,8 @@ Without this we may get something like this:
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- include/memcache/buffer.h |    6 +++---
- src/buffer.c              |    6 +++---
+ include/memcache/buffer.h | 6 +++---
+ src/buffer.c              | 6 +++---
  2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/include/memcache/buffer.h b/include/memcache/buffer.h

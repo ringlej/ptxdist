@@ -6,8 +6,8 @@ Patch borrowed from Debian.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- include/memcache.h.in |    5 +++++
- src/memcache.c        |    9 +++++++--
+ include/memcache.h.in | 5 +++++
+ src/memcache.c        | 9 +++++++--
  2 files changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/include/memcache.h.in b/include/memcache.h.in

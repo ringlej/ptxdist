@@ -7,10 +7,10 @@ autotools complains if AUTHORS, NEWS and README are missing.
 Signed-off-by: George McCollister <george.mccollister@gmail.com>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- AUTHORS |    1 +
- NEWS    |    1 +
- README  |    1 +
- 3 files changed, 3 insertions(+), 0 deletions(-)
+ AUTHORS | 1 +
+ NEWS    | 1 +
+ README  | 1 +
+ 3 files changed, 3 insertions(+)
  create mode 100644 AUTHORS
  create mode 100644 NEWS
  create mode 100644 README

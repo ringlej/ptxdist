@@ -8,8 +8,8 @@ checks.
 Signed-off-by: George McCollister <george.mccollister@gmail.com>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- configure.ac |   46 +++++++++++++++++++++++++---------------------
- 1 files changed, 25 insertions(+), 21 deletions(-)
+ configure.ac | 46 +++++++++++++++++++++++++---------------------
+ 1 file changed, 25 insertions(+), 21 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
 index a1c8bf1..827e124 100644
