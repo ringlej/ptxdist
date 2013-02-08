@@ -379,6 +379,18 @@ ptxd_init_devpkg()
     export PTXDIST_DEVPKG_PLATFORMDIR
 }
 
+ptxd_init_save_wrapper_env() {
+    local sysroot="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+
+    cat > ${sysroot}/lib/wrapper/env <<- EOF
+	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG}"
+	PTXDIST_CROSS_CPPFLAGS="${PTXDIST_CROSS_CPPFLAGS}"
+	PTXDIST_CROSS_LDFLAGS="${PTXDIST_CROSS_LDFLAGS}"
+	PTXDIST_HOST_CPPFLAGS="${PTXDIST_HOST_CPPFLAGS}"
+	PTXDIST_HOST_LDFLAGS="${PTXDIST_HOST_LDFLAGS}"
+	EOF
+}
+
 #
 # initialize vars needed by PTXdist's make
 #
@@ -399,6 +411,7 @@ ptxd_make_init() {
 	ptxd_init_collectionconfig
     fi &&
     ptxd_init_cross_env &&
-    ptxd_init_host_env
+    ptxd_init_host_env &&
+    ptxd_init_save_wrapper_env
 }
 ptxd_make_init

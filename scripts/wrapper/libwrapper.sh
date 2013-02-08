@@ -14,6 +14,10 @@ STDLIB=true
 ARG_LIST=""
 LATE_ARG_LIST=""
 
+if [ -z "${PTXDIST_PLATFORMCONFIG}" ]; then
+	. "$(dirname "$0")/env" || exit
+fi
+
 . ${PTXDIST_PLATFORMCONFIG}
 
 wrapper_exec() {
