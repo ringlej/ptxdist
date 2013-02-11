@@ -18,7 +18,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBSEPOL) += host-libsepol
 # ----------------------------------------------------------------------------
 
 HOST_LIBSEPOL_CONF_TOOL := NO
-HOST_LIBSEPOL_MAKE_ENV := $(HOST_ENV)
+HOST_LIBSEPOL_MAKE_ENV := \
+	$(HOST_ENV) \
+	CFLAGS="-O2 -Wall -g"
 # no ':=' here
 HOST_LIBSEPOL_INSTALL_OPT = \
 	PREFIX=$(HOST_LIBSEPOL_PKGDIR) \
