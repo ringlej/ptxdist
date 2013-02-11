@@ -18,7 +18,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBSELINUX) += host-libselinux
 # ----------------------------------------------------------------------------
 
 HOST_LIBSELINUX_CONF_TOOL := NO
-HOST_LIBSELINUX_MAKE_ENV := $(HOST_ENV)
+HOST_LIBSELINUX_MAKE_ENV := \
+	$(HOST_ENV) \
+	CFLAGS="-O2 -Wall -g"
 HOST_LIBSELINUX_MAKE_OPT := PREFIX=$(PTXDIST_SYSROOT_HOST)
 # no ':=' here
 HOST_LIBSELINUX_INSTALL_OPT = \
