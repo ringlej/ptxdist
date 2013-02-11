@@ -1,0 +1,11 @@
+## SECTION=networking
+
+config WAVEMON
+	tristate
+	prompt "wavemon"
+	select LIBC_M
+	select NCURSES
+	help
+	  Ncurses-based monitoring application for wireless network devices
+
+# vim: set ft=kconfig sw=8 ts=8 noet:
