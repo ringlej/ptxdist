@@ -18,7 +18,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBSEMANAGE) += host-libsemanage
 # ----------------------------------------------------------------------------
 
 HOST_LIBSEMANAGE_CONF_TOOL := NO
-HOST_LIBSEMANAGE_MAKE_ENV := $(HOST_ENV)
+HOST_LIBSEMANAGE_MAKE_ENV := \
+	$(HOST_ENV) \
+	CFLAGS="-O2 -Wall -g"
 # no ':=' here
 HOST_LIBSEMANAGE_INSTALL_OPT = \
 	PREFIX=$(HOST_LIBSEMANAGE_PKGDIR) \
