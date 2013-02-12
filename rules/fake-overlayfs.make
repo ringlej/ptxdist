@@ -63,7 +63,7 @@ ifneq ($(call remove_quotes,$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK))
 endif
 endif
-ifdef PTXCONF_LIGHTTPD_SYSTEMD_UNIT
+ifdef PTXCONF_FAKE_OVERLAYFS_SYSTEMD
 	@$(call install_alternative, fake-overlayfs, 0, 0, 0644, \
 		/lib/systemd/system/fake-overlayfs.service)
 	@$(call install_link, fake-overlayfs, ../fake-overlayfs.service, \

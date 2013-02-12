@@ -10,6 +10,10 @@ menuconfig FAKE_OVERLAYFS
 
 if FAKE_OVERLAYFS
 
+config FAKE_OVERLAYFS_SYSTEMD
+	bool
+	default SYSTEMD
+
 comment "Copy the content of these directories"
 
 config FAKE_OVERLAYFS_VAR
