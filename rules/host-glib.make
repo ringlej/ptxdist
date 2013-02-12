@@ -49,4 +49,10 @@ HOST_GLIB_AUTOCONF := \
 	--disable-gcov \
 	--with-libiconv=gnu
 
+$(STATEDIR)/host-glib.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, HOST_GLIB)
+	@sed -i "s:'/lib':'$(PTXCONF_SYSROOT_HOST)/lib':" "$(PTXCONF_SYSROOT_HOST)/bin/gdbus-codegen"
+	@$(call touch)
+
 # vim: syntax=make
