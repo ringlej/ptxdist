@@ -30,9 +30,22 @@ LIBSEMANAGE_LICENSE	:= LGPLv2.1+
 # ----------------------------------------------------------------------------
 
 LIBSEMANAGE_CONF_TOOL := NO
-LIBSEMANAGE_MAKE_ENV := \
+# no := due to CROSS_PYTHON
+LIBSEMANAGE_MAKE_ENV = \
 	$(CROSS_ENV) \
-	CFLAGS="-O2 -Wall -g"
+	CFLAGS="-O2 -Wall -g" \
+	PYTHON=$(CROSS_PYTHON)
+
+LIBSEMANAGE_MAKE_OPT := \
+	LIBDIR=$(PTXDIST_SYSROOT_TARGET)/usr/lib \
+	all
+LIBSEMANAGE_INSTALL_OPT := \
+	install
+
+ifdef PTXCONF_LIBSEMANAGE_PYTHON
+LIBSEMANAGE_MAKE_OPT	+= pywrap
+LIBSEMANAGE_INSTALL_OPT	+= install-pywrap
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -50,6 +63,9 @@ $(STATEDIR)/libsemanage.targetinstall:
 	@$(call install_lib, libsemanage, 0, 0, 0644, libsemanage)
 	@$(call install_alternative, libsemanage, 0, 0, 0644, /etc/selinux/semanage.conf)
 
+ifdef PTXCONF_LIBSEMANAGE_PYTHON
+	@$(call install_tree, libsemanage, 0, 0, -, $(PYTHON_SITEPACKAGES))
+endif
 	@$(call install_finish, libsemanage)
 
 	@$(call touch)

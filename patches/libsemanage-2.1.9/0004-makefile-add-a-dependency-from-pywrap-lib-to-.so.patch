@@ -1,0 +1,24 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 13 Feb 2013 23:55:24 +0100
+Subject: [PATCH] makefile: add a dependency from pywrap lib to .so
+
+...otherwise in parallel builds the pywrap might get linked to the .a.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index 5d0e4b7..4aa6b0c 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -81,7 +81,7 @@ $(SWIGLOBJ): $(SWIGCOUT)
+ $(SWIGRUBYLOBJ): $(SWIGRUBYCOUT)
+ 	$(CC) $(CFLAGS) $(SWIG_CFLAGS) $(RUBYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+-$(SWIGSO): $(SWIGLOBJ)
++$(SWIGSO): $(SWIGLOBJ) $(LIBSO)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lsemanage
+ 
+ $(SWIGRUBYSO): $(SWIGRUBYLOBJ)
