@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Erwin Rol
-#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010, 2013 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.4.5
-LIBGCRYPT_MD5		:= cc2017ad09b4543f8b3b5e9a53cfd89d
+LIBGCRYPT_VERSION	:= 1.5.0
+LIBGCRYPT_MD5		:= 693f9c64d50c908bc4d6e01da3ff76d8
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
@@ -28,9 +28,6 @@ LIBGCRYPT_DIR		:= $(BUILDDIR)/$(LIBGCRYPT)
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBGCRYPT_PATH	:= PATH=$(CROSS_PATH)
-LIBGCRYPT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
