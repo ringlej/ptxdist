@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Erwin Rol
-#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010, 2013 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGPG_ERROR) += libgpg-error
 #
 # Paths and names
 #
-LIBGPG_ERROR_VERSION	:= 1.7
-LIBGPG_ERROR_MD5	:= 62c0d09d1e76c5b6da8fff92314c4665
+LIBGPG_ERROR_VERSION	:= 1.10
+LIBGPG_ERROR_MD5	:= 736a03daa9dc5873047d4eb4a9c22a16
 LIBGPG_ERROR		:= libgpg-error-$(LIBGPG_ERROR_VERSION)
 LIBGPG_ERROR_SUFFIX	:= tar.bz2
 LIBGPG_ERROR_URL	:= ftp://ftp.gnupg.org/gcrypt/libgpg-error/$(LIBGPG_ERROR).$(LIBGPG_ERROR_SUFFIX)
@@ -29,13 +29,10 @@ LIBGPG_ERROR_DIR	:= $(BUILDDIR)/$(LIBGPG_ERROR)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBGPG_ERROR_PATH	:= PATH=$(CROSS_PATH)
-LIBGPG_ERROR_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIBGPG_ERROR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBGPG_ERROR_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
