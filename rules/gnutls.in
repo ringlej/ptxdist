@@ -3,6 +3,7 @@
 config GNUTLS
 	tristate
 	select LIBGCRYPT
+	select LIBTASN1
 	prompt "gnutls"
 	help
 	  GnuTLS is a secure communications library implementing the SSL,

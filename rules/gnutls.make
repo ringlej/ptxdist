@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 2.12.20
-GNUTLS_MD5	:= f1dea97da5d4dcdbc675720c9aad9ee3
+GNUTLS_VERSION	:= 2.12.21
+GNUTLS_MD5	:= 93ffac7507dd39a4c6a672ca6976d397
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.bz2
 GNUTLS_URL	:= http://ftp.gnu.org/gnu/gnutls/$(GNUTLS).$(GNUTLS_SUFFIX)
