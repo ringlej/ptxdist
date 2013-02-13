@@ -5,4 +5,5 @@
 0003-makefile-remove-host-path-from-list-of-linker-search.patch
 0004-makefile-fix-linking-to-shlib-if-prefix.patch
 0005-makefile-move-lpcre-from-beginning-of-gcc-linker-cal.patch
-# c9b08d5ea990e48e11ad41489377128a  - git-ptx-patches magic
+0006-makefile-use-python-config-instead-of-pkg-config.patch
+# de4667aca3c8dbc6dbdf0d2d76be078e  - git-ptx-patches magic

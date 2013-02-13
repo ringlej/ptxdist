@@ -30,9 +30,23 @@ LIBSELINUX_LICENSE	:= public_domain
 # ----------------------------------------------------------------------------
 
 LIBSELINUX_CONF_TOOL := NO
-LIBSELINUX_MAKE_ENV := \
+# no := due to CROSS_PYTHON
+LIBSELINUX_MAKE_ENV = \
 	$(CROSS_ENV) \
-	CFLAGS="-O2 -Wall -g"
+	CFLAGS="-O2 -Wall -g" \
+	PYTHON=$(CROSS_PYTHON)
+LIBSELINUX_MAKE_OPT := \
+	LIBDIR=$(PTXDIST_SYSROOT_TARGET)/usr/lib \
+	all
+LIBSELINUX_INSTALL_OPT := \
+	install
+
+LIBSELINUX_MAKE_PAR := NO
+
+ifdef PTXCONF_LIBSELINUX_PYTHON
+LIBSELINUX_MAKE_OPT	+= pywrap
+LIBSELINUX_INSTALL_OPT	+= install-pywrap
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -75,6 +89,9 @@ $(STATEDIR)/libselinux.targetinstall:
 	@$(foreach prog, $(LIBSELINUX_PROGS), \
 		$(call install_copy, libselinux, 0, 0, 0755, -, /usr/sbin/$(prog));)
 
+ifdef PTXCONF_LIBSELINUX_PYTHON
+	@$(call install_tree, libselinux, 0, 0, -, $(PYTHON_SITEPACKAGES))
+endif
 	@$(call install_finish, libselinux)
 
 	@$(call touch)

@@ -1,0 +1,24 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 13 Feb 2013 23:14:46 +0100
+Subject: [PATCH] makefile: use python-config instead of pkg-config
+
+...because our python has no pkg-config yet.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index 109d372..e963009 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -12,7 +12,7 @@ LIBDIR ?= $(PREFIX)/lib
+ SHLIBDIR ?= $(DESTDIR)/lib
+ INCLUDEDIR ?= $(PREFIX)/include
+ PYLIBVER ?= $(shell $(PYTHON) -c 'import sys;print("python%d.%d" % sys.version_info[0:2])')
+-PYINC ?= $(shell pkg-config --cflags $(PYPREFIX))
++PYINC ?= $(shell $(PYTHON)-config --cflags)
+ PYLIBDIR ?= $(LIBDIR)/$(PYLIBVER)
+ RUBYLIBVER ?= $(shell $(RUBY) -e 'print RUBY_VERSION.split(".")[0..1].join(".")')
+ RUBYPLATFORM ?= $(shell $(RUBY) -e 'print RUBY_PLATFORM')

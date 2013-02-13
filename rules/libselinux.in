@@ -1,12 +1,21 @@
 ## SECTION=selinux
 
-config LIBSELINUX
+menuconfig LIBSELINUX
 	tristate
-	prompt "libselinux"
+	prompt "libselinux                    "
 	select LIBPCRE
 	select LIBSEPOL
+	select PYTHON		if LIBSELINUX_PYTHON
+	select HOST_SWIG	if LIBSELINUX_PYTHON
 	help
 	  libselinux provides an API for SELinux applications to get and set
 	  process and file security contexts and to obtain security policy
 	  decisions. Required for any applications that use the SELinux
 	  API.
+
+if LIBSELINUX
+
+config LIBSELINUX_PYTHON
+	bool "python wrapper"
+
+endif
