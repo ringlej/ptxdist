@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SWIG
+	tristate
+	default ALLYES
+	select HOST_ZLIB
+	select HOST_LIBPCRE
+	select HOST_PYTHON
