@@ -29,7 +29,77 @@ POLICYCOREUTILS_LICENSE	:= GPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
+POLICYCOREUTILS_SUBDIRS_y := \
+	man \
+	po \
+	scripts
+
+POLICYCOREUTILS_PROGS_y :=
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_AUDIT2ALLOW)		+= audit2allow
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_AUDIT2ALLOW)		+= /usr/bin/audit2allow
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEPOLGEN_IFGEN)	+= sepolgen-ifgen
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEPOLGEN_IFGEN)		+= /usr/bin/sepolgen-ifgen
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEPOLGEN_IFGEN)		+= /usr/bin/sepolgen-ifgen-attr-helper
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_AUDIT2WHY)		+= audit2why
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_AUDIT2WHY)		+= /usr/bin/audit2why
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_LOAD_POLICY)		+= load_policy
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_LOAD_POLICY)		+= /sbin/load_policy
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_NEWROLE)		+= newrole
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_NEWROLE)		+= /usr/bin/newrole
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_RESTORECOND)		+= restorecond
+#POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_RESTORECOND)		+=
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_RUN_INIT)		+= run_init
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_RUN_INIT)		+= /usr/sbin/run_init
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_RUN_INIT)		+= /usr/sbin/open_init_pty
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SANDBOX)		+= sandbox
+#POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SANDBOX)		+=
+
+# no SUBDIRS needed for scripts
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_CHCAT)			+= /usr/bin/chcat
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_FIXFILES)		+= /sbin/fixfiles
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_GENHOMEDIRCON)		+= /usr/sbin/genhomedircon
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SECON)		+= secon
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SECON)			+= /usr/bin/secon
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEMANAGE)		+= semanage
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMANAGE)		+= /usr/sbin/semanage
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEMODULE)		+= semodule
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMODULE)		+= /usr/sbin/semodule
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_DEPS)	+= semodule_deps
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_DEPS)		+= /usr/bin/semodule_deps
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_EXPAND)	+= semodule_expand
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_EXPAND)	+= /usr/bin/semodule_expand
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_LINK)	+= semodule_link
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_LINK)		+= /usr/bin/semodule_link
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_PACKAGE)	+= semodule_package
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_PACKAGE)	+= /usr/bin/semodule_package
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SEMODULE_PACKAGE)	+= /usr/bin/semodule_unpackage
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SESTATUS)		+= sestatus
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SESTATUS)		+= /usr/sbin/sestatus
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SETFILES)		+= setfiles
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SETFILES)		+= /sbin/setfiles
+
+POLICYCOREUTILS_SUBDIRS_$(PTXCONF_POLICYCOREUTILS_SETSEBOOL)		+= setsebool
+POLICYCOREUTILS_PROGS_$(PTXCONF_POLICYCOREUTILS_SETSEBOOL)		+= /usr/sbin/setsebool
+
 POLICYCOREUTILS_CONF_TOOL := NO
+
 # no ':=' because of $(PYTHON_SITEPACKAGES)
 POLICYCOREUTILS_MAKE_ENV = \
 	$(CROSS_ENV) \
@@ -38,8 +108,6 @@ POLICYCOREUTILS_MAKE_ENV = \
 	INOTIFYH="/usr/include/sys/inotify.h" \
 	PAMH="" \
 	AUDITH=""
-POLICYCOREUTILS_MAKE_OPT := LIBDIR=$(PTXDIST_SYSROOT_TARGET)/usr/lib
-
 #
 # We don't have PAM or AUDIT, so turn off.
 #
@@ -49,6 +117,13 @@ POLICYCOREUTILS_MAKE_OPT := LIBDIR=$(PTXDIST_SYSROOT_TARGET)/usr/lib
 # PAMH=/usr/include/security/pam_appl.h
 # AUDITH=/usr/include/libaudit.h
 #
+
+POLICYCOREUTILS_MAKE_OPT := \
+	SUBDIRS="$(POLICYCOREUTILS_SUBDIRS_y)" \
+	LIBDIR=$(PTXDIST_SYSROOT_TARGET)/usr/lib
+POLICYCOREUTILS_INSTALL_OPT := \
+	SUBDIRS="$(POLICYCOREUTILS_SUBDIRS_y)" \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -63,95 +138,19 @@ $(STATEDIR)/policycoreutils.targetinstall:
 	@$(call install_fixup, policycoreutils,AUTHOR,"Wolfram Sang <w.sang@pengutronix.de>")
 	@$(call install_fixup, policycoreutils,DESCRIPTION,missing)
 
-ifdef PTXCONF_POLICYCOREUTILS_AUDIT2ALLOW
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/audit2allow)
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/sepolgen-ifgen)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_AUDIT2WHY
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/audit2why)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_CHCAT
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/chcat)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_FIXFILES
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /sbin/fixfiles)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_GENHOMEDIRCON
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/genhomedircon)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_LOAD_POLICY
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /sbin/load_policy)
-	@$(call install_link, policycoreutils, /sbin/load_policy, /usr/sbin/load_policy)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_NEWROLE
-	@$(call install_copy, policycoreutils, 0, 0, 0555, -, /usr/bin/newrole)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_RESTORECOND
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/restorecond)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_RUN_INIT
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/run_init)
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/open_init_pty)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SANDBOX
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/sandbox)
-	@$(call install_copy, policycoreutils, 0, 0, 4555, -, /usr/sbin/seunshare)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SECON
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/secon)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEMANAGE
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/semanage)
-	@$(call install_copy, policycoreutils, 0, 0, 0644, -, $(PYTHON_SITEPACKAGES)/seobject.py)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEMODULE
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/semodule)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEMODULE_DEPS
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/semodule_deps)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEMODULE_EXPAND
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/semodule_expand)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEMODULE_LINK
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/semodule_link)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEMODULE_PACKAGE
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/semodule_package)
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/semodule_unpackage)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SEPOLGEN_IFGEN
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/bin/sepolgen-ifgen-attr-helper)
-endif
-
-ifdef PTXCONF_POLICYCOREUTILS_SESTATUS
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/sestatus)
-endif
+	@$(foreach prog, $(POLICYCOREUTILS_PROGS_y), \
+		$(call install_copy, policycoreutils, 0, 0, 0755, -, $(prog));)
 
 ifdef PTXCONF_POLICYCOREUTILS_SETFILES
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /sbin/setfiles)
 	@$(call install_link, policycoreutils, setfiles, /sbin/restorecon)
 endif
 
-ifdef PTXCONF_POLICYCOREUTILS_SETSEBOOL
-	@$(call install_copy, policycoreutils, 0, 0, 0755, -, /usr/sbin/setsebool)
+ifdef PTXCONF_POLICYCOREUTILS_LOAD_POLICY
+	@$(call install_link, policycoreutils, ../../sbin/load_policy, /usr/sbin/load_policy)
+endif
+
+ifdef PTXCONF_POLICYCOREUTILS_SEMANAGE
+	@$(call install_copy, policycoreutils, 0, 0, 0644, -, $(PYTHON_SITEPACKAGES)/seobject.py)
 endif
 
 	@$(call install_alternative, policycoreutils, 0, 0, 0644, /etc/sestatus.conf)

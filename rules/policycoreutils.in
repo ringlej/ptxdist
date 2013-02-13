@@ -2,17 +2,14 @@
 
 menuconfig POLICYCOREUTILS
 	tristate
-	prompt "policycoreutils"
-	select DBUS		# if POLICYCOREUTILS_SANDBOX
-	select DBUS_GLIB	# if POLICYCOREUTILS_RESTORECOND
-	select LIBC_CRYPT	# if POLICYCOREUTILS_NEWROLE || POLICYCOREUTILS_RUN_INIT
-	select LIBCAP_NG			if POLICYCOREUTILS_SANDBOX || POLICYCOREUTILS_NEWROLE
-	select LIBCAP_NG			if BUILDTIME
-	select LIBCGROUP			if POLICYCOREUTILS_SANDBOX
-	select LIBCGROUP			if BUILDTIME
+	prompt "policycoreutils               "
+	select LIBCAP_NG
+	select LIBCGROUP
 	select LIBSELINUX
 	select LIBSEMANAGE
 	select LIBSEPOL
+	select DBUS_GLIB	if POLICYCOREUTILS_RESTORECOND
+	select SEPOLGEN		if POLICYCOREUTILS_PYTHON
 	select BUSYBOX_FEATURE_FIND_DELETE	if BUSYBOX_FIND
 	select BUSYBOX_FEATURE_FIND_CONTEXT	if BUSYBOX_FIND
 	help
@@ -24,93 +21,83 @@ menuconfig POLICYCOREUTILS
 
 if POLICYCOREUTILS
 
+menuconfig POLICYCOREUTILS_PYTHON
+	bool "python based tools"
+
+if POLICYCOREUTILS_PYTHON
+
 config POLICYCOREUTILS_AUDIT2ALLOW
-	bool
-	depends on PYTHON
-	prompt "audit2allow"
-
-config POLICYCOREUTILS_AUDIT2WHY
-	bool
-	depends on POLICYCOREUTILS_AUDIT2ALLOW
-	prompt "audit2why"
-
-config POLICYCOREUTILS_CHCAT
-	bool
-	depends on PYTHON
-	prompt "chcat"
-
-config POLICYCOREUTILS_FIXFILES
-	bool
-	prompt "fixfiles"
-
-config POLICYCOREUTILS_GENHOMEDIRCON
-	bool
-	prompt "genhomedircon"
-
-config POLICYCOREUTILS_LOAD_POLICY
-	bool
-	prompt "load_policy"
-
-config POLICYCOREUTILS_NEWROLE
-	bool
-	prompt "newrole"
-
-config POLICYCOREUTILS_RESTORECOND
-	bool
-	prompt "restorecond"
-
-config POLICYCOREUTILS_RUN_INIT
-	bool
-	prompt "run_init"
-
-config POLICYCOREUTILS_SANDBOX
-	bool
-	depends on PYTHON
-	prompt "sandbox"
-
-config POLICYCOREUTILS_SECON
-	bool
-	prompt "secon"
-
-config POLICYCOREUTILS_SEMANAGE
-	bool
-	depends on PYTHON
-	prompt "semanage"
-
-config POLICYCOREUTILS_SEMODULE
-	bool
-	prompt "semodule"
-
-config POLICYCOREUTILS_SEMODULE_DEPS
-	bool
-	prompt "semodule_deps"
-
-config POLICYCOREUTILS_SEMODULE_EXPAND
-	bool
-	prompt "semodule_expand"
-
-config POLICYCOREUTILS_SEMODULE_LINK
-	bool
-	prompt "semodule_link"
-
-config POLICYCOREUTILS_SEMODULE_PACKAGE
-	bool
-	prompt "semodule_package"
+	bool "audit2allow"
 
 config POLICYCOREUTILS_SEPOLGEN_IFGEN
-	bool
-	prompt "sepolgen-ifgen"
+	select POLICYCOREUTILS_AUDIT2ALLOW
+	bool "sepolgen-ifgen"
+
+config POLICYCOREUTILS_AUDIT2WHY
+	select POLICYCOREUTILS_AUDIT2ALLOW
+	bool "audit2why"
+
+config POLICYCOREUTILS_SANDBOX
+	bool "sandbox"
+	depends on BROKEN
+
+config POLICYCOREUTILS_CHCAT
+	select LIBSEMANAGE_PYTHON
+	depends on BROKEN
+	bool "chcat"
+
+config POLICYCOREUTILS_SEMANAGE
+	select LIBSEMANAGE_PYTHON
+	depends on BROKEN
+	bool "semanage"
+
+endif
+
+config POLICYCOREUTILS_LOAD_POLICY
+	bool "load_policy"
+
+config POLICYCOREUTILS_NEWROLE
+	bool "newrole"
+
+config POLICYCOREUTILS_RESTORECOND
+	bool "restorecond"
+	depends on BROKEN
+
+config POLICYCOREUTILS_RUN_INIT
+	bool "run_init/open_init_pty"
+
+config POLICYCOREUTILS_FIXFILES
+	bool "fixfiles"
+
+config POLICYCOREUTILS_GENHOMEDIRCON
+	select POLICYCOREUTILS_SEMODULE
+	bool "genhomedircon"
+
+config POLICYCOREUTILS_SECON
+	bool "secon"
+
+config POLICYCOREUTILS_SEMODULE
+	bool "semodule"
+
+config POLICYCOREUTILS_SEMODULE_DEPS
+	bool "semodule_deps"
+
+config POLICYCOREUTILS_SEMODULE_EXPAND
+	bool "semodule_expand"
+
+config POLICYCOREUTILS_SEMODULE_LINK
+	bool "semodule_link"
+
+config POLICYCOREUTILS_SEMODULE_PACKAGE
+	bool "semodule_package"
 
 config POLICYCOREUTILS_SESTATUS
-	bool
-	prompt "sestatus"
+	bool "sestatus"
 
 config POLICYCOREUTILS_SETFILES
-	bool
-	prompt "setfiles"
+	bool "setfiles/restorecon"
 
 config POLICYCOREUTILS_SETSEBOOL
-	bool
-	prompt "setsebool"
+	bool "setsebool"
 
 endif

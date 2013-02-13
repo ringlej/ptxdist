@@ -1,28 +1,14 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 15 Jan 2013 11:33:01 +0100
-Subject: [PATCH] makefile: Allow PAMH, AUDITH and INOTIFYH to be overwritten
- by ENV
+Subject: [PATCH] makefile: Allow PAMH and AUDITH to be overwritten by ENV
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile          |    2 +-
  newrole/Makefile  |    4 ++--
  run_init/Makefile |    4 ++--
  setfiles/Makefile |    2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 77d8c80..7c85244 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,6 +1,6 @@
- SUBDIRS = setfiles semanage load_policy newrole run_init sandbox secon audit2allow audit2why sestatus semodule_package semodule semodule_link semodule_expand semodule_deps sepolgen-ifgen setsebool scripts po man gui
- 
--INOTIFYH = $(shell ls /usr/include/sys/inotify.h 2>/dev/null)
-+INOTIFYH ?= $(shell ls /usr/include/sys/inotify.h 2>/dev/null)
- 
- ifeq (${INOTIFYH}, /usr/include/sys/inotify.h)
- 	SUBDIRS += restorecond
 diff --git a/newrole/Makefile b/newrole/Makefile
 index e9834a3..96bf978 100644
 --- a/newrole/Makefile

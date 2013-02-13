@@ -3,6 +3,6 @@
 0001-restorecond-use-pkg-config.patch
 0002-makefile-remove-host-path-from-list-of-header-search.patch
 0003-makefile-remove-host-path-from-list-of-linker-search.patch
-0004-makefile-Allow-PAMH-AUDITH-and-INOTIFYH-to-be-overwr.patch
+0004-makefile-Allow-PAMH-and-AUDITH-to-be-overwritten-by-.patch
 0005-fixfiles-tweaks-to-make-it-work-better-with-busybox.patch
-# 19a316f0a1ef9696634d97495449d12e  - git-ptx-patches magic
+# b68072807b5c8140404f88de335c127e  - git-ptx-patches magic
