@@ -3,5 +3,5 @@
 0001-makefile-remove-host-path-from-list-of-header-search.patch
 0002-makefile-remove-host-path-from-list-of-linker-search.patch
 0003-makefile-use-python-config-instead-of-pkg-config.patch
-0004-makefile-add-a-dependency-from-pywrap-lib-to-.so.patch
-# 1c717182218fb96b6110fc3700b8b470  - git-ptx-patches magic
+0004-makefile-add-a-dependency-from-wrapper-libs-to-.so.patch
+# 5e597b81d3eb60a9bd3df62a5143fe4d  - git-ptx-patches magic

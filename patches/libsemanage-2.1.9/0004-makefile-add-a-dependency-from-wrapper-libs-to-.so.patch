@@ -1,19 +1,19 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Wed, 13 Feb 2013 23:55:24 +0100
-Subject: [PATCH] makefile: add a dependency from pywrap lib to .so
+Subject: [PATCH] makefile: add a dependency from wrapper libs to .so
 
-...otherwise in parallel builds the pywrap might get linked to the .a.
+...otherwise in parallel builds the wrapper might get linked to the .a.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- src/Makefile |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/Makefile |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/Makefile b/src/Makefile
-index 5d0e4b7..4aa6b0c 100644
+index 5d0e4b7..99a286f 100644
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -81,7 +81,7 @@ $(SWIGLOBJ): $(SWIGCOUT)
+@@ -81,10 +81,10 @@ $(SWIGLOBJ): $(SWIGCOUT)
  $(SWIGRUBYLOBJ): $(SWIGRUBYCOUT)
  	$(CC) $(CFLAGS) $(SWIG_CFLAGS) $(RUBYINC) -fPIC -DSHARED -c -o $@ $<
  
@@ -21,4 +21,8 @@ index 5d0e4b7..4aa6b0c 100644
 +$(SWIGSO): $(SWIGLOBJ) $(LIBSO)
  	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lsemanage
  
- $(SWIGRUBYSO): $(SWIGRUBYLOBJ)
+-$(SWIGRUBYSO): $(SWIGRUBYLOBJ)
++$(SWIGRUBYSO): $(SWIGRUBYLOBJ) $(LIBSO)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lsemanage
+ 
+ $(LIBA): $(OBJS)
