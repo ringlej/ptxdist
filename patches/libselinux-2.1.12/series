@@ -6,4 +6,5 @@
 0004-makefile-fix-linking-to-shlib-if-prefix.patch
 0005-makefile-move-lpcre-from-beginning-of-gcc-linker-cal.patch
 0006-makefile-use-python-config-instead-of-pkg-config.patch
-# de4667aca3c8dbc6dbdf0d2d76be078e  - git-ptx-patches magic
+0007-makefile-add-a-dependency-from-wrapper-libs-to-.so.patch
+# 110eefc2eace8149fe87fa36f9f513fb  - git-ptx-patches magic

@@ -1,0 +1,37 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 18 Feb 2013 11:22:11 +0100
+Subject: [PATCH] makefile: add a dependency from wrapper libs to .so
+
+...otherwise in parallel builds the wrapper libs might get linked to the .a.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index e963009..dfa9060 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -106,10 +106,10 @@ $(SWIGLOBJ): $(SWIGCOUT)
+ $(SWIGRUBYLOBJ): $(SWIGRUBYCOUT)
+ 	$(CC) $(CFLAGS) $(SWIG_CFLAGS) $(RUBYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+-$(SWIGSO): $(SWIGLOBJ)
++$(SWIGSO): $(SWIGLOBJ) $(LIBSO)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $< -L. -lselinux $(LDLIBS)
+ 
+-$(SWIGRUBYSO): $(SWIGRUBYLOBJ)
++$(SWIGRUBYSO): $(SWIGRUBYLOBJ) $(LIBSO)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LDLIBS)
+ 
+ $(LIBA): $(OBJS)
+@@ -129,7 +129,7 @@ selinuxswig_python_exception.i: ../include/selinux/selinux.h
+ $(AUDIT2WHYLOBJ): audit2why.c
+ 	$(CC) $(filter-out -Werror, $(CFLAGS)) $(PYINC) -fPIC -DSHARED -c -o $@ $<
+ 
+-$(AUDIT2WHYSO): $(AUDIT2WHYLOBJ)
++$(AUDIT2WHYSO): $(AUDIT2WHYLOBJ) $(LIBSO)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L. -lselinux $(LIBDIR)/libsepol.a $(LDLIBS)
+ 
+ %.o:  %.c policy.h
