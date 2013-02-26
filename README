@@ -4,7 +4,7 @@ PTXdist
 Necessary Packages
 ------------------
 
-In order to build ptxdist, you need three archives:
+In order to build ptxdist, you need these archives:
 
 	ptxdist-<version>.tgz		(mandatory)
 	ptxdist-<version>-projects.tgz	(optional)
