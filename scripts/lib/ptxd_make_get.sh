@@ -27,7 +27,7 @@ ptxd_make_get_http() {
 		shift
 
 		case "${opt}" in
-			no-check-certificate)
+			no-check-certificate|no-proxy)
 				opts[${#opts[@]}]="--${opt}"
 				;;
 			*)
@@ -112,6 +112,7 @@ export -f ptxd_make_get_download_permitted
 #
 # valid options:
 # - no-check-certificate	don't check server certificate (https only)
+# - no-proxy			don't use proxy even if configured
 #
 ptxd_make_get() {
 	local -a argv
