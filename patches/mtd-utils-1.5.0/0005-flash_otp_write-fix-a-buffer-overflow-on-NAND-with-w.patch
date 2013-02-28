@@ -1,0 +1,35 @@
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Thu, 28 Feb 2013 10:28:29 +0100
+Subject: [PATCH] flash_otp_write: fix a buffer overflow on NAND with write
+ size > 2048
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+I'm not aware of any chip having a write size bigger than 2048 today.
+Still checking for that instead of a sleeping problem to bite us maybe
+in a few years is easy.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Forwarded: id:1362044546-559-1-git-send-email-u.kleine-koenig@pengutronix.de
+---
+ flash_otp_write.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/flash_otp_write.c b/flash_otp_write.c
+index 0aa872e..5114e6b 100644
+--- a/flash_otp_write.c
++++ b/flash_otp_write.c
+@@ -82,6 +82,12 @@ int main(int argc,char *argv[])
+ 	else
+ 		len = 256;
+ 
++	if (len > sizeof(buf)) {
++		printf("huh, writesize (%d) bigger than buffer (%zu)\n",
++				len, sizeof(buf));
++		return ENOMEM;
++	}
++
+ 	wrote = 0;
+ 	while ((size = xread(0, buf, len))) {
+ 		if (size < 0) {

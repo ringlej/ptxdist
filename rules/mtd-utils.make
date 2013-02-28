@@ -91,6 +91,14 @@ ifdef PTXCONF_MTD_UTILS_FLASH_OTP_INFO
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/flash_otp_info)
 endif
+ifdef PTXCONF_MTD_UTILS_FLASH_OTP_LOCK
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/flash_otp_lock)
+endif
+ifdef PTXCONF_MTD_UTILS_FLASH_OTP_WRITE
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/flash_otp_write)
+endif
 ifdef PTXCONF_MTD_UTILS_FLASH_UNLOCK
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/flash_unlock)

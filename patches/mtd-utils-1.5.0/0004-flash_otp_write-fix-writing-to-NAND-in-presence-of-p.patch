@@ -1,0 +1,61 @@
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Wed, 27 Feb 2013 17:49:06 +0100
+Subject: [PATCH] flash_otp_write: fix writing to NAND in presence of partial
+ reads
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When doing something like:
+
+	{ printf "\xff"; printf "\xfe"; } | flash_otp_write -u /dev/mtd0 0
+
+flash_otp_write might see only a single byte when reading from stdin for
+the first tim. In this case (and without this patch) it pads to
+$writesize with '\xff's and writes that out. In the next iteration it
+reads the 2nd byte, pads and writes again. So the 2nd byte is written to
+offset $writesize instead of 1.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Forwarded: id:1362044529-511-1-git-send-email-u.kleine-koenig@pengutronix.de
+---
+ flash_otp_write.c |   19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/flash_otp_write.c b/flash_otp_write.c
+index 41cf1c5..0aa872e 100644
+--- a/flash_otp_write.c
++++ b/flash_otp_write.c
+@@ -15,6 +15,23 @@
+ 
+ #include <mtd/mtd-user.h>
+ 
++ssize_t xread(int fd, void *buf, size_t count)
++{
++	ssize_t ret, done = 0;
++
++retry:
++	ret = read(fd, buf + done, count - done);
++	if (ret < 0)
++		return ret;
++
++	done += ret;
++
++	if (ret == 0 /* EOF */ || done == count)
++		return done;
++	else
++		goto retry;
++}
++
+ int main(int argc,char *argv[])
+ {
+ 	int fd, val, ret, size, wrote, len;
+@@ -66,7 +83,7 @@ int main(int argc,char *argv[])
+ 		len = 256;
+ 
+ 	wrote = 0;
+-	while ((size = read(0, buf, len))) {
++	while ((size = xread(0, buf, len))) {
+ 		if (size < 0) {
+ 			perror("read()");
+ 			return errno;

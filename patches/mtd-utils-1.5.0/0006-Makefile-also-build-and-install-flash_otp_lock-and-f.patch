@@ -1,0 +1,42 @@
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Wed, 20 Feb 2013 17:29:12 +0100
+Subject: [PATCH] Makefile: also build and install flash_otp_lock and
+ flash_otp_write
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Forwarded: id:1361378491-18687-1-git-send-email-u.kleine-koenig@pengutronix.de
+---
+ .gitignore |    2 ++
+ Makefile   |    3 ++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/.gitignore b/.gitignore
+index d4771fb..83ca938 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -25,6 +25,8 @@
+ /flash_lock
+ /flash_otp_dump
+ /flash_otp_info
++/flash_otp_lock
++/flash_otp_write
+ /flash_unlock
+ /flashcp
+ /ftl_check
+diff --git a/Makefile b/Makefile
+index 190db58..3f9c24f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -19,7 +19,8 @@ TESTS = tests
+ MTD_BINS = \
+ 	ftl_format flash_erase nanddump doc_loadbios \
+ 	ftl_check mkfs.jffs2 flash_lock flash_unlock \
+-	flash_otp_info flash_otp_dump mtd_debug flashcp nandwrite nandtest \
++	flash_otp_info flash_otp_dump flash_otp_lock flash_otp_write \
++	mtd_debug flashcp nandwrite nandtest \
+ 	jffs2dump \
+ 	nftldump nftl_format docfdisk \
+ 	rfddump rfdformat \

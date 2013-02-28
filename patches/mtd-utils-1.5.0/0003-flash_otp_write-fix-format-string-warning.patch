@@ -1,0 +1,30 @@
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Wed, 20 Feb 2013 17:25:30 +0100
+Subject: [PATCH] flash_otp_write: fix format string warning
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes
+	flash_otp_write.c: In function 'main':
+	flash_otp_write.c:61:2: warning: format '%lx' expects argument of type 'long unsigned int', but argument 3 has type 'off_t' [-Wformat]
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Forwarded: id:1361378469-18631-1-git-send-email-u.kleine-koenig@pengutronix.de
+---
+ flash_otp_write.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/flash_otp_write.c b/flash_otp_write.c
+index d407ebb..41cf1c5 100644
+--- a/flash_otp_write.c
++++ b/flash_otp_write.c
+@@ -58,7 +58,7 @@ int main(int argc,char *argv[])
+ 		return errno;
+ 	}
+ 
+-	printf("Writing OTP user data on %s at offset 0x%lx\n", argv[2], offset);
++	printf("Writing OTP user data on %s at offset 0x%lx\n", argv[2], (unsigned long)offset);
+ 
+ 	if (mtdInfo.type == MTD_NANDFLASH)
+ 		len = mtdInfo.writesize;

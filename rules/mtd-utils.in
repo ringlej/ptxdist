@@ -68,6 +68,18 @@ config MTD_UTILS_FLASH_OTP_INFO
 	help
 	  Print info about one-time programmable data.
 
+config MTD_UTILS_FLASH_OTP_LOCK
+	bool
+	prompt "flash_otp_lock"
+	help
+	  Lock one-time programmable data.
+
+config MTD_UTILS_FLASH_OTP_WRITE
+	bool
+	prompt "flash_otp_write"
+	help
+	  Write one-time programmable data.
+
 config MTD_UTILS_FLASH_UNLOCK
 	bool
 	prompt "flash_unlock"
