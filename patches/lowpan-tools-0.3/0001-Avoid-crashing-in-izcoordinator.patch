@@ -1,0 +1,139 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Thu, 28 Feb 2013 13:17:08 +0100
+Subject: [PATCH] Avoid crashing in izcoordinator.
+
+This patch fixes some logging issues in lowpan-tools to avoid crashing
+of izcoordinator.
+
+Posted on linux-zigbee-devel mailinglist from Tom Carroll:
+http://www.mail-archive.com/linux-zigbee-devel@lists.sourceforge.net/msg01224.html
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ lib/logging.c     |  6 +++++-
+ src/coordinator.c | 32 +++++++++++++++-----------------
+ 2 files changed, 20 insertions(+), 18 deletions(-)
+ mode change 100644 => 100755 src/coordinator.c
+
+diff --git a/lib/logging.c b/lib/logging.c
+index 3ec30ee..f37531e 100644
+--- a/lib/logging.c
++++ b/lib/logging.c
+@@ -45,8 +45,12 @@ static void log_string(int level, char *s)
+ void init_log(char * name, int level)
+ {
+ #ifdef HAVE_SYSLOG_H
++	int option = LOG_PID|LOG_CONS|LOG_NOWAIT;
++
+ 	log_level = level;
+-	openlog(name, LOG_PID|LOG_CONS|LOG_NOWAIT, LOG_DAEMON);
++	if (log_level > 0)
++		option |= LOG_PERROR;
++	openlog(name, option, LOG_DAEMON);
+ #endif
+ }
+ 
+diff --git a/src/coordinator.c b/src/coordinator.c
+old mode 100644
+new mode 100755
+index a09633a..3322e3e
+--- a/src/coordinator.c
++++ b/src/coordinator.c
+@@ -64,10 +64,10 @@ extern int yydebug;
+ 
+ static void cleanup(int ret);
+ 
+-static void log_msg_nl_perror(char *s, int err)
++static void log_msg_nl_perror(const char *s, int res)
+ {
+-	if (err != NLE_SUCCESS) {
+-		log_msg(0, "%s: %s", s, nl_geterror(err));
++	if (res < 0) {
++		log_msg(0, "%s: %s", s, nl_geterror(-res));
+ 		cleanup(1);
+ 	}
+ }
+@@ -93,8 +93,8 @@ static int mlme_start(uint16_t short_addr, uint16_t pan, uint8_t channel, uint8_
+ 	nla_put_u8(msg, IEEE802154_ATTR_BAT_EXT, 0);
+ 	nla_put_u8(msg, IEEE802154_ATTR_COORD_REALIGN, 0);
+ #endif
+-	int err = nl_send_auto_complete(nl, msg);
+-	log_msg_nl_perror("nl_send_auto_complete", err);
++	int res = nl_send_auto_complete(nl, msg);
++	log_msg_nl_perror("nl_send_auto_complete", res);
+ 	return 0;
+ }
+ 
+@@ -127,9 +127,9 @@ static int coordinator_associate(struct genlmsghdr *ghdr, struct nlattr **attrs)
+ 	nla_put_u64(msg, IEEE802154_ATTR_DEST_HW_ADDR, nla_get_u64(attrs[IEEE802154_ATTR_SRC_HW_ADDR]));
+ 	nla_put_u16(msg, IEEE802154_ATTR_DEST_SHORT_ADDR, shaddr);
+ 
+-	int err = nl_send_auto_complete(nl, msg);
++	int res = nl_send_auto_complete(nl, msg);
+ 
+-	log_msg_nl_perror("nl_send_auto_complete", err);
++	log_msg_nl_perror("nl_send_auto_complete", res);
+ 
+ 	return 0;
+ }
+@@ -308,7 +308,6 @@ int main(int argc, char **argv)
+ #else
+ 		opt = getopt(argc, argv, "l:f:d:m:n:i:s:p:c:hv");
+ #endif
+-		fprintf(stderr, "Opt: %c (%hhx)\n", opt, opt);
+ 		if (opt == -1)
+ 			break;
+ 
+@@ -364,7 +363,6 @@ int main(int argc, char **argv)
+ 		usage(pname);
+ 		return -1;
+ 	}
+-	lease_file[sizeof(lease_file)-1] = '\0';
+ 	if (debug > 1)
+ 		yydebug = 1; /* Parser debug */
+ 	else
+@@ -396,19 +394,19 @@ int main(int argc, char **argv)
+ 	sa.sa_handler = SIG_IGN;
+ 	sigaction(SIGPIPE, &sa, NULL);
+ 
+-	int err = NLE_SUCCESS;
++	int res = 0;
+ 	nl = nl_socket_alloc();
+ 
+ 	if (!nl) {
+-		log_msg_nl_perror("nl_sock_alloc", NLE_NOMEM);
++		log_msg_nl_perror("nl_sock_alloc", -NLE_NOMEM);
+ 		return 1;
+ 	}
+ 
+-	err = genl_connect(nl);
+-	log_msg_nl_perror("genl_connect", err);
++	res = genl_connect(nl);
++	log_msg_nl_perror("genl_connect", res);
+ 
+ 	family = genl_ctrl_resolve(nl, IEEE802154_NL_NAME);
+-	log_msg_nl_perror("genl_ctrl_resolve", NLE_NOMEM);
++	log_msg_nl_perror("genl_ctrl_resolve", family);
+ 
+ 	nl_socket_add_membership(nl, nl_get_multicast_id(nl, IEEE802154_NL_NAME, IEEE802154_MCAST_COORD_NAME));
+ 
+@@ -449,7 +447,7 @@ int main(int argc, char **argv)
+ 			return 2;
+ 		}
+ 	}
+-	pid_fd = open (PID_FILE, O_WRONLY | O_CREAT, 0640);
++	pid_fd = open (pid_file, O_WRONLY | O_TRUNC | O_CREAT, 0640);
+ 	if (pid_fd < 0) {
+ 		perror ("open");
+ 		return 1;
+@@ -469,8 +467,8 @@ int main(int argc, char **argv)
+ 	mlme_start(short_addr, pan, channel, 1, iface);
+ 
+ 	while (!die_flag) {
+-		err = nl_recvmsgs_default(nl);
+-		log_msg_nl_perror("nl_recvmsgs", err);
++		res = nl_recvmsgs_default(nl);
++		log_msg_nl_perror("nl_recvmsgs", res);
+ 	}
+ 	cleanup(0);
+ 
