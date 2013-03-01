@@ -4,7 +4,7 @@ menuconfig BLUEZ
 	tristate "bluez                         "
 	select DBUS
 	select GLIB
-	select LIBUSB_COMPAT
+	select LIBUSB_COMPAT	if BLUEZ_USB
 	select ALSA_LIB		if BLUEZ_ALSA
 	select GSTREAMER	if BLUEZ_GSTREAMER
 	select GST_PLUGINS_BASE	if BLUEZ_GSTREAMER
@@ -20,6 +20,13 @@ config BLUEZ_SYSTEMD_UNIT
 	default y
 	depends on SYSTEMD
 	prompt "install systemd unit files for bluez"
+
+config BLUEZ_USB
+	bool "USB support"
+	default y
+	help
+	  Build bluez with USB support. Only disable this if your Bluetooth
+	  adapter is not connected via USB (for example with an UART or SDIO).
 
 config BLUEZ_ALSA
 	bool "alsa support"

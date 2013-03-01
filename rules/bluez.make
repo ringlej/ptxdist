@@ -52,7 +52,7 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-gatt-example \
 	--$(call ptx/endis, PTXCONF_BLUEZ_GSTREAMER)-gstreamer \
 	--$(call ptx/endis, PTXCONF_BLUEZ_ALSA)-alsa \
-	--enable-usb \
+	--$(call ptx/endis, PTXCONF_BLUEZ_USB)-usb \
 	--disable-tracer \
 	--enable-tools \
 	--enable-bccmd \
