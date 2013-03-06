@@ -10,13 +10,3 @@ menuconfig GETTEXT
 	  The gettext program translates a natural language
 	  message into the user's language, by looking up
 	  the translation in a message catalog.
-
-if GETTEXT
-
-config GETTEXT_LIBINTL
-	bool
-	prompt "install gnu libintl"
-	help
-	  libintl is the GNU internationalization runtime library.
-
-endif
