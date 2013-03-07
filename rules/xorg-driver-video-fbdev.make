@@ -29,6 +29,13 @@ XORG_DRIVER_VIDEO_FBDEV_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_FBDEV)
 # Prepare
 # ----------------------------------------------------------------------------
 
+# Do not resolve symbols in fbdev_drv.so at load time, so it has a chance
+# to load the libfbdevhw.so submodule before using its symbols.
+# This fixes the following error when starting Xorg:
+# (EE) Failed to load /usr/lib/xorg/modules/drivers/fbdev_drv.so: /usr/lib/xorg/modules/drivers/fbdev_drv.so: undefined symbol: fbdevHWSave
+XORG_DRIVER_VIDEO_FBDEV_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_BINDNOW
+
 XORG_DRIVER_VIDEO_FBDEV_PATH	:= PATH=$(CROSS_PATH)
 XORG_DRIVER_VIDEO_FBDEV_ENV 	:= $(CROSS_ENV)
 
