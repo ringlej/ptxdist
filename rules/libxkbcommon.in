@@ -1,0 +1,9 @@
+## SECTION=multimedia_libs
+
+config LIBXKBCOMMON
+	tristate
+	prompt "libxkbcommon"
+	select XKEYBOARD_CONFIG if RUNTIME
+	help
+	  A library to handle keyboard descriptions, to be used by
+	  Wayland, kmscon, GTK+, Qt, Clutter, etc.
