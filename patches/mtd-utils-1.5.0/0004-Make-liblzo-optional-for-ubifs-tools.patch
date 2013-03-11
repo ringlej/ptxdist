@@ -1,13 +1,13 @@
 From: Bernhard Walle <bernhard@bwalle.de>
 Date: Sun, 11 Mar 2012 20:11:14 +0100
-Subject: [PATCH] Make liblzo optional for ubifs tools
+Subject: [PATCH mtd-utils] Make liblzo optional for ubifs tools
 
 Based on patch from Marc Kleine-Budde <mkl@pengutronix.de>.
 
 Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
 ---
- Makefile           |    2 +-
- mkfs.ubifs/compr.c |   17 +++++++++++++++++
+ Makefile           |  2 +-
+ mkfs.ubifs/compr.c | 17 +++++++++++++++++
  2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile

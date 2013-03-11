@@ -1,0 +1,51 @@
+From: Richard Genoud <richard.genoud@gmail.com>
+Date: Wed, 12 Sep 2012 16:38:33 +0200
+Subject: [PATCH mtd-utils] introduce PRIxoff_t and PRIdoff_t printf helpers
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+They will be usefull when printing offsets.
+
+Signed-off-by: Richard Genoud <richard.genoud@gmail.com>
+Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+
+Notes:
+    Origin: upstream, commit:4f1b10827b81cd9acaa9e02b0da0dc447f1471ea
+
+    This patch is a dependency for the following patch.
+
+ include/common.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/include/common.h b/include/common.h
+index 88b67e5..d0c4146 100644
+--- a/include/common.h
++++ b/include/common.h
+@@ -25,6 +25,8 @@
+ #include <string.h>
+ #include <fcntl.h>
+ #include <errno.h>
++#include <features.h>
++#include <inttypes.h>
+ #include "version.h"
+ 
+ #ifndef PROGRAM_NAME
+@@ -48,6 +50,15 @@ extern "C" {
+ #define O_CLOEXEC 0
+ #endif
+ 
++/* define a print format specifier for off_t */
++#ifdef __USE_FILE_OFFSET64
++#define PRIxoff_t PRIx64
++#define PRIdoff_t PRId64
++#else
++#define PRIxoff_t "l"PRIx32
++#define PRIdoff_t "l"PRId32
++#endif
++
+ /* Verbose messages */
+ #define bareverbose(verbose, fmt, ...) do {                        \
+ 	if (verbose)                                               \

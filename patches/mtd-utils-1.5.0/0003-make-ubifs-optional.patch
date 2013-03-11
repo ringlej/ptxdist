@@ -1,10 +1,10 @@
 From: Bernhard Walle <bernhard@bwalle.de>
 Date: Sun, 11 Mar 2012 20:03:50 +0100
-Subject: [PATCH] make ubifs optional
+Subject: [PATCH mtd-utils] make ubifs optional
 
 Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
 ---
- Makefile |    2 ++
+ Makefile | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/Makefile b/Makefile
