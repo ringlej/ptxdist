@@ -1,0 +1,11 @@
+## SECTION=multimedia_wayland
+
+config WAYLAND
+	tristate
+	select HOST_WAYLAND
+	select LIBC_M
+	select LIBC_RT
+	select LIBFFI
+	prompt "wayland"
+	help
+	  Wayland compositor infrastructure client and server libraries.

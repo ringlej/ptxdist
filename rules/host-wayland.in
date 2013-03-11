@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_WAYLAND
+	tristate
+	select HOST_EXPAT
+	select HOST_LIBFFI

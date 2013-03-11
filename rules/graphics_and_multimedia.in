@@ -89,3 +89,6 @@ if XORG
 source "generated/multimedia_xorg.in"
 endif
 
+menu "wayland                       "
+source "generated/multimedia_wayland.in"
+endmenu
