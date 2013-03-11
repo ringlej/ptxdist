@@ -1,0 +1,7 @@
+## SECTION=multimedia_libs
+
+config MTDEV
+	tristate
+	prompt "mtdev"
+	help
+	  multitouch protocol translation library
