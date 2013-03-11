@@ -110,8 +110,15 @@ case "$remove_old" in
 		;;
 esac
 
+# git-format-patch --no-signature is supported since git 1.7.2
 if git format-patch -h 2>&1 | grep -q signature; then
 	GIT_EXTRA_ARGS="--no-signature"
+fi
+
+# git-format-patch --notes is supported since git 1.7.6, but actually you want
+# git 1.8.1-rc0 to get the notes below the --- marker
+if man git-format-patch | grep -q -e --notes; then
+	GIT_EXTRA_ARGS="$GIT_EXTRA_ARGS --notes"
 fi
 
 cat .ptxdist/series.0 > .ptxdist/series
