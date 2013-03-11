@@ -21,7 +21,7 @@ $(STATEDIR)/world.targetinstall: \
 	$(WORLD_PACKAGES_TARGET) \
 	$(WORLD_PACKAGES_HOST) \
 	$(WORLD_PACKAGES_CROSS)
-	@echo $@ : $^ | sed  -e 's:[^ ]*/\([^ ]\):\1:g' >> $(DEP_OUTPUT)
+	@echo $(notdir $@) : $(notdir $^) >> $(DEP_OUTPUT)
 	@$(call touch)
 
 PHONY += world
