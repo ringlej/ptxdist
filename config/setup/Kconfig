@@ -61,7 +61,7 @@ config SETUP_HTTPS_PROXY
 	string
 	default ""
 	help
-	  If you have to use a proxy for HTTP transfers, please add the
+	  If you have to use a proxy for HTTPS transfers, please add the
 	  proxy URL here. Example:
 
 	              http://your.proxy.org:80
