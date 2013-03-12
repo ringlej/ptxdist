@@ -56,6 +56,16 @@ config SETUP_HTTP_PROXY
 
 	              http://your.proxy.org:80
 
+config SETUP_HTTPS_PROXY
+	prompt "HTTPS Proxy"
+	string
+	default ""
+	help
+	  If you have to use a proxy for HTTP transfers, please add the
+	  proxy URL here. Example:
+
+	              http://your.proxy.org:80
+
 endmenu
 
 menu "Project Searchpath"

@@ -2015,7 +2015,7 @@ setup_env() {
 
 	unset $(/usr/bin/env | \
 		sed -n -e "s/^\([^=[:space:]]\+\)=.*$/\1/p" | \
-		egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|ftp_proxy${whitelist})$" )
+		egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|https_proxy|ftp_proxy${whitelist})$" )
 
 	######## the environment is clean now ########
 
@@ -2153,6 +2153,10 @@ setup_config() {
 	#
 	if [ -n "${PTXCONF_SETUP_HTTP_PROXY}" ]; then
 		export http_proxy="${PTXCONF_SETUP_HTTP_PROXY}"
+	fi
+
+	if [ -n "${PTXCONF_SETUP_HTTPS_PROXY}" ]; then
+		export https_proxy="${PTXCONF_SETUP_HTTPS_PROXY}"
 	fi
 
 	if [ -n "${PTXCONF_SETUP_FTP_PROXY}" ]; then
