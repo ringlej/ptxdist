@@ -66,6 +66,17 @@ config SETUP_HTTPS_PROXY
 
 	              http://your.proxy.org:80
 
+config SETUP_NO_PROXY
+	prompt "Proxy Exceptions"
+	string
+	default ""
+	help
+	  If you generally require a proxy, but need to add exceptions for
+	  certain hosts, please add those as a comma-separated list here.
+	  Example:
+
+	              .localdomain,127.0.0.1
+
 endmenu
 
 menu "Project Searchpath"
