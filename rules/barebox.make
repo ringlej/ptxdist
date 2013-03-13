@@ -153,7 +153,7 @@ barebox_oldconfig barebox_menuconfig barebox_nconfig: $(STATEDIR)/barebox.extrac
 	@if test -e $(BAREBOX_CONFIG); then \
 		cp $(BAREBOX_CONFIG) $(BAREBOX_DIR)/.config; \
 	fi
-	cd $(BAREBOX_DIR) && \
+	@cd $(BAREBOX_DIR) && \
 		$(BAREBOX_PATH) $(BAREBOX_ENV) $(MAKE) $(BAREBOX_MAKEVARS) $(subst barebox_,,$@)
 	@if cmp -s $(BAREBOX_DIR)/.config $(BAREBOX_CONFIG); then \
 		echo "barebox configuration unchanged"; \
