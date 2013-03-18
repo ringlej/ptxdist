@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 0.9.6.4
-NETWORKMANAGER_MD5	:= 54ca5200edeb5155086ced43d00b0cad
+NETWORKMANAGER_VERSION	:= 0.9.8.0
+NETWORKMANAGER_MD5	:= 38d28f6bd9220d85dfff47210706195c
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
 NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/0.9/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
@@ -39,22 +39,31 @@ NETWORKMANAGER_CONF_OPT := \
 	--enable-shared \
 	--disable-nls \
 	--disable-rpath \
+	--disable-ifcfg-rh \
+	--disable-ifcfg-suse \
+	--enable-ifupdown \
+	--disable-ifnet \
 	--disable-qt \
-	--disable-ppp \
 	--disable-wimax \
 	--disable-polkit \
+	--disable-modify-system \
+	--disable-ppp \
+	--disable-concheck \
 	--enable-more-warnings \
-	--disable-gtk-doc \
 	--disable-vala \
-	--without-docs \
-	--with-gnu-ld \
-	--with-crypto=gnutls \
-	--with-distro=debian \
+	--disable-tests \
+	--disable-doc \
+	--disable-gtk-doc \
+	--with-systemdsystemunitdir=/lib/systemd/system \
 	--with-session-tracking=none \
+	--with-crypto=gnutls \
+	--without-modem-manager-1 \
 	--with-dhclient=/sbin/dhclient \
-	--with-dhcpcd=no \
-	--with-resolvconf=no \
+	--without-dhcpcd \
+	--without-resolvconf \
+	--without-netconfig \
 	--with-iptables=/usr/sbin/iptables
+
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,6 +109,8 @@ $(STATEDIR)/networkmanager.targetinstall:
 
 #	# unmanage NFS root devices
 	@$(call install_alternative, networkmanager, 0, 0, 0755, /lib/init/nm-unmanage.sh)
+
+	@$(call install_copy, networkmanager, 0, 0, 0755, /var/lib/NetworkManager)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NETWORKMANAGER_STARTSCRIPT

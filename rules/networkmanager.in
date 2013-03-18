@@ -9,7 +9,7 @@ menuconfig NETWORKMANAGER
 	select UDEV
 	select UDEV_LIBGUDEV
 	select DBUS_GLIB
-	select LIBNL
+	select LIBNL3
 	select LIBUUID
 	select WPA_SUPPLICANT		if RUNTIME
 	select GNUTLS
