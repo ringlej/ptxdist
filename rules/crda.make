@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CRDA) += crda
 #
 # Paths and names
 #
-CRDA_VERSION	:= 1.1.2
-CRDA_MD5	:= 5226f65aebacf94baaf820f8b4e06df4
+CRDA_VERSION	:= 1.1.3
+CRDA_MD5	:= 29579185e06a75675507527243d28e5c
 CRDA		:= crda-$(CRDA_VERSION)
 CRDA_SUFFIX	:= tar.bz2
 CRDA_URL	:= http://linuxwireless.org/download/crda/$(CRDA).$(CRDA_SUFFIX)
