@@ -4,6 +4,10 @@
 
 CONFFILE=/var/run/NetworkManager.conf
 
+if [ ! -e /run/resolv.conf -a -e /proc/net/pnp ]; then
+	cp /proc/net/pnp /run/resolv.conf
+fi
+
 if [ ! -f $CONFFILE ]; then
 	# set previously enabled interfaces to unmanaged
 	cat /etc/NetworkManager/NetworkManager.conf > $CONFFILE

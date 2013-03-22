@@ -1,2 +1,7 @@
 #!/bin/sh
+
+if [ ! -e /run/resolv.conf -a -e /proc/net/pnp ]; then
+	cp /proc/net/pnp /run/resolv.conf
+fi
+
 ifconfig | awk '/^[^ ]/ { printf "%s=kernel\n", $1 }' > /var/run/ifstate
