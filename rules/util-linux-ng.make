@@ -188,6 +188,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_MCOOKIE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/mcookie)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_LDATTACH
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/ldattach)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
 	@$(call install_lib, util-linux-ng, 0, 0, 0644, libblkid)
 endif

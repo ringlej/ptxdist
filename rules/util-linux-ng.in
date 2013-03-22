@@ -260,6 +260,12 @@ config UTIL_LINUX_NG_MCOOKIE
 	  mcookie generates a 128-bit random hexadecimal number for
 	  use with the X authority system.
 
+config UTIL_LINUX_NG_LDATTACH
+	bool
+	prompt "ldattach"
+	help
+	  attach a line discipline to a serial line
+
 config UTIL_LINUX_NG_UUIDD
 	bool
 	select UTIL_LINUX_NG_LIBUUID
