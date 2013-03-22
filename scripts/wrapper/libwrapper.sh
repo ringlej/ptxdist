@@ -24,7 +24,7 @@ wrapper_exec() {
 	if [ "${PTXDIST_VERBOSE}" = 1 -a -n "${PTXDIST_FD_LOGFILE}" ]; then
 		echo "wrapper: ${PTXDIST_CCACHE} ${0##*/} ${ARG_LIST} $* ${LATE_ARG_LIST}" >&${PTXDIST_FD_LOGFILE}
 	fi
-	exec ${PTXDIST_CCACHE} $0.real ${ARG_LIST} "$@" ${LATE_ARG_LIST}
+	exec ${PTXDIST_CCACHE} "${0%/*}/real/${0##*/}" ${ARG_LIST} "$@" ${LATE_ARG_LIST}
 }
 
 cc_check_args() {

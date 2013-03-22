@@ -510,7 +510,8 @@ check_dirs() {
 	done
 
 	rm -rf -- "${PTX_WRAPPER_DIR}" &&
-	mkdir -p -- "${PTX_WRAPPER_DIR}" || ptxd_bailout "cannot create dir: '${PTX_WRAPPER_DIR}'"
+	mkdir -p -- "${PTX_WRAPPER_DIR}/real" ||
+	ptxd_bailout "cannot create dir: '${PTX_WRAPPER_DIR}/real'"
 
 	# check for case sensitive file system
 	for dir in \
@@ -588,12 +589,12 @@ check_compiler() {
 			;;
 		esac
 
-		ln -sf "${cc_abs}" "${PTX_WRAPPER_DIR}/${cc_default}.real" &&
+		ln -sf "${cc_abs}" "${PTX_WRAPPER_DIR}/real/${cc_default}" &&
 		ln -sf "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${PTX_WRAPPER_DIR}/${cc_default}" &&
 
 		if [ -n "${cc_alternate}" ]; then
 		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/${cc_alternate}" &&
-		    ln -sf "${cc_default}.real" "${PTX_WRAPPER_DIR}/${cc_alternate}.real"
+		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/real/${cc_alternate}"
 		fi || \
 		    ptxd_bailout "unable to create compiler wrapper link"
 	done
@@ -674,7 +675,7 @@ check_compiler() {
 	rm -f "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	ln -sf "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld; do
-		ln -sf "$(which ${compiler_prefix}${cc})" "${PTX_WRAPPER_DIR}/${compiler_prefix}${cc}.real" &&
+		ln -sf "$(which ${compiler_prefix}${cc})" "${PTX_WRAPPER_DIR}/real/${compiler_prefix}${cc}" &&
 		ln -sf "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${PTX_WRAPPER_DIR}/${compiler_prefix}${cc}"
 	done
 }
