@@ -12,14 +12,14 @@ don't also need special LDFLAGS. Omit them.
 
 Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
 ---
- docs/Makefile.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ docs/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/docs/Makefile.in b/docs/Makefile.in
-index 591d818..0e2ef8f 100644
+index 0560553..628c006 100644
 --- a/docs/Makefile.in
 +++ b/docs/Makefile.in
-@@ -83,7 +83,7 @@ LIBS =
+@@ -85,7 +85,7 @@ LIBS = @LIBS@
  
  COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
  CCLD = $(CC)
