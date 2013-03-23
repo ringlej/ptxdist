@@ -1,0 +1,10 @@
+## SECTION=shell_and_console
+
+config USB_MODESWITCH
+	tristate
+	prompt "usb-modeswitch"
+	select LIBUSB_COMPAT
+	help
+	  Activating switchable USB devices on Linux.
+
+# vim: set sw=8 ts=8 noet ft=kconfig:
