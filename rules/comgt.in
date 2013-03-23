@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config COMGT
+	tristate
+	prompt "comgt"
+	help
+	  Linux UMTS/GPRS command-line tool

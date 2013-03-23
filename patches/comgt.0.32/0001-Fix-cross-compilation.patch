@@ -1,0 +1,22 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Wed, 25 Jul 2012 17:35:00 +0200
+Subject: [PATCH] Fix cross compilation
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ Makefile | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 6028647..412a7b3 100755
+--- a/Makefile
++++ b/Makefile
+@@ -72,8 +72,6 @@ clean:
+ 
+ 
+ comgt: comgt.o
+-	cc comgt.o $(LDFLAGS) -o comgt
+ 
+ comgt.o: comgt.c comgt.h
+-	cc comgt.c $(CFLAGS) 
+ 
