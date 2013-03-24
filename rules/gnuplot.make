@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 # Paths and names
 #
 GNUPLOT_VERSION	:= 4.6.2
-GNUPLOT_MAJ_VER := $(shell echo $(GNUPLOT_VERSION) | cut -d . -f 1-2)
+GNUPLOT_MAJ_VER := $(basename $(GNUPLOT_VERSION))
 GNUPLOT_MD5	:= 060e0a77cabb6d6055c5917b0f0b5769
 GNUPLOT		:= gnuplot-$(GNUPLOT_VERSION)
 GNUPLOT_SUFFIX	:= tar.gz
@@ -35,9 +35,6 @@ GNUPLOT_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
-#
-# 4.2.4: --disable-datastrings is broken
-#        --disable-binary-data-file is broken
 #
 GNUPLOT_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
@@ -81,14 +78,7 @@ GNUPLOT_AUTOCONF = \
 	--without-tutorial \
 	--without-cairo
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gnuplot.compile:
-	@$(call targetinfo)
-	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_PATH) $(MAKE) gnuplot $(PARALLELMFLAGS)
-	@$(call touch)
+GNUPLOT_MAKE_OPT := -C src
 
 # ----------------------------------------------------------------------------
 # Target-Install
