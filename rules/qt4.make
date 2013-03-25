@@ -553,7 +553,7 @@ ifdef PTXCONF_QT4_BUILD_SVG
 		/usr/plugins/iconengines/libqsvgicon.$(QT4_PLUGIN_EXT))
 endif
 
-ifndef PTXCONF_QT4_BUILD_NETWORK
+ifdef PTXCONF_QT4_BUILD_NETWORK
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/bearer/libqgenericbearer.$(QT4_PLUGIN_EXT))
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
