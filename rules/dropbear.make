@@ -106,10 +106,12 @@ endif
 
 ifdef PTXCONF_DROPBEAR_DIS_AGENT
 	@echo "ptxdist: disabling agent"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_AGENTFWD)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_AGENTFWD)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_CLI_AGENTFWD)
 else
 	@echo "ptxdist: enabling agent"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_AGENTFWD)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_AGENTFWD)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_CLI_AGENTFWD)
 endif
 
 
@@ -206,18 +208,22 @@ endif
 
 ifdef PTXCONF_DROPBEAR_PASSWD
 	@echo "ptxdist: enabling passwd"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PASSWORD_AUTH)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_PASSWORD_AUTH)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_CLI_PASSWORD_AUTH)
 else
 	@echo "ptxdist: disabling passwd"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PASSWORD_AUTH)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_PASSWORD_AUTH)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_CLI_PASSWORD_AUTH)
 endif
 
 ifdef PTXCONF_DROPBEAR_PUBKEY
 	@echo "ptxdist: enabling pubkey"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_PUBKEY_AUTH)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_CLI_PUBKEY_AUTH)
 else
 	@echo "ptxdist: disabling pubkey"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_PUBKEY_AUTH)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_CLI_PUBKEY_AUTH)
 endif
 
 	@$(call touch)
