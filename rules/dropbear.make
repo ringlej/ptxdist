@@ -34,8 +34,7 @@ DROPBEAR_DIR		:= $(BUILDDIR)/$(DROPBEAR)
 # autoconf
 #
 DROPBEAR_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-nls
+	$(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_DROPBEAR_ZLIB
 DROPBEAR_AUTOCONF	+= --enable-zlib
@@ -69,10 +68,6 @@ endif
 
 ifdef PTXCONF_DROPBEAR_DIS_WTMPX
 DROPBEAR_AUTOCONF	+= --disable-wtmpx
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_LIBUTIL
-DROPBEAR_AUTOCONF	+= --disable-libutil
 endif
 
 ifdef PTXCONF_DROPBEAR_DIS_PUTUTLINE

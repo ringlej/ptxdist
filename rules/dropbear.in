@@ -99,13 +99,6 @@ config DROPBEAR_DIS_WTMPX
 	  Keep dropbear from writing to wtmpx.
 	  This option is useful for small or flash-based filesystems.
 
-config DROPBEAR_DIS_LIBUTIL
-	bool
-	prompt "disable use of libutil"
-	help
-	  Enable this option to leave out the use of libutil.
-	  This might help to reduce the size of the binary.
-
 config DROPBEAR_DIS_PUTUTLINE
 	bool
 	prompt "disable use of pututline"
