@@ -1,0 +1,46 @@
+## SECTION=networking
+
+menuconfig STRONGSWAN
+	bool
+	prompt "strongswan                    "
+	select LIBGMP
+	select LIBCURL if STRONGSWAN_LIBCURL
+	help
+	  strongSwan is a complete IPsec implementation.
+	  Please keep in mind to configure the kernel accordingly to fulfill
+	  strongSwan's needs. See 'Required Kernel Modules' here:
+	  http://wiki.strongswan.org/projects/strongswan/wiki/KernelModules
+
+if STRONGSWAN
+
+config STRONGSWAN_LIBCURL
+	bool
+	default y
+	prompt "CURL fetcher plugin to fetch files"
+	help
+	  If you intend to dynamically fetch Certificate Revocation Lists
+	  (CRLs) from an HTTP server or as an alternative want to use
+	  the Online Certificate Status Protocol (OCSP) say yes.
+
+config STRONGSWAN_AFALG
+	bool
+	default y
+	prompt "AF_ALG crypto interface to Linux Crypto API"
+	help
+	  Linux 2.6.38 introduced the AF_ALG Crypto API which makes the
+	  crypto algorithms of the kernel available in userland.
+	  If your strongswan configuration depends on this, be sure to
+	  enable the appropriate crypto algorithm in your kernel.
+	  For test configurations see af-alg-* categories here:
+	  http://www.strongswan.org/uml/testresults4/index.html
+	  For a list of cipher suite keywords see:
+	  http://wiki.strongswan.org/projects/strongswan/wiki/IKEv2CipherSuites
+	  http://wiki.strongswan.org/projects/strongswan/wiki/IKEv1CipherSuites
+
+config STRONGSWAN_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd service file"
+
+endif
