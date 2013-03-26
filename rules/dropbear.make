@@ -181,6 +181,22 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA1_96_HMAC)
 endif
 
+ifdef PTXCONF_DROPBEAR_SHA256
+	@echo "ptxdist: enabling sha256"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA2_256_HMAC)
+else
+	@echo "ptxdist: disabling sha256"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA2_256_HMAC)
+endif
+
+ifdef PTXCONF_DROPBEAR_SHA512
+	@echo "ptxdist: enabling sha512"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA2_512_HMAC)
+else
+	@echo "ptxdist: disabling sha512"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA2_512_HMAC)
+endif
+
 ifdef PTXCONF_DROPBEAR_MD5
 	@echo "ptxdist: enabling md5"
 	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_MD5_HMAC)

@@ -232,6 +232,32 @@ config DROPBEAR_SHA1_96
 	  Although slower than MD5, this larger digest size makes it
 	  stronger against brute force attacks.
 
+config DROPBEAR_SHA256
+	bool
+	prompt "sha256"
+	default n
+	help
+	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
+	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
+	  and published in 2001 by the NIST as a U.S. Federal Information
+	  Processing Standard. SHA stands for Secure Hash Algorithm. SHA-2
+	  includes a significant number of changes from its predecessor,
+	  SHA-1. SHA-2 consists of a set of four hash functions with digests
+	  that are 224, 256, 384 or 512 bits.
+
+config DROPBEAR_SHA512
+	bool
+	prompt "sha512"
+	default n
+	help
+	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
+	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
+	  and published in 2001 by the NIST as a U.S. Federal Information
+	  Processing Standard. SHA stands for Secure Hash Algorithm. SHA-2
+	  includes a significant number of changes from its predecessor,
+	  SHA-1. SHA-2 consists of a set of four hash functions with digests
+	  that are 224, 256, 384 or 512 bits.
+
 config DROPBEAR_MD5
 	bool
 	prompt "md5"
