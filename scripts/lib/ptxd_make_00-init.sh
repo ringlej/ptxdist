@@ -28,6 +28,9 @@ ptxd_init_arch() {
 		arm-*gnueabi|armle*gnueabi|armel*gnueabi)
 		    ipkg_arch=armel
 		    ;;
+		arm-*gnueabihf|armle*gnueabihf|armel*gnueabihf)
+		    ipkg_arch=armhf
+		    ;;
 		*)
 		    ipkg_arch=arm
 		    ;;
