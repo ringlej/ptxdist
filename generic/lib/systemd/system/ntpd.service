@@ -1,0 +1,8 @@
+[Unit]
+Description=ntpd
+
+[Service]
+ExecStart=/usr/sbin/ntpd -n -c /etc/ntp-server.conf
+
+[Install]
+WantedBy=multi-user.target

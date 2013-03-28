@@ -233,6 +233,12 @@ config NTP_NTPD_STARTSCRIPT
 	depends on NTP_NTPD
 	prompt "install /etc/init.d/ntp-server"
 
+config NTP_NTPD_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd service file"
+
 config NTP_NTPDC
 	bool
 	prompt "install ntpdc"
