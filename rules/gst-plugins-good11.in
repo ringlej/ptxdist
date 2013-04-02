@@ -3,7 +3,6 @@
 menuconfig GST_PLUGINS_GOOD11
 	tristate
 	select GLIB
-	select LIBOIL
 	select GSTREAMER11
 	select GST_PLUGINS_BASE11
 	select LIBPNG			if GST_PLUGINS_GOOD11_LIBPNG
@@ -80,8 +79,6 @@ config GST_PLUGINS_GOOD11_DEBUGUTILS
 
 config GST_PLUGINS_GOOD11_DEINTERLACE
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	select GST_PLUGINS_GOOD11_ORC
 	prompt "deinterlace"
 
@@ -99,8 +96,6 @@ config GST_PLUGINS_GOOD11_FLV
 
 config GST_PLUGINS_GOOD11_FLX
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "flx"
 
 config GST_PLUGINS_GOOD11_GOOM
@@ -112,13 +107,13 @@ config GST_PLUGINS_GOOD11_GOOM2K1
 	bool
 	prompt "goom2k1"
 
-config GST_PLUGINS_GOOD11_ID3DEMUX
-	bool
-	prompt "id3demux"
-
 config GST_PLUGINS_GOOD11_ICYDEMUX
 	bool
 	prompt "icydemux"
+
+config GST_PLUGINS_GOOD11_ID3DEMUX
+	bool
+	prompt "id3demux"
 
 config GST_PLUGINS_GOOD11_IMAGEFREEZE
 	bool
@@ -126,9 +121,11 @@ config GST_PLUGINS_GOOD11_IMAGEFREEZE
 
 config GST_PLUGINS_GOOD11_INTERLEAVE
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "interleave"
+
+config GST_PLUGINS_GOOD11_QTDEMUX
+	bool
+	prompt "isomp4"
 
 config GST_PLUGINS_GOOD11_LAW
 	bool
@@ -154,10 +151,6 @@ config GST_PLUGINS_GOOD11_MULTIPART
 	bool
 	prompt "multipart"
 
-config GST_PLUGINS_GOOD11_QTDEMUX
-	bool
-	prompt "isomp4"
-
 config GST_PLUGINS_GOOD11_REPLAYGAIN
 	bool
 	prompt "replaygain"
@@ -180,8 +173,6 @@ config GST_PLUGINS_GOOD11_SHAPEWIPE
 
 config GST_PLUGINS_GOOD11_SMPTE
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "smpte"
 
 config GST_PLUGINS_GOOD11_SPECTRUM
@@ -194,8 +185,6 @@ config GST_PLUGINS_GOOD11_UDP
 
 config GST_PLUGINS_GOOD11_VIDEOBOX
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	select GST_PLUGINS_GOOD11_ORC
 	prompt "videobox"
 
@@ -230,30 +219,11 @@ comment "plugins with dependencies"
 
 config GST_PLUGINS_GOOD11_OSS
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "oss"
 
 config GST_PLUGINS_GOOD11_OSS4
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "oss4"
-
-config GST_PLUGINS_GOOD11_SUNAUDIO
-	bool
-	depends on BROKEN
-	prompt "sunaudio"
-
-config GST_PLUGINS_GOOD11_OSX_AUDIO
-	bool
-	depends on BROKEN
-	prompt "osx_audio"
-
-config GST_PLUGINS_GOOD11_OSX_VIDEO
-	bool
-	depends on BROKEN
-	prompt "osx_video"
 
 config GST_PLUGINS_GOOD11_GST_V4L2
 	bool
@@ -283,15 +253,8 @@ config GST_PLUGINS_GOOD11_AALIB
 	depends on BROKEN
 	prompt "aalib"
 
-config GST_PLUGINS_GOOD11_ANNODEX
-	bool
-	depends on BROKEN
-	prompt "annodex"
-
 config GST_PLUGINS_GOOD11_CAIRO
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "cairo"
 
 config GST_PLUGINS_GOOD11_FLAC
@@ -300,18 +263,16 @@ config GST_PLUGINS_GOOD11_FLAC
 
 config GST_PLUGINS_GOOD11_GDK_PIXBUF
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "gdk_pixbuf"
-
-config GST_PLUGINS_GOOD11_JPEG
-	bool
-	prompt "jpeg"
 
 config GST_PLUGINS_GOOD11_JACK
 	bool
 	prompt "jack"
 	depends on BROKEN
+
+config GST_PLUGINS_GOOD11_JPEG
+	bool
+	prompt "jpeg"
 
 config GST_PLUGINS_GOOD11_LIBCACA
 	bool
@@ -353,6 +314,11 @@ config GST_PLUGINS_GOOD11_TAGLIB
 	bool
 	depends on BROKEN
 	prompt "taglib"
+
+config GST_PLUGINS_GOOD11_VPX
+	bool
+	depends on BROKEN
+	prompt "vpx"
 
 config GST_PLUGINS_GOOD11_WAVPACK
 	bool
