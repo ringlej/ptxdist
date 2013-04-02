@@ -7,7 +7,6 @@ menuconfig GST_PLUGINS_BASE11
 	select HOST_GETTEXT
 
 	select GLIB
-	select LIBOIL
 	select GSTREAMER11
 
 	select ALSA_LIB		if GST_PLUGINS_BASE11_ALSA
@@ -78,10 +77,6 @@ config GST_PLUGINS_BASE11_VIDEOCONVERT
 	bool
 	select GST_PLUGINS_BASE11_ORC
 	prompt "videoconvert"
-
-config GST_PLUGINS_BASE11_GDP
-	bool
-	prompt "gdp"
 
 config GST_PLUGINS_BASE11_GIO
 	bool

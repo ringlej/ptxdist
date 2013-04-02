@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE11) += gst-plugins-base11
 #
 # Paths and names
 #
-GST_PLUGINS_BASE11_VERSION	:= 0.11.3
-GST_PLUGINS_BASE11_MD5		:= d403bdb5eac3bff7808c972877ea8e35
+GST_PLUGINS_BASE11_VERSION	:= 1.0.6
+GST_PLUGINS_BASE11_MD5		:= 7123a7f9955bbf1a5a7bb75192c15427
 GST_PLUGINS_BASE11		:= gst-plugins-base-$(GST_PLUGINS_BASE11_VERSION)
-GST_PLUGINS_BASE11_SUFFIX	:= tar.bz2
+GST_PLUGINS_BASE11_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE11_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE11).$(GST_PLUGINS_BASE11_SUFFIX)
 GST_PLUGINS_BASE11_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_BASE11).$(GST_PLUGINS_BASE11_SUFFIX)
 GST_PLUGINS_BASE11_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_BASE11)
@@ -28,18 +28,17 @@ GST_PLUGINS_BASE11_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_BASE11)
 # Prepare
 # ----------------------------------------------------------------------------
 
-GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_APP)		+= app
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_ADDER)		+= adder
+GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_APP)		+= app
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_AUDIOCONVERT)	+= audioconvert
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_AUDIORATE)	+= audiorate
-GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_AUDIORESAMPLE)	+= audioresample
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_AUDIOTESTSRC)	+= audiotestsrc
 GST_PLUGINS_BASE11_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE11_ENCODING)	+= encoding
 GST_PLUGINS_BASE11_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE11_ENCODING)	+= encodebin
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_VIDEOCONVERT)	+= videoconvert
-GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_GDP)		+= gdp
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_GIO)		+= gio
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_PLAYBACK)	+= playback
+GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_AUDIORESAMPLE)	+= audioresample
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_SUBPARSE)	+= subparse
 GST_PLUGINS_BASE11_ENABLE-$(PTXCONF_GST_PLUGINS_BASE11_TCP)		+= tcp
 GST_PLUGINS_BASE11_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE11_TYPEFIND)	+= typefind
@@ -75,10 +74,10 @@ GST_PLUGINS_BASE11_CONF_OPT	= \
 	$(GSTREAMER_GENERIC_CONF_OPT) \
 	--enable-external \
 	--disable-experimental \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-introspection \
+	\
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE11_ORC)-orc \
 	--enable-Bsymbolic \
+	\
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE11_ZLIB)-zlib \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE11_XSHM)-xshm \
@@ -118,17 +117,17 @@ $(STATEDIR)/gst-plugins-base11.targetinstall:
 	@$(call install_fixup, gst-plugins-base11,DESCRIPTION,missing)
 
 	@$(call install_copy, gst-plugins-base11, 0, 0, 0755, -, \
-		/usr/bin/gst-discoverer-0.11)
+		/usr/bin/gst-discoverer-1.0)
 
 	# install all activated libs
 	@cd $(GST_PLUGINS_BASE11_PKGDIR)/usr/lib/ && \
-	for libs in `find -name "*-0.11.so" -printf '%f\n'`; do \
+	for libs in `find -name "*-1.0.so" -printf '%f\n'`; do \
 		$(call install_lib, gst-plugins-base11, 0, 0, 0644, $${libs%.so}); \
 	done
 
 	@$(foreach plugin, $(GST_PLUGINS_BASE11_ENABLEP-y), \
 		$(call install_copy, gst-plugins-base11, 0, 0, 0644, -, \
-			/usr/lib/gstreamer-0.11/libgst$(plugin).so);)
+			/usr/lib/gstreamer-1.0/libgst$(plugin).so);)
 
 	@$(call install_finish, gst-plugins-base11)
 
