@@ -29,9 +29,7 @@ HOST_CRAMFS_DIR		:= $(HOST_BUILDDIR)/$(HOST_CRAMFS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_CRAMFS_PATH	:= PATH=$(HOST_PATH)
-HOST_CRAMFS_MAKE_ENV	:= $(HOST_ENV)
-HOST_CRAMFS_MAKE_OPT	:= CPPFLAGS="-I. $(HOST_CPPFLAGS)"
+HOST_CRAMFS_CONF_TOOL := NO
 
 # ----------------------------------------------------------------------------
 # Install
