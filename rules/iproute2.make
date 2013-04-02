@@ -31,12 +31,9 @@ IPROUTE2_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPROUTE2_PATH	:= PATH=$(CROSS_PATH)
-IPROUTE2_ENV 	:= $(CROSS_ENV)
 IPROUTE2_MAKEVARS := \
-	CC=$(PTXCONF_GNU_TARGET)-gcc \
-	CROSS_CPPFLAGS='$(CROSS_CPPFLAGS) -g' \
-	LDFLAGS='$(CROSS_LDFLAGS) -g -rdynamic' \
+	CC=$(CROSS_CC) \
+	LDFLAGS='-rdynamic' \
 	DBM_INCLUDE=$(SYSROOT)/usr/include
 
 $(STATEDIR)/iproute2.prepare:
