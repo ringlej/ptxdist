@@ -33,11 +33,6 @@ HOST_MKELFIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_MKELFIMAGE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-HOST_MKELFIMAGE_AUTOCONF	:= $(HOST_AUTOCONF)
-
-HOST_MKELFIMAGE_MAKE_OPT := MY_CPPFLAGS="$(HOST_CPPFLAGS)" LDFLAGS="$(HOST_LDFLAGS)"
+HOST_MKELFIMAGE_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
