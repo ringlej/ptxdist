@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_GSTREAMER11) += gstreamer11
 #
 # Paths and names
 #
-GSTREAMER11_VERSION	:= 0.11.3
-GSTREAMER11_MD5		:= dc8b876b3f61711adfe742bea8ddebfd
+GSTREAMER11_VERSION	:= 1.0.6
+GSTREAMER11_MD5		:= d0797e51a420fca0beb973b9dcda586f
 GSTREAMER11		:= gstreamer-$(GSTREAMER11_VERSION)
-GSTREAMER11_SUFFIX	:= tar.bz2
+GSTREAMER11_SUFFIX	:= tar.xz
 GSTREAMER11_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER11).$(GSTREAMER11_SUFFIX)
 GSTREAMER11_SOURCE	:= $(SRCDIR)/$(GSTREAMER11).$(GSTREAMER11_SUFFIX)
 GSTREAMER11_DIR		:= $(BUILDDIR)/$(GSTREAMER11)
@@ -36,16 +36,24 @@ GSTREAMER11_GENERIC_CONF_OPT = \
 	--disable-nls \
 	--disable-rpath \
 	--disable-fatal-warnings \
+	\
 	--disable-debug \
 	--disable-profiling \
 	--disable-valgrind \
 	--disable-gcov \
 	--disable-examples \
+	\
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-introspection \
+	\
 	--disable-gtk-doc \
-	--disable-silent-rules \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--disable-gobject-cast-checks \
+	--disable-glib-asserts \
+	\
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
-	--disable-gobject-cast-checks
 
 GSTREAMER11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
@@ -57,12 +65,15 @@ GSTREAMER11_AUTOCONF := \
 	--disable-alloc-trace \
 	--enable-registry \
 	--enable-plugin \
+	\
 	--disable-tests \
 	--disable-failing-tests \
+	--disable-benchmarks \
+	--enable-tools \
 	--disable-poisoning \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-introspection \
+	\
 	--disable-docbook \
+	\
 	--disable-check \
 	--enable-Bsymbolic
 
@@ -81,26 +92,26 @@ $(STATEDIR)/gstreamer11.targetinstall:
 
 ifdef PTXCONF_GSTREAMER11_INSTALL_TYPEFIND
 	@$(call install_copy, gstreamer11, 0, 0, 0755, -, \
-		/usr/bin/gst-typefind-0.11)
+		/usr/bin/gst-typefind-1.0)
 endif
 ifdef PTXCONF_GSTREAMER11_INSTALL_INSPECT
 	@$(call install_copy, gstreamer11, 0, 0, 0755, -, \
-		/usr/bin/gst-inspect-0.11)
+		/usr/bin/gst-inspect-1.0)
 endif
 ifdef PTXCONF_GSTREAMER11_INSTALL_LAUNCH
 	@$(call install_copy, gstreamer11, 0, 0, 0755, -, \
-		/usr/bin/gst-launch-0.11)
+		/usr/bin/gst-launch-1.0)
 endif
-	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstbase-0.11)
-	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstcontroller-0.11)
-	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstnet-0.11)
-	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstreamer-0.11)
+	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstbase-1.0)
+	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstcontroller-1.0)
+	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstnet-1.0)
+	@$(call install_lib, gstreamer11, 0, 0, 0644, libgstreamer-1.0)
 
 	@$(call install_lib, gstreamer11, 0, 0, 0644, \
-		gstreamer-0.11/libgstcoreelements)
+		gstreamer-1.0/libgstcoreelements)
 
 	@$(call install_copy, gstreamer11, 0, 0, 0755, -, \
-		/usr/libexec/gstreamer-0.11/gst-plugin-scanner)
+		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)
 
 ifdef PTXCONF_PRELINK
 	@$(call install_alternative, gstreamer11, 0, 0, 0644, \

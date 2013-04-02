@@ -43,7 +43,7 @@ if GSTREAMER11
 
 	config GSTREAMER11_INSTALL_LAUNCH
 		bool
-		depends on GSTREAMER11_CMDLINEPARSER
+		select GSTREAMER11_CMDLINEPARSER
 		prompt "install gst-launch"
 
 endif
