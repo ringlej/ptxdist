@@ -10,11 +10,11 @@ Subject: [PATCH] remove endianness swapping
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
- sys/fbdev/gstfbdevsink.c |   14 +-------------
- 1 files changed, 1 insertions(+), 13 deletions(-)
+ sys/fbdev/gstfbdevsink.c | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
 
 diff --git a/sys/fbdev/gstfbdevsink.c b/sys/fbdev/gstfbdevsink.c
-index 989d48f..62b9986 100644
+index 639641d..6d06801 100644
 --- a/sys/fbdev/gstfbdevsink.c
 +++ b/sys/fbdev/gstfbdevsink.c
 @@ -153,21 +153,9 @@ gst_fbdevsink_getcaps (GstBaseSink * bsink)
@@ -40,6 +40,3 @@ index 989d48f..62b9986 100644
      case 15:
      case 16:
        endianness = 1234;
--- 
-1.7.4.1
-
