@@ -44,7 +44,7 @@ config DTC_INSTALL_OFTREE
 
 config DTC_OFTREE_DTS
 	string "source dts file"
-	default "${KERNEL_DIR}/arch/powerpc/boot/dts/<yourboard>.dts"
+	default "${KERNEL_DIR}/arch/${PTXCONF_KERNEL_ARCH_STRING}/boot/dts/<yourboard>.dts"
 	help
 	  Select the dts file to use for the device tree binary
 	  blob generation. Default is to use the one shipped with
