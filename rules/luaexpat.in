@@ -1,0 +1,9 @@
+## SECTION=project_specific
+
+config LUAEXPAT
+	tristate
+	select LUA
+	select EXPAT
+	prompt "lua-expat"
+	help
+	  libexpat bindings for the Lua language
