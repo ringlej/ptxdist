@@ -26,6 +26,9 @@ config UTIL_LINUX_NG_USES_NCURSES
 config UTIL_LINUX_NG_PARTX_TOOLS
 	bool
 
+config UTIL_LINUX_NG_SCHEDUTILS
+	bool
+
 config UTIL_LINUX_NG_AGETTY
 	bool
 	prompt "agetty"
@@ -135,6 +138,7 @@ comment "BusyBox' swapon is selected!"
 config UTIL_LINUX_NG_MOUNT
 	bool
 	prompt "mount"
+	select UTIL_LINUX_NG_LIBMOUNT
 	depends on !BUSYBOX_MOUNT || ALLYES
 	help
 	  The mount command serves to attach the file system
@@ -146,6 +150,7 @@ comment "BusyBox' mount is selected!"
 config UTIL_LINUX_NG_UMOUNT
 	bool
 	prompt "umount"
+	select UTIL_LINUX_NG_MOUNT
 	depends on !BUSYBOX_UMOUNT || ALLYES
 	help
 	  The mount(8) command serves to attach the file system
@@ -217,6 +222,7 @@ config UTIL_LINUX_NG_SETTERM
 config UTIL_LINUX_NG_CHRT
 	bool
 	prompt "chrt"
+	select UTIL_LINUX_NG_SCHEDUTILS
 	depends on !BUSYBOX_CHRT || ALLYES
 	help
 	  chrt manipulates the real-time attributes of a process.
@@ -240,12 +246,14 @@ comment "BusyBox' hwclock is selected!"
 config UTIL_LINUX_NG_IONICE
 	bool
 	prompt "ionice"
+	select UTIL_LINUX_NG_SCHEDUTILS
 	help
 	  ionice gets/sets the program io scheduling class and priority.
 
 config UTIL_LINUX_NG_TASKSET
 	bool
 	prompt "taskset"
+	select UTIL_LINUX_NG_SCHEDUTILS
 	depends on !BUSYBOX_TASKSET || ALLYES
 	help
 	  taskset retrieves or sets a process's CPU affinity.

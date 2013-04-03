@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.21.2
-UTIL_LINUX_NG_MD5	:= b75b3cfecb943f74338382fde693c2c3
+UTIL_LINUX_NG_VERSION	:= 2.22.2
+UTIL_LINUX_NG_MD5	:= 3e379b4d8b9693948d751c154614c73e
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.21/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.22/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
@@ -51,15 +51,15 @@ UTIL_LINUX_NG_AUTOCONF := \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
+	--disable-static-programs \
 	--enable-tls \
 	--disable-most-builds \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
-	--enable-mount \
+	--disable-deprecated-mount \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNT)-mount \
 	--disable-losetup \
-	--disable-libmount-mount \
-	--disable-new-mount \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
@@ -68,30 +68,42 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-unshare \
 	--disable-arch \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_DDATE)-ddate \
+	--disable-eject \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
 	--disable-cramfs \
+	--disable-wdctl \
 	--disable-switch_root \
 	--disable-pivot_root \
 	--disable-elvtune \
 	--disable-kill \
 	--disable-last \
+	--disable-utmpdump \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
 	--disable-mesg \
 	--disable-raw \
 	--disable-rename \
 	--disable-reset \
-	--disable-login-utils \
-	--enable-schedutils \
-	--disable-wall \
-	--disable-write \
+	--disable-vipw \
+	--disable-newgrp \
+	--disable-chfn-chsh \
 	--disable-chsh-only-listed \
+	--disable-login \
 	--disable-login-chown-vcs \
 	--disable-login-stat-mail \
+	--disable-sulogin \
+	--disable-su \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SCHEDUTILS)-schedutils \
+	--disable-wall \
+	--disable-write \
+	--disable-chkdupexe \
+	--disable-socket-activation \
 	--disable-pg-bell \
-	--disable-require-password \
+	--enable-require-password \
 	--disable-use-tty-group \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
+	--without-libiconv-prefix \
+	--without-libintl-prefix \
 	--without-selinux \
 	--without-audit \
 	--without-udev \
