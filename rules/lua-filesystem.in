@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config LUA_FILESYSTEM
+	tristate
+	prompt "lua-filesystem"
+	select LUA
+	help
+	  luafilesystem library for the Lua language
