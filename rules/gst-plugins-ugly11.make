@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_UGLY11) += gst-plugins-ugly11
 #
 # Paths and names
 #
-GST_PLUGINS_UGLY11_VERSION	:= 0.11.2
-GST_PLUGINS_UGLY11_MD5		:= 7dbefcf72eb3a5c6b8405bc6021e8a37
+GST_PLUGINS_UGLY11_VERSION	:= 1.0.6
+GST_PLUGINS_UGLY11_MD5		:= 9ffee39153f419ae2329fbf54ed708e0
 GST_PLUGINS_UGLY11		:= gst-plugins-ugly-$(GST_PLUGINS_UGLY11_VERSION)
-GST_PLUGINS_UGLY11_SUFFIX	:= tar.bz2
+GST_PLUGINS_UGLY11_SUFFIX	:= tar.xz
 GST_PLUGINS_UGLY11_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-ugly/$(GST_PLUGINS_UGLY11).$(GST_PLUGINS_UGLY11_SUFFIX)
 GST_PLUGINS_UGLY11_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_UGLY11).$(GST_PLUGINS_UGLY11_SUFFIX)
 GST_PLUGINS_UGLY11_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_UGLY11)
@@ -35,7 +35,6 @@ GST_PLUGINS_UGLY11_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY11_DVDSUB)		+= dvdsub
 GST_PLUGINS_UGLY11_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY11_XINGMUX)		+= xingmux
 GST_PLUGINS_UGLY11_ENABLEC-$(PTXCONF_GST_PLUGINS_UGLY11_REALMEDIA)	+= realmedia
 GST_PLUGINS_UGLY11_ENABLEP-$(PTXCONF_GST_PLUGINS_UGLY11_REALMEDIA)	+= rmdemux
-GST_PLUGINS_UGLY11_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY11_SYNAESTHESIA)	+= synaesthesia
 GST_PLUGINS_UGLY11_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY11_A52DEC)		+= a52dec
 GST_PLUGINS_UGLY11_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY11_AMRNB)		+= amrnb
 GST_PLUGINS_UGLY11_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY11_AMRWBDEC)	+= amrwb
@@ -72,8 +71,6 @@ GST_PLUGINS_UGLY11_CONF_OPT	:= \
 	--disable-gtk-doc \
 	--with-package-origin="PTXDist"
 
-#  --enable-gobject-cast-checks=[no/auto/yes] Enable GObject cast checks
-
 #
 # the --with-plugins sadly only applies to depencyless plugings
 # and when no plugins are sellected it builds them all. So
@@ -104,7 +101,7 @@ $(STATEDIR)/gst-plugins-ugly11.targetinstall:
 	# install all activated plugins
 	@for plugin in $(GST_PLUGINS_UGLY11_ENABLEP-y); do \
 		$(call install_copy, gst-plugins-ugly11, 0, 0, 0644, -, \
-			/usr/lib/gstreamer-0.11/libgst$${plugin}.so); \
+			/usr/lib/gstreamer-1.0/libgst$${plugin}.so); \
 	done
 
 	@$(call install_finish, gst-plugins-ugly11)

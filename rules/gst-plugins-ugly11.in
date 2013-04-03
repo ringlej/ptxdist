@@ -10,6 +10,7 @@ menuconfig GST_PLUGINS_UGLY11
 	select LIBMPEG2		if GST_PLUGINS_UGLY11_MPEG2DEC
 	select LAME		if GST_PLUGINS_UGLY11_LAME
 	select TWOLAME		if GST_PLUGINS_UGLY11_TWOLAME
+	select ORC		if GST_PLUGINS_UGLY11_ORC
 	prompt "gst-plugins-ugly              "
 	help
 	  GStreamer Ugly Plug-ins is a set of plug-ins that
@@ -20,6 +21,9 @@ menuconfig GST_PLUGINS_UGLY11
 	  known to present patent problems.
 
 if GST_PLUGINS_UGLY11
+
+config GST_PLUGINS_UGLY11_ORC
+	bool
 
 config GST_PLUGINS_UGLY11_ASFDEMUX
 	bool
@@ -41,13 +45,10 @@ config GST_PLUGINS_UGLY11_REALMEDIA
 	bool
 	prompt "realmedia"
 
-config GST_PLUGINS_UGLY11_SYNAESTHESIA
-	bool
-	prompt "synaesthesia"
-
 config GST_PLUGINS_UGLY11_A52DEC
 	bool
 	depends on BROKEN
+	select GST_PLUGINS_UGLY11_ORC
 	prompt "a52dec"
 
 config GST_PLUGINS_UGLY11_AMRNB
