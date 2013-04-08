@@ -203,3 +203,11 @@ s/^\(\(# \)\?PTXCONF_\)GLIBC\(_LOCALTIME\)/\1TIMEZONE\3/
 # reason : allign with target package name
 #
 s/^\(\(# \)\?PTXCONF_HOST\)_LIBBZ2/\1_BZIP2/
+
+#
+# from   : ptxdist-2013.04.0
+# to     : ptxdist-2013.05.0
+# symbol : GST*11 -> GST*1
+# reason : allign with target package name
+#
+s/^\(\(# \)\?PTXCONF_GST[A-Z_]*1\)1/\1/

@@ -1,0 +1,188 @@
+## SECTION=multimedia_gstreamer1
+
+menuconfig GST_PLUGINS_BASE1
+	tristate
+
+	# needed for autogen.sh
+	select HOST_GETTEXT
+
+	select GLIB
+	select GSTREAMER1
+
+	select ALSA_LIB		if GST_PLUGINS_BASE1_ALSA
+	select ALSA_LIB_PCM	if GST_PLUGINS_BASE1_ALSA
+	select ALSA_LIB_MIXER	if GST_PLUGINS_BASE1_ALSA
+	select GLIB		if GST_PLUGINS_BASE1_GIO
+	select LIBOGG		if GST_PLUGINS_BASE1_OGG
+	select LIBTHEORA	if GST_PLUGINS_BASE1_THEORA
+	select LIBVORBIS	if GST_PLUGINS_BASE1_VORBIS
+	select PANGO		if GST_PLUGINS_BASE1_PANGO
+	select LIBXML2		if GST_PLUGINS_BASE1_SUBPARSE
+	select LIBXML2_HTML	if GST_PLUGINS_BASE1_SUBPARSE
+	select ORC		if GST_PLUGINS_BASE1_ORC
+	select ZLIB		if GST_PLUGINS_BASE1_ZLIB
+
+	# x features need libx11 + Xv
+	select XORG		if GST_PLUGINS_BASE1_X
+	select XORG_LIB_X11	if GST_PLUGINS_BASE1_X
+	select XORG_LIB_XV	if GST_PLUGINS_BASE1_X
+	prompt "gst-plugins-base              "
+	help
+	  GStreamer is a streaming media framework, based on graphs of
+	  filters which operate on media data. Applications using this
+	  library can do anything from real-time sound processing to
+	  playing videos, and just about anything else
+	  media-related. Its plugin-based architecture means that new
+	  data types or processing capabilities can be added simply by
+	  installing new plug-ins.
+
+	  This package contains the GStreamer plugins from the "base"
+	  set, an essential exemplary set of elements.
+
+if GST_PLUGINS_BASE1
+
+config GST_PLUGINS_BASE1_ORC
+	bool
+
+comment "dependency-less plugins"
+# -------------------------------
+
+config GST_PLUGINS_BASE1_ADDER
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "adder"
+
+config GST_PLUGINS_BASE1_APP
+	bool
+	prompt "app"
+
+config GST_PLUGINS_BASE1_AUDIOCONVERT
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "audioconvert"
+
+config GST_PLUGINS_BASE1_AUDIORATE
+	bool
+	prompt "audiorate"
+
+config GST_PLUGINS_BASE1_AUDIOTESTSRC
+	bool
+	prompt "audiotestsrc"
+
+config GST_PLUGINS_BASE1_ENCODING
+	bool
+	prompt "encoding"
+
+config GST_PLUGINS_BASE1_VIDEOCONVERT
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "videoconvert"
+
+config GST_PLUGINS_BASE1_GIO
+	bool
+	prompt "gio"
+
+config GST_PLUGINS_BASE1_PLAYBACK
+	bool
+	prompt "playback"
+
+config GST_PLUGINS_BASE1_AUDIORESAMPLE
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "audioresample"
+
+config GST_PLUGINS_BASE1_SUBPARSE
+	bool
+	prompt "subparse"
+
+config GST_PLUGINS_BASE1_TCP
+	bool
+	prompt "tcp"
+
+config GST_PLUGINS_BASE1_TYPEFIND
+	bool
+	prompt "typefind"
+
+config GST_PLUGINS_BASE1_VIDEOTESTSRC
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "videotestsrc"
+
+config GST_PLUGINS_BASE1_VIDEORATE
+	bool
+	prompt "videorate"
+
+config GST_PLUGINS_BASE1_VIDEOSCALE
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "videoscale"
+
+config GST_PLUGINS_BASE1_VOLUME
+	bool
+	select GST_PLUGINS_BASE1_ORC
+	prompt "volume"
+
+comment "plugins with dependencies"
+
+config GST_PLUGINS_BASE1_X
+	bool
+	prompt "x based plugins"
+
+config GST_PLUGINS_BASE1_XVIDEO
+	bool
+	depends on GST_PLUGINS_BASE1_X
+	prompt "xv"
+	help
+	  This plugin offers an xlib based window that can display a video stream.
+
+config GST_PLUGINS_BASE1_ALSA
+	bool
+	prompt "alsa"
+
+config GST_PLUGINS_BASE1_CDPARANOIA
+	bool
+	depends on BROKEN
+	prompt "cdparanoia [BROKEN]"
+
+config GST_PLUGINS_BASE1_IVORBIS
+	bool
+	depends on BROKEN
+	prompt "ivorbis"
+
+config GST_PLUGINS_BASE1_LIBVISUAL
+	bool
+	depends on BROKEN
+	prompt "libvisual [BROKEN]"
+
+config GST_PLUGINS_BASE1_OGG
+	bool
+	prompt "ogg"
+
+config GST_PLUGINS_BASE1_PANGO
+	bool
+	prompt "pango"
+
+config GST_PLUGINS_BASE1_THEORA
+	bool
+	prompt "theora"
+
+config GST_PLUGINS_BASE1_VORBIS
+	bool
+	prompt "vorbis"
+
+comment "Support options"
+
+config GST_PLUGINS_BASE1_XSHM
+	bool
+	depends on GST_PLUGINS_BASE1_X
+	prompt "xshm"
+	help
+	  xshm support for X and XVideo plaugins
+
+config GST_PLUGINS_BASE1_ZLIB
+	bool
+	prompt "zlib"
+	help
+	  zlib support for ID3 parsing in libgsttag
+
+endif

@@ -1,6 +1,6 @@
-## SECTION=multimedia_gstreamer11
+## SECTION=multimedia_gstreamer1
 
-menuconfig GSTREAMER11
+menuconfig GSTREAMER1
 	tristate
 	prompt "gstreamer                     "
 	select LIBC_M
@@ -15,35 +15,35 @@ menuconfig GSTREAMER11
 	  data types or processing capabilities can be added simply by
 	  installing new plug-ins.
 
-if GSTREAMER11
+if GSTREAMER1
 
 	comment "compile options"
 
-	config GSTREAMER11_DEBUG
+	config GSTREAMER1_DEBUG
 		bool
 		prompt "debug support"
 
-	config GSTREAMER11_CMDLINEPARSER
+	config GSTREAMER1_CMDLINEPARSER
 		bool
 		prompt "commandline parser"
 
-	config GSTREAMER11_OPTIONPARSING
+	config GSTREAMER1_OPTIONPARSING
 		bool
 		prompt "option parsing when gst init"
 
 	comment "install options"
 
-	config GSTREAMER11_INSTALL_TYPEFIND
+	config GSTREAMER1_INSTALL_TYPEFIND
 		bool
 		prompt "install gst-typefind"
 
-	config GSTREAMER11_INSTALL_INSPECT
+	config GSTREAMER1_INSTALL_INSPECT
 		bool
 		prompt "install gst-inspect"
 
-	config GSTREAMER11_INSTALL_LAUNCH
+	config GSTREAMER1_INSTALL_LAUNCH
 		bool
-		select GSTREAMER11_CMDLINEPARSER
+		select GSTREAMER1_CMDLINEPARSER
 		prompt "install gst-launch"
 
 endif
