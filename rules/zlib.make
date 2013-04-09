@@ -39,6 +39,7 @@ ZLIB_CONF_ENV := \
 #
 # autoconf
 #
+ZLIB_CONF_TOOL := autoconf
 ZLIB_CONF_OPT := \
 	--prefix=/usr \
 	--uname=Linux \
