@@ -3,7 +3,8 @@ menuconfig IPKG
 	tristate
 	prompt "ipkg                          "
 # ipkg calls wget with long options!
-	select BUSYBOX_FEATURE_WGET_LONG_OPTIONS if BUSYBOX_WGET
+	select BUSYBOX_LONG_OPTS			if BUSYBOX_WGET
+	select BUSYBOX_FEATURE_WGET_LONG_OPTIONS	if BUSYBOX_WGET
 	help
 	  IPKG is a small packet mechanism for embedded systems to
 	  maintain the applications on the system.
