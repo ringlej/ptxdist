@@ -302,6 +302,9 @@ ptxd_kconfig() {
 	allnoconfig)
 		"${conf}" --allnoconfig "${file_kconfig}"
 		;;
+	randconfig)
+		"${conf}" --randconfig "${file_kconfig}"
+		;;
 	dep)
 		copy_back="false"
 		yes "" | "${conf}" --writedepend "${file_kconfig}" &&

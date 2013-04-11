@@ -847,6 +847,7 @@ Setup and Project Actions:
   allmodconfig			run 'make allmodconfig' on ptxconfig file
   allyesconfig			run 'make allyesconfig' on ptxconfig file
   allnoconfig			run 'make allnoconfig' on ptxconfig file
+  randconfig			run 'make randconfig' on ptxconfig file
 
   migrate			migrate config files from a previous
 				ptxdist release
@@ -1280,7 +1281,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"nconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig")
+	"menuconfig"|"nconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig"|"randconfig")
 		;;
 	*)
 		echo
@@ -1635,7 +1636,7 @@ parse_second()
 
 ######## *config, *setup, toolchain
 
-		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig)
+		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig|randconfig)
 			do_config "${cmd}" "${@}"
 			exit
 			;;
