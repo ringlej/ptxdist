@@ -1,4 +1,11 @@
 ## SECTION=system_libraries
+
+comment "owfs conflicts with BusyBox' mount!"
+	depends on BUSYBOX_MOUNT
+
+comment "owfs conflicts with BusyBox' umount!"
+	depends on BUSYBOX_MOUNT
+
 menuconfig OWFS
 	tristate
 	prompt "owfs                          "
@@ -7,6 +14,8 @@ menuconfig OWFS
 	select GCCLIBS_GCC_S
 	select FUSE			if OWFS_OWFS
 	select FUSE__LIB		if OWFS_OWFS
+	depends on !BUSYBOX_MOUNT || ALLYES
+	depends on !BUSYBOX_UMOUNT || ALLYES
 	select UTIL_LINUX_NG		if OWFS_OWFS
 	select UTIL_LINUX_NG_MOUNT	if OWFS_OWFS
 	select UTIL_LINUX_NG_UMOUNT	if OWFS_OWFS
