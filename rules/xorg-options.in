@@ -37,6 +37,7 @@ menu "options                       "
 config XORG_KEYBOARD_MAPPING_SUPPORT
 	bool
 	prompt "support keyboard mappings"
+	select XORG_DRIVER_INPUT
 	select XORG_DRIVER_INPUT_KEYBOARD
 	select XORG_APP_XKBCOMP
 	help
