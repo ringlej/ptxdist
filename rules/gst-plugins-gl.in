@@ -2,10 +2,12 @@
 
 config GST_PLUGINS_GL
 	tristate
+	select LIBPNG
 	select GLIB
 	select GSTREAMER
 	select GST_PLUGINS_BASE
 	select XORG_LIB_X11
+	select XORG_SERVER		if RUNTIME
 	select XORG_SERVER_EXT_GLX
 	select MESALIB
 	select GLEW
