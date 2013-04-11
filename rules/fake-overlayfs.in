@@ -24,18 +24,22 @@ if !FAKE_OVERLAYFS_VAR
 
 config FAKE_OVERLAYFS_VAR_RUN
 	bool "/var/run"
+	select ROOTFS_VAR	if ROOTFS
 	select ROOTFS_VAR_RUN	if ROOTFS
 
 config FAKE_OVERLAYFS_VAR_LIB
 	bool "/var/lib"
+	select ROOTFS_VAR	if ROOTFS
 	select ROOTFS_VAR_LIB	if ROOTFS
 
 config FAKE_OVERLAYFS_VAR_TMP
 	bool "/var/tmp"
+	select ROOTFS_VAR	if ROOTFS
 	select ROOTFS_VAR_TMP	if ROOTFS
 
 config FAKE_OVERLAYFS_VAR_CACHE
 	bool "/var/cache"
+	select ROOTFS_VAR	if ROOTFS
 	select ROOTFS_VAR_CACHE	if ROOTFS
 
 endif
