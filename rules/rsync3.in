@@ -2,6 +2,7 @@
 menuconfig RSYNC3
 	tristate
 	prompt "rsync v3                      "
+	select OPENSSH	if RUNTIME
 	select OPENSSH_SSH
 	select ACL	if RSYNC3_ACL
 	select ATTR	if RSYNC3_ATTR
