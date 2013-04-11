@@ -1,5 +1,11 @@
 ## SECTION=shell_and_console
 
+comment "udisks conflicts with BusyBox' mount!"
+	depends on BUSYBOX_MOUNT
+
+comment "udisks conflicts with BusyBox' umount!"
+	depends on BUSYBOX_MOUNT
+
 menuconfig UDISKS
 	tristate
 	select HOST_GTK_DOC
@@ -12,12 +18,14 @@ menuconfig UDISKS
 	select UDEV_LIBUDEV
 	select UDEV_LIBGUDEV
 	# busybox mount can't handle all the options
+	depends on !BUSYBOX_MOUNT || ALLYES
+	depends on !BUSYBOX_UMOUNT || ALLYES
 	select UTIL_LINUX_NG
 	select UTIL_LINUX_NG_MOUNT
 	select UTIL_LINUX_NG_UMOUNT
 	select FAKE_OVERLAYFS		if UDISKS_FAKE_OVERLAYFS
-	select FAKE_OVERLAYFS_VAR_TMP	if UDISKS_FAKE_OVERLAYFS
-	select FAKE_OVERLAYFS_VAR_RUN	if UDISKS_FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_TMP	if UDISKS_FAKE_OVERLAYFS && !FAKE_OVERLAYFS_VAR
+	select FAKE_OVERLAYFS_VAR_RUN	if UDISKS_FAKE_OVERLAYFS && !FAKE_OVERLAYFS_VAR
 	prompt "udisks                        "
 	help
 	  abstraction for enumerating block devices
