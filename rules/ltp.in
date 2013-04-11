@@ -2,6 +2,7 @@
 
 menuconfig LTP
 	tristate
+	depends on BROKEN
 	prompt "linux test project            "
 	help
 	  The Linux Test Project is a joint project with SGI, IBM, OSDL,
