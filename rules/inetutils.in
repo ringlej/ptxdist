@@ -83,6 +83,7 @@ config INETUTILS_RSHD
 	bool
 	prompt "rshd"
 	select INETUTILS_INETD
+	depends on !BUSYBOX_INETD || ALLYES
 	help
 	  Rshd is the server for the program. The server provides remote
 	  execution facilities with authentication based on privileged
