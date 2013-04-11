@@ -330,7 +330,7 @@ config ROOTFS_MTAB_LINK_VAR_FAKE_OVERLAYFS
 	bool
 	depends on ROOTFS_MTAB_LINK_VAR
 	select FAKE_OVERLAYFS
-	select FAKE_OVERLAYFS_VAR_TMP
+	select FAKE_OVERLAYFS_VAR_TMP if !FAKE_OVERLAYFS_VAR
 	prompt "use fake-overlayfs to create /var/tmp/mtab"
 
 config ROOTFS_HOSTNAME
