@@ -1,5 +1,11 @@
 ## SECTION=shell_and_console
 
+comment "devicekit conflicts with BusyBox' mount!"
+	depends on BUSYBOX_MOUNT
+
+comment "devicekit conflicts with BusyBox' umount!"
+	depends on BUSYBOX_MOUNT
+
 menuconfig DEVICEKIT_DISKS
 	tristate
 	select HOST_LIBXSLT
@@ -11,12 +17,14 @@ menuconfig DEVICEKIT_DISKS
 	select UDEV_LIBUDEV
 	select UDEV_LIBGUDEV
 	# busybox mount can't handle all the options
+	depends on !BUSYBOX_MOUNT || ALLYES
+	depends on !BUSYBOX_UMOUNT || ALLYES
 	select UTIL_LINUX_NG
 	select UTIL_LINUX_NG_MOUNT
 	select UTIL_LINUX_NG_UMOUNT
 	select FAKE_OVERLAYFS		if DEVICEKIT_DISKS_FAKE_OVERLAYFS
-	select FAKE_OVERLAYFS_VAR_TMP	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
-	select FAKE_OVERLAYFS_VAR_RUN	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_TMP	if DEVICEKIT_DISKS_FAKE_OVERLAYFS && !FAKE_OVERLAYFS_VAR
+	select FAKE_OVERLAYFS_VAR_RUN	if DEVICEKIT_DISKS_FAKE_OVERLAYFS && !FAKE_OVERLAYFS_VAR
 	prompt "devicekit                     "
 	help
 	  abstraction for enumerating block devices
