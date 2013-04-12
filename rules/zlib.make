@@ -43,12 +43,8 @@ ZLIB_CONF_TOOL := autoconf
 ZLIB_CONF_OPT := \
 	--prefix=/usr \
 	--uname=Linux \
+	$(call ptx/ifdef, PTXCONF_ZLIB_STATIC,--static) \
 	--libdir=/usr/$(CROSS_LIB_DIR)
-
-ifdef PTXCONF_ZLIB_STATIC
-ZLIB_AUTOCONF += --static
-endif
-
 
 # ----------------------------------------------------------------------------
 # Target-Install
