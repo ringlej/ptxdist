@@ -1,0 +1,11 @@
+## SECTION=selinux
+
+config IMA_EVM_UTILS
+	tristate
+	select ATTR
+	select KEYUTILS
+	select OPENSSL
+	prompt "ima-evm-utils"
+	help
+	  Integrity Measurement Architecture to know
+	  EXACTLY what has been run on your machine.
