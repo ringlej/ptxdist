@@ -32,7 +32,7 @@ menuconfig UDEV
 
 if UDEV
 
-if !SYSTEMD
+if SYSTEMD = no
 
 menu "build options                 "
 
@@ -137,7 +137,7 @@ config UDEV_PERSISTENT_EDD
 
 config UDEV_PERSISTENT_GENERATOR
 	bool
-	depends on !SYSTEMD
+	depends on SYSTEMD = n
 	prompt "cd / network generator"
 	help
 	  This will generate udev-based persistent naming rules for
