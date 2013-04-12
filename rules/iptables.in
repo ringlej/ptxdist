@@ -41,7 +41,7 @@ config IPTABLES_INSTALL_TOOLS
 	    IPv6: ip6tables, ip6tables-save, ip6tables-restore
 
 comment "iptables-apply depends on bash"
-	depends on !BASH
+	depends on BASH = n
 
 config IPTABLES_INSTALL_IPTABLES_APPLY
 	bool
