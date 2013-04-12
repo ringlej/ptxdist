@@ -1,0 +1,7 @@
+## SECTION=multimedia_libs
+
+config OPUS
+	tristate
+	prompt "opus"
+	help
+	  Opus is a totally open, royalty-free, highly versatile audio codec.
