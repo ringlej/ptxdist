@@ -13,6 +13,7 @@ menuconfig GST_PLUGINS_BAD1
 	select ORC		if GST_PLUGINS_BAD1_ORC
 	select RTMPDUMP		if GST_PLUGINS_BAD1_RTMP
 	select SDL		if GST_PLUGINS_BAD1_SDL
+	select VO_AACENC	if GST_PLUGINS_BAD1_VOAACENC
 	select WAYLAND		if GST_PLUGINS_BAD1_WAYLAND
 
 	prompt "gst-plugins-bad               "
@@ -376,7 +377,6 @@ config GST_PLUGINS_BAD1_VOAMRWBENC
 config GST_PLUGINS_BAD1_VOAACENC
 	bool
 	prompt "voaacenc"
-	depends on BROKEN
 
 config GST_PLUGINS_BAD1_APEXSINK
 	bool
