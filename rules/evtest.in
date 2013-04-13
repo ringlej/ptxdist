@@ -3,7 +3,8 @@
 menuconfig EVTEST
 	tristate
 	prompt "evtest                        "
-	select LIBXML2 if EVTEST_CAPTURE
+	select LIBXML2		if EVTEST_CAPTURE
+	select LIBXML2_WRITER	if EVTEST_CAPTURE
 	help
 	  Simple tool for Linux's input event debugging
 

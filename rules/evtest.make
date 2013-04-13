@@ -29,6 +29,13 @@ EVTEST_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
+EVTEST_CONF_ENV := $(CROSS_ENV)
+
+# disable pkg-config so that libxml2 is never found
+ifndef PTXCONF_EVTEST_CAPTURE
+EVTEST_CONF_ENV += PKG_CONFIG=false
+endif
+
 #
 # autoconf
 #
