@@ -8,8 +8,6 @@ menuconfig COMMONCPP2
 	select LIBC_PTHREAD
 	select GCCLIBS_CXX
 	select ZLIB if COMMONCPP2_LIBZ
-	select LIBXML2 if COMMONCPP2_LIBXML2
-	select LIBXML2_PUSH if COMMONCPP2_LIBXML2
 	help
 	  GNU Common C++ is a portable and highly optimized class
 	  framework for writing C++ applications that need to use threads,
@@ -24,9 +22,5 @@ if COMMONCPP2
 config COMMONCPP2_LIBZ
 	bool
 	prompt "enable libz compression"
-
-config COMMONCPP2_LIBXML2
-	bool
-	prompt "enable libxml2 parser"
 
 endif

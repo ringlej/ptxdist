@@ -41,9 +41,10 @@ COMMONCPP2_MAKE_PAR := NO
 #
 COMMONCPP2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	--disable-debug \
 	--disable-profiling \
-	--without-ipv6 \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_IPV6)-ipv6 \
 	--without-nat \
 	--without-gnutls \
 	--without-openssl \
@@ -57,10 +58,6 @@ COMMONCPP2_AUTOCONF := \
 
 ifndef PTXCONF_COMMONCPP2_LIBZ
 COMMONCPP2_AUTOCONF += --without-compression
-endif
-
-ifndef PTXCONF_COMMONCPP2_LIBXML2
-COMMONCPP2_AUTOCONF += --without-libxml2
 endif
 
 # ----------------------------------------------------------------------------
