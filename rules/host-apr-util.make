@@ -23,6 +23,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_APR_UTIL) += host-apr-util
 HOST_APR_UTIL_CONF_TOOL := autoconf
 HOST_APR_UTIL_CONF_OPT := \
 	$(HOST_AUTOCONF) \
+	--with-expat=$(PTXDIST_SYSROOT_HOST) \
 	--with-apr=$(PTXDIST_SYSROOT_HOST)/bin/apr-config
 
 # ----------------------------------------------------------------------------
