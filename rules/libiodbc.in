@@ -42,6 +42,8 @@ choice
 
 	config LIBIODBC_DRIVER_VERSION_2
 		bool "2.x"
+		# currently not supported
+		depends on BROKEN
 		help
 		  build ODBC 2.x compatible driver manager
 
