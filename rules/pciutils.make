@@ -70,8 +70,6 @@ ifdef PTXCONF_PCIUTILS_COMPRESS
 	@$(call install_copy, pciutils, 0, 0, 0644, -, \
 		/usr/share/pci.ids.gz, n)
 else
-	@gunzip -c $(PCIUTILS_PKGDIR)/usr/share/pci.ids.gz > \
-		$(PCIUTILS_PKGDIR)/usr/share/pci.ids
 	@$(call install_copy, pciutils, 0, 0, 0644, -, \
 		/usr/share/pci.ids, n)
 endif
