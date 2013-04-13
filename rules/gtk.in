@@ -15,6 +15,9 @@ menuconfig GTK
 	select CAIRO_GOBJECT
 	select GDK_PIXBUF
 
+	# disabling xkb is broken
+	select GTK_XKB
+
 	select XORG_LIB_X11		if GTK_XKB
 	select XORG_LIB_X11_XKB		if GTK_XKB
 	select XORG_LIB_XINERAMA	if GTK_XINERAMA
