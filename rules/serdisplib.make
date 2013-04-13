@@ -30,6 +30,10 @@ SERDISPLIB_LICENSE	:= GPL
 # Prepare
 # ----------------------------------------------------------------------------
 
+SERDISPLIB_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_func_gdImageCreateTrueColor=no \
+	ac_cv_func_SDL_SetVideoMode=no
 #
 # autoconf
 #
