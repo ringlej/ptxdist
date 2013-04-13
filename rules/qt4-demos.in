@@ -38,6 +38,7 @@ config QT4_DEMOS_BOXES
 config QT4_DEMOS_BROWSER
 	bool
 	prompt "browser"
+	depends on QT4_BUILD_SVG
 	depends on QT4_BUILD_WEBKIT
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
