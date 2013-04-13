@@ -556,8 +556,10 @@ endif
 ifdef PTXCONF_QT4_BUILD_NETWORK
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/bearer/libqgenericbearer.$(QT4_PLUGIN_EXT))
+ifdef PTXCONF_QT4_DBUS
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/bearer/libqnmbearer.$(QT4_PLUGIN_EXT))
+endif
 endif
 ifdef PTXCONF_QT4_BUILD_PHONON
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
