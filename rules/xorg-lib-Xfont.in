@@ -14,6 +14,8 @@ menuconfig XORG_LIB_XFONT
 	select XORG_LIB_XTRANS
 	select ZLIB			if XORG_LIB_XFONT_BUILTIN_FONTS
 	select FREETYPE			if XORG_LIB_XFONT_FREETYPE
+	# disabling builtins is currently broken
+	select XORG_LIB_XFONT_BUILTIN_FONTS
 	default y if XORG_LIB_X11
 	prompt "libXfont                      "
 	help
