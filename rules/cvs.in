@@ -30,6 +30,7 @@ config CVS_NDBM
 
 config CVS_CLIENT
 	bool
+	select CVS_PSSWRD_CLIENT
 	prompt "Build cvs client"
 	help
 	  Include code for running as a remote client
