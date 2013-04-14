@@ -47,8 +47,10 @@ $(STATEDIR)/u-boot-tools.install:
 	@$(call targetinfo)
 	install -D $(U_BOOT_TOOLS_DIR)/tools/mkimage \
 		$(U_BOOT_TOOLS_PKGDIR)/usr/bin/mkimage
+ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
 	install -D $(U_BOOT_TOOLS_DIR)/tools/env/fw_printenv \
 		$(U_BOOT_TOOLS_PKGDIR)/usr/sbin/fw_printenv
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
