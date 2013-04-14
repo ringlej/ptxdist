@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_OPENNTPD) += openntpd
 #
 # Paths and names
 #
-OPENNTPD_VERSION	:= 3.7p1
-OPENNTPD_MD5		:= 10ed8eefd760e5819efcf3277b118f47
+OPENNTPD_VERSION	:= 3.9p1
+OPENNTPD_MD5		:= afc34175f38d08867c1403d9008600b3
 OPENNTPD		:= openntpd-$(OPENNTPD_VERSION)
 OPENNTPD_SUFFIX		:= tar.gz
 OPENNTPD_URL		:= http://ftp.eu.openbsd.org/pub/OpenBSD/OpenNTPD/$(OPENNTPD).$(OPENNTPD_SUFFIX)
@@ -28,22 +28,15 @@ OPENNTPD_DIR		:= $(BUILDDIR)/$(OPENNTPD)
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPENNTPD_PATH	:= PATH=$(CROSS_PATH)
-OPENNTPD_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-OPENNTPD_AUTOCONF := \
+OPENNTPD_CONF_TOOL	:= autoconf
+OPENNTPD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--with-privsep-user=ntp \
-	--with-privsep-path=/var/run/ntp
-
-ifdef PTXCONF_OPENNTPD_ARC4RANDOM
-OPENNTPD_AUTOCONF += --with-builtin-arc4random
-else
-OPENNTPD_AUTOCONF += --without-builtin-arc4random
-endif
+	--with-privsep-path=/var/run/ntp \
+	--$(call ptx/wwo, PTXCONF_OPENNTPD_ARC4RANDOM)-builtin-arc4random
 
 # ----------------------------------------------------------------------------
 # Target-Install
