@@ -4,6 +4,8 @@ menuconfig BASH
 	select LIBC_DL
 	select GCCLIBS_GCC_S
 	select NCURSES if BASH_CURSES
+	# disabling this is currently broken
+	select BASH_CONDITIONAL
 	help
 	  The GNU Bourne Again SHell
 	  Bash is an sh-compatible command language interpreter that executes
