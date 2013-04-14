@@ -29,6 +29,7 @@ config AVAHI_GLIB
 
 config AVAHI_GOBJECT
 	bool
+	select AVAHI_GLIB
 	prompt "enable gobject support"
 	help
 	  --enable-gobject
