@@ -10,7 +10,7 @@ menuconfig LIBGSF
 	select BZIP2_LIBBZ2	if LIBGSF_BZ2
 	select GLIB		if LIBGSF_GIO
 	select PYTHON		if LIBGSF_PYTHON
-	select HOST_INTLTOOL	if LIBGSF_NLS
+	select HOST_INTLTOOL
 	help
 	  Structured File Library
 
