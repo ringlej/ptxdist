@@ -41,6 +41,7 @@ GST_PLUGINS_GL_CONF_OPT := \
 	--disable-profiling \
 	--disable-valgrind \
 	--disable-gcov \
+	--disable-examples \
 	--disable-gtk-doc
 
 # ----------------------------------------------------------------------------
