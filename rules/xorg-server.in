@@ -32,6 +32,7 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_FONTS
 	select XORG_PROTO_INPUT
 	select XORG_PROTO_KB
+	select XORG_PROTO_VIDEO
 
 	# libs
 	select XORG_LIB_XFONT
@@ -77,7 +78,6 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_XF86VIDMODE	if XORG_SERVER_XORG && XORG_SERVER_EXT_XF86VIDMODE
 
 	# xv triggered
-	select XORG_PROTO_VIDEO		if XORG_SERVER_EXT_XV
 	select XORG_LIB_XV		if XORG_SERVER_EXT_XV
 
 	# composite triggered
@@ -445,6 +445,7 @@ config XORG_SERVER_EXT_XSELINUX
 
 config XORG_SERVER_EXT_XCSECURITY
 	bool
+	select XORG_SERVER_EXT_XACE
 	prompt "xcsecurity"
 	help
 	  FIXME
