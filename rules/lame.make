@@ -47,7 +47,7 @@ LAME_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_LAME_FRONTEND)-frontend \
 	--disable-mp3x \
 	--enable-mp3rtp \
-	--enable-expopt=full \
+	--enable-expopt \
 	--disable-debug \
 	--without-dmalloc
 
