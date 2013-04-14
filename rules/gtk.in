@@ -22,7 +22,8 @@ menuconfig GTK
 	select XORG_LIB_X11_XKB		if GTK_XKB
 	select XORG_LIB_XINERAMA	if GTK_XINERAMA
 	# FIXME - gtk's configure doesn't check for XInput.h. Should be patched.
-	select XORG_LIB_XI		if GTK_XINPUT
+	# gdk needs XInput.h even with xinput disabled
+	select XORG_LIB_XI
 	select XORG_LIB_XRANDR		if GTK_XRANDR
 	select XORG_LIB_XFIXES		if GTK_XFIXES
 	select XORG_LIB_XCOMPOSITE	if GTK_XCOMPOSITE
