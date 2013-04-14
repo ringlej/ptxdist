@@ -18,7 +18,7 @@ config KERNEL_HEADER_VERSION
 config KERNEL_HEADER_MD5
 	prompt "kernel source md5sum"
 	string
-	default "1aab7a741abe08d42e8eccf20de61e05"
+	default "25cd73d797a49ad5b4119b67f1caf2cc"
 
 endif
 
