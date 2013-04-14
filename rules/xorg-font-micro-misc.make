@@ -58,6 +58,8 @@ $(STATEDIR)/xorg-font-micro-misc.install:
 $(STATEDIR)/xorg-font-micro-misc.targetinstall:
 	@$(call targetinfo)
 
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/misc
+
 	@find $(XORG_FONT_MICRO_MISC_DIR) \
 		-name "*.pcf.gz" \
 		| \
