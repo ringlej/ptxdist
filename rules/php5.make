@@ -65,7 +65,7 @@ PHP5_AUTOCONF += --without-aolserver
 endif
 
 ifdef PTXCONF_PHP5_SAPI_APXS2FILTER
-PHP5_AUTOCONF += --with-apxs2filter
+PHP5_AUTOCONF += --with-apxs2filter=$(PTXDIST_SYSROOT_TARGET)/usr/bin/apxs
 else
 #PHP5_AUTOCONF += --without-apxs2filter
 endif
