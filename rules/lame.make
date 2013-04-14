@@ -65,6 +65,9 @@ $(STATEDIR)/lame.targetinstall:
 	@$(call install_fixup, lame,DESCRIPTION,missing)
 
 	@$(call install_lib, lame, 0, 0, 0644, libmp3lame)
+ifdef PTXCONF_LAME_FRONTEND
+	@$(call install_copy, lame, 0, 0, 0755, -, /usr/bin/lame)
+endif
 
 	@$(call install_finish, lame)
 
