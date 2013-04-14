@@ -58,6 +58,8 @@ config OPKG_GPG
 	prompt "signature checking with gpg"
 	# gpg and openssl are mutually exclusive
 	depends on ! OPKG_OPENSSL
+	# needs gpgme
+	depends on BROKEN
 	help
 	  FIXME
 
