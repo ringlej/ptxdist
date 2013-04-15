@@ -24,11 +24,11 @@ config EVTEST_CAPTURE
 	prompt "evtest-capture"
 	help
 	  'evtest-capture' captures the information and events from the input
-	   device specified on the command line and writes it to a xml file.
-	   Together with with evtest-create-device.xsl, a simple uinput-based
+	   device specified on the command line and writes it to an xml file.
+	   Together with evtest-create-device.xsl, a simple uinput-based
 	   software input device can be created that replays the events as if
 	   the same input was performed on the physical device. This can be
 	   useful to replicate bugs with input devices in upper layers of the
-	   stack.Install the 'evtest-capture' tool (Note: requires libXML2).
+	   stack. Install the 'evtest-capture' tool (Note: requires libXML2).
 
 endif
