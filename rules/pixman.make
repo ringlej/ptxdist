@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.26.0
-PIXMAN_MD5	:= d0c41a51db89efec669812e66a5582fa
+PIXMAN_VERSION	:= 0.28.2
+PIXMAN_MD5	:= f6e3294c4edb7b6bca8459e604286348
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
 PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(call ptx/mirror, XORG, individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX))
@@ -33,16 +33,22 @@ PIXMAN_DIR	:= $(BUILDDIR)/$(PIXMAN)
 #
 PIXMAN_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	--disable-openmp \
+	--disable-loongson-mmi \
 	--$(call ptx/endis, PTXCONF_ARCH_X86)-mmx \
 	--$(call ptx/endis, PTXCONF_ARCH_X86)-sse2 \
 	--disable-vmx \
 	--disable-arm-simd \
 	--$(call ptx/endis, PTXCONF_ARCH_ARM_NEON)-arm-neon \
+	--disable-arm-iwmmxt \
+	--disable-arm-iwmmxt2 \
+	--disable-mips-dspr2 \
 	--enable-gcc-inline-asm \
 	--disable-static-testprogs \
 	--disable-timers \
-	--disable-gtk
+	--disable-gtk \
+	--disable-libpng
 
 # ----------------------------------------------------------------------------
 # Target-Install
