@@ -172,7 +172,7 @@ config SETUP_XORGMIRROR
 
 config SETUP_KERNELMIRROR
 	string
-	default "http://www.kernel.org/pub/linux"
+	default "https://www.kernel.org/pub/linux"
 	prompt "kernel.org Mirror"
 	help
 	  For all kernel.org related packages enter an available mirror here.
