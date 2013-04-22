@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 0.9.1
-V4L_UTILS_MD5		:= dce548c1b497a39e59bb52387cf18dc1
+V4L_UTILS_VERSION	:= 0.9.5
+V4L_UTILS_MD5		:= 6947bea808b19207d89ec31afc3a9a89
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
