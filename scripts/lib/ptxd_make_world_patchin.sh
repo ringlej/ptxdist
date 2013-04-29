@@ -76,7 +76,7 @@ export -f ptxd_make_world_patchin_apply_git_init
 # create a directory containing the patches and the selected series
 # file. name that file "series".
 #
-# decompress "bz2" and "gz" patches on the fly
+# decompress "bz2", "gz" and "xz" patches on the fly
 #
 ptxd_make_world_patchin_apply_git_compat()
 {
@@ -106,6 +106,7 @@ ptxd_make_world_patchin_apply_git_compat()
 	    ""|"#"*) continue ;;	# skip empty lines and comments
 	    *.gz)  cat="zcat" ;;
 	    *.bz2) cat="bzcat" ;;
+	    *.xz)  cat="xzcat" ;;
 	    *)
 		ln -s "../patches/${patch}" "${pkg_patchin_dir}/.ptxdist/git-patches/${patch_file}" &&
 		echo "${patch_file}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/git-patches/series" || return
@@ -180,6 +181,7 @@ ptxd_make_world_patchin_apply_patch()
 	    ""|"#"*) continue ;;	# skip empty lines and comments
 	    *.gz)    cat=zcat ;;
 	    *.bz2)   cat=bzcat ;;
+	    *.xz)    cat=xzcat ;;
 	    *)       cat=cat ;;
 	esac
 
@@ -259,6 +261,7 @@ ptxd_make_world_patchin_apply()
 	find \
 	    -name "*.diff" -o \
 	    -name "*.patch" -o \
+	    -name "*.xz" -o \
 	    -name "*.bz2" -o \
 	    -name "*.gz" | \
 	    sed -e "s:^[.]/::" | sort > \
