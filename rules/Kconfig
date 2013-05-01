@@ -86,8 +86,10 @@ menu "System Libraries              "
 source "generated/system_libraries.in"
 endmenu
 
+menu "Security                      "
 menu "SELinux                       "
 source "generated/selinux.in"
+endmenu
 endmenu
 
 menu "Middleware                    "
