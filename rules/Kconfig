@@ -90,6 +90,7 @@ menu "Security                      "
 menu "SELinux                       "
 source "generated/selinux.in"
 endmenu
+source "generated/security.in"
 endmenu
 
 menu "Middleware                    "

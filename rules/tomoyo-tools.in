@@ -1,0 +1,8 @@
+## SECTION=security
+
+config TOMOYO_TOOLS
+	tristate
+	prompt "tomoyo-tools"
+	select NCURSES
+	help
+	  TOMOYO Linux userspace tools for Linux kernels >=3.2
