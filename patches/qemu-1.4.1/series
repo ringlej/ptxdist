@@ -1,0 +1,2 @@
+0001-hw-pflash_cfi01-Make-read-after-byte-write-or-erase-.patch
+0002-hw-pflash_cfi01-Treat-read-in-unknown-command-state-.patch

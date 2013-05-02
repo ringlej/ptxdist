@@ -1,0 +1,37 @@
+From a565378a8f2be201060caf1c51cdbf7e70a14c3a Mon Sep 17 00:00:00 2001
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 28 Feb 2013 18:23:12 +0000
+Subject: [PATCH 1/2] hw/pflash_cfi01: Make read after byte-write or erase
+ return status
+
+The Intel flash command set requires that a read operation after
+doing a 'single byte write' command returns the status register;
+add this case to pflash_read() so we return the correct information.
+Similarly, the case for the 0x28 flavour of block erase was missing.
+
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+Reviewed-by: Peter Crosthwaite <peter.crosthwaite@xilinx.com>
+Tested-by: Peter Crosthwaite <peter.crosthwaite@xilinx.com>
+Message-id: 1358777318-7579-2-git-send-email-peter.maydell@linaro.org
+---
+ hw/pflash_cfi01.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/hw/pflash_cfi01.c b/hw/pflash_cfi01.c
+index 9e6ff52..c79e599 100644
+--- a/hw/pflash_cfi01.c
++++ b/hw/pflash_cfi01.c
+@@ -162,7 +162,10 @@ static uint32_t pflash_read (pflash_t *pfl, hwaddr offset,
+         }
+ 
+         break;
++    case 0x10: /* Single byte program */
+     case 0x20: /* Block erase */
++    case 0x28: /* Block erase */
++    case 0x40: /* single byte program */
+     case 0x50: /* Clear status register */
+     case 0x60: /* Block /un)lock */
+     case 0x70: /* Status Register */
+-- 
+1.7.10.4
+

@@ -1,0 +1,58 @@
+From d76742f0b1010f62dd99a75e68b3557b8b8d881c Mon Sep 17 00:00:00 2001
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 28 Feb 2013 18:23:12 +0000
+Subject: [PATCH 2/2] hw/pflash_cfi01: Treat read in unknown command state as
+ read
+
+The code for handling the default "unknown command state" case in
+pflash_read in pflash_cfi01.c comments "reset state & treat it as
+a read". However the code doesn't actually do this. Moving the
+default case to the top of the switch so it can fall through into
+the read case brings this file into line with pflash_cfi02 and
+makes the code behave as the comments suggest.
+
+The pflash_cfi01 code has always had this bug -- it was presumably
+introduced when the original author copied the cfi02 code and
+rearranged the order of the switch statement without noticing
+that the default case relied on the fall-through.
+
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+Reviewed-by: Peter Crosthwaite <peter.crosthwaite@xilinx.com>
+Tested-by: Peter Crosthwaite <peter.crosthwaite@xilinx.com>
+Message-id: 1358777318-7579-3-git-send-email-peter.maydell@linaro.org
+---
+ hw/pflash_cfi01.c |   11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/hw/pflash_cfi01.c b/hw/pflash_cfi01.c
+index c79e599..123b006 100644
+--- a/hw/pflash_cfi01.c
++++ b/hw/pflash_cfi01.c
+@@ -122,6 +122,12 @@ static uint32_t pflash_read (pflash_t *pfl, hwaddr offset,
+             __func__, offset, pfl->cmd, width);
+ #endif
+     switch (pfl->cmd) {
++    default:
++        /* This should never happen : reset state & treat it as a read */
++        DPRINTF("%s: unknown command state: %x\n", __func__, pfl->cmd);
++        pfl->wcycle = 0;
++        pfl->cmd = 0;
++        /* fall through to read code */
+     case 0x00:
+         /* Flash area read */
+         p = pfl->storage;
+@@ -197,11 +203,6 @@ static uint32_t pflash_read (pflash_t *pfl, hwaddr offset,
+         else
+             ret = pfl->cfi_table[boff];
+         break;
+-    default:
+-        /* This should never happen : reset state & treat it as a read */
+-        DPRINTF("%s: unknown command state: %x\n", __func__, pfl->cmd);
+-        pfl->wcycle = 0;
+-        pfl->cmd = 0;
+     }
+     return ret;
+ }
+-- 
+1.7.10.4
+

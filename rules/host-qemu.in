@@ -1,0 +1,19 @@
+## SECTION=hosttools
+
+menuconfig HOST_QEMU
+	tristate
+	prompt "host-side qemu                "
+	select HOST_GLIB
+	select HOST_ZLIB
+
+if HOST_QEMU
+
+config HOST_QEMU_SYS
+	bool
+	prompt "system emulation"
+
+config HOST_QEMU_USR
+	bool
+	prompt "user-space emulation"
+
+endif
