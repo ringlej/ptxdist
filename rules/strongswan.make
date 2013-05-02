@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_STRONGSWAN) += strongswan
 #
 # Paths and names
 #
-STRONGSWAN_VERSION	:= 5.0.2
-STRONGSWAN_MD5		:= 77dc16443fd141f46183d3a4f60986ef
+STRONGSWAN_VERSION	:= 5.0.4
+STRONGSWAN_MD5		:= 0ab0397b44b197febfd0f89148344035
 STRONGSWAN		:= strongswan-$(STRONGSWAN_VERSION)
 STRONGSWAN_SUFFIX	:= tar.bz2
 STRONGSWAN_URL		:= http://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
@@ -34,6 +34,7 @@ STRONGSWAN_CONF_TOOL	:= autoconf
 STRONGSWAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_STRONGSWAN_LIBCURL)-curl \
+	--disable-unbound \
 	--disable-soup \
 	--disable-ldap \
 	--enable-aes \
@@ -57,6 +58,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--enable-pkcs8 \
 	--enable-pgp \
 	--enable-dnskey \
+	--disable-ipseckey \
 	--enable-pem \
 	--enable-hmac \
 	--enable-cmac \
@@ -95,6 +97,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--enable-xauth-generic \
 	--disable-xauth-eap \
 	--disable-xauth-pam \
+	--disable-xauth-noauth \
 	--disable-tnc-ifmap \
 	--disable-tnc-pdp \
 	--disable-tnc-imc \
@@ -146,7 +149,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-addrblock \
 	--disable-unity \
 	--disable-uci \
-	--disable-android \
+	--disable-android-dns \
 	--disable-android-log \
 	--disable-maemo \
 	--disable-nm \
@@ -155,6 +158,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-lookip \
 	--disable-error-notify \
 	--disable-certexpire \
+	--disable-systime-fix \
 	--disable-led \
 	--disable-duplicheck \
 	--disable-coupling \
@@ -162,6 +166,9 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-vstr \
 	--disable-monolithic \
 	--disable-bfd-backtraces \
+	--disable-unit-tests \
+	--disable-tkm \
+	--disable-defaults \
 	--enable-dependency-tracking \
 	--enable-shared \
 	--disable-static \
