@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.0.6
-GSTREAMER1_MD5		:= d0797e51a420fca0beb973b9dcda586f
+GSTREAMER1_VERSION	:= 1.0.7
+GSTREAMER1_MD5		:= 8f6066a37c71a0d0ff5fe5f7687fea12
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -42,6 +42,7 @@ GSTREAMER1_GENERIC_CONF_OPT = \
 	--disable-valgrind \
 	--disable-gcov \
 	--disable-examples \
+	--disable-static-plugins \
 	\
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-introspection \
