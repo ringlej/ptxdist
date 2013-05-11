@@ -1,0 +1,34 @@
+From b55da7043756f75fa53519630d4f783cd6501fda Mon Sep 17 00:00:00 2001
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sat, 16 Feb 2013 12:33:28 +0100
+Subject: [PATCH] kconfig: Fix build on Darwin
+
+Darwin 12.2.0 (Mac OS 10.8) defines CIRCLEQ_HEAD but doesn't define
+CIRCLEQ_HEAD_INITIALIZER. Since mconf.c uses CIRCLEQ_HEAD_INITIALIZER,
+the build fails.
+
+A simple and safe fix is to always use our own copy of the CIRCLEQ_
+macros on every platform. Include "missing.h" and don't include
+<sys/queue.h". That works also on Linux, verified on current Arch Linux
+with glibc 2.17.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ scripts/kconfig/expr.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/scripts/kconfig/expr.h b/scripts/kconfig/expr.h
+index 59402a3..041b08e 100644
+--- a/scripts/kconfig/expr.h
++++ b/scripts/kconfig/expr.h
+@@ -12,7 +12,6 @@ extern "C" {
+ 
+ #include <assert.h>
+ #include <stdio.h>
+-#include <sys/queue.h>
+ #ifndef __cplusplus
+ #include <stdbool.h>
+ #endif
+-- 
+1.8.2.2
+

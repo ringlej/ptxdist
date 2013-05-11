@@ -12,7 +12,6 @@ extern "C" {
 
 #include <assert.h>
 #include <stdio.h>
-#include <sys/queue.h>
 #ifndef __cplusplus
 #include <stdbool.h>
 #endif

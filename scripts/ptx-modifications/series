@@ -9,3 +9,4 @@
 0005-nconf-remove-special-P_COMMENT-output.patch
 0006-mconf-fix-comment-on-exit.patch
 0007-kconfig-define-CIRCLEQ_-macros-when-needed.patch
+0008-kconfig-Fix-build-on-Darwin.patch
