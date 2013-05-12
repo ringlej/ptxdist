@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.28.2
-PIXMAN_MD5	:= f6e3294c4edb7b6bca8459e604286348
+PIXMAN_VERSION	:= 0.30.0
+PIXMAN_MD5	:= 11b7e062e20ae40e49c2871dd9f82b0b
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
 PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(call ptx/mirror, XORG, individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX))
