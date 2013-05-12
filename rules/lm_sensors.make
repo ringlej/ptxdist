@@ -30,18 +30,16 @@ LM_SENSORS_LICENSE	:= GPLv2+, LGPLv2.1+
 # Prepare
 # ----------------------------------------------------------------------------
 
-LM_SENSORS_PATH	:= PATH=$(CROSS_PATH)
-LM_SENSORS_ENV 	:= $(CROSS_ENV)
-
-LM_SENSORS_MAKEVARS := \
+LM_SENSORS_CONF_TOOL	:= NO
+LM_SENSORS_MAKE_OPT	:= \
 	PREFIX=/usr \
 	LIBICONV="" \
 	MACHINE=$(PTXCONF_ARCH_STRING) \
 	$(CROSS_ENV_CC)
 
-$(STATEDIR)/lm_sensors.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+LM_SENSORS_INSTALL_OPT	:= \
+	$(LM_SENSORS_MAKE_OPT) \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install

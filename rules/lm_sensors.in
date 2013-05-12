@@ -4,7 +4,7 @@ menuconfig LM_SENSORS
 	tristate
 	prompt "lm_sensors                    "
 	select LIBC_M
-	select BASH if LM_SENSORS_FANCONTROL || LM_SENSORS_PWMCONFIG
+	select BASH if (LM_SENSORS_FANCONTROL || LM_SENSORS_PWMCONFIG) && RUNTIME
 	help
 	  Lm-sensors is a hardware health monitoring package for Linux.
 	  It contains a library (libsensors) providing generic access to hwmon
