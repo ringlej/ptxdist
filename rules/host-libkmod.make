@@ -26,6 +26,7 @@ HOST_LIBKMOD_CONF_OPT	:= \
 	--disable-static \
 	--enable-shared \
 	--enable-tools \
+	--disable-manpages \
 	--disable-logging \
 	--disable-debug \
 	--disable-gtk-doc \
