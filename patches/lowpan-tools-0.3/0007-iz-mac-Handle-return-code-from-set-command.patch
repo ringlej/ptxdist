@@ -1,0 +1,43 @@
+From a1d9615adde6d1a568813c24a128273ed755af04 Mon Sep 17 00:00:00 2001
+From: Alan Ott <alan@signal11.us>
+Date: Sun, 17 Mar 2013 21:22:52 -0400
+Subject: [PATCH 7/7] iz-mac: Handle return code from "set" command
+
+The iz set command will fail if the PAN ID is invalid. Handle this failure.
+
+Signed-off-by: Alan Ott <alan@signal11.us>
+---
+ src/iz-mac.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/src/iz-mac.c b/src/iz-mac.c
+index be980d6..838229c 100644
+--- a/src/iz-mac.c
++++ b/src/iz-mac.c
+@@ -315,14 +315,16 @@ nla_put_failure:
+ 
+ static iz_res_t set_response(struct iz_cmd *cmd, struct genlmsghdr *ghdr, struct nlattr **attrs)
+ {
+-	if (!attrs[IEEE802154_ATTR_SHORT_ADDR] ||
+-		!attrs[IEEE802154_ATTR_STATUS] )
++	uint8_t status;
++	
++	if (!attrs[IEEE802154_ATTR_STATUS])
+ 		return IZ_STOP_ERR;
+-
+-	printf("Set PAN ID %04hx, short address %04hx, status %i\n",
+-		nla_get_u16(attrs[IEEE802154_ATTR_COORD_PAN_ID]),
+-		nla_get_u16(attrs[IEEE802154_ATTR_SHORT_ADDR]),
+-		nla_get_u8(attrs[IEEE802154_ATTR_CHANNEL]));
++	
++	status = nla_get_u8(attrs[IEEE802154_ATTR_STATUS]);
++	if (status != 0) {
++		printf("Operation Failed. Check channel and PAN ID\n");
++		return IZ_STOP_ERR;
++	}
+ 
+ 	return IZ_STOP_OK;
+ }
+-- 
+1.8.2.3
+

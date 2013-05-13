@@ -1,0 +1,27 @@
+From 770842e5df5f11718223c52d8fe5257ce29ab629 Mon Sep 17 00:00:00 2001
+From: Alan Ott <alan@signal11.us>
+Date: Sun, 17 Mar 2013 18:18:46 -0400
+Subject: [PATCH 5/7] configure.ac: Check that the python version is indeed 2
+
+Python 3 breaks all our scripts.
+
+Signed-off-by: Alan Ott <alan@signal11.us>
+---
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configure.ac b/configure.ac
+index 6c9f54b..89c2651 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -81,6 +81,7 @@ AC_SUBST(LIBTOOL_DEPS)
+ # Check for this at first
+ AC_PATH_PROG(PYTHON, python2 python2.7 python2.6 python2.5 python)
+ AM_PATH_PYTHON(,, [:])
++py_CHECK_MAJOR_VERSION([PYTHON_VERSION], [2])
+ AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
+ 
+ # Checks for libraries.
+-- 
+1.8.2.3
+

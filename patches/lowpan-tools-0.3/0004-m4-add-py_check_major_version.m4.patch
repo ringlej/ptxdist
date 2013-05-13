@@ -1,0 +1,44 @@
+From 242c594bce69295299d67d5a2c7d4a286fb85fcd Mon Sep 17 00:00:00 2001
+From: Alan Ott <alan@signal11.us>
+Date: Sun, 17 Mar 2013 18:13:45 -0400
+Subject: [PATCH 4/7] m4: add py_check_major_version.m4
+
+Macro to check the Python major version.
+
+This is from stackoverflow user bigleux on page:
+  http://stackoverflow.com/questions/4619664/autofoo-test-for-maximum-version-of-python
+
+Signed-off-by: Alan Ott <alan@signal11.us>
+---
+ m4/py_check_major_version.m4 | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+ create mode 100644 m4/py_check_major_version.m4
+
+diff --git a/m4/py_check_major_version.m4 b/m4/py_check_major_version.m4
+new file mode 100644
+index 0000000..6d45be8
+--- /dev/null
++++ b/m4/py_check_major_version.m4
+@@ -0,0 +1,19 @@
++`# From http://stackoverflow.com/questions/4619664/autofoo-test-for-maximum-version-of-python
++`#      stackoverflow user biegleux
++
++`# py_CHECK_MAJOR_VERSION(VARIABLE, VERSION, [ACTION-IF-TRUE], [ACTION-IF-FALSE])`  
++`# ---------------------------------------------------------------------------`  
++`# Run ACTION-IF-TRUE if the VAR has a major version >= VERSION.`  
++`# Run ACTION-IF-FALSE otherwise.`  
++AC_DEFUN([py_CHECK_MAJOR_VERSION],  
++[AC_MSG_CHECKING([whether $1 $$1 major version == $2])  
++case $$1 in  
++$2*)  
++  AC_MSG_RESULT([yes])  
++  ifelse([$3], [$3], [:])  
++  ;;  
++*)  
++  AC_MSG_RESULT([no])  
++  ifelse([$4], , [AC_MSG_ERROR([$$1 differs from $2])], [$4])  
++  ;;  
++esac])  
+-- 
+1.8.2.3
+

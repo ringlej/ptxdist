@@ -1,0 +1,109 @@
+From eb4fa43ae3e2b5a3bdf35a7915af70805f891cb9 Mon Sep 17 00:00:00 2001
+From: Alexander Aring <alex.aring@googlemail.com>
+Date: Fri, 21 Dec 2012 06:37:15 +0100
+Subject: [PATCH 2/7] addrdb: fix include dependency and remove redefined
+
+Currently I get this compile error:
+
+coord-config-parse.h:106:14: error: unknown type name 'yyscan_t'
+coord-config-parse.y:38:0: error: "YYDEBUG" redefined [-Werror]
+
+"yyscan_t" is defined in parser.h but parser.h need a include from
+coord-config-parse.h for "YYSTYPE".
+
+This patch removes typedef of "yyscan_t" from parser.h into new
+file scanner.h.
+
+File coord-config-parse.y includes scanner.h at first so "yyscan_t"
+is known.
+
+Remove redefined:
+Move #define YYDEBUG 1 in coord-config-parse.y at first. Otherwise
+it will be defined in generated coord-config-parse.h to 0.
+
+Tested with bison (GNU Bison) 2.7.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ addrdb/coord-config-parse.y |  5 +++--
+ addrdb/parser.h             |  5 -----
+ addrdb/scanner.h            | 25 +++++++++++++++++++++++++
+ 3 files changed, 28 insertions(+), 7 deletions(-)
+ create mode 100644 addrdb/scanner.h
+
+diff --git a/addrdb/coord-config-parse.y b/addrdb/coord-config-parse.y
+index 6b0328b..2e10a88 100644
+--- a/addrdb/coord-config-parse.y
++++ b/addrdb/coord-config-parse.y
+@@ -20,6 +20,8 @@
+  *  with this program; if not, write to the Free Software Foundation, Inc.,
+  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  */
++	#define YYDEBUG 1
++
+ 	#include <stdio.h>
+ 	#include <unistd.h>
+ 	#include <stdlib.h>
+@@ -32,11 +34,10 @@
+ 	#include <libcommon.h>
+ 	#include <time.h>
+ 	#include <addrdb.h>
++	#include "scanner.h"
+ 	#include "coord-config-parse.h"
+ 	#include "parser.h"
+ 
+-	#define YYDEBUG 1
+-
+ 	static uint16_t short_addr;
+ 	static uint8_t hwaddr[8];
+ 	static time_t mystamp;
+diff --git a/addrdb/parser.h b/addrdb/parser.h
+index 0f1b4d8..66e8f41 100644
+--- a/addrdb/parser.h
++++ b/addrdb/parser.h
+@@ -22,11 +22,6 @@
+ #ifndef PARSER_H
+ #define PARSER_H
+ 
+-#ifndef YY_TYPEDEF_YY_SCANNER_T
+-#define YY_TYPEDEF_YY_SCANNER_T
+-typedef void* yyscan_t;
+-#endif
+-
+ #ifndef YY_EXTRA_TYPE
+ #define YY_EXTRA_TYPE void *
+ #endif
+diff --git a/addrdb/scanner.h b/addrdb/scanner.h
+new file mode 100644
+index 0000000..11fc815
+--- /dev/null
++++ b/addrdb/scanner.h
+@@ -0,0 +1,25 @@
++/*
++ * Linux IEEE 802.15.4 userspace tools
++ *
++ *  This program is free software; you can redistribute it and/or modify
++ *  it under the terms of the GNU General Public License as published by
++ *  the Free Software Foundation; version 2 of the License.
++ *
++ *  This program is distributed in the hope that it will be useful,
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *  GNU General Public License for more details.
++ *
++ *  You should have received a copy of the GNU General Public License along
++ *  with this program; if not, write to the Free Software Foundation, Inc.,
++ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++ */
++#ifndef SCANNER_H
++#define SCANNER_H
++
++#ifndef YY_TYPEDEF_YY_SCANNER_T
++#define YY_TYPEDEF_YY_SCANNER_T
++typedef void* yyscan_t;
++#endif
++
++#endif
+-- 
+1.8.2.3
+

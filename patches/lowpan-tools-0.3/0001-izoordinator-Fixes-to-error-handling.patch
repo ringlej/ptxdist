@@ -1,0 +1,50 @@
+From 15032ab6d6e3e551e4ad86e61ea84ccbb8b62be0 Mon Sep 17 00:00:00 2001
+From: Alan Ott <alan@signal11.us>
+Date: Thu, 5 Apr 2012 00:22:56 -0400
+Subject: [PATCH 1/7] izoordinator: Fixes to error handling
+
+Some of the error handling was checking for != 0 on functions which
+return positive values on success.
+
+Signed-off-by: Alan Ott <alan@signal11.us>
+---
+ src/coordinator.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/coordinator.c b/src/coordinator.c
+index a09633a..c139aae 100644
+--- a/src/coordinator.c
++++ b/src/coordinator.c
+@@ -94,7 +94,8 @@ static int mlme_start(uint16_t short_addr, uint16_t pan, uint8_t channel, uint8_
+ 	nla_put_u8(msg, IEEE802154_ATTR_COORD_REALIGN, 0);
+ #endif
+ 	int err = nl_send_auto_complete(nl, msg);
+-	log_msg_nl_perror("nl_send_auto_complete", err);
++	if (err < 0)
++		log_msg_nl_perror("nl_send_auto_complete", err);
+ 	return 0;
+ }
+ 
+@@ -129,7 +130,8 @@ static int coordinator_associate(struct genlmsghdr *ghdr, struct nlattr **attrs)
+ 
+ 	int err = nl_send_auto_complete(nl, msg);
+ 
+-	log_msg_nl_perror("nl_send_auto_complete", err);
++	if (err < 0)
++		log_msg_nl_perror("nl_send_auto_complete", err);
+ 
+ 	return 0;
+ }
+@@ -408,7 +410,8 @@ int main(int argc, char **argv)
+ 	log_msg_nl_perror("genl_connect", err);
+ 
+ 	family = genl_ctrl_resolve(nl, IEEE802154_NL_NAME);
+-	log_msg_nl_perror("genl_ctrl_resolve", NLE_NOMEM);
++	if (family < 0)
++		log_msg_nl_perror("genl_ctrl_resolve", family);
+ 
+ 	nl_socket_add_membership(nl, nl_get_multicast_id(nl, IEEE802154_NL_NAME, IEEE802154_MCAST_COORD_NAME));
+ 
+-- 
+1.8.2.3
+

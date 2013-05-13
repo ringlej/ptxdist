@@ -1,1 +1,7 @@
-0001-Avoid-crashing-in-izcoordinator.patch
+0001-izoordinator-Fixes-to-error-handling.patch
+0002-addrdb-fix-include-dependency-and-remove-redefined.patch
+0003-configure.ac-check-for-python2.x.patch
+0004-m4-add-py_check_major_version.m4.patch
+0005-configure.ac-Check-that-the-python-version-is-indeed.patch
+0006-Allow-to-set-PAN-ID-short-address-and-channel-manual.patch
+0007-iz-mac-Handle-return-code-from-set-command.patch
