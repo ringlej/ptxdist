@@ -37,6 +37,7 @@ LIBKMOD_CONF_OPT	:= \
 	--disable-static \
 	--enable-shared \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_TOOLS)-tools \
+	--disable-manpages \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug \
 	--disable-gtk-doc \
