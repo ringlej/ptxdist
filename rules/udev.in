@@ -90,6 +90,11 @@ config UDEV_KEYMAPS
 	  This will install the keymaps shipped with udev. These are mostly
 	  to map custom hardware's multimedia keys of various laptops
 
+config UDEV_HWDB
+	bool
+	depends on SYSTEMD
+	prompt "install hardware database"
+
 config UDEV_CUST_RULES
 	bool
 	prompt "install customized udev rules"
@@ -146,10 +151,12 @@ config UDEV_PERSISTENT_GENERATOR
 
 config UDEV_PERSISTENT_PCI
 	bool
+	depends on SYSTEMD = n
 	prompt "pci"
 
 config UDEV_PERSISTENT_USB
 	bool
+	depends on SYSTEMD = n
 	prompt "usb"
 
 config UDEV_PERSISTENT_SCSI

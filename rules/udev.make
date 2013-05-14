@@ -104,10 +104,12 @@ endif
 ifdef PTXCONF_SYSTEMD
 
 UDEV_RULES-y += \
+	64-btrfs.rules \
 	70-power-switch.rules \
 	70-uaccess.rules \
 	71-seat.rules \
-	73-seat-late.rules
+	73-seat-late.rules \
+	80-net-name-slot.rules
 
 endif
 
@@ -173,6 +175,9 @@ $(STATEDIR)/udev.targetinstall:
 ifdef PTXCONF_UDEV_ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
 endif
+ifdef PTXCONF_UDEV_HWDB
+	@$(call install_copy, udev, 0, 0, 0644, -, /etc/udev/hwdb.bin)
+endif
 
 ifdef PTXCONF_UDEV_LEGACY
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
@@ -180,7 +185,7 @@ ifdef PTXCONF_UDEV_LEGACY
 else
 ifdef PTXCONF_SYSTEMD
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/systemd/systemd-udevd)
-	@$(call install_copy, udev, 0, 0, 0755, -, /usr/bin/udevadm)
+	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
 else
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)

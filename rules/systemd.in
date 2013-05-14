@@ -13,7 +13,6 @@ menuconfig SYSTEMD
 	select UDEV		if RUNTIME
 	select UDEV_LIBUDEV
 	select MACHINE_ID	if RUNTIME
-	select DBUS_PYTHON	if SYSTEMD_ANALYZE && RUNTIME
 	select TCPWRAPPER	if SYSTEMD_TCPWRAP
 	select XZ		if SYSTEMD_XZ
 	select LIBSELINUX	if GLOBAL_SELINUX
@@ -22,8 +21,7 @@ menuconfig SYSTEMD
 	select LIBKMOD
 	select LIBBLKID
 	select GLIB		if UDEV_LIBGUDEV
-	select PCIUTILS		if UDEV_PERSISTENT_PCI && RUNTIME
-	select USBUTILS		if UDEV_PERSISTENT_USB && RUNTIME
+	select HOST_SYSTEMD	if UDEV_HWDB
 	prompt "systemd                       "
 	help
 	  systemd is a system and session manager for Linux, compatible with SysV
@@ -60,12 +58,6 @@ config SYSTEMD_DISABLE_RANDOM_SEED
 	  This option is for systems with read-only rootfs, where writing
 	  the random seed is not possible.
 	  Warning: enabling this option may be insecure.
-
-config SYSTEMD_ANALYZE
-	bool
-	prompt "systemd-analyze"
-	help
-	  Install the systemd-analyze tool. This feature requires python.
 
 endif
 

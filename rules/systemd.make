@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 195
-SYSTEMD_MD5	:= 38e8c8144e7e6e5bc3ce32eb4260e680
+SYSTEMD_VERSION	:= 204
+SYSTEMD_MD5	:= a07619bb19f48164fbf0761d12fd39a8
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -35,11 +35,6 @@ ifneq ($(PTXCONF_ARCH_X86)$(PTXCONF_ARCH_PPC),)
 SYSTEMD_WRAPPER_BLACKLIST := TARGET_HARDEN_PIE
 endif
 
-# python is used for the journal python bindings, which are not installed
-SYSTEMD_CONF_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_path_PYTHON=:
-
 #
 # autoconf
 #
@@ -54,7 +49,10 @@ SYSTEMD_CONF_OPT := \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-introspection \
+	--enable-kmod \
+	--enable-blkid \
 	--disable-ima \
+	--disable-chkconfig \
 	$(GLOBAL_SELINUX_OPTION) \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TCPWRAP)-tcpwrap \
@@ -69,6 +67,7 @@ SYSTEMD_CONF_OPT := \
 	--enable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-readahead \
+	--enable-bootchart \
 	--enable-quotacheck \
 	--$(call ptx/disen,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED)-randomseed \
 	--enable-logind \
@@ -76,15 +75,17 @@ SYSTEMD_CONF_OPT := \
 	--enable-timedated \
 	--enable-localed \
 	--disable-coredump \
+	--enable-polkit \
+	--disable-efi \
+	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--$(call ptx/endis,PTXCONF_UDEV_KEYMAPS)-keymap \
 	--disable-manpages \
 	--enable-split-usr \
-	--with-usb-ids-path=/usr/share/usb.ids \
-	--with-pci-ids-path=/usr/share/pci.ids$(call ptx/ifdef, PTXCONF_PCIUTILS_COMPRESS,.gz,) \
-	--with-distro=other \
+	--disable-tests \
 	--with-sysvinit-path="" \
-	--with-sysvrcd-path="" \
+	--with-sysvrcnd-path="" \
+	--without-python \
 	--with-dbuspolicydir=/etc/dbus-1/system.d \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
@@ -111,6 +112,9 @@ $(STATEDIR)/systemd.install:
 	@$(call targetinfo)
 	@$(call world/install, SYSTEMD)
 	@ln -sf multi-user.target "$(SYSTEMD_PKGDIR)/lib/systemd/system/default.target"
+ifdef PTXCONF_UDEV_HWDB
+	@udevadm hwdb --update --root $(SYSTEMD_PKGDIR)
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -120,7 +124,9 @@ $(STATEDIR)/systemd.install:
 SYSTEMD_HELPER := \
 	systemd \
 	systemd-ac-power \
+	systemd-activate \
 	systemd-binfmt \
+	systemd-bootchart \
 	systemd-cgroups-agent \
 	systemd-fsck \
 	systemd-hostnamed \
@@ -164,6 +170,8 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_lib, systemd, 0, 0, 0644, libsystemd-journal)
 	@$(call install_lib, systemd, 0, 0, 0644, libsystemd-login)
 
+	@$(call install_lib, systemd, 0, 0, 0644, libnss_myhostname)
+
 #	# daemon + tools
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemctl)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/journalctl)
@@ -174,6 +182,9 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tmpfiles)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-notify)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tty-ask-password-agent)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/hostnamectl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/localectl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/timedatectl)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cat)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgtop)
@@ -181,9 +192,7 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-detect-virt)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-nspawn)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
-ifdef PTXCONF_SYSTEMD_ANALYZE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-analyze)
-endif
 
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system-generators/)
 	@$(foreach helper, $(SYSTEMD_HELPER), \
@@ -202,6 +211,8 @@ endif
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/system.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
+		/etc/systemd/bootchart.conf)
+	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/journald.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/logind.conf)
@@ -213,6 +224,7 @@ endif
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/services/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system-services/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/share/systemd/kbd-model-map)
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
 
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
