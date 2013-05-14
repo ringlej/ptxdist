@@ -132,6 +132,8 @@ ifdef PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT
 		/lib/systemd/system/NetworkManager-unmanage.service)
 	@$(call install_link, networkmanager, ../NetworkManager-unmanage.service, \
 		/lib/systemd/system/NetworkManager.service.wants/NetworkManager-unmanage.service)
+	@$(call install_alternative, networkmanager, 0, 0, 0644, \
+		/lib/systemd/system/NetworkManager-wait-online.service)
 endif
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/sbin/NetworkManager)
