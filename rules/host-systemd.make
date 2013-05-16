@@ -23,7 +23,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 HOST_SYSTEMD_CONF_TOOL	:= autoconf
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-largefile \
+	--enable-largefile \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-nls \
