@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 #
 # Paths and names
 #
-ZLIB_VERSION	:= 1.2.7
-ZLIB_MD5	:= 2ab442d169156f34c379c968f3f482dd
+ZLIB_VERSION	:= 1.2.8
+ZLIB_MD5	:= 28f1205d8dd2001f26fec1e8c2cebe37
 ZLIB		:= zlib-$(ZLIB_VERSION)
-ZLIB_SUFFIX	:= tar.bz2
+ZLIB_SUFFIX	:= tar.xz
 ZLIB_URL	:= \
 	http://zlib.net/$(ZLIB).$(ZLIB_SUFFIX) \
 	$(call ptx/mirror, SF, libpng/$(ZLIB).$(ZLIB_SUFFIX))
