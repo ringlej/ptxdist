@@ -1,0 +1,12 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SYSTEM_PERL
+	tristate
+
+if HOST_SYSTEM_PERL
+
+config HOST_SYSTEM_PERL_XMLPARSER
+	bool
+
+endif
+
