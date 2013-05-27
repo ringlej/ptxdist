@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006 by Juergen Beisert
 #           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2013 by Alexander Aring <aar@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_WIRESHARK) += wireshark
 #
 # Paths and names
 #
-WIRESHARK_VERSION	:= 1.2.5
-WIRESHARK_MD5		:= fdc1bc9815ee7ba067094edf60f7b9ff
+WIRESHARK_VERSION	:= 1.8.7
+WIRESHARK_MD5		:= f4198728a20aa40752906031e08544f8
 WIRESHARK		:= wireshark-$(WIRESHARK_VERSION)
-WIRESHARK_SUFFIX	:= tar.gz
+WIRESHARK_SUFFIX	:= tar.bz2
 WIRESHARK_URL		:= http://www.wireshark.org/download/src/all-versions/$(WIRESHARK).$(WIRESHARK_SUFFIX)
 WIRESHARK_SOURCE	:= $(SRCDIR)/$(WIRESHARK).$(WIRESHARK_SUFFIX)
 WIRESHARK_DIR		:= $(BUILDDIR)/$(WIRESHARK)
@@ -37,32 +38,30 @@ WIRESHARK_ENV 	:= $(CROSS_ENV)
 #
 WIRESHARK_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
 	--disable-usr-local \
-	--disable-threads \
+	--disable-wireshark \
+	--disable-packet-editor \
 	--disable-profile-build \
+	--disable-gtktest \
 	--disable-glibtest \
-	--disable-editcap \
-	--disable-mergecap \
+	--enable-tshark \
+	--enable-editcap \
+	--enable-capinfos \
+	--enable-mergecap \
 	--disable-text2pcap \
 	--disable-dftest \
 	--disable-randpkt \
+	--disable-airpcap \
+	--enable-dumpcap \
+	--disable-rawshark \
+	--disable-pcap-ng-default \
+	$(GLOBAL_IPV6_OPTION) \
+	--disable-setcap-install \
+	--disable-setuid-install \
 	--with-pcap=$(LIBPCAP_DIR) \
-	--with-pcre \
+	--without-plugins \
 	--without-gcrypt \
 	--without-libcap
-
-ifdef PTXCONF_WIRESHARK_TSHARK
-WIRESHARK_AUTOCONF	+= --enable-tshark
-else
-WIRESHARK_AUTOCONF	+= --disable-tshark
-endif
-
-ifdef PTXCONF_WIRESHARK_WIRESHARK
-WIRESHARK_AUTOCONF	+= --enable-wireshark
-else
-WIRESHARK_AUTOCONF	+= --disable-wireshark
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -79,17 +78,17 @@ $(STATEDIR)/wireshark.targetinstall:
 #
 # executables
 #
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/editcap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/capinfos)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/mergecap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/dumpcap)
-ifdef PTXCONF_WIRESHARK_TSHARK
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/tshark)
-endif
 #
 # libraries used by some of the executables
 #
-	@$(call install_lib, wireshark, 0, 0, 0644, libwsutil)
-	@$(call install_lib, wireshark, 0, 0, 0644, libwiretap)
 	@$(call install_lib, wireshark, 0, 0, 0644, libwireshark)
+	@$(call install_lib, wireshark, 0, 0, 0644, libwiretap)
+	@$(call install_lib, wireshark, 0, 0, 0644, libwsutil)
 
 	@$(call install_finish, wireshark)
 

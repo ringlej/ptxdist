@@ -1,32 +1,17 @@
 ## SECTION=networking
-menuconfig WIRESHARK
+
+config WIRESHARK
 	tristate
-	prompt "wireshark                     "
+	prompt "tshark (cli of wireshark)"
 	select LIBC_M
 	select LIBPCAP
 	select GLIB
-	select LIBPCRE
 	help
-	  Wireshark is a network traffic analyzer for Unix
-	  and Unix-like operating systems. It is a tool used
-	  to capture packets off the wire. Wireshark decodes
-	  numerous protocols (too many to list).
-
-if WIRESHARK
-
-config WIRESHARK_TSHARK
-	bool
-
-	prompt "tshark"
-	help
-	  This is the textmode version of wireshark
-
-# FIXME:
-#config WIRESHARK_WIRESHARK
-#	bool
-#	prompt "wireshark"
-#	help
-#	  This is the graphical version of wireshark
-#
-
-endif
+	  TShark is a network protocol analyzer.  It lets you capture packet data
+	  from a live network, or read packets from a previously saved capture
+	  file, either printing a decoded form of those packets to the standard
+	  output or writing the packets to a file.  TShark's native capture file
+	  format is libpcap format, which is also the format used by tcpdump and
+	  various other tools. TShark is able to detect, read and write the same
+	  capture files that are supported by Wireshark. The gtk frontend wireshark
+	  can open the capture file and display the content of capture.
