@@ -1,0 +1,12 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SYSTEM_JDK
+	tristate
+
+if HOST_SYSTEM_JDK
+
+config HOST_SYSTEM_JDK_ANT
+	bool
+
+endif
+
