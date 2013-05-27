@@ -13,14 +13,6 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_INTLTOOL) += host-intltool
 
-ifdef PTXCONF_HOST_INTLTOOL
-ifeq ($(shell perl -e "require XML::Parser" 2>/dev/null || echo no),no)
-    $(warning *** XML::Parser perl module is required for host-intltool)
-    $(warning *** please install libxml-parser-perl (debian))
-    $(error )
-endif
-endif
-
 #
 # Paths and names
 #
@@ -40,5 +32,15 @@ HOST_INTLTOOL_DIR	:= $(HOST_BUILDDIR)/$(HOST_INTLTOOL)
 # autoconf
 #
 HOST_INTLTOOL_CONF_TOOL	:= autoconf
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-intltool.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, HOST_INTLTOOL)
+	@sed -i "s;^prefix=$$;prefix=$(PTXCONF_SYSROOT_HOST);" $(PTXCONF_SYSROOT_HOST)/bin/intltoolize
+	@$(call touch)
 
 # vim: syntax=make

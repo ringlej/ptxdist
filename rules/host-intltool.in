@@ -4,6 +4,8 @@ config HOST_INTLTOOL
 	tristate
 	default ALLYES
 	select HOST_GETTEXT
+	select HOST_SYSTEM_PERL
+	select HOST_SYSTEM_PERL_XMLPARSER
 	help
 	  intltool is a set of tools to centralise translation of many different
 	  file formats using GNU gettext-compatible PO files.
