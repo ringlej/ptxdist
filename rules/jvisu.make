@@ -13,19 +13,6 @@
 #
 PACKAGES-$(PTXCONF_JVISU) += jvisu
 
-ifdef PTXCONF_JVISU
-ifeq ($(shell which ant 2>/dev/null),)
-    $(warning *** ant is mandatory to build JVisu)
-    $(warning *** please install ant)
-    $(error )
-endif
-ifeq ($(shell test -x $(PTXCONF_SETUP_JAVA_SDK)/bin/java || echo no),no)
-    $(warning *** java is mandatory to build JVisu)
-    $(warning *** please run 'ptxdist setup' and set the path to the java sdk)
-    $(error )
-endif
-endif
-
 #
 # Paths and names
 #

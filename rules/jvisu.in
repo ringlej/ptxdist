@@ -1,6 +1,8 @@
 ## SECTION=web
 menuconfig JVISU
 	tristate
+	select HOST_SYSTEM_JDK
+	select HOST_SYSTEM_JDK_ANT
 	prompt "JVisu                         "
 	help
 	  JVISU - A java applet based visualisation suite
