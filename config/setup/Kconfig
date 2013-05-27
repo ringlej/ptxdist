@@ -225,12 +225,15 @@ menu "Java SDK          "
 
 config SETUP_JAVA_SDK
 	string
-	default "/usr"
+	default "/usr/lib/jvm/default-java"
 	prompt "Java SDK"
 	help
 	  Specify the path to your Java SDK; this is needed if Java
 	  programs are being compiled by PTXdist, for example
 	  if you have selected JVisu.
+	  This must not be '/usr' but the actual SDK path,
+	  e.g. '/usr/lib/jvm/default-java'.
+	  Make sure the selected directory contains bin/javac.
 
 endmenu
 

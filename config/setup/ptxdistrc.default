@@ -55,7 +55,7 @@ PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg-repository"
 #
 # Java SDK          
 #
-PTXCONF_SETUP_JAVA_SDK="/usr"
+PTXCONF_SETUP_JAVA_SDK="/usr/lib/jvm/default-java"
 
 #
 # Developer Options 
