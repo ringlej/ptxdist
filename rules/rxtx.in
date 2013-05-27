@@ -2,6 +2,7 @@
 config RXTX
 	tristate
 	prompt "rxtx"
+	select HOST_SYSTEM_JDK
 	select LIBC_PTHREAD
 	help
 	  RXTX is a native lib providing serial and parallel communication
