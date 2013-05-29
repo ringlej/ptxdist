@@ -2,6 +2,7 @@
 
 config LIBSOUP
 	tristate
+	select LIBXML2
 	prompt "libsoup"
 	help
 	  HTTP library implementation in C.
