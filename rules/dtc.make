@@ -25,9 +25,33 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 
 %.dtb:
 	@$(call targetinfo)
+	@echo CPP `ptxd_print_path "$<.tmp"`
+	@cpp \
+		-Wp,-MD,$(STATEDIR)/dtc.dtc.deps \
+		-Wp,-MT,$<.tmp \
+		-nostdinc \
+		-I$(dir $<) \
+		-I$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/dts \
+		-I$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/dts/include \
+		-undef -D__DTS__ -x assembler-with-cpp \
+		-o $<.tmp \
+		$<
+	@echo DTC `ptxd_print_path "$@"`
 	@$(PTXCONF_SYSROOT_HOST)/bin/dtc \
 		$(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) \
-		-I dts -O dtb -o "$@" "$<"
+		-i $(dir $<) \
+		-i $(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/dts \
+		-d $(PTXDIST_TEMPDIR)/dtc.dtc.deps \
+		-I dts -O dtb -b 0 \
+		-o "$@" "$<.tmp"
+	@awk '{ \
+			printf "%s", $$1 ;  \
+			for (i = 2; i <= NF; i++) { \
+				printf " $$(wildcard %s)", $$i; \
+			}; \
+			print "" \
+		}' $(PTXDIST_TEMPDIR)/dtc.dtc.deps >> $(STATEDIR)/dtc.dtc.deps
+	@$(call finish)
 
 DTC_DTB = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), $(IMAGEDIR)/$(call ptx/dtb, $(dts)))
 
