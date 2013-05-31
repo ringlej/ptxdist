@@ -1,20 +1,22 @@
+From eb6374bab46421bafc2734f5451d28184d2bd861 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: build and install share lib only
+Date: Fri, 31 May 2013 17:28:01 +0200
+Subject: [PATCH 1/2] build and install share lib only
 
 This patch removes the static library from the dependency list
 for "all" and "install". This way libpcap.a is not built and
 tcpdump cannot link against it.
 
-Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
 ---
- Makefile.in |    4 ++--
+ Makefile.in | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: b/Makefile.in
-===================================================================
+diff --git a/Makefile.in b/Makefile.in
+index 772cc7d..7f3c5ca 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -324,7 +324,7 @@ EXTRA_DIST = \
+@@ -345,7 +345,7 @@ EXTRA_DIST = \
  	Win32/Src/inet_net.c \
  	Win32/Src/inet_pton.c
  
@@ -23,12 +25,15 @@ Index: b/Makefile.in
  
  libpcap.a: $(OBJ)
  	@rm -f $@
-@@ -497,7 +497,7 @@ selpolltest: selpolltest.c libpcap.a
- opentest: opentest.c libpcap.a
- 	$(CC) $(CFLAGS) -I. -L. -o opentest $(srcdir)/opentest.c libpcap.a $(LIBS)
+@@ -530,7 +530,7 @@ opentest: tests/opentest.c libpcap.a
+ selpolltest: tests/selpolltest.c libpcap.a
+ 	$(CC) $(FULL_CFLAGS) -I. -L. -o selpolltest $(srcdir)/tests/selpolltest.c libpcap.a $(LIBS)
  
 -install: install-shared install-archive pcap-config
 +install: install-shared pcap-config
  	[ -d $(DESTDIR)$(libdir) ] || \
  	    (mkdir -p $(DESTDIR)$(libdir); chmod 755 $(DESTDIR)$(libdir))
  	[ -d $(DESTDIR)$(includedir) ] || \
+-- 
+1.8.3
+

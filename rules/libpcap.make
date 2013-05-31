@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 #
 # Paths and names
 #
-LIBPCAP_VERSION	:= 1.1.1
-LIBPCAP_MD5	:= 1bca27d206970badae248cfa471bbb47
+LIBPCAP_VERSION	:= 1.4.0
+LIBPCAP_MD5	:= 56e88a5aabdd1e04414985ac24f7e76c
 LIBPCAP		:= libpcap-$(LIBPCAP_VERSION)
 LIBPCAP_SUFFIX	:= tar.gz
 LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
@@ -48,6 +48,9 @@ LIBPCAP_AUTOCONF := \
 	--enable-protochain \
 	--disable-optimizer-dbg \
 	--disable-yydebug \
+	--disable-universal \
+	--enable-shared \
+	--$(call ptx/endis, PTXCONF_LIBPCAP_BLUETOOTH)-bluetooth \
 	--with-libnl \
 	--without-dag \
 	--without-septel
