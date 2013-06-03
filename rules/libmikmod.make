@@ -29,6 +29,10 @@ LIBMIKMOD_LICENSE	:= LGPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
+LIBMIKMOD_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	MAKEINFO=:
+
 #
 # autoconf
 #
