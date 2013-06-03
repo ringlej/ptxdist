@@ -686,8 +686,6 @@ config GST_PLUGINS_BAD1_XVID
 
 config GST_PLUGINS_BAD1_DVB
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "dvb"
 
 config GST_PLUGINS_BAD1_WININET
