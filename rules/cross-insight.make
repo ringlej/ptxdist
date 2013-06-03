@@ -29,6 +29,10 @@ CROSS_INSIGHT_DIR	:= $(CROSS_BUILDDIR)/$(CROSS_INSIGHT)
 # Prepare
 # ----------------------------------------------------------------------------
 
+CROSS_INSIGHT_CONF_ENV	:= \
+	$(HOST_CROSS_ENV) \
+	MAKEINFO=:
+
 #
 # autoconf
 #
