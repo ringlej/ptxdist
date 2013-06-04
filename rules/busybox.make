@@ -233,7 +233,7 @@ ifdef PTXCONF_BUSYBOX_CROND
 endif
 
 ifdef PTXCONF_BUSYBOX_BB_SYSCTL
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/sysctl.conf)
+	@$(call install_alternative, busybox, 0, 0, 0644, /etc/sysctl.conf)
 endif
 
 	@$(call install_finish, busybox)
