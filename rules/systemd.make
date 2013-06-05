@@ -137,6 +137,7 @@ SYSTEMD_HELPER := \
 	systemd-modules-load \
 	systemd-multi-seat-x \
 	systemd-quotacheck \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
 	systemd-readahead \
 	systemd-remount-fs \
 	systemd-reply-password \
