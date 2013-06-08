@@ -3,4 +3,5 @@
 config HOST_AUTOTOOLS_AUTOMAKE
 	bool
 	default y
+	select HOST_SYSTEM_PERL
 	select HOST_AUTOTOOLS_AUTOCONF
