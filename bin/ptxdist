@@ -2017,7 +2017,7 @@ setup_env() {
 
 	unset $(/usr/bin/env | \
 		sed -n -e "s/^\([^=[:space:]]\+\)=.*$/\1/p" | \
-		egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$" )
+		egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$" )
 
 	######## the environment is clean now ########
 
@@ -2090,7 +2090,7 @@ setup_libs_early() {
 		fi
 	done
 
-	PTXDIST_TEMPDIR="$(mktemp -d /tmp/ptxdist.XXXXXX)"
+	PTXDIST_TEMPDIR="$(mktemp -t -d ptxdist.XXXXXX)"
 	if [ ${?} -ne 0 ]; then
 		echo
 		echo "${PTXDIST_LOG_PROMPT}error: unable to create tempdir"
