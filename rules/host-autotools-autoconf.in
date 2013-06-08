@@ -2,4 +2,5 @@
 
 config HOST_AUTOTOOLS_AUTOCONF
 	bool
+	select HOST_SYSTEM_PERL
 	default y
