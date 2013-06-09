@@ -2,7 +2,6 @@
 
 config HOST_SYSTEM_PYTHON
 	tristate
-	default y
 
 if HOST_SYSTEM_PYTHON
 
