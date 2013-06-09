@@ -33,6 +33,7 @@ GSTREAMER_DIR		:= $(BUILDDIR)/$(GSTREAMER)
 # autoconf
 #
 GSTREAMER_GENERIC_CONF_OPT = \
+	--disable-static \
 	--disable-nls \
 	--disable-rpath \
 	--disable-debug \
