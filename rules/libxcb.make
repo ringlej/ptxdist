@@ -40,6 +40,7 @@ endif
 LIBXCB_CONF_TOOL	:= autoconf
 LIBXCB_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	--disable-build-docs \
 	--enable-composite \
 	--enable-damage \
