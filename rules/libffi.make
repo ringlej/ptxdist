@@ -33,6 +33,15 @@ LIBFFI_LICENSE	:= MIT
 # ----------------------------------------------------------------------------
 
 LIBFFI_CONF_TOOL := autoconf
+LIBFFI_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
+	--enable-portable-binary \
+	--disable-debug \
+	--enable-structs \
+	--enable-raw-api \
+	--disable-purify-safety \
+	--without-gcc-arch
 
 # ----------------------------------------------------------------------------
 # Install
