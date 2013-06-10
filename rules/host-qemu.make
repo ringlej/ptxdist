@@ -72,7 +72,6 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-bsd-user \
 	--enable-guest-base \
 	--disable-uuid \
-	--disable-vde \
 	--disable-linux-aio \
 	--disable-cap-ng \
 	--disable-attr \
