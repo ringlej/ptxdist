@@ -115,6 +115,9 @@ $(STATEDIR)/systemd.install:
 ifdef PTXCONF_UDEV_HWDB
 	@udevadm hwdb --update --root $(SYSTEMD_PKGDIR)
 endif
+ifndef PTXCONF_SYSTEMD_VCONSOLE
+	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
