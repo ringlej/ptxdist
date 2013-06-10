@@ -123,9 +123,11 @@ test_begin() {
 }
 
 test_end() {
+	local ret="$?"
 	reportwrite time end
 	echo "</test>" >> "$REPORTFILE"
 	if [ "$exit_now" = "1" ]; then exit 1; fi
+	return "${ret}"
 }
 
 checking() {
