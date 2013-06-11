@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.22.2
-UTIL_LINUX_NG_MD5	:= 3e379b4d8b9693948d751c154614c73e
+UTIL_LINUX_NG_VERSION	:= 2.23.1
+UTIL_LINUX_NG_MD5	:= 33ba55ce82f8e3b8d7a38fac0f62779a
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
-UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.22/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_SUFFIX	:= tar.xz
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.23/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
@@ -60,21 +60,26 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-deprecated-mount \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNT)-mount \
 	--disable-losetup \
+	--disable-cytune \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
 	--disable-fallocate \
 	--disable-unshare \
-	--disable-arch \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_DDATE)-ddate \
+	--disable-nsenter \
+	--disable-setpriv \
 	--disable-eject \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
 	--disable-cramfs \
+	--disable-bfs \
+	--disable-fdformat \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_HWCLOCK)-hwclock \
 	--disable-wdctl \
 	--disable-switch_root \
 	--disable-pivot_root \
 	--disable-elvtune \
+	--disable-tunelp \
 	--disable-kill \
 	--disable-last \
 	--disable-utmpdump \
@@ -85,6 +90,7 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-reset \
 	--disable-vipw \
 	--disable-newgrp \
+	--disable-chfn-chsh-password \
 	--disable-chfn-chsh \
 	--disable-chsh-only-listed \
 	--disable-login \
@@ -92,14 +98,19 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-login-stat-mail \
 	--disable-sulogin \
 	--disable-su \
+	--disable-runuser \
+	--disable-ul \
+	--disable-more \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SETTERM)-setterm \
+	--disable-pg \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SCHEDUTILS)-schedutils \
 	--disable-wall \
 	--disable-write \
-	--disable-chkdupexe \
 	--disable-socket-activation \
+	--disable-bash-completion \
 	--disable-pg-bell \
-	--enable-require-password \
 	--disable-use-tty-group \
+	--disable-sulogin-emergency-mount \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
 	--without-libiconv-prefix \
@@ -109,7 +120,8 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-udev \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
-	--without-utempter
+	--without-utempter \
+	--without-user
 
 # ----------------------------------------------------------------------------
 # Target-Install

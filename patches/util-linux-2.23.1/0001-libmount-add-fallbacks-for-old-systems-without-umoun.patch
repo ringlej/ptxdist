@@ -6,16 +6,16 @@ Subject: [PATCH] libmount: add fallbacks for old systems without umount2()
 Reported-by: Peter Breitenlohner <peb@mppmu.mpg.de>
 Signed-off-by: Karel Zak <kzak@redhat.com>
 ---
- libmount/src/context_umount.c |   28 ++++++++++++++++++++++++++++
+ libmount/src/context_umount.c | 28 ++++++++++++++++++++++++++++
  1 file changed, 28 insertions(+)
 
 diff --git a/libmount/src/context_umount.c b/libmount/src/context_umount.c
-index 98019ce..3eb1212 100644
+index 4a8659c..2f74ef7 100644
 --- a/libmount/src/context_umount.c
 +++ b/libmount/src/context_umount.c
-@@ -39,6 +39,34 @@
- #endif
- 
+@@ -178,6 +178,34 @@ err:
+ 	return rc;
+ }
  
 +#if defined(MNT_FORCE)
 +/* Interesting ... it seems libc knows about MNT_FORCE and presumably
@@ -47,4 +47,4 @@ index 98019ce..3eb1212 100644
 +
  static int lookup_umount_fs(struct libmnt_context *cxt)
  {
- 	int rc, loopdev = 0;
+ 	const char *tgt;

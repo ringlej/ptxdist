@@ -79,12 +79,6 @@ config UTIL_LINUX_NG_MOUNTPOINT
 comment "BusyBox' mountpoint is selected!"
 	depends on BUSYBOX_MOUNTPOINT
 
-config UTIL_LINUX_NG_DDATE
-	bool
-	prompt "ddate"
-	help
-	  The ddate utility.
-
 config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"

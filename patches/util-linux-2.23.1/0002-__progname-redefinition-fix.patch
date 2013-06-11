@@ -11,18 +11,18 @@ In file included from ../include/writeall.h:7,
 
 Signed-off-by: Jon Ringle <jon@ringle.org>
 ---
- lib/at.c                 |    1 +
- lib/tt.c                 |    1 +
- libmount/src/cache.c     |    1 +
- libmount/src/iter.c      |    1 +
- libmount/src/tab_parse.c |    1 +
+ lib/at.c                 | 1 +
+ lib/tt.c                 | 1 +
+ libmount/src/cache.c     | 1 +
+ libmount/src/iter.c      | 1 +
+ libmount/src/tab_parse.c | 1 +
  5 files changed, 5 insertions(+)
 
 diff --git a/lib/at.c b/lib/at.c
-index 062a10f..60f2a2a 100644
+index f8bfe13..e715e5f 100644
 --- a/lib/at.c
 +++ b/lib/at.c
-@@ -7,6 +7,7 @@
+@@ -10,6 +10,7 @@
  #include <stdlib.h>
  #include <fcntl.h>
  #include <sys/stat.h>
@@ -31,7 +31,7 @@ index 062a10f..60f2a2a 100644
  #include "at.h"
  #include "c.h"
 diff --git a/lib/tt.c b/lib/tt.c
-index 16a0098..930e85c 100644
+index cbe4e3b..ca53a5a 100644
 --- a/lib/tt.c
 +++ b/lib/tt.c
 @@ -15,6 +15,7 @@
@@ -39,11 +39,11 @@ index 16a0098..930e85c 100644
  #include <string.h>
  #include <termios.h>
 +#include <errno.h>
- #ifdef HAVE_SYS_IOCTL_H
- #include <sys/ioctl.h>
- #endif
+ #include <ctype.h>
+ 
+ #include "c.h"
 diff --git a/libmount/src/cache.c b/libmount/src/cache.c
-index f3156a5..ad32b24 100644
+index 7b65122..9d066e3 100644
 --- a/libmount/src/cache.c
 +++ b/libmount/src/cache.c
 @@ -23,6 +23,7 @@
@@ -55,7 +55,7 @@ index f3156a5..ad32b24 100644
  #include "canonicalize.h"
  #include "mountP.h"
 diff --git a/libmount/src/iter.c b/libmount/src/iter.c
-index 393c23e..211d465 100644
+index d7b8adb..1a20acb 100644
 --- a/libmount/src/iter.c
 +++ b/libmount/src/iter.c
 @@ -16,6 +16,7 @@
@@ -67,7 +67,7 @@ index 393c23e..211d465 100644
  #include "mountP.h"
  
 diff --git a/libmount/src/tab_parse.c b/libmount/src/tab_parse.c
-index 28c8536..0bfae8a 100644
+index e930fd8..1cb8f9d 100644
 --- a/libmount/src/tab_parse.c
 +++ b/libmount/src/tab_parse.c
 @@ -15,6 +15,7 @@
