@@ -559,7 +559,7 @@ ptxd_in_path() {
 	local -a paths
 	paths=( ${!1} )
 	IFS="${orig_IFS}"
-	paths=( "${paths[@]/%//${2}}" )
+	paths=( "${paths[@]/%/${2:+/}${2}}" )
 	ptxd_get_path "${paths[@]}"
 }
 export -f ptxd_in_path
