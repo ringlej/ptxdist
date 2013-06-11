@@ -2294,8 +2294,22 @@ setup_platform() {
 # source more libs
 #
 setup_libs() {
+	local lib i
+	local -a dir
+        # check SCRIPTSDIR first because PTXDIST_PATH_SCRIPTS is set there
 	for lib in "${SCRIPTSDIR}/lib/ptxd_lib_"*.sh; do
 		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
+	done
+	ptxd_in_path PTXDIST_PATH_SCRIPTS || return
+	dir=( "${ptxd_reply[@]}" )
+	for ((i=$((${#dir[@]}-1)); i>=0; i--)) do
+		if [ "${dir[${i}]}" = "${SCRIPTSDIR}" ]; then
+			continue
+		fi
+		ptxd_get_path "${dir[${i}]}/lib/ptxd_lib_"*.sh || continue
+		for lib in "${ptxd_reply[@]}"; do
+			source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
+		done
 	done
 }
 
