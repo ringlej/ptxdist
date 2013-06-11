@@ -29,7 +29,11 @@ LIBEZV24_DIR		:= $(BUILDDIR)/$(LIBEZV24)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBEZV24_CONF_TOOL := autoconf
+LIBEZV24_CONF_TOOL	:= autoconf
+LIBEZV24_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
