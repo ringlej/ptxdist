@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYTHON) += python
 #
 # Paths and names
 #
-PYTHON_VERSION		:= 2.6.6
-PYTHON_MD5		:= cf4e6881bb84a7ce6089e4a307f71f14
+PYTHON_VERSION		:= 2.7.5
+PYTHON_MD5		:= 6334b666b7ff2038c761d7b27ba699c1
 PYTHON_MAJORMINOR	:= $(basename $(PYTHON_VERSION))
 PYTHON_SITEPACKAGES	:= /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages
 PYTHON			:= Python-$(PYTHON_VERSION)
@@ -36,16 +36,20 @@ CROSS_PYTHON		:= $(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)
 # ----------------------------------------------------------------------------
 
 PYTHON_PATH	:= PATH=$(CROSS_PATH)
-PYTHON_ENV 	:= \
+PYTHON_CONF_ENV	:= \
 	$(CROSS_ENV) \
-	PYTHON_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
+	PYTHON_FOR_BUILD=$(PTXCONF_SYSROOT_CROSS)/bin/build-python \
 	ac_sys_system=Linux \
 	ac_sys_release=2 \
 	MACHDEP=linux2 \
 	ac_cv_have_chflags=no \
 	ac_cv_have_lchflags=no \
-	ac_cv_py_format_size_t=yes \
-	ac_cv_broken_sem_getvalue=no
+	ac_cv_have_size_t_format=yes \
+	ac_cv_broken_sem_getvalue=no \
+	ac_cv_buggy_getaddrinfo=no \
+	ac_cv_file__dev_ptmx=yes \
+	ac_cv_file__dev_ptc=no \
+	ac_cv_have_long_long_format=yes
 
 PYTHON_BINCONFIG_GLOB := ""
 
@@ -62,7 +66,34 @@ PYTHON_AUTOCONF := \
 	--with-wctype-functions \
 	--without-doc-strings
 
-PYTHON_MAKEVARS := \
+PYTHON_BUILD_PYTHONPATH := \
+	$(PTXCONF_SYSROOT_HOST)/lib/python$(PYTHON_MAJORMINOR)/lib-dynload \
+	$(PYTHON_DIR)/build/lib.linux2-$(PTXCONF_ARCH_STRING)-$(PYTHON_MAJORMINOR) \
+	$(PYTHON_DIR)/Lib \
+	$(PYTHON_DIR)/Lib/plat-linux2
+
+$(STATEDIR)/python.prepare:
+	@$(call targetinfo)
+
+	@rm -f 	$(PTXCONF_SYSROOT_CROSS)/bin/{link,build}-python
+	@ln -s $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
+		$(PTXCONF_SYSROOT_CROSS)/bin/link-python
+	@echo '#!/bin/sh'						>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo ''							>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo '_PYTHON_PROJECT_BASE="$(PYTHON_DIR)"'			>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo '_PYTHON_HOST_PLATFORM=linux2-$(PTXCONF_ARCH_STRING)'	>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo 'PYTHONPATH=$(subst $(space),:,$(PYTHON_BUILD_PYTHONPATH))' \
+									>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo 'export _PYTHON_PROJECT_BASE _PYTHON_HOST_PLATFORM  PYTHONPATH' \
+									>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo ''							>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@echo 'exec $(PTXCONF_SYSROOT_CROSS)/bin/link-python "$${@}"'	>> $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+	@chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/build-python
+
+	@$(call world/prepare, PYTHON)
+	@$(call touch)
+
+PYTHON_MAKE_OPT := \
 	PGEN_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/pgen
 
 # ----------------------------------------------------------------------------
@@ -72,13 +103,16 @@ PYTHON_MAKEVARS := \
 $(STATEDIR)/python.install:
 	@$(call targetinfo)
 	@$(call install, PYTHON)
-	@cp "$(PYTHON_DIR)/cross-python-wrapper" "$(PYTHON_PKGDIR)/usr/bin/"
 	@sed -i \
 		-e "s:$(SYSROOT):@SYSROOT@:g" \
 		-e "s:$(PTXCONF_SYSROOT_HOST):@SYSROOT_HOST@:g" \
 		$(PYTHON_PKGDIR)/usr/lib/python$(PYTHON_MAJORMINOR)/config/Makefile
 	@$(call touch)
 
+PYTHON_PYTHONPATH := \
+	$(SYSROOT)/usr/lib/python$(PYTHON_MAJORMINOR) \
+	$(SYSROOT)/usr/lib/python$(PYTHON_MAJORMINOR)/plat-linux2 \
+	$(PTXCONF_SYSROOT_HOST)/lib/python$(PYTHON_MAJORMINOR)/lib-dynload
 
 $(STATEDIR)/python.install.post:
 	@$(call targetinfo)
@@ -86,25 +120,18 @@ $(STATEDIR)/python.install.post:
 		-e "s:@SYSROOT@:$(SYSROOT):g" \
 		-e "s:@SYSROOT_HOST@:$(PTXCONF_SYSROOT_HOST):g" \
 		$(PYTHON_PKGDIR)/usr/lib/python$(PYTHON_MAJORMINOR)/config/Makefile
+
 	@$(call world/install.post, PYTHON)
 	@rm -f "$(CROSS_PYTHON)"
-	@echo '#!/bin/sh'				>> "$(CROSS_PYTHON)"
-	@echo ''					>> "$(CROSS_PYTHON)"
-	@echo 'prefix="/usr"'				>> "$(CROSS_PYTHON)"
-	@echo 'exec_prefix="$${prefix}"'		>> "$(CROSS_PYTHON)"
-	@echo ''					>> "$(CROSS_PYTHON)"
-	@echo 'CROSS_COMPILING=yes'			>> "$(CROSS_PYTHON)"
-	@echo '_python_sysroot="$(SYSROOT)"'		>> "$(CROSS_PYTHON)"
-	@echo '_python_prefix="$${prefix}"'		>> "$(CROSS_PYTHON)"
-	@echo '_python_exec_prefix="$${exec_prefix}"'	>> "$(CROSS_PYTHON)"
-	@echo ''					>> "$(CROSS_PYTHON)"
-	@echo 'export CROSS_COMPILING _python_sysroot _python_prefix _python_exec_prefix' \
-							>> "$(CROSS_PYTHON)"
-	@echo ''					>> "$(CROSS_PYTHON)"
+	@echo '#!/bin/sh'						>> "$(CROSS_PYTHON)"
+	@echo ''							>> "$(CROSS_PYTHON)"
+	@echo 'PYTHONHOME=$(SYSROOT)/usr'				>> "$(CROSS_PYTHON)"
+	@echo '_PYTHON_HOST_PLATFORM=linux2-$(PTXCONF_ARCH_STRING)'	>> "$(CROSS_PYTHON)"
+	@echo 'PYTHONPATH=$(subst $(space),:,$(PYTHON_PYTHONPATH))'	>> "$(CROSS_PYTHON)"
+	@echo 'export _PYTHON_HOST_PLATFORM PYTHONPATH PYTHONHOME'	>> "$(CROSS_PYTHON)"
+	@echo ''							>> "$(CROSS_PYTHON)"
 	@echo 'exec $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) "$${@}"' \
-							>> "$(CROSS_PYTHON)"
-
-#	@cp "$(PYTHON_PKGDIR)/usr/bin/cross-python-wrapper" "$(CROSS_PYTHON)"
+									>> "$(CROSS_PYTHON)"
 	@chmod a+x "$(CROSS_PYTHON)"
 
 	@echo "#!/bin/sh" \

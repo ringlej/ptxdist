@@ -7,23 +7,23 @@ test to detect long double support.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- configure.in |   12 ++----------
+ configure.ac | 12 ++----------
  1 file changed, 2 insertions(+), 10 deletions(-)
 
-diff --git a/configure.in b/configure.in
-index c85e89b..cb09bf7 100644
---- a/configure.in
-+++ b/configure.in
-@@ -1460,16 +1460,8 @@ if test "$ac_cv_type_long_long" = "yes" ; then
+diff --git a/configure.ac b/configure.ac
+index ebc8285..764a08f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1683,16 +1683,8 @@ if test "$ac_cv_type_long_long_int" = "yes" ; then
    AC_DEFINE(HAVE_LONG_LONG, 1, [Define this if you have the type long long.])
  fi
  
 -AC_MSG_CHECKING(for long double support)
 -have_long_double=no
--AC_TRY_COMPILE([], [long double x; x = (long double)0.;], [
+-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[long double x; x = (long double)0;]])],[
 -  AC_DEFINE(HAVE_LONG_DOUBLE, 1, [Define this if you have the type long double.])
 -  have_long_double=yes
--])
+-],[])
 -AC_MSG_RESULT($have_long_double)
 -if test "$have_long_double" = yes ; then
 -AC_CHECK_SIZEOF(long double, 12)

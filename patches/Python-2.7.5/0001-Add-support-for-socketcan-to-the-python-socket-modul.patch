@@ -8,10 +8,10 @@ necessary code to use the python socket module for socketcan.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Lib/plat-linux2/IN.py  |    2 ++
- Modules/socketmodule.c |   89 ++++++++++++++++++++++++++++++++++++++++++++++++
- Modules/socketmodule.h |   11 ++++++
- configure.in           |   13 +++++++
+ Lib/plat-linux2/IN.py  |  2 ++
+ Modules/socketmodule.c | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ Modules/socketmodule.h | 11 +++++++
+ configure.ac           | 13 ++++++++
  4 files changed, 115 insertions(+)
 
 diff --git a/Lib/plat-linux2/IN.py b/Lib/plat-linux2/IN.py
@@ -35,10 +35,10 @@ index ad307f6..f72ae88 100644
  AF_MAX = PF_MAX
  SOL_RAW = 255
 diff --git a/Modules/socketmodule.c b/Modules/socketmodule.c
-index a28116c..8b3625d 100644
+index bdc055d..066221a 100644
 --- a/Modules/socketmodule.c
 +++ b/Modules/socketmodule.c
-@@ -417,6 +417,10 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+@@ -420,6 +420,10 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
  
  #define SAS2SA(x)       ((struct sockaddr *)(x))
  
@@ -49,7 +49,7 @@ index a28116c..8b3625d 100644
  /*
   * Constants for getnameinfo()
   */
-@@ -1041,6 +1045,22 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
+@@ -1097,6 +1101,22 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
      }
  #endif
  
@@ -72,7 +72,7 @@ index a28116c..8b3625d 100644
  #ifdef USE_BLUETOOTH
      case AF_BLUETOOTH:
          switch (proto) {
-@@ -1304,6 +1324,28 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
+@@ -1383,6 +1403,28 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
      }
  #endif
  
@@ -101,7 +101,7 @@ index a28116c..8b3625d 100644
  #ifdef USE_BLUETOOTH
      case AF_BLUETOOTH:
      {
-@@ -1535,6 +1577,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
+@@ -1633,6 +1675,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
      }
  #endif
  
@@ -116,7 +116,7 @@ index a28116c..8b3625d 100644
  #ifdef USE_BLUETOOTH
      case AF_BLUETOOTH:
      {
-@@ -4583,6 +4633,10 @@ init_socket(void)
+@@ -4758,6 +4808,10 @@ init_socket(void)
      PyModule_AddIntConstant(m, "AF_LLC", AF_LLC);
  #endif
  
@@ -127,7 +127,7 @@ index a28116c..8b3625d 100644
  #ifdef USE_BLUETOOTH
      PyModule_AddIntConstant(m, "AF_BLUETOOTH", AF_BLUETOOTH);
      PyModule_AddIntConstant(m, "BTPROTO_L2CAP", BTPROTO_L2CAP);
-@@ -4916,6 +4970,41 @@ init_socket(void)
+@@ -5114,6 +5168,41 @@ init_socket(void)
      PyModule_AddIntConstant(m, "IPPROTO_MAX", IPPROTO_MAX);
  #endif
  
@@ -170,7 +170,7 @@ index a28116c..8b3625d 100644
  #ifdef  IPPORT_RESERVED
      PyModule_AddIntConstant(m, "IPPORT_RESERVED", IPPORT_RESERVED);
 diff --git a/Modules/socketmodule.h b/Modules/socketmodule.h
-index 9b85773..f0d8265 100644
+index 8515499..3eae3eb 100644
 --- a/Modules/socketmodule.h
 +++ b/Modules/socketmodule.h
 @@ -55,6 +55,14 @@ typedef int socklen_t;
@@ -188,7 +188,7 @@ index 9b85773..f0d8265 100644
  #ifdef HAVE_BLUETOOTH_H
  #include <bluetooth.h>
  #endif
-@@ -105,6 +113,9 @@ typedef union sock_addr {
+@@ -106,6 +114,9 @@ typedef union sock_addr {
      struct sockaddr_in6 in6;
      struct sockaddr_storage storage;
  #endif
@@ -198,11 +198,11 @@ index 9b85773..f0d8265 100644
  #ifdef HAVE_BLUETOOTH_BLUETOOTH_H
      struct sockaddr_l2 bt_l2;
      struct sockaddr_rc bt_rc;
-diff --git a/configure.in b/configure.in
-index a3b96ae..e9b5cf0 100644
---- a/configure.in
-+++ b/configure.in
-@@ -1350,6 +1350,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
+diff --git a/configure.ac b/configure.ac
+index 30f5bf4..c9b78ff 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1539,6 +1539,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
  #endif
  ])
  
