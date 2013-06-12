@@ -1,0 +1,31 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 12 Jun 2013 21:03:22 +0200
+Subject: [PATCH] support python2.7
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ ez_setup.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/ez_setup.py b/ez_setup.py
+index d24e845..b48fc0b 100644
+--- a/ez_setup.py
++++ b/ez_setup.py
+@@ -14,7 +14,7 @@ the appropriate options to ``use_setuptools()``.
+ This file can also be run as a script to install or upgrade setuptools.
+ """
+ import sys
+-DEFAULT_VERSION = "0.6c9"
++DEFAULT_VERSION = "0.6c11"
+ DEFAULT_URL     = "http://pypi.python.org/packages/%s/s/setuptools/" % sys.version[:3]
+ 
+ md5_data = {
+@@ -52,6 +52,8 @@ md5_data = {
+     'setuptools-0.6c9-py2.4.egg': '260a2be2e5388d66bdaee06abec6342a',
+     'setuptools-0.6c9-py2.5.egg': 'fe67c3e5a17b12c0e7c541b7ea43a8e6',
+     'setuptools-0.6c9-py2.6.egg': 'ca37b1ff16fa2ede6e19383e7b59245a',
++    'setuptools-0.6c11-py2.7.egg': 'fe1f997bc722265116870bc7919059ea',
++
+ }
+ 
+ import sys, os
