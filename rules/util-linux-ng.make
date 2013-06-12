@@ -142,9 +142,6 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_LINE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/line)
 endif
-ifdef PTXCONF_UTIL_LINUX_NG_DDATE
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ddate)
-endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mountpoint)
 endif
