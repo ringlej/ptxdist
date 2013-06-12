@@ -1,0 +1,22 @@
+From: Lucas Stach <dev@lynxeye.de>
+Date: Wed, 12 Jun 2013 11:24:58 +0200
+Subject: [PATCH] fix unfs3 build with recent versions of flex
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+---
+ Config/exports.l | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Config/exports.l b/Config/exports.l
+index 8a2d6d1..8aa2011 100644
+--- a/Config/exports.l
++++ b/Config/exports.l
+@@ -36,6 +36,8 @@ static void copy_text(const char *from, int leng)
+ }
+ %}
+ 
++%option noyywrap
++
+ WHITE [ \t]
+ NOWHITE [^ \n\t]
+ PATH "/"{NOWHITE}*
