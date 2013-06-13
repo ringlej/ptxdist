@@ -52,8 +52,8 @@ $(STATEDIR)/pyside.targetinstall:
 	@$(call install_lib, pyside, 0, 0, 0644, \
 		libpyside-python$(PYTHON_MAJORMINOR))
 	@$(call install_tree, pyside, 0, 0, \
-		$(PYSIDE_PKGDIR)/usr/lib/python2.6/site-packages/PySide, \
-		/usr/lib/python2.6/site-packages/PySide)
+		$(PYSIDE_PKGDIR)/usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/PySide, \
+		/usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/PySide)
 
 	@$(call install_finish, pyside)
 
