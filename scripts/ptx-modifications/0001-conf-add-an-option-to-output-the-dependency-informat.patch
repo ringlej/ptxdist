@@ -1,18 +1,17 @@
-From 72a38d63dbcb7c4dfdcd32ba4f14600d2ea55c4b Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Mon, 1 Nov 2010 19:49:21 +0100
 Subject: [PATCH] conf: add an option to output the dependency information
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/conf.c |   39 +++++++++++++++++++++++++++++++++++++++
+ scripts/kconfig/conf.c | 39 +++++++++++++++++++++++++++++++++++++++
  1 file changed, 39 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 4da3b4a..9f5db95 100644
+index bde5b95..08d372a 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
-@@ -33,6 +33,7 @@ enum input_mode {
+@@ -34,6 +34,7 @@ enum input_mode {
  	savedefconfig,
  	listnewconfig,
  	olddefconfig,
@@ -20,7 +19,7 @@ index 4da3b4a..9f5db95 100644
  } input_mode = oldaskconfig;
  
  static int indent = 1;
-@@ -442,6 +443,36 @@ static void check_conf(struct menu *menu)
+@@ -446,6 +447,36 @@ static void check_conf(struct menu *menu)
  		check_conf(child);
  }
  
@@ -57,7 +56,7 @@ index 4da3b4a..9f5db95 100644
  static struct option long_opts[] = {
  	{"oldaskconfig",    no_argument,       NULL, oldaskconfig},
  	{"oldconfig",       no_argument,       NULL, oldconfig},
-@@ -461,6 +492,7 @@ static struct option long_opts[] = {
+@@ -465,6 +496,7 @@ static struct option long_opts[] = {
  	 * value but not 'n') with the counter-intuitive name.
  	 */
  	{"oldnoconfig",     no_argument,       NULL, olddefconfig},
@@ -65,7 +64,7 @@ index 4da3b4a..9f5db95 100644
  	{NULL, 0, NULL, 0}
  };
  
-@@ -490,6 +522,7 @@ int main(int ac, char **av)
+@@ -494,6 +526,7 @@ int main(int ac, char **av)
  	int opt;
  	const char *name, *defconfig_file = NULL /* gcc uninit */;
  	struct stat tmpstat;
@@ -73,7 +72,7 @@ index 4da3b4a..9f5db95 100644
  
  	setlocale(LC_ALL, "");
  	bindtextdomain(PACKAGE, LOCALEDIR);
-@@ -498,6 +531,10 @@ int main(int ac, char **av)
+@@ -504,6 +537,10 @@ int main(int ac, char **av)
  	while ((opt = getopt_long(ac, av, "", long_opts, NULL)) != -1) {
  		input_mode = (enum input_mode)opt;
  		switch (opt) {
@@ -84,7 +83,7 @@ index 4da3b4a..9f5db95 100644
  		case silentoldconfig:
  			sync_kconfig = 1;
  			break;
-@@ -663,6 +700,8 @@ int main(int ac, char **av)
+@@ -678,6 +715,8 @@ int main(int ac, char **av)
  			  input_mode != olddefconfig));
  		break;
  	}

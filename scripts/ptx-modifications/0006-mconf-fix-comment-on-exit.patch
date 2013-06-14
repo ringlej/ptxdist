@@ -1,18 +1,17 @@
-From b31a6a3a86cf79dac4017df51aa69da9be8c2862 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Sat, 13 Oct 2012 10:39:47 +0200
 Subject: [PATCH] mconf: fix comment on exit
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/mconf.c |    2 +-
+ scripts/kconfig/mconf.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
-index 04d58b0..0fe09e3 100644
+index a67c307..5ce66af 100644
 --- a/scripts/kconfig/mconf.c
 +++ b/scripts/kconfig/mconf.c
-@@ -886,7 +886,7 @@ static int handle_exit(void)
+@@ -970,7 +970,7 @@ static int handle_exit(void)
  	case -1:
  		printf(_("\n\n"
  			 "*** End of the configuration.\n"

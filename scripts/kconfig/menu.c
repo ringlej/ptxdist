@@ -48,7 +48,7 @@ void menu_add_entry(struct symbol *sym)
 {
 	struct menu *menu;
 
-	menu = malloc(sizeof(*menu));
+	menu = xmalloc(sizeof(*menu));
 	memset(menu, 0, sizeof(*menu));
 	menu->sym = sym;
 	menu->parent = current_menu;
@@ -146,11 +146,24 @@ struct property *menu_add_prop(enum prop_type type, char *prompt, struct expr *e
 			struct menu *menu = current_entry;
 
 			while ((menu = menu->parent) != NULL) {
+				struct expr *dup_expr;
+
 				if (!menu->visibility)
 					continue;
+				/*
+				 * Do not add a reference to the
+				 * menu's visibility expression but
+				 * use a copy of it.  Otherwise the
+				 * expression reduction functions
+				 * will modify expressions that have
+				 * multiple references which can
+				 * cause unwanted side effects.
+				 */
+				dup_expr = expr_copy(menu->visibility);
+
 				prop->visible.expr
 					= expr_alloc_and(prop->visible.expr,
-							 menu->visibility);
+							 dup_expr);
 			}
 		}
 
@@ -511,20 +524,13 @@ const char *menu_get_help(struct menu *menu)
 }
 
 static void get_prompt_str(struct gstr *r, struct property *prop,
-			   struct jk_head *head)
+			   struct list_head *head)
 {
 	int i, j;
 	struct menu *submenu[8], *menu, *location = NULL;
 	struct jump_key *jump;
 
 	str_printf(r, _("Prompt: %s\n"), _(prop->text));
-	str_printf(r, _("  Defined at %s:%d\n"), prop->menu->file->name,
-		prop->menu->lineno);
-	if (!expr_is_yes(prop->visible.expr)) {
-		str_append(r, _("  Depends on: "));
-		expr_gstr_print(prop->visible.expr, r);
-		str_append(r, "\n");
-	}
 	menu = prop->menu->parent;
 	for (i = 0; menu != &rootmenu && i < 8; menu = menu->parent) {
 		bool accessible = menu_is_visible(menu);
@@ -534,7 +540,7 @@ static void get_prompt_str(struct gstr *r, struct property *prop,
 			location = menu;
 	}
 	if (head && location) {
-		jump = malloc(sizeof(struct jump_key));
+		jump = xmalloc(sizeof(struct jump_key));
 
 		if (menu_is_visible(prop->menu)) {
 			/*
@@ -547,12 +553,13 @@ static void get_prompt_str(struct gstr *r, struct property *prop,
 		} else
 			jump->target = location;
 
-		if (CIRCLEQ_EMPTY(head))
+		if (list_empty(head))
 			jump->index = 0;
 		else
-			jump->index = CIRCLEQ_LAST(head)->index + 1;
+			jump->index = list_entry(head->prev, struct jump_key,
+						 entries)->index + 1;
 
-		CIRCLEQ_INSERT_TAIL(head, jump, entries);
+		list_add_tail(&jump->entries, head);
 	}
 
 	if (i > 0) {
@@ -574,9 +581,22 @@ static void get_prompt_str(struct gstr *r, struct property *prop,
 }
 
 /*
+ * get peoperty of type P_SYMBOL
+ */
+static struct property *get_symbol_prop(struct symbol *sym)
+{
+	struct property *prop = NULL;
+
+	for_all_properties(sym, prop, P_SYMBOL)
+		break;
+	return prop;
+}
+
+/*
  * head is optional and may be NULL
  */
-void get_symbol_str(struct gstr *r, struct symbol *sym, struct jk_head *head)
+void get_symbol_str(struct gstr *r, struct symbol *sym,
+		    struct list_head *head)
 {
 	bool hit;
 	struct property *prop;
@@ -596,6 +616,18 @@ void get_symbol_str(struct gstr *r, struct symbol *sym, struct jk_head *head)
 	}
 	for_all_prompts(sym, prop)
 		get_prompt_str(r, prop, head);
+
+	prop = get_symbol_prop(sym);
+	if (prop) {
+		str_printf(r, _("  Defined at %s:%d\n"), prop->menu->file->name,
+			prop->menu->lineno);
+		if (!expr_is_yes(prop->visible.expr)) {
+			str_append(r, _("  Depends on: "));
+			expr_gstr_print(prop->visible.expr, r);
+			str_append(r, "\n");
+		}
+	}
+
 	hit = false;
 	for_all_properties(sym, prop, P_SELECT) {
 		if (!hit) {
@@ -615,7 +647,7 @@ void get_symbol_str(struct gstr *r, struct symbol *sym, struct jk_head *head)
 	str_append(r, "\n\n");
 }
 
-struct gstr get_relations_str(struct symbol **sym_arr, struct jk_head *head)
+struct gstr get_relations_str(struct symbol **sym_arr, struct list_head *head)
 {
 	struct symbol *sym;
 	struct gstr res = str_new();

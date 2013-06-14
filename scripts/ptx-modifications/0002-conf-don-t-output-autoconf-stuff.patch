@@ -1,19 +1,18 @@
-From 9bc155c85184bdcfeec11973d9ae675f92994d8a Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Mon, 1 Nov 2010 19:49:34 +0100
 Subject: [PATCH] conf: don't output autoconf stuff
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/conf.c     |    2 ++
- scripts/kconfig/confdata.c |    2 ++
+ scripts/kconfig/conf.c     | 2 ++
+ scripts/kconfig/confdata.c | 2 ++
  2 files changed, 4 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 9f5db95..fbac5e8 100644
+index 08d372a..7ecdc14 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
-@@ -711,10 +711,12 @@ int main(int ac, char **av)
+@@ -726,10 +726,12 @@ int main(int ac, char **av)
  			fprintf(stderr, _("\n*** Error during writing of the configuration.\n\n"));
  			exit(1);
  		}
@@ -27,7 +26,7 @@ index 9f5db95..fbac5e8 100644
  		if (conf_write_defconfig(defconfig_file)) {
  			fprintf(stderr, _("n*** Error while saving defconfig to: %s\n\n"),
 diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
-index 13ddf11..e0dd10b 100644
+index 43eda40..928cb7b 100644
 --- a/scripts/kconfig/confdata.c
 +++ b/scripts/kconfig/confdata.c
 @@ -939,6 +939,7 @@ out:

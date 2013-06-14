@@ -1,4 +1,3 @@
-From c7a4639c729b5700c89ddcc8a7d932b3b55478e7 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Thu, 11 Nov 2010 06:00:37 +0100
 Subject: [PATCH] Revert "kconfig: ignore select of unknown symbol"
@@ -21,14 +20,14 @@ This reverts commit 603d49885e023d1f68c627c2a2db599fb40eefec
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/menu.c |    9 ++++++---
+ scripts/kconfig/menu.c | 9 ++++++---
  1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index a3cade6..5d5ff16 100644
+index fd3f018..395521c 100644
 --- a/scripts/kconfig/menu.c
 +++ b/scripts/kconfig/menu.c
-@@ -237,9 +237,12 @@ static void sym_check_prop(struct symbol *sym)
+@@ -250,9 +250,12 @@ static void sym_check_prop(struct symbol *sym)
  				prop_warn(prop,
  				    "config symbol '%s' uses select, but is "
  				    "not boolean or tristate", sym->name);
