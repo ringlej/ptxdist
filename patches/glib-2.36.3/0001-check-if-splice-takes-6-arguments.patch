@@ -13,13 +13,13 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  configure.ac |   16 +++++++++++++++-
  1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/configure.ac b/configure.ac
-index 07ab229..5b593fd 100644
+Index: b/configure.ac
+===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -999,7 +999,21 @@ AC_CHECK_FUNCS(lstat strerror strsignal memmove vsnprintf stpcpy strcasecmp strn
+@@ -994,7 +994,21 @@ AC_CHECK_FUNCS(lstat strerror strsignal
  AC_CHECK_FUNCS(chown lchmod lchown fchmod fchown link utimes getgrgid getpwuid getresuid)
- AC_CHECK_FUNCS(getmntent_r setmntent endmntent hasmntopt getfsstat getvfsstat)
+ AC_CHECK_FUNCS(getmntent_r setmntent endmntent hasmntopt getfsstat getvfsstat fallocate)
  # Check for high-resolution sleep functions
 -AC_CHECK_FUNCS(splice)
 +AC_CACHE_CHECK([for splice()],
