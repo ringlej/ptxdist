@@ -53,6 +53,59 @@ config BUSYBOX_SMEMCAP
 	help
 	  smemcap is a tool for capturing process data for smem,
 	  a memory usage statistic tool.
+config BUSYBOX_TOP
+	bool "top"
+	default y
+	help
+	  The top program provides a dynamic real-time view of a running
+	  system.
+
+config BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+	bool "Show CPU per-process usage percentage"
+	default y
+	depends on BUSYBOX_TOP
+	help
+	  Make top display CPU usage for each process.
+	  This adds about 2k.
+
+config BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS
+	bool "Show CPU global usage percentage"
+	default y
+	depends on BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+	help
+	  Makes top display "CPU: NN% usr NN% sys..." line.
+	  This adds about 0.5k.
+
+config BUSYBOX_FEATURE_TOP_SMP_CPU
+	bool "SMP CPU usage display ('c' key)"
+	default y
+	depends on BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS
+	help
+	  Allow 'c' key to switch between individual/cumulative CPU stats
+	  This adds about 0.5k.
+
+config BUSYBOX_FEATURE_TOP_DECIMALS
+	bool "Show 1/10th of a percent in CPU/mem statistics"
+	default y
+	depends on BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+	help
+	  Show 1/10th of a percent in CPU/mem statistics.
+	  This adds about 0.3k.
+
+config BUSYBOX_FEATURE_TOP_SMP_PROCESS
+	bool "Show CPU process runs on ('j' field)"
+	default y
+	depends on BUSYBOX_TOP
+	help
+	  Show CPU where process was last found running on.
+	  This is the 'j' field.
+
+config BUSYBOX_FEATURE_TOPMEM
+	bool "Topmem command ('s' key)"
+	default y
+	depends on BUSYBOX_TOP
+	help
+	  Enable 's' in top (gives lots of memory info).
 config BUSYBOX_UPTIME
 	bool "uptime"
 	default y
@@ -201,60 +254,6 @@ config BUSYBOX_BB_SYSCTL
 	default y
 	help
 	  Configure kernel parameters at runtime.
-
-config BUSYBOX_TOP
-	bool "top"
-	default y
-	help
-	  The top program provides a dynamic real-time view of a running
-	  system.
-
-config BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
-	bool "Show CPU per-process usage percentage"
-	default y
-	depends on BUSYBOX_TOP
-	help
-	  Make top display CPU usage for each process.
-	  This adds about 2k.
-
-config BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS
-	bool "Show CPU global usage percentage"
-	default y
-	depends on BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
-	help
-	  Makes top display "CPU: NN% usr NN% sys..." line.
-	  This adds about 0.5k.
-
-config BUSYBOX_FEATURE_TOP_SMP_CPU
-	bool "SMP CPU usage display ('c' key)"
-	default y
-	depends on BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS
-	help
-	  Allow 'c' key to switch between individual/cumulative CPU stats
-	  This adds about 0.5k.
-
-config BUSYBOX_FEATURE_TOP_DECIMALS
-	bool "Show 1/10th of a percent in CPU/mem statistics"
-	default y
-	depends on BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
-	help
-	  Show 1/10th of a percent in CPU/mem statistics.
-	  This adds about 0.3k.
-
-config BUSYBOX_FEATURE_TOP_SMP_PROCESS
-	bool "Show CPU process runs on ('j' field)"
-	default y
-	depends on BUSYBOX_TOP
-	help
-	  Show CPU where process was last found running on.
-	  This is the 'j' field.
-
-config BUSYBOX_FEATURE_TOPMEM
-	bool "Topmem command ('s' key)"
-	default y
-	depends on BUSYBOX_TOP
-	help
-	  Enable 's' in top (gives lots of memory info).
 
 config BUSYBOX_FEATURE_SHOW_THREADS
 	bool "Support for showing threads in ps/pstree/top"

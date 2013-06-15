@@ -801,6 +801,15 @@ config BUSYBOX_FEATURE_VOLUMEID_FAT
 	help
 	  TODO
 
+config BUSYBOX_FEATURE_VOLUMEID_EXFAT
+	bool "exFAT filesystem"
+	default y
+	depends on BUSYBOX_VOLUMEID
+	help
+	  exFAT (extended FAT) is a proprietary file system designed especially
+	  for flash drives. It has many features from NTFS, but with less
+	  overhead. exFAT is used on most SDXC cards for consumer electronics.
+
 config BUSYBOX_FEATURE_VOLUMEID_HFS
 	bool "hfs filesystem"
 	default y
@@ -824,6 +833,13 @@ config BUSYBOX_FEATURE_VOLUMEID_JFS
 
 config BUSYBOX_FEATURE_VOLUMEID_XFS
 	bool "xfs filesystem"
+	default y
+	depends on BUSYBOX_VOLUMEID
+	help
+	  TODO
+
+config BUSYBOX_FEATURE_VOLUMEID_NILFS
+	bool "nilfs filesystem"
 	default y
 	depends on BUSYBOX_VOLUMEID
 	help
@@ -891,6 +907,16 @@ config BUSYBOX_FEATURE_VOLUMEID_ROMFS
 	depends on BUSYBOX_VOLUMEID
 	help
 	  TODO
+
+config BUSYBOX_FEATURE_VOLUMEID_SQUASHFS
+	bool "SquashFS filesystem"
+	default y
+	depends on BUSYBOX_VOLUMEID && BUSYBOX_FEATURE_BLKID_TYPE
+	help
+	  Squashfs is a compressed read-only filesystem for Linux. Squashfs is
+	  intended for general read-only filesystem use and in constrained block
+	  device/memory systems (e.g. embedded systems) where low overhead is
+	  needed.
 
 config BUSYBOX_FEATURE_VOLUMEID_SYSV
 	bool "sysv filesystem"

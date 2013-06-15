@@ -10,7 +10,7 @@ This patch reactivates this feature.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- scripts/kconfig/conf.c |    2 +-
+ scripts/kconfig/conf.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c

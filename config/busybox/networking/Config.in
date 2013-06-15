@@ -175,12 +175,12 @@ config BUSYBOX_FEATURE_BRCTL_FANCY
 	  This adds about 600 bytes.
 
 config BUSYBOX_FEATURE_BRCTL_SHOW
-	bool "Support show, showmac and showstp"
+	bool "Support show"
 	default y
 	depends on BUSYBOX_BRCTL && BUSYBOX_FEATURE_BRCTL_FANCY
 	help
 	  Add support for option which prints the current config:
-	    showmacs, showstp, show
+	    show
 
 config BUSYBOX_DNSD
 	bool "dnsd"
@@ -1038,8 +1038,8 @@ config BUSYBOX_WGET
 	bool "wget"
 	default y
 	help
-	  wget is a utility for non-interactive download of files from HTTP,
-	  HTTPS, and FTP servers.
+	  wget is a utility for non-interactive download of files from HTTP
+	  and FTP servers.
 
 config BUSYBOX_FEATURE_WGET_STATUSBAR
 	bool "Enable a nifty process meter (+2k)"

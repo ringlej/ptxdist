@@ -6,14 +6,14 @@ The busybox make system will fail otherwise.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile.flags |    1 +
+ Makefile.flags | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/Makefile.flags b/Makefile.flags
-index 15dcc1f..7b04b89 100644
+index 307afa7..d68c9c4 100644
 --- a/Makefile.flags
 +++ b/Makefile.flags
-@@ -137,6 +137,7 @@ ifeq ($(CONFIG_SELINUX),y)
+@@ -141,6 +141,7 @@ ifeq ($(CONFIG_SELINUX),y)
  SELINUX_PC_MODULES = libselinux libsepol
  $(eval $(call pkg_check_modules,SELINUX,$(SELINUX_PC_MODULES)))
  CPPFLAGS += $(SELINUX_CFLAGS)

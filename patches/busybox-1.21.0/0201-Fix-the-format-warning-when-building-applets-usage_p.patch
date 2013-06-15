@@ -12,7 +12,7 @@ applets/usage_pod.c:74:3: warning: format not a string literal and no format arg
 
 Signed-off-by: Dinny Wu <dinny.wu@gmail.com>
 ---
- applets/usage_pod.c |    2 +-
+ applets/usage_pod.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/applets/usage_pod.c b/applets/usage_pod.c

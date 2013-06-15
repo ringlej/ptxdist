@@ -127,14 +127,6 @@ config BUSYBOX_FEATURE_VI_ASK_TERMINAL
 
 	  This is not clean but helps a lot on serial lines and such.
 
-config BUSYBOX_FEATURE_VI_OPTIMIZE_CURSOR
-	bool "Optimize cursor movement"
-	default y
-	depends on BUSYBOX_VI
-	help
-	  This will make the cursor movement faster, but requires more memory
-	  and it makes the applet a tiny bit larger.
-
 config BUSYBOX_AWK
 	bool "awk"
 	default y

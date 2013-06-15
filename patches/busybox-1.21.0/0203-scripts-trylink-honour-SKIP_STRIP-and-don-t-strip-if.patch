@@ -5,7 +5,7 @@ Subject: [PATCH] scripts/trylink: honour SKIP_STRIP and don't strip if
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- scripts/trylink |   17 ++++++++++++++---
+ scripts/trylink | 17 ++++++++++++++---
  1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/trylink b/scripts/trylink
