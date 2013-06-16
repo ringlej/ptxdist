@@ -4,8 +4,8 @@ Subject: [PATCH] install header files to @includedir@ and adjust libffi.pc.in
 
 Signed-off-by: Jan Luebbe <jlu@pengutronix.de>
 ---
- include/Makefile.am |    2 +-
- libffi.pc.in        |    6 +++---
+ include/Makefile.am | 2 +-
+ libffi.pc.in        | 6 +++---
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/include/Makefile.am b/include/Makefile.am

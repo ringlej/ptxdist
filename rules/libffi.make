@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBFFI) += libffi
 #
 # Paths and names
 #
-LIBFFI_VERSION	:= 3.0.11
-LIBFFI_MD5	:= f69b9693227d976835b4857b1ba7d0e3
+LIBFFI_VERSION	:= 3.0.13
+LIBFFI_MD5	:= 45f3b6dbc9ee7c7dfbbbc5feba571529
 LIBFFI		:= libffi-$(LIBFFI_VERSION)
 LIBFFI_SUFFIX	:= tar.gz
 LIBFFI_SOURCE	:= $(SRCDIR)/$(LIBFFI).$(LIBFFI_SUFFIX)
@@ -37,20 +37,12 @@ LIBFFI_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--enable-portable-binary \
+	--disable-pax_emutramp \
 	--disable-debug \
 	--enable-structs \
 	--enable-raw-api \
 	--disable-purify-safety \
 	--without-gcc-arch
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libffi.install:
-	@$(call targetinfo)
-	@$(call install, LIBFFI)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
