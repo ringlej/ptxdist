@@ -14,12 +14,12 @@ if KERNEL_HEADER
 config KERNEL_HEADER_VERSION
 	prompt "kernel version"
 	string
-	default "2.6.39"
+	default "${PTXCONF_KERNEL_VERSION}"
 
 config KERNEL_HEADER_MD5
 	prompt "kernel source md5sum"
 	string
-	default "25cd73d797a49ad5b4119b67f1caf2cc"
+	default "${PTXCONF_KERNEL_MD5}"
 
 endif
 
