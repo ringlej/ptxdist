@@ -1,0 +1,33 @@
+From: Juergen Beisert <juergen@kreuzholzen.de>
+Date: Sun, 16 Jun 2013 11:17:42 +0200
+Subject: [PATCH] build system fixes
+
+Build arpd only if the user has requested it.
+Add a mechanism to feed in CPPFLAGS for cross builds.
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ misc/Makefile | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/misc/Makefile b/misc/Makefile
+index a59ff87..4e65239 100644
+--- a/misc/Makefile
++++ b/misc/Makefile
+@@ -1,10 +1,14 @@
+ SSOBJ=ss.o ssfilter.o
+ LNSTATOBJ=lnstat.o lnstat_util.o
+ 
+-TARGETS=ss nstat ifstat rtacct arpd lnstat
++TARGETS=ss nstat ifstat rtacct lnstat
+ 
+ include ../Config
+ 
++ifdef BUILD_ARPD
++TARGETS += arpd
++endif
++
+ all: $(TARGETS)
+ 
+ ss: $(SSOBJ)

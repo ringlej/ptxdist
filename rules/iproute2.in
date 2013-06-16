@@ -29,6 +29,12 @@ config IPROUTE2_ARPD
 	  Enabling this extry will enlarge your system by the berkely
 	  DB4.x library.
 
+config IPROUTE2_BRIDGE
+	bool
+	prompt "bridge"
+	help
+	  Show / manipulate bridge addresses and devices
+
 config IPROUTE2_CTSTAT
 	bool
 	prompt "ctstat"

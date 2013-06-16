@@ -17,12 +17,11 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 2.6.39
-IPROUTE2_MD5		:= 8a3b6bc77c2ecf752284aa4a6fc630a6
+IPROUTE2_VERSION	:= 3.9.0
+IPROUTE2_MD5		:= fd9db28e4f411a1e74de65c919ae590f
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
-IPROUTE2_SUFFIX		:= tar.gz
-IPROUTE2_URL		:= \
-	http://www.linuxgrill.com/anonymous/iproute2/NEW-OSDL/$(IPROUTE2).$(IPROUTE2_SUFFIX)
+IPROUTE2_SUFFIX		:= tar.xz
+IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
 IPROUTE2_LICENSE	:= GPLv2
@@ -31,18 +30,22 @@ IPROUTE2_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPROUTE2_MAKEVARS := \
-	CC=$(CROSS_CC) \
-	LDFLAGS='-rdynamic' \
-	DBM_INCLUDE=$(SYSROOT)/usr/include
-
 $(STATEDIR)/iproute2.prepare:
 	@$(call targetinfo)
-	@touch $(IPROUTE2_DIR)/Config
+	@$(call world/prepare, IPROUTE2)
+# overwrite options we don't want, or may be misdetected
+	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/Config
+	@echo 'TC_CONFIG_XT:=n'		>> $(IPROUTE2_DIR)/Config
+	@echo 'IPT_LIB_DIR:=/usr/lib'	>> $(IPROUTE2_DIR)/Config
 ifdef PTXCONF_IPROUTE2_ARPD
 	@echo BUILD_ARPD=y >> $(IPROUTE2_DIR)/Config
 endif
 	@$(call touch)
+
+IPROUTE2_MAKE_OPT := \
+	ROOTDIR=$(SYSROOT) \
+	LDFLAGS='-rdynamic' \
+	WFLAGS="-Wall"
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -50,6 +53,7 @@ endif
 
 IPROUTE2_INSTALL_FILES-y =
 IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_ARPD) +=	/sbin/arpd
+IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_BRIDGE) +=	/sbin/bridge
 IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_CTSTAT) +=	/sbin/ctstat
 IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_GENL) +=	/sbin/genl
 IPROUTE2_INSTALL_FILES-$(PTXCONF_IPROUTE2_IP) +=	/sbin/ip
