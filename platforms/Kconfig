@@ -57,4 +57,4 @@ menu "new image creation options    "
 source "generated/image2.in"
 endmenu
 
-source "platforms/hosttools.in"
+source "generated/hosttools_platform.in"

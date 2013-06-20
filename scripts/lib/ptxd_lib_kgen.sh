@@ -90,8 +90,7 @@ EOF
     # transmogrify part into subdir
     local oldIFS="$IFS"
     case "${kgen_part}" in
-	ptx)	  IFS=: kgen_dirs=( ${PTXDIST_PATH_RULES} ) ;;
-	platform) IFS=: kgen_dirs=( ${PTXDIST_PATH_PLATFORMS} ) ;;
+	ptx|platform) IFS=: kgen_dirs=( ${PTXDIST_PATH_RULES}:${PTXDIST_PATH_PLATFORMS} ) ;;
 	board|user|collection) return 0 ;;
 	*) cat <<EOF
 
