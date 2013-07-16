@@ -1,5 +1,5 @@
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Date: Thu, 11 Apr 2013 15:20:05 +0200
+Date: Thu, 11 Apr 2013 17:20:05 +0200
 Subject: [PATCH] hackbench: init child's struct before using it
 
 Commit ad27df7 ("Reimplement better child tracking and improve error
@@ -36,10 +36,10 @@ Origin: upstream, commit:dd6ae1155dc7fbee79426ae5952d48b4151c1cd7
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/src/hackbench/hackbench.c b/src/hackbench/hackbench.c
-index 03b74b0..6a7f8a3 100644
+index 8baeb23..c21b4db 100644
 --- a/src/hackbench/hackbench.c
 +++ b/src/hackbench/hackbench.c
-@@ -184,13 +184,14 @@ again:
+@@ -189,13 +189,14 @@ again:
  	return NULL;
  }
  
@@ -53,5 +53,5 @@ index 03b74b0..6a7f8a3 100644
  
 +	memset(&child, 0, sizeof(child));
  	switch (process_mode) {
- 	case 1: /* process mode */
+ 	case PROCESS_MODE: /* process mode */
  		/* Fork the sender/receiver child. */

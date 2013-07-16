@@ -1,3 +1,0 @@
-fix_3_0_issue.diff
-add-extra-cflags.patch
-hackbench-init-child-s-struct-before-using-it.patch
