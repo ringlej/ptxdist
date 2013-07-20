@@ -30,6 +30,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		-Wp,-MD,$(STATEDIR)/dtc.dtc.deps \
 		-Wp,-MT,$<.tmp \
 		-nostdinc \
+		-P \
 		-I$(dir $<) \
 		-I$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/dts \
 		-I$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/dts/include \
