@@ -33,7 +33,7 @@ config KERNEL_MODULES_BUILD
 config KERNEL_VERSION
 	prompt "kernel version"
 	string
-	default "2.6.33"
+	default "3.10"
 
 config KERNEL_MD5
 	prompt "kernel source md5sum"
