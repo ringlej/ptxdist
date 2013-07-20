@@ -40,7 +40,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 	@$(PTXCONF_SYSROOT_HOST)/bin/dtc \
 		$(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) \
 		-i $(dir $<) \
-		-i $(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/dts \
+		-i $(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts \
 		-d $(PTXDIST_TEMPDIR)/dtc.dtc.deps \
 		-I dts -O dtb -b 0 \
 		-o "$@" "$<.tmp"
