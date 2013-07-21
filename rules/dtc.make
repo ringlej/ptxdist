@@ -41,7 +41,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]-i$$"; then \
 		dtc_include="-i $(dir $<) -i $(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts"; \
 	fi; \
-	@$(PTXCONF_SYSROOT_HOST)/bin/dtc \
+	$(PTXCONF_SYSROOT_HOST)/bin/dtc \
 		$(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) \
 		$$dtc_include \
 		-d $(PTXDIST_TEMPDIR)/dtc.dtc.deps \
