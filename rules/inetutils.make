@@ -55,6 +55,7 @@ INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-ifconfig \
 	--$(call ptx/endis, PTXCONF_INETUTILS_INETD)-inetd \
 	--$(call ptx/endis, PTXCONF_INETUTILS_PING)-ping \
+	--$(call ptx/endis, PTXCONF_INETUTILS_PING6)-ping6 \
 	--$(call ptx/endis, PTXCONF_INETUTILS_RCP)-rcp \
 	--$(call ptx/endis, PTXCONF_INETUTILS_RLOGIND)-rlogind \
 	--$(call ptx/endis, PTXCONF_INETUTILS_RSH)-rsh \
@@ -90,6 +91,10 @@ endif
 ifdef PTXCONF_INETUTILS_PING
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_PKGDIR)/usr/bin/ping, /bin/ping)
+endif
+ifdef PTXCONF_INETUTILS_PING6
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_PKGDIR)/usr/bin/ping6, /bin/ping6)
 endif
 ifdef PTXCONF_INETUTILS_RCP
 	@$(call install_copy, inetutils, 0, 0, 0755, -, /usr/bin/rcp)
