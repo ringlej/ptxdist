@@ -336,7 +336,7 @@ AC_ARG_WITH(patch, AS_HELP_STRING([--with-patch],[name of the patch executable t
 	AC_PATH_PROG(PATCH, patch)
     ])
 if test -z "$PATCH"; then
-    AC_MSG_ERROR([Please specify the location of patch with the option '--with-patch'])
+    AC_MSG_ERROR([Please specify the location of the patch executable with the option '--with-patch'])
 fi
 
 # Sun's patch is a mess, issue a warning.  But we are going to continue with
