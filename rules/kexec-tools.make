@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_KEXEC_TOOLS) += kexec-tools
 #
 # Paths and names
 #
-KEXEC_TOOLS_VERSION	:= 2.0.3
-KEXEC_TOOLS_MD5		:= b3ced2097ce3981abba38ceedc84f939
+KEXEC_TOOLS_VERSION	:= 2.0.4
+KEXEC_TOOLS_MD5		:= 05992bc8c0673fc55be7b6d27e48a8db
 KEXEC_TOOLS		:= kexec-tools-$(KEXEC_TOOLS_VERSION)
 KEXEC_TOOLS_SUFFIX	:= tar.bz2
 KEXEC_TOOLS_URL		:= $(call ptx/mirror, KERNEL, utils/kernel/kexec/$(KEXEC_TOOLS).$(KEXEC_TOOLS_SUFFIX))
