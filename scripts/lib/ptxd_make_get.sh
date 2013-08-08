@@ -92,7 +92,7 @@ ptxd_make_get_git() {
 	*.tar.gz|*.tar.bz2|*.tar.xz|*.zip)
 		;;
 	*)
-		ptxd_bailout "Only .tar.gz, .tar.bz2, .tar.xz and .zup archives are supported for git downloads."
+		ptxd_bailout "Only .tar.gz, .tar.bz2, .tar.xz and .zip archives are supported for git downloads."
 		;;
 	esac
 
