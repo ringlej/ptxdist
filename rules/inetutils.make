@@ -89,11 +89,11 @@ ifdef PTXCONF_INETUTILS_INETD
 	@$(call install_copy, inetutils, 0, 0, 0755, -, /usr/sbin/inetd)
 endif
 ifdef PTXCONF_INETUTILS_PING
-	@$(call install_copy, inetutils, 0, 0, 0755, \
+	@$(call install_copy, inetutils, 0, 0, 4755, \
 		$(INETUTILS_PKGDIR)/usr/bin/ping, /bin/ping)
 endif
 ifdef PTXCONF_INETUTILS_PING6
-	@$(call install_copy, inetutils, 0, 0, 0755, \
+	@$(call install_copy, inetutils, 0, 0, 4755, \
 		$(INETUTILS_PKGDIR)/usr/bin/ping6, /bin/ping6)
 endif
 ifdef PTXCONF_INETUTILS_RCP
