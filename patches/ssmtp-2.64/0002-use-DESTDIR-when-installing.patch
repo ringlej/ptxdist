@@ -1,18 +1,18 @@
-Subject: [PATCH] use DESTDIR when installing
 From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Wed, 14 Aug 2013 10:24:18 +0200
+Subject: [PATCH] use DESTDIR when installing
 
 Prefix all paths with DESTDIR when installing
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
 ---
- Makefile.in |   40 ++++++++++++++++++++--------------------
+ Makefile.in | 40 ++++++++++++++++++++--------------------
  1 file changed, 20 insertions(+), 20 deletions(-)
 
-Index: ssmtp-2.64/Makefile.in
-===================================================================
---- ssmtp-2.64.orig/Makefile.in
-+++ ssmtp-2.64/Makefile.in
+diff --git a/Makefile.in b/Makefile.in
+index d235182..756d754 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -46,36 +46,36 @@ all: ssmtp
  
  .PHONY: install

@@ -1,15 +1,20 @@
-Subject: [PATCH] use LDFLAGS for linking
 From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Wed, 14 Aug 2013 10:24:18 +0200
+Subject: [PATCH] use LDFLAGS for linking
 
 Please use LDFLAGS, not CFLAGS, for linking. This makes it possible to
 overwrite the variable from the outside and do the correct thing.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff -urN ssmtp-2.61-orig/Makefile.in ssmtp-2.61/Makefile.in
---- ssmtp-2.61-orig/Makefile.in	2006-03-04 23:19:04.000000000 +0100
-+++ ssmtp-2.61/Makefile.in	2006-03-04 23:19:36.000000000 +0100
-@@ -79,7 +79,7 @@
+diff --git a/Makefile.in b/Makefile.in
+index f0aff41..d235182 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -79,7 +79,7 @@ uninstall-sendmail: uninstall
  
  # Binaries:
  ssmtp: $(OBJS)

@@ -1,5 +1,6 @@
-Subject: make installing non-interactive
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 14 Aug 2013 10:24:18 +0200
+Subject: [PATCH] make installing non-interactive
 
 $(GEN_CONFIG) need user ineraction to create a config file.
 It doesn't work for cross-compiling and we don't need it.
@@ -7,13 +8,12 @@ It doesn't work for cross-compiling and we don't need it.
 Not for upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
- Makefile.in |    3 +--
+ Makefile.in | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-Index: b/Makefile.in
-===================================================================
+diff --git a/Makefile.in b/Makefile.in
+index 756d754..cb3610c 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -45,14 +45,13 @@ all: ssmtp
