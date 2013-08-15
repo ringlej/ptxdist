@@ -127,4 +127,10 @@ config WPA_SUPPLICANT_INSTALL_CLI
 	  it's not necessary to have wpa_cli in the final (non-development)
 	  version of an Embedded System.
 
+config WPA_SUPPLICANT_DEBUG_FILE
+	bool
+	prompt "log file support"
+	help
+	  Add support for writing debug log to a file
+
 endif
