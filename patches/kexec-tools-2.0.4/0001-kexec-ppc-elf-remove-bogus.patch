@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 21 Aug 2013 10:44:22 +0200
+Subject: [PATCH] kexec: ppc: elf: remove bogus ';'
+
+Otherwise building may fail with:
+[...]
+kexec/arch/ppc/kexec-elf-ppc.c:45:24: error: expected ']' before ';' token
+kexec/arch/ppc/kexec-elf-ppc.c:47:25: error: expected ']' before ';' token
+[...]
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ kexec/arch/ppc/kexec-elf-ppc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kexec/arch/ppc/kexec-elf-ppc.c b/kexec/arch/ppc/kexec-elf-ppc.c
+index 65a65cc..abfe39d 100644
+--- a/kexec/arch/ppc/kexec-elf-ppc.c
++++ b/kexec/arch/ppc/kexec-elf-ppc.c
+@@ -37,7 +37,7 @@ const char *ramdisk;
+ int create_flatten_tree(struct kexec_info *, unsigned char **, unsigned long *,
+ 			char *);
+ 
+-#define UPSZ(X) _ALIGN_UP(sizeof(X), 4);
++#define UPSZ(X) _ALIGN_UP(sizeof(X), 4)
+ #ifdef WITH_GAMECUBE
+ static struct boot_notes {
+ 	Elf_Bhdr hdr;
