@@ -118,4 +118,9 @@ config NET_SNMP_MIB_INSTALL_DIR
 	string
 	default	"/usr/share/snmp/mibs"
 
+config NET_SNMP_DOM_SOCK_ONLY
+	bool "Only allow domain socket connections to the agent" if NET_SNMP_AGENT
+	default y
+	help
+	  Enable this to disable TCP and UDP connections to the agent.
 endif
