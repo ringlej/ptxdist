@@ -50,7 +50,16 @@ NET_SNMP_AUTOCONF := \
 	--enable-shared \
 	--disable-embedded-perl \
 	--without-perl-modules \
-	--disable-static
+	--disable-static \
+	--disable-privacy \
+	--disable-internal-md5 \
+	--disable-agentx-dom-sock-only \
+	--disable-mib-config-checking \
+	--disable-mfd-rewrites \
+	--disable-testing-code \
+	--disable-reentrant \
+	--disable-embedded-perl \
+	--disable-ucd-snmp-compatibility
 
 ifdef PTXCONF_ENDIAN_LITTLE
 NET_SNMP_AUTOCONF += --with-endianness=little
@@ -142,60 +151,6 @@ ifdef PTXCONF_NET_SNMP_DEVELOPER
 NET_SNMP_AUTOCONF += --enable-developer
 else
 NET_SNMP_AUTOCONF += --disable-developer
-endif
-
-ifdef PTXCONF_NET_SNMP_PRIVACY
-NET_SNMP_AUTOCONF += --enable-privacy
-else
-NET_SNMP_AUTOCONF += --disable-privacy
-endif
-
-ifdef PTXCONF_NET_SNMP_INTERNAL_MD5
-NET_SNMP_AUTOCONF += --enable-internal-md5
-else
-NET_SNMP_AUTOCONF += --disable-internal-md5
-endif
-
-ifdef PTXCONF_NET_SNMP_AGENTX_DOM_SOCK_ONLY
-NET_SNMP_AUTOCONF += --enable-agentx-dom-sock-only
-else
-NET_SNMP_AUTOCONF += --disable-agentx-dom-sock-only
-endif
-
-ifdef PTXCONF_NET_SNMP_MIB_CONFIG_CHECKING
-NET_SNMP_AUTOCONF += --enable-mib-config-checking
-else
-NET_SNMP_AUTOCONF += --disable-mib-config-checking
-endif
-
-ifdef PTXCONF_NET_SNMP_MFD_REWRITES
-NET_SNMP_AUTOCONF += --enable-mfd-rewrites
-else
-NET_SNMP_AUTOCONF += --disable-mfd-rewrites
-endif
-
-ifdef PTXCONF_NET_SNMP_TESTING_CODE
-NET_SNMP_AUTOCONF += --enable-testing-code
-else
-NET_SNMP_AUTOCONF += --disable-testing-code
-endif
-
-ifdef PTXCONF_NET_SNMP_REENTRANT
-NET_SNMP_AUTOCONF += --enable-reentrant
-else
-NET_SNMP_AUTOCONF += --disable-reentrant
-endif
-
-ifdef PTXCONF_NET_SNMP_EMBEDDED_PERL
-NET_SNMP_AUTOCONF += --enable-embedded-perl
-else
-NET_SNMP_AUTOCONF += --disable-embedded-perl
-endif
-
-ifdef PTXCONF_NET_SNMP_UCD_COMPAT
-NET_SNMP_AUTOCONF += --enable-ucd-snmp-compatibility
-else
-NET_SNMP_AUTOCONF += --disable-ucd-snmp-compatibility
 endif
 
 ##NET_SNMP_AUTOCONF	+= --with-mib-modules=mibII
