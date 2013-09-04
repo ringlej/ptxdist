@@ -83,6 +83,7 @@ SYSTEMD_CONF_OPT := \
 	--disable-manpages \
 	--enable-split-usr \
 	--disable-tests \
+	--with-firmware-path=/lib/firmware \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
 	--without-python \
@@ -222,6 +223,7 @@ endif
 		/etc/systemd/logind.conf)
 	@$(call install_tree, systemd, 0, 0, -, /etc/systemd/system/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
+	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/rules.d/50-firmware.rules)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/rules.d/99-systemd.rules)
 	@$(call install_tree, systemd, 0, 0, -, /etc/dbus-1/system.d/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/polkit-1/actions/)
