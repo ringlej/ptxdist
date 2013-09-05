@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_JSON_C) += json-c
 #
 # Paths and names
 #
-JSON_C_VERSION		:= 0.9
-JSON_C_MD5		:= 3a13d264528dcbaf3931b0cede24abae
+JSON_C_VERSION		:= 0.10
+JSON_C_MD5		:= a4edc79410eb894f08d7d52ca9f88732
 JSON_C			:= json-c-$(JSON_C_VERSION)
 JSON_C_SUFFIX		:= tar.gz
-JSON_C_URL		:= http://oss.metaparadigm.com/json-c/$(JSON_C).$(JSON_C_SUFFIX)
+JSON_C_URL		:= https://s3.amazonaws.com/json-c_releases/releases/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_SOURCE		:= $(SRCDIR)/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_DIR		:= $(BUILDDIR)/$(JSON_C)
 JSON_C_LICENSE		:= MIT
@@ -56,4 +56,4 @@ $(STATEDIR)/json-c.targetinstall:
 
 	@$(call touch)
 
-# vim: syntax=make
+# vim: ft=make noet

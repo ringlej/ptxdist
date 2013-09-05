@@ -1,0 +1,21 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Wed, 4 Sep 2013 14:27:48 +0200
+Subject: [PATCH] install_json_object_iterator-h
+
+one file missing in install
+---
+ Makefile.in |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Makefile.in b/Makefile.in
+index c06db3e..9d924cd 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -278,6 +278,7 @@ libjsoninclude_HEADERS = \
+ 	json_config.h \
+ 	json_inttypes.h \
+ 	json_object.h \
++	json_object_iterator.h \
+ 	json_object_private.h \
+ 	json_tokener.h \
+ 	json_util.h \
