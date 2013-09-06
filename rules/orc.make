@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ORC) += orc
 #
 # Paths and names
 #
-ORC_VERSION	:= 0.4.17
-ORC_MD5		:= af1bf3dab9e69f3c36f389285e2a12a1
+ORC_VERSION	:= 0.4.18
+ORC_MD5		:= 1a2552e8d127526c48d644fe6437b377
 ORC		:= orc-$(ORC_VERSION)
 ORC_SUFFIX	:= tar.gz
 ORC_URL		:= http://code.entropywave.com/download/orc/$(ORC).$(ORC_SUFFIX)
