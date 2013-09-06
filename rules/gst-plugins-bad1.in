@@ -184,6 +184,10 @@ config GST_PLUGINS_BAD1_LIVEADDER
 	bool
 	prompt "liveadder"
 
+config GST_PLUGINS_BAD1_MIDI
+	bool
+	prompt "midi"
+
 config GST_PLUGINS_BAD1_MPEGDEMUX
 	bool
 	prompt "mpegdemux"
@@ -478,6 +482,11 @@ config GST_PLUGINS_BAD1_FLITE
 	prompt "flite"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD1_FLUIDSYNTH
+	bool
+	prompt "fluidsynth"
+	depends on BROKEN
+
 config GST_PLUGINS_BAD1_GSM
 	bool
 	prompt "gsm"
@@ -488,6 +497,11 @@ config GST_PLUGINS_BAD1_JASPER
 	# Non ported plugin
 	depends on BROKEN
 	prompt "jasper"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD1_OPENJPEG
+	bool
+	prompt "openjpeg"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_KATE
