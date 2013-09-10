@@ -89,21 +89,32 @@ add_late_arg() {
 	LATE_ARG_LIST="${LATE_ARG_LIST} ${*}"
 }
 
-add_opt_arg() {
+test_opt() {
 	local opt="${1}"
-	shift
 
 	for item in ${pkg_wrapper_blacklist}; do
 		if [ "${item}" = "${opt}" ]; then
-			return
+			return 1
 		fi
 	done
 	opt="PTXCONF_${opt}"
 	eval "opt=\$${opt}"
 	if [ -z "${opt}" ]; then
-		return
+		return 1
 	fi
+	return 0
+}
+
+add_opt_arg() {
+	test_opt "${1}" || return 0
+	shift
 	add_arg "${@}"
+}
+
+add_late_opt_arg() {
+	test_opt "${1}" || return 0
+	shift
+	add_late_arg "${@}"
 }
 
 add_ld_args() {
