@@ -179,7 +179,7 @@ cc_add_debug() {
 }
 
 cpp_add_target_extra() {
-	add_arg -frecord-gcc-switches
+	add_opt_arg TARGET_COMPILER_RECORD_SWITCHES "-frecord-gcc-switches"
 	add_arg ${PTXDIST_CROSS_CPPFLAGS}
 	add_opt_arg TARGET_EXTRA_CPPFLAGS ${PTXCONF_TARGET_EXTRA_CPPFLAGS}
 }

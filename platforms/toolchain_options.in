@@ -70,6 +70,11 @@ choice
 		  command-line.
 endchoice
 
+config TARGET_COMPILER_RECORD_SWITCHES
+	bool
+	prompt "store compiler flags (-frecord-gcc-switches)"
+	default y
+
 config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"
