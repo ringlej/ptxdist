@@ -38,6 +38,38 @@ config TARGET_LINKER_AS_NEEDED
 	  tell the linker to link in the produced binary only the libraries
 	  containing symbols actually used by the binary itself.
 
+choice
+	prompt "debugging"
+	default TARGET_DEBUG_KEEP
+
+	config TARGET_DEBUG_OFF
+		bool
+		prompt "disabled (force)  "
+		help
+		  Disable by force by adding '-g0' to the compiler
+		  command-line.
+
+	config TARGET_DEBUG_KEEP
+		bool
+		prompt "unchanged         "
+		help
+		  Add no debugging options to the compiler command-line.
+
+	config TARGET_DEBUG_ENABLE
+		bool
+		prompt "enabled           "
+		help
+		  Enable debugging by adding "-g" to the compiler
+		  command-line.
+
+	config TARGET_DEBUG_FULL
+		bool
+		prompt "enabled (full)    "
+		help
+		  Enable debugging by adding "-ggdb3" to the compiler
+		  command-line.
+endchoice
+
 config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"

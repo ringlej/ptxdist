@@ -172,6 +172,12 @@ cc_add_pie() {
 	fi
 }
 
+cc_add_debug() {
+	add_late_opt_arg TARGET_DEBUG_OFF "-g0"
+	add_late_opt_arg TARGET_DEBUG_ENABLE "-g"
+	add_late_opt_arg TARGET_DEBUG_FULL "-ggdb3"
+}
+
 cpp_add_target_extra() {
 	add_arg -frecord-gcc-switches
 	add_arg ${PTXDIST_CROSS_CPPFLAGS}
@@ -180,11 +186,13 @@ cpp_add_target_extra() {
 
 cc_add_target_extra() {
 	cpp_add_target_extra
+	cc_add_debug
 	add_opt_arg TARGET_EXTRA_CFLAGS ${PTXCONF_TARGET_EXTRA_CFLAGS}
 }
 
 cxx_add_target_extra() {
 	cpp_add_target_extra
+	cc_add_debug
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
 }
 
