@@ -58,7 +58,6 @@ NET_SNMP_AUTOCONF := \
 	--disable-mfd-rewrites \
 	--disable-testing-code \
 	--disable-reentrant \
-	--disable-embedded-perl \
 	--disable-ucd-snmp-compatibility
 
 ifdef PTXCONF_ENDIAN_LITTLE
