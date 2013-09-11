@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MESA_DEMOS) += mesa-demos
 #
 # Paths and names
 #
-MESA_DEMOS_VERSION	:= 8.0.1
-MESA_DEMOS_MD5		:= 320c2a4b6edc6faba35d9cb1e2a30bf4
+MESA_DEMOS_VERSION	:= 8.1.0
+MESA_DEMOS_MD5		:= 9df33ba69a26bbfbc7c8148602e59542
 MESA_DEMOS		:= mesa-demos-$(MESA_DEMOS_VERSION)
 MESA_DEMOS_SUFFIX	:= tar.bz2
 MESA_DEMOS_URL		:= ftp://ftp.freedesktop.org/pub/mesa/demos/$(MESA_DEMOS_VERSION)/$(MESA_DEMOS).$(MESA_DEMOS_SUFFIX)
@@ -29,10 +29,29 @@ MESA_DEMOS_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
+MESA_DEMOS_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_header_GL_glut_h=no \
+	ac_cv_lib_glut_glutInit=no
+
 #
 # autoconf
 #
 MESA_DEMOS_CONF_TOOL	:= autoconf
+MESA_DEMOS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
+	--$(call ptx/endis, PTXCONF_MESA_DEMOS_EGL)-egl \
+	--$(call ptx/endis, PTXCONF_MESA_DEMOS_GLES1)-gles1 \
+	--$(call ptx/endis, PTXCONF_MESA_DEMOS_GLES2)-gles2 \
+	--$(call ptx/endis, PTXCONF_MESA_DEMOS_VG)-vg \
+	--disable-osmesa \
+	--disable-libdrm \
+	--$(call ptx/endis, PTXCONF_MESA_DEMOS_X11)-x11 \
+	--$(call ptx/endis, PTXCONF_MESA_DEMOS_WAYLAND)-wayland \
+	--disable-gbm \
+	--disable-freetype2 \
+
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -41,7 +60,7 @@ MESA_DEMOS_CONF_TOOL	:= autoconf
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_CORENDER)		+= corender
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLSYNC)		+= glsync
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLTHREADS)		+= glthreads
-MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLXCONTEXTS)		+= glxcontexts
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLXCONTEXTS)	+= glxcontexts
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLXDEMO)		+= glxdemo
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLXGEARS)		+= glxgears
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_GLXGEARS_FBCONFIG)	+= glxgears_fbconfig
@@ -58,12 +77,20 @@ MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_OFFSET)		+= offset
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_OVERLAY)		+= overlay
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_PBDEMO)		+= pbdemo
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_PBINFO)		+= pbinfo
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_SHAPE)		+= shape
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_SHAREDTEX)		+= sharedtex
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_SHAREDTEX_MT)	+= sharedtex_mt
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_TEXTURE_FROM_PIXMAP)+= texture_from_pixmap
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_WINCOPY)		+= wincopy
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_XFONT)		+= xfont
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_XROTFONTDEMO)	+= xrotfontdemo
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2_INFO)		+= es2_info
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2GEARS_SCREEN)	+= es2gears_screen
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2GEARS_WAYLAND)	+= es2gears_wayland
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2GEARS_X11)	+= es2gears_x11
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2TRI)		+= es2tri
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_TEX2VGIMAGE)	+= tex2vgimage
+MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_VGIMAGE2TEX)	+= vgimage2tex
 
 $(STATEDIR)/mesa-demos.targetinstall:
 	@$(call targetinfo)
