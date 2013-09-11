@@ -1,23 +1,32 @@
-## SECTION=multimedia_xorg_support_libs
+## SECTION=multimedia_libs
 
 menuconfig MESALIB
 	tristate
 	prompt "mesa                          "
-	select LIBDRM
-	select DRI2PROTO
 	select HOST_MESALIB
 	select HOST_MAKEDEPEND
 	select HOST_SYSTEM_PYTHON
 	select HOST_SYSTEM_PYTHON_XML2
-	select XORG_LIB_X11		if MESALIB_DRI
-	select XORG_LIB_XEXT		if MESALIB_DRI || MESALIB_XLIB_GLX
-	select XORG_LIB_XXF86VM		if MESALIB_DRI
-	select XORG_LIB_XDAMAGE		if MESALIB_DRI
-	select XORG_LIB_XFIXES		if MESALIB_DRI
-	select XORG_PROTO_GL		if MESALIB_DRI
-	select EXPAT			if MESALIB_DRI
 	select GCCLIBS
 	select GCCLIBS_CXX
+	select LIBDRM
+	select UDEV			if MESALIB_UDEV
+	select UDEV_LIBUDEV		if MESALIB_UDEV
+	select WAYLAND			if MESALIB_EGL_WAYLAND
+	select LIBDRM_RADEON		if MESALIB_DRI_R200
+	select LIBDRM_RADEON		if MESALIB_DRI_R300
+	select LIBDRM_RADEON		if MESALIB_DRI_R600
+	select LIBDRM_RADEON		if MESALIB_DRI_RADEONSI
+	select LIBDRM_NOUVEAU		if MESALIB_DRI_NOUVEAU
+	select LIBDRM_FREEDRENO		if MESALIB_DRI_FREEDRENO
+	select DRI2PROTO		if MESALIB_GLX
+	select XORG_LIB_X11		if MESALIB_GLX
+	select XORG_LIB_XEXT		if MESALIB_GLX
+	select XORG_LIB_XXF86VM		if MESALIB_GLX
+	select XORG_LIB_XDAMAGE		if MESALIB_GLX
+	select XORG_LIB_XFIXES		if MESALIB_GLX
+	select XORG_PROTO_GL		if MESALIB_GLX
+	select EXPAT			if MESALIB_GLX
 	help
 	  Mesa is a 3-D graphics library with an API which is very
 	  similar to that of OpenGL. See the project homepage for
@@ -27,84 +36,107 @@ menuconfig MESALIB
 
 if MESALIB
 
-config MESALIB_DRI
-	prompt "DRI modules"
+config MESALIB_UDEV
 	bool
 
 config MESALIB_GLX
 	prompt "GLX library"
 	bool
 
-config MESALIB_XLIB_GLX
-	depends on MESALIB_GLX
-	default !MESALIB_DRI && !MESALIB_OSMESA
-	bool
-
-config MESALIB_OSMESA
-	prompt "OSMesa library"
-	bool
-
-if MESALIB_DRI
+comment "Drivers"
 
 config MESALIB_DRI_SWRAST
 	bool
-	prompt "Software Rasterizer           "
-
-menuconfig MESALIB_DRI_INTEL
-	bool
-	prompt "Intel DRI drivers             "
-
-if MESALIB_DRI_INTEL
+	prompt "Software Rasterizer"
 
 config MESALIB_DRI_I915
 	bool
-	prompt "i915"
+	select MESALIB_OPENGL
+	prompt "Intel i915"
 
 config MESALIB_DRI_I965
 	bool
-	prompt "i965"
-
-endif
-
-menuconfig MESALIB_DRI_ATI
-	bool
-	prompt "Ati DRI drivers               "
-
-if MESALIB_DRI_ATI
+	select MESALIB_OPENGL
+	prompt "Intel i965"
 
 config MESALIB_DRI_R200
 	bool
-	# needs libdrm_radeon
-	depends on BROKEN
-	prompt "r200"
+	select MESALIB_OPENGL
+	prompt "AMD R200"
 
 config MESALIB_DRI_R300
 	bool
-	prompt "r300"
+	prompt "AMD R300"
 
 config MESALIB_DRI_R600
 	bool
-	prompt "r600"
+	prompt "AMD R600"
 
-config MESALIB_DRI_RADEON
+config MESALIB_DRI_RADEONSI
 	bool
-	# needs libdrm_radeon
+	# needs LLVM
 	depends on BROKEN
-	prompt "radeon"
+	prompt "AMD RadeonSI"
 
-endif
-
-menu "Other DRI Drivers             "
+config MESALIB_DRI_NOUVEAU_VIEUX
+	bool
+	select MESALIB_OPENGL
+	prompt "Nvidia <= GForce4"
 
 config MESALIB_DRI_NOUVEAU
 	bool
-	# need libdrm_nouveau
-	depends on BROKEN
-	prompt "nouveau"
+	prompt "Nvidia > GForce4"
 
-endmenu
+config MESALIB_DRI_FREEDRENO
+	bool
+	prompt "Freedreno"
+
+comment "API Support"
+
+config MESALIB_OPENGL
+	bool
+	prompt "OpenGL"
+
+config MESALIB_GLES1
+	bool
+	prompt "OpenGL ES1"
+
+config MESALIB_GLES2
+	bool
+	select MESALIB_OPENGL
+	prompt "OpenGL ES2"
+
+config MESALIB_OPENVG
+	bool
+	prompt "OpenVG"
+
+config MESALIB_EGL
+	bool
+	select MESALIB_UDEV
+	prompt "EGL"
+
+config MESALIB_GBM
+	bool
+	select MESALIB_UDEV
+	prompt "GBM"
+
+if MESALIB_EGL
+
+comment "EGL Platforms"
+
+config MESALIB_EGL_X11
+	bool
+	default MESALIB_GLX
+
+config MESALIB_EGL_DRM
+	bool
+	select MESALIB_GBM
+	prompt "DRM"
+
+config MESALIB_EGL_WAYLAND
+	bool
+	prompt "Wayland"
 
 endif
-
 endif
 
