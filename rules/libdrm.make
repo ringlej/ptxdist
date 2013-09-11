@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.35
-LIBDRM_MD5	:= 77992a226118a55e214f315bf23d4273
+LIBDRM_VERSION	:= 2.4.46
+LIBDRM_MD5	:= b454a43366eb386294f87a5cd16699e6
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
@@ -29,6 +29,23 @@ LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_ARCH_X86
+LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_INTEL) += intel
+endif
+LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_RADEON) += radeon
+LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_NOUVEAU) += nouveau
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_VMWGFX) += vmwgfx
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_OMAP) += omap-experimental-api
+LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_OMAP) += omap
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_EXYNOS) += exynos-experimental-api
+LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_EXYNOS) += exynos
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_FREEDRENO) += freedreno-experimental-api
+LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_FREEDRENO) += freedreno
+
+LIBDRM_BACKENDSC-y += $(LIBDRM_BACKENDS-y)
+LIBDRM_BACKENDSC- += $(LIBDRM_BACKENDS-)
+LIBDRM_BACKENDSL-y += $(LIBDRM_BACKENDS-y)
+
 #
 # autoconf
 #
@@ -37,9 +54,12 @@ LIBDRM_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-udev \
 	--$(call ptx/endis, PTXCONF_LIBDRM_LIBKMS)-libkms \
-	--$(call ptx/endis, PTXCONF_LIBDRM_INTEL)-intel \
-	--disable-radeon \
-	--disable-nouveau
+	$(addprefix --enable-,$(LIBDRM_BACKENDSC-y)) \
+	$(addprefix --disable-,$(LIBDRM_BACKENDSC-)) \
+	--$(call ptx/endis, PTXCONF_LIBDRM_TESTS)-install-test-programs \
+	--disable-cairo-tests \
+	--disable-manpages
+
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,10 +79,14 @@ $(STATEDIR)/libdrm.targetinstall:
 ifdef PTXCONF_LIBDRM_LIBKMS
 	@$(call install_lib, libdrm, 0, 0, 0644, libkms)
 endif
-ifdef PTXCONF_ARCH_X86
-ifdef PTXCONF_LIBDRM_INTEL
-	@$(call install_lib, libdrm, 0, 0, 0644, libdrm_intel)
-endif
+	@$(foreach backend,$(LIBDRM_BACKENDSL-y), \
+		$(call install_lib, libdrm, 0, 0, 0644, libdrm_$(backend));)
+
+ifdef PTXCONF_LIBDRM_TESTS
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/kmstest)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modeprint)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modetest)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/vbltest)
 endif
 	@$(call install_finish, libdrm)
 

@@ -21,5 +21,33 @@ config LIBDRM_INTEL
 	bool
 	prompt "intel KMS support"
 
+config LIBDRM_RADEON
+	bool
+	prompt "radeon KMS support"
+
+config LIBDRM_NOUVEAU
+	bool
+	prompt "nouveau KMS support"
+
+config LIBDRM_VMWGFX
+	bool
+	prompt "vmwgfx KMS support"
+
+config LIBDRM_OMAP
+	bool
+	prompt "omap KMS support"
+
+config LIBDRM_EXYNOS
+	bool
+	prompt "exynos KMS support"
+
+config LIBDRM_FREEDRENO
+	bool
+	prompt "freedreno KMS support"
+
+config LIBDRM_TESTS
+	bool
+	prompt "install test programs"
+
 endif
 
