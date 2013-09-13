@@ -214,7 +214,7 @@ export -f ptxd_install_dir
 
 
 #
-# $@: files to strip
+# $1: file to strip
 #
 # $strip: k for kernel modules
 #         y for normal executables and libraries
@@ -222,6 +222,7 @@ export -f ptxd_install_dir
 #
 ptxd_install_file_strip() {
     local -a strip_cmd
+    local dst="${1}"
 
     case "${strip:-y}" in
 	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
@@ -234,12 +235,12 @@ ptxd_install_file_strip() {
     #
     local tmp="strip"
     local file
-    for file in "${@}"; do
+    for file in "${sdirs[@]/%/${dst}}"; do
 	ln -f "${file}" "${file}.${tmp}" || return
     done &&
 
-    "${strip_cmd[@]}" "${@}" &&
-    rm -f "${@/%/.${tmp}}"
+    "${strip_cmd[@]}" "${sdirs[@]/%/${dst}}" &&
+    rm -f "${sdirs[@]/%/${dst}.${tmp}}"
 }
 export -f ptxd_install_file_strip
 
@@ -283,7 +284,7 @@ install ${cmd}:
 	0|n|no|N|NO) ;;
 	y|k|"")
 	    if readelf -h "${src}" > /dev/null 2>&1; then
-		ptxd_install_file_strip "${sdirs[@]/%/${dst}}"
+		ptxd_install_file_strip "${dst}"
 	    fi
 	    ;;
 	*)
