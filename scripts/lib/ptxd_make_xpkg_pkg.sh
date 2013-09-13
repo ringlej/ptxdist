@@ -112,6 +112,9 @@ ptxd_install_setup() {
     # strip dirs
     sdirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
 
+    # dirs with separate debug files
+    ddirs=("${ptx_nfsroot}")
+
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))" &&
 
@@ -192,7 +195,7 @@ ptxd_install_dir() {
     local usr="$2"
     local grp="$3"
     local mod="$4"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
     ptxd_install_setup &&
@@ -221,8 +224,14 @@ export -f ptxd_install_dir
 #
 #
 ptxd_install_file_strip() {
-    local -a strip_cmd
+    local -a strip_cmd objcopy_args
     local dst="${1}"
+
+    if "${CROSS_OBJCOPY}" --help | grep -q -- --compress-debug-sections; then
+	objcopy_args=( "--only-keep-debug"  "--compress-debug-sections" )
+    else
+	objcopy_args=( "--only-keep-debug" )
+    fi
 
     case "${strip:-y}" in
 	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
@@ -234,9 +243,17 @@ ptxd_install_file_strip() {
     # (fixes 64 bit fakeroot <-> 32 bit strip issue)
     #
     local tmp="strip"
-    local file
+    local file dir
     for file in "${sdirs[@]/%/${dst}}"; do
 	ln -f "${file}" "${file}.${tmp}" || return
+    done &&
+
+    for dir in "${ddirs[@]}"; do
+	local dbg="$(dirname "${dir}${dst}")/.debug/$(basename "${dst}")"
+	install -d "$(dirname "${dbg}")" &&
+	"${CROSS_OBJCOPY}" "${objcopy_args[@]}" "${dir}${dst}" "${dbg}" &&
+	chmod -x "${dbg}" &&
+	"${CROSS_OBJCOPY}" --add-gnu-debuglink "${dbg}" "${dir}${dst}"
     done &&
 
     "${strip_cmd[@]}" "${sdirs[@]/%/${dst}}" &&
@@ -252,7 +269,7 @@ ptxd_install_file_impl() {
     local grp="$4"
     local mod="$5"
     local strip="$6"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
     ptxd_install_setup_src &&
@@ -315,7 +332,7 @@ ptxd_install_ln() {
     local dst="$2"
     local usr="${3:-0}"
     local grp="${4:-0}"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw rel
 
     ptxd_install_setup &&
@@ -355,7 +372,7 @@ ptxd_install_mknod() {
     local type="$5"
     local major="$6"
     local minor="$7"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
     ptxd_install_setup &&
@@ -427,7 +444,7 @@ ptxd_install_replace() {
     local dst="$1"
     local placeholder="$2"
     local value="$3"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
     ptxd_install_setup &&
@@ -466,7 +483,7 @@ ptxd_install_replace_figlet() {
     local dst="$1"
     local placeholder="$2"
     local value="$3"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
     ptxd_install_setup &&
@@ -532,7 +549,7 @@ ptxd_install_find() {
     local usr="${3#-}"
     local grp="${4#-}"
     local strip="${5}"
-    local -a dirs ndirs pdirs sdirs
+    local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
     ptxd_install_setup_src &&
