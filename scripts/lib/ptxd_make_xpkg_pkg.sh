@@ -531,6 +531,8 @@ ptxd_install_find() {
     local usr="${3#-}"
     local grp="${4#-}"
     local strip="${5}"
+    local -a dirs ndirs pdirs sdirs
+    local mod_nfs mod_rw
 
     ptxd_install_setup_src &&
     test -d "${src}" &&
