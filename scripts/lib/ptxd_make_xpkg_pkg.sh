@@ -723,13 +723,18 @@ export -f ptxd_install_lib
 
 ptxd_install_run() {
     local script="${pkg_xpkg_control_dir}/${1}"
+    local dir
+    local -a dirs ndirs pdirs sdirs ddirs
+    local mod_nfs mod_rw
 
     if [ -e "${script}" ]; then
+	ptxd_install_setup &&
 	echo "\
 executing '${pkg_label}.${1}'
-"
-	DESTDIR="${ptx_nfsroot}" /bin/sh "${script}" &&
-	DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${script}"
+" &&
+	for dir in "${ndirs[@]}"; do
+	    DESTDIR="${dir}" /bin/sh "${script}"
+	done
     fi ||
     ptxd_install_error "running '${1}' script failed!"
 }
