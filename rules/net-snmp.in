@@ -6,6 +6,7 @@ menuconfig NET_SNMP
 	select GCCLIBS_GCC_S	if NET_SNMP_AGENT
 	select LIBC_DL		if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
 	select LIBNL		if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
+	select LM_SENSORS	if NET_SNMP_MIB_MODULES_LM_SENSORS
 
 if NET_SNMP
 
@@ -101,10 +102,57 @@ config NET_SNMP_PERSISTENT_DIR
 	string
 	default	"/var/net-snmp"
 
+menu "additional mib modules        "
+
+config NET_SNMP_MIB_MODULES_AGENTX
+	prompt "agentx"
+	bool
+	help
+	  AgentX support (includes both agentx/master and agentx/client).
+
+config NET_SNMP_MIB_MODULES_UCD_SNMP
+	prompt "ucd_snmp"
+	bool
+	help
+	  UCD-SNMP-MIB specific extensions.
+
+config NET_SNMP_MIB_MODULES_LM_SENSORS
+	prompt "ucd-snmp/lmsensorsMib"
+	bool
+	help
+	  hardware monitoring (LM-SENSORS-MIB)
+
 config NET_SNMP_MIB_MODULES
 	prompt "additional mib modules"
 	string
 	default	""
+	help
+	  space separated list of optional modules
+	    tunnel               Linux TUNNEL-MIB support (ifTable extension)
+	    mibII/interfaces     (old ifTable implementation)
+	    misc/ipfwacc         accounting rules IP firewall information
+	    ipfwchains/ipfwchains  firewall chains under ipfw
+	    sctp-mib             support for the SCTP-MIB
+	    etherlike-mib        support for the EtherLike-MIB
+
+config NET_SNMP_WITHOUT_MIB_MODULES
+	prompt "without these mib modules"
+	string
+	default ""
+	help
+	  space separated list of default mib modules compiled into the
+	  agent (which can be removed):
+	    mibII                  support for the mib-II tree.
+	    snmpv3mibs             support for the snmpv3 mib modules.
+	    agent_mibs             NET-SNMP-AGENT-MIB extensions
+	    notification           mibs supporting specification of trap destinations.
+	    target                 Support for the SNMP WGs TARGET-MIB.
+	    utilities              general agent configuration utilities.
+	    disman/event           support for the DISMAN-EVENT-MIB
+	    disman/schedule        support for the DISMAN-SCHEDULE-MIB
+	    host                   host resources mib support.
+
+endmenu
 
 config NET_SNMP_DEFAULT_MIBS
 	prompt "default mib id's to read"

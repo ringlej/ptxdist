@@ -33,6 +33,12 @@ NET_SNMP_PATH	:= PATH=$(CROSS_PATH)
 NET_SNMP_ENV 	:= $(CROSS_ENV)
 NET_SNMP_BINCONFIG_GLOB := net-snmp-config
 
+NET_SNMP_MIB_MODULES-y	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_MODULES))
+NET_SNMP_MIB_MODULES-	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_WITHOUT_MIB_MODULES))
+NET_SNMP_MIB_MODULES-$(PTXCONF_NET_SNMP_MIB_MODULES_AGENTX) += agentx
+NET_SNMP_MIB_MODULES-$(PTXCONF_NET_SNMP_MIB_MODULES_UCD_SNMP) += ucd_snmp
+NET_SNMP_MIB_MODULES-$(PTXCONF_NET_SNMP_MIB_MODULES_LM_SENSORS) += ucd-snmp/lmsensorsMib
+
 #
 # autoconf
 #
@@ -42,7 +48,8 @@ NET_SNMP_AUTOCONF := \
 	--with-defaults \
 	--disable-manuals \
 	--without-openssl \
-	--with-mib-modules=$(PTXCONF_NET_SNMP_MIB_MODULES) \
+	--with-mib-modules="$(NET_SNMP_MIB_MODULES-y)" \
+	--with-out-mib-modules="$(NET_SNMP_MIB_MODULES-)" \
 	--with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS) \
 	--with-logfile=$(call remove_quotes,$(PTXCONF_NET_SNMP_LOGFILE)) \
 	--with-persistent-directory=$(call remove_quotes,$(PTXCONF_NET_SNMP_PERSISTENT_DIR)) \
