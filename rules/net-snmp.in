@@ -10,22 +10,57 @@ menuconfig NET_SNMP
 
 if NET_SNMP
 
-config NET_SNMP_MINI_AGENT
-	bool
-	default y
-	prompt "minimal agent"
+menu "additional mib modules        "
 
-config NET_SNMP_AGENT
+config NET_SNMP_MIB_MODULES_AGENTX
+	prompt "agentx"
 	bool
-	prompt "agent (snmpd)"
+	help
+	  AgentX support (includes both agentx/master and agentx/client).
 
-config NET_SNMP_APPLICATIONS
+config NET_SNMP_MIB_MODULES_UCD_SNMP
+	prompt "ucd_snmp"
 	bool
-	prompt "apps (snmpget, ...)"
+	help
+	  UCD-SNMP-MIB specific extensions.
 
-config NET_SNMP_SCRIPTS
+config NET_SNMP_MIB_MODULES_LM_SENSORS
+	prompt "ucd-snmp/lmsensorsMib"
 	bool
-	prompt "scripts (mib2c, ...)"
+	help
+	  hardware monitoring (LM-SENSORS-MIB)
+
+config NET_SNMP_MIB_MODULES
+	prompt "additional mib modules"
+	string
+	default	""
+	help
+	  space separated list of optional modules
+	    tunnel               Linux TUNNEL-MIB support (ifTable extension)
+	    mibII/interfaces     (old ifTable implementation)
+	    misc/ipfwacc         accounting rules IP firewall information
+	    ipfwchains/ipfwchains  firewall chains under ipfw
+	    sctp-mib             support for the SCTP-MIB
+	    etherlike-mib        support for the EtherLike-MIB
+
+config NET_SNMP_WITHOUT_MIB_MODULES
+	prompt "without these mib modules"
+	string
+	default ""
+	help
+	  space separated list of default mib modules compiled into the
+	  agent (which can be removed):
+	    mibII                  support for the mib-II tree.
+	    snmpv3mibs             support for the snmpv3 mib modules.
+	    agent_mibs             NET-SNMP-AGENT-MIB extensions
+	    notification           mibs supporting specification of trap destinations.
+	    target                 Support for the SNMP WGs TARGET-MIB.
+	    utilities              general agent configuration utilities.
+	    disman/event           support for the DISMAN-EVENT-MIB
+	    disman/schedule        support for the DISMAN-SCHEDULE-MIB
+	    host                   host resources mib support.
+
+endmenu
 
 menuconfig NET_SNMP_MIBS
 	bool
@@ -112,34 +147,6 @@ config NET_SNMP_OTHERMIBS
 
 endif
 
-config NET_SNMP_MIB_LOADING
-	bool
-	prompt "include code that parses and manipulates mib files"
-
-config NET_SNMP_SNMPV1
-	bool
-	prompt "support for SNMPv1"
-
-config NET_SNMP_SNMPV2C
-	bool
-	prompt "support for SNMPv2c"
-
-config NET_SNMP_DES
-	bool
-	prompt "DES encryption"
-
-config NET_SNMP_MD5
-	bool
-	prompt "MD5 authentication"
-
-config NET_SNMP_SNMPTRAPD
-	bool
-	prompt "agentx subagent code in snmptrapd"
-
-config NET_SNMP_LOCAL_SMUX
-	bool
-	prompt "restrict SMUX connections to localhost (by default)"
-
 choice
 	prompt "debugging"
 	default NET_SNMP_DEFAULT_DEBUGGING
@@ -164,6 +171,59 @@ config NET_SNMP_STRIP_DEBUGGING
 
 endchoice
 
+config NET_SNMP_MINI_AGENT
+	bool
+	default y
+	prompt "minimal agent"
+
+config NET_SNMP_AGENT
+	bool
+	prompt "agent (snmpd)"
+
+config NET_SNMP_APPLICATIONS
+	bool
+	prompt "apps (snmpget, ...)"
+
+config NET_SNMP_SCRIPTS
+	bool
+	prompt "scripts (mib2c, ...)"
+
+config NET_SNMP_MIB_LOADING
+	bool
+	prompt "include code that parses and manipulates mib files"
+
+config NET_SNMP_SNMPV1
+	bool
+	prompt "support for SNMPv1"
+
+config NET_SNMP_SNMPV2C
+	bool
+	prompt "support for SNMPv2c"
+
+config NET_SNMP_DES
+	bool
+	prompt "DES encryption"
+
+config NET_SNMP_MD5
+	bool
+	prompt "MD5 authentication"
+
+config NET_SNMP_DOM_SOCK_ONLY
+	bool "Disable UDP/TCP transports for agentx" if NET_SNMP_AGENT
+	default y
+	help
+	  Enable this to disable TCP and UDP connections for subagent
+	  connections with AgentX protocol. Only unix socket connections are
+	  allowed then.
+
+config NET_SNMP_SNMPTRAPD
+	bool
+	prompt "agentx subagent code in snmptrapd"
+
+config NET_SNMP_LOCAL_SMUX
+	bool
+	prompt "restrict SMUX connections to localhost (by default)"
+
 config NET_SNMP_DEVELOPER
 	bool
 	prompt "super-duper-extra-compile-warnings using gcc"
@@ -183,58 +243,6 @@ config NET_SNMP_PERSISTENT_DIR
 	string
 	default	"/var/net-snmp"
 
-menu "additional mib modules        "
-
-config NET_SNMP_MIB_MODULES_AGENTX
-	prompt "agentx"
-	bool
-	help
-	  AgentX support (includes both agentx/master and agentx/client).
-
-config NET_SNMP_MIB_MODULES_UCD_SNMP
-	prompt "ucd_snmp"
-	bool
-	help
-	  UCD-SNMP-MIB specific extensions.
-
-config NET_SNMP_MIB_MODULES_LM_SENSORS
-	prompt "ucd-snmp/lmsensorsMib"
-	bool
-	help
-	  hardware monitoring (LM-SENSORS-MIB)
-
-config NET_SNMP_MIB_MODULES
-	prompt "additional mib modules"
-	string
-	default	""
-	help
-	  space separated list of optional modules
-	    tunnel               Linux TUNNEL-MIB support (ifTable extension)
-	    mibII/interfaces     (old ifTable implementation)
-	    misc/ipfwacc         accounting rules IP firewall information
-	    ipfwchains/ipfwchains  firewall chains under ipfw
-	    sctp-mib             support for the SCTP-MIB
-	    etherlike-mib        support for the EtherLike-MIB
-
-config NET_SNMP_WITHOUT_MIB_MODULES
-	prompt "without these mib modules"
-	string
-	default ""
-	help
-	  space separated list of default mib modules compiled into the
-	  agent (which can be removed):
-	    mibII                  support for the mib-II tree.
-	    snmpv3mibs             support for the snmpv3 mib modules.
-	    agent_mibs             NET-SNMP-AGENT-MIB extensions
-	    notification           mibs supporting specification of trap destinations.
-	    target                 Support for the SNMP WGs TARGET-MIB.
-	    utilities              general agent configuration utilities.
-	    disman/event           support for the DISMAN-EVENT-MIB
-	    disman/schedule        support for the DISMAN-SCHEDULE-MIB
-	    host                   host resources mib support.
-
-endmenu
-
 config NET_SNMP_DEFAULT_MIBS
 	prompt "default mib id's to read"
 	string
@@ -249,11 +257,4 @@ config NET_SNMP_MIB_INSTALL_DIR
 	string
 	default	"/usr/share/snmp/mibs"
 
-config NET_SNMP_DOM_SOCK_ONLY
-	bool "Disable UDP/TCP transports for agentx" if NET_SNMP_AGENT
-	default y
-	help
-	  Enable this to disable TCP and UDP connections for subagent
-	  connections with AgentX protocol. Only unix socket connections are
-	  allowed then.
 endif
