@@ -31,7 +31,6 @@ NET_SNMP_DIR		:= $(BUILDDIR)/$(NET_SNMP)
 
 NET_SNMP_PATH	:= PATH=$(CROSS_PATH)
 NET_SNMP_ENV 	:= $(CROSS_ENV)
-NET_SNMP_BINCONFIG_GLOB := net-snmp-config
 
 NET_SNMP_MIB_MODULES-y	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_MODULES))
 NET_SNMP_MIB_MODULES-	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_WITHOUT_MIB_MODULES))
@@ -159,19 +158,12 @@ else
 NET_SNMP_AUTOCONF += --disable-developer
 endif
 
-##NET_SNMP_AUTOCONF	+= --with-mib-modules=mibII
-##NET_SNMP_AUTOCONF	+= --with-sys-contact=root@localhost
-##NET_SNMP_AUTOCONF	+= --with-sys-location=unknown
-
 NET_SNMP_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-NET_SNMP_LIBMAJOR := 25
-NET_SNMP_LIBMINOR := 0.1
-NET_SNMP_LIBVER :=$(NET_SNMP_LIBMAJOR).$(NET_SNMP_LIBMINOR)
 
 NET_SNMP_V1MIBS := RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt
 
