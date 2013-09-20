@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006 by Randall Loomis <rloomis@solectek.com>
 #               2010 Michael Olbrich <m.olbrich@pengutronix.de>
+#               2013 Alexander Dahl <post@lespocky.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -164,44 +165,73 @@ NET_SNMP_MAKE_PAR := NO
 # Target-Install
 # ----------------------------------------------------------------------------
 
+NET_SNMP_MIBS :=
 
-NET_SNMP_V1MIBS := RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt
+ifdef PTXCONF_NET_SNMP_MIBS
 
-NET_SNMP_V2MIBS := SNMPv2-CONF.txt SNMPv2-SMI.txt SNMPv2-TC.txt SNMPv2-TM.txt SNMPv2-MIB.txt
+ifdef PTXCONF_NET_SNMP_V1MIBS
+NET_SNMP_MIBS += RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt
+endif
 
-NET_SNMP_V3MIBS := SNMP-FRAMEWORK-MIB.txt SNMP-MPD-MIB.txt SNMP-TARGET-MIB.txt \
-			SNMP-NOTIFICATION-MIB.txt SNMP-PROXY-MIB.txt \
-			SNMP-USER-BASED-SM-MIB.txt SNMP-VIEW-BASED-ACM-MIB.txt \
+ifdef PTXCONF_NET_SNMP_V2MIBS
+NET_SNMP_MIBS += SNMPv2-CONF.txt SNMPv2-SMI.txt SNMPv2-TC.txt \
+			SNMPv2-TM.txt SNMPv2-MIB.txt
+endif
+
+ifdef PTXCONF_NET_SNMP_V3MIBS
+NET_SNMP_MIBS += SNMP-FRAMEWORK-MIB.txt SNMP-MPD-MIB.txt \
+			SNMP-TARGET-MIB.txt SNMP-NOTIFICATION-MIB.txt \
+			SNMP-PROXY-MIB.txt SNMP-USER-BASED-SM-MIB.txt \
+			SNMP-VIEW-BASED-ACM-MIB.txt \
 			SNMP-COMMUNITY-MIB.txt TRANSPORT-ADDRESS-MIB.txt
+endif
 
-NET_SNMP_AGENTMIBS := AGENTX-MIB.txt SMUX-MIB.txt
+ifdef PTXCONF_NET_SNMP_AGENTMIBS
+NET_SNMP_MIBS += AGENTX-MIB.txt SMUX-MIB.txt
+endif
 
-NET_SNMP_IANAMIBS := IANAifType-MIB.txt IANA-LANGUAGE-MIB.txt \
+ifdef PTXCONF_NET_SNMP_IANAMIBS
+NET_SNMP_MIBS += IANAifType-MIB.txt IANA-LANGUAGE-MIB.txt \
 			IANA-ADDRESS-FAMILY-NUMBERS-MIB.txt
+endif
 
-NET_SNMP_RFCMIBS := IF-MIB.txt IF-INVERTED-STACK-MIB.txt \
-			EtherLike-MIB.txt \
-			IP-MIB.txt IP-FORWARD-MIB.txt IANA-RTPROTO-MIB.txt \
-			TCP-MIB.txt UDP-MIB.txt \
-			INET-ADDRESS-MIB.txt HCNUM-TC.txt \
-			HOST-RESOURCES-MIB.txt HOST-RESOURCES-TYPES.txt \
-			RMON-MIB.txt \
-			IPV6-TC.txt IPV6-MIB.txt IPV6-ICMP-MIB.txt IPV6-TCP-MIB.txt \
-			IPV6-UDP-MIB.txt \
-			DISMAN-EVENT-MIB.txt DISMAN-SCRIPT-MIB.txt DISMAN-SCHEDULE-MIB.txt \
+ifdef PTXCONF_NET_SNMP_RFCMIBS
+NET_SNMP_MIBS += IF-MIB.txt IF-INVERTED-STACK-MIB.txt \
+			EtherLike-MIB.txt IP-MIB.txt \
+			IP-FORWARD-MIB.txt IANA-RTPROTO-MIB.txt \
+			TCP-MIB.txt UDP-MIB.txt INET-ADDRESS-MIB.txt \
+			HCNUM-TC.txt HOST-RESOURCES-MIB.txt \
+			HOST-RESOURCES-TYPES.txt RMON-MIB.txt \
+			IPV6-TC.txt IPV6-MIB.txt IPV6-ICMP-MIB.txt \
+			IPV6-TCP-MIB.txt IPV6-UDP-MIB.txt \
+			DISMAN-EVENT-MIB.txt DISMAN-SCRIPT-MIB.txt \
+			DISMAN-SCHEDULE-MIB.txt \
 			NOTIFICATION-LOG-MIB.txt SNMP-USM-AES-MIB.txt \
 			SNMP-USM-DH-OBJECTS-MIB.txt
+endif
 
-NET_SNMP_NETSNMPMIBS := NET-SNMP-TC.txt NET-SNMP-MIB.txt NET-SNMP-AGENT-MIB.txt \
-			NET-SNMP-EXAMPLES-MIB.txt NET-SNMP-EXTEND-MIB.txt \
-			NET-SNMP-PASS-MIB.txt
+ifdef PTXCONF_NET_SNMP_NETSNMPMIBS
+NET_SNMP_MIBS += NET-SNMP-TC.txt NET-SNMP-MIB.txt \
+			NET-SNMP-AGENT-MIB.txt \
+			NET-SNMP-EXAMPLES-MIB.txt \
+			NET-SNMP-EXTEND-MIB.txt NET-SNMP-PASS-MIB.txt
+endif
 
-NET_SNMP_UCDMIBS := UCD-SNMP-MIB.txt UCD-DEMO-MIB.txt UCD-IPFWACC-MIB.txt \
+ifdef PTXCONF_NET_SNMP_UCDMIBS
+NET_SNMP_MIBS += UCD-SNMP-MIB.txt UCD-DEMO-MIB.txt UCD-IPFWACC-MIB.txt \
 			UCD-DLMOD-MIB.txt UCD-DISKIO-MIB.txt
+endif
 
-## FIXME:  for now, you need to manually edit this list to represent what mibs to install on target.
-NET_SNMP_MIBS := $(NET_SNMP_V1MIBS) $(NET_SNMP_V2MIBS) $(NET_SNMP_V3MIBS) \
-	$(NET_SNMP_AGENTMIBS) $(NET_SNMP_IANAMIBS) $(NET_SNMP_RFCMIBS) $(NET_SNMP_NETSNMPMIBS) $(NET_SNMP_UCDMIBS)
+ifdef PTXCONF_NET_SNMP_LMSENSORS_MIB
+NET_SNMP_MIBS += LM-SENSORS-MIB.txt
+endif
+
+ifdef PTXCONF_NET_SNMP_OTHERMIBS
+NET_SNMP_MIBS += BRIDGE-MIB.txt IPV6-FLOW-LABEL-MIB.txt SCTP-MIB.txt \
+			TUNNEL-MIB.txt
+endif
+
+endif
 
 $(STATEDIR)/net-snmp.targetinstall:
 	@$(call targetinfo)
@@ -262,9 +292,7 @@ endif
 # snmplib
 	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmp)
 
-# MIB files <TODO: install specified set of mib files>
 ifdef PTXCONF_NET_SNMP_MIBS
-
 	@for i in $(NET_SNMP_MIBS); do \
 		$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		$(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_INSTALL_DIR))/$$i, n) ; \
