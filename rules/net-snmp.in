@@ -258,3 +258,5 @@ config NET_SNMP_MIB_INSTALL_DIR
 	default	"/usr/share/snmp/mibs"
 
 endif
+
+# vim: ft=kconfig noet tw=72

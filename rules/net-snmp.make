@@ -302,4 +302,4 @@ endif
 	@$(call install_finish, net-snmp)
 	@$(call touch)
 
-# vim: syntax=make
+# vim: ft=make noet
