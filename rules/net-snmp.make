@@ -54,7 +54,7 @@ NET_SNMP_AUTOCONF := \
 	--disable-privacy \
 	--disable-internal-md5 \
 	--$(call ptx/endis, PTXCONF_NET_SNMP_DOM_SOCK_ONLY)-agentx-dom-sock-only \
-	--disable-mib-config-checking \
+	--enable-mib-config-checking \
 	--disable-mfd-rewrites \
 	--disable-testing-code \
 	--disable-reentrant \
