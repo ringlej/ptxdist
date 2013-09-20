@@ -109,7 +109,11 @@ config NET_SNMP_MIB_MODULES
 config NET_SNMP_DEFAULT_MIBS
 	prompt "default mib id's to read"
 	string
-	default	""
+	default	"SNMPv2-MIB:IF-MIB:IP-MIB:TCP-MIB:UDP-MIB"
+	help
+	  Colon separated list of default mib IDs to read. (The default list
+	  is "SNMPv2-MIB:IF-MIB:IP-MIB:TCP-MIB:UDP-MIB" with the addition of
+	  any mibs used by the mib modules the agent is configured with)
 
 config NET_SNMP_MIB_INSTALL_DIR
 	prompt "directory to install mib files"
@@ -117,8 +121,10 @@ config NET_SNMP_MIB_INSTALL_DIR
 	default	"/usr/share/snmp/mibs"
 
 config NET_SNMP_DOM_SOCK_ONLY
-	bool "Only allow domain socket connections to the agent" if NET_SNMP_AGENT
+	bool "Disable UDP/TCP transports for agentx" if NET_SNMP_AGENT
 	default y
 	help
-	  Enable this to disable TCP and UDP connections to the agent.
+	  Enable this to disable TCP and UDP connections for subagent
+	  connections with AgentX protocol. Only unix socket connections are
+	  allowed then.
 endif
