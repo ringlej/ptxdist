@@ -44,6 +44,7 @@ if GSTREAMER1
 	config GSTREAMER1_INSTALL_LAUNCH
 		bool
 		select GSTREAMER1_CMDLINEPARSER
+		select GSTREAMER1_OPTIONPARSING
 		prompt "install gst-launch"
 
 endif
