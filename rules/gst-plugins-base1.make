@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE1) += gst-plugins-base1
 #
 # Paths and names
 #
-GST_PLUGINS_BASE1_VERSION	:= 1.0.10
-GST_PLUGINS_BASE1_MD5		:= ffbca3265343cd66092b28286199b795
+GST_PLUGINS_BASE1_VERSION	:= 1.2.0
+GST_PLUGINS_BASE1_MD5		:= d0f7bb7f6c781be127902bff89b87c5c
 GST_PLUGINS_BASE1		:= gst-plugins-base-$(GST_PLUGINS_BASE1_VERSION)
 GST_PLUGINS_BASE1_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
@@ -81,8 +81,6 @@ GST_PLUGINS_BASE1_CONF_OPT	= \
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ZLIB)-zlib \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_XSHM)-xshm \
-	--disable-oggtest \
-	--disable-vorbistest \
 	--disable-freetypetest
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
