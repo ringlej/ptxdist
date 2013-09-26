@@ -7,7 +7,11 @@ menuconfig GST_PLUGINS_BAD1
 	select GST_PLUGINS_BASE1
 	select BZIP2		if GST_PLUGINS_BAD1_BZ2
 	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD1_BZ2
+	select BLUEZ		if GST_PLUGINS_BAD1_BLUEZ
+	select GNUTLS		if GST_PLUGINS_BAD1_HLS
 	select LIBCURL		if GST_PLUGINS_BAD1_CURL
+	select LIBXML2		if GST_PLUGINS_BAD1_DASH || GST_PLUGINS_BAD1_SMOOTHSTREAMING
+	select LIBXML2_DOM	if GST_PLUGINS_BAD1_DASH || GST_PLUGINS_BAD1_SMOOTHSTREAMING
 	select MPG123		if GST_PLUGINS_BAD1_MPG123
 	select OPUS		if GST_PLUGINS_BAD1_OPUS
 	select ORC		if GST_PLUGINS_BAD1_ORC
@@ -30,6 +34,10 @@ if GST_PLUGINS_BAD1
 config GST_PLUGINS_BAD1_ORC
 	bool
 
+config GST_PLUGINS_BAD1_ACCURIP
+	bool
+	prompt "accurip"
+
 config GST_PLUGINS_BAD1_ADPCMDEC
 	bool
 	prompt "adpcmdec"
@@ -43,6 +51,10 @@ config GST_PLUGINS_BAD1_AIFF
 	# Non ported plugin
 	depends on BROKEN
 	prompt "aiff"
+
+config GST_PLUGINS_BAD1_AUDIOFXBAD
+	bool
+	prompt "audiofxbad"
 
 config GST_PLUGINS_BAD1_ASFMUX
 	bool
@@ -87,10 +99,6 @@ config GST_PLUGINS_BAD1_DCCP
 config GST_PLUGINS_BAD1_DEBUGUTILS
 	bool
 	prompt "debugutils"
-
-config GST_PLUGINS_BAD1_DTMF
-	bool
-	prompt "dtmf"
 
 config GST_PLUGINS_BAD1_DVBSUBOVERLAY
 	bool
@@ -142,10 +150,6 @@ config GST_PLUGINS_BAD1_HDVPARSE
 	depends on BROKEN
 	prompt "hdvparse"
 
-config GST_PLUGINS_BAD1_HLS
-	bool
-	prompt "hls"
-
 config GST_PLUGINS_BAD1_ID3TAG
 	bool
 	prompt "id3tag"
@@ -163,6 +167,10 @@ config GST_PLUGINS_BAD1_IVFPARSE
 	# Non ported plugin
 	depends on BROKEN
 	prompt "ivfparse"
+
+config GST_PLUGINS_BAD1_IVTC
+	bool
+	prompt "ivtc"
 
 config GST_PLUGINS_BAD1_JP2KDECIMATOR
 	bool
@@ -216,12 +224,6 @@ config GST_PLUGINS_BAD1_MXF
 	depends on BROKEN
 	prompt "mxf"
 
-config GST_PLUGINS_BAD1_NSF
-	bool
-	# Non ported plugin
-	depends on BROKEN
-	prompt "nsf"
-
 config GST_PLUGINS_BAD1_NUVDEMUX
 	bool
 	# Non ported plugin
@@ -255,18 +257,6 @@ config GST_PLUGINS_BAD1_REAL
 config GST_PLUGINS_BAD1_REMOVESILENCE
 	bool
 	prompt "removesilence"
-
-config GST_PLUGINS_BAD1_RTPMUX
-	bool
-	prompt "rtpmux"
-
-config GST_PLUGINS_BAD1_RTPVP8
-	bool
-	prompt "rtpvp8"
-
-config GST_PLUGINS_BAD1_SCALETEMPO
-	bool
-	prompt "scaletempo"
 
 config GST_PLUGINS_BAD1_SDP
 	bool
@@ -342,6 +332,14 @@ config GST_PLUGINS_BAD1_Y4M
 	bool
 	prompt "j4m"
 
+config GST_PLUGINS_BAD1_YADIF
+	bool
+	prompt "yadif"
+
+config GST_PLUGINS_BAD1_BLUEZ
+	bool
+	prompt "bluez"
+
 config GST_PLUGINS_BAD1_AVC
 	bool
 	prompt "avc"
@@ -350,6 +348,10 @@ config GST_PLUGINS_BAD1_AVC
 config GST_PLUGINS_BAD1_SHM
 	bool
 	prompt "shm"
+
+config GST_PLUGINS_BAD1_MFC
+	bool
+	prompt "mfc"
 
 config GST_PLUGINS_BAD1_VCD
 	bool
@@ -400,26 +402,18 @@ config GST_PLUGINS_BAD1_CDAUDIO
 	prompt "cdaudio"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD1_CELT
-	bool
-	prompt "celt"
-	depends on BROKEN
-
 config GST_PLUGINS_BAD1_CHROMAPRINT
 	bool
 	depends on BROKEN
 	prompt "chromaprint"
 
-config GST_PLUGINS_BAD1_COG
-	bool
-	# Non ported plugin
-	depends on BROKEN
-	prompt "cog"
-	depends on BROKEN
-
 config GST_PLUGINS_BAD1_CURL
 	bool
 	prompt "curl"
+
+config GST_PLUGINS_BAD1_DASH
+	bool
+	prompt "dash"
 
 config GST_PLUGINS_BAD1_DC1394
 	bool
@@ -442,12 +436,17 @@ config GST_PLUGINS_BAD1_WAYLAND
 	bool
 	prompt "wayland"
 
-config GST_PLUGINS_BAD1_DIRAC
+config GST_PLUGINS_BAD1_WEBP
 	bool
-	# Non ported plugin
+	# needs libwebp
 	depends on BROKEN
-	prompt "dirac"
+	prompt "webp"
+
+config GST_PLUGINS_BAD1_DAALA
+	bool
+	# needs daalaenc, daaladec
 	depends on BROKEN
+	prompt "daala"
 
 config GST_PLUGINS_BAD1_DTS
 	bool
@@ -482,26 +481,14 @@ config GST_PLUGINS_BAD1_FLITE
 	prompt "flite"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD1_FLUIDSYNTH
-	bool
-	prompt "fluidsynth"
-	depends on BROKEN
-
 config GST_PLUGINS_BAD1_GSM
 	bool
 	prompt "gsm"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD1_JASPER
+config GST_PLUGINS_BAD1_FLUIDSYNTH
 	bool
-	# Non ported plugin
-	depends on BROKEN
-	prompt "jasper"
-	depends on BROKEN
-
-config GST_PLUGINS_BAD1_OPENJPEG
-	bool
-	prompt "openjpeg"
+	prompt "fluidsynth"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_KATE
@@ -530,6 +517,12 @@ config GST_PLUGINS_BAD1_LIBMMS
 	# needs libmms
 	depends on BROKEN
 	prompt "libmms"
+
+config GST_PLUGINS_BAD1_SRTP
+	bool
+	# needs libsrtp
+	depends on BROKEN
+	prompt "srtp"
 
 config GST_PLUGINS_BAD1_LINSYS
 	bool
@@ -570,13 +563,6 @@ config GST_PLUGINS_BAD1_MUSEPACK
 	prompt "musepack"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD1_MUSICBRAINZ
-	bool
-	# Non ported plugin
-	depends on BROKEN
-	prompt "musicbrainz"
-	depends on BROKEN
-
 config GST_PLUGINS_BAD1_MYTHTV
 	bool
 	# Non ported plugin
@@ -613,6 +599,11 @@ config GST_PLUGINS_BAD1_OPENAL
 config GST_PLUGINS_BAD1_OPENCV
 	bool
 	prompt "opencv"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD1_OPENJPEG
+	bool
+	prompt "openjpeg"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_OPUS
@@ -663,6 +654,10 @@ config GST_PLUGINS_BAD1_SDL
 	depends on BROKEN
 	prompt "sdl"
 
+config GST_PLUGINS_BAD1_SMOOTHSTREAMING
+	bool
+	prompt "smoothstreaming"
+
 config GST_PLUGINS_BAD1_SNDFILE
 	bool
 	# Non ported plugin
@@ -684,11 +679,6 @@ config GST_PLUGINS_BAD1_SPC
 config GST_PLUGINS_BAD1_GME
 	bool
 	prompt "gme"
-	depends on BROKEN
-
-config GST_PLUGINS_BAD1_SWFDEC
-	bool
-	prompt "swfdec"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_XVID
@@ -721,6 +711,12 @@ config GST_PLUGINS_BAD1_VDPAU
 	prompt "vdpau"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD1_SBC
+	bool
+	# needs sbc
+	depends on BROKEN
+	prompt "sbc"
+
 config GST_PLUGINS_BAD1_SCHRO
 	bool
 	# needs schroedinger-1.0
@@ -752,6 +748,10 @@ config GST_PLUGINS_BAD1_SNDIO
 	# Non ported plugin
 	depends on BROKEN
 	prompt "sndio"
+
+config GST_PLUGINS_BAD1_HLS
+	bool
+	prompt "hls"
 
 endif
 
