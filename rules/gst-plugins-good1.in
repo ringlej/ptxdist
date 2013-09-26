@@ -82,6 +82,11 @@ config GST_PLUGINS_GOOD1_DEINTERLACE
 	select GST_PLUGINS_GOOD1_ORC
 	prompt "deinterlace"
 
+config GST_PLUGINS_GOOD1_DTMF
+	bool
+	select GST_PLUGINS_GOOD1_ORC
+	prompt "dtmf"
+
 config GST_PLUGINS_GOOD1_EFFECTV
 	bool
 	prompt "effectv"
