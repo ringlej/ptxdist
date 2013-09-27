@@ -173,6 +173,7 @@ cc_add_pie() {
 }
 
 cc_add_debug() {
+	test_opt TARGET_DEBUG || return 0
 	add_late_opt_arg TARGET_DEBUG_OFF "-g0"
 	add_late_opt_arg TARGET_DEBUG_ENABLE "-g"
 	add_late_opt_arg TARGET_DEBUG_FULL "-ggdb3"
