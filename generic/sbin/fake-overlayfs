@@ -5,7 +5,8 @@ OVERLAY_DIRS="@OVERLAY_DIRLIST@"
 bdir=/tmp/.fake-overlay-root
 
 mkdir $bdir
-mount -o bind,ro / $bdir
+mount -o bind,private / $bdir
+mount -o remount,ro,bind,private / $bdir
 IFS=:
 set $OVERLAY_DIRS
 while [ $# -gt 0 ]; do
