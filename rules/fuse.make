@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FUSE) += fuse
 #
 # Paths and names
 #
-FUSE_VERSION	:= 2.9.0
-FUSE_MD5	:= 894ee11674f89a915ae87524aed55bc4
+FUSE_VERSION	:= 2.9.3
+FUSE_MD5	:= 33cae22ca50311446400daf8a6255c6a
 FUSE		:= fuse-$(FUSE_VERSION)
 FUSE_SUFFIX	:= tar.gz
 FUSE_URL	:= $(call ptx/mirror, SF, fuse/$(FUSE).$(FUSE_SUFFIX))
