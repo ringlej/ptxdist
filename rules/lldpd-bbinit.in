@@ -1,0 +1,9 @@
+## SECTION=initmethod_bbinit
+
+config LLDPD_BBINIT_LINK
+	string
+	depends on LLDPD_STARTSCRIPT
+	prompt "lldpd"
+	default "S28lldpd"
+
+# vim: ft=kconfig noet tw=72

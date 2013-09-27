@@ -1,0 +1,95 @@
+## SECTION=networking
+
+menuconfig LLDPD
+	tristate
+	prompt "lldpd                         "
+	select INITMETHOD
+	select LIBEVENT
+	select NET_SNMP if LLDPD_SNMP
+	select NET_SNMP_MIB_MODULES_AGENTX if LLDPD_SNMP
+	select LIBXML2 if LLDPD_XML
+	select BUSYBOX_START_STOP_DAEMON if LLDPD_STARTSCRIPT
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS if LLDPD_STARTSCRIPT
+	help
+	  lldpd is an ISC-licensed implementation of LLDP for various
+	  Unixes. It also supports some proprietary protocols.
+
+if LLDPD
+
+config LLDPD_PRIVSEP_USER
+	string
+	prompt "Which user to use for privilege separation"
+	default "nobody"
+
+config LLDPD_PRIVSEP_GROUP
+	string
+	prompt "Which group to use for privilege separation"
+	default "nogroup"
+
+config LLDPD_PRIVSEP_CHROOT
+	string
+	prompt "Which directory to use to chroot lldpd"
+	default "/var/run/lldpd"
+
+config LLDPD_CDP
+	bool
+	prompt "Enable Cisco Discovery Protocol"
+	default y
+
+config LLDPD_FDP
+	bool
+	prompt "Enable Foundry Discovery Protocol"
+	default y
+
+config LLDPD_EDP
+	bool
+	prompt "Enable Extreme Discovery Protocol"
+	default y
+
+config LLDPD_SONMP
+	bool
+	prompt "Enable SynOptics Network Management Protocol"
+	default y
+
+config LLDPD_LLDPMED
+	bool
+	prompt "Enable LLDP-MED extension"
+	default y
+
+config LLDPD_DOT1
+	bool
+	prompt "Enable Dot1 extension (VLAN stuff)"
+	default y
+
+config LLDPD_DOT3
+	bool
+	prompt "Enable Dot3 extension (PHY stuff)"
+	default y
+
+config LLDPD_OLDIES
+	bool
+	prompt "Enable compatibility with Linux kernel older than 2.6.18"
+
+config LLDPD_SNMP
+	bool
+	prompt "Enable the use of SNMP"
+
+config LLDPD_XML
+	bool
+	prompt "Enable XML output via libxml2"
+
+config LLDPD_STARTSCRIPT
+	bool
+	prompt "install /etc/init.d/lldpd"
+	default y
+
+config LLDPD_DAEMON_ARGS
+	string
+	prompt "additional arguments for daemon startup"
+	default ""
+	help
+	  This could be -c -e -f -s …
+
+endif
+
+# vim: ft=kconfig noet tw=72

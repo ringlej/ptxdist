@@ -1,0 +1,139 @@
+#!/bin/sh
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="LLDP daemon"
+NAME=lldpd
+DAEMON=/usr/sbin/$NAME
+DAEMON_ARGS="@DAEMON_ARGS@"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+CHROOT=@PRIVSEP_CHROOT@
+
+# exit if binary is missing
+[ -x "$DAEMON" ] || exit 0
+
+# read further config if present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+is_running() {
+    start-stop-daemon -K --quiet --test --exec $DAEMON --pidfile $PIDFILE
+}
+
+do_chroot() {
+    oldumask=$(umask)
+    umask 022
+    [ -d $CHROOT/etc ] || mkdir -p $CHROOT/etc
+    [ -f $CHROOT/etc/localtime ] || [ ! -f /etc/localtime ] || \
+        cp /etc/localtime $CHROOT/etc/localtime
+    umask $oldumask
+}
+
+do_start() {
+    do_chroot
+    is_running && return 1
+    start-stop-daemon -S --quiet --pidfile $PIDFILE --exec $DAEMON -- \
+        $DAEMON_ARGS \
+        || return 2
+}
+
+do_stop() {
+    is_running || return 0
+    start-stop-daemon -K --quiet --pidfile $PIDFILE --name $NAME
+    RETVAL="$?"
+
+    # wait up to 30 seconds until daemon stopped
+    for i in $(seq 30)
+    do
+        sleep 1
+        echo -n '.'
+        if ! is_running
+        then
+            break
+        fi
+    done
+
+    # see if it's still running
+    if is_running
+    then
+        start-stop-daemon -K --quiet --signal KILL --pidfile $PIDFILE --name $NAME
+
+        for i in $(seq 5)
+        do
+            sleep 1
+            echo -n '.'
+            if ! is_running
+            then
+                break
+            fi
+        done
+
+        if is_running
+        then
+            return 2
+        fi
+    fi
+
+    rm -f $PIDFILE
+    return "$RETVAL"
+}
+
+do_reload() {
+    # send SIGHUP
+    start-stop-daemon -K --signal 1 --quiet --pidfile $PIDFILE --name $NAME
+    return 0
+}
+
+case "$1" in
+    start)
+        echo -n "Starting $DESC ..."
+        do_start
+        case "$?" in
+            0|1)    echo " Done." ;;
+            2)      echo " Failed." ;;
+        esac
+        ;;
+    stop)
+        echo -n "Stopping $DESC ."
+        do_stop
+        case "$?" in
+            0|1)    echo " Done." ;;
+            2)      echo " Failed." ;;
+        esac
+        ;;
+    reload)
+        echo -n "Reloading $DESC ..."
+        do_reload
+        echo " Done."
+        ;;
+    restart|force-reload)
+        echo -n "Restarting $DESC .."
+        do_stop
+        case "$?" in
+            0|1)
+                do_start
+                case "$?" in
+                    0)  echo " Done." ;;
+                    1)  echo " Failed." ;; # Old process still running
+                    *)  echo " Failed." ;; # Failed to start
+                esac
+                ;;
+            *)
+                echo " Failed." # Failed to stop
+                ;;
+        esac
+        ;;
+    status)
+        if is_running
+        then
+            echo "$NAME is running with PID $(cat $PIDFILE) ..."
+        else
+            echo "$NAME is not running"
+        fi
+        ;;
+    *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload|status}" >&2
+        exit 3
+        ;;
+esac
+
+:
