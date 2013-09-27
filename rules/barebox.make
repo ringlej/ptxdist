@@ -32,7 +32,16 @@ BAREBOX_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_B
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_ENV := KCONFIG_NOTIMESTAMP=1
+BAREBOX_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_RELRO \
+	TARGET_HARDEN_BINDNOW \
+	TARGET_HARDEN_PIE \
+	TARGET_DEBUG
+
+BAREBOX_ENV := \
+	KCONFIG_NOTIMESTAMP=1 \
+	pkg_wrapper_blacklist="$(BAREBOX_WRAPPER_BLACKLIST)"
+
 BAREBOX_MAKEVARS := \
 	V=$(PTXDIST_VERBOSE) \
 	HOSTCC=$(HOSTCC) \
@@ -90,7 +99,8 @@ endif
 
 $(STATEDIR)/barebox.compile:
 	@$(call targetinfo)
-	@cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(MAKE) $(BAREBOX_MAKEVARS)
+	@cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
+		$(MAKE) $(BAREBOX_MAKEVARS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
