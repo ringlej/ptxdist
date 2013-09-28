@@ -10,6 +10,7 @@ config GST_PLUGINS_GL
 	select XORG_SERVER		if RUNTIME
 	select XORG_SERVER_EXT_GLX
 	select MESALIB
+	select GLU
 	select GLEW
 	prompt "gst-plugins-gl"
 	help
