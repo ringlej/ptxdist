@@ -19,6 +19,10 @@ HOST_MESALIB_DIR	= $(HOST_BUILDDIR)/Mesa-$(MESALIB_VERSION)
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_MESALIB_CONF_ENV := \
+	$(HOST_ENV) \
+	ac_cv_prog_PYTHON2=$(PTXDIST_TOPDIR)/bin/python
+
 HOST_MESALIB_CONF_TOOL	:= autoconf
 HOST_MESALIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
