@@ -21,7 +21,7 @@ MBW_VERSION	:= 1.1-1
 MBW_MD5		:= 4509f034b22aec5001e1402e53353f8e
 MBW		:= mbw-$(MBW_VERSION)
 MBW_SUFFIX	:= tar.gz
-MBW_URL		:= http://ahorvath.web.cern.ch/ahorvath/mbw/$(MBW).$(MBW_SUFFIX)
+MBW_URL		:= http://www.sourcefiles.org/Miscellaneous/$(MBW).$(MBW_SUFFIX)
 MBW_SOURCE	:= $(SRCDIR)/$(MBW).$(MBW_SUFFIX)
 MBW_DIR		:= $(BUILDDIR)/$(MBW)
 
