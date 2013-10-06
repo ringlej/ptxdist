@@ -509,10 +509,6 @@ check_dirs() {
 		fi
 	done
 
-	rm -rf -- "${PTX_WRAPPER_DIR}" &&
-	mkdir -p -- "${PTX_WRAPPER_DIR}/real" ||
-	ptxd_bailout "cannot create dir: '${PTX_WRAPPER_DIR}/real'"
-
 	# check for case sensitive file system
 	for dir in \
 		"${BUILDDIR}" \
@@ -547,6 +543,13 @@ check_dirs() {
 #
 check_compiler() {
 	local cc_ptr cc cc_abs cc_default cc_alternate
+	local wrapper_dir sysroot_host
+
+	sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+	wrapper_dir="${sysroot_host}/lib/wrapper"
+	mkdir -p -- "${wrapper_dir}/real" ||
+	ptxd_bailout "cannot create dir: '${wrapper_dir}/real'"
+
 
 	for cc_ptr in \
 		PTXCONF_SETUP_HOST_CPP \
@@ -589,14 +592,16 @@ check_compiler() {
 			;;
 		esac
 
-		ln -sf "${cc_abs}" "${PTX_WRAPPER_DIR}/real/${cc_default}" &&
-		ln -sf "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${PTX_WRAPPER_DIR}/${cc_default}" &&
+		ptxd_replace_link "${cc_abs}" "${wrapper_dir}/real/${cc_default}" &&
+		ptxd_replace_link "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${wrapper_dir}/${cc_default}" &&
 
 		if [ -n "${cc_alternate}" ]; then
-		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/${cc_alternate}" &&
-		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/real/${cc_alternate}"
-		fi || \
+		    ptxd_replace_link "${cc_default}" "${wrapper_dir}/${cc_alternate}" &&
+		    ptxd_replace_link "${cc_default}" "${wrapper_dir}/real/${cc_alternate}"
+		fi || {
+		    rm -rf "${wrapper_dir}"
 		    ptxd_bailout "unable to create compiler wrapper link"
+		}
 	done
 
 	ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null && return || true
@@ -671,13 +676,12 @@ check_compiler() {
 	}
 
 	local toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
-	local sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
-	rm -f "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
-	ln -sf "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
+	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld; do
-		ln -sf "$(which ${compiler_prefix}${cc})" "${PTX_WRAPPER_DIR}/real/${compiler_prefix}${cc}" &&
-		ln -sf "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${PTX_WRAPPER_DIR}/${compiler_prefix}${cc}"
+		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
+		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done
+	PATH="${wrapper_dir}:${PATH}"
 }
 
 
@@ -2351,9 +2355,6 @@ setup_path() {
 			sleep 3
 		fi
 	fi
-
-	PTX_WRAPPER_DIR="${sysroot_host}/lib/wrapper"
-	PATH="${PTX_WRAPPER_DIR}:${PATH}"
 }
 
 

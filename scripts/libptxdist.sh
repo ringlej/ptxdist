@@ -492,6 +492,18 @@ ptxd_dumpstack() {
 	read
 }
 
+#
+# ptxd_replace_link - atomically replace a symlink
+# $1	source
+# $2	target
+#
+ptxd_replace_link() {
+	test -e "${2}" -a ! -L "${2}" && ptxd_bailout "'${2}' is not a link"
+
+	ln -sfT "${1}" "${2}.tmp"
+	mv -T "${2}.tmp" "${2}"
+}
+export -f ptxd_replace_link
 
 #
 # ptxd_get_alternative - look for files in platform, BSP and ptxdist
