@@ -216,6 +216,34 @@ install directory:
 export -f ptxd_install_dir
 
 
+export ptxd_install_file_objcopy_args="--only-keep-debug --compress-debug-sections"
+
+ptxd_install_file_extract_debug() {
+    local dir="${1}"
+    local dst="${2}"
+    local dbg="$(dirname "${dir}${dst}")/.debug/$(basename "${dst}")"
+
+    install -d "$(dirname "${dbg}")" || return
+
+    # this can fail if objcopy does not support compressing debug sections or
+    # is compiled without zlib support
+    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}" |&
+	grep -q "\(unrecognized option\|unable to initialize commpress status\)"
+    local -a status=( "${PIPESTATUS[@]}" )
+    if [ ${status[0]} -eq 1 ]; then
+	if [ ${status[1]} -eq 0 ]; then
+	    ptxd_install_file_objcopy_args="--only-keep-debug"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}"
+	else
+	    # do it again to see the error message
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}"
+	fi
+    fi &&
+    chmod -x "${dbg}" &&
+    "${CROSS_OBJCOPY}" --add-gnu-debuglink "${dbg}" "${dir}${dst}"
+}
+export -f ptxd_install_file_extract_debug
+
 #
 # $1: file to strip
 #
@@ -224,14 +252,8 @@ export -f ptxd_install_dir
 #
 #
 ptxd_install_file_strip() {
-    local -a strip_cmd objcopy_args
+    local -a strip_cmd
     local dst="${1}"
-
-    if "${CROSS_OBJCOPY}" --help | grep -q -- --compress-debug-sections; then
-	objcopy_args=( "--only-keep-debug"  "--compress-debug-sections" )
-    else
-	objcopy_args=( "--only-keep-debug" )
-    fi
 
     case "${strip:-y}" in
 	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
@@ -249,11 +271,7 @@ ptxd_install_file_strip() {
     done &&
 
     for dir in "${ddirs[@]}"; do
-	local dbg="$(dirname "${dir}${dst}")/.debug/$(basename "${dst}")"
-	install -d "$(dirname "${dbg}")" &&
-	"${CROSS_OBJCOPY}" "${objcopy_args[@]}" "${dir}${dst}" "${dbg}" &&
-	chmod -x "${dbg}" &&
-	"${CROSS_OBJCOPY}" --add-gnu-debuglink "${dbg}" "${dir}${dst}"
+	ptxd_install_file_extract_debug "${dir}" "${dst}" || return
     done &&
 
     "${strip_cmd[@]}" "${sdirs[@]/%/${dst}}" &&
