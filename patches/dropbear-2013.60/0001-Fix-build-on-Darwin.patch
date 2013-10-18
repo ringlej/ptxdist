@@ -7,11 +7,11 @@ https://dev.openwrt.org/browser/trunk/package/dropbear/patches/200-lcrypt_bsdfix
 
 Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
 ---
- Makefile.in |    6 +++---
+ Makefile.in | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index cec35f1..0c288e4 100644
+index bce11c8..e0ed668 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -56,7 +56,7 @@ HEADERS=options.h dbutil.h session.h packet.h algo.h ssh.h buffer.h kex.h \
@@ -23,7 +23,7 @@ index cec35f1..0c288e4 100644
  dbclientobjs=$(COMMONOBJS) $(CLISVROBJS) $(CLIOBJS)
  dropbearkeyobjs=$(COMMONOBJS) $(KEYOBJS)
  dropbearconvertobjs=$(COMMONOBJS) $(CONVERTOBJS)
-@@ -77,7 +77,7 @@ STRIP=@STRIP@
+@@ -79,7 +79,7 @@ STRIP=@STRIP@
  INSTALL=@INSTALL@
  CPPFLAGS=@CPPFLAGS@
  CFLAGS+=-I. -I$(srcdir) $(CPPFLAGS) @CFLAGS@
