@@ -52,6 +52,12 @@ choice
 		  start busybox telnetd server from inetd
 endchoice
 
+config BUSYBOX_UDHCPD_STARTSCRIPT
+	bool
+	depends on BUSYBOX_UDHCPD
+	default y
+	prompt "Install /etc/init.d/udhcpd"
+
 config BUSYBOX_SYSLOGD_STARTSCRIPT
 	bool
 	depends on BUSYBOX_SYSLOGD

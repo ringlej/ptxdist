@@ -30,6 +30,12 @@ config BUSYBOX_TELNETD_BBINIT_LINK
 	prompt "telnetd"
 	default "S16telnetd"
 
+config BUSYBOX_UDHCPD_BBINIT_LINK
+	string
+	depends on BUSYBOX_UDHCPD_STARTSCRIPT
+	prompt "udhcpd"
+	default "S60udpcpd"
+
 config BUSYBOX_BB_SYSCTL_BBINIT_LINK
 	string
 	depends on BUSYBOX_BB_SYSCTL_STARTSCRIPT

@@ -163,6 +163,16 @@ ifneq ($(call remove_quotes,$(PTXCONF_BUSYBOX_TELNETD_BBINIT_LINK)),)
 endif
 endif
 
+ifdef PTXCONF_BUSYBOX_UDHCPD_STARTSCRIPT
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/udhcpd)
+
+ifneq ($(call remove_quotes,$(PTXCONF_BUSYBOX_UDHCPD_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/udhcpd, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_UDHCPD_BBINIT_LINK))
+endif
+endif
+
 ifdef PTXCONF_BUSYBOX_SYSLOGD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/syslogd)
 

@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# /etc/init.d/udhcpd
+#
+# $Id$
+#
+
+if [ -f /usr/sbin/udhcpd ]; then
+	echo "Starting udhcpd..."
+	/usr/sbin/udhcpd
+	exit 0
+fi
+
+if [ -f /sbin/udhcpd ]; then
+	echo "Starting udhcpd..."
+	/sbin/udhcpd -d
+	exit 0
+fi
+
+echo "No udhcpd found. Aborting"
+
