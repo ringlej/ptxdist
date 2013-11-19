@@ -16,6 +16,8 @@ menuconfig NETWORKMANAGER
 	select HOST_INTLTOOL
 	select DBUS_PYTHON		if NETWORKMANAGER_EXAMPLES && RUNTIME
 	select IPTABLES			if RUNTIME
+# to detect correct systemd version
+	select SYSTEMD			if NETWORKMANAGER_SYSTEMD_UNIT
 # for the 'iptables' tool
 	select IPTABLES_IPV4
 	prompt "networkmanager                "
@@ -34,8 +36,6 @@ config NETWORKMANAGER_STARTSCRIPT
 
 config NETWORKMANAGER_SYSTEMD_UNIT
 	bool
-	default y
-	depends on SYSTEMD
 	prompt "install systemd unit files for Network Manager"
 
 config NETWORKMANAGER_EXAMPLES

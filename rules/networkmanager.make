@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 0.9.8.0
-NETWORKMANAGER_MD5	:= 38d28f6bd9220d85dfff47210706195c
+NETWORKMANAGER_VERSION	:= 0.9.8.8
+NETWORKMANAGER_MD5	:= bad2486578aa9f4d2f5c1c1446e8daf4
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
 NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/0.9/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
@@ -44,6 +44,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--enable-ifupdown \
 	--disable-ifnet \
 	--disable-qt \
+	--disable-bluez4 \
 	--disable-wimax \
 	--disable-polkit \
 	--disable-modify-system \
