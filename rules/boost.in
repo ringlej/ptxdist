@@ -23,9 +23,9 @@ menuconfig BOOST
 	  The boost team aims to establish "existing practice" and provide
 	  reference implementations so that Boost libraries are suitable for
 	  eventual standardization. Ten Boost libraries are already included in
-	  the C++ Standards Committee's Library Technical Report ( TR1) as a step
-	  toward becoming part of a future C++ Standard. More Boost libraries are
-	  proposed for the upcoming TR2.
+	  the C++ Standards Committee's Library Technical Report ( TR1) and in 
+	  the new C++11 Standard. C++11 also includes several more Boost libraries 
+	  in addition to those from TR1. More Boost libraries are proposed for TR2.
 
 	  For details see the project homepage:
 
@@ -63,6 +63,13 @@ config BOOST_INST_MT_RED
 
 comment "Boost Libraries"
 
+config BOOST_ATOMIC
+	bool
+	select BOOST_SYSTEM
+	prompt "atomic"
+	help
+	  Boost atomic library
+
 config BOOST_CHRONO
 	bool
 	select BOOST_SYSTEM
@@ -75,6 +82,13 @@ config BOOST_CONTEXT
 	prompt "context"
 	help
 	  Boost context library
+
+config BOOST_COROUTINE
+	bool
+	select BOOST_CONTEXT
+	prompt "coroutine"
+	help
+	  Boost coroutine library
 
 config BOOST_DATE_TIME
 	bool
@@ -119,7 +133,13 @@ config BOOST_LOCALE
 	select BOOST_SYSTEM
 	prompt "locale"
 	help
-	  Boost iostream library
+	  Boost locale library
+
+config BOOST_LOG
+	bool
+	prompt "log"
+	help
+	  Boost log library
 
 config BOOST_MATH
 	bool
@@ -143,7 +163,7 @@ config BOOST_RANDOM
 	bool
 	prompt "random"
 	help
-	  Boost iostream library
+	  Boost random library
 
 config BOOST_REGEX
 	bool
