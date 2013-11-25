@@ -1,0 +1,31 @@
+From: Markus Pargmann <mpa@pengutronix.de>
+Date: Mon, 25 Nov 2013 15:40:48 +0100
+Subject: [PATCH] HACK: configure.in: remove extended OGG check
+
+The tar-ball contains no configure script and it doesn't define
+XIPH_PATH_OGG anywhere.
+It's not needed here so just remove it.
+
+Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
+Tested-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ configure.in | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index e7f5690..6eaf6e4 100644
+--- a/configure.in
++++ b/configure.in
+@@ -119,11 +119,7 @@ fi
+ if test "x$HAVE_OGG" = "xno"
+ then
+   dnl fall back to the old school test
+-  XIPH_PATH_OGG(, AC_MSG_ERROR(must have Ogg installed!))
+-  libs_save=$LIBS
+-  LIBS="$OGG_LIBS"
+-  AC_CHECK_FUNC(oggpack_writealign, , AC_MSG_ERROR(Ogg >= 1.0 required !))
+-  LIBS=$libs_save
++  AC_MSG_ERROR(must have Ogg installed!)
+ fi
+ 
+ dnl --------------------------------------------------

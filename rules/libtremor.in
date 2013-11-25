@@ -1,0 +1,9 @@
+## SECTION=multimedia_sound
+config LIBTREMOR
+	tristate
+	prompt "libtremor"
+	select LIBOGG
+	help
+	  libtremor is a software library that decodes the Vorbis audio format
+	  in fixed-point only for those platforms without floating point
+	  operations.
