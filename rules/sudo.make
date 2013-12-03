@@ -44,7 +44,7 @@ SUDO_ENV 	:= \
 #
 SUDO_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-shadow \
+	--enable-shadow \
 	--enable-root-sudo \
 	--disable-log-host \
 	--enable-noargs-shell \
