@@ -2011,7 +2011,7 @@ setup_env() {
 	fi || return
 
 	# let shell split by IFS
-	set -- ${PTXCONF_SETUP_ENV_WHITELIST}
+	set -- ${PTXCONF_SETUP_ENV_WHITELIST} ${PTXDIST_ENV_WHITELIST}
 	whitelist="${*}"
 	whitelist="${whitelist:+|}${whitelist// /|}"
 
