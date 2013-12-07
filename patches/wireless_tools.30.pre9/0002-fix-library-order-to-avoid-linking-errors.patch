@@ -1,0 +1,31 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 7 Dec 2013 23:23:03 +0100
+Subject: [PATCH] fix library order to avoid linking errors
+
+Otherwise linking may fail with:
+
+libiw.so.30: undefined reference to `ceil'
+libiw.so.30: undefined reference to `pow'
+libiw.so.30: undefined reference to `log10'
+libiw.so.30: undefined reference to `floor'
+collect2: error: ld returned 1 exit status
+make[1]: *** [iwconfig] Error 1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index ce0a352..800a40e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -147,7 +147,7 @@ wireless.h:
+ 
+ # Compilation of the dynamic library
+ $(DYNAMIC): $(OBJS:.o=.so)
+-	$(CC) -shared -o $@ -Wl,-soname,$@ $(STRIPFLAGS) $(LIBS) -lc $^
++	$(CC) -shared -o $@ -Wl,-soname,$@ $(STRIPFLAGS) $^ $(LIBS) -lc
+ 
+ # Compilation of the static library
+ $(STATIC): $(OBJS:.o=.so)
