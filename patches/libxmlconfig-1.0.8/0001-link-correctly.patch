@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 8 Dec 2013 14:32:53 +0100
+Subject: [PATCH] link correctly
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 1c35f5a..73cb78a 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -11,10 +11,10 @@ AM_CPPFLAGS 		= -I$(top_srcdir)/include 	\
+ 			  $(LIBXML2_CFLAGS)
+ 
+ libxmlconfig_la_SOURCES	= libxmlconfig.c
++libxmlconfig_la_LIBADD	= $(LIBXML2_LIBS)
+ 
+ configtest_SOURCES 	= test.c
+-configtest_LDADD	= libxmlconfig.la $(LIBXML2_LIBS)
+-configtest_LDFLASG	= -lm
++configtest_LDADD	= libxmlconfig.la -lm
+ configtest_CPPFLAGS	= -std=c99 \
+ 	-I$(top_srcdir)/include \
+ 	-I$(top_builddir)/include \
