@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	:= 0.9.7
-OPROFILE_MD5		:= 8b5d1d9b65f84420bcc3234777ad3be3
+OPROFILE_VERSION	:= 0.9.9
+OPROFILE_MD5		:= 00aec1287da2dfffda17a9b1c0a01868
 OPROFILE		:= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		:= tar.gz
 OPROFILE_URL		:= $(call ptx/mirror, SF, oprofile/$(OPROFILE).$(OPROFILE_SUFFIX))
@@ -31,11 +31,12 @@ OPROFILE_DIR		:= $(BUILDDIR)/$(OPROFILE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPROFILE_AUTOCONF := \
+OPROFILE_CONF_TOOL	:= autoconf
+OPROFILE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-gui \
-	--with-kernel-support \
+	--with-kernel=$(KERNEL_HEADERS_INCLUDE_DIR) \
 	--without-java \
 	--without-x
 
@@ -57,10 +58,7 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opreport)
 	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/oprofiled)
 
-	@cd $(OPROFILE_PKGDIR) && \
-	find usr/share/oprofile -type f | while read file; do \
-		$(call install_copy, oprofile, 0, 0, 0644, -, /$${file}) \
-	done
+	@$(call install_tree, oprofile, 0, 0, -, /usr/share/oprofile)
 
 	@$(call install_finish, oprofile)
 
