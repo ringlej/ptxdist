@@ -33,6 +33,7 @@ SJINN_CONF_TOOL	:= NO
 
 SJINN_MAKE_OPT := \
 	CC=$(CROSS_CC) \
+	CFLAGS=-Wall \
 	prefix=/usr
 
 SJINN_INSTALL_OPT := \
