@@ -35,6 +35,8 @@ HOST_OPENSSL_MAKE_PAR	:= NO
 HOST_OPENSSL_CONF_OPT = \
 	--prefix=/ \
 	--install_prefix=$(HOST_OPENSSL_PKGDIR)
+HOST_OPENSSL_INSTALL_OPT := \
+	install_sw
 
 #
 # Follow the directions in INSTALL section 1a.
