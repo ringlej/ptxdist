@@ -50,6 +50,6 @@ Index: b/pcap-config.in
  	elif [ "$show_libs" = 1 ]
  	then
 -		echo "-L@libdir@ $RPATH -lpcap"
-+		echo "-L:{SYSROOT}@libdir@ $RPATH -lpcap"
++		echo "-L${SYSROOT}@libdir@ $RPATH -lpcap"
  	fi
  fi
