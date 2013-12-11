@@ -1,24 +1,24 @@
-From e54ab6090f2ebf9353f3b873b73589c4a40b5fc0 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Thu, 14 Jan 2010 19:30:30 +0100
-Subject: [PATCH 3/3] plugins/*/Makefile.am: don't add $includedir to header search path
+Subject: [PATCH] plugins/*/Makefile.am: don't add $includedir to header search
+ path
 
 As $includedir is usually /usr/include, host includes leak in.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- plugins/asn1/Makefile.am       |    2 +-
- plugins/docsis/Makefile.am     |    2 +-
- plugins/ethercat/Makefile.am   |    2 +-
- plugins/gryphon/Makefile.am    |    2 +-
- plugins/irda/Makefile.am       |    2 +-
- plugins/m2m/Makefile.am        |    2 +-
- plugins/opcua/Makefile.am      |    2 +-
- plugins/profinet/Makefile.am   |    2 +-
- plugins/sercosiii/Makefile.am  |    2 +-
- plugins/unistim/Makefile.am    |    2 +-
- plugins/wimax/Makefile.am      |    2 +-
- plugins/wimaxasncp/Makefile.am |    2 +-
+ plugins/asn1/Makefile.am       | 2 +-
+ plugins/docsis/Makefile.am     | 2 +-
+ plugins/ethercat/Makefile.am   | 2 +-
+ plugins/gryphon/Makefile.am    | 2 +-
+ plugins/irda/Makefile.am       | 2 +-
+ plugins/m2m/Makefile.am        | 2 +-
+ plugins/opcua/Makefile.am      | 2 +-
+ plugins/profinet/Makefile.am   | 2 +-
+ plugins/sercosiii/Makefile.am  | 2 +-
+ plugins/unistim/Makefile.am    | 2 +-
+ plugins/wimax/Makefile.am      | 2 +-
+ plugins/wimaxasncp/Makefile.am | 2 +-
  12 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/plugins/asn1/Makefile.am b/plugins/asn1/Makefile.am
@@ -177,6 +177,3 @@ index f17c871..f51482c 100644
  
  include Makefile.common
  
--- 
-1.6.6
-
