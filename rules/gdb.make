@@ -34,6 +34,11 @@ GDB_URL := \
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_ARCH_X86
+GDB_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_PIE
+endif
+
 GDB_ENV := \
 	$(CROSS_ENV) \
 	$(CROSS_ENV_FLAGS_FOR_TARGET)

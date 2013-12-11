@@ -31,6 +31,11 @@ GDBSERVER_URL := \
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_ARCH_X86
+GDBSERVER_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_PIE
+endif
+
 GDBSERVER_ENV := $(GDB_ENV)
 
 ifndef PTXCONF_GDBSERVER_SHARED
