@@ -1,0 +1,33 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 10 Dec 2013 10:24:28 +0100
+Subject: [PATCH] add missing '#include <stdint.h>'
+
+Otherwise building may fail with:
+
+libs/context/src/fcontext.cpp: In function 'void* boost::ctx::detail::align_stack(void*)':
+libs/context/src/fcontext.cpp:25:21: error: 'uintptr_t' was not declared in this scope
+     if ( 0 != ( ( ( uintptr_t) base) & 15) )
+                     ^
+[...]
+
+Patch from https://dev.openwrt.org/browser/packages/libs/boost/patches/200-cstdint_missing_include.patch
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ libs/context/src/fcontext.cpp | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/libs/context/src/fcontext.cpp b/libs/context/src/fcontext.cpp
+index 596cbd8..743b7bf 100644
+--- a/libs/context/src/fcontext.cpp
++++ b/libs/context/src/fcontext.cpp
+@@ -9,6 +9,9 @@
+ #include <boost/context/fcontext.hpp>
+ 
+ #include <cstddef>
++extern "C" {
++#include <stdint.h>
++}
+ 
+ #ifdef BOOST_HAS_ABI_HEADERS
+ #  include BOOST_ABI_PREFIX
