@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 # Paths and names
 #
-RT_TESTS_VERSION	:= 0.85
-RT_TESTS_MD5		:= f62f58c2f1d9c1ec37bafc73e40d42ad
+RT_TESTS_VERSION	:= 0.87
+RT_TESTS_MD5		:= 55002ecaf2bbccc4c537797a217133e2
 RT_TESTS_LICENSE	:= GPLv2, GPLv2+
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
-RT_TESTS_SUFFIX		:= tar.gz
-RT_TESTS_URL		:= $(call ptx/mirror, KERNEL, kernel/people/clrkwllms/rt-tests/$(RT_TESTS).$(RT_TESTS_SUFFIX))
+RT_TESTS_SUFFIX		:= tar.xz
+RT_TESTS_URL		:= $(call ptx/mirror, KERNEL, kernel/people/clrkwllms/$(RT_TESTS).$(RT_TESTS_SUFFIX))
 RT_TESTS_SOURCE		:= $(SRCDIR)/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_DIR		:= $(BUILDDIR)/$(RT_TESTS)
 
