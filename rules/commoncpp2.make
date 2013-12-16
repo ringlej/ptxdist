@@ -24,9 +24,7 @@ COMMONCPP2_SUFFIX	:= tar.gz
 COMMONCPP2_SOURCE	:= $(SRCDIR)/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
 COMMONCPP2_DIR		:= $(BUILDDIR)/$(COMMONCPP2)
 
-COMMONCPP2_URL		:= \
-	http://www.gnutelephony.org/dist/tarballs/$(COMMONCPP2).$(COMMONCPP2_SUFFIX) \
-	http://www.gnutelephony.org/dist/archive/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
+COMMONCPP2_URL		:= $(call ptx/mirror, GNU, commoncpp/$(COMMONCPP2).$(COMMONCPP2_SUFFIX))
 
 # ----------------------------------------------------------------------------
 # Prepare
