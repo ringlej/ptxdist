@@ -30,6 +30,10 @@ LIBTREMOR_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static
 
+ifdef PTXCONF_ARCH_ARM
+$(STATEDIR)/libtremor.compile: PTXDIST_CROSS_CPPFLAGS += -Wa,-mimplicit-it=thumb
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
