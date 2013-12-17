@@ -71,11 +71,6 @@ DB_CONF_OPT	:= \
 	--enable-pthread_self \
 	--enable-shared
 
-ifdef PTXCONF_ARCH_ARM
-DB_CONF_OPT += \
-	--with-mutex=ARM/gcc-assembly
-endif
-
 DB_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
