@@ -5,7 +5,7 @@ Subject: [PATCH] follow up on bug:622500 in gst-plugins-good bugzilla
 The situation is still unclear, so just for now we will
 keep that patch to check on this again later.
 ---
- sys/v4l2/gstv4l2sink.c |    1 +
+ sys/v4l2/gstv4l2sink.c | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/sys/v4l2/gstv4l2sink.c b/sys/v4l2/gstv4l2sink.c

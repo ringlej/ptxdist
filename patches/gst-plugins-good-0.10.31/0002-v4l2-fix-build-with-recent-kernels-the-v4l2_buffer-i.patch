@@ -15,7 +15,7 @@ This was unused apparently and removed in the kernel in commit:
 
 https://bugzilla.gnome.org/show_bug.cgi?id=681491
 ---
- sys/v4l2/gstv4l2bufferpool.c |    1 -
+ sys/v4l2/gstv4l2bufferpool.c | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/sys/v4l2/gstv4l2bufferpool.c b/sys/v4l2/gstv4l2bufferpool.c

@@ -1,0 +1,60 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 17 Dec 2013 15:36:39 +0100
+Subject: [PATCH] remove V4L2_CID_HCENTER/V4L2_CID_VCENTER usage
+
+They have been deprecated for a long time and since v3.9 building fails
+with:
+
+v4l2_calls.c:58:26: error: 'V4L2_CID_HCENTER_DEPRECATED' undeclared (first use in this function)
+ #define V4L2_CID_HCENTER V4L2_CID_HCENTER_DEPRECATED
+                          ^
+v4l2_calls.c:297:12: note: in expansion of macro 'V4L2_CID_HCENTER'
+       case V4L2_CID_HCENTER:
+            ^
+v4l2_calls.c:58:26: note: each undeclared identifier is reported only once for each function it appears in
+ #define V4L2_CID_HCENTER V4L2_CID_HCENTER_DEPRECATED
+                          ^
+v4l2_calls.c:297:12: note: in expansion of macro 'V4L2_CID_HCENTER'
+       case V4L2_CID_HCENTER:
+            ^
+v4l2_calls.c:61:26: error: 'V4L2_CID_VCENTER_DEPRECATED' undeclared (first use in this function)
+ #define V4L2_CID_VCENTER V4L2_CID_VCENTER_DEPRECATED
+                          ^
+v4l2_calls.c:298:12: note: in expansion of macro 'V4L2_CID_VCENTER'
+       case V4L2_CID_VCENTER:
+            ^
+make[4]: *** [libgstvideo4linux2_la-v4l2_calls.lo] Error 1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ sys/v4l2/v4l2_calls.c | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/sys/v4l2/v4l2_calls.c b/sys/v4l2/v4l2_calls.c
+index 309bfb6..47c2f46 100644
+--- a/sys/v4l2/v4l2_calls.c
++++ b/sys/v4l2/v4l2_calls.c
+@@ -53,14 +53,6 @@
+ 
+ #include "gst/gst-i18n-plugin.h"
+ 
+-/* Those are ioctl calls */
+-#ifndef V4L2_CID_HCENTER
+-#define V4L2_CID_HCENTER V4L2_CID_HCENTER_DEPRECATED
+-#endif
+-#ifndef V4L2_CID_VCENTER
+-#define V4L2_CID_VCENTER V4L2_CID_VCENTER_DEPRECATED
+-#endif
+-
+ GST_DEBUG_CATEGORY_EXTERN (v4l2_debug);
+ #define GST_CAT_DEFAULT v4l2_debug
+ 
+@@ -294,8 +286,6 @@ gst_v4l2_fill_lists (GstV4l2Object * v4l2object)
+         break;
+       case V4L2_CID_HFLIP:
+       case V4L2_CID_VFLIP:
+-      case V4L2_CID_HCENTER:
+-      case V4L2_CID_VCENTER:
+ #ifdef V4L2_CID_PAN_RESET
+       case V4L2_CID_PAN_RESET:
+ #endif
