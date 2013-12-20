@@ -4,13 +4,11 @@ PTXdist
 Necessary Packages
 ------------------
 
-In order to build ptxdist, you need these archives:
+In order to build ptxdist, you need this archive:
 
-	ptxdist-<version>.tgz		(mandatory)
-	ptxdist-<version>-projects.tgz	(optional)
+	ptxdist-<version>.tgz
 
-Extract these archives into some build directory; the tarballs are put
-together in a way that they extract into one subdir ptxdist-<version>.
+Extract this archive into some build directory.
 
 Installation
 ------------
@@ -39,35 +37,10 @@ variable to the bin/ directory inside the PTXdist tree.
 Quickstart
 ----------
 
-PTXdist comes with some example projects in the
+Read the "How to become a PTXdist Guru" guide to get an idea how PTXdist works.
+This document can be found here:
 
-	ptxdist-<version>-projects.tgz
-
-archive. If this packet is installed with ptxdist it is possible to
-"clone" the example projects and use them i.e. as a start for your own
-project. Find out which projects are available, using
-
-	$ ptxdist projects
-
-Then clone a project with
-
-	$ ptxdist clone <projectname> myproject
-
-This copies the project named <projectname> into ./myproject, which is
-your "workspace" for the following actions.
-
-Change into your project's workspace and build everything:
-
-	$ cd myproject
-	$ ptxdist go
-
-This builds a root filesystem into the root/ directory of your
-workspace. If the project was built for the same architecture as your
-devenlopment machine, you can try it with
-
-	$ chroot root/ /bin/sh
-
-If you have more time to find out how it works, read on.
+http://www.pengutronix.de/software/ptxdist/appnotes/OSELAS.BSP-Pengutronix-Generic-arm-Quickstart.pdf
 
 
 Idea
