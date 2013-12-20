@@ -45,6 +45,16 @@ VALGRIND_ENV	:= \
 	$(CROSS_ENV) \
 	valgrind_cv_sys_kernel_version=$(VALGRIND_KERNEL_VERSION)
 
+ifdef PTXCONF_VALGRIND
+ifeq ($(VALGRIND_KERNEL_VERSION),)
+ $(warning ######################### ERROR ################################)
+ $(warning # Linux kernel version required in order to make valgrind work #)
+ $(warning #      Define a platform kernel or the kernel headers          #)
+ $(warning ################################################################)
+ $(error )
+endif
+endif
+
 #
 # autoconf
 #
