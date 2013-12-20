@@ -34,6 +34,7 @@ HOST_XZ_DIR	:= $(HOST_BUILDDIR)/$(HOST_XZ)
 HOST_XZ_CONF_TOOL	:= autoconf
 HOST_XZ_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-static
+	--libdir=/lib/xz \
+	--disable-shared
 
 # vim: syntax=make
