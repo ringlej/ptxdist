@@ -20,7 +20,11 @@ umount() {
 		ln -sf /etc/rc.once.d /system-update
 		systemctl reboot
 	else
-		systemctl default
+		if [ -e /system-update ]; then
+			systemctl rescue
+		else
+			systemctl default
+		fi
 	fi
 }
 
