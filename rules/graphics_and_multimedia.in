@@ -55,7 +55,8 @@ menu "gtk+ & friends                "
 source "generated/multimedia_gtk.in"
 endmenu
 
-source "generated/multimedia_mplayer.in"
+# moved to staging
+#source "generated/multimedia_mplayer.in"
 
 menu "qt                            "
 source "generated/qt.in"
