@@ -7,7 +7,7 @@ config VALGRIND
 	  A memory debugger and profiler
 
 	  Valgrind is a GPL'd system for debugging and profiling
-	  x86-Linux programs. With Valgrind's tool suite you can
+	  x86 and ARM Linux programs. With Valgrind's tool suite you can
 	  automatically detect many memory management and threading
 	  bugs, avoiding hours of frustrating bug-hunting, making your
 	  programs more stable. You can also perform detailed
