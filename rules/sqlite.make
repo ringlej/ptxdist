@@ -34,6 +34,7 @@ SQLITE_LICENSE	:= public_domain
 # ----------------------------------------------------------------------------
 
 SQLITE_CONF_ENV := \
+	$(CROSS_ENV) \
 	CPPFLAGS=" \
 	-DSQLITE_ENABLE_COLUMN_METADATA \
 	-DSQLITE_ENABLE_FTS3 \
@@ -54,12 +55,6 @@ ifdef PTXCONF_SQLITE_THREADSAFE
 SQLITE_AUTOCONF += --enable-threadsafe
 else
 SQLITE_AUTOCONF += --disable-threadsafe
-endif
-
-ifdef PTXCONF_SQLITE_LOAD_EXTENTION
-SQLITE_AUTOCONF += --enable-dynamic-extensions
-else
-SQLITE_AUTOCONF += --disable-dynamic-extensions
 endif
 
 ifdef PTXCONF_SQLITE_READLINE
