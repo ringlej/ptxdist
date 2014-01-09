@@ -135,7 +135,7 @@ menuconfig STAGING
 	default y
 	help
 	  Packages that are unmaintained and somewhat broken are moved here
-	  to give users the change to fix them. A package is removed if it
+	  to give users the chance to fix them. A package is removed if it
 	  is not fixed after one year in staging.
 	  The package help text should indicate when the package will be
 	  removed.
