@@ -98,6 +98,7 @@ menu "Source Directories"
 config SETUP_SRCDIR
 	prompt "Source Directory"
 	string
+	default "${PTXDIST_WORKSPACE}/src"
 
 endmenu
 
@@ -165,14 +166,14 @@ config SETUP_GNUMIRROR
 
 config SETUP_XORGMIRROR
 	string
-	default "http://ftp.sunet.se/pub/X11/ftp.x.org"
+	default "http://ftp.sunet.se/pub/X11/ftp.x.org http://ftp.x.org/pub http://xorg.freedesktop.org/releases"
 	prompt "x.org Mirror"
 	help
 	  For all x.org related packages enter an available mirror here.
 
 config SETUP_KERNELMIRROR
 	string
-	default "https://www.kernel.org/pub/linux"
+	default "https://www.kernel.org/pub/linux http://www.linux-mips.org/pub/linux/mips http://mirror.linux.org.au/linux"
 	prompt "kernel.org Mirror"
 	help
 	  For all kernel.org related packages enter an available mirror here.
