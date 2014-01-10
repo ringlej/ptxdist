@@ -48,6 +48,7 @@ LOWPAN_TOOLS_CONF_OPT	:= \
 	--disable-manpages \
 	--enable-shared \
 	--disable-static \
+	--disable-werror \
 	--with-gnu-ld
 
 LOWPAN_TOOLS_INSTALL_FILES := \
