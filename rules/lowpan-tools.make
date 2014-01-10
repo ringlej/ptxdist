@@ -44,6 +44,7 @@ endif
 LOWPAN_TOOLS_CONF_TOOL	:= autoconf
 LOWPAN_TOOLS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_LOWPAN_TOOLS_TESTS)-tests \
 	--disable-manpages \
 	--enable-shared \
 	--disable-static \
