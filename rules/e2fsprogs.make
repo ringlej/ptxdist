@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.42.7
-E2FSPROGS_MD5		:= a1ec22ef003688dae9f76c74881b22b9
+E2FSPROGS_VERSION	:= 1.42.9
+E2FSPROGS_MD5		:= 3f8e41e63b432ba114b33f58674563f7
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
@@ -61,7 +61,8 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-uuidd \
 	--disable-nls \
 	--disable-rpath \
-	--without-diet-libc
+	--without-diet-libc \
+	--disable-backtrace
 
 E2FSPROGS_INSTALL_OPT := install
 
