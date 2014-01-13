@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_GREP) += grep
 #
 # Paths and names
 #
-GREP_VERSION	:= 2.5.3
-GREP_MD5	:= 27061ce1fde82876970b6549a156da8b
+GREP_VERSION	:= 2.16
+GREP_MD5	:= 502350a6c8f7c2b12ee58829e760b44d
 GREP		:= grep-$(GREP_VERSION)
-GREP_SUFFIX	:= tar.bz2
+GREP_SUFFIX	:= tar.xz
 GREP_URL	:= $(call ptx/mirror, GNU, grep/$(GREP).$(GREP_SUFFIX))
 GREP_SOURCE	:= $(SRCDIR)/$(GREP).$(GREP_SUFFIX)
 GREP_DIR	:= $(BUILDDIR)/$(GREP)
@@ -29,23 +29,21 @@ GREP_DIR	:= $(BUILDDIR)/$(GREP)
 # Prepare
 # ----------------------------------------------------------------------------
 
-GREP_ENV := \
+GREP_CONF_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_path_MSGFMT=: \
 	ac_cv_path_GMSGFMT=: \
-	ac_cv_path_XGETTEXT=: \
-	MAKEINFO=:
+	ac_cv_path_XGETTEXT=:
 
 #
 # autoconf
 #
-GREP_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
-
-ifdef PTXCONF_GREP_PCRE
-GREP_AUTOCONF += --enable-perl-regexp
-else
-GREP_AUTOCONF += --disable-perl-regexp
-endif
+GREP_CONF_TOOL	:= autoconf
+GREP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_ROOT) \
+	--$(call ptx/endis, PTXCONF_GREP_PCRE)-perl-regexp \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls
 
 # ----------------------------------------------------------------------------
 # Target-Install
