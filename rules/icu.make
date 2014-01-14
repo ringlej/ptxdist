@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ICU) += icu
 #
 # Paths and names
 #
-ICU_VERSION	:= 50.1
-ICU_MD5		:= cf7bf9e56aa6c2057a8b6f464046483e
+ICU_VERSION	:= 52.1
+ICU_MD5		:= 9e96ed4c1d99c0d14ac03c140f9f346c
 ICU		:= icu4c-$(subst .,_,$(ICU_VERSION))-src
 ICU_SUFFIX	:= tgz
 ICU_URL		:= http://download.icu-project.org/files/icu4c/$(ICU_VERSION)/$(ICU).$(ICU_SUFFIX)
@@ -51,6 +51,7 @@ ICU_CONF_OPT	:= \
 	--disable-extras \
 	--enable-icuio \
 	--enable-layout \
+	--disable-tools \
 	--disable-tests \
 	--disable-samples \
 	--with-cross-build=$(HOST_ICU_DIR)/$(ICU_SUBDIR)

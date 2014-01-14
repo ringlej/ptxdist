@@ -38,6 +38,7 @@ HOST_ICU_CONF_OPT	:= \
 	--disable-extras \
 	--disable-icuio \
 	--disable-layout \
+	--enable-tools \
 	--disable-tests \
 	--disable-samples
 
