@@ -64,11 +64,6 @@ ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
 		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, \
 		/usr/bin/chrony_command)
 endif
-ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
-	@$(call install_copy, chrony, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, \
-		/usr/bin/chrony_command)
-endif
 
 # chrony stat convenience wrapper
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_STAT
