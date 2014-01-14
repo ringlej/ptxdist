@@ -1,18 +1,16 @@
-From: George McCollister <george.mccollister@gmail.com>
-Date: Fri, 13 May 2011 10:00:47 -0500
-Subject: [PATCH] opkg-utils: use env python instead of fixed path
+From: Christopher Larson <kergoth@gmail.com>
+Date: Thu, 29 Mar 2012 10:47:49 +0200
+Subject: [PATCH] Use python via the PATH, rather than hardcoding
+ /usr/bin/python
 
-I moved this patch over from ipkg-utils. I believe this is needed so we
-use the copy of python built and installed by HOST_PYTHON instead of the
-copy provided by the disto.
-
-Signed-off-by: George McCollister <george.mccollister@gmail.com>
+Signed-off-by: Christopher Larson <kergoth@gmail.com>
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
- opkg-list-fields  |    2 +-
- opkg-make-index   |    2 +-
- opkg-show-deps    |    2 +-
- opkg-unbuild      |    2 +-
- opkg-update-index |    2 +-
+ opkg-list-fields  | 2 +-
+ opkg-make-index   | 2 +-
+ opkg-show-deps    | 2 +-
+ opkg-unbuild      | 2 +-
+ opkg-update-index | 2 +-
  5 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/opkg-list-fields b/opkg-list-fields
@@ -26,7 +24,7 @@ index d263b90..da78d53 100755
  import sys, opkg
  
 diff --git a/opkg-make-index b/opkg-make-index
-index ae829e6..6ebba5f 100755
+index dc98c63..b65dc6e 100755
 --- a/opkg-make-index
 +++ b/opkg-make-index
 @@ -1,4 +1,4 @@

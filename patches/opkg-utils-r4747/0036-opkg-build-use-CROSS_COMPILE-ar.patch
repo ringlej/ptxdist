@@ -10,11 +10,11 @@ to cross-ar here.
 
 Signed-off-by: Andreas Bießmann <andreas@biessmann.de>
 ---
- opkg-build |    2 +-
+ opkg-build | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/opkg-build b/opkg-build
-index f9251ea..425faea 100755
+index fb533a6..646787b 100755
 --- a/opkg-build
 +++ b/opkg-build
 @@ -250,7 +250,7 @@ if [ "$outer" = "ar" ] ; then
@@ -24,5 +24,5 @@ index f9251ea..425faea 100755
 -	ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
 +	${CROSS_COMPILE}ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
  else
-   ( cd $tmp_dir && tar -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+   ( cd $tmp_dir && tar -cz --format=gnu -f $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
  fi
