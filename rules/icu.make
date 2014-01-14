@@ -51,7 +51,7 @@ ICU_CONF_OPT	:= \
 	--disable-extras \
 	--enable-icuio \
 	--enable-layout \
-	--disable-tools \
+	--enable-tools \
 	--disable-tests \
 	--disable-samples \
 	--with-cross-build=$(HOST_ICU_DIR)/$(ICU_SUBDIR)
