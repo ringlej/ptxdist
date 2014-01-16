@@ -71,4 +71,10 @@ choice
 
 endchoice
 
+config DNSMASQ_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for dnsmasq"
+
 endif

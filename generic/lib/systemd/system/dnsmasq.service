@@ -1,0 +1,11 @@
+[Unit]
+Description=dnsmasq
+
+[Service]
+ExecStart=/usr/sbin/dnsmasq --pid-file=/run/dnsmasq.pid
+ExecReload=/bin/kill -HUP $MAINPID
+Type=forking
+PIDFile=/run/dnsmasq.pid
+
+[Install]
+WantedBy=network.target

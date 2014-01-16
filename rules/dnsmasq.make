@@ -78,6 +78,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_DNSMASQ_BBINIT_LINK)),)
 endif
 endif
 endif
+ifdef PTXCONF_DNSMASQ_SYSTEMD_UNIT
+	@$(call install_alternative, dnsmasq, 0, 0, 0644, \
+		/lib/systemd/system/dnsmasq.service)
+	@$(call install_link, dnsmasq, ../dnsmasq.service, \
+		/lib/systemd/system/network.target.wants/dnsmasq.service)
+endif
 
 	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/dnsmasq.conf, n)
 
