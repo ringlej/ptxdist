@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.6.0
-FONTCONFIG_MD5		:= ab54ec1d4ddd836313fdbc0cd5299d6d
+FONTCONFIG_VERSION	:= 2.11.0
+FONTCONFIG_MD5		:= 84278204cd7f36adbea7ad8094e039ac
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
@@ -29,28 +29,23 @@ FONTCONFIG_DIR		:= $(BUILDDIR)/$(FONTCONFIG)
 # Prepare
 # ----------------------------------------------------------------------------
 
-FONTCONFIG_PATH	:= PATH=$(CROSS_PATH)
-FONTCONFIG_ENV 	:=  \
+FONTCONFIG_ENV	:=  \
 	$(CROSS_ENV) \
 	ac_cv_prog_HASDOCBOOK=no
 
 #
 # autoconf
 #
-FONTCONFIG_AUTOCONF := \
+FONTCONFIG_CONF_TOOL	:= autoconf
+FONTCONFIG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_ICONV)-iconv \
+	--disable-libxml2 \
 	--disable-docs \
 	--with-cache-dir=/var/cache/fontconfig \
 	--with-default-fonts=$(XORG_FONTDIR) \
 	--with-arch=$(PTXCONF_ARCH_STRING)
-
-#
-# parallel build is broken: in fc-case/, two header files are generated.
-# It *should* work, because the generated files are marked with BUILT_SOURCES,
-# so they should be built before any other target. However, we've seen cases
-# where the touch happened *after* fc-case.c was compiled -> bang
-#
-FONTCONFIG_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -65,40 +60,10 @@ $(STATEDIR)/fontconfig.targetinstall:
 	@$(call install_fixup, fontconfig,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fontconfig,DESCRIPTION,missing)
 
-	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
-		/usr/lib/libfontconfig.so.1.3.0)
+	@$(call install_lib, fontconfig, 0, 0, 0644, libfontconfig)
 
-	@$(call install_link, fontconfig, \
-		libfontconfig.so.1.3.0, \
-		/usr/lib/libfontconfig.so.1)
-
-	@$(call install_link, fontconfig, \
-		libfontconfig.so.1.3.0, \
-		/usr/lib/libfontconfig.so)
-
-
-ifdef PTXCONF_FONTCONFIG_DTD
-	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
-		/etc/fonts/fonts.dtd,n)
-endif
-
-ifdef PTXCONF_FONTCONFIG_CONFS_DEFAULT
-	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
-		/etc/fonts/fonts.conf,n)
-
-# 	@$(call install_copy, fontconfig, 0, 0, 0644, \
-# 		$(FONTCONFIG_DIR)/conf.d/sub-pixel.conf, \
-# 		/etc/fonts/conf.d/subpixel.conf,n)
-
-# 	@$(call install_copy, fontconfig, 0, 0, 0644, \
-# 		$(FONTCONFIG_DIR)/conf.d/autohint.conf, \
-# 		/etc/fonts/conf.d/autohint.conf,n)
-endif
-
-ifdef PTXCONF_FONTCONFIG_CONFS_CUSTOM
 	@$(call install_alternative, fontconfig, 0, 0, 0644, \
 		/etc/fonts/fonts.conf)
-endif
 
 ifdef PTXCONF_FONTCONFIG_UTILS
 	@$(call install_copy, fontconfig, 0, 0, 0755, -, \
