@@ -29,6 +29,9 @@ HOST_FREETYPE_DIR	= $(HOST_BUILDDIR)/$(FREETYPE)
 HOST_FREETYPE_CONF_TOOL	:= autoconf
 HOST_FREETYPE_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-static
+	--disable-static \
+	--without-zlib \
+	--without-bzip2 \
+	--without-png
 
 # vim: syntax=make

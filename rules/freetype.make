@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.3.11
-FREETYPE_MD5		:= 519c7cbf5cbd72ffa822c66844d3114c
+FREETYPE_VERSION	:= 2.5.2
+FREETYPE_MD5		:= 10e8f4d6a019b124088d18bc26123a25
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
@@ -33,13 +33,17 @@ FREETYPE_URL := \
 # Prepare
 # ----------------------------------------------------------------------------
 
-FREETYPE_PATH	:= PATH=$(CROSS_PATH)
-FREETYPE_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-FREETYPE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+FREETYPE_CONF_TOOL	:= autoconf
+FREETYPE_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
+	--with-zlib \
+	--without-bzip2 \
+	--without-png
+
 
 # ----------------------------------------------------------------------------
 # Target-Install

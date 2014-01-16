@@ -1,0 +1,102 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 20 Nov 2013 14:06:25 +0100
+Subject: [PATCH] generate freetype-config and freetype2.pc correctly
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ builds/unix/configure.ac       |  4 +++-
+ builds/unix/freetype-config.in | 14 +++++++-------
+ builds/unix/freetype2.in       | 12 ++++++------
+ builds/unix/unix-def.in        |  3 ---
+ 4 files changed, 16 insertions(+), 17 deletions(-)
+
+diff --git a/builds/unix/configure.ac b/builds/unix/configure.ac
+index 0a67dce..d3f17d1 100644
+--- a/builds/unix/configure.ac
++++ b/builds/unix/configure.ac
+@@ -765,7 +765,9 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
+ # and `builds/unix/unix-cc.mk' that will be used by the build system
+ #
+ AC_CONFIG_FILES([unix-cc.mk:unix-cc.in
+-                 unix-def.mk:unix-def.in])
++                 unix-def.mk:unix-def.in
++                 freetype-config:freetype-config.in
++                 freetype2.pc:freetype2.in])
+ 
+ # re-generate the Jamfile to use libtool now
+ #
+diff --git a/builds/unix/freetype-config.in b/builds/unix/freetype-config.in
+index e4c504d..49be65f 100644
+--- a/builds/unix/freetype-config.in
++++ b/builds/unix/freetype-config.in
+@@ -12,12 +12,12 @@
+ LC_ALL=C
+ export LC_ALL
+ 
+-prefix="%prefix%"
+-exec_prefix="%exec_prefix%"
++prefix="@prefix@"
++exec_prefix="@exec_prefix@"
+ exec_prefix_set="no"
+-includedir="%includedir%"
+-libdir="%libdir%"
+-enable_shared="%build_libtool_libs%"
++includedir="@includedir@"
++libdir="@libdir@"
++enable_shared="@build_libtool_libs@"
+ 
+ usage()
+ {
+@@ -73,7 +73,7 @@ while test $# -gt 0 ; do
+     echo_exec_prefix=yes
+     ;;
+   --version)
+-    echo %ft_version%
++    echo @ft_version@
+     exit 0
+     ;;
+   --ftversion)
+@@ -137,7 +137,7 @@ if test "$echo_cflags" = "yes" ; then
+ fi
+ 
+ if test "$echo_libs" = "yes" ; then
+-  libs="-lfreetype %LIBZ% %LIBBZ2% %LIBPNG% %FT2_EXTRA_LIBS%"
++  libs="-lfreetype @LIBZ@ @LIBBZ2@ @LIBPNG@ @FT2_EXTRA_LIBS@"
+   if test "${SYSROOT}$libdir" != "/usr/lib"  &&
+      test "${SYSROOT}$libdir" != "/usr/lib64"; then
+     echo -L${SYSROOT}$libdir $libs
+diff --git a/builds/unix/freetype2.in b/builds/unix/freetype2.in
+index 5e545b6..b8accab 100644
+--- a/builds/unix/freetype2.in
++++ b/builds/unix/freetype2.in
+@@ -1,12 +1,12 @@
+-prefix="%prefix%"
+-exec_prefix="%exec_prefix%"
+-libdir="%libdir%"
+-includedir="%includedir%/freetype2"
++prefix="@prefix@"
++exec_prefix="@exec_prefix@"
++libdir="@libdir@"
++includedir="@includedir@/freetype2"
+ 
+ Name: FreeType 2
+ Description: A free, high-quality, and portable font engine.
+-Version: %ft_version%
++Version: @ft_version@
+ Requires:
+ Libs: -L${libdir} -lfreetype
+-Libs.private: %LIBZ% %LIBBZ2% %LIBPNG% %FT2_EXTRA_LIBS%
++Libs.private: @LIBZ@ @LIBBZ2@ @LIBPNG@ @FT2_EXTRA_LIBS@
+ Cflags: -I${includedir}
+diff --git a/builds/unix/unix-def.in b/builds/unix/unix-def.in
+index 491e974..968d095 100644
+--- a/builds/unix/unix-def.in
++++ b/builds/unix/unix-def.in
+@@ -133,7 +133,4 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
+ 	chmod a-w $@.tmp
+ 	mv $@.tmp $@
+ 
+-all: $(OBJ_BUILD)/freetype-config \
+-     $(OBJ_BUILD)/freetype2.pc
+-
+ # EOF
