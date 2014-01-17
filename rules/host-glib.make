@@ -52,7 +52,7 @@ HOST_GLIB_AUTOCONF := \
 $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_GLIB)
-	@sed -i "s:'/lib':'$(PTXCONF_SYSROOT_HOST)/lib':" "$(PTXCONF_SYSROOT_HOST)/bin/gdbus-codegen"
+	@sed -i "s:'/share':'$(PTXCONF_SYSROOT_HOST)/share':" "$(PTXCONF_SYSROOT_HOST)/bin/gdbus-codegen"
 	@$(call touch)
 
 # vim: syntax=make
