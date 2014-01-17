@@ -1,4 +1,6 @@
-## SECTION=multimedia_framebuffer
+## SECTION=staging
+## old section:
+### SECTION=multimedia_framebuffer
 
 menuconfig SPLASHUTILS
 	tristate
@@ -14,6 +16,10 @@ menuconfig SPLASHUTILS
 	select FREETYPE if SPLASHUTILS_TTF
 	help
 	  FIXME
+
+	  STAGING: remove in ptxdist-2015.02.0
+	  This package has not been maintained in a long time. The build
+	  system is broken. Compiling fails with new freetype fails.
 
 if SPLASHUTILS
 
