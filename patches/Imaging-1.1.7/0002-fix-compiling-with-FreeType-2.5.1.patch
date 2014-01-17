@@ -1,0 +1,24 @@
+From: Andrew Stromnov <stromnov@gmail.com>
+Date: Thu, 28 Nov 2013 16:58:43 +0400
+Subject: [PATCH] fix compiling with FreeType 2.5.1
+
+---
+ _imagingft.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/_imagingft.c b/_imagingft.c
+index 9358087..3ab1cbe 100644
+--- a/_imagingft.c
++++ b/_imagingft.c
+@@ -70,7 +70,11 @@ struct {
+     const char* message;
+ } ft_errors[] =
+ 
++#if defined(USE_FREETYPE_2_1)
++#include FT_ERRORS_H
++#else
+ #include <freetype/fterrors.h>
++#endif
+ 
+ /* -------------------------------------------------------------------- */
+ /* font objects */

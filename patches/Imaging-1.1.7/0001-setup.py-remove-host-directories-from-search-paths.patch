@@ -7,8 +7,8 @@ This patch is probably not acceptable in upstream.
 Forwarded: not-needed
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- setup.py |    8 --------
- 1 files changed, 0 insertions(+), 8 deletions(-)
+ setup.py | 8 --------
+ 1 file changed, 8 deletions(-)
 
 diff --git a/setup.py b/setup.py
 index 5d4d53a..26d5672 100644
@@ -36,6 +36,3 @@ index 5d4d53a..26d5672 100644
          #
          # insert new dirs *before* default libs, to avoid conflicts
          # between Python PYD stub libs and real libraries
--- 
-1.7.5.1
-
