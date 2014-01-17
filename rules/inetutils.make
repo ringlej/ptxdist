@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_INETUTILS) += inetutils
 #
 # Paths and names
 #
-INETUTILS_VERSION	:= 1.6
-INETUTILS_MD5		:= 23cc24bc77751bf77d50a07a7395f9b3
+INETUTILS_VERSION	:= 1.9.2
+INETUTILS_MD5		:= aa1a9a132259db83e66c1f3265065ba2
 INETUTILS		:= inetutils-$(INETUTILS_VERSION)
 INETUTILS_SUFFIX	:= tar.gz
 INETUTILS_URL		:= $(call ptx/mirror, GNU, inetutils/$(INETUTILS).$(INETUTILS_SUFFIX))
@@ -29,48 +29,61 @@ INETUTILS_DIR		:= $(BUILDDIR)/$(INETUTILS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-INETUTILS_PATH	:= PATH=$(CROSS_PATH)
-INETUTILS_ENV 	:= $(CROSS_ENV)
+INETUTILS_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	inetutils_cv_path_cp=/bin/cp \
+	inetutils_cv_path_login=/bin/login \
+	inetutils_cv_path_procnet_dev=/proc/net/dev
 
 #
 # autoconf
 #
-INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
-	--with-PATH-CP=/bin/cp \
+INETUTILS_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
 	--sysconfdir=/etc \
 	--libexecdir=/usr/sbin \
+	--disable-libls \
 	--disable-ftpd \
+	--$(call ptx/endis, PTXCONF_INETUTILS_INETD)-inetd \
 	--disable-rexecd \
+	--$(call ptx/endis, PTXCONF_INETUTILS_RLOGIND)-rlogind \
+	--$(call ptx/endis, PTXCONF_INETUTILS_RSHD)-rshd \
+	--$(call ptx/endis, PTXCONF_INETUTILS_SYSLOGD)-syslogd \
 	--disable-talkd \
 	--disable-telnetd \
-	--disable-telnet \
+	--$(call ptx/endis, PTXCONF_INETUTILS_TFTPD)-tftpd \
 	--disable-uucpd \
 	--disable-ftp \
-	--disable-rlogin \
-	--disable-logger \
-	--disable-talk \
-	--disable-tftp \
-	--disable-whois \
-	--disable-ifconfig \
-	--$(call ptx/endis, PTXCONF_INETUTILS_INETD)-inetd \
+	--disable-dnsdomainname \
+	--disable-hostname \
 	--$(call ptx/endis, PTXCONF_INETUTILS_PING)-ping \
 	--$(call ptx/endis, PTXCONF_INETUTILS_PING6)-ping6 \
 	--$(call ptx/endis, PTXCONF_INETUTILS_RCP)-rcp \
-	--$(call ptx/endis, PTXCONF_INETUTILS_RLOGIND)-rlogind \
+	--disable-rexec \
+	--disable-rlogin \
 	--$(call ptx/endis, PTXCONF_INETUTILS_RSH)-rsh \
-	--$(call ptx/endis, PTXCONF_INETUTILS_RSHD)-rshd \
-	--$(call ptx/endis, PTXCONF_INETUTILS_SYSLOGD)-syslogd \
-	--$(call ptx/endis, PTXCONF_INETUTILS_TFTPD)-tftpd
+	--disable-logger \
+	--disable-talk \
+	--disable-telnet \
+	--disable-tftp \
+	--disable-whois \
+	--disable-ifconfig \
+	--disable-traceroute \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	$(GLOBAL_IPV6_OPTION) \
+	--disable-rpath \
+	--disable-readline \
+	--without-wrap \
+	--without-pam
+
+
+## '--disable-*' is broken for:
+# --disable-encryption
+# --disable-authentication
+
 #
 # FIXME: Unhandled options:
-# --enable-encryption
-# --enable-authentication
-# --disable-libls
 # --disable-ncurses
-# --with-krb[4|5]
-# --with-wrap
-# --with-pam
 
 # ----------------------------------------------------------------------------
 # Target-Install
