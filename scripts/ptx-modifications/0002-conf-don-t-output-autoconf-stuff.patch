@@ -9,10 +9,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 4 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 08d372a..7ecdc14 100644
+index fb77365..fc261bc 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
-@@ -726,10 +726,12 @@ int main(int ac, char **av)
+@@ -728,10 +728,12 @@ int main(int ac, char **av)
  			fprintf(stderr, _("\n*** Error during writing of the configuration.\n\n"));
  			exit(1);
  		}
@@ -26,10 +26,10 @@ index 08d372a..7ecdc14 100644
  		if (conf_write_defconfig(defconfig_file)) {
  			fprintf(stderr, _("n*** Error while saving defconfig to: %s\n\n"),
 diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
-index 43eda40..928cb7b 100644
+index 87f7238..662c2ea 100644
 --- a/scripts/kconfig/confdata.c
 +++ b/scripts/kconfig/confdata.c
-@@ -939,6 +939,7 @@ out:
+@@ -944,6 +944,7 @@ out:
  	return res;
  }
  
@@ -37,7 +37,7 @@ index 43eda40..928cb7b 100644
  int conf_write_autoconf(void)
  {
  	struct symbol *sym;
-@@ -1012,6 +1013,7 @@ int conf_write_autoconf(void)
+@@ -1017,6 +1018,7 @@ int conf_write_autoconf(void)
  
  	return 0;
  }

@@ -23,10 +23,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 8 deletions(-)
 
 diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
-index a69cbd7..a67c307 100644
+index 59184bb..a86ed7c 100644
 --- a/scripts/kconfig/mconf.c
 +++ b/scripts/kconfig/mconf.c
-@@ -505,14 +505,6 @@ static void build_conf(struct menu *menu)
+@@ -504,14 +504,6 @@ static void build_conf(struct menu *menu)
  				if (single_menu_mode && menu->data)
  					goto conf_childs;
  				return;

@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 39 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index bde5b95..08d372a 100644
+index d19944f..fb77365 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
 @@ -34,6 +34,7 @@ enum input_mode {
@@ -83,7 +83,7 @@ index bde5b95..08d372a 100644
  		case silentoldconfig:
  			sync_kconfig = 1;
  			break;
-@@ -678,6 +715,8 @@ int main(int ac, char **av)
+@@ -680,6 +717,8 @@ int main(int ac, char **av)
  			  input_mode != olddefconfig));
  		break;
  	}

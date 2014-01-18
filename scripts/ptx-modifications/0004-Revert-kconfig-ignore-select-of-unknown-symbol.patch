@@ -24,10 +24,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index fd3f018..395521c 100644
+index db1512a..906cd23 100644
 --- a/scripts/kconfig/menu.c
 +++ b/scripts/kconfig/menu.c
-@@ -250,9 +250,12 @@ static void sym_check_prop(struct symbol *sym)
+@@ -254,9 +254,12 @@ static void sym_check_prop(struct symbol *sym)
  				prop_warn(prop,
  				    "config symbol '%s' uses select, but is "
  				    "not boolean or tristate", sym->name);
