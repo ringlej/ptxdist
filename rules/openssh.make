@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 5.8p2
-OPENSSH_MD5	:= 0541579adf9d55abb15ef927048d372e
+OPENSSH_VERSION	:= 6.4p1
+OPENSSH_MD5	:= a62b88b884df0b09b8a8c5789ac9e51b
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
@@ -32,30 +32,41 @@ OPENSSH_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPENSSH_PATH	:= PATH=$(CROSS_PATH)
-OPENSSH_ENV 	:= \
+OPENSSH_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	LD=$(COMPILER_PREFIX)gcc
 
 #
 # autoconf
 #
-OPENSSH_AUTOCONF := \
+OPENSSH_CONF_TOOL	:= autoconf
+OPENSSH_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--with-zlib=$(SYSROOT) \
 	--libexecdir=/usr/sbin \
 	--sysconfdir=/etc/ssh \
-	--with-privsep-path=/var/run/sshd \
-	--with-rand-helper=no \
-	--without-pam \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-strip \
 	--disable-etc-default-login \
 	--disable-lastlog \
 	--disable-utmp \
 	--disable-utmpx \
 	--disable-wtmp \
 	--disable-wtmpx \
+	--enable-libutil \
 	--disable-pututline \
-	--disable-pututxline
+	--disable-pututxline \
+	--with-stackprotect \
+	--without-rpath \
+	--with-zlib=$(SYSROOT) \
+	--without-skey \
+	--without-tcp-wrappers \
+	--without-ldns \
+	--without-libedit \
+	--without-audit \
+	--without-ssl-engine \
+	--without-pam \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
+	--with-privsep-path=/var/run/sshd
 
 # ----------------------------------------------------------------------------
 # Target-Install
