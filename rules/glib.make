@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.36.4
-GLIB_MD5	:= 2f4b15f7ef43d8702d067ab987bf7aba
+GLIB_VERSION	:= 2.38.2
+GLIB_MD5	:= 26d1d08e478fc48c181ca8be44f5b69f
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -61,7 +61,8 @@ GLIB_AUTOCONF := \
 	--disable-gc-friendly \
 	--enable-mem-pools \
 	--disable-rebuilds \
-	--disable-modular-tests \
+	--disable-installed-tests \
+	--disable-always-build-tests \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
 	--enable-shared \
