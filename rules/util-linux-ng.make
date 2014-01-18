@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.23.1
-UTIL_LINUX_NG_MD5	:= 33ba55ce82f8e3b8d7a38fac0f62779a
+UTIL_LINUX_NG_VERSION	:= 2.24
+UTIL_LINUX_NG_MD5	:= 4fac6443427f575fc5f3531a4ad2ca01
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.23/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.24/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
@@ -30,8 +30,7 @@ UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
 # Prepare
 # ----------------------------------------------------------------------------
 
-UTIL_LINUX_NG_PATH	:= PATH=$(CROSS_PATH)
-UTIL_LINUX_NG_ENV 	:= \
+UTIL_LINUX_NG_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	$(call ptx/ncurses, PTXCONF_UTIL_LINUX_NG_USES_NCURSES) \
 	scanf_cv_type_modifier=as \
@@ -43,7 +42,8 @@ UTIL_LINUX_NG_ENV 	:= \
 #
 # autoconf
 #
-UTIL_LINUX_NG_AUTOCONF := \
+UTIL_LINUX_NG_CONF_TOOL	:= autoconf
+UTIL_LINUX_NG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--disable-static \
@@ -78,9 +78,9 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-wdctl \
 	--disable-switch_root \
 	--disable-pivot_root \
-	--disable-elvtune \
 	--disable-tunelp \
 	--disable-kill \
+	--disable-deprecated-last \
 	--disable-last \
 	--disable-utmpdump \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
@@ -96,6 +96,7 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-login \
 	--disable-login-chown-vcs \
 	--disable-login-stat-mail \
+	--disable-nologin \
 	--disable-sulogin \
 	--disable-su \
 	--disable-runuser \
@@ -121,7 +122,9 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
 	--without-utempter \
-	--without-user
+	--without-user \
+	--with-systemdsystemunitdir=/lib/systemd/system \
+	--without-python
 
 # ----------------------------------------------------------------------------
 # Target-Install
