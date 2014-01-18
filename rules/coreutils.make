@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names
 #
-COREUTILS_VERSION	:= 8.19
-COREUTILS_MD5		:= 1a01231a2f3ed37c0efc073ccdda9375
+COREUTILS_VERSION	:= 8.22
+COREUTILS_MD5		:= 8fb0ae2267aa6e728958adc38f8163a2
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
 COREUTILS_SUFFIX	:= tar.xz
 COREUTILS_URL		:= $(call ptx/mirror, GNU, coreutils/$(COREUTILS).$(COREUTILS_SUFFIX))
@@ -103,6 +103,7 @@ COREUTILS_INST-$(PTXCONF_COREUTILS_NICE)	+= nice
 COREUTILS_INST-$(PTXCONF_COREUTILS_NL)		+= nl
 COREUTILS_INST-$(PTXCONF_COREUTILS_NOHUP)	+= nohup
 COREUTILS_INST-$(PTXCONF_COREUTILS_NPROC)	+= nproc
+COREUTILS_INST-$(PTXCONF_COREUTILS_NUMFMT)	+= numfmt
 COREUTILS_INST-$(PTXCONF_COREUTILS_OD)		+= od
 COREUTILS_INST-$(PTXCONF_COREUTILS_PASTE)	+= paste
 COREUTILS_INST-$(PTXCONF_COREUTILS_PATHCHK)	+= pathchk
@@ -157,20 +158,29 @@ COREUTILS_INST-$(PTXCONF_COREUTILS_WHO)		+= who
 COREUTILS_INST-$(PTXCONF_COREUTILS_WHOAMI)	+= whoami
 COREUTILS_INST-$(PTXCONF_COREUTILS_YES)		+= yes
 
-COREUTILS_AUTOCONF := \
+COREUTILS_CONF_TOOL	:= autoconf
+COREUTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-silent-rules \
 	--enable-threads=posix \
-	--disable-acl \
 	--disable-assert \
 	--disable-rpath \
+	--disable-libsmack \
 	--disable-xattr \
 	--disable-libcap \
 	--enable-no-install-program=$(subst $(space),$(comma),$(strip $(COREUTILS_INST-))) \
 	--disable-nls \
+	--without-openssl \
 	--without-gmp
+
+COREUTILS_MAKE_OPT	:= \
+	man1_MANS=
+
+COREUTILS_INSTALL_OPT	:= \
+	$(COREUTILS_MAKE_OPT) \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
