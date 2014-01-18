@@ -1,0 +1,45 @@
+From: Ludwig Nussel <ludwig.nussel@suse.de>
+Date: Wed, 21 Apr 2010 15:52:10 +0200
+Subject: [PATCH] also create old hash for compatibility
+
+Imported from openssl_1.0.1f-1.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tools/c_rehash.in | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/tools/c_rehash.in b/tools/c_rehash.in
+index 4958e3d..723d785 100644
+--- a/tools/c_rehash.in
++++ b/tools/c_rehash.in
+@@ -86,6 +86,7 @@ sub hash_dir {
+ 			}
+ 		}
+ 		link_hash_cert($fname) if($cert);
++		link_hash_cert_old($fname) if($cert);
+ 		link_hash_crl($fname) if($crl);
+ 	}
+ }
+@@ -119,8 +120,9 @@ sub check_file {
+ 
+ sub link_hash_cert {
+ 		my $fname = $_[0];
++		my $hashopt = $_[1] || '-subject_hash';
+ 		$fname =~ s/'/'\\''/g;
+-		my ($hash, $fprint) = `"$openssl" x509 -hash -fingerprint -noout -in "$fname"`;
++		my ($hash, $fprint) = `"$openssl" x509 $hashopt -fingerprint -noout -in "$fname"`;
+ 		chomp $hash;
+ 		chomp $fprint;
+ 		$fprint =~ s/^.*=//;
+@@ -150,6 +152,10 @@ sub link_hash_cert {
+ 		$hashlist{$hash} = $fprint;
+ }
+ 
++sub link_hash_cert_old {
++		link_hash_cert($_[0], '-subject_hash_old');
++}
++
+ # Same as above except for a CRL. CRL links are of the form <hash>.r<n>
+ 
+ sub link_hash_crl {

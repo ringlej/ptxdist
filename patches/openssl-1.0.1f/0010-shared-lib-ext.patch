@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Tue, 22 Feb 2011 13:56:44 +0100
-Subject: [PATCH] debian shared-lib-ext
+Date: Sat, 18 Jan 2014 11:42:52 +0100
+Subject: [PATCH] shared-lib-ext
 
-Applied shared-lib-ext.patch from openssl_1.0.0c-2.debian.tar.gz
+Imported from openssl_1.0.1f-1.debian.tar.gz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index 6ec6823..5a1c3b7 100755
+index a06e0fb..0a9dc93 100755
 --- a/Configure
 +++ b/Configure
-@@ -1603,7 +1603,8 @@ while (<IN>)
+@@ -1725,7 +1725,8 @@ while (<IN>)
  	elsif ($shared_extension ne "" && $shared_extension =~ /^\.s([ol])\.[^\.]*\.[^\.]*$/)
  		{
  		my $sotmp = $1;

@@ -1,0 +1,59 @@
+From: Thorsten Glaser <tg@mirbsd.de>
+Date: Fri, 22 May 2009 16:28:05 +0000
+Subject: [PATCH] Document openssl dgst -hmac option
+
+I've committed the thing below in MirBSD; since the apps code
+changes very little between OpenSSL versions, it will probably
+apply to the Debian package as well. I'm open for better wor-
+ding though, especially considering the FIPS option, which I
+found as undocumented too.
+
+Imported from openssl_1.0.1f-1.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ apps/dgst.c       |  2 ++
+ doc/apps/dgst.pod | 10 ++++++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/apps/dgst.c b/apps/dgst.c
+index 81bd870..438a64e 100644
+--- a/apps/dgst.c
++++ b/apps/dgst.c
+@@ -273,6 +273,8 @@ int MAIN(int argc, char **argv)
+ 		BIO_printf(bio_err,"-d              to output debug info\n");
+ 		BIO_printf(bio_err,"-hex            output as hex dump\n");
+ 		BIO_printf(bio_err,"-binary         output in binary form\n");
++		BIO_printf(bio_err,"-hmac arg       set the HMAC key to arg\n");
++		BIO_printf(bio_err,"-non-fips-allow allow use of non FIPS digest\n");
+ 		BIO_printf(bio_err,"-sign   file    sign digest using private key in file\n");
+ 		BIO_printf(bio_err,"-verify file    verify a signature using public key in file\n");
+ 		BIO_printf(bio_err,"-prverify file  verify a signature using private key in file\n");
+diff --git a/doc/apps/dgst.pod b/doc/apps/dgst.pod
+index b035edf..35c930c 100644
+--- a/doc/apps/dgst.pod
++++ b/doc/apps/dgst.pod
+@@ -12,6 +12,8 @@ B<openssl> B<dgst>
+ [B<-d>]
+ [B<-hex>]
+ [B<-binary>]
++[B<-hmac arg>]
++[B<-non-fips-allow>]
+ [B<-out filename>]
+ [B<-sign filename>]
+ [B<-keyform arg>]
+@@ -54,6 +56,14 @@ digest as opposed to a digital signature.
+ 
+ output the digest or signature in binary form.
+ 
++=item B<-hmac arg>
++
++set the HMAC key to "arg".
++
++=item B<-non-fips-allow>
++
++allow use of non FIPS digest.
++
+ =item B<-out filename>
+ 
+ filename to output to, or standard output by default.
