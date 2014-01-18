@@ -95,6 +95,14 @@ config BUSYBOX_TOUCH
 	  touch is used to create or change the access and/or
 	  modification timestamp of specified files.
 
+config BUSYBOX_FEATURE_TOUCH_NODEREF
+	bool "Add support for -h"
+	default y
+	depends on BUSYBOX_TOUCH
+	help
+	  Enable touch to have the -h option.
+	  This requires libc support for lutimes() function.
+
 config BUSYBOX_FEATURE_TOUCH_SUSV3
 	bool "Add support for SUSV3 features (-d -t -r)"
 	default y

@@ -55,7 +55,7 @@ config BUSYBOX_NC_SERVER
 	  Allow netcat to act as a server.
 
 config BUSYBOX_NC_EXTRA
-	bool "Netcat extensions (-eiw and filename)"
+	bool "Netcat extensions (-eiw and -f FILE)"
 	default y
 	depends on BUSYBOX_NC
 	help
@@ -71,7 +71,7 @@ config BUSYBOX_NC_110_COMPAT
 	  This option makes nc closely follow original nc-1.10.
 	  The code is about 2.5k bigger. It enables
 	  -s ADDR, -n, -u, -v, -o FILE, -z options, but loses
-	  busybox-specific extensions: -f FILE and -ll.
+	  busybox-specific extensions: -f FILE.
 config BUSYBOX_PING
 	bool "ping"
 	default y
@@ -1063,16 +1063,18 @@ config BUSYBOX_FEATURE_WGET_LONG_OPTIONS
 	  Support long options for the wget applet.
 
 config BUSYBOX_FEATURE_WGET_TIMEOUT
-	bool "Enable read timeout option -T SEC"
+	bool "Enable timeout option -T SEC"
 	default y
 	depends on BUSYBOX_WGET
 	help
-	  Supports network read timeout for wget, so that wget will give
-	  up and timeout when reading network data, through the -T command
-	  line option.  Currently only network data read timeout is
-	  supported (i.e., timeout is not applied to the DNS nor TCP
-	  connection initialization).  When FEATURE_WGET_LONG_OPTIONS is
-	  also enabled, the --timeout option will work in addition to -T.
+	  Supports network read and connect timeouts for wget,
+	  so that wget will give up and timeout, through the -T
+	  command line option.
+
+	  Currently only connect and network data read timeout are
+	  supported (i.e., timeout is not applied to the DNS query). When
+	  FEATURE_WGET_LONG_OPTIONS is also enabled, the --timeout option
+	  will work in addition to -T.
 
 config BUSYBOX_ZCIP
 	bool "zcip"
