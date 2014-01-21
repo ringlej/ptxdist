@@ -50,7 +50,7 @@ ptxd_make_world_clean() {
 	    { cd "${pkg_sysroot_dir}" && xargs -0 rm -f; }
 	cd "${pkg_pkg_dir}" && find . -mindepth 1 -depth -type d -print0 | \
 	    { cd "${pkg_sysroot_dir}" && \
-	      xargs -0 rmdir --ignore-fail-on-non-empty; }
+	      xargs -0 rmdir --ignore-fail-on-non-empty 2> /dev/null; }
 	echo "Deleting pkg dir:"
 	echo "${pkg_pkg_dir}"
 	rm -rf "${pkg_pkg_dir}"
