@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Robert Schwebel
+# Copyright (C) 2014 by Juergen Beisert
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,39 +38,16 @@ OPKG_ENV 	:= $(CROSS_ENV)
 OPKG_CONF_TOOL	:= autoconf
 OPKG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-static \
+	--$(call ptx/endis, PTXCONF_OPKG_PATHFINDER)-pathfinder \
+	--$(call ptx/endis, PTXCONF_OPKG_CURL)-curl \
+	--$(call ptx/endis, PTXCONF_OPKG_SHA256)-sha256 \
+	--$(call ptx/endis, PTXCONF_OPKG_OPENSSL)-openssl \
+	--$(call ptx/endis, PTXCONF_OPKG_SSL_CURL)-ssl-curl \
+	--$(call ptx/endis, PTXCONF_OPKG_GPG)-gpg \
 	--enable-shave \
 	--with-opkglockfile=/var/lock/opkg.lock
-
-ifdef PTXCONF_OPKG_PATHFINDER
-OPKG_CONF_OPT += --enable-pathfinder
-else
-OPKG_CONF_OPT += --disable-pathfinder
-endif
-ifdef PTXCONF_OPKG_CURL
-OPKG_CONF_OPT += --enable-curl
-else
-OPKG_CONF_OPT += --disable-curl
-endif
-ifdef PTXCONF_OPKG_SHA256
-OPKG_CONF_OPT += --enable-sha256
-else
-OPKG_CONF_OPT += --disable-sha256
-endif
-ifdef PTXCONF_OPKG_OPENSSL
-OPKG_CONF_OPT += --enable-openssl
-else
-OPKG_CONF_OPT += --disable-openssl
-endif
-ifdef PTXCONF_OPKG_SSL_CURL
-OPKG_CONF_OPT += --enable-ssl-curl
-else
-OPKG_CONF_OPT += --disable-ssl-curl
-endif
-ifdef PTXCONF_OPKG_GPG
-OPKG_CONF_OPT += --enable-gpg
-else
-OPKG_CONF_OPT += --disable-gpg
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
