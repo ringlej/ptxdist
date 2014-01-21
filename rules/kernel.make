@@ -37,6 +37,7 @@ KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_K
 KERNEL_LICENSE		:= GPLv2
 KERNEL_URL		:= $(call kernel-url, KERNEL)
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
+KERNEL_DEVPKG		:= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
