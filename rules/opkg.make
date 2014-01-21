@@ -67,7 +67,7 @@ ifdef PTXCONF_OPKG_GPG
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
 endif
 #	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/update-alternatives)
-	@$(call install_copy, opkg, 0, 0, 0755, $(OPKG_DIR)/src/opkg-cl, /usr/bin/opkg)
+	@$(call install_copy, opkg, 0, 0, 0755, $(OPKG_PKGDIR)/usr/bin/opkg-cl, /usr/bin/opkg)
 
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/ldconfig)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/depmod)
