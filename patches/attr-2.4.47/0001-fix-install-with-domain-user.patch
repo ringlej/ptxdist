@@ -9,11 +9,11 @@ Enclose "$(PKG_USER)" and "$(PKG_GROUP)" in quotes to fix.
 
 Signed-off-by: Jon Ringle <jon@ringle.org>
 ---
- include/buildmacros |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ include/buildmacros | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/buildmacros b/include/buildmacros
-index d9b0734..1eb61df 100644
+index 9e81bb8..939f39b 100644
 --- a/include/buildmacros
 +++ b/include/buildmacros
 @@ -40,7 +40,7 @@ OBJECTS = $(ASFILES:.s=.o) \
@@ -23,8 +23,5 @@ index d9b0734..1eb61df 100644
 -INSTALL	= $(TOPDIR)/include/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
 +INSTALL	= $(TOPDIR)/include/install-sh -o "$(PKG_USER)" -g "$(PKG_GROUP)"
  
- SHELL = /bin/sh
  IMAGES_DIR = $(TOPDIR)/all-images
--- 
-1.7.0.4
-
+ DIST_DIR = $(TOPDIR)/dist
