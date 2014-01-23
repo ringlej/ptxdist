@@ -34,6 +34,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		-I$(dir $<) \
 		-I$(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts \
 		-I$(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts/include \
+		-I$(KERNEL_DIR)/include \
 		-undef -D__DTS__ -x assembler-with-cpp \
 		-o $<.tmp \
 		$<
