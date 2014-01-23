@@ -164,20 +164,32 @@ config PROJECT_USE_LOCAL_PLATFORM_NAME
 	  The name of the platform to use. This is the directory name of
 	  the platform in the ptxdist workspace e.g. ``platform-i586''.
 
+comment "------------------------------------"
+comment "pre-build package handling"
+comment "------------------------------------"
 
 config PROJECT_CREATE_DEVPKGS
 	bool
-	prompt "create dev packages"
+	prompt "create pre-build archives"
+	help
+	  Enable the creation of pre-build package archives. Read the
+	  "How to become a PTXdist Guru" for further details.
 
 config PROJECT_USE_DEVPKGS
 	bool
 	select HOST_CHRPATH
-	prompt "use dev packages"
+	prompt "use pre-build archives"
+	help
+	  Use pre-build package archives to build or re-build the project if
+	  corresponding package archives with the same configuration are found.
 
 config PROJECT_DEVPKGDIR
 	string
-	prompt "dev package dir"
+	prompt "pre-build archive directory"
 	depends on PROJECT_USE_DEVPKGS
 	default "/opt/OSELAS.BSP/${PTXCONF_PROJECT_VENDOR}/OSELAS.BSP-${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
+	help
+	  This entry defines the path to a directory where pre-build archives
+	  are expected.
 
 endmenu
