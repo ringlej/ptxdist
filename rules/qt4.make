@@ -26,6 +26,9 @@ QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
 QT4_BUILD_OOT	:= YES
 QT4_LICENSE	:= GPL3, LGPLv2.1
+ifdef PTXCONF_QT4_EXAMPLES
+QT4_DEVPKG	:= NO
+endif
 
 # ----------------------------------------------------------------------------
 # Extract
