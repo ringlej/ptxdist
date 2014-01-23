@@ -24,6 +24,7 @@ MONO_URL	:= http://download.mono-project.com/sources/mono/$(MONO).$(MONO_SUFFIX)
 MONO_SOURCE	:= $(SRCDIR)/$(MONO).$(MONO_SUFFIX)
 MONO_DIR	:= $(BUILDDIR)/$(MONO)
 MONO_LICENSE	:= unknown
+MONO_DEVPKG	:= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
