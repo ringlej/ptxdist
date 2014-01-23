@@ -5,6 +5,12 @@ config HOST_SYSTEM_PERL
 
 if HOST_SYSTEM_PERL
 
+config HOST_SYSTEM_PERL_JSON
+	bool
+
+config HOST_SYSTEM_PERL_LOCALE_PO
+	bool
+
 config HOST_SYSTEM_PERL_XMLPARSER
 	bool
 
