@@ -19,7 +19,7 @@ if BAREBOX
 config BAREBOX_VERSION
 	prompt "barebox version"
 	string
-	default "2010.10.0"
+	default "2014.01.0"
 
 config BAREBOX_MD5
 	prompt "barebox source md5sum"

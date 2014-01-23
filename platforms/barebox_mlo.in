@@ -12,7 +12,7 @@ config BAREBOX_MLO_VERSION
 	prompt "barebox version"		if !BAREBOX
 	string
 	default "${PTXCONF_BAREBOX_VERSION}"	if BAREBOX
-	default "2010.10.0"			if !BAREBOX
+	default "2014.01.0"			if !BAREBOX
 
 config BAREBOX_MLO_MD5
 	prompt "barebox source md5sum"		if !BAREBOX
