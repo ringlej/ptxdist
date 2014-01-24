@@ -192,4 +192,13 @@ config PROJECT_DEVPKGDIR
 	  This entry defines the path to a directory where pre-build archives
 	  are expected.
 
+config PROJECT_DEVMIRROR
+	string
+	prompt "Mirror for pre-build archives"
+	depends on PROJECT_USE_DEVPKGS
+	help
+	  Enter a URL where *-dev.tar.gz packages can be downloaded
+	  Use: ptxdist getdev
+
+
 endmenu

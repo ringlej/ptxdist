@@ -371,10 +371,12 @@ ptxd_make_get() {
 		esac
 	done
 
-	echo
-	echo "Could not download package"
-	echo "URL: ${orig_argv[@]}"
-	echo
-	exit 1
+	if [ "${ptxd_make_get_nofail}" != "y" ]; then
+		echo
+		echo "Could not download package"
+		echo "URL: ${orig_argv[@]}"
+		echo
+		exit 1
+	fi
 }
 export -f ptxd_make_get

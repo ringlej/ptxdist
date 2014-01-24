@@ -26,6 +26,11 @@ $(SRCDIR)/%:
 	@$(call targetinfo)
 	@$(call get, $($@))
 
+ifneq ($(call remove_quotes, $(PTXCONF_PROJECT_DEVPKGDIR)),)
+$(call remove_quotes, $(PTXCONF_PROJECT_DEVPKGDIR))/%-dev.tar.gz:
+	@$(call targetinfo)
+	@$(call getdev, $@)
+endif
 
 $(STATEDIR)/%.get:
 	@$(call targetinfo)
@@ -59,5 +64,10 @@ get = \
 
 check_src = \
 	ptxd_make_check_src "$($(strip $(1))_SOURCE)" "$($(strip $(1))_MD5)"
+
+getdev = \
+	ptxd_make_get_nofail=y \
+	ptxd_make_get_mirror=$(PTXCONF_PROJECT_DEVMIRROR) \
+	ptxd_make_get "$(strip $(1))" "$(call remove_quotes, $(PTXCONF_PROJECT_DEVMIRROR))/$(notdir $(1))"
 
 # vim: syntax=make

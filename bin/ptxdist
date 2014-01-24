@@ -1789,6 +1789,11 @@ EOF
 			fi
 			exit
 			;;
+		getdev)
+			check_premake &&
+			ptxd_make_log getdev
+			exit
+			;;
 		go|images)
 			do_${cmd}
 			exit
