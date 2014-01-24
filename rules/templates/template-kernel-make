@@ -30,6 +30,15 @@ KERNEL_@PACKAGE@_SOURCE		:= $(SRCDIR)/$(KERNEL_@PACKAGE@).$(KERNEL_@PACKAGE@_SUF
 # Prepare
 # ----------------------------------------------------------------------------
 
+# use CONFIG_CC_STACKPROTECTOR if available. The rest makes no sense for the kernel
+KERNEL_@PACKAGE@_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACK \
+	TARGET_HARDEN_FORTIFY \
+	TARGET_HARDEN_RELRO \
+	TARGET_HARDEN_BINDNOW \
+	TARGET_HARDEN_PIE \
+	TARGET_DEBUG
+
 KERNEL_@PACKAGE@_PATH		:= PATH=$(CROSS_PATH)
 KERNEL_@PACKAGE@_ENV		:= KCONFIG_NOTIMESTAMP=1
 KERNEL_@PACKAGE@_CONF_OPT	:= $(call kernel-opts, KERNEL_@PACKAGE@)
