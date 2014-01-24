@@ -134,7 +134,16 @@ ifdef PTXCONF_BAREBOX_BAREBOXENV
 
 	@$(call install_finish, barebox)
 endif
-	@if [ -e $(BAREBOX_DIR)/barebox-flash-image ]; then \
+	@rm -f $(IMAGEDIR)/barebox-image
+	@for image in `ls $(BAREBOX_DIR)/images/barebox-*.img`; do \
+		install -D -m644 $$image $(IMAGEDIR)/`basename $$image`; \
+		if [ ! -e $(IMAGEDIR)/barebox-image ]; then \
+			ln -sf `basename $$image` $(IMAGEDIR)/barebox-image; \
+		fi; \
+	done
+	@if [ -e $(IMAGEDIR)/barebox-image ]; then \
+		:; \
+	elif [ -e $(BAREBOX_DIR)/barebox-flash-image ]; then \
 		install -D -m644 $(BAREBOX_DIR)/barebox-flash-image $(IMAGEDIR)/barebox-image; \
 	else \
 		install -D -m644 $(BAREBOX_DIR)/barebox.bin $(IMAGEDIR)/barebox-image; \
