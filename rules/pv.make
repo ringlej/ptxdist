@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_PV) += pv
 #
 # Paths and names
 #
-PV_VERSION	:= 1.1.4
-PV_MD5		:= 63033e090d61a040407bfd043aeb6d27
+PV_VERSION	:= 1.4.12
+PV_MD5		:= 605adc0f369496bca92b0656cf86b25e
 PV		:= pv-$(PV_VERSION)
 PV_SUFFIX	:= tar.bz2
-PV_URL		:= http://pipeviewer.googlecode.com/files/$(PV).$(PV_SUFFIX)
+PV_URL		:= http://www.ivarch.com/programs/sources/$(PV).$(PV_SUFFIX)
 PV_SOURCE	:= $(SRCDIR)/$(PV).$(PV_SUFFIX)
 PV_DIR		:= $(BUILDDIR)/$(PV)
 
@@ -38,6 +38,9 @@ PV_MAKEVARS := $(CROSS_ENV_LD)
 PV_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-nls \
+	--disable-splice \
+	--disable-ipc \
+	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-lfs \
 	--enable-debugging
 
 # ----------------------------------------------------------------------------
