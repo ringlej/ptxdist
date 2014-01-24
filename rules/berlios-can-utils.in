@@ -27,6 +27,9 @@ config BERLIOS_CAN_UTILS_CANFDTEST
 config BERLIOS_CAN_UTILS_CANGEN
 	bool cangen
 
+config BERLIOS_CAN_UTILS_CANGW
+	bool cangw
+
 config BERLIOS_CAN_UTILS_CANLOGSERVER
 	bool canlogserver
 
