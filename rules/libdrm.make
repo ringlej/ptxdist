@@ -83,9 +83,11 @@ endif
 		$(call install_lib, libdrm, 0, 0, 0644, libdrm_$(backend));)
 
 ifdef PTXCONF_LIBDRM_TESTS
+ifdef PTXCONF_LIBDRM_LIBKMS
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/kmstest)
-	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modeprint)
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modetest)
+endif
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modeprint)
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/vbltest)
 endif
 	@$(call install_finish, libdrm)
