@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.3.10
-PHP5_MD5	:= 816259e5ca7d0a7e943e56a3bb32b17f
+PHP5_VERSION	:= 5.4.24
+PHP5_MD5	:= acef880cc808b85e216897ee88187ee1
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
@@ -222,8 +222,7 @@ endif
 
 ifdef PTXCONF_PHP5_EXT_CURL
 PHP5_AUTOCONF += \
-	--with-curl=$(SYSROOT)/usr \
-	--with-curl-wrappers
+	--with-curl=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --without-curl
 endif
@@ -250,6 +249,9 @@ endif
 
 ifdef PTXCONF_PHP5_EXT_SQLITE3
 PHP5_AUTOCONF += --with-sqlite3=$(PTXDIST_SYSROOT_TARGET)/usr --with-pdo-sqlite
+# broken config system: sqlite3 (local copy) uses it
+# but it is only linked to if used by external dependencies
+PHP5_CONF_ENV += PHP_LDFLAGS=-ldl
 else
 PHP5_AUTOCONF += --without-sqlite3 --without-pdo-sqlite
 endif
