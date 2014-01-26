@@ -136,10 +136,14 @@ comment "BusyBox' syslogd is selected!"
 menuconfig INETUTILS_TFTPD
 	bool
 	prompt "tftpd                         "
+	depends on !BUSYBOX_TFTPD || ALLYES
 	help
 	  TFTPD is a ftp daemon to be used for diskless clients. Most bootloaders
 	  use the Trivial File Transfer Protocol to load their OS image. Note:
 	  There is no authentication!
+
+comment "BusyBox' tftpd is selected!"
+        depends on BUSYBOX_TFTPD
 
 if INETUTILS_TFTPD
 
