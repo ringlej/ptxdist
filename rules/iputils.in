@@ -1,0 +1,109 @@
+## SECTION=networking
+
+menuconfig IPUTILS
+	tristate
+	prompt "iputils                       "
+	select LIBC_RESOLV	if IPUTILS_PING6
+	select LIBCAP		if IPUTILS_ARPING || IPUTILS_PING || IPUTILS_PING6 || IPUTILS_TRACEROUTE6
+	select GNUTLS		if IPUTILS_PING6
+	select GNUTLS_OPENSSL	if IPUTILS_PING6
+	help
+	  The iputils package is set of small useful utilities for Linux
+	  networking.
+
+if IPUTILS
+
+config IPUTILS_ARPING
+	bool
+	depends on !BUSYBOX_ARPING || ALLYES
+	prompt "arping"
+	help
+	  Ping destination on device interface by ARP packets, using source
+	  address source.
+
+comment "BusyBox' arping is selected!"
+        depends on BUSYBOX_ARPING
+
+config IPUTILS_CLOCKDIFF
+	bool
+	prompt "clockdiff"
+	help
+	  Measures clock difference between us and destination with 1 msec
+	  resolution.
+
+config IPUTILS_PING
+	bool
+	depends on !INETUTILS_PING || ALLYES
+	prompt "ping"
+	help
+	  The ping command uses the ICMP protocol's mandatory ECHO_REQUEST datagram
+	  to elicit an ICMP ECHO_RESPONSE from a host or gateway. ECHO_REQUEST
+	  datagrams pings have an IP and ICMP header, followed by a struct
+	  timeval and then an arbitrary number of pad bytes used to fill out
+	  the packet.
+
+comment "BusyBox' ping is selected!"
+        depends on BUSYBOX_PING
+
+config IPUTILS_PING6
+	bool
+	depends on !INETUTILS_PING6 || ALLYES
+	prompt "ping6"
+	depends on GLOBAL_IPV6
+	help
+	  The ping6 command is IPv6 version of ping, and can also send Node
+	  Information Queries (RFC4620). Intermediate hops may not be allowed,
+	  because IPv6 source routing was deprecated (RFC5095).
+
+comment "BusyBox' ping6 is selected!"
+        depends on BUSYBOX_PING6
+
+config IPUTILS_RARPD
+	bool
+	prompt "rarpd"
+	help
+	  Listens RARP (http://tools.ietf.org/rfc/rfc903.txt) requests from
+	  clients. Provided MAC address of client is found in /etc/ethers
+	  database and obtained host name is resolvable to an IP address
+	  appropriate for attached network, rarpd answers to client with
+	  RARPD reply carrying an IP address.
+
+config IPUTILS_RDISC
+	bool
+	prompt "rdisc"
+	help
+	  The rdisc command implements client side of the ICMP router discover
+	  protocol. rdisc is invoked at boot time to populate the network
+	  routing tables with default routes.
+
+config IPUTILS_TFTPD
+	bool
+	depends on !INETUTILS_TFTPD || ALLYES
+	prompt "tftpd"
+	help
+
+comment "BusyBox' tftpd is selected!"
+        depends on BUSYBOX_TFTPD
+
+config IPUTILS_TRACEPATH
+	bool
+	prompt "tracepath"
+	help
+
+config IPUTILS_TRACEPATH6
+	bool
+	prompt "tracepath6"
+	depends on GLOBAL_IPV6
+	help
+
+config IPUTILS_TRACEROUTE6
+	bool
+	depends on !BUSYBOX_TRACEROUTE6 || ALLYES
+	prompt "traceroute6"
+	depends on GLOBAL_IPV6
+	help
+
+comment "BusyBox' traceroute6 is selected!"
+        depends on BUSYBOX_TRACEROUTE6
+
+endif
