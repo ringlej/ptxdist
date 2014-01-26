@@ -74,7 +74,7 @@ $(STATEDIR)/wireshark.targetinstall:
 	@$(call install_init, wireshark)
 	@$(call install_fixup, wireshark,PRIORITY,optional)
 	@$(call install_fixup, wireshark,SECTION,base)
-	@$(call install_fixup, wireshark,AUTHOR,"Juergen Beisert <j.bisert@pengutronix.de>")
+	@$(call install_fixup, wireshark,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, wireshark,DESCRIPTION,missing)
 #
 # executables
