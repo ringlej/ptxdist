@@ -38,6 +38,7 @@ GNUTLS_CONF_OPT		:= \
 	--with-libgcrypt \
 	--with-libgcrypt-prefix=$(PTXDIST_SYSROOT_TARGET)/usr \
 	--without-p11-kit \
+	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
 	--disable-guile
 
 # ----------------------------------------------------------------------------
@@ -54,6 +55,10 @@ $(STATEDIR)/gnutls.targetinstall:
 	@$(call install_fixup, gnutls,DESCRIPTION,missing)
 
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls)
+
+ifdef PTXCONF_GNUTLS_OPENSSL
+	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls-openssl)
+endif
 
 	@$(call install_finish, gnutls)
 
