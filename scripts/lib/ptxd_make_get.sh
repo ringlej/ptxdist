@@ -255,7 +255,6 @@ export -f ptxd_make_get_download_permitted
 ptxd_make_get() {
 	local -a argv
 	local ptxmirror_url
-	local mrd=false		# is mirror already part of urls?
 
 	local path="${1}"
 	shift
@@ -270,69 +269,43 @@ ptxd_make_get() {
 		exit 1
 	fi
 
+	ptxmirror_url="${path/#\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
+
 	#
 	# split by spaces, etc
 	#
 	set -- ${@}
 
 	while [ ${#} -gt 0 ]; do
+		local add=true
 		local url="${1}"
 		shift
 
-		case "${url}" in
-		${PTXCONF_SETUP_PTXMIRROR}/*/*)
-			# keep original URL, for stuff like glibc
-			argv[${#argv[@]}]="${url}"
-			mrd=true
-			;;
-		${PTXCONF_SETUP_PTXMIRROR}/*)
-			# if mirror is given us to download, add it, but only once
-			if ! ${mrd}; then
-				argv[${#argv[@]}]="${url}"
-				mrd=true
-			fi
-			;;
-		git://*|http://*".git;"*|https://*".git;"*)
-			# restrict donwload only to the PTXMIRROR
-			if [ -z "${PTXCONF_SETUP_PTXMIRROR_ONLY}" ]; then
-				# keep original URL
-				argv[${#argv[@]}]="${url}"
-			fi
-			# add mirror to URLs, but only once
-			if ! ${mrd}; then
-				ptxmirror_url="${path/#\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
-				mrd=true
-			fi
-			;;
-		svn://*)
-			# restrict donwload only to the PTXMIRROR
-			if [ -z "${PTXCONF_SETUP_PTXMIRROR_ONLY}" ]; then
-				# keep original URL
-				argv[${#argv[@]}]="${url}"
-			fi
-			# add mirror to URLs, but only once
-			if ! ${mrd}; then
-				ptxmirror_url="${path/#\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
-				mrd=true
-			fi
-			;;
-		http://*|https://*|ftp://*)
-			# restrict donwload only to the PTXMIRROR
-			if [ -z "${PTXCONF_SETUP_PTXMIRROR_ONLY}" ]; then
-				# keep original URL
-				argv[${#argv[@]}]="${url}"
-			fi
-
-			# add mirror to URLs, but only once
-			if ! ${mrd}; then
-				ptxmirror_url="${url/#*:\/\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
-				mrd=true
-			fi
-			;;
-		file://*)
+		if [[ "${url}" =~ "file://" ]]; then
 			# keep original URL
 			argv[${#argv[@]}]="${url}"
-		esac
+			# assume, that local URLs are always available
+			ptxmirror_url=
+			continue
+		fi
+		# restrict donwload only to white-listed URLs
+		if [ -n "${PTXCONF_SETUP_PTXMIRROR_ONLY}" ]; then
+			local pattern
+			add=false
+			for pattern in "${PTXCONF_SETUP_PTXMIRROR}"; do
+				if [[ "${url}" =~ "${pattern}" ]]; then
+					add=true
+					break
+				fi
+			done
+		fi
+		if ${add}; then
+			argv[${#argv[@]}]="${url}"
+			if [ "${url}" = "${ptxmirror_url}" ]; then
+				# avoid duplicates
+				ptxmirror_url=
+			fi
+		fi
 	done
 	if [ -n "${ptxmirror_url}" ]; then
 		argv[${#argv[@]}]="${ptxmirror_url}"
@@ -403,5 +376,4 @@ ptxd_make_get() {
 	echo
 	exit 1
 }
-
 export -f ptxd_make_get
