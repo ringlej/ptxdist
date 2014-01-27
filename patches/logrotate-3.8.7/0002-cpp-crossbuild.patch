@@ -1,25 +1,26 @@
-Closes: #284040
+From: unknown author <unknown.author@example.com>
+Date: Fri, 24 Jan 2014 16:45:55 +0100
+Subject: [PATCH] cpp-crossbuild
+
 Patch from: NIIBE Yutaka <gniibe@fsij.org>
 
 Cross-building logrotate with dpkg-cross, I encountered a problem.
 dpkg-cross sets CPP variable, and compilation failures, because
 the executable 'cpp' does not accept multiple input files.
-
-
 ---
  Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: logrotate-3.7.1/Makefile
-===================================================================
---- logrotate-3.7.1.orig/Makefile
-+++ logrotate-3.7.1/Makefile
-@@ -88,7 +88,7 @@ clean:
- 	rm -f $(OBJS) $(PROG) core* .depend
+diff --git a/Makefile b/Makefile
+index 64cc601..c710de8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -123,7 +123,7 @@ clean:
+ 	rm -f ./test/test.ACL ./test/test.SELINUX ./test/error.log
  
  depend:
 -	$(CPP) $(CFLAGS) -M $(SOURCES) > .depend
 +	$(CC) -E $(CFLAGS) -M $(SOURCES) > .depend
  
- .PHONY : test
- test: $(TARGET)
+ # pretest create the file ./test/test.ACL with
+ # 0 or 1 according to the WITH_ACL=yes presence.

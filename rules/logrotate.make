@@ -17,13 +17,14 @@ PACKAGES-$(PTXCONF_LOGROTATE) += logrotate
 #
 # Paths and names
 #
-LOGROTATE_VERSION	:= 3.7.1
-LOGROTATE_MD5		:= 12207ce768031878f6ab70c559043ae2
+LOGROTATE_VERSION	:= 3.8.7
+LOGROTATE_MD5		:= 99e08503ef24c3e2e3ff74cc5f3be213
 LOGROTATE		:= logrotate-$(LOGROTATE_VERSION)
 LOGROTATE_SUFFIX	:= tar.gz
-LOGROTATE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LOGROTATE).$(LOGROTATE_SUFFIX)
+LOGROTATE_URL		:= https://fedorahosted.org/releases/l/o/logrotate/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_SOURCE	:= $(SRCDIR)/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_DIR		:= $(BUILDDIR)/$(LOGROTATE)
+LOGROTATE_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Compile
