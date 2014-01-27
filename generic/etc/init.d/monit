@@ -1,0 +1,167 @@
+#!/bin/sh
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="daemon monitor"
+NAME=monit
+DAEMON=/usr/bin/$NAME
+CONFIG="/etc/monitrc"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+MONIT_OPTS=
+
+# exit if binary is missing
+[ -x "$DAEMON" ] || exit 0
+
+monit_check_config() {
+    # Check for existing config file
+    if [ ! -f "$CONFIG" ]
+    then
+        echo " missing config, please edit $CONFIG."
+        exit 1
+    fi
+
+    # Check for emtpy config
+    if [ $(grep -cv '^\s*$\|^\s*#' $CONFIG) -eq 0 ]
+    then
+        echo " empty config, please edit $CONFIG."
+        exit 2
+    fi
+
+    # Let monit check syntax
+    if ! $DAEMON -c $CONFIG -t >/dev/null 2>&1
+    then
+        echo " syntax error in $CONFIG"
+        exit 3
+    fi
+}
+
+is_running() {
+    start-stop-daemon -K --quiet --test --exec $DAEMON \
+        --pidfile $PIDFILE
+}
+
+do_start() {
+    is_running && return 1
+    start-stop-daemon -S --quiet --pidfile $PIDFILE --exec $DAEMON -- \
+        $MONIT_OPTS || return 2
+}
+
+do_stop() {
+    is_running || return 0
+    start-stop-daemon -K --quiet --pidfile $PIDFILE --exec $DAEMON
+    RETVAL="$?"
+
+    # wait up to 30 seconds until daemon stopped
+    for i in $(seq 30)
+    do
+        sleep 1
+        echo -n '.'
+        if ! is_running
+        then
+            break
+        fi
+    done
+
+    # see if it's still running
+    if is_running
+    then
+        start-stop-daemon -K --quiet --signal KILL --pidfile $PIDFILE \
+            --exec $DAEMON
+
+        for i in $(seq 5)
+        do
+            sleep 1
+            echo -n '.'
+            if ! is_running
+            then
+                break
+            fi
+        done
+
+        if is_running
+        then
+            return 2
+        fi
+    fi
+
+    rm -f $PIDFILE
+    return "$RETVAL"
+}
+
+do_reload() {
+    # monit has an own call for this, no need to send SIGHUP
+    $DAEMON reload
+}
+
+monit_check_perms() {
+  # Check the permission on configfile.
+  # The permission must not have more than -rwx------ (0700) permissions.
+
+  # Skip checking, fix perms instead.
+  /bin/chmod go-rwx $CONFIG
+}
+
+monit_checks() {
+  # Check for emtpy configfile
+  monit_check_config
+  # Check permissions of configfile
+  monit_check_perms
+}
+
+case "$1" in
+    start)
+        monit_checks
+        do_start
+        case "$?" in
+            0)  ;;
+            1)  echo "$DESC already running." ;;
+            *)  echo "Starting $DESC failed." ;;
+        esac
+        ;;
+    stop)
+        echo -n "Stopping $DESC ."
+        do_stop
+        case "$?" in
+            0|1)    echo " Done." ;;
+            *)      echo " Failed." ;;
+        esac
+        ;;
+    reload)
+        do_reload
+        ;;
+    restart|force-reload)
+        echo -n "Restarting $DESC .."
+        do_stop
+        case "$?" in
+            0|1)
+                echo ""
+                do_start
+                case "$?" in
+                    0)  ;;
+                    1)  echo " Failed." ;; # Old process still running
+                    *)  echo " Failed." ;; # Failed to start
+                esac
+                ;;
+            *)
+                echo " Failed." # Failed to stop
+                ;;
+        esac
+        ;;
+    status)
+        if is_running
+        then
+            echo "$NAME is running with PID $(cat $PIDFILE) ..."
+        else
+            echo "$NAME is not running"
+        fi
+        ;;
+    syntax)
+        $DAEMON -c $CONFIG -t
+        ;;
+    *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload|status}" >&2
+        exit 3
+        ;;
+esac
+
+:

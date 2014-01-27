@@ -1,0 +1,9 @@
+## SECTION=initmethod_bbinit
+
+config MONIT_BBINIT_LINK
+	string
+	depends on MONIT_STARTSCRIPT
+	prompt "monit"
+	default "S98monit"
+
+# vim: ft=kconfig noet tw=72

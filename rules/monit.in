@@ -1,0 +1,26 @@
+## SECTION=shell_and_console
+
+menuconfig MONIT
+	tristate
+	prompt "monit                         "
+	select OPENSSL if MONIT_SSL
+	select BUSYBOX_START_STOP_DAEMON if MONIT_STARTSCRIPT
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS if MONIT_STARTSCRIPT
+	help
+	  Utility for managing and monitoring of processes, programs, files,
+	  directories, and filesystems.
+
+if MONIT
+
+config MONIT_SSL
+	bool
+	prompt "SSL support"
+
+config MONIT_STARTSCRIPT
+	bool
+	prompt "install /etc/init.d/monit"
+	default y
+
+endif
+
+# vim: ft=kconfig noet tw=72
