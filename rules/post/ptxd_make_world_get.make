@@ -53,7 +53,6 @@ world/check_src = \
 # $1: Packet Label; this macro gets $1_URL
 #
 get = \
-	PTXCONF_SETUP_NO_DOWNLOAD="$(PTXCONF_SETUP_NO_DOWNLOAD)" \
 	ptxd_make_get "$($(strip $(1))_SOURCE)" "$($(strip $(1))_URL)"
 
 check_src = \
