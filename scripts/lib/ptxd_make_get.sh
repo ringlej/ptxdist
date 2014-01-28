@@ -224,7 +224,7 @@ ptxd_make_get_download_permitted() {
 error: automatic download prohibited
 
 Please download '${url}'
-manually into '${PTXDIST_SRCDIR}'
+manually into '$(dirname ${path})'
 
 EOF
 		set -- ${orig_argv[@]}
@@ -269,7 +269,7 @@ ptxd_make_get() {
 		exit 1
 	fi
 
-	ptxmirror_url="${path/#\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
+	ptxmirror_url="${path/#\/*\//${ptxd_make_get_mirror}/}"
 
 	#
 	# split by spaces, etc
@@ -292,7 +292,7 @@ ptxd_make_get() {
 		if [ -n "${PTXCONF_SETUP_PTXMIRROR_ONLY}" ]; then
 			local pattern
 			add=false
-			for pattern in "${PTXCONF_SETUP_PTXMIRROR}" \
+			for pattern in "${ptxd_make_get_mirror}" \
 					${PTXCONF_SETUP_URL_WHITELIST}; do
 				if [[ "${url}" =~ "${pattern}" ]]; then
 					add=true

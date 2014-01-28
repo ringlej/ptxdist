@@ -37,6 +37,7 @@ $(STATEDIR)/%.get:
 
 world/get = \
 	$(call world/env, $(1)) \
+	ptxd_make_get_mirror=$(PTXCONF_SETUP_PTXMIRROR) \
 	ptxd_make_world_get
 
 world/check_src = \
@@ -53,6 +54,7 @@ world/check_src = \
 # $1: Packet Label; this macro gets $1_URL
 #
 get = \
+	ptxd_make_get_mirror=$(PTXCONF_SETUP_PTXMIRROR) \
 	ptxd_make_get "$($(strip $(1))_SOURCE)" "$($(strip $(1))_URL)"
 
 check_src = \
