@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 #
 # Paths and names
 #
-LIBPCAP_VERSION	:= 1.4.0
-LIBPCAP_MD5	:= 56e88a5aabdd1e04414985ac24f7e76c
+LIBPCAP_VERSION	:= 1.5.3
+LIBPCAP_MD5	:= 7e7321fb3aff2f2bb05c8229f3795d4a
 LIBPCAP		:= libpcap-$(LIBPCAP_VERSION)
 LIBPCAP_SUFFIX	:= tar.gz
 LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
@@ -31,7 +31,9 @@ LIBPCAP_DIR	:= $(BUILDDIR)/$(LIBPCAP)
 LIBPCAP_PATH := PATH=$(CROSS_PATH)
 LIBPCAP_ENV  := \
 	$(CROSS_ENV) \
-	ac_cv_linux_vers=2
+	ac_cv_linux_vers=2 \
+	ac_cv_lib_nl_nl_socket_alloc=no \
+	ac_cv_lib_nl_nl_handle_alloc=no
 
 LIBPCAP_COMPILE_ENV := \
 	$(CROSS_ENV_CFLAGS) \
@@ -51,7 +53,10 @@ LIBPCAP_AUTOCONF := \
 	--disable-universal \
 	--enable-shared \
 	--$(call ptx/endis, PTXCONF_LIBPCAP_BLUETOOTH)-bluetooth \
-	--with-libnl \
+	--disable-canusb \
+	--disable-can \
+	--disable-dbus \
+	--with-libnl=$(SYSROOT)/usr \
 	--without-dag \
 	--without-septel
 

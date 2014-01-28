@@ -1,7 +1,6 @@
-From eb6374bab46421bafc2734f5451d28184d2bd861 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Fri, 31 May 2013 17:28:01 +0200
-Subject: [PATCH 1/2] build and install share lib only
+Subject: [PATCH] build and install share lib only
 
 This patch removes the static library from the dependency list
 for "all" and "install". This way libpcap.a is not built and
@@ -13,10 +12,10 @@ Signed-off-by: Alexander Aring <alex.aring@gmail.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index 772cc7d..7f3c5ca 100644
+index 2784960..653b353 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -345,7 +345,7 @@ EXTRA_DIST = \
+@@ -356,7 +356,7 @@ EXTRA_DIST = \
  	Win32/Src/inet_net.c \
  	Win32/Src/inet_pton.c
  
@@ -25,15 +24,12 @@ index 772cc7d..7f3c5ca 100644
  
  libpcap.a: $(OBJ)
  	@rm -f $@
-@@ -530,7 +530,7 @@ opentest: tests/opentest.c libpcap.a
- selpolltest: tests/selpolltest.c libpcap.a
- 	$(CC) $(FULL_CFLAGS) -I. -L. -o selpolltest $(srcdir)/tests/selpolltest.c libpcap.a $(LIBS)
+@@ -544,7 +544,7 @@ selpolltest: tests/selpolltest.c libpcap.a
+ valgrindtest: tests/valgrindtest.c libpcap.a
+ 	$(CC) $(FULL_CFLAGS) -I. -L. -o valgrindtest $(srcdir)/tests/valgrindtest.c libpcap.a $(LIBS)
  
 -install: install-shared install-archive pcap-config
 +install: install-shared pcap-config
  	[ -d $(DESTDIR)$(libdir) ] || \
  	    (mkdir -p $(DESTDIR)$(libdir); chmod 755 $(DESTDIR)$(libdir))
  	[ -d $(DESTDIR)$(includedir) ] || \
--- 
-1.8.3
-
