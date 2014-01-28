@@ -63,7 +63,7 @@ HOST_MESALIB_CONF_OPT	:= \
 
 $(STATEDIR)/host-mesalib.install:
 	@$(call targetinfo)
-	install -D -m755 $(HOST_MESALIB_DIR)/src/glsl/builtin_compiler/builtin_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/builtin_compiler
+	install -D -m755 $(HOST_MESALIB_DIR)/src/glsl/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
 	@$(call touch)
 
 # vim: syntax=make

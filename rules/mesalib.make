@@ -19,11 +19,11 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 9.2.0
-MESALIB_MD5	:= 4185b6aae890bc62a964f4b24cc1aca8
+MESALIB_VERSION	:= 10.0.2
+MESALIB_MD5	:= 8544c0ab3e438a08b5103421ea15b6d2
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/9.2/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
@@ -42,11 +42,13 @@ endif
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_NOUVEAU_VIEUX)+= nouveau
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_R200)		+= r200
 
+ifndef PTXCONF_ARCH_ARM # broken: https://bugs.freedesktop.org/show_bug.cgi?id=72064
 ifndef PTXCONF_ARCH_X86 # needs llvm
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_R300)	+= r300
 endif
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_R600)	+= r600
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_RADEONSI)	+= radeonsi
+endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_NOUVEAU)	+= nouveau
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
@@ -54,13 +56,10 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
 
 MESALIB_DRI_LIBS-y += \
-	$(MESALIB_DRI_DRIVERS-y) \
+	$(subst nouveau,nouveau_vieux,$(MESALIB_DRI_DRIVERS-y)) \
 	$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y))
 
 MESALIB_LIBS-y				:= libglapi
-ifneq ($(MESALIB_DRI_DRIVERS-y),)
-MESALIB_LIBS-y				+= libdricore$(MESALIB_VERSION)
-endif
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLX)	+= libGL
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLES1)	+= libGLESv1_CM
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLES2)	+= libGLESv2
@@ -93,12 +92,12 @@ MESALIB_CONF_OPT	:= \
 	--disable-osmesa \
 	--disable-gallium-osmesa \
 	--$(call ptx/endis, PTXCONF_MESALIB_EGL)-egl \
-	--disable-xorg \
 	--disable-xa \
 	--$(call ptx/endis, PTXCONF_MESALIB_GBM)-gbm \
 	--disable-xvmc \
 	--disable-vdpau \
 	--disable-opencl \
+	--disable-opencl-icd \
 	--disable-xlib-glx \
 	--$(call ptx/endis, PTXCONF_MESALIB_EGL)-gallium-egl \
 	--$(call ptx/endis, PTXCONF_MESALIB_GBM)-gallium-gbm \
@@ -110,7 +109,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-gallium-llvm \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
-	--with-expat=$(SYSROOT)/usr \
 	--with-egl-platforms="$(MESALIBS_EGL_PLATFORMS-y)"
 
 # ----------------------------------------------------------------------------
@@ -121,7 +119,7 @@ MESALIB_MAKE_OPT := HOST_CC=$(HOSTCC)
 
 $(STATEDIR)/mesalib.compile:
 	@$(call targetinfo)
-	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/builtin_compiler $(MESALIB_DIR)/src/glsl/builtin_compiler/
+	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/glsl/
 	@$(call compile, MESALIB)
 	@$(call touch)
 
