@@ -292,7 +292,8 @@ ptxd_make_get() {
 		if [ -n "${PTXCONF_SETUP_PTXMIRROR_ONLY}" ]; then
 			local pattern
 			add=false
-			for pattern in "${PTXCONF_SETUP_PTXMIRROR}"; do
+			for pattern in "${PTXCONF_SETUP_PTXMIRROR}" \
+					${PTXCONF_SETUP_URL_WHITELIST}; do
 				if [[ "${url}" =~ "${pattern}" ]]; then
 					add=true
 					break

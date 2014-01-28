@@ -133,6 +133,18 @@ config SETUP_PTXMIRROR
 	help
 	  Enter the fallback mirror for all packages here.
 
+if SETUP_PTXMIRROR_ONLY
+
+config SETUP_URL_WHITELIST
+	string
+	prompt "URL Whitelist"
+	help
+	  A space separated list of URLs. Any download URL that starts with
+	  one of the here specified URLs will always be used. This
+	  overwrites the 'only use PTXdist Mirror' feature for these URLs.
+
+endif	# SETUP_PTXMIRROR_ONLY
+
 ########################################################################
 # WARNING!                                                             #
 #                                                                      #
