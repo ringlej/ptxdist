@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_POCO) += poco
 #
 # Paths and names
 #
-POCO_VERSION	:= 1.4.4
-POCO_MD5	:= 01bfa19af381fc706a43bb4d0f6106d2
+POCO_VERSION	:= 1.4.6p2
+POCO_MD5	:= 33f6a0b7e7fd6b86a1028b1e7fa78b84
 POCO		:= poco-$(POCO_VERSION)
 POCO_SUFFIX	:= tar.gz
-POCO_URL	:= $(call ptx/mirror, SF, poco/$(POCO).$(POCO_SUFFIX))
+POCO_URL	:= http://pocoproject.org/releases/poco-1.4.6/$(POCO).$(POCO_SUFFIX)
 POCO_SOURCE	:= $(SRCDIR)/$(POCO).$(POCO_SUFFIX)
 POCO_DIR	:= $(shell readlink -f "$(BUILDDIR)/$(POCO)")
 POCO_LICENSE	:= unknown
