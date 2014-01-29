@@ -32,7 +32,6 @@ HOST_DBUS_GLIB_ENV 	:= $(HOST_ENV)
 HOST_DBUS_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-bash-completion \
-	--disable-doxygen-docs \
 	--disable-gcov \
 	--disable-gtk-doc \
 	--disable-static \
