@@ -19,6 +19,12 @@ config SQLITE_THREADSAFE
 	bool
 	prompt "Safe for use within a multi-threaded program"
 
+config SQLITE_LOAD_EXTENTION
+	bool
+	prompt "external extensions"
+	help
+	  Enable loading of external extensions
+
 config SQLITE_READLINE
 	bool
 	prompt "use readline"

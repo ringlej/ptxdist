@@ -21,9 +21,9 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 # Paths and names
 #
 SQLITE_VERSION	:= 3080200
-SQLITE_MD5	:= 1d3c1046bcdb07d24a2c452ec2072199
-SQLITE		:= sqlite-src-$(SQLITE_VERSION)
-SQLITE_SUFFIX	:= zip
+SQLITE_MD5	:= f62206713e6a08d4ccbc60b1fd712a1a
+SQLITE		:= sqlite-autoconf-$(SQLITE_VERSION)
+SQLITE_SUFFIX	:= tar.gz
 SQLITE_URL	:= http://www.sqlite.org/2013/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_SOURCE	:= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_DIR	:= $(BUILDDIR)/$(SQLITE)
@@ -40,28 +40,19 @@ SQLITE_CONF_ENV := \
 	-DSQLITE_ENABLE_FTS3 \
 	-DSQLITE_ENABLE_RTREE=1 \
 	-DSQLITE_ENABLE_UNLOCK_NOTIFY \
-	-DSQLITE_ENABLE_UPDATE_DELETE_LIMIT=1\
 	-DSQLITE_OMIT_LOOKASIDE=1 \
 	-DSQLITE_SECURE_DELETE \
 	-DSQLITE_SOUNDEX=1 \
 	"
 
-SQLITE_AUTOCONF	:= \
+SQLITE_CONF_TOOL	:= autoconf
+SQLITE_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-static
-
-ifdef PTXCONF_SQLITE_THREADSAFE
-SQLITE_AUTOCONF += --enable-threadsafe
-else
-SQLITE_AUTOCONF += --disable-threadsafe
-endif
-
-ifdef PTXCONF_SQLITE_READLINE
-SQLITE_AUTOCONF += --enable-readline
-else
-SQLITE_AUTOCONF += --disable-readline
-endif
+	--disable-static \
+	--$(call ptx/endis,PTXCONF_SQLITE_READLINE)-readline \
+	--$(call ptx/endis,PTXCONF_SQLITE_THREADSAFE)-threadsafe \
+	--$(call ptx/endis,PTXCONF_SQLITE_LOAD_EXTENTION)-dynamic-extensions
 
 # ----------------------------------------------------------------------------
 # Target-Install
