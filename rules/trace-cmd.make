@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_TRACE_CMD) += trace-cmd
 #
 # Paths and names
 #
-TRACE_CMD_VERSION	:= 1.0.5
+TRACE_CMD_VERSION	:= 2.3.1
 TRACE_CMD_MD5		:= 251432a677c4498f2428654d9b6ec7fd
 TRACE_CMD		:= trace-cmd-$(TRACE_CMD_VERSION)
 TRACE_CMD_SUFFIX	:= tar.bz2
-TRACE_CMD_URL		:= $(call ptx/mirror, KERNEL, analysis/trace-cmd/$(TRACE_CMD).$(TRACE_CMD_SUFFIX))
+TRACE_CMD_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;tag=trace-cmd-v$(TRACE_CMD_VERSION)
 TRACE_CMD_SOURCE	:= $(SRCDIR)/$(TRACE_CMD).$(TRACE_CMD_SUFFIX)
 TRACE_CMD_DIR		:= $(BUILDDIR)/$(TRACE_CMD)
 TRACE_CMD_LICENSE	:= GPLv2
@@ -43,6 +43,18 @@ TRACE_CMD_INSTALL_ENV	:= \
 # Target-Install
 # ----------------------------------------------------------------------------
 
+TRACE_CMD_PLUGINS	:= \
+	blk \
+	cfg80211 \
+	function \
+	hrtimer \
+	jbd2 \
+	kmem \
+	kvm \
+	mac80211 \
+	sched_switch
+
+
 $(STATEDIR)/trace-cmd.targetinstall:
 	@$(call targetinfo)
 
@@ -54,16 +66,9 @@ $(STATEDIR)/trace-cmd.targetinstall:
 
 	@$(call install_copy, trace-cmd, 0, 0, 0755, -, /usr/bin/trace-cmd)
 
-	@$(call install_copy, trace-cmd, 0, 0, 0644, -, \
-		/usr/share/trace-cmd/plugins/plugin_kmem.so)
-	@$(call install_copy, trace-cmd, 0, 0, 0644, -, \
-		/usr/share/trace-cmd/plugins/plugin_mac80211.so)
-	@$(call install_copy, trace-cmd, 0, 0, 0644, -, \
-		/usr/share/trace-cmd/plugins/plugin_hrtimer.so)
-	@$(call install_copy, trace-cmd, 0, 0, 0644, -, \
-		/usr/share/trace-cmd/plugins/plugin_sched_switch.so)
-	@$(call install_copy, trace-cmd, 0, 0, 0644, -, \
-		/usr/share/trace-cmd/plugins/plugin_jbd2.so)
+	@$(foreach plugin, $(TRACE_CMD_PLUGINS), \
+		$(call install_lib, trace-cmd, 0, 0, 0644, \
+			trace-cmd/plugins/plugin_$(plugin));)
 
 	@$(call install_finish, trace-cmd)
 
