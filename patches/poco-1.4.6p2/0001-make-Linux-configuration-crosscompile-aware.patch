@@ -9,11 +9,11 @@ the commandline and use any cross compiler.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
- build/config/Linux |   17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ build/config/Linux | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/build/config/Linux b/build/config/Linux
-index 4781a12..1b3b3d2 100644
+index 4781a12..7612e59 100644
 --- a/build/config/Linux
 +++ b/build/config/Linux
 @@ -15,14 +15,14 @@ LINKMODE ?= SHARED
@@ -36,21 +36,3 @@ index 4781a12..1b3b3d2 100644
  DEP     = $(POCO_BASE)/build/script/makedepend.gcc 
  SHELL   = sh
  RM      = rm -rf
-@@ -38,13 +38,14 @@ SHAREDLIBLINKEXT = .so
- #
- # Compiler and Linker Flags
- #
--CFLAGS          = 
-+CFLAGS          = $(CPPFLAGS)
- CFLAGS32        =
- CFLAGS64        =
--CXXFLAGS        = -Wall -Wno-sign-compare
-+CXXFLAGS        = -Wall -Wno-sign-compare $(CPPFLAGS)
- CXXFLAGS32      =
- CXXFLAGS64      =
--LINKFLAGS       =
-+SHLIBFLAGS      = $(LDFLAGS)
-+LINKFLAGS       = $(LDFLAGS)
- LINKFLAGS32     =
- LINKFLAGS64     =
- STATICOPT_CC    =

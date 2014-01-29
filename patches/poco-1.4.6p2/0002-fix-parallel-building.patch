@@ -4,7 +4,7 @@ Subject: [PATCH] fix parallel building
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- build/rules/compile |   16 ++++++++--------
+ build/rules/compile | 16 ++++++++--------
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/build/rules/compile b/build/rules/compile
