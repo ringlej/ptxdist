@@ -4,6 +4,7 @@ config WIRESHARK
 	tristate
 	prompt "tshark (cli of wireshark)"
 	select LIBC_M
+	select LIBNL3
 	select LIBPCAP
 	select GLIB
 	help

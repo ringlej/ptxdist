@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_WIRESHARK) += wireshark
 #
 # Paths and names
 #
-WIRESHARK_VERSION	:= 1.8.7
-WIRESHARK_MD5		:= f4198728a20aa40752906031e08544f8
+WIRESHARK_VERSION	:= 1.10.5
+WIRESHARK_MD5		:= a66894a62f05e1e7a3156a807f3296ea
 WIRESHARK		:= wireshark-$(WIRESHARK_VERSION)
 WIRESHARK_SUFFIX	:= tar.bz2
 WIRESHARK_URL		:= http://www.wireshark.org/download/src/all-versions/$(WIRESHARK).$(WIRESHARK_SUFFIX)
@@ -48,6 +48,7 @@ WIRESHARK_AUTOCONF = \
 	--enable-editcap \
 	--enable-capinfos \
 	--enable-mergecap \
+	--enable-reordercap \
 	--disable-text2pcap \
 	--disable-dftest \
 	--disable-randpkt \
@@ -61,6 +62,7 @@ WIRESHARK_AUTOCONF = \
 	--with-pcap=$(LIBPCAP_DIR) \
 	--without-plugins \
 	--without-gcrypt \
+	--with-libnl=3 \
 	--without-libcap
 
 # ----------------------------------------------------------------------------
@@ -81,6 +83,7 @@ $(STATEDIR)/wireshark.targetinstall:
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/editcap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/capinfos)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/mergecap)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/reordercap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/dumpcap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/tshark)
 #
