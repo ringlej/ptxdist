@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_TRACE_CMD) += trace-cmd
 # Paths and names
 #
 TRACE_CMD_VERSION	:= 2.3.1
-TRACE_CMD_MD5		:= 251432a677c4498f2428654d9b6ec7fd
+TRACE_CMD_MD5		:= 43cf0c7c3e5506d0bcaced295eb1b39f
 TRACE_CMD		:= trace-cmd-$(TRACE_CMD_VERSION)
 TRACE_CMD_SUFFIX	:= tar.bz2
 TRACE_CMD_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;tag=trace-cmd-v$(TRACE_CMD_VERSION)
