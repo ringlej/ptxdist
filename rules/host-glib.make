@@ -37,7 +37,6 @@ HOST_GLIB_AUTOCONF := \
 	--enable-silent-rules \
 	--disable-debug \
 	--disable-rebuilds \
-	--disable-modular-tests \
 	--disable-static \
 	--enable-shared \
 	--disable-fam \
