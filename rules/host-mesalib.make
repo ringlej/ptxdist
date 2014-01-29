@@ -13,8 +13,6 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_MESALIB) += host-mesalib
 
-HOST_MESALIB_DIR	= $(HOST_BUILDDIR)/Mesa-$(MESALIB_VERSION)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
@@ -42,12 +40,12 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-osmesa \
 	--disable-gallium-osmesa \
 	--disable-egl \
-	--disable-xorg \
 	--disable-xa \
 	--disable-gbm \
 	--disable-xvmc \
 	--disable-vdpau \
 	--disable-opencl \
+	--disable-opencl-icd \
 	--disable-xlib-glx \
 	--disable-gallium-egl \
 	--disable-gallium-gbm \
@@ -58,8 +56,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-glx-tls \
 	--disable-gallium-llvm \
 	--with-gallium-drivers= \
-	--with-dri-drivers= \
-	--without-expat
+	--with-dri-drivers=
 
 $(STATEDIR)/host-mesalib.install:
 	@$(call targetinfo)
