@@ -30,14 +30,13 @@ WIRESHARK_DIR		:= $(BUILDDIR)/$(WIRESHARK)
 # Prepare
 # ----------------------------------------------------------------------------
 
-WIRESHARK_PATH	:= PATH=$(CROSS_PATH)
-WIRESHARK_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-WIRESHARK_AUTOCONF = \
+WIRESHARK_CONF_TOOL	:= autoconf
+WIRESHARK_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-usr-local \
 	--disable-wireshark \
 	--disable-packet-editor \
@@ -59,11 +58,21 @@ WIRESHARK_AUTOCONF = \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-setcap-install \
 	--disable-setuid-install \
-	--with-pcap=$(LIBPCAP_DIR) \
-	--without-plugins \
+	--without-gnutls \
 	--without-gcrypt \
 	--with-libnl=3 \
-	--without-libcap
+	--without-libsmi \
+	--with-pcap=$(SYSROOT)/usr \
+	--with-zlib \
+	--without-lua \
+	--without-portaudio \
+	--without-libcap \
+	--without-ssl \
+	--without-krb5 \
+	--without-c-ares \
+	--without-adns \
+	--without-geoip \
+	--without-plugins
 
 # ----------------------------------------------------------------------------
 # Target-Install

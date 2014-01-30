@@ -7,6 +7,7 @@ config WIRESHARK
 	select LIBNL3
 	select LIBPCAP
 	select GLIB
+	select ZLIB
 	help
 	  TShark is a network protocol analyzer.  It lets you capture packet data
 	  from a live network, or read packets from a previously saved capture
