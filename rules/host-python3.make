@@ -36,12 +36,11 @@ HOST_PYTHON3_ENV	:= \
 HOST_PYTHON3_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--enable-shared \
-	--with-cyclic-gc \
 	--with-pymalloc \
 	--with-signal-module \
 	--with-threads \
 	--with-wctype-functions \
-	--without-cxx
+	--without-doc-strings
 
 # ----------------------------------------------------------------------------
 # Install
