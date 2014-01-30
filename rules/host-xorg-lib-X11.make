@@ -21,14 +21,20 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_LIB_X11) += host-xorg-lib-x11
 #
 # autoconf
 #
-HOST_XORG_LIB_X11_AUTOCONF	:= \
+HOST_XORG_LIB_X11_CONF_TOOL	:= autoconf
+HOST_XORG_LIB_X11_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-man-pages \
 	--disable-specs \
-	--enable-xkb \
 	--disable-secure-rpc \
-	--disable-xf86bigfont \
 	--disable-loadable-i18n \
-	--disable-loadable-xcursor
+	--disable-loadable-xcursor \
+	--disable-xthreads \
+	--disable-xcms \
+	--enable-xlocale \
+	--disable-xf86bigfont \
+	--enable-xkb \
+	$(XORG_OPTIONS_DOCS) \
+	--without-perl \
+	--without-lint
 
 # vim: syntax=make
