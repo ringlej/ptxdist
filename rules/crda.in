@@ -4,7 +4,6 @@ config CRDA
 	tristate
 	select LIBNL3
 	select OPENSSL
-	select OPENSSL_SHARED
 	prompt "crda"
 	help
 	  CRDA acts as the udev helper for communication between the kernel and

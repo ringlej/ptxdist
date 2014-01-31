@@ -21,16 +21,11 @@ menuconfig OPENSSL
 	  * SSL/TLS client and server tests;
 	  * Handling of S/MIME signed or encrypted mail.
 
+if OPENSSL
 
 config OPENSSL_BIN
 	bool "install openssl tools"
-	depends on OPENSSL
 	help
 	  Whether to build and install OpenSSL binary.
 
-config OPENSSL_SHARED
-	bool "build shared lib"
-	default y
-	depends on OPENSSL
-	help
-	  Whether to build OpenSSL with shared libraries.
+endif

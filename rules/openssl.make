@@ -31,8 +31,8 @@ OPENSSL_LICENSE	:= openssl
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPENSSL_CONF_ENV 	:= $(CROSS_ENV)
-OPENSSL_MAKE_PAR := NO
+OPENSSL_CONF_ENV	:= $(CROSS_ENV)
+OPENSSL_MAKE_PAR	:= NO
 
 OPENSSL_ARCH-$(PTXCONF_ARCH_X86_I386)	+= debian-i386
 OPENSSL_ARCH-$(PTXCONF_ARCH_X86_I486)	+= debian-i386-i486
@@ -69,15 +69,11 @@ endif
 OPENSSL_CONF_OPT := \
 	--prefix=/usr \
 	--openssldir=/usr/lib/ssl \
-	--install_prefix=$(OPENSSL_PKGDIR)
+	--install_prefix=$(OPENSSL_PKGDIR) \
+	shared
+
 OPENSSL_INSTALL_OPT := \
 	install_sw
-
-ifdef PTXCONF_OPENSSL_SHARED
-OPENSSL_CONF_OPT += shared
-else
-OPENSSL_CONF_OPT += no-shared
-endif
 
 $(STATEDIR)/openssl.prepare:
 	@$(call targetinfo)
@@ -103,10 +99,9 @@ ifdef PTXCONF_OPENSSL_BIN
 	@$(call install_copy, openssl, 0, 0, 0755, -, \
 		/usr/bin/openssl)
 endif
-ifdef PTXCONF_OPENSSL_SHARED
 	@$(call install_lib, openssl, 0, 0, 0644, libssl)
 	@$(call install_lib, openssl, 0, 0, 0644, libcrypto)
-endif
+
 	@$(call install_finish, openssl)
 
 	@$(call touch)
