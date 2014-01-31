@@ -4,11 +4,11 @@ Subject: [PATCH] pcap-config: add SYSROOT support
 
 Signed-off-by: Alexander Aring <alex.aring@gmail.com>
 ---
- pcap-config.in | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ pcap-config.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/pcap-config.in b/pcap-config.in
-index 206be3b..fb68cb3 100644
+index 206be3b..50b05f5 100644
 --- a/pcap-config.in
 +++ b/pcap-config.in
 @@ -6,8 +6,8 @@
@@ -22,3 +22,12 @@ index 206be3b..fb68cb3 100644
  V_RPATH_OPT="@V_RPATH_OPT@"
  LIBS="@LIBS@"
  
+@@ -41,7 +41,7 @@ then
+ 	#
+ 	# If libdir isn't /usr/lib, add it to the run-time linker path.
+ 	#
+-	if [ "$libdir" != "/usr/lib" ]
++	if [ "$libdir" != "${SYSROOT}/usr/lib" ]
+ 	then
+ 		RPATH=$V_RPATH_OPT$libdir
+ 	fi
