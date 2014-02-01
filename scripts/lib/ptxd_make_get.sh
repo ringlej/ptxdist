@@ -122,7 +122,7 @@ ptxd_make_get_git() {
 	if [ ! -d "${mirror}" ]; then
 		git init --bare --shared "${mirror}"
 	else
-		git --git-dir="${mirror}" remote remove origin
+		git --git-dir="${mirror}" remote rm origin
 	fi
 	# overwrite everything so the git repository is in a defined state
 	git --git-dir="${mirror}" config transfer.fsckObjects true &&
