@@ -332,7 +332,7 @@ ptxd_make_get() {
 		shift
 
 		case "${url}" in
-		git://*|http://*.git|https://*.git)
+		git://*|http://*.git|https://*.git|ssh://*.git)
 			ptxd_make_get_download_permitted &&
 			ptxd_make_get_git && return
 			;;
