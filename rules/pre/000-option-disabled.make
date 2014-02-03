@@ -44,8 +44,8 @@ endef
 #
 # SYMBOL == val ? "yes" : "no"
 #
-# $(call ptx/ifdeq, SYMBOL, val, yes, no)
-#                     $1,    $2,  $3, $4
+# $(call ptx/ifeq, SYMBOL, val, yes, no)
+#                    $1,    $2,  $3, $4
 #
 define ptx/ifeq
 $(strip $(if $(filter $(strip $(2)),$($(strip $(1)))),$(3),$(4)))
