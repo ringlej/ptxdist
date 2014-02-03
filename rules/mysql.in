@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 
 menuconfig MYSQL
 	tristate
@@ -21,6 +23,11 @@ menuconfig MYSQL
 	  SQL database server. SQL (Structured Query Language) is the
 	  most popular database query language in the world. The main
 	  goals of MySQL are speed, robustness and ease of use.
+
+	  STAGING: remove in ptxdist-2015.03.0
+	  This package has not been maintained in a long time. The revision is
+	  not an official one. The build system is broken (zlib handling).
+	  Upgrade to recent release is required.
 
 if MYSQL
 
