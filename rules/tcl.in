@@ -50,4 +50,11 @@ config TCL_TESTING
 	  or run the whole suite with '/usr/share/tcl-tests/all.tcl' from
 	  inside a tcl shell.
 
+config TCL_TZDATA
+	bool
+	prompt "enable time zone support"
+	default TIMEZONE
+	help
+	  Install timezone data for TCL
+
 endif

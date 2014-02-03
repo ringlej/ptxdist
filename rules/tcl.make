@@ -18,9 +18,9 @@ PACKAGES-$(PTXCONF_TCL) += tcl
 #
 TCL_MAJOR	:= 8
 TCL_MINOR	:= 5
-TCL_PL		:= 7
+TCL_PL		:= 15
 TCL_VERSION	:= $(TCL_MAJOR).$(TCL_MINOR).$(TCL_PL)
-TCL_MD5		:= f70ad8f78b5e4a9f792fe101f22b125f
+TCL_MD5		:= f3df162f92c69b254079c4d0af7a690f
 TCL		:= tcl$(TCL_VERSION)
 TCL_SUFFIX	:= -src.tar.gz
 TCL_URL		:= $(call ptx/mirror, SF, tcl/$(TCL)$(TCL_SUFFIX))
@@ -31,10 +31,23 @@ TCL_DIR		:= $(BUILDDIR)/$(TCL)
 # Prepare
 # ----------------------------------------------------------------------------
 
-TCL_PATH	:= PATH=$(CROSS_PATH)
+# select one of the available kernel versions
+
+TCL_KERNEL_VERSION := $(if $(KERNEL_HEADER_VERSION),$(KERNEL_HEADER_VERSION),$(KERNEL_VERSION))
+
+ifdef PTXCONF_TCL
+ifeq ($(TCL_KERNEL_VERSION),)
+ $(warning ######################### ERROR ###########################)
+ $(warning # Linux kernel version required in order to make TCL work #)
+ $(warning #   Define a platform kernel or the kernel headers        #)
+ $(warning ###########################################################)
+ $(error )
+endif
+endif
+
 TCL_ENV 	:= \
 	$(CROSS_ENV) \
-	tcl_cv_sys_version=Linux-$(KERNEL_HEADER_VERSION) \
+	tcl_cv_sys_version=Linux-$(TCL_KERNEL_VERSION) \
 	tcl_cv_strstr_unbroken=yes \
 	tcl_cv_strtoul_unbroken=yes \
 	tcl_cv_strtod_unbroken=yes \
@@ -50,20 +63,23 @@ TCL_ENV 	:= \
 #
 TCL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_TCL_THREADS)-threads \
+	--enable-shared \
+	--disable-64bit \
+	--disable-64bit-vis \
 	--disable-rpath \
-	--disable-symbols \
+	--disable-corefoundation \
 	--enable-load \
-	--enable-shared
+	--enable-symbols \
+	--enable-dll-unloading \
+	--disable-dtrace \
+	--disable-framework \
+	--with-encoding=iso8859-15 \
+	--$(call ptx/wwo, PTXCONF_TCL_TZDATA)-tzdata
 
 # TODO: Provide the correct encoding for the target
 # --with-encoding=<valid encode from 'usr/lib/tcl8.5/encoding'>
 # Note: TCL uses iso8859-1 until otherwise specified
-
-ifdef PTXCONF_TCL_THREADS
-TCL_AUTOCONF += --enable-threads
-else
-TCL_AUTOCONF += --disable-threads
-endif
 
 TCL_SUBDIR := unix
 
@@ -90,7 +106,7 @@ $(STATEDIR)/tcl.targetinstall:
 	@$(call install_fixup, tcl,PRIORITY,optional)
 	@$(call install_fixup, tcl,SECTION,base)
 	@$(call install_fixup, tcl,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de")
-	@$(call install_fixup, tcl,DESCRIPTION,missing)
+	@$(call install_fixup, tcl,DESCRIPTION,"TCL byte code engine")
 
 	@$(call install_copy, tcl, 0, 0, 0755, \
 		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR))
@@ -113,9 +129,9 @@ $(STATEDIR)/tcl.targetinstall:
 ifdef PTXCONF_TCL_TESTING
 	@$(call install_copy, tcl, 0, 0, 0755, /usr/lib/tcl$(TCL_MAJOR))
 	@$(call install_copy, tcl, 0, 0, 0644, -, \
-		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/tcltest-2.3.1.tm)
+		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/tcltest-2.3.5.tm)
 	@$(call install_copy, tcl, 0, 0, 0644, -, \
-		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/msgcat-1.4.2.tm)
+		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/msgcat-1.5.2.tm)
 
 	@$(call install_copy, tcl, 0, 0, 0644, -, \
 		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/tm.tcl)
