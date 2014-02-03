@@ -1,0 +1,23 @@
+From: Denis Oliver Kropp <dok@directfb.org>
+Date: Mon, 3 Feb 2014 09:57:25 +0100
+Subject: [PATCH] Link plugins against main library to allow dynamic loading of
+ libts without RTLD_GLOBAL
+
+Signed-off-by: Denis Oliver Kropp <dok@directfb.org>
+---
+ plugins/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plugins/Makefile.am b/plugins/Makefile.am
+index e938e17..d8cbfd9 100644
+--- a/plugins/Makefile.am
++++ b/plugins/Makefile.am
+@@ -15,7 +15,7 @@ INCLUDES		= -I$(top_srcdir)/src
+ #LTVSN			= -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+ #			   -release $(LT_RELEASE)
+ LTVSN			= -avoid-version
+-LIBS			=
++LIBS			= $(top_srcdir)/src/libts.la
+ pluginexecdir		= $(PLUGIN_DIR)
+   
+ if ENABLE_LINEAR_MODULE
