@@ -1,0 +1,42 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Date: Mon, 3 Feb 2014 14:47:05 +0100
+Subject: [PATCH] TCL: remove host paths from the configuration
+
+TCL mixes host and destdir paths. At least for a buildsystem like PTXdist extra
+paths for includes files and libraries are not required.
+These adaptions are required to make TK build without error messages about used
+host paths.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ unix/configure |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/unix/configure b/unix/configure
+index d7bd53b..b5b0c29 100755
+--- a/unix/configure
++++ b/unix/configure
+@@ -18797,7 +18797,7 @@ else
+         TCL_LIB_FLAG="-ltcl`echo ${TCL_VERSION} | tr -d .`"
+     fi
+     TCL_BUILD_LIB_SPEC="-L`pwd | sed -e 's/ /\\\\ /g'` ${TCL_LIB_FLAG}"
+-    TCL_LIB_SPEC="-L${libdir} ${TCL_LIB_FLAG}"
++    TCL_LIB_SPEC="${TCL_LIB_FLAG}"
+ fi
+ VERSION='${VERSION}'
+ eval "CFG_TCL_SHARED_LIB_SUFFIX=${TCL_SHARED_LIB_SUFFIX}"
+@@ -18841,12 +18841,12 @@ else
+ fi
+ 
+ TCL_BUILD_STUB_LIB_SPEC="-L`pwd | sed -e 's/ /\\\\ /g'` ${TCL_STUB_LIB_FLAG}"
+-TCL_STUB_LIB_SPEC="-L${TCL_STUB_LIB_DIR} ${TCL_STUB_LIB_FLAG}"
++TCL_STUB_LIB_SPEC="${TCL_STUB_LIB_FLAG}"
+ TCL_BUILD_STUB_LIB_PATH="`pwd`/${TCL_STUB_LIB_FILE}"
+ TCL_STUB_LIB_PATH="${TCL_STUB_LIB_DIR}/${TCL_STUB_LIB_FILE}"
+ 
+ # Install time header dir can be set via --includedir
+-eval "TCL_INCLUDE_SPEC=\"-I${includedir}\""
++eval "TCL_INCLUDE_SPEC=\"\""
+ 
+ #------------------------------------------------------------------------
+ # tclConfig.sh refers to this by a different name
