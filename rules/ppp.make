@@ -31,10 +31,22 @@ PPP_LICENSE	:= BSD,GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
+PPP_KERNEL_VERSION := $(if $(KERNEL_HEADER_VERSION),$(KERNEL_HEADER_VERSION),$(KERNEL_VERSION))
+
+ifdef PTXCONF_PPP
+ifeq ($(PPP_KERNEL_VERSION),)
+ $(warning ######################### ERROR ###########################)
+ $(warning # Linux kernel version required in order to make ppp work #)
+ $(warning #   Define a platform kernel or the kernel headers        #)
+ $(warning ###########################################################)
+ $(error )
+endif
+endif
+
 PPP_CONF_ENV	:= \
 	TARGET_OS=Linux \
-	TARGET_OS_VER=$(KERNEL_HEADER_VERSION) \
-	TARGET_OS_ARCH=$(KERNEL_HEADER_ARCH) \
+	TARGET_OS_VER=$(PPP_KERNEL_VERSION) \
+	TARGET_OS_ARCH=$(GENERIC_KERNEL_ARCH)
 
 PPP_MAKE_ENV	:= $(CROSS_ENV)
 PPP_MAKE_PAR	:= NO
