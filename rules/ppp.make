@@ -147,7 +147,7 @@ $(STATEDIR)/ppp.targetinstall:
 	@$(call install_fixup, ppp,AUTHOR,"Robert Schwebel (r.schwebel@pengutronix.de)")
 	@$(call install_fixup, ppp,DESCRIPTION,missing)
 
-ifdef PTXCONFIG_PPP_SUID
+ifdef PTXCONF_PPP_SUID
 	@$(call install_copy, ppp, 0, 0, 4755, -, /usr/sbin/pppd)
 else
 	@$(call install_copy, ppp, 0, 0, 0755, -, /usr/sbin/pppd)
