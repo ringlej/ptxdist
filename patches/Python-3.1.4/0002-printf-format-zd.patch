@@ -4,8 +4,8 @@ Subject: [PATCH] printf format %zd
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- configure.in |   23 +++++++++++++++++++----
- 1 files changed, 19 insertions(+), 4 deletions(-)
+ configure.in | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index 201fecf..4fd2830 100644

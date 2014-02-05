@@ -6,10 +6,10 @@ This patch adds preliminary cross compilation support to python.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Lib/distutils/sysconfig.py |   11 +++++++++--
- Makefile.pre.in            |   12 ++++++++----
- configure.in               |   31 ++++++++++++++++++++++++++++---
- setup.py                   |    6 +++++-
+ Lib/distutils/sysconfig.py | 11 +++++++++--
+ Makefile.pre.in            | 12 ++++++++----
+ configure.in               | 31 ++++++++++++++++++++++++++++---
+ setup.py                   |  6 +++++-
  4 files changed, 50 insertions(+), 10 deletions(-)
 
 diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
