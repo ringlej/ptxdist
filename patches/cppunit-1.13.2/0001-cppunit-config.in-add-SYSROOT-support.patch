@@ -5,8 +5,8 @@ Subject: [PATCH] cppunit-config.in: add SYSROOT support
 Forwarded: not-needed
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- cppunit-config.in |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+ cppunit-config.in | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/cppunit-config.in b/cppunit-config.in
 index 51e8b58..9ee6fc9 100644
