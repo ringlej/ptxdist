@@ -241,6 +241,8 @@ config PHP5_EXT_CURL
 
 config PHP5_EXT_MYSQL
 	bool
+	# mysql is currently in staging
+	depends on STAGING
 	prompt "mysql"
 	help
 	  Enable MySQL database support for PHP.
