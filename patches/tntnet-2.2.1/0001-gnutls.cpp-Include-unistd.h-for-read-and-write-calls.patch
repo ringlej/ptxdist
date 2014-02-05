@@ -1,0 +1,21 @@
+From: Bernhard Sessler <bernhard.sessler@corscience.de>
+Date: Tue, 4 Feb 2014 15:19:48 +0100
+Subject: [PATCH] gnutls.cpp: Include unistd.h for ::read() and ::write() calls
+
+Signed-off-by: Bernhard Sessler <bernhard.sessler@corscience.de>
+---
+ framework/common/gnutls.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/framework/common/gnutls.cpp b/framework/common/gnutls.cpp
+index f1c019b..8b23928 100644
+--- a/framework/common/gnutls.cpp
++++ b/framework/common/gnutls.cpp
+@@ -31,6 +31,7 @@
+ #include "tnt/tntnet.h"
+ #include <cxxtools/mutex.h>
+ #include <cxxtools/log.h>
++#include <unistd.h>
+ #include <sstream>
+ #include <sys/poll.h>
+ #include <errno.h>
