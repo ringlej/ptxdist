@@ -149,6 +149,7 @@ menu "xorg servers                  "
 config XORG_SERVER_XORG
 	bool
 	prompt "xorg server"
+	default y
 	help
 	  This is the main server to be used for the other video drivers
 
