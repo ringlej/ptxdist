@@ -29,9 +29,6 @@ IPUTILS_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPUTILS_CONF_TOOL	:= NO
-IPUTILS_MAKEVARS	:= $(CROSS_ENV)
-
 IPUTILS_TOOLS-y					:=
 IPUTILS_TOOLS-$(PTXCONF_IPUTILS_ARPING)		+= arping
 IPUTILS_TOOLS-$(PTXCONF_IPUTILS_CLOCKDIFF)	+= clockdiff
@@ -43,6 +40,9 @@ IPUTILS_TOOLS-$(PTXCONF_IPUTILS_TFTPD)		+= tftpd
 IPUTILS_TOOLS-$(PTXCONF_IPUTILS_TRACEPATH)	+= tracepath
 IPUTILS_TOOLS-$(PTXCONF_IPUTILS_TRACEPATH6)	+= tracepath6
 IPUTILS_TOOLS-$(PTXCONF_IPUTILS_TRACEROUTE6)	+= traceroute6
+
+IPUTILS_CONF_TOOL	:= NO
+IPUTILS_MAKEVARS	:= $(CROSS_ENV) TARGETS="$(IPUTILS_TOOLS-y)"
 
 # ----------------------------------------------------------------------------
 # Install
