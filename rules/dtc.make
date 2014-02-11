@@ -26,6 +26,9 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 %.dtb:
 	@$(call targetinfo)
 	@echo CPP `ptxd_print_path "$<.tmp"`
+	@if [ -z "$(strip $<)" ]; then \
+		ptxd_bailout "Device-tree for `ptxd_print_path '$@'` undefined!"; \
+	fi
 	@cpp \
 		-Wp,-MD,$(STATEDIR)/dtc.dtc.deps \
 		-Wp,-MT,$<.tmp \
