@@ -242,7 +242,7 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 	#
 	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCES)"	> DGEN_DEPS_POST;
 	print "ifneq ($(call remove_quotes, $(PTXCONF_PROJECT_DEVMIRROR)),)" > DGEN_DEPS_POST;
-	print "ifneq ($($(" this_PKG "_DEVPKG)),NO)" > DGEN_DEPS_POST;
+	print "ifneq ($(strip $(" this_PKG "_DEVPKG)),NO)" > DGEN_DEPS_POST;
 	print "ifneq ($(" this_PKG "_CFGHASH),)" > DGEN_DEPS_POST;
 	print "getdev: $(call remove_quotes, $(PTXCONF_PROJECT_DEVPKGDIR))/$(" this_PKG "_DEVPKG)" > DGEN_DEPS_POST;
 	print "endif" > DGEN_DEPS_POST;
