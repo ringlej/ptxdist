@@ -18,4 +18,5 @@
 0016-0018-dont-add-rpaths.diff.patch
 0017-add-cache-variable-for-sem_getvalue-test.patch
 0018-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
-# 0e78d00ad21902e463fd24c04a612ecf  - git-ptx-patches magic
+0019-resolve-existing-LD_LIBRARY_PATH-during-make-not-dur.patch
+# a73123a1c88455b3c54a85efc01f1a1d  - git-ptx-patches magic

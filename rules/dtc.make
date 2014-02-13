@@ -25,10 +25,13 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 
 %.dtb:
 	@$(call targetinfo)
-	@echo CPP `ptxd_print_path "$<.tmp"`
+	@if [ -z "$(strip $<)" ]; then \
+		ptxd_bailout "Device-tree for `ptxd_print_path '$@'` undefined!"; \
+	fi
+	@echo CPP `ptxd_print_path "$(STATEDIR)/$(notdir $<).tmp"`
 	@cpp \
 		-Wp,-MD,$(STATEDIR)/dtc.dtc.deps \
-		-Wp,-MT,$<.tmp \
+		-Wp,-MT,$(STATEDIR)/$(notdir $<).tmp \
 		-nostdinc \
 		-P \
 		-I$(dir $<) \
@@ -36,7 +39,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		-I$(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts/include \
 		-I$(KERNEL_DIR)/include \
 		-undef -D__DTS__ -x assembler-with-cpp \
-		-o $<.tmp \
+		-o $(STATEDIR)/$(notdir $<).tmp \
 		$<
 	@echo DTC `ptxd_print_path "$@"`
 	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]-i$$"; then \
@@ -47,7 +50,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		$$dtc_include \
 		-d $(PTXDIST_TEMPDIR)/dtc.dtc.deps \
 		-I dts -O dtb -b 0 \
-		-o "$@" "$<.tmp"
+		-o "$@" "$(STATEDIR)/$(notdir $<).tmp"
 	@awk '{ \
 			printf "%s", $$1 ;  \
 			for (i = 2; i <= NF; i++) { \

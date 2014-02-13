@@ -9,8 +9,8 @@ the variable PYTHON_FOR_BUILD to specify this python, default is to use
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile.pre.in |   39 ++++++++++++++++++++-------------------
- configure.in    |   16 ++++++++++++++++
+ Makefile.pre.in | 39 ++++++++++++++++++++-------------------
+ configure.in    | 16 ++++++++++++++++
  2 files changed, 36 insertions(+), 19 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in

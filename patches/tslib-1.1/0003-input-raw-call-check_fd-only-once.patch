@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 3 Feb 2014 10:55:42 +0100
+Subject: [PATCH] input-raw: call check_fd() only once
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ plugins/input-raw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index 10454da..5ce0abb 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -129,7 +129,7 @@ static int check_fd(struct tslib_input *i)
+ 		i->grab_events = GRAB_EVENTS_ACTIVE;
+ 	}
+ 
+-	return 0;
++	return 1;
+ }
+ 
+ static int ts_input_read(struct tslib_module_info *inf,

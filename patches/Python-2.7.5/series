@@ -8,4 +8,5 @@
 0006-add-cross-compilation-support.patch
 0007-python-don-t-add-rpaths-in-setup.py.patch
 0008-add-more-search-paths.patch
-# 411ac5f396ebdb4609a70a104096cc59  - git-ptx-patches magic
+0009-resolve-existing-LD_LIBRARY_PATH-during-make-not-dur.patch
+# c22b85583b9b9fc00386bba7094689ba  - git-ptx-patches magic

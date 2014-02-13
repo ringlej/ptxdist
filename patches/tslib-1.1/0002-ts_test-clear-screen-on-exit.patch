@@ -1,0 +1,36 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Date: Mon, 3 Feb 2014 09:57:25 +0100
+Subject: [PATCH] ts_test: clear screen on exit
+
+Make sure that ts_test clears the screen on exit.
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+---
+ tests/ts_calibrate.c | 1 +
+ tests/ts_test.c      | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/tests/ts_calibrate.c b/tests/ts_calibrate.c
+index eb0aca3..ea503a4 100644
+--- a/tests/ts_calibrate.c
++++ b/tests/ts_calibrate.c
+@@ -268,6 +268,7 @@ int main()
+ 		i = -1;
+ 	}
+ 
++	fillrect (0, 0, xres - 1, yres - 1, 0);
+ 	close_framebuffer();
+ 	return i;
+ }
+diff --git a/tests/ts_test.c b/tests/ts_test.c
+index fbbc9b8..d47c6e0 100644
+--- a/tests/ts_test.c
++++ b/tests/ts_test.c
+@@ -213,6 +213,7 @@ int main()
+ 		if (quit_pressed)
+ 			break;
+ 	}
++	fillrect (0, 0, xres - 1, yres - 1, 0);
+ 	close_framebuffer();
+ 
+ 	return 0;

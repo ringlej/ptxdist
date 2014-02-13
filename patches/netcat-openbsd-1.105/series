@@ -1,0 +1,11 @@
+0001-port-to-linux-with-libsd.patch
+0002-connect-timeout.patch
+0003-get-sev-by-name.patch
+0004-poll-hup.patch
+0005-send-crlf.patch
+0006-quit-timer.patch
+0007-udp-scan-timeout.patch
+0008-verbose-numeric-port.patch
+0009-dccp-support.patch
+0010-serialized-handling-multiple-clients.patch
+0011-misc-failures-and-features.patch

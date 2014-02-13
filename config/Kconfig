@@ -5,10 +5,6 @@
 
 mainmenu "PTXdist $CONFIGFILE_VERSION"
 
-config MODULES
-	bool
-	default y
-
 source "generated/project_specific.in"
 source "generated/fixme.in"
 
