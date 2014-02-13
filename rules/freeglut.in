@@ -3,6 +3,7 @@
 config FREEGLUT
 	tristate
 	select MESALIB
+	select GLU
 	select XORG_LIB_XI
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT

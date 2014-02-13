@@ -8,11 +8,11 @@ necessary code to use the python socket module for socketcan.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Lib/plat-linux2/IN.py  |    2 +
- Modules/socketmodule.c |   89 ++++++++++++++++++++++++++++++++++++++++++++++++
- Modules/socketmodule.h |   11 ++++++
- configure.in           |   13 +++++++
- 4 files changed, 115 insertions(+), 0 deletions(-)
+ Lib/plat-linux2/IN.py  |  2 ++
+ Modules/socketmodule.c | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ Modules/socketmodule.h | 11 +++++++
+ configure.in           | 13 ++++++++
+ 4 files changed, 115 insertions(+)
 
 diff --git a/Lib/plat-linux2/IN.py b/Lib/plat-linux2/IN.py
 index d7d3002..2e776e4 100644

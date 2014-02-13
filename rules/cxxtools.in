@@ -1,0 +1,14 @@
+## SECTION=system_libraries
+
+config CXXTOOLS
+	tristate
+	prompt "cxxtools"
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
+	select GCCLIBS_CXX
+	help
+	  Cxxtools is a comprehensive C++ class library for Unix
+	  and Linux. The library includes classes for
+	  serialization, unicode text, multi threading,
+	  networking, rpc, http client and server, xml,
+	  logging and many more.

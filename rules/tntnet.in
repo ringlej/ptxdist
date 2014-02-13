@@ -1,0 +1,51 @@
+## SECTION=networking
+
+menuconfig TNTNET
+	tristate
+	prompt "tntnet                        "
+	select LIBC_PTHREAD
+	select LIBC_DL
+	select GCCLIBS_GCC_S
+	select GCCLIBS_CXX
+	select ZLIB
+	select CXXTOOLS
+	select OPENSSL if TNTNET_SSL_OPENSSL
+	select GNUTLS if TNTNET_SSL_GNUTLS
+	help
+	  web application server for C++
+
+if TNTNET
+
+comment "build options  ---"
+
+choice # SSL
+	prompt "SSL support"
+	default TNTNET_SSL_NONE
+
+	config TNTNET_SSL_OPENSSL
+		bool
+		prompt "OpenSSL"
+		help
+		  Tntnet uses OpenSSL
+
+	config TNTNET_SSL_GNUTLS
+		bool
+		prompt "GNU TLS"
+		help
+		  Tntnet uses GNU TLS
+
+	config TNTNET_SSL_NONE
+		bool
+		prompt "none"
+		help
+		  No SSL support for tntnet
+
+endchoice # SSL
+
+config TNTNET_SERVER
+	bool "Build server executable"
+	depends on TNTNET
+	help
+	  Build and install the standalone server executable
+
+endif # TNTNET

@@ -8,8 +8,8 @@ that can be set when cross-compiling.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.in |   13 +++++++++----
- 1 files changed, 9 insertions(+), 4 deletions(-)
+ configure.in | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index eee0809..415d3ca 100644

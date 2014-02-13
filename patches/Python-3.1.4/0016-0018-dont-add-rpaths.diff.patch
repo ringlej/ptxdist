@@ -3,8 +3,8 @@ Date: Wed, 3 Aug 2011 17:25:10 +0200
 Subject: [PATCH] 0018-dont-add-rpaths.diff
 
 ---
- setup.py |    2 --
- 1 files changed, 0 insertions(+), 2 deletions(-)
+ setup.py | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/setup.py b/setup.py
 index 2156621..036063c 100644
