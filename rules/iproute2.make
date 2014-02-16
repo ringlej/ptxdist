@@ -30,6 +30,9 @@ IPROUTE2_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
+# iproute2's configure is handcrafted and doesn't take standard configure options
+IPROUTE2_CONF_OPT := ''
+
 $(STATEDIR)/iproute2.prepare:
 	@$(call targetinfo)
 	@$(call world/prepare, IPROUTE2)
