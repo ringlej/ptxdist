@@ -57,7 +57,7 @@ ptxd_make_image_genimage_impl() {
     rm -rf "${pkg_dir}" &&
     mkdir -p "${pkg_dir}" &&
     for file in ${image_files}; do
-	ptxd_make_extract_archive "${image_files}" "${pkg_dir}"
+	ptxd_make_extract_archive "${file}" "${pkg_dir}"
     done &&
     if [ -n "${image_pkgs}" ]; then
 	ptxd_get_ipkg_files ${image_pkgs} &&
