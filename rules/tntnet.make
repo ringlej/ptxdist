@@ -71,9 +71,11 @@ $(STATEDIR)/tntnet.targetinstall:
 	@$(call install_fixup, tntnet,DESCRIPTION,missing)
 
 	@$(call install_lib, tntnet, 0, 0, 0644, libtntnet)
+	@$(call install_lib, tntnet, 0, 0, 0644, tntnet/tntnet)
 
 ifdef PTXCONF_TNTNET_SERVER
 	@$(call install_copy, tntnet, 0, 0, 0755, -, /usr/bin/tntnet)
+	@$(call install_alternative, tntnet, 0, 0, 0644, /etc/tntnet/tntnet.xml)
 endif
 
 	@$(call install_finish, tntnet)
