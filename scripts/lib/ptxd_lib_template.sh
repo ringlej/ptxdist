@@ -434,3 +434,26 @@ ptxd_template_new_image_genimage() {
 export -f ptxd_template_new_image_genimage
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="image-genimage"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for a genimage image"
+
+ptxd_template_new_blspec_entry() {
+    export class="blspec-"
+    ptxd_template_read_name &&
+    ptxd_template_read_author &&
+    ptxd_template_read "title" TITLE "PTXdist - $(ptxd_get_ptxconf PTXCONF_PROJECT_VENDOR)-$(ptxd_get_ptxconf PTXCONF_PROJECT)"
+    ptxd_template_read "version" VERSION "$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)"
+    ptxd_template_read "kernel command-line" CMDLINE
+    ptxd_template_read "kernel path" KERNEL "/boot/zImage"
+    ptxd_template_read "devicetree path" DEVICETREE "/boot/oftree"
+    export ENTRY="${package_name}.conf"
+    ptxd_template_write_platform_rules
+    local template_file="$(ptxd_template_file "${template}-conf")"
+    local filename="${PTXDIST_PLATFORMCONFIGDIR}/projectroot/loader/entries/${ENTRY}"
+    if ptxd_get_alternative loader/entries "${ENTRY}"; then
+	echo "using existing config file $(ptxd_template_print_path ${ptxd_reply})"
+    else
+	ptxd_template_filter "${template_file}" "${filename}"
+    fi
+}
+export -f ptxd_template_new_blspec_entry
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="blspec-entry"
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for a bootloader spec entry"

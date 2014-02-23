@@ -1,0 +1,5 @@
+title		@TITLE@
+version		@VERSION@
+options		@CMDLINE@
+linux		@KERNEL@
+devicetree	@DEVICETREE@
