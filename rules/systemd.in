@@ -8,12 +8,10 @@ menuconfig SYSTEMD
 	select LIBC_PTHREAD
 	select LIBC_RT
 	select LIBC_DL
-	select DBUS
 	select LIBCAP
 	select UDEV		if RUNTIME
 	select UDEV_LIBUDEV
 	select MACHINE_ID	if RUNTIME
-	select TCPWRAPPER	if SYSTEMD_TCPWRAP
 	select XZ		if SYSTEMD_XZ
 	select LIBSELINUX	if GLOBAL_SELINUX
 	# for udev:
@@ -37,9 +35,15 @@ menuconfig SYSTEMD
 
 if SYSTEMD
 
-config SYSTEMD_TCPWRAP
+comment "D-Bus is needed for the enabled fatures"
+	depends on SYSTEMD_DBUS && !DBUS
+
+config SYSTEMD_DBUS
 	bool
-	prompt "TCP wrappers support"
+
+config SYSTEMD_LOCALES
+	bool
+	default LOCALES
 
 config SYSTEMD_VCONSOLE
 	bool
@@ -58,6 +62,23 @@ config SYSTEMD_DISABLE_RANDOM_SEED
 	  This option is for systems with read-only rootfs, where writing
 	  the random seed is not possible.
 	  Warning: enabling this option may be insecure.
+
+config SYSTEMD_LOGIND
+	bool
+	select SYSTEMD_DBUS
+	prompt "login daemon"
+
+config SYSTEMD_NETWORK
+	bool
+	prompt "network configuration with systemd"
+
+config SYSTEMD_TIMEDATE
+	bool
+	default y
+	select SYSTEMD_DBUS
+	prompt "date/time handling"
+	help
+	  NTP client for time synchronization and local timezone handling.
 
 endif
 
