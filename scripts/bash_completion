@@ -10,6 +10,15 @@ if have ptxdist; then
 declare -a _ptxdist_completion_opts
 declare -a _ptxdist_completion_cmds
 declare -a _ptxdist_completion_newpkg
+__ptxdist_completion_packages() {
+	set -- $(${_ptxdist_cmd} print STATEDIR PTXDIST_PTXCONFIG PTXDIST_PLATFORMCONFIG PTXDIST_COLLECTIONCONFIG)
+	local cache="${1}/.bash_completion_packages"
+	if [ -z "${2}" -o "${2}" -nt "${cache}" -o "${3}" -nt "${cache}" -o "${4}" -nt "${cache}" ]; then
+		${_ptxdist_cmd} print PTX_PACKAGES_SELECTED 2>/dev/null | tee "${cache}" 2>/dev/null
+	else
+		cat "${cache}"
+	fi
+}
 _ptxdist_completion()
 {
 	local cur prev words cword split
@@ -114,7 +123,7 @@ _ptxdist_completion()
 		COMPREPLY=( $( compgen -W root -- $cur ) )
 		;&
 	get|extract|prepare|compile|install|targetinstall|tags)
-		COMPREPLY+=( $( compgen -W "$( $_ptxdist_cmd print PTX_PACKAGES_SELECTED 2> /dev/null)" -- $cur ) )
+		COMPREPLY+=( $( compgen -W "$(__ptxdist_completion_packages)" -- $cur ) )
 		;;
 	drop)
 		COMPREPLY=( $( compgen -W "$( cd $($_ptxdist_cmd print PTXDIST_PLATFORMDIR)/state; ls *.+(get|extract|prepare|compile|install|targetinstall) )" -- $cur ) )
