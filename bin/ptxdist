@@ -359,6 +359,7 @@ check_config() {
 		_check_config_platform &&
 		_check_config_collection
 	fi &&
+	setup_logfile &&
 	if [ ! -e "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" -o -L "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" ]; then
 		local ptxconfig="$(readlink -f "${PTXDIST_PTXCONFIG}")"
 		rm -f "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" &&
@@ -1418,7 +1419,6 @@ do_select()
 	#
 	setup_platform &&
 	setup_path &&
-	setup_logfile &&
 	setup_export
 }
 
@@ -2363,6 +2363,7 @@ setup_path() {
 #
 setup_logfile()
 {
+	PTX_LOGFILE="${PTXDIST_PLATFORMDIR}/logfile"
 	local logdir="${PTX_LOGFILE%/*}"
 
 	if [ -e "${logdir}" -a \! -w "${logdir}" -o \
@@ -2393,6 +2394,7 @@ setup_logfile()
 	#      ||
 	#      VV
 	echo "{""{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_ARGS_FULL[@]}" >> "${PTX_LOGFILE}"
+	export PTX_LOGFILE
 }
 
 
@@ -2466,9 +2468,6 @@ main() {
 	setup_libs &&
 	setup_path &&
 	# --- path is now set ---
-
-	setup_logfile &&
-	# -- logfile is ready
 
 	setup_export &&
 	# -- all important vars are exported
