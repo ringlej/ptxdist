@@ -1842,18 +1842,26 @@ EOF
 			exit
 			;;
 		print)
-			check_config &&
-			if [ -z "${1}" ]; then
+			if [ ${#} -eq 0 ]; then
 				exit 1
-			elif [ -n "${!1}" ]; then
-				echo "${!1}"
-			else
-				check_deps
-				ptxd_make_log "print-${1}" 2>/dev/null || {
-					echo "${1} undefined" >&2
-					exit 1
-				}
 			fi
+			while [ ${#} -gt 0 ]; do
+				if [ -n "${!1}" ]; then
+					echo "${!1}"
+				else
+					local check
+					if [ -z "${check}" ]; then
+						check_config &&
+						check_deps || exit 1
+						check=1
+					fi
+					ptxd_make_log "print-${1}" 2>/dev/null || {
+						echo "${1} undefined" >&2
+						exit 1
+					}
+				fi
+				shift
+			done
 			exit
 			;;
 		projects)
