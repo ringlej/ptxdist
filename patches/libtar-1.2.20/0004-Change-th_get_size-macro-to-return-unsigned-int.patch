@@ -1,0 +1,51 @@
+From: Chris Frey <cdfrey@foursquare.net>
+Date: Thu, 24 Oct 2013 18:52:44 -0400
+Subject: [PATCH] Change th_get_size() macro to return unsigned int
+
+On systems where size_t is larger than an int (and larger than
+unsigned int), then in various places in the library, where
+stuff like this happens:
+
+	size_t sz = th_get_size(t);
+
+then the int value returned from th_get_size() is sign extended to
+some unwieldy amount.
+
+On 64bit systems, this can yield extremely large values.
+
+By fixing this problem in the header, and only for th_get_size(),
+we avoid breaking the API of the function call oct_to_int()
+(which arguably should return an unsigned int, since the sscanf()
+it uses expects to yield an unsigned int).  We also fix the library,
+which uses th_get_size() internally to assign sizes to size_t.
+
+The drawback is that not all client code that uses th_get_size()
+will be fixed, until they recompile, but they will automatically
+take advantage of the bugs fixed *inside* the library.
+
+The remaining th_get_*() functions operate on modes and CRC values
+and the like, and should be fine, remaining as ints.
+
+Thanks very much to Magnus Holmgren for catching this behaviour.
+https://lists.feep.net:8080/pipermail/libtar/2013-October/000365.html
+---
+ lib/libtar.h |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/lib/libtar.h b/lib/libtar.h
+index 5993cd2..b3281f7 100644
+--- a/lib/libtar.h
++++ b/lib/libtar.h
+@@ -183,7 +183,11 @@ int th_write(TAR *t);
+ 
+ /* decode tar header info */
+ #define th_get_crc(t) oct_to_int((t)->th_buf.chksum)
+-#define th_get_size(t) oct_to_int((t)->th_buf.size)
++/* We cast from int (what oct_to_int() returns) to
++   unsigned int, to avoid unwieldy sign extensions
++   from occurring on systems where size_t is bigger than int,
++   since th_get_size() is often stored into a size_t. */
++#define th_get_size(t) ((unsigned int)oct_to_int((t)->th_buf.size))
+ #define th_get_mtime(t) oct_to_int((t)->th_buf.mtime)
+ #define th_get_devmajor(t) oct_to_int((t)->th_buf.devmajor)
+ #define th_get_devminor(t) oct_to_int((t)->th_buf.devminor)
