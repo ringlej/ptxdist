@@ -7,6 +7,8 @@ menuconfig NET_SNMP
 	select LIBC_DL		if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
 	select LIBNL		if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
 	select LM_SENSORS	if NET_SNMP_MIB_MODULES_LM_SENSORS
+	select OPENSSL		if NET_SNMP_SHA_AES
+	select NET_SNMP_PRIVACY	if NET_SNMP_SHA_AES || NET_SNMP_DES
 
 if NET_SNMP
 
@@ -174,6 +176,7 @@ endchoice
 config NET_SNMP_MINI_AGENT
 	bool
 	default y
+	depends on ! NET_SNMP_PRIVACY
 	prompt "minimal agent"
 
 config NET_SNMP_AGENT
@@ -200,6 +203,10 @@ config NET_SNMP_SNMPV2C
 	bool
 	prompt "support for SNMPv2c"
 
+config NET_SNMP_PRIVACY
+	bool
+	prompt "support for privacy (encryption)"
+
 config NET_SNMP_DES
 	bool
 	prompt "DES encryption"
@@ -207,6 +214,10 @@ config NET_SNMP_DES
 config NET_SNMP_MD5
 	bool
 	prompt "MD5 authentication"
+
+config NET_SNMP_SHA_AES
+	bool
+	prompt "SHA authentication and AES encryption"
 
 config NET_SNMP_DOM_SOCK_ONLY
 	bool "Disable UDP/TCP transports for agentx" if NET_SNMP_AGENT

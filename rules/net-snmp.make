@@ -47,7 +47,7 @@ NET_SNMP_AUTOCONF := \
 	$(GLOBAL_IPV6_OPTION) \
 	--with-defaults \
 	--disable-manuals \
-	--without-openssl \
+	--$(call ptx/wwo, PTXCONF_NET_SNMP_SHA_AES)-openssl \
 	--with-mib-modules="$(NET_SNMP_MIB_MODULES-y)" \
 	--with-out-mib-modules="$(NET_SNMP_MIB_MODULES-)" \
 	--with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS) \
@@ -58,7 +58,7 @@ NET_SNMP_AUTOCONF := \
 	--disable-embedded-perl \
 	--without-perl-modules \
 	--disable-static \
-	--disable-privacy \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_PRIVACY)-privacy \
 	--disable-internal-md5 \
 	--$(call ptx/endis, PTXCONF_NET_SNMP_DOM_SOCK_ONLY)-agentx-dom-sock-only \
 	--enable-mib-config-checking \
