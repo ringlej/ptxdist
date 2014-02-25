@@ -6,7 +6,9 @@ mainmenu "PTXdist $PLATFORMCONFIG_VERSION"
 
 source "generated/platform_version.in"
 
-source "platforms/architecture.in"
+menu "architecture                  "
+source "generated/architecture_options.in"
+endmenu
 source "platforms/kernel.in"
 source "platforms/dtc.in"
 source "platforms/console.in"

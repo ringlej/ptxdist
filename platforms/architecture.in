@@ -1,4 +1,4 @@
-menu "architecture                  "
+## SECTION=architecture_options
 
 choice
 	prompt "cpu architecture"
@@ -286,9 +286,3 @@ config ARCH_STRING
 	default "cris"			if ARCH_CRIS
 	default "parisc"		if ARCH_PARISC
 	default "sh"			if ARCH_SH
-
-# ----------------------------------------------------------------------------
-
-source "generated/architecture_options.in"
-
-endmenu
