@@ -19,9 +19,6 @@ menu "bootloaders                   "
 source "generated/bootloader.in"
 endmenu
 
-
-source "platforms/flash.in"
-
 menu "image creation options        "
 source "generated/image.in"
 endmenu
