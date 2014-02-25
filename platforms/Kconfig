@@ -10,7 +10,7 @@ menu "architecture                  "
 source "generated/architecture_options.in"
 endmenu
 source "platforms/kernel.in"
-source "platforms/dtc.in"
+source "generated/devicetree.in"
 source "platforms/console.in"
 
 menu "extra kernel                  "
