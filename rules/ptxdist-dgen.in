@@ -1,4 +1,5 @@
 ## SECTION=ptxdist_version
+## SECTION=platform_version
 
 # Note: not setting PTXDIST_DEP_TARGET means runtime _and_ buildtime deps
 config PTXDIST_DEP_TARGET
