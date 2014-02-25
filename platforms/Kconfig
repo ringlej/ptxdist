@@ -9,7 +9,7 @@ source "generated/platform_version.in"
 menu "architecture                  "
 source "generated/architecture_options.in"
 endmenu
-source "platforms/kernel.in"
+source "generated/base_kernel.in"
 source "generated/devicetree.in"
 source "platforms/console.in"
 

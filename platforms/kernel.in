@@ -1,3 +1,5 @@
+## SECTION=base_kernel
+
 menuconfig KERNEL
 	bool
 	default y
