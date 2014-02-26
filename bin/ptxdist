@@ -1719,6 +1719,7 @@ parse_second()
 . ~/.bashrc
 PS1="[ptx] \${PS1}"
 PATH="${PATH}"
+alias ptxsudo='sudo env PATH=$PATH'
 EOF
 				"${BASH}" --init-file "${bashrc}"
 			else
