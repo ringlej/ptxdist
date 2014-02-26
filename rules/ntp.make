@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	:= 4.2.6
-NTP_MD5		:= 4d64a99592b818aa9419fc9dcb149746
+NTP_VERSION	:= 4.2.6p5
+NTP_MD5		:= 00df80a84ec9528fcfb09498075525bc
 NTP		:= ntp-$(NTP_VERSION)
 NTP_SUFFIX	:= tar.gz
 NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
@@ -355,7 +355,7 @@ endif
 #	#
 ifdef PTXCONF_NTP_NTPQ
 	@$(call install_copy, ntp, 0, 0, 0755, -, \
-		/usr/bin/ntpq)
+		/usr/sbin/ntpq)
 endif
 
 #	#
