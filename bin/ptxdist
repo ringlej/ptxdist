@@ -906,6 +906,7 @@ Misc:
   nfsroot			run a userspace NFS server and export the nfsroot
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
+  list-packages			print a list of all selected packages
   bash				enter a ptxdist environment bash shell
   bash <cmd> [args...]		execute <cmd> in ptxdist environment
   export_src <target dir>	export all source archives needed for this
@@ -1810,6 +1811,13 @@ EOF
 			images=( "${@/#/${IMAGEDIR}/}" ) &&
 			ptxd_make_log "${images[@]}"
 			exit
+			;;
+		list-packages)
+			check_config &&
+			check_deps || return
+			for i in $(ptxd_make "print-PACKAGES"); do
+				echo $i
+			done | sort
 			;;
 		make)
 			check_premake_compiler &&
