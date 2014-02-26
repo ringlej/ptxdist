@@ -907,6 +907,8 @@ Misc:
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   list-packages			print a list of all selected packages
+  local-src <pkg> <directory>	overwrite a package source with a locally provided
+				directory containing the sourcecode.
   bash				enter a ptxdist environment bash shell
   bash <cmd> [args...]		execute <cmd> in ptxdist environment
   export_src <target dir>	export all source archives needed for this
@@ -1818,6 +1820,11 @@ EOF
 			for i in $(ptxd_make "print-PACKAGES"); do
 				echo $i
 			done | sort
+			;;
+		local-src)
+			check_config &&
+			ptxd_lib_local_src "${@}"
+			exit
 			;;
 		make)
 			check_premake_compiler &&
