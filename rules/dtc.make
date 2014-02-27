@@ -25,7 +25,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 
 %.dtb: TMP_DTS = $(STATEDIR)/$(notdir $<).tmp
 %.dtb: TMP_DEPS = $(PTXDIST_TEMPDIR)/dts.deps
-%.dtb: DEPS = $(STATEDIR)/$(notdir $<).deps
+%.dtb: DEPS = $(STATEDIR)/dtc.$(notdir $<).deps
 %.dtb:
 	echo $(TMP_DTS)
 	@$(call targetinfo)
@@ -45,7 +45,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		-undef -D__DTS__ -x assembler-with-cpp \
 		-o $(TMP_DTS) \
 		$<
-	@sed 's;^$(TMP_DTS):;$@:;' $(TMP_DEPS) > $(DEPS)
+	@sed -e 's;^$(TMP_DTS):;$@:;' -e 's;^ \([^ ]*\); $$(wildcard \1);' $(TMP_DEPS) > $(DEPS)
 	@echo DTC `ptxd_print_path "$@"`
 	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]-i$$"; then \
 		dtc_include="-i $(dir $<) -i $(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts"; \
