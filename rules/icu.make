@@ -79,7 +79,7 @@ $(STATEDIR)/icu.targetinstall:
 	@$(call install_lib, icu, 0, 0, 0644, libicuuc)
 
 	@$(call install_copy, icu, 0, 0, 0644, -, \
-		/usr/share/icu/$(ICU_VERSION)/icudt$(basename $(ICU_VERSION))l.dat)
+		/usr/share/icu/$(ICU_VERSION)/icudt$(basename $(ICU_VERSION))$(call ptx/ifdef,PTXCONF_ENDIAN_LITTLE,l,b).dat)
 
 	@$(call install_finish, icu)
 
