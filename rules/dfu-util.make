@@ -29,13 +29,14 @@ DFU_UTIL_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-DFU_UTIL_PATH	:= PATH=$(CROSS_PATH)
-DFU_UTIL_ENV 	:= $(CROSS_ENV)
+DFU_UTIL_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_usb_libusb_init=no
 
 #
 # autoconf
 #
-DFU_UTIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+DFU_UTIL_CONF_TOOL	:= autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install

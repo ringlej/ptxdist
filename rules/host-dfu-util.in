@@ -2,6 +2,7 @@
 
 config HOST_DFU_UTIL
 	tristate
+	select HOST_LIBUSB
 	prompt "dfu-util"
 	help
 	  dfu-util is the host side implementation of the DFU 1.0 and DFU 1.1

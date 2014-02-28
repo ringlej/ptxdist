@@ -17,6 +17,10 @@ HOST_PACKAGES-$(PTXCONF_HOST_DFU_UTIL) += host-dfu-util
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_DFU_UTIL_CONF_ENV	:= \
+	$(HOST_ENV) \
+	ac_cv_lib_usb_libusb_init=no
+
 #
 # autoconf
 #
