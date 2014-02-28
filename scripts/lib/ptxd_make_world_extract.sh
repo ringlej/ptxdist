@@ -43,9 +43,6 @@ ptxd_make_world_extract() {
 	    ;;
 	file://*)
 	    local url="${pkg_url//file:\/\//}"
-	    if [ -n "${pkg_src}" ]; then
-		ptxd_bailout "<PKG>_SOURCE must not be defined when using a file:// URL!"
-	    fi
 	    if [ -d "${url}" ]; then
 		echo "local directory instead of tar file, linking build dir"
 		ln -sf "$(ptxd_abspath "${url}")" "${pkg_dir}"
