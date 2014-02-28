@@ -16,7 +16,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_TNTNET) += host-tntnet
 #
 # Paths and names
 #
-HOST_TNTNET_DIR		:= $(HOST_BUILDDIR)/$(TNTNET)
+HOST_TNTNET_DIR		= $(HOST_BUILDDIR)/$(TNTNET)
 
 # ----------------------------------------------------------------------------
 # Prepare
