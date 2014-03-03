@@ -605,7 +605,10 @@ check_compiler() {
 		}
 	done
 
-	ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null && return || true
+	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
+		PATH="${wrapper_dir}:${PATH}"
+		return
+	fi
 
 	#
 	# Three things should be checked
