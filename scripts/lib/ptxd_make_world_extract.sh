@@ -20,11 +20,11 @@ ptxd_make_world_extract() {
 	return
     fi
 
-    pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
-
     if [ "${pkg_dir%/}" = "${pkg_extract_dir}" ]; then
 	ptxd_bailout "<PKG>_DIR cannot be the $(ptxd_print_path ${pkg_extract_dir}). There is something wrong with the package definition."
     fi
+
+    pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
 
     case "${pkg_url}" in
 	lndir://*)
