@@ -178,7 +178,7 @@ ptxd_template_write_platform_rules() {
 export -f ptxd_template_write_rules
 
 ptxd_template_write_src() {
-    local dst="${PTXDIST_WORKSPACE}/local_src/${package}${VERSION:+-${VERSION}}"
+    local dst="${PTXDIST_WORKSPACE}/local_src/${package}"
 
     if [ -d "${dst}" ]; then
 	return
