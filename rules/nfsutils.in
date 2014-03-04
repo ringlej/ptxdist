@@ -110,6 +110,12 @@ config NFSUTILS_NFSD_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/nfsd"
 
+config NFSUTILS_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files"
+
 config NFSUTILS_INSTALL_USER_EXPORTS
 	bool
 	prompt "Install user's /etc/exports"

@@ -186,6 +186,17 @@ ifneq ($(call remove_quotes,$(PTXCONF_NFSUTILS_NFSD_BBINIT_LINK)),)
 endif
 endif
 endif
+ifdef PTXCONF_NFSUTILS_SYSTEMD_UNIT
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/nfs.target)
+	@$(call install_link, nfsutils, ../nfs.target, \
+		/lib/systemd/system/multi-user.target.wants/nfs.target)
+
+ifdef PTXCONF_NFSUTILS_INSTALL_STATD
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/rpc-statd.service)
+endif
+endif
 	@$(call install_finish, nfsutils)
 
 # FIXME: not installed yet:
