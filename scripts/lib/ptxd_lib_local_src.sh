@@ -8,17 +8,22 @@
 # see the README file.
 #
 ptxd_lib_local_src() {
-	if [ $# != 2 ]; then
-		echo "Usage: local_src <package> <directory>"
+	if [ $# -ne 1 -a $# -gt 2 ]; then
+		echo "Usage: local_src <package> [<directory>]"
 		exit 1
 	fi
 
 	local pkgname="${1}"
 	local target="${2}"
+	local link="${PTXDIST_WORKSPACE}/local_src/${pkgname}${PTXDIST_PLATFORMSUFFIX}";
+
+	if [ -z "${target}" ]; then
+		echo "Removing local_src link for '${pkgname}'."
+		rm -f "${link}"
+		return
+	fi
 
 	mkdir -p "${PTXDIST_WORKSPACE}/local_src"
-
-	local link="${PTXDIST_WORKSPACE}/local_src/${pkgname}${PTXDIST_PLATFORMSUFFIX}"
 
 	if [ -e "${link}" -o -L "${link}" ]; then
 		if [ -n "${PTX_FORCE}" ]; then
