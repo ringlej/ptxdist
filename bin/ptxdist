@@ -909,7 +909,7 @@ Misc:
   list-packages			print a list of all selected packages
   local-src <pkg> [<directory>]	overwrite a package source with a locally provided
 				directory containing the sourcecode.
-				Not specifying a the directory will undo the change.
+				Not specifying the directory will undo the change.
   bash				enter a ptxdist environment bash shell
   bash <cmd> [args...]		execute <cmd> in ptxdist environment
   export_src <target dir>	export all source archives needed for this
