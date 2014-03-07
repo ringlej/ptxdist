@@ -1,0 +1,21 @@
+## SECTION=system_libraries
+
+config TCLAP
+	tristate
+	prompt "tclap"
+	help
+	  Templatized C++ Command Line Parser Library
+
+	  TCLAP is a small, flexible library that provides a simple interface
+	  for defining and accessing command line arguments. It was intially
+	  inspired by the user friendly CLAP libary. The difference is that
+	  this library is templatized, so the argument class is type
+	  independent. Type independence avoids identical-except-for-type
+	  objects, such as IntArg, FloatArg, and StringArg. While the library
+	  is not strictly compliant with the GNU or POSIX standards, it is
+	  close.
+
+	  NOTE: TCLAP is header-only, so the package doesn't install anything
+	  on the target!
+
+
