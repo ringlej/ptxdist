@@ -56,6 +56,7 @@ $(STATEDIR)/nettle.targetinstall:
 	@$(call install_fixup, nettle,DESCRIPTION,missing)
 
 	@$(call install_lib, nettle, 0, 0, 0644, libnettle)
+	@$(call install_lib, nettle, 0, 0, 0644, libhogweed)
 	@$(call install_copy, nettle, 0, 0, 0755, -, /usr/bin/nettle-hash)
 	@$(call install_copy, nettle, 0, 0, 0755, -, /usr/bin/sexp-conv)
 	@$(call install_copy, nettle, 0, 0, 0755, -, /usr/bin/nettle-lfib-stream)
