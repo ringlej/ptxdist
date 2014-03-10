@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBPV) += libpv
 #
 # Paths and names
 #
-LIBPV_VERSION	:= 1.4.1
-LIBPV_MD5	:= f3a1073174f676a6a64dba7b2e55b247
+LIBPV_VERSION	:= 1.4.2
+LIBPV_MD5	:= 353f6d57278a2f7852255378f38be8b6
 LIBPV		:= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	:= tar.bz2
 LIBPV_URL	:= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
