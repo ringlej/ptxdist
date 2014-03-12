@@ -1,0 +1,23 @@
+From: Christos Zoulas <christos@zoulas.com>
+Date: Tue, 4 Mar 2014 17:42:19 +0000
+Subject: [PATCH] off by one in out of bounds calculations (Jan Kaluza)
+
+Conflicts:
+	src/softmagic.c
+---
+ src/softmagic.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/softmagic.c b/src/softmagic.c
+index 7ee3f6f..3919fa7 100644
+--- a/src/softmagic.c
++++ b/src/softmagic.c
+@@ -71,7 +71,7 @@ private void cvt_16(union VALUETYPE *, const struct magic *);
+ private void cvt_32(union VALUETYPE *, const struct magic *);
+ private void cvt_64(union VALUETYPE *, const struct magic *);
+ 
+-#define OFFSET_OOB(n, o, i)	((n) < (o) || (i) >= ((n) - (o)))
++#define OFFSET_OOB(n, o, i)	((n) < (o) || (i) > ((n) - (o)))
+ /*
+  * softmagic - lookup one file in parsed, in-memory copy of database
+  * Passed the name and FILE * of one file to be typed.
