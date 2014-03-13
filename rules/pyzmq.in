@@ -1,0 +1,11 @@
+## SECTION=python
+
+config PYZMQ
+	tristate
+	prompt "pyzmq"
+	select LIBZMQ
+	select HOST_CYTHON
+	select PYTHON
+	help
+	  PyZMQ is the official Python binding for the ZeroMQ Messaging Library
+	  (http://www.zeromq.org).
