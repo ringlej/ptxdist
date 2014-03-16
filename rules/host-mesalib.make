@@ -36,6 +36,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-gles2 \
 	--disable-openvg \
 	--disable-dri \
+	--disable-dri3 \
 	--disable-glx \
 	--disable-osmesa \
 	--disable-gallium-osmesa \
