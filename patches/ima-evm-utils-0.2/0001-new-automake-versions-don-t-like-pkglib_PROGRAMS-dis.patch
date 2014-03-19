@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 19 Mar 2014 09:37:39 +0100
+Subject: [PATCH] new automake versions don't like
+ pkglib_PROGRAMS/dist_pkglib_SCRIPTS
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tests/Makefile.am | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index d9fc8b0..042bf4d 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -1,7 +1,9 @@
+-pkglib_PROGRAMS = openclose
++libpkgdir = $(pkglibdir)
++
++libpkg_PROGRAMS = openclose
+ 
+ openclose_SOURCES = openclose.c
+ 
+-dist_pkglib_SCRIPTS = evm_enable.sh evm_genkey.sh evm_sign_all.sh evm_sign_modules.sh ima_fix_dir.sh \
++dist_libpkg_SCRIPTS = evm_enable.sh evm_genkey.sh evm_sign_all.sh evm_sign_modules.sh ima_fix_dir.sh \
+ 			evm_hmac_all.sh evm_hmac_modules.sh
+ 
