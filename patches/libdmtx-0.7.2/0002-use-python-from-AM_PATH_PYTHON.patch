@@ -4,9 +4,9 @@ Subject: [PATCH] use python from AM_PATH_PYTHON
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.ac               |    1 +
- wrapper/python/Makefile    |   11 -----------
- wrapper/python/Makefile.in |   13 +++++++++++++
+ configure.ac               |  1 +
+ wrapper/python/Makefile    | 11 -----------
+ wrapper/python/Makefile.in | 13 +++++++++++++
  3 files changed, 14 insertions(+), 11 deletions(-)
  delete mode 100755 wrapper/python/Makefile
  create mode 100755 wrapper/python/Makefile.in
