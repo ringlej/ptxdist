@@ -45,7 +45,7 @@ $(STATEDIR)/host-cython.compile:
 $(STATEDIR)/host-cython.install:
 	@$(call targetinfo)
 	@cd $(HOST_CYTHON_DIR) && \
-		python2 setup.py install --root=$(HOST_CYTHON_PKGDIR) --prefix="/usr"
+		python2 setup.py install --root=$(HOST_CYTHON_PKGDIR) --prefix=
 	@$(call touch)
 
 # vim: syntax=make
