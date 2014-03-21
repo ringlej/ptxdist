@@ -30,16 +30,14 @@ LIBGMP_LICENSE	:= GPLv3, LGPLv3
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBGMP_PATH	:= PATH=$(CROSS_PATH)
-LIBGMP_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIBGMP_AUTOCONF := \
+LIBGMP_CONF_TOOL	:= autoconf
+LIBGMP_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_LIBGMP_SHARED)-shared \
-	--$(call ptx/endis, PTXCONF_LIBGMP_STATIC)-static
+	--enable-shared \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -54,12 +52,8 @@ $(STATEDIR)/libgmp.targetinstall:
 	@$(call install_fixup, libgmp,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
 	@$(call install_fixup, libgmp,DESCRIPTION,missing)
 
-ifdef PTXCONF_LIBGMP_SHARED
 	@$(call install_lib, libgmp, 0, 0, 0644, libgmp)
-endif
-ifdef PTXCONF_LIBGMP_STATIC
-	@$(call install_copy, libgmp, 0, 0, 0644, -, /usr/lib/libgmp.la)
-endif
+
 	@$(call install_finish, libgmp)
 
 	@$(call touch)
