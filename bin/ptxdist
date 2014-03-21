@@ -2391,6 +2391,10 @@ setup_path() {
 #
 setup_logfile()
 {
+	if [ -n "${PTX_LOGFILE}" ]; then
+		# we were already here
+		return
+	fi
 	PTX_LOGFILE="${PTXDIST_PLATFORMDIR}/logfile"
 	local logdir="${PTX_LOGFILE%/*}"
 
@@ -2411,10 +2415,10 @@ setup_logfile()
 
 	if [ \! -e "${PTX_LOGFILE}" ]; then
 		# let emacs outline mode be compatible to vi's fold mode
-		echo -e "# -*- mode:outline; outline-regexp:\"{""{{\" -*-\n" > "${PTX_LOGFILE}"
+		echo "# -*- mode:outline; outline-regexp:\"{""{{\" -*-" > "${PTX_LOGFILE}"
 		# help vim to recognise the fold markers and expand the first level of folding
 		# which in fact is the Emacs setting above
-		echo "# vim: set fdm=marker fdl=1:" > "${PTX_LOGFILE}"
+		echo -e "# vim: set fdm=marker fdl=1:\n" >> "${PTX_LOGFILE}"
 	fi
 
 	#
