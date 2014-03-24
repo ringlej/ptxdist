@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.4.16.3
-IPTABLES_MD5		:= 6dd40c12fb8f4c4312a0f8434369fbcd
+IPTABLES_VERSION	:= 1.4.21
+IPTABLES_MD5		:= 536d048c8e8eeebcd9757d0863ebb0c0
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -31,21 +31,21 @@ IPTABLES_DIR		:= $(BUILDDIR)/$(IPTABLES)
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPTABLES_PATH	:= PATH=$(CROSS_PATH)
-IPTABLES_ENV	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-IPTABLES_AUTOCONF := \
+IPTABLES_CONF_TOOL	:= autoconf
+IPTABLES_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--with-kernel=$(KERNEL_HEADERS_DIR) \
-	--with-xtlibdir=/usr/lib \
-	--enable-devel \
 	--$(call ptx/endis, PTXCONF_IPTABLES_IPV4)-ipv4 \
 	--$(call ptx/endis, PTXCONF_IPTABLES_IPV6)-ipv6 \
-	--$(call ptx/endis, PTXCONF_IPTABLES_LIBIPQ)-libipq
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-devel \
+	--$(call ptx/endis, PTXCONF_IPTABLES_LIBIPQ)-libipq \
+	--disable-bpf-compiler \
+	--disable-nfsynproxy \
+	--with-kernel=$(KERNEL_HEADERS_DIR) \
+	--with-xtlibdir=/usr/lib
 
 # ----------------------------------------------------------------------------
 # Install
