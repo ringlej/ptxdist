@@ -42,10 +42,12 @@ IPTABLES_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-devel \
 	--$(call ptx/endis, PTXCONF_IPTABLES_LIBIPQ)-libipq \
-	--disable-bpf-compiler \
-	--disable-nfsynproxy \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
+
+## broken configure.ac, so setting these would _enable_ the options:
+#	--disable-bpf-compiler
+#	--disable-nfsynproxy
 
 # ----------------------------------------------------------------------------
 # Install
