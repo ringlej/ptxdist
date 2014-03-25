@@ -1,0 +1,11 @@
+## SECTION=python
+
+config PYTHON_RPLICMP
+	tristate
+	prompt "python-rplicmp"
+	select HOST_CYTHON
+	select PYTHON
+	select LIBCAP
+	help
+	  This module allows easy creation of ICMPv6 socket in Python tailored to
+	  send RPL messages.
