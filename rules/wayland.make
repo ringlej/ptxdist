@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WAYLAND) += wayland
 #
 # Paths and names
 #
-WAYLAND_VERSION	:= 1.2.1
-WAYLAND_MD5	:= dc75d060f23c0ef17ae95307cd525240
+WAYLAND_VERSION	:= 1.4.0
+WAYLAND_MD5	:= 332cf9191837be12638a29265ed7cf46
 WAYLAND		:= wayland-$(WAYLAND_VERSION)
 WAYLAND_SUFFIX	:= tar.xz
 WAYLAND_URL	:= http://wayland.freedesktop.org/releases/$(WAYLAND).$(WAYLAND_SUFFIX)
@@ -29,6 +29,9 @@ WAYLAND_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
+WAYLAND_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_path_XMLLINT=
 #
 # autoconf
 #
