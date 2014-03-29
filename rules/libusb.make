@@ -16,37 +16,28 @@ PACKAGES-$(PTXCONF_LIBUSB) += libusb
 #
 # Paths and names
 #
-LIBUSB_VERSION	:= 1.0.8
-LIBUSB_MD5	:= 37d34e6eaa69a4b645a19ff4ca63ceef
-LIBUSB		:= libusb-$(LIBUSB_VERSION)
+LIBUSB_VERSION	:= 1.0.18
+LIBUSB_MD5	:= f2ccd0589dde901dfd5607459f77bf44
+LIBUSB		:= libusbx-$(LIBUSB_VERSION)
 LIBUSB_SUFFIX	:= tar.bz2
-LIBUSB_URL	:= $(call ptx/mirror, SF, libusb/$(LIBUSB).$(LIBUSB_SUFFIX))
+LIBUSB_URL	:= $(call ptx/mirror, SF, libusbx/$(LIBUSB).$(LIBUSB_SUFFIX))
 LIBUSB_SOURCE	:= $(SRCDIR)/$(LIBUSB).$(LIBUSB_SUFFIX)
 LIBUSB_DIR	:= $(BUILDDIR)/$(LIBUSB)
 LIBUSB_LICENSE	:= LGPLv2.1
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-LIBUSB_PATH	:= PATH=$(CROSS_PATH)
-LIBUSB_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 LIBUSB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-log \
-	--disable-debug-log \
-	--disable-examples-build \
-	--enable-static \
+	--disable-static \
 	--enable-shared \
-	--$(call ptx/endis, PTXCONF_LIBUSB_DISABLE_LOG)-log
-
-ifdef PTXCONF_LIBUSB_DEBUG_LOG
-LIBUSB_AUTOCONF += --enable-debug-log
-endif
+	--disable-udev \
+	--$(call ptx/endis, PTXCONF_LIBUSB_LOG)-log \
+	--$(call ptx/endis, PTXCONF_LIBUSB_DEBUG_LOG)-debug-log \
+	--$(call ptx/endis, PTXCONF_LIBUSB_SYSTEM_LOG)-system-log \
+	--disable-examples-build \
+	--disable-tests-build
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -58,7 +49,7 @@ $(STATEDIR)/libusb.targetinstall:
 	@$(call install_init, libusb)
 	@$(call install_fixup, libusb,PRIORITY,optional)
 	@$(call install_fixup, libusb,SECTION,base)
-	@$(call install_fixup, libusb,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
+	@$(call install_fixup, libusb,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, libusb,DESCRIPTION,missing)
 
 	@$(call install_lib, libusb, 0, 0, 0644, libusb-1.0)
