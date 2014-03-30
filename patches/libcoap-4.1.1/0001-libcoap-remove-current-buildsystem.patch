@@ -1,0 +1,235 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 29 Mar 2014 20:19:01 +0100
+Subject: [PATCH] libcoap: remove current buildsystem
+
+Upstream won't accept this, so do as little as possible and only remove
+files that won't be overwrite later in the build process.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ configure.in      | 98 -------------------------------------------------------
+ doc/Makefile.in   | 45 -------------------------
+ tests/Makefile.in | 57 --------------------------------
+ 3 files changed, 200 deletions(-)
+ delete mode 100644 configure.in
+ delete mode 100644 doc/Makefile.in
+ delete mode 100644 tests/Makefile.in
+
+diff --git a/configure.in b/configure.in
+deleted file mode 100644
+index 77f6c8f..0000000
+--- a/configure.in
++++ /dev/null
+@@ -1,98 +0,0 @@
+-#                                               -*- Autoconf -*-
+-# Process this file with autoconf to produce a configure script.
+-#
+-# Copyright (C) 2010--2014 Olaf Bergmann <bergmann@tzi.org>
+-#
+-# This file is part of the CoAP library libcoap. Please see
+-# README for terms of use. 
+-
+-AC_PREREQ([2.65])
+-AC_INIT([libcoap], [4.1.1])
+-AC_CONFIG_SRCDIR([coap.h])
+-
+-# First check for Contiki build to quit configure before any other test
+-AC_ARG_WITH(contiki,
+-  [AS_HELP_STRING([--with-contiki],[build libcoap for the Contiki OS])],
+-  [cp -p Makefile.contiki Makefile
+-   cp -p config.h.contiki config.h
+-   AC_MSG_NOTICE([Contiki build prepared])
+-   exit 0], 
+-  [])
+-
+-# Checks for programs.
+-AC_PROG_MAKE_SET
+-AC_PROG_CC
+-AC_PROG_RANLIB
+-AC_PATH_PROG(DOXYGEN, doxygen, [:])
+-AC_PATH_PROG(ETAGS, etags, [/bin/false])
+-
+-AC_C_BIGENDIAN
+-
+-# Checks for libraries.
+-AC_CHECK_LIB([coap], [coap_new_pdu])
+-
+-AC_SEARCH_LIBS([gethostbyname], [nsl])
+-AC_SEARCH_LIBS([socket], [socket])
+-
+-# configuration options that may change compile flags 
+-AC_ARG_WITH(debug,
+-  [AS_HELP_STRING([--without-debug],[disable all debug output and assertions])],
+-  [CPPFLAGS="${CPPFLAGS} -DNDEBUG"], 
+-  [])
+-
+-AC_ARG_WITH(async,
+-  [AS_HELP_STRING([--without-async],[disable handling of asynchronous transactions and observe])],
+-  [CPPFLAGS="${CPPFLAGS} -DWITHOUT_ASYNC"], 
+-  [])
+-
+-AC_ARG_WITH(block,
+-  [AS_HELP_STRING([--without-block],[disable block transfer])],
+-  [CPPFLAGS="${CPPFLAGS} -DWITHOUT_BLOCK"], 
+-  [])
+-
+-AC_ARG_WITH(observe,
+-  [AS_HELP_STRING([--without-observe],[disable resource observation])],
+-  [CPPFLAGS="${CPPFLAGS} -DWITHOUT_OBSERVE"], 
+-  [])
+-
+-AC_ARG_WITH(query-filter,
+-  [AS_HELP_STRING([--without-query-filter],[disable support for filters on /.well-known/core])],
+-  [CPPFLAGS="${CPPFLAGS} -DWITHOUT_QUERY_FILTER"], 
+-  [])
+-
+-AC_ARG_WITH(tests,
+-  [AS_HELP_STRING([--with-tests],[enable unit tests (requires cunit)])],	
+-  [TESTS="tests"],
+-  [])
+-
+-AC_ARG_WITH(shared,
+-  [AS_HELP_STRING([--with-shared],[build shared library])],	
+-  [BUILD_SO="BUILD_SO=1"],
+-  [])
+-
+-# disambiguate between autoconf generated setups and contiki / lwip setups
+-# which use explicit config.h.* files
+-CPPFLAGS="${CPPFLAGS} -DWITH_POSIX"
+-
+-# Checks for header files.
+-AC_CHECK_HEADERS([assert.h arpa/inet.h limits.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h time.h unistd.h sys/unistd.h syslog.h])
+-
+-# Checks for typedefs, structures, and compiler characteristics.
+-AC_TYPE_SIZE_T
+-AC_TYPE_SSIZE_T
+-
+-# Checks for library functions.
+-AC_FUNC_MALLOC
+-AC_CHECK_FUNCS([memset select socket strcasecmp strrchr getaddrinfo strnlen])
+-
+-AC_SUBST(TESTS)
+-AC_SUBST(BUILD_SO)
+-
+-AC_CONFIG_HEADERS([config.h])
+-
+-AC_CONFIG_FILES([Makefile
+-                 doc/Makefile
+-                 doc/Doxyfile
+-                 examples/Makefile
+-                 tests/Makefile])
+-AC_OUTPUT
+diff --git a/doc/Makefile.in b/doc/Makefile.in
+deleted file mode 100644
+index df72d6a..0000000
+--- a/doc/Makefile.in
++++ /dev/null
+@@ -1,45 +0,0 @@
+-# Makefile for libcoap
+-#
+-# Copyright (C) 2010 Olaf Bergmann <bergmann@tzi.org>
+-# 
+-# This program is free software; you can redistribute it and/or
+-# modify it under the terms of the GNU General Public License
+-# as published by the Free Software Foundation; either version 2
+-# of the License, or (at your option) any later version.
+-# 
+-# This program is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-# 
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write to the Free Software
+-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+-
+-# the library's version
+-VERSION:=@PACKAGE_VERSION@
+-
+-# tools
+-@SET_MAKE@
+-SHELL = /bin/sh
+-MKDIR = mkdir
+-DOXYGEN= @DOXYGEN@
+-
+-top_builddir = @top_builddir@
+-
+-DISTDIR?=$(top_builddir)/@PACKAGE_TARNAME@-@PACKAGE_VERSION@
+-FILES:=Makefile.in Doxyfile.in html
+-
+-doc:	Doxyfile
+-	$(DOXYGEN) $< >./doxygen.out 2>&1 
+-
+-clean:
+-	@rm -rf html
+-
+-distclean:	clean
+-	@rm -rf $(DISTDIR)
+-	@rm -f *~ 
+-
+-dist:	doc
+-	test -d $(DISTDIR)/doc || mkdir $(DISTDIR)/doc
+-	cp -r $(FILES) $(DISTDIR)/doc
+diff --git a/tests/Makefile.in b/tests/Makefile.in
+deleted file mode 100644
+index 95da5c0..0000000
+--- a/tests/Makefile.in
++++ /dev/null
+@@ -1,57 +0,0 @@
+-# Makefile for libcoap
+-#
+-# Copyright (C) 2012 Olaf Bergmann <bergmann@tzi.org>
+-#
+-# This file is part of the CoAP library libcoap. Please see
+-# README for terms of use. 
+-
+-# the library's version
+-VERSION:=@PACKAGE_VERSION@
+-
+-# tools
+-@SET_MAKE@
+-SHELL = /bin/sh
+-MKDIR = mkdir
+-
+-abs_builddir = @abs_builddir@
+-top_builddir = @top_builddir@
+-top_srcdir = @top_srcdir@
+-# files and flags
+-ifneq (,@TESTS@)
+-  PROGRAMS:=testdriver
+-endif
+-SOURCES:= test_uri.c test_options.c test_pdu.c test_error_response.c \
+-  test_sendqueue.c test_wellknown.c
+-HEADERS:=$(SOURCES:.c=.h)
+-OBJECTS:= $(patsubst %.c, %.o, $(SOURCES))
+-CFLAGS:=-g -Wall @CFLAGS@
+-CPPFLAGS:=-I$(top_srcdir) @CPPFLAGS@
+-DISTDIR?=$(top_builddir)/@PACKAGE_TARNAME@-@PACKAGE_VERSION@
+-FILES:=Makefile.in testdriver.c $(HEADERS) $(SOURCES)
+-LDFLAGS:=-L$(top_builddir) @LDFLAGS@
+-LDLIBS:=-lcunit @LIBS@
+-libcoap =$(top_builddir)/libcoap.a
+-
+-.PHONY: clean distclean
+-
+-.SUFFIXES:
+-.SUFFIXES:      .c .o
+-
+-all:	$(PROGRAMS)
+-
+-check:	
+-	echo DISTDIR: $(DISTDIR)
+-	echo top_builddir: $(top_builddir)
+-
+-testdriver:	$(OBJECTS) $(libcoap)
+-
+-clean:
+-	@rm -f $(PROGRAMS) $(OBJECTS)
+-
+-distclean:	clean
+-	@rm -rf $(DISTDIR)
+-	@rm -f *~ 
+-
+-dist:	$(FILES)
+-	test -d $(DISTDIR)/tests || mkdir $(DISTDIR)/tests
+-	cp $(FILES) $(DISTDIR)/tests

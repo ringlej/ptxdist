@@ -1,0 +1,518 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 29 Mar 2014 21:18:47 +0100
+Subject: [PATCH] libcoap: add new buildsystem
+
+This patch adds support for autotools buildsystem.
+
+The configure arguments can be:
+
+  --enable-debug
+  --disable-async
+  --disable-block
+  --disable-observe
+  --disable-query-filter
+
+the same like the real libcoap implementation.
+
+In addition I added a:
+
+  --with-max-pdu-size=COAP_MAX_PDU_SIZE
+
+to replace the COAP_MAX_PDU_SIZE define with a given number.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ Makefile.am            |  88 +++++++++++++++++++++
+ autogen.sh             |  19 +++++
+ configure.ac           | 107 +++++++++++++++++++++++++
+ examples/Makefile.am   |   9 +++
+ libcoap.pc.in          |  11 +++
+ m4/ax_prefix_config.m4 | 209 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 443 insertions(+)
+ create mode 100644 Makefile.am
+ create mode 100755 autogen.sh
+ create mode 100644 configure.ac
+ create mode 100644 examples/Makefile.am
+ create mode 100644 libcoap.pc.in
+ create mode 100644 m4/ax_prefix_config.m4
+
+diff --git a/Makefile.am b/Makefile.am
+new file mode 100644
+index 0000000..c8f796c
+--- /dev/null
++++ b/Makefile.am
+@@ -0,0 +1,88 @@
++ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
++EXTRA_DIST =
++CLEANFILES =
++
++SUBDIRS = . examples
++
++AM_MAKEFLAGS = --no-print-directory
++
++AM_CFLAGS = \
++        -include $(top_builddir)/config.h \
++	-DSYSCONFDIR=\""$(sysconfdir)"\" \
++	-DLIBEXECDIR=\""$(libexecdir)"\" \
++	-I${top_srcdir} \
++	${libcoap_CFLAGS} \
++	-ffunction-sections \
++	-fdata-sections
++
++AM_LDFLAGS = \
++	-Wl,--gc-sections \
++	-Wl,--as-needed
++
++SED_PROCESS = \
++	$(AM_V_GEN)$(MKDIR_P) $(dir $@) && $(SED) \
++	-e 's,@VERSION\@,$(VERSION),g' \
++	-e 's,@prefix\@,$(prefix),g' \
++	-e 's,@exec_prefix\@,$(exec_prefix),g' \
++	-e 's,@libdir\@,$(libdir),g' \
++	-e 's,@includedir\@,$(includedir)/coap,g' \
++	< $< > $@ || rm $@
++
++%.pc: %.pc.in Makefile
++	$(SED_PROCESS)
++
++LIBCOAP_CURRENT=4
++LIBCOAP_REVISION=1
++LIBCOAP_AGE=1
++
++nodist_pkginclude_HEADERS =\
++	libcoap_config.h
++
++pkginclude_HEADERS =\
++	address.h \
++	async.h \
++	bits.h \
++	block.h \
++	coap.h \
++	coap_list.h \
++	coap_time.h \
++	debug.h \
++	encode.h \
++	hashkey.h \
++	mem.h \
++	net.h \
++	option.h \
++	pdu.h \
++	prng.h \
++	resource.h \
++	str.h \
++	subscribe.h \
++	t_list.h \
++	uri.h \
++	uthash.h \
++	utlist.h
++
++lib_LTLIBRARIES = libcoap.la
++
++libcoap_la_SOURCES =\
++	async.c \
++	block.c \
++	coap_list.c \
++	debug.c \
++	encode.c \
++	hashkey.c \
++	net.c \
++	option.c \
++	pdu.c \
++	resource.c \
++	str.c \
++	subscribe.c \
++	uri.c
++
++libcoap_la_LDFLAGS = $(AM_LDFLAGS) \
++	-version-info $(LIBCOAP_CURRENT):$(LIBCOAP_REVISION):$(LIBCOAP_AGE)
++
++pkgconfigdir = $(libdir)/pkgconfig
++pkgconfig_DATA = libcoap.pc
++EXTRA_DIST += libcoap.pc.in
++CLEANFILES += libcoap.pc
+diff --git a/autogen.sh b/autogen.sh
+new file mode 100755
+index 0000000..206f33e
+--- /dev/null
++++ b/autogen.sh
+@@ -0,0 +1,19 @@
++#!/bin/sh -e
++
++autoreconf --install --symlink
++
++libdir() {
++        echo $(cd $1/$(gcc -print-multi-os-directory); pwd)
++}
++
++args="--prefix=/usr \
++--sysconfdir=/etc \
++--libdir=$(libdir /usr/lib)"
++
++echo
++echo "----------------------------------------------------------------"
++echo "Initialized build system. For a common configuration please run:"
++echo "----------------------------------------------------------------"
++echo
++echo "./configure CFLAGS='-g -O0' $args"
++echo
+diff --git a/configure.ac b/configure.ac
+new file mode 100644
+index 0000000..e721a77
+--- /dev/null
++++ b/configure.ac
+@@ -0,0 +1,107 @@
++AC_PREREQ(2.60)
++AC_INIT([coap],
++        [4.1.1],
++        [],
++        [coap],
++        [http://sourceforge.net/projects/libcoap/])
++AC_CONFIG_SRCDIR([./resource.c])
++AC_CONFIG_AUX_DIR([build-aux])
++AM_INIT_AUTOMAKE([check-news foreign 1.11 -Wall -Wno-portability silent-rules tar-pax no-dist-gzip dist-xz subdir-objects])
++AC_PROG_CC_STDC
++AC_USE_SYSTEM_EXTENSIONS
++AC_SYS_LARGEFILE
++AC_CONFIG_MACRO_DIR([m4])
++AM_SILENT_RULES([yes])
++LT_INIT([disable-static pic-only])
++
++AC_PROG_SED
++AC_PROG_MKDIR_P
++
++AC_ARG_ENABLE([debug],
++        AS_HELP_STRING([--enable-debug], [enable debug messages @<:@default=disabled@:>@]),
++        [enable_debug=$enableval], [enable_debug=no])
++AS_IF([test "x$enable_debug" = "xno"], [
++        AC_DEFINE(NDEBUG, [1], [Debug messages.])
++])
++
++AC_ARG_ENABLE([async],
++        AS_HELP_STRING([--enable-async], [enable handling of asynchronous transactions and observe @<:@default=enabled@:>@]),
++        [enable_async=$enableval], [enable_async=yes])
++AS_IF([test "x$enable_async" = "xno"], [
++        AC_DEFINE(WITHOUT_ASYNC, [1], [Asynchronous transactions.])
++])
++
++AC_ARG_ENABLE([block],
++        AS_HELP_STRING([--enable-block], [enable block transfer @<:@default=enabled@:>@]),
++        [enable_block=$enableval], [enable_block=yes])
++AS_IF([test "x$enable_block" = "xno"], [
++        AC_DEFINE(WITHOUT_BLOCK, [1], [Block tansfer.])
++])
++
++AC_ARG_ENABLE([observe],
++        AS_HELP_STRING([--enable-observe], [enable resource observation @<:@default=enabled@:>@]),
++        [enable_observe=$enableval], [enable_observe=yes])
++AS_IF([test "x$enable_observe" = "xno"], [
++        AC_DEFINE(WITHOUT_OBSERVE, [1], [Resource observation.])
++])
++
++AC_ARG_ENABLE([query-filter],
++        AS_HELP_STRING([--enable-query-filter], [enable support for filters on /.well-known/core @<:@default=enabled@:>@]),
++        [enable_query_filter=$enableval], [enable_query_filter=yes])
++AS_IF([test "x$enable_query_filter" = "xno"], [
++        AC_DEFINE(WITHOUT_QUERY_FILTER, [1], [Query filter.])
++])
++
++AC_ARG_WITH([max-pdu-size],[  --with-max-pdu-size=COAP_MAX_PDU_SIZE Max coap pdu size in bytes @<:@default=1400@:>@],
++         [max_pdu_size=$withval], [max_pdu_size=1400])
++AS_IF([test "x$max_pdu_size" = "xyes"], [
++        AC_MSG_ERROR([The max pdu size must be explicitly specified])
++])
++
++AC_DEFINE_UNQUOTED([COAP_MAX_PDU_SIZE], [$max_pdu_size],
++		   [Define the max pdu size of a coap pdu in bytes.])
++
++
++# Checks for header files.
++AC_CHECK_HEADERS([assert.h arpa/inet.h limits.h netdb.h netinet/in.h stdlib.h string.h strings.h sys/socket.h sys/time.h time.h unistd.h sys/unistd.h])
++
++# Checks for typedefs, structures, and compiler characteristics.
++AC_TYPE_SIZE_T
++AC_TYPE_SSIZE_T
++
++# Checks for library functions.
++AC_FUNC_MALLOC
++AC_CHECK_FUNCS([memset select socket strcasecmp strrchr getaddrinfo strnlen])
++
++libcoap_CFLAGS="-Wall -DWITH_POSIX"
++AC_SUBST([libcoap_CFLAGS])
++
++AC_CONFIG_HEADERS(config.h)
++AX_PREFIX_CONFIG_H(libcoap_config.h, LIBCOAP)
++AC_CONFIG_FILES([
++        Makefile
++	examples/Makefile
++])
++
++AC_OUTPUT
++AC_MSG_RESULT([
++        $PACKAGE $VERSION
++        =====
++
++        prefix:                 ${prefix}
++        sysconfdir:             ${sysconfdir}
++        libdir:                 ${libdir}
++        includedir:             ${includedir}
++
++        compiler:               ${CC}
++        cflags:                 ${CFLAGS}
++        ldflags:                ${LDFLAGS}
++
++	max pdu size:		${max_pdu_size} bytes
++
++        debug:                  ${enable_debug}
++        async:                  ${enable_async}
++        block:                  ${enable_block}
++        observe:                ${enable_observe}
++        query-filter:           ${enable_query_filter}
++])
+diff --git a/examples/Makefile.am b/examples/Makefile.am
+new file mode 100644
+index 0000000..1acbf31
+--- /dev/null
++++ b/examples/Makefile.am
+@@ -0,0 +1,9 @@
++AM_LDFLAGS = -L$(top_builddir) -lcoap
++AM_CFLAGS = -DWITH_POSIX -I$(top_builddir)
++
++bin_PROGRAMS = \
++	coap-client \
++	coap-server
++
++coap_client_SOURCES = client.c
++coap_server_SOURCES = server.c
+diff --git a/libcoap.pc.in b/libcoap.pc.in
+new file mode 100644
+index 0000000..4da8977
+--- /dev/null
++++ b/libcoap.pc.in
+@@ -0,0 +1,11 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: libcoap
++Description: Lightweight application-protocol for devices that are constrained their resources such as computing power, RF range, memory, bandwith, or network packet sizes. This protocol, CoAP, is developed in the IETF working group "CoRE", <http://6lowapp.net>.
++Version: @VERSION@
++Libs: -L${libdir} -lcoap
++Libs.private:
++Cflags: -DWITH_POSIX -I${includedir}
+diff --git a/m4/ax_prefix_config.m4 b/m4/ax_prefix_config.m4
+new file mode 100644
+index 0000000..c40d2df
+--- /dev/null
++++ b/m4/ax_prefix_config.m4
+@@ -0,0 +1,209 @@
++# ===========================================================================
++#    http://www.gnu.org/software/autoconf-archive/ax_prefix_config_h.html
++# ===========================================================================
++#
++# SYNOPSIS
++#
++#   AX_PREFIX_CONFIG_H [(OUTPUT-HEADER [,PREFIX [,ORIG-HEADER]])]
++#
++# DESCRIPTION
++#
++#   This is a new variant from ac_prefix_config_ this one will use a
++#   lowercase-prefix if the config-define was starting with a
++#   lowercase-char, e.g. "#define const", "#define restrict", or "#define
++#   off_t", (and this one can live in another directory, e.g.
++#   testpkg/config.h therefore I decided to move the output-header to be the
++#   first arg)
++#
++#   takes the usual config.h generated header file; looks for each of the
++#   generated "#define SOMEDEF" lines, and prefixes the defined name (ie.
++#   makes it "#define PREFIX_SOMEDEF". The result is written to the output
++#   config.header file. The PREFIX is converted to uppercase for the
++#   conversions.
++#
++#   Defaults:
++#
++#     OUTPUT-HEADER = $PACKAGE-config.h
++#     PREFIX = $PACKAGE
++#     ORIG-HEADER, from AM_CONFIG_HEADER(config.h)
++#
++#   Your configure.ac script should contain both macros in this order, and
++#   unlike the earlier variations of this prefix-macro it is okay to place
++#   the AX_PREFIX_CONFIG_H call before the AC_OUTPUT invokation.
++#
++#   Example:
++#
++#     AC_INIT(config.h.in)        # config.h.in as created by "autoheader"
++#     AM_INIT_AUTOMAKE(testpkg, 0.1.1)    # makes #undef VERSION and PACKAGE
++#     AM_CONFIG_HEADER(config.h)          # prep config.h from config.h.in
++#     AX_PREFIX_CONFIG_H(mylib/_config.h) # prep mylib/_config.h from it..
++#     AC_MEMORY_H                         # makes "#undef NEED_MEMORY_H"
++#     AC_C_CONST_H                        # makes "#undef const"
++#     AC_OUTPUT(Makefile)                 # creates the "config.h" now
++#                                         # and also mylib/_config.h
++#
++#   if the argument to AX_PREFIX_CONFIG_H would have been omitted then the
++#   default outputfile would have been called simply "testpkg-config.h", but
++#   even under the name "mylib/_config.h" it contains prefix-defines like
++#
++#     #ifndef TESTPKG_VERSION
++#     #define TESTPKG_VERSION "0.1.1"
++#     #endif
++#     #ifndef TESTPKG_NEED_MEMORY_H
++#     #define TESTPKG_NEED_MEMORY_H 1
++#     #endif
++#     #ifndef _testpkg_const
++#     #define _testpkg_const _const
++#     #endif
++#
++#   and this "mylib/_config.h" can be installed along with other
++#   header-files, which is most convenient when creating a shared library
++#   (that has some headers) where some functionality is dependent on the
++#   OS-features detected at compile-time. No need to invent some
++#   "mylib-confdefs.h.in" manually. :-)
++#
++#   Note that some AC_DEFINEs that end up in the config.h file are actually
++#   self-referential - e.g. AC_C_INLINE, AC_C_CONST, and the AC_TYPE_OFF_T
++#   say that they "will define inline|const|off_t if the system does not do
++#   it by itself". You might want to clean up about these - consider an
++#   extra mylib/conf.h that reads something like:
++#
++#     #include <mylib/_config.h>
++#     #ifndef _testpkg_const
++#     #define _testpkg_const const
++#     #endif
++#
++#   and then start using _testpkg_const in the header files. That is also a
++#   good thing to differentiate whether some library-user has starting to
++#   take up with a different compiler, so perhaps it could read something
++#   like this:
++#
++#     #ifdef _MSC_VER
++#     #include <mylib/_msvc.h>
++#     #else
++#     #include <mylib/_config.h>
++#     #endif
++#     #ifndef _testpkg_const
++#     #define _testpkg_const const
++#     #endif
++#
++# LICENSE
++#
++#   Copyright (c) 2008 Guido U. Draheim <guidod@gmx.de>
++#   Copyright (c) 2008 Marten Svantesson
++#   Copyright (c) 2008 Gerald Point <Gerald.Point@labri.fr>
++#
++#   This program is free software; you can redistribute it and/or modify it
++#   under the terms of the GNU General Public License as published by the
++#   Free Software Foundation; either version 3 of the License, or (at your
++#   option) any later version.
++#
++#   This program is distributed in the hope that it will be useful, but
++#   WITHOUT ANY WARRANTY; without even the implied warranty of
++#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
++#   Public License for more details.
++#
++#   You should have received a copy of the GNU General Public License along
++#   with this program. If not, see <http://www.gnu.org/licenses/>.
++#
++#   As a special exception, the respective Autoconf Macro's copyright owner
++#   gives unlimited permission to copy, distribute and modify the configure
++#   scripts that are the output of Autoconf when processing the Macro. You
++#   need not follow the terms of the GNU General Public License when using
++#   or distributing such scripts, even though portions of the text of the
++#   Macro appear in them. The GNU General Public License (GPL) does govern
++#   all other use of the material that constitutes the Autoconf Macro.
++#
++#   This special exception to the GPL applies to versions of the Autoconf
++#   Macro released by the Autoconf Archive. When you make and distribute a
++#   modified version of the Autoconf Macro, you may extend this special
++#   exception to the GPL to apply to your modified version as well.
++
++#serial 11
++
++AC_DEFUN([AX_PREFIX_CONFIG_H],[dnl
++AC_PREREQ([2.62])
++AC_BEFORE([AC_CONFIG_HEADERS],[$0])dnl
++AC_CONFIG_COMMANDS([ifelse($1,,$PACKAGE-config.h,$1)],[dnl
++AS_VAR_PUSHDEF([_OUT],[ac_prefix_conf_OUT])dnl
++AS_VAR_PUSHDEF([_DEF],[ac_prefix_conf_DEF])dnl
++AS_VAR_PUSHDEF([_PKG],[ac_prefix_conf_PKG])dnl
++AS_VAR_PUSHDEF([_LOW],[ac_prefix_conf_LOW])dnl
++AS_VAR_PUSHDEF([_UPP],[ac_prefix_conf_UPP])dnl
++AS_VAR_PUSHDEF([_INP],[ac_prefix_conf_INP])dnl
++m4_pushdef([_script],[conftest.prefix])dnl
++m4_pushdef([_symbol],[m4_cr_Letters[]m4_cr_digits[]_])dnl
++_OUT=`echo ifelse($1, , $PACKAGE-config.h, $1)`
++_DEF=`echo _$_OUT | sed -e "y:m4_cr_letters:m4_cr_LETTERS[]:" -e "s/@<:@^m4_cr_Letters@:>@/_/g"`
++_PKG=`echo ifelse($2, , $PACKAGE, $2)`
++_LOW=`echo _$_PKG | sed -e "y:m4_cr_LETTERS-:m4_cr_letters[]_:"`
++_UPP=`echo $_PKG | sed -e "y:m4_cr_letters-:m4_cr_LETTERS[]_:"  -e "/^@<:@m4_cr_digits@:>@/s/^/_/"`
++_INP=`echo "ifelse($3,,,$3)" | sed -e 's/ *//'`
++if test ".$_INP" = "."; then
++   for ac_file in : $CONFIG_HEADERS; do test "_$ac_file" = _: && continue
++     case "$ac_file" in
++        *.h) _INP=$ac_file ;;
++        *)
++     esac
++     test ".$_INP" != "." && break
++   done
++fi
++if test ".$_INP" = "."; then
++   case "$_OUT" in
++      */*) _INP=`basename "$_OUT"`
++      ;;
++      *-*) _INP=`echo "$_OUT" | sed -e "s/@<:@_symbol@:>@*-//"`
++      ;;
++      *) _INP=config.h
++      ;;
++   esac
++fi
++if test -z "$_PKG" ; then
++   AC_MSG_ERROR([no prefix for _PREFIX_PKG_CONFIG_H])
++else
++  if test ! -f "$_INP" ; then if test -f "$srcdir/$_INP" ; then
++     _INP="$srcdir/$_INP"
++  fi fi
++  AC_MSG_NOTICE(creating $_OUT - prefix $_UPP for $_INP defines)
++  if test -f $_INP ; then
++    AS_ECHO(["s/^@%:@undef  *\\(@<:@m4_cr_LETTERS[]_@:>@\\)/@%:@undef $_UPP""_\\1/"]) > _script
++    AS_ECHO(["s/^@%:@undef  *\\(@<:@m4_cr_letters@:>@\\)/@%:@undef $_LOW""_\\1/"]) >> _script
++    AS_ECHO(["s/^@%:@def[]ine  *\\(@<:@m4_cr_LETTERS[]_@:>@@<:@_symbol@:>@*\\)\\(.*\\)/@%:@ifndef $_UPP""_\\1\\"]) >> _script
++    AS_ECHO(["@%:@def[]ine $_UPP""_\\1\\2\\"]) >> _script
++    AS_ECHO(["@%:@endif/"]) >> _script
++    AS_ECHO(["s/^@%:@def[]ine  *\\(@<:@m4_cr_letters@:>@@<:@_symbol@:>@*\\)\\(.*\\)/@%:@ifndef $_LOW""_\\1\\"]) >> _script
++    AS_ECHO(["@%:@define $_LOW""_\\1\\2\\"]) >> _script
++    AS_ECHO(["@%:@endif/"]) >> _script
++    # now executing _script on _DEF input to create _OUT output file
++    echo "@%:@ifndef $_DEF"      >$tmp/pconfig.h
++    echo "@%:@def[]ine $_DEF 1" >>$tmp/pconfig.h
++    echo ' ' >>$tmp/pconfig.h
++    echo /'*' $_OUT. Generated automatically at end of configure. '*'/ >>$tmp/pconfig.h
++
++    sed -f _script $_INP >>$tmp/pconfig.h
++    echo ' ' >>$tmp/pconfig.h
++    echo '/* once:' $_DEF '*/' >>$tmp/pconfig.h
++    echo "@%:@endif" >>$tmp/pconfig.h
++    if cmp -s $_OUT $tmp/pconfig.h 2>/dev/null; then
++      AC_MSG_NOTICE([$_OUT is unchanged])
++    else
++      ac_dir=`AS_DIRNAME(["$_OUT"])`
++      AS_MKDIR_P(["$ac_dir"])
++      rm -f "$_OUT"
++      mv $tmp/pconfig.h "$_OUT"
++    fi
++    cp _script _configs.sed
++  else
++    AC_MSG_ERROR([input file $_INP does not exist - skip generating $_OUT])
++  fi
++  rm -f conftest.*
++fi
++m4_popdef([_symbol])dnl
++m4_popdef([_script])dnl
++AS_VAR_POPDEF([_INP])dnl
++AS_VAR_POPDEF([_UPP])dnl
++AS_VAR_POPDEF([_LOW])dnl
++AS_VAR_POPDEF([_PKG])dnl
++AS_VAR_POPDEF([_DEF])dnl
++AS_VAR_POPDEF([_OUT])dnl
++],[PACKAGE="$PACKAGE"])])
+\ No newline at end of file
