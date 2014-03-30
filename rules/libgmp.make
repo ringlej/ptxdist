@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGMP) += libgmp
 #
 # Paths and names
 #
-LIBGMP_VERSION	:= 4.2.4
-LIBGMP_MD5	:= fc1e3b3a2a5038d4d74138d0b9cf8dbe
+LIBGMP_VERSION	:= 6.0.0a
+LIBGMP_MD5	:= b7ff2d88cae7f8085bd5006096eed470
 LIBGMP		:= gmp-$(LIBGMP_VERSION)
 LIBGMP_SUFFIX	:= tar.bz2
 LIBGMP_URL	:= $(call ptx/mirror, GNU, gmp/$(LIBGMP).$(LIBGMP_SUFFIX))
