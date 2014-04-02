@@ -3,6 +3,7 @@ Date: Fri, 26 Oct 2012 22:03:11 +0200
 Subject: [PATCH] make the library filename match its soname
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Signed-off-by: Alexander Dahl <post@lespocky.de>
 ---
  Makefile.in  |    6 ++++--
  configure.in |    1 +
