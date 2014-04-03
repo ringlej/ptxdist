@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_USBUTILS) += usbutils
 #
 # Paths and names
 #
-USBUTILS_VERSION	:= 004
-USBUTILS_MD5		:= fc69cde51b2094aa4bbd804c0ba97e35
+USBUTILS_VERSION	:= 007
+USBUTILS_MD5		:= c9df5107ae9d26b10a1736a261250139
 USBUTILS		:= usbutils-$(USBUTILS_VERSION)
-USBUTILS_SUFFIX		:= tar.bz2
+USBUTILS_SUFFIX		:= tar.xz
 USBUTILS_URL		:= $(call ptx/mirror, KERNEL, utils/usb/usbutils/$(USBUTILS).$(USBUTILS_SUFFIX))
 USBUTILS_SOURCE		:= $(SRCDIR)/$(USBUTILS).$(USBUTILS_SUFFIX)
 USBUTILS_DIR		:= $(BUILDDIR)/$(USBUTILS)
@@ -39,7 +39,8 @@ USBUTILS_ENV 	:= $(CROSS_ENV)
 USBUTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-zlib
+	--disable-zlib \
+	--enable-usbids
 
 # ----------------------------------------------------------------------------
 # Target-Install
