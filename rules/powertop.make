@@ -36,7 +36,10 @@ POWERTOP_LICENSE	:= GPLv2
 POWERTOP_CONF_TOOL	:= autoconf
 POWERTOP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_POWERTOP_PCI_SUPPORT)-pci
+	--$(call ptx/endis, PTXCONF_POWERTOP_PCI_SUPPORT)-pci \
+	--disable-nls \
+	--without-libiconv-prefix \
+	--without-libintl-prefix
 
 # ----------------------------------------------------------------------------
 # Target-Install
