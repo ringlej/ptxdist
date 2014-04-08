@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_OPENSSL) += openssl
 #
 # Paths and names
 #
-OPENSSL_VERSION	:= 1.0.1f
-OPENSSL_MD5	:= f26b09c028a0541cab33da697d522b25
+OPENSSL_VERSION	:= 1.0.1g
+OPENSSL_MD5	:= de62b43dfcd858e66a74bee1c834e959
 OPENSSL		:= openssl-$(OPENSSL_VERSION)
 OPENSSL_SUFFIX	:= tar.gz
 OPENSSL_URL	:= http://www.openssl.org/source/$(OPENSSL).$(OPENSSL_SUFFIX)

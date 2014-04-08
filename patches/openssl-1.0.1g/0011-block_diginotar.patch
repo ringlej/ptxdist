@@ -1,10 +1,11 @@
 From: Raphael Geissert <geissert@debian.org>
-Date: Sat, 18 Jan 2014 11:42:53 +0100
+Date: Tue, 8 Apr 2014 07:48:47 +0200
 Subject: [PATCH] block_diginotar
 
 This is not meant as final patch.
 
-Imported from openssl_1.0.1f-1.debian.tar.gz
+
+Imported from openssl_1.0.1g-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -12,7 +13,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 27 insertions(+)
 
 diff --git a/crypto/x509/x509_vfy.c b/crypto/x509/x509_vfy.c
-index 5195ffe..fa80c0b 100644
+index 920066a..5b1a0aa 100644
 --- a/crypto/x509/x509_vfy.c
 +++ b/crypto/x509/x509_vfy.c
 @@ -117,6 +117,7 @@ static int check_trust(X509_STORE_CTX *ctx);

@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Sat, 18 Jan 2014 11:42:52 +0100
+Date: Tue, 8 Apr 2014 07:48:47 +0200
 Subject: [PATCH] shared-lib-ext
 
-Imported from openssl_1.0.1f-1.debian.tar.gz
+Imported from openssl_1.0.1g-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index a06e0fb..0a9dc93 100755
+index c676835..7571db1 100755
 --- a/Configure
 +++ b/Configure
 @@ -1725,7 +1725,8 @@ while (<IN>)
