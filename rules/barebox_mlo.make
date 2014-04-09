@@ -30,6 +30,13 @@ BAREBOX_MLO_CONFIG	:= $(call remove_quotes, \
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+BAREBOX_MLO_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_RELRO \
+	TARGET_HARDEN_BINDNOW \
+	TARGET_HARDEN_PIE \
+	TARGET_DEBUG
+
 BAREBOX_MLO_PATH	:= PATH=$(CROSS_PATH)
 BAREBOX_MLO_CONF_ENV	:= KCONFIG_NOTIMESTAMP=1
 BAREBOX_MLO_CONF_TOOL	:= kconfig
