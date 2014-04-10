@@ -8,3 +8,6 @@ config PERL
 	  An interpreted scripting language, known among some as
 	  "Unix's Swiss Army Chainsaw".
 
+menu "perl Extra Modules            "
+source "generated/perl.in"
+endmenu
