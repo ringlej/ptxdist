@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 11 Apr 2014 13:59:13 +0200
+Subject: [PATCH] HACK: remove 'use IO::Socket ()'
+
+This does not work with miniperl and we don't need it here.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.PL | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Makefile.PL b/Makefile.PL
+index 003ef4e..a617153 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -24,7 +24,6 @@ AMEN
+ 
+ 
+ use ExtUtils::MakeMaker qw(WriteMakefile prompt);
+-use IO::Socket ();
+ use Config qw(%Config);
+ use Getopt::Long qw(GetOptions);
+ 

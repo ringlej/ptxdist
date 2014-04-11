@@ -1,0 +1,13 @@
+## SECTION=perl
+
+config NET_DNS_PERL
+	tristate
+	select PERL
+	select DIGEST_HMAC_PERL
+	select NET_IP_PERL
+	select IO_SOCKET_INET6_PERL
+	prompt "Net::DNS"
+	help
+	  Net::DNS is a DNS resolver implemented in Perl supporting IPv6.
+	  It allows the  programmer to perform nearly any type of DNS query
+	  from a Perl script.
