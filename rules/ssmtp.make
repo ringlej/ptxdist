@@ -62,6 +62,10 @@ $(STATEDIR)/ssmtp.targetinstall:
 
 	@$(call install_copy, ssmtp, 0, 0, 0755, -, /sbin/ssmtp)
 
+	@$(call install_alternative, ssmtp, 0, 0, 0644, /etc/ssmtp/ssmtp.conf)
+	@$(call install_replace, ssmtp, /etc/ssmtp/ssmtp.conf, @HOSTNAME@, \
+		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
+
 ifdef PTXCONF_SSMTP_SENDMAIL
 	@$(call install_link, ssmtp, /sbin/ssmtp, /usr/sbin/sendmail)
 	@$(call install_link, ssmtp, /usr/sbin/sendmail, /usr/lib/sendmail)
