@@ -107,7 +107,7 @@ ptxd_make_world_prepare_perl() {
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \
-	perl \
+	cross-perl \
 	Makefile.PL \
 	"${pkg_conf_opt}"
 }

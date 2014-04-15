@@ -39,6 +39,8 @@ PERL_DEVPKG		:= NO
 # use by perl modules
 PERL_SITELIB		:= /usr/lib/perl5/site_perl/$(PERL_VERSION)
 
+CROSS_PERL= $(PTXDIST_SYSROOT_CROSS)/bin/cross-perl
+
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
@@ -73,13 +75,13 @@ PERL_MAKE_PAR	:= NO
 $(STATEDIR)/perl.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, PERL)
-	@echo '#!/bin/sh'				>  $(PTXDIST_SYSROOT_CROSS)/bin/perl
-	@echo 'exec $(PERL_DIR)/miniperl_top \'		>> $(PTXDIST_SYSROOT_CROSS)/bin/perl
-	@echo '	-I$(SYSROOT)$(PERL_SITELIB) \'		>> $(PTXDIST_SYSROOT_CROSS)/bin/perl
-	@echo '	"$$@" \'				>> $(PTXDIST_SYSROOT_CROSS)/bin/perl
-	@echo '	PERL=$(PERL_DIR)/miniperl_top \'	>> $(PTXDIST_SYSROOT_CROSS)/bin/perl
-	@echo '	PERL_SRC=$(PERL_DIR)'			>> $(PTXDIST_SYSROOT_CROSS)/bin/perl
-	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/perl
+	@echo '#!/bin/sh'				>  $(CROSS_PERL)
+	@echo 'exec $(PERL_DIR)/miniperl_top \'		>> $(CROSS_PERL)
+	@echo '	-I$(SYSROOT)$(PERL_SITELIB) \'		>> $(CROSS_PERL)
+	@echo '	"$$@" \'				>> $(CROSS_PERL)
+	@echo '	PERL=$(PERL_DIR)/miniperl_top \'	>> $(CROSS_PERL)
+	@echo '	PERL_SRC=$(PERL_DIR)'			>> $(CROSS_PERL)
+	@chmod +x $(CROSS_PERL)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
