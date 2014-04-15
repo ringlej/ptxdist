@@ -64,7 +64,8 @@ PERL_CONF_OPT	:= \
 	--mode=cross \
 	--prefix=/usr \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--target=$(PTXCONF_GNU_TARGET)
+	--target=$(PTXCONF_GNU_TARGET) \
+	-Dld=$(CROSS_CC)
 
 PERL_MAKE_PAR	:= NO
 
