@@ -23,12 +23,19 @@ DTC_VERSION := 1.0.0
 
 ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 
+%.dtb: TMP_DTS = $(STATEDIR)/$(notdir $<).tmp
+%.dtb: TMP_DEPS = $(PTXDIST_TEMPDIR)/dts.deps
+%.dtb: DEPS = $(STATEDIR)/dtc.$(notdir $<).deps
 %.dtb:
+	echo $(TMP_DTS)
 	@$(call targetinfo)
-	@echo CPP `ptxd_print_path "$<.tmp"`
+	@if [ -z "$(strip $<)" ]; then \
+		ptxd_bailout "Device-tree for `ptxd_print_path '$@'` undefined!"; \
+	fi
+	@echo CPP `ptxd_print_path "$(TMP_DTS)"`
 	@cpp \
-		-Wp,-MD,$(STATEDIR)/dtc.dtc.deps \
-		-Wp,-MT,$<.tmp \
+		-Wp,-MD,$(TMP_DEPS) \
+		-Wp,-MT,$(TMP_DTS) \
 		-nostdinc \
 		-P \
 		-I$(dir $<) \
@@ -36,8 +43,9 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		-I$(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts/include \
 		-I$(KERNEL_DIR)/include \
 		-undef -D__DTS__ -x assembler-with-cpp \
-		-o $<.tmp \
+		-o $(TMP_DTS) \
 		$<
+	@sed -e 's;^$(TMP_DTS):;$@:;' -e 's;^ \([^ ]*\); $$(wildcard \1);' $(TMP_DEPS) > $(DEPS)
 	@echo DTC `ptxd_print_path "$@"`
 	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]-i$$"; then \
 		dtc_include="-i $(dir $<) -i $(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts"; \
@@ -45,16 +53,16 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 	$(PTXCONF_SYSROOT_HOST)/bin/dtc \
 		$(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) \
 		$$dtc_include \
-		-d $(PTXDIST_TEMPDIR)/dtc.dtc.deps \
+		-d $(TMP_DEPS) \
 		-I dts -O dtb -b 0 \
-		-o "$@" "$<.tmp"
+		-o "$@" "$(TMP_DTS)"
 	@awk '{ \
 			printf "%s", $$1 ;  \
 			for (i = 2; i <= NF; i++) { \
 				printf " $$(wildcard %s)", $$i; \
 			}; \
 			print "" \
-		}' $(PTXDIST_TEMPDIR)/dtc.dtc.deps >> $(STATEDIR)/dtc.dtc.deps
+		}' $(TMP_DEPS) >> $(DEPS)
 	@$(call finish)
 
 DTC_DTB = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), $(IMAGEDIR)/$(call ptx/dtb, $(dts)))

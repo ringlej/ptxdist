@@ -8,8 +8,8 @@ Taken from Gentoo. Needed for autoreconf.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.ac |    7 +------
- 1 files changed, 1 insertions(+), 6 deletions(-)
+ configure.ac | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
 index bb9e1d9..a47258c 100644

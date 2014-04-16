@@ -17,24 +17,24 @@ config LIBKMOD_TOOLS
 config LIBKMOD_INSMOD
 	bool
 	prompt "Install insmod"
-	depends on !BUSYBOX_INSMOD || ALLYES
+	depends on (!BUSYBOX_INSMOD && !BUSYBOX_MODPROBE_SMALL) || ALLYES
 	select LIBKMOD_TOOLS
 	help
 	  simple program to insert a module into the Linux Kernel
 
 comment "BusyBox' insmod is selected!"
-	depends on BUSYBOX_INSMOD
+	depends on BUSYBOX_INSMOD || BUSYBOX_MODPROBE_SMALL
 
 config LIBKMOD_RMMOD
 	bool
 	prompt "Install rmmod"
-	depends on !BUSYBOX_RMMOD || ALLYES
+	depends on (!BUSYBOX_RMMOD && !BUSYBOX_MODPROBE_SMALL) || ALLYES
 	select LIBKMOD_TOOLS
 	help
 	  simple program to remove a module from the Linux Kernel
 
 comment "BusyBox' rmmod is selected!"
-	depends on BUSYBOX_RMMOD
+	depends on BUSYBOX_RMMOD || BUSYBOX_MODPROBE_SMALL
 
 config LIBKMOD_LSMOD
 	bool
@@ -61,13 +61,13 @@ comment "BusyBox' modinfo is selected!"
 config LIBKMOD_MODPROBE
 	bool
 	prompt "Install modprobe"
-	depends on !BUSYBOX_MODPROBE || ALLYES
+	depends on (!BUSYBOX_MODPROBE && !BUSYBOX_MODPROBE_SMALL) || ALLYES
 	select LIBKMOD_TOOLS
 	help
 	  program to add and remove modules from the Linux Kernel
 
 comment "BusyBox' modprobe is selected!"
-	depends on BUSYBOX_MODPROBE
+	depends on BUSYBOX_MODPROBE || BUSYBOX_MODPROBE_SMALL
 
 config LIBKMOD_DEPMOD
 	bool

@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 
 config MYODBC
 	select LIBLTDL
@@ -8,3 +10,7 @@ config MYODBC
 	help
 	  mysql odbc connector
 
+	  STAGING: remove in ptxdist-2015.03.0
+	  This package has not been maintained in a long time. The revision is
+	  not an official one. And it needs mysql (also in staging).
+	  Upgrade to recent release is required.

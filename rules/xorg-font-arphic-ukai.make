@@ -30,18 +30,6 @@ $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-arphic-ukai.tar
 endif
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-font-arphic-ukai.extract:
-	@$(call targetinfo)
-	@$(call clean, $(XORG_FONT_ARPHIC_UKAI_DIR))
-	@mkdir -p $(XORG_FONT_ARPHIC_UKAI_DIR)
-	@$(call extract, XORG_FONT_ARPHIC_UKAI, $(XORG_FONT_ARPHIC_UKAI_DIR))
-	@$(call patchin, XORG_FONT_ARPHIC_UKAI, $(XORG_FONT_ARPHIC_UKAI_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -70,13 +58,11 @@ $(STATEDIR)/xorg-font-arphic-ukai.install:
 $(STATEDIR)/xorg-font-arphic-ukai.targetinstall:
 	@$(call targetinfo)
 
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
-
 	@find $(XORG_FONT_ARPHIC_UKAI_DIR) \
-		-name "*.ttc" \
-		| \
+		-name "*.ttc" | \
 		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
+		install -D -v -m 644 $${file} \
+			$(XORG_FONTS_DIR_INSTALL)/truetype/$$(basename $${file}); \
 	done
 
 	@$(call touch)

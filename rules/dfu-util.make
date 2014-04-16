@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_DFU_UTIL) += dfu-util
 #
 # Paths and names
 #
-DFU_UTIL_VERSION	:= 0.5
-DFU_UTIL_MD5		:= 36426e5eaedec4866576e6b3bd3eeafc
+DFU_UTIL_VERSION	:= 0.7
+DFU_UTIL_MD5		:= 56844020177d4db4c1ea2e926fe9d588
 DFU_UTIL		:= dfu-util-$(DFU_UTIL_VERSION)
 DFU_UTIL_SUFFIX		:= tar.gz
 DFU_UTIL_URL		:= http://dfu-util.gnumonks.org/releases/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)
@@ -29,13 +29,14 @@ DFU_UTIL_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-DFU_UTIL_PATH	:= PATH=$(CROSS_PATH)
-DFU_UTIL_ENV 	:= $(CROSS_ENV)
+DFU_UTIL_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_usb_libusb_init=no
 
 #
 # autoconf
 #
-DFU_UTIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+DFU_UTIL_CONF_TOOL	:= autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -17,8 +17,8 @@ This patch uses AC_COMPILE_IFELSE for these tests:
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- configure.in |    9 +++------
- 1 files changed, 3 insertions(+), 6 deletions(-)
+ configure.in | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index 4fd2830..3fb4f38 100644

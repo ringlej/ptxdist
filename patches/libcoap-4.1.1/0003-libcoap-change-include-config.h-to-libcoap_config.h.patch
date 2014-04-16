@@ -1,0 +1,148 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 29 Mar 2014 21:45:50 +0100
+Subject: [PATCH] libcoap: change include config.h to libcoap_config.h
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ address.h   | 2 +-
+ async.h     | 2 +-
+ coap.h      | 2 +-
+ coap_time.h | 2 +-
+ debug.h     | 2 +-
+ net.h       | 2 +-
+ pdu.h       | 2 +-
+ prng.h      | 2 +-
+ resource.h  | 2 +-
+ subscribe.h | 2 +-
+ 10 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/address.h b/address.h
+index 403240e..614f68f 100644
+--- a/address.h
++++ b/address.h
+@@ -14,7 +14,7 @@
+ #ifndef _COAP_ADDRESS_H_
+ #define _COAP_ADDRESS_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ 
+ #ifdef HAVE_ASSERT_H
+ #include <assert.h>
+diff --git a/async.h b/async.h
+index a5168f8..9c43d89 100644
+--- a/async.h
++++ b/async.h
+@@ -15,7 +15,7 @@
+ #ifndef _COAP_ASYNC_H_
+ #define _COAP_ASYNC_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ #include "net.h"
+ 
+ #ifndef WITHOUT_ASYNC
+diff --git a/coap.h b/coap.h
+index 3e2828c..edf2987 100644
+--- a/coap.h
++++ b/coap.h
+@@ -13,7 +13,7 @@
+ extern "C" {
+ #endif
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ #include "debug.h"
+ #include "mem.h"
+ #include "coap_list.h"
+diff --git a/coap_time.h b/coap_time.h
+index f039b87..1cec496 100644
+--- a/coap_time.h
++++ b/coap_time.h
+@@ -22,7 +22,7 @@ extern "C" {
+ #endif
+ 
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ 
+ /**
+  * @defgroup clock Clock Handling
+diff --git a/debug.h b/debug.h
+index dde660d..330b2d9 100644
+--- a/debug.h
++++ b/debug.h
+@@ -9,7 +9,7 @@
+ #ifndef _COAP_DEBUG_H_
+ #define _COAP_DEBUG_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ 
+ #ifndef COAP_DEBUG_FD
+ #define COAP_DEBUG_FD stdout
+diff --git a/net.h b/net.h
+index f9afd48..33ee46b 100644
+--- a/net.h
++++ b/net.h
+@@ -13,7 +13,7 @@
+ extern "C" {
+ #endif
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ 
+ #ifdef HAVE_ASSERT_H
+ #include <assert.h>
+diff --git a/pdu.h b/pdu.h
+index a891086..48b0dc5 100644
+--- a/pdu.h
++++ b/pdu.h
+@@ -9,7 +9,7 @@
+ #ifndef _PDU_H_
+ #define _PDU_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ #include "coap_list.h"
+ #include "uri.h"
+ 
+diff --git a/prng.h b/prng.h
+index ce4cb12..6377ada 100644
+--- a/prng.h
++++ b/prng.h
+@@ -14,7 +14,7 @@
+ #ifndef _COAP_PRNG_H_
+ #define _COAP_PRNG_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ 
+ /** 
+  * @defgroup prng Pseudo Random Numbers
+diff --git a/resource.h b/resource.h
+index 5504d43..6f21fae 100644
+--- a/resource.h
++++ b/resource.h
+@@ -14,7 +14,7 @@
+ #ifndef _COAP_RESOURCE_H_
+ #define _COAP_RESOURCE_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ #include "t_list.h"
+ 
+ #if defined(HAVE_ASSERT_H) && !defined(assert)
+diff --git a/subscribe.h b/subscribe.h
+index 7eda74f..cb9592e 100644
+--- a/subscribe.h
++++ b/subscribe.h
+@@ -11,7 +11,7 @@
+ #ifndef _COAP_SUBSCRIBE_H_
+ #define _COAP_SUBSCRIBE_H_
+ 
+-#include "config.h"
++#include "libcoap_config.h"
+ #include "address.h"
+ 
+ /** 

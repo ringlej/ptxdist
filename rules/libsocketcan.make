@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBSOCKETCAN) += libsocketcan
 #
 # Paths and names
 #
-LIBSOCKETCAN_VERSION	:= 0.0.9
-LIBSOCKETCAN_MD5	:= cd92766be40d98b5cb08366b71ea4663
+LIBSOCKETCAN_VERSION	:= 0.0.10
+LIBSOCKETCAN_MD5	:= f8b41f6037b6d155bc305bdd32208ded
 LIBSOCKETCAN		:= libsocketcan-$(LIBSOCKETCAN_VERSION)
 LIBSOCKETCAN_SUFFIX	:= tar.bz2
 LIBSOCKETCAN_URL	:= http://www.pengutronix.de/software/libsocketcan/download/$(LIBSOCKETCAN).$(LIBSOCKETCAN_SUFFIX)
@@ -28,9 +28,6 @@ LIBSOCKETCAN_LICENSE	:= LGPLv2.1+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBSOCKETCAN_PATH	:= PATH=$(CROSS_PATH)
-LIBSOCKETCAN_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf

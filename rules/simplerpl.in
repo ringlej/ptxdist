@@ -1,0 +1,13 @@
+## SECTION=networking
+
+config SIMPLERPL
+	tristate
+	prompt "simplerpl"
+	select PYTHON_ROUTING
+	select PYTHON_RPLICMP
+	select PYZMQ
+	help
+	  SimpleRPL is Linux-based implementation of the Routing Protocol for
+	  Low-Power and Lossy Networks (RPL) as defined in RFC 6550. It aims
+	  to complete the Linux Wireless Sensor Network ecosystem by bringing
+	  a (hopefully) fully-compliant RPL implementation

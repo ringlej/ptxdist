@@ -1,24 +1,48 @@
 ## SECTION=shell_and_console
 menuconfig PCIUTILS
-	select ZLIB if PCIUTILS_COMPRESS
-	depends on !BUSYBOX_LSPCI || ALLYES
+	select ZLIB	if PCIUTILS_COMPRESS
+	select LIBKMOD	if PCIUTILS_LIBKMOD
 	tristate
 	prompt "pciutils                      "
 	help
-	  The PCI Utilities package contains a library for portable access to PCI bus
-	  configuration registers and several utilities based on this library.
+	  The PCI Utilities package contains a library for portable access
+	  to PCI bus configuration registers and several utilities based on
+	  this library.
 
 if PCIUTILS
+
+config PCIUTILS_TOOLS
+	bool
+	default y
+	depends on !BUSYBOX_LSPCI || ALLYES
+	prompt "pciutils binaries"
+	help
+	  This option install the pciutils binary tools lspci, setpci and
+	  update-pciids.
+
+comment "busybox' lspci is selected"
+	depends on BUSYBOX_LSPCI
+
+config PCIUTILS_LIBKMOD
+	bool
+	prompt "libkmod support"
+	depends on PCIUTILS_TOOLS
+	help
+	  Use libkmod to resolve kernel modules on Linux.
+
+config PCIUTILS_LIBPCI
+	bool
+	prompt "libpci support"
+	help
+	  Generate and install the shared libpci library.
 
 config PCIUTILS_COMPRESS
 	bool
 	default y
 	prompt "compress pci_ids"
 	help
-	  Save storage space by compressing the pci-id database. Access will be a
-	  little bit slower then.
+	  Save storage space by compressing the pci-id database. Access will
+	  be a little bit slower then.
 
 endif
 
-comment "busybox' lspci is selected"
-	depends on BUSYBOX_LSPCI

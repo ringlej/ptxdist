@@ -29,7 +29,12 @@ HOST_GETTEXT_AUTOCONF := \
 	--disable-libasprintf \
 	--disable-native-java \
 	--disable-openmp \
+	--disable-c++ \
 	--enable-relocatable \
-	--without-emacs
+	--disable-openmp \
+	--disable-curses \
+	--without-emacs \
+	--without-bzip2 \
+	--without-xz
 
 # vim: syntax=make

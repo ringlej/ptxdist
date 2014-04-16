@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FILE) += file
 #
 # Paths and names
 #
-FILE_VERSION	:= 5.11
-FILE_MD5	:= 16a407bd66d6c7a832f3a5c0d609c27b
+FILE_VERSION	:= 5.18
+FILE_MD5	:= d420d8f2990cd344673acfbf8d76ff5a
 FILE		:= file-$(FILE_VERSION)
 FILE_SUFFIX	:= tar.gz
 FILE_URL	:= ftp://ftp.astron.com/pub/file/$(FILE).$(FILE_SUFFIX)

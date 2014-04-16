@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_TSLIB) += tslib
 #
 # Paths and names
 #
-TSLIB_VERSION	:= 1.0
-TSLIB_MD5	:= 970cc089da1a75f6626172543a2e8df4
+TSLIB_VERSION	:= 1.1
+TSLIB_MD5	:= 6ee9bf26c18f06cfc0ceb278bb927589
 TSLIB		:= tslib-$(TSLIB_VERSION)
 TSLIB_SUFFIX	:= tar.bz2
-TSLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$(TSLIB_SUFFIX)
+TSLIB_URL	:= https://github.com/kergoth/tslib/releases/download/1.1/$(TSLIB).$(TSLIB_SUFFIX)
 TSLIB_SOURCE	:= $(SRCDIR)/$(TSLIB).$(TSLIB_SUFFIX)
 TSLIB_DIR	:= $(BUILDDIR)/$(TSLIB)
 
@@ -29,13 +29,21 @@ TSLIB_DIR	:= $(BUILDDIR)/$(TSLIB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-TSLIB_PATH	:= PATH=$(CROSS_PATH)
-TSLIB_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-TSLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+TSLIB_CONF_TOOL	:autoconf
+TSLIB_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
+	--enable-shared \
+	--enable-linear \
+	--enable-dejitter \
+	--enable-linear-h2200 \
+	--enable-variance \
+	--enable-pthres \
+	--disable-debug
+
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -53,7 +61,7 @@ $(STATEDIR)/tslib.targetinstall:
 	@$(call install_alternative, tslib, 0, 0, 0644, \
 		/etc/ts.conf)
 
-	@$(call install_lib, tslib, 0, 0, 0644, libts-0.0)
+	@$(call install_lib, tslib, 0, 0, 0644, libts-1.0)
 
 ifdef PTXCONF_TSLIB_TS_CALIBRATE
 	@$(call install_copy, tslib, 0, 0, 0755, -, /usr/bin/ts_calibrate)

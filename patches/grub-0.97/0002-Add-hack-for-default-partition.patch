@@ -8,8 +8,8 @@ but I don't know any.
 
 Signed-off-by: (not for upstream)
 ---
- stage2/asm.S |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ stage2/asm.S | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/stage2/asm.S b/stage2/asm.S
 index 34b6e7d..bf157cf 100644

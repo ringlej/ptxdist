@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBXCB) += libxcb
 #
 # Paths and names
 #
-LIBXCB_VERSION		:= 1.8.1
-LIBXCB_MD5		:= 9da03df9e2f4c048202920d9f6a7e123
+LIBXCB_VERSION		:= 1.10
+LIBXCB_MD5		:= 074c335cc4453467eeb234e3dadda700
 LIBXCB			:= libxcb-$(LIBXCB_VERSION)
 LIBXCB_SUFFIX		:= tar.bz2
 LIBXCB_URL		:= http://xcb.freedesktop.org/dist/$(LIBXCB).$(LIBXCB_SUFFIX)
@@ -46,7 +46,9 @@ LIBXCB_CONF_OPT		:= \
 	--enable-damage \
 	--enable-dpms \
 	--enable-dri2 \
+	--enable-dri3 \
 	--enable-glx \
+	--enable-present \
 	--enable-randr \
 	--enable-record \
 	--enable-render \
@@ -85,7 +87,9 @@ $(STATEDIR)/libxcb.targetinstall:
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-damage)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-dpms)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-dri2)
+	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-dri3)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-glx)
+	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-present)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-randr)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-record)
 	@$(call install_lib, libxcb, 0, 0, 0644, libxcb-render)

@@ -7,6 +7,7 @@ source "generated/ptxdist_version.in"
 
 config _ptxconfig_MAGIC__
 	bool
+	option modules
 	default y
 
 comment "--------- Host Options -------------"

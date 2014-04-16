@@ -1,0 +1,21 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Fri, 21 Mar 2014 13:58:08 +0100
+Subject: [PATCH] fix typo
+
+---
+ Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 21e4ce9..bd00413 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -5,7 +5,7 @@ INSTALL_DATA = @INSTALL_DATA@ -D
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+ 
+-SHAREDOPT = -shared -shared -fPIC,-Wl,-soname,libcgi.so.0
++SHAREDOPT = -shared -shared -fPIC -Wl,-soname,libcgi.so.0
+ libdir = $(prefix)/lib
+ incdir = $(prefix)/include/libcgi
+ mandir	= $(prefix)/man/man3

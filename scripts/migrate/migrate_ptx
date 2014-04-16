@@ -211,3 +211,12 @@ s/^\(\(# \)\?PTXCONF_HOST\)_LIBBZ2/\1_BZIP2/
 # reason : allign with target package name
 #
 s/^\(\(# \)\?PTXCONF_GST[A-Z_]*1\)1/\1/
+
+#
+# from   : ptxdist-2014.03.0
+# to     : ptxdist-2014.04.0
+# symbol : PTXCONF_LIBUSB_DISABLE_LOG -> PTXCONF_LIBUSB_LOG
+# reason : inverted logic
+#
+s/^# PTXCONF_LIBUSB_DISABLE_LOG.*$/PTXCONF_LIBUSB_LOG=y/
+s/^PTXCONF_LIBUSB_DISABLE_LOG=y$/# PTXCONF_LIBUSB_LOG is not set/

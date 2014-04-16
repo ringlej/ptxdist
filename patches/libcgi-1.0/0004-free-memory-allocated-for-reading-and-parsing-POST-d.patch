@@ -1,0 +1,32 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Wed, 24 Oct 2012 12:48:36 +0200
+Subject: [PATCH] free memory allocated for reading and parsing POST data
+ after copying to slist, should fix #2
+
+---
+ src/cgi.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/cgi.c b/src/cgi.c
+index 461eba3..99563ad 100644
+--- a/src/cgi.c
++++ b/src/cgi.c
+@@ -161,6 +161,7 @@ formvars *cgi_process_form()
+ 		char *post_data;
+ 		char *tmp_data;
+ 		int content_length;
++		formvars *ret;
+ 
+ 		tmp_data = getenv("CONTENT_LENGTH");
+ 		if (tmp_data == NULL)
+@@ -175,7 +176,9 @@ formvars *cgi_process_form()
+ 		fread(post_data, content_length, 1, stdin);
+ 		post_data[content_length] = '\0';
+ 
+-		return process_data(post_data, &formvars_start, &formvars_last, '=', '&');
++		ret = process_data(post_data, &formvars_start, &formvars_last, '=', '&');
++		free(post_data);
++		return ret;
+ 	}
+ 
+ 	return NULL;

@@ -47,7 +47,7 @@ NET_SNMP_AUTOCONF := \
 	$(GLOBAL_IPV6_OPTION) \
 	--with-defaults \
 	--disable-manuals \
-	--without-openssl \
+	--$(call ptx/wwo, PTXCONF_NET_SNMP_SHA_AES)-openssl \
 	--with-mib-modules="$(NET_SNMP_MIB_MODULES-y)" \
 	--with-out-mib-modules="$(NET_SNMP_MIB_MODULES-)" \
 	--with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS) \
@@ -58,92 +58,28 @@ NET_SNMP_AUTOCONF := \
 	--disable-embedded-perl \
 	--without-perl-modules \
 	--disable-static \
-	--disable-privacy \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_PRIVACY)-privacy \
 	--disable-internal-md5 \
+	--with-endianness=$(call ptx/ifdef, PTXCONF_ENDIAN_LITTLE, little, big) \
 	--$(call ptx/endis, PTXCONF_NET_SNMP_DOM_SOCK_ONLY)-agentx-dom-sock-only \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_MINI_AGENT)-mini-agent \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_AGENT)-agent \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_APPLICATIONS)-applications \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_SCRIPTS)-scripts \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_MIBS)-mibs \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_MIB_LOADING)-mib-loading \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_SNMPV1)-snmpv1 \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_SNMPV2C)-snmpv2c \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_DES)-des \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_MD5)-md5 \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_SNMPTRAPD)-snmptrapd-subagent \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_LOCAL_SMUX)-local-smux \
+	--$(call ptx/endis, PTXCONF_NET_SNMP_DEVELOPER)-developer \
 	--enable-mib-config-checking \
 	--enable-mfd-rewrites \
 	--disable-testing-code \
 	--disable-reentrant \
 	--disable-ucd-snmp-compatibility
-
-ifdef PTXCONF_ENDIAN_LITTLE
-NET_SNMP_AUTOCONF += --with-endianness=little
-else
-NET_SNMP_AUTOCONF += --with-endianness=big
-endif
-
-ifdef PTXCONF_NET_SNMP_MINI_AGENT
-NET_SNMP_AUTOCONF += --enable-mini-agent
-else
-NET_SNMP_AUTOCONF += --disable-mini-agent
-endif
-
-ifdef PTXCONF_NET_SNMP_AGENT
-NET_SNMP_AUTOCONF += --enable-agent
-else
-NET_SNMP_AUTOCONF += --disable-agent
-endif
-
-ifdef PTXCONF_NET_SNMP_APPLICATIONS
-NET_SNMP_AUTOCONF += --enable-applications
-else
-NET_SNMP_AUTOCONF += --disable-applications
-endif
-
-ifdef PTXCONF_NET_SNMP_SCRIPTS
-NET_SNMP_AUTOCONF += --enable-scripts
-else
-NET_SNMP_AUTOCONF += --disable-scripts
-endif
-
-ifdef PTXCONF_NET_SNMP_MIBS
-NET_SNMP_AUTOCONF += --enable-mibs
-else
-NET_SNMP_AUTOCONF += --disable-mibs
-endif
-
-ifdef PTXCONF_NET_SNMP_MIB_LOADING
-NET_SNMP_AUTOCONF += --enable-mib-loading
-else
-NET_SNMP_AUTOCONF += --disable-mib-loading
-endif
-
-ifdef PTXCONF_NET_SNMP_SNMPV1
-NET_SNMP_AUTOCONF += --enable-snmpv1
-else
-NET_SNMP_AUTOCONF += --disable-snmpv1
-endif
-
-ifdef PTXCONF_NET_SNMP_SNMPV2C
-NET_SNMP_AUTOCONF += --enable-snmpv2c
-else
-NET_SNMP_AUTOCONF += --disable-snmpv2c
-endif
-
-ifdef PTXCONF_NET_SNMP_DES
-NET_SNMP_AUTOCONF += --enable-des
-else
-NET_SNMP_AUTOCONF += --disable-des
-endif
-
-ifdef PTXCONF_NET_SNMP_MD5
-NET_SNMP_AUTOCONF += --enable-md5
-else
-NET_SNMP_AUTOCONF += --disable-md5
-endif
-
-ifdef PTXCONF_NET_SNMP_SNMPTRAPD
-NET_SNMP_AUTOCONF += --enable-snmptrapd-subagent
-else
-NET_SNMP_AUTOCONF += --disable-snmptrapd-subagent
-endif
-
-ifdef PTXCONF_NET_SNMP_LOCAL_SMUX
-NET_SNMP_AUTOCONF += --enable-local-smux
-else
-NET_SNMP_AUTOCONF += --disable-local-smux
-endif
 
 ifdef PTXCONF_NET_SNMP_FORCE_DEBUGGING
 NET_SNMP_AUTOCONF += --enable-debugging
@@ -151,12 +87,6 @@ endif
 
 ifdef PTXCONF_NET_SNMP_STRIP_DEBUGGING
 NET_SNMP_AUTOCONF += --disable-debugging
-endif
-
-ifdef PTXCONF_NET_SNMP_DEVELOPER
-NET_SNMP_AUTOCONF += --enable-developer
-else
-NET_SNMP_AUTOCONF += --disable-developer
 endif
 
 NET_SNMP_MAKE_PAR := NO

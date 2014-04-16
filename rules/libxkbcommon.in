@@ -1,9 +1,18 @@
 ## SECTION=multimedia_libs
 
-config LIBXKBCOMMON
+menuconfig LIBXKBCOMMON
 	tristate
-	prompt "libxkbcommon"
-	select XKEYBOARD_CONFIG if RUNTIME
+	prompt "libxkbcommon                  "
+	select XKEYBOARD_CONFIG	if RUNTIME
+	select LIBXCB		if LIBXKBCOMMON_X11
 	help
 	  A library to handle keyboard descriptions, to be used by
 	  Wayland, kmscon, GTK+, Qt, Clutter, etc.
+
+if LIBXKBCOMMON
+
+config LIBXKBCOMMON_X11
+	bool
+	prompt "X11 support"
+
+endif

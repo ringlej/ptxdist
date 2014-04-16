@@ -1,0 +1,48 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 26 Oct 2012 22:03:11 +0200
+Subject: [PATCH] make the library filename match its soname
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Signed-off-by: Alexander Dahl <post@lespocky.de>
+---
+ Makefile.in  |    6 ++++--
+ configure.in |    1 +
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index bd00413..2ff086b 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1,4 +1,5 @@
+ INSTALL = @INSTALL@ -D
++LN_S = @LN_S@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@ -D
+ INSTALL_DATA = @INSTALL_DATA@ -D
+ 
+@@ -55,11 +56,12 @@ src/libcgi.a: $(OBJS)
+ 	$(AR) rc src/libcgi.a $(OBJS)
+ 
+ src/libcgi.so: $(SHOBJS)
+-	$(CC) $(SHAREDOPT) -o src/libcgi.so $(SHOBJS) $(EXTRA_LIBS)
++	$(CC) $(SHAREDOPT) -o src/libcgi.so.0 $(SHOBJS) $(EXTRA_LIBS)
+ 
+ install:
+ 	$(INSTALL) -m 0644 src/libcgi.a $(DESTDIR)/$(libdir)/libcgi.a
+-	$(INSTALL) -m 0644 src/libcgi.so $(DESTDIR)/$(libdir)/libcgi.so
++	$(INSTALL) -m 0644 src/libcgi.so.0 $(DESTDIR)/$(libdir)/libcgi.so.0
++	$(LN_S) libcgi.so.0 $(DESTDIR)/$(libdir)/libcgi.so
+ 	$(INSTALL) -m 0644 src/cgi.h $(DESTDIR)/$(incdir)/cgi.h
+ 	$(INSTALL) -m 0644 src/session.h $(DESTDIR)/$(incdir)/session.h
+ 
+diff --git a/configure.in b/configure.in
+index 7da50bf..e0aaca7 100644
+--- a/configure.in
++++ b/configure.in
+@@ -4,6 +4,7 @@ AC_CONFIG_HEADER(src/config.h)
+ dnl Searching for a compiler
+ AC_PROG_CC
+ AC_PROG_INSTALL
++AC_PROG_LN_S
+ 
+ AC_DEFINE(HAVE_MD5)
+ 

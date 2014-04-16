@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NETTLE) += nettle
 #
 # Paths and names
 #
-NETTLE_VERSION	:= 2.5
-NETTLE_MD5	:= d66882e6ad31a9f651b73d7a1a93bd4c
+NETTLE_VERSION	:= 2.7.1
+NETTLE_MD5	:= 003d5147911317931dd453520eb234a5
 NETTLE		:= nettle-$(NETTLE_VERSION)
 NETTLE_SUFFIX	:= tar.gz
 NETTLE_URL	:= http://www.lysator.liu.se/~nisse/archive/$(NETTLE).$(NETTLE_SUFFIX)
@@ -36,7 +36,11 @@ NETTLE_CONF_TOOL	:= autoconf
 NETTLE_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-public-key \
-	--disable-openssl
+	--enable-assembler \
+	--disable-openssl \
+	--disable-gcov \
+	--disable-documentation \
+	--$(call ptx/endis,PTXCONF_ARCH_ARM_NEON)-arm-neon
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -52,6 +56,7 @@ $(STATEDIR)/nettle.targetinstall:
 	@$(call install_fixup, nettle,DESCRIPTION,missing)
 
 	@$(call install_lib, nettle, 0, 0, 0644, libnettle)
+	@$(call install_lib, nettle, 0, 0, 0644, libhogweed)
 	@$(call install_copy, nettle, 0, 0, 0755, -, /usr/bin/nettle-hash)
 	@$(call install_copy, nettle, 0, 0, 0755, -, /usr/bin/sexp-conv)
 	@$(call install_copy, nettle, 0, 0, 0755, -, /usr/bin/nettle-lfib-stream)

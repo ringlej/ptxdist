@@ -2,8 +2,10 @@
 
 menuconfig GNUTLS
 	tristate
+	select ZLIB
 	select LIBGCRYPT
 	select LIBTASN1
+	select NETTLE
 	select OPENSSL		if GNUTLS_OPENSSL
 	prompt "gnutls                        "
 	help

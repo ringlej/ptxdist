@@ -1,0 +1,22 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 19 Oct 2013 14:49:11 +0200
+Subject: [PATCH] client: fix compiler warning
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ examples/client.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/examples/client.c b/examples/client.c
+index 903685e..253d0c6 100644
+--- a/examples/client.c
++++ b/examples/client.c
+@@ -764,7 +764,7 @@ cmdline_proxy(char *arg) {
+   return 1;
+ }
+ 
+-inline void
++static inline void
+ cmdline_token(char *arg) {
+   strncpy((char *)the_token.s, arg, min(sizeof(_token_data), strlen(arg)));
+   the_token.length = strlen(arg);

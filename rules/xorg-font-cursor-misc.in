@@ -3,7 +3,6 @@
 config XORG_FONT_CURSOR_MISC
 	tristate
 	select XORG_FONTS
-	default y
 	prompt "Cursor misc"
 	help
 	  essential font package, you migh most probably want it.

@@ -54,7 +54,8 @@ ICU_CONF_OPT	:= \
 	--enable-tools \
 	--disable-tests \
 	--disable-samples \
-	--with-cross-build=$(HOST_ICU_DIR)/$(ICU_SUBDIR)
+	--with-cross-build=$(HOST_ICU_DIR)/$(ICU_SUBDIR) \
+	--with-data-packaging=archive
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -77,6 +78,8 @@ $(STATEDIR)/icu.targetinstall:
 	@$(call install_lib, icu, 0, 0, 0644, libicutu)
 	@$(call install_lib, icu, 0, 0, 0644, libicuuc)
 
+	@$(call install_copy, icu, 0, 0, 0644, -, \
+		/usr/share/icu/$(ICU_VERSION)/icudt$(basename $(ICU_VERSION))$(call ptx/ifdef,PTXCONF_ENDIAN_LITTLE,l,b).dat)
 
 	@$(call install_finish, icu)
 

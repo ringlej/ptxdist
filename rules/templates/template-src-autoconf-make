@@ -16,14 +16,9 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 # Paths and names
 #
-ifdef PTXCONF_@PACKAGE@_TRUNK
-@PACKAGE@_VERSION	:= trunk
-else
 @PACKAGE@_VERSION	:= @VERSION@
-@PACKAGE@_MD5		:=
-endif
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/@package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_BUILD_OOT	:= YES
 @PACKAGE@_LICENSE	:= unknown
@@ -32,19 +27,13 @@ endif
 # Extract
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_@PACKAGE@_TRUNK
 $(STATEDIR)/@package@.extract: $(STATEDIR)/autogen-tools
-endif
 
 $(STATEDIR)/@package@.extract:
 	@$(call targetinfo)
 	@$(call clean, $(@PACKAGE@_DIR))
 	@$(call extract, @PACKAGE@)
-ifdef PTXCONF_@PACKAGE@_TRUNK
-	cd $(@PACKAGE@_DIR) && sh autogen.sh
-else
 	cd $(@PACKAGE@_DIR) && [ -f configure ] || sh autogen.sh
-endif
 	@$(call patchin, @PACKAGE@)
 	@$(call touch)
 

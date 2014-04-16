@@ -1,4 +1,5 @@
 ## SECTION=ptxdist_version
+## SECTION=platform_version
 
 config PLATFORMCONFIG_VERSION_DEFAULT
 	string

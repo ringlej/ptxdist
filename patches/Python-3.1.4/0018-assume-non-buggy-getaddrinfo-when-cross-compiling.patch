@@ -4,8 +4,8 @@ Subject: [PATCH] assume non-buggy getaddrinfo when cross-compiling
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.in |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ configure.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index 415d3ca..245cf3b 100644

@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 9 Apr 2014 14:37:28 +0200
+Subject: [PATCH] start-statd: use correct PATH and unit name
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ utils/statd/start-statd | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/utils/statd/start-statd b/utils/statd/start-statd
+index cde3583..233a386 100644
+--- a/utils/statd/start-statd
++++ b/utils/statd/start-statd
+@@ -4,8 +4,8 @@
+ # /var/run/rpc.statd.pid).
+ # It should run statd with whatever flags are apropriate for this
+ # site.
+-PATH=/sbin:/usr/sbin
+-if systemctl start statd.service
++PATH=/sbin:/usr/sbin:/bin:/usr/bin
++if systemctl start rpc-statd.service
+ then :
+ else
+     exec rpc.statd --no-notify

@@ -4,34 +4,36 @@ menuconfig LIBUSB
 	tristate
 	select LIBC_RT
 	select LIBC_PTHREAD
-	prompt "libusb-1.x                    "
+	prompt "libusbx-1.x                   "
 	help
-	  userspace USB programming library
-
 	  Library for programming USB applications without the
 	  knowledge of Linux kernel internals.
 
-	  Note: libusb-1.x is not binary compatible with its precedessor
-	  libusb-0.x!
-
 if LIBUSB
 
-config LIBUSB_DISABLE_LOG
+config LIBUSB_LOG
 	bool
-	prompt "Disable all log"
-	default y
+	prompt "Enable all log"
 	help
-	  Disable all logging. Even if an application setup the debug level
+	  Enable all logging. Even if an application setup the debug level
 	  to a value other than 0, this library will not output any messages.
-	  If this menu entry is not enabled, an application or the environment
+	  If this menu entry is enabled, an application or the environment
 	  variable LIBUSB_DEBUG can setup the debug message level at runtime.
 	  Refer http://libusb.sourceforge.net/api-1.0/group__lib.htm function
 	  libusb_set_debug()
 
+config LIBUSB_SYSTEM_LOG
+	bool
+	prompt "Enable system log"
+	depends on LIBUSB_LOG
+	help
+	  Enable output logging messages to system wide log, if supported by
+	  the OS.
+
 config LIBUSB_DEBUG_LOG
 	bool
 	prompt "Enable debug log"
-	depends on !LIBUSB_DISABLE_LOG
+	depends on LIBUSB_LOG
 	help
 	  Enable full debug logging. This will always output debug messages,
 	  there is no way to disable them at runtime.

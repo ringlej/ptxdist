@@ -1,0 +1,27 @@
+From: Alexander Stein <alexander.stein@systec-electronic.com>
+Date: Wed, 26 Mar 2014 22:46:22 +0100
+Subject: [PATCH] tools: Prefer u-boot includes to system include directory
+
+This fixes the following build error when lensfun is installed:
+In file included from /usr/include/image.h:22:0,
+                 from aisimage.c:29:
+/usr/include/rgbpixel.h:22:20: fatal error: config.h: No such file or directory
+
+Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
+---
+ tools/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/Makefile b/tools/Makefile
+index a5f989a..bc6ffe3 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -157,7 +157,7 @@ NOPEDOBJS := $(addprefix $(obj),$(NOPED_OBJ_FILES-y))
+ # Use native tools and options
+ # Define __KERNEL_STRICT_NAMES to prevent typedef overlaps
+ #
+-HOSTCPPFLAGS =	-idirafter $(SRCTREE)/include \
++HOSTCPPFLAGS =	-I $(SRCTREE)/include \
+ 		-idirafter $(OBJTREE)/include2 \
+ 		-idirafter $(OBJTREE)/include \
+ 	        -I $(SRCTREE)/lib/libfdt \

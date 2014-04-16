@@ -8,8 +8,8 @@ its size. Use it, rather than hand crafted function with AC_TRY_COMPILE.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- configure.in |   12 +++---------
- 1 files changed, 3 insertions(+), 9 deletions(-)
+ configure.in | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index 3fb4f38..905f323 100644

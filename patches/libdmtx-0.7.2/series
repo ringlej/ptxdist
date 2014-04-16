@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-fix-search-paths-when-building-python-bindings.patch
 0002-use-python-from-AM_PATH_PYTHON.patch
-# 3d0f1c7c09fc0b04d768257fc83e675d  - git-ptx-patches magic
+0003-configure.ac-fix-for-automake-1.14.patch
+# 099694234b469df449d4b39d0f8dd200  - git-ptx-patches magic

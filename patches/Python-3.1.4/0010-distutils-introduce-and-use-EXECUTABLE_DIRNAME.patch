@@ -11,8 +11,8 @@ scenario. (see later patch)
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Lib/distutils/sysconfig.py |   11 +++++------
- 1 files changed, 5 insertions(+), 6 deletions(-)
+ Lib/distutils/sysconfig.py | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
 index 9842d26..3c970a3 100644

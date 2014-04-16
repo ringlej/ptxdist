@@ -2,7 +2,7 @@
 
 echo "starting network interfaces..."
 
-grep "nfsroot" /proc/cmdline > /dev/null
+grep "root=/dev/nfs" /proc/cmdline > /dev/null
 
 if [ $? != 0 ]; then
 	ifup -a
