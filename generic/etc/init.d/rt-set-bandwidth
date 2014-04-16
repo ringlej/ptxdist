@@ -22,7 +22,7 @@ case $1 in
 		;;
 	stop)
 		if [ -f "${runtime_orig}" ]; then
-			cp "${runtime_orig}" "${runtime}"
+			cat "${runtime_orig}" > "${runtime}"
 		else
 			echo "WARNING: Restoring RT-bandwidth was requested, but original value was not found!"
 		fi

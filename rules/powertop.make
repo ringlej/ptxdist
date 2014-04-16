@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#		2014 by Alexander Aring <aar@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,31 +17,29 @@ PACKAGES-$(PTXCONF_POWERTOP) += powertop
 #
 # Paths and names
 #
-POWERTOP_VERSION	:= 1.11
-POWERTOP_MD5		:= 3498f5983c683c3a57dce7379a722082
+POWERTOP_VERSION	:= 2.5
+POWERTOP_MD5		:= 806bbcbd44fcea1f807c9582fc1f7d3e
 POWERTOP		:= powertop-$(POWERTOP_VERSION)
 POWERTOP_SUFFIX		:= tar.gz
-POWERTOP_URL		:= http://www.lesswatts.org/projects/powertop/download/$(POWERTOP).$(POWERTOP_SUFFIX)
+POWERTOP_URL		:= https://01.org/sites/default/files/downloads/powertop/$(POWERTOP).$(POWERTOP_SUFFIX)
 POWERTOP_SOURCE		:= $(SRCDIR)/$(POWERTOP).$(POWERTOP_SUFFIX)
 POWERTOP_DIR		:= $(BUILDDIR)/$(POWERTOP)
+POWERTOP_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-POWERTOP_PATH	:= PATH=$(CROSS_PATH)
-
-POWERTOP_COMPILE_ENV 	:= $(CROSS_ENV)
-POWERTOP_MAKEVARS	:= BINDIR=/usr/sbin
-
-$(STATEDIR)/powertop.prepare:
-	@$(call targetinfo)
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-	sed -i -e "s/-lncurses[^ ]*/-lncursesw/g" "$(POWERTOP_DIR)/Makefile"
-else
-	sed -i -e "s/-lncurses[^ ]*/-lncurses/g" "$(POWERTOP_DIR)/Makefile"
-endif
-	@$(call touch)
+#
+# autoconf
+#
+POWERTOP_CONF_TOOL	:= autoconf
+POWERTOP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_POWERTOP_PCI_SUPPORT)-pci \
+	--disable-nls \
+	--without-libiconv-prefix \
+	--without-libintl-prefix
 
 # ----------------------------------------------------------------------------
 # Target-Install

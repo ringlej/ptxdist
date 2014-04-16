@@ -1,0 +1,22 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sun, 30 Mar 2014 10:03:46 +0200
+Subject: [PATCH] libcoap: add LIBCOAP prefix to NDEBUG
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ debug.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/debug.h b/debug.h
+index c704e63..8838317 100644
+--- a/debug.h
++++ b/debug.h
+@@ -47,7 +47,7 @@ void coap_log_impl(coap_log_t level, const char *format, ...);
+ #define coap_log(...) coap_log_impl(__VA_ARGS__)
+ #endif
+ 
+-#ifndef NDEBUG
++#ifndef LIBCOAP_NDEBUG
+ 
+ /* A set of convenience macros for common log levels. */
+ #define info(...) coap_log(LOG_INFO, __VA_ARGS__)

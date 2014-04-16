@@ -74,6 +74,8 @@ $(STATEDIR)/tntnet.targetinstall:
 
 ifdef PTXCONF_TNTNET_SERVER
 	@$(call install_copy, tntnet, 0, 0, 0755, -, /usr/bin/tntnet)
+	@$(call install_lib, tntnet, 0, 0, 0644, tntnet/tntnet)
+	@$(call install_alternative, tntnet, 0, 0, 0644, /etc/tntnet/tntnet.xml)
 endif
 
 	@$(call install_finish, tntnet)

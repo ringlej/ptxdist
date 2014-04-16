@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config JANSSON
+	tristate
+	prompt "jansson"
+	help
+	  C-Library for encoding, decoding and manipulating JSON data.

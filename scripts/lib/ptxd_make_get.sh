@@ -348,8 +348,8 @@ ptxd_make_get() {
 			local thing="${url/file:\/\///}"
 
 			if [ -f "$thing" ]; then
-				echo "local archive, copying"
-				cp -av "${thing}" "${PTXDIST_SRCDIR}" && return
+				echo "local archive, skiping get"
+				return
 			elif [ -d "${thing}" ]; then
 				echo "local directory instead of tar file, skipping get"
 				return

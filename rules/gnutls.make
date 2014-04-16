@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 2.12.21
-GNUTLS_MD5	:= 93ffac7507dd39a4c6a672ca6976d397
+GNUTLS_VERSION	:= 3.2.12.1
+GNUTLS_MD5	:= a795db68253d1336f1e3c2ee48c1fee4
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
-GNUTLS_SUFFIX	:= tar.bz2
-GNUTLS_URL	:= $(call ptx/mirror, GNU, gnutls/$(GNUTLS).$(GNUTLS_SUFFIX))
+GNUTLS_SUFFIX	:= tar.xz
+GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_SOURCE	:= $(SRCDIR)/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_DIR	:= $(BUILDDIR)/$(GNUTLS)
 GNUTLS_LICENSE	:= LGPLv3+
@@ -35,11 +35,41 @@ GNUTLS_LICENSE	:= LGPLv3+
 GNUTLS_CONF_TOOL	:= autoconf
 GNUTLS_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--with-libgcrypt \
-	--with-libgcrypt-prefix=$(PTXDIST_SYSROOT_TARGET)/usr \
-	--without-p11-kit \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-threads=posix \
+	--enable-cxx \
+	--enable-hardware-acceleration \
+	--enable-non-suiteb-curves \
+	--enable-dtls-srtp-support \
+	--enable-alpn-support \
+	--enable-rsa-export \
+	--enable-heartbeat-support \
+	--enable-srp-authentication \
+	--enable-psk-authentication \
+	--enable-anon-authentication \
+	--enable-dhe \
+	--enable-ecdhe \
+	--enable-openpgp-authentication \
+	--enable-ocsp \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
-	--disable-guile
+	--disable-doc \
+	--disable-tests \
+	--disable-gtk-doc \
+	--disable-nls \
+	--disable-rpath \
+	--disable-valgrind-tests \
+	--disable-gcc-warnings \
+	--enable-shared \
+	--disable-static \
+	--disable-libdane \
+	--enable-local-libopts \
+	--disable-libopts-install \
+	--disable-guile \
+	--disable-crywrap \
+	--without-p11-kit \
+	--without-tpm \
+	--without-libregex \
+	--with-zlib
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,6 +85,8 @@ $(STATEDIR)/gnutls.targetinstall:
 	@$(call install_fixup, gnutls,DESCRIPTION,missing)
 
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls)
+	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls-xssl)
+	@$(call install_lib, gnutls, 0, 0, 0644, libgnutlsxx)
 
 ifdef PTXCONF_GNUTLS_OPENSSL
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls-openssl)

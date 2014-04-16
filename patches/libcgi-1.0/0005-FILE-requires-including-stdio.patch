@@ -1,0 +1,21 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Tue, 6 Nov 2012 14:22:58 +0100
+Subject: [PATCH] FILE requires including stdio
+
+---
+ src/cgi.h |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/cgi.h b/src/cgi.h
+index 731735d..7cd5a17 100644
+--- a/src/cgi.h
++++ b/src/cgi.h
+@@ -21,6 +21,8 @@
+ #ifndef _CGI_H
+ #define _CGI_H	1
+ 
++#include <stdio.h>
++
+ #ifdef __cplusplus
+ extern "C" {
+ #endif

@@ -1,0 +1,1334 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Wed, 24 Oct 2012 11:20:24 +0200
+Subject: [PATCH] remove trailing whitespace (my editor would do this all the
+ time)
+
+---
+ src/base64.c  |   60 ++++++++++++++---------------
+ src/cgi.c     |   62 +++++++++++++++---------------
+ src/cgi.h     |    8 ++--
+ src/cookie.c  |   20 +++++-----
+ src/error.c   |    2 +-
+ src/general.c |   50 ++++++++++++------------
+ src/list.c    |   24 ++++++------
+ src/md5.c     |    6 +--
+ src/session.c |  118 ++++++++++++++++++++++++++++-----------------------------
+ src/string.c  |   74 ++++++++++++++++++------------------
+ 10 files changed, 212 insertions(+), 212 deletions(-)
+
+diff --git a/src/base64.c b/src/base64.c
+index a6e5d5a..9231f84 100644
+--- a/src/base64.c
++++ b/src/base64.c
+@@ -1,6 +1,6 @@
+ /*
+ 	LibCGI base64 manipulation functions is extremly based on the work of Bob Tower,
+-	from its projec http://base64.sourceforge.net. The functions were a bit modicated. 
++	from its projec http://base64.sourceforge.net. The functions were a bit modicated.
+ 	Above is the MIT license from b64.c original code:
+ 
+ LICENCE:        Copyright (c) 2001 Bob Trower, Trantor Standard Systems Inc.
+@@ -46,19 +46,19 @@ void encodeblock( unsigned char in[3], unsigned char out[4], int len )
+ }
+ 
+ void decodeblock( unsigned char in[4], unsigned char out[3] )
+-{   
++{
+ 	out[0] = (unsigned char ) (in[0] << 2 | in[1] >> 4);
+ 	out[1] = (unsigned char ) (in[1] << 4 | in[2] >> 2);
+ 	out[2] = (unsigned char ) (((in[2] << 6) & 0xc0) | in[3]);
+ }
+ 
+-/** 
++/**
+ * @ingroup libcgi_string
+ */
+ 
+ /**
+ * Encodes a given tring to its base64 form.
+-* 
++*
+ * @param *str String to convert
+ * @return Base64 encoded String
+ * @see str_base64_decode
+@@ -69,84 +69,84 @@ char *str_base64_encode(char *str)
+ 	unsigned int i, len, blocksout = 0, linesize = strlen(str);
+ 	char *tmp = str;
+ 	char *result = (char *)malloc((linesize + 3 - linesize % 3) * 4 / 3 + 1);
+-	
++
+ 	if (!result)
+ 		libcgi_error(E_MEMORY, "Failed to alloc memory at base64.c");
+-		
++
+ 	while (*tmp) {
+ 		len = 0;
+ 
+ 		for( i = 0; i < 3; i++ ) {
+ 			in[i] = (unsigned char)(*tmp);
+-			
++
+ 			if (*tmp)
+ 				len++;
+ 			else
+ 				in[i] = 0;
+-			
++
+ 			tmp++;
+ 		}
+-		
++
+ 		if( len ) {
+ 			encodeblock( in, out, len);
+-		
+-			for( i = 0; i < 4; i++ ) 
++
++			for( i = 0; i < 4; i++ )
+ 				result[blocksout++] = out[i];
+-		}		
++		}
+ 	}
+-	
++
+ 	result[blocksout] = '\0';
+ 	return result;
+ }
+ 
+-/** 
++/**
+ * @ingroup libcgi_string
+ */
+ 
+ /**
+ * Decode a base64 encoded string.
+-* 
++*
+ * @param *str Encoded String to decode
+ * @return The decoded string
+ * @see str_base64_encode
+ **/
+ char *str_base64_decode(char *str)
+-{	
++{
+ 	unsigned char in[4], out[3], v;
+ 	unsigned int i, len, pos = 0;
+ 	char *tmp = str;
+-	
++
+ 	char *result = (char *)malloc(strlen(str) + 1);
+ 	if (!result)
+ 		libcgi_error(E_MEMORY, "Failed to alloc memory at base64.c");
+-		
++
+ 	while(*tmp) {
+ 		for( len = 0, i = 0; i < 4 && *tmp; i++ ) {
+ 			v = 0;
+-			
+-			while(*tmp && v == 0 ) {			
+-				v = (unsigned char)(*tmp);				
+-				v = (unsigned char) ((v < 43 || v > 122) ? 0 : cd64[ v - 43 ]);				
+-				
++
++			while(*tmp && v == 0 ) {
++				v = (unsigned char)(*tmp);
++				v = (unsigned char) ((v < 43 || v > 122) ? 0 : cd64[ v - 43 ]);
++
+ 				if( v )
+ 					v = (unsigned char) ((v == '$') ? 0 : v - 61);
+-					
++
+ 				tmp++;
+ 			}
+-			
++
+ 			if(*tmp) {
+ 				len++;
+-				
+-				if( v ) 
++
++				if( v )
+ 					in[i] = (unsigned char) (v - 1);
+ 			}
+-			else 
++			else
+ 				in[i] = 0;
+ 		}
+-		
++
+ 		if(len) {
+ 			decodeblock( in, out );
+-			
++
+ 			for( i = 0; i < len - 1; i++ )
+ 				result[pos++] = out[i];
+ 		}
+diff --git a/src/cgi.c b/src/cgi.c
+index eca9ac2..e9d76ae 100644
+--- a/src/cgi.c
++++ b/src/cgi.c
+@@ -27,7 +27,7 @@
+ #include "cgi.h"
+ #include "error.h"
+ 
+-// Whow... if hextable array has a length less than 256, 
++// Whow... if hextable array has a length less than 256,
+ // the cgi_unescape_special_chars function will fail.  And I don't know why
+ static int hextable[256];
+ 
+@@ -61,13 +61,13 @@ formvars *process_data(char *query, formvars **start, formvars **last, const cha
+ 	aux = query;
+ 	while (*query) {
+ 		position = 0;
+-				
++
+ 		data = (formvars *)malloc(sizeof(formvars));
+ 		if (!data)
+ 			libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+-			
+-		memset(data, 0, sizeof(formvars));							
+-		
++
++		memset(data, 0, sizeof(formvars));
++
+ 		// Scans the string for the next 'delim' character
+ 		while (*aux && (*aux != delim)) {
+ 			position++;
+@@ -86,7 +86,7 @@ formvars *process_data(char *query, formvars **start, formvars **last, const cha
+ 
+ 		strncpy(data->name, query, position);
+ 		data->name[position] = '\0';
+-		
++
+ 		query = aux;
+ 		position = 0;
+ 		while (*aux && (*aux != sep)) {
+@@ -97,27 +97,27 @@ formvars *process_data(char *query, formvars **start, formvars **last, const cha
+ 					position++;
+ 				}
+ 			}
+-			else			
++			else
+ 				position++;
+-				
++
+ 			aux++;
+ 			i++;
+ 		}
+-				
++
+ 		if (*aux) {
+ 			aux++;
+ 			i++;
+ 		}
+-		
++
+ 		data->value = (char *)malloc(position+1);
+ 		if (data->value == NULL)
+ 			libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+ 
+ 		strncpy(data->value, cgi_unescape_special_chars(query), position);
+ 		data->value[position] = '\0';
+-		
++
+ 		slist_add(data, start, last);
+-		
++
+ 		query = aux;
+ 	}
+ 
+@@ -134,8 +134,8 @@ formvars *process_data(char *query, formvars **start, formvars **last, const cha
+ /**
+ * Process HTML form or URL data.
+ * Used to retrieve GET or POST data. It handles automaticaly the correct REQUEST_METHOD, so you don't need to afraid about it.
+-* @return Returns the contents of URL or FORM into a formvars variable, or NULL if FALSE. Most of time, you 
+-* don't need any variable to store the form data, because is used an internal variable to manipulate the contents. 
++* @return Returns the contents of URL or FORM into a formvars variable, or NULL if FALSE. Most of time, you
++* don't need any variable to store the form data, because is used an internal variable to manipulate the contents.
+ * @see cgi_init, cgi_init_headers
+ **/
+ formvars *cgi_process_form()
+@@ -146,7 +146,7 @@ formvars *cgi_process_form()
+ 
+ 	// When METHOD has no contents, the default action is to process it as GET method
+ 	if (method == NULL || !strcasecmp("GET", method)) {
+-		char *dados; 
++		char *dados;
+ 		dados =	getenv("QUERY_STRING");
+ 
+ 		// Sometimes, GET comes with not any data
+@@ -222,7 +222,7 @@ int cgi_include(const char *filename)
+ 
+ 		return 0;
+ 	}
+-	
++
+  	while (fgets(buffer, 255, inc))
+ 		printf("%s", buffer);
+ 
+@@ -250,7 +250,7 @@ void cgi_init_headers()
+ * @param name Form variable name
+ * @return Form variable contents
+ * @see cgi_param
+-* 
++*
+ * Example:
+ * For example, if in your HTML you have something like<br>
+ *  <br>
+@@ -262,7 +262,7 @@ void cgi_init_headers()
+ * </pre>
+ *       <br>
+ * then, to retrieve all values, you can make a code like<br><br>
+-* 
++*
+ * \code
+ * // ...
+ * char *data;
+@@ -296,13 +296,13 @@ char *cgi_param_multiple(const char *name)
+ }
+ 
+ /**
+-*  Recirects to the specified url. 
++*  Recirects to the specified url.
+ * Remember that you cannot send any header before this function, or it will not work.
+ * <b>Note:</b><br>
+ * LibCGI does not implement RFC 2396 to make the lib simple and quick. You should be sure
+-* to pass a correct URI to this function. 
++* to pass a correct URI to this function.
+ * @param url url to redirect the browser
+-* 
++*
+ * \code
+ * cgi_redirect("http://wwww.linux.org");
+ * \endcode
+@@ -347,7 +347,7 @@ void init_hex_table()
+ }
+ 
+ /**
+-*  Main cgi function. 
++*  Main cgi function.
+ *  Configures all (most?) we need to  get cgi library working correctly. It MUST be called before
+ *  any other cgi function.
+ *  @see cgi_end, cgi_process_form, cgi_init_headers
+@@ -360,7 +360,7 @@ int cgi_init()
+ 	// cause problems with session's. Note that, when you want
+ 	// to use session within your program, you need  cgi_get_cookies()
+ 	// before session_start(), otherwise we will get some problems... :)
+-	// Calling this function here is the best way. Trust me :)	
++	// Calling this function here is the best way. Trust me :)
+ 	cgi_get_cookies();
+ 
+ 	return 1;
+@@ -377,7 +377,7 @@ void cgi_end()
+ 
+ 	formvars_last = NULL;
+ 
+-	if (sess_list_start) 
++	if (sess_list_start)
+ 		slist_free(&sess_list_start);
+ 
+ 	if (cookies_start)
+@@ -414,7 +414,7 @@ char *cgi_unescape_special_chars(char *str)
+ 			tmp[pos] = ' ';
+ 		else
+ 			tmp[pos] = str[i];
+-		
++
+ 		pos++;
+ 	}
+ 
+@@ -464,21 +464,21 @@ char *cgi_escape_special_chars(char *str)
+ 
+ /**
+ * Gets the of HTML or URL variable indicated by 'name'
+-* @param name Form Variable name 
++* @param name Form Variable name
+ * @see cgi_param_multiple,  cgi_process_form, cgi_init
+-* 
++*
+ * \code
+ * // ...
+ * char *contents;
+-* 
++*
+ * cgi_init();
+ * cgi_process_form();
+ * cgi_init_headers();
+-* 
++*
+ * contents = cgi_param("foo");
+-* 
++*
+ * puts(contents);
+-* 
++*
+ * // ...
+ * \endcode
+ **/
+diff --git a/src/cgi.h b/src/cgi.h
+index 9812e7a..731735d 100644
+--- a/src/cgi.h
++++ b/src/cgi.h
+@@ -28,7 +28,7 @@ extern "C" {
+ 
+ // general purpose linked list. Actualy isn't very portable
+ // because uses only 'name' and 'value' variables to store data.
+-// Problably, in a future release, this will be replaced by 
++// Problably, in a future release, this will be replaced by
+ // another type of struct
+ typedef struct formvarsA {
+         char *name;
+@@ -86,7 +86,7 @@ extern int slist_delete(char *name, formvars **start, formvars **last);
+ extern char *slist_item(const char *name, formvars *start);
+ 
+ extern void slist_free(formvars **start);
+- 
++
+ // Session stuff
+ // We can use this variable to get the error message from a ( possible ) session error
+ // Use it togheter with session_lasterror
+@@ -98,7 +98,7 @@ extern formvars *sess_list_start;
+ 
+ extern char SESSION_SAVE_PATH[255];
+ extern char SESSION_COOKIE_NAME[50];
+- 
++
+ extern void cgi_session_set_max_idle_time(unsigned long seconds);
+ extern int cgi_session_destroy();
+ extern int cgi_session_register_var(const char *name, const char *value);
+@@ -109,7 +109,7 @@ extern int cgi_session_start();
+ extern void cgi_session_cookie_name(const char *cookie_name);
+ extern char *cgi_session_var(const char *name);
+ extern void cgi_session_save_path(const char *path);
+- 
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/src/cookie.c b/src/cookie.c
+index a116503..e9dee9e 100644
+--- a/src/cookie.c
++++ b/src/cookie.c
+@@ -41,24 +41,24 @@ extern int cgi_display_errors;
+ */
+ 
+ /**
+-* Send a cookie to the client. 
++* Send a cookie to the client.
+ * @param name Cookie name
+ * @param value Cookie value
+-* @param max_age  Cookie time life, in seconds. A value equal to 0 ( zero ) means to discard the cookie when the session is done. 
++* @param max_age  Cookie time life, in seconds. A value equal to 0 ( zero ) means to discard the cookie when the session is done.
+ * @param path Cookie path at the server
+ * @param domain Domain where cookie will work :)
+ * @param secure Secure or not
+ * @see cgi_cookie_value
+-* 
++*
+ * \code
+ * cgi_add_cookie("mycookie", "mycookie value", 0, 0, 0, 0);
+-* \endcode  
++* \endcode
+ **/
+-int cgi_add_cookie(const char *name, 
+-	const char *value, 
++int cgi_add_cookie(const char *name,
++	const char *value,
+ 	const char *max_age,
+-	const char *path, 
+-	const char *domain, 
++	const char *path,
++	const char *domain,
+ 	const int secure)
+ {
+ 	if (headers_initialized)
+@@ -81,7 +81,7 @@ int cgi_add_cookie(const char *name,
+ 
+ formvars *cgi_get_cookies()
+ {
+-	register formvars *data;	
++	register formvars *data;
+ 	register size_t position;
+ 	char *cookies, *aux;
+ 
+@@ -117,7 +117,7 @@ formvars *cgi_get_cookies()
+ 			position = strlen(cookies);
+ 		}
+ 		else {
+-			while (*aux++ != ';') 
++			while (*aux++ != ';')
+ 				position++;
+ 			// Eliminate the blank space after ';'
+ 			aux++;
+diff --git a/src/error.c b/src/error.c
+index 5d2da12..2f48b3b 100644
+--- a/src/error.c
++++ b/src/error.c
+@@ -21,7 +21,7 @@ void libcgi_error(int error_code, const char *msg, ...)
+ 		return;
+ 
+ 	cgi_init_headers();
+-	va_start(arguments, msg);	
++	va_start(arguments, msg);
+ 
+ 	printf("<b>%s</b>: ", libcgi_error_type[error_code]);
+ 	vprintf(msg, arguments);
+diff --git a/src/general.c b/src/general.c
+index ad3435c..9662ece 100644
+--- a/src/general.c
++++ b/src/general.c
+@@ -49,7 +49,7 @@ static int ncodes = sizeof(he) / sizeof(struct iso8859_15);
+ 
+ /**************************************************************
+ 						GENERAL GROUP
+-***************************************************************/	
++***************************************************************/
+ /** @defgroup libcgi_general General purpose
+ * @{
+ */
+@@ -59,42 +59,42 @@ static int ncodes = sizeof(he) / sizeof(struct iso8859_15);
+ * like '&lt' and '&gt'
+ * @param str String containing code to parse
+ * @return The new string
+-* @author Robert Csok <rcsok@gmx.de> 
++* @author Robert Csok <rcsok@gmx.de>
+ */
+ // This one needs the struct and ncodes above.
+-// ncodes is the number of elements in the struct. 
++// ncodes is the number of elements in the struct.
+ char *htmlentities(const char *str)
+ {
+ 	char *buf;
+ 	int siz, len, i = 0, j;
+ 
+ 	siz = strlen(str) + 1;
+-	
+-	buf = (char *)malloc(siz);	
++
++	buf = (char *)malloc(siz);
+ 	if (!buf)
+ 		libcgi_error(E_MEMORY, "Failed to alloc memory at htmlentities, cgi.c");
+-	
++
+ 	for (; *str; str++, i++)  {
+ 		for (j = 0; j < ncodes; j++) {
+ 			if (*str == he[j].code) {
+ 				len = strlen(he[j].html) - 1;
+-				
+-				buf = realloc(buf, siz += len);	
++
++				buf = realloc(buf, siz += len);
+ 				if (!buf)
+ 					libcgi_error(E_MEMORY, "Failed to alloc memory at htmlentities, cgi.c");
+-				
++
+ 				strcpy(buf + i, he[j].html);
+ 				i += len;
+ 				break;
+ 			}
+ 		}
+-			
+-		if (j == ncodes) 
++
++		if (j == ncodes)
+ 			buf[i] = *str;
+ 	}
+-	
++
+ 	buf[i] = '\0';
+-	return buf;	
++	return buf;
+ }
+ 
+ /**
+@@ -102,23 +102,23 @@ char *htmlentities(const char *str)
+ * @param filename Filename to open
+ * @param total Integer variable passed as reference, which will store the total of items
+ * @return Returns the file in an array. Each element of the array corresponds to a line in the file.
+-* 
++*
+ * \code
+ * char **lines;
+ * unsigned int total, i;
+-*  
++*
+ * lines = file("filename.ext", &total);
+-*    
++*
+ * printf("Total of lines: %u\n", total);
+-*    
++*
+ * for (i = 0; i < total; i++)
+ *	printf("[%u] %s\n", i, lines[i]);
+-*     
++*
+ * for (i = 0; i < total; i++) {
+ * 	if (lines[i])
+ *		 free(lines[i]);
+ * }
+-* \endcode	  
++* \endcode
+ */
+ char **file(const char *filename, unsigned int *total)
+ {
+@@ -138,7 +138,7 @@ char **file(const char *filename, unsigned int *total)
+ 	// initial line length
+ 	columms = 100;
+ 
+-	// How many characteres in the line 
++	// How many characteres in the line
+ 	char_count = 1;
+ 
+ 	i = 0;
+@@ -148,9 +148,9 @@ char **file(const char *filename, unsigned int *total)
+ 	if (!str)
+ 		libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+ 
+-	// Allocate initial memory to buf variable. It is the one 
++	// Allocate initial memory to buf variable. It is the one
+ 	// that will contain the chars of the lines
+-	// By default, we're allocating 80 chars.. if more is needed, 
++	// By default, we're allocating 80 chars.. if more is needed,
+ 	// then we'll realloc()
+ 	buf = (char *)malloc(columms);
+ 	if (buf == NULL)
+@@ -158,8 +158,8 @@ char **file(const char *filename, unsigned int *total)
+ 
+ 	while (!feof(fp)) {
+ 		ch = fgetc(fp);
+-		
+-		// The next while() loop is  to get all contents of actual line 
++
++		// The next while() loop is  to get all contents of actual line
+ 		while ((ch != '\n') && (ch != EOF)) {
+ 			// Increments the character counter
+ 			char_count++;
+@@ -201,7 +201,7 @@ char **file(const char *filename, unsigned int *total)
+ 	fclose(fp);
+ 
+ 	*total = lines - 1;
+-	return str;	
++	return str;
+ }
+ 
+ /**
+diff --git a/src/list.c b/src/list.c
+index 8bd68f7..423f28b 100644
+--- a/src/list.c
++++ b/src/list.c
+@@ -26,15 +26,15 @@
+ #include "error.h"
+ #include "cgi.h"
+ 
+-// Add a new item to the list 
++// Add a new item to the list
+ void slist_add(formvars *item, formvars **start, formvars **last)
+ {
+ 	// if *start is empty, then our list is also empty. So, the only
+ 	// task to do is fill the variables *start and *last with the data pointed by item
+-	// *start contains the firts item in the list, and we need *last to know the 
++	// *start contains the firts item in the list, and we need *last to know the
+ 	// end of the list
+ 	if (!*start) {
+-		// item->next needs to be NULL, otherwise we never will 
++		// item->next needs to be NULL, otherwise we never will
+ 		// find the end of list
+ 		item->next = NULL;
+ 
+@@ -59,8 +59,8 @@ void slist_add(formvars *item, formvars **start, formvars **last)
+ 
+ // Delete from list the item pointed by name
+ 
+-// This code is a bit complicated, and I needed some 
+-// long hours to terminate it. In a future release, 
++// This code is a bit complicated, and I needed some
++// long hours to terminate it. In a future release,
+ // I will explain the algorithm better
+ int slist_delete(char *name, formvars **start, formvars **last)
+ {
+@@ -68,7 +68,7 @@ int slist_delete(char *name, formvars **start, formvars **last)
+ 	// *prior will store the prior item relacted to actual in the loop
+ 	formvars *begin, *prior;
+ 
+-	// Before of all, is more simple to check if the item 
++	// Before of all, is more simple to check if the item
+ 	// to delete is in the next item. If true, we don't need
+ 	// to enter in the loop
+ 	if (!strcasecmp((*start)->name, name)) {
+@@ -76,8 +76,8 @@ int slist_delete(char *name, formvars **start, formvars **last)
+ 		*start = (*start)->next;
+ 
+ 		// if start is null, then we haven't more itens
+-		// in the list.. 
+-		if (!*start) 
++		// in the list..
++		if (!*start)
+ 			*last = NULL;
+ 
+ 		return 1 ;
+@@ -86,7 +86,7 @@ int slist_delete(char *name, formvars **start, formvars **last)
+ 	// Stores the start of the list
+ 	begin = *start;
+ 
+-	// Stays in the loop while the item to be deleted 
++	// Stays in the loop while the item to be deleted
+ 	// is not found
+ 	while (*start) {
+ 		// Stores the prior item of the list
+@@ -98,13 +98,13 @@ int slist_delete(char *name, formvars **start, formvars **last)
+ 		// the next item is the one to be deleted???
+ 		if (!strcasecmp((*start)->next->name, name)) {
+ 			// Before, check if the item that will be deleted
+-			// is the last... if true, then the next item need to 
++			// is the last... if true, then the next item need to
+ 			// contain null ( the end of list ), and the actual
+ 			// value is changed with the value of the prior variable
+ 			if ((*start)->next == *last) {
+ 				(*start)->next = NULL;
+ 				*last = prior;
+-			}			
++			}
+ 			else
+ 				// otherwise... well
+ 				// the item that will be deleted is pointed
+@@ -157,7 +157,7 @@ char *slist_item(const char *name, formvars *start)
+ 	begin = start;
+ 
+ 	while (begin) {
+-		if (!strcasecmp(begin->name, name)) 
++		if (!strcasecmp(begin->name, name))
+ 			return (!begin->value[0] ? NULL : begin->value);
+ 
+ 		begin = begin->next;
+diff --git a/src/md5.c b/src/md5.c
+index 44a1de2..56cf5c0 100644
+--- a/src/md5.c
++++ b/src/md5.c
+@@ -59,7 +59,7 @@ typedef struct MD5Context MD5_CTX;
+ 
+ /**
+ * Converts a string to MD5 format.
+-* 
++*
+ * @param str String to convert to MD5 hash
+ * @return MD5 hash code
+ **/
+@@ -82,7 +82,7 @@ char *md5(const char *str)
+ 
+ 	// finally, here is a final string encrypted in hex float format
+ 	MD5Final(md, &context);
+-	
++
+ 	// here, the loop is less than 32 because a md5 string can content
+ 	// just 32 bytes
+ 	for(i = 0; i < 32; i++) {
+@@ -206,7 +206,7 @@ MD5Update(struct MD5Context *ctx, unsigned char const *buf, unsigned len)
+ }
+ 
+ /*
+- * Final wrapup - pad to 64-byte boundary with the bit pattern 
++ * Final wrapup - pad to 64-byte boundary with the bit pattern
+  * 1 0* (64-bit count of bits processed, MSB-first)
+  */
+ void
+diff --git a/src/session.c b/src/session.c
+index a9d2ef1..4d96c3e 100644
+--- a/src/session.c
++++ b/src/session.c
+@@ -26,7 +26,7 @@
+  *****************************************************
+ */
+ 
+-/** 
++/**
+ * @defgroup libcgi_session Session Handling
+ *   One of the most diferencials of LibCGI is its support to sessions, a mechanism that permits
+ *   the application to keep variables trough the user's session, when he is visiting your website.
+@@ -35,9 +35,9 @@
+ * <tr>
+ * <td>
+ * 	Session functions are easy to use and understand, and probably you'll want to take a closer
+-* 	look at <i>cgi_session_save_path()</i> and <i>cgi_session_cookie_name()</i> functions. These functions, 
++* 	look at <i>cgi_session_save_path()</i> and <i>cgi_session_cookie_name()</i> functions. These functions,
+ * 	let the programmer to set the directory where session files will
+-* 	be saved in the hard disk and the cookie name to the session, respectively. 
++* 	be saved in the hard disk and the cookie name to the session, respectively.
+ * 	<br><br>
+ * 	As the CGI is running on the webserver which a common user, it have full access to its respective session
+ * 	file. But the most big problem is that you may
+@@ -102,7 +102,7 @@ const char *session_error_message[] = {
+  	"Session variable not registered",
+  	"Failed to open session file for manipulation"
+ };
+- 
++
+ 
+ // cgi.c
+ extern int headers_initialized;
+@@ -142,9 +142,9 @@ void sess_generate_id()
+ 	sess_fname = (char *)malloc(save_path_len + SESS_ID_LEN + 1);
+ 	if (!sess_fname)
+ 		libcgi_error(E_MEMORY, "File %s, line %s", __FILE__, __LINE__);
+-		
+-	for (i = 0; i < SESS_ID_LEN; i++) 
+-		sess_id[i] = table[rand()%len];	
++
++	for (i = 0; i < SESS_ID_LEN; i++)
++		sess_id[i] = table[rand()%len];
+ 	sess_id[SESS_ID_LEN] = '\0';
+ 
+ 	snprintf(sess_fname, (SESS_ID_LEN + save_path_len + 1), "%s%s%s", SESSION_SAVE_PATH, SESSION_FILE_PREFIX, sess_id);
+@@ -155,10 +155,10 @@ int sess_create_file()
+ {
+ 	// timeval, gettimeofday are used togheter with srand() function
+ 	struct timeval tv;
+-	
++
+ 	gettimeofday(&tv, NULL);
+ 	srand(tv.tv_sec * tv.tv_usec * 100000);
+-	
++
+ 	sess_generate_id();
+ 	sess_file = fopen(sess_fname, "w");
+ 	if (!sess_file) {
+@@ -168,16 +168,16 @@ int sess_create_file()
+ 
+ 		return 0;
+ 	}
+-	
++
+ 	// Changes file permission to 0600
+ 	chmod(sess_fname, S_IRUSR|S_IWUSR);
+ 	fclose(sess_file);
+ 
+ 	return 1;
+-}	
++}
+ 
+-/** 
+-* Destroys the session. 
++/**
++* Destroys the session.
+ * Destroys the current opened session, including all data.
+ * After session_destroy() was called, is not more
+ * possible to use session functions before an another
+@@ -193,10 +193,10 @@ int cgi_session_destroy()
+ 		sess_finitialized = 0;
+ 		slist_free(&sess_list_start);
+ 
+-		// hhhmmm.. 
+-		if (headers_initialized) 
++		// hhhmmm..
++		if (headers_initialized)
+ 			libcgi_error(E_WARNING, "Headers alreay sent. session_destroy() can't fully unregister the session");
+-		else 
++		else
+ 			cgi_add_cookie(SESSION_COOKIE_NAME, "", 0, 0, 0, 0);
+ 
+ 		return 1;
+@@ -213,9 +213,9 @@ int cgi_session_destroy()
+ int sess_file_rewrite()
+ {
+ 	formvars *data;
+-	
++
+ 	cgi_init_headers();
+-	
++
+ 	// Rewrites all data to session file
+ 	sess_file = fopen(sess_fname, "w");
+ 
+@@ -226,7 +226,7 @@ int sess_file_rewrite()
+ 
+ 		return 0;
+ 	}
+-	
++
+ 	data = sess_list_start;
+ 
+ 	if (data != NULL) {
+@@ -260,10 +260,10 @@ char *cgi_session_var(const char *var_name)
+ 
+ /**
+ * Defines the name of the cookie that LibCGI will use to store session's ID.
+-* This function works like cgi_session_save_path(). 
+-* This functionality let you to use  different names for each site, but remember, you cannot 
+-* use multiple session for the same application yet. 
+-* 
++* This function works like cgi_session_save_path().
++* This functionality let you to use  different names for each site, but remember, you cannot
++* use multiple session for the same application yet.
++*
+ * @param cookie_name Name of the cookie to create
+ * @see cgi_session_save_path()
+ * @note This function must be called before cgi_session_start()
+@@ -276,23 +276,23 @@ void cgi_session_cookie_name(const char *cookie_name)
+ /**
+ * Defines where session control files will be saved.
+ * If in the your CGI you don't make a call to cgi_session_save_path(), LibCGI will
+-* use the default value, which is "/tmp/". To see how to modify the value, see the following example. 
++* use the default value, which is "/tmp/". To see how to modify the value, see the following example.
+ * <br>Just note you need to add '/' at the end of the directory name
+ * \code
+ * // your_cgi.c
+-* // Set "session_files" directory under your CGI directory as the path 
++* // Set "session_files" directory under your CGI directory as the path
+ * // which LibCGI will use to store session files.
+-* 
++*
+ * cgi_session_save_path("session_files/");
+ *  \endcode
+-*  
+-*  Note that using this form, LibCGI will search for "session_files" directory using relative path 
++*
++*  Note that using this form, LibCGI will search for "session_files" directory using relative path
+ *  to your cgi application. For example, if your CGI script is located at
+ *  /usr/local/httpd/web/your_name/cgi-bin/ directory, and you use the above declaration, the files for the session will be
+-* stored at  /usr/local/httpd/web/your_name/cgi-bin/session_files directory. 
++* stored at  /usr/local/httpd/web/your_name/cgi-bin/session_files directory.
+ * Resuming, the path is relative to where your application resides. <br><br>And remember, LibCGI \b does \b not
+-* create the directory for you. 
+-* 
++* create the directory for you.
++*
+ * @param path Path, relative or absolute
+ * @see cgi_session_cookie_name
+ * @note This function must be called before cgi_session_start()
+@@ -313,12 +313,12 @@ void cgi_session_save_path(const char *path)
+ int cgi_session_register_var(const char *name, const char *value)
+ {
+ 	formvars *data;
+-	
++
+ 	if (!sess_initialized) {
+ 		session_lasterror = SESS_NOT_INITIALIZED;
+ 
+ 		libcgi_error(E_WARNING, session_error_message[session_lasterror]);
+-		
++
+ 		return 0;
+ 	}
+ 
+@@ -328,14 +328,14 @@ int cgi_session_register_var(const char *name, const char *value)
+ 			session_lasterror = SESS_OPEN_FILE;
+ 
+ 			libcgi_error(E_WARNING, session_error_message[session_lasterror]);
+-			
++
+ 			return 0;
+ 		}
+-		
++
+ 		data = (formvars *)malloc(sizeof(formvars));
+ 		if (!data)
+ 			libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+-		
++
+ 		data->name = (char *)malloc(strlen(name) + 1);
+ 		if (!data->name)
+ 			libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+@@ -350,10 +350,10 @@ int cgi_session_register_var(const char *name, const char *value)
+ 
+ 		strncpy(data->name, name, strlen(name));
+ 		data->name[strlen(name)] = '\0';
+-		
++
+ 		strncpy(data->value, value, strlen(value));
+ 		data->value[strlen(value)] = '\0';
+-		
++
+ 		if (!sess_list_last)
+ 			fprintf(sess_file, "%s=%s", name, value);
+ 		else
+@@ -381,12 +381,12 @@ int cgi_session_alter_var(const char *name, const char *new_value)
+ {
+ 	register formvars *data;
+ 	unsigned int value_len;
+-	
++
+ 	data = sess_list_start;
+ 	while (data) {
+ 		if (!strcmp(data->name, name)) {
+ 			value_len = strlen(new_value) + 1;
+-			
++
+ 			if (value_len > strlen(data->value)) {
+ 				data->value = realloc(data->value, value_len+1);
+ 				if (!data->value)
+@@ -396,7 +396,7 @@ int cgi_session_alter_var(const char *name, const char *new_value)
+ 
+ 			strncpy(data->value, new_value, value_len);
+ 			data->value[value_len] = '\0';
+-			
++
+ 			sess_file_rewrite();
+ 
+ 			return 1;
+@@ -404,9 +404,9 @@ int cgi_session_alter_var(const char *name, const char *new_value)
+ 
+ 		data = data->next;
+ 	}
+-	
++
+ 	session_lasterror = SESS_VAR_NOT_REGISTERED;
+-	
++
+ 	return 0;
+ }
+ 
+@@ -437,7 +437,7 @@ int cgi_session_unregister_var(char *name)
+ 		session_lasterror = SESS_NOT_INITIALIZED;
+ 
+ 		libcgi_error(E_WARNING, session_error_message[session_lasterror]);
+-		
++
+ 		return 0;
+ 	}
+ 
+@@ -449,7 +449,7 @@ int cgi_session_unregister_var(char *name)
+ 		return 0;
+ 	}
+ 
+-	if (!sess_file_rewrite()) 
++	if (!sess_file_rewrite())
+ 		return 0;
+ 
+ 	return 1;
+@@ -457,7 +457,7 @@ int cgi_session_unregister_var(char *name)
+ 
+ /**
+ * Starts a new session.
+-* This function is responsible for starting and creating a new 
++* This function is responsible for starting and creating a new
+ * session. It must be called before any other session function,
+ * and every time before any HTML header has sent.
+ * @see session_destroy()
+@@ -472,13 +472,13 @@ int cgi_session_start()
+ 		session_lasterror = SESS_STARTED;
+ 
+ 		libcgi_error(E_WARNING, session_error_message[session_lasterror]);
+-		
++
+ 		return 0;
+ 	}
+-	
++
+ 	if (headers_initialized) {
+ 		session_lasterror = SESS_HEADERS_SENT;
+-		
++
+ 		libcgi_error(E_WARNING, session_error_message[session_lasterror]);
+ 
+ 		return 0;
+@@ -487,7 +487,7 @@ int cgi_session_start()
+ 	// Get the session ID
+ 	sid = cgi_cookie_value(SESSION_COOKIE_NAME);
+ 
+-	// If there isn't a session ID, we need to create one 
++	// If there isn't a session ID, we need to create one
+ 	if (sid == NULL) {
+ 		if (sess_create_file()) {
+ 			cgi_add_cookie(SESSION_COOKIE_NAME, sess_id, 0, 0, 0, 0);
+@@ -502,17 +502,17 @@ int cgi_session_start()
+ 	// Make sure the file exists
+ 	else {
+ 		save_path_len = strlen(SESSION_SAVE_PATH) + strlen(SESSION_FILE_PREFIX);
+-		
++
+ 		sess_fname = (char *)malloc(save_path_len + SESS_ID_LEN + 1);
+ 		if (!sess_fname)
+ 			libcgi_error(E_MEMORY, "File %s, line %s", __FILE__, __LINE__);
+-	
++
+ 		snprintf(sess_fname, (SESS_ID_LEN + save_path_len + 1), "%s%s%s", SESSION_SAVE_PATH, SESSION_FILE_PREFIX, sid);
+ 		sess_fname[SESS_ID_LEN + save_path_len] = '\0';
+-		
+-		errno = 0;		
++
++		errno = 0;
+ 		fp = fopen(sess_fname, "r");
+-		if (errno == ENOENT) { 
++		if (errno == ENOENT) {
+ 			// The file doesn't exists. Create a new session
+ 			if (sess_create_file()) {
+ 				cgi_add_cookie(SESSION_COOKIE_NAME, sess_id, 0, 0, 0, 0);
+@@ -532,15 +532,15 @@ int cgi_session_start()
+ 	sess_id[SESS_ID_LEN] = '\0';
+ 
+ 	// Now we need to read all the file contents
+-	// This is a temporary solution, I'll try to 
++	// This is a temporary solution, I'll try to
+ 	// make a faster implementation
+ 	stat(sess_fname, &st);
+ 	buf = (char *)malloc(st.st_size + 2);
+ 	if (!buf)
+ 		libcgi_error(E_MEMORY, "File %s, line %s", __FILE__, __LINE__);
+-		
++
+ 	fgets(buf, st.st_size+1, fp);
+-		
++
+ 	if (buf != NULL && strlen(buf) > 1)
+ 		process_data(buf, &sess_list_start, &sess_list_last, '=', ';');
+ 
+@@ -551,6 +551,6 @@ int cgi_session_start()
+ 	return 1;
+ }
+ 
+-/** 
++/**
+ * @}
+ */
+diff --git a/src/string.c b/src/string.c
+index 3dc437f..e2bba97 100644
+--- a/src/string.c
++++ b/src/string.c
+@@ -31,7 +31,7 @@
+ /*********************************************************
+ * 					STRING GROUP
+ *********************************************************/
+-/** 
++/**
+ * @defgroup libcgi_string Strings
+ * General string manipulation and utilities functions
+ * @{
+@@ -40,12 +40,12 @@
+ /**
+ * Same to addslashes(), except that this one only do the action while 'n' is great than 0.
+ * @param s String to parse
+-* @param n Number of characters to work with. 
++* @param n Number of characters to work with.
+ * @see addslashes()
+ * \code
+ * char *name = "My test string is called \"foobar\"";
+ * puts(name); // will display My test string is called "foobar"
+-* 
++*
+ * name = addnslashes(name, 31);
+ * puts(name); // will display My test string is called \"foobar"
+ * \endcode
+@@ -81,7 +81,7 @@ char *addnslashes(char *s, int n)
+ 	return tmp;
+ }
+ 
+-/** 
++/**
+ * Add slashes to a string when necessary.
+ * Adds a '\' in every quote ( " ), apostrophe ( ' ) or  backslash ( \ )
+ * It's useful when working with databases, for example, because
+@@ -93,7 +93,7 @@ char *addnslashes(char *s, int n)
+ * \code
+ * char *name = "My test string is called \"foobar\"";
+ * puts(name); // will display My test string is called "foobar"
+-* 
++*
+ * name = addslashes(name);
+ * puts(name); // will display My test string is called \"foobar\"
+ * \endcode
+@@ -131,7 +131,7 @@ char *stripnslashes(char *s, int n)
+ 		return NULL;
+ 
+ 	while (*s) {
+-		if ((n-- > 0) && (*s == '\\')) 
++		if ((n-- > 0) && (*s == '\\'))
+ 			s++;
+ 		tmp[j++] = *s++;
+ 	}
+@@ -233,10 +233,10 @@ void trim(char *str)
+ * Copy part of a string.
+ * Copy  count characters from src, starting from start
+ * @param src String to copy from
+-* @param start Initial offset 
++* @param start Initial offset
+ * @param count Number of chars to copy
+ * @return The new string
+-* 
++*
+ * \code
+ * char *part, *str = "Test one, test two";
+ * part = substr(str, 1, 5);
+@@ -265,12 +265,12 @@ char *substr(char *src, const int start, const int count)
+ *  and storing the total of pieces in total
+ * @param src String to parse
+ * @param token Character delimiter to search.
+-* @param total An integer variable passed as reference, which stores the total of 
++* @param total An integer variable passed as reference, which stores the total of
+ * itens of the array
+ * @return The array, where each item is one separeted by token
+-* 
++*
+ * \code
+-*  
++*
+ *  char **pieces;
+ *  char *name = "This,is,a,string,of,test";
+ *  int total, i;
+@@ -280,14 +280,14 @@ char *substr(char *src, const int start, const int count)
+ * \endcode
+ **/
+ char **explode(char *src, const char *token, int *total)
+-{	
++{
+ 	char **str;
+ 	register int i, j, count, item, start;
+ 	int len;
+ 
+ 	if (!src || !token) {
+ 		*total = 0;
+-		
++
+ 		return NULL;
+ 	}
+ 
+@@ -348,7 +348,7 @@ char **explode(char *src, const char *token, int *total)
+ 
+ /**
+ * Replace characteres in a string, but not more than 'n'.
+-*  Replace all occourences of *delim on *src with characteres pointed by *with, 
++*  Replace all occourences of *delim on *src with characteres pointed by *with,
+ *  stopping after 'n' char.
+ *  @param *src String to parse
+ *  @param *delim Character to search that will be replaced
+@@ -356,7 +356,7 @@ char **explode(char *src, const char *token, int *total)
+ *  @param n Maximum number of chars to parse
+ *  @return The new string
+ *  @see str_replace
+-*  
++*
+ *  \code
+ *  char *linux = "Linux C";
+ *  linux = str_nreplace(linux, "C", "Cool", strlen(linux));
+@@ -414,7 +414,7 @@ char *str_nreplace(char *src, const char *delim, const char *with, int n)
+ /**
+ * Replace characteres in a string.
+ *  Replace all occourences of *delim on *src with characteres pointed by *with.
+-*  The problem with the folowing code is that the function only searches for the 
++*  The problem with the folowing code is that the function only searches for the
+ *  first caracter of *delim, ingoring the rest. Other problem is speed relacioned:
+ *  note that the function ever compare the length of *with to do the correct action.
+ *  @param src String to parse
+@@ -422,7 +422,7 @@ char *str_nreplace(char *src, const char *delim, const char *with, int n)
+ *  @param with String to replace with
+ *  @return The new string
+ *  @see str_nreplace
+-*  
++*
+ *  \code
+ *  char *linux = "Linux C";
+ *  linux = str_replace(linux, "C", "Cool");
+@@ -454,14 +454,14 @@ char *replace(char *str, const char *delim, const char *with)
+ int strnpos(char *s, char *ch, unsigned int count)
+ {
+ 	register unsigned int pos = 0, i;
+-	
++
+ 	for (i = 0; i <= count && *s; i++) {
+ 		if (*s++ == *ch)
+ 			return pos;
+-		
++
+ 		pos++;
+ 	}
+-	
++
+ 	return -1;
+ }
+ 
+@@ -485,13 +485,13 @@ int strpos(char *s, char *ch)
+ *  @param count Number of characteres to delete
+ *  @return The new string
+ *  @see strndel()
+-* 
++*
+ *  \code
+ *  *txt = "Some text to test anything";
+ *  puts(txt);
+ *  txt = strdel(txt, 2, 8);
+ *  puts(txt);
+-* \endcode   
++* \endcode
+ **/
+ char *strdel(char *s, int start, int count)
+ {
+@@ -508,7 +508,7 @@ char *strdel(char *s, int start, int count)
+ 		libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+ 
+ 	for (i = 0; i < len; i++) {
+-		if ((i >= start) && (i < (start+count))) 
++		if ((i >= start) && (i < (start+count)))
+ 			s++;
+ 		else
+ 			tmp[contador++] = *s++;
+@@ -536,37 +536,37 @@ char *recvline(FILE *s)
+ 	size_t siz = 0;
+ 
+ 	for (; (ch = fgetc(s)) != EOF; i++) {
+-		if (i == siz) 
++		if (i == siz)
+ 			buf = realloc(buf, siz += BUFSIZ);
+-			
++
+ 		buf[i] = ch;
+-		
++
+ 		if (buf[i] == '\n') {
+ 			buf[i] = '\0';
+-			
+-			if (i > 0 && buf[i-1] == '\r') 
++
++			if (i > 0 && buf[i-1] == '\r')
+ 				buf[i-1] = '\0';
+-				
++
+ 			return buf;
+ 		}
+ 	}
+-	
++
+ 	if (i > 0) {
+ 		if (i == siz) buf = realloc(buf, siz + 1);
+ 			buf[i] = '\0';
+-			
++
+ 		return buf;
+ 	}
+-	
++
+ 	return NULL;
+ }
+ 
+ /**
+ * Makes a string.
+ * Works like printf(), with the difference
+-* that it returns a string that is the 
++* that it returns a string that is the
+ * concatenation of the values passed as parameter.
+-* 
++*
+ * @param *s Inicial String and optionally formatation parameters ( just %s is allowed )
+ * @return The new String
+ * \code
+@@ -599,7 +599,7 @@ char *make_string(char *s, ...)
+ 					break;
+ 			}
+ 		}
+-		
++
+ 		str++;
+ 	}
+ 
+@@ -628,13 +628,13 @@ char *strcat_ex(const char *str1, const char *str2)
+ 	len = strlen(str1) + strlen(str2);
+ 
+ 	new_str = (char *)malloc((len + 1) * sizeof(char*));
+-	if (!new_str) 
++	if (!new_str)
+ 		libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+ 
+ 	sprintf(new_str, "%s%s", str1, str2);
+ 
+ 	new_str[len] = '\0';
+-	
++
+ 	return new_str;
+ }
+ 

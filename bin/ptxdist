@@ -359,6 +359,7 @@ check_config() {
 		_check_config_platform &&
 		_check_config_collection
 	fi &&
+	setup_logfile &&
 	if [ ! -e "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" -o -L "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" ]; then
 		local ptxconfig="$(readlink -f "${PTXDIST_PTXCONFIG}")"
 		rm -f "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" &&
@@ -509,10 +510,6 @@ check_dirs() {
 		fi
 	done
 
-	rm -rf -- "${PTX_WRAPPER_DIR}" &&
-	mkdir -p -- "${PTX_WRAPPER_DIR}/real" ||
-	ptxd_bailout "cannot create dir: '${PTX_WRAPPER_DIR}/real'"
-
 	# check for case sensitive file system
 	for dir in \
 		"${BUILDDIR}" \
@@ -547,6 +544,13 @@ check_dirs() {
 #
 check_compiler() {
 	local cc_ptr cc cc_abs cc_default cc_alternate
+	local wrapper_dir sysroot_host
+
+	sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+	wrapper_dir="${sysroot_host}/lib/wrapper"
+	mkdir -p -- "${wrapper_dir}/real" ||
+	ptxd_bailout "cannot create dir: '${wrapper_dir}/real'"
+
 
 	for cc_ptr in \
 		PTXCONF_SETUP_HOST_CPP \
@@ -589,17 +593,22 @@ check_compiler() {
 			;;
 		esac
 
-		ln -sf "${cc_abs}" "${PTX_WRAPPER_DIR}/real/${cc_default}" &&
-		ln -sf "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${PTX_WRAPPER_DIR}/${cc_default}" &&
+		ptxd_replace_link "${cc_abs}" "${wrapper_dir}/real/${cc_default}" &&
+		ptxd_replace_link "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${wrapper_dir}/${cc_default}" &&
 
 		if [ -n "${cc_alternate}" ]; then
-		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/${cc_alternate}" &&
-		    ln -sf "${cc_default}" "${PTX_WRAPPER_DIR}/real/${cc_alternate}"
-		fi || \
+		    ptxd_replace_link "${cc_default}" "${wrapper_dir}/${cc_alternate}" &&
+		    ptxd_replace_link "${cc_default}" "${wrapper_dir}/real/${cc_alternate}"
+		fi || {
+		    rm -rf "${wrapper_dir}"
 		    ptxd_bailout "unable to create compiler wrapper link"
+		}
 	done
 
-	ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null && return || true
+	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
+		PATH="${wrapper_dir}:${PATH}"
+		return
+	fi
 
 	#
 	# Three things should be checked
@@ -671,13 +680,12 @@ check_compiler() {
 	}
 
 	local toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
-	local sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
-	rm -f "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
-	ln -sf "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
+	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld; do
-		ln -sf "$(which ${compiler_prefix}${cc})" "${PTX_WRAPPER_DIR}/real/${compiler_prefix}${cc}" &&
-		ln -sf "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${PTX_WRAPPER_DIR}/${compiler_prefix}${cc}"
+		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
+		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done
+	PATH="${wrapper_dir}:${PATH}"
 }
 
 
@@ -898,6 +906,10 @@ Misc:
   nfsroot			run a userspace NFS server and export the nfsroot
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
+  list-packages			print a list of all selected packages
+  local-src <pkg> [<directory>]	overwrite a package source with a locally provided
+				directory containing the sourcecode.
+				Not specifying the directory will undo the change.
   bash				enter a ptxdist environment bash shell
   bash <cmd> [args...]		execute <cmd> in ptxdist environment
   export_src <target dir>	export all source archives needed for this
@@ -1414,7 +1426,6 @@ do_select()
 	#
 	setup_platform &&
 	setup_path &&
-	setup_logfile &&
 	setup_export
 }
 
@@ -1709,6 +1720,7 @@ parse_second()
 . ~/.bashrc
 PS1="[ptx] \${PS1}"
 PATH="${PATH}"
+alias ptxsudo='sudo env PATH=$PATH'
 EOF
 				"${BASH}" --init-file "${bashrc}"
 			else
@@ -1804,6 +1816,18 @@ EOF
 			ptxd_make_log "${images[@]}"
 			exit
 			;;
+		list-packages)
+			check_config &&
+			check_deps || return
+			for i in $(ptxd_make "print-PACKAGES"); do
+				echo $i
+			done | sort
+			;;
+		local-src)
+			check_config &&
+			ptxd_lib_local_src "${@}"
+			exit
+			;;
 		make)
 			check_premake_compiler &&
 			ptxd_make_log "${@}"
@@ -1838,18 +1862,26 @@ EOF
 			exit
 			;;
 		print)
-			check_config &&
-			if [ -z "${1}" ]; then
+			if [ ${#} -eq 0 ]; then
 				exit 1
-			elif [ -n "${!1}" ]; then
-				echo "${!1}"
-			else
-				check_deps
-				ptxd_make_log "print-${1}" 2>/dev/null || {
-					echo "${1} undefined" >&2
-					exit 1
-				}
 			fi
+			while [ ${#} -gt 0 ]; do
+				if [ -n "${!1}" ]; then
+					echo "${!1}"
+				else
+					local check
+					if [ -z "${check}" ]; then
+						check_config &&
+						check_deps || exit 1
+						check=1
+					fi
+					ptxd_make_log "print-${1}" 2>/dev/null || {
+						echo "${1} undefined" >&2
+						exit 1
+					}
+				fi
+				shift
+			done
 			exit
 			;;
 		projects)
@@ -2351,9 +2383,6 @@ setup_path() {
 			sleep 3
 		fi
 	fi
-
-	PTX_WRAPPER_DIR="${sysroot_host}/lib/wrapper"
-	PATH="${PTX_WRAPPER_DIR}:${PATH}"
 }
 
 
@@ -2362,6 +2391,11 @@ setup_path() {
 #
 setup_logfile()
 {
+	if [ -n "${PTX_LOGFILE}" ]; then
+		# we were already here
+		return
+	fi
+	PTX_LOGFILE="${PTXDIST_PLATFORMDIR}/logfile"
 	local logdir="${PTX_LOGFILE%/*}"
 
 	if [ -e "${logdir}" -a \! -w "${logdir}" -o \
@@ -2381,10 +2415,10 @@ setup_logfile()
 
 	if [ \! -e "${PTX_LOGFILE}" ]; then
 		# let emacs outline mode be compatible to vi's fold mode
-		echo -e "# -*- mode:outline; outline-regexp:\"{""{{\" -*-\n" > "${PTX_LOGFILE}"
+		echo "# -*- mode:outline; outline-regexp:\"{""{{\" -*-" > "${PTX_LOGFILE}"
 		# help vim to recognise the fold markers and expand the first level of folding
 		# which in fact is the Emacs setting above
-		echo "# vim: set fdm=marker fdl=1:" > "${PTX_LOGFILE}"
+		echo -e "# vim: set fdm=marker fdl=1:\n" >> "${PTX_LOGFILE}"
 	fi
 
 	#
@@ -2392,6 +2426,7 @@ setup_logfile()
 	#      ||
 	#      VV
 	echo "{""{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_ARGS_FULL[@]}" >> "${PTX_LOGFILE}"
+	export PTX_LOGFILE
 }
 
 
@@ -2465,9 +2500,6 @@ main() {
 	setup_libs &&
 	setup_path &&
 	# --- path is now set ---
-
-	setup_logfile &&
-	# -- logfile is ready
 
 	setup_export &&
 	# -- all important vars are exported

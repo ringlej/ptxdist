@@ -18,15 +18,15 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 #
 # Paths and names
 #
-KLIBC_VERSION	:= 1.5.25
-KLIBC_MD5	:= 0c11c9c9d0c8b9e55c6689f43cee5a23
+KLIBC_VERSION	:= 2.0.3
+KLIBC_MD5	:= 5dc3fbee62c087048fd8338741474194
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
 KLIBC_URL := \
-	$(call ptx/mirror, KERNEL, libs/klibc/1.5/$(KLIBC).$(KLIBC_SUFFIX))
+	$(call ptx/mirror, KERNEL, libs/klibc/2.0/$(KLIBC).$(KLIBC_SUFFIX))
 
 ifdef PTXCONF_KLIBC
 $(STATEDIR)/kernel.compile: $(STATEDIR)/klibc.targetinstall.post

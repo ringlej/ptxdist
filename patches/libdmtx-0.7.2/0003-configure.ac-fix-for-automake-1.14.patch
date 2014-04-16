@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 19 Mar 2014 09:47:07 +0100
+Subject: [PATCH] configure.ac: fix for automake 1.14
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index c9667cc..a50243c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,5 +1,5 @@
+ AC_INIT([libdmtx], [0.7.2], [mike@dragonflylogic.com])
+-AM_INIT_AUTOMAKE([-Wall -Werror gnu])
++AM_INIT_AUTOMAKE([-Wall -Werror gnu subdir-objects])
+ 
+ AC_CONFIG_MACRO_DIR([m4])
+ AC_CONFIG_HEADERS([config.h])
+@@ -15,6 +15,7 @@ AC_CONFIG_FILES([
+    wrapper/python/Makefile
+ ])
+ 
++AM_PROG_AR
+ AC_PROG_CC
+ AC_PROG_LIBTOOL
+ AM_PROG_CC_C_O

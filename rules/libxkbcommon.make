@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_LIBXKBCOMMON) += libxkbcommon
 #
 # Paths and names
 #
-LIBXKBCOMMON_VERSION	:= 0.2.0
-LIBXKBCOMMON_MD5	:= 2be3d4a255d02c7d46fc6a9486f21f6a
+LIBXKBCOMMON_VERSION	:= 0.4.0
+LIBXKBCOMMON_MD5	:= bb782f1700e45b4f57c84ef513e3cf85
 LIBXKBCOMMON		:= libxkbcommon-$(LIBXKBCOMMON_VERSION)
-LIBXKBCOMMON_SUFFIX	:= tar.bz2
+LIBXKBCOMMON_SUFFIX	:= tar.xz
 LIBXKBCOMMON_URL	:= http://xkbcommon.org/download/$(LIBXKBCOMMON).$(LIBXKBCOMMON_SUFFIX)
 LIBXKBCOMMON_SOURCE	:= $(SRCDIR)/$(LIBXKBCOMMON).$(LIBXKBCOMMON_SUFFIX)
 LIBXKBCOMMON_DIR	:= $(BUILDDIR)/$(LIBXKBCOMMON)
@@ -39,6 +39,7 @@ LIBXKBCOMMON_CONF_OPT	:= \
 	--disable-selective-werror \
 	--disable-strict-compilation \
 	--disable-docs \
+	--$(call ptx/endis, PTXCONF_LIBXKBCOMMON_X11)-x11 \
 	--with-xkb-config-root=$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/xkb
 
 # ----------------------------------------------------------------------------
@@ -55,6 +56,9 @@ $(STATEDIR)/libxkbcommon.targetinstall:
 	@$(call install_fixup, libxkbcommon,DESCRIPTION,missing)
 
 	@$(call install_lib, libxkbcommon, 0, 0, 0644, libxkbcommon)
+ifdef PTXCONF_LIBXKBCOMMON_X11
+	@$(call install_lib, libxkbcommon, 0, 0, 0644, libxkbcommon-x11)
+endif
 
 	@$(call install_finish, libxkbcommon)
 

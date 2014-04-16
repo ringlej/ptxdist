@@ -39,6 +39,8 @@ LSH_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	$(GLOBAL_IPV6_OPTION) \
 	--sysconfdir=/etc/lsh \
+	--includedir=/usr/include/lsh \
+	--libdir=/usr/lib/lsh \
 	--disable-kerberos \
 	--disable-pam \
 	--disable-tcp-forward \

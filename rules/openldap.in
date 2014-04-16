@@ -42,6 +42,7 @@ choice
 		bool "openssl"
 
 	config OPENLDAP_TLS_GNUTLS
+		depends on BROKEN
 		bool "gnutls"
 
 endchoice

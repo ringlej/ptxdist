@@ -67,7 +67,7 @@ config HOST_SQUASHFS_COMPRESSION_MODE
 
 config IMAGE_SQUASHFS_BLOCK_SIZE
 	string
-	default "${PTXCONF_FLASH_BLOCKSIZE}"
+	default "256k"
 	prompt "Block size"
 	help
 	  This allows the compression data block size to be selected, both "K" and "M"

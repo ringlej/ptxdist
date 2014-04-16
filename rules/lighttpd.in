@@ -96,7 +96,7 @@ config LIGHTTPD_MOD_COMPRESS
 	help
 	  Output compression support.
 
-if LIGHTTPD_COMPRESS
+if LIGHTTPD_MOD_COMPRESS
 
 config LIGHTTPD_ZLIB
 	bool

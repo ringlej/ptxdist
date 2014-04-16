@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@_MD5		:=
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_URL		:= file://local_src/$(@PACKAGE@)
+@PACKAGE@_URL		:= file://local_src/@package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_LICENSE	:= unknown
 

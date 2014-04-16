@@ -4,4 +4,5 @@
 0002-Add-hack-for-default-partition.patch
 0003-cleanup-autotools-a-bit.patch
 0004-Work-around-a-miscompilation-of-stage2-with-GCC-4.6.patch
-# 5d726d5276afb556c3b49f8ddc24e226  - git-ptx-patches magic
+0005-make-it-work-with-automake-1.14.patch
+# 042f6442b03fbf2c8eaea19b42617475  - git-ptx-patches magic

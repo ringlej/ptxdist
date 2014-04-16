@@ -9,6 +9,7 @@ config BAREBOX_ARCH_STRING
 
 menuconfig BAREBOX
 	select BOOTLOADER
+	select HOST_LIBUSB if BAREBOX_NEEDS_HOST_LIBUSB
 	prompt "barebox                       "
 	bool
 	help
@@ -50,5 +51,9 @@ config BAREBOX_BAREBOXENV
 	  The tool 'bareboxenv' can be used to manipulate the barebox
 	  environment. Enable this option access the barebox environment
 	  from the target Linux system.
+
+config BAREBOX_NEEDS_HOST_LIBUSB
+	prompt "barebox needs libusb"
+	bool
 
 endif

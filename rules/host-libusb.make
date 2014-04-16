@@ -23,6 +23,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBUSB) += host-libusb
 
 HOST_LIBUSB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--disable-static
+	--disable-static \
+	--disable-udev
 
 # vim: syntax=make

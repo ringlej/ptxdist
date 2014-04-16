@@ -1,8 +1,6 @@
 AC_PREREQ(2.59)
 
-esyscmd([echo "define(myversion, $(dir=$(basename $(pwd)); if test \"${dir%%-trunk}\" != \"$dir\"; then echo 99999999-9; else prefix=${dir%%-[0-9]*-[0-9]}; echo ${dir##$prefix-}; fi))"])
-
-AC_INIT([@name@], myversion, [bugs@pengutronix.de])
+AC_INIT([@name@], @VERSION@, [bugs@pengutronix.de])
 AC_CONFIG_SRCDIR([@name@.c])
 
 PART=LM3S3748

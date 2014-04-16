@@ -1,0 +1,64 @@
+From: Alexander Dahl <post@lespocky.de>
+Date: Wed, 24 Oct 2012 11:31:10 +0200
+Subject: [PATCH] free memory allocated by unescape_special_chars() after not
+ needed anymore, should fix #3
+
+---
+ src/cgi.c    |    6 ++++--
+ src/cookie.c |    7 +++++--
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/src/cgi.c b/src/cgi.c
+index e9d76ae..461eba3 100644
+--- a/src/cgi.c
++++ b/src/cgi.c
+@@ -51,7 +51,7 @@ extern formvars *cookie_end;
+ formvars *process_data(char *query, formvars **start, formvars **last, const char delim, const char sep)
+ {
+ 	register size_t position = 0, total_len = 0, i = 0;
+-	char *aux;
++	char *aux, *str_unesc;
+ 	formvars *data;
+ 
+ 	if (query == NULL)
+@@ -113,8 +113,10 @@ formvars *process_data(char *query, formvars **start, formvars **last, const cha
+ 		if (data->value == NULL)
+ 			libcgi_error(E_MEMORY, "%s, line %s", __FILE__, __LINE__);
+ 
+-		strncpy(data->value, cgi_unescape_special_chars(query), position);
++		str_unesc = cgi_unescape_special_chars(query);
++		strncpy(data->value, str_unesc, position);
+ 		data->value[position] = '\0';
++		free(str_unesc);
+ 
+ 		slist_add(data, start, last);
+ 
+diff --git a/src/cookie.c b/src/cookie.c
+index e9dee9e..6e84c81 100644
+--- a/src/cookie.c
++++ b/src/cookie.c
+@@ -83,12 +83,13 @@ formvars *cgi_get_cookies()
+ {
+ 	register formvars *data;
+ 	register size_t position;
+-	char *cookies, *aux;
++	char *cookies, *aux, *str_unesc;
+ 
+ 	if ((cookies = getenv("HTTP_COOKIE")) == NULL)
+ 		return NULL;
+ 
+-	cookies = cgi_unescape_special_chars(cookies);
++	str_unesc = cgi_unescape_special_chars(cookies);
++	cookies = str_unesc;
+ 	aux = cookies;
+ 
+ 	while (cookies) {
+@@ -135,6 +136,8 @@ formvars *cgi_get_cookies()
+ 		cookies = aux;
+ 	}
+ 
++	free(str_unesc);
++
+ 	return cookies_start;
+ }
+ 

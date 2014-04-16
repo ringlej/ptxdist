@@ -9,8 +9,8 @@ not work if we cross compile or build distributions, with DESTDIR != /.
 Forwarded: no
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- wrapper/python/Makefile |    2 +-
- wrapper/python/setup.py |    4 ++--
+ wrapper/python/Makefile | 2 +-
+ wrapper/python/setup.py | 4 ++--
  2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/wrapper/python/Makefile b/wrapper/python/Makefile

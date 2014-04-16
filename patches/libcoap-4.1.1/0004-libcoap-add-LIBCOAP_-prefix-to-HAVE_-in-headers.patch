@@ -1,0 +1,132 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 29 Mar 2014 21:07:12 +0100
+Subject: [PATCH] libcoap: add LIBCOAP_ prefix to HAVE_ in headers
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ address.h   | 6 +++---
+ coap_time.h | 4 ++--
+ debug.h     | 2 +-
+ encode.h    | 2 +-
+ net.h       | 8 ++++----
+ resource.h  | 2 +-
+ 6 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/address.h b/address.h
+index 614f68f..66f92d7 100644
+--- a/address.h
++++ b/address.h
+@@ -16,7 +16,7 @@
+ 
+ #include "libcoap_config.h"
+ 
+-#ifdef HAVE_ASSERT_H
++#ifdef LIBCOAP_HAVE_ASSERT_H
+ #include <assert.h>
+ #else
+ #ifndef assert
+@@ -28,11 +28,11 @@
+ #include <string.h>
+ #include <stdint.h>
+ 
+-#ifdef HAVE_NETINET_IN_H
++#ifdef LIBCOAP_HAVE_NETINET_IN_H
+ #include <netinet/in.h>
+ #endif
+ 
+-#ifdef HAVE_NETINET_IN_H
++#ifdef LIBCOAP_HAVE_NETINET_IN_H
+ #include <sys/socket.h>
+ #endif
+ 
+diff --git a/coap_time.h b/coap_time.h
+index 1cec496..6f26239 100644
+--- a/coap_time.h
++++ b/coap_time.h
+@@ -107,7 +107,7 @@ extern time_t clock_offset;
+ #ifndef coap_clock_init
+ static inline void
+ coap_clock_init_impl(void) {
+-#ifdef HAVE_TIME_H
++#ifdef LIBCOAP_HAVE_TIME_H
+   clock_offset = time(NULL);
+ #else
+ #  ifdef __GNUC__
+@@ -124,7 +124,7 @@ coap_clock_init_impl(void) {
+ #ifndef coap_ticks
+ static inline void
+ coap_ticks_impl(coap_tick_t *t) {
+-#ifdef HAVE_SYS_TIME_H
++#ifdef LIBCOAP_HAVE_SYS_TIME_H
+   struct timeval tv;
+   gettimeofday(&tv, NULL);
+   *t = (tv.tv_sec - clock_offset) * COAP_TICKS_PER_SECOND 
+diff --git a/debug.h b/debug.h
+index 330b2d9..c704e63 100644
+--- a/debug.h
++++ b/debug.h
+@@ -19,7 +19,7 @@
+ #define COAP_ERR_FD stderr
+ #endif
+ 
+-#ifdef HAVE_SYSLOG_H
++#ifdef LIBCOAP_HAVE_SYSLOG_H
+ #include <syslog.h>
+ typedef short coap_log_t;
+ #else
+diff --git a/encode.h b/encode.h
+index bdb7aa5..44f983d 100644
+--- a/encode.h
++++ b/encode.h
+@@ -24,7 +24,7 @@
+ 
+ #define COAP_PSEUDOFP_DECODE_8_4(r) (r < HIBIT ? r : (r & MMASK) << (r & EMASK))
+ 
+-#ifndef HAVE_FLS
++#ifndef LIBCOAP_HAVE_FLS
+ /* include this only if fls() is not available */
+ extern int coap_fls(unsigned int i);
+ #else
+diff --git a/net.h b/net.h
+index 33ee46b..ff62772 100644
+--- a/net.h
++++ b/net.h
+@@ -15,7 +15,7 @@ extern "C" {
+ 
+ #include "libcoap_config.h"
+ 
+-#ifdef HAVE_ASSERT_H
++#ifdef LIBCOAP_HAVE_ASSERT_H
+ #include <assert.h>
+ #else
+ #ifndef assert
+@@ -26,13 +26,13 @@ extern "C" {
+ 
+ #include <stdlib.h>
+ #include <string.h>
+-#ifdef HAVE_NETINET_IN_H
++#ifdef LIBCOAP_HAVE_NETINET_IN_H
+ #include <netinet/in.h>
+ #endif
+-#ifdef HAVE_TIME_H
++#ifdef LIBCOAP_HAVE_TIME_H
+ #include <time.h>
+ #endif
+-#ifdef HAVE_SYS_TIME_H
++#ifdef LIBCOAP_HAVE_SYS_TIME_H
+ #include <sys/time.h>
+ #endif
+ 
+diff --git a/resource.h b/resource.h
+index 6f21fae..b8dddbe 100644
+--- a/resource.h
++++ b/resource.h
+@@ -17,7 +17,7 @@
+ #include "libcoap_config.h"
+ #include "t_list.h"
+ 
+-#if defined(HAVE_ASSERT_H) && !defined(assert)
++#if defined(LIBCOAP_HAVE_ASSERT_H) && !defined(assert)
+ # include <assert.h>
+ #endif
+ 

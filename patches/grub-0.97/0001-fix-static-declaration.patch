@@ -7,8 +7,8 @@ versa as error.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
- netboot/main.c |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ netboot/main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/netboot/main.c b/netboot/main.c
 index 82759b6..abd9212 100644

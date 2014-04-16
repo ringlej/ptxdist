@@ -19,11 +19,11 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 10.0.2
-MESALIB_MD5	:= 8544c0ab3e438a08b5103421ea15b6d2
+MESALIB_VERSION	:= 10.1.0
+MESALIB_MD5	:= 3ec43f79dbcd9aa2a4a27bf1f51655b6
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(basename $(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
@@ -88,6 +88,7 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES2)-gles2 \
 	--$(call ptx/endis, PTXCONF_MESALIB_OPENVG)-openvg \
 	--enable-dri \
+	--disable-dri3 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLX)-glx \
 	--disable-osmesa \
 	--disable-gallium-osmesa \

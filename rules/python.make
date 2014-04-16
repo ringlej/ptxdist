@@ -112,7 +112,8 @@ $(STATEDIR)/python.install:
 PYTHON_PYTHONPATH := \
 	$(SYSROOT)/usr/lib/python$(PYTHON_MAJORMINOR) \
 	$(SYSROOT)/usr/lib/python$(PYTHON_MAJORMINOR)/plat-linux2 \
-	$(PTXCONF_SYSROOT_HOST)/lib/python$(PYTHON_MAJORMINOR)/lib-dynload
+	$(PTXCONF_SYSROOT_HOST)/lib/python$(PYTHON_MAJORMINOR)/lib-dynload \
+	$(PTXCONF_SYSROOT_HOST)/lib/python$(PYTHON_MAJORMINOR)/site-packages
 
 $(STATEDIR)/python.install.post:
 	@$(call targetinfo)

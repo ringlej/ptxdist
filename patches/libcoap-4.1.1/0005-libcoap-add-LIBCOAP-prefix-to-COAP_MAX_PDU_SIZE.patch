@@ -1,0 +1,60 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sun, 30 Mar 2014 09:54:07 +0200
+Subject: [PATCH] libcoap: add LIBCOAP prefix to COAP_MAX_PDU_SIZE
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ block.h  | 4 ++--
+ option.h | 2 +-
+ pdu.h    | 6 +++---
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/block.h b/block.h
+index 283ba69..04b3131 100644
+--- a/block.h
++++ b/block.h
+@@ -22,12 +22,12 @@
+ /**
+  * The largest value for the SZX component in a Block option. Note
+  * that 1 << (COAP_MAX_BLOCK_SZX + 4) should not exceed
+- * COAP_MAX_PDU_SIZE.
++ * LIBCOAP_COAP_MAX_PDU_SIZE.
+  */
+ #define COAP_MAX_BLOCK_SZX      4
+ #endif /* COAP_MAX_BLOCK_SZX */
+ 
+-#if (COAP_MAX_PDU_SIZE - 6) < (1 << (COAP_MAX_BLOCK_SZX + 4))
++#if (LIBCOAP_COAP_MAX_PDU_SIZE - 6) < (1 << (COAP_MAX_BLOCK_SZX + 4))
+ #error "COAP_MAX_BLOCK_SZX too large"
+ #endif
+ 
+diff --git a/option.h b/option.h
+index 60fe225..b09df65 100644
+--- a/option.h
++++ b/option.h
+@@ -284,7 +284,7 @@ unsigned short coap_opt_delta(const coap_opt_t *opt);
+ 
+ /** @deprecated { Use coap_opt_encode() instead. } */
+ #define COAP_OPT_SETDELTA(opt,val)			\
+-  coap_opt_encode((opt), COAP_MAX_PDU_SIZE, (val), NULL, 0)
++  coap_opt_encode((opt), LIBCOAP_COAP_MAX_PDU_SIZE, (val), NULL, 0)
+ 
+ /**
+  * Returns the length of the given option. @p opt must point to an
+diff --git a/pdu.h b/pdu.h
+index 48b0dc5..ad9d81a 100644
+--- a/pdu.h
++++ b/pdu.h
+@@ -23,9 +23,9 @@
+ #define COAP_DEFAULT_MAX_RETRANSMIT    4 /* max number of retransmissions */
+ #define COAP_DEFAULT_PORT           5683 /* CoAP default UDP port */
+ #define COAP_DEFAULT_MAX_AGE          60 /* default maximum object lifetime in seconds */
+-#ifndef COAP_MAX_PDU_SIZE
+-#define COAP_MAX_PDU_SIZE           1400 /* maximum size of a CoAP PDU */
+-#endif /* COAP_MAX_PDU_SIZE */
++#ifndef LIBCOAP_COAP_MAX_PDU_SIZE
++#define LIBCOAP_COAP_MAX_PDU_SIZE           1400 /* maximum size of a CoAP PDU */
++#endif /* LIBCOAP_COAP_MAX_PDU_SIZE */
+ 
+ #define COAP_DEFAULT_VERSION           1 /* version of CoAP supported */
+ #define COAP_DEFAULT_SCHEME        "coap" /* the default scheme for CoAP URIs */
