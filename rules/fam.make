@@ -25,30 +25,16 @@ FAM_SOURCE	:= $(SRCDIR)/$(FAM).$(FAM_SUFFIX)
 FAM_DIR		:= $(BUILDDIR)/$(FAM)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fam.extract:
-	@$(call targetinfo)
-	@$(call clean, $(FAM_DIR))
-	@$(call extract, FAM, $(FAM_BUILDDIR))
-	# configure has incorrect permissions
-	chmod 755 $(FAM_DIR)/configure
-	@$(call patchin, FAM, $(FAM_SRCDIR))
-	mkdir -p $(FAM_DIR)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-FAM_PATH	:= PATH=$(CROSS_PATH)
-FAM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-FAM_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
+FAM_CONF_TOOL	:= autoconf
+FAM_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Target-Install

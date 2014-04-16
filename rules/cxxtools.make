@@ -51,6 +51,11 @@ $(STATEDIR)/cxxtools.targetinstall:
 	@$(call install_fixup, cxxtools,DESCRIPTION,missing)
 
 	@$(call install_lib, cxxtools, 0, 0, 0644, libcxxtools)
+	@$(call install_lib, cxxtools, 0, 0, 0644, libcxxtools-bin)
+	@$(call install_lib, cxxtools, 0, 0, 0644, libcxxtools-http)
+	@$(call install_lib, cxxtools, 0, 0, 0644, libcxxtools-json)
+	@$(call install_lib, cxxtools, 0, 0, 0644, libcxxtools-unit)
+	@$(call install_lib, cxxtools, 0, 0, 0644, libcxxtools-xmlrpc)
 
 	@$(call install_finish, cxxtools)
 

@@ -20,6 +20,10 @@ ptxd_make_world_extract() {
 	return
     fi
 
+    if [ "${pkg_dir%/}" = "${pkg_extract_dir}" ]; then
+	ptxd_bailout "<PKG>_DIR cannot be the $(ptxd_print_path ${pkg_extract_dir}). There is something wrong with the package definition."
+    fi
+
     pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
 
     case "${pkg_url}" in
@@ -39,9 +43,6 @@ ptxd_make_world_extract() {
 	    ;;
 	file://*)
 	    local url="${pkg_url//file:\/\//}"
-	    if [ -n "${pkg_src}" ]; then
-		ptxd_bailout "<PKG>_SOURCE must not be defined when using a file:// URL!"
-	    fi
 	    if [ -d "${url}" ]; then
 		echo "local directory instead of tar file, linking build dir"
 		ln -sf "$(ptxd_abspath "${url}")" "${pkg_dir}"

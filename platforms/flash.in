@@ -1,9 +1,0 @@
-menu "flash                         "
-
-config FLASH_BLOCKSIZE
-	string
-	prompt "flash block size"
-	default "256k"
-
-endmenu
-

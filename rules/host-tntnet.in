@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_TNTNET
+	tristate
+	default ALLYES
+	select HOST_ZLIB
+	select HOST_CXXTOOLS

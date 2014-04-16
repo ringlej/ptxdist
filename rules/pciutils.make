@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PCIUTILS) += pciutils
 #
 # Paths and names
 #
-PCIUTILS_VERSION	:= 3.1.2
-PCIUTILS_MD5		:= 46387fd7a18c33fbb5311fdb3ab9ea12
+PCIUTILS_VERSION	:= 3.2.1
+PCIUTILS_MD5		:= 425b1acad6854cc2bbb06ac8e48e76fc
 PCIUTILS		:= pciutils-$(PCIUTILS_VERSION)
 PCIUTILS_SUFFIX		:= tar.bz2
 PCIUTILS_URL		:= $(call ptx/mirror, KERNEL, ../software/utils/pciutils/$(PCIUTILS).$(PCIUTILS_SUFFIX))
@@ -29,27 +29,25 @@ PCIUTILS_DIR		:= $(BUILDDIR)/$(PCIUTILS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-PCIUTILS_PATH	:= PATH=$(CROSS_PATH)
+PCIUTILS_CONF_TOOL	:= NO
 PCIUTILS_COMPILE_ENV	:= $(CROSS_ENV)
 
-PCIUTILS_MAKEVARS := \
+PCIUTILS_MAKE_OPT := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	PREFIX=/usr \
 	SBINDIR='\$$(PREFIX)/bin' \
-	HOST=$(PTXCONF_ARCH_STRING)--linux \
+	HOST=$(PTXCONF_ARCH_STRING)-linux \
 	RELEASE=$(KERNEL_HEADER_VERSION) \
+	ZLIB=$(call ptx/ifdef,PTXCONF_PCIUTILS_COMPRESS,yes,no) \
+	LIBKMOD=$(call ptx/ifdef,PTXCONF_PCIUTILS_LIBKMOD,yes,no) \
+	SHARED=$(call ptx/ifdef,PTXCONF_PCIUTILS_LIBPCI,yes,no) \
 	STRIP= \
 	DNS=no
 
-ifdef PTXCONF_PCIUTILS_COMPRESS
-PCIUTILS_MAKEVARS += ZLIB=yes
-else
-PCIUTILS_MAKEVARS += ZLIB=no
-endif
-
-$(STATEDIR)/pciutils.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+PCIUTILS_INSTALL_OPT := \
+	$(PCIUTILS_MAKE_OPT) \
+	install \
+	$(call ptx/ifdef,PTXCONF_PCIUTILS_LIBPCI,install-lib,)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -64,8 +62,16 @@ $(STATEDIR)/pciutils.targetinstall:
 	@$(call install_fixup, pciutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, pciutils,DESCRIPTION,missing)
 
+ifdef PTXCONF_PCIUTILS_TOOLS
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/lspci)
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/setpci)
+	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/update-pciids)
+endif
+
+ifdef PTXCONF_PCIUTILS_LIBPCI
+	@$(call install_lib, pciutils, 0, 0, 0644, libpci)
+endif
+
 ifdef PTXCONF_PCIUTILS_COMPRESS
 	@$(call install_copy, pciutils, 0, 0, 0644, -, \
 		/usr/share/pci.ids.gz, n)

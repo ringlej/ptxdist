@@ -1,0 +1,49 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sun, 30 Mar 2014 10:03:02 +0200
+Subject: [PATCH] libcoap: add LIBCOAP prefix to WITHOUT_ASYNC
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ async.h | 2 +-
+ net.h   | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/async.h b/async.h
+index 9c43d89..d51572c 100644
+--- a/async.h
++++ b/async.h
+@@ -18,7 +18,7 @@
+ #include "libcoap_config.h"
+ #include "net.h"
+ 
+-#ifndef WITHOUT_ASYNC
++#ifndef LIBCOAP_WITHOUT_ASYNC
+ 
+ /**
+  * @defgroup coap_async Asynchronous Messaging
+diff --git a/net.h b/net.h
+index ff62772..f85bd12 100644
+--- a/net.h
++++ b/net.h
+@@ -76,7 +76,7 @@ coap_queue_t *coap_new_node();
+ 
+ struct coap_resource_t;
+ struct coap_context_t;
+-#ifndef WITHOUT_ASYNC
++#ifndef LIBCOAP_WITHOUT_ASYNC
+ struct coap_async_state_t;
+ #endif
+ 
+@@ -99,10 +99,10 @@ typedef struct coap_context_t {
+ #ifndef WITH_CONTIKI
+   struct coap_resource_t *resources; /**< hash table or list of known resources */
+ #endif /* WITH_CONTIKI */
+-#ifndef WITHOUT_ASYNC
++#ifndef LIBCOAP_WITHOUT_ASYNC
+   /** list of asynchronous transactions */
+   struct coap_async_state_t *async_state;
+-#endif /* WITHOUT_ASYNC */
++#endif /* LIBCOAP_WITHOUT_ASYNC */
+   /**
+    * The time stamp in the first element of the sendqeue is relative
+    * to sendqueue_basetime. */

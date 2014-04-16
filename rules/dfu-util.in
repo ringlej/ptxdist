@@ -2,7 +2,7 @@
 
 config DFU_UTIL
 	tristate
-	select LIBUSB_COMPAT
+	select LIBUSB
 	prompt "dfu-util"
 	help
 	  dfu-util is a program that implements the host (PC) side of

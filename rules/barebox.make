@@ -150,7 +150,7 @@ endif
 	fi
 	@if [ -e $(BAREBOX_DIR)/common/barebox_default_env ]; then \
 		install -D -m644 $(BAREBOX_DIR)/common/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
-	else \
+	elif [ -e $(BAREBOX_DIR)/barebox_default_env ]; then \
 		install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
 	fi
 	@$(call touch)

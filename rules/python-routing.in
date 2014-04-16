@@ -1,0 +1,13 @@
+## SECTION=python
+
+config PYTHON_ROUTING
+	tristate
+	select HOST_CYTHON
+	select PYTHON
+	select LIBNL3
+	prompt "python-routing"
+	help
+	  This is yet another python binding for the libnl3. This bidning
+	  was written to encompass the "route" module which isn't encompassed
+	  by any other libnl3 python binding. The special route module is
+	  necessary for the simpleRPL implementation.

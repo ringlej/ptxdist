@@ -13,6 +13,14 @@
 ptxd_make_world_get() {
     ptxd_make_world_init &&
 
+    case "${pkg_url}" in
+	file://*)
+	    if [ -n "${pkg_src}" ]; then
+		ptxd_bailout "<PKG>_SOURCE must not be defined when using a file:// URL!"
+	    fi
+	    ;;
+    esac
+
     if [ -n "${pkg_src}" -a \! -e "${pkg_src}" ]; then
 	ptxd_make_get "${pkg_src}" "${pkg_url}"
     fi

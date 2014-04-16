@@ -3,7 +3,6 @@
 config XORG_FONT_MISC_MISC
 	tristate
 	select XORG_FONTS
-	default y
 	prompt "misc misc"
 	help
 	  These are most fundamental fonts in misc section.

@@ -1,0 +1,487 @@
+From: unknown author <unknown.author@example.com>
+Date: Thu, 20 Feb 2014 13:49:38 +0100
+Subject: [PATCH] no_maxpathlen
+
+---
+ compat/basename.c |   32 +++++++++++++++++-----
+ compat/dirname.c  |   14 +++++++++-
+ lib/append.c      |   21 +++++++++------
+ lib/decode.c      |    7 ++---
+ lib/util.c        |   38 +++++++++++++++++++-------
+ lib/wrapper.c     |   77 ++++++++++++++++++++++++++++++++++++++++++++---------
+ libtar/libtar.c   |   19 ++++++++++---
+ 7 files changed, 166 insertions(+), 42 deletions(-)
+
+diff --git a/compat/basename.c b/compat/basename.c
+index 2ac1e13..93c75e6 100644
+--- a/compat/basename.c
++++ b/compat/basename.c
+@@ -34,13 +34,25 @@ static char rcsid[] = "$OpenBSD: basename.c,v 1.4 1999/05/30 17:10:30 espie Exp
+ #include <errno.h>
+ #include <string.h>
+ #include <sys/param.h>
++#include <stdlib.h>
+ 
+ char *
+ openbsd_basename(path)
+ 	const char *path;
+ {
+-	static char bname[MAXPATHLEN];
++	static char *bname = NULL;
++	static size_t allocated = 0;
+ 	register const char *endp, *startp;
++	int len = 0;
++
++	if (!allocated) {
++		allocated = 64;
++		bname = malloc(allocated);
++		if (!bname) {
++			allocated = 0;
++			return NULL;
++		}
++	}
+ 
+ 	/* Empty or NULL string gets treated as "." */
+ 	if (path == NULL || *path == '\0') {
+@@ -64,11 +76,19 @@ openbsd_basename(path)
+ 	while (startp > path && *(startp - 1) != '/')
+ 		startp--;
+ 
+-	if (endp - startp + 1 > sizeof(bname)) {
+-		errno = ENAMETOOLONG;
+-		return(NULL);
++	len = endp - startp + 1;
++
++	if (len + 1 > allocated) {
++		size_t new_allocated = 2*(len+1);
++		void *new_bname = malloc(new_allocated);
++		if (!new_bname)
++			return NULL;
++		allocated = new_allocated;
++		free(bname);
++		bname = new_bname;
+ 	}
+-	(void)strncpy(bname, startp, endp - startp + 1);
+-	bname[endp - startp + 1] = '\0';
++
++	(void)strncpy(bname, startp, len);
++	bname[len] = '\0';
+ 	return(bname);
+ }
+diff --git a/compat/dirname.c b/compat/dirname.c
+index 986db4a..987b46e 100644
+--- a/compat/dirname.c
++++ b/compat/dirname.c
+@@ -34,13 +34,25 @@ static char rcsid[] = "$OpenBSD: dirname.c,v 1.4 1999/05/30 17:10:30 espie Exp $
+ #include <errno.h>
+ #include <string.h>
+ #include <sys/param.h>
++#include <stdlib.h>
+ 
+ char *
+ openbsd_dirname(path)
+ 	const char *path;
+ {
+-	static char bname[MAXPATHLEN];
++	static char *bname = NULL;
++	static size_t allocated = 0;
+ 	register const char *endp;
++	int len;
++
++	if (!allocated) {
++		allocated = 64;
++		bname = malloc(allocated);
++		if (!bname) {
++			allocated = 0;
++			return NULL;
++		}
++	}
+ 
+ 	/* Empty or NULL string gets treated as "." */
+ 	if (path == NULL || *path == '\0') {
+diff --git a/lib/append.c b/lib/append.c
+index 13e1ace..3628d87 100644
+--- a/lib/append.c
++++ b/lib/append.c
+@@ -38,7 +38,7 @@ typedef struct tar_dev tar_dev_t;
+ struct tar_ino
+ {
+ 	ino_t ti_ino;
+-	char ti_name[MAXPATHLEN];
++	char ti_name[];
+ };
+ typedef struct tar_ino tar_ino_t;
+ 
+@@ -61,7 +61,7 @@ tar_append_file(TAR *t, const char *realname, const char *savename)
+ 	libtar_hashptr_t hp;
+ 	tar_dev_t *td = NULL;
+ 	tar_ino_t *ti = NULL;
+-	char path[MAXPATHLEN];
++	char *path = NULL;
+ 
+ #ifdef DEBUG
+ 	printf("==> tar_append_file(TAR=0x%lx (\"%s\"), realname=\"%s\", "
+@@ -126,34 +126,39 @@ tar_append_file(TAR *t, const char *realname, const char *savename)
+ 	}
+ 	else
+ 	{
++		const char *name;
+ #ifdef DEBUG
+ 		printf("+++ adding entry: device (0x%lx,0x%lx), inode %ld "
+ 		       "(\"%s\")...\n", major(s.st_dev), minor(s.st_dev),
+ 		       s.st_ino, realname);
+ #endif
+-		ti = (tar_ino_t *)calloc(1, sizeof(tar_ino_t));
++		name = savename ? savename : realname;
++		ti = (tar_ino_t *)calloc(1, sizeof(tar_ino_t) + strlen(name) + 1);
+ 		if (ti == NULL)
+ 			return -1;
+ 		ti->ti_ino = s.st_ino;
+-		snprintf(ti->ti_name, sizeof(ti->ti_name), "%s",
+-			 savename ? savename : realname);
++		snprintf(ti->ti_name, strlen(name) + 1, "%s", name);
+ 		libtar_hash_add(td->td_h, ti);
+ 	}
+ 
+ 	/* check if it's a symlink */
+ 	if (TH_ISSYM(t))
+ 	{
+-		i = readlink(realname, path, sizeof(path));
++		if ((path = malloc(s.st_size + 1)) == NULL)
++			return -1;
++		i = readlink(realname, path, s.st_size);
+ 		if (i == -1)
++		{
++			free(path);
+ 			return -1;
+-		if (i >= MAXPATHLEN)
+-			i = MAXPATHLEN - 1;
++		}
+ 		path[i] = '\0';
+ #ifdef DEBUG
+ 		printf("    tar_append_file(): encoding symlink \"%s\" -> "
+ 		       "\"%s\"...\n", realname, path);
+ #endif
+ 		th_set_link(t, path);
++		free(path);
+ 	}
+ 
+ 	/* print file info */
+diff --git a/lib/decode.c b/lib/decode.c
+index 35312be..df62bec 100644
+--- a/lib/decode.c
++++ b/lib/decode.c
+@@ -33,7 +33,8 @@ th_get_pathname(TAR *t)
+ 	/* allocate the th_pathname buffer if not already */
+ 	if (t->th_pathname == NULL)
+ 	{
+-		t->th_pathname = malloc(MAXPATHLEN * sizeof(char));
++		/* Allocate the maximum length of prefix + '/' + name + '\0' */
++		t->th_pathname = malloc(155 + 1 + 100 + 1);
+ 		if (t->th_pathname == NULL)
+ 			/* out of memory */
+ 			return NULL;
+@@ -41,11 +42,11 @@ th_get_pathname(TAR *t)
+ 
+ 	if (t->th_buf.prefix[0] == '\0')
+ 	{
+-		snprintf(t->th_pathname, MAXPATHLEN, "%.100s", t->th_buf.name);
++		sprintf(t->th_pathname, "%.100s", t->th_buf.name);
+ 	}
+ 	else
+ 	{
+-		snprintf(t->th_pathname, MAXPATHLEN, "%.155s/%.100s",
++		sprintf(t->th_pathname, "%.155s/%.100s",
+ 			 t->th_buf.prefix, t->th_buf.name);
+ 	}
+ 
+diff --git a/lib/util.c b/lib/util.c
+index 31e8315..2c9b0fa 100644
+--- a/lib/util.c
++++ b/lib/util.c
+@@ -15,6 +15,7 @@
+ #include <stdio.h>
+ #include <sys/param.h>
+ #include <errno.h>
++#include <stdlib.h>
+ 
+ #ifdef STDC_HEADERS
+ # include <string.h>
+@@ -25,13 +26,15 @@
+ int
+ path_hashfunc(char *key, int numbuckets)
+ {
+-	char buf[MAXPATHLEN];
++	char *buf;
+ 	char *p;
++	int i;
+ 
+-	strcpy(buf, key);
++	buf = strdup(key);
+ 	p = basename(buf);
+-
+-	return (((unsigned int)p[0]) % numbuckets);
++	i = ((unsigned int)p[0]) % numbuckets;
++	free(buf);
++	return (i);
+ }
+ 
+ 
+@@ -77,15 +80,26 @@ ino_hash(ino_t *inode)
+ int
+ mkdirhier(char *path)
+ {
+-	char src[MAXPATHLEN], dst[MAXPATHLEN] = "";
+-	char *dirp, *nextp = src;
+-	int retval = 1;
++	char *src, *dst = NULL;
++	char *dirp, *nextp = NULL;
++	int retval = 1, len;
++
++	len = strlen(path);
++	if ((src = strdup(path)) == NULL)
++	{
++		errno = ENOMEM;
++		return -1;
++	}
++	nextp = src;
+ 
+-	if (strlcpy(src, path, sizeof(src)) > sizeof(src))
++	/* Make room for // with absolute paths */
++	if ((dst = malloc(len + 2)) == NULL)
+ 	{
+-		errno = ENAMETOOLONG;
++		free(src);
++		errno = ENOMEM;
+ 		return -1;
+ 	}
++	dst[0] = '\0';
+ 
+ 	if (path[0] == '/')
+ 		strcpy(dst, "/");
+@@ -102,12 +116,18 @@ mkdirhier(char *path)
+ 		if (mkdir(dst, 0777) == -1)
+ 		{
+ 			if (errno != EEXIST)
++			{
++				free(src);
++				free(dst);
+ 				return -1;
++			}
+ 		}
+ 		else
+ 			retval = 0;
+ 	}
+ 
++	free(src);
++	free(dst);
+ 	return retval;
+ }
+ 
+diff --git a/lib/wrapper.c b/lib/wrapper.c
+index 4cd0652..897ee44 100644
+--- a/lib/wrapper.c
++++ b/lib/wrapper.c
+@@ -16,6 +16,7 @@
+ #include <sys/param.h>
+ #include <dirent.h>
+ #include <errno.h>
++#include <stdlib.h>
+ 
+ #ifdef STDC_HEADERS
+ # include <string.h>
+@@ -26,8 +27,8 @@ int
+ tar_extract_glob(TAR *t, char *globname, char *prefix)
+ {
+ 	char *filename;
+-	char buf[MAXPATHLEN];
+-	int i;
++	char *buf = NULL;
++	int i, len;
+ 
+ 	while ((i = th_read(t)) == 0)
+ 	{
+@@ -41,11 +42,25 @@ tar_extract_glob(TAR *t, char *globname, char *prefix)
+ 		if (t->options & TAR_VERBOSE)
+ 			th_print_long_ls(t);
+ 		if (prefix != NULL)
+-			snprintf(buf, sizeof(buf), "%s/%s", prefix, filename);
++		{
++			len = strlen(prefix) + 1 + strlen(filename);
++			if ((buf = malloc(len + 1)) == NULL)
++				return -1;
++			sprintf(buf, "%s/%s", prefix, filename);
++		}
+ 		else
+-			strlcpy(buf, filename, sizeof(buf));
++		{
++			len = strlen(filename);
++			if ((buf = malloc(len + 1)) == NULL)
++				return -1;
++			strcpy(buf, filename);
++		}
+ 		if (tar_extract_file(t, buf) != 0)
++		{
++			free(buf);
+ 			return -1;
++		}
++		free(buf);
+ 	}
+ 
+ 	return (i == 1 ? 0 : -1);
+@@ -56,8 +71,9 @@ int
+ tar_extract_all(TAR *t, char *prefix)
+ {
+ 	char *filename;
+-	char buf[MAXPATHLEN];
+-	int i;
++	char *buf = NULL;
++	size_t bufsize = 0;
++	int i, len;
+ 
+ #ifdef DEBUG
+ 	printf("==> tar_extract_all(TAR *t, \"%s\")\n",
+@@ -73,15 +89,29 @@ tar_extract_all(TAR *t, char *prefix)
+ 		if (t->options & TAR_VERBOSE)
+ 			th_print_long_ls(t);
+ 		if (prefix != NULL)
+-			snprintf(buf, sizeof(buf), "%s/%s", prefix, filename);
++		{
++			len = strlen(prefix) + 1 + strlen(filename);
++			if ((buf = malloc(len + 1)) == NULL)
++				return -1;
++			sprintf(buf, "%s/%s", prefix, filename);
++		}
+ 		else
+-			strlcpy(buf, filename, sizeof(buf));
++		{
++			len = strlen(filename);
++			if ((buf = malloc(len + 1)) == NULL)
++				return -1;
++			strcpy(buf, filename);
++		}
+ #ifdef DEBUG
+ 		printf("    tar_extract_all(): calling tar_extract_file(t, "
+ 		       "\"%s\")\n", buf);
+ #endif
+ 		if (tar_extract_file(t, buf) != 0)
++		{
++			free(buf);
+ 			return -1;
++		}
++		free(buf);
+ 	}
+ 
+ 	return (i == 1 ? 0 : -1);
+@@ -91,11 +121,14 @@ tar_extract_all(TAR *t, char *prefix)
+ int
+ tar_append_tree(TAR *t, char *realdir, char *savedir)
+ {
+-	char realpath[MAXPATHLEN];
+-	char savepath[MAXPATHLEN];
++	char *realpath = NULL;
++	size_t realpathsize = 0;
++	char *savepath = NULL;
++	size_t savepathsize = 0;
+ 	struct dirent *dent;
+ 	DIR *dp;
+ 	struct stat s;
++	int len;
+ 
+ #ifdef DEBUG
+ 	printf("==> tar_append_tree(0x%lx, \"%s\", \"%s\")\n",
+@@ -122,11 +155,21 @@ tar_append_tree(TAR *t, char *realdir, char *savedir)
+ 		    strcmp(dent->d_name, "..") == 0)
+ 			continue;
+ 
+-		snprintf(realpath, MAXPATHLEN, "%s/%s", realdir,
++		len = strlen(realdir) + 1 + strlen(dent->d_name);
++		if ((realpath = malloc(len + 1)) == NULL)
++			return -1;
++		snprintf(realpath, len + 1, "%s/%s", realdir,
+ 			 dent->d_name);
+ 		if (savedir)
+-			snprintf(savepath, MAXPATHLEN, "%s/%s", savedir,
++		{
++			len = strlen(savedir) + 1 + strlen(dent->d_name);
++			if ((savepath = malloc(len + 1)) == NULL) {
++				free(realpath);
++				return -1;
++			}
++			snprintf(savepath, len + 1, "%s/%s", savedir,
+ 				 dent->d_name);
++		}
+ 
+ 		if (lstat(realpath, &s) != 0)
+ 			return -1;
+@@ -135,13 +178,23 @@ tar_append_tree(TAR *t, char *realdir, char *savedir)
+ 		{
+ 			if (tar_append_tree(t, realpath,
+ 					    (savedir ? savepath : NULL)) != 0)
++			{
++				free(realpath);
++				free(savepath);
+ 				return -1;
++			}
+ 			continue;
+ 		}
+ 
+ 		if (tar_append_file(t, realpath,
+ 				    (savedir ? savepath : NULL)) != 0)
++		{
++			free(realpath);
++			free(savepath);
+ 			return -1;
++		}
++		free(realpath);
++		free(savepath);
+ 	}
+ 
+ 	closedir(dp);
+diff --git a/libtar/libtar.c b/libtar/libtar.c
+index 9fa92b2..f4967e8 100644
+--- a/libtar/libtar.c
++++ b/libtar/libtar.c
+@@ -111,8 +111,9 @@ create(char *tarfile, char *rootdir, libtar_list_t *l)
+ {
+ 	TAR *t;
+ 	char *pathname;
+-	char buf[MAXPATHLEN];
++	char *buf = NULL;
+ 	libtar_listptr_t lp;
++	int len;
+ 
+ 	if (tar_open(&t, tarfile,
+ #ifdef HAVE_LIBZ
+@@ -133,17 +134,29 @@ create(char *tarfile, char *rootdir, libtar_list_t *l)
+ 	{
+ 		pathname = (char *)libtar_listptr_data(&lp);
+ 		if (pathname[0] != '/' && rootdir != NULL)
+-			snprintf(buf, sizeof(buf), "%s/%s", rootdir, pathname);
++		{
++			len = strlen(rootdir) + 1 + strlen(pathname);
++			if ((buf = malloc(len + 1)) == NULL)
++				return -1;
++			snprintf(buf, len + 1, "%s/%s", rootdir, pathname);
++		}
+ 		else
+-			strlcpy(buf, pathname, sizeof(buf));
++		{
++			len = strlen(pathname);
++			if ((buf = malloc(len + 1)) == NULL)
++				return -1;
++			strlcpy(buf, pathname, len + 1);
++		}
+ 		if (tar_append_tree(t, buf, pathname) != 0)
+ 		{
+ 			fprintf(stderr,
+ 				"tar_append_tree(\"%s\", \"%s\"): %s\n", buf,
+ 				pathname, strerror(errno));
+ 			tar_close(t);
++			free(buf);
+ 			return -1;
+ 		}
++		free(buf);
+ 	}
+ 
+ 	if (tar_append_eof(t) != 0)

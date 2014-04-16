@@ -1,10 +1,15 @@
 ## SECTION=debug_tools
 
-config POWERTOP
+menuconfig POWERTOP
 	tristate
-	prompt "powertop"
-	select GCCLIBS_GCC_S
+	prompt "powertop                      "
 	select NCURSES
+	select LIBNL3
+	select LIBC_RESOLV
+	select LIBC_PTHREAD
+	select PCIUTILS		if POWERTOP_PCI_SUPPORT
+	select PCIUTILS_LIBPCI	if POWERTOP_PCI_SUPPORT
+	depends on !BUSYBOX_POWERTOP || ALLYES
 	help
 	  PowerTOP is a Linux tool that finds the software
 	  component(s) that make your laptop use more power than
@@ -19,3 +24,18 @@ config POWERTOP
 	  various sources of information from the kernel into one
 	  convenient screen so that you can see how well your system
 	  is doing, and which components are the biggest problem.
+
+if POWERTOP
+
+config POWERTOP_PCI_SUPPORT
+	bool
+	prompt "pci support"
+	help
+	  This adds powertop support for the PCI bus. Should only be
+	  enabled if you have PCI support.
+
+endif
+
+comment "BusyBox' powertop is selected!"
+        depends on BUSYBOX_POWERTOP
+

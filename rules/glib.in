@@ -10,7 +10,6 @@ menuconfig GLIB
 	select LIBFFI
 	select GCCLIBS_GCC_S
 	select GETTEXT		if GLIB_GETTEXT_GETTEXT
-	select GETTEXT_DUMMY	if GLIB_GETTEXT_DUMMY
 	select HOST_GLIB
 	select HOST_GTK_DOC
 	select ICONV
@@ -39,10 +38,6 @@ choice
 	config GLIB_GETTEXT_GETTEXT
 		bool
 		prompt "gnu (gettext) "
-
-	config GLIB_GETTEXT_DUMMY
-		bool
-		prompt "dummy         "
 
 endchoice
 

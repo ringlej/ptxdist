@@ -152,11 +152,19 @@ ptxd_template_filter() {
 }
 export -f ptxd_template_filter
 
+ptxd_template_file() {
+    if ! ptxd_in_path PTXDIST_PATH_TEMPLATES "${1}"; then
+	ptxd_bailout "Failed to find '${1}' in '${PTXDIST_PATH_TEMPLATES}'!"
+    fi
+    echo "${ptxd_reply}"
+}
+export -f ptxd_template_file
+
 ptxd_template_write_rules() {
     local template_suffix
     echo
     for template_suffix in "make" "in"; do
-	local template_file="${TEMPLATESDIR}/${template}-${template_suffix}"
+	local template_file="$(ptxd_template_file "${template}-${template_suffix}")"
 	local filename="${PTXDIST_WORKSPACE}/rules/${class}${package_filename}.${template_suffix}"
 	ptxd_template_filter "${template_file}" "${filename}"
     done
@@ -167,18 +175,19 @@ ptxd_template_write_platform_rules() {
     local template_file filename
     echo
 
-    template_file="${TEMPLATESDIR}/${template}-make"
+    template_file="$(ptxd_template_file "${template}-make")"
     filename="${PTXDIST_PLATFORMCONFIGDIR}/rules/${class}${package_filename}.make"
     ptxd_template_filter "${template_file}" "${filename}"
 
-    template_file="${TEMPLATESDIR}/${template}-in"
+    template_file="$(ptxd_template_file "${template}-in")"
     filename="${PTXDIST_PLATFORMCONFIGDIR}/platforms/${class}${package_filename}.in"
     ptxd_template_filter "${template_file}" "${filename}"
 }
 export -f ptxd_template_write_rules
 
 ptxd_template_write_src() {
-    local dst="${PTXDIST_WORKSPACE}/local_src/${package}${VERSION:+-${VERSION}}"
+    local dst="${PTXDIST_WORKSPACE}/local_src/${package}"
+    local template_src
 
     if [ -d "${dst}" ]; then
 	return
@@ -192,6 +201,7 @@ ptxd_template_write_src() {
 	*) return ;;
     esac
 
+    template_src="$(ptxd_template_file "${action}")" &&
     mkdir -p "${dst}" &&
     tar -C "${template_src}" -cf - --exclude .svn . | \
 	tar -C "${dst}" -xvf - &&
@@ -223,7 +233,6 @@ ptxd_template_new() {
 (
     export action="${1}"
     export template="template-${action}"
-    export template_src="${RULESDIR}/templates/${action}"
     export YEAR="$(date +%Y)"
 
     local func="ptxd_template_new_${action//-/_}"
@@ -414,7 +423,7 @@ ptxd_template_new_image_genimage() {
     ptxd_template_read "add archives" FILES "\$(IMAGEDIR)/root.tgz"
     ptxd_template_read "genimage config" CONFIG "${package_name}.config"
     ptxd_template_write_platform_rules
-    local template_file="${TEMPLATESDIR}/${template}-config"
+    local template_file="$(ptxd_template_file "${template}-config")"
     local filename="${PTXDIST_PLATFORMCONFIGDIR}/config/images/${CONFIG}"
     if ptxd_get_alternative config/images "${CONFIG}"; then
 	echo "using existing config file $(ptxd_template_print_path ${ptxd_reply})"

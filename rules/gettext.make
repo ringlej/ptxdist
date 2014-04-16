@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_GETTEXT) += gettext
 #
 # Paths and names
 #
-GETTEXT_VERSION	:= 0.18.1.1
-GETTEXT_MD5	:= 3dd55b952826d2b32f51308f2f91aa89
+GETTEXT_VERSION	:= 0.18.3.2
+GETTEXT_MD5	:= 241aba309d07aa428252c74b40a818ef
 GETTEXT		:= gettext-$(GETTEXT_VERSION)
 GETTEXT_SUFFIX	:= tar.gz
 GETTEXT_URL	:= $(call ptx/mirror, GNU, gettext/$(GETTEXT).$(GETTEXT_SUFFIX))
@@ -41,15 +41,20 @@ GETTEXT_AUTOCONF := \
 	--disable-java \
 	--disable-native-java \
 	--disable-csharp \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-threads=posix \
+	--enable-static \
+	--disable-nls \
 	--disable-rpath \
+	--disable-c++ \
 	--disable-relocatable \
 	--enable-libasprintf \
-	--disable-acl \
 	--disable-openmp \
-	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-acl \
 	--disable-curses \
-	--without-emacs
+	--without-emacs \
+	--without-bzip2 \
+	--without-xz
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -67,10 +72,10 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/gettext)
 
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.18.1.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.18.3.so)
 	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libasprintf.so.0.0.0)
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.5.1)
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.18.1.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.5.2)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.18.3.so)
 
 	@$(call install_finish, gettext)
 
