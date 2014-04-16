@@ -6,3 +6,20 @@ config IMAGE_TGZ
 	help
 	  Build a tar.gz archive of the root filesystem, containing the
 	  right owner/group and access permissions.
+
+if IMAGE_TGZ
+
+config IMAGE_TGZ_INCLUDE_LABEL
+	bool
+	prompt "Include label"
+	help
+      Create tgz image with a label
+
+if IMAGE_TGZ_INCLUDE_LABEL
+config IMAGE_TGZ_LABEL
+    string
+    prompt "label"
+    default "${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
+
+endif
+endif
