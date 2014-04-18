@@ -1,0 +1,64 @@
+## SECTION=image2
+
+menuconfig IMAGE_ROOT_UBIFS
+	tristate
+	select HOST_GENIMAGE
+	select HOST_MTD_UTILS
+	select IMAGE_ROOT_TGZ
+	prompt "Generate images/root.ubifs    "
+	help
+	  Build ubifs images of the root filesystem.
+
+if IMAGE_ROOT_UBIFS
+
+config IMAGE_ROOT_UBIFS_MAX_SIZE
+	string
+	default "20M"
+	prompt "maximum filesystem size"
+	help
+	  The maximum filesystem size in bytes or with unit, e.g. 42M, 23G, etc.
+	  The filesystem will never grow larger than this regardless of the
+	  available space in the underlying UBI container.
+
+menu "Flash Properties            "
+
+config IMAGE_ROOT_UBIFS_PEB_SIZE
+	string
+	prompt "Eraseblock size"
+	help
+	  Size of the physical eraseblock of the flash this UBI image is
+	  created for in bytes.
+	  Gain the correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_ROOT_UBIFS_MINIMUM_IO_UNIT_SIZE
+	string
+	prompt "Minimum input/output unit size"
+	help
+	  Minimum input/output unit size of the flash in bytes.
+	  Gain the correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_ROOT_UBIFS_SUB_PAGE_SIZE
+	string
+	prompt "Sub-page size"
+	help
+	  Minimum input/output unit used for UBI headers,
+	  e.g. sub-page size in case of NAND flash.
+	  Gain the correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_ROOT_UBIFS_VID_HEADER_OFFSET
+	string
+	prompt "UBI VID header offset"
+	help
+	  Offset if the VID header from start of the physical eraseblock.
+	  Gain the correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_ROOT_UBIFS_LEB_SIZE
+	string
+	prompt "UBI LEB size"
+	help
+	  Logical erase block size.
+	  Gain the correct value from 'mtdinfo -u' on your target.
+
+endmenu
+
+endif
