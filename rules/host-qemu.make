@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 1.5.0
-HOST_QEMU_MD5		:= b6f3265b8ed39d77e8f354f35cc26e16
+HOST_QEMU_VERSION	:= 2.0.0
+HOST_QEMU_MD5		:= 2790f44fd76da5de5024b4aafeb594c2
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -60,17 +60,17 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-brlapi \
 	--disable-curses \
 	--disable-curl \
-	--disable-fdt \
 	--disable-bluez \
 	--disable-kvm \
+	--disable-rdma \
 	--disable-tcg-interpreter \
-	--enable-nptl \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_SYS)-system \
 	--disable-user \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_USR)-linux-user \
 	--disable-bsd-user \
 	--enable-guest-base \
 	--disable-uuid \
+	--disable-netmap \
 	--disable-linux-aio \
 	--disable-cap-ng \
 	--disable-attr \
@@ -80,6 +80,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-glx \
 	--disable-rbd \
 	--disable-libiscsi \
+	--disable-libnfs \
 	--disable-smartcard-nss \
 	--disable-libusb \
 	--disable-usb-redir \
@@ -87,6 +88,8 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-seccomp \
 	--disable-glusterfs \
 	--disable-libssh2 \
+	--disable-vhdx \
+	--disable-quorum \
 	--disable-virtio-blk-data-plane \
 	--disable-tools
 
