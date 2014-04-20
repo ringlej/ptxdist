@@ -301,7 +301,7 @@ AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the python executabl
 	AC_SUBST(PYTHON)
 	AC_MSG_NOTICE([Using python executable $PYTHON])
     ],[
-	AC_PATH_PROGS(PYTHON, python2.7 python2.6 python)
+	AC_PATH_PROGS(PYTHON, python2 python2.7 python2.6 python)
 	AC_SUBST(PYTHON)
     ])
 
