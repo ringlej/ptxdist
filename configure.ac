@@ -304,6 +304,18 @@ AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the python executabl
 	AC_PATH_PROGS(PYTHON, python2.7 python2.6 python)
 	AC_SUBST(PYTHON)
     ])
+
+dnl
+dnl Check for Python 2.x
+dnl
+AC_MSG_CHECKING([Python version])
+PYTHON_VERSION=`$PYTHON --version 2>&1 | $SED -ne "1 s/Python \([[0-9\+\.]]\+\).*/\1/p"`
+case "$PYTHON_VERSION" in
+2.*) ;;
+*)   AC_MSG_ERROR([we need Python version 2.x but found $PYTHON_VERSION]) ;;
+esac
+AC_MSG_RESULT([$PYTHON_VERSION])
+
 dnl
 dnl We need the Python distutils
 dnl
