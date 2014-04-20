@@ -143,6 +143,7 @@ GNU_TOOL(rm, coreutils)
 GNU_TOOL(rmdir, coreutils)
 GNU_TOOL(md5sum, coreutils)
 GNU_TOOL(mkdir, coreutils)
+GNU_TOOL(mktemp, coreutils)
 GNU_TOOL(install, coreutils)
 GNU_TOOL(stat, coreutils)
 GNU_TOOL(mknod, coreutils)
@@ -239,12 +240,6 @@ dnl Check for unzip
 AC_PATH_PROGS(UNZIP, gunzip,, $PATH)
 if test -z "$UNZIP"; then
 	AC_MSG_ERROR([unzip could not be found, please install])
-fi
-
-dnl Check for mktemp
-AC_PATH_PROGS(MKTEMP, mktemp,, $PATH)
-if test -z "$MKTEMP"; then
-	AC_MSG_ERROR([mktemp could not be found, please install])
 fi
 
 dnl Check for wget
