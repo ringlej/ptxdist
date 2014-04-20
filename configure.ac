@@ -293,13 +293,13 @@ dnl Check for gcc
 AC_PATH_PROGS(GCC, gcc,, $PATH)
 
 dnl
-dnl Checks for python, needed for ipkg-utils
+dnl Checks for Python, needed for ipkg-utils
 dnl
-AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the python executable to use]),
+AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the Python executable to use]),
     [
 	PYTHON="$withval"
 	AC_SUBST(PYTHON)
-	AC_MSG_NOTICE([Using python executable $PYTHON])
+	AC_MSG_NOTICE([Using Python executable $PYTHON])
     ],[
 	AC_PATH_PROGS(PYTHON, python2 python2.7 python2.6 python)
 	AC_SUBST(PYTHON)
@@ -327,13 +327,13 @@ else
 	AC_MSG_ERROR(Please install the Python distutils package)
 fi
 
-AC_MSG_CHECKING(whether python development files are present)
+AC_MSG_CHECKING(whether Python development files are present)
 PYTHON_MAKEFILE=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_makefile_filename()" 2> /dev/null`
 if test -e "$PYTHON_MAKEFILE"; then
 	AC_MSG_RESULT(yes)
 else
 	AC_MSG_RESULT(no)
-	AC_MSG_ERROR([some python development files could not be found, you are
+	AC_MSG_ERROR([some Python development files could not be found, you are
 		      likely using suse or redhat system as host. In this case
 		      please install the python-devel packages])
 fi
