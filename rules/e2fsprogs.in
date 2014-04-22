@@ -251,8 +251,12 @@ config E2FSPROGS_INSTALL_RESIZE2FS
 	help
 	  Enable support for resize2fs program.
 
+comment "BusyBox' tune2fs is selected!"
+	depends on BUSYBOX_TUNE2FS
+
 config E2FSPROGS_INSTALL_TUNE2FS
 	bool
+	depends on !BUSYBOX_TUNE2FS || ALLYES
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
