@@ -11,11 +11,15 @@
 SEL_ROOTFS-$(PTXCONF_IMAGE_TGZ)		+= $(IMAGEDIR)/root.tgz
 
 ifdef PTXCONF_IMAGE_TGZ
+ifneq ($(call remove_quotes,$(PTXCONF_IMAGE_TGZ_LABEL)),)
+IMAGE_TGZ_LABEL="--label $(PTXCONF_IMAGE_TGZ_LABEL)"
+endif
+
 $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
-	@echo -n "Creating root.tgz from working dir with label..."
+	@echo -n "Creating root.tgz from working dir: ${IMAGE_TGZ_LABEL} "
 	@cd $(image/work_dir);							\
 	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
-	(	echo -n "tar --label '${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}' -zcf ";	\
+	(	echo -n "tar ${IMAGE_TGZ_LABEL} -zcf ";	\
 		echo -n "$@ ." )					\
 	) | $(FAKEROOT) --
 	@echo "done."
