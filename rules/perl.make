@@ -50,6 +50,7 @@ $(STATEDIR)/perl.extract:
 	@$(call clean, $(PERL_DIR))
 	@$(call extract, PERL)
 	@$(call extract, PERLCROSS)
+	@$(call patchin, PERL)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -66,7 +67,7 @@ PERL_CONF_OPT	:= \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	-Dld=$(CROSS_CC) \
-	-Dusethreads -A ldflags=-pthread
+	-Dusethreads
 
 PERL_MAKE_PAR	:= NO
 
