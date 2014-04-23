@@ -23,6 +23,11 @@ else
 	AC_MSG_ERROR([install the ptxdist-patches archive into the same directory as ptxdist.])
 fi
 
+dnl
+dnl Check for C and C++ compilers
+dnl
+AC_PROG_CC
+AC_PROG_CXX
 
 dnl
 dnl Check header files, mostly for lxdialog & kconfig
@@ -160,18 +165,6 @@ GNU_TOOL(xargs, findutils)
 dnl Check for egrep
 AC_PROG_EGREP
 
-dnl Check for gcc
-AC_PROG_CC
-if test -z "$CC"; then
-	AC_MSG_ERROR([gcc could not be found, please install])
-fi
-
-dnl Check for g++
-AC_PROG_CXX
-if test -z "$CXX"; then
-	AC_MSG_ERROR([g++ could not be found, please install])
-fi
-
 dnl Check for awk
 AC_PROG_AWK
 AC_PATH_PROGS(AWK, ${AWK},)
@@ -284,9 +277,6 @@ AC_PATH_PROGS(MSGFMT, msgfmt,, $PATH)
 if test -z "$MSGFMT"; then
 	AC_MSG_ERROR([gettext could not be found, please install])
 fi
-
-dnl Check for gcc
-AC_PATH_PROGS(GCC, gcc,, $PATH)
 
 dnl
 dnl Checks for Python, needed for ipkg-utils
