@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_MBW) += mbw
 #
 # Paths and names
 #
-MBW_VERSION	:= 1.1-1
-MBW_MD5		:= 4509f034b22aec5001e1402e53353f8e
+MBW_VERSION	:= 1.4
+MBW_MD5		:= 83b5dfbcdc2d5e4f332ce56135f0a587
 MBW		:= mbw-$(MBW_VERSION)
 MBW_SUFFIX	:= tar.gz
-MBW_URL		:= http://www.sourcefiles.org/Miscellaneous/$(MBW).$(MBW_SUFFIX)
+MBW_URL		:= https://github.com/raas/mbw/releases/download/v$(MBW_VERSION)/$(MBW).$(MBW_SUFFIX)
 MBW_SOURCE	:= $(SRCDIR)/$(MBW).$(MBW_SUFFIX)
 MBW_DIR		:= $(BUILDDIR)/$(MBW)
 
