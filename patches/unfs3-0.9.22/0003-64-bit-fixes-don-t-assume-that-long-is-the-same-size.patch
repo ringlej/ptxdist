@@ -1,0 +1,120 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 1 May 2014 15:12:56 +0200
+Subject: [PATCH] 64-bit fixes: don't assume that long is the same size as
+ int32.
+
+xdr_(u)int32 used to call xdr_(u)long, which worked well enough on
+32-bit systems where sizeof(int32) == sizeof(long). For 64-bit Linux
+systems where sizeof(long) > sizeof(int32), this leads to a few
+problems. This commit fixes this by using the xdr_(u)int32(_t) methods
+where present, and fall back to xdr_(u)int when it's the only
+option. This should solve the "Unable to send RPC reply" problem when a
+NFS client is trying to create new files with a 64-bit linux server.
+
+Upstream revison r488
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac |  4 +++-
+ nfs.h        |  8 --------
+ xdr.c        | 37 +++++++++++++++++++++++++++++++------
+ 3 files changed, 34 insertions(+), 15 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 023b296..cf1d9d1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -22,7 +22,9 @@ AC_CHECK_TYPES(int64,,,[#include <sys/inttypes.h>])
+ AC_CHECK_TYPES(uint64,,,[#include <sys/inttypes.h>])
+ AC_CHECK_MEMBERS([struct stat.st_gen],,,[#include <sys/stat.h>])
+ AC_CHECK_MEMBERS([struct __rpc_svcxprt.xp_fd],,,[#include <rpc/rpc.h>])
+-AC_CHECK_FUNCS(xdr_long xdr_int32 xdr_u_long xdr_uint32)
++AC_CHECK_FUNCS(xdr_int xdr_u_int)
++AC_CHECK_FUNCS(xdr_int32 xdr_int32_t)
++AC_CHECK_FUNCS(xdr_uint32 xdr_uint32_t xdr_u_int32_t)
+ AC_CHECK_FUNCS(xdr_uint64 xdr_uint64_t xdr_u_int64_t)
+ AC_CHECK_FUNCS(statvfs)
+ AC_CHECK_FUNCS(seteuid setegid)
+diff --git a/nfs.h b/nfs.h
+index 63041fa..b3a94ed 100644
+--- a/nfs.h
++++ b/nfs.h
+@@ -54,20 +54,12 @@ typedef int64_t int64;
+ #endif
+ 
+ #if HAVE_UINT32 == 0
+-#if HAVE_XDR_U_LONG == 1
+-typedef u_long uint32;
+-#else
+ typedef uint32_t uint32;
+ #endif
+-#endif
+ 
+ #if HAVE_INT32 == 0
+-#if HAVE_XDR_LONG == 1
+-typedef long int32;
+-#else
+ typedef int32_t int32;
+ #endif
+-#endif
+ 
+ typedef char *filename3;
+ 
+diff --git a/xdr.c b/xdr.c
+index 21e5ea7..6aa100c 100644
+--- a/xdr.c
++++ b/xdr.c
+@@ -192,22 +192,47 @@ bool_t xdr_uint64(XDR * xdrs, uint64 * objp)
+ #endif
+ #endif
+ 
+-#if HAVE_XDR_UINT32 == 0 && HAVE_XDR_U_LONG == 1
++#ifndef HAVE_XDR_UINT32
++# ifdef HAVE_XDR_UINT32_T
+ bool_t xdr_uint32(XDR * xdrs, uint32 * objp)
+ {
+-    if (!xdr_u_long(xdrs, objp))
+-	return FALSE;
++    if (!xdr_uint32_t(xdrs, objp))
++        return FALSE;
++    return TRUE;
++}
++# elif defined(HAVE_XDR_U_INT32_T)
++bool_t xdr_uint32(XDR * xdrs, uint32 * objp)
++{
++    if (!xdr_u_int32_t(xdrs, objp))
++        return FALSE;
++    return TRUE;
++}
++# elif defined(HAVE_XDR_U_INT)
++bool_t xdr_uint32(XDR * xdrs, uint32 * objp)
++{
++    if (!xdr_u_int(xdrs, objp))
++        return FALSE;
+     return TRUE;
+ }
++# endif
+ #endif
+ 
+-#if HAVE_XDR_INT32 == 0 && HAVE_XDR_LONG == 1
++#ifndef HAVE_XDR_INT32
++# ifdef HAVE_XDR_INT32_T
+ bool_t xdr_int32(XDR * xdrs, int32 * objp)
+ {
+-    if (!xdr_long(xdrs, objp))
+-	return FALSE;
++    if (!xdr_int32_t(xdrs, objp))
++        return FALSE;
++    return TRUE;
++}
++# elif defined(HAVE_XDR_INT)
++bool_t xdr_int32(XDR * xdrs, int32 * objp)
++{
++    if (!xdr_int(xdrs, objp))
++        return FALSE;
+     return TRUE;
+ }
++# endif
+ #endif
+ 
+ bool_t xdr_filename3(XDR * xdrs, filename3 * objp)

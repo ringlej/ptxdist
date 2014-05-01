@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-HACK-use-the-environment-variable-UNFS_BASE-as-root-.patch
 0002-fix-unfs3-build-with-recent-versions-of-flex.patch
-# d6aa3d6dc84fdde0ed4ec62b8f23a731  - git-ptx-patches magic
+0003-64-bit-fixes-don-t-assume-that-long-is-the-same-size.patch
+# cbc0b51ceb8d5bce30bc87ed263015da  - git-ptx-patches magic

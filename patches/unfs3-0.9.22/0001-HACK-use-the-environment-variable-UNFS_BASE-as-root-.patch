@@ -5,8 +5,8 @@ Subject: [PATCH] HACK: use the environment variable UNFS_BASE as root
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- backend_unix.h |    3 ++-
- readdir.c      |   16 ++++++++++++++++
+ backend_unix.h |  3 ++-
+ readdir.c      | 16 ++++++++++++++++
  2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/backend_unix.h b/backend_unix.h
