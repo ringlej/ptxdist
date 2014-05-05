@@ -1,2 +1,4 @@
 #!/bin/sh
-$DESTDIR/sbin/enable-rc-once fc-cache
+if [ -e $DESTDIR/etc/rc.once.d/fc-cache ]; then
+	$DESTDIR/sbin/enable-rc-once fc-cache
+fi
