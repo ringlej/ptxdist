@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 
 config POLICYKIT
 	tristate
@@ -9,3 +11,8 @@ config POLICYKIT
 	help
 	  Policy kit offers an infrastructure for security policies for
 	  dbus applications.
+
+	  STAGING: remove in ptxdist-2015.05.0
+
+	  This is the old version of the polkit packages. Is is only still
+	  here for packages that use the old API.
