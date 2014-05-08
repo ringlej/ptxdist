@@ -1,0 +1,19 @@
+From: Markus Pargmann <mpa@pengutronix.de>
+Date: Thu, 17 Apr 2014 11:59:59 +0200
+Subject: [PATCH] udev: Fix rule for initial setup
+
+Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
+---
+ udev/regulatory.rules | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/udev/regulatory.rules b/udev/regulatory.rules
+index 3d6add8..90ac539 100644
+--- a/udev/regulatory.rules
++++ b/udev/regulatory.rules
+@@ -2,4 +2,4 @@
+ # For more information see:
+ # http://wireless.kernel.org/en/developers/Regulatory/CRDA
+ 
+-KERNEL=="regulatory*", ACTION=="change", SUBSYSTEM=="platform", RUN+="$(SBINDIR)crda"
++KERNEL=="regulatory*", ACTION=="add|change", SUBSYSTEM=="platform", RUN+="$(SBINDIR)crda"
