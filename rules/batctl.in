@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config BATCTL
+	tristate
+	prompt "B.A.T.M.A.N. - batctl"
+	select LIBNL3
+	help
+	  B.A.T.M.A.N batclt program to control/monitor batman interfaces
