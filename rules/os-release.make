@@ -19,6 +19,17 @@ OS_RELEASE_VERSION	:= 1.0
 # Target-Install
 # ----------------------------------------------------------------------------
 
+OS_RELEASE_STAMP := $(call remove_quotes, \
+	$(PTXCONF_PROJECT_VENDOR) \
+	$(PTXCONF_PROJECT) \
+	$(PTXCONF_PROJECT_VERSION) \
+	$(PTXCONF_PLATFORM) \
+	$(PTXCONF_PLATFORM_VERSION))
+
+ifneq ($(strip $(OS_RELEASE_STAMP)),$(strip $(shell cat $(STATEDIR)/os-release.stamp 2>/dev/null)))
+PHONY += $(STATEDIR)/os-release.targetinstall
+endif
+
 $(STATEDIR)/os-release.targetinstall: $(PTXDIST_PTXCONFIG) $(PTXDIST_PLATFORMCONFIG)
 	@$(call targetinfo)
 
@@ -48,9 +59,9 @@ $(STATEDIR)/os-release.targetinstall: $(PTXDIST_PTXCONFIG) $(PTXDIST_PLATFORMCON
 	@$(call install_replace, os-release, /etc/os-release, \
 		@DATE@, $(shell date +%FT%T%z))
 
-
 	@$(call install_finish,os-release)
 
+	@echo "$(OS_RELEASE_STAMP)" > $(STATEDIR)/os-release.stamp
 	@$(call touch)
 
 # vim: syntax=make
