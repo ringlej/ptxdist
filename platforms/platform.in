@@ -21,7 +21,7 @@ config PLATFORM
 config PLATFORM_VERSION
 	prompt "platform version"
 	string
-	default "-trunk"
+	default "${PTXDIST_BSP_AUTOVERSION}"
 	help
 	  This is the revision of the platform.
 	  The string is supposed to start with an "-".
