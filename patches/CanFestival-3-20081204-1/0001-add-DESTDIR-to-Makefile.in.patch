@@ -6,15 +6,13 @@ Makefile is not $(DESTDIR) aware, this patch adds some $(DESTDIR)s.
 
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 ---
-# 20081216 mme: ready for upstream, should be posted
-
- drivers/can_socket/Makefile.in          |    4 ++--
- drivers/timers_unix/Makefile.in         |    4 ++--
- drivers/unix/Makefile.in                |    8 ++++----
- examples/TestMasterMicroMod/Makefile.in |    4 ++--
- examples/TestMasterSlave/Makefile.in    |    4 ++--
- objdictgen/Makefile.in                  |   22 +++++++++++-----------
- src/Makefile.in                         |   12 ++++++------
+ drivers/can_socket/Makefile.in          |  4 ++--
+ drivers/timers_unix/Makefile.in         |  4 ++--
+ drivers/unix/Makefile.in                |  8 ++++----
+ examples/TestMasterMicroMod/Makefile.in |  4 ++--
+ examples/TestMasterSlave/Makefile.in    |  4 ++--
+ objdictgen/Makefile.in                  | 22 +++++++++++-----------
+ src/Makefile.in                         | 12 ++++++------
  7 files changed, 29 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/can_socket/Makefile.in b/drivers/can_socket/Makefile.in

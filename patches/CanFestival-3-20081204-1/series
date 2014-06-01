@@ -4,4 +4,5 @@
 0002-fix-for-ldconfig-crash-on-make-install.patch
 0003-install-networkedit.ico.patch
 0004-fix-for-CAN-ID-byteorder.patch
-# 300a53b22ce7aaa43c2339025fc49312  - git-ptx-patches magic
+0005-Makefile.in-fix-suffix-rules.patch
+# f915418a3de979b98cd9796fc2665095  - git-ptx-patches magic

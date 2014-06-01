@@ -9,16 +9,16 @@ FIXME rsc: needs to be made architecture independend.
 
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 ---
- include/objdictdef.h |    4 ++--
- src/emcy.c           |    4 ++--
- src/lifegrd.c        |    4 ++--
- src/lss.c            |    4 ++--
- src/nmtMaster.c      |    2 +-
- src/nmtSlave.c       |    2 +-
- src/pdo.c            |   20 ++++++++++----------
- src/sdo.c            |   10 +++++-----
- src/states.c         |    2 +-
- src/sync.c           |    2 +-
+ include/objdictdef.h |  4 ++--
+ src/emcy.c           |  4 ++--
+ src/lifegrd.c        |  4 ++--
+ src/lss.c            |  4 ++--
+ src/nmtMaster.c      |  2 +-
+ src/nmtSlave.c       |  2 +-
+ src/pdo.c            | 20 ++++++++++----------
+ src/sdo.c            | 10 +++++-----
+ src/states.c         |  2 +-
+ src/sync.c           |  2 +-
  10 files changed, 27 insertions(+), 27 deletions(-)
 
 diff --git a/include/objdictdef.h b/include/objdictdef.h
