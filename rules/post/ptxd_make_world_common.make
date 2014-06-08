@@ -77,6 +77,11 @@ world/env/impl = \
 										\
 	pkg_wrapper_blacklist="$(call ptx/escape,$($(1)_WRAPPER_BLACKLIST))"	\
 										\
+	pkg_cppflags="$(call ptx/escape,$($(1)_CPPFLAGS))"			\
+	pkg_cflags="$(call ptx/escape,$($(1)_CFLAGS))"				\
+	pkg_cxxflags="$(call ptx/escape,$($(1)_CXXFLAGS))"			\
+	pkg_ldflags="$(call ptx/escape,$($(1)_LDFLAGS))"			\
+										\
 	pkg_conf_tool="$(call ptx/escape,$($(1)_CONF_TOOL))"			\
 	pkg_conf_env="$(call ptx/escape,$($(1)_CONF_ENV))"			\
 	pkg_conf_opt="$(call ptx/escape,$($(1)_CONF_OPT))"			\

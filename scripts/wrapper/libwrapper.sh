@@ -138,6 +138,7 @@ cc_add_target_ld_args() {
 	if ${LINKING}; then
 		add_ld_args "-Wl,"
 		add_late_arg ${PTXDIST_CROSS_LDFLAGS}
+		add_arg ${pkg_ldflags}
 		add_opt_arg TARGET_EXTRA_LDFLAGS ${PTXCONF_TARGET_EXTRA_LDFLAGS}
 	fi
 }
@@ -183,29 +184,35 @@ cc_add_debug() {
 cpp_add_target_extra() {
 	add_opt_arg TARGET_COMPILER_RECORD_SWITCHES "-frecord-gcc-switches"
 	add_arg ${PTXDIST_CROSS_CPPFLAGS}
+	add_arg ${pkg_cppflags}
 	add_opt_arg TARGET_EXTRA_CPPFLAGS ${PTXCONF_TARGET_EXTRA_CPPFLAGS}
 }
 
 cc_add_target_extra() {
 	cpp_add_target_extra
 	cc_add_debug
+	add_arg ${pkg_cflags}
 	add_opt_arg TARGET_EXTRA_CFLAGS ${PTXCONF_TARGET_EXTRA_CFLAGS}
 }
 
 cxx_add_target_extra() {
 	cpp_add_target_extra
 	cc_add_debug
+	add_arg ${pkg_cxxflags}
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
 }
 
 cpp_add_host_extra() {
 	add_arg ${PTXDIST_HOST_CPPFLAGS}
+	add_arg ${pkg_cppflags}
 }
 
 cc_add_host_extra() {
 	cpp_add_host_extra
+	add_arg ${pkg_cflags}
 }
 
 cxx_add_host_extra() {
 	cpp_add_host_extra
+	add_arg ${pkg_cxxflags}
 }
