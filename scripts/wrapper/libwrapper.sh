@@ -181,6 +181,10 @@ cc_add_debug() {
 	add_late_opt_arg TARGET_DEBUG_FULL "-ggdb3"
 }
 
+cc_add_arch() {
+	add_opt_arg ARCH_ARM_NEON "-mfpu=neon"
+}
+
 cpp_add_target_extra() {
 	add_opt_arg TARGET_COMPILER_RECORD_SWITCHES "-frecord-gcc-switches"
 	add_arg ${PTXDIST_CROSS_CPPFLAGS}
@@ -191,6 +195,7 @@ cpp_add_target_extra() {
 cc_add_target_extra() {
 	cpp_add_target_extra
 	cc_add_debug
+	cc_add_arch
 	add_arg ${pkg_cflags}
 	add_opt_arg TARGET_EXTRA_CFLAGS ${PTXCONF_TARGET_EXTRA_CFLAGS}
 }
@@ -198,6 +203,7 @@ cc_add_target_extra() {
 cxx_add_target_extra() {
 	cpp_add_target_extra
 	cc_add_debug
+	cc_add_arch
 	add_arg ${pkg_cxxflags}
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
 }
