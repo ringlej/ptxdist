@@ -41,10 +41,7 @@ VO_AACENC_CONF_OPT	:= \
 	--disable-static
 
 ifdef PTXCONF_ARCH_ARM
-VO_AACENC_CONF_ENV := $(CROSS_ENV) CFLAGS="$(CROSS_CFLAGS) -marm"
-ifdef PTXCONF_ARCH_ARM_NEON
-VO_AACENC_CONF_ENV := $(CROSS_ENV) CFLAGS="$(CROSS_CFLAGS) -marm -mfpu=neon"
-endif
+VO_AACENC_CFLAGS := -marm
 endif
 
 # ----------------------------------------------------------------------------
