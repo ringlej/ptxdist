@@ -146,15 +146,21 @@ ifdef PTXCONF_PUREFTPD_SYSTEMD_UNIT
 	@$(call install_replace, pureftpd, \
 		/lib/systemd/system/pure-ftpd@.service, \
 		@ARGS@, "$(PUREFTPD_ARGS)")
+ifndef PTXCONF_PUREFTPD_UPLOADSCRIPT
+	@$(call install_replace, pureftpd, \
+		/lib/systemd/system/pure-ftpd@.service, \
+		@SCRIPT_DEPS@, "")
+else
+	@$(call install_replace, pureftpd, \
+		/lib/systemd/system/pure-ftpd@.service, \
+		@SCRIPT_DEPS@, "Requires=pure-uploadscript.service\nAfter=pure-uploadscript.service\n")
 
 	@$(call install_alternative, pureftpd, 0, 0, 0644, \
 		/lib/systemd/system/pure-uploadscript.service)
 	@$(call install_replace, pureftpd, \
 		/lib/systemd/system/pure-uploadscript.service, \
 		@ARGS@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_ARGS))
-	@$(call install_replace, pureftpd, \
-		/lib/systemd/system/pure-uploadscript.service, \
-		@SCRIPT@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_SCRIPT))
+endif
 endif
 
 	@$(call install_finish, pureftpd)
