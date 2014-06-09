@@ -117,6 +117,12 @@ add_late_opt_arg() {
 	add_late_arg "${@}"
 }
 
+add_host_arg() {
+	case "${pkg_stamp}" in
+		host-*|cross-*) add_arg "${@}";;
+	esac
+}
+
 add_ld_args() {
 	add_opt_arg TARGET_HARDEN_RELRO "${1}-z,relro"
 	add_opt_arg TARGET_HARDEN_BINDNOW "${1}-z,now"
@@ -210,15 +216,15 @@ cxx_add_target_extra() {
 
 cpp_add_host_extra() {
 	add_arg ${PTXDIST_HOST_CPPFLAGS}
-	add_arg ${pkg_cppflags}
+	add_host_arg ${pkg_cppflags}
 }
 
 cc_add_host_extra() {
 	cpp_add_host_extra
-	add_arg ${pkg_cflags}
+	add_host_arg ${pkg_cflags}
 }
 
 cxx_add_host_extra() {
 	cpp_add_host_extra
-	add_arg ${pkg_cxxflags}
+	add_host_arg ${pkg_cxxflags}
 }
