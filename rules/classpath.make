@@ -32,9 +32,13 @@ CLASSPATH_PATH	:= PATH=$(CROSS_PATH)
 CLASSPATH_ENV 	:= \
 	$(CROSS_ENV) \
 	JAVAC=$(PTXCONF_SETUP_JAVA_SDK)/bin/javac \
-	JAVA=$(PTXCONF_SETUP_JAVA_SDK)/bin/java \
+	JAVA=jamvm \
 	CLASSPATH=$(PTXCONF_SETUP_JAVA_SDK)/jre/lib \
+	ac_cv_prog_java_works=yes \
 	ac_cv_prog_javac_is_gcj=no
+
+# JAVA must point to the java binary on the target, not on the host
+# This is used by the scripts in tools/*
 
 #
 # autoconf
