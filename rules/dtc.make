@@ -22,15 +22,23 @@ DTC_VERSION := 1.0.0
 # ----------------------------------------------------------------------------
 
 ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
+ptx/dts = $(shell p=$(PTXCONF_DTC_OFTREE_DTS_PATH) ptxd_in_path p "$(strip $(1))" && echo "$${ptxd_reply}")
+
+ifdef PTXCONF_DTC_OFTREE_DTS
+DTC_OFTREE_DTS = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
+	$(if $(filter /%,$(dts)),$(dts),$(call ptx/dts,$(dts))))
+endif
 
 %.dtb: TMP_DTS = $(STATEDIR)/$(notdir $<).tmp
 %.dtb: TMP_DEPS = $(PTXDIST_TEMPDIR)/dts.deps
 %.dtb: DEPS = $(STATEDIR)/dtc.$(notdir $<).deps
 %.dtb:
-	echo $(TMP_DTS)
 	@$(call targetinfo)
 	@if [ -z "$(strip $<)" ]; then \
 		ptxd_bailout "Device-tree for `ptxd_print_path '$@'` undefined!"; \
+	fi
+	@if [ ! -e "$(strip $<)" ]; then \
+		ptxd_bailout "Device-tree '$<' not found!"; \
 	fi
 	@echo CPP `ptxd_print_path "$(TMP_DTS)"`
 	@cpp \

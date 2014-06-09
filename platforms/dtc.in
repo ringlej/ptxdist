@@ -19,14 +19,21 @@ config DTC_INSTALL_OFTREE
 	  Creates an package to install the 'oftree' file to /boot
 	  of your target system.
 
+config DTC_OFTREE_DTS_PATH
+	string "path to source dts file"
+	default "${PTXDIST_PLATFORMCONFIGDIR}/dts:${KERNEL_DIR}/arch/${PTXCONF_KERNEL_ARCH_STRING}/boot/dts"
+	help
+	  Define path to the dts source file. Multiple directories can be
+	  specified separated by ':'.
+
 config DTC_OFTREE_DTS
 	string "source dts file"
-	default "${KERNEL_DIR}/arch/${PTXCONF_KERNEL_ARCH_STRING}/boot/dts/<yourboard>.dts"
+	default "<yourboard>.dts"
 	help
 	  Select the dts file to use for the device tree binary
-	  blob generation. Default is to use the one shipped with
-	  the kernel. Multiple dts files can be specified, separated
-	  by spaces.
+	  blob generation. For relative file names DTC_OFTREE_DTS_PATH
+	  is used as a search path for the device tree files specified
+	  here. Multiple dts files can be specified, separated by spaces.
 
 config DTC_KERNEL
 	bool
