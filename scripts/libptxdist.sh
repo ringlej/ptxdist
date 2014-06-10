@@ -677,8 +677,8 @@ ptxd_human_to_number() {
 		exit 1
 	fi
 
-	num=$(echo "$1" | sed 's/m$/*1024*1024/I')
-	num=$(echo "$num" | sed 's/k$/*1024/I')
+	num=$(sed 's/m$/*1024*1024/I' <<< "${1}")
+	num=$(sed 's/k$/*1024/I' <<< "${num}")
 
 	echo $((num))
 }
@@ -692,8 +692,7 @@ ptxd_name_to_NAME() {
 		echo "usage: ptxd_name_to_NAME <pkg-name>"
 		exit 1
 	fi
-	name="$(echo "${1}" | tr 'a-z-' 'A-Z_')"
-	echo "${name}"
+	tr 'a-z-' 'A-Z_' <<< "${1}"
 }
 export -f ptxd_name_to_NAME
 
