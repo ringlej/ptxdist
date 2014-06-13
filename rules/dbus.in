@@ -3,10 +3,10 @@
 menuconfig DBUS
 	tristate
 	prompt "dbus                          "
-	select EXPAT		if DBUS_XML_EXPAT
-	select LIBXML2		if DBUS_XML_LIBXML2
+	select EXPAT
 	select XORG_LIB_X11	if DBUS_X
 	select MACHINE_ID	if RUNTIME
+	select SYSTEMD		if DBUS_SYSTEMD
 	select LIBC_PTHREAD
 	select LIBC_RT
 	help
@@ -31,28 +31,9 @@ config DBUS_SELINUX
 	depends on BROKEN
 	bool
 
-choice
-	prompt "xml library       "
-	default DBUS_XML_EXPAT
-
-	config DBUS_XML_EXPAT
-		bool
-		prompt "expat  "
-
-	config DBUS_XML_LIBXML2
-		bool
-		prompt "libxml2"
-endchoice
-
-config DBUS_USER
-	string
-	prompt "user for running the dbus daemon"
-	default "messagebus"
-	help
-	  Enter the user name to run the D-Bus daemon with. The PTXdist
-	  standard configuration has only root, so if you want to use
-	  the dbus default user "messagebus" you have to create a
-	  related user yourself.
+config DBUS_SYSTEMD
+	bool
+	default INITMETHOD_SYSTEMD
 
 config DBUS_X
 	bool
