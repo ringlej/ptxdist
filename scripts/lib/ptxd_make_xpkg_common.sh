@@ -45,7 +45,7 @@ ptxd_do_xpkg_map() {
     else
 	set -- "${@/#/${ptx_state_dir}/}"
     fi
-    ptxd_reply=( $(< "${@/%/.xpkg.map}" 2>/dev/null) )
+    ptxd_reply=( $(cat "${@/%/.xpkg.map}" 2>/dev/null) )
 
     [ ${#ptxd_reply[@]} -ne 0 ]
 }
