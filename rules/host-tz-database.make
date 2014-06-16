@@ -64,6 +64,6 @@ HOST_TZ_DATABASE_CONF_TOOL	:= NO
 HOST_TZ_DATABASE_MAKE_OPT	:= \
 	zic TZDIR=/usr/share/zoneinfo CFLAGS=-DSTD_INSPIRED
 HOST_TZ_DATABASE_INSTALL_OPT	:= \
-	posix_only TZDIR=$(HOST_TZ_DATABASE_PKGDIR)/usr/share/zoneinfo
+	posix_only TZDIR=/usr/share/zoneinfo
 
 # vim: syntax=make
