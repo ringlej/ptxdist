@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.38.2
-GLIB_MD5	:= 26d1d08e478fc48c181ca8be44f5b69f
+GLIB_VERSION	:= 2.40.0
+GLIB_MD5	:= 05fb7cb17eacbc718e90366a1eae60d9
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -75,7 +75,7 @@ GLIB_AUTOCONF := \
 	--disable-man \
 	--disable-dtrace \
 	--disable-systemtap \
-	--disable-gcov \
+	--disable-coverage \
 	--with-libiconv=no \
 	--with-threads=posix \
 	--with-pcre=internal
