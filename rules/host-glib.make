@@ -36,16 +36,23 @@ HOST_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--enable-silent-rules \
 	--disable-debug \
+	--disable-gc-friendly \
+	--enable-mem-pools \
 	--disable-rebuilds \
+	--disable-installed-tests \
+	--disable-always-build-tests \
 	--disable-static \
 	--enable-shared \
+	--disable-included-printf \
+	--disable-selinux \
 	--disable-fam \
+	--disable-xattr \
 	--disable-libelf \
 	--disable-gtk-doc \
 	--disable-man \
 	--disable-dtrace \
 	--disable-systemtap \
-	--disable-gcov \
+	--disable-coverage \
 	--with-libiconv=gnu
 
 $(STATEDIR)/host-glib.install.post:
