@@ -222,6 +222,30 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_DSS)
 endif
 
+ifdef PTXCONF_DROPBEAR_ECDSA
+	@echo "ptxdist: enabling ecdsa"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDSA)
+else
+	@echo "ptxdist: disabling ecdsa"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDSA)
+endif
+
+ifdef PTXCONF_DROPBEAR_ECDH
+	@echo "ptxdist: enabling ecdh"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDH)
+else
+	@echo "ptxdist: disabling ecdh"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDH)
+endif
+
+ifdef PTXCONF_DROPBEAR_CURVE25519
+	@echo "ptxdist: enabling curve25519"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_CURVE25519)
+else
+	@echo "ptxdist: disabling curve25519"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_CURVE25519)
+endif
+
 ifdef PTXCONF_DROPBEAR_PASSWD
 	@echo "ptxdist: enabling passwd"
 	@$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_SVR_PASSWORD_AUTH)
