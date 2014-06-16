@@ -24,10 +24,10 @@ Signed-off-by: Ali Polatel <alip@exherbo.org>
  5 files changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 4107bfa..aed38a8 100644
+index c4896f3..871a02a 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -220,7 +220,7 @@ AC_CHECK_MEMBERS([struct T_conn_res.QUEUE_ptr,
+@@ -249,7 +249,7 @@ AC_CHECK_MEMBERS([struct T_conn_res.QUEUE_ptr,
  
  AC_CHECK_TYPES([struct __old_kernel_stat],,, [#include <asm/stat.h>])
  
@@ -37,10 +37,10 @@ index 4107bfa..aed38a8 100644
  
  AC_CHECK_TYPES([struct user_desc],,, [#include <asm/ldt.h>])
 diff --git a/process.c b/process.c
-index fa304e5..f24de69 100644
+index 799a314..b967c3c 100644
 --- a/process.c
 +++ b/process.c
-@@ -60,7 +60,11 @@
+@@ -63,7 +63,11 @@
  # ifdef HAVE_STRUCT_PT_ALL_USER_REGS
  #  define pt_all_user_regs XXX_pt_all_user_regs
  # endif
@@ -53,7 +53,7 @@ index fa304e5..f24de69 100644
  # undef pt_all_user_regs
  #endif
 diff --git a/signal.c b/signal.c
-index 6dd01c1..d4b0e0c 100644
+index 55815aa..0c157da 100644
 --- a/signal.c
 +++ b/signal.c
 @@ -51,7 +51,11 @@
@@ -69,7 +69,7 @@ index 6dd01c1..d4b0e0c 100644
  # undef pt_all_user_regs
  #endif
 diff --git a/syscall.c b/syscall.c
-index 52d742f..2959db4 100644
+index 7efee0e..e2e59cc 100644
 --- a/syscall.c
 +++ b/syscall.c
 @@ -48,7 +48,11 @@
@@ -85,10 +85,10 @@ index 52d742f..2959db4 100644
  # undef pt_all_user_regs
  #endif
 diff --git a/util.c b/util.c
-index d347bd8..17a8abf 100644
+index 6acdbc2..e45843b 100644
 --- a/util.c
 +++ b/util.c
-@@ -59,7 +59,11 @@
+@@ -55,7 +55,11 @@
  # ifdef HAVE_STRUCT_PT_ALL_USER_REGS
  #  define pt_all_user_regs XXX_pt_all_user_regs
  # endif
