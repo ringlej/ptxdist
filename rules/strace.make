@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.7
-STRACE_MD5	:= 6054c3880a00c6703f83b57f15e04642
+STRACE_VERSION	:= 4.8
+STRACE_MD5	:= c575ef43829586801f514fd91bfe7575
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
@@ -30,11 +30,7 @@ STRACE_DIR	:= $(BUILDDIR)/$(STRACE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-STRACE_ENV 	:= $(CROSS_ENV)
-
-ifndef PTXCONF_STRACE_SHARED
-STRACE_ENV	+=  LDFLAGS=-static
-endif
+STRACE_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
