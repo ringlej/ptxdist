@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 1.0.2
-HTOP_MD5	:= 0d01cca8df3349c74569cefebbd9919e
+HTOP_VERSION	:= 1.0.3
+HTOP_MD5	:= e768b9b55c033d9c1dffda72db3a6ac7
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
-HTOP_URL	:= $(call ptx/mirror, SF, htop/$(HTOP).$(HTOP_SUFFIX))
+HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
 HTOP_SOURCE	:= $(SRCDIR)/$(HTOP).$(HTOP_SUFFIX)
 HTOP_DIR	:= $(BUILDDIR)/$(HTOP)
 
