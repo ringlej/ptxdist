@@ -111,7 +111,7 @@ config DBUS_STARTSCRIPT
 config DBUS_SYSTEMD_UNIT
 	bool
 	default y
-	depends on SYSTEMD
+	depends on DBUS_SYSTEMD
 	prompt "install systemd unit files for dbus"
 
 endif
