@@ -1,0 +1,39 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sun, 15 Jun 2014 15:48:20 +0200
+Subject: [PATCH] Makefile: configure: don't depend on check for tests
+
+This patch removes the dependency for check and removes the build of the tests
+environment.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ Makefile.am  | 2 +-
+ configure.ac | 2 --
+ 2 files changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 89c7e835d601..beb6e29a3ac9 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -8,7 +8,7 @@ EXTRA_DIST = \
+ 	CREDITS \
+ 	contrib docs rc
+ 
+-SUBDIRS = src data po tests docs
++SUBDIRS = src data po docs
+ 
+ kbd-$(VERSION).tar.xz:
+ 	make distcheck
+diff --git a/configure.ac b/configure.ac
+index 960cc07f3ed6..b9879adeade4 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -11,8 +11,6 @@ AM_INIT_AUTOMAKE([1.9 -Wall color-tests dist-xz])
+ AC_CONFIG_SRCDIR([src/loadkeys.c])
+ AC_CONFIG_HEADERS(config.h)
+ 
+-PKG_CHECK_MODULES([CHECK], [check >= 0.9.4])
+-
+ m4_ifndef([AM_SILENT_RULES], [m4_define([AM_SILENT_RULES],[])])
+ AM_SILENT_RULES([yes])
+ 
