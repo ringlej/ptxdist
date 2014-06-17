@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index b07d8ad..2d6747c 100644
+index b07d8ad8b690..2d6747cd6cde 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -28,10 +28,11 @@ RUNTIME_PUBKEY_DIR?=/etc/wireless-regdb/pubkeys
