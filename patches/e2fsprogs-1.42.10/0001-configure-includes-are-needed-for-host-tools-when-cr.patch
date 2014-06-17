@@ -9,7 +9,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.in b/configure.in
-index 6592e70..18363f3 100644
+index 6592e707512e..3194ccbfdf9c 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -1328,7 +1328,7 @@ if test $cross_compiling = no; then
