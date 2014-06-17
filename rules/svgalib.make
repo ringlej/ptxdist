@@ -89,8 +89,8 @@ $(STATEDIR)/svgalib.targetinstall:
 	@$(call install_fixup, svgalib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, svgalib,DESCRIPTION,missing)
 
-	@$(call install_lib, svgalib, 0, 0, 0755, libvga)
-	@$(call install_lib, svgalib, 0, 0, 0755, libvgagl)
+	@$(call install_lib, svgalib, 0, 0, 0644, libvga)
+	@$(call install_lib, svgalib, 0, 0, 0644, libvgagl)
 
 ifdef PTXCONF_SVGALIB_VGATEST
 	@$(call install_copy, svgalib, 0, 0, 0755, -, /usr/bin/vgatest)
