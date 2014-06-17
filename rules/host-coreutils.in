@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_COREUTILS
+	tristate
+	prompt "coreutils"
+	help
+	  FIXME
