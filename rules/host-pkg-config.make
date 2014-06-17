@@ -36,7 +36,6 @@ HOST_PKG_CONFIG_CONF_TOOL	:= autoconf
 HOST_PKG_CONFIG_CONF_OPT	:= \
 	$(HOST_AUTOCONF_SYSROOT) \
 	--disable-host-tool \
-	--with-internal-glib \
-	--with-libiconv=gnu
+	--with-internal-glib
 
 # vim: syntax=make

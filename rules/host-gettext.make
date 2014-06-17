@@ -18,6 +18,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_GETTEXT) += host-gettext
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_GETTEXT_CONF_ENV := \
+	$(HOST_ENV) \
+	ac_cv_header_iconv_h=no \
+	am_cv_func_iconv=no \
+	am_cv_lib_iconv=no
+
 #
 # autoconf
 #

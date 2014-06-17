@@ -2,6 +2,5 @@
 
 config HOST_PKG_CONFIG
 	tristate
-	select HOST_LIBICONV
 	default ALLYES
 
