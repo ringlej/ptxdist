@@ -1,0 +1,11 @@
+## SECTION=games
+
+config CMATRIX
+	tristate
+	prompt "cmatrix"
+	select NCURSES
+	select KBD
+	select KBD_SETFONT
+	select KBD_CONSOLEFONTS
+	help
+	  Shows a scrolling 'Matrix' like screen in Linux.
