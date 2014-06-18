@@ -38,14 +38,14 @@ GLIB_LICENSE	:= LGPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
-GLIB_PATH	:= PATH=$(CROSS_PATH)
-
-GLIB_ENV 	:= \
+GLIB_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	glib_cv_uscore=no \
 	glib_cv_stack_grows=no \
 	glib_cv_have_qsort_r=yes \
-	ac_cv_func_statfs=yes
+	ac_cv_func_statfs=yes \
+	ac_cv_path_MSGFMT=: \
+	ac_cv_path_XGETTEXT=no
 
 #
 # autoconf
@@ -54,7 +54,8 @@ GLIB_ENV 	:= \
 # is the right choice for no locales and locales-via-libc
 #
 
-GLIB_AUTOCONF := \
+GLIB_CONF_TOOL	:= autoconf
+GLIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
 	--enable-debug=minimum \
