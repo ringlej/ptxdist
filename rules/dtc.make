@@ -25,52 +25,22 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 ptx/dts = $(shell p=$(PTXCONF_DTC_OFTREE_DTS_PATH) ptxd_in_path p "$(strip $(1))" && echo "$${ptxd_reply}")
 
 ifdef PTXCONF_DTC_OFTREE_DTS
+# Note: this must match the magic in ptxd_make_dts_dtb
 DTC_OFTREE_DTS = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
 	$(if $(filter /%,$(dts)),$(dts),$(call ptx/dts,$(dts))))
 endif
 
-%.dtb: TMP_DTS = $(STATEDIR)/$(notdir $<).tmp
-%.dtb: TMP_DEPS = $(PTXDIST_TEMPDIR)/dts.deps
-%.dtb: DEPS = $(STATEDIR)/dtc.$(notdir $<).deps
-%.dtb:
+dts/env = \
+	$(call ptx/env) \
+	dts_path=$(PTXCONF_DTC_OFTREE_DTS_PATH) \
+	dts_dtb="$(strip $(1))" \
+	dts_dts="$(strip $(2))" \
+	dts_kernel_dir="$(KERNEL_DIR)" \
+	dts_kernel_arch="$(GENERIC_KERNEL_ARCH)"
+
+%.dtb: $(STATEDIR)/dtc.install
 	@$(call targetinfo)
-	@if [ -z "$(strip $<)" ]; then \
-		ptxd_bailout "Device-tree for `ptxd_print_path '$@'` undefined!"; \
-	fi
-	@if [ ! -e "$(strip $<)" ]; then \
-		ptxd_bailout "Device-tree '$<' not found!"; \
-	fi
-	@echo CPP `ptxd_print_path "$(TMP_DTS)"`
-	@cpp \
-		-Wp,-MD,$(TMP_DEPS) \
-		-Wp,-MT,$(TMP_DTS) \
-		-nostdinc \
-		-P \
-		-I$(dir $<) \
-		-I$(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts \
-		-I$(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts/include \
-		-I$(KERNEL_DIR)/include \
-		-undef -D__DTS__ -x assembler-with-cpp \
-		-o $(TMP_DTS) \
-		$<
-	@sed -e 's;^$(TMP_DTS):;$@:;' -e 's;^ \([^ ]*\); $$(wildcard \1);' $(TMP_DEPS) > $(DEPS)
-	@echo DTC `ptxd_print_path "$@"`
-	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]\+-i\(,.*\)\?$$"; then \
-		dtc_include="-i $(dir $<) -i $(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts"; \
-	fi; \
-	$(PTXCONF_SYSROOT_HOST)/bin/dtc \
-		$(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) \
-		$$dtc_include \
-		-d $(TMP_DEPS) \
-		-I dts -O dtb -b 0 \
-		-o "$@" "$(TMP_DTS)"
-	@awk '{ \
-			printf "%s", $$1 ;  \
-			for (i = 2; i <= NF; i++) { \
-				printf " $$(wildcard %s)", $$i; \
-			}; \
-			print "" \
-		}' $(TMP_DEPS) >> $(DEPS)
+	@$(call dts/env, $@, $(DTB_DTS)) ptxd_make_dts_dtb
 	@$(call finish)
 
 DTC_DTB = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), $(IMAGEDIR)/$(call ptx/dtb, $(dts)))

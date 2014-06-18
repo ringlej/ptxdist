@@ -13,7 +13,10 @@
 # .dtb depends on the .dts and dtc.install for all other dependencies
 #
 $(foreach dts, $(call remove_quotes,$(DTC_OFTREE_DTS)), \
-	$(eval $(IMAGEDIR)/$(call ptx/dtb, $(dts)): $(dts)  $(STATEDIR)/dtc.install))
+	$(eval $(IMAGEDIR)/$(call ptx/dtb, $(dts)): $(dts)))
+
+$(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
+	$(eval $(IMAGEDIR)/$(call ptx/dtb, $(dts)): DTB_DTS=$(dts)))
 
 $(foreach dts, $(call remove_quotes,$(DTC_OFTREE_DTS)), \
 	$(eval $(dts):  $(STATEDIR)/kernel.extract.post))
