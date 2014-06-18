@@ -7,6 +7,8 @@
 SHELL=bash
 export SHELL
 
+unexport MAKEFLAGS
+
 PHONY := all FORCE
 all:
 	@echo "ptxdist: error: please use 'ptxdist' instead of calling make directly."
