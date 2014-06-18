@@ -2,6 +2,8 @@
 
 . "$(dirname "$(readlink -f "$0")")/libwrapper.sh" || exit
 
+export ICECC_VERSION="${ICECC_VERSION_TARGET}"
+
 cc_check_args "${@}"
 
 cc_add_target_ld_args

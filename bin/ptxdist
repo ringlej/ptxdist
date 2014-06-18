@@ -708,6 +708,26 @@ check_compiler() {
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done
 	PATH="${wrapper_dir}:${PATH}"
+	if [ -n "${PTXDIST_ICECC}" ]; then
+		local icecc_dir="${sysroot_host}/lib/icecc"
+		if [ "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
+			rm -rf "${icecc_dir}"
+			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host"
+			ln -s "${toolchain}" "${icecc_dir}/toolchain"
+			(
+				cd "${icecc_dir}/target"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/${compiler_prefix}gcc" \
+					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null
+				cd "${icecc_dir}/host"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/gcc" \
+					"${wrapper_dir}/real/g++" > /dev/null
+			)
+		fi
+		export ICECC_VERSION_TARGET="$(ls "${icecc_dir}/target"/*.tar.gz)"
+		export ICECC_VERSION_HOST="$(ls "${icecc_dir}/host"/*.tar.gz)"
+	fi
 }
 
 
@@ -2405,6 +2425,18 @@ setup_path() {
 			sleep 3
 		fi
 	fi
+	if [ -n "${PTXCONF_SETUP_ICECC}" ]; then
+		PTXDIST_ICECC="$(which icecc 2>/dev/null)"
+		PTXDIST_ICECC_CREATE_ENV="$(which "${PTXCONF_SETUP_ICECC_CREATE_ENV}")"
+		if [ -z "${PTXDIST_ICECC}" -o -z "${PTXDIST_ICECC_CREATE_ENV}" ]; then
+			echo
+			echo "${PTXDIST_LOG_PROMPT}warning: icecc has been activated, but was not found on your system"
+			echo "${PTXDIST_LOG_PROMPT}warning: install icecc, disable it ('ptxdist setup' -> 'Developer Options' menu)"
+			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
+			echo
+			sleep 3
+		fi
+	fi
 }
 
 
@@ -2488,6 +2520,7 @@ setup_export() {
 		\
 		PTXDIST_CCACHE \
 		PTXDIST_FORCE_DOWNLOAD \
+		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
