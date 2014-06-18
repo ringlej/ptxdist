@@ -228,3 +228,23 @@ cxx_add_host_extra() {
 	cpp_add_host_extra
 	add_host_arg ${pkg_cxxflags}
 }
+
+cc_add_target_icecc() {
+	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
+	export ICECC_CC="${0%/*}/real/${0##*/}"
+}
+
+cxx_add_target_icecc() {
+	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
+	export ICECC_CXX="${0%/*}/real/${0##*/}"
+}
+
+cc_add_host_icecc() {
+	export ICECC_VERSION="${ICECC_VERSION_HOST}"
+	export ICECC_CC="${0%/*}/real/${0##*/}"
+}
+
+cxx_add_host_icecc() {
+	export ICECC_VERSION="${ICECC_VERSION_HOST}"
+	export ICECC_CXX="${0%/*}/real/${0##*/}"
+}
