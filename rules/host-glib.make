@@ -22,13 +22,16 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GLIB_PATH	:= PATH=$(HOST_PATH)
-HOST_GLIB_ENV 	:= $(HOST_ENV)
+HOST_GLIB_CONF_ENV	:= \
+	$(HOST_ENV) \
+	ac_cv_path_MSGFMT=: \
+	ac_cv_path_XGETTEXT=no
 
 #
 # autoconf
 #
-HOST_GLIB_AUTOCONF := \
+HOST_GLIB_CONF_TOOL	:= autoconf
+HOST_GLIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-silent-rules \
 	--disable-debug \
