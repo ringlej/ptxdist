@@ -12,7 +12,7 @@ Adapted to 5.7.2
 
 Signed-off-by: Alexander Dahl <post@lespocky.de>
 ---
- net-snmp-config.in | 8 ++++----
+ net-snmp-config.in |    8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/net-snmp-config.in b/net-snmp-config.in
