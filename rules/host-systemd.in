@@ -7,3 +7,4 @@ config HOST_SYSTEMD
 	# for 'ln --relative'
 	select HOST_COREUTILS
 	select HOST_LIBCAP
+	select HOST_KERNEL_HEADER

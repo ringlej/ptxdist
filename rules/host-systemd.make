@@ -17,6 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_SYSTEMD_CFLAGS=-I$(PTXDIST_SYSROOT_HOST)/kernel-headers/include
 #
 # autoconf
 #
