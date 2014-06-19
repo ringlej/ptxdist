@@ -706,25 +706,25 @@ check_compiler() {
 	for cc in gcc g++ cpp ld; do
 		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
-	done
-	PATH="${wrapper_dir}:${PATH}"
+	done &&
+	PATH="${wrapper_dir}:${PATH}" &&
 	if [ -n "${PTXDIST_ICECC}" ]; then
 		local icecc_dir="${sysroot_host}/lib/icecc"
 		if [ "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
-			rm -rf "${icecc_dir}"
-			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host"
-			ln -s "${toolchain}" "${icecc_dir}/toolchain"
+			rm -rf "${icecc_dir}" &&
+			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
 			(
 				cd "${icecc_dir}/target"
 				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
 					"${wrapper_dir}/real/${compiler_prefix}gcc" \
-					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null
+					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 &&
 				cd "${icecc_dir}/host"
 				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
 					"${wrapper_dir}/real/gcc" \
-					"${wrapper_dir}/real/g++" > /dev/null
-			)
-		fi
+					"${wrapper_dir}/real/g++" > /dev/null 2>&1
+			) &&
+			ln -s "${toolchain}" "${icecc_dir}/toolchain"
+		fi || return
 		export ICECC_VERSION_TARGET="$(ls "${icecc_dir}/target"/*.tar.gz)"
 		export ICECC_VERSION_HOST="$(ls "${icecc_dir}/host"/*.tar.gz)"
 	fi
