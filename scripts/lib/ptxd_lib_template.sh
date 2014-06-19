@@ -188,6 +188,7 @@ export -f ptxd_template_write_rules
 ptxd_template_write_src() {
     local dst="${PTXDIST_WORKSPACE}/local_src/${package}"
     local template_src
+    local template_dir
 
     if [ -d "${dst}" ]; then
 	return
@@ -209,8 +210,8 @@ ptxd_template_write_src() {
     if [ ! -e "${dst}/wizard.sh" ]; then
 	return
     fi &&
-
-    ( cd "${dst}" && bash wizard.sh "${package}" ) &&
+    template_dir=$(dirname "${template_src}") &&
+    ( cd "${dst}" && bash wizard.sh "${package}" "${template_dir}") &&
     rm -f "${dst}/wizard.sh"
 }
 export -f ptxd_template_write_src
