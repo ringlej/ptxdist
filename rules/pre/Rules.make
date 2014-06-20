@@ -153,6 +153,7 @@ CROSS_ENV_PKG_CONFIG := \
 #
 CROSS_ENV_AC := \
 	enable_option_checking=fatal \
+	enable_maintainer_mode=no \
 	ac_cv_file__dev_random=yes \
 	ac_cv_file__proc_self_exe=yes \
 	ac_cv_file__proc_self_fd=yes \
