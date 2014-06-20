@@ -72,10 +72,10 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/gettext)
 
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.18.3.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-$(GETTEXT_VERSION).so)
 	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libasprintf.so.0.0.0)
 	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.5.2)
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.18.3.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-$(GETTEXT_VERSION).so)
 
 	@$(call install_finish, gettext)
 
