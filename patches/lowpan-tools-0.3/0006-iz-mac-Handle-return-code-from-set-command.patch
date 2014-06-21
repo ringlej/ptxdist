@@ -1,7 +1,6 @@
-From a1d9615adde6d1a568813c24a128273ed755af04 Mon Sep 17 00:00:00 2001
 From: Alan Ott <alan@signal11.us>
 Date: Sun, 17 Mar 2013 21:22:52 -0400
-Subject: [PATCH 7/7] iz-mac: Handle return code from "set" command
+Subject: [PATCH] iz-mac: Handle return code from "set" command
 
 The iz set command will fail if the PAN ID is invalid. Handle this failure.
 
@@ -11,7 +10,7 @@ Signed-off-by: Alan Ott <alan@signal11.us>
  1 file changed, 9 insertions(+), 7 deletions(-)
 
 diff --git a/src/iz-mac.c b/src/iz-mac.c
-index be980d6..838229c 100644
+index be980d6fb3c8..838229cecd77 100644
 --- a/src/iz-mac.c
 +++ b/src/iz-mac.c
 @@ -315,14 +315,16 @@ nla_put_failure:
@@ -38,6 +37,3 @@ index be980d6..838229c 100644
  
  	return IZ_STOP_OK;
  }
--- 
-1.8.2.3
-

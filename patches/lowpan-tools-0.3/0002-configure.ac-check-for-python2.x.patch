@@ -1,7 +1,6 @@
-From ee734ebbd220460e73cc871d1f0c652bb9a85439 Mon Sep 17 00:00:00 2001
 From: Alexander Aring <alex.aring@googlemail.com>
 Date: Fri, 21 Dec 2012 06:37:14 +0100
-Subject: [PATCH 3/7] configure.ac: check for python2.x
+Subject: [PATCH] configure.ac: check for python2.x
 
 Check for python2.x at first.
 
@@ -14,7 +13,7 @@ Signed-off-by: Alexander Aring <alex.aring@gmail.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index c483b4f..6c9f54b 100644
+index c483b4ff38de..6c9f54b0ca03 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -77,6 +77,9 @@ AC_PROG_LIBTOOL
@@ -27,6 +26,3 @@ index c483b4f..6c9f54b 100644
  AM_PATH_PYTHON(,, [:])
  AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
  
--- 
-1.8.2.3
-

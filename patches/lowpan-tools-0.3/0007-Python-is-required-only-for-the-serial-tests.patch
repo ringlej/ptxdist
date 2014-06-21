@@ -6,12 +6,12 @@ Only the serial tests require host and target python.
 
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 ---
- configure.ac            |   20 +++++++++++++++-----
- test-serial/Makefile.am |    2 ++
+ configure.ac            | 20 +++++++++++++++-----
+ test-serial/Makefile.am |  2 ++
  2 files changed, 17 insertions(+), 5 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 89c2651..755b39a 100644
+index 89c265128fdb..755b39a303fe 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -19,6 +19,11 @@ AC_CONFIG_HEADER([config.h])
@@ -49,7 +49,7 @@ index 89c2651..755b39a 100644
  
  # Checks for libraries.
 diff --git a/test-serial/Makefile.am b/test-serial/Makefile.am
-index 5553ded..733d472 100644
+index 5553ded5000a..733d47226670 100644
 --- a/test-serial/Makefile.am
 +++ b/test-serial/Makefile.am
 @@ -1,6 +1,8 @@

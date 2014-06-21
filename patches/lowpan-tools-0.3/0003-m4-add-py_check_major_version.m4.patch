@@ -1,7 +1,6 @@
-From 242c594bce69295299d67d5a2c7d4a286fb85fcd Mon Sep 17 00:00:00 2001
 From: Alan Ott <alan@signal11.us>
 Date: Sun, 17 Mar 2013 18:13:45 -0400
-Subject: [PATCH 4/7] m4: add py_check_major_version.m4
+Subject: [PATCH] m4: add py_check_major_version.m4
 
 Macro to check the Python major version.
 
@@ -16,7 +15,7 @@ Signed-off-by: Alan Ott <alan@signal11.us>
 
 diff --git a/m4/py_check_major_version.m4 b/m4/py_check_major_version.m4
 new file mode 100644
-index 0000000..6d45be8
+index 000000000000..6d45be8c87a7
 --- /dev/null
 +++ b/m4/py_check_major_version.m4
 @@ -0,0 +1,19 @@
@@ -39,6 +38,3 @@ index 0000000..6d45be8
 +  ifelse([$4], , [AC_MSG_ERROR([$$1 differs from $2])], [$4])  
 +  ;;  
 +esac])  
--- 
-1.8.2.3
-
