@@ -286,6 +286,7 @@ HOST_ENV_PYTHONPATH	:= \
 		print "%s" % sysconfig.get_python_lib(prefix="'"$(PTXDIST_SYSROOT_HOST)"'")')"
 
 HOST_ENV	:= \
+	enable_option_checking=fatal \
 	$(HOST_ENV_CC) \
 	$(HOST_ENV_CXX) \
 	$(HOST_ENV_PKG_CONFIG) \
