@@ -29,6 +29,17 @@ PROTOBUF_LICENSE	:= BSD New
 # Prepare
 # ----------------------------------------------------------------------------
 
+PROTOBUF_CONF_ENV	:= \
+	$(CROSS_ENV)
+
+ifdef PTXCONF_ARCH_PPC
+# protobuf-2.5.0 has no atomics for PPC
+# abuse PTHREAD_* because those flags a propagated via protobuf.pc
+PROTOBUF_CONF_ENV	+= \
+	PTHREAD_LIBS="-lpthread" \
+	PTHREAD_CFLAGS="-DGOOGLE_PROTOBUF_NO_THREAD_SAFETY"
+endif
+
 #
 # autoconf
 #
