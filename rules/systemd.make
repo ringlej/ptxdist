@@ -140,6 +140,10 @@ endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
 endif
+ifdef PTXCONF_SYSTEMD_TIMEDATE
+	@ln -s ../../../../lib/systemd/system/systemd-timesyncd.service \
+		$(SYSTEMD_PKGDIR)/etc/systemd/system/multi-user.target.wants/systemd-timesyncd.service
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -248,6 +252,10 @@ endif
 ifdef PTXCONF_SYSTEMD_LOGIND
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/logind.conf)
+endif
+ifdef PTXCONF_SYSTEMD_TIMEDATE
+	@$(call install_alternative, systemd, 0, 0, 0644, \
+		/etc/systemd/timesyncd.conf)
 endif
 ifdef PTXCONF_SYSTEMD_NETWORK
 	@$(call install_alternative, systemd, 0, 0, 0644, \
