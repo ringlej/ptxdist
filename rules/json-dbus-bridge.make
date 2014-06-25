@@ -34,6 +34,9 @@ JSON_DBUS_BRIDGE_LICENSE	:= LGPLv2.1+
 # autoconf
 #
 JSON_DBUS_BRIDGE_CONF_TOOL	:= autoconf
+JSON_DBUS_BRIDGE_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
