@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_JSON_C) += json-c
 #
 # Paths and names
 #
-JSON_C_VERSION		:= 0.10
-JSON_C_MD5		:= a4edc79410eb894f08d7d52ca9f88732
+JSON_C_VERSION		:= 0.12
+JSON_C_MD5		:= 3ca4bbb881dfc4017e8021b5e0a8c491
 JSON_C			:= json-c-$(JSON_C_VERSION)
 JSON_C_SUFFIX		:= tar.gz
 JSON_C_URL		:= https://s3.amazonaws.com/json-c_releases/releases/$(JSON_C).$(JSON_C_SUFFIX)
@@ -29,13 +29,17 @@ JSON_C_LICENSE		:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-JSON_C_PATH	:= PATH=$(CROSS_PATH)
-JSON_C_ENV	:= $(CROSS_ENV)
+JSON_C_CONF_ENV		:= \
+	$(CROSS_ENV) \
+	CFLAGS="-O2 -g -Wno-error"
 
 #
 # autoconf
 #
-JSON_C_AUTOCONF := $(CROSS_AUTOCONF_USR)
+JSON_C_CONF_TOOL	:= autoconf
+JSON_C_CONF_OPT		:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -50,7 +54,7 @@ $(STATEDIR)/json-c.targetinstall:
 	@$(call install_fixup, json-c,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, json-c,DESCRIPTION,missing)
 
-	@$(call install_lib, json-c, 0, 0, 0644, libjson)
+	@$(call install_lib, json-c, 0, 0, 0644, libjson-c)
 
 	@$(call install_finish, json-c)
 
