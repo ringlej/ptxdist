@@ -35,7 +35,7 @@ MEMTESTER_COMPILE_ENV := $(CROSS_ENV)
 
 $(STATEDIR)/memtester.prepare:
 	@$(call targetinfo)
-	@echo "memtester: tests.o memtester.o" > $(MEMTESTER_DIR)/Makefile
+	@sed -i 's/^cc\>/$(CROSS_CC)/' $(MEMTESTER_DIR)/conf-cc $(MEMTESTER_DIR)/conf-ld
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
