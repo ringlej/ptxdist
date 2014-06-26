@@ -1,0 +1,26 @@
+## SECTION=networking
+
+menuconfig ALFRED
+	tristate
+	prompt "A.L.F.R.E.D.                  "
+	help
+	  Alfred is a distributed data distribution service which is used for
+	  batman mesh networks.
+
+if ALFRED
+
+config ALFRED_SYSTEMD_SERVICE
+	bool "install alfred and batadv-vis systemd service files"
+	default y
+
+config ALFRED_SYSTEMD_SERVICE_ALFRED_INTF
+	string "Enable alfred systemd service file for this interface"
+	default "bat0"
+	depends on ALFRED_SYSTEMD_SERVICE
+
+config ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF
+	string "Enable batadv-vis systemd service file for this interface"
+	default "bat0"
+	depends on ALFRED_SYSTEMD_SERVICE
+
+endif
