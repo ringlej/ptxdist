@@ -2,7 +2,7 @@
 
 menuconfig OPENCV
 	tristate
-	prompt "opencv"
+	prompt "opencv                        "
 	select HOST_CMAKE
 	select GCCLIBS_CXX
 	select ZLIB
