@@ -1,4 +1,4 @@
-## SECTION=multimedia_xorg_data
+## SECTION=multimedia_libs
 
 config XKEYBOARD_CONFIG
 	tristate
