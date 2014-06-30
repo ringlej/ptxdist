@@ -20,7 +20,9 @@ STUNNEL_VERSION	:= 5.01
 STUNNEL_MD5	:= 7b63266b6fa05da696729e245100da65
 STUNNEL		:= stunnel-$(STUNNEL_VERSION)
 STUNNEL_SUFFIX	:= tar.gz
-STUNNEL_URL	:= http://ftp.nluug.nl/pub/networking/stunnel/$(STUNNEL).$(STUNNEL_SUFFIX)
+STUNNEL_URL	:= \
+	http://ftp.nluug.nl/pub/networking/stunnel/$(STUNNEL).$(STUNNEL_SUFFIX) \
+	http://ftp.nluug.nl/pub/networking/stunnel/archive/5.x/$(STUNNEL).$(STUNNEL_SUFFIX)
 STUNNEL_SOURCE	:= $(SRCDIR)/$(STUNNEL).$(STUNNEL_SUFFIX)
 STUNNEL_DIR	:= $(BUILDDIR)/$(STUNNEL)
 STUNNEL_LICENSE	:= stunnel (GPL2 or later with openssl exception)
