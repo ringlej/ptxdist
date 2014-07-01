@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 0.9.5
-V4L_UTILS_MD5		:= 6947bea808b19207d89ec31afc3a9a89
+V4L_UTILS_VERSION	:= 1.2.1
+V4L_UTILS_MD5		:= 4cc0fb4ded302ea9e89e5e1b56a7252b
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
@@ -57,6 +57,10 @@ ifdef PTXCONF_V4L_UTILS_LIBV4L2
 endif
 ifdef PTXCONF_V4L_UTILS_LIBV4LCONVERT
 	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4lconvert)
+endif
+
+ifdef PTXCONF_V4L_UTILS_MEDIACTL
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/media-ctl)
 endif
 
 ifdef PTXCONF_V4L_UTILS_V4L2COMPLIANCE

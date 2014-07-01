@@ -26,6 +26,10 @@ config V4L_UTILS_LIBV4LCONVERT
 	bool
 	prompt "install libv4lconvert"
 
+config V4L_UTILS_MEDIACTL
+	bool
+	prompt "install media-ctl"
+
 config V4L_UTILS_V4L2COMPLIANCE
 	bool
 	select V4L_UTILS_LIBV4L2
