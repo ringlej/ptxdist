@@ -28,7 +28,7 @@ config PROJECT
 config PROJECT_VERSION
 	string
 	prompt "Project Version"
-	default "${PTXDIST_BSP_AUTOVERSION}"
+	default "-${PTXDIST_BSP_AUTOVERSION}"
 	help
 	  The Version of your Project.
 	  The string is supposed to start with an "-".
