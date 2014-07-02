@@ -3,19 +3,18 @@
 menuconfig V4L_UTILS
 	tristate
 	prompt "v4l-utils                     "
-	select LIBC_RT		if V4L_UTILS_LIBV4LCONVERT
+	select UDEV		if V4L_UTILS_MEDIACTL
+	select UDEV_LIBUDEV	if V4L_UTILS_MEDIACTL
+	select LIBC_DL		if V4L_UTILS_LIBV4L2 || V4L_UTILS_MEDIACTL
+	select LIBC_RT		if V4L_UTILS_LIBV4LCONVERT || V4L_UTILS_MEDIACTL
 	select LIBC_M		if V4L_UTILS_LIBV4LCONVERT
-	select LIBC_PTHREAD	if V4L_UTILS_LIBV4L2
+	select LIBC_PTHREAD	if V4L_UTILS_LIBV4L2 || V4L_UTILS_MEDIACTL
+	select GCCLIBS_GCC_S	if V4L_UTILS_V4L2CTL || V4L_UTILS_V4L2COMPLIANCE
 	select LIBJPEG		if V4L_UTILS_LIBV4LCONVERT
 	help
 	  Linux V4L2 and DVB API utilities and v4l libraries (libv4l).
 
 if V4L_UTILS
-
-config V4L_UTILS_LIBV4L1
-	bool
-	select V4L_UTILS_LIBV4L2
-	prompt "install libv4l1"
 
 config V4L_UTILS_LIBV4L2
 	bool

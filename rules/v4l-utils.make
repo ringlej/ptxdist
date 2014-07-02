@@ -32,7 +32,13 @@ V4L_UTILS_LICENSE	:= unknown
 V4L_UTILS_CONF_TOOL	:= autoconf
 V4L_UTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-qv4l2
+	--disable-rpath \
+	--disable-libdvbv5 \
+	--enable-libv4l \
+	--enable-v4l-utils \
+	--disable-qv4l2 \
+	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg \
+	--with-libudev
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -47,10 +53,6 @@ $(STATEDIR)/v4l-utils.targetinstall:
 	@$(call install_fixup, v4l-utils,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, v4l-utils,DESCRIPTION,missing)
 
-ifdef PTXCONF_V4L_UTILS_LIBV4L1
-	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l1)
-	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l/v4l1compat)
-endif
 ifdef PTXCONF_V4L_UTILS_LIBV4L2
 	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l2)
 	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l/v4l2convert)
