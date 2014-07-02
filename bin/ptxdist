@@ -717,16 +717,23 @@ check_compiler() {
 		local icecc_dir="${sysroot_host}/lib/icecc"
 		if [ "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
 			rm -rf "${icecc_dir}" &&
+			if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
+				ptxd_bailout "PTXdist only supports icecc 1.x"
+			fi
 			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
 			(
+				echo "Creating icecc target environment..."
 				cd "${icecc_dir}/target"
 				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
 					"${wrapper_dir}/real/${compiler_prefix}gcc" \
-					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 &&
+					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
+				echo "Creating icecc host environment..."
 				cd "${icecc_dir}/host"
 				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
 					"${wrapper_dir}/real/gcc" \
-					"${wrapper_dir}/real/g++" > /dev/null 2>&1
+					"${wrapper_dir}/real/g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
 			) &&
 			ln -s "${toolchain}" "${icecc_dir}/toolchain"
 		fi || return
@@ -2463,6 +2470,8 @@ setup_path() {
 			echo "${PTXDIST_LOG_PROMPT}warning: icecc has been activated, but was not found on your system"
 			echo "${PTXDIST_LOG_PROMPT}warning: install icecc, disable it ('ptxdist setup' -> 'Developer Options' menu)"
 			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
+			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:=not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:=not found}'"
 			echo
 			sleep 3
 		fi
