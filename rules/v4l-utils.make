@@ -53,6 +53,10 @@ $(STATEDIR)/v4l-utils.targetinstall:
 	@$(call install_fixup, v4l-utils,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, v4l-utils,DESCRIPTION,missing)
 
+ifdef PTXCONF_V4L_UTILS_LIBV4L1
+	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l1)
+	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l/v4l1compat)
+endif
 ifdef PTXCONF_V4L_UTILS_LIBV4L2
 	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l2)
 	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l/v4l2convert)
