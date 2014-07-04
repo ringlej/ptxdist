@@ -2304,8 +2304,18 @@ setup_auto_version()
 	_get_config_ptx
 	if ! check_version "${configfile_version}"; then
 		local next
+		local -a args
+		set -- "${PTXDIST_ARGS_FULL[@]}"
+		while [ ${#} -ne 0 ]; do
+			local arg="${1}"
+			shift
+			case "${arg}" in
+			--auto-version) ;;
+			*) args[${#args[@]}]="${arg}" ;;
+			esac
+		done
 		if next="$(which ptxdist-${configfile_version})"; then
-			exec "${next}" "${PTXDIST_ARGS_FULL[@]}"
+			exec "${next}" "${args[@]}"
 		else
 			ptxd_bailout "ptxdist-${configfile_version} not found!"
 		fi
