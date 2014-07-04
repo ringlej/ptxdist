@@ -38,6 +38,7 @@ ptxd_make_dts_dtb() {
 	-I$(dirname "${dts}") \
 	-I${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts \
 	-I${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts/include \
+	-I${dts_kernel_dir}/drivers/of/testcase-data \
 	-I${dts_kernel_dir}/include \
 	-undef -D__DTS__ -x assembler-with-cpp \
 	-o ${tmp_dts} \
