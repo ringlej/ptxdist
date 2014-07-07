@@ -11,6 +11,15 @@ fi
 # (will also be sourced for init-shell)
 export ENV=/etc/profile.environment
 
+# Exec profile provided by other packages
+if [ -d /etc/profile.d ]; then
+	for file in /etc/profile.d/*.sh; do
+		if [ -r $file ]; then
+			. $file
+		fi
+	done
+	unset file
+fi
 # Exec local profile
 if [ -e "/etc/profile.local" ]; then
 	echo "running /etc/profile.local"
