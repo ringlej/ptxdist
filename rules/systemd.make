@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 214
-SYSTEMD_MD5	:= eac4f9fc5bd18a0efc3fc20858baacf3
+SYSTEMD_VERSION	:= 215
+SYSTEMD_MD5	:= d2603e9fffd8b18d242543e36f2e7d31
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -37,6 +37,7 @@ endif
 SYSTEMD_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	CFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR)" \
+	ac_cv_path_INTLTOOL_MERGE=: \
 	ac_cv_path_KMOD=/bin/kmod
 
 #
@@ -72,6 +73,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-smack \
 	--disable-gcrypt \
 	--disable-audit \
+	--disable-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
 	--disable-microhttpd \
@@ -82,6 +84,7 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-bootchart \
 	--enable-quotacheck \
 	--enable-tmpfiles \
+	--disable-sysusers \
 	--$(call ptx/disen,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED)-randomseed \
 	--disable-backlight \
 	--disable-rfkill \
@@ -140,10 +143,10 @@ endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
 endif
-ifdef PTXCONF_SYSTEMD_TIMEDATE
-	@ln -s ../../../../lib/systemd/system/systemd-timesyncd.service \
-		$(SYSTEMD_PKGDIR)/etc/systemd/system/multi-user.target.wants/systemd-timesyncd.service
-endif
+#	# ldconfig is not installed
+	@rm -v $(SYSTEMD_PKGDIR)/lib/systemd/system/sysinit.target.wants/ldconfig.service
+#	# the upstream default (graphical.target) wants display-manager.service
+	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/lib/systemd/system/default.target
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -179,6 +182,7 @@ SYSTEMD_HELPER := \
 	systemd-sysctl \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
+	systemd-update-done \
 	systemd-update-utmp \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-user-sessions,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
@@ -224,6 +228,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgtop)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-path)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
 	@$(call install_link, systemd, ../../lib/systemd/systemd-bus-proxyd, \
 		/usr/bin/systemd-stdio-bridge)
@@ -288,8 +293,7 @@ endif
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
 
-#	# systemd expects this directory to exist.
-	@$(call install_copy, systemd, 0, 0, 0755, /var/cache/man)
+	@$(call install_alternative, systemd, 0, 0, 0644, /etc/profile.d/systemd.sh)
 
 	@$(call install_finish, systemd)
 

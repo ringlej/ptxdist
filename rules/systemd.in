@@ -2,7 +2,6 @@
 
 menuconfig SYSTEMD
 	tristate
-	select HOST_INTLTOOL
 	select HOST_GPERF
 	# for 'ln --relative'
 	select HOST_COREUTILS
