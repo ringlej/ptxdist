@@ -147,6 +147,11 @@ endif
 	@rm -v $(SYSTEMD_PKGDIR)/lib/systemd/system/sysinit.target.wants/ldconfig.service
 #	# the upstream default (graphical.target) wants display-manager.service
 	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/lib/systemd/system/default.target
+ifdef PTXCONF_SYSTEMD_TIMEDATE
+	@install -d $(SYSTEMD_PKGDIR)/etc/systemd/system/sysinit.target.wants/
+	@mv $(SYSTEMD_PKGDIR)/etc/systemd/system/multi-user.target.wants/systemd-timesyncd.service \
+		$(SYSTEMD_PKGDIR)/etc/systemd/system/sysinit.target.wants/
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -292,6 +297,8 @@ endif
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
+
+	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd)
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/profile.d/systemd.sh)
 
