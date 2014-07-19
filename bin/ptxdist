@@ -2480,8 +2480,8 @@ setup_path() {
 			echo "${PTXDIST_LOG_PROMPT}warning: icecc has been activated, but was not found on your system"
 			echo "${PTXDIST_LOG_PROMPT}warning: install icecc, disable it ('ptxdist setup' -> 'Developer Options' menu)"
 			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
-			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:=not found}'"
-			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:=not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:-not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:-not found}'"
 			echo
 			sleep 3
 		fi
