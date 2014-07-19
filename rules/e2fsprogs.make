@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.42.10
-E2FSPROGS_MD5		:= 62bfe2fe0a194c5c37165789ac2825a8
+E2FSPROGS_VERSION	:= 1.42.11
+E2FSPROGS_MD5		:= 412acbbd64a866c2ed1c729deaf4ae7c
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
@@ -45,7 +45,6 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-bsd-shlibs \
 	--disable-profile \
 	--disable-gcov \
-	--disable-checker \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
 	--disable-testio-debug \
@@ -62,6 +61,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-tls \
 	--disable-uuidd \
 	--disable-nls \
+	--enable-threads=posix \
 	--disable-rpath \
 	--with-root-prefix=
 
