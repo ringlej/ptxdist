@@ -32,6 +32,13 @@ $(call remove_quotes, $(PTXCONF_PROJECT_DEVPKGDIR))/%-dev.tar.gz:
 	@$(call getdev, $@)
 endif
 
+#
+# dummy rules to detect version changes: .get depends on
+# <pkg>.<tarball-filename>.stamp for all <PKG>_SOURCES
+#
+$(STATEDIR)/%.stamp:
+	@touch $@
+
 $(STATEDIR)/%.get:
 	@$(call targetinfo)
 	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
