@@ -25,7 +25,14 @@ ptxd_make_dts_dtb() {
 	    dts="${ptxd_reply}"
 	    ;;
     esac
-    tmp_dts="${ptx_state_dir}/$(basename "${dts}").tmp"
+
+    if dtc -h 2>&1 | grep -q '^[[:space:]]\+-i\(,.*\)\?$'; then
+	dtc_include="-i $(dirname "${dts}") -i ${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts"
+	tmp_dts="${ptx_state_dir}/$(basename "${dts}").tmp"
+    else
+	tmp_dts="${dts}.tmp"
+    fi &&
+
     deps="${ptx_state_dir}/dtc.$(basename "${dts}").deps"
     tmp_deps="${PTXDIST_TEMPDIR}/dts.deps"
 
@@ -46,10 +53,6 @@ ptxd_make_dts_dtb() {
 
     sed -e "s;^${tmp_dts}:;${dts_dtb}:;" \
 	-e 's;^ \([^ ]*\); $(wildcard \1);' "${tmp_deps}" > "${deps}" &&
-
-    if dtc -h 2>&1 | grep -q '^[[:space:]]\+-i\(,.*\)\?$'; then
-	dtc_include="-i $(dirname "${dts}") -i ${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts"
-    fi &&
 
     echo "DTC $(ptxd_print_path "${dts_dtb}")" &&
     dtc \
