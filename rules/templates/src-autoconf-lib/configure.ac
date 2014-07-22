@@ -17,7 +17,6 @@ AM_SILENT_RULES([yes])
 # TODO If possible, enable extensions to Posix
 AC_USE_SYSTEM_EXTENSIONS
 
-AM_
 #
 # libtool library versioning stuff
 #
