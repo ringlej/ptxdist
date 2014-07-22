@@ -21,6 +21,7 @@ for i in \
 	Makefile.am \
 	${NAME}.c \
 	lib${NAME}.h \
+	internal.h \
 ; do
 	sed -i -e "s/\@name\@/${NAME}/g" $i
 	sed -i -e "s/\@namenodash\@/${NAME_NODASH}/g" $i
