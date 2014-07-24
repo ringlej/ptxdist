@@ -1,0 +1,9 @@
+## SECTION=shell_and_console
+
+config HUB_CTRL
+	tristate
+	prompt "hub-ctrl"
+	select LIBUSB_COMPAT
+	help
+	  hub-ctrl is a small utility to power down the ports of some
+	  USB hubs.
