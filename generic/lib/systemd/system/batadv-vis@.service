@@ -1,0 +1,9 @@
+[Unit]
+Description = batman-adv visualisation service on interface %i
+BindsTo = sys-subsystem-net-devices-%i.device
+After = sys-subsystem-net-devices-%i.device alfred@.service
+Requires = alfred@.service
+
+[Service]
+ExecStart=/usr/bin/batadv-vis -s -i %i
+

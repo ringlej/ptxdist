@@ -10,7 +10,7 @@ Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
 
 diff --git a/keys-ssl.c b/keys-ssl.c
 new file mode 100644
-index 0000000..7318c03
+index 000000000000..7318c036a1f9
 --- /dev/null
 +++ b/keys-ssl.c
 @@ -0,0 +1,41 @@

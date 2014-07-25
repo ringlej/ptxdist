@@ -61,7 +61,8 @@ BOOST_JAM	:= \
 	target-os=linux
 
 JAM_MAKE_OPT	:= \
-	$(PARALLELMFLAGS) \
+	$(if $(shell test $(subst -j,,$(PARALLELMFLAGS)) -le 64 && echo 1),$(PARALLELMFLAGS),-j64) \
+	$(PTXDIST_LOADMFLAGS_INTERN) \
 	stage
 
 JAM_INSTALL_OPT	:= \

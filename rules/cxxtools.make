@@ -29,6 +29,11 @@ CXXTOOLS_LICENSE	:= LGPLv2.1
 # Prepare
 # ----------------------------------------------------------------------------
 
+# Building in thumb mode fails
+ifdef PTXCONF_ARCH_ARM
+CXXTOOLS_CXXFLAGS	:= -marm
+endif
+
 CXXTOOLS_CONF_ENV	:= $(CROSS_ENV)
 CXXTOOLS_CONF_TOOL	:= autoconf
 CXXTOOLS_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \

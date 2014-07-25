@@ -21,6 +21,10 @@ menu "bootloaders                   "
 source "generated/bootloader.in"
 endmenu
 
+menu "bootloader spec entries       "
+source "generated/blspec.in"
+endmenu
+
 menu "image creation options        "
 source "generated/image.in"
 endmenu

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBZMQ) += libzmq
 #
 # Paths and names
 #
-LIBZMQ_VERSION		:= 4.0.3
-LIBZMQ_MD5		:= 8348341a0ea577ff311630da0d624d45
+LIBZMQ_VERSION		:= 4.0.4
+LIBZMQ_MD5		:= f3c3defbb5ef6cc000ca65e529fdab3b
 LIBZMQ			:= zeromq-$(LIBZMQ_VERSION)
 LIBZMQ_SUFFIX		:= tar.gz
 LIBZMQ_URL		:= http://download.zeromq.org/$(LIBZMQ).$(LIBZMQ_SUFFIX)

@@ -247,10 +247,7 @@ check_version() {
 
 
 
-#
-# check the ptxconfig file
-#
-_check_config_ptx() {
+_get_config_ptx() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error:	'${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
@@ -263,7 +260,6 @@ _check_config_ptx() {
 		return
 	fi
 
-	local configfile_version
 	configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)" || {
 		ptxd_dialog_msgbox \
 			"error:	the config file '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}'\n" \
@@ -274,6 +270,15 @@ _check_config_ptx() {
 			"	'ptxdist clone <project>' to clone an existing project"
 		return 1
 	}
+}
+
+#
+# check the ptxconfig file
+#
+_check_config_ptx() {
+	local configfile_version
+
+	_get_config_ptx
 
 	check_version "${configfile_version}" || {
 		ptxd_dialog_msgbox \
@@ -706,8 +711,35 @@ check_compiler() {
 	for cc in gcc g++ cpp ld; do
 		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
-	done
-	PATH="${wrapper_dir}:${PATH}"
+	done &&
+	PATH="${wrapper_dir}:${PATH}" &&
+	if [ -n "${PTXDIST_ICECC}" ]; then
+		local icecc_dir="${sysroot_host}/lib/icecc"
+		if [ "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
+			rm -rf "${icecc_dir}" &&
+			if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
+				ptxd_bailout "PTXdist only supports icecc 1.x"
+			fi
+			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
+			(
+				echo "Creating icecc target environment..."
+				cd "${icecc_dir}/target"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/${compiler_prefix}gcc" \
+					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
+				echo "Creating icecc host environment..."
+				cd "${icecc_dir}/host"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/gcc" \
+					"${wrapper_dir}/real/g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
+			) &&
+			ln -s "${toolchain}" "${icecc_dir}/toolchain"
+		fi || return
+		export ICECC_VERSION_TARGET="$(ls "${icecc_dir}/target"/*.tar.gz)"
+		export ICECC_VERSION_HOST="$(ls "${icecc_dir}/host"/*.tar.gz)"
+	fi
 }
 
 
@@ -966,6 +998,7 @@ Options:
 
   --git				use git to apply patches
 
+  --auto-version		automatically switch to the correct PTXdist version
 EOF
 }
 
@@ -1259,6 +1292,9 @@ parse_first()
 		--update-md5)
 			# overwrite default from ptxdistrc
 			export PTXCONF_SETUP_CHECK="update"
+			;;
+		--auto-version)
+			PTXDIST_AUTOVERSION=1
 			;;
 		--)
 			while [ ${#} -ne 0 ]; do
@@ -2257,6 +2293,27 @@ setup_config() {
 
 
 
+setup_auto_version()
+{
+	local configfile_version
+
+	if [ -z "${PTXDIST_AUTOVERSION}" ]; then
+		return
+	fi
+
+	_get_config_ptx
+	if ! check_version "${configfile_version}"; then
+		local next
+		if next="$(which ptxdist-${configfile_version})"; then
+			exec "${next}" "${PTXDIST_ARGS_FULL[@]}"
+		else
+			ptxd_bailout "ptxdist-${configfile_version} not found!"
+		fi
+	fi
+}
+
+
+
 #
 # this function defines which args are allowed in case of a broken
 # config during "setup_platform"
@@ -2405,6 +2462,20 @@ setup_path() {
 			sleep 3
 		fi
 	fi
+	if [ -n "${PTXCONF_SETUP_ICECC}" ]; then
+		PTXDIST_ICECC="$(which icecc 2>/dev/null)"
+		PTXDIST_ICECC_CREATE_ENV="$(which "${PTXCONF_SETUP_ICECC_CREATE_ENV}")"
+		if [ -z "${PTXDIST_ICECC}" -o -z "${PTXDIST_ICECC_CREATE_ENV}" ]; then
+			echo
+			echo "${PTXDIST_LOG_PROMPT}warning: icecc has been activated, but was not found on your system"
+			echo "${PTXDIST_LOG_PROMPT}warning: install icecc, disable it ('ptxdist setup' -> 'Developer Options' menu)"
+			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
+			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:=not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:=not found}'"
+			echo
+			sleep 3
+		fi
+	fi
 }
 
 
@@ -2488,6 +2559,7 @@ setup_export() {
 		\
 		PTXDIST_CCACHE \
 		PTXDIST_FORCE_DOWNLOAD \
+		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
@@ -2514,6 +2586,8 @@ main() {
 
 	parse_first &&
 	# --- vars to config files are setup ---
+
+	setup_auto_version &&
 
 	setup_platform &&
 	# --- platformdir and other *dirs are available from here ---

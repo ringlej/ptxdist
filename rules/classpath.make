@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CLASSPATH) += classpath
 #
 # Paths and names
 #
-CLASSPATH_VERSION	:= 0.98
-CLASSPATH_MD5		:= 90c6571b8b0309e372faa0f9f6255ea9
+CLASSPATH_VERSION	:= 0.99
+CLASSPATH_MD5		:= 0ae1571249172acd82488724a3b8acb4
 CLASSPATH		:= classpath-$(CLASSPATH_VERSION)
 CLASSPATH_SUFFIX	:= tar.gz
 CLASSPATH_URL		:= $(call ptx/mirror, GNU, classpath/$(CLASSPATH).$(CLASSPATH_SUFFIX))
@@ -32,9 +32,13 @@ CLASSPATH_PATH	:= PATH=$(CROSS_PATH)
 CLASSPATH_ENV 	:= \
 	$(CROSS_ENV) \
 	JAVAC=$(PTXCONF_SETUP_JAVA_SDK)/bin/javac \
-	JAVA=$(PTXCONF_SETUP_JAVA_SDK)/bin/java \
+	JAVA=jamvm \
 	CLASSPATH=$(PTXCONF_SETUP_JAVA_SDK)/jre/lib \
+	ac_cv_prog_java_works=yes \
 	ac_cv_prog_javac_is_gcj=no
+
+# JAVA must point to the java binary on the target, not on the host
+# This is used by the scripts in tools/*
 
 #
 # autoconf

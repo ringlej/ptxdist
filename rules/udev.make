@@ -96,22 +96,20 @@ UDEV_RULES-y := \
 	78-sound-card.rules \
 	95-udev-late.rules
 
-ifndef PTXCONF_UDEV_LEGACY
-UDEV_RULES-y += \
+UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
 	42-usb-hid-pm.rules
-endif
 
-ifdef PTXCONF_SYSTEMD
-
-UDEV_RULES-y += \
+UDEV_RULES-$(PTXCONF_SYSTEMD) += \
+	50-firmware.rules \
+	60-drm.rules \
 	64-btrfs.rules \
+	80-net-setup-link.rules
+
+UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
 	70-power-switch.rules \
 	70-uaccess.rules \
 	71-seat.rules \
-	73-seat-late.rules \
-	80-net-name-slot.rules
-
-endif
+	73-seat-late.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
 ifdef PTXCONF_UDEV_LEGACY
@@ -120,6 +118,7 @@ else
 UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-udev-acl.rules
 endif
 UDEV_RULES-$(PTXCONF_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
+UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-keyboard.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keyboard-force-release.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keymap.rules
 UDEV_RULES-$(PTXCONF_UDEV_MTD_PROBE)		+= 75-probe_mtd.rules
@@ -159,7 +158,8 @@ endif
 # ----------------------------------------------------------------------------
 
 ifdef PTXCONF_SYSTEMD
-$(STATEDIR)/udev.extract.post: $(STATEDIR)/systemd.install.post
+$(STATEDIR)/systemd.prepare: $(STATEDIR)/udev.prepare
+$(STATEDIR)/udev.install: $(STATEDIR)/systemd.install.post
 $(STATEDIR)/udev.install.unpack: $(STATEDIR)/systemd.install.post
 endif
 

@@ -11,10 +11,10 @@ This part of the patch adds the autoconf files.
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
- configure.ac              |   70 ++++
- etc/lua.pc.in             |   32 ++
- src/luaconf.h.template.in |  777 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 879 insertions(+), 0 deletions(-)
+ configure.ac              |  70 +++++
+ etc/lua.pc.in             |  32 ++
+ src/luaconf.h.template.in | 777 ++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 879 insertions(+)
  create mode 100644 configure.ac
  create mode 100644 etc/lua.pc.in
  create mode 100644 src/luaconf.h.template.in

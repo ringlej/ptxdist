@@ -129,6 +129,17 @@ config UTIL_LINUX_NG_SWAPON
 comment "BusyBox' swapon is selected!"
 	depends on BUSYBOX_SWAPONOFF
 
+config UTIL_LINUX_NG_LOSETUP
+	bool
+	prompt "losetup"
+	depends on !BUSYBOX_LOSETUP || ALLYES
+	help
+	  losetup is used to associate or detach a loop device with a regular
+	  file or block device, and to query the status of a loop device.
+
+comment "BusyBox' losetup is selected!"
+	depends on BUSYBOX_LOSETUP
+
 config UTIL_LINUX_NG_MOUNT
 	bool
 	prompt "mount"

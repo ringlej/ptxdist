@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_@PACKAGE@
+	tristate
+	prompt "/loader/entries/@ENTRY@ bootloader spec entry"

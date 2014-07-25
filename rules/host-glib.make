@@ -22,31 +22,36 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GLIB_PATH	:= PATH=$(HOST_PATH)
-HOST_GLIB_ENV 	:= $(HOST_ENV)
+HOST_GLIB_CONF_ENV	:= \
+	$(HOST_ENV) \
+	ac_cv_path_MSGFMT=: \
+	ac_cv_path_XGETTEXT=no
 
 #
 # autoconf
 #
-# 'iconv' feature: configure tests for this feature in the glibc first. If not
-#                  found it checks for iconv library in the next step. On most
-#                  hosts 'iconv' should be present in the regular host glibc.
-#
-HOST_GLIB_AUTOCONF := \
+HOST_GLIB_CONF_TOOL	:= autoconf
+HOST_GLIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-silent-rules \
 	--disable-debug \
+	--disable-gc-friendly \
+	--enable-mem-pools \
 	--disable-rebuilds \
+	--disable-installed-tests \
+	--disable-always-build-tests \
 	--disable-static \
 	--enable-shared \
+	--disable-included-printf \
+	--disable-selinux \
 	--disable-fam \
+	--disable-xattr \
 	--disable-libelf \
 	--disable-gtk-doc \
 	--disable-man \
 	--disable-dtrace \
 	--disable-systemtap \
-	--disable-gcov \
-	--with-libiconv=gnu
+	--disable-coverage
 
 $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)

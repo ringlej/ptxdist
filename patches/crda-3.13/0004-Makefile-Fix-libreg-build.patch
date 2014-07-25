@@ -8,7 +8,7 @@ Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 4a351c6..b07d8ad 100644
+index 4a351c645bf4..b07d8ad8b690 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -5,8 +5,8 @@ REG_GIT?=git://git.kernel.org/pub/scm/linux/kernel/git/linville/wireless-regdb.g

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.30.0
-PIXMAN_MD5	:= 11b7e062e20ae40e49c2871dd9f82b0b
+PIXMAN_VERSION	:= 0.32.4
+PIXMAN_MD5	:= cdb566504fe9daf6728c7b03cc7ea228
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
 PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(call ptx/mirror, XORG, individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX))
@@ -31,15 +31,17 @@ PIXMAN_DIR	:= $(BUILDDIR)/$(PIXMAN)
 #
 # autoconf
 #
-PIXMAN_AUTOCONF := \
+PIXMAN_CONF_TOOL	:= autoconf
+PIXMAN_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--disable-openmp \
 	--disable-loongson-mmi \
 	--$(call ptx/endis, PTXCONF_ARCH_X86)-mmx \
 	--$(call ptx/endis, PTXCONF_ARCH_X86)-sse2 \
+	--$(call ptx/endis, PTXCONF_ARCH_X86)-ssse3 \
 	--disable-vmx \
-	--disable-arm-simd \
+	--$(call ptx/endis, PTXCONF_ARCH_ARM_V6)-arm-simd \
 	--$(call ptx/endis, PTXCONF_ARCH_ARM_NEON)-arm-neon \
 	--disable-arm-iwmmxt \
 	--disable-arm-iwmmxt2 \

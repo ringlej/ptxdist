@@ -68,5 +68,12 @@ config U_BOOT_INSTALL_U_BOOT_IMG
 
 endif
 
+config U_BOOT_INSTALL_U_BOOT_IMX
+	prompt "install u-boot.imx"
+	bool
+	help
+	  Installing the U-Boot image with imx header (u-boot.imx) into platform 
+	  image directory. Say yes if you are building for freescale i.MX SOC
+
 endif
 

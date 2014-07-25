@@ -3,15 +3,15 @@
 #
 
 # special filesystems
-proc	/proc			proc	defaults			0 0
-debugfs	/sys/kernel/debug	debugfs	defaults,noauto			0 0
-devpts	/dev/pts		devpts	defaults			0 0
-none	/tmp			tmpfs	defaults,mode=1777,uid=0,gid=0	0 0
-none	/sys			sysfs	defaults			0 0
+proc	/proc			proc	nosuid,nodev,noexec			0 0
+devpts	/dev/pts		devpts	nosuid,noexec,mode=620,gid=112		0 0
+sysfs	/sys			sysfs	nosuid,nodev,noexec			0 0
+debugfs	/sys/kernel/debug	debugfs	noauto					0 0
 
 # ramdisks
-none	/run			tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
-none	/var/log		tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
-/run	/var/run		bind	bind				0 0
-none	/var/lock		tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
-none	/var/tmp		tmpfs	defaults,mode=1777,uid=0,gid=0	0 0
+tmpfs	/tmp			tmpfs	nosuid,nodev,mode=1777,size=20%		0 0
+tmpfs	/run			tmpfs	nosuid,nodev,strictatime,mode=0755	0 0
+/run	/var/run		bind	bind					0 0
+tmpfs	/var/log		tmpfs	nosuid,nodev,noexec,mode=0755,size=10%	0 0
+tmpfs	/var/lock		tmpfs	nosuid,nodev,noexec,mode=0755,size=1M	0 0
+tmpfs	/var/tmp		tmpfs	nosuid,nodev,mode=1777,size=20%		0 0

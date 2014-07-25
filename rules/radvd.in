@@ -1,0 +1,17 @@
+## SECTION=networking
+
+menuconfig RADVD
+	bool
+	prompt "radvd                         "
+	select LIBDAEMON
+	help
+	  Router Advertisement Daemon
+
+if RADVD
+
+config RADVD_SYSTEMD_SERVICE
+	bool "install systemd service file for radvd"
+	default y
+
+endif
+

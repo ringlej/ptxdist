@@ -1,0 +1,53 @@
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Mon, 16 Jun 2014 21:34:27 +0200
+Subject: [PATCH] cmatrix: add DESTDIR and drop X11 fonts
+
+This patch adds $(DESTDIR) for testing if path exists and installpaths.
+Also remove of X11 fonts install.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ Makefile.am | 33 ++++-----------------------------
+ 1 file changed, 4 insertions(+), 29 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 0baa7949a551..051f18bf1f8e 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -8,32 +8,7 @@ EXTRA_DIST =	AUTHORS COPYING ChangeLog INSTALL NEWS README \
+ 		matrix.psf.gz mtx.pcf cmatrix.1 cmatrix.spec
+ 
+ install-data-local:
+-	@if test -d /usr/share/consolefonts; then \
+-	    echo " Installing matrix fonts in /usr/share/consolefonts..."; \
+-	    $(INSTALL_DATA) $(srcdir)/matrix.fnt /usr/share/consolefonts; \
+-	    $(INSTALL_DATA) $(srcdir)/matrix.psf.gz /usr/share/consolefonts; \
+-	fi
+-	@if test -d /usr/lib/kbd/consolefonts; then \
+-	    echo " Installing matrix fonts in /usr/lib/kbd/consolefonts..."; \
+-	    $(INSTALL_DATA) $(srcdir)/matrix.fnt /usr/lib/kbd/consolefonts; \
+-	    $(INSTALL_DATA) $(srcdir)/matrix.psf.gz /usr/lib/kbd/consolefonts; \
+-	fi
+-	@if test -d /usr/lib/X11/fonts/misc; then \
+-	    echo " Installing X window matrix fonts in /usr/lib/X11/fonts/misc..."; \
+-	    $(INSTALL_DATA) $(srcdir)/mtx.pcf /usr/lib/X11/fonts/misc; \
+-	    $(INSTALL_DATA) $(srcdir)/mtx.pcf /usr/lib/X11/fonts/misc; \
+-	    echo " Running mkfontdir /usr/lib/X11/fonts/misc..."; \
+-	    $(MKFONTDIR) /usr/lib/X11/fonts/misc; \
+-	    echo " Done.  If this is the first time you have installed CMatrix you will"; \
+-	    echo " probably have to restart X window in order to use the mtx.pcf font."; \
+-	else \
+-	if test -d /usr/X11R6/lib/X11/fonts/misc; then \
+-	    echo " Installing X window matrix fonts in /usr/X11R6/lib/X11/fonts/misc..."; \
+-	    $(INSTALL_DATA) $(srcdir)/mtx.pcf /usr/X11R6/lib/X11/fonts/misc; \
+-	    $(INSTALL_DATA) $(srcdir)/mtx.pcf /usr/X11R6/lib/X11/fonts/misc; \
+-	    echo " Running mkfontdir /usr/X11R6/lib/X11/fonts/misc..."; \
+-	    $(MKFONTDIR) /usr/X11R6/lib/X11/fonts/misc; \
+-	    echo " Done.  If this is the first time you have installed CMatrix you will"; \
+-	    echo " probably have to restart X window in order to use the mtx.pcf font."; \
+-	fi \
+-	fi
++	mkdir $(DESTDIR)/usr/share/consolefonts
++	echo " Installing matrix fonts in $(DESTDIR)/usr/share/consolefonts..."; \
++	$(INSTALL_DATA) $(srcdir)/matrix.fnt $(DESTDIR)/usr/share/consolefonts; \
++	$(INSTALL_DATA) $(srcdir)/matrix.psf.gz $(DESTDIR)/usr/share/consolefonts

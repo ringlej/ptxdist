@@ -14,10 +14,12 @@ if IMAGE_ROOT_EXT
 
 config IMAGE_ROOT_EXT_SIZE
 	string
-	default "20M"
+	default "125%"
 	prompt "image size"
 	help
 	  The image size in bytes or with unit, e.g. 42M, 23G, etc.
+	  or as a percentage of the content, e.g. 200% will result in a
+	  filesystem with about 50% free space.
 
 choice
 	prompt "ext2fs type          "

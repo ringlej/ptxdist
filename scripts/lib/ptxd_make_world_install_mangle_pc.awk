@@ -19,7 +19,7 @@ BEGIN {
 
 	replace["prefix"]	= "${pcfiledir}/../..";
 	replace["exec_prefix"]	= "${prefix}";
-	replace["libdir"]	= "${exec_prefix}/lib";
+	replace["libdir"]	= "${prefix}/lib";
 	replace["includedir"]	= "${prefix}/include";
 
 	replace[SYSROOT "/include"]	= replace["includedir"]

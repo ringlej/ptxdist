@@ -4,7 +4,7 @@ menuconfig LIBUSB
 	tristate
 	select LIBC_RT
 	select LIBC_PTHREAD
-	prompt "libusbx-1.x                   "
+	prompt "libusb-1.x                    "
 	help
 	  Library for programming USB applications without the
 	  knowledge of Linux kernel internals.

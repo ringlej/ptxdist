@@ -11,7 +11,7 @@ Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/utils/key2pub.py b/utils/key2pub.py
-index 3e84cd2..7de45f7 100755
+index 3e84cd2a934d..7de45f7b9603 100755
 --- a/utils/key2pub.py
 +++ b/utils/key2pub.py
 @@ -59,7 +59,7 @@ def print_ssl_32(output, name, val):

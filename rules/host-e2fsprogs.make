@@ -32,6 +32,7 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-elf-shlibs \
 	--disable-bsd-shlibs \
 	--disable-profile \
+	--disable-gcov \
 	--disable-checker \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
@@ -48,8 +49,7 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-tls \
 	--disable-uuidd \
 	--disable-nls \
-	--disable-rpath \
-	--without-diet-libc
+	--disable-rpath
 
 # vim: syntax=make
 

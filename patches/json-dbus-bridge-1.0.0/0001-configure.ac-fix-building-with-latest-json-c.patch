@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 24 Jun 2014 18:07:43 +0200
+Subject: [PATCH] configure.ac: fix building with latest json-c
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index acf05b2..1639c64 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -45,9 +45,11 @@ PKG_CHECK_MODULES(dbus, $REQUIRES_DBUS,)
+ ##
+ # json
+ ##
+-REQUIRES_JSON="json >= 0.8"
+ AC_SUBST(REQUIRES_JSON)
+-PKG_CHECK_MODULES(json, $REQUIRES_JSON)
++REQUIRES_JSON="json-c"
++PKG_CHECK_MODULES(json, $REQUIRES_JSON,[],
++	[REQUIRES_JSON="json >= 0.8"
++	PKG_CHECK_MODULES(json, $REQUIRES_JSON)])
+ 
+ #
+ # libevent2

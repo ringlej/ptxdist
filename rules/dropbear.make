@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 #
 # Paths and names
 #
-DROPBEAR_VERSION	:= 2013.60
-DROPBEAR_MD5		:= fffa2fec0c887201bed3a3cc6df7fa35
+DROPBEAR_VERSION	:= 2014.63
+DROPBEAR_MD5		:= 7066bb9a2da708f3ed06314fdc9c47fd
 DROPBEAR		:= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX		:= tar.bz2
 DROPBEAR_URL		:= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
@@ -220,6 +220,30 @@ ifdef PTXCONF_DROPBEAR_DSS
 else
 	@echo "ptxdist: disabling dss"
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_DSS)
+endif
+
+ifdef PTXCONF_DROPBEAR_ECDSA
+	@echo "ptxdist: enabling ecdsa"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDSA)
+else
+	@echo "ptxdist: disabling ecdsa"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDSA)
+endif
+
+ifdef PTXCONF_DROPBEAR_ECDH
+	@echo "ptxdist: enabling ecdh"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDH)
+else
+	@echo "ptxdist: disabling ecdh"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ECDH)
+endif
+
+ifdef PTXCONF_DROPBEAR_CURVE25519
+	@echo "ptxdist: enabling curve25519"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_CURVE25519)
+else
+	@echo "ptxdist: disabling curve25519"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_CURVE25519)
 endif
 
 ifdef PTXCONF_DROPBEAR_PASSWD

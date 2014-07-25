@@ -59,7 +59,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
 	--disable-deprecated-mount \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNT)-mount \
-	--disable-losetup \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LOSETUP)-losetup \
 	--disable-cytune \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
@@ -166,6 +166,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_SWAPON
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/swapon)
 	@$(call install_link, util-linux-ng, swapon, /sbin/swapoff)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_LOSETUP
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/losetup)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mount)
