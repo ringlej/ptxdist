@@ -23,7 +23,7 @@ ZIP_MD5		:= 7b74551e63f8ee6aab6fbc86676c0d37
 ZIP_AVERSION	:= 30
 ZIP_ARCHIVE	:= zip$(ZIP_AVERSION).tar.gz
 ZIP		:= zip$(ZIP_AVERSION)
-ZIP_URL		:= http://surfnet.dl.sourceforge.net/sourceforge/infozip/$(ZIP_ARCHIVE)
+ZIP_URL		:= $(call ptx/mirror, SF, infozip/$(ZIP_ARCHIVE))
 ZIP_SOURCE	:= $(SRCDIR)/$(ZIP_ARCHIVE)
 ZIP_DIR		:= $(BUILDDIR)/$(ZIP)
 

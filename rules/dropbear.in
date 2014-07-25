@@ -235,7 +235,6 @@ config DROPBEAR_SHA1_96
 config DROPBEAR_SHA256
 	bool
 	prompt "sha256"
-	default n
 	help
 	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
 	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
@@ -248,7 +247,6 @@ config DROPBEAR_SHA256
 config DROPBEAR_SHA512
 	bool
 	prompt "sha512"
-	default n
 	help
 	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
 	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
@@ -287,6 +285,30 @@ config DROPBEAR_DSS
 	  a fixed width signature (irrespective of the public/private
 	  key size). In contrast, RSA signature length is a function
 	  of the key length employed.
+
+config DROPBEAR_ECDSA
+	bool
+	prompt "ecdsa"
+	help
+	  ECDSA stands for Elliptic Curve Digital Signature Algorithm.
+	  ECDSA is significantly faster than RSA or DSS.
+
+config DROPBEAR_ECDH
+	bool
+	prompt "ecdh"
+	help
+	  ECDH stands for Elliptic Curve Diffie-Hellman.
+
+config DROPBEAR_CURVE25519
+	bool
+	depends on DROPBEAR_ECDSA || DROPBEAR_ECDH
+	prompt "curve25519-donna"
+	help
+	  Enable curve25519-donna for key exchange.
+	  This is another elliptic curve method with good security properties.
+	  This algorithm does not rely on NIST-based curves
+	  and gives us more security confidence against a possible
+	  backdoor in nistp-256 curve.
 
 comment "Authentication types, at least one required --- RFC Draft requires pubkey auth"
 

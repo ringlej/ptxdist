@@ -25,7 +25,7 @@ HOST_QT4_BUILD_OOT	:= YES
 # ----------------------------------------------------------------------------
 
 HOST_QT4_PATH		:= PATH=$(HOST_PATH)
-HOST_QT4_ENV		:= $(HOST_ENV)
+HOST_QT4_ENV		:= $(HOST_ENV) MAKEFLAGS="$(PARALLELMFLAGS)"
 
 #
 # autoconf

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MEMTESTER) += memtester
 #
 # Paths and names
 #
-MEMTESTER_VERSION	:= 4.0.8
-MEMTESTER_MD5		:= a4971ed1ccaf5b2e2148fd66b0eb7363
+MEMTESTER_VERSION	:= 4.3.0
+MEMTESTER_MD5		:= 598f41b7308e1f736164bca3ab84ddbe
 MEMTESTER		:= memtester-$(MEMTESTER_VERSION)
 MEMTESTER_SUFFIX	:= tar.gz
 MEMTESTER_URL		:= http://pyropus.ca/software/memtester/old-versions/$(MEMTESTER).$(MEMTESTER_SUFFIX)
@@ -35,7 +35,7 @@ MEMTESTER_COMPILE_ENV := $(CROSS_ENV)
 
 $(STATEDIR)/memtester.prepare:
 	@$(call targetinfo)
-	@echo "memtester: tests.o memtester.o" > $(MEMTESTER_DIR)/Makefile
+	@sed -i 's/^cc\>/$(CROSS_CC)/' $(MEMTESTER_DIR)/conf-cc $(MEMTESTER_DIR)/conf-ld
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

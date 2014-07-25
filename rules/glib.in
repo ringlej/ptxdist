@@ -9,7 +9,6 @@ menuconfig GLIB
 	select LIBC_PTHREAD
 	select LIBFFI
 	select GCCLIBS_GCC_S
-	select GETTEXT		if GLIB_GETTEXT_GETTEXT
 	select HOST_GLIB
 	select HOST_GTK_DOC
 	select ICONV
@@ -25,20 +24,5 @@ if GLIB
 #config GLIB_EXPERIMENTAL
 #	bool
 #	prompt "experimental version"
-
-choice
-
-	prompt "gettext variant"
-	default GLIB_GETTEXT_NONE
-
-	config GLIB_GETTEXT_NONE
-		bool
-		prompt "not needed    "
-
-	config GLIB_GETTEXT_GETTEXT
-		bool
-		prompt "gnu (gettext) "
-
-endchoice
 
 endif

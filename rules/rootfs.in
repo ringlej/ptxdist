@@ -415,6 +415,16 @@ choice
 		  /run/resolv.conf. This is useful if the root filesystem is mounted
 		  read-only.
 
+	config ROOTFS_RESOLV_SYSTEMD
+		bool
+		depends on SYSTEMD_NETWORK
+		prompt "link to /run/systemd/resolve/resolv.conf"
+		help
+		  If enabled, it installs /etc/resolv.conf as a link to
+		  /run/resolv.conf. This file is provided by
+		  systemd-resolved and is filled with data from the systemd
+		  managed interfaces.
+
 	config ROOTFS_RESOLV_NONE
 		bool
 		prompt "none"

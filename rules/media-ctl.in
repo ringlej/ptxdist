@@ -1,8 +1,0 @@
-## SECTION=multimedia_tools
-
-config MEDIA_CTL
-	tristate
-	prompt "media-ctl"
-	select KERNEL_HEADER
-	help
-	  Userspace tool to manipulate  the multimedia device API

@@ -153,6 +153,7 @@ CROSS_ENV_PKG_CONFIG := \
 #
 CROSS_ENV_AC := \
 	enable_option_checking=fatal \
+	enable_maintainer_mode=no \
 	ac_cv_file__dev_random=yes \
 	ac_cv_file__proc_self_exe=yes \
 	ac_cv_file__proc_self_fd=yes \
@@ -285,6 +286,7 @@ HOST_ENV_PYTHONPATH	:= \
 		print "%s" % sysconfig.get_python_lib(prefix="'"$(PTXDIST_SYSROOT_HOST)"'")')"
 
 HOST_ENV	:= \
+	enable_option_checking=fatal \
 	$(HOST_ENV_CC) \
 	$(HOST_ENV_CXX) \
 	$(HOST_ENV_PKG_CONFIG) \

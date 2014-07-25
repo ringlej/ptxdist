@@ -37,7 +37,7 @@ ptxd_kgen_awk()
 		section = sep[1];
 		pkg = sep[2];
 
-		output = "'"${PTX_KGEN_DIR}/${kgen_part}"'" "/" section ".in";
+		output = "'"${PTX_KGEN_DIR}/generated/"'" section ".in";
 
 #		print output ":", "source \"" file "\""
 		print "source \"" file "\"" > output
@@ -87,6 +87,10 @@ EOF
 	exit 1
     fi
 
+    if [ -d "${PTX_KGEN_DIR}/generated" ]; then
+	return
+    fi
+
     # transmogrify part into subdir
     local oldIFS="$IFS"
     case "${kgen_part}" in
@@ -101,8 +105,7 @@ EOF
     esac
     IFS="$oldIFS"
 
-    rm -rf "${PTX_KGEN_DIR}/${kgen_part}" &&
-    mkdir -p "${PTX_KGEN_DIR}/${kgen_part}" &&
+    mkdir -p "${PTX_KGEN_DIR}/generated" &&
 
     ptxd_kgen_generate_sections
 }

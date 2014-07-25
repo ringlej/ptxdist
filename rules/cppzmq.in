@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config CPPZMQ
+	tristate
+	prompt "cppzmq"
+	select LIBZMQ
+	help
+	  C++ lib zmq bindings

@@ -28,28 +28,30 @@ HOST_DBUS_DIR	= $(HOST_BUILDDIR)/$(DBUS)
 HOST_DBUS_CONF_TOOL	:= autoconf
 HOST_DBUS_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--enable-silent-rules \
 	--disable-static \
-	--disable-tests \
-	--disable-embedded-tests \
-	--disable-modular-tests \
+	--disable-compiler-coverage \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
 	--disable-checks \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
-	--disable-compiler-coverage \
 	--enable-abstract-sockets=yes \
+	--disable-selinux \
 	--disable-libaudit \
-	--disable-dnotify \
 	--disable-inotify \
 	--disable-kqueue \
 	--disable-console-owner-file \
-	--disable-userdb-cache \
-	--disable-selinux \
-	--with-xml=expat \
 	--disable-systemd \
-	--without-valgrind \
-	--disable-stats
+	--disable-embedded-tests \
+	--disable-modular-tests \
+	--disable-tests \
+	--disable-epoll \
+	--disable-x11-autolaunch \
+	--disable-stats \
+	--without-dbus-glib \
+	--without-x \
+	--without-valgrind
 
 # vim: syntax=make

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.42.9
-E2FSPROGS_MD5		:= 3f8e41e63b432ba114b33f58674563f7
+E2FSPROGS_VERSION	:= 1.42.10
+E2FSPROGS_MD5		:= 62bfe2fe0a194c5c37165789ac2825a8
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
@@ -44,6 +44,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--enable-elf-shlibs \
 	--disable-bsd-shlibs \
 	--disable-profile \
+	--disable-gcov \
 	--disable-checker \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
@@ -62,10 +63,10 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-uuidd \
 	--disable-nls \
 	--disable-rpath \
-	--without-diet-libc \
 	--with-root-prefix=
 
-E2FSPROGS_INSTALL_OPT := install
+E2FSPROGS_MAKE_OPT	:= $(if $(filter 1,$(strip $(PTXDIST_VERBOSE))),V=1)
+E2FSPROGS_INSTALL_OPT	:= install
 
 # ----------------------------------------------------------------------------
 # Target-Install

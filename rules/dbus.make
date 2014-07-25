@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.6.18
-DBUS_MD5	:= b02e9c95027a416987b81f9893831061
+DBUS_VERSION	:= 1.8.4
+DBUS_MD5	:= 4717cb8ab5b80978fcadf2b4f2f72e1b
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -34,46 +34,36 @@ DBUS_LICENSE	:= AFLv2.1, GPLv2+
 #
 # autoconf
 #
-DBUS_XML-$(PTXCONF_DBUS_XML_EXPAT)=expat
-DBUS_XML-$(PTXCONF_DBUS_XML_LIBXML2)=libxml
-
 DBUS_CONF_TOOL	:= autoconf
 DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
 	--disable-static \
-	--disable-tests \
-	--disable-embedded-tests \
-	--disable-modular-tests \
+	--disable-compiler-coverage \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
 	--disable-checks \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
-	--disable-compiler-coverage \
 	--enable-abstract-sockets=yes \
+	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
 	--disable-libaudit \
-	--disable-dnotify \
 	--enable-inotify \
 	--disable-kqueue \
 	--disable-console-owner-file \
-	--enable-userdb-cache \
-	--with-dbus-user=$(PTXCONF_DBUS_USER) \
-	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
-	--with-xml=$(DBUS_XML-y) \
-	--with-systemdsystemunitdir=/lib/systemd/system \
-	--disable-systemd \
-	--with-dbus-session-bus-default-address=nonce-tcp: \
+	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-systemd \
+	--with-dbus-user=messagebus \
+	--disable-embedded-tests \
+	--disable-modular-tests \
+	--disable-tests \
 	--enable-epoll \
+	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
+	--disable-stats \
+	--without-dbus-glib \
+	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
 	--without-valgrind \
-	--disable-stats
-
-ifdef PTXCONF_DBUS_X
-DBUS_CONF_OPT += --with-x=$(SYSROOT)/usr
-else
-DBUS_CONF_OPT += --without-x
-endif
+	--with-systemdsystemunitdir=/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -96,6 +86,8 @@ $(STATEDIR)/dbus.targetinstall:
 		/usr/bin/dbus-launch)
 	@$(call install_copy, dbus, 0, 0, 0755, -, \
 		/usr/bin/dbus-monitor)
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
+		/usr/bin/dbus-run-session)
 	@$(call install_copy, dbus, 0, 0, 0755, -, \
 		/usr/bin/dbus-send)
 	@$(call install_copy, dbus, 0, 0, 0755, -, \
@@ -121,7 +113,6 @@ $(STATEDIR)/dbus.targetinstall:
 #	#
 ifdef PTXCONF_DBUS_SYSTEM_CONF
 	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/system.conf)
-	@$(call install_replace, dbus, /etc/dbus-1/system.conf, @DBUS_USER@, $(PTXCONF_DBUS_USER))
 endif
 
 #	#

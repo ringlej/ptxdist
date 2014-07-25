@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#
+# bash implementation of realpath / readlink -f
+#   arg1 - filename
+realpath()
+{
+	local fname oldfname
+
+	fname="${1%/}" # strips trailing '/'
+	while [ -L "${fname}" ]; do
+		oldfname="${fname}"
+		fname="$(readlink "${fname}")"
+		if [ "${fname}" = "." ] ; then
+			fname="$(dirname "${oldfname}")"
+		elif [ "${fname}" = "${fname#/}" ]; then
+			fname="$(dirname "${oldfname}")/${fname}"
+		fi
+	done
+
+	(cd "$(dirname "${fname}")"; echo $(pwd -P)/$(basename "${fname}"))
+}
+
+exec "$(dirname $(realpath "$0"))/ptxdist" --auto-version "${@}"

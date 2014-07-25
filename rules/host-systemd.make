@@ -17,13 +17,13 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_SYSTEMD_CFLAGS=-I$(PTXDIST_SYSROOT_HOST)/kernel-headers/include
 #
 # autoconf
 #
 HOST_SYSTEMD_CONF_TOOL	:= autoconf
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--enable-largefile \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-nls \
@@ -31,43 +31,60 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-introspection \
+	--disable-address-sanitizer \
+	--disable-undefined-sanitizer \
+	--disable-python-devel \
+	--disable-dbus \
+	--disable-compat-libs \
+	--disable-coverage \
 	--disable-kmod \
 	--disable-blkid \
+	--disable-seccomp \
 	--disable-ima \
 	--disable-chkconfig \
 	--disable-selinux \
+	--disable-apparmor \
 	--disable-xz \
-	--disable-tcpwrap \
 	--disable-pam \
 	--disable-acl \
-	--disable-xattr \
+	--disable-smack \
 	--disable-gcrypt \
 	--disable-audit \
 	--disable-libcryptsetup \
 	--disable-qrencode \
 	--disable-microhttpd \
+	--disable-gnutls \
 	--disable-binfmt \
 	--disable-vconsole \
 	--disable-readahead \
 	--disable-bootchart \
 	--disable-quotacheck \
+	--disable-tmpfiles \
 	--disable-randomseed \
+	--disable-backlight \
+	--disable-rfkill \
 	--disable-logind \
+	--disable-machined \
 	--disable-hostnamed \
 	--disable-timedated \
+	--disable-timesyncd \
 	--disable-localed \
 	--disable-coredump \
 	--disable-polkit \
+	--disable-resolved \
+	--disable-networkd \
 	--disable-efi \
+	--disable-multi-seat-x \
+	--disable-kdbus \
 	--disable-myhostname \
 	--disable-gudev \
-	--disable-keymap \
 	--disable-manpages \
 	--enable-split-usr \
 	--disable-tests \
+	--without-python \
+	--with-ntp-servers= \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
-	--without-python \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
 

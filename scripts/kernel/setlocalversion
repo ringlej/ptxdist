@@ -46,7 +46,7 @@ fi
 cd "$(dirname "${tarball_version_file}")"
 
 # Check for git and a git repo.
-if head=`git rev-parse --verify --short HEAD 2>/dev/null`; then
+if head=`git -c core.abbrev=12 rev-parse --verify --short HEAD 2>/dev/null`; then
 
 	# If we are at a tagged commit (like "ptxdist-2010.05.0"), we
 	# print it here
@@ -55,7 +55,7 @@ if head=`git rev-parse --verify --short HEAD 2>/dev/null`; then
 
 	# If we are past a tagged commit (like "ptxdist-2010.03.0-130-g3c60777"),
 	# we pretty print it.
-	elif atag="`git describe 2>/dev/null`"; then
+	elif atag="`git -c core.abbrev=12 describe 2>/dev/null`"; then
 		echo "$atag" | awk -F- '{printf("%s-%05d-%s", $(NF-2),$(NF-1),$(NF))}'
 
 	# If we don't have a tag at all we print ????.??.?-?-g{commitish}.

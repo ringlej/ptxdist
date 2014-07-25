@@ -3,3 +3,4 @@
 config HOST_QOOXDOO
 	tristate
 	default ALLYES
+	select HOST_SYSTEM_PYTHON

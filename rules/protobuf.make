@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PROTOBUF) += protobuf
 #
 # Paths and names
 #
-PROTOBUF_VERSION	:= 2.4.1
-PROTOBUF_MD5		:= ed436802019c9e1f40cc750eaf78f318
+PROTOBUF_VERSION	:= 2.5.0
+PROTOBUF_MD5		:= a72001a9067a4c2c4e0e836d0f92ece4
 PROTOBUF		:= protobuf-$(PROTOBUF_VERSION)
 PROTOBUF_SUFFIX		:= tar.bz2
 PROTOBUF_URL		:= http://protobuf.googlecode.com/files/$(PROTOBUF).$(PROTOBUF_SUFFIX)
@@ -28,6 +28,17 @@ PROTOBUF_LICENSE	:= BSD New
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+PROTOBUF_CONF_ENV	:= \
+	$(CROSS_ENV)
+
+ifdef PTXCONF_ARCH_PPC
+# protobuf-2.5.0 has no atomics for PPC
+# abuse PTHREAD_* because those flags a propagated via protobuf.pc
+PROTOBUF_CONF_ENV	+= \
+	PTHREAD_LIBS="-lpthread" \
+	PTHREAD_CFLAGS="-DGOOGLE_PROTOBUF_NO_THREAD_SAFETY"
+endif
 
 #
 # autoconf

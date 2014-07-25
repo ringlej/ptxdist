@@ -1,0 +1,8 @@
+[Unit]
+Description = A.L.F.R.E.D. server on interface %i
+BindsTo = sys-subsystem-net-devices-%i.device
+After = sys-subsystem-net-devices-%i.device
+
+[Service]
+ExecStart=/usr/bin/alfred -i %i
+

@@ -71,7 +71,7 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 	@$(call install_fixup, xorg-fonts,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xorg-fonts,DESCRIPTION,missing)
 
-	@cd $(XORG_FONTS_DIR_INSTALL); \
+	@cd $(XORG_FONTS_DIR_INSTALL) && \
 	find . -type f | while read file; do \
 		$(call install_copy, xorg-fonts, 0, 0, 0644, \
 			$(XORG_FONTS_DIR_INSTALL)/$$file, \
@@ -81,7 +81,7 @@ ifdef PTXCONF_XORG_FONTS_FC_CACHE
 	@$(call install_alternative, xorg-fonts, 0, 0, 0755, /etc/rc.once.d/fc-cache)
 endif
 ifdef PTXCONF_XORG_FONTS_QT4_LINKS
-	@cd $(XORG_FONTS_DIR_INSTALL); \
+	@cd $(XORG_FONTS_DIR_INSTALL) && \
 	find . -type f | while read file; do \
 		name=`basename $$file`; \
 		$(call install_link, xorg-fonts, \

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_TMUX) += tmux
 #
 # Paths and names
 #
-TMUX_VERSION	:= 1.6
-TMUX_MD5	:= 3e37db24aa596bf108a0442a81c845b3
+TMUX_VERSION	:= 1.9a
+TMUX_MD5	:= b07601711f96f1d260b390513b509a2d
 TMUX		:= tmux-$(TMUX_VERSION)
 TMUX_SUFFIX	:= tar.gz
 TMUX_URL	:= $(call ptx/mirror, SF, tmux/$(TMUX).$(TMUX_SUFFIX))

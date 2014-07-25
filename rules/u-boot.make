@@ -68,6 +68,9 @@ endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMG
 	@install -D -m644 $(U_BOOT_DIR)/u-boot.img $(IMAGEDIR)/u-boot.img
 endif
+ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMX
+	@install -D -m644 $(U_BOOT_DIR)/u-boot.imx $(IMAGEDIR)/u-boot.imx
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -78,5 +81,6 @@ $(STATEDIR)/u-boot.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, U_BOOT)
 	@rm -f $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
+	@rm -f $(IMAGEDIR)/u-boot.imx
 
 # vim: syntax=make
