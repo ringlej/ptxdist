@@ -31,6 +31,10 @@ JAMVM_DIR	:= $(BUILDDIR)/$(JAMVM)
 JAMVM_PATH	:= PATH=$(CROSS_PATH)
 JAMVM_ENV 	:= $(CROSS_ENV)
 
+ifdef PTXCONF_ARCH_ARM
+JAMVM_CFLAGS := -marm
+endif
+
 #
 # autoconf
 #

@@ -13,7 +13,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_TGZ)		+= $(IMAGEDIR)/root.tgz
 ifdef PTXCONF_IMAGE_TGZ
 IMAGE_TGZ_LABEL := $(call remove_quotes,$(PTXCONF_IMAGE_TGZ_LABEL))
 ifneq ($(IMAGE_TGZ_LABEL),)
-IMAGE_TGZ_LABEL_ARGS="--label '$(IMAGE_TGZ_LABEL)'"
+IMAGE_TGZ_LABEL_ARGS=--label '$(IMAGE_TGZ_LABEL)'
 endif
 
 $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
