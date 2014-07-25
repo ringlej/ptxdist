@@ -13,7 +13,9 @@
 # touch
 #
 ifdef PTXDIST_QUIET
+ifdef PTXDIST_FD_STDOUT
 _touch_opt_output := echo "finished: $(PTX_COLOR_GREEN)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
+endif
 endif
 
 touch =						\

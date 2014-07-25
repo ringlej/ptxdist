@@ -47,7 +47,7 @@ ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
 		$<
 	@sed -e 's;^$(TMP_DTS):;$@:;' -e 's;^ \([^ ]*\); $$(wildcard \1);' $(TMP_DEPS) > $(DEPS)
 	@echo DTC `ptxd_print_path "$@"`
-	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]-i$$"; then \
+	@if $(PTXCONF_SYSROOT_HOST)/bin/dtc -h 2>&1 | grep -q "^[[:space:]]\+-i\(,.*\)\?$$"; then \
 		dtc_include="-i $(dir $<) -i $(KERNEL_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/dts"; \
 	fi; \
 	$(PTXCONF_SYSROOT_HOST)/bin/dtc \

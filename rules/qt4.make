@@ -63,6 +63,13 @@ $(STATEDIR)/qt4.extract:
 QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)  STRIP=strip MAKEFLAGS="$(PARALLELMFLAGS)"
 QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR)
 
+ifdef PTXCONF_ARCH_ARM_NEON
+ifdef PTXCONF_QT4_BUILD_WEBKIT
+# HACK: WebKit fails to build with thumb + NEON
+QT4_CXXFLAGS	:= -marm
+endif
+endif
+
 ifdef PTXCONF_ARCH_ARM_V6
 QT4_ARCH = armv6
 else

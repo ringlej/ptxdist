@@ -7,6 +7,6 @@ config CALIBRATOR
 	help
 	  The Calibrator is a Cache-Memory and TLB Calibration Tool
 
-	  See http://monetdb.cwi.nl/Calibrator/ for details.
+	  See http://homepages.cwi.nl/~manegold/Calibrator/ for details.
 
 # vim: syntax=kconfig

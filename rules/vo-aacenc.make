@@ -40,6 +40,10 @@ VO_AACENC_CONF_OPT	:= \
 	--disable-example \
 	--disable-static
 
+ifdef PTXCONF_ARCH_ARM
+VO_AACENC_CFLAGS := -marm
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------

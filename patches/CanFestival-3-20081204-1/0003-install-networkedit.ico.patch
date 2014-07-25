@@ -7,8 +7,8 @@ it. This patch adds it to the installed files.
 
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 ---
- objdictgen/Makefile.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ objdictgen/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/objdictgen/Makefile.in b/objdictgen/Makefile.in
 index 16a0f67..edeac27 100644

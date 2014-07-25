@@ -15,7 +15,9 @@
 # Print out the targetinfo line on the terminal
 #
 ifdef PTXDIST_QUIET
+ifdef PTXDIST_FD_STDOUT
 _targetinfo_opt_output := echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
+endif
 endif
 
 targetinfo = 								\
