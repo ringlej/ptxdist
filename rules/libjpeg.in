@@ -1,7 +1,18 @@
 ## SECTION=system_libraries
 
-config LIBJPEG
+menuconfig LIBJPEG
 	tristate
-	prompt "libjpeg"
+	prompt "libjpeg                       "
 	help
 	  libjpeg is a library for handling the JPEG (JFIF) image format.
+
+if LIBJPEG
+
+config LIBJPEG_BIN
+	bool
+	prompt "Install libjpeg binaries cjpeg and djpeg"
+	help
+	  cjpeg and djpeg are simple bineries to convert some basic image
+	  formats to jpeg (cjpeg) or convert them back from jpeg (djpeg)
+
+endif

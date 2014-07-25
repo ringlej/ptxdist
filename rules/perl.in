@@ -3,8 +3,16 @@
 config PERL
 	tristate
 	prompt "perl"
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_CRYPT
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	help
 	  Larry Wall's Practical Extraction and Report Language
 	  An interpreted scripting language, known among some as
 	  "Unix's Swiss Army Chainsaw".
 
+menu "perl Extra Modules            "
+source "generated/perl.in"
+endmenu

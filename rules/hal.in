@@ -1,4 +1,6 @@
-## SECTION=shell_and_console
+## SECTION=staging
+## old section:
+### SECTION=shell_and_console
 
 menuconfig HAL
 	tristate
@@ -14,6 +16,10 @@ menuconfig HAL
 	help
 	  hal is a dbus service which provides userspace access for all
 	  kinds of hardware devices.
+
+	  STAGING: remove in ptxdist-2015.05.0
+
+	  This is long dead upstream und has been replaced by other packages.
 
 if HAL
 

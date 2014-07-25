@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_IW) += iw
 #
 # Paths and names
 #
-IW_VERSION	:= 3.3
-IW_MD5		:= 146ad14cdeb39fb88b21efdbb28787d1
+IW_VERSION	:= 3.14
+IW_MD5		:= 66e41053f6fc0781b683b5b688442de6
 IW		:= iw-$(IW_VERSION)
-IW_SUFFIX	:= tar.bz2
+IW_SUFFIX	:= tar.xz
 IW_URL		:= http://www.kernel.org/pub/software/network/iw/$(IW).$(IW_SUFFIX)
 IW_SOURCE	:= $(SRCDIR)/$(IW).$(IW_SUFFIX)
 IW_DIR		:= $(BUILDDIR)/$(IW)

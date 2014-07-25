@@ -284,10 +284,13 @@ ptxd_make_world_init() {
 	if [ -n "${pkg_config}" ]; then
 	    pkg_conf_tool=${pkg_conf_tool}kconfig
 	fi
+	if [ -e "${pkg_conf_dir}/Makefile.PL" ]; then
+	    pkg_conf_tool=${pkg_conf_tool}perl
+	fi
     fi
 
     case "${pkg_conf_tool}" in
-	autoconf|cmake|qmake|kconfig)
+	autoconf|cmake|qmake|kconfig|perl)
 	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}${conf_opt_ext}"
 	    local conf_env_ptr="ptx_conf_env_${pkg_type}"
 

@@ -65,8 +65,6 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 		esac; \
 	done
 
-# FIXME: add fc-cache?
-
 	@$(call install_init, xorg-fonts)
 	@$(call install_fixup, xorg-fonts,PRIORITY,optional)
 	@$(call install_fixup, xorg-fonts,SECTION,base)
@@ -79,6 +77,9 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 			$(XORG_FONTS_DIR_INSTALL)/$$file, \
 			$(XORG_FONTDIR)/$$file, n); \
 	done
+ifdef PTXCONF_XORG_FONTS_FC_CACHE
+	@$(call install_alternative, xorg-fonts, 0, 0, 0755, /etc/rc.once.d/fc-cache)
+endif
 ifdef PTXCONF_XORG_FONTS_QT4_LINKS
 	@cd $(XORG_FONTS_DIR_INSTALL); \
 	find . -type f | while read file; do \

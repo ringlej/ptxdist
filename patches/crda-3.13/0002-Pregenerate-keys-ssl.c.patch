@@ -2,37 +2,21 @@ From: Jan Luebbe <jlu@pengutronix.de>
 Date: Thu, 26 Jan 2012 15:33:36 +0100
 Subject: [PATCH] Pregenerate keys-ssl.c
 
+Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
 ---
- Makefile   |    8 ++++----
- keys-ssl.c |   38 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 42 insertions(+), 4 deletions(-)
+ keys-ssl.c | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
  create mode 100644 keys-ssl.c
 
-diff --git a/Makefile b/Makefile
-index 084d8e5..80e3539 100644
---- a/Makefile
-+++ b/Makefile
-@@ -93,10 +93,10 @@ $(REG_BIN):
- 	$(NQ)
- 	$(Q) exit 1
- 
--keys-%.c: utils/key2pub.py $(wildcard $(PUBKEY_DIR)/*.pem)
--	$(NQ) '  GEN ' $@
--	$(NQ) '  Trusted pubkeys:' $(wildcard $(PUBKEY_DIR)/*.pem)
--	$(Q)./utils/key2pub.py --$* $(wildcard $(PUBKEY_DIR)/*.pem) $@
-+#keys-%.c: utils/key2pub.py $(wildcard $(PUBKEY_DIR)/*.pem)
-+#	$(NQ) '  GEN ' $@
-+#	$(NQ) '  Trusted pubkeys:' $(wildcard $(PUBKEY_DIR)/*.pem)
-+#	$(Q)./utils/key2pub.py --$* $(wildcard $(PUBKEY_DIR)/*.pem) $@
- 
- %.o: %.c regdb.h
- 	$(NQ) '  CC  ' $@
 diff --git a/keys-ssl.c b/keys-ssl.c
 new file mode 100644
-index 0000000..a8c1b7e
+index 0000000..7318c03
 --- /dev/null
 +++ b/keys-ssl.c
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,41 @@
++#include <stdint.h>
++#include <openssl/bn.h>
++
 +static BN_ULONG e_0[1] = {
 +	0x00010001, 
 +};
@@ -68,6 +52,6 @@ index 0000000..a8c1b7e
 +
 +#define KEYS(e,n)	{ KEY(e), KEY(n), }
 +
-+static struct pubkey keys[] = {
++__attribute__((unused)) static struct pubkey keys[] = {
 +	KEYS(e_0, n_0),
 +};

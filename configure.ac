@@ -23,6 +23,11 @@ else
 	AC_MSG_ERROR([install the ptxdist-patches archive into the same directory as ptxdist.])
 fi
 
+dnl
+dnl Check for C and C++ compilers
+dnl
+AC_PROG_CC
+AC_PROG_CXX
 
 dnl
 dnl Check header files, mostly for lxdialog & kconfig
@@ -140,9 +145,11 @@ GNU_TOOL(chown, coreutils)
 GNU_TOOL(mv, coreutils)
 GNU_TOOL(cp, coreutils)
 GNU_TOOL(rm, coreutils)
+GNU_TOOL(ln, coreutils)
 GNU_TOOL(rmdir, coreutils)
 GNU_TOOL(md5sum, coreutils)
 GNU_TOOL(mkdir, coreutils)
+GNU_TOOL(mktemp, coreutils)
 GNU_TOOL(install, coreutils)
 GNU_TOOL(stat, coreutils)
 GNU_TOOL(mknod, coreutils)
@@ -157,18 +164,6 @@ GNU_TOOL(xargs, findutils)
 
 dnl Check for egrep
 AC_PROG_EGREP
-
-dnl Check for gcc
-AC_PROG_CC
-if test -z "$CC"; then
-	AC_MSG_ERROR([gcc could not be found, please install])
-fi
-
-dnl Check for g++
-AC_PROG_CXX
-if test -z "$CXX"; then
-	AC_MSG_ERROR([g++ could not be found, please install])
-fi
 
 dnl Check for awk
 AC_PROG_AWK
@@ -241,12 +236,6 @@ if test -z "$UNZIP"; then
 	AC_MSG_ERROR([unzip could not be found, please install])
 fi
 
-dnl Check for mktemp
-AC_PATH_PROGS(MKTEMP, mktemp,, $PATH)
-if test -z "$MKTEMP"; then
-	AC_MSG_ERROR([mktemp could not be found, please install])
-fi
-
 dnl Check for wget
 AC_PATH_PROGS(WGET, wget,, $PATH)
 if test -z "$WGET"; then
@@ -289,21 +278,30 @@ if test -z "$MSGFMT"; then
 	AC_MSG_ERROR([gettext could not be found, please install])
 fi
 
-dnl Check for gcc
-AC_PATH_PROGS(GCC, gcc,, $PATH)
-
 dnl
-dnl Checks for python, needed for ipkg-utils
+dnl Checks for Python, needed for ipkg-utils
 dnl
-AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the python executable to use]),
+AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the Python executable to use]),
     [
 	PYTHON="$withval"
 	AC_SUBST(PYTHON)
-	AC_MSG_NOTICE([Using python executable $PYTHON])
+	AC_MSG_NOTICE([Using Python executable $PYTHON])
     ],[
-	AC_PATH_PROGS(PYTHON, python2.7 python2.6 python)
+	AC_PATH_PROGS(PYTHON, python2 python2.7 python2.6 python)
 	AC_SUBST(PYTHON)
     ])
+
+dnl
+dnl Check for Python 2.x
+dnl
+AC_MSG_CHECKING([Python version])
+PYTHON_VERSION=`$PYTHON --version 2>&1 | $SED -ne "1 s/Python \([[0-9\+\.]]\+\).*/\1/p"`
+case "$PYTHON_VERSION" in
+2.*) ;;
+*)   AC_MSG_ERROR([we need Python version 2.x but found $PYTHON_VERSION]) ;;
+esac
+AC_MSG_RESULT([$PYTHON_VERSION])
+
 dnl
 dnl We need the Python distutils
 dnl
@@ -315,13 +313,13 @@ else
 	AC_MSG_ERROR(Please install the Python distutils package)
 fi
 
-AC_MSG_CHECKING(whether python development files are present)
+AC_MSG_CHECKING(whether Python development files are present)
 PYTHON_MAKEFILE=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_makefile_filename()" 2> /dev/null`
 if test -e "$PYTHON_MAKEFILE"; then
 	AC_MSG_RESULT(yes)
 else
 	AC_MSG_RESULT(no)
-	AC_MSG_ERROR([some python development files could not be found, you are
+	AC_MSG_ERROR([some Python development files could not be found, you are
 		      likely using suse or redhat system as host. In this case
 		      please install the python-devel packages])
 fi

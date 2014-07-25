@@ -97,6 +97,24 @@ export -f ptxd_make_world_prepare_kconfig
 
 
 #
+# prepare for perl modules
+#
+ptxd_make_world_prepare_perl() {
+    [ "${pkg_type}" != "target" ] && \
+	ptxd_bailout "only perl taget packages are supported"
+
+    ptxd_eval \
+	"${pkg_path}" \
+	"${pkg_env}" \
+	"${pkg_conf_env}" \
+	cross-perl \
+	Makefile.PL \
+	"${pkg_conf_opt}"
+}
+export -f ptxd_make_world_prepare_perl
+
+
+#
 # generic prepare
 #
 ptxd_make_world_prepare() {
@@ -115,7 +133,7 @@ ptxd_make_world_prepare() {
     fi
 
     case "${pkg_conf_tool}" in
-	autoconf|cmake|qmake|kconfig)
+	autoconf|cmake|qmake|kconfig|perl)
 	    cd -- "${pkg_build_dir}" &&
 	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
 	"NO") echo "prepare stage disabled." ;;

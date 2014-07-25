@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_ORC) += orc
 #
 # Paths and names
 #
-ORC_VERSION	:= 0.4.18
-ORC_MD5		:= 1a2552e8d127526c48d644fe6437b377
+ORC_VERSION	:= 0.4.19
+ORC_MD5		:= 2cacea6271aade6d592fe1622a136f19
 ORC		:= orc-$(ORC_VERSION)
 ORC_SUFFIX	:= tar.gz
-ORC_URL		:= http://code.entropywave.com/download/orc/$(ORC).$(ORC_SUFFIX)
+ORC_URL		:= http://gstreamer.freedesktop.org/data/src/orc/$(ORC).$(ORC_SUFFIX)
 ORC_SOURCE	:= $(SRCDIR)/$(ORC).$(ORC_SUFFIX)
 ORC_DIR		:= $(BUILDDIR)/$(ORC)
 ORC_LICENSE	:= unknown

@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_EVTEST) += evtest
 #
 # Paths and names
 #
-EVTEST_VERSION	:= 1.25
-EVTEST_MD5	:= 770d6af03affe976bdbe3ad1a922c973
+EVTEST_VERSION	:= 1.31
+EVTEST_MD5	:= 2f4814fd011eb21770040b27d5e68d46
 EVTEST		:= evtest-$(EVTEST_VERSION)
 EVTEST_SUFFIX	:= tar.bz2
-EVTEST_URL	:= http://enialis.net/~jrd/salix/evtest/1.25-i486-1cp/$(EVTEST).$(EVTEST_SUFFIX)
+EVTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(EVTEST).$(EVTEST_SUFFIX)
 EVTEST_SOURCE	:= $(SRCDIR)/$(EVTEST).$(EVTEST_SUFFIX)
 EVTEST_DIR	:= $(BUILDDIR)/$(EVTEST)
 EVTEST_LICENSE	:= GPLv2
@@ -29,12 +29,11 @@ EVTEST_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-EVTEST_CONF_ENV := $(CROSS_ENV)
-
-# disable pkg-config so that libxml2 is never found
-ifndef PTXCONF_EVTEST_CAPTURE
-EVTEST_CONF_ENV += PKG_CONFIG=false
-endif
+EVTEST_CONF_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_path_XSLTPROC= \
+	ac_cv_path_XMLTO= \
+	ac_cv_path_ASCIIDOC=
 
 #
 # autoconf
@@ -54,15 +53,7 @@ $(STATEDIR)/evtest.targetinstall:
 	@$(call install_fixup, evtest,AUTHOR,"Juergen Beisert <jbe@pengutronix.de>")
 	@$(call install_fixup, evtest,DESCRIPTION,missing)
 
-ifdef PTXCONF_EVTEST_EVTEST
 	@$(call install_copy, evtest, 0, 0, 0755, -, /usr/bin/evtest)
-endif
-
-ifdef PTXCONF_EVTEST_CAPTURE
-	@$(call install_copy, evtest, 0, 0, 0755, -, /usr/bin/evtest-capture)
-	@$(call install_copy, evtest, 0, 0, 0755, -, \
-		/usr/share/evtest/evtest-create-device.xsl)
-endif
 
 	@$(call install_finish, evtest)
 

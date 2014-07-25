@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBJPEG) += libjpeg
 #
 # Paths and names
 #
-LIBJPEG_VERSION	:= 8a
-LIBJPEG_MD5	:= 5146e68be3633c597b0d14d3ed8fa2ea
+LIBJPEG_VERSION	:= 9a
+LIBJPEG_MD5	:= 3353992aecaee1805ef4109aadd433e7
 LIBJPEG_SUFFIX	:= tar.gz
 LIBJPEG		:= jpeg-$(LIBJPEG_VERSION)
 LIBJPEG_TARBALL	:= jpegsrc.v$(LIBJPEG_VERSION).$(LIBJPEG_SUFFIX)
@@ -47,6 +47,10 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
 	@$(call install_lib, libjpeg, 0, 0, 0644, libjpeg)
+ifdef PTXCONF_LIBJPEG_BIN
+	@$(call install_copy, libjpeg, 0, 0, 0755, -, /usr/bin/cjpeg)
+	@$(call install_copy, libjpeg, 0, 0, 0755, -, /usr/bin/djpeg)
+endif
 
 	@$(call install_finish, libjpeg)
 

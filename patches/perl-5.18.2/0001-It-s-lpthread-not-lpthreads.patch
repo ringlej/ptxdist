@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 23 Apr 2014 09:02:25 +0200
+Subject: [PATCH] It's -lpthread not -lpthreads
+
+Otherwise linking fails with missing pthread symbols when building with
+with -Dusethreads
+---
+ cnf/configure_libs.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cnf/configure_libs.sh b/cnf/configure_libs.sh
+index f45d31c..cca73e5 100644
+--- a/cnf/configure_libs.sh
++++ b/cnf/configure_libs.sh
+@@ -53,7 +53,7 @@ if not hinted 'perllibs'; then
+ 				appendvar '_libs' "$i" ;;
+ 			-ldl)
+ 				test "$usedl" != 'undef' && appendvar '_libs' "$i" ;;
+-			-lpthreads)
++			-lpthread)
+ 				test "$usethreads" != 'undef' && appendvar '_libs' "$i" ;;
+ 			# For a static build, -lgdbm and friends are assumed to be in ext.libs
+ 		esac

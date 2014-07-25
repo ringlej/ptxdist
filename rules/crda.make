@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_CRDA) += crda
 #
 # Paths and names
 #
-CRDA_VERSION	:= 1.1.3
-CRDA_MD5	:= 29579185e06a75675507527243d28e5c
+CRDA_VERSION	:= 3.13
+CRDA_MD5	:= 66b1b0417c1ad19f0009a5c0c0c1aebc
 CRDA		:= crda-$(CRDA_VERSION)
-CRDA_SUFFIX	:= tar.bz2
-CRDA_URL	:= http://linuxwireless.org/download/crda/$(CRDA).$(CRDA_SUFFIX)
+CRDA_SUFFIX	:= tar.xz
+CRDA_URL	:= $(call ptx/mirror, KERNEL, ../software/network/crda/$(CRDA).$(CRDA_SUFFIX))
 CRDA_SOURCE	:= $(SRCDIR)/$(CRDA).$(CRDA_SUFFIX)
 CRDA_DIR	:= $(BUILDDIR)/$(CRDA)
 CRDA_LICENSE	:= unknown
@@ -58,6 +58,7 @@ $(STATEDIR)/crda.targetinstall:
 	@$(call install_copy, crda, 0, 0, 0755, -, /sbin/regdbdump)
 	@$(call install_copy, crda, 0, 0, 0644, -, \
 		/lib/udev/rules.d/85-regulatory.rules)
+	@$(call install_lib, crda, 0, 0, 0644, libreg)
 
 	# regulatory.bin was downloaded from:
 	# git://git.kernel.org/pub/scm/linux/kernel/git/linville/wireless-regdb.git
