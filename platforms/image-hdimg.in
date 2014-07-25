@@ -1,0 +1,37 @@
+## SECTION=image2
+
+menuconfig IMAGE_HDIMG
+	bool
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX		if IMAGE_HDIMG_BAREBOX
+	select GRUB		if IMAGE_HDIMG_GRUB
+	prompt "Generate images/hd.img        "
+	help
+	  Build a harddisk root image. The image will contain one partition
+	  containing the root.ext2 and a corresponding partition table. The
+	  image will bpe made bootable with the bootloader specified below.
+
+if IMAGE_HDIMG
+
+choice
+	prompt "bootloader"
+	default IMAGE_HDIMG_GRUB	if ARCH_X86
+	default IMAGE_HDIMG_BAREBOX	if !ARCH_X86
+
+config IMAGE_HDIMG_NONE
+	bool
+	prompt "none           "
+
+config IMAGE_HDIMG_BAREBOX
+	bool
+	prompt "barebox        "
+
+config IMAGE_HDIMG_GRUB
+	bool
+	depends on ARCH_X86
+	prompt "grub           "
+
+endchoice
+
+endif

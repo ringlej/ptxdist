@@ -24,6 +24,7 @@ NETTLE_URL	:= http://www.lysator.liu.se/~nisse/archive/$(NETTLE).$(NETTLE_SUFFIX
 NETTLE_SOURCE	:= $(SRCDIR)/$(NETTLE).$(NETTLE_SUFFIX)
 NETTLE_DIR	:= $(BUILDDIR)/$(NETTLE)
 NETTLE_LICENSE	:= unknown
+NETTLE_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Prepare

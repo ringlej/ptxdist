@@ -1,0 +1,11 @@
+## SECTION=perl
+
+config NET_SERVER_PERL
+	tristate
+	select PERL
+	prompt "Net::Server"
+	help
+	  Net::Server is an extensible, general perl server engine that combines the
+	  good properties from Net::Daemon, NetServer::Generic, and Net::FTPServer;
+	  and borrows various concepts from the Apache webserver.
+

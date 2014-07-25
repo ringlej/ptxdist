@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_IPERF) += iperf
 #
 # Paths and names
 #
-IPERF_VERSION	:= 2.0.4
-IPERF_MD5	:= 8c5bc14cc2ea55f18f22afe3c23e3dcb
+IPERF_VERSION	:= 2.0.5
+IPERF_MD5	:= 44b5536b67719f4250faed632a3cd016
 IPERF		:= iperf-$(IPERF_VERSION)
 IPERF_SUFFIX	:= tar.gz
 IPERF_URL	:= $(call ptx/mirror, SF, iperf/$(IPERF).$(IPERF_SUFFIX))

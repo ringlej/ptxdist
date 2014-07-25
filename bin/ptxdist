@@ -617,11 +617,18 @@ check_compiler() {
 	# 3) Correct compiler version if a specific compiler version is given
 	#
 
+	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
 	local vendor_should
 	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)" && {
 		# yea! A toolchain vendor was specified in the ptxconfig file.
-		# So we check for a 'ptxconfig' file in the toolchain directory
-		# and test the PTXCONF_PROJECT string therein.
+		#
+		# We have two options now:
+		#  a) the provided toolchain is an OSELAS.Toolchain which contains a
+		#     'ptxconfig', so test the PTXCONF_PROJECT string therein.
+		#  b) the provided toolchain is a crosstool-ng one which contains a
+		#     ${compiler_prefix}-ct-ng.config, so test the
+		#     CT_TOOLCHAIN_PKGVERSION therein.
+		#
 
 		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
 			echo
@@ -631,17 +638,33 @@ check_compiler() {
 			exit 1
 		fi
 
-		local vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
-		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
+		local ptxdist_vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
+		local ct_vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/${compiler_prefix}ct-ng.config")"
+
+		local vendor_is
+		if [ "${ptxdist_vendor_def}" -a -e "${ptxdist_vendor_def}" ]; then
+			vendor_is="$(source "${ptxdist_vendor_def}" && echo ${PTXCONF_PROJECT})"
+		elif [ "${ct_vendor_def}" -a -x "${ct_vendor_def}" ]; then
+			vendor_is=$(${ct_vendor_def} | awk ' \
+					/^#\s+crosstool-NG.*Configuration$/ { \
+						printf("%s %s", $2, $3) \
+					}; \
+					/^CT_TOOLCHAIN_PKGVERSION=/ { \
+						gsub(/\"/, ""); \
+						split($0,ary,"="); \
+						if (ary[1]) { \
+							printf(" - %s", ary[2]); \
+						} \
+					}')
+		else
 			echo
-			echo "${PTXDIST_LOG_PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
+			echo "${PTXDIST_LOG_PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain nor a crosstools-ng toolchain"
 			echo "${PTXDIST_LOG_PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
 			echo
 			exit 1
 		fi
 
 		# both vendor strings are present. Check them
-		local vendor_is="$(source "${vendor_def}" && echo ${PTXCONF_PROJECT})"
 		case "${vendor_is}" in
 		"${vendor_should}"*)
 			;;
@@ -656,7 +679,6 @@ check_compiler() {
 		esac
 	}
 
-	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
 	local compiler_ver_should
 	compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)" && {
 		local compiler="${compiler_prefix}gcc"

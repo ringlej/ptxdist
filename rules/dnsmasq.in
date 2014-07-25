@@ -41,6 +41,37 @@ config DNSMASQ_TFTP
 	help
 	  This includes TFTP services into dnsmasq
 
+config DNSMASQ_DHCP
+	bool
+	default y
+	prompt "include DHCP"
+	help
+	  This includes DHCP services into dnsmasq
+
+config DNSMASQ_SCRIPT
+	bool
+	default y
+	depends on DNSMASQ_DHCP
+	prompt "include lease script support"
+	help
+	  Without this option it is not possible to call scripts when a lease changes
+
+config DNSMASQ_SCRIPT_LUA
+	bool
+	default n
+	depends on DNSMASQ_SCRIPT
+	prompt "include lease script LUA support"
+	help
+	  This includes LUA script capabilities for lease scripts
+
+config DNSMASQ_DNSSEC
+	bool
+	default n
+	prompt "include DNSSEC support"
+	select NETTLE
+	help
+	  Without this option it is not possible to call scripts when a lease changes
+
 comment "runtime options   ---"
 
 choice

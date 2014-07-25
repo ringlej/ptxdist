@@ -64,6 +64,7 @@ config POPPLER_PNG
 
 config POPPLER_JPEG
 	bool
+	depends on BROKEN
 	prompt "enable poppler jpeg support"
 	help
 	  compiles poppler with jpeg support.

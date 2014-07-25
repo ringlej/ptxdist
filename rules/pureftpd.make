@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 #
 # Paths and names
 #
-PUREFTPD_VERSION	:= 1.0.32
-PUREFTPD_MD5		:= 065211a4319e2089bd16b44c003eb0f8
+PUREFTPD_VERSION	:= 1.0.36
+PUREFTPD_MD5		:= 7899c75c1fed7dbad0352eb31080e066
 PUREFTPD		:= pure-ftpd-$(PUREFTPD_VERSION)
 PUREFTPD_SUFFIX		:= tar.bz2
 PUREFTPD_URL		:= http://download.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
@@ -32,7 +32,28 @@ PUREFTPD_DIR		:= $(BUILDDIR)/$(PUREFTPD)
 #
 PUREFTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--without-dmalloc \
+	--with-standalone \
+	--$(call ptx/wwo, PTXCONF_PUREFTPD_SYSTEMD_UNIT)-inetd \
+	--without-capabilities \
+	--with-shadow \
+	--with-usernames \
+	--with-iplogging \
+	--with-humor \
 	--without-ascii \
+	--$(call ptx/ifdef, PTXCONF_PUREFTPD_SHRINK_MORE,without,with)-globbing \
+	--with-nonalnum \
+	--with-unicode \
+	--with-sendfile \
+	--without-privsep \
+	--without-boring \
+	--without-brokenrealpath \
+	--$(call ptx/wwo, PTXCONF_PUREFTPD_MINIMAL)-minimal \
+	--without-paranoidmsg \
+	--without-sysquotas \
+	--without-altlog \
+	--with-puredb \
+	--without-extauth \
 	--without-pam \
 	--without-cookie \
 	--without-throttling \
@@ -40,59 +61,23 @@ PUREFTPD_AUTOCONF := \
 	--without-quotas \
 	--without-ftpwho \
 	--with-welcomemsg \
+	--$(call ptx/wwo, PTXCONF_PUREFTPD_UPLOADSCRIPT)-uploadscript \
+	--$(call ptx/wwo, PTXCONF_PUREFTPD_VIRTUALHOSTS)-virtualhosts \
 	--without-virtualchroot \
+	--$(call ptx/wwo, PTXCONF_PUREFTPD_DIRALIASES)-diraliases \
 	--without-nonroot \
 	--without-peruserlimits \
+	--without-implicittls \
 	--without-debug \
 	--with-language=english \
 	--without-ldap \
 	--without-mysql \
 	--without-pgsql \
-	--without-privsep \
-	--without-capabilities \
-	--with-standalone
+	--without-tls
 
 #
 # FIXME: configure probes host's /dev/urandom and /dev/random
 # instead of target's one
-#
-# Can --with-probe-random-dev solve this?
-
-ifdef PTXCONF_PUREFTPD_SYSTEMD_UNIT
-PUREFTPD_AUTOCONF += --with-inetd
-else
-PUREFTPD_AUTOCONF += --without-inetd
-endif
-
-ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
-PUREFTPD_AUTOCONF += --with-uploadscript
-else
-PUREFTPD_AUTOCONF += --without-uploadscript
-endif
-
-ifdef PTXCONF_PUREFTPD_VIRTUALHOSTS
-PUREFTPD_AUTOCONF += --with-virtualhosts
-else
-PUREFTPD_AUTOCONF += --without-virtualhosts
-endif
-
-ifdef PTXCONF_PUREFTPD_DIRALIASES
-PUREFTPD_AUTOCONF += --with-diraliases
-else
-PUREFTPD_AUTOCONF += --without-diraliases
-endif
-
-ifdef PTXCONF_PUREFTPD_MINIMAL
-PUREFTPD_AUTOCONF += --with-minimal
-else
-PUREFTPD_AUTOCONF += --without-minimal
-endif
-
-ifdef PTXCONF_PUREFTPD_SHRINK_MORE
-PUREFTPD_AUTOCONF += --without-globbing
-else
-PUREFTPD_AUTOCONF += --with-globbing
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -116,6 +101,9 @@ $(STATEDIR)/pureftpd.targetinstall:
 		/usr/sbin/pure-ftpd)
 
 	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/pure-ftpd.conf)
+
+	@$(call install_copy, pureftpd, 0, 0, 0755, -, \
+		/usr/bin/pure-pw)
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, pureftpd, 0, 0, 0755, -, \

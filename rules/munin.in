@@ -1,0 +1,39 @@
+## SECTION=perl
+
+menuconfig MUNIN
+	tristate
+	select PERL
+	select NET_SERVER_PERL	if RUNTIME
+	select BASH		if RUNTIME
+	prompt "munin                         "
+	help
+	  Munin is a networked resource monitoring tool that can help
+	  analyze resource trends and "what just happened to kill our
+	  performance?" problems. It is designed to be very plug and play.
+	  A default installation provides a lot of graphs with almost no
+	  work.
+
+if MUNIN
+
+config MUNIN_MASTER
+	bool
+	prompt "master"
+
+config MUNIN_NODE
+	bool
+	prompt "node"
+
+if MUNIN_NODE
+
+config MUNIN_NODE_SYSTEMD_UNIT
+	bool
+	prompt "install systemd unit files for munin-node"
+
+config MUNIN_NODE_PLUGINS
+	string
+	prompt "plugins"
+	help
+	  A space separated list of enabled plugins
+
+endif
+endif

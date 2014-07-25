@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 11 Apr 2014 12:28:22 +0200
+Subject: [PATCH] allow extra configure arguments via environment
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.PL | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile.PL b/Makefile.PL
+index 7b0a3d9..db76de0 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -34,8 +34,10 @@ if ($^O eq 'MSWin32') {
+     configure_mswin32();
+ } else {
+     my $path_perl = ($^X =~ m!^/!o) ? $^X : `which $^X`;
++    my $args = $ENV{"CONFIGURE_ARGS"};
+     my $cmd = "CC='$Config{cc}' CFLAGS='$Config{ccflags}' ./configure";
+     $cmd .= " --with-perl=$path_perl" if ($path_perl);
++    $cmd .= " $args" if ($args);
+     system($cmd);
+ }
+ 
