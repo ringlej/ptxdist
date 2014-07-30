@@ -610,7 +610,7 @@ check_compiler() {
 		}
 	done
 
-	for tool in ar as cpp nm objcopy objdump ranlib readelf size strip ; do
+	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
 		tool_abs="$(which "${tool}" 2>/dev/null)"
 		ptxd_replace_link "${tool_abs}" "${wrapper_dir}/${tool}" || \
 			ptxd_bailout "Unable to create host ${tool} wrapper link"
@@ -718,7 +718,7 @@ check_compiler() {
 		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
-	for tool in ar as cpp nm objcopy objdump ranlib readelf size strip ; do
+	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
 		ptxd_replace_link "$(which ${compiler_prefix}${tool})"  "${wrapper_dir}/${compiler_prefix}${tool}"
 	done &&
 	PATH="${wrapper_dir}:${PATH}" &&
