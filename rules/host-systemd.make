@@ -17,7 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_SYSTEMD_CFLAGS=-I$(PTXDIST_SYSROOT_HOST)/kernel-headers/include
+HOST_SYSTEMD_CONF_ENV	:= \
+        $(HOST_ENV) \
+	ac_cv_path_INTLTOOL_MERGE=:
+
+HOST_SYSTEMD_CFLAGS	:= -I$(PTXDIST_SYSROOT_HOST)/kernel-headers/include
+
 #
 # autoconf
 #
@@ -50,6 +55,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-smack \
 	--disable-gcrypt \
 	--disable-audit \
+	--disable-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
 	--disable-microhttpd \
@@ -60,6 +66,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-bootchart \
 	--disable-quotacheck \
 	--disable-tmpfiles \
+	--disable-sysusers \
 	--disable-randomseed \
 	--disable-backlight \
 	--disable-rfkill \
@@ -83,6 +90,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-tests \
 	--without-python \
 	--with-ntp-servers= \
+	--with-dns-servers= \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
 	--with-rootprefix= \

@@ -10,7 +10,7 @@ ptxd_colgen_generate_sections()
     ptxd_make_log "print-PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
-		col_in     = "'"${PTX_KGEN_DIR}"'" "/collection/ptx_collection.in";
+		col_in     = "'"${PTX_KGEN_DIR}"'" "/generated/ptx_collection.in";
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {

@@ -32,6 +32,9 @@ config LIBCURL_FTP
        bool "ftp"
        default y
 
+config LIBCURL_TFTP
+       bool "tftp"
+
 config LIBCURL_FILE
        bool "file"
 

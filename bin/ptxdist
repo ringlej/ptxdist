@@ -610,6 +610,12 @@ check_compiler() {
 		}
 	done
 
+	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
+		tool_abs="$(which "${tool}" 2>/dev/null)"
+		ptxd_replace_link "${tool_abs}" "${wrapper_dir}/${tool}" || \
+			ptxd_bailout "Unable to create host ${tool} wrapper link"
+	done
+
 	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
 		PATH="${wrapper_dir}:${PATH}"
 		return
@@ -711,6 +717,9 @@ check_compiler() {
 	for cc in gcc g++ cpp ld; do
 		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
+	done &&
+	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
+		ptxd_replace_link "$(which ${compiler_prefix}${tool})"  "${wrapper_dir}/${compiler_prefix}${tool}"
 	done &&
 	PATH="${wrapper_dir}:${PATH}" &&
 	if [ -n "${PTXDIST_ICECC}" ]; then
@@ -2304,8 +2313,18 @@ setup_auto_version()
 	_get_config_ptx
 	if ! check_version "${configfile_version}"; then
 		local next
+		local -a args
+		set -- "${PTXDIST_ARGS_FULL[@]}"
+		while [ ${#} -ne 0 ]; do
+			local arg="${1}"
+			shift
+			case "${arg}" in
+			--auto-version) ;;
+			*) args[${#args[@]}]="${arg}" ;;
+			esac
+		done
 		if next="$(which ptxdist-${configfile_version})"; then
-			exec "${next}" "${PTXDIST_ARGS_FULL[@]}"
+			exec "${next}" "${args[@]}"
 		else
 			ptxd_bailout "ptxdist-${configfile_version} not found!"
 		fi
@@ -2470,8 +2489,8 @@ setup_path() {
 			echo "${PTXDIST_LOG_PROMPT}warning: icecc has been activated, but was not found on your system"
 			echo "${PTXDIST_LOG_PROMPT}warning: install icecc, disable it ('ptxdist setup' -> 'Developer Options' menu)"
 			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
-			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:=not found}'"
-			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:=not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:-not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:-not found}'"
 			echo
 			sleep 3
 		fi

@@ -11,14 +11,23 @@ NAME_UP=$(echo $NAME | tr '[a-z-]' '[A-Z_]')
 NAME_NODASH=$(echo $NAME | tr '-' '_')
 
 mv "@name@.c" "${NAME}.c"
+mv "lib@name@.h" "lib${NAME}.h"
+mv "lib@name@.pc.in" "lib${NAME}.pc.in"
 
 for i in \
 	configure.ac \
+	lib${NAME}.pc.in \
+	README \
 	Makefile.am \
 	${NAME}.c \
+	lib${NAME}.h \
+	internal.h \
 ; do
 	sed -i -e "s/\@name\@/${NAME}/g" $i
 	sed -i -e "s/\@namenodash\@/${NAME_NODASH}/g" $i
 	sed -i -e "s/\@NAME\@/${NAME_UP}/g" $i
 done
 
+# prepare and instantiate the M4 macros
+mkdir -v m4
+tar -C "${2}/template-m4-macros" -cf - . | tar -C m4 -xvf -

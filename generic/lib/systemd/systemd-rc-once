@@ -10,6 +10,7 @@ start() {
 	fi
 	systemctl daemon-reexec
 	sleep 1
+	touch /var/lib/systemd/clock
 	exec "$0" umount
 }
 
