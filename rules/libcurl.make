@@ -45,7 +45,6 @@ LIBCURL_AUTOCONF := \
 	--disable-ldaps \
 	--disable-dict \
 	--disable-telnet \
-	--disable-tftp \
 	--disable-manual \
 	\
 	--disable-ares \
@@ -71,6 +70,7 @@ LIBCURL_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
 	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
+	--$(call ptx/endis, PTXCONF_LIBCURL_TFTP)-tftp \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
 	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2

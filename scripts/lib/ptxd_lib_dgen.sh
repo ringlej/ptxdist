@@ -53,7 +53,7 @@ ptxd_dgen_rulesfiles() {
 	local rulesdir
 	ptxd_in_path PTXDIST_PATH_RULES || return
 	for rulesdir in "${ptxd_reply[@]}"; do
-	    find "${rulesdir}" -mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
+	    find "${rulesdir}/" -mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	done
     } | gawk '{
 	    n=gensub(".*/", "", "g");

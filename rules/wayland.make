@@ -43,6 +43,17 @@ WAYLAND_CONF_OPT	:= \
 	--disable-documentation
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/wayland.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, WAYLAND)
+	@sed 's;^prefix=.*;prefix=$(PTXDIST_SYSROOT_HOST);' \
+		$(PTXDIST_SYSROOT_HOST)/share/pkgconfig/wayland-scanner.pc \
+		> $(PTXDIST_SYSROOT_TARGET)/usr/lib/pkgconfig/wayland-scanner.pc
+	@$(call touch)
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 

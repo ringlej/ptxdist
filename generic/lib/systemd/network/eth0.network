@@ -2,5 +2,5 @@
 Name=eth0
 
 [Network]
-DHCP=yes
+DHCP=v4
 IPv4LL=yes

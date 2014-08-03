@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-util.h-include-missing.h-for-MAX_HANDLE_SZ.patch
 0002-missing-defined-extra-clock-ids.patch
-# bbb663749308eea6ee98749ae00ecbd4  - git-ptx-patches magic
+0003-always-check-for-__BYTE_ORDER-__BIG_ENDIAN-when-chec.patch
+# 69ccf43a69835ab1b39ba354f76f27f9  - git-ptx-patches magic

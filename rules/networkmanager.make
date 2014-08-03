@@ -129,12 +129,18 @@ ifdef PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT
 		/lib/systemd/system/NetworkManager.service)
 	@$(call install_link, networkmanager, ../NetworkManager.service, \
 		/lib/systemd/system/multi-user.target.wants/NetworkManager.service)
+	@$(call install_link, networkmanager, NetworkManager.service, \
+		/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service)
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
 		/lib/systemd/system/NetworkManager-unmanage.service)
 	@$(call install_link, networkmanager, ../NetworkManager-unmanage.service, \
 		/lib/systemd/system/NetworkManager.service.wants/NetworkManager-unmanage.service)
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
 		/lib/systemd/system/NetworkManager-wait-online.service)
+	@$(call install_alternative, networkmanager, 0, 0, 0644, \
+		/lib/systemd/system/NetworkManager-dispatcher.service)
+	@$(call install_link, networkmanager, NetworkManager-dispatcher.service, \
+		/lib/systemd/system/dbus-org.freedesktop.nm-dispatcher.service)
 endif
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/sbin/NetworkManager)
