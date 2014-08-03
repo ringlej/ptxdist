@@ -3,7 +3,7 @@ Description=First boot services
 DefaultDependencies=no
 After=local-fs.target
 Requires=local-fs.target
-Before=system-update.target
+After=system-update.target
 
 [Service]
 Type=oneshot

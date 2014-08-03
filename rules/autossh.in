@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config AUTOSSH
+	tristate
+	prompt "autossh"
+	help
+	  Automatically restart SSH sessions and tunnels

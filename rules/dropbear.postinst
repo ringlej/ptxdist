@@ -1,0 +1,2 @@
+#!/bin/sh
+$DESTDIR/sbin/enable-rc-once dropbear

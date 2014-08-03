@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_GETTEXT) += gettext
 #
 # Paths and names
 #
-GETTEXT_VERSION	:= 0.18.3.2
-GETTEXT_MD5	:= 241aba309d07aa428252c74b40a818ef
+GETTEXT_VERSION	:= 0.19.1
+GETTEXT_MD5	:= b52987f49bc99fa8b410270d47a9d52b
 GETTEXT		:= gettext-$(GETTEXT_VERSION)
-GETTEXT_SUFFIX	:= tar.gz
+GETTEXT_SUFFIX	:= tar.xz
 GETTEXT_URL	:= $(call ptx/mirror, GNU, gettext/$(GETTEXT).$(GETTEXT_SUFFIX))
 GETTEXT_SOURCE	:= $(SRCDIR)/$(GETTEXT).$(GETTEXT_SUFFIX)
 GETTEXT_DIR	:= $(BUILDDIR)/$(GETTEXT)
@@ -72,10 +72,10 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/gettext)
 
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.18.3.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-$(GETTEXT_VERSION).so)
 	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libasprintf.so.0.0.0)
 	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.5.2)
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.18.3.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-$(GETTEXT_VERSION).so)
 
 	@$(call install_finish, gettext)
 

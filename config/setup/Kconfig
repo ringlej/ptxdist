@@ -301,6 +301,26 @@ config SETUP_CHECK_EXIT_ON_ERROR
 	  quite aggressive error checking. Don't turn this on until
 	  you know what you're doing.
 
+config SETUP_ICECC
+	bool "use icecc"
+	depends on !SETUP_CCACHE
+	help
+	  icecc (also known as Icecream) is a distributed compile system.
+	  It allows parallel compiling by distributing the compile jobs to
+	  several nodes of a compile network running the icecc daemon. The
+	  icecc scheduler routes the jobs and provides status and
+	  statistics information to the icecc monitor.
+
+if SETUP_ICECC
+
+config SETUP_ICECC_CREATE_ENV
+	string
+	default "/usr/lib/icecc/icecc-create-env"
+	prompt "icecc-create-env path"
+	help
+	  The full path to icecc-create-env
+
+endif
 
 config SETUP_CCACHE
 	bool "use ccache"

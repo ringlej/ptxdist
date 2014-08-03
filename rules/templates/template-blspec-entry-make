@@ -1,0 +1,38 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_BLSPEC_@PACKAGE@) += blspec-@package@
+
+BLSPEC_@PACKAGE@_VERSION	:= @VERSION@
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/blspec-@package@.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init, blspec-@package@)
+	@$(call install_fixup,blspec-@package@,PRIORITY,optional)
+	@$(call install_fixup,blspec-@package@,SECTION,base)
+	@$(call install_fixup,blspec-@package@,AUTHOR,"@AUTHOR@")
+	@$(call install_fixup,blspec-@package@,DESCRIPTION,missing)
+
+	@$(call install_alternative, blspec-@package@, 0, 0, 0644, \
+		/loader/entries/@ENTRY@)
+
+	@$(call install_finish,blspec-@package@)
+
+	@$(call touch)
+
+# vim: syntax=make

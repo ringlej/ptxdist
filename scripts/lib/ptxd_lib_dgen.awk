@@ -240,7 +240,7 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 	#
 	# .get rule
 	#
-	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCES)"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".get: | $(" this_PKG "_SOURCES)"	> DGEN_DEPS_POST;
 	print "ifneq ($(call remove_quotes, $(PTXCONF_PROJECT_DEVMIRROR)),)" > DGEN_DEPS_POST;
 	print "ifneq ($(strip $(" this_PKG "_DEVPKG)),NO)" > DGEN_DEPS_POST;
 	print "ifneq ($(" this_PKG "_CFGHASH),)" > DGEN_DEPS_POST;
@@ -254,6 +254,8 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	#
 	# default deps
 	#
+	print "$(foreach src,$(" this_PKG "_SOURCES)," \
+		"$(eval $(STATEDIR)/" this_pkg ".get:"      "$(STATEDIR)/" this_pkg ".$(notdir $(src)).stamp))"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".prepare: "                    "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;

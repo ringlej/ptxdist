@@ -1,0 +1,47 @@
+From: Jon Ringle <jringle@gridpoint.com>
+Date: Fri, 27 Jun 2014 16:39:41 -0400
+Subject: [PATCH] Make install rule friendly towards packaging with $DESTDIR
+
+Signed-off-by: Jon Ringle <jringle@gridpoint.com>
+---
+ Makefile.in | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index fb7cc1d..a8e7a7e 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -45,18 +45,18 @@ distclean:	allclean
+ 		- /bin/rm -f Makefile
+ 
+ install:	$(TARGET)
+-		mkdir -p -m 755 $(bindir)
+-		mkdir -p -m 755 $(prefix)/share/doc/autossh
+-		mkdir -p -m 755 $(datadir)/examples/autossh
+-		mkdir -p -m 755 $(mandir)/man1
+-		cp $(TARGET) $(bindir)
+-		cp CHANGES README $(datadir)/doc/autossh
+-		cp autossh.host	$(datadir)/examples/autossh
+-		cp rscreen $(datadir)/examples/autossh
+-		cp autossh.1 $(mandir)/man1
+-		chmod 755 $(bindir)/$(TARGET)
+-		chmod 644 $(datadir)/doc/autossh/CHANGES
+-		chmod 644 $(datadir)/doc/autossh/README
+-		chmod 644 $(datadir)/examples/autossh/autossh.host 
+-		chmod 644 $(datadir)/examples/autossh/rscreen
+-		chmod 644 $(mandir)/man1/autossh.1 
++		mkdir -p -m 755 $(DESTDIR)$(bindir)
++		mkdir -p -m 755 $(DESTDIR)$(prefix)/share/doc/autossh
++		mkdir -p -m 755 $(DESTDIR)$(datadir)/examples/autossh
++		mkdir -p -m 755 $(DESTDIR)$(mandir)/man1
++		cp $(TARGET) $(DESTDIR)$(bindir)
++		cp CHANGES README $(DESTDIR)$(datadir)/doc/autossh
++		cp autossh.host	$(DESTDIR)$(datadir)/examples/autossh
++		cp rscreen $(DESTDIR)$(datadir)/examples/autossh
++		cp autossh.1 $(DESTDIR)$(mandir)/man1
++		chmod 755 $(DESTDIR)$(bindir)/$(TARGET)
++		chmod 644 $(DESTDIR)$(datadir)/doc/autossh/CHANGES
++		chmod 644 $(DESTDIR)$(datadir)/doc/autossh/README
++		chmod 644 $(DESTDIR)$(datadir)/examples/autossh/autossh.host 
++		chmod 644 $(DESTDIR)$(datadir)/examples/autossh/rscreen
++		chmod 644 $(DESTDIR)$(mandir)/man1/autossh.1 

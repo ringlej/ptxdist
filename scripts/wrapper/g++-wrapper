@@ -9,5 +9,6 @@ cc_add_fortify
 cc_add_stack
 cc_add_pie
 cxx_add_target_extra
+cxx_add_target_icecc "${@}"
 
 wrapper_exec "$@"

@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_LIBGSF) += libgsf
 #
 # Paths and names
 #
-LIBGSF_VERSION	:= 1.14.16
-LIBGSF_MD5	:= 8478d83fda0b6e57f36550c11a693ee1
+LIBGSF_VERSION	:= 1.14.30
+LIBGSF_MD5	:= e7b672ef37ef6a853ce149c03e4d3a63
 LIBGSF		:= libgsf-$(LIBGSF_VERSION)
-LIBGSF_SUFFIX	:= tar.bz2
-LIBGSF_URL	:= http://ftp.acc.umu.se/pub/GNOME/sources/libgsf/1.14/$(LIBGSF).$(LIBGSF_SUFFIX)
+LIBGSF_SUFFIX	:= tar.xz
+LIBGSF_URL	:= http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/$(LIBGSF).$(LIBGSF_SUFFIX)
 LIBGSF_SOURCE	:= $(SRCDIR)/$(LIBGSF).$(LIBGSF_SUFFIX)
 LIBGSF_DIR	:= $(BUILDDIR)/$(LIBGSF)
 
@@ -28,27 +28,25 @@ LIBGSF_DIR	:= $(BUILDDIR)/$(LIBGSF)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBGSF_PATH	:= PATH=$(CROSS_PATH)
-LIBGSF_ENV 	:= \
+LIBGSF_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	ac_cv_prog_GCONFTOOL=no
 
 #
 # autoconf
 #
-LIBGSF_AUTOCONF := \
+LIBGSF_CONF_TOOL	:= autoconf
+LIBGSF_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_LIBGSF_NLS)-nls \
+	--disable-introspection \
 	--disable-iso-c \
 	--disable-gtk-doc \
-	--disable-schemas-install \
-	--without-bonobo \
-	--without-gdk-pixbuf \
-	--without-gnome-vfs \
-	--$(call ptx/endis, PTXCONF_LIBGSF_NLS)-nls \
-	--$(call ptx/wwo, PTXCONF_LIBGSF_PYTHON)-python \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo, PTXCONF_LIBGSF_BZ2)-bz2 \
-	--$(call ptx/wwo, PTXCONF_LIBGSF_GIO)-gio
+	--without-gdk-pixbuf
 
 # ----------------------------------------------------------------------------
 # Target-Install

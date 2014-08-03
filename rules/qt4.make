@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.8.5
-QT4_MD5		:= 1864987bdbb2f58f8ae8b350dfdbe133
+QT4_VERSION	:= 4.8.6
+QT4_MD5		:= 2edbe4d6c2eff33ef91732602f3518eb
 QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://download.qt-project.org/official_releases/qt/4.8/$(QT4_VERSION)/$(QT4).$(QT4_SUFFIX)
@@ -62,6 +62,13 @@ $(STATEDIR)/qt4.extract:
 # 'strip' is our special wrapper to avoid stripping for root-debug
 QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)  STRIP=strip MAKEFLAGS="$(PARALLELMFLAGS)"
 QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR)
+
+ifdef PTXCONF_ARCH_ARM_NEON
+ifdef PTXCONF_QT4_BUILD_WEBKIT
+# HACK: WebKit fails to build with thumb + NEON
+QT4_CXXFLAGS	:= -marm
+endif
+endif
 
 ifdef PTXCONF_ARCH_ARM_V6
 QT4_ARCH = armv6

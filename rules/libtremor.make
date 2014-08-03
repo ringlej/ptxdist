@@ -31,7 +31,7 @@ LIBTREMOR_CONF_OPT	:= \
 	--disable-static
 
 ifdef PTXCONF_ARCH_ARM
-$(STATEDIR)/libtremor.compile: PTXDIST_CROSS_CPPFLAGS += -Wa,-mimplicit-it=thumb
+LIBTREMOR_CFLAGS := -Wa,-mimplicit-it=thumb
 endif
 
 # ----------------------------------------------------------------------------

@@ -32,6 +32,7 @@ $(STATEDIR)/rc-once.targetinstall:
 	@$(call install_fixup, rc-once, DESCRIPTION, missing)
 
 	@$(call install_alternative, rc-once, 0, 0, 0644, /lib/init/rc-once.sh)
+	@$(call install_alternative, rc-once, 0, 0, 0755, /sbin/enable-rc-once)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 	@$(call install_alternative, rc-once, 0, 0, 0755, /etc/init.d/rc-once)

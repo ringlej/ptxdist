@@ -4,6 +4,8 @@ config AUMIX
 	tristate
 	prompt "aumix"
 	select NCURSES
+	# autopint is needed for autogen.sh
+	select HOST_GETTEXT
 	help
 	  Simple text-based mixer control program
 

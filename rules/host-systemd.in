@@ -2,7 +2,8 @@
 
 config HOST_SYSTEMD
 	bool
-	select HOST_INTLTOOL
 	select HOST_GPERF
-	select HOST_DBUS
+	# for 'ln --relative'
+	select HOST_COREUTILS
 	select HOST_LIBCAP
+	select HOST_KERNEL_HEADER

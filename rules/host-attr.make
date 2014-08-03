@@ -20,6 +20,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_ATTR) += host-attr
 
 HOST_ATTR_CONF_ENV := \
 	$(HOST_ENV) \
+	ac_cv_path_MSGFMT=: \
+	ac_cv_path_MSGMERGE=: \
+	ac_cv_path_XGETTEXT=: \
 	CONFIG_SHELL=bash
 
 # no ':=' here

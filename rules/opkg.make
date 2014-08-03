@@ -17,20 +17,17 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 #
 # Paths and names
 #
-OPKG_VERSION	:= 0.2.0
-OPKG_MD5	:= e8a6fd34fb2529191fe09dc14c934cc3
+OPKG_VERSION	:= 0.2.2
+OPKG_MD5	:= b3ecef90d67d2aed2a14c2116a027482
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
-OPKG_URL	:= https://opkg.googlecode.com/files/$(OPKG).$(OPKG_SUFFIX)
+OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFIX)
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-OPKG_PATH	:= PATH=$(CROSS_PATH)
-OPKG_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf

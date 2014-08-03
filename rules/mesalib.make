@@ -109,6 +109,7 @@ MESALIB_CONF_OPT	:= \
 	--enable-glx-tls \
 	--disable-gallium-llvm \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
+	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
 	--with-egl-platforms="$(MESALIBS_EGL_PLATFORMS-y)"
 

@@ -6,8 +6,8 @@ Installing fails due to ldconfig failure when running as non root user.
 
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 ---
- Makefile.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.in b/Makefile.in
 index 957281e..bdfff24 100644

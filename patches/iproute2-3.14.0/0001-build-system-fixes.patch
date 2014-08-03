@@ -1,0 +1,39 @@
+From 21ba3bd71071e8d9062e54d52681defd1250c6a9 Mon Sep 17 00:00:00 2001
+From: Juergen Beisert <juergen@kreuzholzen.de>
+Date: Sun, 16 Jun 2013 11:17:42 +0200
+Subject: [PATCH] build system fixes
+
+Build arpd only if the user has requested it.
+Add a mechanism to feed in CPPFLAGS for cross builds.
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
+Signed-off-by: Jon Ringle <jon@ringle.org>
+[Rebased to 3.14.0]
+Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
+---
+ misc/Makefile | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/misc/Makefile b/misc/Makefile
+index 004bcc3..34af65c 100644
+--- a/misc/Makefile
++++ b/misc/Makefile
+@@ -1,10 +1,14 @@
+ SSOBJ=ss.o ssfilter.o
+ LNSTATOBJ=lnstat.o lnstat_util.o
+ 
+-TARGETS=ss nstat ifstat rtacct arpd lnstat
++TARGETS=ss nstat ifstat rtacct lnstat
+ 
+ include ../Config
+ 
++ifdef BUILD_ARPD
++TARGETS += arpd
++endif
++
+ ifeq ($(HAVE_SELINUX),y)
+ 	LDLIBS += $(shell pkg-config --libs libselinux)
+ 	CFLAGS += $(shell pkg-config --cflags libselinux) -DHAVE_SELINUX
+-- 
+1.9.0
+

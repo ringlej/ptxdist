@@ -76,9 +76,18 @@ $(STATEDIR)/barebox_mlo.install:
 $(STATEDIR)/barebox_mlo.targetinstall:
 	@$(call targetinfo)
 #	#barebox renamed barebox.bin.ift to MLO, so fall back to barebox.bin.ift
-	@ptxd_get_path "$(BAREBOX_MLO_DIR)/MLO" \
-		"$(BAREBOX_MLO_DIR)/barebox.bin.ift" && \
-	install -D -m644 "$${ptxd_reply}" "$(IMAGEDIR)/MLO"
+	@rm -f $(IMAGEDIR)/MLO
+	@for image in `ls $(BAREBOX_MLO_DIR)/images/barebox-*-mlo.img`; do \
+		install -D -m644 $$image $(IMAGEDIR)/`basename $$image`; \
+		if [ ! -e "$(IMAGEDIR)/MLO" ]; then \
+			ln -sf `basename $$image` $(IMAGEDIR)/MLO; \
+		fi; \
+	done
+	@if [ ! -e "$(IMAGEDIR)/MLO" ]; then \
+		ptxd_get_path "$(BAREBOX_MLO_DIR)/MLO" \
+			"$(BAREBOX_MLO_DIR)/barebox.bin.ift" && \
+		install -D -m644 "$${ptxd_reply}" "$(IMAGEDIR)/MLO"; \
+	fi
 
 	@$(call touch)
 

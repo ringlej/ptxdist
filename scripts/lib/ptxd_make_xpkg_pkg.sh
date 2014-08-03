@@ -782,7 +782,10 @@ ptxd_make_xpkg_pkg() {
     local pkg_xpkg_tmp="$1"
     local pkg_xpkg_cmds="$2"
     local pkg_xpkg_perms="$3"
+    local timestamp="${PTXDIST_VERSION_YEAR}${PTXDIST_VERSION_MONTH}010000"
 
-    . "${pkg_xpkg_cmds}"
+    . "${pkg_xpkg_cmds}" &&
+
+    find "${pkg_xpkg_tmp}" -print0 | xargs -0 touch --no-dereference -c -t "${timestamp}"
 }
 export -f ptxd_make_xpkg_pkg

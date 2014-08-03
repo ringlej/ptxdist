@@ -1,6 +1,2 @@
 #!/bin/sh
-
-if [ -f "$DESTDIR/lib/systemd/system/rc-once.service" ]; then
-	ln -sf etc/rc.once.d $DESTDIR/system-update
-fi
-
+$DESTDIR/sbin/enable-rc-once

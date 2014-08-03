@@ -6,10 +6,9 @@ menuconfig LIBGSF
 	select ZLIB
 	select LIBXML2
 	select LIBXML2_HTTP
+	select GLIB
 	select BZIP2		if LIBGSF_BZ2
 	select BZIP2_LIBBZ2	if LIBGSF_BZ2
-	select GLIB		if LIBGSF_GIO
-	select PYTHON		if LIBGSF_PYTHON
 	select HOST_INTLTOOL
 	help
 	  Structured File Library
@@ -27,27 +26,12 @@ config LIBGSF_NLS
 	  National Language Support integration into libgsf
 	  for internationalization
 
-config LIBGSF_PYTHON
-	bool
-	depends on BROKEN
-	prompt "Python support"
-	help
-	  Configures whether to build with Python support. Should be
-	  turned off. MUST be turned off if Python is not installed.
-
 config LIBGSF_BZ2
 	bool
 	prompt "bz2 support"
 	help
 	  Configures whether to build with bzip2 support.
 	  bzip2 is a freely available, high-quality data compressor.
-
-config LIBGSF_GIO
-	bool
-	prompt "GIO support"
-	help
-	  Configures whether to build with GIO support.
-	  GIO is the Gnome I/O library for GVFS.
 
 endif
 

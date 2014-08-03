@@ -1,0 +1,52 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 8 May 2014 12:15:11 +0200
+Subject: [PATCH] fix linking libreg
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index b07d8ad8b690..2d6747cd6cde 100644
+--- a/Makefile
++++ b/Makefile
+@@ -28,10 +28,11 @@ RUNTIME_PUBKEY_DIR?=/etc/wireless-regdb/pubkeys
+ CFLAGS += -O2 -fpic
+ CFLAGS += -std=gnu99 -Wall -Werror -pedantic
+ CFLAGS += -Wall -g
+-LDLIBS += -lm
++LIBREGLIBS += -lm
+ LDLIBREG += -lreg
+ LIBREG += libreg.so
+-LDFLAGS += -L ./ $(LDLIBREG)
++LDFLAGS += -L ./
++LDLIBS += $(LDLIBREG)
+ 
+ all: all_noverify verify
+ 
+@@ -39,13 +40,13 @@ all_noverify: $(LIBREG) crda intersect regdbdump db2rd optimize
+ 
+ ifeq ($(USE_OPENSSL),1)
+ CFLAGS += -DUSE_OPENSSL -DPUBKEY_DIR=\"$(RUNTIME_PUBKEY_DIR)\" `pkg-config --cflags openssl`
+-LDLIBS += `pkg-config --libs openssl`
++LIBREGLIBS += `pkg-config --libs openssl`
+ 
+ $(LIBREG): keys-ssl.c
+ 
+ else
+ CFLAGS += -DUSE_GCRYPT
+-LDLIBS += -lgcrypt
++LIBREGLIBS += -lgcrypt
+ 
+ $(LIBREG): keys-gcrypt.c
+ 
+@@ -115,7 +116,7 @@ keys-%.c: utils/key2pub.py $(wildcard $(PUBKEY_DIR)/*.pem)
+ 
+ $(LIBREG): regdb.h reglib.h reglib.c
+ 	$(NQ) '  CC  ' $@
+-	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -shared -Wl,-soname,$(LIBREG) $^
++	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -shared -Wl,-soname,$(LIBREG) $^ $(LIBREGLIBS)
+ 
+ install-libreg-headers:
+ 	$(NQ) '  INSTALL  libreg-headers'

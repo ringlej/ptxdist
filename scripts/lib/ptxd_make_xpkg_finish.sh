@@ -50,7 +50,7 @@ ptxd_make_xpkg_finish() {
 ${PTXDIST_LOG_PROMPT}warning: more than one ipkg per package detected:
 
 package: '${pkg_pkg}'
-ipkg:    '${pkg_xpkg}' and '$(cat "${pkg_xpkg_map}")'
+ipkg:    '${pkg_xpkg}' and '$(< "${pkg_xpkg_map}")'
 
 
 EOF
@@ -74,11 +74,11 @@ EOF
     #
     # add pre-/postinst runs to the command list
     # make sure we replace in preinst first
-    # 
+    #
     (
-	cat "${pkg_xpkg_cmds}" | grep ptxd_install_script_replace
+	grep ptxd_install_script_replace < "${pkg_xpkg_cmds}"
 	echo "ptxd_install_run preinst"
-	cat "${pkg_xpkg_cmds}" | grep -v ptxd_install_script_replace
+	grep -v ptxd_install_script_replace < "${pkg_xpkg_cmds}"
 	echo "ptxd_install_run postinst"
     ) > "${pkg_xpkg_cmds}.tmp"
     mv "${pkg_xpkg_cmds}.tmp" "${pkg_xpkg_cmds}"

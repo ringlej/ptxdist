@@ -47,9 +47,11 @@ environment:
 	@ln -sf @GNU_mv@ "$(abs_srcdir)/bin/mv"
 	@ln -sf @GNU_cp@ "$(abs_srcdir)/bin/cp"
 	@ln -sf @GNU_rm@ "$(abs_srcdir)/bin/rm"
+	@ln -sf @GNU_ln@ "$(abs_srcdir)/bin/ln"
 	@ln -sf @GNU_rmdir@ "$(abs_srcdir)/bin/rmdir"
 	@ln -sf @GNU_md5sum@ "$(abs_srcdir)/bin/md5sum"
 	@ln -sf @GNU_mkdir@ "$(abs_srcdir)/bin/mkdir"
+	@ln -sf @GNU_mktemp@ "$(abs_srcdir)/bin/mktemp"
 	@ln -sf @GNU_install@ "$(abs_srcdir)/bin/install"
 	@ln -sf @GNU_stat@ "$(abs_srcdir)/bin/stat"
 	@ln -sf @GNU_mknod@ "$(abs_srcdir)/bin/mknod"
@@ -101,7 +103,7 @@ install: all dirty-check
 	@mkdir -p "$(DESTDIR)$(bindir)"
 	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
 	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
-	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist"
+	@ln -sf   "$(instdir)/bin/ptxdist-auto-version" "$(DESTDIR)$(bindir)/ptxdist"
 	@if [ -d "$(DESTDIR)@BASH_COMPLETION_DIR@" -a \
 		-w "$(DESTDIR)@BASH_COMPLETION_DIR@" ]; then \
 		cp scripts/bash_completion "$(DESTDIR)@BASH_COMPLETION_DIR@/ptxdist"; \

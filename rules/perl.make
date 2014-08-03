@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PERL) += perl
 #
 # Paths and names
 #
-PERL_VERSION		:= 5.14.2
-PERL_MD5		:= 3306fbaf976dcebdcd49b2ac0be00eb9
+PERL_VERSION		:= 5.18.2
+PERL_MD5		:= 373f57ccc441dbc1812435f45ad20660
 PERL			:= perl-$(PERL_VERSION)
 PERL_SUFFIX		:= tar.gz
 PERL_URL		:= http://cpan.perl.org/src/5.0/$(PERL).$(PERL_SUFFIX)
@@ -25,14 +25,21 @@ PERL_SOURCE		:= $(SRCDIR)/$(PERL).$(PERL_SUFFIX)
 PERL_DIR		:= $(BUILDDIR)/$(PERL)
 PERL_LICENSE		:= unknown
 
-PERLCROSS_VERSION	:= 5.14.2-cross-0.6.5
-PERLCROSS_MD5		:= 9380c4e33f74a7da2c8fb527e1747b09
-PERLCROSS_URL		:= http://download.berlios.de/perlcross/perl-$(PERLCROSS_VERSION).tar.gz
+PERLCROSS_VERSION	:= 5.18.2-cross-0.8.5
+PERLCROSS_MD5		:= 4744dbfd87bc1a694bc6f17ad4c2414f
+PERLCROSS_URL		:= https://raw.github.com/arsv/perl-cross/releases/perl-$(PERLCROSS_VERSION).tar.gz
 PERLCROSS_SOURCE	:= $(SRCDIR)/perlcross-$(PERLCROSS_VERSION).tar.gz
 $(PERLCROSS_SOURCE)	:= PERLCROSS
 PERLCROSS_DIR		:= $(PERL_DIR)
 
 PERL_SOURCES		:= $(PERL_SOURCE) $(PERLCROSS_SOURCE)
+
+# cross perl need the source dir
+PERL_DEVPKG		:= NO
+# use by perl modules
+PERL_SITELIB		:= /usr/lib/perl5/site_perl/$(PERL_VERSION)
+
+CROSS_PERL= $(PTXDIST_SYSROOT_CROSS)/bin/cross-perl
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -43,6 +50,7 @@ $(STATEDIR)/perl.extract:
 	@$(call clean, $(PERL_DIR))
 	@$(call extract, PERL)
 	@$(call extract, PERLCROSS)
+	@$(call patchin, PERL)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -54,32 +62,49 @@ $(STATEDIR)/perl.extract:
 #
 PERL_CONF_TOOL	:= autoconf
 PERL_CONF_OPT	:= \
+	--mode=cross \
 	--prefix=/usr \
-	$(CROSS_AUTOCONF_ARCH) \
+	--host=$(PTXCONF_GNU_TARGET) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--set-ld=$(CROSS_CC)
+	-Dld=$(CROSS_CC) \
+	-Dusethreads
 
 PERL_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
-# Target-Install
+# Install
 # ----------------------------------------------------------------------------
 
+$(STATEDIR)/perl.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, PERL)
+	@echo '#!/bin/sh'				>  $(CROSS_PERL)
+	@echo 'exec $(PERL_DIR)/miniperl_top \'		>> $(CROSS_PERL)
+	@echo '	-I$(SYSROOT)$(PERL_SITELIB) \'		>> $(CROSS_PERL)
+	@echo '	"$$@" \'				>> $(CROSS_PERL)
+	@echo '	PERL=$(PERL_DIR)/miniperl_top \'	>> $(CROSS_PERL)
+	@echo '	PERL_SRC=$(PERL_DIR)'			>> $(CROSS_PERL)
+	@chmod +x $(CROSS_PERL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
 
 PERL_PROGRAMS := \
 	a2p \
 	c2ph \
 	config_data \
 	corelist \
-	dprofpp \
 	enc2xs \
 	find2perl \
 	h2ph \
 	h2xs \
 	instmodsh \
+	json_pp \
 	libnetcfg \
 	perl \
-	perl5.12.3 \
+	perl$(PERL_VERSION) \
 	perlivp \
 	perlthanks \
 	piconv \
@@ -89,10 +114,12 @@ PERL_PROGRAMS := \
 	pstruct \
 	ptar \
 	ptardiff \
+	ptargrep \
 	s2p \
 	shasum \
 	splain \
-	xsubpp
+	xsubpp \
+	zipdetails
 
 $(STATEDIR)/perl.targetinstall:
 	@$(call targetinfo)
@@ -106,7 +133,7 @@ $(STATEDIR)/perl.targetinstall:
 	@$(foreach prog, $(PERL_PROGRAMS), \
 		$(call install_copy, perl, 0, 0, 0755, -, /usr/bin/$(prog));)
 
-	@$(call install_tree, perl, 0, 0, -, /usr/lib/perl)
+	@$(call install_tree, perl, 0, 0, -, /usr/lib/perl5)
 
 	@$(call install_finish, perl)
 

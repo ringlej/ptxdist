@@ -85,6 +85,7 @@ config UDEV_DRIVERS_RULES
 
 config UDEV_KEYMAPS
 	bool
+	depends on !SYSTEMD
 	prompt "install keymaps"
 	help
 	  This will install the keymaps shipped with udev. These are mostly

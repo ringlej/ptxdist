@@ -1,0 +1,24 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Mon, 2 Jun 2014 00:52:19 +0200
+Subject: [PATCH] haserl: fix syntax in src/Makefile.am
+
+Use tab at the beginning of line instead of spaces.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ src/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 5d38878..6ba954a 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -49,7 +49,7 @@ haserl_SOURCES = common.c common.h sliding_buffer.c sliding_buffer.h \
+ 		 $(BASHSOURCE) $(LUASOURCE) haserl.c haserl.h
+ 
+ install-strip:
+-        $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
+           install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
+           `test -z '$(STRIP)' || \
+             echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install

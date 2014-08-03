@@ -31,6 +31,7 @@ LIBMIKMOD_LICENSE	:= LGPLv2+
 
 LIBMIKMOD_CONF_ENV	:= \
 	$(CROSS_ENV) \
+	libmikmod_cv_makeinfo_html=yes \
 	MAKEINFO=:
 
 #

@@ -247,10 +247,7 @@ check_version() {
 
 
 
-#
-# check the ptxconfig file
-#
-_check_config_ptx() {
+_get_config_ptx() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error:	'${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
@@ -263,7 +260,6 @@ _check_config_ptx() {
 		return
 	fi
 
-	local configfile_version
 	configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)" || {
 		ptxd_dialog_msgbox \
 			"error:	the config file '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}'\n" \
@@ -274,6 +270,15 @@ _check_config_ptx() {
 			"	'ptxdist clone <project>' to clone an existing project"
 		return 1
 	}
+}
+
+#
+# check the ptxconfig file
+#
+_check_config_ptx() {
+	local configfile_version
+
+	_get_config_ptx
 
 	check_version "${configfile_version}" || {
 		ptxd_dialog_msgbox \
@@ -605,6 +610,12 @@ check_compiler() {
 		}
 	done
 
+	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
+		tool_abs="$(which "${tool}" 2>/dev/null)"
+		ptxd_replace_link "${tool_abs}" "${wrapper_dir}/${tool}" || \
+			ptxd_bailout "Unable to create host ${tool} wrapper link"
+	done
+
 	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
 		PATH="${wrapper_dir}:${PATH}"
 		return
@@ -617,11 +628,18 @@ check_compiler() {
 	# 3) Correct compiler version if a specific compiler version is given
 	#
 
+	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
 	local vendor_should
 	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)" && {
 		# yea! A toolchain vendor was specified in the ptxconfig file.
-		# So we check for a 'ptxconfig' file in the toolchain directory
-		# and test the PTXCONF_PROJECT string therein.
+		#
+		# We have two options now:
+		#  a) the provided toolchain is an OSELAS.Toolchain which contains a
+		#     'ptxconfig', so test the PTXCONF_PROJECT string therein.
+		#  b) the provided toolchain is a crosstool-ng one which contains a
+		#     ${compiler_prefix}-ct-ng.config, so test the
+		#     CT_TOOLCHAIN_PKGVERSION therein.
+		#
 
 		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
 			echo
@@ -631,17 +649,33 @@ check_compiler() {
 			exit 1
 		fi
 
-		local vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
-		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
+		local ptxdist_vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
+		local ct_vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/${compiler_prefix}ct-ng.config")"
+
+		local vendor_is
+		if [ "${ptxdist_vendor_def}" -a -e "${ptxdist_vendor_def}" ]; then
+			vendor_is="$(source "${ptxdist_vendor_def}" && echo ${PTXCONF_PROJECT})"
+		elif [ "${ct_vendor_def}" -a -x "${ct_vendor_def}" ]; then
+			vendor_is=$(${ct_vendor_def} | awk ' \
+					/^#\s+crosstool-NG.*Configuration$/ { \
+						printf("%s %s", $2, $3) \
+					}; \
+					/^CT_TOOLCHAIN_PKGVERSION=/ { \
+						gsub(/\"/, ""); \
+						split($0,ary,"="); \
+						if (ary[1]) { \
+							printf(" - %s", ary[2]); \
+						} \
+					}')
+		else
 			echo
-			echo "${PTXDIST_LOG_PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
+			echo "${PTXDIST_LOG_PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain nor a crosstools-ng toolchain"
 			echo "${PTXDIST_LOG_PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
 			echo
 			exit 1
 		fi
 
 		# both vendor strings are present. Check them
-		local vendor_is="$(source "${vendor_def}" && echo ${PTXCONF_PROJECT})"
 		case "${vendor_is}" in
 		"${vendor_should}"*)
 			;;
@@ -656,7 +690,6 @@ check_compiler() {
 		esac
 	}
 
-	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
 	local compiler_ver_should
 	compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)" && {
 		local compiler="${compiler_prefix}gcc"
@@ -684,8 +717,38 @@ check_compiler() {
 	for cc in gcc g++ cpp ld; do
 		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
-	done
-	PATH="${wrapper_dir}:${PATH}"
+	done &&
+	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
+		ptxd_replace_link "$(which ${compiler_prefix}${tool})"  "${wrapper_dir}/${compiler_prefix}${tool}"
+	done &&
+	PATH="${wrapper_dir}:${PATH}" &&
+	if [ -n "${PTXDIST_ICECC}" ]; then
+		local icecc_dir="${sysroot_host}/lib/icecc"
+		if [ "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
+			rm -rf "${icecc_dir}" &&
+			if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
+				ptxd_bailout "PTXdist only supports icecc 1.x"
+			fi
+			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
+			(
+				echo "Creating icecc target environment..."
+				cd "${icecc_dir}/target"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/${compiler_prefix}gcc" \
+					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
+				echo "Creating icecc host environment..."
+				cd "${icecc_dir}/host"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/gcc" \
+					"${wrapper_dir}/real/g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
+			) &&
+			ln -s "${toolchain}" "${icecc_dir}/toolchain"
+		fi || return
+		export ICECC_VERSION_TARGET="$(ls "${icecc_dir}/target"/*.tar.gz)"
+		export ICECC_VERSION_HOST="$(ls "${icecc_dir}/host"/*.tar.gz)"
+	fi
 }
 
 
@@ -944,6 +1007,7 @@ Options:
 
   --git				use git to apply patches
 
+  --auto-version		automatically switch to the correct PTXdist version
 EOF
 }
 
@@ -1237,6 +1301,9 @@ parse_first()
 		--update-md5)
 			# overwrite default from ptxdistrc
 			export PTXCONF_SETUP_CHECK="update"
+			;;
+		--auto-version)
+			PTXDIST_AUTOVERSION=1
 			;;
 		--)
 			while [ ${#} -ne 0 ]; do
@@ -2235,6 +2302,37 @@ setup_config() {
 
 
 
+setup_auto_version()
+{
+	local configfile_version
+
+	if [ -z "${PTXDIST_AUTOVERSION}" ]; then
+		return
+	fi
+
+	_get_config_ptx
+	if ! check_version "${configfile_version}"; then
+		local next
+		local -a args
+		set -- "${PTXDIST_ARGS_FULL[@]}"
+		while [ ${#} -ne 0 ]; do
+			local arg="${1}"
+			shift
+			case "${arg}" in
+			--auto-version) ;;
+			*) args[${#args[@]}]="${arg}" ;;
+			esac
+		done
+		if next="$(which ptxdist-${configfile_version})"; then
+			exec "${next}" "${args[@]}"
+		else
+			ptxd_bailout "ptxdist-${configfile_version} not found!"
+		fi
+	fi
+}
+
+
+
 #
 # this function defines which args are allowed in case of a broken
 # config during "setup_platform"
@@ -2383,6 +2481,20 @@ setup_path() {
 			sleep 3
 		fi
 	fi
+	if [ -n "${PTXCONF_SETUP_ICECC}" ]; then
+		PTXDIST_ICECC="$(which icecc 2>/dev/null)"
+		PTXDIST_ICECC_CREATE_ENV="$(which "${PTXCONF_SETUP_ICECC_CREATE_ENV}")"
+		if [ -z "${PTXDIST_ICECC}" -o -z "${PTXDIST_ICECC_CREATE_ENV}" ]; then
+			echo
+			echo "${PTXDIST_LOG_PROMPT}warning: icecc has been activated, but was not found on your system"
+			echo "${PTXDIST_LOG_PROMPT}warning: install icecc, disable it ('ptxdist setup' -> 'Developer Options' menu)"
+			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
+			echo "${PTXDIST_LOG_PROMPT}icecc:            '${PTXDIST_ICECC:-not found}'"
+			echo "${PTXDIST_LOG_PROMPT}icecc-create-env: '${PTXDIST_ICECC_CREATE_ENV:-not found}'"
+			echo
+			sleep 3
+		fi
+	fi
 }
 
 
@@ -2466,6 +2578,7 @@ setup_export() {
 		\
 		PTXDIST_CCACHE \
 		PTXDIST_FORCE_DOWNLOAD \
+		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
@@ -2492,6 +2605,8 @@ main() {
 
 	parse_first &&
 	# --- vars to config files are setup ---
+
+	setup_auto_version &&
 
 	setup_platform &&
 	# --- platformdir and other *dirs are available from here ---

@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_KBD) += kbd
 #
 # Paths and names
 #
-KBD_VERSION	:= 1.15.2
-KBD_MD5		:= e850eb91e4d3b94b194efe8e953204c5
+KBD_VERSION	:= 2.0.1
+KBD_MD5		:= e9f2b7046312c11cec9e52e22f307b6a
 KBD		:= kbd-$(KBD_VERSION)
-KBD_SUFFIX	:= tar.bz2
+KBD_SUFFIX	:= tar.gz
 KBD_URL		:= $(call ptx/mirror, KERNEL, utils/kbd/$(KBD).$(KBD_SUFFIX))
 KBD_SOURCE	:= $(SRCDIR)/$(KBD).$(KBD_SUFFIX)
 KBD_DIR		:= $(BUILDDIR)/$(KBD)
@@ -32,15 +32,40 @@ KBD_LICENSE	:= GPLv2+
 #
 # autoconf
 #
-KBD_CONF_TOOL	:= autoconf
-KBD_CONF_OPT	:= \
+KBD_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-nls \
 	--disable-rpath \
-	--disable-klibc \
-	--disable-klibc-layout \
+	--disable-optional-progs \
+	--disable-libkeymap \
+	--disable-vlock \
 	--without-libiconv-prefix \
 	--without-libintl-prefix
+
+
+KBD_TOOLS-y					:=
+KBD_TOOLS-$(PTXCONF_KBD_CHVT)			+= chvt
+KBD_TOOLS-$(PTXCONF_KBD_DEALLOCVT)		+= deallocvt
+KBD_TOOLS-$(PTXCONF_KBD_DUMPKEYS)		+= dumpkeys
+KBD_TOOLS-$(PTXCONF_KBD_FGCONSOLE)		+= fgconsole
+KBD_TOOLS-$(PTXCONF_KBD_GETKEYCODES)		+= getkeycodes
+KBD_TOOLS-$(PTXCONF_KBD_KBDINFO)		+= kbdinfo
+KBD_TOOLS-$(PTXCONF_KBD_KBD_MODE)		+= kbd_mode
+KBD_TOOLS-$(PTXCONF_KBD_KBDRATE)		+= kbdrate
+KBD_TOOLS-$(PTXCONF_KBD_LOADKEYS)		+= loadkeys
+KBD_TOOLS-$(PTXCONF_KBD_LOADUNIMAP)		+= loadunimap
+KBD_TOOLS-$(PTXCONF_KBD_MAPSCRN)		+= mapscrn
+KBD_TOOLS-$(PTXCONF_KBD_OPENVT)			+= openvt
+KBD_TOOLS-$(PTXCONF_KBD_PSFXTABLE)		+= psfxtable
+KBD_TOOLS-$(PTXCONF_KBD_SETFONT)		+= setfont
+KBD_TOOLS-$(PTXCONF_KBD_SETKEYCODES)		+= setkeycodes
+KBD_TOOLS-$(PTXCONF_KBD_SETLEDS)		+= setleds
+KBD_TOOLS-$(PTXCONF_KBD_SETMETAMODE)		+= setmetamode
+KBD_TOOLS-$(PTXCONF_KBD_SETVTRGB)		+= setvtrgb
+KBD_TOOLS-$(PTXCONF_KBD_SHOWCONSOLEFONT)	+= showconsolefont
+KBD_TOOLS-$(PTXCONF_KBD_SHOWKEY)		+= showkey
+KBD_TOOLS-$(PTXCONF_KBD_UNICODE_START)		+= unicode_start
+KBD_TOOLS-$(PTXCONF_KBD_UNICODE_STOP)		+= unicode_stop
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,32 +80,48 @@ $(STATEDIR)/kbd.targetinstall:
 	@$(call install_fixup, kbd,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
 	@$(call install_fixup, kbd,DESCRIPTION,missing)
 
-ifdef PTXCONF_KBD_DUMPKEYS
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/dumpkeys)
+	@$(foreach tool,$(KBD_TOOLS-y), \
+		$(call install_copy, kbd, 0, 0, 0755, -, \
+			/usr/bin/$(tool));)
+
+ifdef PTXCONF_KBD_PSFXTABLE
+	@$(call install_link, kbd, psfxtable, /usr/bin/psfaddtable)
+	@$(call install_link, kbd, psfxtable, /usr/bin/psfgettable)
+	@$(call install_link, kbd, psfxtable, /usr/bin/psfstriptable)
 endif
 
-ifdef PTXCONF_KBD_LOADKEYS
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/loadkeys)
+ifdef PTXCONF_KBD_CONSOLEFONTS
+	@cd $(KBD_PKGDIR)/usr/share/consolefonts && \
+	find . -type f | while read file; do \
+		$(call install_copy, kbd, 0, 0, 0644, -, \
+			/usr/share/consolefonts/$$file); \
+	done
 endif
 
-ifdef PTXCONF_KBD_GETKEYCODES
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/getkeycodes)
+ifdef PTXCONF_KBD_CONSOLETRANS
+	@cd $(KBD_PKGDIR)/usr/share/consoletrans && \
+	find . -type f | while read file; do \
+		$(call install_copy, kbd, 0, 0, 0644, -, \
+			/usr/share/consoletrans/$$file); \
+	done
 endif
 
-ifdef PTXCONF_KBD_SETKEYCODES
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/setkeycodes)
+ifdef PTXCONF_KBD_KEYMAPS
+	@cd $(KBD_PKGDIR)/usr/share/keymaps && \
+	find . -type f | while read file; do \
+		$(call install_copy, kbd, 0, 0, 0644, -, \
+			/usr/share/keymaps/$$file); \
+	done
+
+	@$(call install_link, kbd, mac, /usr/share/keymaps/ppc)
 endif
 
-ifdef PTXCONF_KBD_SHOWKEY
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/showkey)
-endif
-
-ifdef PTXCONF_KBD_CHVT
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/chvt)
-endif
-
-ifdef PTXCONF_KBD_DEALLOCVT
-	@$(call install_copy, kbd, 0, 0, 0755, -, /usr/bin/deallocvt)
+ifdef PTXCONF_KBD_UNIMAPS
+	@cd $(KBD_PKGDIR)/usr/share/unimaps && \
+	find . -type f | while read file; do \
+		$(call install_copy, kbd, 0, 0, 0644, -, \
+			/usr/share/unimaps/$$file); \
+	done
 endif
 
 	@$(call install_finish, kbd)

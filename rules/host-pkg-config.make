@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_PKG_CONFIG) += host-pkg-config
 #
 # Paths and names
 #
-HOST_PKG_CONFIG_VERSION	:= 0.25
-HOST_PKG_CONFIG_MD5	:= a3270bab3f4b69b7dc6dbdacbcae9745
+HOST_PKG_CONFIG_VERSION	:= 0.28
+HOST_PKG_CONFIG_MD5	:= aa3c86e67551adc3ac865160e34a2a0d
 HOST_PKG_CONFIG		:= pkg-config-$(HOST_PKG_CONFIG_VERSION)
 HOST_PKG_CONFIG_SUFFIX	:= tar.gz
 HOST_PKG_CONFIG_URL	:= http://pkgconfig.freedesktop.org/releases/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
@@ -32,6 +32,10 @@ HOST_PKG_CONFIG_DEVPKG	:= NO
 #
 # autoconf
 #
-HOST_PKG_CONFIG_CONF_TOOL := autoconf
+HOST_PKG_CONFIG_CONF_TOOL	:= autoconf
+HOST_PKG_CONFIG_CONF_OPT	:= \
+	$(HOST_AUTOCONF_SYSROOT) \
+	--disable-host-tool \
+	--with-internal-glib
 
 # vim: syntax=make

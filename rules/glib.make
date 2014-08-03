@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.38.2
-GLIB_MD5	:= 26d1d08e478fc48c181ca8be44f5b69f
+GLIB_VERSION	:= 2.40.0
+GLIB_MD5	:= 05fb7cb17eacbc718e90366a1eae60d9
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -38,14 +38,14 @@ GLIB_LICENSE	:= LGPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
-GLIB_PATH	:= PATH=$(CROSS_PATH)
-
-GLIB_ENV 	:= \
+GLIB_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	glib_cv_uscore=no \
 	glib_cv_stack_grows=no \
 	glib_cv_have_qsort_r=yes \
-	ac_cv_func_statfs=yes
+	ac_cv_func_statfs=yes \
+	ac_cv_path_MSGFMT=: \
+	ac_cv_path_XGETTEXT=no
 
 #
 # autoconf
@@ -54,7 +54,8 @@ GLIB_ENV 	:= \
 # is the right choice for no locales and locales-via-libc
 #
 
-GLIB_AUTOCONF := \
+GLIB_CONF_TOOL	:= autoconf
+GLIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
 	--enable-debug=minimum \
@@ -75,7 +76,7 @@ GLIB_AUTOCONF := \
 	--disable-man \
 	--disable-dtrace \
 	--disable-systemtap \
-	--disable-gcov \
+	--disable-coverage \
 	--with-libiconv=no \
 	--with-threads=posix \
 	--with-pcre=internal

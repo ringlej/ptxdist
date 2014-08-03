@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config LIBOPING
+	tristate
+	prompt "liboping"
+	help
+	  C library to generate ICMP requests

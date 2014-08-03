@@ -30,7 +30,9 @@ LOWPAN_TOOLS_LICENSE	:= GPLv2
 # ----------------------------------------------------------------------------
 
 LOWPAN_TOOLS_CONF_ENV = \
-	$(CROSS_ENV)
+	$(CROSS_ENV) \
+	ac_cv_prog_YACC=: \
+	ac_cv_prog_LEX=:
 
 ifdef PTXCONF_LOWPAN_TOOLS_TESTS
 LOWPAN_TOOLS_CONF_ENV += ac_cv_path_PYTHON=$(CROSS_PYTHON)

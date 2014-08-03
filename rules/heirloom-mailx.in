@@ -1,0 +1,7 @@
+## SECTION=communication
+
+config HEIRLOOM_MAILX
+	tristate
+	prompt "heirloom-mailx"
+	help
+	  FIXME

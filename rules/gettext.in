@@ -1,7 +1,7 @@
 ## SECTION=system_libraries
-menuconfig GETTEXT
+config GETTEXT
 	tristate
-	prompt "gettext (gnu)                 "
+	prompt "gettext (gnu)"
 	select LIBC_M
 	select LIBC_DL
 	select GCCLIBS_CXX

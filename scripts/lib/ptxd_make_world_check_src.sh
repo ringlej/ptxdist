@@ -71,7 +71,7 @@ ptxd_make_world_update_md5() {
     else
 	makefile="$(readlink -f "${ptxd_reply}")"
     fi
-    local count=$(grep "\<${PKG}_MD5[ 	]*:=" "${makefile}" 2> /dev/null | wc -l)
+    local count=$(grep "^${PKG}_MD5[ 	]*:=" "${makefile}" 2> /dev/null | wc -l)
     if [ "${count}" -gt 1 ]; then
 	ptxd_bailout "Could not update md5sum for '${pkg_label}': ${PKG}_MD5 found ${count} times in '$(ptxd_print_path ${makefile})'."
     fi

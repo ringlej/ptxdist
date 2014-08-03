@@ -2,11 +2,5 @@
 
 config HOST_GLIB
 	tristate
-	# Note: as there may be systems with and without libiconv and
-	#       glibc-iconv out there, we always use libiconv in our host
-	#       tools. Otherwhise it is not possible to overcome the
-	#       header check in glib.
-	# FIXME what to do if we build a target system without iconv?
-	select HOST_LIBICONV
 	select HOST_ZLIB
 	select HOST_LIBFFI
