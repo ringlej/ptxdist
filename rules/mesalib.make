@@ -19,11 +19,11 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 10.1.0
-MESALIB_MD5	:= 3ec43f79dbcd9aa2a4a27bf1f51655b6
+MESALIB_VERSION	:= 10.2.5
+MESALIB_MD5	:= f82b1c2b42f44073d8b889d2a7ee9292
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(basename $(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
@@ -59,13 +59,23 @@ MESALIB_DRI_LIBS-y += \
 	$(subst nouveau,nouveau_vieux,$(MESALIB_DRI_DRIVERS-y)) \
 	$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y))
 
+ifeq ($(MESALIB_GALLIUM_DRIVERS-y),)
+MESALIB_GALLIUM_EGL	:=
+MESALIB_GALLIUM_GBM	:=
+else
+MESALIB_GALLIUM_EGL	:= $(PTXCONF_MESALIB_EGL)
+MESALIB_GALLIUM_GBM	:= $(PTXCONF_MESALIB_GBM)
+endif
+
 MESALIB_LIBS-y				:= libglapi
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLX)	+= libGL
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLES1)	+= libGLESv1_CM
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLES2)	+= libGLESv2
 MESALIB_LIBS-$(PTXCONF_MESALIB_OPENVG)	+= libOpenVG
-MESALIB_LIBS-$(PTXCONF_MESALIB_EGL)	+= libEGL egl/egl_gallium
-MESALIB_LIBS-$(PTXCONF_MESALIB_GBM)	+= libgbm gbm/gbm_gallium_drm
+MESALIB_LIBS-$(PTXCONF_MESALIB_EGL)	+= libEGL
+MESALIB_LIBS-$(MESALIB_GALLIUM_EGL)	+= egl/egl_gallium
+MESALIB_LIBS-$(PTXCONF_MESALIB_GBM)	+= libgbm
+MESALIB_LIBS-$(MESALIB_GALLIUM_GBM)	+= gbm/gbm_gallium_drm
 
 MESALIB_LIBS-y += $(addprefix gallium-pipe/pipe_,$(filter-out freedreno,$(MESALIB_GALLIUM_DRIVERS-y)))
 
@@ -97,17 +107,19 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESALIB_GBM)-gbm \
 	--disable-xvmc \
 	--disable-vdpau \
+	--disable-omx \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-xlib-glx \
-	--$(call ptx/endis, PTXCONF_MESALIB_EGL)-gallium-egl \
-	--$(call ptx/endis, PTXCONF_MESALIB_GBM)-gallium-gbm \
+	--$(call ptx/endis, MESALIB_GALLIUM_EGL)-gallium-egl \
+	--$(call ptx/endis, MESALIB_GALLIUM_GBM)-gallium-gbm \
 	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
 	--enable-shared-glapi \
 	--enable-driglx-direct \
 	--enable-glx-tls \
 	--disable-gallium-llvm \
+	--enable-llvm-shared-libs \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
