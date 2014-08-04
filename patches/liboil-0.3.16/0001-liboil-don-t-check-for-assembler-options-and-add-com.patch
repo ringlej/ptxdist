@@ -1,19 +1,20 @@
-Subject: liboil: don't check for assembler options and add compiler options
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 4 Aug 2014 17:45:42 +0200
+Subject: [PATCH] liboil: don't check for assembler options and add compiler
+ options
 
 Checking for "-Wa,-mfpu=vfp" and then adding "-mfpu=vfp" os of course nonsense.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
- configure.ac |    4 ++--
+ configure.ac | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: liboil-0.3.15/configure.ac
-===================================================================
---- liboil-0.3.15.orig/configure.ac
-+++ liboil-0.3.15/configure.ac
-@@ -188,10 +188,10 @@ if test x$HAVE_GCC_ASM = xyes -a x$HAVE_
+diff --git a/configure.ac b/configure.ac
+index a657101..38bd436 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -188,10 +188,10 @@ if test x$HAVE_GCC_ASM = xyes -a x$HAVE_POWERPC = xyes ; then
  fi
  
  if test x$HAVE_GCC_ASM = xyes -a x$HAVE_ARM = xyes ; then
