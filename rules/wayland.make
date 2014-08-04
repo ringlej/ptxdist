@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WAYLAND) += wayland
 #
 # Paths and names
 #
-WAYLAND_VERSION	:= 1.4.0
-WAYLAND_MD5	:= 332cf9191837be12638a29265ed7cf46
+WAYLAND_VERSION	:= 1.5.0
+WAYLAND_MD5	:= 1d882776b27329b91d2d500b6d66dd1d
 WAYLAND		:= wayland-$(WAYLAND_VERSION)
 WAYLAND_SUFFIX	:= tar.xz
 WAYLAND_URL	:= http://wayland.freedesktop.org/releases/$(WAYLAND).$(WAYLAND_SUFFIX)
@@ -29,9 +29,6 @@ WAYLAND_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-WAYLAND_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	ac_cv_path_XMLLINT=
 #
 # autoconf
 #
@@ -50,7 +47,7 @@ $(STATEDIR)/wayland.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, WAYLAND)
 	@sed 's;^prefix=.*;prefix=$(PTXDIST_SYSROOT_HOST);' \
-		$(PTXDIST_SYSROOT_HOST)/share/pkgconfig/wayland-scanner.pc \
+		$(PTXDIST_SYSROOT_HOST)/lib/pkgconfig/wayland-scanner.pc \
 		> $(PTXDIST_SYSROOT_TARGET)/usr/lib/pkgconfig/wayland-scanner.pc
 	@$(call touch)
 # ----------------------------------------------------------------------------
