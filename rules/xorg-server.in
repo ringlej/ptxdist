@@ -61,7 +61,7 @@ menuconfig XORG_SERVER
 	select LIBDRM			if XORG_SERVER_EXT_DRI
 
 	# dri2 triggered
-	select DRI2PROTO		if XORG_SERVER_EXT_DRI2
+	select XORG_PROTO_DRI2		if XORG_SERVER_EXT_DRI2
 	select LIBDRM			if XORG_SERVER_EXT_DRI2
 
 	# xdmcp extension

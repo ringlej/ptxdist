@@ -1,6 +1,6 @@
 ## SECTION=multimedia_xorg_proto
 
-config DRI2PROTO
+config XORG_PROTO_DRI2
 	tristate
 	help
 	  Direct Rendering Infrastructure 2 Extension
