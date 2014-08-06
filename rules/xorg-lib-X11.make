@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_X11) += xorg-lib-x11
 #
 # Paths and names
 #
-XORG_LIB_X11_VERSION	:= 1.5.0
-XORG_LIB_X11_MD5	:= 78b4b3bab4acbdf0abcfca30a8c70cc6
+XORG_LIB_X11_VERSION	:= 1.6.2
+XORG_LIB_X11_MD5	:= c35d6ad95b06635a524579e88622fdb5
 XORG_LIB_X11		:= libX11-$(XORG_LIB_X11_VERSION)
 XORG_LIB_X11_SUFFIX	:= tar.bz2
 XORG_LIB_X11_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_X11).$(XORG_LIB_X11_SUFFIX))
@@ -29,14 +29,13 @@ XORG_LIB_X11_DIR	:= $(BUILDDIR)/$(XORG_LIB_X11)
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_X11_CONF_ENV := $(CROSS_ENV)
+XORG_LIB_X11_CONF_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_path_RAWCPP=$(CROSS_CPP)
 
 # configure states: "checking for working mmap...no"
 # is this a correct fix?
 XORG_LIB_X11_CONF_ENV += ac_cv_func_mmap_fixed_mapped=yes
-
-# configure states: "checking for cpp... /usr/bin/cpp"
-# what is the correct fix?
 
 #
 # autoconf
