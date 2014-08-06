@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XCOMPOSITE) += xorg-lib-xcomposite
 #
 # Paths and names
 #
-XORG_LIB_XCOMPOSITE_VERSION	:= 0.4.3
-XORG_LIB_XCOMPOSITE_MD5		:= a60e0b5c276d0aa9e2d3b982c98f61c8
+XORG_LIB_XCOMPOSITE_VERSION	:= 0.4.4
+XORG_LIB_XCOMPOSITE_MD5		:= f7a218dcbf6f0848599c6c36fc65c51a
 XORG_LIB_XCOMPOSITE		:= libXcomposite-$(XORG_LIB_XCOMPOSITE_VERSION)
 XORG_LIB_XCOMPOSITE_SUFFIX	:= tar.bz2
 XORG_LIB_XCOMPOSITE_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XCOMPOSITE).$(XORG_LIB_XCOMPOSITE_SUFFIX))
@@ -28,13 +28,10 @@ XORG_LIB_XCOMPOSITE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XCOMPOSITE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XCOMPOSITE_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XCOMPOSITE_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XCOMPOSITE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XCOMPOSITE_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
