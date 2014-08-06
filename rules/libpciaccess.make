@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBPCIACCESS) += libpciaccess
 #
 # Paths and names
 #
-LIBPCIACCESS_VERSION	:= 0.13.1
-LIBPCIACCESS_MD5	:= 399a419ac6a54f0fc07c69c9bdf452dc
+LIBPCIACCESS_VERSION	:= 0.13.2
+LIBPCIACCESS_MD5	:= b7c0d3afce14eedca57312a3141ec13a
 LIBPCIACCESS		:= libpciaccess-$(LIBPCIACCESS_VERSION)
 LIBPCIACCESS_SUFFIX	:= tar.bz2
 LIBPCIACCESS_URL	:= $(call ptx/mirror, XORG, individual/lib/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX))
@@ -42,8 +42,10 @@ endif
 LIBPCIACCESS_CONF_TOOL	:= autoconf
 LIBPCIACCESS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_LIBPCIACCESS_STATIC)-static \
-	--$(call ptx/disen, PTXCONF_LIBPCIACCESS_STATIC)-shared \
+	--disable-strict-compilation \
+	--disable-linux-rom-fallback \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/wwo, PTXCONF_LIBPCIACCESS_ZLIB)-zlib
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -52,8 +54,6 @@ LIBPCIACCESS_CONF_OPT	:= \
 $(STATEDIR)/libpciaccess.targetinstall:
 	@$(call targetinfo)
 
-ifndef PTXCONF_LIBPCIACCESS_STATIC
-# only shared libraries are to be installed on the target
 	@$(call install_init, libpciaccess)
 	@$(call install_fixup, libpciaccess,PRIORITY,optional)
 	@$(call install_fixup, libpciaccess,SECTION,base)
@@ -63,7 +63,6 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 	@$(call install_lib, libpciaccess, 0, 0, 0644, libpciaccess)
 
 	@$(call install_finish, libpciaccess)
-endif
 
 	@$(call touch)
 

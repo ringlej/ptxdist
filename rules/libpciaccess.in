@@ -2,21 +2,13 @@
 
 menuconfig LIBPCIACCESS
 	tristate
+	select ZLIB	if LIBPCIACCESS_COMPRESS
 	prompt "libpciaccess                  "
 	help
 	  libpciaccess contains low level access functions to be used by
 	  the xorg servers and video drivers.
 
 if LIBPCIACCESS
-config LIBPCIACCESS_STATIC
-	bool
-	prompt "build static only"
-	help
-	  Build a static only version of this library. This makes sense if only
-	  one program will use this library on the target and it makes more
-	  sense if a CPU with low register count (like x86) is in use.
-
-comment "build options"
 
 config LIBPCIACCESS_MTRR
 	bool
@@ -27,5 +19,9 @@ config LIBPCIACCESS_MTRR
 	  BTW: MTRR stands for "memory type range registers" and its used to
 	  optimize accesses to various memory types, like main memory
 	  or memory accessible via busses like video memory on PCI cards.
+
+config LIBPCIACCESS_ZLIB
+	bool
+	default PCIUTILS_COMPRESS
 
 endif
