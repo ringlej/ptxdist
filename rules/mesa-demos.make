@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MESA_DEMOS) += mesa-demos
 #
 # Paths and names
 #
-MESA_DEMOS_VERSION	:= 8.1.0
-MESA_DEMOS_MD5		:= 9df33ba69a26bbfbc7c8148602e59542
+MESA_DEMOS_VERSION	:= 8.2.0
+MESA_DEMOS_MD5		:= 72613a2c8c013716db02e3ff59d29061
 MESA_DEMOS		:= mesa-demos-$(MESA_DEMOS_VERSION)
 MESA_DEMOS_SUFFIX	:= tar.bz2
 MESA_DEMOS_URL		:= ftp://ftp.freedesktop.org/pub/mesa/demos/$(MESA_DEMOS_VERSION)/$(MESA_DEMOS).$(MESA_DEMOS_SUFFIX)
@@ -51,6 +51,7 @@ MESA_DEMOS_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESA_DEMOS_WAYLAND)-wayland \
 	--disable-gbm \
 	--disable-freetype2 \
+	--disable-rbug
 
 
 # ----------------------------------------------------------------------------
