@@ -473,7 +473,7 @@ install replace:
 " &&
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
-    sed -i -e "s,${placeholder},${value},g" "${dirs[@]/%/${dst}}" ||
+    sed -i -e "s,${placeholder//,/\\,},${value//,/\\,},g" "${dirs[@]/%/${dst}}" ||
 
     ptxd_install_error "install_replace failed!"
 }
