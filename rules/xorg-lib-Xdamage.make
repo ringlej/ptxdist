@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XDAMAGE) += xorg-lib-xdamage
 #
 # Paths and names
 #
-XORG_LIB_XDAMAGE_VERSION	:= 1.1.3
-XORG_LIB_XDAMAGE_MD5		:= 44774e1a065158b52f1a0da5100cebec
+XORG_LIB_XDAMAGE_VERSION	:= 1.1.4
+XORG_LIB_XDAMAGE_MD5		:= 0cf292de2a9fa2e9a939aefde68fd34f
 XORG_LIB_XDAMAGE		:= libXdamage-$(XORG_LIB_XDAMAGE_VERSION)
 XORG_LIB_XDAMAGE_SUFFIX		:= tar.bz2
 XORG_LIB_XDAMAGE_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XDAMAGE).$(XORG_LIB_XDAMAGE_SUFFIX))
@@ -28,13 +28,10 @@ XORG_LIB_XDAMAGE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XDAMAGE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XDAMAGE_PATH	:= PATH=$(CROSS_PATH)
-XORG_LIB_XDAMAGE_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_LIB_XDAMAGE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XDAMAGE_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
