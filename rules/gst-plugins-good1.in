@@ -12,7 +12,6 @@ menuconfig GST_PLUGINS_GOOD1
 	select BZIP2_LIBBZ2		if GST_PLUGINS_GOOD1_BZ2
 	select LIBCACA			if GST_PLUGINS_GOOD1_LIBCACA
 	select XORG_LIB_X11		if GST_PLUGINS_GOOD1_X
-	select XORG_LIB_X11		if GST_PLUGINS_GOOD1_XVIDEO
 	select GDK_PIXBUF		if GST_PLUGINS_GOOD1_GDK_PIXBUF
 	select LIBSOUP			if GST_PLUGINS_GOOD1_SOUP
 	select SPEEX			if GST_PLUGINS_GOOD1_SPEEX
@@ -238,11 +237,6 @@ config GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
 	bool
 	depends on GST_PLUGINS_GOOD1_GST_V4L2
 	prompt "build v4l2 plugin with libv4l2 support"
-
-config GST_PLUGINS_GOOD1_XVIDEO
-	bool
-	depends on GST_PLUGINS_GOOD1_GST_V4L2
-	prompt "xvideo support"
 
 config GST_PLUGINS_GOOD1_X
 	bool
