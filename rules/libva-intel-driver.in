@@ -1,0 +1,21 @@
+## SECTION=multimedia_libs
+
+config LIBVA_INTEL_DRIVER
+	tristate
+	select LIBVA
+	prompt "libva-intel-driver"
+	help
+	  libva-intel-driver is the VA-API implementation for Intel G45
+	  chipsets and Intel HD Graphics for Intel Core processor family.
+
+if LIBVA_INTEL_DRIVER
+
+config LIBVA_INTEL_DRIVER_X11
+	bool
+	default LIBVA_X11
+
+config LIBVA_INTEL_DRIVER_WAYLAND
+	bool
+	default LIBVA_WAYLAND
+
+endif
