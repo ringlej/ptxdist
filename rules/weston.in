@@ -1,0 +1,61 @@
+## SECTION=multimedia_wayland
+
+config WESTON
+	tristate
+	select LIBC_UTIL
+	select PIXMAN
+	select WAYLAND
+	select LIBXKBCOMMON
+	select LIBJPEG
+	select LIBPNG
+	select CAIRO
+	select CAIRO_PNG		if WESTON_WCAP_TOOLS
+	select LIBDRM			if WESTON_DRM_COMPOSITOR
+	select MTDEV			if WESTON_DRM_COMPOSITOR
+	select UDEV_LIBUDEV		if WESTON_DRM_COMPOSITOR
+	select MESALIB			if WESTON_DRM_COMPOSITOR
+	select MESALIB_GBM		if WESTON_DRM_COMPOSITOR
+	select MESALIB_EGL		if WESTON_GL
+	select MESALIB_EGL_WAYLAND	if WESTON_GL
+	select MESALIB_GLES2		if WESTON_GL
+	select CAIRO_GLES2		if WESTON_GL
+	select CAIRO_EGL		if WESTON_GL
+	select CAIRO_XCB		if WESTON_XWAYLAND
+	select LIBXCB			if WESTON_XWAYLAND
+	select XORG_LIB_XCURSOR		if WESTON_XWAYLAND
+	select XORG_SERVER		if WESTON_XWAYLAND && RUNTIME
+	select XORG_SERVER_XWAYLAND	if WESTON_XWAYLAND && RUNTIME
+	prompt "weston"
+	help
+	  Wayland compositor reference implementation
+
+if WESTON
+
+config WESTON_XWAYLAND
+	bool
+	prompt "Xwayland support"
+
+config WESTON_DRM_COMPOSITOR
+	bool
+	prompt "drm compositor"
+
+config WESTON_GL
+	bool
+	depends on WESTON_DRM_COMPOSITOR
+	prompt "OpenGL accelerated compositing"
+
+config WESTON_HEADLESS_COMPOSITOR
+	bool
+	prompt "headless compositor"
+
+config WESTON_FBDEV_COMPOSITOR
+	bool
+	prompt "fbdev compositor"
+
+config WESTON_WCAP_TOOLS
+	bool
+	prompt "wcap tools"
+	help
+	  Weston CAPture Tools
+
+endif
