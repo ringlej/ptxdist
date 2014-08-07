@@ -64,6 +64,13 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_DRI2		if XORG_SERVER_EXT_DRI2
 	select LIBDRM			if XORG_SERVER_EXT_DRI2
 
+	# dri3 triggered
+	select XORG_PROTO_DRI3		if XORG_SERVER_EXT_DRI3
+	select LIBDRM			if XORG_SERVER_EXT_DRI3
+	select XORG_LIB_XSHMFENCE	if XORG_SERVER_EXT_DRI3
+
+	select XORG_PROTO_PRESENT	if XORG_SERVER_EXT_PRESENT
+
 	# xdmcp extension
 	select XORG_LIB_XDMCP		if XORG_SERVER_EXT_XDMCP
 
@@ -76,6 +83,16 @@ menuconfig XORG_SERVER
 	#select XORG_PROTO_XF86DGA	if XORG_SERVER_XORG && XORG_SERVER_EXT_DGA	#FIXME: broken
 	select XORG_PROTO_XF86DGA	if XORG_SERVER_XORG
 	select XORG_PROTO_XF86VIDMODE	if XORG_SERVER_XORG && XORG_SERVER_EXT_XF86VIDMODE
+
+	# xwayland ddx
+	select WAYLAND			if XORG_SERVER_XWAYLAND
+	select LIBDRM			if XORG_SERVER_XWAYLAND
+	select LIBEPOXY			if XORG_SERVER_XWAYLAND
+
+	# glamor module
+	select LIBEPOXY			if XORG_SERVER_GLAMOR
+	select MESALIB			if XORG_SERVER_GLAMOR
+	select MESALIB_GBM		if XORG_SERVER_GLAMOR
 
 	# xv triggered
 	select XORG_LIB_XV		if XORG_SERVER_EXT_XV
@@ -183,6 +200,11 @@ config XORG_SERVER_XNEST
 	help
 	  A X server working on a running X server. Disadvantage is Xnest
 	  supports only features the running X server itself supports.
+
+config XORG_SERVER_XWAYLAND
+	bool
+	prompt "Xwayland server"
+	help
 
 config XORG_SERVER_XWIN
 	bool
@@ -417,6 +439,23 @@ config XORG_SERVER_EXT_DRI2
 	  Currently the build scripts needs DRI disabled when crosscompiling,
 	  else they try to detect the DRI hardware on your host.
 
+config XORG_SERVER_EXT_DRI3
+	bool
+	select XORG_SERVER_LIBDRM
+	prompt "dri3 extension"
+	help
+	  Enable support for the Direct Rendering Infrastructure 3 to get 3D
+	  accelerations support.
+
+config XORG_SERVER_EXT_PRESENT
+	bool
+	prompt "present extension"
+	help
+	  The Present extension provides a way for applications to update
+	  their window contents from a pixmap in a well defined fashion,
+	  synchronizing with the display refresh and potentially using a
+	  more efficient mechanism than copying the contents of the source pixmap.
+
 config XORG_SERVER_EXT_XINERAMA
 	bool
 	prompt "xinerama extension"
@@ -464,6 +503,14 @@ config XORG_SERVER_EXT_DPMS
 	prompt "dpms"
 	help
 	  FIXME
+
+config XORG_SERVER_GLAMOR
+	bool
+	prompt "glamor module"
+	help
+	  The glamor module is an open-source 2D graphics common driver
+	  for the X Window System as implemented by X.org. It supports a
+	  variety of graphics chipsets which have OpenGL/EGL/GBM supports.
 
 endmenu
 
