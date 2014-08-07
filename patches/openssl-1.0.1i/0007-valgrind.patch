@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Tue, 8 Apr 2014 07:48:47 +0200
+Date: Fri, 8 Aug 2014 10:24:47 +0200
 Subject: [PATCH] valgrind
 
-Imported from openssl_1.0.1g-1.debian.tar.xz
+Imported from openssl_1.0.1i-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/crypto/rand/md_rand.c b/crypto/rand/md_rand.c
-index aee1c30..1caf69c 100644
+index 888b4eb..90ec463 100644
 --- a/crypto/rand/md_rand.c
 +++ b/crypto/rand/md_rand.c
-@@ -488,6 +488,7 @@ static int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo)
+@@ -482,6 +482,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
  		MD_Update(&m,(unsigned char *)&(md_c[0]),sizeof(md_c));
  
  #ifndef PURIFY /* purify complains */
@@ -21,7 +21,7 @@ index aee1c30..1caf69c 100644
  		/* The following line uses the supplied buffer as a small
  		 * source of entropy: since this buffer is often uninitialised
  		 * it may cause programs such as purify or valgrind to
-@@ -497,6 +498,7 @@ static int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo)
+@@ -491,6 +492,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
  		 */
  		MD_Update(&m,buf,j);
  #endif
