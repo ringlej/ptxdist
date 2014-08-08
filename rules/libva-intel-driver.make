@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_LIBVA_INTEL_DRIVER) += libva-intel-driver
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_LIBVA_INTEL_DRIVER) += libva-intel-driver
 
 #
 # Paths and names
