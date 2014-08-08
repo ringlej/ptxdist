@@ -21,8 +21,6 @@ HOST_SYSTEMD_CONF_ENV	:= \
         $(HOST_ENV) \
 	ac_cv_path_INTLTOOL_MERGE=:
 
-HOST_SYSTEMD_CFLAGS	:= -I$(PTXDIST_SYSROOT_HOST)/kernel-headers/include
-
 #
 # autoconf
 #

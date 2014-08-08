@@ -1,0 +1,50 @@
+From: Simon McVittie <simon.mcvittie@collabora.co.uk>
+Date: Fri, 1 Aug 2014 15:53:07 +0100
+Subject: [PATCH] util.h: include missing.h, for struct file_handle
+
+This breaks udev-builtin-btrfs.c, which reinvents some of missing.h,
+so use missing.h there too.
+
+[zj: removed #include "config.h" and wrapped #include <linux/btrfs.h>
+     in ifdef HAVE_LINUX_BTRFS_H as discussed on the mailing list.]
+---
+ src/shared/util.h             |    1 +
+ src/udev/udev-builtin-btrfs.c |   10 ++++------
+ 2 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/src/shared/util.h b/src/shared/util.h
+index e23069c..6566ed5 100644
+--- a/src/shared/util.h
++++ b/src/shared/util.h
+@@ -84,6 +84,7 @@
+ #endif
+ 
+ #include "macro.h"
++#include "missing.h"
+ #include "time-util.h"
+ 
+ /* What is interpreted as whitespace? */
+diff --git a/src/udev/udev-builtin-btrfs.c b/src/udev/udev-builtin-btrfs.c
+index 2baafe6..adbdd8c 100644
+--- a/src/udev/udev-builtin-btrfs.c
++++ b/src/udev/udev-builtin-btrfs.c
+@@ -24,15 +24,13 @@
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <sys/ioctl.h>
++#ifdef HAVE_LINUX_BTRFS_H
++#include <linux/btrfs.h>
++#endif
+ 
++#include "missing.h"
+ #include "udev.h"
+ 
+-#define BTRFS_PATH_NAME_MAX 4087
+-struct btrfs_ioctl_vol_args {
+-        int64_t fd;
+-        char name[BTRFS_PATH_NAME_MAX + 1];
+-};
+-#define BTRFS_IOCTL_MAGIC 0x94
+ #define BTRFS_IOC_DEVICES_READY _IOR(BTRFS_IOCTL_MAGIC, 39, struct btrfs_ioctl_vol_args)
+ 
+ static int builtin_btrfs(struct udev_device *dev, int argc, char *argv[], bool test)

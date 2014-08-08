@@ -6,9 +6,9 @@ Subject: [PATCH] always check for __BYTE_ORDER == __BIG_ENDIAN when checking
 Let's always stick to glibc's way to determine byte order, and not mix
 autoconf-specific checks with gcc checks.
 ---
- src/shared/architecture.h | 12 ++++++------
- src/shared/gpt.h          |  4 ++--
- src/shared/time-dst.c     |  6 +++---
+ src/shared/architecture.h |   12 ++++++------
+ src/shared/gpt.h          |    4 ++--
+ src/shared/time-dst.c     |    6 +++---
  3 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/src/shared/architecture.h b/src/shared/architecture.h
