@@ -2,7 +2,8 @@
 
 config IMAGE_BOOT_MLO_VFAT
 	bool
-	select IMAGE_VFAT_TOOLS
+	select HOST_MTOOLS
+	select HOST_DOSFSTOOLS
 	prompt "Generate images/boot-mlo.vfat"
 	help
 	  Build a vfat filesystem for booting on OMAP-like systems.
