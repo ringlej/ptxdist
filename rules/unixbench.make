@@ -29,6 +29,7 @@ UNIXBENCH_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
+UNIXBENCH_MAKE_PAR := NO
 UNIXBENCH_MAKE_OPT := $(CROSS_ENV_CC) PREFIX=/usr
 UNIXBENCH_INSTALL_OPT := $(UNIXBENCH_MAKE_OPT) install
 
