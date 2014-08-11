@@ -28,18 +28,18 @@ IMAGE_HDIMG_CONFIG	:= hd.config
 ifdef PTXCONF_IMAGE_HDIMG
 IMAGE_HDIMG_BOOTLOADER_ENV := \
 	BOOTLOADER_IMAGES='' \
-	BOOTLOADER_PARTIONS=''
+	BOOTLOADER_PARTITIONS=''
 
 ifdef PTXCONF_IMAGE_HDIMG_GRUB
 IMAGE_HDIMG_BOOTLOADER_ENV = \
 	GRUB_STAGE_DIR=$(GRUB_STAGE_DIR) \
 	BOOTLOADER_IMAGES='include("grub.config")' \
-	BOOTLOADER_PARTIONS='include("grub_partitions.config")'
+	BOOTLOADER_PARTITIONS='include("grub_partitions.config")'
 endif
 ifdef PTXCONF_IMAGE_HDIMG_BAREBOX
 IMAGE_HDIMG_BOOTLOADER_ENV := \
 	BOOTLOADER_IMAGES='' \
-	BOOTLOADER_PARTIONS='include("barebox_partitions.config")'
+	BOOTLOADER_PARTITIONS='include("barebox_partitions.config")'
 endif
 
 IMAGE_HDIMG_ENV = \
