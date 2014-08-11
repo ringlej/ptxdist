@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.shared b/Makefile.shared
-index 6e3f886..44e3d9c 100644
+index 6e3f886980bf..44e3d9c48440 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -151,7 +151,7 @@ DO_GNU_SO=$(CALC_VERSIONS); \

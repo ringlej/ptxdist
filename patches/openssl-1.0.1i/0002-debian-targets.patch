@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 53 insertions(+)
 
 diff --git a/Configure b/Configure
-index 36844b7..4c5cc04 100755
+index 36844b7b2f7a..4c5cc040724e 100755
 --- a/Configure
 +++ b/Configure
 @@ -105,6 +105,10 @@ my $usage="Usage: Configure [no-<cipher> ...] [enable-<cipher> ...] [experimenta

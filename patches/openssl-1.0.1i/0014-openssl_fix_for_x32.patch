@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/crypto/bn/asm/x86_64-gcc.c b/crypto/bn/asm/x86_64-gcc.c
-index acb0b40..acd76ce 100644
+index acb0b401181e..acd76cee2f74 100644
 --- a/crypto/bn/asm/x86_64-gcc.c
 +++ b/crypto/bn/asm/x86_64-gcc.c
 @@ -55,7 +55,7 @@

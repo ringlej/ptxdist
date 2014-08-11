@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/tools/c_rehash.in b/tools/c_rehash.in
-index bfc4a69..4958e3d 100644
+index bfc4a69ed4bc..4958e3dd05a7 100644
 --- a/tools/c_rehash.in
 +++ b/tools/c_rehash.in
 @@ -75,12 +75,15 @@ sub hash_dir {

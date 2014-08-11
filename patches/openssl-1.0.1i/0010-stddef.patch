@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+)
 
 diff --git a/crypto/sha/sha.h b/crypto/sha/sha.h
-index 8a6bf4b..734b40a 100644
+index 8a6bf4bbbb1d..734b40ac2da3 100644
 --- a/crypto/sha/sha.h
 +++ b/crypto/sha/sha.h
 @@ -59,6 +59,7 @@

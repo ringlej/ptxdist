@@ -13,7 +13,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  4 files changed, 55 insertions(+), 12 deletions(-)
 
 diff --git a/crypto/des/asm/desboth.pl b/crypto/des/asm/desboth.pl
-index eec0088..ab6f524 100644
+index eec00886e4c6..ab6f52452bf3 100644
 --- a/crypto/des/asm/desboth.pl
 +++ b/crypto/des/asm/desboth.pl
 @@ -16,6 +16,11 @@ sub DES_encrypt3
@@ -54,7 +54,7 @@ index eec0088..ab6f524 100644
  	&stack_pop(3);
  	&mov($L,&DWP(0,"ebx","",0));
 diff --git a/crypto/perlasm/cbc.pl b/crypto/perlasm/cbc.pl
-index 24561e7..269fb0b 100644
+index 24561e759aba..269fb0b0c69f 100644
 --- a/crypto/perlasm/cbc.pl
 +++ b/crypto/perlasm/cbc.pl
 @@ -122,7 +122,11 @@ sub cbc
@@ -110,7 +110,7 @@ index 24561e7..269fb0b 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
-index 682a3a3..9d4662c 100644
+index 682a3a3163e2..9d4662cb9624 100644
 --- a/crypto/perlasm/x86gas.pl
 +++ b/crypto/perlasm/x86gas.pl
 @@ -161,6 +161,7 @@ sub ::file_end
@@ -146,7 +146,7 @@ index 682a3a3..9d4662c 100644
      elsif ($::coff)
      {   $initseg.=<<___;	# applies to both Cygwin and Mingw
 diff --git a/crypto/x86cpuid.pl b/crypto/x86cpuid.pl
-index b270b44..c01ba83 100644
+index b270b44337d1..c01ba8383401 100644
 --- a/crypto/x86cpuid.pl
 +++ b/crypto/x86cpuid.pl
 @@ -8,6 +8,8 @@ require "x86asm.pl";

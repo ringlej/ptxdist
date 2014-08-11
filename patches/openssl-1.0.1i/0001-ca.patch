@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/apps/CA.pl.in b/apps/CA.pl.in
-index c783a6e..fa665b7 100644
+index c783a6e6a541..fa665b7b385f 100644
 --- a/apps/CA.pl.in
 +++ b/apps/CA.pl.in
 @@ -65,6 +65,7 @@ $RET = 0;
