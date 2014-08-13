@@ -70,7 +70,8 @@ GNUTLS_CONF_OPT		:= \
 	--without-tpm \
 	--without-librt-prefix \
 	--without-libregex \
-	--with-zlib
+	--with-zlib \
+	--without-libz-prefix
 
 # ----------------------------------------------------------------------------
 # Target-Install
