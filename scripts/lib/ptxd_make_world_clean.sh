@@ -23,10 +23,12 @@ ptxd_make_world_clean() {
     fi
     if [ -n "$(ls "${ptx_state_dir}/${pkg_label}".* 2> /dev/null)" ]; then
 	echo "Deleting stage files:"
-	for name in $(< "${pkg_xpkg_map}" 2>/dev/null); do
-	    ls "${ptx_state_dir}/${name}".*
-	    rm -f "${ptx_state_dir}/${name}".*
-	done
+	if [ -e "${pkg_xpkg_map}" ]; then
+	    for name in $(< "${pkg_xpkg_map}"); do
+		ls "${ptx_state_dir}/${name}".*
+		rm -f "${ptx_state_dir}/${name}".*
+	    done
+	fi
 	ls "${ptx_state_dir}/${pkg_label}".* 2>/dev/null
 	rm -f "${ptx_state_dir}/${pkg_label}".*
 	echo
