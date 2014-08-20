@@ -8,18 +8,17 @@ Upstream requires glibc 2.14 but this is useful for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/shared/missing.h |   10 ++++++++++
+ src/shared/missing.h | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
 diff --git a/src/shared/missing.h b/src/shared/missing.h
-index 2985285..40160fe 100644
+index 3ff1a2172083..1ba0104c4aab 100644
 --- a/src/shared/missing.h
 +++ b/src/shared/missing.h
-@@ -499,3 +499,13 @@ static inline int setns(int fd, int nstype) {
- 
+@@ -550,6 +550,16 @@ static inline int setns(int fd, int nstype) {
  #define IFLA_BRIDGE_MAX (__IFLA_BRIDGE_MAX - 1)
  #endif
-+
+ 
 +#ifndef CLOCK_BOOTTIME
 +#define CLOCK_BOOTTIME 7
 +#endif
@@ -29,3 +28,7 @@ index 2985285..40160fe 100644
 +#ifndef CLOCK_BOOTTIME_ALARM
 +#define CLOCK_BOOTTIME_ALARM 9
 +#endif
++
+ #ifndef IPV6_UNICAST_IF
+ #define IPV6_UNICAST_IF 76
+ #endif
