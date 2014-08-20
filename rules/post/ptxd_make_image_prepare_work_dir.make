@@ -16,7 +16,7 @@ endif
 # extract all current ipkgs into the working directory
 #
 PHONY += $(STATEDIR)/image_working_dir
-$(STATEDIR)/image_working_dir: $(IMAGE_REQUIRES)
+$(STATEDIR)/image_working_dir: world $(IMAGE_REQUIRES)
 	@$(call image/env) \
 	ptxd_make_image_prepare_work_dir
 	@$(call touch, $@)
