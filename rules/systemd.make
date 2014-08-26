@@ -39,9 +39,7 @@ SYSTEMD_CONF_ENV	:= \
 	ac_cv_path_INTLTOOL_MERGE=: \
 	ac_cv_path_KMOD=/bin/kmod
 
-ifndef PTXCONF_ARCH_X86
 SYSTEMD_CONF_ENV += cc_cv_CFLAGS__flto=no
-endif
 
 SYSTEMD_CFLAGS		:= \
 	-I$(KERNEL_HEADERS_INCLUDE_DIR)
