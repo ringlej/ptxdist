@@ -42,7 +42,6 @@ config NETWORKMANAGER_SYSTEMD_UNIT
 
 config NETWORKMANAGER_EXAMPLES
 	bool
-	default n
 	prompt "install examples for Network Manager"
 
 endif
