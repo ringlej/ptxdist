@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 6.4p1
-OPENSSH_MD5	:= a62b88b884df0b09b8a8c5789ac9e51b
+OPENSSH_VERSION	:= 6.6p1
+OPENSSH_MD5	:= 3e9800e6bca1fbac0eea4d41baa7f239
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
@@ -56,6 +56,7 @@ OPENSSH_CONF_OPT	:= \
 	--disable-pututline \
 	--disable-pututxline \
 	--with-stackprotect \
+	--with-hardening \
 	--without-rpath \
 	--with-zlib=$(SYSROOT) \
 	--without-skey \
@@ -63,6 +64,7 @@ OPENSSH_CONF_OPT	:= \
 	--without-ldns \
 	--without-libedit \
 	--without-audit \
+	--with-pie \
 	--without-ssl-engine \
 	--without-pam \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
