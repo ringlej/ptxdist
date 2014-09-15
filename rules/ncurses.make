@@ -23,6 +23,7 @@ NCURSES_SUFFIX	:= tar.gz
 NCURSES_URL	:= $(call ptx/mirror, GNU, ncurses/$(NCURSES).$(NCURSES_SUFFIX))
 NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
+NCURSES_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
