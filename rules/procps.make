@@ -25,6 +25,7 @@ PROCPS_SUFFIX	:= tar.gz
 PROCPS_URL	:= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_SOURCE	:= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
+PROCPS_LICENSE	:= GPLv2 (tools), LGPLv2 (libs)
 
 # ----------------------------------------------------------------------------
 # Prepare
