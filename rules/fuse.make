@@ -23,6 +23,7 @@ FUSE_SUFFIX	:= tar.gz
 FUSE_URL	:= $(call ptx/mirror, SF, fuse/$(FUSE).$(FUSE_SUFFIX))
 FUSE_SOURCE	:= $(SRCDIR)/$(FUSE).$(FUSE_SUFFIX)
 FUSE_DIR	:= $(BUILDDIR)/$(FUSE)
+FUSE_LICENSE	:= GPLv2 (tools), LGPLv2.1 (libs)
 
 # ----------------------------------------------------------------------------
 # Prepare
