@@ -23,7 +23,7 @@ V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_SOURCE	:= $(SRCDIR)/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_DIR		:= $(BUILDDIR)/$(V4L_UTILS)
-V4L_UTILS_LICENSE	:= unknown
+V4L_UTILS_LICENSE	:= GPLv2+ (tools); LGPLv2.1+ (libs)
 
 # ----------------------------------------------------------------------------
 # Prepare
