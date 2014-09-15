@@ -24,6 +24,7 @@ ETHTOOL		:= ethtool-$(ETHTOOL_VERSION)
 ETHTOOL_URL	:= $(call ptx/mirror, KERNEL, ../software/network/ethtool/$(ETHTOOL).$(ETHTOOL_SUFFIX))
 ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL).$(ETHTOOL_SUFFIX)
 ETHTOOL_DIR	:= $(BUILDDIR)/$(ETHTOOL)
+ETHTOOL_LICENSE := GPLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
