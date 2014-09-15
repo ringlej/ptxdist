@@ -23,6 +23,7 @@ GST_PLUGINS_GOOD1_SUFFIX	:= tar.xz
 GST_PLUGINS_GOOD1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD1).$(GST_PLUGINS_GOOD1_SUFFIX)
 GST_PLUGINS_GOOD1_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_GOOD1).$(GST_PLUGINS_GOOD1_SUFFIX)
 GST_PLUGINS_GOOD1_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_GOOD1)
+GST_PLUGINS_GOOD1_LICENSE	:= LGPLv2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
