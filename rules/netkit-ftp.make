@@ -26,6 +26,7 @@ NETKIT_FTP_URL		:= \
 	http://www.ibiblio.org/pub/Linux/system/network/netkit/$(NETKIT_FTP).$(NETKIT_FTP_SUFFIX)
 NETKIT_FTP_SOURCE	:= $(SRCDIR)/$(NETKIT_FTP).$(NETKIT_FTP_SUFFIX)
 NETKIT_FTP_DIR		:= $(BUILDDIR)/$(NETKIT_FTP)
+NETKIT_FTP_LICENSE	:= BSD
 
 
 # ----------------------------------------------------------------------------
