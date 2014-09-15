@@ -29,8 +29,12 @@ ptxd_make_dts_dtb() {
     if dtc -h 2>&1 | grep -q '^[[:space:]]\+-i\(,.*\)\?$'; then
 	dtc_include="-i $(dirname "${dts}") -i ${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts"
 	tmp_dts="${ptx_state_dir}/$(basename "${dts}").tmp"
+	no_linemarker=""
     else
+	# the support for "#line ..." was added in the same relase when -i
+	# was added. So we add -P only if -i is not supported.
 	tmp_dts="${dts}.tmp"
+	no_linemarker="-P"
     fi &&
 
     deps="${ptx_state_dir}/dtc.$(basename "${dts}").deps"
@@ -41,7 +45,7 @@ ptxd_make_dts_dtb() {
 	-Wp,-MD,${tmp_deps} \
 	-Wp,-MT,${tmp_dts} \
 	-nostdinc \
-	-P \
+	${no_linemarker} \
 	-I$(dirname "${dts}") \
 	-I${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts \
 	-I${dts_kernel_dir}/arch/${dts_kernel_arch}/boot/dts/include \
