@@ -9,7 +9,7 @@
 #
 
 ptxd_make_dts_dtb() {
-    local dts tmp_dts deps tmp_deps
+    local dts tmp_dts deps tmp_deps dtc_include no_linemarker
 
     case "${dts_dts}" in
 	/*)
