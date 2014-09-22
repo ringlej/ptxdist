@@ -2,7 +2,7 @@
 
 menuconfig LIBSHOUT
 	tristate
-	prompt "libshout"
+	prompt "libshout                      "
 	select LIBVORBIS
 	select LIBTHEORA	if LIBSHOUT_THEORA
 	select SPEEX		if LIBSHOUT_SPEEX
