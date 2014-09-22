@@ -24,6 +24,7 @@ menuconfig GST_PLUGINS_BAD1
 	select MESALIB_GLES2	if GST_PLUGINS_BAD1_GLES2
 	select MESALIB_EGL	if GST_PLUGINS_BAD1_EGL
 	select MESALIB_GLX	if GST_PLUGINS_BAD1_GLX
+	select LIBMMS		if GST_PLUGINS_BAD1_LIBMMS
 
 	prompt "gst-plugins-bad               "
 	help
@@ -474,8 +475,6 @@ config GST_PLUGINS_BAD1_FAAD
 
 config GST_PLUGINS_BAD1_FBDEV
 	bool
-	# Non ported plugin
-	depends on BROKEN
 	prompt "fbdev"
 
 config GST_PLUGINS_BAD1_FLITE
@@ -516,8 +515,6 @@ config GST_PLUGINS_BAD1_LV2
 
 config GST_PLUGINS_BAD1_LIBMMS
 	bool
-	# needs libmms
-	depends on BROKEN
 	prompt "libmms"
 
 config GST_PLUGINS_BAD1_SRTP

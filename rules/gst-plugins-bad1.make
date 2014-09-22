@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BAD1) += gst-plugins-bad1
 #
 # Paths and names
 #
-GST_PLUGINS_BAD1_VERSION	:= 1.4.1
-GST_PLUGINS_BAD1_MD5		:= 20cb190b18dc63017326321cdb7c91e5
+GST_PLUGINS_BAD1_VERSION	:= 1.4.2
+GST_PLUGINS_BAD1_MD5		:= ac73b4bb0151c05daa566d9d1ec80077
 GST_PLUGINS_BAD1		:= gst-plugins-bad-$(GST_PLUGINS_BAD1_VERSION)
 GST_PLUGINS_BAD1_SUFFIX		:= tar.xz
 GST_PLUGINS_BAD1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-bad/$(GST_PLUGINS_BAD1).$(GST_PLUGINS_BAD1_SUFFIX)
@@ -142,7 +142,8 @@ GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_FLUIDSYNTH)		+= fluidsynth
 GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_KATE)		+= kate
 GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_LADSPA)		+= ladspa
 GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_LV2)			+= lv2
-GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_LIBMMS)		+= libmms
+GST_PLUGINS_BAD1_ENABLEC-$(PTXCONF_GST_PLUGINS_BAD1_LIBMMS)		+= libmms
+GST_PLUGINS_BAD1_ENABLEP-$(PTXCONF_GST_PLUGINS_BAD1_LIBMMS)		+= mms
 GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_SRTP)		+= srtp
 GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_LINSYS)		+= linsys
 GST_PLUGINS_BAD1_ENABLE-$(PTXCONF_GST_PLUGINS_BAD1_MODPLUG)		+= modplug
@@ -249,13 +250,13 @@ $(STATEDIR)/gst-plugins-bad1.targetinstall:
 	@$(call install_fixup, gst-plugins-bad1,AUTHOR,"Sascha Hauer")
 	@$(call install_fixup, gst-plugins-bad1,DESCRIPTION,missing)
 
-	# install all activated libs
+#	# install all activated libs
 	@cd $(GST_PLUGINS_BAD1_PKGDIR)/usr/lib/ && \
 	for libs in `find -name "*-1.0.so" -printf '%f\n'`; do \
 		$(call install_lib, gst-plugins-bad1, 0, 0, 0644, $${libs%.so}); \
 	done
 
-	# install all activated plugins
+#	# install all activated plugins
 	@for plugin in $(GST_PLUGINS_BAD1_ENABLEP-y); do \
 		$(call install_copy, gst-plugins-bad1, 0, 0, 0644, -, \
 			/usr/lib/gstreamer-1.0/libgst$${plugin}.so); \
