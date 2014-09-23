@@ -36,6 +36,7 @@ NETTLE_MAKE_PAR := NO
 NETTLE_CONF_TOOL	:= autoconf
 NETTLE_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-static \
 	--enable-public-key \
 	--enable-assembler \
 	--disable-openssl \
