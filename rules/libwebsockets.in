@@ -1,0 +1,17 @@
+## SECTION=networking
+
+menuconfig LIBWEBSOCKETS
+	tristate
+	select HOST_CMAKE
+	select ZLIB
+	prompt "libwebsockets                 "
+	help
+	  FIXME
+
+if LIBWEBSOCKETS
+
+config LIBWEBSOCKETS_TESTS
+	bool
+	prompt "install test applications"
+
+endif
