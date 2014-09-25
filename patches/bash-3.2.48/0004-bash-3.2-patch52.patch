@@ -1,0 +1,114 @@
+From 7b239694e512fc1c34bd501dd375de44d2bbea2e Mon Sep 17 00:00:00 2001
+From: Bruno Thomsen <bth@kamstrup.dk>
+Date: Thu, 25 Sep 2014 15:59:35 +0200
+Subject: [PATCH] bash-3.2: patch 52
+
+Bash-Release: 3.2
+Patch-ID: bash32-052
+
+Bug-Reported-by:	Stephane Chazelas <stephane.chazelas@gmail.com>
+Bug-Reference-ID:
+Bug-Reference-URL:
+
+Bug-Description:
+
+Under certain circumstances, bash will execute user code while processing the
+environment for exported function definitions.
+
+Signed-off-by: Bruno Thomsen <bth@kamstrup.dk>
+---
+ builtins/common.h     |  2 ++
+ builtins/evalstring.c | 11 +++++++++++
+ patchlevel.h          |  2 +-
+ variables.c           | 14 ++++----------
+ 4 files changed, 18 insertions(+), 11 deletions(-)
+
+diff --git a/builtins/common.h b/builtins/common.h
+index 1233d66..74abb25 100644
+--- a/builtins/common.h
++++ b/builtins/common.h
+@@ -31,6 +31,8 @@
+ #define SEVAL_NOHIST	0x004
+ #define SEVAL_NOFREE	0x008
+ #define SEVAL_RESETLINE	0x010
++#define SEVAL_FUNCDEF	0x080		/* only allow function definitions */
++#define SEVAL_ONECMD	0x100		/* only allow a single command */
+ 
+ /* Flags for describe_command, shared between type.def and command.def */
+ #define CDESC_ALL		0x001	/* type -a */
+diff --git a/builtins/evalstring.c b/builtins/evalstring.c
+index 511ce86..46cb56a 100644
+--- a/builtins/evalstring.c
++++ b/builtins/evalstring.c
+@@ -234,6 +234,14 @@ parse_and_execute (string, from_file, flags)
+ 	    {
+ 	      struct fd_bitmap *bitmap;
+ 
++	      if ((flags & SEVAL_FUNCDEF) && command->type != cm_function_def)
++		{
++		  internal_warning ("%s: ignoring function definition attempt", from_file);
++		  should_jump_to_top_level = 0;
++		  last_result = last_command_exit_value = EX_BADUSAGE;
++		  break;
++		}
++
+ 	      bitmap = new_fd_bitmap (FD_BITMAP_SIZE);
+ 	      begin_unwind_frame ("pe_dispose");
+ 	      add_unwind_protect (dispose_fd_bitmap, bitmap);
+@@ -291,6 +299,9 @@ parse_and_execute (string, from_file, flags)
+ 	      dispose_command (command);
+ 	      dispose_fd_bitmap (bitmap);
+ 	      discard_unwind_frame ("pe_dispose");
++
++	      if (flags & SEVAL_ONECMD)
++		break;
+ 	    }
+ 	}
+       else
+diff --git a/patchlevel.h b/patchlevel.h
+index f72e2d8..a2d65b2 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 51
++#define PATCHLEVEL 52
+ 
+ #endif /* _PATCHLEVEL_H_ */
+diff --git a/variables.c b/variables.c
+index 725cfa6..eb80326 100644
+--- a/variables.c
++++ b/variables.c
+@@ -318,12 +318,10 @@ initialize_shell_variables (env, privmode)
+ 	  temp_string[char_index] = ' ';
+ 	  strcpy (temp_string + char_index + 1, string);
+ 
+-	  parse_and_execute (temp_string, name, SEVAL_NONINT|SEVAL_NOHIST);
+-
+-	  /* Ancient backwards compatibility.  Old versions of bash exported
+-	     functions like name()=() {...} */
+-	  if (name[char_index - 1] == ')' && name[char_index - 2] == '(')
+-	    name[char_index - 2] = '\0';
++	  /* Don't import function names that are invalid identifiers from the
++	     environment. */
++	  if (legal_identifier (name))
++	    parse_and_execute (temp_string, name, SEVAL_NONINT|SEVAL_NOHIST|SEVAL_FUNCDEF|SEVAL_ONECMD);
+ 
+ 	  if (temp_var = find_function (name))
+ 	    {
+@@ -332,10 +330,6 @@ initialize_shell_variables (env, privmode)
+ 	    }
+ 	  else
+ 	    report_error (_("error importing function definition for `%s'"), name);
+-
+-	  /* ( */
+-	  if (name[char_index - 1] == ')' && name[char_index - 2] == '\0')
+-	    name[char_index - 2] = '(';		/* ) */
+ 	}
+ #if defined (ARRAY_VARS)
+ #  if 0
+-- 
+1.9.1
+
