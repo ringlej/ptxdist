@@ -45,7 +45,7 @@ WESTON_CONF_OPT		:= \
 	--disable-xwayland-test \
 	--disable-x11-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_DRM_COMPOSITOR)-drm-compositor \
-	--disable-libinput-backend \
+	--enable-libinput-backend \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-wayland-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_HEADLESS_COMPOSITOR)-headless-compositor \
 	--disable-rpi-compositor \
