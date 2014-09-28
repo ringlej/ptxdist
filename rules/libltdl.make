@@ -23,6 +23,7 @@ LIBLTDL_SUFFIX	:= tar.gz
 LIBLTDL_URL	:= $(call ptx/mirror, GNU, libtool/$(LIBLTDL).$(LIBLTDL_SUFFIX))
 LIBLTDL_SOURCE	:= $(SRCDIR)/$(LIBLTDL).$(LIBLTDL_SUFFIX)
 LIBLTDL_DIR	:= $(BUILDDIR)/$(LIBLTDL)
+LIBLTDL_LICENSE	:= LGPLv2+ (libltdl), GPLv2+ (libtool)
 
 # ----------------------------------------------------------------------------
 # Prepare
