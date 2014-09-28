@@ -23,6 +23,7 @@ MYODBC_SUFFIX	:= tar.gz
 MYODBC_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_SOURCE	:= $(SRCDIR)/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_DIR	:= $(BUILDDIR)/$(MYODBC)
+MYODBC_LICENSE	:= GPLv2 with MySQL FLOSS License Exception
 
 # ----------------------------------------------------------------------------
 # Prepare
