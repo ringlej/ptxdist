@@ -24,6 +24,7 @@ LIBDAEMON_SUFFIX	:= tar.gz
 LIBDAEMON_URL		:= http://0pointer.de/lennart/projects/libdaemon/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)
 LIBDAEMON_SOURCE	:= $(SRCDIR)/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)
 LIBDAEMON_DIR		:= $(BUILDDIR)/$(LIBDAEMON)
+LIBDAEMON_LICENSE	:= LGPLv2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
