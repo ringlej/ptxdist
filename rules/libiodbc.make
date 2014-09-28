@@ -24,7 +24,7 @@ LIBIODBC_SUFFIX		:= tar.gz
 LIBIODBC_URL		:= $(call ptx/mirror, SF, iodbc/$(LIBIODBC).$(LIBIODBC_SUFFIX))
 LIBIODBC_SOURCE		:= $(SRCDIR)/$(LIBIODBC).$(LIBIODBC_SUFFIX)
 LIBIODBC_DIR		:= $(BUILDDIR)/$(LIBIODBC)
-LIBIOBDC_LICENSE	:= LGPLv2, BSD
+LIBIODBC_LICENSE	:= LGPLv2, BSD
 
 # ----------------------------------------------------------------------------
 # Prepare
