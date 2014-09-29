@@ -6,7 +6,9 @@ menuconfig LIBWEBSOCKETS
 	select ZLIB
 	prompt "libwebsockets                 "
 	help
-	  FIXME
+	  Libwebsockets is a lightweight pure C library for both websockets
+	  clients and servers built to use minimal CPU and memory resources
+	  and provide fast throughput in both directions.
 
 if LIBWEBSOCKETS
 
