@@ -5,17 +5,9 @@ menuconfig U_BOOT_TOOLS
 	prompt "u-boot-tools                  "
 	help
 	  some helpful tools from U-Boot project. Most important tool in
-	  this section is mkimage to generate U-Boot boot images.
+	  this section is fw_printenv/fw_setenv to read/write U-Boot settings.
 
 if U_BOOT_TOOLS
-
-config U_BOOT_TOOLS_TOOL_MKIMAGE
-	tristate
-	default y
-	prompt "mkimage"
-	help
-	  the U-Boot mkimage command is used to create boot images for
-	  the U-Boot bootloader.
 
 config U_BOOT_TOOLS_TOOL_ENV
 	tristate
