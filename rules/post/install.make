@@ -231,6 +231,7 @@ install_package =		\
 # $3: GID
 # $4: permissions (octal)
 # $5: library name without suffix.
+# $6: optional root dir
 #
 install_lib =			\
 	XPKG=$(subst _,-,$(strip $(1)));	\
@@ -238,8 +239,9 @@ install_lib =			\
 	GRP="$(strip $(3))";	\
 	PER="$(strip $(4))";	\
 	LIB=$(strip $(5));	\
+	DST=$(strip $(6)); \
 	$(call install_check, install_lib);	\
-	echo "ptxd_install_lib '$$LIB' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$XPKG.cmds"
+	echo "ptxd_install_lib '$$LIB' '$$DST' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_replace
