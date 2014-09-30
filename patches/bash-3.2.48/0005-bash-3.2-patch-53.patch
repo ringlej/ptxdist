@@ -1,4 +1,3 @@
-From bb47ebbc22117d0dfcff43734b5eeb293b4249e7 Mon Sep 17 00:00:00 2001
 From: Bruno Thomsen <bth@kamstrup.dk>
 Date: Mon, 29 Sep 2014 10:18:41 +0200
 Subject: [PATCH] bash-3.2: patch 53
@@ -22,7 +21,7 @@ Signed-off-by: Bruno Thomsen <bth@kamstrup.dk>
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/parse.y b/parse.y
-index 8a2b081..6cb2bce 100644
+index 8a2b081ac0ff..6cb2bced069d 100644
 --- a/parse.y
 +++ b/parse.y
 @@ -2503,6 +2503,8 @@ reset_parser ()
@@ -35,7 +34,7 @@ index 8a2b081..6cb2bce 100644
    token_to_read = '\n';
  }
 diff --git a/patchlevel.h b/patchlevel.h
-index a2d65b2..e5d74f3 100644
+index a2d65b2a683d..e5d74f36e0fa 100644
 --- a/patchlevel.h
 +++ b/patchlevel.h
 @@ -25,6 +25,6 @@
@@ -46,6 +45,3 @@ index a2d65b2..e5d74f3 100644
 +#define PATCHLEVEL 53
  
  #endif /* _PATCHLEVEL_H_ */
--- 
-1.9.1
-

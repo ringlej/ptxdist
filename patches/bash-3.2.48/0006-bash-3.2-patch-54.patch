@@ -1,4 +1,3 @@
-From 3daa4e268f15c66675cccc4e17c901194ca19199 Mon Sep 17 00:00:00 2001
 From: Bruno Thomsen <bth@kamstrup.dk>
 Date: Mon, 29 Sep 2014 10:36:58 +0200
 Subject: [PATCH] bash-3.2: patch 54
@@ -24,7 +23,7 @@ Signed-off-by: Bruno Thomsen <bth@kamstrup.dk>
  2 files changed, 61 insertions(+), 21 deletions(-)
 
 diff --git a/patchlevel.h b/patchlevel.h
-index e5d74f3..d449c7c 100644
+index e5d74f36e0fa..d449c7c45906 100644
 --- a/patchlevel.h
 +++ b/patchlevel.h
 @@ -25,6 +25,6 @@
@@ -36,7 +35,7 @@ index e5d74f3..d449c7c 100644
  
  #endif /* _PATCHLEVEL_H_ */
 diff --git a/variables.c b/variables.c
-index eb80326..76501cf 100644
+index eb8032665f65..76501cf3b07b 100644
 --- a/variables.c
 +++ b/variables.c
 @@ -74,6 +74,11 @@
@@ -180,6 +179,3 @@ index eb80326..76501cf 100644
  
  	  if (USE_EXPORTSTR == 0)
  	    SAVE_EXPORTSTR (var, list[list_index]);
--- 
-1.9.1
-

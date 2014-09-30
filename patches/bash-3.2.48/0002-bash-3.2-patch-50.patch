@@ -1,4 +1,3 @@
-From 6ec1590129b1855ce3366d53636f6a6272bbdb86 Mon Sep 17 00:00:00 2001
 From: Bruno Thomsen <bth@kamstrup.dk>
 Date: Thu, 25 Sep 2014 15:49:40 +0200
 Subject: [PATCH] bash-3.2: patch 50
@@ -23,7 +22,7 @@ Signed-off-by: Bruno Thomsen <bth@kamstrup.dk>
  2 files changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/lib/readline/mbutil.c b/lib/readline/mbutil.c
-index 0f8191c..6d3da95 100644
+index 974096ee9b69..c34798904efa 100644
 --- a/lib/readline/mbutil.c
 +++ b/lib/readline/mbutil.c
 @@ -131,12 +131,10 @@ _rl_find_next_mbchar_internal (string, seed, count, find_non_zero)
@@ -41,7 +40,7 @@ index 0f8191c..6d3da95 100644
      }
  
 diff --git a/patchlevel.h b/patchlevel.h
-index 19e5eca..37480dc 100644
+index 19e5eca04e0f..37480dc0b2c6 100644
 --- a/patchlevel.h
 +++ b/patchlevel.h
 @@ -25,6 +25,6 @@
@@ -52,6 +51,3 @@ index 19e5eca..37480dc 100644
 +#define PATCHLEVEL 50
  
  #endif /* _PATCHLEVEL_H_ */
--- 
-1.9.1
-
