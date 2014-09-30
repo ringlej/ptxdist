@@ -81,5 +81,11 @@ config SYSTEMD_TIMEDATE
 	help
 	  NTP client for time synchronization and local timezone handling.
 
+config SYSTEMD_COREDUMP
+	bool
+	prompt "enable generating coredumps"
+	help
+	  Enable this only if you need to debug a crashing systemd service
+
 endif
 

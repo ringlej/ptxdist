@@ -102,7 +102,7 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TIMEDATE)-timedated \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TIMEDATE)-timesyncd \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_LOCALES)-localed \
-	--disable-coredump \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_COREDUMP)-coredump \
 	--disable-polkit \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-resolved \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
@@ -170,6 +170,7 @@ SYSTEMD_HELPER := \
 	systemd-bootchart \
 	systemd-bus-proxyd \
 	systemd-cgroups-agent \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_COREDUMP,systemd-coredump,) \
 	systemd-fsck \
 	systemd-hostnamed \
 	systemd-initctl \
