@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 4 Aug 2014 17:45:42 +0200
+Subject: [PATCH] liboil: don't check for assembler options and add compiler
+ options
+
+Checking for "-Wa,-mfpu=vfp" and then adding "-mfpu=vfp" os of course nonsense.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index a657101..38bd436 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -188,10 +188,10 @@ if test x$HAVE_GCC_ASM = xyes -a x$HAVE_POWERPC = xyes ; then
+ fi
+ 
+ if test x$HAVE_GCC_ASM = xyes -a x$HAVE_ARM = xyes ; then
+-  AS_COMPILER_FLAG(["-Wa,-mfpu=vfp"],
++  AS_COMPILER_FLAG(["-mfpu=vfp"],
+     [VFP_CFLAGS="$VFP_CFLAGS -mfpu=vfp"],
+     true)
+-  #AS_COMPILER_FLAG(["-Wa,-mfloat-abi=softfp"],
++  #AS_COMPILER_FLAG(["-mfloat-abi=softfp"],
+   #  [VFP_CFLAGS="$VFP_CFLAGS -mfloat-abi=softfp"],
+   #  true)
+ fi

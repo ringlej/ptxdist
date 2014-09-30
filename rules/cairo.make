@@ -16,53 +16,65 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 #
 # Paths and names
 #
-CAIRO_SUFFIX	:= tar.gz
-CAIRO_VERSION	:= 1.10.2
-CAIRO_MD5	:= f101a9e88b783337b20b2e26dfd26d5f
-CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
+CAIRO_VERSION	:= 1.12.16
+CAIRO_MD5	:= a1304edcdc99282f478b995ee5f8f854
 CAIRO		:= cairo-$(CAIRO_VERSION)
+CAIRO_SUFFIX	:= tar.xz
+CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
 CAIRO_DIR	:= $(BUILDDIR)/$(CAIRO)
+CAIRO_LICENSE	:= LGPLv2.1,MPL
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CAIRO_PATH	:= PATH=$(CROSS_PATH)
-CAIRO_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-CAIRO_AUTOCONF := \
+CAIRO_CONF_TOOL	:= autoconf
+CAIRO_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-shared \
 	--disable-static \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
 	--disable-gcov \
 	--disable-valgrind \
+	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib \
 	--disable-xlib-xrender \
-	--disable-xcb \
+	--$(call ptx/endis, PTXCONF_CAIRO_XCB)-xcb \
 	--disable-xlib-xcb \
-	--disable-xcb-shm \
+	--$(call ptx/endis, PTXCONF_CAIRO_XCB)-xcb-shm \
 	--disable-qt \
 	--disable-quartz \
 	--disable-quartz-font \
 	--disable-quartz-image \
+	--disable-win32 \
+	--disable-win32-font \
 	--disable-skia \
 	--disable-os2 \
 	--disable-beos \
 	--disable-drm \
-	--disable-drm-xr \
 	--disable-gallium \
-	--disable-xcb-drm \
-	--disable-gl \
+	--$(call ptx/endis, PTXCONF_CAIRO_PNG)-png \
+	--$(call ptx/endis, PTXCONF_CAIRO_GL)-gl \
+	--$(call ptx/endis, PTXCONF_CAIRO_GLES2)-glesv2 \
+	--disable-cogl \
+	--$(call ptx/endis, PTXCONF_CAIRO_DIRECTFB)-directfb \
 	--disable-vg \
-	--disable-egl \
-	--disable-glx \
+	--$(call ptx/endis, PTXCONF_CAIRO_EGL)-egl \
+	--$(call ptx/endis, PTXCONF_CAIRO_GLX)-glx \
 	--disable-wgl \
 	--disable-script \
+	--$(call ptx/endis, PTXCONF_CAIRO_FREETYPE)-ft \
+	--$(call ptx/endis, PTXCONF_CAIRO_FREETYPE)-fc \
+	--$(call ptx/endis, PTXCONF_CAIRO_PS)-ps \
+	--$(call ptx/endis, PTXCONF_CAIRO_PDF)-pdf \
+	--$(call ptx/endis, PTXCONF_CAIRO_SVG)-svg \
+	--disable-test-surfaces \
 	--disable-tee \
 	--disable-xml \
 	--enable-pthread \
@@ -71,27 +83,8 @@ CAIRO_AUTOCONF := \
 	--disable-trace \
 	--disable-interpreter \
 	--disable-symbol-lookup \
-	--disable-test-surfaces \
-	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib \
-	--$(call ptx/endis, PTXCONF_CAIRO_WIN32)-win32 \
-	--$(call ptx/endis, PTXCONF_CAIRO_WIN32)-win32-font \
-	--$(call ptx/endis, PTXCONF_CAIRO_SVG)-svg \
-	--$(call ptx/endis, PTXCONF_CAIRO_PNG)-png \
-	--$(call ptx/endis, PTXCONF_CAIRO_DIRECTFB)-directfb \
-	--$(call ptx/endis, PTXCONF_CAIRO_FREETYPE)-ft \
-	--$(call ptx/endis, PTXCONF_CAIRO_FREETYPE)-fc \
-	--$(call ptx/endis, PTXCONF_CAIRO_PS)-ps \
-	--$(call ptx/endis, PTXCONF_CAIRO_PDF)-pdf
-
-ifndef PTXCONF_CAIRO_XLIB
-CAIRO_AUTOCONF += --without-x
-endif
-
-ifdef PTXCONF_HAS_HARDFLOAT
-CAIRO_AUTOCONF += --enable-some-floating-point
-else
-CAIRO_AUTOCONF += --disable-some-floating-point
-endif
+	--$(call ptx/endis, PTXCONF_HAS_HARDFLOAT)-some-floating-point \
+	--$(call ptx/wwo, PTXCONF_CAIRO_XLIB)-x
 
 # ----------------------------------------------------------------------------
 # Target-Install

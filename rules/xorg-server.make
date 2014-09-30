@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.12.2
-XORG_SERVER_MD5		:= 791f0323b886abb7954de7f042bb7dc6
+XORG_SERVER_VERSION	:= 1.16.0
+XORG_SERVER_MD5		:= 8a9ff6ee9907360f09b5bdabb8089502
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(call ptx/mirror, XORG, individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX))
@@ -46,8 +46,9 @@ XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 # --{en,dis}able-{unix,tcp}-transport
 # --{en,dis}able-ipv6
 #
+XORG_SERVER_CONF_TOOL	:= autoconf
 # use "=" here
-XORG_SERVER_AUTOCONF = \
+XORG_SERVER_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-strict-compilation \
 	--disable-docs \
@@ -74,6 +75,8 @@ XORG_SERVER_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_GLX)-glx \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI)-dri \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI2)-dri2 \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI3)-dri3 \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_PRESENT)-present \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XINERAMA)-xinerama \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XF86VIDMODE)-xf86vidmode \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XACE)-xace \
@@ -84,11 +87,10 @@ XORG_SERVER_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_XF86BIGFONT)-xf86bigfont \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DPMS)-dpms \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_UDEV)-config-udev \
-	--disable-config-dbus \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_UDEV)-config-udev-kms \
 	--disable-config-hal \
 	--disable-config-wscons \
 	--disable-xfree86-utils \
-	--enable-xaa \
 	--enable-vgahw \
 	--enable-vbe \
 	--enable-int10-module \
@@ -96,13 +98,19 @@ XORG_SERVER_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_LIBDRM)-libdrm \
 	--enable-clientids \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XORG)-pciaccess \
+	--enable-linux-acpi \
+	--enable-linux-apm \
+	--disable-systemd-logind \
+	--disable-suid-wrapper \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XORG)-xorg \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_DMX)-dmx \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XVFB)-xvfb \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XNEST)-xnest \
 	--disable-xquartz \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWAYLAND)-xwayland \
 	--disable-standalone-xpbproxy \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWIN)-xwin \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_GLAMOR)-glamor \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE)-kdrive \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XEPHYR)-xephyr \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XFAKE)-xfake \
@@ -110,9 +118,11 @@ XORG_SERVER_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_KBD)-kdrive-kbd \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_MOUSE)-kdrive-mouse \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_KDRIVE_EVDEV)-kdrive-evdev \
+	--disable-libunwind \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID)-install-setuid \
 	$(XORG_OPTIONS_TRANS) \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_SECURE_RPC)-secure-rpc \
+	--enable-xtrans-send-fds \
 	--without-doxygen \
 	$(XORG_OPTIONS_DOCS) \
 	--with-vendor-name=Ptxdist \
@@ -122,6 +132,7 @@ XORG_SERVER_AUTOCONF = \
 	--with-os-vendor=Ptxdist \
 	--with-fontrootdir=$(XORG_FONTDIR) \
 	--with-xkb-output=/tmp \
+	--without-systemd-daemon \
 	--with-sha1=libcrypto
 
 #
@@ -130,7 +141,7 @@ XORG_SERVER_AUTOCONF = \
 
 # if no value is given ignore the "--datadir" switch
 ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
-	XORG_SERVER_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	XORG_SERVER_CONF_OPT += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 endif
 
 #
@@ -189,6 +200,10 @@ ifdef PTXCONF_XORG_SERVER_XNEST
 	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/Xnest)
 endif
+ifdef PTXCONF_XORG_SERVER_XWAYLAND
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xwayland)
+endif
 ifdef PTXCONF_XORG_SERVER_XWIN
 	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/Xwin)
@@ -222,14 +237,6 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 		$(XORG_PREFIX)/lib/xorg/modules/libwfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libvgahw.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		$(XORG_PREFIX)/lib/xorg/modules/libxaa.so)
-endif
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/extensions/libextmod.so)
-ifdef PTXCONF_XORG_SERVER_EXT_DBE
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/extensions/libdbe.so)
 endif
 
 # FIXME: Should be included on demand only
@@ -248,63 +255,13 @@ endif
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/multimedia/tda9885_drv.so)
 
-ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_SHM
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XRES
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_RECORD
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/extensions/librecord.so)
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XV
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XVMC
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DGA
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_SCREENSAVER
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XDMCP
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XDM_AUTH_1
-endif
-
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/extensions/libglx.so)
 endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DRI
+ifdef PTXCONF_XORG_SERVER_GLAMOR
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/extensions/libdri.so)
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DRI2
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/extensions/libdri2.so)
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XCSECURITY
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
+		$(XORG_PREFIX)/lib/xorg/modules/libglamoregl.so)
 endif
 
 endif # PTXCONF_XORG_SERVER_XORG

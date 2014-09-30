@@ -25,6 +25,28 @@ LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_SOURCE	:= $(SRCDIR)/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_DIR	:= $(BUILDDIR)/$(LIBCURL)
 
+CERTDATA := certdata.txt
+CERTDATA_URL := http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/$(CERTDATA)?raw=1
+CERTDATA_SOURCE := $(SRCDIR)/$(CERTDATA)
+$(CERTDATA_SOURCE) := CERTDATA
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libcurl.extract:
+	@$(call targetinfo)
+	@$(call clean, $(LIBCURL_DIR))
+	@$(call extract, LIBCURL, $(BUILDDIR))
+	@$(call patchin, LIBCURL, $(LIBCURL_DIR))
+ifdef PTXCONF_LIBCURL_CA_BUNDLE
+	@$(call get, CERTDATA)
+	@cd $(LIBCURL_DIR); \
+	ln -s $(CERTDATA_SOURCE) ; \
+	$(LIBCURL_DIR)/lib/mk-ca-bundle.pl -n -u $(LIBCURL_DIR)/ca-bundle.crt
+endif
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
@@ -61,7 +83,6 @@ LIBCURL_AUTOCONF := \
 	--without-gssapi \
 	--without-gnutls \
 	--without-nss \
-	--without-ca-bundle \
 	--without-ca-path \
 	--without-libidn \
 	--without-axtls \
@@ -74,6 +95,12 @@ LIBCURL_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
 	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2
+
+ifdef PTXCONF_LIBCURL_CA_BUNDLE
+LIBCURL_AUTOCONF += --with-ca-bundle=/etc/ssl/certs/ca-bundle.crt
+else
+LIBCURL_AUTOCONF += --without-ca-bundle
+endif
 
 ifdef PTXCONF_LIBCURL_SSL
 LIBCURL_AUTOCONF += --with-ssl=$(SYSROOT)
@@ -96,6 +123,10 @@ $(STATEDIR)/libcurl.targetinstall:
 
 ifdef PTXCONF_LIBCURL_CURL
 	@$(call install_copy, libcurl, 0, 0, 0755, -, /usr/bin/curl)
+endif
+
+ifdef PTXCONF_LIBCURL_CA_BUNDLE
+	@$(call install_copy, libcurl, 0, 0, 0444, $(LIBCURL_DIR)/ca-bundle.crt, /etc/ssl/certs/ca-bundle.crt)
 endif
 	@$(call install_lib, libcurl, 0, 0, 0644, libcurl)
 

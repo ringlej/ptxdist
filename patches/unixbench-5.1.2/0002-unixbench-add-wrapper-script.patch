@@ -1,0 +1,19 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 6 Aug 2014 13:24:51 +0200
+Subject: [PATCH] unixbench: add wrapper script
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ unixbench | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100755 unixbench
+
+diff --git a/unixbench b/unixbench
+new file mode 100755
+index 0000000..1029ddc
+--- /dev/null
++++ b/unixbench
+@@ -0,0 +1,3 @@
++#!/bin/sh
++
++cd /usr/lib/unixbench && exec /usr/lib/unixbench/Run

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_VIDEO_APM) += xorg-driver-video-apm
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_APM_VERSION	:= 1.2.4
-XORG_DRIVER_VIDEO_APM_MD5	:= 7692dac140c15172935872a77417bed2
+XORG_DRIVER_VIDEO_APM_VERSION	:= 1.2.5
+XORG_DRIVER_VIDEO_APM_MD5	:= bce02d48c66932d082786167af22835a
 XORG_DRIVER_VIDEO_APM		:= xf86-video-apm-$(XORG_DRIVER_VIDEO_APM_VERSION)
 XORG_DRIVER_VIDEO_APM_SUFFIX	:= tar.bz2
 XORG_DRIVER_VIDEO_APM_URL	:= $(call ptx/mirror, XORG, individual/driver/$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX))
@@ -28,10 +28,6 @@ XORG_DRIVER_VIDEO_APM_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_APM)
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-XORG_DRIVER_VIDEO_APM_CONF_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_file__usr_share_X11_sgml_defs_ent=no
 
 #
 # autoconf
@@ -51,8 +47,8 @@ $(STATEDIR)/xorg-driver-video-apm.targetinstall:
 	@$(call install_fixup, xorg-driver-video-apm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-driver-video-apm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-video-apm, 0, 0, 0755, -, \
-		/usr/lib/xorg/modules/drivers/apm_drv.so)
+	@$(call install_lib, xorg-driver-video-apm, 0, 0, 0644, \
+		xorg/modules/drivers/apm_drv)
 
 	@$(call install_finish, xorg-driver-video-apm)
 

@@ -2,6 +2,8 @@
 
 config XORG_DRIVER_VIDEO_APM
 	tristate
+	# mibstore.h is needed but no longer exists in xorg-server
+	depends on BROKEN
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_XORG

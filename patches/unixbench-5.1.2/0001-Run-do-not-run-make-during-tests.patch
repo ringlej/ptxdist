@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 4 Aug 2014 22:29:54 +0200
+Subject: [PATCH] Run: do not run make during tests
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Run | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Run b/Run
+index aa961e8..907b734 100755
+--- a/Run
++++ b/Run
+@@ -1763,7 +1763,7 @@ sub main {
+         $tests = $index;
+     }
+ 
+-    preChecks();
++    #preChecks();
+     my $systemInfo = getSystemInfo();
+ 
+     # If the number of copies to run was not set, set it to 1

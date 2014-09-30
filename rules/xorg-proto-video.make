@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_XORG_PROTO_VIDEO) += xorg-proto-video
 #
 # Paths and names
 #
-XORG_PROTO_VIDEO_VERSION:= 2.3.1
-XORG_PROTO_VIDEO_MD5	:= c3b348c6e2031b72b11ae63fc7f805c2
+XORG_PROTO_VIDEO_VERSION:= 2.3.2
+XORG_PROTO_VIDEO_MD5	:= e658641595327d3990eab70fdb55ca8b
 XORG_PROTO_VIDEO	:= videoproto-$(XORG_PROTO_VIDEO_VERSION)
 XORG_PROTO_VIDEO_SUFFIX	:= tar.bz2
 XORG_PROTO_VIDEO_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_VIDEO).$(XORG_PROTO_VIDEO_SUFFIX))
@@ -30,13 +30,10 @@ XORG_PROTO_VIDEO_DIR	:= $(BUILDDIR)/$(XORG_PROTO_VIDEO)
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_VIDEO_PATH	:= PATH=$(CROSS_PATH)
-XORG_PROTO_VIDEO_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_PROTO_VIDEO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_PROTO_VIDEO_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install

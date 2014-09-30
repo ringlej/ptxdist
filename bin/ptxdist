@@ -542,6 +542,57 @@ check_dirs() {
 	done
 }
 
+#
+# Check for defined icecc
+# Check for a usefull icecc version and setup the environment
+#
+check_compiler_icecc() {
+	if [ -z "${PTXDIST_ICECC}" ]; then
+		return
+	fi
+	local icecc_dir="${sysroot_host}/lib/icecc"
+	if [ -n "${toolchain}" -a "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
+		rm -rf "${icecc_dir}"
+	fi
+	if [ "$(readlink -f "${wrapper_dir}/real/gcc")" != "$(readlink -f "${icecc_dir}/gcc")" ]; then
+		rm -rf "${icecc_dir}"
+	fi
+	if [ ! -d "${icecc_dir}" ]; then
+		if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
+			ptxd_bailout "PTXdist only supports icecc 1.x"
+		fi
+		mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
+		(
+			echo "Creating icecc host environment..."
+			if file -L "${wrapper_dir}/real/gcc" | grep script; then
+				ptxd_bailout "'$(readlink "${wrapper_dir}/real/gcc")' must not be a script if icecc is used!"
+			fi
+			cd "${icecc_dir}/host"
+			"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+				"${wrapper_dir}/real/gcc" \
+				"${wrapper_dir}/real/g++" > /dev/null 2>&1 || \
+			ptxd_bailout "Failed!"
+			ln -s "$(readlink -f "${wrapper_dir}/real/gcc")" "${icecc_dir}/gcc"
+
+			if [ -n "${compiler_prefix}" ]; then
+				echo "Creating icecc target environment..."
+				cd "${icecc_dir}/target"
+				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+					"${wrapper_dir}/real/${compiler_prefix}gcc" \
+					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 || \
+				ptxd_bailout "Failed!"
+				ln -s "${toolchain}" "${icecc_dir}/toolchain"
+			fi
+		)
+	fi &&
+
+	ptxd_get_path "${icecc_dir}/host"/*.tar.gz &&
+	export ICECC_VERSION_HOST="${ptxd_reply}" &&
+	if [ -n "${compiler_prefix}" ]; then
+		ptxd_get_path "${icecc_dir}/target"/*.tar.gz &&
+		export ICECC_VERSION_TARGET="${ptxd_reply}"
+	fi
+}
 
 #
 # Check for defined compiler
@@ -550,6 +601,7 @@ check_dirs() {
 check_compiler() {
 	local cc_ptr cc cc_abs cc_default cc_alternate
 	local wrapper_dir sysroot_host
+	local toolchain compiler_prefix
 
 	sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 	wrapper_dir="${sysroot_host}/lib/wrapper"
@@ -618,6 +670,7 @@ check_compiler() {
 
 	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
 		PATH="${wrapper_dir}:${PATH}"
+		check_compiler_icecc
 		return
 	fi
 
@@ -628,7 +681,7 @@ check_compiler() {
 	# 3) Correct compiler version if a specific compiler version is given
 	#
 
-	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
+	compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
 	local vendor_should
 	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)" && {
 		# yea! A toolchain vendor was specified in the ptxconfig file.
@@ -712,7 +765,7 @@ check_compiler() {
 		fi
 	}
 
-	local toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
+	toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
 	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld; do
 		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
@@ -722,33 +775,7 @@ check_compiler() {
 		ptxd_replace_link "$(which ${compiler_prefix}${tool})"  "${wrapper_dir}/${compiler_prefix}${tool}"
 	done &&
 	PATH="${wrapper_dir}:${PATH}" &&
-	if [ -n "${PTXDIST_ICECC}" ]; then
-		local icecc_dir="${sysroot_host}/lib/icecc"
-		if [ "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
-			rm -rf "${icecc_dir}" &&
-			if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
-				ptxd_bailout "PTXdist only supports icecc 1.x"
-			fi
-			mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
-			(
-				echo "Creating icecc target environment..."
-				cd "${icecc_dir}/target"
-				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
-					"${wrapper_dir}/real/${compiler_prefix}gcc" \
-					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 || \
-				ptxd_bailout "Failed!"
-				echo "Creating icecc host environment..."
-				cd "${icecc_dir}/host"
-				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
-					"${wrapper_dir}/real/gcc" \
-					"${wrapper_dir}/real/g++" > /dev/null 2>&1 || \
-				ptxd_bailout "Failed!"
-			) &&
-			ln -s "${toolchain}" "${icecc_dir}/toolchain"
-		fi || return
-		export ICECC_VERSION_TARGET="$(ls "${icecc_dir}/target"/*.tar.gz)"
-		export ICECC_VERSION_HOST="$(ls "${icecc_dir}/host"/*.tar.gz)"
-	fi
+	check_compiler_icecc
 }
 
 

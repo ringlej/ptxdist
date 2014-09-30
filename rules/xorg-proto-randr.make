@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_XORG_PROTO_RANDR) += xorg-proto-randr
 #
 # Paths and names
 #
-XORG_PROTO_RANDR_VERSION:= 1.3.2
-XORG_PROTO_RANDR_MD5	:= 597491c0d8055e2a66f11350c4985775
+XORG_PROTO_RANDR_VERSION:= 1.4.0
+XORG_PROTO_RANDR_MD5	:= ce4d0b05675968e4c83e003cc809660d
 XORG_PROTO_RANDR	:= randrproto-$(XORG_PROTO_RANDR_VERSION)
 XORG_PROTO_RANDR_SUFFIX	:= tar.bz2
 XORG_PROTO_RANDR_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX))
@@ -30,13 +30,10 @@ XORG_PROTO_RANDR_DIR	:= $(BUILDDIR)/$(XORG_PROTO_RANDR)
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_RANDR_PATH	:= PATH=$(CROSS_PATH)
-XORG_PROTO_RANDR_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XORG_PROTO_RANDR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_PROTO_RANDR_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install

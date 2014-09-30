@@ -68,8 +68,10 @@ GNUTLS_CONF_OPT		:= \
 	--disable-crywrap \
 	--without-p11-kit \
 	--without-tpm \
+	--without-librt-prefix \
 	--without-libregex \
-	--with-zlib
+	--with-zlib \
+	--without-libz-prefix
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,38 @@
+## SECTION=image2
+
+menuconfig IMAGE_BOOT_VFAT
+	tristate
+	select HOST_GENIMAGE
+	select HOST_MTOOLS
+	select HOST_DOSFSTOOLS
+	select BAREBOX		if IMAGE_BOOT_VFAT_MLO_BAREBOX || IMAGE_BOOT_VFAT_EFI_BAREBOX
+	select BAREBOX_MLO	if IMAGE_BOOT_VFAT_MLO_BAREBOX
+	select U_BOOT		if IMAGE_BOOT_VFAT_MLO_UBOOT
+	select KERNEL		if IMAGE_BOOT_VFAT_MLO_UBOOT
+	prompt "Generate images/boot.vfat     "
+	help
+	  Create a vfat boot partition. Many SoCs can boot from a special
+	  vfat Partition. This image supports several different types of
+	  such partitions.
+
+if IMAGE_BOOT_VFAT
+choice
+	prompt "type"
+
+config IMAGE_BOOT_VFAT_MLO_BAREBOX
+	bool
+	depends on ARCH_ARM
+	prompt "barebox MLO"
+
+config IMAGE_BOOT_VFAT_MLO_UBOOT
+	bool
+	depends on ARCH_ARM
+	prompt "u-boot MLO"
+
+config IMAGE_BOOT_VFAT_EFI_BAREBOX
+	bool
+	depends on ARCH_X86
+	prompt "barebox EFI"
+
+endchoice
+endif

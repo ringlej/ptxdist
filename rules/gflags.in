@@ -1,0 +1,16 @@
+## SECTION=system_libraries
+
+config GFLAGS
+	tristate
+	prompt "gflags"
+	select LIBC_M
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
+	select GCCLIBS_CXX
+	help
+	  The gflags library implements commandline flags processing. As such it's
+	  a replacement for getopt(). It has increased flexibility, including
+	  built-in support for C++ types like string, and the ability to define
+	  flags in the source file in which they're used.
+	  
+	  See https://code.google.com/p/gflags/ for info about it.
