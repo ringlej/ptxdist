@@ -109,9 +109,12 @@ $(STATEDIR)/barebox.compile:
 
 $(STATEDIR)/barebox.install:
 	@$(call targetinfo)
-	@install -D -m755 $(BAREBOX_DIR)/scripts/bareboxenv $(PTXCONF_SYSROOT_HOST)/bin/bareboxenv
+	@install -v -D -m755 $(BAREBOX_DIR)/scripts/bareboxenv $(PTXCONF_SYSROOT_HOST)/bin/bareboxenv
 ifdef PTXCONF_ARCH_X86
-	@install -D -m755 $(BAREBOX_DIR)/scripts/setupmbr/setupmbr $(PTXCONF_SYSROOT_HOST)/bin/setupmbr
+	@if [ -e $(BAREBOX_DIR)/scripts/setupmbr/setupmbr ]; then \
+		install -v -D -m755 $(BAREBOX_DIR)/scripts/setupmbr/setupmbr \
+			$(PTXCONF_SYSROOT_HOST)/bin/setupmbr; \
+	fi
 endif
 	@$(call touch)
 

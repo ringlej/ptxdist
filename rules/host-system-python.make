@@ -28,6 +28,12 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON_XML2
 		ptxd_bailout "Python libxml2 module not found! \
 	Please install python-libxml2 (debian)";
 endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON_ARGPARSE
+	@echo "Checking for Python argparse ..."
+	@python -c 'import argparse' 2>/dev/null || \
+		ptxd_bailout "Python argparse module not found! \
+	Please install python-argparse (debian)";
+endif
 	@echo
 	@$(call touch)
 

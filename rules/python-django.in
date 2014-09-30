@@ -1,0 +1,22 @@
+## SECTION=networking
+
+menuconfig PYTHON_DJANGO
+	tristate
+	select PYTHON
+	select PYTHON_SQLITE
+	select PYTHON_ZLIB
+	prompt "Django                        "
+	help
+	  Django is a high-level Python Web framework that encourages rapid
+	  development and clean, pragmatic design.
+
+if PYTHON_DJANGO
+
+	config PYTHON_DJANGO_LOCALES
+		string
+		prompt "Django locales"
+		default "de en"
+		help
+		  Space separated list of locales to install, e.g. "de en"
+
+endif

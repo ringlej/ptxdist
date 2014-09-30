@@ -19,6 +19,11 @@ menuconfig GST_PLUGINS_BAD1
 	select SDL		if GST_PLUGINS_BAD1_SDL
 	select VO_AACENC	if GST_PLUGINS_BAD1_VOAACENC
 	select WAYLAND		if GST_PLUGINS_BAD1_WAYLAND
+	select MESALIB		if GST_PLUGINS_BAD1_OPENGL || GST_PLUGINS_BAD1_GLES2 || GST_PLUGINS_BAD1_EGL
+	select MESALIB_OPENGL	if GST_PLUGINS_BAD1_OPENGL
+	select MESALIB_GLES2	if GST_PLUGINS_BAD1_GLES2
+	select MESALIB_EGL	if GST_PLUGINS_BAD1_EGL
+	select MESALIB_GLX	if GST_PLUGINS_BAD1_GLX
 
 	prompt "gst-plugins-bad               "
 	help
@@ -52,13 +57,21 @@ config GST_PLUGINS_BAD1_AIFF
 	depends on BROKEN
 	prompt "aiff"
 
+config GST_PLUGINS_BAD1_ASFMUX
+	bool
+	prompt "asfmux"
+
 config GST_PLUGINS_BAD1_AUDIOFXBAD
 	bool
 	prompt "audiofxbad"
 
-config GST_PLUGINS_BAD1_ASFMUX
+config GST_PLUGINS_BAD1_AUDIOMIXER
 	bool
-	prompt "asfmux"
+	prompt "audiomixer"
+
+config GST_PLUGINS_BAD1_COMPOSITOR
+	bool
+	prompt "compositor"
 
 config GST_PLUGINS_BAD1_AUDIOVISUALIZERS
 	bool
@@ -258,7 +271,7 @@ config GST_PLUGINS_BAD1_REMOVESILENCE
 	bool
 	prompt "removesilence"
 
-config GST_PLUGINS_BAD1_SDP
+config GST_PLUGINS_BAD1_SDI
 	bool
 	# Non ported plugin
 	depends on BROKEN
@@ -330,7 +343,7 @@ config GST_PLUGINS_BAD1_VMNC
 
 config GST_PLUGINS_BAD1_Y4M
 	bool
-	prompt "j4m"
+	prompt "y4m"
 
 config GST_PLUGINS_BAD1_YADIF
 	bool
@@ -349,10 +362,6 @@ config GST_PLUGINS_BAD1_SHM
 	bool
 	prompt "shm"
 
-config GST_PLUGINS_BAD1_MFC
-	bool
-	prompt "mfc"
-
 config GST_PLUGINS_BAD1_VCD
 	bool
 	# Non ported plugin
@@ -364,7 +373,7 @@ config GST_PLUGINS_BAD1_OPENSLES
 	depends on BROKEN
 	prompt "opensles"
 
-config GST_PLUGINS_BAD1_uvch264
+config GST_PLUGINS_BAD1_UVCH264
 	bool
 	# Non ported plugin
 	depends on BROKEN
@@ -394,13 +403,6 @@ config GST_PLUGINS_BAD1_APEXSINK
 config GST_PLUGINS_BAD1_BZ2
 	bool
 	prompt "bz2"
-
-config GST_PLUGINS_BAD1_CDAUDIO
-	bool
-	# Non ported plugin
-	depends on BROKEN
-	prompt "cdaudio"
-	depends on BROKEN
 
 config GST_PLUGINS_BAD1_CHROMAPRINT
 	bool
@@ -601,9 +603,21 @@ config GST_PLUGINS_BAD1_OPENCV
 	prompt "opencv"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD1_OPENEXR
+	bool
+	prompt "openexr"
+	# Needs OpenEXR
+	depends on BROKEN
+
 config GST_PLUGINS_BAD1_OPENJPEG
 	bool
 	prompt "openjpeg"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD1_OPENNI2
+	bool
+	prompt "openni2"
+	# Needs OpenNI2
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_OPUS
@@ -622,9 +636,35 @@ config GST_PLUGINS_BAD1_RSVG
 	prompt "rsvg"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD1_EGLGLES
+config GST_PLUGINS_BAD1_GL
 	bool
-	prompt "eglgles"
+	prompt "gl"
+
+if GST_PLUGINS_BAD1_GL
+
+config GST_PLUGINS_BAD1_OPENGL
+	bool
+	prompt "opengl"
+
+config GST_PLUGINS_BAD1_GLES2
+	bool
+	prompt "gles2"
+
+config GST_PLUGINS_BAD1_EGL
+	bool
+	prompt "egl"
+
+config GST_PLUGINS_BAD1_GLX
+	bool
+	select GST_PLUGINS_BAD1_OPENGL
+	prompt "glx"
+
+endif
+
+config GST_PLUGINS_BAD1_LIBVISUAL
+	bool
+	prompt "libvisual"
+	# Needs libvisual
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_TIMIDITY

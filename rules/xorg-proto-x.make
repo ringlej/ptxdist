@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_PROTO_X) += xorg-proto-x
 #
 # Paths and names
 #
-XORG_PROTO_X_VERSION 	:= 7.0.23
-XORG_PROTO_X_MD5	:= d4d241a4849167e4e694fe73371c328c
+XORG_PROTO_X_VERSION 	:= 7.0.26
+XORG_PROTO_X_MD5	:= 4dc2464bfeade23dab5de38da0f6b1b5
 XORG_PROTO_X		:= xproto-$(XORG_PROTO_X_VERSION)
 XORG_PROTO_X_SUFFIX	:= tar.bz2
 XORG_PROTO_X_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_X).$(XORG_PROTO_X_SUFFIX))

@@ -5,6 +5,11 @@ config XORG_DRIVER_INPUT_EVDEV
 	prompt "evdev"
 	depends on XORG_DRIVER_INPUT
 	select XORG_PROTO_X
+	select XORG_PROTO_INPUT
+	select UDEV
+	select UDEV_LIBUDEV
+	select LIBEVDEV
+	select MTDEV
 	select XORG_SERVER
 	help
 	  evdev is an Xorg input driver for Linux's generic

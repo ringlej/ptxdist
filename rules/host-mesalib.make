@@ -45,6 +45,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-gbm \
 	--disable-xvmc \
 	--disable-vdpau \
+	--disable-omx \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-xlib-glx \
@@ -55,6 +56,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-shared-glapi \
 	--disable-driglx-direct \
 	--disable-glx-tls \
+	--disable-llvm-shared-libs \
 	--disable-gallium-llvm \
 	--with-gallium-drivers= \
 	--with-dri-drivers=

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XP) += xorg-lib-xp
 #
 # Paths and names
 #
-XORG_LIB_XP_VERSION	:= 1.0.1
-XORG_LIB_XP_MD5		:= 7ae1d63748e79086bd51a633da1ff1a9
+XORG_LIB_XP_VERSION	:= 1.0.2
+XORG_LIB_XP_MD5		:= bb038577c7f4e42a1b675fa6451bc4aa
 XORG_LIB_XP		:= libXp-$(XORG_LIB_XP_VERSION)
 XORG_LIB_XP_SUFFIX	:= tar.bz2
 XORG_LIB_XP_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XP).$(XORG_LIB_XP_SUFFIX))

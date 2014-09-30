@@ -67,6 +67,7 @@ ptxd_make_image_genimage_impl() {
     ptxd_eval \
 	"${image_env}" \
 	genimage \
+	--loglevel $((PTXDIST_VERBOSE+1)) \
 	--rootpath "${pkg_dir}" \
 	--tmppath "${tmpdir}" \
 	--outputpath "$(dirname "${image_image}")" \

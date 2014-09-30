@@ -287,6 +287,7 @@ HOST_ENV_PYTHONPATH	:= \
 
 HOST_ENV	:= \
 	enable_option_checking=fatal \
+	enable_maintainer_mode=no \
 	$(HOST_ENV_CC) \
 	$(HOST_ENV_CXX) \
 	$(HOST_ENV_PKG_CONFIG) \

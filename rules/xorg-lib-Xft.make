@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XFT) += xorg-lib-xft
 #
 # Paths and names
 #
-XORG_LIB_XFT_VERSION	:= 2.3.1
-XORG_LIB_XFT_MD5	:= 78d64dece560c9e8699199f3faa521c0
+XORG_LIB_XFT_VERSION	:= 2.3.2
+XORG_LIB_XFT_MD5	:= 331b3a2a3a1a78b5b44cfbd43f86fcfe
 XORG_LIB_XFT		:= libXft-$(XORG_LIB_XFT_VERSION)
 XORG_LIB_XFT_SUFFIX	:= tar.bz2
 XORG_LIB_XFT_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XFT).$(XORG_LIB_XFT_SUFFIX))

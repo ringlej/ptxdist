@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XI) += xorg-lib-xi
 #
 # Paths and names
 #
-XORG_LIB_XI_VERSION	:= 1.6.1
-XORG_LIB_XI_MD5		:= 78ee882e1ff3b192cf54070bdb19938e
+XORG_LIB_XI_VERSION	:= 1.7.4
+XORG_LIB_XI_MD5		:= 9c4a69c34b19ec1e4212e849549544cb
 XORG_LIB_XI		:= libXi-$(XORG_LIB_XI_VERSION)
 XORG_LIB_XI_SUFFIX	:= tar.bz2
 XORG_LIB_XI_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XI).$(XORG_LIB_XI_SUFFIX))
