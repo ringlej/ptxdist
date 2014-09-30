@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XT) += xorg-lib-xt
 #
 # Paths and names
 #
-XORG_LIB_XT_VERSION	:= 1.1.3
-XORG_LIB_XT_MD5		:= a6f137ae100e74ebe3b71eb4a38c40b3
+XORG_LIB_XT_VERSION	:= 1.1.4
+XORG_LIB_XT_MD5		:= 03149823ae57bb02d0cec90d5b97d56c
 XORG_LIB_XT		:= libXt-$(XORG_LIB_XT_VERSION)
 XORG_LIB_XT_SUFFIX	:= tar.bz2
 XORG_LIB_XT_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XT).$(XORG_LIB_XT_SUFFIX))

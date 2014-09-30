@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XPM) += xorg-lib-xpm
 #
 # Paths and names
 #
-XORG_LIB_XPM_VERSION	:= 3.5.10
-XORG_LIB_XPM_MD5	:= 7ae7eff7a14d411e84a67bd166bcec1a
+XORG_LIB_XPM_VERSION	:= 3.5.11
+XORG_LIB_XPM_MD5	:= 769ee12a43611cdebd38094eaf83f3f0
 XORG_LIB_XPM		:= libXpm-$(XORG_LIB_XPM_VERSION)
 XORG_LIB_XPM_SUFFIX	:= tar.bz2
 XORG_LIB_XPM_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XPM).$(XORG_LIB_XPM_SUFFIX))

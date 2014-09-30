@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_XEXT) += xorg-lib-xext
 #
 # Paths and names
 #
-XORG_LIB_XEXT_VERSION	:= 1.3.1
-XORG_LIB_XEXT_MD5	:= 71251a22bc47068d60a95f50ed2ec3cf
+XORG_LIB_XEXT_VERSION	:= 1.3.3
+XORG_LIB_XEXT_MD5	:= 52df7c4c1f0badd9f82ab124fb32eb97
 XORG_LIB_XEXT		:= libXext-$(XORG_LIB_XEXT_VERSION)
 XORG_LIB_XEXT_SUFFIX	:= tar.bz2
 XORG_LIB_XEXT_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XEXT).$(XORG_LIB_XEXT_SUFFIX))
@@ -31,6 +31,7 @@ XORG_LIB_XEXT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XEXT)
 #
 # autoconf
 #
+XORG_LIB_XEXT_CONF_TOOL	:= autoconf
 XORG_LIB_XEXT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-specs \

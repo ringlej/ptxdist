@@ -83,6 +83,33 @@ endmenu
 
 menu "modules                     "
 
+config LIGHTTPD_MOD_ACCESS
+	bool
+	prompt "mod_access"
+	default y
+	help
+	  Deny access to some files.
+
+config LIGHTTPD_MOD_ACCESSLOG
+	bool
+	prompt "mod_accesslog"
+	default y
+	help
+	  flexible logging of requests served
+
+config LIGHTTPD_MOD_ALIAS
+	bool
+	prompt "mod_alias"
+	help
+	  Specify a special document-root for a given url-subset.
+
+config LIGHTTPD_MOD_AUTH
+	bool
+	prompt "mod_auth"
+	default y
+	help
+	  User authentication
+
 config LIGHTTPD_MOD_CML
 	bool
 	select LIGHTTPD_LUA
@@ -136,6 +163,12 @@ config LIGHTTPD_MOD_MAGNET
 	help
 	  A module to control the request handling
 
+config LIGHTTPD_MOD_REWRITE
+	bool
+	prompt "mod_rewrite"
+	help
+	  Module for URL rewriting
+
 config LIGHTTPD_MOD_TRIGGER_B4_DL
 	bool
 	select LIGHTTPD_MEMCACHE
@@ -170,7 +203,7 @@ endif
 config LIGHTTPD_MOD_EXTRA
 	string
 	prompt "extra modules"
-	default "mod_access mod_accesslog mod_auth"
+	default ""
 	help
 	  Space sparated list of modules to add to lighttpd.conf
 

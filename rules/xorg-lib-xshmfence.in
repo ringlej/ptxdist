@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_lib
+
+config XORG_LIB_XSHMFENCE
+	tristate
+	select XORG_PROTO_X
+	prompt "libxshmfence"
+	help
+	  This library provides an interface to shared-memory fences for
+	  synchronization between the X server and direct-rendering clients.

@@ -178,6 +178,12 @@ choice
 		  This code will run on Pentium III and above CPUs. Note: A Pentium M is a successor
 		  of Pentium III (Pentium 4 is a dead end)
 
+	config ARCH_X86_64
+		select ARCH_LP64
+		bool "x86_64     "
+		help
+		  The compiler will generate code for 64-bit x86_64 CPUs as default.
+
 endchoice
 
 
@@ -262,7 +268,7 @@ config HAS_MMU
 config SIZEOF_LONG_DOUBLE
 	string
 	default "12" if ARCH_X86
-#	default "16" if ARCH_X86_64
+	default "16" if ARCH_X86_64
 	default "8"
 	# FIXME: add more values
 
@@ -276,6 +282,7 @@ config ARCH_STRING
 	default "avr32"			if ARCH_AVR32
 	default "alpha"			if ARCH_ALPHA
 	default "blackfin"		if ARCH_BLACKFIN
+	default "x86_64"		if ARCH_X86_64
 	default "i386"			if ARCH_X86
 	default "i386"			if ARCH_MINGW
 	default "m68k"			if ARCH_M68K

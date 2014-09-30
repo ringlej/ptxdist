@@ -1,0 +1,28 @@
+## SECTION=multimedia_gstreamer1
+
+config GSTREAMER_VAAPI1
+	tristate
+	select GSTREAMER1
+	select GST_PLUGINS_BASE1
+	select LIBVA
+	prompt "gstreamer-vaapi1"
+	help
+	  Gstreamer-vaapi is a collection of GStreamer plugins and helper
+	  libraries that allow hardware accelerated video decoding,
+	  encoding and processing through VA-API.
+
+if GSTREAMER_VAAPI1
+
+config GSTREAMER_VAAPI1_X11
+	bool
+	default LIBVA_X11
+
+config GSTREAMER_VAAPI1_GLX
+	bool
+	default LIBVA_GLX
+
+config GSTREAMER_VAAPI1_WAYLAND
+	bool
+	default LIBVA_WAYLAND
+
+endif

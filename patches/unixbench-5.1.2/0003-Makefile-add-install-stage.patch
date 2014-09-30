@@ -1,0 +1,61 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 6 Aug 2014 13:20:14 +0200
+Subject: [PATCH] Makefile: add install stage
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index c9d1eba..d36c39f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -94,6 +94,9 @@ TMPDIR = ./tmp
+ # other directories
+ INCLDIR = /usr/include
+ LIBDIR = /lib
++PREFIX = /usr/local
++BINDIR = $(PREFIX)/bin
++PKG_LIBDIR = $(PREFIX)/lib/unixbench
+ SCRIPTS = unixbench.logo multi.sh tst.sh index.base
+ SOURCES = arith.c big.c context1.c \
+ 	dummy.c execl.c \
+@@ -120,17 +123,34 @@ BINS = $(PROGDIR)/arithoh $(PROGDIR)/register $(PROGDIR)/short \
+ # $(PROGDIR)/poll $(PROGDIR)/poll2 $(PROGDIR)/select
+ 
+ # Required non-binary files.
+-REQD = $(BINS) $(PROGDIR)/unixbench.logo \
+-	$(PROGDIR)/multi.sh $(PROGDIR)/tst.sh $(PROGDIR)/index.base \
+-	$(PROGDIR)/gfx-x11 \
++NON_BINS = $(PROGDIR)/unixbench.logo \
++	$(PROGDIR)/index.base \
+ 	$(TESTDIR)/sort.src $(TESTDIR)/cctest.c $(TESTDIR)/dc.dat \
+ 	$(TESTDIR)/large.txt
+ 
++# Required non-binary executable files
++NON_BIN_EXEC = \
++	$(PROGDIR)/multi.sh \
++	$(PROGDIR)/tst.sh \
++	$(PROGDIR)/gfx-x11
++
++REQD = $(BINS) $(NON_BINS) $(NON_BIN_EXEC)
++
+ # ######################### the big ALL ############################
+ all: distr programs
+ ## Ick!!!  What is this about???  How about let's not chmod everything bogusly.
+ #	@chmod 744 * $(SRCDIR)/* $(PROGDIR)/* $(TESTDIR)/* $(DOCDIR)/*
+ 
++install: $(REQD)
++	@install -v -m755 -D unixbench $(DESTDIR)$(BINDIR)/unixbench
++	@install -v -m755 -D Run $(DESTDIR)$(PKG_LIBDIR)/Run
++	@for file in $(BINS) $(NON_BIN_EXEC); do \
++		install -v -m755 -D $$file $(DESTDIR)$(PKG_LIBDIR)/$$file; \
++	done
++	@for file in $(NON_BINS); do \
++		install -v -m644 -D $$file $(DESTDIR)$(PKG_LIBDIR)/$$file; \
++	done
++
+ # ####################### a check for Run ######################
+ check: $(REQD)
+ 	make all

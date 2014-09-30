@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_GST_PLUGINS_FSL_VPU) += gst-plugins-fsl_vpu
+PACKAGES-$(PTXCONF_ARCH_ARM)-$(PTXCONF_GST_PLUGINS_FSL_VPU) += gst-plugins-fsl_vpu
 
 #
 # Paths and names

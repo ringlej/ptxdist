@@ -5,15 +5,18 @@ menuconfig CAIRO
 	select GCCLIBS_GCC_S
 	select XORG_LIB_XT	if CAIRO_XLIB && !GTK_TARGET_HOST_X11
 	select XORG_LIB_XRENDER	if CAIRO_XLIB && !GTK_TARGET_HOST_X11
-
+	select ZLIB		if CAIRO_PS || CAIRO_PDF
 	select GLIB		if CAIRO_GOBJECT
-
 	select DIRECTFB		if CAIRO_DIRECTFB
-
 	select FREETYPE		if CAIRO_FREETYPE
 	select FONTCONFIG	if CAIRO_FREETYPE
-
 	select LIBPNG		if CAIRO_PNG
+	select MESALIB		if CAIRO_GL || CAIRO_GLES2
+	select MESALIB_OPENGL	if CAIRO_GL
+	select MESALIB_GLES2	if CAIRO_GLES2
+	select MESALIB_GLX	if CAIRO_GLX
+	select MESALIB_EGL	if CAIRO_EGL
+	select LIBXCB		if CAIRO_XCB
 
 	select PIXMAN
 
@@ -28,42 +31,64 @@ if CAIRO
 config CAIRO_GOBJECT
 	bool
 
-config CAIRO_PS
-	bool
-	prompt "PostScript backend"
-
-config CAIRO_PDF
-	bool
-	prompt "PDF backend"
-
+comment "surface backends"
 
 config CAIRO_XLIB
 	bool
-	prompt "Xlib backend"
-	select CAIRO_FREETYPE
+	prompt "Xlib"
+
+config CAIRO_XCB
+	bool
+	prompt "xcb"
+
+config CAIRO_GL
+	bool
+	depends on !CAIRO_GLES2
+	prompt "OpenGL"
+
+config CAIRO_GLES2
+	bool
+	prompt "OpenGLESv2"
 
 config CAIRO_DIRECTFB
 	bool
-	prompt "directfb backend"
+	prompt "directfb"
 	select CAIRO_FREETYPE
 
-config CAIRO_WIN32
+config CAIRO_PS
 	bool
-	prompt "Win32 backend"
-	help
-	  Build cairo with the Win 32 backend. Makes only sense on mingw.
+	prompt "PostScript"
+
+config CAIRO_PDF
+	bool
+	prompt "PDF"
 
 config CAIRO_SVG
 	bool
-	prompt "SVG backend"
+	prompt "SVG"
 	select CAIRO_PNG
+
+comment "features"
 
 config CAIRO_FREETYPE
 	bool
-	prompt "Freetype font backend"
+	prompt "FreeType font backend"
 
 config CAIRO_PNG
 	bool
 	prompt "PNG support"
+
+if CAIRO_GL || CAIRO_GLES2
+
+config CAIRO_GLX
+	bool
+	depends on !CAIRO_EGL
+	prompt "GLX support"
+
+config CAIRO_EGL
+	bool
+	prompt "EGL support"
+
+endif
 
 endif

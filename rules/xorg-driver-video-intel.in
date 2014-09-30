@@ -1,37 +1,34 @@
 ## SECTION=multimedia_xorg_driver_video
 
-# configuration for xorg-driver-video-i810
-
 menuconfig XORG_DRIVER_VIDEO_INTEL
 	tristate
+	select UDEV
+	select UDEV_LIBUDEV
 	select LIBDRM
+	select LIBDRM_INTEL
+	select LIBPCIACCESS
+	select PIXMAN
+	select XORG_LIB_X11
 	select XORG_PROTO_FONTS
+	select XORG_PROTO_RANDR
+	select XORG_PROTO_RENDER
 	select XORG_PROTO_X
+	select XORG_PROTO_XEXT
 	select XORG_SERVER
 	select XORG_SERVER_XORG
+
+
 	# Xorg segfaults without XV extension
 	select XORG_SERVER_EXT_XV
-	select XORG_PROTO_GL		if XORG_DRIVER_VIDEO_INTEL_DRI
-	select XORG_PROTO_XF86DRI	if XORG_DRIVER_VIDEO_INTEL_DRI
-	select XORG_SERVER_EXT_DRI	if XORG_DRIVER_VIDEO_INTEL_DRI
+	select XORG_PROTO_DRI2		if XORG_DRIVER_VIDEO_INTEL_DRI
 	select XORG_SERVER_EXT_DRI2	if XORG_DRIVER_VIDEO_INTEL_DRI
 	select XORG_SERVER_EXT_GLX	if XORG_DRIVER_VIDEO_INTEL_DRI
-	select LIBDRM_INTEL		if XORG_DRIVER_VIDEO_INTEL_DRI
-	select MESALIB			if XORG_DRIVER_VIDEO_INTEL_DRI
 
 	select XORG_LIB_XVMC		if XORG_DRIVER_VIDEO_INTEL_XVMC
-	select XORG_PROTO_XEXT		if XORG_DRIVER_VIDEO_INTEL_XVMC
-	select XORG_PROTO_VIDEO		if XORG_DRIVER_VIDEO_INTEL_XVMC
-	select XORG_PROTO_FIXES		if XORG_DRIVER_VIDEO_INTEL_XVMC
-	select XCB_PROTO		if XORG_DRIVER_VIDEO_INTEL_XVMC
-	select XORG_LIB_X11		if XORG_DRIVER_VIDEO_INTEL_XVMC
-	select XCB_UTIL			if XORG_DRIVER_VIDEO_INTEL_XVMC
+	select XORG_PROTO_DRI2		if XORG_DRIVER_VIDEO_INTEL_XVMC
+	select XORG_SERVER_EXT_DRI2	if XORG_DRIVER_VIDEO_INTEL_XVMC
+	select LIBXCB			if XORG_DRIVER_VIDEO_INTEL_XVMC
 
-#	select XORG_PROTO_RANDR
-#	select XORG_PROTO_RENDER
-#	select XORG_PROTO_XEXT
-#	select XORG_LIB_X11
-#	select XORG_PROTO_XINERAMA
 	prompt "Intel"
 	help
 	  This is the video driver for Intel cards for the modular Xorg server.
@@ -53,11 +50,5 @@ config XORG_DRIVER_VIDEO_INTEL_XVMC
 	prompt "Enable XvMC Support"
 	help
 	  Enable XvMC support
-
-config XORG_DRIVER_VIDEO_INTEL_KMS_ONLY
-	bool
-	prompt "Only Support KMS"
-	help
-	  Only support Kernel Mode Setting
 
 endif

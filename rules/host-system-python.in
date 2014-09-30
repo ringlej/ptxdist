@@ -8,4 +8,7 @@ if HOST_SYSTEM_PYTHON
 config HOST_SYSTEM_PYTHON_XML2
 	bool
 
+config HOST_SYSTEM_PYTHON_ARGPARSE
+	bool
+
 endif

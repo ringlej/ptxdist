@@ -1,0 +1,40 @@
+## SECTION=multimedia_libs
+
+menuconfig LIBVA
+	tristate
+	select LIBDRM
+	select XORG_LIB_X11		if LIBVA_X11
+	select XORG_LIB_XEXT		if LIBVA_X11
+	select XORG_LIB_XFIXES		if LIBVA_X11
+	select MESALIB			if LIBVA_GLX || LIBVA_EGL
+	select MESALIB_GLX		if LIBVA_GLX
+	select MESALIB_EGL		if LIBVA_EGL
+	select WAYLAND			if LIBVA_WAYLAND
+	prompt "libva                         "
+	help
+	  libva an implementation of VA-API for Linux
+
+if LIBVA
+
+config LIBVA_TOOLS
+	bool
+	prompt "install tools"
+
+config LIBVA_X11
+	bool
+	prompt "X11 API support"
+
+config LIBVA_GLX
+	bool
+	select LIBVA_X11
+	prompt "GLX API support"
+
+config LIBVA_EGL
+	bool
+	prompt "EGL API support"
+
+config LIBVA_WAYLAND
+	bool
+	prompt "Wayland API support"
+
+endif

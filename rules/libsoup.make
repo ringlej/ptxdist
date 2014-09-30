@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_LIBSOUP) += libsoup
 #
 # Paths and names
 #
-LIBSOUP_VERSION	:= 2.38.1
-LIBSOUP_MD5	:= d13fb4968acea24c26b83268a308f580
+LIBSOUP_VERSION	:= 2.46.0
+LIBSOUP_MD5	:= 86765c0093efaf3006fa2960d170d097
 LIBSOUP		:= libsoup-$(LIBSOUP_VERSION)
 LIBSOUP_SUFFIX	:= tar.xz
-LIBSOUP_URL	:= http://ftp.gnome.org/pub/GNOME/sources/libsoup/2.38/$(LIBSOUP).$(LIBSOUP_SUFFIX)
+LIBSOUP_URL	:= http://ftp.gnome.org/pub/GNOME/sources/libsoup/2.46/$(LIBSOUP).$(LIBSOUP_SUFFIX)
 LIBSOUP_SOURCE	:= $(SRCDIR)/$(LIBSOUP).$(LIBSOUP_SUFFIX)
 LIBSOUP_DIR	:= $(BUILDDIR)/$(LIBSOUP)
 LIBSOUP_LICENSE	:= unknown
@@ -35,6 +35,15 @@ LIBSOUP_LICENSE	:= unknown
 LIBSOUP_CONF_TOOL := autoconf
 LIBSOUP_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-glibtest \
+	--disable-installed-tests \
+	--disable-always-build-tests \
+	--disable-nls \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--disable-introspection \
+	--disable-tls-check \
 	--without-gnome
 
 # ----------------------------------------------------------------------------
