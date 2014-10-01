@@ -74,7 +74,7 @@ case "${branch}" in
     ${stable}/*)
 	release="${branch##${stable}/}"
 	release="${release%.x${suffix}}"
-	inc="$(git tag -l "${release}.*" | wc -l)"
+	inc="$(git tag -l "${release}.*${suffix}" | wc -l)"
 	if [ ${inc} -eq 0 ]; then
 	    echo "about to make stable a release for '${release}', but no '.0' found" >&2
 	    exit 1
