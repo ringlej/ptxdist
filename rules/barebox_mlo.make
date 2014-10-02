@@ -77,7 +77,7 @@ $(STATEDIR)/barebox_mlo.targetinstall:
 	@$(call targetinfo)
 #	#barebox renamed barebox.bin.ift to MLO, so fall back to barebox.bin.ift
 	@rm -f $(IMAGEDIR)/MLO
-	@for image in `ls $(BAREBOX_MLO_DIR)/images/barebox-*-mlo.img`; do \
+	@for image in `ls $(BAREBOX_MLO_DIR)/images/barebox-*.img`; do \
 		install -D -m644 $$image $(IMAGEDIR)/`basename $$image`; \
 		if [ ! -e "$(IMAGEDIR)/MLO" ]; then \
 			ln -sf `basename $$image` $(IMAGEDIR)/MLO; \

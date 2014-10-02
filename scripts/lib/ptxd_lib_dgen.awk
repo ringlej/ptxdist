@@ -89,7 +89,7 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 	this_PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
 	this_PKG = gensub(/^[A-Z0-9_]*-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", this_PKG);
 
-	is_pkg = this_pkg = $2;
+	is_pkg = this_pkg = gensub(/^[[:space:]]*\<(.*)\>[[:space:]]*$/,"\\1","", $2);
 	if (this_pkg ~ /[A-Z]+/) {
 		print \
 			"\n" \

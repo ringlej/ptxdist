@@ -36,6 +36,7 @@ USPLASH_DIR	:= $(BUILDDIR)/$(USPLASH)
 USPLASH_CONF_TOOL	:= autoconf
 USPLASH_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_ROOT) \
+	--enable-static \
 	--enable-svga-backend \
 	--disable-convert-tools
 

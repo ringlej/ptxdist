@@ -17,13 +17,14 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.4.1
-GSTREAMER1_MD5		:= bd0938d680d657249b885162f310702d
+GSTREAMER1_VERSION	:= 1.4.3
+GSTREAMER1_MD5		:= 7934fd965bbe1398f0ff1edeb7f1fd89
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_SOURCE	:= $(SRCDIR)/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_DIR		:= $(BUILDDIR)/$(GSTREAMER1)
+GSTREAMER1_LICENSE	:= LGPLv2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

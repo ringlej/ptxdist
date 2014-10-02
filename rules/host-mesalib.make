@@ -24,8 +24,8 @@ HOST_MESALIB_CONF_ENV := \
 HOST_MESALIB_CONF_TOOL	:= autoconf
 HOST_MESALIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-static \
-	--enable-shared \
+	--enable-static \
+	--disable-shared \
 	--disable-debug \
 	--disable-mangling \
 	--disable-texture-float \
@@ -54,6 +54,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
 	--disable-shared-glapi \
+	--disable-sysfs \
 	--disable-driglx-direct \
 	--disable-glx-tls \
 	--disable-llvm-shared-libs \

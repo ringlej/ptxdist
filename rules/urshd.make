@@ -23,6 +23,7 @@ URSHD_SUFFIX	:= tar.bz2
 URSHD_URL	:= http://www.pengutronix.de/software/urshd/download/v1.0/$(URSHD).$(URSHD_SUFFIX)
 URSHD_SOURCE	:= $(SRCDIR)/$(URSHD).$(URSHD_SUFFIX)
 URSHD_DIR	:= $(BUILDDIR)/$(URSHD)
+URSHD_LICENSE	:= BSD (4-clause)
 
 # ----------------------------------------------------------------------------
 # Prepare

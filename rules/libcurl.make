@@ -24,6 +24,7 @@ LIBCURL_SUFFIX	:= tar.gz
 LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_SOURCE	:= $(SRCDIR)/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_DIR	:= $(BUILDDIR)/$(LIBCURL)
+LIBCURL_LICENSE	:= MIT
 
 CERTDATA := certdata.txt
 CERTDATA_URL := http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/$(CERTDATA)?raw=1

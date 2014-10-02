@@ -37,6 +37,7 @@ endif
 
 ALSA_LIB_SOURCE		:= $(SRCDIR)/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
 ALSA_LIB_DIR		:= $(BUILDDIR)/$(ALSA_LIB)
+ALSA_LIB_LICENSE	:= LGPLv2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

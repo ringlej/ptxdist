@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 1.5.0
-WESTON_MD5	:= 8eb40d230efc2411f083c20656534780
+WESTON_VERSION	:= 1.6.0
+WESTON_MD5	:= c60ce9dde99a089db0539d8f6b557827
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -45,7 +45,7 @@ WESTON_CONF_OPT		:= \
 	--disable-xwayland-test \
 	--disable-x11-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_DRM_COMPOSITOR)-drm-compositor \
-	--disable-libinput-backend \
+	--enable-libinput-backend \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-wayland-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_HEADLESS_COMPOSITOR)-headless-compositor \
 	--disable-rpi-compositor \
