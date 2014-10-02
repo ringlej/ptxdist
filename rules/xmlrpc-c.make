@@ -32,6 +32,7 @@ XMLRPC_C_LICENSE	:= unknown
 XMLRPC_C_CONF_TOOL := autoconf
 XMLRPC_C_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-static \
 	--disable-wininet-client \
 	--disable-libwww-client \
 	--without-libwww-ssl

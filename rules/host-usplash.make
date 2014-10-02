@@ -30,6 +30,7 @@ HOST_USPLASH_ENV 	:= $(HOST_ENV)
 #
 HOST_USPLASH_CONF_TOOL	:= autoconf
 HOST_USPLASH_CONF_OPT	:= $(HOST_AUTOCONF) \
+	--enable-static \
 	--disable-svga-backend \
 	--enable-convert-tools
 

@@ -26,7 +26,7 @@ ALSA_UTILS_URL		:= \
 	ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_SOURCE	:= $(SRCDIR)/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_DIR		:= $(BUILDDIR)/$(ALSA_UTILS)
-
+ALSA_UTILS_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare

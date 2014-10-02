@@ -19,11 +19,11 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 10.2.5
-MESALIB_MD5	:= f82b1c2b42f44073d8b889d2a7ee9292
+MESALIB_VERSION	:= 10.3.0
+MESALIB_MD5	:= bc071575596a074df2b15cac57c01ed8
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(basename $(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
@@ -52,6 +52,9 @@ endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_NOUVEAU)	+= nouveau
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
+ifdef PTXCONF_ARCH_ARM
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
+endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
 
@@ -76,8 +79,6 @@ MESALIB_LIBS-$(PTXCONF_MESALIB_EGL)	+= libEGL
 MESALIB_LIBS-$(MESALIB_GALLIUM_EGL)	+= egl/egl_gallium
 MESALIB_LIBS-$(PTXCONF_MESALIB_GBM)	+= libgbm
 MESALIB_LIBS-$(MESALIB_GALLIUM_GBM)	+= gbm/gbm_gallium_drm
-
-MESALIB_LIBS-y += $(addprefix gallium-pipe/pipe_,$(filter-out freedreno,$(MESALIB_GALLIUM_DRIVERS-y)))
 
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_X11)	+= x11
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_DRM)	+= drm
@@ -118,6 +119,7 @@ MESALIB_CONF_OPT	:= \
 	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
 	--enable-shared-glapi \
+	--disable-sysfs \
 	--enable-driglx-direct \
 	--enable-glx-tls \
 	--disable-gallium-llvm \

@@ -34,6 +34,7 @@ LUA_DIR		:= $(BUILDDIR)/$(LUA)
 #
 LUA_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-static \
 	--$(call ptx/wwo, PTXCONF_LUA_READLINE)-readline \
 
 # ----------------------------------------------------------------------------

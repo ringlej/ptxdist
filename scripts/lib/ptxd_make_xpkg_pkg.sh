@@ -744,10 +744,18 @@ export -f ptxd_install_shared
 ptxd_install_lib() {
     local lib_dir=$(ptxd_get_lib_dir)
     local lib="$1"
-    local root_dir="${2%/}/"
+    local root_dir="${2}"
     shift 2
 
-    local file="$(for dir in "${pkg_pkg_dir}/"${root_dir#/}{,usr/}${lib_dir}; do
+    if [ -n "${root_dir}" ]; then
+	root_dir="${root_dir%/}"
+
+	if [[ "${root_dir}" != /* ]]; then
+	    ptxd_install_error "ptxd_lib_install: root_dir '${root_dir}' must be absolute"
+	fi
+    fi
+
+    local file="$(for dir in "${pkg_pkg_dir}"${root_dir}{/,/usr/}${lib_dir}; do
 	    find "${dir}" -type f -path "${dir}/${lib}.so*"; done 2>/dev/null)"
 
     if [ ! -f "${file}" ]; then

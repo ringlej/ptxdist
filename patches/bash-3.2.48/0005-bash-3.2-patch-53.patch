@@ -1,0 +1,47 @@
+From: Bruno Thomsen <bth@kamstrup.dk>
+Date: Mon, 29 Sep 2014 10:18:41 +0200
+Subject: [PATCH] bash-3.2: patch 53
+
+Bash-Release: 3.2
+Patch-ID: bash32-053
+
+Bug-Reported-by:	Tavis Ormandy <taviso@cmpxchg8b.com>
+Bug-Reference-ID:
+Bug-Reference-URL:	http://twitter.com/taviso/statuses/514887394294652929
+
+Bug-Description:
+
+Under certain circumstances, bash can incorrectly save a lookahead character and
+return it on a subsequent call, even when reading a new line.
+
+Signed-off-by: Bruno Thomsen <bth@kamstrup.dk>
+---
+ parse.y      | 2 ++
+ patchlevel.h | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/parse.y b/parse.y
+index 8a2b081ac0ff..6cb2bced069d 100644
+--- a/parse.y
++++ b/parse.y
+@@ -2503,6 +2503,8 @@ reset_parser ()
+   FREE (word_desc_to_read);
+   word_desc_to_read = (WORD_DESC *)NULL;
+ 
++  eol_ungetc_lookahead = 0;
++
+   last_read_token = '\n';
+   token_to_read = '\n';
+ }
+diff --git a/patchlevel.h b/patchlevel.h
+index a2d65b2a683d..e5d74f36e0fa 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 52
++#define PATCHLEVEL 53
+ 
+ #endif /* _PATCHLEVEL_H_ */
