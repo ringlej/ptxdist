@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBVA) += libva
 #
 # Paths and names
 #
-LIBVA_VERSION	:= 1.3.1
-LIBVA_MD5	:= eb4db967f068854444b597071c66b480
+LIBVA_VERSION	:= 1.4.0
+LIBVA_MD5	:= 566e68d0a5a7758b2147dd3e60905bf3
 LIBVA		:= libva-$(LIBVA_VERSION)
 LIBVA_SUFFIX	:= tar.bz2
 LIBVA_URL	:= http://www.freedesktop.org/software/vaapi/releases/libva/$(LIBVA).$(LIBVA_SUFFIX)

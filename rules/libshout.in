@@ -1,0 +1,24 @@
+## SECTION=multimedia_libs
+
+menuconfig LIBSHOUT
+	tristate
+	prompt "libshout                      "
+	select LIBVORBIS
+	select LIBTHEORA	if LIBSHOUT_THEORA
+	select SPEEX		if LIBSHOUT_SPEEX
+	help
+	  A library for communicating with and sending data to Icecast and Icecast 2
+	  streaming audio servers. It handles the socket connection, the timing of
+	  the data transmission, and prevents bad data from getting to the server.
+
+if LIBSHOUT
+
+config LIBSHOUT_THEORA
+	bool
+	prompt "theora support"
+
+config LIBSHOUT_SPEEX
+	bool
+	prompt "speex support"
+
+endif

@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.24
-UTIL_LINUX_NG_MD5	:= 4fac6443427f575fc5f3531a4ad2ca01
+UTIL_LINUX_NG_VERSION	:= 2.25
+UTIL_LINUX_NG_MD5	:= 4c78fdef4cb882caafad61e33cafbc14
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v2.24/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(UTIL_LINUX_NG_VERSION)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
@@ -52,15 +52,14 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-nls \
 	--disable-rpath \
 	--disable-static-programs \
+	--enable-all-programs=undefined \
 	--enable-tls \
-	--disable-most-builds \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
-	--disable-deprecated-mount \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBSMARTCOLS)-libsmartcols \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNT)-mount \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LOSETUP)-losetup \
-	--disable-cytune \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
@@ -73,6 +72,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
 	--disable-cramfs \
 	--disable-bfs \
+	--disable-minix \
 	--disable-fdformat \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_HWCLOCK)-hwclock \
 	--disable-wdctl \
@@ -107,8 +107,8 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SCHEDUTILS)-schedutils \
 	--disable-wall \
 	--disable-write \
-	--disable-socket-activation \
 	--disable-bash-completion \
+	--disable-pylibmount \
 	--disable-pg-bell \
 	--disable-use-tty-group \
 	--disable-sulogin-emergency-mount \
@@ -123,7 +123,9 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--without-slang \
 	--without-utempter \
 	--without-user \
+	--without-systemd \
 	--with-systemdsystemunitdir=/lib/systemd/system \
+	--without-smack \
 	--without-python
 
 # ----------------------------------------------------------------------------
@@ -138,6 +140,19 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call install_fixup, util-linux-ng,SECTION,base)
 	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
+
+ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libuuid)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libblkid)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_LIBMOUNT
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libmount)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_LIBSMARTCOLS
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libsmartcols)
+endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_COLUMN
 	@$(call install_copy, util-linux-ng, root, root, 0755, -, /usr/bin/column)
@@ -218,17 +233,8 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_LDATTACH
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/ldattach)
 endif
-ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
-	@$(call install_lib, util-linux-ng, 0, 0, 0644, libblkid)
-endif
 ifdef PTXCONF_UTIL_LINUX_NG_BLKID
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/blkid)
-endif
-ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
-	@$(call install_lib, util-linux-ng, 0, 0, 0644, libuuid)
-endif
-ifdef PTXCONF_UTIL_LINUX_NG_LIBMOUNT
-	@$(call install_lib, util-linux-ng, 0, 0, 0644, libmount)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDD
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/uuidd)

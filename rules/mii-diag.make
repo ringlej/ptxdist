@@ -25,6 +25,7 @@ MII_DIAG_TARBALL	:= mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
 MII_DIAG_URL		:= $(call ptx/mirror, DEB, pool/main/m/mii-diag/$(MII_DIAG_TARBALL))
 MII_DIAG_SOURCE		:= $(SRCDIR)/$(MII_DIAG_TARBALL)
 MII_DIAG_DIR		:= $(BUILDDIR)/$(MII_DIAG)
+MII_DIAG_LICENSE	:= GPL
 
 # ----------------------------------------------------------------------------
 # Prepare

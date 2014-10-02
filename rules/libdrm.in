@@ -5,6 +5,7 @@ menuconfig LIBDRM
 	prompt "libdrm                        "
 	select LIBC_RT
 	select UDEV
+	select UDEV_LIBUDEV
 	select LIBPTHREAD_STUBS
 	select LIBPCIACCESS	if LIBDRM_INTEL
 	help

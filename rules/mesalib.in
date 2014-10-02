@@ -91,6 +91,10 @@ config MESALIB_DRI_FREEDRENO
 	bool
 	prompt "Freedreno"
 
+config MESALIB_DRI_VC4
+	bool
+	prompt "vc4"
+
 comment "API Support"
 
 config MESALIB_OPENGL

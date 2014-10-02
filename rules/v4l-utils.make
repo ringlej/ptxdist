@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 1.2.1
-V4L_UTILS_MD5		:= 4cc0fb4ded302ea9e89e5e1b56a7252b
+V4L_UTILS_VERSION	:= 1.4.0
+V4L_UTILS_MD5		:= 7ce03062482b8963694251b45da93f42
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_SOURCE	:= $(SRCDIR)/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_DIR		:= $(BUILDDIR)/$(V4L_UTILS)
-V4L_UTILS_LICENSE	:= unknown
+V4L_UTILS_LICENSE	:= GPLv2+ (tools); LGPLv2.1+ (libs)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -32,6 +32,7 @@ V4L_UTILS_LICENSE	:= unknown
 V4L_UTILS_CONF_TOOL	:= autoconf
 V4L_UTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-doxygen-doc \
 	--disable-rpath \
 	--disable-libdvbv5 \
 	--enable-libv4l \

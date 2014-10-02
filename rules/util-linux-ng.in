@@ -2,7 +2,7 @@
 menuconfig UTIL_LINUX_NG
 
 	tristate
-	prompt "util-linux-ng                 "
+	prompt "util-linux                    "
 	select GCCLIBS_GCC_S
 	select UTIL_LINUX_NG_LIBBLKID
 	select UTIL_LINUX_NG_LIBUUID		if UTIL_LINUX_NG_MKSWAP_UUID
@@ -18,6 +18,9 @@ config UTIL_LINUX_NG_LIBUUID
 	bool
 
 config UTIL_LINUX_NG_LIBMOUNT
+	bool
+
+config UTIL_LINUX_NG_LIBSMARTCOLS
 	bool
 
 config UTIL_LINUX_NG_USES_NCURSES
@@ -63,6 +66,8 @@ config UTIL_LINUX_NG_DELPART
 
 config UTIL_LINUX_NG_PARTX
 	bool
+	select UTIL_LINUX_NG_LIBBLKID
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	select UTIL_LINUX_NG_PARTX_TOOLS
 	prompt "partx"
 	help
@@ -82,6 +87,8 @@ comment "BusyBox' mountpoint is selected!"
 config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"
+	select UTIL_LINUX_NG_LIBUUID
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	depends on !BUSYBOX_FDISK || ALLYES
 	help
 	  fdisk - Partition table manipulator for Linux
@@ -98,6 +105,9 @@ config UTIL_LINUX_NG_SFDISK
 
 config UTIL_LINUX_NG_CFDISK
 	bool
+	select UTIL_LINUX_NG_LIBUUID
+	select UTIL_LINUX_NG_LIBSMARTCOLS
+	select UTIL_LINUX_NG_USES_NCURSES
 	prompt "cfdisk"
 	help
 	  cfdisk is a curses based program for partitioning any hard disk drive.
@@ -122,6 +132,9 @@ comment "BusyBox' mkswap is selected!"
 config UTIL_LINUX_NG_SWAPON
 	bool
 	prompt "swapon"
+	select UTIL_LINUX_NG_LIBBLKID
+	select UTIL_LINUX_NG_LIBMOUNT
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	depends on !BUSYBOX_SWAPONOFF || ALLYES
 	help
 	  Swapon is used to specify devices on which paging and swapping are to take place.
@@ -132,6 +145,7 @@ comment "BusyBox' swapon is selected!"
 config UTIL_LINUX_NG_LOSETUP
 	bool
 	prompt "losetup"
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	depends on !BUSYBOX_LOSETUP || ALLYES
 	help
 	  losetup is used to associate or detach a loop device with a regular
@@ -301,7 +315,6 @@ config UTIL_LINUX_NG_UUIDGEN
 config UTIL_LINUX_NG_BLKID
 	bool
 	select UTIL_LINUX_NG_LIBBLKID
-	select UTIL_LINUX_NG_LIBUUID
 	depends on !BUSYBOX_BLKID || ALLYES
 	prompt "blkid"
 	help

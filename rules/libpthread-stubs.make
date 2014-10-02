@@ -23,6 +23,7 @@ LIBPTHREAD_STUBS_SUFFIX		:= tar.bz2
 LIBPTHREAD_STUBS_URL		:= http://xcb.freedesktop.org/dist/$(LIBPTHREAD_STUBS).$(LIBPTHREAD_STUBS_SUFFIX)
 LIBPTHREAD_STUBS_SOURCE		:= $(SRCDIR)/$(LIBPTHREAD_STUBS).$(LIBPTHREAD_STUBS_SUFFIX)
 LIBPTHREAD_STUBS_DIR		:= $(BUILDDIR)/$(LIBPTHREAD_STUBS)
+LIBPTHREAD_STUBS_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

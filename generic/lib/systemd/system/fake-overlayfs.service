@@ -8,4 +8,4 @@ Requires=local-fs.target
 Type=oneshot
 RemainAfterExit=no
 ExecStart=/sbin/fake-overlayfs
-
+MountFlags=private

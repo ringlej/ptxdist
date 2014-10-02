@@ -2336,6 +2336,10 @@ setup_auto_version()
 	if [ -z "${PTXDIST_AUTOVERSION}" ]; then
 		return
 	fi
+	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
+		# no config yet, so this is either 'select' or fails later anyways
+		return
+	fi
 
 	_get_config_ptx
 	if ! check_version "${configfile_version}"; then

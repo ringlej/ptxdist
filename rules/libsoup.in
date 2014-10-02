@@ -3,6 +3,7 @@
 config LIBSOUP
 	tristate
 	select GLIB
+	select SQLITE
 	select LIBXML2
 	prompt "libsoup"
 	help

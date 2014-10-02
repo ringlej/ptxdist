@@ -23,6 +23,7 @@ HPING_SUFFIX	:= tar.gz
 HPING_URL	:= http://www.hping.org/$(HPING).$(HPING_SUFFIX)
 HPING_SOURCE	:= $(SRCDIR)/$(HPING).$(HPING_SUFFIX)
 HPING_DIR	:= $(BUILDDIR)/$(HPING)
+HPING_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
