@@ -291,6 +291,12 @@ endif
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
 
+ifdef PTXCONF_SYSTEMD_COREDUMP
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-coredump.conf)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/coredumpctl)
+	@$(call install_alternative, systemd, 0, 0, 0644, /etc/systemd/coredump.conf)
+endif
+
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/services/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system-services/)
 ifdef PTXCONF_SYSTEMD_LOCALES

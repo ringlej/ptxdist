@@ -25,7 +25,7 @@ HOST_COREUTILS_SKIP := \
 	nohup nproc numfmt od paste pathchk pinky pr printenv printf ptx \
 	pwd readlink realpath rm rmdir runcon seq sha1sum sha224sum \
 	sha256sum sha384sum sha512sum shred shuf sleep sort split stat \
-	stdbuf stty sum sync tac tail tee test [ timeout touch tr true \
+	stdbuf stty sum sync tac tail tee test [ timeout tr true \
 	truncate tsort tty uname unexpand uniq unlink uptime users vdir \
 	wc who whoami yes
 
@@ -42,7 +42,7 @@ HOST_COREUTILS_CONF_OPT		:= \
 	--disable-libsmack \
 	--disable-xattr \
 	--disable-libcap \
-	--enable-install-program=ln \
+	--enable-install-program=ln,touch \
 	--enable-no-install-program=$(subst $(space),$(comma),$(strip $(HOST_COREUTILS_SKIP))) \
 	--disable-nls \
 	--without-openssl \
@@ -55,7 +55,7 @@ HOST_COREUTILS_CONF_OPT		:= \
 $(STATEDIR)/host-coreutils.install:
 	@$(call targetinfo)
 	@$(call world/install, HOST_COREUTILS)
-	@find $(HOST_COREUTILS_PKGDIR) -type f -executable ! -name ln | xargs rm
+	@find $(HOST_COREUTILS_PKGDIR) -type f -executable ! \( -name ln -o -name touch \) | xargs rm
 	@$(call touch)
 
 # vim: syntax=make
