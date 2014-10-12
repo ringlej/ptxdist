@@ -3,5 +3,15 @@
 config LIBCAP
 	tristate
 	prompt "libcap"
+	select ATTR		if LIBCAP_SETCAP
+	select ATTR_SHARED	if LIBCAP_SETCAP
 	help
 	  A library for getting and setting POSIX.1e capabilities.
+
+if LIBCAP
+
+config LIBCAP_SETCAP
+	bool
+	prompt "Install setcap/getcap"
+
+endif

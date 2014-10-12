@@ -32,11 +32,15 @@ LIBCAP_LICENSE	:= BSD, GPL
 # ----------------------------------------------------------------------------
 
 LIBCAP_MAKE_OPT	:= \
-	prefix= PAM_CAP=no DYNAMIC=yes LIBATTR=no lib=lib \
+	prefix= PAM_CAP=no DYNAMIC=yes \
+	LIBATTR=$(call ptx/ifdef, PTXCONF_LIBCAP_SETCAP,yes,no) \
+	lib=lib \
 	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC)
 
-LIBCAP_INSTALL_OPT := $(LIBCAP_MAKE_OPT) install
+LIBCAP_INSTALL_OPT := $(LIBCAP_MAKE_OPT) \
+	RAISE_SETFCAP=no \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -54,7 +58,10 @@ $(STATEDIR)/libcap.targetinstall:
 	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/getpcaps)
 	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/capsh)
 	@$(call install_lib,  libcap, 0, 0, 0644, libcap)
-
+ifdef PTXCONF_LIBCAP_SETCAP
+	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/setcap)
+	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/getcap)
+endif
 	@$(call install_finish, libcap)
 
 	@$(call touch)
