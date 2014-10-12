@@ -21,7 +21,7 @@ NICKEL_VERSION	:= 1.1.0
 NICKEL_MD5	:= 5bcbf33d1457e6587c46ac3b0526523c
 NICKEL		:= nickel-$(NICKEL_VERSION)
 NICKEL_SUFFIX	:= tar.gz
-NICKEL_URL	:= http://downloads.sourceforge.net/chaoslizard/$(NICKEL).$(NICKEL_SUFFIX)
+NICKEL_URL	:= $(call ptx/mirror, SF, chaoslizard/$(NICKEL).$(NICKEL_SUFFIX))
 NICKEL_SOURCE	:= $(SRCDIR)/$(NICKEL).$(NICKEL_SUFFIX)
 NICKEL_DIR	:= $(BUILDDIR)/$(NICKEL)
 
