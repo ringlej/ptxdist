@@ -2,7 +2,7 @@
 
 menuconfig LIBPCIACCESS
 	tristate
-	select ZLIB	if LIBPCIACCESS_COMPRESS
+	select ZLIB	if LIBPCIACCESS_ZLIB
 	prompt "libpciaccess                  "
 	help
 	  libpciaccess contains low level access functions to be used by

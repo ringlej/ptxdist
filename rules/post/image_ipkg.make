@@ -46,7 +46,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_INDEX) += $(PKGDIR)/Packages
 ipkg-index: $(PKGDIR)/Packages
 
 PHONY += $(PKGDIR)/Packages
-$(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
+$(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post $(STATEDIR)/world.targetinstall
 	@echo "Creating ipkg index '$@'..."
 	@rm -f $(PKGDIR)/Packages*
 	@$(HOST_ENV) $(PTXCONF_HOST_PACKAGE_MANAGEMENT)-make-index \

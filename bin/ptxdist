@@ -2146,9 +2146,10 @@ setup_env() {
 	whitelist="${*}"
 	whitelist="${whitelist:+|}${whitelist// /|}"
 
-	unset $(/usr/bin/env | \
-		sed -n -e "s/^\([^=[:space:]]\+\)=.*$/\1/p" | \
-		egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$" )
+	unset $({
+		export -p  | sed -n 's/^declare -x \([^=]*\).*$/\1/p'
+		export -fp | sed -n 's/^declare -fx \([^=]*\).*$/\1/p'
+		} | egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$")
 
 	######## the environment is clean now ########
 

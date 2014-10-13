@@ -1,8 +1,8 @@
 ## SECTION=system_libraries
 
-config LIBCAP
+menuconfig LIBCAP
 	tristate
-	prompt "libcap"
+	prompt "libcap                        "
 	select ATTR		if LIBCAP_SETCAP
 	select ATTR_SHARED	if LIBCAP_SETCAP
 	help
