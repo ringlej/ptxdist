@@ -39,7 +39,7 @@ V4L_UTILS_CONF_OPT	:= \
 	--enable-v4l-utils \
 	--disable-qv4l2 \
 	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg \
-	--with-libudev
+	--$(call ptx/wwo, PTXCONF_V4L_UTILS_MEDIACTL)-libudev
 
 # ----------------------------------------------------------------------------
 # Target-Install

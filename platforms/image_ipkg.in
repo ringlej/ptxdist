@@ -38,14 +38,12 @@ if IMAGE_IPKG_SIGN_OPENSSL
 
 config IMAGE_IPKG_SIGN_OPENSSL_SIGNER
 	string
-	default ""
 	prompt "signer certificate file"
 	help
 	  signer certificate file to pass to openssl for signing.
 
 config IMAGE_IPKG_SIGN_OPENSSL_KEY
 	string
-	default ""
 	prompt "private key file"
 	help
 	  private key file to pass to openssl.
@@ -66,7 +64,6 @@ config IMAGE_INSTALL_FROM_IPKG_REPOSITORY
 
 config IMAGE_IPKG_INDEX
 	bool "generate ipkg.index"
-	default y
 	help
 	  Activating this option generates a ipkg index file
 	  ("Packages") in your PKGDIR. If served by a web or ftp
@@ -75,7 +72,6 @@ config IMAGE_IPKG_INDEX
 
 config IMAGE_IPKG_EXTRA_ARGS
 	string
-	default ""
 	prompt "extra arguments passed to ipkg-build"
 	help
 	  If needed you can add extra arguments for ipkg-build here
