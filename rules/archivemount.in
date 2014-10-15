@@ -1,0 +1,19 @@
+## SECTION=disk_and_file
+
+config ARCHIVEMOUNT
+	tristate
+	prompt "archivemount"
+	select FUSE
+	select FUSE__LIB
+	select FUSE__UTIL
+	select LIBARCHIVE
+	help
+	  Archivemount is a piece of glue code between libarchive and FUSE.
+	  It can be used to mount a (possibly compressed) archive (as
+	  in .tar.gz or .tar.bz2) and use it like an ordinary filesystem.
+
+	  It is a user-space application setting up the mount.
+	  Usage: archivemount <archivepath> <mountpoint> [options]
+	  See "archivemount --help" for more information.
+
+	  To umount, use "fusermount -u" from FUSE utils.
