@@ -36,7 +36,7 @@ OPROFILE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-gui \
-	--with-kernel=$(KERNEL_HEADERS_INCLUDE_DIR) \
+	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--without-java \
 	--without-x
 
