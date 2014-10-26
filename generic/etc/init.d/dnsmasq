@@ -9,7 +9,7 @@ PIDFILE=/var/run/dnsmasq.pid
 case $1 in
 
 	start)
-		test -e $PIDFILE || echo "already running"
+		test -e $PIDFILE && echo "already running"
 		echo "dnsmasq starting"
 		/usr/sbin/dnsmasq
 		;;
