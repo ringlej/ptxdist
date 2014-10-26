@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# Start/stop rngd (random number generator daemon) from rng-tools
+#
+
+# defaults are sane, normally no need to override
+OPTIONS=
+
+# pid-file created from rngd by default
+PIDFILE=/var/run/rngd.pid
+
+case $1 in
+	start)
+		if [ -e $PIDFILE ]; then
+			echo "rngd already running (found $PIDFILE)"
+		else
+			echo "starting rngd"
+			/usr/sbin/rngd $OPTIONS
+		fi
+		;;
+
+	stop)
+		if [ -e $PIDFILE ]; then
+			echo "stopping rngd"
+			kill -s SIGTERM `cat $PIDFILE`
+		else
+			echo "rngd not running (no $PIDFILE)"
+		fi
+		;;
+
+	restart)
+		$0 stop
+		$0 start
+		;;
+
+	*)
+		echo "Usage: ${0} {start|stop|restart}"
+		exit 1
+		;;
+esac
