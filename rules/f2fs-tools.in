@@ -1,0 +1,10 @@
+## SECTION=disk_and_file
+
+config F2FS_TOOLS
+	tristate
+	prompt "f2fs-tools"
+	select LIBUUID
+	help
+	  The f2fs-tools package provides the filesystem utilities for use
+	  with the f2fs filesystem (flash-friendly filesystem)
+	  https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
