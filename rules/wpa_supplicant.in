@@ -4,7 +4,7 @@ menuconfig WPA_SUPPLICANT
 	tristate
 	prompt "wpa_supplicant                "
 	select OPENSSL
-	select LIBNL
+	select LIBNL3
 	select DBUS if WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	help
 	  IEEE 802.1X/WPA supplicant for secure wireless transfers
@@ -15,122 +15,6 @@ config WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	bool
 	prompt "dbus control interface"
 	help
-	  TBD
-
-config WPA_SUPPLICANT_CTRL_IFACE_DBUS_NEW
-	bool
-	default WPA_SUPPLICANT_CTRL_IFACE_DBUS
-
-config WPA_SUPPLICANT_CTRL_IFACE_DBUS_INTRO
-	bool
-	default WPA_SUPPLICANT_CTRL_IFACE_DBUS
-
-config WPA_SUPPLICANT_AP
-	bool
-	prompt "AP mode"
-	help
-	  TBD
-
-config WPA_SUPPLICANT_P2P
-	bool
-	prompt "P2P (direct) mode"
-	select WPA_SUPPLICANT_AP
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_HOSTAP
-	bool
-	prompt "hostap"
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_MADWIFI
-	bool
-	prompt "madwifi"
-	depends on BROKEN
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_WEXT
-	bool
-	prompt "wext"
-	help
-	  Driver interface for generic Linux wireless extensions
-	  Note: WEXT is deprecated in the current Linux kernel version and no new
-	  functionality is added to it. nl80211-based interface is the new
-	  replacement for WEXT and its use allows wpa_supplicant to properly control
-	  the driver to improve existing functionality like roaming and to support new
-	  functionality.
-
-config WPA_SUPPLICANT_DRIVER_RALINK
-	bool
-	prompt "ralink"
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_BROADCOM
-	bool
-	prompt "broadcom"
-	depends on BROKEN
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_BSD
-	bool
-	prompt "bsd"
-	depends on BROKEN
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_NDIS
-	bool
-	prompt "ndis"
-	depends on BROKEN
-	help
-	  TBD
-
-config WPA_SUPPLICANT_DRIVER_NL80211
-	bool
-	prompt "nl80211"
-	help
-	  Driver interface for Linux drivers using the nl80211 kernel interface
-
-config WPA_SUPPLICANT_DRIVER_WIRED
-	bool
-	prompt "wired"
-	help
-	  Driver interface for wired Ethernet drivers
-	  untested
-
-config WPA_SUPPLICANT_DRIVER_ROBOSWITCH
-	bool
-	prompt "roboswitch"
-	help
-	  Driver interface for the Broadcom RoboSwitch family
-	  untested
-
-config WPA_SUPPLICANT_INSTALL_CLI
-	bool
-	prompt "Install wpa_cli"
-	default y
-	help
-	  This option enables or disables installation of the wpa_cli tool in
-	  the root file system. The tool allows controlling wpa_supplicant
-	  if used in daemon mode.
-
-	  You need something like
-
-	      ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=network
-	      update_config=1
-
-	  in your /etc/wpa_supplicant.conf to make wpa_cli working. Often
-	  it's not necessary to have wpa_cli in the final (non-development)
-	  version of an Embedded System.
-
-config WPA_SUPPLICANT_DEBUG_FILE
-	bool
-	prompt "log file support"
-	help
-	  Add support for writing debug log to a file
+	  Add support for (old and new) DBus control interface
 
 endif
