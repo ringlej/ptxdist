@@ -9,7 +9,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/trylink b/scripts/trylink
-index e471699..671b22b 100755
+index e471699173bf..671b22b71d93 100755
 --- a/scripts/trylink
 +++ b/scripts/trylink
 @@ -241,7 +241,12 @@ if test "$CONFIG_BUILD_LIBBUSYBOX" = y; then
