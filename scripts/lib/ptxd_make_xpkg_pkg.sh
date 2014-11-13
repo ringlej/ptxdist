@@ -787,14 +787,24 @@ executing '${pkg_label}.${1}'
 }
 export -f ptxd_install_run
 
+ptxd_install_fixup_timestamps() {
+    local timestamp="${PTXDIST_VERSION_YEAR}${PTXDIST_VERSION_MONTH}010000"
+    local touch_args
+    if touch --help | grep -q -- --no-dereference &> /dev/null; then
+	touch_args="--no-dereference"
+    fi
+
+    find "${1}" -print0 | xargs -0 touch ${touch_args} -c -t "${timestamp}"
+}
+export -f ptxd_install_fixup_timestamps
+
 ptxd_make_xpkg_pkg() {
     local pkg_xpkg_tmp="$1"
     local pkg_xpkg_cmds="$2"
     local pkg_xpkg_perms="$3"
-    local timestamp="${PTXDIST_VERSION_YEAR}${PTXDIST_VERSION_MONTH}010000"
 
     . "${pkg_xpkg_cmds}" &&
 
-    find "${pkg_xpkg_tmp}" -print0 | xargs -0 touch --no-dereference -c -t "${timestamp}"
+    ptxd_install_fixup_timestamps "${pkg_xpkg_tmp}"
 }
 export -f ptxd_make_xpkg_pkg
