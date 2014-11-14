@@ -23,7 +23,9 @@ OPENCV_VERSION	:= 2.4.8
 OPENCV_MD5	:= 50cc1433b3654074206f5b3dbfd49848
 OPENCV		:= opencv-$(OPENCV_VERSION)
 OPENCV_SUFFIX	:= zip
-OPENCV_URL	:= $(call ptx/mirror, SF, opencvlibrary/opencv-unix/$(OPENCV_VERSION)/$(OPENCV).$(OPENCV_SUFFIX))
+OPENCV_URL	:= \
+	$(call ptx/mirror, SF, opencvlibrary/opencv-unix/$(OPENCV_VERSION)/$(OPENCV).$(OPENCV_SUFFIX)) \
+	https://github.com/Itseez/opencv/archive/$(OPENCV_VERSION).$(OPENCV_SUFFIX)
 OPENCV_SOURCE	:= $(SRCDIR)/$(OPENCV).$(OPENCV_SUFFIX)
 OPENCV_DIR	:= $(BUILDDIR)/$(OPENCV)
 OPENCV_LICENSE	:= BSD

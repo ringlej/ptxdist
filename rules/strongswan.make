@@ -225,7 +225,7 @@ STRONGSWAN_PLUGINS := \
 	libstrongswan-xauth-generic.so \
 	libstrongswan-xcbc.so
 
-ifdef PTXCONF_STRONGSWAN_LIBCUR
+ifdef PTXCONF_STRONGSWAN_LIBCURL
 	STRONGSWAN_PLUGINS += libstrongswan-curl.so
 endif
 ifdef PTXCONF_STRONGSWAN_AFALG

@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Fri, 8 Aug 2014 10:24:47 +0200
+Date: Thu, 13 Nov 2014 11:18:27 +0100
 Subject: [PATCH] openssl_fix_for_x32
 
-Imported from openssl_1.0.1i-1.debian.tar.xz
+Imported from openssl_1.0.1j-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/crypto/bn/asm/x86_64-gcc.c b/crypto/bn/asm/x86_64-gcc.c
-index acb0b401181e..acd76cee2f74 100644
+index 31476abebfb7..e04d4958bdc8 100644
 --- a/crypto/bn/asm/x86_64-gcc.c
 +++ b/crypto/bn/asm/x86_64-gcc.c
 @@ -55,7 +55,7 @@
@@ -23,7 +23,7 @@ index acb0b401181e..acd76cee2f74 100644
  #else
  #define BN_ULONG unsigned long
 @@ -192,9 +192,9 @@ BN_ULONG bn_add_words (BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,int
- 	asm (
+ 	asm volatile (
  	"	subq	%2,%2		\n"
  	".p2align 4			\n"
 -	"1:	movq	(%4,%2,8),%0	\n"
@@ -36,7 +36,7 @@ index acb0b401181e..acd76cee2f74 100644
  	"	loop	1b		\n"
  	"	sbbq	%0,%0		\n"
 @@ -215,9 +215,9 @@ BN_ULONG bn_sub_words (BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,int
- 	asm (
+ 	asm volatile (
  	"	subq	%2,%2		\n"
  	".p2align 4			\n"
 -	"1:	movq	(%4,%2,8),%0	\n"

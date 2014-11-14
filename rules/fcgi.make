@@ -42,6 +42,7 @@ $(STATEDIR)/fcgi.targetinstall:
 
 	@$(call install_copy, fcgi, 0, 0, 0755, -, /usr/bin/cgi-fcgi)
 	@$(call install_lib, fcgi, 0, 0, 0644, libfcgi)
+	@$(call install_lib, fcgi, 0, 0, 0644, libfcgi++)
 
 	@$(call install_finish, fcgi)
 	@$(call touch)

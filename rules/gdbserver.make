@@ -43,6 +43,9 @@ GDBSERVER_ENV +=  LDFLAGS=-static
 endif
 
 GDBSERVER_CONF_TOOL := autoconf
+GDBSERVER_CONF_OPT  := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-werror
 
 GDBSERVER_BUILD_OOT := YES
 GDBSERVER_SUBDIR := gdb/gdbserver

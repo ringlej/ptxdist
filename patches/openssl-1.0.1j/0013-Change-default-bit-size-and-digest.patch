@@ -2,7 +2,7 @@ From: Kurt Roeckx <kurt@roeckx.be>
 Date: Fri, 1 Nov 2013 20:47:14 +0100
 Subject: [PATCH] Change default bit size and digest
 
-Imported from openssl_1.0.1i-1.debian.tar.xz
+Imported from openssl_1.0.1j-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -78,10 +78,10 @@ index 18760c6e673d..1eb86c401263 100644
  distinguished_name	= req_distinguished_name
  attributes		= req_attributes
 diff --git a/crypto/dsa/dsa_ameth.c b/crypto/dsa/dsa_ameth.c
-index 376156ec5ef3..13318d70aa6e 100644
+index 5af76eade59a..0a7520221690 100644
 --- a/crypto/dsa/dsa_ameth.c
 +++ b/crypto/dsa/dsa_ameth.c
-@@ -628,7 +628,7 @@ static int dsa_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
+@@ -634,7 +634,7 @@ static int dsa_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
  #endif
  
  		case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
@@ -91,10 +91,10 @@ index 376156ec5ef3..13318d70aa6e 100644
  
  		default:
 diff --git a/crypto/ec/ec_ameth.c b/crypto/ec/ec_ameth.c
-index f715a238a6fc..e91f8d621c8e 100644
+index 11283769b939..6b24725db608 100644
 --- a/crypto/ec/ec_ameth.c
 +++ b/crypto/ec/ec_ameth.c
-@@ -616,7 +616,7 @@ static int ec_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
+@@ -618,7 +618,7 @@ static int ec_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
  #endif
  
  		case ASN1_PKEY_CTRL_DEFAULT_MD_NID:

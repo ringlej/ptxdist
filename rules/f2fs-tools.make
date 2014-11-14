@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ENDIAN_BIG
 PACKAGES-$(PTXCONF_F2FS_TOOLS) += f2fs-tools
+endif
 
 #
 # Paths and names
@@ -24,17 +26,6 @@ F2FS_TOOLS_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-to
 F2FS_TOOLS_SOURCE	:= $(SRCDIR)/$(F2FS_TOOLS).$(F2FS_TOOLS_SUFFIX)
 F2FS_TOOLS_DIR		:= $(BUILDDIR)/$(F2FS_TOOLS)
 F2FS_TOOLS_LICENSE	:= GPLv2+ LGPLv2.1+
-
-$(STATEDIR)/f2fs-tools.extract: $(STATEDIR)/autogen-tools
-
-$(STATEDIR)/f2fs-tools.extract:
-	@$(call targetinfo)
-	@$(call clean, $(F2FS_TOOLS_DIR))
-	@$(call extract, F2FS_TOOLS, $(BUILDDIR))
-	@$(call patchin, F2FS_TOOLS, $(F2FS_TOOLS_DIR))
-	@cd $(F2FS_TOOLS_DIR); \
-	autoreconf --install
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare

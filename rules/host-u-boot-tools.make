@@ -19,7 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_U_BOOT_TOOLS) += host-u-boot-tools
 # ----------------------------------------------------------------------------
 
 HOST_U_BOOT_TOOLS_CONF_TOOL	:= NO
-HOST_U_BOOT_TOOLS_MAKE_OPT	:= tools
+HOST_U_BOOT_TOOLS_MAKE_OPT	:= sandbox_config tools
 
 # ----------------------------------------------------------------------------
 # Install
