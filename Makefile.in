@@ -39,18 +39,6 @@ kconfig:
 		conf mconf $(NCONF)
 	@echo "done."
 
-define touch_wrapper
-#!/bin/bash
-
-declare -a args
-args=($${@})
-
-[ -n "@TOUCH_NO_DEREFERENCE@" ] || args=($${@//--no-dereference/})
-
-@GNU_touch@ $${args[*]}
-endef
-export touch_wrapper
-
 environment:
 	@echo -n "preparing PTXdist environment ..."
 	@ln -sf @AWK@ "$(abs_srcdir)/bin/awk"
@@ -81,8 +69,6 @@ environment:
 	@ln -sf @BASH@  "$(abs_srcdir)/bin/bash"
 	@ln -sf @SYSCTL@ "$(abs_srcdir)/bin/sysctl"
 	@ln -sf @MAKE@ "$(abs_srcdir)/bin/make"
-	@echo "$$touch_wrapper" > "$(abs_srcdir)/bin/touch"
-	@chmod +x "$(abs_srcdir)/bin/touch"
 	@echo " done"
 
 clean:

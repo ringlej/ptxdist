@@ -158,7 +158,6 @@ GNU_TOOL(sort, coreutils)
 GNU_TOOL(cat, coreutils)
 GNU_TOOL(tty, coreutils)
 GNU_TOOL(readlink, coreutils)
-GNU_TOOL(touch, coreutils)
 GNU_TOOL(tar, tar)
 GNU_TOOL(find, findutils)
 GNU_TOOL(xargs, findutils)
@@ -278,13 +277,6 @@ AC_PATH_PROGS(MSGFMT, msgfmt,, $PATH)
 if test -z "$MSGFMT"; then
 	AC_MSG_ERROR([gettext could not be found, please install])
 fi
-
-dnl Check for touch --no-dereference support
-AC_CACHE_CHECK([for touch that supports --no-dereference], [ac_cv_path_TOUCH_NO_DEREFERENCE],
-		   [AC_PATH_PROGS_FEATURE_CHECK([TOUCH_NO_DEREFERENCE], [touch],
-		     [[$ac_path_TOUCH_NO_DEREFERENCE --no-dereference /dev/null 2> /dev/null && \
-		         ac_cv_path_TOUCH_NO_DEREFERENCE=$ac_path_TOUCH_NO_DEREFERENCE ac_path_TOUCH_NO_DEREFERENCE_found=:]])])
-AC_SUBST([TOUCH_NO_DEREFERENCE], [$ac_cv_path_TOUCH_NO_DEREFERENCE])
 
 dnl
 dnl Checks for Python, needed for ipkg-utils
