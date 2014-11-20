@@ -6,6 +6,7 @@ config XORG_LIB_XI
 	select XORG_PROTO_X
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
+	select XORG_LIB_XFIXES
 	select XORG_PROTO_INPUT
 	help
 	  libXi provides an X Window System client interface
