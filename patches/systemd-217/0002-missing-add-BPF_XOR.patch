@@ -10,14 +10,17 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/shared/missing.h b/src/shared/missing.h
-index 1ba0104c4aab..b3f501effaea 100644
+index 93a6570c76a2..44ed669e0027 100644
 --- a/src/shared/missing.h
 +++ b/src/shared/missing.h
-@@ -599,3 +599,7 @@ static inline int setns(int fd, int nstype) {
- #ifndef NET_NAME_RENAMED
- #  define NET_NAME_RENAMED 4
+@@ -538,6 +538,10 @@ static inline int setns(int fd, int nstype) {
+ #  define BPF_XOR 0xa0
  #endif
-+
+ 
 +#ifndef BPF_XOR
 +#  define BPF_XOR 0xa0
 +#endif
++
+ /* Note that LOOPBACK_IFINDEX is currently not exported by the
+  * kernel/glibc, but hardcoded internally by the kernel.  However, as
+  * it is exported to userspace indirectly via rtnetlink and the

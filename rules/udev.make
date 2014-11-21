@@ -100,7 +100,6 @@ UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
 	42-usb-hid-pm.rules
 
 UDEV_RULES-$(PTXCONF_SYSTEMD) += \
-	50-firmware.rules \
 	60-drm.rules \
 	64-btrfs.rules \
 	80-net-setup-link.rules

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 216
-SYSTEMD_MD5	:= 04fda588a04f549da0f397dce3ae6a39
+SYSTEMD_VERSION	:= 217
+SYSTEMD_MD5	:= e68dbff3cc19f66e341572d9fb2ffa89
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -62,6 +62,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-undefined-sanitizer \
 	--disable-python-devel \
 	--disable-dbus \
+	--disable-utmp \
 	--enable-compat-libs \
 	--disable-coverage \
 	--enable-kmod \
@@ -87,7 +88,6 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-libidn \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
-	--enable-readahead \
 	--enable-bootchart \
 	--enable-quotacheck \
 	--enable-tmpfiles \
@@ -107,12 +107,12 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-resolved \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
 	--disable-efi \
-	--disable-multi-seat-x \
 	--disable-terminal \
 	--disable-kdbus \
 	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--disable-manpages \
+	--disable-hibernate \
 	--disable-ldconfig \
 	--enable-split-usr \
 	--disable-tests \
@@ -122,7 +122,6 @@ SYSTEMD_CONF_OPT	:= \
 	--with-system-uid-max=999 \
 	--with-system-gid-max=999 \
 	--with-dns-servers= \
-	--with-firmware-path=/lib/firmware \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
 	--with-tty-gid=112 \
@@ -182,7 +181,6 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-networkd-wait-online,) \
 	systemd-quotacheck \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
-	systemd-readahead \
 	systemd-remount-fs \
 	systemd-reply-password \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolve-host,) \
@@ -195,7 +193,6 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
 	systemd-update-done \
-	systemd-update-utmp \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-user-sessions,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
 
