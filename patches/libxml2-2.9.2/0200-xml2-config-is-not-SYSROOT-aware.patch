@@ -7,10 +7,10 @@ This patch adds $SYSROOT support to xml2-config.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  xml2-config.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/xml2-config.in b/xml2-config.in
-index 2989325..4e170b6 100644
+index 19574864cb6a..ee1949ce9542 100644
 --- a/xml2-config.in
 +++ b/xml2-config.in
 @@ -1,6 +1,6 @@
@@ -21,6 +21,3 @@ index 2989325..4e170b6 100644
  exec_prefix=@exec_prefix@
  includedir=@includedir@
  libdir=@libdir@
--- 
-1.7.1
-

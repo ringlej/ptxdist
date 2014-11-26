@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 #
 # Paths and names
 #
-LIBXML2_VERSION	:= 2.7.7
-LIBXML2_MD5	:= 9abc9959823ca9ff904f1fbcf21df066
+LIBXML2_VERSION	:= 2.9.2
+LIBXML2_MD5	:= 9e6a9aca9d155737868b3dc5fd82f788
 LIBXML2		:= libxml2-$(LIBXML2_VERSION)
 LIBXML2_SUFFIX	:= tar.gz
 LIBXML2_SOURCE	:= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
@@ -54,8 +54,10 @@ LIBXML2_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_HISTORY)-history \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_HTML)-html \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_HTTP)-http \
+	--without-icu \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_ISO8859X)-iso8859x \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_LEGACY)-legacy \
+	--$(call ptx/wwo, PTXCONF_LIBXML2_LZMA)-lzma \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_MEM_DEBUG)-mem-debug \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_MINIMUM)-minimum \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_OUTPUT)-output \
