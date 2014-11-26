@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+
+config HOST_NINJA
+	tristate
+	select HOST_SYSTEM_PYTHON
+	default ALLYES
+	help
+	  Ninja build tool
