@@ -3,7 +3,6 @@
 menuconfig GTK2
 	tristate
 	prompt "GTK+2"
-	default GTK2CORE
 	select GLIB
 	select ATK
 	select PANGO
