@@ -43,6 +43,7 @@ GTK2_CONF_OPT	:= \
 	--enable-explicit-deps=yes \
 	--disable-glibtest \
 	--disable-modules \
+	--disable-rebuilds \
 	--with-gdktarget=$(PTXCONF_GTK2_TARGET)
 
 # ----------------------------------------------------------------------------
