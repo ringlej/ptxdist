@@ -5,6 +5,8 @@ config LIBSOUP
 	select GLIB
 	select SQLITE
 	select LIBXML2
+	select LIBXML2_OUTPUT
+	select LIBXML2_SAX1
 	prompt "libsoup"
 	help
 	  HTTP library implementation in C.
