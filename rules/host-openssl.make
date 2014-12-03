@@ -35,7 +35,7 @@ HOST_OPENSSL_MAKE_PAR	:= NO
 HOST_OPENSSL_CONF_OPT = \
 	--prefix=/ \
 	--install_prefix=$(HOST_OPENSSL_PKGDIR) \
-	--libdir=/lib
+	--libdir=/lib -fPIC
 HOST_OPENSSL_INSTALL_OPT := \
 	install_sw
 
