@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	:= 0.9.9
-OPROFILE_MD5		:= 00aec1287da2dfffda17a9b1c0a01868
+OPROFILE_VERSION	:= 1.0.0
+OPROFILE_MD5		:= ba0b340e5c421a93959776c836ed35b3
 OPROFILE		:= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		:= tar.gz
 OPROFILE_URL		:= $(call ptx/mirror, SF, oprofile/$(OPROFILE).$(OPROFILE_SUFFIX))
@@ -35,7 +35,6 @@ OPROFILE_CONF_TOOL	:= autoconf
 OPROFILE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--disable-gui \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--without-java \
 	--without-x
@@ -53,14 +52,18 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_fixup, oprofile,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, oprofile,DESCRIPTION,missing)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/op-check-perfevents)
-	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opcontrol)
-	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/ophelp)
-	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opreport)
-	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/oprofiled)
-	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/oparchive)
+	@$(call install_lib, oprofile, 0, 0, 0644, oprofile/libopagent)
+
 	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/ocount)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/op-check-perfevents)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opannotate)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/oparchive)
 	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/operf)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opgprof)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/ophelp)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opimport)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opjitconv)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opreport)
 
 	@$(call install_tree, oprofile, 0, 0, -, /usr/share/oprofile)
 
