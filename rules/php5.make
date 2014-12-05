@@ -220,6 +220,12 @@ else
 PHP5_AUTOCONF += --without-zlib
 endif
 
+ifdef PTXCONF_PHP5_EXT_OPENSSL
+PHP5_AUTOCONF += --with-openssl=$(SYSROOT)/usr
+else
+PHP5_AUTOCONF += --without-openssl
+endif
+
 ifdef PTXCONF_PHP5_EXT_CURL
 PHP5_AUTOCONF += \
 	--with-curl=$(SYSROOT)/usr
