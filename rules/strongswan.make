@@ -156,7 +156,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-pkcs11 \
 	--disable-ctr \
 	--disable-ccm \
-	--disable-gcm \
+	--enable-gcm \
 	--disable-addrblock \
 	--enable-acert \
 	--disable-unity \
@@ -202,6 +202,7 @@ STRONGSWAN_PLUGINS := \
 	libstrongswan-des.so \
 	libstrongswan-dnskey.so \
 	libstrongswan-fips-prf.so \
+	libstrongswan-gcm.so \
 	libstrongswan-gmp.so \
 	libstrongswan-hmac.so \
 	libstrongswan-kernel-netlink.so \
