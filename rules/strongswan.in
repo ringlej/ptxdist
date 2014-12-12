@@ -5,6 +5,7 @@ menuconfig STRONGSWAN
 	prompt "strongswan                    "
 	select LIBGMP
 	select LIBCURL if STRONGSWAN_LIBCURL
+	select OPENSSL if STRONGSWAN_OPENSSL
 	help
 	  strongSwan is a complete IPsec implementation.
 	  Please keep in mind to configure the kernel accordingly to fulfill
@@ -21,6 +22,13 @@ config STRONGSWAN_LIBCURL
 	  If you intend to dynamically fetch Certificate Revocation Lists
 	  (CRLs) from an HTTP server or as an alternative want to use
 	  the Online Certificate Status Protocol (OCSP) say yes.
+
+config STRONGSWAN_OPENSSL
+	bool
+	default n
+	prompt "OpenSSL crypto library for IKE"
+	help
+	  This will add Elliptic Curve support in IKE Diffie-Hellman key exchange.
 
 config STRONGSWAN_AFALG
 	bool

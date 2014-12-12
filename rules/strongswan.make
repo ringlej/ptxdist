@@ -34,6 +34,7 @@ STRONGSWAN_CONF_TOOL	:= autoconf
 STRONGSWAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_STRONGSWAN_LIBCURL)-curl \
+	--$(call ptx/endis, PTXCONF_STRONGSWAN_OPENSSL)-openssl \
 	--disable-unbound \
 	--disable-soup \
 	--disable-ldap \
@@ -150,7 +151,6 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-osx-attr \
 	--enable-resolve \
 	--disable-padlock \
-	--disable-openssl \
 	--disable-gcrypt \
 	--disable-agent \
 	--disable-pkcs11 \
@@ -227,6 +227,9 @@ STRONGSWAN_PLUGINS := \
 
 ifdef PTXCONF_STRONGSWAN_LIBCURL
 	STRONGSWAN_PLUGINS += libstrongswan-curl.so
+endif
+ifdef PTXCONF_STRONGSWAN_OPENSSL
+	STRONGSWAN_PLUGINS += libstrongswan-openssl.so
 endif
 ifdef PTXCONF_STRONGSWAN_AFALG
 	STRONGSWAN_PLUGINS += libstrongswan-af-alg.so
