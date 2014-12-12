@@ -1,0 +1,9 @@
+## SECTION=multimedia_gstreamer1
+
+config GST_RTSP_SERVER1
+	tristate
+	select GSTREAMER1
+	select GST_PLUGINS_BASE1
+	prompt "gst-rtsp-server"
+	help
+	  RTSP server plugin for GStreamer
