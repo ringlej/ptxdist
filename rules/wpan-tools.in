@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config WPAN_TOOLS
+	tristate
+	prompt "wpan-tools"
+	select LIBNL3
+	help
+	  Userspace tools for Linux IEEE 802.15.4 stack.
