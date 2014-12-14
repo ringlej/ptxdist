@@ -12,10 +12,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index c9b78ff..ebc8285 100644
+index 3e9186c84cb6..34949fe34037 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1676,15 +1676,11 @@ AC_CHECK_SIZEOF(fpos_t, 4)
+@@ -1679,15 +1679,11 @@ AC_CHECK_SIZEOF(fpos_t, 4)
  AC_CHECK_SIZEOF(size_t, 4)
  AC_CHECK_SIZEOF(pid_t, 4)
  

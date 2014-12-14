@@ -11,15 +11,15 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index c05c5fb..9274125 100644
+index 9ad2468ed32c..6b8f436bb34b 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -885,7 +885,7 @@ if test $enable_shared = "yes"; then
+@@ -889,7 +889,7 @@ if test $enable_shared = "yes"; then
      Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*)
  	  LDLIBRARY='libpython$(VERSION).so'
  	  BLDLIBRARY='-L. -lpython$(VERSION)'
--	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
-+	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:'${LD_LIBRARY_PATH}'
+-	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
++	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:'${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}'
  	  case $ac_sys_system in
  	      FreeBSD*)
  		SOVERSION=`echo $SOVERSION|cut -d "." -f 1`

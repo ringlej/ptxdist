@@ -11,7 +11,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  2 files changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 4461970..584ed4f 100644
+index df38eb5158d1..becc7182cfe6 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -84,6 +84,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
@@ -42,10 +42,10 @@ index 4461970..584ed4f 100644
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
 diff --git a/configure.ac b/configure.ac
-index 764a08f..c05c5fb 100644
+index 9f9153fd8f75..9ad2468ed32c 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -939,6 +939,13 @@ if test "$cross_compiling" = yes; then
+@@ -943,6 +943,13 @@ if test "$cross_compiling" = yes; then
  	RUNSHARED=
  fi
  

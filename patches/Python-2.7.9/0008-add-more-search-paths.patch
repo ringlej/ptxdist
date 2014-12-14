@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 66a97bd..7bd9e9c 100644
+index f59ad7acd5cc..7f6702be3151 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -484,8 +484,10 @@ class PyBuildExt(build_ext):
+@@ -486,8 +486,10 @@ class PyBuildExt(build_ext):
              # (PYTHONFRAMEWORK is set) to avoid # linking problems when
              # building a framework with different architectures than
              # the one that is currently installed (issue #7473)

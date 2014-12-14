@@ -15,7 +15,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  4 files changed, 115 insertions(+)
 
 diff --git a/Lib/plat-linux2/IN.py b/Lib/plat-linux2/IN.py
-index ad307f6..f72ae88 100644
+index ad307f65398b..f72ae886cad8 100644
 --- a/Lib/plat-linux2/IN.py
 +++ b/Lib/plat-linux2/IN.py
 @@ -384,6 +384,7 @@ PF_SNA = 22
@@ -35,10 +35,10 @@ index ad307f6..f72ae88 100644
  AF_MAX = PF_MAX
  SOL_RAW = 255
 diff --git a/Modules/socketmodule.c b/Modules/socketmodule.c
-index bdc055d..066221a 100644
+index e9e4479a6678..bddf4ba7782e 100644
 --- a/Modules/socketmodule.c
 +++ b/Modules/socketmodule.c
-@@ -420,6 +420,10 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+@@ -424,6 +424,10 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
  
  #define SAS2SA(x)       ((struct sockaddr *)(x))
  
@@ -49,7 +49,7 @@ index bdc055d..066221a 100644
  /*
   * Constants for getnameinfo()
   */
-@@ -1097,6 +1101,22 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
+@@ -1101,6 +1105,22 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
      }
  #endif
  
@@ -72,7 +72,7 @@ index bdc055d..066221a 100644
  #ifdef USE_BLUETOOTH
      case AF_BLUETOOTH:
          switch (proto) {
-@@ -1383,6 +1403,28 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
+@@ -1387,6 +1407,28 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
      }
  #endif
  
@@ -101,7 +101,7 @@ index bdc055d..066221a 100644
  #ifdef USE_BLUETOOTH
      case AF_BLUETOOTH:
      {
-@@ -1633,6 +1675,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
+@@ -1637,6 +1679,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
      }
  #endif
  
@@ -116,7 +116,7 @@ index bdc055d..066221a 100644
  #ifdef USE_BLUETOOTH
      case AF_BLUETOOTH:
      {
-@@ -4758,6 +4808,10 @@ init_socket(void)
+@@ -4771,6 +4821,10 @@ init_socket(void)
      PyModule_AddIntConstant(m, "AF_LLC", AF_LLC);
  #endif
  
@@ -127,7 +127,7 @@ index bdc055d..066221a 100644
  #ifdef USE_BLUETOOTH
      PyModule_AddIntConstant(m, "AF_BLUETOOTH", AF_BLUETOOTH);
      PyModule_AddIntConstant(m, "BTPROTO_L2CAP", BTPROTO_L2CAP);
-@@ -5114,6 +5168,41 @@ init_socket(void)
+@@ -5127,6 +5181,41 @@ init_socket(void)
      PyModule_AddIntConstant(m, "IPPROTO_MAX", IPPROTO_MAX);
  #endif
  
@@ -170,7 +170,7 @@ index bdc055d..066221a 100644
  #ifdef  IPPORT_RESERVED
      PyModule_AddIntConstant(m, "IPPORT_RESERVED", IPPORT_RESERVED);
 diff --git a/Modules/socketmodule.h b/Modules/socketmodule.h
-index 8515499..3eae3eb 100644
+index d98e00e88d27..3b6e22e29d3a 100644
 --- a/Modules/socketmodule.h
 +++ b/Modules/socketmodule.h
 @@ -55,6 +55,14 @@ typedef int socklen_t;
@@ -199,10 +199,10 @@ index 8515499..3eae3eb 100644
      struct sockaddr_l2 bt_l2;
      struct sockaddr_rc bt_rc;
 diff --git a/configure.ac b/configure.ac
-index 30f5bf4..c9b78ff 100644
+index 94a215e0cf07..3e9186c84cb6 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1539,6 +1539,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
+@@ -1542,6 +1542,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
  #endif
  ])
  

@@ -9,10 +9,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 9d55550..4461970 100644
+index 7f4ec2f55e7f..df38eb5158d1 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -227,6 +227,8 @@ LIBFFI_INCLUDEDIR=	@LIBFFI_INCLUDEDIR@
+@@ -234,6 +234,8 @@ LIBFFI_INCLUDEDIR=	@LIBFFI_INCLUDEDIR@
  ##########################################################################
  # Parser
  PGEN=		Parser/pgen$(EXE)
@@ -21,7 +21,7 @@ index 9d55550..4461970 100644
  
  PSRCS=		\
  		Parser/acceler.c \
-@@ -593,7 +595,7 @@ Modules/pwdmodule.o: $(srcdir)/Modules/pwdmodule.c $(srcdir)/Modules/posixmodule
+@@ -611,7 +613,7 @@ Modules/pwdmodule.o: $(srcdir)/Modules/pwdmodule.c $(srcdir)/Modules/posixmodule
  $(GRAMMAR_H): $(GRAMMAR_INPUT) $(PGENSRCS)
  		@$(MKDIR_P) Include
  		$(MAKE) $(PGEN)
