@@ -23,7 +23,11 @@ SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
-SYSTEMD_LICENSE	:= GPLv2+
+SYSTEMD_LICENSE	:= GPLv2+, LGPLv2.1, MIT
+SYSTEMD_LICENSE_FILES := \
+	file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
+	file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c \
+	file://LICENSE.MIT;md5=544799d0b492f119fa04641d1b8868ed
 
 # ----------------------------------------------------------------------------
 # Prepare
