@@ -24,6 +24,7 @@ XORG_PROTO_X_SUFFIX	:= tar.bz2
 XORG_PROTO_X_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_X).$(XORG_PROTO_X_SUFFIX))
 XORG_PROTO_X_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_X).$(XORG_PROTO_X_SUFFIX)
 XORG_PROTO_X_DIR	:= $(BUILDDIR)/$(XORG_PROTO_X)
+XORG_PROTO_X_LICENSE	:= ORACLE
 
 # ----------------------------------------------------------------------------
 # Prepare
