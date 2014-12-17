@@ -23,7 +23,10 @@ ACL_SUFFIX	:= tar.gz
 ACL_URL		:= http://mirrors.zerg.biz/nongnu/acl/$(ACL).src.$(ACL_SUFFIX)
 ACL_SOURCE	:= $(SRCDIR)/$(ACL).src.$(ACL_SUFFIX)
 ACL_DIR		:= $(BUILDDIR)/$(ACL)
-ACL_LICENSE	:= unknown
+ACL_LICENSE	:= GPLv2, LGPLv2.1
+ACL_LICENSE_FILES := \
+	file://doc/COPYING;md5=c781d70ed2b4d48995b790403217a249 \
+	file://doc/COPYING.LGPL;md5=9e9a206917f8af112da634ce3ab41764
 
 # ----------------------------------------------------------------------------
 # Prepare
