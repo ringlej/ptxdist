@@ -24,7 +24,7 @@ LIBKMOD_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/kmod/$(LIBKMOD).$(LIBKMOD
 LIBKMOD_SOURCE	:= $(SRCDIR)/$(LIBKMOD).$(LIBKMOD_SUFFIX)
 LIBKMOD_DIR	:= $(BUILDDIR)/$(LIBKMOD)
 # note: library: LGPLv2, tools: GPLv2
-LIBKMOD_LICENSE	:= GPLv2/LGPLv2
+LIBKMOD_LICENSE	:= GPLv2, LGPLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
