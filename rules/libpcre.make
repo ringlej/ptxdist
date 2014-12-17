@@ -24,6 +24,8 @@ LIBPCRE_SUFFIX	:= tar.bz2
 LIBPCRE_URL	:= $(call ptx/mirror, SF, pcre/$(LIBPCRE).$(LIBPCRE_SUFFIX))
 LIBPCRE_SOURCE	:= $(SRCDIR)/$(LIBPCRE).$(LIBPCRE_SUFFIX)
 LIBPCRE_DIR	:= $(BUILDDIR)/$(LIBPCRE)
+LIBPCRE_LICENSE	:= BSD
+LIBPCRE_LICENSE_FILES := file://LICENCE;md5=115e2bee152e2e23e838a29136094877
 
 # ----------------------------------------------------------------------------
 # Prepare
