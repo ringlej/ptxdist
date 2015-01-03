@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 217
-SYSTEMD_MD5	:= e68dbff3cc19f66e341572d9fb2ffa89
+SYSTEMD_VERSION	:= 218
+SYSTEMD_MD5	:= 4e2c511b0a7932d7fc9d79822273aac6
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -66,6 +66,7 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-compat-libs \
 	--disable-coverage \
 	--enable-kmod \
+	--disable-xkbcommon \
 	--enable-blkid \
 	--disable-seccomp \
 	--disable-ima \
@@ -116,6 +117,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-ldconfig \
 	--enable-split-usr \
 	--disable-tests \
+	--disable-hashmap-debug \
 	--without-python \
 	--with-ntp-servers= \
 	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" +%s` \
@@ -174,6 +176,7 @@ SYSTEMD_HELPER := \
 	systemd-hostnamed \
 	systemd-initctl \
 	systemd-journald \
+	systemd-machine-id-commit \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOCALES,systemd-localed,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-logind,) \
 	systemd-modules-load \

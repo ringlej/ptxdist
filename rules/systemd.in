@@ -12,6 +12,8 @@ menuconfig SYSTEMD
 	select LIBCAP
 	select UDEV		if RUNTIME
 	select UDEV_LIBUDEV
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_LIBMOUNT
 	select MACHINE_ID	if RUNTIME
 	select XZ		if SYSTEMD_XZ
 	select LIBSELINUX	if GLOBAL_SELINUX
