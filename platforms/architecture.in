@@ -267,8 +267,8 @@ config HAS_MMU
 #
 config SIZEOF_LONG_DOUBLE
 	string
-	default "12" if ARCH_X86
 	default "16" if ARCH_X86_64
+	default "12" if ARCH_X86
 	default "8"
 	# FIXME: add more values
 
