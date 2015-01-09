@@ -5,4 +5,5 @@ config HOST_SYSTEMD
 	select HOST_GPERF
 	# for 'ln --relative'
 	select HOST_COREUTILS
+	select HOST_UTIL_LINUX_NG
 	select HOST_LIBCAP
