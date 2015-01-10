@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Thu, 13 Nov 2014 11:18:27 +0100
+Date: Sat, 10 Jan 2015 09:16:02 +0100
 Subject: [PATCH] debian-targets
 
-Imported from openssl_1.0.1j-1.debian.tar.xz
+Imported from openssl_1.0.1k-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 53 insertions(+)
 
 diff --git a/Configure b/Configure
-index 6f0da761b666..b972f040b40c 100755
+index 541be9ec57d8..2f816a300f10 100755
 --- a/Configure
 +++ b/Configure
 @@ -105,6 +105,10 @@ my $usage="Usage: Configure [no-<cipher> ...] [enable-<cipher> ...] [experimenta

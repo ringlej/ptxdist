@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Thu, 13 Nov 2014 11:18:27 +0100
+Date: Sat, 10 Jan 2015 09:16:02 +0100
 Subject: [PATCH] engines-path
 
-Imported from openssl_1.0.1j-1.debian.tar.xz
+Imported from openssl_1.0.1k-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  4 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/Configure b/Configure
-index b972f040b40c..a3f1331d51ed 100755
+index 2f816a300f10..c6b4b86c0764 100755
 --- a/Configure
 +++ b/Configure
-@@ -1861,7 +1861,7 @@ while (<IN>)
+@@ -1866,7 +1866,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{

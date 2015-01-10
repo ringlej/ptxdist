@@ -2,7 +2,7 @@ From: Kurt Roeckx <kurt@roeckx.be>
 Date: Fri, 1 Nov 2013 20:47:14 +0100
 Subject: [PATCH] Change default bit size and digest
 
-Imported from openssl_1.0.1j-1.debian.tar.xz
+Imported from openssl_1.0.1k-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

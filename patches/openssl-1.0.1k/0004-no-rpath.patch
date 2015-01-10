@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Thu, 13 Nov 2014 11:18:27 +0100
+Date: Sat, 10 Jan 2015 09:16:02 +0100
 Subject: [PATCH] no-rpath
 
-Imported from openssl_1.0.1j-1.debian.tar.xz
+Imported from openssl_1.0.1k-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
