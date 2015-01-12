@@ -30,6 +30,11 @@ ptxd_make_get_http() {
 			no-check-certificate|no-proxy)
 				opts[${#opts[@]}]="--${opt}"
 				;;
+			cookie:*)
+				opts[${#opts[@]}]="--no-cookies"
+				opts[${#opts[@]}]="--header"
+				opts[${#opts[@]}]="Cookie: ${opt#cookie:}"
+				;;
 			*)
 				ptxd_bailout "invalid option '${opt}' to ${FUNCNAME}"
 				;;
