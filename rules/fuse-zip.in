@@ -1,0 +1,16 @@
+## SECTION=disk_and_file
+
+config FUSE_ZIP
+	tristate
+	prompt "fuse-zip"
+	select LIBZIP
+	select FUSE
+	select FUSE__LIB
+	help
+	  fuse-zip is a FUSE file system to navigate, extract, create
+	  and modify ZIP and ZIP64 archives based on libzip implemented
+	  in C++.
+
+	  With fuse-zip you really can work with ZIP archives as real
+	  directories. Unlike KIO or Gnome VFS, it can be used in any
+	  application without modifications.
