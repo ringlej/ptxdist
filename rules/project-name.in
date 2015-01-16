@@ -15,7 +15,7 @@ config PROJECT_VENDOR
 	string
 	prompt "Vendor Name"
 	help
-	  Type in here your favorite vendorname. It gets displayed
+	  Type in here your favorite vendor name. It gets displayed
 	  whenever your system starts.
 
 config PROJECT
@@ -23,15 +23,15 @@ config PROJECT
 	prompt "Project Name"
 	help
 	  Name of this project; each PTXdist "Project" specifies a
-	  unique configuration for an embedded Linux project.
+	  unique configuration for an Embedded Linux project.
 
 config PROJECT_VERSION
 	string
 	prompt "Project Version"
 	default "-${PTXDIST_BSP_AUTOVERSION}"
 	help
-	  The Version of your Project.
-	  The string is supposed to start with an "-".
+	  The version of your project.
+	  The string is supposed to start with a "-".
 
 comment "------------------------------------"
 
@@ -70,7 +70,7 @@ config PROJECT_BUILD_PRODUCTION_PREFIX_DEFAULT_CHOICE
 	bool
 	prompt "default"
 	help
-	  Build pre-built production relase to the default
+	  Build pre-built production release to the default
 	  location. It will be composed of:
 	  - project vendor,
 	  - project name and
@@ -98,7 +98,7 @@ config PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM
 	prompt "custom location"
 	depends on PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM_CHOICE
 	help
-	  Specify the location where to place your production relase.
+	  Specify the location where to place your production release.
 
 config PROJECT_BUILD_PRODUCTION_PREFIX
 	string
@@ -115,7 +115,7 @@ config PROJECT_USE_PRODUCTION
 	depends on PROJECT_BUILD_DEVEL
 	select PROJECT_USE_BASE_PLATFORM
 	help
-	  Use a pre-built production relase.
+	  Use a pre-built production release.
 
 choice
 	prompt "location"
@@ -126,7 +126,7 @@ config PROJECT_USE_PRODUCTION_PREFIX_DEFAULT_CHOICE
 	bool
 	prompt "default"
 	help
-	  Use pre-built production relase from default location.
+	  Use pre-built production release from default location.
 
 	  This is the default. If unsure select this.
 
@@ -134,7 +134,7 @@ config PROJECT_USE_PRODUCTION_PREFIX_CUSTOM_CHOICE
 	bool
 	prompt "custom"
 	help
-	  Use pre-built production relase from an individual location.
+	  Use pre-built production release from an individual location.
 
 endchoice
 
@@ -154,7 +154,8 @@ config PROJECT_USE_LOCAL_PLATFORM
 	depends on PROJECT_BUILD_DEVEL && !PROJECT_USE_PRODUCTION
 	select PROJECT_USE_BASE_PLATFORM
 	help
-	  Use a pre-built production relase.
+	  Use an existing platform as origin. This platform must be
+	  specified in the "platform name" entry.
 
 config PROJECT_USE_LOCAL_PLATFORM_NAME
 	string
@@ -165,36 +166,36 @@ config PROJECT_USE_LOCAL_PLATFORM_NAME
 	  the platform in the ptxdist workspace e.g. ``platform-i586''.
 
 comment "------------------------------------"
-comment "pre-build package handling"
+comment "pre-built package handling"
 comment "------------------------------------"
 
 config PROJECT_CREATE_DEVPKGS
 	bool
-	prompt "create pre-build archives"
+	prompt "create pre-built archives"
 	help
-	  Enable the creation of pre-build package archives. Read the
-	  "How to become a PTXdist Guru" for further details.
+	  Enable the creation of pre-built package archives. Read the
+	  "How to become a PTXdist Guru" documentation for further details.
 
 config PROJECT_USE_DEVPKGS
 	bool
 	select HOST_CHRPATH
-	prompt "use pre-build archives"
+	prompt "use pre-built archives"
 	help
-	  Use pre-build package archives to build or re-build the project if
+	  Use pre-built package archives to build or re-build the project if
 	  corresponding package archives with the same configuration are found.
 
 config PROJECT_DEVPKGDIR
 	string
-	prompt "pre-build archive directory"
+	prompt "pre-built archive directory"
 	depends on PROJECT_USE_DEVPKGS
 	default "/opt/OSELAS.BSP/${PTXCONF_PROJECT_VENDOR}/OSELAS.BSP-${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
 	help
-	  This entry defines the path to a directory where pre-build archives
+	  This entry defines the path to a directory where pre-built archives
 	  are expected.
 
 config PROJECT_DEVMIRROR
 	string
-	prompt "Mirror for pre-build archives"
+	prompt "Mirror for pre-built archives"
 	depends on PROJECT_USE_DEVPKGS
 	help
 	  Enter a URL where *-dev.tar.gz packages can be downloaded
