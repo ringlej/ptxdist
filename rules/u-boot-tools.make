@@ -22,7 +22,7 @@ U_BOOT_TOOLS		:= u-boot-$(U_BOOT_TOOLS_VERSION)
 U_BOOT_TOOLS_SUFFIX	:= tar.bz2
 U_BOOT_TOOLS_URL	:= http://ftp.denx.de/pub/u-boot/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
 U_BOOT_TOOLS_SOURCE	:= $(SRCDIR)/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
-U_BOOT_TOOLS_DIR	:= $(BUILDDIR)/$(U_BOOT_TOOLS)
+U_BOOT_TOOLS_DIR	:= $(BUILDDIR)/u-boot-tools-$(U_BOOT_TOOLS_VERSION)
 U_BOOT_TOOLS_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------

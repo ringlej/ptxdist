@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	:= 2.0.15
-GNUPG_MD5	:= c1286e85b66349879dc4b760dd83e2f1
+GNUPG_VERSION	:= 2.0.26
+GNUPG_MD5	:= fa7e704aad33eb114d1840164455aec1
 GNUPG		:= gnupg-$(GNUPG_VERSION)
 GNUPG_SUFFIX	:= tar.bz2
 GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
@@ -37,6 +37,7 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-scdaemon \
 	--disable-tools \
 	--disable-doc \
+	--disable-gpgtar \
 	--disable-exec \
 	--disable-exec \
 	--disable-photo-viewers \
@@ -45,6 +46,7 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-hkp \
 	--disable-finger \
 	--disable-keyserver-path \
+	--disable-standard-socket \
 	--disable-dns-srv \
 	--disable-nls \
 	--disable-rpath \

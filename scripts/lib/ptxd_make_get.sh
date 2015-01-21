@@ -30,6 +30,11 @@ ptxd_make_get_http() {
 			no-check-certificate|no-proxy)
 				opts[${#opts[@]}]="--${opt}"
 				;;
+			cookie:*)
+				opts[${#opts[@]}]="--no-cookies"
+				opts[${#opts[@]}]="--header"
+				opts[${#opts[@]}]="Cookie: ${opt#cookie:}"
+				;;
 			*)
 				ptxd_bailout "invalid option '${opt}' to ${FUNCNAME}"
 				;;
@@ -130,6 +135,8 @@ ptxd_make_get_git() {
 	git --git-dir="${mirror}" config tar.tar.xz.command "xz -c"
 	git --git-dir="${mirror}" remote add origin "${url}" &&
 	git --git-dir="${mirror}" fetch --progress -pf origin "+refs/*:refs/*"  &&
+	# at least for some git versions this is not group writeable for shared repos
+	chmod g+w "${mirror}/FETCH_HEAD"
 
 	if ! git --git-dir="${mirror}" rev-parse --verify -q "${tag}" > /dev/null; then
 		ptxd_bailout "git: tag '${tag}' not found in '${url}'"

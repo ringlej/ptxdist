@@ -38,6 +38,7 @@ HOST_UTIL_LINUX_NG_CONF_OPT	:= \
 	--enable-tls \
 	--enable-libuuid \
 	--enable-libblkid \
+	--enable-libmount \
 	--disable-bash-completion \
 	--disable-pg-bell \
 	--disable-use-tty-group \

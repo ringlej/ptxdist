@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 14 Nov 2014 08:52:49 +0100
+Subject: [PATCH] remove system include path
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/drivers/drivers.mak | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/drivers/drivers.mak b/src/drivers/drivers.mak
+index cdb913e31588..c2e2985a641f 100644
+--- a/src/drivers/drivers.mak
++++ b/src/drivers/drivers.mak
+@@ -35,7 +35,7 @@ NEED_RFKILL=y
+ ifdef CONFIG_LIBNL32
+   DRV_LIBS += -lnl-3
+   DRV_LIBS += -lnl-genl-3
+-  DRV_CFLAGS += -DCONFIG_LIBNL20 -I/usr/include/libnl3
++  DRV_CFLAGS += -DCONFIG_LIBNL20
+ ifdef CONFIG_LIBNL3_ROUTE
+   DRV_LIBS += -lnl-route-3
+   DRV_CFLAGS += -DCONFIG_LIBNL3_ROUTE

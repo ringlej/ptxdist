@@ -1,0 +1,219 @@
+## SECTION=debug_tools
+
+menuconfig OPENOCD
+	tristate
+	prompt "OpenOCD                       "
+
+	# libusb-1.x
+	select LIBUSB		if OPENOCD_FTDI || OPENOCD_STLINK || OPENOCD_TI_ICDI || OPENOCD_ULINK || OPENOCD_USB_BLASTER_2
+	# libusb-1.x or libusb-0.1
+	select LIBUSB		if OPENOCD_JLINK || OPENOCD_OSBDM || OPENOCD_OPENDOUS || OPENOCD_AICE
+	# libusb-0.1
+	select LIBUSB_COMPAT	if OPENOCD_VSLLINK || OPENOCD_USBPROG || OPENOCD_RLINK || OPENOCD_ARMJTAGEW
+	select LIBFTDI1		if OPENOCD_USB_BLASTER_LIBFTDI || OPENOCD_PRESTO_LIBFTDI || OPENOCD_OPENJTAG_FTDI
+
+	help
+	  The Open On-Chip Debugger (OpenOCD) provides debugging, in-system
+	  programming and boundary-scan testing for embedded target devices.
+	  It supports JTAG and SWD (direct or via dongle) to access targets.
+	  Flash writing is supported for various internal and external types.
+	  It is controlled with TCL scripts and can act as gdbserver.
+
+if OPENOCD
+
+# ===== scripts directory =====
+
+config OPENOCD_SCRIPTDIR
+	string
+	default "/usr/share/openocd/scripts/"
+	prompt "OpenOCD script tree"
+	help
+	  OpenOCD relies on TCL scripts for core and SoC specific configs and
+	  setups, interface (debug adapter) specific configs, RAM and flash
+	  layout definitions, board init routines, helper routines, and so on.
+
+	  Keeping the default option of "/usr/share/openocd/scripts/" will
+	  install all of them (several 100kB) to the target, which is probably
+	  not what you want, as they are heavily target dependent.
+
+	  To install only a few required ones, create a tree in projectroot
+	  named like the tree configured, so only these will be installed.
+
+	  Clear this config option to omit script installation at all.
+
+
+# ===== interface drivers =====
+
+config OPENOCD_DUMMY
+	bool
+	prompt "dummy port driver"
+
+# --- libusb-1.x based
+
+config OPENOCD_FTDI
+	bool
+	prompt "MPSSE mode of FTDI based devices"
+
+config OPENOCD_STLINK
+	bool
+	prompt "ST-Link JTAG Programmer"
+
+config OPENOCD_TI_ICDI
+	bool
+	prompt "TI ICDI JTAG Programmer"
+
+config OPENOCD_ULINK
+	bool
+	prompt "Keil ULINK JTAG Programmer"
+
+config OPENOCD_USB_BLASTER_2
+	bool
+	prompt "Altera USB-Blaster II Compatible"
+
+# --- libusb-1.x or libusb-0.1 based
+
+config OPENOCD_JLINK
+	bool
+	prompt "Segger J-Link JTAG Programmer"
+
+config OPENOCD_OSBDM
+	bool
+	prompt "OSBDM (JTAG only) Programmer"
+
+config OPENOCD_OPENDOUS
+	bool
+	prompt "eStick/opendous JTAG Programmer"
+
+config OPENOCD_AICE
+	bool
+	prompt "Andes JTAG Programmer"
+
+# --- libusb-0.1 based
+
+config OPENOCD_VSLLINK
+	bool
+	prompt "Versaloon-Link JTAG Programmer"
+
+config OPENOCD_USBPROG
+	bool
+	prompt "USBProg JTAG Programmer"
+
+config OPENOCD_RLINK
+	bool
+	prompt "Raisonance RLink JTAG Programmer"
+
+config OPENOCD_ARMJTAGEW
+	bool
+	prompt "Olimex ARM-JTAG-EW Programmer"
+
+# --- hidapi based
+config OPENOCD_CMSIS_DAP
+	bool
+	# needs libhidapi
+	depends on BROKEN
+	prompt "CMSIS-DAP Compliant Debugger"
+
+# --- various
+
+config OPENOCD_PARPORT
+	bool
+	prompt "pc parallel port driver"
+
+if OPENOCD_PARPORT
+	config OPENOCD_PARPORT_DISABLE_PARPORT_PPDEV
+		bool
+		prompt "Disable use of ppdev (/dev/parportN) (x86 only)"
+
+	config OPENOCD_PARPORT_GIVEIO
+		bool
+		depends on OPENOCD_PARPORT
+		prompt "Enable use of giveio (CygWin only)"
+endif
+
+config OPENOCD_JTAG_VPI
+	bool
+	prompt "JTAG VPI"
+
+config OPENOCD_USB_BLASTER_LIBFTDI
+	bool
+	prompt "Altera USB-Blaster (libftdi driver, opensource)"
+
+config OPENOCD_USB_BLASTER_FTD2XX
+	bool
+	# needs ftd2xx
+	depends on BROKEN
+	prompt "Altera USB-Blaster (FTD2XX driver from ftdichip.com)"
+
+config OPENOCD_AMTJTAGACCEL
+	bool
+	prompt "Amontec JTAG-Accelerator driver"
+
+config OPENOCD_ZY1000
+	bool
+	# fails to build and disables all other drivers
+	depends on BROKEN
+	prompt "ZY1000 interface"
+
+if OPENOCD_ZY1000
+	config OPENOCD_ZY1000_MASTER
+		bool
+		prompt "Use ZY1000 JTAG master registers"
+endif
+
+config OPENOCD_IOUTIL
+	bool
+	prompt "ioutil functions - for standalone OpenOCD implementations"
+
+config OPENOCD_EP93XX
+	bool
+	prompt "EP93xx based SBCs"
+
+config OPENOCD_AT91RM9200
+	bool
+	prompt "AT91RM9200 based SBCs"
+
+config OPENOCD_BCM2835GPIO
+	bool
+	prompt "bitbanging on BCM2835 (as found in Raspberry Pi)"
+
+config OPENOCD_GW16012
+	bool
+	prompt "Gateworks GW16012 JTAG Programmer"
+
+config OPENOCD_PRESTO_LIBFTDI
+	bool
+	prompt "ASIX Presto Programmer using the libftdi driver"
+
+config OPENOCD_PRESTO_FTD2XX
+	# needs ftd2xx
+	depends on BROKEN
+	bool
+	prompt "ASIX Presto Programmer using the FTD2XX driver"
+
+config OPENOCD_OPENJTAG_FTD2XX
+	# needs ftd2xx
+	depends on BROKEN
+	bool
+	prompt "OpenJTAG Programmer with ftd2xx driver"
+
+config OPENOCD_OPENJTAG_FTDI
+	bool
+	prompt "OpenJTAG Programmer with ftdi driver"
+
+config OPENOCD_OOCD_TRACE
+	bool
+	prompt "prototype OpenOCD+trace ETM capture hardware"
+
+config OPENOCD_BUSPIRATE
+	bool
+	prompt "Buspirate"
+
+config OPENOCD_SYSFSGPIO
+	bool
+	prompt "programming driven via sysfs gpios"
+
+config OPENOCD_REMOTE_BITBANG
+	bool
+	prompt "Remote Bitbang jtag driver"
+
+endif

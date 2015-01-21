@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.4.33
-PHP5_MD5	:= c6878bb1cdb46bfc1e1a5cd67a024737
+PHP5_VERSION	:= 5.4.35
+PHP5_MD5	:= 489cc8336488fb2e722ffa3c08f9c864
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
@@ -218,6 +218,12 @@ ifdef PTXCONF_PHP5_EXT_ZLIB
 PHP5_AUTOCONF += --with-zlib=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --without-zlib
+endif
+
+ifdef PTXCONF_PHP5_EXT_OPENSSL
+PHP5_AUTOCONF += --with-openssl=$(SYSROOT)/usr
+else
+PHP5_AUTOCONF += --without-openssl
 endif
 
 ifdef PTXCONF_PHP5_EXT_CURL

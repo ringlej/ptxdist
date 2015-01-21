@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 21 Aug 2014 12:30:15 +0200
+Subject: [PATCH] missing: add BPF_XOR
+
+BPF_XOR was introduced in kernel 3.7
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/shared/missing.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/shared/missing.h b/src/shared/missing.h
+index a3780c9b0c40..3407faff5c3d 100644
+--- a/src/shared/missing.h
++++ b/src/shared/missing.h
+@@ -601,6 +601,10 @@ static inline int setns(int fd, int nstype) {
+ #  define BPF_XOR 0xa0
+ #endif
+ 
++#ifndef BPF_XOR
++#  define BPF_XOR 0xa0
++#endif
++
+ /* Note that LOOPBACK_IFINDEX is currently not exported by the
+  * kernel/glibc, but hardcoded internally by the kernel.  However, as
+  * it is exported to userspace indirectly via rtnetlink and the

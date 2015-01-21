@@ -30,6 +30,10 @@ HOST_FAKEROOT_DIR	:= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_FAKEROOT_CONF_ENV	:= \
+	$(HOST_ENV) \
+	CONFIG_SHELL=/bin/bash
+
 HOST_FAKEROOT_CONF_TOOL := autoconf
 HOST_FAKEROOT_CONF_OPT := \
 	$(HOST_AUTOCONF) \

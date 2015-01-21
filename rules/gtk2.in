@@ -1,0 +1,61 @@
+## SECTION=multimedia_gtk
+
+menuconfig GTK2
+	tristate
+	prompt "GTK+2"
+	select GLIB
+	select ATK
+	select PANGO
+	select GDK_PIXBUF
+
+	select CAIRO
+	select CAIRO_PDF
+	select CAIRO_SVG
+
+	select LIBPNG		 if GTK2_LOADER_PNG
+	select LIBJPEG		 if GTK2_LOADER_JPEG
+
+	select XORG_LIB_XEXT	 if GTK2_TARGET_X11
+	select XORG_LIB_XINERAMA if GTK2_TARGET_X11_XINERAMA
+	select XORG_LIB_XRANDR	 if GTK2_TARGET_X11_XRANDR
+
+	help
+	  The GTK2+ is a multi-platform toolkit for creating graphical
+	  user interfaces. Offering a complete set of widgets, the GTK2+
+	  is suitable for projects ranging from small one-off tools to complete
+	  application suites.
+
+if GTK2
+
+choice
+	prompt "gdk-target       "
+
+	config GTK2_TARGET_X11
+		bool "X11     "
+		select CAIRO_XLIB
+		select CAIRO_PS
+
+	config GTK2_TARGET_DIRECTFB
+		bool "directfb"
+		select CAIRO_DIRECTFB
+		select CAIRO_PS
+
+endchoice
+
+config GTK2_TARGET
+	string
+	default "x11" if GTK2_TARGET_X11
+	default "directfb" if GTK2_TARGET_DIRECTFB
+
+config GTK2_TARGET_X11_XINERAMA
+	bool
+	prompt "Xinerama support"
+	depends on GTK2_TARGET_X11
+
+config GTK2_TARGET_X11_XRANDR
+	bool
+	prompt "Xrandr support"
+	depends on GTK2_TARGET_X11
+
+endif
+

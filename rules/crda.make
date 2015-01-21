@@ -29,7 +29,14 @@ CRDA_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
-CRDA_CONF_TOOL	:= NO
+$(STATEDIR)/crda.prepare:
+	@$(call targetinfo)
+ifdef PTXCONF_ARCH_X86_64
+	@cp $(CRDA_DIR)/keys-ssl.c.64 $(CRDA_DIR)/keys-ssl.c
+else
+	@cp $(CRDA_DIR)/keys-ssl.c.32 $(CRDA_DIR)/keys-ssl.c
+endif
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile

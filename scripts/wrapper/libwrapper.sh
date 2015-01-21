@@ -124,8 +124,8 @@ add_host_arg() {
 }
 
 add_ld_args() {
-	add_opt_arg TARGET_HARDEN_RELRO "${1}-z,relro"
-	add_opt_arg TARGET_HARDEN_BINDNOW "${1}-z,now"
+	add_opt_arg TARGET_HARDEN_RELRO "${1}-z${2}relro"
+	add_opt_arg TARGET_HARDEN_BINDNOW "${1}-z${2}now"
 	add_opt_arg TARGET_LINKER_HASH_GNU "${1}--hash-style=gnu"
 	add_opt_arg TARGET_LINKER_HASH_SYSV "${1}--hash-style=sysv"
 	add_opt_arg TARGET_LINKER_HASH_BOTH "${1}--hash-style=both"
@@ -142,7 +142,7 @@ ld_add_ld_args() {
 
 cc_add_target_ld_args() {
 	if ${LINKING}; then
-		add_ld_args "-Wl,"
+		add_ld_args "-Wl," ","
 		add_late_arg ${PTXDIST_CROSS_LDFLAGS}
 		add_arg ${pkg_ldflags}
 		add_opt_arg TARGET_EXTRA_LDFLAGS ${PTXCONF_TARGET_EXTRA_LDFLAGS}

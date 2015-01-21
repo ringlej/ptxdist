@@ -1905,6 +1905,10 @@ EOF
 			exit
 			;;
 		image)
+			if [ ${#} -eq 0 ]; then
+				echo "No image given."
+				exit 1
+			fi
 			check_premake_compiler &&
 			images=( "${@/#/${IMAGEDIR}/}" ) &&
 			ptxd_make_log "${images[@]}"

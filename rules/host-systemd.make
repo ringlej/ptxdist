@@ -60,7 +60,6 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-gnutls \
 	--disable-binfmt \
 	--disable-vconsole \
-	--disable-readahead \
 	--disable-bootchart \
 	--disable-quotacheck \
 	--disable-tmpfiles \
@@ -79,7 +78,6 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-resolved \
 	--disable-networkd \
 	--disable-efi \
-	--disable-multi-seat-x \
 	--disable-kdbus \
 	--disable-myhostname \
 	--disable-gudev \
