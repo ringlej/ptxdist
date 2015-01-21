@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 216
-SYSTEMD_MD5	:= 04fda588a04f549da0f397dce3ae6a39
+SYSTEMD_VERSION	:= 218
+SYSTEMD_MD5	:= 4e2c511b0a7932d7fc9d79822273aac6
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -41,7 +41,7 @@ SYSTEMD_CONF_ENV	:= \
 
 SYSTEMD_CONF_ENV += cc_cv_CFLAGS__flto=no
 
-SYSTEMD_CFLAGS		:= \
+SYSTEMD_CPPFLAGS	:= \
 	-I$(KERNEL_HEADERS_INCLUDE_DIR)
 
 #
@@ -62,9 +62,11 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-undefined-sanitizer \
 	--disable-python-devel \
 	--disable-dbus \
+	--disable-utmp \
 	--enable-compat-libs \
 	--disable-coverage \
 	--enable-kmod \
+	--disable-xkbcommon \
 	--enable-blkid \
 	--disable-seccomp \
 	--disable-ima \
@@ -87,7 +89,6 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-libidn \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
-	--enable-readahead \
 	--enable-bootchart \
 	--enable-quotacheck \
 	--enable-tmpfiles \
@@ -107,22 +108,22 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-resolved \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
 	--disable-efi \
-	--disable-multi-seat-x \
 	--disable-terminal \
 	--disable-kdbus \
 	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--disable-manpages \
+	--disable-hibernate \
 	--disable-ldconfig \
 	--enable-split-usr \
 	--disable-tests \
+	--disable-hashmap-debug \
 	--without-python \
 	--with-ntp-servers= \
 	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" +%s` \
 	--with-system-uid-max=999 \
 	--with-system-gid-max=999 \
 	--with-dns-servers= \
-	--with-firmware-path=/lib/firmware \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
 	--with-tty-gid=112 \
@@ -175,6 +176,7 @@ SYSTEMD_HELPER := \
 	systemd-hostnamed \
 	systemd-initctl \
 	systemd-journald \
+	systemd-machine-id-commit \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOCALES,systemd-localed,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-logind,) \
 	systemd-modules-load \
@@ -182,7 +184,6 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-networkd-wait-online,) \
 	systemd-quotacheck \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
-	systemd-readahead \
 	systemd-remount-fs \
 	systemd-reply-password \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolve-host,) \
@@ -195,7 +196,6 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
 	systemd-update-done \
-	systemd-update-utmp \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-user-sessions,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
 
@@ -290,6 +290,12 @@ endif
 
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
+
+ifdef PTXCONF_SYSTEMD_COREDUMP
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-coredump.conf)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/coredumpctl)
+	@$(call install_alternative, systemd, 0, 0, 0644, /etc/systemd/coredump.conf)
+endif
 
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/services/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system-services/)

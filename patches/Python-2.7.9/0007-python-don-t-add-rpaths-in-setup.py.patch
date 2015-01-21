@@ -1,0 +1,23 @@
+From: unknown author <unknown.author@example.com>
+Date: Tue, 8 Feb 2011 15:10:31 +0100
+Subject: [PATCH] python: don't add rpaths in setup.py
+
+We don't add rpaths.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ setup.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 542254496552..f59ad7acd5cc 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1081,7 +1081,6 @@ class PyBuildExt(build_ext):
+             exts.append(Extension('_bsddb', ['_bsddb.c'],
+                                   depends = ['bsddb.h'],
+                                   library_dirs=dblib_dir,
+-                                  runtime_library_dirs=dblib_dir,
+                                   include_dirs=db_incs,
+                                   libraries=dblibs))
+         else:

@@ -1,0 +1,23 @@
+## SECTION=shell_and_console
+
+config RNG_TOOLS
+	tristate
+	prompt "rng-tools rngd"
+	help
+	  random number generator daemon - seed kernel random from hwrng
+
+	  This daemon feeds data from a random number generator to the kernel's
+	  random number entropy pool, after first checking the data to ensure
+	  that it is properly random.
+
+	  By default, a hardware rng at /dev/hwrng is used as entropy source.
+
+	  This daemon is part of the rng-tools, which can be found at
+	      http://sourceforge.net/projects/gkernel/
+	      git://git.kernel.org/pub/scm/utils/kernel/rng-tools/rng-tools.git
+
+config RNG_TOOLS_STARTSCRIPT
+	bool
+	default y
+	depends on RNG_TOOLS
+	prompt "install /etc/init.d/rngd"

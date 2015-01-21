@@ -55,4 +55,8 @@ else
 fi
 
 "${PKG_CONFIG}" "${@}" | sed "${args[@]}"
-check_pipe_status
+for _pipe_status in "${PIPESTATUS[@]}"; do
+    if [ ${_pipe_status} -ne 0 ]; then
+        exit ${_pipe_status}
+    fi
+done

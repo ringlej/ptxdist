@@ -116,7 +116,7 @@ dist: dirty-check
 	echo -n "${version}" > "${project}/.tarball-version"
 	cd "$(project)" && ./autogen.sh
 
-	tar -rf "${project}.tar" \
+	tar --owner=0 --group=0 -rf "${project}.tar" \
 		"${project}/configure" \
 		"${project}/.tarball-version"
 	bzip2 "${project}.tar"

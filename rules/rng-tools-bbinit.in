@@ -1,0 +1,10 @@
+## SECTION=initmethod_bbinit
+
+config RNG_TOOLS_BBINIT_LINK
+	string
+	depends on RNG_TOOLS_STARTSCRIPT
+	prompt "rng-tools"
+	default "S00rngd"
+	help
+	  Order in start sequence.
+	  Note: Start before rc-once to seed random before e.g. key creation.

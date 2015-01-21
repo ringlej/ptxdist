@@ -34,6 +34,12 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON_ARGPARSE
 		ptxd_bailout "Python argparse module not found! \
 	Please install python-argparse (debian)";
 endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON_BZ2
+	@echo "Checking for Python bz2 ..."
+	@python -c 'import bz2' 2>/dev/null || \
+		ptxd_bailout "Python bz2 module not found! \
+	Please install python-bz2";
+endif
 	@echo
 	@$(call touch)
 

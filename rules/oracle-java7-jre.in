@@ -1,0 +1,10 @@
+## SECTION=bytecode_engines
+
+config ORACLE_JAVA7_JRE
+	bool
+	
+	prompt "oracle java7 jre              "
+	help
+	 Oracle[tm] Java Runtime Environment 7
+	 This downloads the binary distribution
+	 and extracts into the target prefix.

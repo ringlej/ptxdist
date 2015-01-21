@@ -16,13 +16,13 @@ PACKAGES-$(PTXCONF_U_BOOT_TOOLS) += u-boot-tools
 #
 # Paths and names
 #
-U_BOOT_TOOLS_VERSION	:= 2011.12
-U_BOOT_TOOLS_MD5	:= 7f29b9f6da44d6e46e988e7561fd1d5f
+U_BOOT_TOOLS_VERSION	:= 2014.07
+U_BOOT_TOOLS_MD5	:= 36d4bad687edcafa396fee607e505d4e
 U_BOOT_TOOLS		:= u-boot-$(U_BOOT_TOOLS_VERSION)
 U_BOOT_TOOLS_SUFFIX	:= tar.bz2
 U_BOOT_TOOLS_URL	:= http://ftp.denx.de/pub/u-boot/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
 U_BOOT_TOOLS_SOURCE	:= $(SRCDIR)/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
-U_BOOT_TOOLS_DIR	:= $(BUILDDIR)/$(U_BOOT_TOOLS)
+U_BOOT_TOOLS_DIR	:= $(BUILDDIR)/u-boot-tools-$(U_BOOT_TOOLS_VERSION)
 U_BOOT_TOOLS_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
@@ -30,10 +30,10 @@ U_BOOT_TOOLS_LICENSE	:= GPLv2
 # ----------------------------------------------------------------------------
 
 U_BOOT_TOOLS_CONF_TOOL	:= NO
+# just pick sandbox as a dummy target config
 U_BOOT_TOOLS_MAKE_OPT	:= \
-	HOSTCC="$(CROSS_CC)" \
-	HOSTSTRIP="$(CROSS_STRIP)" \
-	tools
+	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
+	sandbox_config tools
 
 ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
 U_BOOT_TOOLS_MAKE_OPT	+= env
@@ -45,8 +45,6 @@ endif
 
 $(STATEDIR)/u-boot-tools.install:
 	@$(call targetinfo)
-	install -D $(U_BOOT_TOOLS_DIR)/tools/mkimage \
-		$(U_BOOT_TOOLS_PKGDIR)/usr/bin/mkimage
 ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
 	install -D $(U_BOOT_TOOLS_DIR)/tools/env/fw_printenv \
 		$(U_BOOT_TOOLS_PKGDIR)/usr/sbin/fw_printenv
@@ -66,10 +64,6 @@ $(STATEDIR)/u-boot-tools.targetinstall:
 	@$(call install_fixup, u-boot-tools,AUTHOR,\
 		"Andreas Bießmann <andreas@biessmann.de>")
 	@$(call install_fixup, u-boot-tools,DESCRIPTION,missing)
-
-ifdef PTXCONF_U_BOOT_TOOLS_TOOL_MKIMAGE
-	@$(call install_copy, u-boot-tools, 0, 0, 0755, -, /usr/bin/mkimage)
-endif
 
 ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
 	@$(call install_copy, u-boot-tools, 0, 0, 0755, -, /usr/sbin/fw_printenv)

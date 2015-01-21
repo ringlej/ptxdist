@@ -1,6 +1,10 @@
 ## SECTION=shell_and_console
 config SETSERIAL
 	tristate
+	depends on !BUSYBOX_SETSERIAL || ALLYES
 	prompt "setserial"
 	help
 	  setserial - get/set Linux serial port information
+
+comment "BusyBox' setserial is selected!"
+	depends on BUSYBOX_SETSERIAL

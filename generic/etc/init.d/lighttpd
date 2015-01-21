@@ -9,30 +9,46 @@ PREFIX="lighttpd: "
 LIGHTTPD="/usr/sbin/lighttpd"
 LIGHTTPD_CONF="/etc/lighttpd/lighttpd.conf"
 
+start()
+{
+	echo "${PREFIX}starting"
+
+	if start-stop-daemon --start --quiet --oknodo --exec ${LIGHTTPD} -- -f ${LIGHTTPD_CONF}; then
+		echo "${PREFIX}done"
+	else
+		echo "${PREFIX}error, could not start server"
+	fi
+}
+
+stop()
+{
+	echo "${PREFIX}stoppping"
+
+	if start-stop-daemon --stop --quiet --oknodo --exec ${LIGHTTPD}; then
+		echo "${PREFIX}done"
+	else
+		echo "${PREFIX}error, could not stop server"
+	fi
+}
+
 case $1 in
 
 	start)
-		echo "${PREFIX}starting"
-
-		if start-stop-daemon --start --quiet --oknodo --exec ${LIGHTTPD} -- -f ${LIGHTTPD_CONF}; then
-			echo "${PREFIX}done"
-		else
-			echo "${PREFIX}error, could not start server"
-		fi
+		start
 		;;
 
 	stop)
-		echo "${PREFIX}stoppping"
-
-		if start-stop-daemon --stop --quiet --oknodo --exec ${LIGHTTPD}; then
-			echo "${PREFIX}done"
-		else
-			echo "${PREFIX}error, could not stop server"
-		fi
+		stop
 		;;
 
+	restart|force-reload)
+		stop
+		sleep 1
+		start
+        ;;
+
 	*)
-		echo "${PREFIX}usage: ${0} [start|stop]"
+		echo "${PREFIX}usage: ${0} [start|stop|restart]"
 		exit 1
 		;;
 

@@ -1,0 +1,22 @@
+From: Markus Pargmann <mpa@pengutronix.de>
+Date: Thu, 13 Nov 2014 15:20:21 +0100
+Subject: [PATCH] gtk: Do not build demos
+
+Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 8e3a2f1283e9..7288db20341f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,7 +1,7 @@
+ ## Makefile.am for GTK+
+ include $(top_srcdir)/Makefile.decl
+ 
+-SRC_SUBDIRS = gdk gtk modules demos tests perf
++SRC_SUBDIRS = gdk gtk modules tests perf
+ SUBDIRS = po po-properties $(SRC_SUBDIRS) docs m4macros build
+ 
+ # require automake 1.4

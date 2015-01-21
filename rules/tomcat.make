@@ -23,6 +23,7 @@ TOMCAT_SUFFIX	:= tar.gz
 TOMCAT_URL	:= http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/$(TOMCAT).$(TOMCAT_SUFFIX)
 TOMCAT_SOURCE	:= $(SRCDIR)/$(TOMCAT).$(TOMCAT_SUFFIX)
 TOMCAT_DIR	:= $(BUILDDIR)/$(TOMCAT)
+TOMCAT_LICENSE	:= APLv2
 
 # ----------------------------------------------------------------------------
 # Prepare

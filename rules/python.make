@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_PYTHON) += python
 #
 # Paths and names
 #
-PYTHON_VERSION		:= 2.7.5
-PYTHON_MD5		:= 6334b666b7ff2038c761d7b27ba699c1
+PYTHON_VERSION		:= 2.7.9
+PYTHON_MD5		:= 38d530f7efc373d64a8fb1637e3baaa7
 PYTHON_MAJORMINOR	:= $(basename $(PYTHON_VERSION))
 PYTHON_SITEPACKAGES	:= /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages
 PYTHON			:= Python-$(PYTHON_VERSION)
-PYTHON_SUFFIX		:= tar.bz2
+PYTHON_SUFFIX		:= tar.xz
 PYTHON_SOURCE		:= $(SRCDIR)/$(PYTHON).$(PYTHON_SUFFIX)
 PYTHON_DIR		:= $(BUILDDIR)/$(PYTHON)
 
@@ -64,7 +64,8 @@ PYTHON_AUTOCONF := \
 	--with-signal-module \
 	--with-threads \
 	--with-wctype-functions \
-	--without-doc-strings
+	--without-doc-strings \
+	--without-ensurepip
 
 PYTHON_BUILD_PYTHONPATH := \
 	$(PTXCONF_SYSROOT_HOST)/lib/python$(PYTHON_MAJORMINOR)/lib-dynload \

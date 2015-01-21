@@ -25,7 +25,6 @@ ptxd_make_image_extract_xpkg_files() {
     local src="/etc/ipkg.conf"
     local xpkg_conf="${PTXDIST_TEMPDIR}/${FUNCNAME}_xpkg.conf"
     local work_dir="$1"
-    local timestamp="${PTXDIST_VERSION_YEAR}${PTXDIST_VERSION_MONTH}010000"
     local -a list ptxd_reply
     if ptxd_get_ptxconf "PTXCONF_HOST_PACKAGE_MANAGEMENT_OPKG" > /dev/null; then
 	echo "option force_postinstall 1" > "${xpkg_conf}"
@@ -65,7 +64,7 @@ ${list[*]}
 	${ptx_xpkg_type}-cl -f "${xpkg_conf}" -o "${work_dir}" \
 	install "${ptxd_reply_ipkg_files[@]}" &&
 
-    find "${work_dir}" -print0 | xargs -0 touch --no-dereference -c -t "${timestamp}"
+    ptxd_install_fixup_timestamps "${work_dir}"
 }
 export -f ptxd_make_image_extract_xpkg_files
 

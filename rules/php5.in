@@ -13,6 +13,7 @@ menuconfig PHP5
 	select XMLRPC_C	if PHP5_XML_LIBXML2_XMLRPC
 	select SQLITE	if PHP5_EXT_SQLITE3
 	select ZLIB	if PHP5_EXT_ZLIB
+	select OPENSSL	if PHP5_EXT_OPENSSL
 
 if PHP5
 
@@ -271,6 +272,12 @@ config PHP5_EXT_ZLIB
 	prompt "zlib"
 	help
 	  Enable zlib support for PHP.
+
+config PHP5_EXT_OPENSSL
+	bool
+	prompt "openssl"
+	help
+	  Enable openssl support for PHP.
 
 config PHP5_EXT_PEAR
 	bool

@@ -1,0 +1,33 @@
+From 930e41a2921b8c2905690153514099c8abf05828 Mon Sep 17 00:00:00 2001
+From: Paul Fertser <fercerpav@gmail.com>
+Date: Sat, 31 May 2014 08:19:51 +0400
+Subject: [PATCH] configure.ac: correct test for USB_BLASTER_DRIVER AM symbol
+
+Blaster II should depend on the corresponding symbol, not on libusb-1
+presence.
+
+Change-Id: I3d27a1005a78fe81042cb7b515618604612c3ece
+Signed-off-by: Paul Fertser <fercerpav@gmail.com>
+Reviewed-on: http://openocd.zylin.com/2159
+Tested-by: jenkins
+Reviewed-by: Andreas Fritiofson <andreas.fritiofson@gmail.com>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 1b4870e..9943beb 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1174,7 +1174,7 @@ AM_CONDITIONAL([FT2232_DRIVER], [test $build_ft2232_ftd2xx = yes -o $build_ft223
+ AM_CONDITIONAL([USB_BLASTER_LIBFTDI], [test $build_usb_blaster_libftdi = yes])
+ AM_CONDITIONAL([USB_BLASTER_FTD2XX], [test $build_usb_blaster_ftd2xx = yes])
+ AM_CONDITIONAL([JTAG_VPI], [test $build_jtag_vpi = yes -o $build_jtag_vpi = yes])
+-AM_CONDITIONAL([USB_BLASTER_DRIVER], [test $build_usb_blaster_ftd2xx = yes -o $build_usb_blaster_libftdi = yes -o $use_libusb1 = yes])
++AM_CONDITIONAL([USB_BLASTER_DRIVER], [test $build_usb_blaster_ftd2xx = yes -o $build_usb_blaster_libftdi = yes -o $enable_usb_blaster_2 != no])
+ AM_CONDITIONAL([AMTJTAGACCEL], [test $build_amtjtagaccel = yes])
+ AM_CONDITIONAL([GW16012], [test $build_gw16012 = yes])
+ AM_CONDITIONAL([PRESTO_LIBFTDI], [test $build_presto_libftdi = yes])
+-- 
+2.1.0
+
