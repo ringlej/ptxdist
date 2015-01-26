@@ -34,7 +34,7 @@ HOST_QEMU_DIR		:= $(HOST_BUILDDIR)/$(HOST_QEMU)
 # autoconf
 #
 
-HOST_QEMU_TARGETS	:= $(call ptx/ifdef, PTXCONF_ARCH_X86,i386,$(PTXCONF_ARCH_STRING))
+HOST_QEMU_TARGETS	:= $(call ptx/ifdef, PTXCONF_ARCH_X86,i386,$(call ptx/ifdef, PTXCONF_ARCH_ARM64,aarch64,$(PTXCONF_ARCH_STRING)))
 HOST_QEMU_SYS_TARGETS	:= $(patsubst %,%-softmmu,$(HOST_QEMU_TARGETS))
 HOST_QEMU_USR_TARGETS	:= $(patsubst %,%-linux-user,$(HOST_QEMU_TARGETS))
 
