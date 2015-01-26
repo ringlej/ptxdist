@@ -32,7 +32,7 @@ NANO_DIR		:= $(BUILDDIR)/$(NANO)
 #
 # autoconf
 #
-NAN_CONF_TOOL	:= autoconf
+NANO_CONF_TOOL	:= autoconf
 NANO_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
