@@ -30,7 +30,7 @@ index f8bfe1399992..e715e5fd17ff 100644
  #include "at.h"
  #include "c.h"
 diff --git a/libmount/src/cache.c b/libmount/src/cache.c
-index 8b2e6560f8cc..78239e4354d2 100644
+index fcd84fde7dbb..c8cb8e8b0154 100644
 --- a/libmount/src/cache.c
 +++ b/libmount/src/cache.c
 @@ -23,6 +23,7 @@
