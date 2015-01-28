@@ -4,7 +4,16 @@ menuconfig OPENVPN
 	tristate
 	prompt "openvpn                       "
 	select OPENSSL
-	select LIBLZO if OPENVPN_LZO
+	select LIBLZO			if OPENVPN_LZO
+	select SYSTEMD			if OPENVPN_SYSTEMD
+	select IPTABLES			if OPENVPN_INSTALL_SAMPLE_CONFIGS && RUNTIME
+	select IPTABLES_INSTALL_TOOLS	if OPENVPN_INSTALL_SAMPLE_CONFIGS && RUNTIME
+	select BRIDGE_UTILS		if OPENVPN_INSTALL_SAMPLE_SCRIPTS && RUNTIME
+	select IPROUTE2			if !BUSYBOX_IP && RUNTIME
+	select IPROUTE2_IP		if !BUSYBOX_IP && RUNTIME
+	select BUSYBOX_IFCONFIG		if RUNTIME
+	select BUSYBOX_NETSTAT		if RUNTIME
+	select BUSYBOX_ROUTE		if RUNTIME
 	help
 	  virtual private network daemon
 
@@ -33,5 +42,23 @@ config OPENVPN_LZO
 	  This enables the LZO compression code. Selecting this option
 	  will select the LZO library as well.
 	  If unsure, say N.
+
+config OPENVPN_SYSTEMD
+	bool
+	prompt "Enable systemd support"
+	help
+	  This enables systemd support for openvpn.
+
+config OPENVPN_INSTALL_SAMPLE_CONFIGS
+	bool
+	prompt "Install sample configs"
+	help
+	  Install sample configs into /usr/share/openvpn/sample-config-files.
+
+config OPENVPN_INSTALL_SAMPLE_SCRIPTS
+	bool
+	prompt "Install sample scripts"
+	help
+	  Install sample scripts into /usr/share/openvpn/sample-scripts.
 
 endif
