@@ -101,6 +101,10 @@ ifdef PTXCONF_OPENSSL_BIN
 	@$(call install_copy, openssl, 0, 0, 0755, -, \
 		/usr/bin/openssl)
 endif
+
+	@$(call install_alternative, openssl, 0, 0, 0644, \
+		/usr/lib/ssl/openssl.cnf)
+
 	@$(call install_lib, openssl, 0, 0, 0644, libssl)
 	@$(call install_lib, openssl, 0, 0, 0644, libcrypto)
 
