@@ -115,8 +115,16 @@ $(STATEDIR)/gst-plugins-base1.targetinstall:
 	@$(call install_fixup, gst-plugins-base1,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gst-plugins-base1,DESCRIPTION,missing)
 
+ifdef PTXCONF_GST_PLUGINS_BASE1_INSTALL_TOOLS
+	@$(call install_copy, gst-plugins-base1, 0, 0, 0755, -, \
+		/usr/bin/gst-device-monitor-1.0)
+
 	@$(call install_copy, gst-plugins-base1, 0, 0, 0755, -, \
 		/usr/bin/gst-discoverer-1.0)
+
+	@$(call install_copy, gst-plugins-base1, 0, 0, 0755, -, \
+		/usr/bin/gst-play-1.0)
+endif
 
 	# install all activated libs
 	@cd $(GST_PLUGINS_BASE1_PKGDIR)/usr/lib/ && \

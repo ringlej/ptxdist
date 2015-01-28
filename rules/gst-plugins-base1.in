@@ -185,4 +185,12 @@ config GST_PLUGINS_BASE1_ZLIB
 	help
 	  zlib support for ID3 parsing in libgsttag
 
+comment "install options"
+
+config GST_PLUGINS_BASE1_INSTALL_TOOLS
+	bool
+	prompt "install tools"
+	help
+	  installs gst-device-monitor, gst-discover, and gst-play tools
+
 endif
