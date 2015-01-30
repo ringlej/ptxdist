@@ -14,6 +14,7 @@
 PACKAGES-$(PTXCONF_OS_RELEASE) += os-release
 
 OS_RELEASE_VERSION	:= 1.0
+OS_RELEASE_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

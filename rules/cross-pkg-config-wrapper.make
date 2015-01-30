@@ -12,6 +12,7 @@
 # We provide this package
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_PKG_CONFIG_WRAPPER) += cross-pkg-config-wrapper
+CROSS_PKG_CONFIG_WRAPPER_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
 # Install

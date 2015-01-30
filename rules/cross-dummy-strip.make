@@ -12,6 +12,7 @@
 # We provide this package
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_DUMMY_STRIP) += cross-dummy-strip
+CROSS_DUMMY_STRIP_LICENSE := ignore
 
 $(STATEDIR)/cross-dummy-strip.install:
 	@$(call targetinfo)

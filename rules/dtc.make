@@ -16,6 +16,7 @@
 PACKAGES-$(PTXCONF_DTC) += dtc
 
 DTC_VERSION := 1.0.0
+DTC_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install
