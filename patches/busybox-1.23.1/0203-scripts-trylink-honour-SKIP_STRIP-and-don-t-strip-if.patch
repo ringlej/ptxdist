@@ -9,7 +9,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/trylink b/scripts/trylink
-index e471699173bf..671b22b71d93 100755
+index 5da494fbba4c..66e66139b5bd 100755
 --- a/scripts/trylink
 +++ b/scripts/trylink
 @@ -241,7 +241,12 @@ if test "$CONFIG_BUILD_LIBBUSYBOX" = y; then
@@ -47,6 +47,6 @@ index e471699173bf..671b22b71d93 100755
 +	if test "$SKIP_STRIP" != "y"; then
 +	    $STRIP -s --remove-section=.note --remove-section=.comment $EXE
 +	fi
+ 	# Let user see that we do something - list the names of created binaries:
+ 	echo "$EXE"
  
-     done <applet_lst.tmp
- fi
