@@ -88,9 +88,7 @@ ifdef PTXCONF_RRDTOOL_RRDUPDATE
 endif
 
 	@$(call install_lib, rrdtool, 0, 0, 0644, librrd)
-ifdef PTXCONF_RRDTOOL_RRDCACHED
 	@$(call install_lib, rrdtool, 0, 0, 0644, librrd_th)
-endif
 
 	@$(call install_finish, rrdtool)
 
