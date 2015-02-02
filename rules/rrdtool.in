@@ -9,6 +9,7 @@ menuconfig RRDTOOL
 	select CAIRO_PS
 	select PANGO
 	select LIBXML2
+	select LIBXML2_SAX1
 # for autotools only
 	select HOST_GETTEXT
 	prompt "rrdtool                       "
