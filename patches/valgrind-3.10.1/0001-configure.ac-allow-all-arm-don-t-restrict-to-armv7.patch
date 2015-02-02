@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 229ab98..296de90 100644
+index 0fd2a41e7a8f..2ac2cbedf6ae 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -190,7 +190,7 @@ case "${host_cpu}" in
+@@ -212,7 +212,7 @@ case "${host_cpu}" in
          ARCH_MAX="s390x"
          ;;
  

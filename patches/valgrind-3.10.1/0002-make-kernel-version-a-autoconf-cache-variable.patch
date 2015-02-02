@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 296de90..d10e11f 100644
+index 2ac2cbedf6ae..153168828ced 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -273,21 +273,22 @@ case "${host_os}" in
+@@ -300,21 +300,22 @@ case "${host_os}" in
          # Ok, this is linux. Check the kernel version
          AC_MSG_CHECKING([for the kernel version])
  
