@@ -41,12 +41,10 @@ RRDTOOL_CONF_TOOL	:= autoconf
 RRDTOOL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_RRDTOOL_RRDCGI)-rrdcgi \
+	--disable-rrd_graph \
 	--enable-mmap \
 	--enable-pthread \
 	--disable-static-programs \
-	--enable-shared \
-	--disable-static \
-	--enable-fast-install \
 	--disable-nls \
 	--disable-rpath \
 	--disable-libdbi \
