@@ -20,7 +20,7 @@ TRACE_CMD_VERSION	:= 2.3.1
 TRACE_CMD_MD5		:= 43cf0c7c3e5506d0bcaced295eb1b39f
 TRACE_CMD		:= trace-cmd-$(TRACE_CMD_VERSION)
 TRACE_CMD_SUFFIX	:= tar.bz2
-TRACE_CMD_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;tag=trace-cmd-v$(TRACE_CMD_VERSION)
+TRACE_CMD_URL		:= http://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;tag=trace-cmd-v$(TRACE_CMD_VERSION)
 TRACE_CMD_SOURCE	:= $(SRCDIR)/$(TRACE_CMD).$(TRACE_CMD_SUFFIX)
 TRACE_CMD_DIR		:= $(BUILDDIR)/$(TRACE_CMD)
 TRACE_CMD_LICENSE	:= GPLv2
