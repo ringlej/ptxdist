@@ -2,9 +2,22 @@
 
 menuconfig COLLECTD
 	tristate
+	select RRDTOOL if COLLECTD_RRDTOOL
 	prompt "collectd                      "
 	help
 	  collectd is a daemon which collects system performance statistics
 	  periodically and provides mechanisms to store the values in a
 	  variety of ways, for example in RRD files.
 
+if COLLECTD
+
+comment "Write Plugins"
+
+config COLLECTD_RRDTOOL
+	bool
+	prompt "rrdtool"
+	help
+	  With the RRDtool plugin, collectd writes values into a
+	  round-robin database, using librrd.
+
+endif

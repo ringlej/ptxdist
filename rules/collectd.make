@@ -29,6 +29,8 @@ COLLECTD_LICENSE	:= GPL2
 # Prepare
 # ----------------------------------------------------------------------------
 
+COLLECTD_ENABLE-$(PTXCONF_COLLECTD_RRDTOOL)	+= rrdtool
+
 #
 # autoconf
 #
@@ -127,7 +129,6 @@ COLLECTD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-redis \
 	--disable-routeros \
 	--disable-rrdcached \
-	--disable-rrdtool \
 	--disable-sensors \
 	--disable-serial \
 	--disable-sigrok \
