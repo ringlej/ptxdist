@@ -34,6 +34,7 @@ config RRDTOOL_RRDCACHED
 
 config RRDTOOL_RRDCGI
 	bool
+	depends on RRDTOOL_RRD_GRAPH
 	prompt "install rrdcgi"
 	help
 	  rrdcgi is a sort of very limited script interpreter. Its
