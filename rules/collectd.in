@@ -11,6 +11,14 @@ menuconfig COLLECTD
 
 if COLLECTD
 
+comment "Logging Plugins"
+
+config COLLECTD_SYSLOG
+	bool
+	prompt "syslog"
+	help
+	  Syslog support for collectd.
+
 comment "Write Plugins"
 
 config COLLECTD_RRDTOOL
