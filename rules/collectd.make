@@ -31,6 +31,7 @@ COLLECTD_LICENSE	:= GPL2
 
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_SYSLOG)	+= syslog
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_RRDTOOL)	+= rrdtool
+COLLECTD_ENABLE-$(PTXCONF_COLLECTD_CPU)		+= cpu
 
 #
 # autoconf
@@ -60,7 +61,6 @@ COLLECTD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-conntrack \
 	--disable-contextswitch \
 	--disable-cpufreq \
-	--disable-cpu \
 	--disable-csv \
 	--disable-curl \
 	--disable-curl_json \
