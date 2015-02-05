@@ -8,6 +8,7 @@ menuconfig XORG_DRIVER_VIDEO_INTEL
 	select LIBDRM_INTEL
 	select LIBPCIACCESS
 	select PIXMAN
+	select XCB_UTIL
 	select XORG_LIB_X11
 	select XORG_PROTO_FONTS
 	select XORG_PROTO_RANDR
