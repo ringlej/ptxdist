@@ -29,6 +29,7 @@ COLLECTD_LICENSE	:= GPL2
 # Prepare
 # ----------------------------------------------------------------------------
 
+COLLECTD_ENABLE-$(PTXCONF_COLLECTD_LOGFILE)	+= logfile
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_SYSLOG)	+= syslog
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_RRDTOOL)	+= rrdtool
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_CPU)		+= cpu
@@ -86,7 +87,6 @@ COLLECTD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-java \
 	--disable-libvirt \
 	--disable-load \
-	--disable-logfile \
 	--disable-lpar \
 	--disable-lvm \
 	--disable-madwifi \

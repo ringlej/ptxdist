@@ -13,6 +13,12 @@ if COLLECTD
 
 comment "Logging Plugins"
 
+config COLLECTD_LOGFILE
+	bool
+	prompt "logfile"
+	help
+	  logfile support for collectd.
+
 config COLLECTD_SYSLOG
 	bool
 	prompt "syslog"
