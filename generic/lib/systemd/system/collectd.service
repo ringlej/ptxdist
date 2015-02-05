@@ -1,0 +1,9 @@
+[Unit]
+Description=statistics collection daemon
+
+[Service]
+ExecStart=/usr/sbin/collectd -f
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

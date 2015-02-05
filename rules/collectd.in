@@ -1,0 +1,10 @@
+## SECTION=shell_and_console
+
+menuconfig COLLECTD
+	tristate
+	prompt "collectd                      "
+	help
+	  collectd is a daemon which collects system performance statistics
+	  periodically and provides mechanisms to store the values in a
+	  variety of ways, for example in RRD files.
+
