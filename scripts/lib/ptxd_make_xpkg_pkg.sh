@@ -270,9 +270,11 @@ ptxd_install_file_strip() {
 	ln -f "${file}" "${file}.${tmp}" || return
     done &&
 
-    for dir in "${ddirs[@]}"; do
-	ptxd_install_file_extract_debug "${dir}" "${dst}" || return
-    done &&
+    if [ "${strip}" != "k" ]; then
+	for dir in "${ddirs[@]}"; do
+	    ptxd_install_file_extract_debug "${dir}" "${dst}" || return
+	done
+    fi &&
 
     "${strip_cmd[@]}" "${sdirs[@]/%/${dst}}" &&
     rm -f "${sdirs[@]/%/${dst}.${tmp}}"
