@@ -235,7 +235,7 @@ config NTP_NTPD_STARTSCRIPT
 config NTP_NTPD_SYSTEMD_UNIT
 	bool
 	default y
-	depends on SYSTEMD
+	depends on NTP_NTPD && SYSTEMD
 	prompt "install systemd service file"
 
 config NTP_NTPDC
