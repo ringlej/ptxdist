@@ -40,6 +40,7 @@ choice
 
 	config ARCH_ARM64
 		bool "arm64      "
+		select ARCH_LP64
 		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		select ARCH_SUPPORTS_ENDIAN_BIG
 		select HAS_MMU
