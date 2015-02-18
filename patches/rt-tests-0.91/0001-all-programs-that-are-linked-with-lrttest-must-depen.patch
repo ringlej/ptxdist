@@ -9,10 +9,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 9a55fc5..4b4c5aa 100644
+index 9e479d3c0dca..4ee553849cce 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -68,14 +68,14 @@ cyclictest: cyclictest.o librttest.a
+@@ -73,14 +73,14 @@ cyclictest: cyclictest.o librttest.a
  signaltest: signaltest.o librttest.a
  	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
  
@@ -29,7 +29,7 @@ index 9a55fc5..4b4c5aa 100644
  	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
  
  ptsematest: ptsematest.o librttest.a
-@@ -96,7 +96,7 @@ sendme: sendme.o librttest.a
+@@ -101,7 +101,7 @@ sendme: sendme.o librttest.a
  pip_stress: pip_stress.o librttest.a
  	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
  
@@ -37,4 +37,4 @@ index 9a55fc5..4b4c5aa 100644
 +hackbench: hackbench.o librttest.a
  	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
  
- librttest.a: rt-utils.o error.o rt-get_cpu.o
+ librttest.a: rt-utils.o error.o rt-get_cpu.o rt-sched.o
