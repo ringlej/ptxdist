@@ -151,7 +151,9 @@ endif
 	else \
 		install -D -m644 $(BAREBOX_DIR)/barebox.bin $(IMAGEDIR)/barebox-image; \
 	fi
-	@if [ -e $(BAREBOX_DIR)/common/barebox_default_env ]; then \
+	@if [ -e $(BAREBOX_DIR)/defaultenv/barebox_zero_env ]; then \
+		install -D -m644 $(BAREBOX_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-default-environment; \
+	elif [ -e $(BAREBOX_DIR)/common/barebox_default_env ]; then \
 		install -D -m644 $(BAREBOX_DIR)/common/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
 	elif [ -e $(BAREBOX_DIR)/barebox_default_env ]; then \
 		install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
