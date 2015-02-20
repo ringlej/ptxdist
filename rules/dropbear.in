@@ -224,7 +224,6 @@ comment "Integrity, at least one required --- RFC Draft requires sha1-hmac and r
 config DROPBEAR_SHA1
 	bool
 	prompt "sha1"
-	default y
 	help
 	  The Secure Hash Algorithm (SHA) was developed by NIST and
 	  is specified in the Secure Hash Standard (SHS, FIPS 180).
@@ -237,7 +236,6 @@ config DROPBEAR_SHA1
 config DROPBEAR_SHA1_96
 	bool
 	prompt "sha1-96"
-	default y
 	help
 	  The Secure Hash Algorithm (SHA) was developed by NIST and
 	  is specified in the Secure Hash Standard (SHS, FIPS 180).
@@ -250,6 +248,7 @@ config DROPBEAR_SHA1_96
 config DROPBEAR_SHA256
 	bool
 	prompt "sha256"
+	default y
 	help
 	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
 	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
@@ -262,6 +261,7 @@ config DROPBEAR_SHA256
 config DROPBEAR_SHA512
 	bool
 	prompt "sha512"
+	default y
 	help
 	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
 	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
