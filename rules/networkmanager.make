@@ -72,7 +72,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--without-system-ca-path \
 	--with-kernel-firmware-dir=/lib/firmware \
 	--without-libsoup \
-	--without-nmtui \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
 	--without-valgrind \
 	--without-tests
 
@@ -158,6 +158,9 @@ ifdef PTXCONF_NETWORKMANAGER_NM_ONLINE
 	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/nm-online)
 endif
 	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/nmcli)
+ifdef PTXCONF_NETWORKMANAGER_NMTUI
+	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/nmtui)
+endif
 
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/libexec/)
 

@@ -8,6 +8,8 @@ menuconfig NETWORKMANAGER
 	select LIBC_RT
 	select DHCP			if RUNTIME
 	select DHCP_CLIENT		if RUNTIME
+	select NCURSES			if NETWORKMANAGER_NMTUI
+	select LIBNEWT			if NETWORKMANAGER_NMTUI
 	select DBUS
 	select DBUS_GLIB
 	select READLINE			# for 'nmcli'
@@ -42,6 +44,12 @@ config NETWORKMANAGER_NM_ONLINE
 	prompt "install nm-online"
 	help
 	  Install the 'nm-online' tool to detect online state.
+
+config NETWORKMANAGER_NMTUI
+	bool
+	prompt "install nmtui"
+	help
+	  Build and install the 'nmtui' tool.
 
 config NETWORKMANAGER_SYSTEMD_UNIT
 	bool
