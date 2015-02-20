@@ -2,24 +2,26 @@
 
 menuconfig NETWORKMANAGER
 	tristate
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select LIBC_RT
 	select DHCP			if RUNTIME
-	select DHCP_CLIENT
-	select WIRELESS
-	select WIRELESS_SHARED
-	select UDEV
-	select UDEV_LIBGUDEV
+	select DHCP_CLIENT		if RUNTIME
+	select DBUS
 	select DBUS_GLIB
-	select LIBNL3
+	select READLINE			# for 'nmcli'
 	select LIBUUID
-	select WPA_SUPPLICANT		if RUNTIME
 	select GNUTLS
-	select HOST_INTLTOOL
+	select LIBNL3
+	select HOST_INTLTOOL		# why? NLS is disabled!!!
+	select LIBNDP
+	select UDEV			if RUNTIME
+	select UDEV_LIBGUDEV
+	select WPA_SUPPLICANT		if NETWORKMANAGER_WIRELESS && RUNTIME
+	select WPA_SUPPLICANT_CTRL_IFACE_DBUS if NETWORKMANAGER_WIRELESS && RUNTIME
 	select DBUS_PYTHON		if NETWORKMANAGER_EXAMPLES && RUNTIME
-	select IPTABLES			if RUNTIME
-# to detect correct systemd version
 	select SYSTEMD			if NETWORKMANAGER_SYSTEMD_UNIT
-# for the 'iptables' tool
-	select IPTABLES_IPV4
 	prompt "networkmanager                "
 	help
 	  NetworkManager is a tool to automate network configuration as far as
@@ -30,15 +32,26 @@ menuconfig NETWORKMANAGER
 if NETWORKMANAGER
 
 config NETWORKMANAGER_STARTSCRIPT
+	depends on !INITMETHOD_SYSTEMD
 	bool
 	default y
 	prompt "install /etc/init.d/NetworkManager"
+
+config NETWORKMANAGER_NM_ONLINE
+	bool
+	prompt "install nm-online"
+	help
+	  Install the 'nm-online' tool to detect online state.
 
 config NETWORKMANAGER_SYSTEMD_UNIT
 	bool
 	default y
 	depends on INITMETHOD_SYSTEMD
 	prompt "install systemd unit files for Network Manager"
+
+config NETWORKMANAGER_WIRELESS
+	bool
+	prompt "enable wireless support"
 
 config NETWORKMANAGER_EXAMPLES
 	bool
