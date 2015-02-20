@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 #
 # Paths and names
 #
-DROPBEAR_VERSION	:= 2014.65
-DROPBEAR_MD5		:= 1918604238817385a156840fa2c39490
+DROPBEAR_VERSION	:= 2015.67
+DROPBEAR_MD5		:= e967e320344cd4bfebe321e3ab8514d6
 DROPBEAR		:= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX		:= tar.bz2
 DROPBEAR_URL		:= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
@@ -163,7 +163,21 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128)
 endif
 
+ifdef PTXCONF_DROPBEAR_CBC_CIPHERS
+	@echo "ptxdist: enabling cbc ciphers"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CBC_MODE)
+else
+	@echo "ptxdist: disabling cbc ciphers"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CBC_MODE)
+endif
 
+ifdef PTXCONF_DROPBEAR_CTR_CIPHERS
+	@echo "ptxdist: enabling ctr ciphers"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CTR_MODE)
+else
+	@echo "ptxdist: disabling ctr ciphers"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CTR_MODE)
+endif
 
 ifdef PTXCONF_DROPBEAR_SHA1
 	@echo "ptxdist: enabling sha1"
