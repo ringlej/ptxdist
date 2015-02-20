@@ -104,6 +104,7 @@ UDEV_RULES-$(PTXCONF_SYSTEMD) += \
 	60-drm.rules \
 	64-btrfs.rules \
 	70-mouse.rules \
+	70-touchpad.rules \
 	80-net-setup-link.rules
 
 UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \

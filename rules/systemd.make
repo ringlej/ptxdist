@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 218
-SYSTEMD_MD5	:= 4e2c511b0a7932d7fc9d79822273aac6
+SYSTEMD_VERSION	:= 219
+SYSTEMD_MD5	:= e0d6c9a4b4f69f66932d2230298c9a34
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -78,6 +78,8 @@ SYSTEMD_CONF_OPT	:= \
 	$(GLOBAL_SELINUX_OPTION) \
 	--disable-apparmor \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
+	--disable-zlib \
+	--enable-bzip2 \
 	--disable-lz4 \
 	--disable-pam \
 	--disable-acl \
@@ -91,6 +93,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-gnutls \
 	--disable-libcurl \
 	--disable-libidn \
+	--disable-libiptc \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-bootchart \
@@ -103,6 +106,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-rfkill \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_LOGIND)-logind \
 	--disable-machined \
+	--disable-importd \
 	--enable-hostnamed \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TIMEDATE)-timedated \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_TIMEDATE)-timesyncd \
@@ -116,12 +120,13 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-kdbus \
 	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
+	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
 	--disable-manpages \
 	--disable-hibernate \
 	--disable-ldconfig \
 	--enable-split-usr \
 	--disable-tests \
-	--disable-hashmap-debug \
+	--disable-debug \
 	--without-python \
 	--with-ntp-servers= \
 	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" +%s` \
@@ -134,7 +139,6 @@ SYSTEMD_CONF_OPT	:= \
 	--with-dbuspolicydir=/etc/dbus-1/system.d \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
-	--with-dbusinterfacedir=/usr/share/dbus-1/interfaces \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
 
@@ -153,7 +157,7 @@ $(STATEDIR)/systemd.install:
 	@$(call targetinfo)
 	@$(call world/install, SYSTEMD)
 ifdef PTXCONF_UDEV_HWDB
-	@udevadm hwdb --update --root $(SYSTEMD_PKGDIR)
+	@systemd-hwdb update --root $(SYSTEMD_PKGDIR)
 endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
@@ -322,6 +326,7 @@ endif
 
 #	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd/coredump)
+	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/machines)
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/profile.d/systemd.sh)
 
