@@ -23,6 +23,10 @@ config UTIL_LINUX_NG_LIBMOUNT
 config UTIL_LINUX_NG_LIBSMARTCOLS
 	bool
 
+config UTIL_LINUX_NG_LIBFDISK
+	select UTIL_LINUX_NG_LIBUUID
+	bool
+
 config UTIL_LINUX_NG_USES_NCURSES
 	bool
 
@@ -87,7 +91,7 @@ comment "BusyBox' mountpoint is selected!"
 config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"
-	select UTIL_LINUX_NG_LIBUUID
+	select UTIL_LINUX_NG_LIBFDISK
 	select UTIL_LINUX_NG_LIBSMARTCOLS
 	depends on !BUSYBOX_FDISK || ALLYES
 	help
@@ -99,13 +103,15 @@ comment "BusyBox' fdisk is selected!"
 config UTIL_LINUX_NG_SFDISK
 	bool
 	prompt "sfdisk"
+	select UTIL_LINUX_NG_LIBFDISK
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	help
 	  sfdisk - Partition table manipulator for Linux,
 	  scriptable for unattended partitioning
 
 config UTIL_LINUX_NG_CFDISK
 	bool
-	select UTIL_LINUX_NG_LIBUUID
+	select UTIL_LINUX_NG_LIBFDISK
 	select UTIL_LINUX_NG_LIBSMARTCOLS
 	select UTIL_LINUX_NG_USES_NCURSES
 	prompt "cfdisk"
