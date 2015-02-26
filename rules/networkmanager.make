@@ -62,7 +62,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-suspend-resume=systemd \
 	--with-crypto=gnutls \
 	--with-dbus-sys-dir=/etc/dbus-1/system.d \
-	--without-modem-manager-1 \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
 	--with-dhclient=/sbin/dhclient \
 	--without-dhcpcd \
 	--without-resolvconf \
@@ -75,6 +75,12 @@ NETWORKMANAGER_CONF_OPT := \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
 	--without-valgrind \
 	--without-tests
+
+
+ifdef PTXCONF_NETWORKMANAGER_WWAN
+NETWORKMANAGER_LDFLAGS	:= \
+	-Wl,-rpath,/usr/lib/NetworkManager
+endif
 
 # ----------------------------------------------------------------------------
 # Install
@@ -167,6 +173,10 @@ endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-settings-plugin-ifupdown)
 ifdef PTXCONF_NETWORKMANAGER_WIRELESS
 	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-device-plugin-wifi)
+endif
+ifdef PTXCONF_NETWORKMANAGER_WWAN
+	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-device-plugin-wwan)
+	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-wwan)
 endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm)
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-util)
