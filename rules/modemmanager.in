@@ -1,0 +1,27 @@
+## SECTION=networking
+
+menuconfig MODEMMANAGER
+	tristate
+	select GLIB
+	select UDEV
+	select UDEV_LIBGUDEV
+	select LIBMBIM
+	select LIBQMI
+	prompt "modemmanager                  "
+	help
+	  ModemManager is a DBus-activated daemon which controls mobile
+	  broadband (2G/3G/4G) devices and connections. Whether built-in
+	  devices, USB dongles, bluetooth-paired telephones or professional
+	  RS232/USB devices with external power supplies, ModemManager is
+	  able to prepare and configure the modems and setup connections
+	  with them.
+
+if MODEMMANAGER
+
+config MODEMMANAGER_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit file"
+
+endif
