@@ -1,0 +1,30 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 28 Feb 2015 10:54:33 +0100
+Subject: [PATCH] Makefile: build libs by default
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index c48623954453..f0590b557fc9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -69,12 +69,15 @@ TRAVIS_TARGET=$(LZ4_TRAVIS_CI_ENV)
+ endif
+ 
+ 
+-default: lz4programs
++default: lz4libs lz4programs
+ 
+ all: 
+ 	@cd $(LZ4DIR); $(MAKE) -e all
+ 	@cd $(PRGDIR); $(MAKE) -e all
+ 
++lz4libs:
++	@cd $(LZ4DIR); $(MAKE) -e
++
+ lz4programs:
+ 	@cd $(PRGDIR); $(MAKE) -e
+ 
