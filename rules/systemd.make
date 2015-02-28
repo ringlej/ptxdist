@@ -80,7 +80,7 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--disable-zlib \
 	--enable-bzip2 \
-	--disable-lz4 \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_LZ4)-lz4 \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
