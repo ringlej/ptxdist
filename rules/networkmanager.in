@@ -6,8 +6,6 @@ menuconfig NETWORKMANAGER
 	select LIBC_DL
 	select LIBC_PTHREAD
 	select LIBC_RT
-	select DHCP			if RUNTIME
-	select DHCP_CLIENT		if RUNTIME
 	select NCURSES			if NETWORKMANAGER_NMTUI
 	select LIBNEWT			if NETWORKMANAGER_NMTUI
 	select DBUS
