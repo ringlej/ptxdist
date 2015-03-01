@@ -138,7 +138,7 @@ ifdef PTXCONF_BAREBOX_BAREBOXENV
 	@$(call install_finish, barebox)
 endif
 	@rm -f $(IMAGEDIR)/barebox-image
-	@for image in `ls $(BAREBOX_DIR)/images/barebox-*.img`; do \
+	@find $(BAREBOX_DIR)/images/ -name "barebox-*.img" | sort | while read image; do \
 		install -D -m644 $$image $(IMAGEDIR)/`basename $$image`; \
 		if [ ! -e $(IMAGEDIR)/barebox-image ]; then \
 			ln -sf `basename $$image` $(IMAGEDIR)/barebox-image; \
