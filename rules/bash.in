@@ -186,7 +186,7 @@ config BASH_PROCSUBST
 	  named pipes (FIFOs) or the '/dev/fd' method of naming open
 	  files. It takes the form of <(list) or >(list).
 
-config BASH_COMPLETION
+config BASH_BASHCOMPLETION
 	bool
 	prompt "Enable programmable completion"
 	help

@@ -63,7 +63,7 @@ BASH_AUTOCONF	:= \
 	--$(call ptx/endis, PTXCONF_BASH_MULTIBYTE)-multibyte \
 	--disable-net-redirections \
 	--$(call ptx/endis, PTXCONF_BASH_PROCSUBST)-process-substitution \
-	--$(call ptx/endis, PTXCONF_BASH_COMPLETION)-progcomp \
+	--$(call ptx/endis, PTXCONF_BASH_BASHCOMPLETION)-progcomp \
 	--$(call ptx/endis, PTXCONF_BASH_ESC)-prompt-string-decoding \
 	--$(call ptx/endis, PTXCONF_BASH_EDIT)-readline \
 	--$(call ptx/endis, PTXCONF_BASH_RESTRICTED)-restricted \
