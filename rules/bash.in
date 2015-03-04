@@ -4,8 +4,6 @@ menuconfig BASH
 	select LIBC_DL
 	select GCCLIBS_GCC_S
 	select NCURSES if BASH_CURSES
-	# disabling this is currently broken
-	select BASH_CONDITIONAL
 	help
 	  The GNU Bourne Again SHell
 	  Bash is an sh-compatible command language interpreter that executes
@@ -47,7 +45,6 @@ config BASH_ALIASES
 config BASH_ARITHMETIC_FOR
 	bool
 	prompt "Enable arithmetic for command"
-	depends on BASH
 	help
 	  Include support for the alternate form of the for command that
 	  behaves like the C language for statement.
@@ -76,11 +73,40 @@ config BASH_BRACE
 	  to pathname expansion, but the filenames generated
 	  need not exist.
 
+config BASH_CASEMODATTR
+	bool
+	prompt "include case-modifying variable attributes"
+
+config BASH_CASEMODEXP
+	bool
+	prompt "include case-modifying word expansions"
+
+config BASH_CMDTIMING
+	bool
+	prompt "enable the time reserved word and command timing"
+
 config BASH_CONDITIONAL
 	bool
 	default y
 	prompt "Enable the conditional command"
-	depends on BASH
+
+config BASH_CONDITIONAL_REGEX
+	bool
+	prompt "enable extended regular expression matching in conditional commands"
+	depends on BASH_CONDITIONAL
+
+config BASH_COPROCESSES
+	bool
+	default y
+	prompt "enable coprocess support and the coproc reserved word"
+
+config BASH_DEBUGGER
+	bool
+	prompt "enable support for bash debugger"
+
+config BASH_DIREXPDEFLT
+	bool
+	prompt "enable the direxpand shell option by default"
 
 config BASH_DIRSTACK
 	bool
@@ -94,11 +120,29 @@ config BASH_DIRSTACK
 	   added to the list with the pushd command;
 	   the popd command removes entries from the list.
 
+config BASH_DISABLED_BUILDINS
+	bool
+	prompt "Allow disabled builtins to still be invoked"
+
+config BASH_DPARAN_ARITH
+	bool
+	prompt "include ((...)) command"
+	default y
+
 config BASH_EXTPATTERN
 	bool
-#	default y
 	prompt "Include ksh-style extended pattern matching"
-	depends on BASH
+
+config BASH_EXTPATTERN_DEFLT
+	bool
+	prompt "force extended pattern matching to be enabled by default"
+
+config BASH_GLOB_ASCIIRANGE_DEFLT
+	bool
+	prompt "bracket range pattern matching uses C locale"
+	help
+	  force bracket range expressions in pattern matching to use the C
+	  locale by default
 
 config BASH_HELP
 	bool
@@ -123,6 +167,13 @@ config BASH_JOBS
 	help
 	  This enables support for background jobs in bash.
 	  You can list the actual managed jobs by the "jobs" command.
+
+config BASH_MULTIBYTE
+	bool
+	prompt "Enable multibyte characters"
+	default y
+	help
+	  Enable multibyte characters if OS supports them.
 
 config BASH_PROCSUBST
 	bool
@@ -178,6 +229,15 @@ config BASH_SELECT
 	help
 	  Include the select builtin, which allows the generation of
 	  simple menus.
+
+config BASH_SEP_HELPFILES
+	bool
+	depends on BROKEN
+	prompt "use external files for help builtin documentation"
+
+config BASH_SINGLE_HELPLINE
+	bool
+	prompt "store help documentation as a single string to ease translation"
 
 endif
 
