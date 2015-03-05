@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 5 Mar 2015 10:33:25 +0100
+Subject: [PATCH] missing: define __NR_kcmp if necessary
+
+Needed for Kernel Headers < v3.5
+
+Not for upstream, but needed for host-systemd.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/shared/missing.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/shared/missing.h b/src/shared/missing.h
+index a6c12119ae88..3f93d3226ee3 100644
+--- a/src/shared/missing.h
++++ b/src/shared/missing.h
+@@ -768,6 +768,11 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
+ #define RENAME_NOREPLACE (1 << 0)
+ #endif
+ 
++#ifndef __NR_kcmp
++# warning "__NR_kcmp unknown"
++# define __NR_kcmp 0xffffffff
++#endif
++
+ #if !HAVE_DECL_KCMP
+ static inline int kcmp(pid_t pid1, pid_t pid2, int type, unsigned long idx1, unsigned long idx2) {
+         return syscall(__NR_kcmp, pid1, pid2, type, idx1, idx2);
