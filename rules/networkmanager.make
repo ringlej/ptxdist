@@ -92,16 +92,16 @@ $(STATEDIR)/networkmanager.install:
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
 	@cd $(NETWORKMANAGER_DIR)/examples/C/glib/ \
-		&& for FILE in `find -name "*-glib" -printf '%f\n'`; do \
-		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+		&& for FILE in `find -type f -executable -printf '%f\n'`; do \
+		install -vD -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
-	@cd $(NETWORKMANAGER_DIR)/examples/python/ \
+	@cd $(NETWORKMANAGER_DIR)/examples/python/dbus \
 		&& for FILE in `find -name "*.py" -printf '%f\n'`; do \
-		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+		install -vD -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
 	@cd $(NETWORKMANAGER_DIR)/examples/shell/ \
 		&& for FILE in `find -name "*.sh" -printf '%f\n'`; do \
-		install -D -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
+		install -vD -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
 endif
 
@@ -188,15 +188,7 @@ endif
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
 	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
-		&& for FILE in `find -name "*-glib" -printf '%f\n'`; do \
-		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
-	done
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
-		&& for FILE in `find -name "*.py" -printf '%f\n'`; do \
-		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
-	done
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
-		&& for FILE in `find -name "*.sh" -printf '%f\n'`; do \
+		&& for FILE in `find -name "nm-*-*" -printf '%f\n'`; do \
 		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
 	done
 endif
