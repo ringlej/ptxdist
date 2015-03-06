@@ -23,6 +23,10 @@ LIBASSUAN_SUFFIX	:= tar.bz2
 LIBASSUAN_URL		:= ftp://ftp.gnupg.org/gcrypt/libassuan/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
 LIBASSUAN_SOURCE	:= $(SRCDIR)/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
 LIBASSUAN_DIR		:= $(BUILDDIR)/$(LIBASSUAN)
+LIBASSUAN_LICENSE	:= GPLv3, LGPLv2.1
+LIBASSUAN_LICENSE_FILES	:= \
+	file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
+	file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1
 
 # ----------------------------------------------------------------------------
 # Prepare
