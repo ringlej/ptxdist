@@ -23,6 +23,11 @@ LIBKSBA_SUFFIX	:= tar.bz2
 LIBKSBA_URL	:= ftp://ftp.gnupg.org/gcrypt/libksba/$(LIBKSBA).$(LIBKSBA_SUFFIX)
 LIBKSBA_SOURCE	:= $(SRCDIR)/$(LIBKSBA).$(LIBKSBA_SUFFIX)
 LIBKSBA_DIR	:= $(BUILDDIR)/$(LIBKSBA)
+LIBKSBA_LICENSE	:= GPLv2, GPLv3, LGPLv3
+LIBKSBA_LICENSE_FILES := \
+	file://COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+	file://COPYING.GPLv3;md5=2f31b266d3440dd7ee50f92cf67d8e6c \
+	file://COPYING.LGPLv3;md5=e6a600fd5e1d9cbde2d983680233ad02
 
 # ----------------------------------------------------------------------------
 # Prepare
