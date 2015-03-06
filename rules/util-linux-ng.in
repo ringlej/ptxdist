@@ -77,6 +77,16 @@ config UTIL_LINUX_NG_PARTX
 	help
 	  The partx utility.
 
+config UTIL_LINUX_NG_DMESG
+	bool
+	depends on !BUSYBOX_DMESG || ALLYES
+	prompt "dmesg"
+	help
+	  The dmesg utility.
+
+comment "BusyBox' dmesg is selected!"
+	depends on BUSYBOX_DMESG
+
 config UTIL_LINUX_NG_MOUNTPOINT
 	bool
 	select UTIL_LINUX_NG_LIBMOUNT
