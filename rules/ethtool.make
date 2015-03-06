@@ -25,6 +25,8 @@ ETHTOOL_URL	:= $(call ptx/mirror, KERNEL, ../software/network/ethtool/$(ETHTOOL)
 ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL).$(ETHTOOL_SUFFIX)
 ETHTOOL_DIR	:= $(BUILDDIR)/$(ETHTOOL)
 ETHTOOL_LICENSE := GPLv2
+ETHTOOL_LICENSE_FILES	:= \
+	file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263
 
 # ----------------------------------------------------------------------------
 # Prepare
