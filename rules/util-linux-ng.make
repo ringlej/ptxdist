@@ -205,6 +205,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSCK
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fsck)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_FSTRIM
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fstrim)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_IPCS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcs)
 endif

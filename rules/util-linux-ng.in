@@ -200,6 +200,18 @@ config UTIL_LINUX_NG_FSCK
 comment "BusyBox' fsck is selected!"
 	depends on BUSYBOX_FSCK
 
+config UTIL_LINUX_NG_FSTRIM
+	bool
+	prompt "fstrim"
+	depends on !BUSYBOX_FSTRIM || ALLYES
+	help
+	  fstrim is used on a mounted filesystem to discard (or "trim")
+	  blocks which are not in use by the filesystem. This is useful
+	  for solid-state drives (SSDs) and thinly-provisioned storage.
+
+comment "BusyBox' fstrim is selected!"
+	depends on BUSYBOX_FSTRIM
+
 config UTIL_LINUX_NG_IPCS
 	bool
 	prompt "ipcs"
