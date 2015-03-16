@@ -33,50 +33,24 @@ DROPBEAR_DIR		:= $(BUILDDIR)/$(DROPBEAR)
 #
 # autoconf
 #
-DROPBEAR_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_DROPBEAR_ZLIB
-DROPBEAR_AUTOCONF	+= --enable-zlib
-else
-DROPBEAR_AUTOCONF	+= --disable-zlib
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_OPENPTY
-DROPBEAR_AUTOCONF	+= --disable-openpty
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_SYSLOG
-DROPBEAR_AUTOCONF	+= --disable-syslog
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_LASTLOG
-DROPBEAR_AUTOCONF	+= --disable-lastlog
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_UTMP
-DROPBEAR_AUTOCONF	+= --disable-utmp
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_UTMPX
-DROPBEAR_AUTOCONF	+= --disable-utmpx
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_WTMP
-DROPBEAR_AUTOCONF	+= --disable-wtmp
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_WTMPX
-DROPBEAR_AUTOCONF	+= --disable-wtmpx
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_PUTUTLINE
-DROPBEAR_AUTOCONF	+= --disable-pututline
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_PUTUTXLINE
-DROPBEAR_AUTOCONF	+= --disable-pututxline
-endif
+DROPBEAR_CONF_TOOL	:= autoconf
+DROPBEAR_CONF_OPT 	:= \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_DROPBEAR_ZLIB)-zlib \
+	--disable-pam \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_OPENPTY)-openpty \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_SYSLOG)-syslog \
+	--enable-shadow \
+	--enable-bundled-libtom \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_LASTLOG)-lastlog \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_UTMP)-utmp \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_UTMPX)-utmpx \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_WTMP)-wtmp \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_WTMPX)-wtmpx \
+	--disable-loginfunc \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_PUTUTLINE)-pututline \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_PUTUTXLINE)-pututxline
 
 $(STATEDIR)/dropbear.prepare:
 	@$(call targetinfo)
