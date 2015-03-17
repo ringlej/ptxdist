@@ -54,7 +54,7 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-bzip2
 
 ifndef PTXCONF_ICONV
-GNUPG_AUTOCONF += --without-libiconv-prefix
+GNUPG_CONF_OPT += --without-libiconv-prefix
 endif
 
 # ----------------------------------------------------------------------------
