@@ -228,3 +228,10 @@ s/^PTXCONF_LIBUSB_DISABLE_LOG=y$/# PTXCONF_LIBUSB_LOG is not set/
 # reason : userspace tool replacement
 #
 s/^\(\(# \)\?PTXCONF_\)LOWPAN_TOOLS/\1WPAN_TOOLS/
+#
+# from   : ptxdist-2015.02.0
+# to     : ptxdist-2015.03.0
+# symbol : GNUPG	-> GNUPG + GNUPG_GPG
+# reason : gpg is now optional
+#
+s/^\(\(# \)\?PTXCONF_\)GNUPG\(.*\)$/\1GNUPG\3\n\1GNUPG_GPG\3/
