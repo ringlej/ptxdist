@@ -4,4 +4,6 @@
 0002-missing-add-BPF_XOR.patch
 0003-HACK-sd-pppoe-don-t-use-linux-ppp-ioctl.h.patch
 0004-missing-define-__NR_kcmp-if-necessary.patch
-# 1b735972288de4da9da21e7b9d2c64ca  - git-ptx-patches magic
+0005-HACK-missing.h-add-NDA_.patch
+0006-missing.h-add-more-btrfs-types-and-defines.patch
+# 915c3c6af6a1a32f140433f23b3a5e59  - git-ptx-patches magic
