@@ -255,8 +255,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-path)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
-	@$(call install_link, systemd, ../../lib/systemd/systemd-bus-proxyd, \
-		/usr/bin/systemd-stdio-bridge)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
 ifdef PTXCONF_SYSTEMD_TIMEDATE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/timedatectl)
 endif
