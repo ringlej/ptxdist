@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index dc6d760a8ecc..75590e1747d1 100755
+index ae41bf75b03f..56c53ec80fbb 100755
 --- a/Configure
 +++ b/Configure
 @@ -106,7 +106,7 @@ my $usage="Usage: Configure [no-<cipher> ...] [enable-<cipher> ...] [experimenta

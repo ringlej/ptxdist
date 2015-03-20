@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index c6b4b86c0764..22d307c1fbbd 100755
+index ad698c2255d2..ae41bf75b03f 100755
 --- a/Configure
 +++ b/Configure
 @@ -1733,7 +1733,8 @@ while (<IN>)
