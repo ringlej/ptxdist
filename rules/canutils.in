@@ -3,7 +3,6 @@
 menuconfig CANUTILS
 	tristate
 	prompt "canutils                      "
-	select KERNEL_HEADER
 	select LIBSOCKETCAN
 	help
 	  The canutils package contains tools to configure
