@@ -234,4 +234,7 @@ s/^\(\(# \)\?PTXCONF_\)LOWPAN_TOOLS/\1WPAN_TOOLS/
 # symbol : GNUPG	-> GNUPG + GNUPG_GPG
 # reason : gpg is now optional
 #
-s/^\(\(# \)\?PTXCONF_\)GNUPG\(.*\)$/\1GNUPG\3\n\1GNUPG_GPG\3/
+/^\(\(# \)\?PTXCONF_\)GNUPG\([^_]*$\)/N
+/^.*GNUPG.*GNUPG.*/p
+/^.*GNUPG.*GNUPG.*/d
+s/^\(\(# \)\?PTXCONF_\)GNUPG\([^\n]*\n\)\(.*\)$/\1GNUPG\3\1GNUPG_GPG\3\4/
