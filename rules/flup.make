@@ -23,7 +23,7 @@ FLUP_SUFFIX	:= tar.gz
 FLUP_URL	:= http://pypi.python.org/packages/source/f/flup/$(FLUP).$(FLUP_SUFFIX)
 FLUP_SOURCE	:= $(SRCDIR)/$(FLUP).$(FLUP_SUFFIX)
 FLUP_DIR	:= $(BUILDDIR)/$(FLUP)
-FLUP_LICENSE	:= unknown
+FLUP_LICENSE	:= BSD, MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
