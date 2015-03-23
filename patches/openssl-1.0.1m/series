@@ -16,4 +16,5 @@
 0013-openssl_fix_for_x32.patch
 #tag:ptx --start-number 100
 0100-Configure-don-t-ask-dpkg-buildflags-for-more-flags.patch
-# bd0249dc96222a82b38f57bf84e4d308  - git-ptx-patches magic
+0101-fix-parallel-building.patch
+# 749da0b29e8f2a4388fdb7d89f64ef3a  - git-ptx-patches magic

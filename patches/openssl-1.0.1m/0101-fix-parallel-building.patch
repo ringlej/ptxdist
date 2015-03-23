@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 23 Mar 2015 09:29:05 +0100
+Subject: [PATCH] fix parallel building
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.org | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.org b/Makefile.org
+index 5117a0ef9c0b..49454d6cb899 100644
+--- a/Makefile.org
++++ b/Makefile.org
+@@ -278,11 +278,11 @@ build_ssl:
+ 	@dir=ssl; target=all; $(BUILD_ONE_CMD)
+ build_engines:
+ 	@dir=engines; target=all; $(BUILD_ONE_CMD)
+-build_apps:
++build_apps: build_libs
+ 	@dir=apps; target=all; $(BUILD_ONE_CMD)
+-build_tests:
++build_tests: build_libs
+ 	@dir=test; target=all; $(BUILD_ONE_CMD)
+-build_tools:
++build_tools: build_libs
+ 	@dir=tools; target=all; $(BUILD_ONE_CMD)
+ 
+ all_testapps: build_libs build_testapps

@@ -32,7 +32,6 @@ OPENSSL_LICENSE	:= openssl
 # ----------------------------------------------------------------------------
 
 OPENSSL_CONF_ENV	:= $(CROSS_ENV)
-OPENSSL_MAKE_PAR	:= NO
 
 OPENSSL_ARCH-$(PTXCONF_ARCH_X86_I386)	+= debian-i386
 OPENSSL_ARCH-$(PTXCONF_ARCH_X86_I486)	+= debian-i386-i486
