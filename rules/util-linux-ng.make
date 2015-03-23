@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.26
-UTIL_LINUX_NG_MD5	:= 912c550a4e5c47c0ce9abd0733fa9a64
+UTIL_LINUX_NG_VERSION	:= 2.26.1
+UTIL_LINUX_NG_MD5	:= 2308850946766677f3fabe0685e85de8
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(UTIL_LINUX_NG_VERSION)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(basename $(UTIL_LINUX_NG_VERSION))/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
@@ -122,6 +122,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-sulogin-emergency-mount \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
+	--disable-colors-default \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--without-selinux \
