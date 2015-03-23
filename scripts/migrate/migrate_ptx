@@ -228,6 +228,7 @@ s/^PTXCONF_LIBUSB_DISABLE_LOG=y$/# PTXCONF_LIBUSB_LOG is not set/
 # reason : userspace tool replacement
 #
 s/^\(\(# \)\?PTXCONF_\)LOWPAN_TOOLS/\1WPAN_TOOLS/
+
 #
 # from   : ptxdist-2015.02.0
 # to     : ptxdist-2015.03.0
@@ -238,3 +239,11 @@ s/^\(\(# \)\?PTXCONF_\)LOWPAN_TOOLS/\1WPAN_TOOLS/
 /^.*GNUPG.*GNUPG.*/p
 /^.*GNUPG.*GNUPG.*/d
 s/^\(\(# \)\?PTXCONF_\)GNUPG\([^\n]*\n\)\(.*\)$/\1GNUPG\3\1GNUPG_GPG\3\4/
+
+#
+# from   : ptxdist-2015.02.0
+# to     : ptxdist-2015.03.0
+# symbol : HACKBENCH -> RT_TESTS_HACKBENCH
+# reason : old tool obsolete, new version is from rt-tests
+#
+s/^\(\(# \)\?PTXCONF_\)HACKBENCH\(.*\)$/\1RT_TESTS\3\n\1RT_TESTS_HACKBENCH\3/
