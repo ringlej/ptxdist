@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_OPENSSL) += openssl
 #
 # Paths and names
 #
-OPENSSL_VERSION	:= 1.0.1k
-OPENSSL_MD5	:= d4f002bd22a56881340105028842ae1f
+OPENSSL_VERSION	:= 1.0.1m
+OPENSSL_MD5	:= d143d1555d842a069cb7cc34ba745a06
 OPENSSL		:= openssl-$(OPENSSL_VERSION)
 OPENSSL_SUFFIX	:= tar.gz
 OPENSSL_URL	:= http://www.openssl.org/source/$(OPENSSL).$(OPENSSL_SUFFIX)
@@ -44,6 +44,7 @@ OPENSSL_ARCH-$(PTXCONF_ARCH_X86_64)	+= debian-amd64
 OPENSSL_ARCH-$(PTXCONF_ARCH_M68K)	+= debian-m68k
 OPENSSL_ARCH-$(PTXCONF_ARCH_PPC)	+= debian-powerpc
 OPENSSL_ARCH-$(PTXCONF_ARCH_SPARC)	+= debian-sparc
+OPENSSL_ARCH-$(PTXCONF_ARCH_ARM64)	+= debian-arm64
 
 ifdef PTXCONF_ENDIAN_LITTLE
 OPENSSL_ARCH-$(PTXCONF_ARCH_ARM)	+= debian-armel
@@ -100,6 +101,10 @@ ifdef PTXCONF_OPENSSL_BIN
 	@$(call install_copy, openssl, 0, 0, 0755, -, \
 		/usr/bin/openssl)
 endif
+
+	@$(call install_alternative, openssl, 0, 0, 0644, \
+		/usr/lib/ssl/openssl.cnf)
+
 	@$(call install_lib, openssl, 0, 0, 0644, libssl)
 	@$(call install_lib, openssl, 0, 0, 0644, libcrypto)
 

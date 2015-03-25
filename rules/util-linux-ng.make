@@ -17,14 +17,19 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.25
-UTIL_LINUX_NG_MD5	:= 4c78fdef4cb882caafad61e33cafbc14
+UTIL_LINUX_NG_VERSION	:= 2.26
+UTIL_LINUX_NG_MD5	:= 912c550a4e5c47c0ce9abd0733fa9a64
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
 UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(UTIL_LINUX_NG_VERSION)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
+UTIL_LINUX_NG_LICENSE_FILES := \
+	file://Documentation/licenses/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+	file://Documentation/licenses/COPYING.BSD-3;md5=58dcd8452651fc8b07d1f65ce07ca8af \
+	file://Documentation/licenses/COPYING.UCB;md5=263860f8968d8bafa5392cab74285262 \
+	file://Documentation/licenses/COPYING.LGPLv2.1;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -57,9 +62,12 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
+	--enable-libmount-force-mountinfo \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBSMARTCOLS)-libsmartcols \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBFDISK)-libfdisk \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNT)-mount \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LOSETUP)-losetup \
+	--disable-zramctl \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
@@ -153,12 +161,18 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_LIBSMARTCOLS
 	@$(call install_lib, util-linux-ng, 0, 0, 0644, libsmartcols)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_LIBFDISK
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libfdisk)
+endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_COLUMN
 	@$(call install_copy, util-linux-ng, root, root, 0755, -, /usr/bin/column)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_LINE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/line)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_DMESG
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/dmesg)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mountpoint)
@@ -193,6 +207,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_UMOUNT
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSCK
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fsck)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_FSTRIM
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fstrim)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_IPCS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcs)

@@ -8,6 +8,7 @@ config FREEGLUT
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	select XORG_LIB_XXF86VM
+	select XORG_LIB_XRANDR
 	prompt "freeglut"
 	help
 	  freeglut is a completely OpenSourced alternative to

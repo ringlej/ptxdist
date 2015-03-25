@@ -232,6 +232,11 @@ ptxd_make_world_init() {
     pkg_fake_env="${ptx_state_dir}/${pkg_label}.fakeroot"
 
     #
+    # license dir
+    #
+    pkg_license_dir="${ptx_state_dir}/report/${pkg_label}"
+
+    #
     # path
     #
     local path_ptr="ptx_path_${pkg_type}"

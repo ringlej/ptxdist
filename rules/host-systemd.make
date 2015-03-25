@@ -38,9 +38,11 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-undefined-sanitizer \
 	--disable-python-devel \
 	--disable-dbus \
+	--disable-utmp \
 	--disable-compat-libs \
 	--disable-coverage \
 	--disable-kmod \
+	--disable-xkbcommon \
 	--disable-blkid \
 	--disable-seccomp \
 	--disable-ima \
@@ -48,6 +50,9 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-selinux \
 	--disable-apparmor \
 	--disable-xz \
+	--disable-zlib \
+	--enable-bzip2 \
+	--disable-lz4 \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
@@ -58,17 +63,22 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-qrencode \
 	--disable-microhttpd \
 	--disable-gnutls \
+	--disable-libcurl \
+	--disable-libidn \
+	--disable-libiptc \
 	--disable-binfmt \
 	--disable-vconsole \
 	--disable-bootchart \
 	--disable-quotacheck \
 	--disable-tmpfiles \
 	--disable-sysusers \
+	--disable-firstboot \
 	--disable-randomseed \
 	--disable-backlight \
 	--disable-rfkill \
 	--disable-logind \
 	--disable-machined \
+	--disable-importd \
 	--disable-hostnamed \
 	--disable-timedated \
 	--disable-timesyncd \
@@ -78,12 +88,17 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-resolved \
 	--disable-networkd \
 	--disable-efi \
+	--disable-terminal \
 	--disable-kdbus \
 	--disable-myhostname \
 	--disable-gudev \
+	--enable-hwdb \
 	--disable-manpages \
+	--disable-hibernate \
+	--disable-ldconfig \
 	--enable-split-usr \
 	--disable-tests \
+	--disable-debug \
 	--without-python \
 	--with-ntp-servers= \
 	--with-dns-servers= \

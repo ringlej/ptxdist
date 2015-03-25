@@ -23,7 +23,12 @@ XZ_SUFFIX	:= tar.bz2
 XZ_URL		:= http://tukaani.org/xz/$(XZ).$(XZ_SUFFIX)
 XZ_SOURCE	:= $(SRCDIR)/$(XZ).$(XZ_SUFFIX)
 XZ_DIR		:= $(BUILDDIR)/$(XZ)
-XZ_LICENSE	:= unknown
+XZ_LICENSE	:= public_domain, LGPLv2.1+, GPLv2+, GPLv3+
+XZ_LICENSE_FILES := \
+	file://COPYING;md5=c475b6c7dca236740ace4bba553e8e1c \
+	file://COPYING.GPLv2;md5=751419260aa954499f7abaabaa882bbe \
+	file://COPYING.GPLv3;md5=d32239bcb673463ab874e80d47fae504 \
+	file://COPYING.LGPLv2.1;md5=fbc093901857fcd118f065f900982c24
 
 # ----------------------------------------------------------------------------
 # Prepare

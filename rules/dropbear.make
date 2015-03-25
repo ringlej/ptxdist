@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 #
 # Paths and names
 #
-DROPBEAR_VERSION	:= 2014.65
-DROPBEAR_MD5		:= 1918604238817385a156840fa2c39490
+DROPBEAR_VERSION	:= 2015.67
+DROPBEAR_MD5		:= e967e320344cd4bfebe321e3ab8514d6
 DROPBEAR		:= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX		:= tar.bz2
 DROPBEAR_URL		:= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
@@ -33,50 +33,24 @@ DROPBEAR_DIR		:= $(BUILDDIR)/$(DROPBEAR)
 #
 # autoconf
 #
-DROPBEAR_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_DROPBEAR_ZLIB
-DROPBEAR_AUTOCONF	+= --enable-zlib
-else
-DROPBEAR_AUTOCONF	+= --disable-zlib
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_OPENPTY
-DROPBEAR_AUTOCONF	+= --disable-openpty
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_SYSLOG
-DROPBEAR_AUTOCONF	+= --disable-syslog
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_LASTLOG
-DROPBEAR_AUTOCONF	+= --disable-lastlog
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_UTMP
-DROPBEAR_AUTOCONF	+= --disable-utmp
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_UTMPX
-DROPBEAR_AUTOCONF	+= --disable-utmpx
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_WTMP
-DROPBEAR_AUTOCONF	+= --disable-wtmp
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_WTMPX
-DROPBEAR_AUTOCONF	+= --disable-wtmpx
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_PUTUTLINE
-DROPBEAR_AUTOCONF	+= --disable-pututline
-endif
-
-ifdef PTXCONF_DROPBEAR_DIS_PUTUTXLINE
-DROPBEAR_AUTOCONF	+= --disable-pututxline
-endif
+DROPBEAR_CONF_TOOL	:= autoconf
+DROPBEAR_CONF_OPT 	:= \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_DROPBEAR_ZLIB)-zlib \
+	--disable-pam \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_OPENPTY)-openpty \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_SYSLOG)-syslog \
+	--enable-shadow \
+	--enable-bundled-libtom \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_LASTLOG)-lastlog \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_UTMP)-utmp \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_UTMPX)-utmpx \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_WTMP)-wtmp \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_WTMPX)-wtmpx \
+	--disable-loginfunc \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_PUTUTLINE)-pututline \
+	--$(call ptx/disen, PTXCONF_DROPBEAR_DIS_PUTUTXLINE)-pututxline
 
 $(STATEDIR)/dropbear.prepare:
 	@$(call targetinfo)
@@ -163,7 +137,21 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128)
 endif
 
+ifdef PTXCONF_DROPBEAR_CBC_CIPHERS
+	@echo "ptxdist: enabling cbc ciphers"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CBC_MODE)
+else
+	@echo "ptxdist: disabling cbc ciphers"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CBC_MODE)
+endif
 
+ifdef PTXCONF_DROPBEAR_CTR_CIPHERS
+	@echo "ptxdist: enabling ctr ciphers"
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CTR_MODE)
+else
+	@echo "ptxdist: disabling ctr ciphers"
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_ENABLE_CTR_MODE)
+endif
 
 ifdef PTXCONF_DROPBEAR_SHA1
 	@echo "ptxdist: enabling sha1"

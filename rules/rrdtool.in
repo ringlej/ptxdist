@@ -3,12 +3,13 @@
 menuconfig RRDTOOL
 	tristate
 	select GLIB
-	select CAIRO
-	select CAIRO_SVG
-	select CAIRO_PDF
-	select CAIRO_PS
-	select PANGO
+	select CAIRO		if RRDTOOL_RRD_GRAPH
+	select CAIRO_SVG	if RRDTOOL_RRD_GRAPH
+	select CAIRO_PDF	if RRDTOOL_RRD_GRAPH
+	select CAIRO_PS		if RRDTOOL_RRD_GRAPH
+	select PANGO		if RRDTOOL_RRD_GRAPH
 	select LIBXML2
+	select LIBXML2_SAX1
 # for autotools only
 	select HOST_GETTEXT
 	prompt "rrdtool                       "
@@ -33,11 +34,18 @@ config RRDTOOL_RRDCACHED
 
 config RRDTOOL_RRDCGI
 	bool
+	depends on RRDTOOL_RRD_GRAPH
 	prompt "install rrdcgi"
 	help
 	  rrdcgi is a sort of very limited script interpreter. Its
 	  purpose is to run as a cgi-program and parse a web page
 	  template containing special <RRD:: tags.
+
+config RRDTOOL_RRD_GRAPH
+	bool
+	prompt "install rrd_graph"
+	help
+	  Enable all rrd_graph functions.
 
 config RRDTOOL_RRDTOOL
 	bool

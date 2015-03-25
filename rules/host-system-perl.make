@@ -12,6 +12,7 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_HOST_SYSTEM_PERL) += host-system-perl
+HOST_SYSTEM_PERL_LICENSE = ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

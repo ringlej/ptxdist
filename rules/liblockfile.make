@@ -26,6 +26,7 @@ LIBLOCKFILE_URL		:= $(call ptx/mirror, DEB, pool/main/libl/liblockfile/$(LIBLOCK
 LIBLOCKFILE_SOURCE	:= $(SRCDIR)/$(LIBLOCKFILE_TARBALL)
 LIBLOCKFILE_DIR		:= $(BUILDDIR)/liblockfile-$(LIBLOCKFILE_VERSION)
 LIBLOCKFILE_LICENSE	:= GPLv2+, LGPLv2+
+LIBLOCKFILE_LICENSE_FILES := file://COPYRIGHT;md5=35127b30003a121544b5d13a2ac868b6
 
 # ----------------------------------------------------------------------------
 # Prepare

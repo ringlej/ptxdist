@@ -23,6 +23,9 @@ TCPWRAPPER			:= tcp_wrappers_$(TCPWRAPPER_VERSION)
 TCPWRAPPER_URL			:= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_SOURCE		:= $(SRCDIR)/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_DIR			:= $(BUILDDIR)/$(TCPWRAPPER)
+# Regents of the University of California + Wietse Venema
+TCPWRAPPER_LICENSE		:= DISCLAIMER
+TCPWRAPPER_LICENSE_FILES	:= file://DISCLAIMER;md5=071bd69cb78b18888ea5e3da5c3127fa
 
 # ----------------------------------------------------------------------------
 # Compile

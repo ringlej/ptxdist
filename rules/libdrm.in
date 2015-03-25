@@ -46,6 +46,10 @@ config LIBDRM_FREEDRENO
 	bool
 	prompt "freedreno KMS support"
 
+config LIBDRM_TEGRA
+	bool
+	prompt "tegra KMS support"
+
 config LIBDRM_TESTS
 	bool
 	prompt "install test programs"

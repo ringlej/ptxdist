@@ -13,7 +13,7 @@ test -f /etc/default/avahi-daemon && . /etc/default/avahi-daemon
 
 start_proc(){
 $BINARY -c && return 0
-$BINARY -D
+$BINARY $OPTIONS
 case $? in
 	0)
 	echo " [+] (avahi-daemon)"

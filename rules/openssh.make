@@ -26,7 +26,8 @@ OPENSSH_URL	:= \
 	http://ftp.halifax.rwth-aachen.de/openbsd/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
-OPENSSH_LICENSE	:= BSD
+OPENSSH_LICENSE	:= BSD, 2-term BSD, 3-term BSD, MIT, THE BEER-WARE LICENSE
+OPENSSH_LICENSE_FILES := file://LICENCE;md5=e326045657e842541d3f35aada442507
 
 # ----------------------------------------------------------------------------
 # Prepare

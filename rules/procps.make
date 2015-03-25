@@ -26,6 +26,9 @@ PROCPS_URL	:= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_SOURCE	:= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
 PROCPS_LICENSE	:= GPLv2 (tools), LGPLv2 (libs)
+PROCPS_LICENSE_FILES := \
+	file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
+	file://COPYING.LIB;md5=6e29c688d912da12b66b73e32b03d812
 
 # ----------------------------------------------------------------------------
 # Prepare

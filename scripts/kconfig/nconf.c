@@ -1545,4 +1545,3 @@ int main(int ac, char **av)
 	endwin();
 	return 0;
 }
-

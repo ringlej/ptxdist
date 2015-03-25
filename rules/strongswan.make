@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_STRONGSWAN) += strongswan
 #
 # Paths and names
 #
-STRONGSWAN_VERSION	:= 5.1.3
-STRONGSWAN_MD5		:= 1d1c108775242743cd8699215b2918c3
+STRONGSWAN_VERSION	:= 5.2.2
+STRONGSWAN_MD5		:= 7ee1a33060b2bde35be0f6d78a1d26d0
 STRONGSWAN		:= strongswan-$(STRONGSWAN_VERSION)
 STRONGSWAN_SUFFIX	:= tar.bz2
 STRONGSWAN_URL		:= http://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
@@ -125,7 +125,6 @@ STRONGSWAN_CONF_OPT	:= \
 	--enable-kernel-netlink \
 	--disable-kernel-pfkey \
 	--disable-kernel-pfroute \
-	--disable-kernel-klips \
 	--disable-kernel-libipsec \
 	--disable-libipsec \
 	--enable-socket-default \
@@ -141,7 +140,8 @@ STRONGSWAN_CONF_OPT	:= \
 	--enable-ikev2 \
 	--enable-charon \
 	--disable-cmd \
-	--enable-tools \
+	--enable-pki \
+	--enable-scepclient \
 	--enable-scripts \
 	--disable-conftest \
 	--enable-updown \

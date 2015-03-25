@@ -16,15 +16,15 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 18
-LIBKMOD_MD5	:= 82835c7f01983634e06ca72b4ee30cc6
+LIBKMOD_VERSION	:= 20
+LIBKMOD_MD5	:= d6f4fef718a50bd88080de6a43bc64d8
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX))
 LIBKMOD_SOURCE	:= $(SRCDIR)/$(LIBKMOD).$(LIBKMOD_SUFFIX)
 LIBKMOD_DIR	:= $(BUILDDIR)/$(LIBKMOD)
 # note: library: LGPLv2, tools: GPLv2
-LIBKMOD_LICENSE	:= GPLv2/LGPLv2
+LIBKMOD_LICENSE	:= GPLv2, LGPLv2
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,6 +41,7 @@ LIBKMOD_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug \
 	--disable-python \
+	--disable-coverage \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_RC_ONCE) += rc-once
 # Paths and names
 #
 RC_ONCE_VERSION	:= 1.0.0
+RC_ONCE_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

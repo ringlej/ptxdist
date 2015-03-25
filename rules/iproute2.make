@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 3.14.0
-IPROUTE2_MD5		:= bd9d7567bbb987c88120669f5e1a1092
+IPROUTE2_VERSION	:= 3.18.0
+IPROUTE2_MD5		:= 6f6ad51a00007880460e103367b16057
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.xz
 IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
@@ -93,13 +93,13 @@ ifdef PTXCONF_IPROUTE2_TC
 	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/experimental.dist)
 endif
 
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/ematch_map)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_dsfield)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_protos)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_realms)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_scopes)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/rt_tables)
-	@$(call install_copy, iproute2, 0, 0, 0644, -, /etc/iproute2/group)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/ematch_map)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_dsfield)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_protos)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_realms)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_scopes)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_tables)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/group)
 
 	@$(call install_finish, iproute2)
 

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBLZO) += liblzo
 #
 # Paths and names
 #
-LIBLZO_VERSION	:= 2.03
-LIBLZO_MD5	:= 0c3d078c2e8ea5a88971089a2f02a726
+LIBLZO_VERSION	:= 2.08
+LIBLZO_MD5	:= fcec64c26a0f4f4901468f360029678f
 LIBLZO		:= lzo-$(LIBLZO_VERSION)
 LIBLZO_SUFFIX	:= tar.gz
 LIBLZO_URL	:= http://www.oberhumer.com/opensource/lzo/download/$(LIBLZO).$(LIBLZO_SUFFIX)
@@ -38,8 +38,8 @@ LIBLZO_ENV 	:= $(CROSS_ENV)
 #
 LIBLZO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_LIBLZO_SHARED)-shared \
-	--$(call ptx/endis, PTXCONF_LIBLZO_STATIC)-static
+	--enable-shared \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -54,9 +54,8 @@ $(STATEDIR)/liblzo.targetinstall:
 	@$(call install_fixup, liblzo,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
 	@$(call install_fixup, liblzo,DESCRIPTION,missing)
 
-ifdef PTXCONF_LIBLZO_SHARED
 	@$(call install_lib, liblzo, 0, 0, 0644, liblzo2)
-endif
+
 	@$(call install_finish, liblzo)
 
 	@$(call touch)

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.5.0
-MTD_UTILS_MD5		:= 7332f1143be4ba8ee2de3096cbd3b03b
+MTD_UTILS_VERSION	:= 1.5.1
+MTD_UTILS_MD5		:= 4ad1f758d49615efe14edb107eddac5c
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
@@ -30,8 +30,9 @@ MTD_UTILS_LICENSE	:= GPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
-MTD_UTILS_PATH		:= PATH=$(CROSS_PATH)
-MTD_UTILS_COMPILE_ENV 	:= \
+MTD_UTILS_CONF_TOOL	:= NO
+
+MTD_UTILS_COMPILE_ENV	:= \
 	$(CROSS_ENV) \
 	CROSS="$(COMPILER_PREFIX)" \
 	WITHOUT_XATTR=1
@@ -44,11 +45,8 @@ ifndef PTXCONF_MTD_UTILS_MKFS_UBIFS
 MTD_UTILS_COMPILE_ENV += WITHOUT_MKUBIFS=1
 endif
 
-MTD_UTILS_MAKEVARS := BUILDDIR=$(MTD_UTILS_DIR)
-
-$(STATEDIR)/mtd-utils.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+MTD_UTILS_COMPILE_OPT	:= \
+	BUILDDIR=$(MTD_UTILS_DIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

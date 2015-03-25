@@ -1,0 +1,131 @@
+From: Kurt Roeckx <kurt@roeckx.be>
+Date: Fri, 1 Nov 2013 20:47:14 +0100
+Subject: [PATCH] Change default bit size and digest
+
+Imported from openssl_1.0.1k-1.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ apps/dhparam.c         | 4 ++--
+ apps/gendh.c           | 2 +-
+ apps/genrsa.c          | 2 +-
+ apps/openssl.cnf       | 2 +-
+ crypto/dsa/dsa_ameth.c | 2 +-
+ crypto/ec/ec_ameth.c   | 2 +-
+ crypto/hmac/hm_ameth.c | 2 +-
+ crypto/rsa/rsa_ameth.c | 2 +-
+ 8 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/apps/dhparam.c b/apps/dhparam.c
+index f86311c28fd3..d3b6d58ad2e5 100644
+--- a/apps/dhparam.c
++++ b/apps/dhparam.c
+@@ -130,7 +130,7 @@
+ # undef PROG
+ # define PROG    dhparam_main
+ 
+-# define DEFBITS 512
++# define DEFBITS 2048
+ 
+ /*-
+  * -inform arg  - input format - default PEM (DER or PEM)
+@@ -254,7 +254,7 @@ int MAIN(int argc, char **argv)
+         BIO_printf(bio_err,
+                    " -5            generate parameters using  5 as the generator value\n");
+         BIO_printf(bio_err,
+-                   " numbits       number of bits in to generate (default 512)\n");
++                   " numbits       number of bits in to generate (default 2048)\n");
+ # ifndef OPENSSL_NO_ENGINE
+         BIO_printf(bio_err,
+                    " -engine e     use engine e, possibly a hardware device.\n");
+diff --git a/apps/gendh.c b/apps/gendh.c
+index adaa101783df..fef6f1b1774d 100644
+--- a/apps/gendh.c
++++ b/apps/gendh.c
+@@ -80,7 +80,7 @@
+ # include <openssl/x509.h>
+ # include <openssl/pem.h>
+ 
+-# define DEFBITS 512
++# define DEFBITS 2048
+ # undef PROG
+ # define PROG gendh_main
+ 
+diff --git a/apps/genrsa.c b/apps/genrsa.c
+index 2eabadcc6b28..91e6550a5767 100644
+--- a/apps/genrsa.c
++++ b/apps/genrsa.c
+@@ -80,7 +80,7 @@
+ # include <openssl/pem.h>
+ # include <openssl/rand.h>
+ 
+-# define DEFBITS 1024
++# define DEFBITS 2048
+ # undef PROG
+ # define PROG genrsa_main
+ 
+diff --git a/apps/openssl.cnf b/apps/openssl.cnf
+index 18760c6e673d..1eb86c401263 100644
+--- a/apps/openssl.cnf
++++ b/apps/openssl.cnf
+@@ -103,7 +103,7 @@ emailAddress		= optional
+ 
+ ####################################################################
+ [ req ]
+-default_bits		= 1024
++default_bits		= 2048
+ default_keyfile 	= privkey.pem
+ distinguished_name	= req_distinguished_name
+ attributes		= req_attributes
+diff --git a/crypto/dsa/dsa_ameth.c b/crypto/dsa/dsa_ameth.c
+index a2840eaed095..7560c5d6145c 100644
+--- a/crypto/dsa/dsa_ameth.c
++++ b/crypto/dsa/dsa_ameth.c
+@@ -604,7 +604,7 @@ static int dsa_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
+ #endif
+ 
+     case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
+-        *(int *)arg2 = NID_sha1;
++        *(int *)arg2 = NID_sha256;
+         return 2;
+ 
+     default:
+diff --git a/crypto/ec/ec_ameth.c b/crypto/ec/ec_ameth.c
+index 5cefb5ad303a..b76c0211430d 100644
+--- a/crypto/ec/ec_ameth.c
++++ b/crypto/ec/ec_ameth.c
+@@ -583,7 +583,7 @@ static int ec_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
+ #endif
+ 
+     case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
+-        *(int *)arg2 = NID_sha1;
++        *(int *)arg2 = NID_sha256;
+         return 2;
+ 
+     default:
+diff --git a/crypto/hmac/hm_ameth.c b/crypto/hmac/hm_ameth.c
+index 641c797ef1d5..29b2b5dffcf7 100644
+--- a/crypto/hmac/hm_ameth.c
++++ b/crypto/hmac/hm_ameth.c
+@@ -87,7 +87,7 @@ static int hmac_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
+ {
+     switch (op) {
+     case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
+-        *(int *)arg2 = NID_sha1;
++        *(int *)arg2 = NID_sha256;
+         return 1;
+ 
+     default:
+diff --git a/crypto/rsa/rsa_ameth.c b/crypto/rsa/rsa_ameth.c
+index 93e071de75e2..a42ddc127524 100644
+--- a/crypto/rsa/rsa_ameth.c
++++ b/crypto/rsa/rsa_ameth.c
+@@ -411,7 +411,7 @@ static int rsa_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2)
+ #endif
+ 
+     case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
+-        *(int *)arg2 = NID_sha1;
++        *(int *)arg2 = NID_sha256;
+         return 1;
+ 
+     default:

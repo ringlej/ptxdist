@@ -203,13 +203,27 @@ config DROPBEAR_TWOFISH256
 	  bijective f function made by four key-dependent
 	  8x8-bit S-boxes.
 
+config DROPBEAR_CBC_CIPHERS
+	bool
+	prompt "CBC mode ciphers"
+	help
+	  Enable CBC mode for ciphers. This has security issues though
+	  is the most compatible with older SSH implementations.
+
+config DROPBEAR_CTR_CIPHERS
+	bool
+	prompt "Counter mode ciphers"
+	default y
+	help
+	  Enable "Counter Mode" for ciphers. This is more secure than normal
+	  CBC mode against certain attacks. This adds around 1kB to binary
+	  size and is recommended for most cases.
 
 comment "Integrity, at least one required --- RFC Draft requires sha1-hmac and recommends sha1-96"
 
 config DROPBEAR_SHA1
 	bool
 	prompt "sha1"
-	default y
 	help
 	  The Secure Hash Algorithm (SHA) was developed by NIST and
 	  is specified in the Secure Hash Standard (SHS, FIPS 180).
@@ -222,7 +236,6 @@ config DROPBEAR_SHA1
 config DROPBEAR_SHA1_96
 	bool
 	prompt "sha1-96"
-	default y
 	help
 	  The Secure Hash Algorithm (SHA) was developed by NIST and
 	  is specified in the Secure Hash Standard (SHS, FIPS 180).
@@ -235,6 +248,7 @@ config DROPBEAR_SHA1_96
 config DROPBEAR_SHA256
 	bool
 	prompt "sha256"
+	default y
 	help
 	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
 	  SHA-384, SHA-512) designed by the National Security Agency (NSA)
@@ -247,6 +261,7 @@ config DROPBEAR_SHA256
 config DROPBEAR_SHA512
 	bool
 	prompt "sha512"
+	default y
 	help
 	  SHA-2 is a set of cryptographic hash functions (SHA-224, SHA-256,
 	  SHA-384, SHA-512) designed by the National Security Agency (NSA)

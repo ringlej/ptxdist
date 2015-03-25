@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WPAN_TOOLS) += wpan-tools
 #
 # Paths and names
 #
-WPAN_TOOLS_VERSION	:= 0.3
-WPAN_TOOLS_MD5		:= 7b79a68b4529f6f3913f9e2ae19edb65
+WPAN_TOOLS_VERSION	:= 0.4
+WPAN_TOOLS_MD5		:= 7dec36cec484cf4cbfb717536bd7aa83
 WPAN_TOOLS		:= wpan-tools-$(WPAN_TOOLS_VERSION)
 WPAN_TOOLS_SUFFIX	:= tar.gz
 WPAN_TOOLS_URL		:= http://wpan.cakelab.org/releases/$(WPAN_TOOLS).$(WPAN_TOOLS_SUFFIX)

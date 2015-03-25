@@ -3,7 +3,7 @@
 config USB_MODESWITCH
 	tristate
 	prompt "usb-modeswitch"
-	select LIBUSB_COMPAT
+	select LIBUSB
 	help
 	  Activating switchable USB devices on Linux.
 

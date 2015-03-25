@@ -54,7 +54,7 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-bzip2
 
 ifndef PTXCONF_ICONV
-GNUPG_AUTOCONF += --without-libiconv-prefix
+GNUPG_CONF_OPT += --without-libiconv-prefix
 endif
 
 # ----------------------------------------------------------------------------
@@ -70,8 +70,13 @@ $(STATEDIR)/gnupg.targetinstall:
 	@$(call install_fixup, gnupg,AUTHOR,"Jiri Nesladek <nesladek@2n.cz>")
 	@$(call install_fixup, gnupg,DESCRIPTION,missing)
 
+ifdef PTXCONF_GNUPG_GPG
 	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg2)
 	@$(call install_link, gnupg, gpg2, /usr/bin/gpg)
+endif
+ifdef PTXCONF_GNUPG_GPGV
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpgv2)
+endif
 
 	@$(call install_finish, gnupg)
 

@@ -23,6 +23,7 @@ HOST_M4_SUFFIX	:= tar.xz
 HOST_M4_URL	:= http://ftp.gnu.org/gnu/m4/$(HOST_M4).$(HOST_M4_SUFFIX)
 HOST_M4_SOURCE	:= $(SRCDIR)/$(HOST_M4).$(HOST_M4_SUFFIX)
 HOST_M4_DIR	:= $(HOST_BUILDDIR)/$(HOST_M4)
+HOST_M4_LICENSE	:= GPLv3
 
 # ----------------------------------------------------------------------------
 # Prepare

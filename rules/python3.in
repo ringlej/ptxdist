@@ -60,3 +60,7 @@ config PYTHON3_DISTUTILS
 	prompt "Include distutils packages"
 
 endif
+
+menu "python3 Extra Modules         "
+source "generated/python3.in"
+endmenu

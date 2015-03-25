@@ -25,6 +25,7 @@ DOSFSTOOLS_SRC		:= $(DOSFSTOOLS).$(DOSFSTOOLS_SUFFIX)
 DOSFSTOOLS_URL		:= http://www.daniel-baumann.ch/files/software/dosfstools/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SOURCE	:= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		:= $(BUILDDIR)/$(DOSFSTOOLS)
+DOSFSTOOLS_LICENSE	:= GPLv3
 
 # ----------------------------------------------------------------------------
 # Prepare (nothing to be done here)

@@ -73,7 +73,7 @@ FNR == 1 {
 #
 # add the prefix to a suspicious line
 #
-/^[[:space:]]*(config|select|default|if|depends)[[:space:]]+/ {
+/^[[:space:]]*(config|select|default|range|if|depends)[[:space:]]+/ {
 	$0 = add_prefix($0);
 }
 
@@ -116,7 +116,7 @@ function add_prefix(IN,    in_match) {
 #                              |
 #                         in_match[4]
 
-	match(IN, /^([[:space:]]*(config|select|default|if|depends([[:space:]]+on)?)[[:space:]]+)((")?[^"#]*(")?)(#.*)?/, in_match);
+	match(IN, /^([[:space:]]*(config|select|default|if|range|depends([[:space:]]+on)?)[[:space:]]+)((")?[^"#]*(")?)(#.*)?/, in_match);
 
 	# don't convert things wrapped in ""
 	if (in_match[5] ~ /"/) {

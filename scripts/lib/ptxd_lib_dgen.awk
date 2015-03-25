@@ -233,6 +233,9 @@ function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
 		print this_PKG "_URL = $(" target_PKG "_URL)"		> DGEN_DEPS_PRE;
 		print this_PKG "_DIR = $(addprefix $(" PREFIX \
 			"BUILDDIR)/,$(" target_PKG "))"			> DGEN_DEPS_PRE;
+		print this_PKG "_LICENSE = $(" target_PKG "_LICENSE)"	> DGEN_DEPS_PRE;
+		print this_PKG "_LICENSE_FILES = $(" target_PKG \
+			"_LICENSE_FILES)"				> DGEN_DEPS_PRE;
 	}
 }
 
@@ -272,6 +275,7 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 		print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
 	}
+	print "$(STATEDIR)/" this_pkg ".report: "                     "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 
 	#
 	# conditional dependencies

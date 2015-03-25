@@ -14,6 +14,7 @@
 PACKAGES-$(PTXCONF_MACHINE_ID) += machine-id
 
 MACHINE_ID_VERSION	:= 1
+MACHINE_ID_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

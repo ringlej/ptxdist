@@ -84,6 +84,7 @@ endchoice
 config KERNEL_ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM
+	default "arm64"			if ARCH_ARM64
 	default "armnommu"		if ARCH_ARM && !HAS_MMU
 	default "alpha"			if ARCH_ALPHA
 	default "avr32"			if ARCH_AVR32
@@ -192,6 +193,7 @@ endif
 config KERNEL_IMAGE
 	string
 	default "bzImage" if KERNEL_IMAGE_BZ
+	default "Image.gz"  if KERNEL_IMAGE_Z && ARCH_ARM64
 	default "zImage"  if KERNEL_IMAGE_Z
 	default "xipImage" if KERNEL_IMAGE_XIP
 	default "uImage"  if KERNEL_IMAGE_U

@@ -23,7 +23,11 @@ RSYSLOG_SUFFIX	:= tar.gz
 RSYSLOG_URL	:= http://www.rsyslog.com/files/download/rsyslog/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_SOURCE	:= $(SRCDIR)/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_DIR	:= $(BUILDDIR)/$(RSYSLOG)
-RSYSLOG_LICENSE	:= GPLv3, LGPLv3
+RSYSLOG_LICENSE	:= GPLv3, LGPLv3, Apache
+RSYSLOG_LICENSE_FILES := \
+	file://COPYING;md5=51d9635e646fb75e1b74c074f788e973 \
+	file://COPYING.LESSER;md5=cb7903f1e5c39ae838209e130dca270a \
+	file://COPYING.ASL20;md5=052f8a09206615ab07326ff8ce2d9d32
 
 # ----------------------------------------------------------------------------
 # Prepare

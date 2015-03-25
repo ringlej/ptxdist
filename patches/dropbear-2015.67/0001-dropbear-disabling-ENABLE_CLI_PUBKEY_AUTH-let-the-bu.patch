@@ -1,0 +1,45 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Fri, 13 Mar 2015 10:53:46 +0100
+Subject: [PATCH] dropbear: disabling ENABLE_CLI_PUBKEY_AUTH let the build
+ fail
+
+Function multihop_passthrough_args() fails due to missing 'privkeys' member
+in structure 'cli_runopts'. So lets also disable ENABLE_CLI_MULTIHOP for
+this case.
+And even cli_getopts() fails due to missing loadidentityfile() function
+in this case.
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ options.h    |    4 +++-
+ sysoptions.h |    2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/options.h b/options.h
+index 6339b0a4738e..1360b5c6758f 100644
+--- a/options.h
++++ b/options.h
+@@ -218,7 +218,9 @@ much traffic. */
+ 
+ /* A default argument for dbclient -i <privatekey>. 
+    leading "~" is expanded */
+-#define DROPBEAR_DEFAULT_CLI_AUTHKEY "~/.ssh/id_dropbear"
++#ifdef ENABLE_CLI_PUBKEY_AUTH
++# define DROPBEAR_DEFAULT_CLI_AUTHKEY "~/.ssh/id_dropbear"
++#endif
+ 
+ /* This variable can be used to set a password for client
+  * authentication on the commandline. Beware of platforms
+diff --git a/sysoptions.h b/sysoptions.h
+index bec72461d8e4..eeb78cb129a5 100644
+--- a/sysoptions.h
++++ b/sysoptions.h
+@@ -202,7 +202,7 @@
+ #define USING_LISTENERS
+ #endif
+ 
+-#if defined(ENABLE_CLI_NETCAT) && defined(ENABLE_CLI_PROXYCMD)
++#if defined(ENABLE_CLI_NETCAT) && defined(ENABLE_CLI_PROXYCMD) && defined(ENABLE_CLI_PUBKEY_AUTH)
+ #define ENABLE_CLI_MULTIHOP
+ #endif
+ 

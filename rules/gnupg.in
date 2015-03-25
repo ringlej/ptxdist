@@ -1,7 +1,7 @@
 ## SECTION=applications
-config GNUPG
+menuconfig GNUPG
 	tristate
-	prompt "gnupg"
+	prompt "gnupg                         "
 	select LIBC_RESOLV
 	select GCCLIBS_GCC_S
 	select LIBASSUAN
@@ -15,3 +15,15 @@ config GNUPG
 	  GnuPG  is  a  set  of  programs for public key encryption
 	  and digital signatures.  The program most users will want
 	  to use is the OpenPGP command line tool, named gpg.
+
+if GNUPG
+
+config GNUPG_GPG
+	bool
+	prompt "Install gpg2 + symlink gpg => gpg2"
+
+config GNUPG_GPGV
+	bool
+	prompt "Install gpgv2"
+
+endif

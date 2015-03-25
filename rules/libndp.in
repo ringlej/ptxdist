@@ -1,0 +1,19 @@
+## SECTION=system_libraries
+
+menuconfig LIBNDP
+	tristate
+	prompt "libndp                        "
+	help
+	  The libndp package provides a wrapper for IPv6 Neighbor Discovery
+	  Protocol. It also provides a tool named ndptool for sending and
+	  receiving NDP messages
+
+if LIBNDP
+
+config LIBNDP_NDPTOOL
+	bool
+	prompt "install 'npdtool'"
+	help
+	  Install the npdtool into the root filesystem
+
+endif
