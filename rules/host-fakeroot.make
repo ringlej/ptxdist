@@ -25,6 +25,7 @@ HOST_FAKEROOT_TARBALL	:= fakeroot_$(HOST_FAKEROOT_VERSION).orig.$(HOST_FAKEROOT_
 HOST_FAKEROOT_URL	:= $(call ptx/mirror, DEB, pool/main/f/fakeroot/$(HOST_FAKEROOT_TARBALL))
 HOST_FAKEROOT_SOURCE	:= $(SRCDIR)/$(HOST_FAKEROOT_TARBALL)
 HOST_FAKEROOT_DIR	:= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
+HOST_FAKEROOT_LICENSE	:= GPLv3
 
 # ----------------------------------------------------------------------------
 # Prepare

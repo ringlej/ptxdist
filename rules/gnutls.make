@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.2.20
-GNUTLS_MD5	:= 637ef52191bf87a597240a49cc533972
+GNUTLS_VERSION	:= 3.3.13
+GNUTLS_MD5	:= a7387fe8bf3e604bf518a6da9ab2a4e6
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
-GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/$(GNUTLS).$(GNUTLS_SUFFIX)
+GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_SOURCE	:= $(SRCDIR)/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_DIR	:= $(BUILDDIR)/$(GNUTLS)
 GNUTLS_LICENSE	:= LGPLv3+
@@ -36,10 +36,9 @@ GNUTLS_CONF_TOOL	:= autoconf
 GNUTLS_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--enable-threads=posix \
 	--enable-cxx \
 	--enable-hardware-acceleration \
-	--enable-non-suiteb-curves \
+	--enable-padlock \
 	--enable-dtls-srtp-support \
 	--enable-alpn-support \
 	--enable-rsa-export \
@@ -51,6 +50,7 @@ GNUTLS_CONF_OPT		:= \
 	--enable-ecdhe \
 	--enable-openpgp-authentication \
 	--enable-ocsp \
+	--enable-session-tickets \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
 	--disable-doc \
 	--disable-tests \
@@ -61,6 +61,9 @@ GNUTLS_CONF_OPT		:= \
 	--disable-gcc-warnings \
 	--enable-shared \
 	--disable-static \
+	--disable-self-checks \
+	--disable-fips140-mode \
+	--enable-non-suiteb-curves \
 	--disable-libdane \
 	--enable-local-libopts \
 	--disable-libopts-install \
@@ -87,7 +90,6 @@ $(STATEDIR)/gnutls.targetinstall:
 	@$(call install_fixup, gnutls,DESCRIPTION,missing)
 
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls)
-	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls-xssl)
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutlsxx)
 
 ifdef PTXCONF_GNUTLS_OPENSSL

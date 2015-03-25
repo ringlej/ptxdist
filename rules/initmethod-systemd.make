@@ -14,7 +14,7 @@
 PACKAGES-$(PTXCONF_INITMETHOD_SYSTEMD) += initmethod-systemd
 
 INITMETHOD_SYSTEMD_VERSION	:= 1.0.0
-INITMETHOD_SYSTEMD_LICENSE	:= none
+INITMETHOD_SYSTEMD_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

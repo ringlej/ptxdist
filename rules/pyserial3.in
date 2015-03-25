@@ -1,0 +1,26 @@
+## SECTION=python3
+
+menuconfig PYSERIAL3
+	tristate
+	select PYTHON3
+	prompt "pyserial                      "
+	help
+	  This module encapsulates the access for the serial port. It provides
+	  backends for Python running on Windows, Linux, BSD (possibly any
+	  POSIX compliant system), Jython and IronPython (.NET and Mono). The
+	  module named "serial" automatically selects the appropriate backend.
+
+	  - Project Homepage: http://pyserial.sourceforge.net
+	  - Project page on SourceForge: http://sourceforge.net/projects/pyserial/
+	  - SVN repository: http://sourceforge.net/svn/?group_id=46487
+	  - Download Page: http://sourceforge.net/project/showfiles.php?group_id=46487
+
+if PYSERIAL3
+
+config PYSERIAL3_MINITERM
+	bool
+	prompt "Install 'miniterm'"
+	help
+	  Install the miniterm script coming with this package.
+
+endif

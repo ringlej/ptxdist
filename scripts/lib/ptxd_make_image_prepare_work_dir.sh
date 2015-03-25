@@ -64,6 +64,13 @@ ${list[*]}
 	${ptx_xpkg_type}-cl -f "${xpkg_conf}" -o "${work_dir}" \
 	install "${ptxd_reply_ipkg_files[@]}" &&
 
+    # fix directory permissions
+    {
+	echo "cd '${work_dir}' &&"
+	ptxd_dopermissions "${ptxd_reply_perm_files[@]}"
+	echo ":"
+    } | sh &&
+
     ptxd_install_fixup_timestamps "${work_dir}"
 }
 export -f ptxd_make_image_extract_xpkg_files

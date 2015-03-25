@@ -22,6 +22,10 @@ ATTR		:= attr-$(ATTR_VERSION)
 ATTR_SUFFIX	:= tar.gz
 ATTR_SOURCE	:= $(SRCDIR)/$(ATTR).src.$(ATTR_SUFFIX)
 ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
+ATTR_LICENSE	:= GPLv2, LGPLv2
+ATTR_LICENSE_FILES := \
+	file://doc/COPYING;md5=2d0aa14b3fce4694e4f615e30186335f \
+	file://doc/COPYING.LGPL;md5=b8d31f339300bc239d73461d68e77b9c
 
 ATTR_URL	:= \
 	http://download.savannah.gnu.org/releases/attr/$(ATTR).src.$(ATTR_SUFFIX) \

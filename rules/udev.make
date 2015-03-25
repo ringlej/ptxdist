@@ -20,6 +20,7 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 ifdef PTXCONF_SYSTEMD
 UDEV_VERSION	= $(SYSTEMD_VERSION)
 UDEV		= $(SYSTEMD)
+UDEV_LICENSE	= $(SYSTEMD_LICENSE)
 else
 ifdef PTXCONF_UDEV_LEGACY
 UDEV_VERSION	:= 172
@@ -103,6 +104,7 @@ UDEV_RULES-$(PTXCONF_SYSTEMD) += \
 	60-drm.rules \
 	64-btrfs.rules \
 	70-mouse.rules \
+	70-touchpad.rules \
 	80-net-setup-link.rules
 
 UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \

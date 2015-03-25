@@ -16,6 +16,7 @@ menuconfig SYSTEMD
 	select UTIL_LINUX_NG_LIBMOUNT
 	select MACHINE_ID	if RUNTIME
 	select XZ		if SYSTEMD_XZ
+	select LZ4		if SYSTEMD_LZ4
 	select LIBSELINUX	if GLOBAL_SELINUX
 	# for udev:
 	select ROOTFS_DEV
@@ -55,6 +56,10 @@ config SYSTEMD_VCONSOLE
 config SYSTEMD_XZ
 	bool
 	prompt "XZ compressed journal support"
+
+config SYSTEMD_LZ4
+	bool
+	prompt "LZ4 compressed journal support"
 
 config SYSTEMD_DISABLE_RANDOM_SEED
 	bool

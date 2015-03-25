@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYSERIAL) += pyserial
 #
 # Paths and names
 #
-PYSERIAL_VERSION	:= 2.6
-PYSERIAL_MD5		:= cde799970b7c1ce1f7d6e9ceebe64c98
+PYSERIAL_VERSION	:= 2.7
+PYSERIAL_MD5		:= 794506184df83ef2290de0d18803dd11
 PYSERIAL		:= pyserial-$(PYSERIAL_VERSION)
 PYSERIAL_SUFFIX		:= tar.gz
 PYSERIAL_URL		:= http://pypi.python.org/packages/source/p/pyserial/$(PYSERIAL).$(PYSERIAL_SUFFIX)

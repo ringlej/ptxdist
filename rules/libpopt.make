@@ -24,6 +24,7 @@ LIBPOPT_SUFFIX	:= tar.gz
 LIBPOPT_URL	:= http://rpm5.org/files/popt/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_SOURCE	:= $(SRCDIR)/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_DIR	:= $(BUILDDIR)/$(LIBPOPT)
+LIBPOPT_LICENSE	:= REDHAT
 
 # ----------------------------------------------------------------------------
 # Prepare

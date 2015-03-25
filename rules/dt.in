@@ -1,4 +1,6 @@
-## SECTION=test_suites
+## SECTION=staging
+## old section:
+### SECTION=test_suites
 
 config DT
 	tristate

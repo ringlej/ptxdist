@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_RRDTOOL) += rrdtool
 #
 # Paths and names
 #
-RRDTOOL_VERSION	:= 1.4.7
-RRDTOOL_MD5	:= ffe369d8921b4dfdeaaf43812100c38f
+RRDTOOL_VERSION	:= 1.4.9
+RRDTOOL_MD5	:= 1cea5a9efd6a48ac4035b0f9c7e336cf
 RRDTOOL		:= rrdtool-$(RRDTOOL_VERSION)
 RRDTOOL_SUFFIX	:= tar.gz
 RRDTOOL_URL	:= http://oss.oetiker.ch/rrdtool/pub/$(RRDTOOL).$(RRDTOOL_SUFFIX)
@@ -41,12 +41,10 @@ RRDTOOL_CONF_TOOL	:= autoconf
 RRDTOOL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_RRDTOOL_RRDCGI)-rrdcgi \
+	--$(call ptx/endis, PTXCONF_RRDTOOL_RRD_GRAPH)-rrd_graph \
 	--enable-mmap \
 	--enable-pthread \
 	--disable-static-programs \
-	--enable-shared \
-	--disable-static \
-	--enable-fast-install \
 	--disable-nls \
 	--disable-rpath \
 	--disable-libdbi \
@@ -90,9 +88,7 @@ ifdef PTXCONF_RRDTOOL_RRDUPDATE
 endif
 
 	@$(call install_lib, rrdtool, 0, 0, 0644, librrd)
-ifdef PTXCONF_RRDTOOL_RRDCACHED
 	@$(call install_lib, rrdtool, 0, 0, 0644, librrd_th)
-endif
 
 	@$(call install_finish, rrdtool)
 

@@ -24,6 +24,10 @@ LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
 LIBGCRYPT_SOURCE	:= $(SRCDIR)/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
 LIBGCRYPT_DIR		:= $(BUILDDIR)/$(LIBGCRYPT)
+LIBGCRYPT_LICENSE	:= GPLv2, LGPLv2
+LIBGCRYPT_LICENSE_FILES	:= \
+	file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+	file://COPYING.LIB;md5=bbb461211a33b134d42ed5ee802b37ff
 
 # ----------------------------------------------------------------------------
 # Prepare

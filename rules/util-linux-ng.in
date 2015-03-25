@@ -23,6 +23,10 @@ config UTIL_LINUX_NG_LIBMOUNT
 config UTIL_LINUX_NG_LIBSMARTCOLS
 	bool
 
+config UTIL_LINUX_NG_LIBFDISK
+	select UTIL_LINUX_NG_LIBUUID
+	bool
+
 config UTIL_LINUX_NG_USES_NCURSES
 	bool
 
@@ -73,6 +77,16 @@ config UTIL_LINUX_NG_PARTX
 	help
 	  The partx utility.
 
+config UTIL_LINUX_NG_DMESG
+	bool
+	depends on !BUSYBOX_DMESG || ALLYES
+	prompt "dmesg"
+	help
+	  The dmesg utility.
+
+comment "BusyBox' dmesg is selected!"
+	depends on BUSYBOX_DMESG
+
 config UTIL_LINUX_NG_MOUNTPOINT
 	bool
 	select UTIL_LINUX_NG_LIBMOUNT
@@ -87,7 +101,7 @@ comment "BusyBox' mountpoint is selected!"
 config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"
-	select UTIL_LINUX_NG_LIBUUID
+	select UTIL_LINUX_NG_LIBFDISK
 	select UTIL_LINUX_NG_LIBSMARTCOLS
 	depends on !BUSYBOX_FDISK || ALLYES
 	help
@@ -99,13 +113,15 @@ comment "BusyBox' fdisk is selected!"
 config UTIL_LINUX_NG_SFDISK
 	bool
 	prompt "sfdisk"
+	select UTIL_LINUX_NG_LIBFDISK
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	help
 	  sfdisk - Partition table manipulator for Linux,
 	  scriptable for unattended partitioning
 
 config UTIL_LINUX_NG_CFDISK
 	bool
-	select UTIL_LINUX_NG_LIBUUID
+	select UTIL_LINUX_NG_LIBFDISK
 	select UTIL_LINUX_NG_LIBSMARTCOLS
 	select UTIL_LINUX_NG_USES_NCURSES
 	prompt "cfdisk"
@@ -193,6 +209,18 @@ config UTIL_LINUX_NG_FSCK
 
 comment "BusyBox' fsck is selected!"
 	depends on BUSYBOX_FSCK
+
+config UTIL_LINUX_NG_FSTRIM
+	bool
+	prompt "fstrim"
+	depends on !BUSYBOX_FSTRIM || ALLYES
+	help
+	  fstrim is used on a mounted filesystem to discard (or "trim")
+	  blocks which are not in use by the filesystem. This is useful
+	  for solid-state drives (SSDs) and thinly-provisioned storage.
+
+comment "BusyBox' fstrim is selected!"
+	depends on BUSYBOX_FSTRIM
 
 config UTIL_LINUX_NG_IPCS
 	bool

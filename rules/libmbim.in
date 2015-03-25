@@ -1,0 +1,10 @@
+## SECTION=networking
+
+config LIBMBIM
+	tristate
+	select GLIB
+	prompt "libmbim"
+	help
+	  libmbim is a glib-based library for talking to WWAN modems and
+	  devices which speak the Mobile Interface Broadband Model (MBIM)
+	  protocol.

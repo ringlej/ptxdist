@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.4.35
-PHP5_MD5	:= 489cc8336488fb2e722ffa3c08f9c864
+PHP5_VERSION	:= 5.5.21
+PHP5_MD5	:= 79664ce44f7c93f355a25a3fe3dcc91b
 PHP5		:= php-$(PHP5_VERSION)
-PHP5_SUFFIX	:= tar.bz2
+PHP5_SUFFIX	:= tar.xz
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
@@ -49,6 +49,7 @@ PHP5_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-phar \
 	--with-config-file-path=/etc/php5 \
+	--enable-opcache=no \
 	--without-iconv
 
 # FIXME: php5 doesn't interprete "with_foo=no" correctly, so we cannot

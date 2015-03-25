@@ -1,0 +1,17 @@
+## SECTION=security
+
+config EASY_RSA
+	tristate
+	prompt "easy-rsa"
+	select GREP		if !BUSYBOX_GREP && RUNTIME
+	select GCCLIBS_GCC_S	if !BUSYBOX_GREP && RUNTIME
+	select OPENSSL		if RUNTIME
+	select OPENSSL_BIN	if RUNTIME
+	help
+	  easy-rsa is a CLI utility to build and manage a PKI CA. In laymen's
+	  terms, this means to create a root certificate authority, and request
+	  and sign certificates, including sub-CAs and certificate revokation
+	  lists (CRL). This is for people which don't know how to generate
+	  all PKI files with openssl tool. Additional this is for people which
+	  have a enough less paranoia to generate keys on an embedded device.
+	  The easy-rsa scripts will be placed at /usr/share/easy-rsa aferwards.

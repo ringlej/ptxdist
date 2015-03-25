@@ -375,6 +375,13 @@ ptxd_make_world_patchin_fixup()
  	    "${file}" || return
     done &&
 
+    ptxd_get_alternative scripts/autoconf config.sub
+    local config_sub="${ptxd_reply}"
+    find "${pkg_patchin_dir}/" -type f -name "config.sub" ! -path "*/.pc/*" | while read file; do
+	ptxd_print_path "${file}"
+	cp -f "${config_sub}" "${file}" || return
+    done &&
+
     echo -e "patchin: fixup: done\n"
 }
 export -f ptxd_make_world_patchin_fixup

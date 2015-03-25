@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 1.6.0
-WESTON_MD5	:= c60ce9dde99a089db0539d8f6b557827
+WESTON_VERSION	:= 1.6.1
+WESTON_MD5	:= 08e857668621c930cab239d11c12cf47
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)

@@ -38,6 +38,15 @@ choice
 		help
 		  This is support for the ARM processor architecture.
 
+	config ARCH_ARM64
+		bool "arm64      "
+		select ARCH_LP64
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		select ARCH_SUPPORTS_ENDIAN_BIG
+		select HAS_MMU
+		help
+		  This is support for the ARM64 processor architecture.
+
 	config ARCH_BLACKFIN
 		bool "blackfin   "
 		select ARCH_SUPPORTS_ENDIAN_LITTLE
@@ -254,6 +263,7 @@ config HAS_HARDFLOAT
 	default y if ARCH_ALPHA
 	default y if ARCH_X86
 	default y if ARCH_SPARC
+	default y if ARCH_ARM64
 	default n
 
 #
@@ -267,7 +277,7 @@ config HAS_MMU
 #
 config SIZEOF_LONG_DOUBLE
 	string
-	default "16" if ARCH_X86_64
+	default "16" if ARCH_X86_64 || ARCH_ARM64
 	default "12" if ARCH_X86
 	default "8"
 	# FIXME: add more values
@@ -278,6 +288,7 @@ config SIZEOF_LONG_DOUBLE
 config ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM
+	default "arm64"			if ARCH_ARM64
 	default "avr"			if ARCH_AVR
 	default "avr32"			if ARCH_AVR32
 	default "alpha"			if ARCH_ALPHA

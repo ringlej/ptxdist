@@ -23,19 +23,19 @@ HOST_DBUS_GLIB_DIR	= $(HOST_BUILDDIR)/$(DBUS_GLIB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_DBUS_GLIB_PATH	:= PATH=$(HOST_PATH)
-HOST_DBUS_GLIB_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_DBUS_GLIB_AUTOCONF := \
+HOST_DBUS_GLIB_CONF_TOOL	:= autoconf
+HOST_DBUS_GLIB_CONF_OPT		:= \
 	$(HOST_AUTOCONF) \
-	--disable-bash-completion \
+	--disable-tests \
+	--disable-ansi \
 	--disable-gcov \
-	--disable-gtk-doc \
-	--disable-static \
-	--disable-tests
+	--disable-bash-completion \
+	--disable-asserts \
+	--enable-checks \
+	--disable-gtk-doc
 
 # ----------------------------------------------------------------------------
 # Install

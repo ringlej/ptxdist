@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LAME) += lame
 #
 # Paths and names
 #
-LAME_VERSION	:= 3.99.4
-LAME_MD5	:= e54d7847bfd01f18d56c07e65147d75a
+LAME_VERSION	:= 3.99.5
+LAME_MD5	:= 84835b313d4a8b68f5349816d33e07ce
 LAME		:= lame-$(LAME_VERSION)
 LAME_SUFFIX	:= tar.gz
 LAME_URL	:= $(call ptx/mirror, SF, lame/$(LAME).$(LAME_SUFFIX))
@@ -28,6 +28,11 @@ LAME_LICENSE	:= LGPLv2
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+LAME_CONF_ENV := $(CROSS_ENV)
+ifneq ($(PTXCONF_ARCH_X86_I386)$(PTXCONF_ARCH_X86_I486)$(PTXCONF_ARCH_X86_I586)$(PTXCONF_ARCH_X86_I686)$(PTXCONF_ARCH_X86_P2),)
+LAME_CONF_ENV += ac_cv_header_xmmintrin_h=no
+endif
 
 #
 # autoconf

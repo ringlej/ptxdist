@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_JANSSON) += jansson
 #
 # Paths and names
 #
-JANSSON_VERSION	:= 2.6
-JANSSON_MD5	:= c70a52488db623a26f7213c7c6b7c878
+JANSSON_VERSION	:= 2.7
+JANSSON_MD5	:= ffac352f9c5f80a6ae8145d451af2c0e
 JANSSON		:= jansson-$(JANSSON_VERSION)
 JANSSON_SUFFIX	:= tar.bz2
 JANSSON_URL	:= http://www.digip.org/jansson/releases/$(JANSSON).$(JANSSON_SUFFIX)
