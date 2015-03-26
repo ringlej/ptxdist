@@ -1,14 +1,27 @@
 ## SECTION=system_libraries
 
-config POLKIT
+menuconfig POLKIT
 	tristate
-	prompt "policykit-1"
+	prompt "policykit-1                   "
 	select LIBC_CRYPT
 	select HOST_INTLTOOL
 	select HOST_GTK_DOC
+	select EXPAT
 	select GLIB
 	select DBUS_GLIB
 	select EGGDBUS
+	select SYSTEMD if POLKIT_SYSTEMD
+	select SYSTEMD_LOGIND if POLKIT_SYSTEMD
 	help
 	  PolicyKit offers an infrastructure for security policies for
 	  dbus applications.
+
+if POLKIT
+
+config POLKIT_SYSTEMD
+	bool "systemd based session tracking"
+	default y if INITMETHOD_SYSTEMD
+	help
+	  Use systemd for session tracking, else ConsoleKit is used
+
+endif
