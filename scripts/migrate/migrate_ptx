@@ -246,7 +246,7 @@ s/^\(\(# \)\?PTXCONF_\)GNUPG\([^\n]*\n\)\(.*\)$/\1GNUPG\3\1GNUPG_GPG\3\4/
 # symbol : HACKBENCH -> RT_TESTS_HACKBENCH
 # reason : old tool obsolete, new version is from rt-tests
 #
-s/^\(\(# \)\?PTXCONF_\)HACKBENCH\(.*\)$/\1RT_TESTS\3\n\1RT_TESTS_HACKBENCH\3/
+s/^\(\(# \)\?PTXCONF_\)HACKBENCH\(.*\)$/\1RT_TESTS\3\n\1RT_TESTS_HACKBENCH=y/
 
 #
 # from   : ptxdist-2015.02.0
