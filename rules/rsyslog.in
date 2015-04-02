@@ -6,32 +6,38 @@ menuconfig RSYSLOG
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
-	# FIXME: still needs the headers even if zlib support is disabled
-	select ZLIB		#if RSYSLOG_ZLIB
+	select ZLIB
+	select LIBESTR
+	select JSON_C
 	select LIBNET		if RSYSLOG_OMUDPSPOOF
+	select SYSTEMD		if RSYSLOG_SYSTEMD
 	prompt "rsyslog                       "
 	help
 	  FIXME
 
 if RSYSLOG
 
+config RSYSLOG_SYSTEMD
+	bool
+	default INITMETHOD_SYSTEMD
+
 config RSYSLOG_SYSTEMD_UNIT
 	bool
 	default y
-	depends on SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	prompt "install systemd unit files for rsyslogd"
 
 config RSYSLOG_REGEXP
 	bool
-	prompt "regular expression support"
-
-config RSYSLOG_ZLIB
-	bool
-	prompt "zlib compression support"
+	# 8.8.0 fail to build without regex support
+	default y
+	prompt "regular expression support" if BROKEN
 
 config RSYSLOG_INET
 	bool
-	prompt "networking support"
+	# 8.8.0 fail to run without inet support
+	default y
+	prompt "networking support" if BROKEN
 
 config RSYSLOG_IMDIAG
 	bool
