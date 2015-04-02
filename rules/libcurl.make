@@ -62,8 +62,6 @@ LIBCURL_AUTOCONF := \
 	--without-gssapi \
 	--without-gnutls \
 	--without-nss \
-	--without-ca-bundle \
-	--without-ca-path \
 	--without-libidn \
 	--without-axtls \
 	--without-cyassl \
@@ -78,8 +76,25 @@ LIBCURL_AUTOCONF := \
 
 ifdef PTXCONF_LIBCURL_SSL
 LIBCURL_AUTOCONF += --with-ssl=$(SYSROOT)
+ifdef PTXCONF_LIBCURL_SSL_CABUNDLE
+LIBCURL_AUTOCONF += \
+	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
+	--without-ca-path
 else
-LIBCURL_AUTOCONF += --without-ssl
+ifdef PTXCONF_LIBCURL_SSL_CAPATH
+LIBCURL_AUTOCONF += \
+	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH) \
+	--without-ca-bundle
+else
+LIBCURL_AUTOCONF += \
+	--without-ca-bundle \
+	--without-ca-path
+endif
+endif
+else
+LIBCURL_AUTOCONF += --without-ssl \
+	--without-ca-bundle \
+	--without-ca-path
 endif
 
 # ----------------------------------------------------------------------------

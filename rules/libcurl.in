@@ -41,6 +41,33 @@ config LIBCURL_FILE
 config LIBCURL_SSL
        bool "ssl"
 
+if LIBCURL_SSL
+
+choice
+	prompt "Central CA certificate storage"
+	
+	config LIBCURL_SSL_NOCA
+		bool "No CA storage"
+
+	config LIBCURL_SSL_CAPATH
+		bool "CA directory"
+
+	config LIBCURL_SSL_CABUNDLE
+		bool "CA bundle"
+endchoice
+
+config LIBCURL_SSL_CAPATH_PATH
+	string "CA directory path"
+	depends on LIBCURL_SSL_CAPATH
+	default "/etc/ssl/certs"
+
+config LIBCURL_SSL_CABUNDLE_PATH
+	string "CA bundle path"
+	depends on LIBCURL_SSL_CABUNDLE
+	default "/etc/ssl/certs/ca-certificates.crt"
+
+endif
+
 config LIBCURL_CRYPTO_AUTH
        bool "cryptographic authentication"
 
