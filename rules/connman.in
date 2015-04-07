@@ -8,6 +8,7 @@ menuconfig CONNMAN
 	select DBUS
 	select GLIB
 	select IPTABLES
+	select READLINE				if CONNMAN_CLIENT
 	select POLKIT				if CONNMAN_POLKIT
 	select DBUS_PYTHON			if CONNMAN_TESTS && RUNTIME
 	select WPA_SUPPLICANT			if CONNMAN_WIFI && RUNTIME
