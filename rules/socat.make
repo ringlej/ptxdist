@@ -44,7 +44,7 @@ SOCAT_CONF_OPT	:= \
 	--enable-unix \
 	--enable-abstract-unixsocket \
 	--enable-ip4 \
-	--enable-ip6 \
+	--$(call ptx/endis, PTXCONF_GLOBAL_IPV6)-ip6 \
 	--enable-rawip \
 	--enable-genericsocket \
 	--enable-interface \
