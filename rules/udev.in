@@ -67,6 +67,7 @@ menu "install options               "
 config UDEV_ETC_CONF
 	bool
 	default y
+	depends on !SYSTEMD
 	prompt "install udev.conf"
 	help
 	  Installs /etc/udev/udev.conf. If you don't wish to install the
