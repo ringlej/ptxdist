@@ -29,6 +29,7 @@ BLSPEC_ENTRY_NAMES	= default
 blspec/title		= $(BLSPEC_ENTRY_TITLE)
 blspec/devicetree	=
 endif
+BLSPEC_ENTRY_LICENSE	= ignore
 
 $(STATEDIR)/blspec-entry.targetinstall:
 	@$(call targetinfo)

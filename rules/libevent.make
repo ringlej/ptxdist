@@ -30,13 +30,18 @@ LIBEVENT_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBEVENT_PATH	:= PATH=$(CROSS_PATH)
-LIBEVENT_ENV	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIBEVENT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBEVENT_CONF_TOOL	:= autoconf
+LIBEVENT_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-thread-support \
+	--disable-malloc-replacement \
+	--$(call ptx/endis, PTXCONF_LIBEVENT_OPENSSL)-openssl \
+	--disable-debug-mode \
+	--enable-libevent-install \
+	--disable-libevent-regress
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,6 +60,9 @@ $(STATEDIR)/libevent.targetinstall:
 	@$(call install_lib, libevent, 0, 0, 0644, libevent_core-2.0)
 	@$(call install_lib, libevent, 0, 0, 0644, libevent_extra-2.0)
 	@$(call install_lib, libevent, 0, 0, 0644, libevent_pthreads-2.0)
+ifdef PTXCONF_LIBEVENT_OPENSSL
+	@$(call install_lib, libevent, 0, 0, 0644, libevent_openssl-2.0)
+endif
 
 	@$(call install_finish, libevent)
 

@@ -1,0 +1,13 @@
+## SECTION=networking
+
+config SOCAT
+	tristate
+	select LIBC_RT
+	select LIBC_UTIL
+	prompt "socat"
+	help
+	  Socat (for SOcket CAT) establishes two bidirectional byte streams and
+	  transfers data between them. Data channels may be files, pipes, devices
+	  (terminal or modem, etc.), or sockets (Unix, IPv4, IPv6, raw, UDP, TCP,
+	  SSL). It provides forking, logging and tracing, different modes for
+	  interprocess communication and many more options.

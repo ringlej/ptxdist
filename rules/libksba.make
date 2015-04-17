@@ -16,13 +16,18 @@ PACKAGES-$(PTXCONF_LIBKSBA) += libksba
 #
 # Paths and names
 #
-LIBKSBA_VERSION	:= 1.0.7
-LIBKSBA_MD5	:= eebce521a90600369c33c5fa6b9bbbd8
+LIBKSBA_VERSION	:= 1.3.2
+LIBKSBA_MD5	:= c3c9a66e22d87fe3ae59865250b8a09c
 LIBKSBA		:= libksba-$(LIBKSBA_VERSION)
 LIBKSBA_SUFFIX	:= tar.bz2
 LIBKSBA_URL	:= ftp://ftp.gnupg.org/gcrypt/libksba/$(LIBKSBA).$(LIBKSBA_SUFFIX)
 LIBKSBA_SOURCE	:= $(SRCDIR)/$(LIBKSBA).$(LIBKSBA_SUFFIX)
 LIBKSBA_DIR	:= $(BUILDDIR)/$(LIBKSBA)
+LIBKSBA_LICENSE	:= GPLv2, GPLv3, LGPLv3
+LIBKSBA_LICENSE_FILES := \
+	file://COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+	file://COPYING.GPLv3;md5=2f31b266d3440dd7ee50f92cf67d8e6c \
+	file://COPYING.LGPLv3;md5=e6a600fd5e1d9cbde2d983680233ad02
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_POLKIT) += polkit
 #
 # Paths and names
 #
-POLKIT_VERSION	:= 0.96
-POLKIT_MD5	:= e0a06da501b04ed3bab986a9df5b5aa2
+POLKIT_VERSION	:= 0.104
+POLKIT_MD5	:= e380b4c6fb1e7bccf854e92edc0a8ce1
 POLKIT		:= polkit-$(POLKIT_VERSION)
 POLKIT_SUFFIX	:= tar.gz
 POLKIT_URL	:= http://hal.freedesktop.org/releases/$(POLKIT).$(POLKIT_SUFFIX)
@@ -28,19 +28,19 @@ POLKIT_DIR	:= $(BUILDDIR)/$(POLKIT)
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-POLKIT_AUTOCONF := \
+POLKIT_CONF_TOOL	:= autoconf
+POLKIT_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-shared \
-	--enable-static \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-man-pages \
 	--disable-gtk-doc \
-	--disable-examples \
+	--disable-gtk-doc-html \
+	--$(call ptx/endis, PTXCONF_POLKIT_SYSTEMD)-systemd \
 	--disable-introspection \
+	--disable-examples \
+	--disable-nls \
 	--with-gnu-ld \
 	--with-authfw=shadow \
 	--with-os-type=ptxdist
@@ -65,6 +65,7 @@ $(STATEDIR)/polkit.targetinstall:
 		/usr/share/dbus-1/system-services/org.freedesktop.PolicyKit1.service)
 
 # config
+	@$(call install_copy, polkit, 0, 0, 700, /etc/polkit-1/localauthority)
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
 		/etc/polkit-1/localauthority.conf.d/50-localauthority.conf)
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
@@ -79,8 +80,6 @@ $(STATEDIR)/polkit.targetinstall:
 
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
 		/usr/lib/polkit-1/extensions/libnullbackend.so)
-	@$(call install_copy, polkit, 0, 0, 0644, -, \
-		/usr/lib/polkit-1/extensions/libpkexec-action-lookup.so)
 
 # binaries
 	@$(call install_copy, polkit, 0, 0, 0755, -, /usr/bin/pkaction)
@@ -92,6 +91,9 @@ $(STATEDIR)/polkit.targetinstall:
 	@$(call install_copy, polkit, 0, 0, 4755, -, /usr/bin/pkexec)
 	@$(call install_copy, polkit, 0, 0, 4755, -, \
 		/usr/libexec/polkit-agent-helper-1)
+
+# run-time
+	@$(call install_copy, polkit, 0, 0, 700, /var/lib/polkit-1)
 
 	@$(call install_finish, polkit)
 

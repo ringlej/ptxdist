@@ -27,6 +27,7 @@ DHCP_URL	:= \
 	http://ftp.isc.org/isc/dhcp/dhcp-4.1-history/$(DHCP).$(DHCP_SUFFIX)
 DHCP_SOURCE	:= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
 DHCP_DIR	:= $(BUILDDIR)/$(DHCP)
+DHCP_LICENSE	:= ISC
 
 
 # ----------------------------------------------------------------------------

@@ -7,8 +7,8 @@ menuconfig CONNMAN
 	select LIBC_PTHREAD
 	select DBUS
 	select GLIB
-	select GNUTLS
 	select IPTABLES
+	select READLINE				if CONNMAN_CLIENT
 	select POLKIT				if CONNMAN_POLKIT
 	select DBUS_PYTHON			if CONNMAN_TESTS && RUNTIME
 	select WPA_SUPPLICANT			if CONNMAN_WIFI && RUNTIME
@@ -41,6 +41,10 @@ menu "plugins"
 		bool
 		prompt "ethernet support"
 
+	config CONNMAN_GADGET
+		bool
+		prompt "gadget support"
+
 	config CONNMAN_LOOPBACK
 		bool
 		prompt "loopback support"
@@ -52,12 +56,6 @@ menu "plugins"
 	config CONNMAN_WIFI
 		bool
 		prompt "wifi support"
-
-	config CONNMAN_WIMAX
-		bool
-		# needs Intel WiMAX SDK
-		depends on BROKEN
-		prompt "wimax support"
 
 endmenu
 

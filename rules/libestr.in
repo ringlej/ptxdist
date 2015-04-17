@@ -1,0 +1,9 @@
+## SECTION=system_libraries
+
+config LIBESTR
+	tristate
+	prompt "libestr"
+	help
+	  The 'libestr' library implements some helper functions to
+	  handle strings and easily, escaping special characters etc.
+

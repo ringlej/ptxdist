@@ -2,16 +2,18 @@
 
 menuconfig BLUEZ
 	tristate "bluez                         "
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select LIBC_RT
 	select DBUS
 	select GLIB
-	select LIBUSB_COMPAT	if BLUEZ_USB
-	select ALSA_LIB		if BLUEZ_ALSA
-	select GSTREAMER	if BLUEZ_GSTREAMER
-	select GST_PLUGINS_BASE	if BLUEZ_GSTREAMER
-	select PYGOBJECT	if BLUEZ_INSTALL_TESTSCRIPTS
-	select DBUS_PYTHON	if BLUEZ_INSTALL_TESTSCRIPTS
+	select UDEV
+	select READLINE
+	select PYGOBJECT		if BLUEZ_INSTALL_TESTSCRIPTS
+	select DBUS_PYTHON		if BLUEZ_INSTALL_TESTSCRIPTS
 	help
-	  official Linux Bluetooth protocol stack
+	  Official Linux Bluetooth protocol stack
+	  For more information refer http://www.bluez.org
 
 if BLUEZ
 
@@ -19,29 +21,14 @@ config BLUEZ_SYSTEMD_UNIT
 	bool
 	default y
 	depends on SYSTEMD
-	prompt "install systemd unit files for bluez"
+	prompt "install systemd unit files"
 
-config BLUEZ_USB
-	bool "USB support"
-	default y
-	help
-	  Build bluez with USB support. Only disable this if your Bluetooth
-	  adapter is not connected via USB (for example with an UART or SDIO).
-
-config BLUEZ_ALSA
-	bool "alsa support"
-	help
-	  install bluez-alsa modules
-
-config BLUEZ_GSTREAMER
-	bool "gstreamer support"
-	help
-	  install libgstbluetooth
-	  
 config BLUEZ_UTILS
 	bool "install bluez tools"
 	help
-	  install ciptool l2ping hcitool rctest rfcomm sdptool
+	  install the tools "bccmd bluemoon bluetoothctl btmon ciptool hciattach
+	  hciconfig hcidump hcitool hex2hcd l2ping l2test mpris-proxy rctest
+	  rfcomm sdptoolciptool l2ping hcitool rctest rfcomm" and "sdptool"
 
 config BLUEZ_INSTALL_TESTSCRIPTS
 	bool "install testscripts"
