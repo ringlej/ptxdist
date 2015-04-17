@@ -315,6 +315,8 @@ ifdef PTXCONF_SYSTEMD_NETWORK
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/network)
 	@$(call install_alternative_tree, systemd, 0, 0, /lib/systemd/network)
 endif
+	@$(call install_alternative, systemd, 0, 0, 0644, \
+		/lib/systemd/network/99-default.link)
 
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
