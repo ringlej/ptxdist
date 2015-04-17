@@ -17,14 +17,16 @@ PACKAGES-$(PTXCONF_ETHTOOL) += ethtool
 #
 # Paths and names
 #
-ETHTOOL_VERSION	:= 3.0
-ETHTOOL_MD5	:= cb129398cbbf39859901b55ecac101da
-ETHTOOL_SUFFIX	:= tar.bz2
+ETHTOOL_VERSION	:= 3.18
+ETHTOOL_MD5	:= fbf1a167b88a5966a2c56a2483af68c6
+ETHTOOL_SUFFIX	:= tar.xz
 ETHTOOL		:= ethtool-$(ETHTOOL_VERSION)
 ETHTOOL_URL	:= $(call ptx/mirror, KERNEL, ../software/network/ethtool/$(ETHTOOL).$(ETHTOOL_SUFFIX))
 ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL).$(ETHTOOL_SUFFIX)
 ETHTOOL_DIR	:= $(BUILDDIR)/$(ETHTOOL)
 ETHTOOL_LICENSE := GPLv2
+ETHTOOL_LICENSE_FILES	:= \
+	file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263
 
 # ----------------------------------------------------------------------------
 # Prepare

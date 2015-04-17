@@ -16,13 +16,17 @@ PACKAGES-$(PTXCONF_LIBASSUAN) += libassuan
 #
 # Paths and names
 #
-LIBASSUAN_VERSION	:= 2.0.0
-LIBASSUAN_MD5		:= 59bc0ae7194c412d7a522029005684b2
+LIBASSUAN_VERSION	:= 2.2.0
+LIBASSUAN_MD5		:= a104faed3e97b9c302c5d67cc22b1d60
 LIBASSUAN		:= libassuan-$(LIBASSUAN_VERSION)
 LIBASSUAN_SUFFIX	:= tar.bz2
 LIBASSUAN_URL		:= ftp://ftp.gnupg.org/gcrypt/libassuan/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
 LIBASSUAN_SOURCE	:= $(SRCDIR)/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
 LIBASSUAN_DIR		:= $(BUILDDIR)/$(LIBASSUAN)
+LIBASSUAN_LICENSE	:= GPLv3, LGPLv2.1
+LIBASSUAN_LICENSE_FILES	:= \
+	file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
+	file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1
 
 # ----------------------------------------------------------------------------
 # Prepare

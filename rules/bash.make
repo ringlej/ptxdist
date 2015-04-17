@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_BASH) += bash
 #
 # Paths and names
 #
-BASH_VERSION	:= 3.2.48
-BASH_MD5	:= 338dcf975a93640bb3eaa843ca42e3f8
+BASH_VERSION	:= 4.3.30
+BASH_MD5	:= a27b3ee9be83bd3ba448c0ff52b28447
 BASH		:= bash-$(BASH_VERSION)
 BASH_SUFFIX	:= tar.gz
 BASH_URL	:= $(call ptx/mirror, GNU, bash/$(BASH).$(BASH_SUFFIX))
@@ -38,28 +38,45 @@ BASH_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_ROOT) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--without-bash-malloc \
-	--disable-net-redirections \
 	--$(call ptx/endis, PTXCONF_BASH_SHLIKE)-minimal-config \
 	--$(call ptx/endis, PTXCONF_BASH_ALIASES)-alias \
 	--$(call ptx/endis, PTXCONF_BASH_ARITHMETIC_FOR)-arith-for-command \
 	--$(call ptx/endis, PTXCONF_BASH_ARRAY)-array-variables \
 	--$(call ptx/endis, PTXCONF_BASH_HISTORY)-bang-history \
 	--$(call ptx/endis, PTXCONF_BASH_BRACE)-brace-expansion \
+	--$(call ptx/endis, PTXCONF_BASH_CASEMODATTR)-casemod-attributes \
+	--$(call ptx/endis, PTXCONF_BASH_CASEMODEXP)-casemod-expansions \
+	--$(call ptx/endis, PTXCONF_BASH_CMDTIMING)-command-timing \
 	--$(call ptx/endis, PTXCONF_BASH_CONDITIONAL)-cond-command \
+	--$(call ptx/endis, PTXCONF_BASH_CONDITIONAL_REGEX)-cond-regexp \
+	--$(call ptx/endis, PTXCONF_BASH_COPROCESSES)-coprocesses \
+	--$(call ptx/endis, PTXCONF_BASH_DEBUGGER)-debugger \
+	--$(call ptx/endis, PTXCONF_BASH_DIREXPDEFLT)-direxpand-default \
 	--$(call ptx/endis, PTXCONF_BASH_DIRSTACK)-directory-stack \
+	--$(call ptx/endis, PTXCONF_BASH_DISABLED_BUILDINS)-disabled-builtins \
+	--$(call ptx/endis, PTXCONF_BASH_DPARAN_ARITH)-dparen-arithmetic \
 	--$(call ptx/endis, PTXCONF_BASH_EXTPATTERN)-extended-glob \
+	--$(call ptx/endis, PTXCONF_BASH_EXTPATTERN_DEFLT)-extended-glob-default \
+	--$(call ptx/endis, PTXCONF_BASH_GLOB_ASCIIRANGE_DEFLT)-glob-asciiranges-default \
 	--$(call ptx/endis, PTXCONF_BASH_HELP)-help-builtin \
 	--$(call ptx/endis, PTXCONF_BASH_CMDHISTORY)-history \
 	--$(call ptx/endis, PTXCONF_BASH_JOBS)-job-control \
+	--$(call ptx/endis, PTXCONF_BASH_MULTIBYTE)-multibyte \
+	--disable-net-redirections \
 	--$(call ptx/endis, PTXCONF_BASH_PROCSUBST)-process-substitution \
-	--$(call ptx/endis, PTXCONF_BASH_COMPLETION)-progcomp \
+	--$(call ptx/endis, PTXCONF_BASH_BASHCOMPLETION)-progcomp \
 	--$(call ptx/endis, PTXCONF_BASH_ESC)-prompt-string-decoding \
 	--$(call ptx/endis, PTXCONF_BASH_EDIT)-readline \
 	--$(call ptx/endis, PTXCONF_BASH_RESTRICTED)-restricted \
 	--$(call ptx/endis, PTXCONF_BASH_SELECT)-select \
+	--$(call ptx/endis, PTXCONF_BASH_SEP_HELPFILES)-separate-helpfiles \
+	--$(call ptx/endis, PTXCONF_BASH_SINGLE_HELPLINE)-single-help-strings \
 	--$(call ptx/endis, PTXCONF_BASH_GPROF)-profiling \
-	--$(call ptx/endis, PTXCONF_BASH_STATIC)-static-link \
-	--$(call ptx/endis, PTXCONF_BASH_CURSES)-curses
+	--$(call ptx/endis, PTXCONF_BASH_STATIC)-static-link
+
+ifdef PTXCONF_BASH_CURSES
+BASH_AUTOCONF += --with-curses
+endif
 
 ifdef PTXCONF_BASH_JOBS
 BASH_ENV	+= bash_cv_job_control_missing=present

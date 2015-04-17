@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 #
 # Paths and names
 #
-CONNMAN_VERSION	:= 1.0
-CONNMAN_MD5	:= 0bdda5c38ed4b8cc2a5840dcd84a6805
+CONNMAN_VERSION	:= 1.28
+CONNMAN_MD5	:= 2bd009c9222327f83ddd5944c7909290
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= $(call ptx/mirror, KERNEL, network/connman/$(CONNMAN).$(CONNMAN_SUFFIX))
@@ -34,37 +34,39 @@ CONNMAN_DIR	:= $(BUILDDIR)/$(CONNMAN)
 CONNMAN_CONF_TOOL	:= autoconf
 CONNMAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-gtk-doc \
 	--disable-debug \
-	--enable-threads \
 	--disable-hh2serial-gps \
 	--disable-openconnect \
 	--disable-openvpn \
 	--disable-vpnc \
 	--disable-l2tp \
 	--disable-pptp \
-	--$(call ptx/endis, PTXCONF_CONNMAN_WIMAX)-iwmx \
 	--disable-iospm \
 	--disable-tist \
+	--disable-session-policy-local \
 	--disable-test \
 	--disable-nmcompat \
 	--$(call ptx/endis, PTXCONF_CONNMAN_POLKIT)-polkit \
+	--$(call ptx/endis, PTXCONF_GLOBAL_SELINUX)-selinux \
 	--$(call ptx/endis, PTXCONF_CONNMAN_LOOPBACK)-loopback \
 	--$(call ptx/endis, PTXCONF_CONNMAN_ETHERNET)-ethernet \
+	--$(call ptx/endis, PTXCONF_CONNMAN_GADGET)-gadget \
 	--$(call ptx/endis, PTXCONF_CONNMAN_WIFI)-wifi \
 	--$(call ptx/endis, PTXCONF_CONNMAN_BLUETOOTH)-bluetooth \
 	--disable-ofono \
+	--disable-dundee \
 	--disable-pacrunner \
-	--$(call ptx/endis, PTXCONF_CONNMAN_CLIENT)-client \
+	--disable-neard \
+	--disable-wispr \
 	--disable-tools \
+	--$(call ptx/endis, PTXCONF_CONNMAN_CLIENT)-client \
 	--enable-datafiles \
 	--with-systemdunitdir=/lib/systemd/system
 
 CONNMAN_TESTS := \
 	backtrace \
-	connect-vpn \
+	connect-provider \
 	disable-tethering \
-	disconnect-vpn \
 	enable-tethering \
 	get-global-timeservers \
 	get-proxy-autoconfig \
@@ -73,13 +75,18 @@ CONNMAN_TESTS := \
 	list-services \
 	monitor-connman \
 	monitor-services \
+	monitor-vpn \
+	p2p-on-supplicant \
+	remove-provider \
 	service-move-before \
+	set-clock \
 	set-domains \
 	set-global-timeservers \
 	set-ipv4-method \
 	set-ipv6-method \
 	set-nameservers \
 	set-proxy \
+	set-timeservers \
 	show-introspection \
 	simple-agent \
 	test-clock \
@@ -89,7 +96,10 @@ CONNMAN_TESTS := \
 	test-manager \
 	test-new-supplicant \
 	test-session \
-	test-supplicant
+	vpn-connect \
+	vpn-disconnect \
+	vpn-get \
+	vpn-property
 
 # ----------------------------------------------------------------------------
 # Install
@@ -99,8 +109,8 @@ $(STATEDIR)/connman.install:
 	@$(call targetinfo)
 	@$(call install, CONNMAN)
 ifdef PTXCONF_CONNMAN_CLIENT
-	install -D -m 755 "$(CONNMAN_DIR)/client/cm" \
-		"$(CONNMAN_PKGDIR)/usr/sbin/cm"
+	install -D -m 755 "$(CONNMAN_DIR)/client/connmanctl" \
+		"$(CONNMAN_PKGDIR)/usr/sbin/connmanctl"
 endif
 ifdef PTXCONF_CONNMAN_TESTS
 	@$(foreach test, $(CONNMAN_TESTS), \
@@ -148,6 +158,10 @@ ifdef PTXCONF_CONNMAN_SYSTEMD_UNIT
 	@$(call install_alternative, connman, 0, 0, 0755, \
 		/lib/systemd/connman-ignore)
 endif
+ifdef PTXCONF_CONNMAN_POLKIT
+	@$(call install_alternative, connman, 0, 0, 0644, \
+		/usr/share/polkit-1/actions/net.connman.policy)
+endif
 
 #	# ship settings which enable wired interfaces per default
 	@$(call install_alternative, connman, 0, 0, 0600, \
@@ -158,7 +172,7 @@ endif
 
 #	# command line client
 ifdef PTXCONF_CONNMAN_CLIENT
-	@$(call install_copy, connman, 0, 0, 0755, -, /usr/sbin/cm)
+	@$(call install_copy, connman, 0, 0, 0755, -, /usr/sbin/connmanctl)
 endif
 
 #	# python tests

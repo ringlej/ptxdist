@@ -3,6 +3,8 @@
 config LIBVA_INTEL_DRIVER
 	tristate
 	select LIBVA
+	select LIBDRM
+	select LIBDRM_INTEL
 	prompt "libva-intel-driver"
 	help
 	  libva-intel-driver is the VA-API implementation for Intel G45

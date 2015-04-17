@@ -353,6 +353,8 @@ config GST_PLUGINS_BAD1_YADIF
 
 config GST_PLUGINS_BAD1_BLUEZ
 	bool
+	# Does not work with bluez5
+	depends on BROKEN
 	prompt "bluez"
 
 config GST_PLUGINS_BAD1_AVC
