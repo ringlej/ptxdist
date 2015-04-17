@@ -107,6 +107,9 @@ $(STATEDIR)/glib.targetinstall:
 		$(call install_lib, glib, 0, 0, 0644, $$i); \
 	done
 
+ifdef PTXCONF_GLIB_GDBUS
+	@$(call install_copy, glib, 0, 0, 0755, -, /usr/bin/gdbus)
+endif
 	@$(call install_finish, glib)
 
 	@$(call touch)
