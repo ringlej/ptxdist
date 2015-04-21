@@ -81,6 +81,9 @@ GLIB_CONF_OPT	:= \
 	--with-threads=posix \
 	--with-pcre=internal
 
+# workaround for broken libtool
+GLIB_CFLAGS:= -Wl,-rpath-link,$(GLIB_DIR)/gmodule/.libs
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
