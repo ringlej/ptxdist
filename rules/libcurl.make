@@ -72,30 +72,10 @@ LIBCURL_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_LIBCURL_TFTP)-tftp \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
-	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2
-
-ifdef PTXCONF_LIBCURL_SSL
-LIBCURL_AUTOCONF += --with-ssl=$(SYSROOT)
-ifdef PTXCONF_LIBCURL_SSL_CABUNDLE
-LIBCURL_AUTOCONF += \
+	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2 \
+	--with-ssl=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,$(SYSROOT),no) \
 	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
-	--without-ca-path
-else
-ifdef PTXCONF_LIBCURL_SSL_CAPATH
-LIBCURL_AUTOCONF += \
-	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH) \
-	--without-ca-bundle
-else
-LIBCURL_AUTOCONF += \
-	--without-ca-bundle \
-	--without-ca-path
-endif
-endif
-else
-LIBCURL_AUTOCONF += --without-ssl \
-	--without-ca-bundle \
-	--without-ca-path
-endif
+	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH)
 
 # ----------------------------------------------------------------------------
 # Target-Install
