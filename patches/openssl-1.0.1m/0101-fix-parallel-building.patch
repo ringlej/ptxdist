@@ -4,25 +4,66 @@ Subject: [PATCH] fix parallel building
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Makefile.org | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ Makefile.org     | 20 ++++++++++----------
+ crypto/Makefile  |  2 +-
+ engines/Makefile |  2 +-
+ 3 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index 5117a0ef9c0b..49454d6cb899 100644
+index 5117a0ef9c0b..7f62a594fb27 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -278,11 +278,11 @@ build_ssl:
- 	@dir=ssl; target=all; $(BUILD_ONE_CMD)
- build_engines:
- 	@dir=engines; target=all; $(BUILD_ONE_CMD)
+@@ -273,17 +273,17 @@ build_all: build_libs build_apps build_tests build_tools
+ build_libs: build_crypto build_ssl build_engines
+ 
+ build_crypto:
+-	@dir=crypto; target=all; $(BUILD_ONE_CMD)
++	@+dir=crypto; target=all; $(BUILD_ONE_CMD)
+ build_ssl:
+-	@dir=ssl; target=all; $(BUILD_ONE_CMD)
+-build_engines:
+-	@dir=engines; target=all; $(BUILD_ONE_CMD)
 -build_apps:
-+build_apps: build_libs
- 	@dir=apps; target=all; $(BUILD_ONE_CMD)
+-	@dir=apps; target=all; $(BUILD_ONE_CMD)
 -build_tests:
-+build_tests: build_libs
- 	@dir=test; target=all; $(BUILD_ONE_CMD)
+-	@dir=test; target=all; $(BUILD_ONE_CMD)
 -build_tools:
+-	@dir=tools; target=all; $(BUILD_ONE_CMD)
++	@+dir=ssl; target=all; $(BUILD_ONE_CMD)
++build_engines: build_crypto
++	@+dir=engines; target=all; $(BUILD_ONE_CMD)
++build_apps: build_libs
++	@+dir=apps; target=all; $(BUILD_ONE_CMD)
++build_tests: build_libs
++	@+dir=test; target=all; $(BUILD_ONE_CMD)
 +build_tools: build_libs
- 	@dir=tools; target=all; $(BUILD_ONE_CMD)
++	@+dir=tools; target=all; $(BUILD_ONE_CMD)
  
  all_testapps: build_libs build_testapps
+ build_testapps:
+diff --git a/crypto/Makefile b/crypto/Makefile
+index 2355661f40fa..5af752afd45c 100644
+--- a/crypto/Makefile
++++ b/crypto/Makefile
+@@ -85,7 +85,7 @@ testapps:
+ 	@if [ -z "$(THIS)" ]; then $(MAKE) -f $(TOP)/Makefile reflect THIS=$@; fi
+ 
+ subdirs:
+-	@target=all; $(RECURSIVE_MAKE)
++	@+target=all; $(RECURSIVE_MAKE)
+ 
+ files:
+ 	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
+diff --git a/engines/Makefile b/engines/Makefile
+index 58e028131786..34fbc27ebd14 100644
+--- a/engines/Makefile
++++ b/engines/Makefile
+@@ -89,7 +89,7 @@ lib:	$(LIBOBJ)
+ 
+ subdirs:
+ 	echo $(EDIRS)
+-	@target=all; $(RECURSIVE_MAKE)
++	@+target=all; $(RECURSIVE_MAKE)
+ 
+ files:
+ 	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
