@@ -89,19 +89,20 @@ UDEV_RULES-y := \
 	50-udev-default.rules \
 	60-persistent-alsa.rules \
 	60-persistent-input.rules \
-	60-persistent-serial.rules \
 	60-persistent-storage-tape.rules \
 	60-persistent-storage.rules \
 	75-net-description.rules \
-	75-tty-description.rules \
-	78-sound-card.rules \
-	95-udev-late.rules
+	78-sound-card.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
-	42-usb-hid-pm.rules
+	42-usb-hid-pm.rules \
+	60-persistent-serial.rules \
+	75-tty-description.rules \
+	95-udev-late.rules
 
 UDEV_RULES-$(PTXCONF_SYSTEMD) += \
 	60-drm.rules \
+	60-serial.rules \
 	64-btrfs.rules \
 	70-mouse.rules \
 	70-touchpad.rules \
@@ -120,7 +121,7 @@ else
 UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-udev-acl.rules
 endif
 UDEV_RULES-$(PTXCONF_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
-UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-keyboard.rules
+UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-evdev.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keyboard-force-release.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keymap.rules
 UDEV_RULES-$(PTXCONF_UDEV_MTD_PROBE)		+= 75-probe_mtd.rules

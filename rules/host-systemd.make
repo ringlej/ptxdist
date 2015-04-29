@@ -88,6 +88,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-resolved \
 	--disable-networkd \
 	--disable-efi \
+	--disable-gnuefi \
 	--disable-terminal \
 	--disable-kdbus \
 	--disable-myhostname \
@@ -106,5 +107,12 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--with-sysvrcnd-path="" \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
+
+$(STATEDIR)/host-systemd.prepare:
+	@$(call targetinfo)
+	@$(call world/prepare, HOST_SYSTEMD)
+#	# needed for broken v220 tarball
+	@$(call compile, HOST_SYSTEMD, clean-generic)
+	@$(call touch)
 
 # vim: syntax=make

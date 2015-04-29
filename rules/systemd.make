@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 219
-SYSTEMD_MD5	:= e0d6c9a4b4f69f66932d2230298c9a34
+SYSTEMD_VERSION	:= 220
+SYSTEMD_MD5	:= 60acd92b04c0f5faa806678abd433014
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.xz
 SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
@@ -116,6 +116,7 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-resolved \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
 	--disable-efi \
+	--disable-gnuefi \
 	--disable-terminal \
 	--disable-kdbus \
 	--enable-myhostname \
@@ -142,6 +143,13 @@ SYSTEMD_CONF_OPT	:= \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
 
+$(STATEDIR)/systemd.prepare:
+	@$(call targetinfo)
+	@$(call world/prepare, SYSTEMD)
+#	# needed for broken v220 tarball
+	@$(call compile, SYSTEMD, clean-generic)
+	@$(call touch)
+
 # FIXME kernel from systemd README:
 # - devtmpfs, cgroups are mandatory.
 # - autofs4, ipv6  optional but strongly recommended
@@ -162,8 +170,9 @@ endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
 endif
-#	# don't touch /etc
+#	# don't touch /etc and /home
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/etc.conf
+	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/home.conf
 #	# the upstream default (graphical.target) wants display-manager.service
 	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/lib/systemd/system/default.target
 	@$(call touch)
@@ -197,14 +206,12 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolve-host,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved,) \
 	systemd-shutdown \
-	systemd-shutdownd \
 	systemd-sleep \
 	systemd-socket-proxyd \
 	systemd-sysctl \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
 	systemd-update-done \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-user-sessions,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
 
 $(STATEDIR)/systemd.targetinstall:
