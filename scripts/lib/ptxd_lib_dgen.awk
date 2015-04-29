@@ -89,7 +89,7 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 	this_PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
 	this_PKG = gensub(/^[A-Z0-9_]*-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", this_PKG);
 
-	is_pkg = this_pkg = gensub(/^[[:space:]]*\<(.*)\>[[:space:]]*$/,"\\1","", $2);
+	is_pkg = this_pkg = gensub(/^[[:space:]]*\<(.*)\>[[:space:]]*$/,"\\1",1, $2);
 	if (this_pkg ~ /[A-Z]+/) {
 		print \
 			"\n" \
@@ -222,8 +222,8 @@ function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
 	print this_PKG "_DEVPKG = " prefix this_devpkg			> DGEN_DEPS_PRE;
 	print this_PKG "_SOURCES = $(" this_PKG "_SOURCE)"		> DGEN_DEPS_PRE
 
-	target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
-	PREFIX = gensub(/^(HOST_|CROSS_).*/, "\\1", "", this_PKG);
+	target_PKG = gensub(/^HOST_|^CROSS_/, "", 1, this_PKG);
+	PREFIX = gensub(/^(HOST_|CROSS_).*/, "\\1", 1, this_PKG);
 
 	# define default ${PKG}, ${PKG}_SOURCE, ${PKG}_DIR
 	if ((prefix != "") && (target_PKG in PKG_to_pkg)) {
@@ -352,7 +352,7 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 	n = split(this_PKG_DEPS, this_DEP_array, " ");
 	for (i = 1; i <= n; i++) {
 		this_dep = PKG_to_pkg[this_DEP_array[i]]
-		this_dep_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", "", this_dep)
+		this_dep_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_dep)
 		if (this_dep_prefix == "")
 			print "$(" this_PKG "_IMAGE): "         "$(STATEDIR)/" this_dep ".targetinstall.post"	> DGEN_DEPS_POST;
 		else
@@ -371,7 +371,7 @@ END {
 	# for all pkgs
 	for (this_PKG in PKG_to_pkg) {
 		this_pkg = PKG_to_pkg[this_PKG];
-		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", "", this_pkg)
+		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_pkg)
 
 		write_include(this_PKG)
 		if (this_pkg_prefix != "image-") {
@@ -383,7 +383,7 @@ END {
 	# for active pkgs
 	for (this_PKG in active_PKG_to_pkg) {
 		this_pkg = PKG_to_pkg[this_PKG];
-		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", "", this_pkg)
+		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_pkg)
 
 		if (this_pkg_prefix != "image-") {
 			write_deps_pkg_active(this_PKG, this_pkg, this_pkg_prefix)
