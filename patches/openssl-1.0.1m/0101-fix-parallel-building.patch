@@ -5,9 +5,9 @@ Subject: [PATCH] fix parallel building
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  Makefile.org     | 20 ++++++++++----------
- crypto/Makefile  |  2 +-
- engines/Makefile |  2 +-
- 3 files changed, 12 insertions(+), 12 deletions(-)
+ crypto/Makefile  |  4 ++--
+ engines/Makefile |  4 ++--
+ 3 files changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
 index 5117a0ef9c0b..7f62a594fb27 100644
@@ -42,7 +42,7 @@ index 5117a0ef9c0b..7f62a594fb27 100644
  all_testapps: build_libs build_testapps
  build_testapps:
 diff --git a/crypto/Makefile b/crypto/Makefile
-index 2355661f40fa..5af752afd45c 100644
+index 2355661f40fa..04029f8621fe 100644
 --- a/crypto/Makefile
 +++ b/crypto/Makefile
 @@ -85,7 +85,7 @@ testapps:
@@ -54,10 +54,28 @@ index 2355661f40fa..5af752afd45c 100644
  
  files:
  	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
+@@ -100,7 +100,7 @@ links:
+ # lib: $(LIB): are splitted to avoid end-less loop
+ lib:	$(LIB)
+ 	@touch lib
+-$(LIB):	$(LIBOBJ)
++$(LIB):	$(LIBOBJ) subdirs
+ 	$(AR) $(LIB) $(LIBOBJ)
+ 	[ -z "$(FIPSLIBDIR)" ] || $(AR) $(LIB) $(FIPSLIBDIR)fipscanister.o
+ 	$(RANLIB) $(LIB) || echo Never mind.
 diff --git a/engines/Makefile b/engines/Makefile
-index 58e028131786..34fbc27ebd14 100644
+index 58e028131786..39f55ec6b345 100644
 --- a/engines/Makefile
 +++ b/engines/Makefile
+@@ -72,7 +72,7 @@ top:
+ 
+ all:	lib subdirs
+ 
+-lib:	$(LIBOBJ)
++lib:	$(LIBOBJ) subdirs
+ 	@if [ -n "$(SHARED_LIBS)" ]; then \
+ 		set -e; \
+ 		for l in $(LIBNAMES); do \
 @@ -89,7 +89,7 @@ lib:	$(LIBOBJ)
  
  subdirs:
