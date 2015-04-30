@@ -8,7 +8,7 @@ Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index f92f0ab8ea8f..f156f0b8d8c5 100644
+index f92f0ab8ea8f..015e8ba82e71 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -83,6 +83,7 @@ void * thread_func(void * param) { return NULL; }
@@ -25,8 +25,8 @@ index f92f0ab8ea8f..f156f0b8d8c5 100644
    return 0;
 -}], large_file="yes")
 -if [[ -n "$large_file" ]]; then
-+}], large_file="yes"))
-+if [[ "x$bonnie_cv_sys_largefile" = "xyes" ]] || [[ -n "$large_file" ]]; then
++}], bonnie_cv_sys_largefile=yes, bonnie_cv_sys_largefile=no))
++if [[ "x$bonnie_cv_sys_largefile" = "xyes" ]]; then
     large_file="#define _LARGEFILE64_SOURCE"
  fi
  

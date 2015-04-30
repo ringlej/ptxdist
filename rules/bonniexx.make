@@ -30,19 +30,17 @@ BONNIEXX_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-BONNIEXX_PATH	  := PATH=$(CROSS_PATH)
-BONNIEXX_ENV 	  := \
-		$(CROSS_ENV) \
-		bonnie_cv_sys_largefile=$(call ptx/ifdef, PTXCONF_GLOBAL_LARGE_FILE,yes,no)
+BONNIEXX_ENV	:= \
+	$(CROSS_ENV) \
+	bonnie_cv_sys_largefile=$(call ptx/ifdef,PTXCONF_GLOBAL_LARGE_FILE,yes,no)
 
 #
 # autoconf
 #
-BONNIEXX_AUTOCONF := \
+BONNIEXX_CONF_TOOL	:= autoconf
+BONNIEXX_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-stripping
-
-BONNIEXX_MAKEVARS := prefix=$(PKGDIR)/$(BONNIEXX)/usr
 
 # ----------------------------------------------------------------------------
 # Target-Install
