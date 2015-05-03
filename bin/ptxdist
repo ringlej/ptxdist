@@ -2153,7 +2153,7 @@ setup_env() {
 	unset $({
 		export -p  | sed -n 's/^declare -x \([^=]*\).*$/\1/p'
 		export -fp | sed -n 's/^declare -fx \([^=]*\).*$/\1/p'
-		} | egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$")
+		} | egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|KCONFIG_ALLCONFIG|KCONFIG_SEED|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$")
 
 	######## the environment is clean now ########
 
