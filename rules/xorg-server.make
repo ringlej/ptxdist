@@ -244,6 +244,10 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 		$(XORG_PREFIX)/lib/xorg/modules/libwfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libvgahw.so)
+ifdef PTXCONF_XORG_DRIVER_VIDEO_MODESETTING
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/modesetting_drv.so)
+endif
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_GLX

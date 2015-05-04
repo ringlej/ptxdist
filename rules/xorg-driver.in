@@ -11,5 +11,14 @@ menuconfig XORG_DRIVER_VIDEO
         bool "xorg video drivers            "
 
 if XORG_DRIVER_VIDEO
+
+config XORG_DRIVER_VIDEO_MODESETTING
+	tristate "modesetting"
+	select XORG_SERVER_LIBDRM
+	help
+	  Generic xorg video driver on top of KMS. Can be used with
+	  hardware acceleration on top of OpenGL if the GLAMOR module
+	  is also selected.
+
 source "generated/multimedia_xorg_driver_video.in"
 endif
