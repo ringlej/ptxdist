@@ -1,0 +1,9 @@
+## SECTION=shell_and_console
+
+config DT_UTILS
+	tristate
+	prompt "dt-utils"
+	select UDEV
+	help
+	  Contains the barebox-state tool to interact with "barebox-state"
+	  instances from Linux userspace.
