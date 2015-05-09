@@ -3,6 +3,8 @@
 config LIBMBIM
 	tristate
 	select GLIB
+	select UDEV
+	select UDEV_LIBGUDEV
 	prompt "libmbim"
 	help
 	  libmbim is a glib-based library for talking to WWAN modems and
