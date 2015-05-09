@@ -6,7 +6,7 @@ menuconfig XFSPROGS
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
-	select LIBUUID if XFSPROGS_INSTALL_MKXFS || XFSPROGS_INSTALL_GROWFS || XFSPROGS_INSTALL_LOGPRINT || XFSPROGS_INSTALL_COPY
+	select LIBUUID
 	help
 	 The xfsprogs package provides the filesystem utilities for use
 	 with the xfs filesystem.
