@@ -24,12 +24,13 @@ KEYUTILS_LICENSE	:= GPLv2+, LGPLv2.1+
 KEYUTILS_CONF_TOOL := NO
 KEYUTILS_MAKE_OPT := \
 	$(CROSS_ENV_CC) \
-	BUILDFOR=""
+	CFLAGS="-O2 -g3 -Wall" \
+	BUILDFOR="" \
+	LIBDIR=/lib \
+	USRLIBDIR=/usr/lib
 
 KEYUTILS_INSTALL_OPT := \
 	$(KEYUTILS_MAKE_OPT) \
-	LIBDIR=/lib \
-	USRLIBDIR=/usr/lib \
 	install
 
 # ----------------------------------------------------------------------------
