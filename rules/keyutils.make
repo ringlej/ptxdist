@@ -8,8 +8,8 @@ PACKAGES-$(PTXCONF_KEYUTILS) += keyutils
 #
 # Paths and names
 #
-KEYUTILS_VERSION	:= 1.5.5
-KEYUTILS_MD5		:= d759680b2f23c99af95938f5026f25fb
+KEYUTILS_VERSION	:= 1.5.9
+KEYUTILS_MD5		:= 7f8ac985c45086b5fbcd12cecd23cf07
 KEYUTILS		:= keyutils-$(KEYUTILS_VERSION)
 KEYUTILS_SUFFIX		:= tar.bz2
 KEYUTILS_URL		:= http://people.redhat.com/~dhowells/keyutils/$(KEYUTILS).$(KEYUTILS_SUFFIX)
