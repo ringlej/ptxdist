@@ -51,7 +51,7 @@ ATTR_INSTALL_OPT := \
 ATTR_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/lib \
-	--$(call ptx/endis, PTXCONF_ATTR_SHARED)-shared \
+	--enable-shared \
 	--$(call ptx/endis, PTXCONF_ATTR_GETTEXT)-gettext
 
 # ----------------------------------------------------------------------------
@@ -72,10 +72,8 @@ ifdef PTXCONF_ATTR_TOOLS
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/setfattr)
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/getfattr)
 endif
-
-ifdef PTXCONF_ATTR_SHARED
 	@$(call install_lib, attr, 0, 0, 0644, libattr)
-endif
+
 	@$(call install_finish, attr)
 
 	@$(call touch)
