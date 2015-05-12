@@ -33,10 +33,10 @@ U_BOOT_TOOLS_CONF_TOOL	:= NO
 # just pick sandbox as a dummy target config
 U_BOOT_TOOLS_MAKE_OPT	:= \
 	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
-	sandbox_config tools-only
+	sandbox_config
 
 ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
-U_BOOT_TOOLS_MAKE_OPT	+= env
+U_BOOT_TOOLS_MAKE_OPT	+= tools/env/
 endif
 
 # ----------------------------------------------------------------------------
