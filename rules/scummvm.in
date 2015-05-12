@@ -1,4 +1,7 @@
-## SECTION=games
+## SECTION=staging
+## old section:
+### SECTION=games
+
 config SCUMMVM
 	tristate
 	prompt "scummvm"
