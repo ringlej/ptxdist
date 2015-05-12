@@ -37,7 +37,7 @@ CVS_ENV 	:= $(CROSS_ENV)
 CVS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--prefix=/usr \
 	--enable-case-sensitivity \
-	--$(call ptx/endis, PTXCONF_CVS_NDBM)-cvs-ndbm \
+	--enable-cvs-ndbm \
 	--$(call ptx/endis, PTXCONF_CVS_CLIENT)-client \
 	--$(call ptx/endis, PTXCONF_CVS_PSSWRD_CLIENT)-password-authenticated-client \
 	--$(call ptx/endis, PTXCONF_CVS_SERVER)-server \
