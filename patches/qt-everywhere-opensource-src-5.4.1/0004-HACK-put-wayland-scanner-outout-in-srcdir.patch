@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 10 Nov 2014 17:44:10 +0100
+Subject: [PATCH] HACK: put wayland-scanner outout in srcdir
+
+The include paths are currently broken when building OOT
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtbase/mkspecs/features/wayland-scanner.prf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qtbase/mkspecs/features/wayland-scanner.prf b/qtbase/mkspecs/features/wayland-scanner.prf
+index 5a97d98373fa..a5477e8f9b42 100644
+--- a/qtbase/mkspecs/features/wayland-scanner.prf
++++ b/qtbase/mkspecs/features/wayland-scanner.prf
+@@ -26,7 +26,7 @@ defineReplace(waylandScannerHeaderFiles) {
+ }
+ 
+ qt_install_headers {
+-    header_dest = $$MODULE_BASE_OUTDIR/include/$$MODULE_INCNAME/$$VERSION/$$MODULE_INCNAME/private
++    header_dest = $$MODULE_BASE_INDIR/include/$$MODULE_INCNAME/$$VERSION/$$MODULE_INCNAME/private
+ 
+     header_files_client = $$waylandScannerHeaderFiles(client, $$header_dest)
+     !isEmpty(header_files_client) {

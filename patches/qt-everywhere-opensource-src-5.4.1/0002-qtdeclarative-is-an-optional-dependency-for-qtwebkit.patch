@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 29 Apr 2014 18:35:43 +0200
+Subject: [PATCH] qtdeclarative is an optional dependency for qtwebkit
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qt.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qt.pro b/qt.pro
+index 15fd48ec71f3..a1d87b9a9d24 100644
+--- a/qt.pro
++++ b/qt.pro
+@@ -77,7 +77,7 @@ addModule(qtfeedback, qtdeclarative, qtmultimedia)
+ addModule(qtpim, qtdeclarative)
+ addModule(qtwebsockets, qtbase, qtdeclarative)
+ addModule(qtwebchannel, qtbase, qtdeclarative qtwebsockets)
+-addModule(qtwebkit, qtdeclarative, qtlocation qtmultimedia qtsensors qtwebchannel, WebKit.pro)
++addModule(qtwebkit, qtbase, qtdeclarative qtlocation qtmultimedia qtsensors qtwebchannel, WebKit.pro)
+ addModule(qttools, qtbase, qtdeclarative qtactiveqt qtwebkit)
+ addModule(qtwebkit-examples, qtwebkit qttools)
+ addModule(qtimageformats, qtbase)
