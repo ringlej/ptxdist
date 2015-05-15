@@ -56,7 +56,7 @@ comment "BusyBox' ping is selected!"
 
 config INETUTILS_PING6
 	bool
-	depends on !BUSYBOX_PING6 && GLOBAL_IPV6 || ALLYES
+	depends on (!BUSYBOX_PING6 || ALLYES) && GLOBAL_IPV6
 	prompt "ping6"
 	help
 	  Ping is a small tool to check if another host is alive in the network.
