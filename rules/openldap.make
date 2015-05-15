@@ -82,7 +82,7 @@ OPENLDAP_CONF_OPT	:= \
 	--without-cyrus-sasl \
 	--without-fetch \
 	--with-yielding_select=yes \
-	--$(call ptx/wwo, PTXCONF_OPENLDAP_THREADS)-threads \
+	--with-threads \
 	--with-tls=$(OPENLDAP_TLS_CONF_OPT-y)
 
 
@@ -118,9 +118,7 @@ endif
 
 	@$(call install_lib, openldap, 0, 0, 0644, liblber-$(OPENLDAP_LIBVERSION))
 	@$(call install_lib, openldap, 0, 0, 0644, libldap-$(OPENLDAP_LIBVERSION))
-ifdef PTXCONF_OPENLDAP_THREADS
 	@$(call install_lib, openldap, 0, 0, 0644, libldap_r-$(OPENLDAP_LIBVERSION))
-endif
 
 #	tools
 
