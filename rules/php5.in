@@ -208,6 +208,7 @@ config PHP5_XML_LIBXML2_DOM
 
 config PHP5_XML_LIBXML2_XSLT
 	bool
+	select PHP5_XML_LIBXML2_DOM
 	prompt "xslt support"
 	help
 	  XMLWriter support
