@@ -145,7 +145,6 @@ ifneq ($(PTXCONF_APACHE2_CONFIGDIR), "")
 ifdef PTXCONF_APACHE2_INSTALL_CONFIG
 	@$(call install_alternative, apache2, www, www, 0644, \
 		/etc/apache2/httpd.conf,, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf)
-endif
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@SERVERROOT@, $(PTXCONF_APACHE2_SERVERROOT))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
@@ -162,6 +161,7 @@ endif
 		@SERVERADMIN@, $(PTXCONF_APACHE2_SERVERADMIN))
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@SERVERNAME@, $(PTXCONF_APACHE2_SERVERNAME))
+endif
 endif
 
 #	#
