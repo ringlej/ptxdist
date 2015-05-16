@@ -43,7 +43,7 @@ SPEEX_CONF_OPT := \
 	--disable-oggtest \
 	--disable-valgrind \
 	--$(call ptx/endis, PTXCONF_SPEEX_FIXED_POINT)-fixed-point \
-	--$(call ptx/endis, PTXCONF_SPEEX_FIXED_POINT_DEBUG)-fixed-point-debug \
+	--disable-fixed-point-debug \
 	--$(call ptx/endis, PTXCONF_SPEEX_FLOAT_API)-float-api \
 	--$(call ptx/endis, PTXCONF_SPEEX_VBR)-vbr \
 	--disable-ti-c55x \

@@ -17,11 +17,6 @@ config SPEEX_FIXED_POINT
 	bool
 	prompt "use fixed point"
 
-config SPEEX_FIXED_POINT_DEBUG
-	bool
-	depends on SPEEX_FIXED_POINT
-	prompt "fixed point debugging"
-
 config SPEEX_FLOAT_API
 	bool
 	prompt "enable float api"
