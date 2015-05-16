@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-use-CC-instead-of-CPP-to-generate-.depend-files.patch
 0002-remove-bogus-I-usr-include-slang-from-CPPFLAGS.patch
-# b40f9e33a7e5800fb21155c8e2a57d4d  - git-ptx-patches magic
+0003-fix-parallel-building.patch
+# 3da7fa330a5dbc1b8f7175767b0d8c44  - git-ptx-patches magic
