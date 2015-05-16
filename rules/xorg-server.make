@@ -113,7 +113,7 @@ XORG_SERVER_CONF_OPT	= \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XVFB)-xvfb \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XNEST)-xnest \
 	--disable-xquartz \
-	--disable-xshmfence \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI3)-xshmfence \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWAYLAND)-xwayland \
 	--disable-standalone-xpbproxy \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWIN)-xwin \
