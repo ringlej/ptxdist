@@ -28,26 +28,9 @@ NANOCOM_DIR		:= $(BUILDDIR)/$(NANOCOM)
 # Prepare
 # ----------------------------------------------------------------------------
 
-NANOCOM_PATH	:= PATH=$(CROSS_PATH)
-NANOCOM_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-NANOCOM_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/nanocom.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/nanocom.compile:
-	@$(call targetinfo)
-	@cd $(NANOCOM_DIR) && $(NANOCOM_PATH) $(NANOCOM_ENV) $(MAKE) $(PARALLELMFLAGS) $(CROSS_ENV_CC)
-	@$(call touch)
+NANOCOM_CONF_TOOL	:= NO
+NANOCOM_MAKE_OPT	:= \
+	$(CROSS_ENV_CC)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -55,6 +38,8 @@ $(STATEDIR)/nanocom.compile:
 
 $(STATEDIR)/nanocom.install:
 	@$(call targetinfo)
+	@install -v -m 0755 -D $(NANOCOM_DIR)/nanocom \
+		$(NANOCOM_PKGDIR)/bin/nanocom
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -70,7 +55,7 @@ $(STATEDIR)/nanocom.targetinstall:
 	@$(call install_fixup, nanocom,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, nanocom,DESCRIPTION,missing)
 
-	@$(call install_copy, nanocom, 0, 0, 0755, $(NANOCOM_DIR)/nanocom, /bin/nanocom)
+	@$(call install_copy, nanocom, 0, 0, 0755, -, /bin/nanocom)
 
 	@$(call install_finish, nanocom)
 
