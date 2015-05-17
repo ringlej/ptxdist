@@ -99,7 +99,7 @@ endif
 
 $(STATEDIR)/barebox.compile:
 	@$(call targetinfo)
-	@cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
+	@+cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
 		$(MAKE) $(BAREBOX_MAKEVARS)
 	@$(call touch)
 
