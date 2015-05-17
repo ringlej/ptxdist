@@ -29,15 +29,18 @@ XFSPROGS_LICENSE:= GPLv2, LGPLv2.1
 # Prepare
 # ----------------------------------------------------------------------------
 
-XFSPROGS_CONF_TOOL:= autoconf
-XFSPROGS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XFSPROGS_CONF_TOOL	:= autoconf
+XFSPROGS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-readline \
+	--disable-editline \
+	--disable-termcap \
+	--disable-blkid \
+	--disable-lib64
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-
-XFSPROGS_CPPFLAGS := $(strip $(PTXCONF_TARGET_EXTRA_CPPFLAGS) $(PTXDIST_CROSS_CPPFLAGS))
-XFSPROGS_MAKE_OPT := GCCFLAGS="$(XFSPROGS_CPPFLAGS)"
 
 XFSPROGS_INSTALL_OPT := \
 	prefix=${XFSPROGS_PKGDIR}/usr \
