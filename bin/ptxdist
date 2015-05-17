@@ -1305,10 +1305,10 @@ parse_first()
 			PTXDIST_PARALLELMFLAGS_EXTERN="-j${arg#*e}"
 			;;
 		-l*)
-			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*l}"
+			PTXDIST_LOADMFLAGS="-l${arg#*l}"
 			;;
 		--load-average=*)
-			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*=}"
+			PTXDIST_LOADMFLAGS="-l${arg#*=}"
 			;;
 		-n*)
 			PTX_NICE="${arg#*n}"
@@ -2610,7 +2610,7 @@ setup_export() {
 		PTXDIST_PLATFORMCONFIGDIR \
 		\
 		PTXDIST_PARALLELMFLAGS_INTERN \
-		PTXDIST_LOADMFLAGS_INTERN \
+		PTXDIST_LOADMFLAGS \
 		\
 		PTXDIST_CCACHE \
 		PTXDIST_FORCE_DOWNLOAD \

@@ -62,7 +62,7 @@ BOOST_JAM	:= \
 
 JAM_MAKE_OPT	:= \
 	$(if $(shell test $(subst -j,,$(PARALLELMFLAGS)) -le 64 && echo 1),$(PARALLELMFLAGS),-j64) \
-	$(PTXDIST_LOADMFLAGS_INTERN) \
+	$(PTXDIST_LOADMFLAGS) \
 	stage
 
 JAM_INSTALL_OPT	:= \
