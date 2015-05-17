@@ -20,6 +20,7 @@ BEGIN {
 	DGEN_DEPS_POST		= ENVIRON["PTX_DGEN_DEPS_POST"];
 	DGEN_RULESFILES_MAKE	= ENVIRON["PTX_DGEN_RULESFILES_MAKE"];
 	PTXDIST_TEMPDIR		= ENVIRON["PTXDIST_TEMPDIR"];
+	PARALLEL		= ENVIRON["PTXDIST_PARALLELMFLAGS_EXTERN"]
 }
 
 #
@@ -299,6 +300,8 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	for (i = 1; i <= n; i++) {
 		this_dep = PKG_to_pkg[this_DEP_array[i]]
 
+		if (PARALLEL != "-j1")
+			print "$(STATEDIR)/" this_pkg	".extract:| " "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg	".extract.post: "     "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg	".install.unpack: "   "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
 
@@ -335,6 +338,8 @@ function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
 		else
 			virtual = "base";
 	}
+	if (PARALLEL != "-j1")
+		print "$(STATEDIR)/" this_pkg ".extract:| "           "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".install.unpack: "             "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
 }
