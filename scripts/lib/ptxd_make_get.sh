@@ -51,6 +51,7 @@ ptxd_make_get_http() {
 	# remove any pending or half downloaded files
 	rm -f -- "${path}."*
 
+	ptxd_make_serialize_take
 	local temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 	wget \
 	    --passive-ftp \
@@ -66,8 +67,10 @@ ptxd_make_get_http() {
 		file "${temp_file}" | grep -vq " HTML " &&
 		touch -- "${temp_file}" &&
 		mv -- "${temp_file}" "${path}"
+		ptxd_make_serialize_put
 		return
 	}
+	ptxd_make_serialize_put
 
 	rm -f -- "${temp_file}"
 

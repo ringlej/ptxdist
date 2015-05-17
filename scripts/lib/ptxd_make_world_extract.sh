@@ -60,6 +60,7 @@ ptxd_make_world_extract() {
 
     mkdir -p "${pkg_extract_dir}" || return
 
+    ptxd_make_serialize_take
     echo "\
 extract: pkg_src=$(ptxd_print_path ${pkg_src})
 extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
@@ -83,6 +84,7 @@ extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
     fi
     local ret=$?
     rm -rf "${tmpdir}"
+    ptxd_make_serialize_put
     return ${ret}
 }
 
