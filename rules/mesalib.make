@@ -133,12 +133,10 @@ MESALIB_CONF_OPT	:= \
 # Compile
 # ----------------------------------------------------------------------------
 
-MESALIB_MAKE_OPT := HOST_CC=$(HOSTCC)
-
 $(STATEDIR)/mesalib.compile:
 	@$(call targetinfo)
 	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/glsl/
-	@$(call compile, MESALIB)
+	@$(call world/compile, MESALIB)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
