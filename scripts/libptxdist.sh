@@ -356,7 +356,7 @@ ptxd_make() {
 		done
 	done
 	${PTX_NICE:+nice -n ${PTX_NICE}} "${PTXCONF_SETUP_HOST_MAKE}" \
-	    "${PTX_MAKE_ARGS[@]}" "${PTXDIST_PARALLELMFLAGS_EXTERN}" ${PTXDIST_LOADMFLAGS} \
+	    "${PTX_MAKE_ARGS[@]}" ${PTXDIST_PARALLELMFLAGS_EXTERN} ${PTXDIST_LOADMFLAGS} \
 	    -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
 }
 

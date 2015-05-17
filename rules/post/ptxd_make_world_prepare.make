@@ -17,7 +17,7 @@ $(STATEDIR)/%.prepare:
 # prepare for target autoconf and cmake packages
 #
 world/prepare = \
-	$(call world/env, $1) \
+	+$(call world/env, $1) \
 	ptxd_make_world_prepare
 
 # vim: syntax=make

@@ -1304,6 +1304,12 @@ parse_first()
 		-je*)
 			PTXDIST_PARALLELMFLAGS_EXTERN="-j${arg#*e}"
 			;;
+		-j)
+			PTXDIST_PARALLELMFLAGS="auto"
+			;;
+		-j[1-9]*)
+			PTXDIST_PARALLELMFLAGS="-j${arg#*j}"
+			;;
 		-l*)
 			PTXDIST_LOADMFLAGS="-l${arg#*l}"
 			;;
@@ -2243,8 +2249,6 @@ setup_libs_early() {
 #
 # out: PTXCONF_*	user preferences
 #      PTXDIST_SRCDIR
-#      PTXDIST_PARALLELMFLAGS_INTERN
-#      PTXDIST_PARALLELMFLAGS_EXTERN
 #      PTXDIST_PTXRC
 #
 setup_config() {
@@ -2304,13 +2308,19 @@ setup_config() {
 	if [ -n "${PTXCONF_SETUP_NO_PROXY}" ]; then
 		export no_proxy="${PTXCONF_SETUP_NO_PROXY}"
 	fi
+}
 
-	#
-	# setup PARALLELMFLAGS
-	#
-
+#
+# setup parallel building
+#
+# out: PTXDIST_PARALLELMFLAGS
+#      PTXDIST_PARALLELMFLAGS_INTERN
+#      PTXDIST_PARALLELMFLAGS_EXTERN
+#
+setup_parallel() {
 	# default no parallel for now
-	local pmf_extern="-j1"
+	local pmf_extern=""
+	local pmf_intern=""
 	local cpus
 
 	# this one is for Linux
@@ -2323,7 +2333,14 @@ setup_config() {
 	elif ! cpus="$(sysctl -n hw.ncpu)" 2> /dev/null; then
 		cpus=1
 	fi
-	local pmf_intern="-j$(( ${cpus} * 2 ))"
+	local pmf_cpus="-j$(( ${cpus} * 2 ))"
+
+	if [ -z "${PTXDIST_PARALLELMFLAGS}" ]; then
+		pmf_intern="${pmf_cpus}"
+		pmf_extern="-j1"
+	elif [ "${PTXDIST_PARALLELMFLAGS}" == "auto" ]; then
+		PTXDIST_PARALLELMFLAGS="${pmf_cpus}"
+	fi
 
 	#
 	# user may override these, via cmdline
@@ -2609,6 +2626,7 @@ setup_export() {
 		PTXDIST_PLATFORMSUFFIX \
 		PTXDIST_PLATFORMCONFIGDIR \
 		\
+		PTXDIST_PARALLELMFLAGS \
 		PTXDIST_PARALLELMFLAGS_INTERN \
 		PTXDIST_LOADMFLAGS \
 		\
@@ -2641,6 +2659,8 @@ main() {
 
 	parse_first &&
 	# --- vars to config files are setup ---
+
+	setup_parallel &&
 
 	setup_auto_version &&
 
