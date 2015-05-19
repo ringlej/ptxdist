@@ -1,4 +1,6 @@
-## SECTION=multimedia_xorg_driver_video
+## SECTION=staging
+## old section:
+### SECTION=multimedia_xorg_driver_video
 
 # configuration for xorg-driver-video-v4l
 
