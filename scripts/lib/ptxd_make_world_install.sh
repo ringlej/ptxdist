@@ -37,7 +37,7 @@ ptxd_make_world_install() {
     # fakeroot is a host pkg and
     # might not be available, yet
     #
-    if ! eval "${pkg_path}" which fakeroot > /dev/null; then
+    if [ ! -e "${ptx_state_dir}/host-fakeroot.install.post" ]; then
 	local echo="eval"
 	local fakeroot="cat"
     fi &&
