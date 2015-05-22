@@ -102,7 +102,7 @@ world/env/impl = \
 	pkg_deprecated_makevars="$(call ptx/escape, $($(1)_MAKEVARS))"
 
 world/env= \
-	$(call ptx/env) \
-	$(call world/env/impl,$(strip $(1)))
+	$(call world/env/impl,$(strip $(1))) \
+	$(call ptx/env)
 
 # vim: syntax=make
