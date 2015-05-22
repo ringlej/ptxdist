@@ -345,7 +345,7 @@ ptxd_make_world_patchin_fixup()
     local file
 
     echo "patchin: fixup:"
-    find "${pkg_patchin_dir}/" -name "configure" -a -type f -a \! -path "*/.pc/*" | while read file; do
+    find "${pkg_dir}/" -name "configure" -a -type f -a \! -path "*/.pc/*" | while read file; do
 	ptxd_print_path "${file}"
 	#
 	# the first fixes a problem with libtool on blackfin:
@@ -363,7 +363,7 @@ ptxd_make_world_patchin_fixup()
 	    "${file}" || return
     done &&
 
-    find "${pkg_patchin_dir}/" -name "ltmain.sh" -a -type f -a \! -path "*/.pc/*" | while read file; do
+    find "${pkg_dir}/" -name "ltmain.sh" -a \( -type f -o -type l \) -a \! -path "*/.pc/*" | while read file; do
 	ptxd_print_path "${file}"
 	#
 	# this sed turns of the relinking during "make install" (it
@@ -377,7 +377,7 @@ ptxd_make_world_patchin_fixup()
 
     ptxd_get_alternative scripts/autoconf config.sub
     local config_sub="${ptxd_reply}"
-    find "${pkg_patchin_dir}/" -type f -name "config.sub" ! -path "*/.pc/*" | while read file; do
+    find "${pkg_dir}/" \( -type f -o -type l \) -name "config.sub" ! -path "*/.pc/*" | while read file; do
 	ptxd_print_path "${file}"
 	cp -f "${config_sub}" "${file}" || return
     done &&
@@ -478,8 +478,10 @@ ptxd_make_world_patchin_post() {
 	cd "${pkg_patchin_dir}" &&
 	if [ -n "${pkg_patch_dir}" ]; then
 	    ptxd_make_world_autogen
-	fi &&
-
+	fi
+    ) fi &&
+    if [ -n "${pkg_dir}" ]; then (
+	cd "${pkg_dir}" &&
 	if [ "${pkg_type}" = "target" ]; then
 	    ptxd_make_world_patchin_fixup
 	fi
