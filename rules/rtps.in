@@ -2,10 +2,10 @@
 
 config RTPS
 	tristate
-	depends on !BUSYBOX_PS
+	depends on !BUSYBOX_PS || ALLYES
 	prompt "rtps"
-	select PROCPS
-	select PROCPS_PS
+	select PROCPS		if RUNTIME
+	select PROCPS_PS	if RUNTIME
 	help
 	  display (rt-) information about the active processes
 
