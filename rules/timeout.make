@@ -23,29 +23,16 @@ TIMEOUT_SUFFIX	:= tar.gz
 TIMEOUT_URL	:= http://www.porcupine.org/forensics/$(TIMEOUT).$(TIMEOUT_SUFFIX)
 TIMEOUT_SOURCE	:= $(SRCDIR)/$(TIMEOUT).$(TIMEOUT_SUFFIX)
 TIMEOUT_DIR	:= $(BUILDDIR)/$(TIMEOUT)
+TIMEOUT_SUBDIR	:= src/misc
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-TIMEOUT_PATH	:= PATH=$(CROSS_PATH)
-
-TIMEOUT_MAKEVARS := $(CROSS_ENV_CC)
-
-$(STATEDIR)/timeout.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/timeout.compile:
-	@$(call targetinfo)
-	cd $(TIMEOUT_DIR)/src/misc && $(TIMEOUT_PATH) \
-		$(MAKE) $(PARALLELMFLAGS_BROKEN) $(TIMEOUT_MAKEVARS) \
-		../../bin/timeout
-	@$(call touch)
+TIMEOUT_CONF_TOOL	:= NO
+TIMEOUT_MAKE_OPT	:= \
+	$(CROSS_ENV_PROGS) \
+	../../bin/timeout
 
 # ----------------------------------------------------------------------------
 # Install
@@ -53,6 +40,8 @@ $(STATEDIR)/timeout.compile:
 
 $(STATEDIR)/timeout.install:
 	@$(call targetinfo)
+	@install -v -D -m755 $(TIMEOUT_DIR)/bin/timeout \
+		$(TIMEOUT_PKGDIR)/usr/bin/timeout
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -68,7 +57,7 @@ $(STATEDIR)/timeout.targetinstall:
 	@$(call install_fixup, timeout,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, timeout,DESCRIPTION,missing)
 
-	@$(call install_copy, timeout, 0, 0, 0755, $(TIMEOUT_DIR)/bin/timeout, /usr/bin/timeout)
+	@$(call install_copy, timeout, 0, 0, 0755, -, /usr/bin/timeout)
 
 	@$(call install_finish, timeout)
 
