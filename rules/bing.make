@@ -30,14 +30,8 @@ BING_DIR	:= $(BUILDDIR)/$(BING)
 # Prepare
 # ----------------------------------------------------------------------------
 
-BING_PATH	:= PATH=$(CROSS_PATH)
-BING_ENV 	:= $(CROSS_ENV)
-
-BING_MAKEVARS	:= $(CROSS_ENV_CC)
-
-$(STATEDIR)/bing.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+BING_CONF_TOOL	:= NO
+BING_MAKE_OPT	:= $(CROSS_ENV_PROGS) bing
 
 # ----------------------------------------------------------------------------
 # Target-Install
