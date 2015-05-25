@@ -31,28 +31,20 @@ SLANG_DIR	:= $(BUILDDIR)/$(SLANG)
 # Prepare
 # ----------------------------------------------------------------------------
 
-SLANG_PATH	:= PATH=$(CROSS_PATH)
-SLANG_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-SLANG_AUTOCONF := \
+SLANG_CONF_TOOL	:= autoconf
+SLANG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--without-png \
 	--without-pcre
 
 # FIXME: iconv support is broken (at least for glibc-iconv)
-SLANG_AUTOCONF += --without-iconv
+SLANG_CONF_OPT	+= --without-iconv
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/slang.compile:
-	@$(call targetinfo)
-	cd $(SLANG_DIR) && $(SLANG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
+SLANG_MAKE_OPT		:= -C src elf TERMCAP=
+SLANG_INSTALL_OPT	:= -C src install-elf
 
 # ----------------------------------------------------------------------------
 # Target-Install
