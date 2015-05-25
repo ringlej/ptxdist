@@ -17,26 +17,14 @@ HOST_PACKAGES-$(PTXCONF_HOST_TIMEOUT) += host-timeout
 # Paths and names
 #
 HOST_TIMEOUT_DIR	= $(HOST_BUILDDIR)/$(TIMEOUT)
+HOST_TIMEOUT_SUBDIR	:= src/misc
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_TIMEOUT_PATH	:= PATH=$(HOST_PATH)
-HOST_TIMEOUT_ENV 	:= $(HOST_ENV)
-
-$(STATEDIR)/host-timeout.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-timeout.compile:
-	@$(call targetinfo)
-	cd $(HOST_TIMEOUT_DIR)/src/misc && $(HOST_TIMEOUT_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN) ../../bin/timeout
-	@$(call touch)
+HOST_TIMEOUT_CONF_TOOL	:= NO
+HOST_TIMEOUT_MAKE_OPT	:= ../../bin/timeout
 
 # ----------------------------------------------------------------------------
 # Install
@@ -44,7 +32,8 @@ $(STATEDIR)/host-timeout.compile:
 
 $(STATEDIR)/host-timeout.install:
 	@$(call targetinfo)
-	$(INSTALL) -m 755 -D $(HOST_TIMEOUT_DIR)/bin/timeout $(PTXCONF_SYSROOT_HOST)/bin/timeout
+	@$(INSTALL) -v -m 755 -D $(HOST_TIMEOUT_DIR)/bin/timeout \
+		$(PTXCONF_SYSROOT_HOST)/bin/timeout
 	@$(call touch)
 
 # vim: syntax=make
