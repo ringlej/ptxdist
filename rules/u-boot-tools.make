@@ -33,11 +33,8 @@ U_BOOT_TOOLS_CONF_TOOL	:= NO
 # just pick sandbox as a dummy target config
 U_BOOT_TOOLS_MAKE_OPT	:= \
 	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
-	sandbox_config
-
-ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
-U_BOOT_TOOLS_MAKE_OPT	+= tools/env/
-endif
+	sandbox_config \
+	tools/env/
 
 # ----------------------------------------------------------------------------
 # Install
@@ -45,10 +42,8 @@ endif
 
 $(STATEDIR)/u-boot-tools.install:
 	@$(call targetinfo)
-ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
 	install -D $(U_BOOT_TOOLS_DIR)/tools/env/fw_printenv \
 		$(U_BOOT_TOOLS_PKGDIR)/usr/sbin/fw_printenv
-endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -65,11 +60,9 @@ $(STATEDIR)/u-boot-tools.targetinstall:
 		"Andreas Bießmann <andreas@biessmann.de>")
 	@$(call install_fixup, u-boot-tools,DESCRIPTION,missing)
 
-ifdef PTXCONF_U_BOOT_TOOLS_TOOL_ENV
 	@$(call install_copy, u-boot-tools, 0, 0, 0755, -, /usr/sbin/fw_printenv)
 	@$(call install_link, u-boot-tools, fw_printenv, /usr/sbin/fw_setenv)
 	@$(call install_alternative, u-boot-tools, 0, 0, 0644, /etc/fw_env.config)
-endif
 
 	@$(call install_finish, u-boot-tools)
 
