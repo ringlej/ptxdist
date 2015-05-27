@@ -160,6 +160,7 @@ if XORG_SERVER
 
 config XORG_SERVER_LIBDRM
 	select XORG_SERVER_EXT_DPMS
+	select XORG_SERVER_EXT_PRESENT
 	bool
 
 menu "xorg servers                  "
