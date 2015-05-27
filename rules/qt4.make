@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.8.6
-QT4_MD5		:= 2edbe4d6c2eff33ef91732602f3518eb
+QT4_VERSION	:= 4.8.7
+QT4_MD5		:= d990ee66bf7ab0c785589776f35ba6ad
 QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://download.qt-project.org/official_releases/qt/4.8/$(QT4_VERSION)/$(QT4).$(QT4_SUFFIX)
