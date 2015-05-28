@@ -59,6 +59,7 @@ config OPENCV_GPU
 	select OPENCV_LEGACY
 	select OPENCV_PHOTO
 	select OPENCV_OBJDETECT
+	select OPENCV_HIGHGUI
 	help
 	  GPU-accelerated Computer Vision
 
