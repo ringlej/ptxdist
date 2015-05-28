@@ -30,6 +30,7 @@ config POPPLER_BIN
 	  pdftotext.
 
 config POPPLER_GLIB
+	select POPPLER_CAIRO
 	bool
 	prompt "enable poppler glib wrapper"
 	help
