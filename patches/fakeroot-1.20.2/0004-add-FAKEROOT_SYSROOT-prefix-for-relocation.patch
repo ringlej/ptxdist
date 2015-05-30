@@ -9,11 +9,11 @@ Not for upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/fakeroot.in |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+ scripts/fakeroot.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/fakeroot.in b/scripts/fakeroot.in
-index d4f888d..4c998c8 100755
+index 88ff313cc12a..701e8b3f0888 100755
 --- a/scripts/fakeroot.in
 +++ b/scripts/fakeroot.in
 @@ -30,12 +30,12 @@ fatal ()
