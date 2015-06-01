@@ -132,3 +132,8 @@ maintainer-clean: distclean
 
 release:
 	@scripts/make_$@.sh
+
+SPHINXBUILD = @SPHINX@
+
+docs:
+	@$(SPHINXBUILD) -b html -j 4 -d ./Documentation ./doc ./Documentation/html
