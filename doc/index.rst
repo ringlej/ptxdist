@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to the PTXdist universe
+Welcome to the PTXdist Universe
 ===============================
 
 Contents:
@@ -12,6 +12,8 @@ Contents:
    :glob:
    :numbered:
    :maxdepth: 1
+
+   macro_reference
 
 * :ref:`search`
 * :ref:`genindex`
