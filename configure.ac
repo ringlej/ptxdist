@@ -380,10 +380,12 @@ AC_ARG_WITH([bash-completion],
 	[BASH_COMPLETION_DIR=/etc/bash_completion.d]
 )
 AC_SUBST(BASH_COMPLETION_DIR)
+AC_SUBST(PACKAGE_VERSION)
 
 AC_MSG_RESULT([])
 AC_CONFIG_FILES( \
 	Makefile \
+	doc/conf.py
 )
 AC_OUTPUT
 AC_MSG_RESULT([])
