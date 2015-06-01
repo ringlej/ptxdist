@@ -18,9 +18,9 @@ ptxd_make_serialize_take() {
 export -f ptxd_make_serialize_take
 
 ptxd_make_serialize_put() {
-    local writeptr="ptxd_make_serialize_${pkg_stage}_writefd"
-    if [ -n "${!writeptr}" ]; then
-	echo -n '+' >&${!writeptr}
+    local fifo="${PTXDIST_TEMPDIR}/${pkg_stage}-fifo"
+    if [ -e "${fifo}" ]; then
+	echo -n '+' > "${fifo}"
     fi
 }
 export -f ptxd_make_serialize_put
