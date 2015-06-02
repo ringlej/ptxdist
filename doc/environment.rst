@@ -139,14 +139,14 @@ Next step is to extract the archive:
 
 ::
 
-    $ tar -xjf ptxdist-|\verbatimcmd\ptxdistVendorVersion{}|.tar.bz2
+    $ tar -xjf ptxdist-\verbatimcmd\ptxdistVendorVersion{}.tar.bz2
 
 If everything goes well, we now have a PTXdist- directory, so we can
 change into it:
 
 ::
 
-    $ cd ptxdist-|\verbatimcmd\ptxdistVendorVersion|
+    $ cd ptxdist-\verbatimcmd\ptxdistVendorVersion
     $ ls -lF
     total 530
     -rw-r--r--   1 jb user  18446 Sep  9 15:59 COPYING
@@ -418,7 +418,7 @@ If we want to check if our toolchain was built with the
 
 ::
 
-    $ mytoolchain-gcc -v 2|\textgreater{}\&|1 | grep with-sysroot
+    $ mytoolchain-gcc -v 2\textgreater{}\&1 | grep with-sysroot
 
 If this command **does not** output anything, this toolchain was not
 built with the ``--with-sysroot`` option and cannot be used with
@@ -485,7 +485,7 @@ the board support package:
 
 ::
 
-    $ apt-get install oselas.toolchain-|\oselasTCNVendorVersion \oselasTCNVendorPatchLevel -\ptxdistCompilerName-\ptxdistCompilerVersion|
+    $ apt-get install oselas.toolchain-\oselasTCNVendorVersion \oselasTCNVendorPatchLevel -\ptxdistCompilerName-<ptxdistCompilerVersion>
 
 These package names are very long and hard to type without making typos.
 An easier way is to ask the package manager for available toolchains and
@@ -493,8 +493,8 @@ just use the name by copy and paste it.
 
 ::
 
-    $ apt-cache search "oselas.toolchain-.*-|\oselasTCNarch|.*|\oselasTCNvariant|.*"
-    oselas.toolchain-|\oselasTCNVendorVersion \oselasTCNVendorPatchLevel -\ptxdistCompilerName-\ptxdistCompilerVersion|
+    $ apt-cache search "oselas.toolchain-.*-\oselasTCNarch.*\oselasTCNvariant.*"
+    oselas.toolchain-\oselasTCNVendorVersion \oselasTCNVendorPatchLevel -\ptxdistCompilerName-<ptxdistCompilerVersion>
 
 The binary OSELAS Toolchain Package for non-Debian Distributions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -621,11 +621,11 @@ directory’ as a component. If yes, remove it first.
 
 ::
 
-    $ tar xf OSELAS.Toolchain-|\verbatimcmd\oselasTCNVendorVersion{}\oselasTCNVendorPatchLevel|.tar.bz2
-    $ cd OSELAS.Toolchain-|\verbatimcmd\oselasTCNVendorVersion{}\oselasTCNVendorPatchLevel|
-    $ ^ptxdist-|\oselasTCNVendorptxdistversion{}| select ptxconfigs/|\verbatimcmd\ptxcr|
-    	|\verbatimcmd\oselasToolchainName|.ptxconfig^
-    $ ptxdist-|\oselasTCNVendorptxdistversion{}| go
+    $ tar xf OSELAS.Toolchain-\verbatimcmd\oselasTCNVendorVersion{}\oselasTCNVendorPatchLevel.tar.bz2
+    $ cd OSELAS.Toolchain-\verbatimcmd\oselasTCNVendorVersion{}\oselasTCNVendorPatchLevel
+    $ ptxdist-\oselasTCNVendorptxdistversion{} select ptxconfigs/\verbatimcmd\ptxcr
+    	\verbatimcmd\oselasToolchainName.ptxconfig
+    $ ptxdist-\oselasTCNVendorptxdistversion{} go
 
 At this stage we have to go to our boss and tell him that it’s probably
 time to go home for the day. Even on reasonably fast machines the time

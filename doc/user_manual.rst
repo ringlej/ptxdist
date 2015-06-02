@@ -140,7 +140,7 @@ command:
 
 ::
 
-    $ ptxdist |\textless{}parameter\textgreater{}|
+    $ ptxdist <parameter>
 
 To run different functions, this command must be extended by parameters
 to define the function we want to run.
@@ -255,8 +255,8 @@ archive first.
 
 ::
 
-    $ tar -zxf |\verbatimcmd\ptxdistBSPName|.tar.gz
-    $ cd |\verbatimcmd\ptxdistBSPName|
+    $ tar -zxf <ptxdistBSPName>.tar.gz
+    $ cd <ptxdistBSPName>
 
 PTXdist is project centric, so now after changing into the new directory
 we have access to all valid components.
@@ -348,7 +348,7 @@ following step:
 
     $ ptxdist select configs/ptxconfig
     info: selected ptxconfig:
-    |\hspace*{1cm}|'configs/ptxconfig'
+          'configs/ptxconfig'
 
 Selecting a Hardware Platform
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -358,9 +358,9 @@ platforms to build for. In this case we want to build for the :
 
 ::
 
-    $ ptxdist platform configs/|\verbatimcmd\ptxdistPlatformName|/platformconfig|\verbatimcmd\ptxdistPlatformVariant|
+    $ ptxdist platform configs/<ptxdistPlatformName>/platformconfig<ptxdistPlatformVariant>
     info: selected platformconfig:
-    |\hspace*{1cm}| 'configs/|\ptxdistPlatformName|/platformconfig|\ptxdistPlatformVariant|'
+          'configs/<ptxdistPlatformName>/platformconfig<ptxdistPlatformVariant>'
 
 Note: If you have installed the OSELAS.Toolchain() at its default
 location, PTXdist should already have detected the proper toolchain
@@ -369,8 +369,8 @@ while selecting the platform. In this case it will output:
 ::
 
     found and using toolchain:
-    '/opt/OSELAS.Toolchain-|\oselasTCNVendorVersion \oselasTCNVendorPatchLevel|/|\ptxdistCompilerName|/|\ptxcr|
-    |\hspace{20pt}\ptxdistCompilerVersion|/bin'
+    '/opt/OSELAS.Toolchain-<oselasTCNVendorVersion><oselasTCNVendorPatchLevel>/<ptxdistCompilerName>/<ptxcr>
+         <ptxdistCompilerVersion>/bin'
 
 If it fails you can continue to select the toolchain manually as
 mentioned in the next section. If this autodetection was successful, we
@@ -387,9 +387,9 @@ To reduce the package count for the run:
 
 ::
 
-    $ ptxdist collection configs/|\verbatimcmd\ptxdistPlatformCollection|
+    $ ptxdist collection configs/<ptxdistPlatformCollection>
     info: selected collectionconfig:
-    |\hspace*{1cm}|'configs/|\ptxdistPlatformCollection|'
+          'configs/<ptxdistPlatformCollection>'
 
 Selecting a Toolchain
 ~~~~~~~~~~~~~~~~~~~~~
@@ -400,8 +400,8 @@ for the target.
 
 ::
 
-    $ ^ptxdist toolchain /opt/OSELAS.Toolchain-|\verbatimcmd\oselasTCNVendorVersion \oselasTCNVendorPatchLevel|/|\verbatimcmd\ptxdistCompilerName|/|\verbatimcmd\ptxcr|
-    |\hspace*{1cm}\verbatimcmd\ptxdistCompilerVersion|/bin
+    $ ptxdist toolchain /opt/OSELAS.Toolchain-\oselasTCNVendorVersion \oselasTCNVendorPatchLevel/<ptxdistCompilerName>/\ptxcr
+          <ptxdistCompilerVersion>/bin
 
 Building the Root Filesystem Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -523,7 +523,7 @@ Simply run
 
 ::
 
-    |\$ ./configs/\ptxdistPlatformName{}/run|
+    $ ./configs/<ptxdistPlatformName>/run
 
 This will start QEMU in full system emulation mode and runs the
 previously built kernel which then uses the generated disk image to
@@ -701,7 +701,7 @@ In this Kconfig dialogue we navigate to the entry:
 ::
 
     Linux kernel  --->
-        (|\ptxdistPlatformKernelRev{}|) kernel version
+        (\ptxdistPlatformKernelRev{}) kernel version
 
 and replace the 3.0 value by the 3.7 value.
 
@@ -788,7 +788,7 @@ hard disk image must be re-created with:
 ::
 
     $ ptxdist images
-    |\$ ./configs/\ptxdistPlatformName/run|
+    $ ./configs/\ptxdistPlatformName/run
 
 The emulated system should now start with a 3.7 based kernel with USB
 support.
@@ -810,7 +810,7 @@ our target’s shell. Assuming we forgot to enable this command, we get:
 
 ::
 
-    |\$ ./configs/\ptxdistPlatformName/run|
+    $ ./configs/\ptxdistPlatformName/run
 
     ptx login: root
     login[xxx]: root login on 'ttyS0'
@@ -851,7 +851,7 @@ us test the new command:
 ::
 
     $ ptxdist images
-    |\$ ./configs/\ptxdistPlatformName/run|
+    $ ./configs/\ptxdistPlatformName/run
 
 Log in on the emulated system and simply check with a:
 
