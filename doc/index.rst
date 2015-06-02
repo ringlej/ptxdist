@@ -13,7 +13,15 @@ Contents:
    :numbered:
    :maxdepth: 1
 
-   macro_reference
+   welcome
+   environment
+   user_manual
+   dev_manual
+   ref_manual
+   daily_work
+   revisions
+   thanks
+   getting_help
 
 * :ref:`search`
 * :ref:`genindex`
