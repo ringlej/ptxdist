@@ -20,8 +20,8 @@ tree.
     [...]
     jbe@octopus:~$ ls -l
     [...]
-    drwxr-xr-x 38 jbe  ptx 4096 2011-11-16 10:21 myprj
-    drwxr-xr-x 25 jbe  ptx 4096 2011-11-16 10:42 linux
+    drwxr-xr-x 38 jbe  ptx 4096 2015-06-01 10:21 myprj
+    drwxr-xr-x 25 jbe  ptx 4096 2015-06-01 10:42 linux
     [...]
 
 Configuring the PTXdist Project
@@ -37,7 +37,9 @@ can simply create a link now:
 
     jbe@octopus:~$ cd myprj
     jbe@octopus:~/myprj$ mkdir local_src
-    jbe@octopus:~/myprj$ ln -s ~/linux local_src/kernel.|\ptxdistPlatform{}|
+    jbe@octopus:~/myprj$ ln -s ~/linux local_src/kernel.<platformname>
+
+.. note:: The ``<platformname>`` in the example above must be replaced by the name of your own platform.
 
 PTXdist will handle it in the same way as a kernel part of the project.
 Due to this, we must setup:
@@ -133,14 +135,13 @@ console.
 
 To check at build time if all other dependencies are present is easy,
 too. The architecture specific ``readelf`` tool can help us here. It
-comes with the OSELAS.Toolchain and is called via ``-readelf`` (this
-example uses the one coming with the ** toolchain).
+comes with the OSELAS.Toolchain and is called via ``<target>-readelf``.
 
 To test the ``foo`` binary from our new package ``FOO``, we simply run:
 
 ::
 
-    @\$ \ptxdistCompilerName -readelf -d \ptxdistPlatformDir @root/usr/bin/foo | grep NEEDED
+    $ ./selected_toolchain/<target>-readelf -d platform-<platformname>/root/usr/bin/foo | grep NEEDED
      0x00000001 (NEEDED)                     Shared library: [libm.so.6]
      0x00000001 (NEEDED)                     Shared library: [libz.so.1]
      0x00000001 (NEEDED)                     Shared library: [libc.so.6]
@@ -155,10 +156,10 @@ Dependencies on other Resources
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sometimes a binary fails to run due to missing files, directories or
-device nodes. Often the error message (if any) that the binary creates
+device nodes. Often the error message (if any) which the binary creates
 in this case is ambiguous. Here the ``strace`` tool can help us, namely
 to observe the binary at runtime. ``strace`` shows all the system calls
-that the binary or its shared libraries are performing.
+the binary or its shared libraries are performing.
 
 ``strace`` is one of the target debugging tools which PTXdist provides
 in its ``Debug Tools`` menu.
@@ -168,7 +169,7 @@ our ``foo`` binary:
 
 ::
 
-    @\$@ strace usr/bin/foo
+    $ strace usr/bin/foo
     execve("/usr/bin/foo", ["/usr/bin/foo"], [/* 41 vars */]) = 0
     brk(0)                                  = 0x8e4b000
     access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
@@ -195,7 +196,7 @@ nonexisting file, we can limit the output to all ``open`` system calls:
 
 ::
 
-    @\$@ strace -e open usr/bin/foo
+    $ strace -e open usr/bin/foo
     open("/etc/ld.so.cache", O_RDONLY)      = 3
     open("/lib/libm-2.5.1.so", O_RDONLY) = 3
     open("/lib/libz.so.1.2.3", O_RDONLY) = 3
@@ -229,8 +230,8 @@ With this preparation we can run it on our build host:
 
 ::
 
-    $ cd |\ptxdistPlatformDir|root
-    |\ptxdistPlatformDir|root |\$ \ptxdistQEMUName{}| -cpu |\ptxdistQEMUCPU{}| -L . usr/bin/myapp
+    $ cd platform-<platformname>/root
+    platform-<platformname>/root$ qemu-<architecture> -cpu <cpu-core> -L . usr/bin/myapp
 
 This command will run the application ``usr/bin/myapp`` built for an CPU
 on the build host and is using all library compontents from the current
@@ -255,8 +256,8 @@ the QEMU in the first console as:
 
 ::
 
-    $ cd |\ptxdistPlatformDir|root-debug
-    |\ptxdistPlatformDir|root-debug |\$ \ptxdistQEMUName{}| -g 1234 -cpu |\ptxdistQEMUCPU{}| -L . usr/bin/myapp
+    $ cd platform-<platformname>/root-debug
+    platform-<platformname>/root-debug$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
 
 Note: PTXdist always builds two root filesystems. ``root/`` and
 ``root-debug/``. ``root/`` contains all components without debug
@@ -269,12 +270,11 @@ the application.
 
 In the second console we start GDB with the correct architecture
 support. This GDB comes with the same OSELAS.Toolchain that was also
-used to build the project. In our example we are using the ** toolchain
-for our CPU:
+used to build the project:
 
 ::
 
-    |\$ \ptxdistCompilerName|-gdbtui root-debug/usr/bin/myapp
+    $ ./selected_toolchain/<target>-gdbtui platform-<platformname>/root-debug/usr/bin/myapp
 
 This will run a *curses* based GDB. Not so easy to handle (we must enter
 all the commands and cannot click with a mouse!), but very fast to take
@@ -285,7 +285,7 @@ directory here is ``root-debug/``.
 
 ::
 
-    (gdb) set solib-absolute-prefix |\ptxdistPlatformDir|root-debug
+    (gdb) set solib-absolute-prefix platform-<platformname>/root-debug
 
 Next we connect this GDB to the waiting QEMU:
 
@@ -315,7 +315,7 @@ debug information for GDB is available.
 Now we can step through our application by using the commands *step*,
 *next*, *stepi*, *nexti*, *until* and so on.
 
-Note: It might be impossible for GDB to find debug symbols for
+.. note:: It might be impossible for GDB to find debug symbols for
 components like the main C runtime library. In this case they where
 stripped while building the toolchain. There is a switch in the
 OSELAS.Toolchain menu to keep the debug symbols also for the C runtime
@@ -339,206 +339,6 @@ must read and answer these questions carefully. At least we shouldn’t
 answer blindly with ’Y’ all the time because this could lead into a
 broken configuration. On the other hand, using ’N’ all to time is more
 safer. We can still enable interesting new features later on.
-
-Software Installation and Upgrade
----------------------------------
-
-Root filesystems for Linux are usually built as a flash image and pushed
-into the respective root medium. However, when working with Embedded
-Linux systems, developers often have the need to
-
--  install new packages
-
--  remove packages
-
--  update packages
-
--  add configuration
-
-Installation of new packages may for example happen if a developer works
-on a new piece of application code, or if a new library is being written
-for the embedded system. Package updating may be a requirement even
-during the system’s life cycle, for example for updating a customer
-application in the field.
-
-Conventional Linux distributions like Debian, SuSE or Fedora use package
-systems like RPM or DEB to organize their software packages.
-Unfortunately, these methods require huge packet databases in the root
-system, which is bad for space constrained embedded systems. So what we
-need is a packet system that
-
--  offers installation/removement of packages
-
--  has no big database but a very low overhead
-
--  allows packet management features like pre/post scripts (i.e.
-   shutdown a web server, then upgrade it and start it again)
-
-``ipkg`` is such a packet system and it is being used in ptxdist.
-Originally developed for the IBM Itsy, ``ipkg`` is meanwhile being used
-on all kinds of embedded Linux projects. The concept of ``ipkg``
-archives is based on the well known Debian packet management format:
-``ipkg`` archives are “ar” archives, containing a tarball with the
-binary files for the target box, plus management scripts which can be
-run on pre-install, post-install, pre-rm and post-rm. So even if no
-``ipkg`` management utilities are available, developers can modify the
-archives with standard shell and console tools.
-
-ipkg Usage in PTXdist
-~~~~~~~~~~~~~~~~~~~~~
-
-PTXdist end users and packet developers don’t have to care directly
-about ``ipkg``. Packages are being created during the *targetinstall*
-stage, then put into the ``packages/`` directory. After the
-targetinstall stage of a packet was done, this directory contains the
-``ipkg`` packet itself plus, for most packages, a directory with the
-file content.
-
-The ``ipkg`` packets contain the binaries for the root filesystem as
-well as start/stop scripts and meta data about the Unix filesystem
-permissions; when PTXdist creates the root filesystem which is later
-flashed into the onboard flash of an embedded system, it takes the
-information from the ``ipkg`` packets as the source, in order to make
-sure that the image is consistent to what the packages contain.
-
-Internally, PTXdist always uses ``ipkg`` packets to store it’s target
-data. However, the ``ipkg`` functionality is not always exposed to the
-target itself. So in order to use packets, navigate to *Disk and File
-Utilities* and enable ``ipkg``. In the ``ipkg`` sub menu, make sure that
-the *install /etc/ipkg.conf* switch is active. This config file is
-necessary to make ``ipkg`` work at runtime system.
-
-The *ipkg* tool can only be used in images created by
-``ptxdist images``. It’s not fully working within the ``root/``
-subdirectory used as NFS root filesystem.
-
-Packet Installation
-~~~~~~~~~~~~~~~~~~~
-
-A common use case for ``ipkg`` packets is to push new software to an
-already deployed target. There must be a communication channel to
-transfer the packet itself to the embedded system, i.e. by using FTP or
-a secure connection via SFTP or SSH, so it has to be made sure that such
-a service is installed and configured on the target. It is necessary
-that enough free space is available, in order to store the packet
-itself. A good rule of thumb is to have twice the size of the installed
-package: while the packet is being installed, the archive as well as
-it’s contents must fit into the system storage. This may be a problem on
-space constrained systems.
-
-If the packet was transferred, it is necessary to have remote shell
-access to the box, either via telnet or, if security is an issue, by
-using SSH. It is also possible to automate this process by using an
-intelligent update mechanism. The shell is being used to start the
-necessary commands. If the packet was installed, the ``ipkg`` archive
-can be removed again.
-
-Automatic Packet Download
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-It is also possible to let the embedded system download ``ipkg`` packets
-automatically from a network source, without pushing the packets from
-the outside. In order to do so, a valid URL must be written into the
-``/etc/ipkg.conf`` file. In this case one of the ``wget``
-implementations in PTXdist must be selected, either the one in busybox
-(**Shell & Console Tools**, **BusyBox**, **Networking Utilities**) or
-the native implementation (**Networking Tools**).
-
-The ipkg Command
-~~~~~~~~~~~~~~~~
-
-The following sections describe the ``ipkg`` features.
-
-What’s Installed on the System?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To get a list of installed packages, use *list\_installed*:
-
-::
-
-    # ipkg list_installed
-    busybox - 1.1.3 -
-    figlet - 222 -
-    gcclibs - 4.1.1 -
-    gdbserver - 6.4 -
-    glib - 2.8.6 -
-    glibc - 2.5 -
-    ipkg - 0.99.163 -
-    ixp-firmware - 1 -
-    kernel-modules - 2.6.18 -
-    libxml2 - 2.6.27 -
-    mc - 4.6.1 -
-    memedit - 0.7 -
-    ncurses - 5.5 -
-    pciutils - 2.2.1 -
-    pureftpd - 1.0.21 -
-    readline - 5.0 -
-    rootfs - 1.0.0 -
-    strace - 4.5.14-20061101 -
-    udev - 088 -
-    zlib - 1.2.3 -
-    Successfully terminated.
-
-Content of a Package
-^^^^^^^^^^^^^^^^^^^^
-
-To see what files are in an installed package, use *files*:
-
-::
-
-    # ipkg files udev
-    Package udev (106) is installed on root and has the following files:
-    /etc/init.d/udev
-    /sbin/udevtrigger
-    /etc/udev/udev.conf
-    /etc/rc.d/S00_udev
-    /sbin/udevd
-    /sbin/udevsettle
-
-    Successfully terminated.
-
-Adding a Package
-^^^^^^^^^^^^^^^^
-
-Adding a new packet or replacing an already installed one is done by
-
-::
-
-    # ipkg install <package-name>.ipk
-
-Note the trailing **.ipk**. This extension must be given if the package
-file is already part of the filesystem. Otherwise ``ipkg`` tries to
-download it from the URL configured in ``/etc/ipkg.conf``.
-
-Removing a Package
-^^^^^^^^^^^^^^^^^^
-
-To remove the contents of a package from the running system, ensure that
-nothing from the package is currently in use. Find out the precise
-packet name with
-
-::
-
-    # ipkg list
-
-and remove it’s contents from the runtime system with
-
-::
-
-    # ipkg remove <package-name>
-
-Upgrading a Package
-^^^^^^^^^^^^^^^^^^^
-
-To upgrade a package, first remove it’s current contents from the
-runtime system. In a second step, install the contents of the new
-``ipkg`` package.
-
-::
-
-    # ipkg list
-    # ipkg remove <package-name>
-    # ipkg install <package-name>[.ipk]
 
 Increasing Build Speed
 ----------------------
@@ -572,27 +372,36 @@ Manually adjusting CPU Core usage
 Manual adjustment of the parallel build behaviour is possible via
 command line parameters.
 
--ji<number>
+``-ji<number>``
     this defines the number of CPU cores to build a package. The default
     is two times the available CPU cores.
 
--je<number>
+``-je<number>``
     this defines the number of packages to be build in parallel. The
     default is one package at a time.
 
--l<number>
+``-j<number>``
+    this defines the number of CPU cores to be used at the same time. These
+    cores will be used on a package base and file base.
+
+``-l<number>``
     limit the system load to the given value.
 
-Building packages in parallel is still not tested very well and migh
-fail.
+Please note: using ``-ji`` and ``-je`` can overload the system immediatley.
+These settings are very hard.
+
+A much softer setup is to just use the ``-j<number>`` parameter. This will run
+up to ``<number>`` tasks at the same time which will be spread over everything
+to do. This will create a system load which is much user friendly. Even the
+filesystem load is smoother with this parameter.
 
 Building in Background
 ~~~~~~~~~~~~~~~~~~~~~~
 
 To build a project in background PTXdist can be ’niced’.
 
--n[<number>
-    ] run PTXdist and all of its child processes with the given
+``-n[<number>]``
+    run PTXdist and all of its child processes with the given
     nicelevel <number>. Without a nicelevel the default is 10.
 
 Building Platforms in Parallel
@@ -906,12 +715,12 @@ Workflow with pre-build archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We starting with an empty PTXdist project and enabling the pre-build
-archive feature as mentioned in [enabling:sub:`p`\ rebuild]. After that
+archive feature as mentioned in the previous section. After that
 a regular build of the project can be made.
 
 When the build is finished its time to copy all the pre-build archives
 of interest where the next build will expect them.
-[using:sub:`p`\ rebuild] mentions the step to enable their use. It also
+The previous section mentions the step to enable their use. It also
 allows to define a directory. The default path of this directory is made
 from various other menu settings, to ensure the pre-build archives of
 the current PTXdist project do not conflict with pre-build archives of
@@ -921,13 +730,13 @@ can ask PTXdist.
 ::
 
     $ ptxdist print PTXCONF_PROJECT_DEVPKGDIR
-    /home/jbe/OSELAS.BSP/|\ptxdistHwVendor /\ptxdistBSPName{}|
+    /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
 If this directory does not exist, we can simply create it:
 
 ::
 
-    $ mkdir -p /home/jbe/OSELAS.BSP/|\ptxdistHwVendor /\ptxdistBSPName{}|
+    $ mkdir -p /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
 Now its time to copy the pre-build archives to this new directory. We
 could simply copy all pre-build archives from the ``/packages``
@@ -937,10 +746,10 @@ in this step.
 
 ::
 
-    $ cp |\ptxdistPlatformDir packages/*-dev.tar.gz| /home/jbe/OSELAS.BSP/|\ptxdistHwVendor /\ptxdistBSPName{}|
+    $ cp platform-<platformname>/packages/*-dev.tar.gz| /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
-Uses cases
-~~~~~~~~~~
+Use cases
+~~~~~~~~~
 
 Some major possible use cases are covered in this section:
 
@@ -1008,7 +817,7 @@ command:
 
 ::
 
-    > ptxdist newpackage src-autoconf-lib
+    $ ptxdist newpackage src-autoconf-lib
 
     ptxdist: creating a new 'src-autoconf-lib' package:
 
@@ -1041,7 +850,7 @@ The content of this directory is:
 
 ::
 
-    > ls -l local_src/foo/
+    $ ls -l local_src/foo/
     total 48
     -rw-r--r-- 1 jbe ptx   335 Jun 18 23:00 COPYING
     -rw-r--r-- 1 jbe ptx  1768 Jun 18 23:16 Makefile.am
@@ -1096,23 +905,23 @@ on.
 
 Special hints about some M4 macros:
 
-AC\_INIT
+AC_INIT
     add the intended revision number (the second argument), an email
     address to report bugs and some web info about your library. The
     intended revision number will be part of the released archive name
     later on. You can keep it in sync with the API\_RELEASE, but you
     must not.
 
-AC\_PREFIX\_DEFAULT
+AC_PREFIX_DEFAULT
     most of the time you can remove this entry, because most users
     expect the default install path prefix is ``/usr/local`` which is
     always the default if not changed by this macro.
 
-API\_RELEASE
+API_RELEASE
     defines the API version of your library. This API version will be
     part of the binary library’s name later on.
 
-LT\_CURRENT / LT\_REVISION / LT\_AGE
+LT_CURRENT / LT_REVISION / LT_AGE
     define the binary compatibility of your library. The rules how these
     numbers are defined are:
 
@@ -1128,18 +937,18 @@ LT\_CURRENT / LT\_REVISION / LT\_AGE
     You must manually change these numbers whenever you change the code
     in your library prior a release.
 
-CC\_CHECK\_CFLAGS / CC\_CHECK\_LDFLAGS
+CC_CHECK_CFLAGS / CC_CHECK_LDFLAGS
     if you need special command line parameters given to the compiler or
     linker, don’t add them unconditionally. Always test, if the tools
     can handle the parameter and fail gracefully if not. Use
-    CC\_CHECK\_CFLAGS to check parameters for the compiler and
-    CC\_CHECK\_LDFLAGS for the linker.
+    CC_CHECK_CFLAGS to check parameters for the compiler and
+    CC_CHECK_LDFLAGS for the linker.
 
-AX\_HARDWARE\_FP / AX\_DETECT\_ARMV\*
+AX_HARDWARE_FP / AX_DETECT_ARMV\*
     sometimes it is important to know for which architecture or CPU the
     current build is for and if it supports hard float or not. Please
     don’t try to guess it. Ask the compiler instead. The M4
-    AX\_HARDWARE\_FP and AX\_DETECT\_ARMV\* macros will help you.
+    AX\_HARDWARE_FP and AX_DETECT_ARMV\* macros will help you.
 
 REQUIRES
     to enrich the generated \*.pc file for easier dependency handling
@@ -1167,7 +976,7 @@ version all files are named like this:
 
 In this case its simple to create the next generation libfoo without
 conflicting with earlier versions of your library: they can co-exist
-side by side.
+side by sid.
 
 -  /usr/local/lib/libfoo-1.so.0.0.0
 
@@ -1197,15 +1006,15 @@ SUBDIR
     in this order (but never in parallel), so you must handle
     dependencies manually.
 
-\*\_CPPFLAGS / \*\_CFLAGS / \*\_LIBADD
+*_CPPFLAGS / *_CFLAGS / *_LIBADD
     if your library has some optional external dependencies add them on
     demand (external libraries for example). Keep in mind to not mix
     CPPFLAGS and CFLAGS additions. And do not add these additions fixed
-    to the \*\_CPPFLAGS and \*\_CFLAGS variables, let ’configure’ do it
+    to the \*_CPPFLAGS and \*_CFLAGS variables, let ’configure’ do it
     in a sane way. Whenever you want to forward special things to the
-    \*\_CPPFLAGS and \*\_CFLAGS, don’t forget to add the AM\_CPPFLAGS
+    \*_CPPFLAGS and \*_CFLAGS, don’t forget to add the AM_CPPFLAGS
     and AM\_CFLAGS, else they get lost. Never add libraries to the
-    \*\_LDFLAGS variable. Always add them to the \*\_LIBADD variable
+    \*_LDFLAGS variable. Always add them to the \*_LIBADD variable
     instead. This is important because the autotools forward all these
     variable based parameters in a specifc order to the tools (compiler
     and linker).
@@ -1252,12 +1061,12 @@ Libs
     other applications or libraries
 
 Libs.private
-    | defines the linker command line content to link your library
-      against other application or libraries statically. List only
-      libraries here which are not managed by pkg-config (e.g. do not
-      conflict with packages given in the *Requires*).
-    | This line will be filled by the *LIBS* variable from the
-      ``configure.ac``.
+    defines the linker command line content to link your library
+    against other application or libraries statically. List only
+    libraries here which are not managed by pkg-config (e.g. do not
+    conflict with packages given in the *Requires*).
+    This line will be filled by the *LIBS* variable from the
+    ``configure.ac``.
 
 Cflags
     required compile flags to make use of your library. Unfortunately
@@ -1270,8 +1079,8 @@ packages which are highly configureable.
 Generic template files
 ~~~~~~~~~~~~~~~~~~~~~~
 
-m4/\*
-^^^^^
+m4/*
+^^^^
 
 M4 macros used in ``configure.ac``.
 
@@ -1318,24 +1127,23 @@ case you should configure the libary with the ``--disable-hide`` or with
 Frequently Asked Questions (FAQ)
 --------------------------------
 
-| Q: PTXdist does not support to generate some files in a way I need
-  them. What can I do?
-| A: Everything PTXdist builds is controlled by “package rule files”,
-  which in fact are Makefiles (``rules/*.make``). If you modify such a
-  file you can change it’s behaviour in a way you need. It is generally
-  no good idea to modify the generic package rule files installed by
-  PTXdist, but it is always possible to copy one of them over into the
-  ``rules/`` directory of a project. Package rule files in the project
-  will precede global rule files with the same name.
+Q: PTXdist does not support to generate some files in a way I need them. What can I do?
+A: Everything PTXdist builds is controlled by “package rule files”,
+which in fact are Makefiles (``rules/*.make``). If you modify such a
+file you can change it’s behaviour in a way you need. It is generally
+no good idea to modify the generic package rule files installed by
+PTXdist, but it is always possible to copy one of them over into the
+``rules/`` directory of a project. Package rule files in the project
+will precede global rule files with the same name.
 
-| Q: My kernel build fails. But I cannot detect the correct position,
-  due to parallel building. How can I stop PTXdist to build in parallel?
-| A: Force PTXdist to stop building in parallel which looks somehow
-  like:
+Q: My kernel build fails. But I cannot detect the correct position,
+due to parallel building. How can I stop PTXdist to build in parallel?
+A: Force PTXdist to stop building in parallel which looks somehow
+like:
 
 ::
 
-    > ptxdist -j1 go
+    $ ptxdist -j1 go
 
 Q: I made my own rule file and now I get error messages like
 
@@ -1343,53 +1151,53 @@ Q: I made my own rule file and now I get error messages like
 
     my_project/rules/test.make:30: *** unterminated call to function `call': missing `)'.  Stop.
 
-| But line 30 only contains ``@$(call targetinfo, $@)`` and it seems all
-  right. What does it mean?
-| A: Yes, this error message is confusing. But it usually only means
-  that you should check the following (!) lines for missing backslashes
-  (line separators).
+But line 30 only contains ``@$(call targetinfo, $@)`` and it seems all
+right. What does it mean?
+A: Yes, this error message is confusing. But it usually only means
+that you should check the following (!) lines for missing backslashes
+(line separators).
 
-| Q: I got a message similar to “package <some name> is empty. not
-  generating.” What does it mean?
-| A: The ’ipkg’ tool was advised to generate a new ipkg-packet, but the
-  folder was empty. Sometime it means a typo in the package name when
-  the install\_copy macro was called. Ensure all these macros are using
-  the same package name. Or did you disable a menuentry and now nothing
-  will be installed?
+Q: I got a message similar to “package <some name> is empty. not
+generating.” What does it mean?
+A: The ’ipkg’ tool was advised to generate a new ipkg-packet, but the
+folder was empty. Sometime it means a typo in the package name when
+the ``install_copy`` macro was called. Ensure all these macros are using
+the same package name. Or did you disable a menuentry and now nothing
+will be installed?
 
-| Q: How do I download all required packages at once?
-| A: Run this command prior the build:
+Q: How do I download all required packages at once?
+A: Run this command prior the build:
 
 ::
 
-    > ptxdist make get
+    $ ptxdist make get
 
 This starts to download all required packages in one run. It does
 nothing if the archives are already present in the source path. (run
 “PTXdist setup” first).
 
-| Q: I want to backup the source archives my PTXdist project relys on.
-  How can I find out what packages my project requires to build?
-| A: First build your PTXdist project completely and then run the
-  following command:
+Q: I want to backup the source archives my PTXdist project relys on.
+How can I find out what packages my project requires to build?
+A: First build your PTXdist project completely and then run the
+following command:
 
 ::
 
-    > ptxdist export_src <archive directory>
+    $ ptxdist export_src <archive directory>
 
 It copies all archives from where are your source archives stored to
 <archive directory> which can be your backup media.
 
-| Q: To avoid building the OSELAS toolchain on each development host, I
-  copied it to another machine. But on this machine I cannot build any
-  BSP with this toolchain correctly. All applications on the target are
-  failing to start due to missing libraries.
-| A: This happens when the toolchain was copied without regarding to
-  retain links. There are archive programs around that convert links
-  into real files. When you are using such programs to create a
-  toolchain archive this toolchain will be broken after extracting it
-  again. Solution: Use archive programs that retain links as they are
-  (tar for example). Here an example for a broken toolchain:
+Q: To avoid building the OSELAS toolchain on each development host, I
+copied it to another machine. But on this machine I cannot build any
+BSP with this toolchain correctly. All applications on the target are
+failing to start due to missing libraries.
+A: This happens when the toolchain was copied without regarding to
+retain links. There are archive programs around that convert links
+into real files. When you are using such programs to create a
+toolchain archive this toolchain will be broken after extracting it
+again. Solution: Use archive programs that retain links as they are
+(tar for example). Here an example for a broken toolchain:
 
 ::
 
@@ -1420,29 +1228,29 @@ project into PTXdist. But when I try to build it, I get:
     extract: dest=/path/to/my/project/build-target
     Unknown format, cannot extract!
 
-| But the path exists!
-| A: PTXdist interprets a ``file://`` (two slashes) in the URL as a
-  project related relative path. So it searches only in the current
-  project for the given path. Only ``file:///`` (three slashes) will
-  force PTXdist to use the path as an absolute one. This means:
-  ``file://bla/blub`` will be used as ``./bla/blub`` and
-  ``file:///friesel/frasel`` as ``/friesel/frasel``.
+But the path exists!
+A: PTXdist interprets a ``file://`` (two slashes) in the URL as a
+project related relative path. So it searches only in the current
+project for the given path. Only ``file:///`` (three slashes) will
+force PTXdist to use the path as an absolute one. This means:
+``file://bla/blub`` will be used as ``./bla/blub`` and
+``file:///friesel/frasel`` as ``/friesel/frasel``.
 
-| Q: I want to use more than one kernel revision in my BSP. How can I
-  avoid maintaining one ptxconfig per kernel?
-| A: One solution could be to include the kernel revision into the name
-  of the kernel config file. Instead of the default kernelconfig.target
-  name you should use ``kernelconfig-<revision>.target``. In the kernel
-  config file menu entry you should enter
-  ``kernelconfig-$PTXCONF_KERNEL_VERSION.target``. Whenever you change
-  the linux kernel Version menu entry now, this will ensure using a
-  different kernel config file, too.
+Q: I want to use more than one kernel revision in my BSP. How can I
+avoid maintaining one ptxconfig per kernel?
+A: One solution could be to include the kernel revision into the name
+of the kernel config file. Instead of the default kernelconfig.target
+name you should use ``kernelconfig-<revision>.target``. In the kernel
+config file menu entry you should enter
+``kernelconfig-$PTXCONF_KERNEL_VERSION.target``. Whenever you change
+the linux kernel Version menu entry now, this will ensure using a
+different kernel config file, too.
 
-| Q: I’m trying to use a JAVA based package in PTXdist. But compiling
-  fails badly. Does it ever work at Pengutronix?
-| A: This kind of packages only build correctly when an original SUN VM
-  SDK is used. Run PTXdist setup and point the Java SDK menu entry to
-  the installation path of your SUN JAVA SDK.
+Q: I’m trying to use a JAVA based package in PTXdist. But compiling
+fails badly. Does it ever work at Pengutronix?
+A: This kind of packages only build correctly when an original SUN VM
+SDK is used. Run PTXdist setup and point the Java SDK menu entry to
+the installation path of your SUN JAVA SDK.
 
 Q: I made a new project and everythings seems fine. But when I start my
 target with the root filesystem generated by PTXdist, it fails with:
@@ -1470,7 +1278,6 @@ trivial and also PTXdist suffers all over the place from this issue. The
 only solution is to avoid whitespaces in paths and filenames.
 
 Q: I have adapted my own rule file’s targetinstall stage, but PTXdist
-does not install the files. A: Check if the closing @$(call
-install\_finish, [...]) is present at the end of the targetinsall stage.
+does not install the files. A: Check if the closing ``@$(call
+install_finish, [...])`` is present at the end of the targetinsall stage.
 If not, PTXdist will not complete this stage.
-
