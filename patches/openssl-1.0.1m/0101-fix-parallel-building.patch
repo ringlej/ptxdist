@@ -4,18 +4,25 @@ Subject: [PATCH] fix parallel building
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Makefile.org     | 22 +++++++++++-----------
+ Makefile.org     | 28 +++++++++++++++++-----------
  crypto/Makefile  |  4 ++--
  engines/Makefile |  4 ++--
- 3 files changed, 15 insertions(+), 15 deletions(-)
+ 3 files changed, 21 insertions(+), 15 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index 5117a0ef9c0b..fac45852adc4 100644
+index 5117a0ef9c0b..265ecd559e98 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -273,17 +273,17 @@ build_all: build_libs build_apps build_tests build_tools
+@@ -272,18 +272,24 @@ build_all: build_libs build_apps build_tests build_tools
+ 
  build_libs: build_crypto build_ssl build_engines
  
++ifeq ($(SHARED_LIBS),)
++build_ssl: build_engines
++else
++build_engines: build_ssl
++endif
++
  build_crypto:
 -	@dir=crypto; target=all; $(BUILD_ONE_CMD)
 -build_ssl:
