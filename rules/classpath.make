@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_ARM64
 PACKAGES-$(PTXCONF_CLASSPATH) += classpath
+endif
 
 #
 # Paths and names
