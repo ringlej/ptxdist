@@ -46,6 +46,7 @@ HOST_COREUTILS_CONF_OPT		:= \
 	--enable-no-install-program=$(subst $(space),$(comma),$(strip $(HOST_COREUTILS_SKIP))) \
 	--disable-nls \
 	--without-openssl \
+	--without-selinux \
 	--without-gmp
 
 # ----------------------------------------------------------------------------
