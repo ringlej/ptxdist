@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 2 Jun 2015 17:35:01 +0200
+Subject: [PATCH] featuresfeatures: don't use gold linker for host tools
+
+The check it it is supported was only done for the target.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtbase/mkspecs/features/default_post.prf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qtbase/mkspecs/features/default_post.prf b/qtbase/mkspecs/features/default_post.prf
+index e967399258ad..7f08ba31c308 100644
+--- a/qtbase/mkspecs/features/default_post.prf
++++ b/qtbase/mkspecs/features/default_post.prf
+@@ -62,7 +62,7 @@ debug {
+     QMAKE_LIBFLAGS += $$QMAKE_LIBFLAGS_RELEASE
+ }
+ 
+-use_gold_linker: QMAKE_LFLAGS += $$QMAKE_LFLAGS_USE_GOLD
++!host_build: use_gold_linker: QMAKE_LFLAGS += $$QMAKE_LFLAGS_USE_GOLD
+ 
+ dll:win32: QMAKE_LFLAGS += $$QMAKE_LFLAGS_DLL
+ static:mac: QMAKE_LFLAGS += $$QMAKE_LFLAGS_STATIC_LIB

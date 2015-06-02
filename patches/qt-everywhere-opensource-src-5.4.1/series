@@ -5,4 +5,5 @@
 0003-qtmultimedia-videonode-plugins-require-qtmultimediaq.patch
 0004-HACK-put-wayland-scanner-outout-in-srcdir.patch
 0005-Fix-building-with-glib-2.43.patch
-# f9eaf7898f328182d7be3bd849063c67  - git-ptx-patches magic
+0006-featuresfeatures-don-t-use-gold-linker-for-host-tool.patch
+# 7b1076673021258d8f755c93eb67e4c5  - git-ptx-patches magic
