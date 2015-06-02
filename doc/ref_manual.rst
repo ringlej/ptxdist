@@ -749,7 +749,7 @@ If the *get* stage is omitted, PTXdist runs instead:
 
 ::
 
-    $(STATEDIR)/@package@.get:
+    $(STATEDIR)/|package|.get:
     		@$(call targetinfo)
     		@$(call touch)
 
@@ -760,9 +760,9 @@ following rule must exist in this case:
 
 ::
 
-    $(@package@_SOURCE):
+    $(|package|_SOURCE):
     		@$(call targetinfo)
-    		@$(call get, @package@)
+		@$(call get, |package|)
 
 extract Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -771,11 +771,11 @@ If the *extract* stage is omitted, PTXdist runs instead:
 
 ::
 
-    $(STATEDIR)/@package@.extract:
+    $(STATEDIR)/|package|.extract:
     		@$(call targetinfo)
-    		@$(call clean, $(@package@_DIR))
-    		@$(call extract, @package@)
-    		@$(call patchin, @package@)
+		@$(call clean, $(|package|_DIR))
+		@$(call extract, |package|)
+		@$(call patchin, |package|)
     		@$(call touch)
 
 Which means a current existing directory of this package will be
@@ -788,59 +788,59 @@ prepare Stage Default Rule
 If the *prepare* stage is omitted, PTXdist runs a default stage rule
 depending on some variable settings.
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to ``NO``,
+If the package’s rule file defines ``|package|_CONF_TOOL`` to ``NO``,
 this stage is simply skipped.
 
-All rules files shall create the ``@package@_CONF_ENV`` variable and
+All rules files shall create the ``|package|_CONF_ENV`` variable and
 define it at least to ``$(CROSS_ENV)`` if the prepare stage is used.
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to
+If the package’s rule file defines ``|package|_CONF_TOOL`` to
 ``autoconf`` (``FOO_CONF_TOOL = autoconf`` for our *foo* example),
 PTXdist treats this package as an autotoolized package and runs:
 
 ::
 
-    $(STATEDIR)/@package@.prepare:
+    $(STATEDIR)/|package|.prepare:
     		@$(call targetinfo)
-    		@$(call clean, $(@package@_DIR)/config.cache)
-    		@cd $(@package@_DIR)/$(@package@_SUBDIR) && \
-    			$(@package@_PATH) $(@package@_CONF_ENV) \
-    			./configure $(@package@_CONF_OPT)
+		@$(call clean, $(|package|_DIR)/config.cache)
+		@cd $(|package|_DIR)/$(|package|_SUBDIR) && \
+			$(|package|_PATH) $(|package|_CONF_ENV) \
+			./configure $(|package|_CONF_OPT)
     		@$(call touch)
 
-The ``@package@_CONF_OPT`` should at least be defined to
+The ``|package|_CONF_OPT`` should at least be defined to
 ``$(CROSS_AUTOCONF_USR)`` or ``$(CROSS_AUTOCONF_ROOT)``.
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to ``cmake``
+If the package’s rule file defines ``|package|_CONF_TOOL`` to ``cmake``
 (``FOO_CONF_TOOL = cmake`` for our *foo* example), PTXdist treats this
 package as a *cmake* based package and runs:
 
 ::
 
-    $(STATEDIR)/@package@.prepare:
+    $(STATEDIR)/|package|.prepare:
     		@$(call targetinfo)
-    		@cd $(@package@_DIR) && \
-    			$(@package@_PATH) $(@package@_CONF_ENV) \
-    			cmake $(@package@_CONF_OPT)
+		@cd $(|package|_DIR) && \
+			$(|package|_PATH) $(|package|_CONF_ENV) \
+			cmake $(|package|_CONF_OPT)
     		@$(call touch)
 
-The ``@package@_CONF_OPT`` should at least be defined to
+The ``|package|_CONF_OPT`` should at least be defined to
 ``$(CROSS_CMAKE_USR)`` or ``$(CROSS_CMAKE_ROOT)``.
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to ``qmake``
+If the package’s rule file defines ``|package|_CONF_TOOL`` to ``qmake``
 (``FOO_CONF_TOOL = qmake`` for our *foo* example), PTXdist treats this
 package as a *qmake* based package and runs:
 
 ::
 
-    $(STATEDIR)/@package@.prepare:
+    $(STATEDIR)/|package|.prepare:
     		@$(call targetinfo)
-    		@cd $(@package@_DIR) && \
-    			$(@package@_PATH) $(@package@_CONF_ENV) \
-    			qmake $(@package@_CONF_OPT)
+		@cd $(|package|_DIR) && \
+			$(|package|_PATH) $(|package|_CONF_ENV) \
+			qmake $(|package|_CONF_OPT)
     		@$(call touch)
 
-The ``@package@_CONF_OPT`` should at least be defined to
+The ``|package|_CONF_OPT`` should at least be defined to
 ``$(CROSS_QMAKE_OPT)``.
 
 compile Stage Default Rule
@@ -850,24 +850,24 @@ If the *compile* stage is omitted, PTXdist runs instead:
 
 ::
 
-    $(STATEDIR)/@package@.compile:
+    $(STATEDIR)/|package|.compile:
     		@$(call targetinfo)
-    		@cd $(@package@_DIR) && \
-    			$(@package@_PATH) $(@package@_MAKE_ENV) \
-    			$(MAKE) $(@package@_MAKE_OPT) $(@package@_MAKE_PAR)
+		@cd $(|package|_DIR) && \
+			$(|package|_PATH) $(|package|_MAKE_ENV) \
+			$(MAKE) $(|package|_MAKE_OPT) $(|package|_MAKE_PAR)
     		@$(call touch)
 
-If the ``@package@_MAKE_ENV`` is not defined, it defaults to
+If the ``|package|_MAKE_ENV`` is not defined, it defaults to
 ``$(CROSS_ENV)``. If some additional variables should be added to the
-``@package@_MAKE_ENV``, always begin with the ``$(CROSS_ENV)`` and then
+``|package|_MAKE_ENV``, always begin with the ``$(CROSS_ENV)`` and then
 add the additional variables.
 
-If the ``@package@_MAKE_OPT`` is intended for additional parameters to
+If the ``|package|_MAKE_OPT`` is intended for additional parameters to
 be forwarded to ``make`` or to overwrite some settings from the
-``@package@_MAKE_ENV``. If not defined in the rule file it defaults to
+``|package|_MAKE_ENV``. If not defined in the rule file it defaults to
 an empty string.
 
-Note: ``@package@_MAKE_PAR`` can be defined to ``YES`` or ``NO`` to
+Note: ``|package|_MAKE_PAR`` can be defined to ``YES`` or ``NO`` to
 control if the package can be built in parallel.
 
 install Stage Default Rule
@@ -877,14 +877,14 @@ If the *install* stage is omitted, PTXdist runs instead:
 
 ::
 
-    $(STATEDIR)/@package@.install:
+    $(STATEDIR)/|package|.install:
     		@$(call targetinfo)
-    		@cd $(@package@_DIR) && \
-    			$(@package@_PATH) $(@package@_MAKE_ENV) \
-    			$(MAKE) $(@package@_INSTALL_OPT)
+		@cd $(|package|_DIR) && \
+			$(|package|_PATH) $(|package|_MAKE_ENV) \
+			$(MAKE) $(|package|_INSTALL_OPT)
     		@$(call touch)
 
-Note: ``@package@_INSTALL_OPT`` is always defined to ``install`` if not
+Note: ``|package|_INSTALL_OPT`` is always defined to ``install`` if not
 otherwise specified. This value can be replaced by a package’s rule file
 definition.
 
@@ -905,7 +905,7 @@ be provided:
 
 ::
 
-    $(STATEDIR)/@package@.<stage_to_skip>:
+    $(STATEDIR)/|package|.<stage_to_skip>:
     		@$(call targetinfo)
     		@$(call touch)
 
