@@ -245,12 +245,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_UDEV_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_UDEV_BBINIT_LINK))
 endif
 endif
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udev.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udevmonitor.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udevtrigger.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udev-finish.conf)
-endif
 endif
 	@$(call install_finish, udev)
 

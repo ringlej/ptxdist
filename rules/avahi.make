@@ -136,10 +136,6 @@ ifdef PTXCONF_INITMETHOD_BBINIT
 	@$(call install_link, avahi, ../init.d/avahi-daemon, \
 		/etc/rc.d/S35avahi-daemon)
 endif
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, avahi, 0, 0, 0644, \
-		/etc/init/avahi-daemon.conf)
-endif
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 ifdef PTXCONF_AVAHI_SYSTEMD_UNIT
 	@$(call install_alternative, avahi, 0, 0, 0644, \

@@ -120,9 +120,9 @@ config UDEV_LIBGUDEV
 config UDEV_STARTSCRIPT
 	bool
 	default y
-	prompt "install /etc/init.d/udev or /etc/init/udev.conf"
+	prompt "install /etc/init.d/udev"
 	help
-	  Install the startup magic for either bbinit or upstart.
+	  Install the startup magic for bbinit.
 	  Select Y here, as this is what you usually want.
 
 endmenu

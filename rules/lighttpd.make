@@ -134,10 +134,6 @@ endif
 endif
 endif
 
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init/lighttpd.conf)
-endif
-
 ifdef PTXCONF_LIGHTTPD_SYSTEMD_UNIT
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \
 		/lib/systemd/system/lighttpd.service)
