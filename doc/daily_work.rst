@@ -316,13 +316,13 @@ Now we can step through our application by using the commands *step*,
 *next*, *stepi*, *nexti*, *until* and so on.
 
 .. note:: It might be impossible for GDB to find debug symbols for
-components like the main C runtime library. In this case they where
-stripped while building the toolchain. There is a switch in the
-OSELAS.Toolchain menu to keep the debug symbols also for the C runtime
-library. But be warned: This will enlarge the OSELAS.Toolchain
-installation on your harddisk! When the toolchain was built with the
-debug symbols kept, it will be also possible for GDB to debug C library
-functions our application calls (so it might worth the disk space).
+  components like the main C runtime library. In this case they where
+  stripped while building the toolchain. There is a switch in the
+  OSELAS.Toolchain menu to keep the debug symbols also for the C runtime
+  library. But be warned: This will enlarge the OSELAS.Toolchain
+  installation on your harddisk! When the toolchain was built with the
+  debug symbols kept, it will be also possible for GDB to debug C library
+  functions our application calls (so it might worth the disk space).
 
 Migration between Releases
 --------------------------
@@ -801,6 +801,8 @@ Note: If PTXdist is configured to share one source archive directory for
 all projects, this step will simply copy the source archives from the
 shared source archive directory. Otherwise PTXdist will start to
 download them from the world wide web.
+
+.. _adding_src_autoconf_lib:
 
 Creating a new Autotools Based Library
 --------------------------------------

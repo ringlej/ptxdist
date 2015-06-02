@@ -19,9 +19,9 @@ This chapter shows all (or most) of the details of how PTXdist works.
 PTXdist’s directory hierarchy
 -----------------------------
 
-Note: Referenced directories are meant relative to the PTXdist main
-installation location (if not otherwise stated). If not configured
-differently, this main path is ``/usr/local/lib/ptxdist-2015.03.0``
+.. note:: Referenced directories are meant relative to the PTXdist main
+  installation location (if not otherwise stated). If not configured
+  differently, this main path is ``/usr/local/lib/ptxdist-<version>``
 
 Rule Files
 ~~~~~~~~~~
@@ -61,7 +61,7 @@ patch series after extracting the archive. So, every patch series
 contains a set of patches and one ``series`` file to define the order in
 which the patches must be applied.
 
-Note: Patches can be compressed.
+.. note:: Patches can be compressed.
 
 Besides the ``patches/`` directory at the main installation location,
 PTXdist searches two additional locations for a patch series for the
@@ -164,8 +164,7 @@ handle:
    will also create a small autotools/libtool based source template
    project on demand to give the developer an easy point to start. This
    template is prepared to build a single shared library. For further
-   details refer section
-   [adding:sub:`s`\ rc\ :sub:`a`\ utoconf\ :sub:`l`\ ib]
+   details refer section :ref:`adding_src_autoconf_lib`.
 
 -  **src-autoconf-proglib**: This kind of package is built for the
    target. It is intended for development, as it does not handle a
@@ -180,7 +179,7 @@ handle:
    into the build process. We assume these files do not need any
    processing, they are ready to use and must only be present in the
    build process or at runtime (HTML files for example). Refer to the
-   section [chap:adding:sub:`f`\ iles] for further details on how to use
+   section :ref:`adding_files` for further details on how to use
    it.
 
 -  **src-make-prog**: This kind of package is built for the target. It’s
@@ -213,6 +212,8 @@ handle:
 -  **src-linux-driver**: This kind of package builds an out of tree
    kernel driver. It also creates a driver template to give the
    developer an easy point to start.
+
+.. _foo_example:
 
 Rule File Creation
 ~~~~~~~~~~~~~~~~~~
@@ -297,9 +298,11 @@ The generated skeleton starts to add the new menu entry in the main
 configure menu (if we left the section name unchanged). Running
 ``ptxdist menuconfig`` will show it on top of all other menus entries.
 
-To be able to implement and test all the other required steps for adding
-a new package, we first must enable the package for building. (Fine
-tuning the menu can happen later on.)
+.. important:: 
+  To be able to implement and test all the other required steps for adding
+  a new package, we first must enable the package for building. (Fine
+  tuning the menu can happen later on.)
+
 
 The rule file skeleton still lacks some important information. Let’s
 take a look into some of the top lines of the generated rule file
@@ -345,11 +348,11 @@ PTXdist specific. What does it mean:
 After enabling the menu entry, we can start to check the *get* and
 *extract* stages, calling them manually one after another.
 
-Note: The shown commands below expect that PTXdist downloads the
-archives to a global directory named ``global_src``. This is not the
-default setting, but we recommend to use a global directory to share all
-archives between PTXdist based projects. Advantage is every download
-happens only once. Refer to the ``setup`` command PTXdist provides.
+.. note:: The shown commands below expect that PTXdist downloads the
+  archives to a global directory named ``global_src``. This is not the
+  default setting, but we recommend to use a global directory to share all
+  archives between PTXdist based projects. Advantage is every download
+  happens only once. Refer to the ``setup`` command PTXdist provides.
 
 ::
 
@@ -371,9 +374,9 @@ This command should start to download the source archive. If it fails,
 we should check our network connection, proxy setup or if the given URL
 in use is correct.
 
-Note: Sometimes we do not know the content of all the other variables in
-the rule file. To get an idea what content a variable has, we can ask
-PTXdist about it:
+.. note:: Sometimes we do not know the content of all the other variables in
+  the rule file. To get an idea what content a variable has, we can ask
+  PTXdist about it:
 
 ::
 
@@ -460,7 +463,7 @@ At this stage things can fail:
 
 | If the ``configure`` script is not cross compile aware, we are out of
   luck. We must patch the source archive in this case to make it work.
-  Refer to section [sect:configure:sub:`r`\ ebuild] on how to use
+  Refer to section :ref:`configure_rebuild` on how to use
   PTXdist’s features to simplify this task.
 | If the package depends on external components, these components might
   be already part of PTXdist. In this case we just have to add this
@@ -507,7 +510,7 @@ At this stage things can fail:
    ``/usr/lib`` for example) by accident
 
 In all of these cases we must patch the sources to make them work. Refer
-to section [sect:patching:sub:`p`\ ackages] on how to use PTXdist’s
+to section :ref:`patching_packages` on how to use PTXdist’s
 features to simplify this task.
 
 In this example we expect the best case: Everything went fine, even for
@@ -574,7 +577,7 @@ The skeleton for the *targetinstall* stage looks like this:
 
 The “header” of this stage defines some information IPKG needs. The
 important part that we must modify is the call to the ``install_copy``
-macro (refer to section [sect:reference:sub:`m`\ acros] for more details
+macro (refer to section :ref:`reference_macros` for more details
 about this kind of macros). This call instructs PTXdist to include the
 given file (with PID, UID and permissions) into the IPKG, which means to
 install this file to the target’s root filesystem.
@@ -693,7 +696,7 @@ parameters to enable or disable features, or to configure them in a
 specific way.
 
 We assume the ``configure`` script of our ``foo`` example (refer to
-section [sect:foo:sub:`e`\ xample]) supports two additional parameters:
+section :ref:`foo_example`) supports two additional parameters:
 
 -  **--enable-debug**: Make the program more noisy. It’s disabled by
    default.
@@ -727,9 +730,9 @@ in this line and supplement this expression as follows:
     	--enable-debug \
     	--with-bar
 
-Note: We recommend to use this format with each parameter on a line of
-its own. This format is easier to read and a diff shows more exactly any
-change.
+.. note:: We recommend to use this format with each parameter on a line of
+ its own. This format is easier to read and a diff shows more exactly any
+ change.
 
 To do a fast check if this addition was successful, we run:
 
@@ -738,9 +741,9 @@ To do a fast check if this addition was successful, we run:
     $ ptxdist print FOO_AUTOCONF
     --prefix=/usr --sysconfdir=/etc --host=<ptxdistCompilerName> --build=i686-host-linux-gnu --enable-debug --with-bar
 
-Note: It depends on the currently selected platform and its architecture
-what content this variable will have. The content shown above is an
-example for an target.
+.. note:: It depends on the currently selected platform and its architecture
+ what content this variable will have. The content shown above is an
+ example for an target.
 
 Or re-build the package with the new settings:
 
@@ -791,9 +794,9 @@ add on demand to the ``configure`` parameters:
 
     endif
 
-Note: To extend the base name by a suboption name as a trailing
-component gives PTXdist the ability to detect a change in the package’s
-settings to force its rebuild.
+.. note:: To extend the base name by a suboption name as a trailing
+  component gives PTXdist the ability to detect a change in the package’s
+  settings to force its rebuild.
 
 To make usage of the new menu entries, we must check them in the rule
 file and add the correct parameters:
@@ -817,8 +820,8 @@ file and add the correct parameters:
     FOO_AUTOCONF += --without-bar
     endif
 
-Please note the trailing ``PTXCONF_`` for each define. While Kconfig is
-using ``FOO_BAR``, the rule file must use ``PTXCONF_FOO_BAR`` instead.
+.. important:: Please note the trailing ``PTXCONF_`` for each define. While Kconfig is
+  using ``FOO_BAR``, the rule file must use ``PTXCONF_FOO_BAR`` instead.
 
 It is a good practice to add both settings, e.g. ``--disable-debug``
 even if this is the default case. Sometimes ``configure`` tries to guess
@@ -956,10 +959,10 @@ enabled. To add these dependencies on demand, the menu file looks like:
 
     endif
 
-Do not add these ``select`` statements to the correspondig menu entry.
-They must belong to the main menu entry of the package to ensure that
-the calculation of the dependencies between the packages is done in a
-correct manner.
+.. important:: Do not add these ``select`` statements to the correspondig menu entry.
+  They must belong to the main menu entry of the package to ensure that
+  the calculation of the dependencies between the packages is done in a
+  correct manner.
 
 Managing External Runtime Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1010,12 +1013,12 @@ file. With all the additions above it now looks like:
 
     endif
 
-Note: There are other packages around, that do not install everything by
-default. If our new package needs something special, we must take a look
-into the menu of the other package how to force the required components
-to be installed and add the corresponding ``selects`` to our own menu
-file. In this case it does not help to enable the required parts in our
-project configuration, because this has no effect on the build order!
+.. note:: There are other packages around, that do not install everything by
+  default. If our new package needs something special, we must take a look
+  into the menu of the other package how to force the required components
+  to be installed and add the corresponding ``selects`` to our own menu
+  file. In this case it does not help to enable the required parts in our
+  project configuration, because this has no effect on the build order!
 
 Managing Non Autotool Packages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1055,8 +1058,11 @@ So, in the rule file only the two variables ``FOO_MAKE_ENV`` and
 package’s buildsystem. If the package cannot be built in parallel, we
 can also add the ``FOO_MAKE_PAR := NO``. ``YES`` is the default.
 
-Note: *FOO* is still the name of our example package. It must be
-replaced by the real package name.
+.. note:: *FOO* is still the name of our example package. It must be
+  replaced by the real package name.
+
+
+.. _patching_packages:
 
 Patching Packages
 ~~~~~~~~~~~~~~~~~
@@ -1140,7 +1146,7 @@ and refresh the patches to save our changes.
 
 We recommend this way when modifying source files. But this way is
 improper when an autotools based buildsystem itself needs modifications.
-Refer to section [sect:configure:sub:`r`\ ebuild] on how PTXdist can
+Refer to section :ref:`configure_rebuild` on how PTXdist can
 handle this special task.
 
 Adding more Patches to a Package
@@ -1159,6 +1165,9 @@ the permissions to add more patches or modify the existing ones. Also
 If we think that our new patches are valuable also for others, or they
 fix an error, it could be a good idea to send these patches to PTXdist
 mainline.
+
+
+.. _configure_rebuild:
 
 Modifying Autotoolized Packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1200,10 +1209,12 @@ content can be:
             --warnings=obsolete \
             --warnings=unsupported
 
-Note: In this way not yet autotoolized package can be autotoolized. We
-just have to add the common autotool template files (``configure.ac``
-and ``Makefile.am`` for example) via a patch series to the package
-source and the ``autogen.sh`` to the patch directory.
+.. note:: In this way not yet autotoolized package can be autotoolized. We
+  just have to add the common autotool template files (``configure.ac``
+  and ``Makefile.am`` for example) via a patch series to the package
+  source and the ``autogen.sh`` to the patch directory.
+
+.. _adding_files:
 
 Adding binary only Files
 ------------------------
@@ -1221,8 +1232,8 @@ root filesystem it creates. The examples in this chapter refer our
 generic board support package. It comes with an example how to add
 binary only files into PTXdist’s build mechanism.
 
-Old style - single files
-~~~~~~~~~~~~~~~~~~~~~~~~
+Old style -- single files
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The old style to add a simple file is present in PTXdist since its early
 days: Just use the ``install_copy`` macro in the *targetinstall* stage
@@ -1245,8 +1256,8 @@ file, we need one call to the ``install_copy`` macro per file. This is
 even harder if not only a set of files is to be installed, but a whole
 directory tree with files instead.
 
-New style - using archives
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+New style -- using archives
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a whole tree of files is to be installed, working with a *tar* based
 archive could make life easier. In this case the archive itself provides

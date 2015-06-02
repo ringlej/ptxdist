@@ -124,6 +124,8 @@ PTXDIST\_PLATFORMDIR
 ``PTXDIST_PLATFORMDIR`` points to the directory build tree of the
 currently selected platform.
 
+.. _reference_macros:
+
 Rule File Macro Reference
 -------------------------
 
