@@ -13,9 +13,10 @@ and maintain an embedded Linux based project.
 
 .. figure:: figures/project-handling.png
    :alt:  Objectives in a project
-   [fig:all:sub:`p`\ rojects\ :sub:`a`\ spects]
+   :align: center
+   :figwidth: 80 %
 
-    Objectives in a project [fig:all:sub:`p`\ rojects\ :sub:`a`\ spects]
+   Objectives in a project
 
 The most important part is the development. For this project phase,
 PTXdist provides features to ensure reproducibility and verifiability.
@@ -90,10 +91,11 @@ PTXdist’s build process
 When PTXdist is building one part (we call it a *package*)of the whole
 project, it is divided into up to six stages:
 
-.. figure:: figures/ptxbuild
-   :alt:  The build process [fig:the:sub:`b`\ uild\ :sub:`p`\ rocess]
+.. figure:: figures/ptxbuild.png
+   :alt:  The build process
+   :align: center
 
-    The build process [fig:the:sub:`b`\ uild\ :sub:`p`\ rocess] 
+   The build process
 
 get
     The package will be obtained from its source (downloaded from the
@@ -586,12 +588,11 @@ For example running PTXdist’s ``menuconfig`` subcommand in this way
 
 will show the following console output
 
-.. figure:: figures/menuconfig_intro
+.. figure:: figures/menuconfig_intro.png
    :alt:  Main userland configuration menu
-   [fig:main:sub:`u`\ serland\ :sub:`m`\ enu]
+   :align: center
 
-    Main userland configuration menu
-   [fig:main:sub:`u`\ serland\ :sub:`m`\ enu] 
+   Main userland configuration menu
 
 Navigate in Kconfig menu (select, search, ...)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
