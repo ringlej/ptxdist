@@ -97,39 +97,39 @@ project, it is divided into up to six stages:
 
    The build process
 
-get
+**get**
     The package will be obtained from its source (downloaded from the
     web for example)
 
-extract
+**extract**
     The package archive gets extracted and patched if a patch set for
     this package exists
 
-prepare
+**prepare**
     Many packages can be configured in various ways. If supported, this
     stage does the configuration in a way defined in the menu (project
     specific)
 
-compile
+**compile**
     The package gets built.
 
-install
+**install**
     The package installs itself into a project local directory. This
     step is important at least for libraries (other packages may depend
     on)
 
-targetinstall
+**targetinstall**
     Relevant parts of the package will be used to build an IPKG archive
     and the root filesystem
 
 For each single package, one so called *rule file* exists, describing
 the steps to be done in each stage shown above (refer section
-[sect:rulefile:sub:`l`\ ayout] for further details).
+:ref:`rulefile` for further details).
 
 Due to the *get* stage, PTXdist needs a working internet connection to
 download an archive currently not existing on the development host. But
 there are ways to prevent PTXdist from doing so (refer to section
-[subsection:source:sub:`a`\ rchives]).
+:ref:`source-arch-loc`).
 
 First steps with PTXdist
 ------------------------
@@ -158,18 +158,18 @@ meaning.
 As the list we see is very long, let’s explain the major parameters
 usually needed for daily usage:
 
-menu
+``menu``
     This starts a dialog based frontend for those who do not like typing
     commands. It will gain us access to the most common parameters to
     configure and build a PTXdist project.
 
-menuconfig
+``menuconfig``
     Starts the Kconfig based project configurator for the current
     selected userland configuration. This menu will give us access to
     various userland components that the root filesystem of our target
     should consist of.
 
-menuconfig platform
+``menuconfig platform``
     Starts the Kconfig based platform configurator. This menu lets us
     set up all target specific settings. Major parts are:
 
@@ -184,58 +184,58 @@ menuconfig platform
     Note: A PTXdist project can consist of more than one platform
     configuration at the same time.
 
-menuconfig kernel
+``menuconfig kernel``
     Runs the standard Linux kernel Kconfig to configure the kernel for
     the current selected platform. To run this feature, the kernel must
     be already set up for this platform.
 
-menuconfig collection
+``menuconfig collection``
     If multiple platforms are sharing one userland configuration,
     collections can define a subset of all selected packages for
     specific platforms. This is an advanced feature, rarely used.
 
-toolchain
-    | Sets up the path to the toolchain used to compile the current
-      selected platform. Without an additional parameter, PTXdist tries
-      to guess the toolchain from platform settings. To be successful,
-      PTXdist depends on the OSELAS.Toolchains installed to the ``/opt``
-      directory.
-    | If PTXdist wasn’t able to autodetect the toolchain, an additional
-      parameter can be given to provide the path to the compiler,
-      assembler, linker and so on.
+``toolchain``
+    Sets up the path to the toolchain used to compile the current
+    selected platform. Without an additional parameter, PTXdist tries
+    to guess the toolchain from platform settings. To be successful,
+    PTXdist depends on the OSELAS.Toolchains installed to the ``/opt``
+    directory.
+    If PTXdist wasn’t able to autodetect the toolchain, an additional
+    parameter can be given to provide the path to the compiler,
+    assembler, linker and so on.
 
-select
+``select``
     Used to select the current userland configuration, which is only
     required if there is no ``selected_ptxconfig`` in the project’s main
     directory. This parameter needs the path to a valid ``ptxconfig``.
     It will generate a soft link called ``selected_ptxconfig`` in the
     project’s main directory.
 
-platform
+``platform``
     Used to select the current platform configuration, which is only
     required if there is no ``selected_platformconfig`` in the project’s
     main directory. This parameter needs the path to a valid
     ``platformconfig``. It will generate a soft link called
     ``selected_platformconfig`` in the project’s main directory.
 
-collection
+``collection``
     Used to select the current collection configuration, which is only
     required in special cases. This parameter needs the path to a valid
     ``collection``. It will generate a soft link called
     ``selected_collection`` in the project’s main directory. This is an
     advanced feature, rarely used.
 
-go
+``go``
     The mostly used command. This will start to build everything to get
     all the project defined software parts. Also used to rebuild a part
     after its configuration was changed.
 
-images
+``images``
     Used at the end of a build to create an image from all userland
     packages to deploy the target (its flash for example or its hard
     disk).
 
-setup
+``setup``
     Mostly run once per PTXdist revision to set up global paths and the
     PTXdist behavior.
 
@@ -261,80 +261,54 @@ archive first.
 PTXdist is project centric, so now after changing into the new directory
 we have access to all valid components.
 
+::
+
+  total 32
+  -rw-r--r-- 1 jb users 1060 Jul  1 16:33 ChangeLog
+  -rw-r--r-- 1 jb users  741 Jul  1 15:12 README
+  drwxr-xr-x 5 jb users 4096 Jul  1 15:17 configs
+  drwxr-xr-x 3 jb users 4096 Jul  1 16:51 documentation
+  drwxr-xr-x 5 jb users 4096 Jul  1 15:12 local_src
+  drwxr-xr-x 4 jb users 4096 Jul  1 15:12 patches
+  drwxr-xr-x 5 jb users 4096 Jul  1 15:12 projectroot
+  drwxr-xr-x 3 jb users 4096 Jul  1 15:12 rules
+
 Notes about some of the files and directories listed above:
 
-ChangeLog
+**ChangeLog**
     Here you can read what has changed in this release. Note: This file
     does not always exist.
 
-documentation
+**documentation**
     If this BSP is one of our OSELAS BSPs, this directory contains the
     Quickstart you are currenly reading in.
 
-configs
+**configs**
     A multiplatform BSP contains configurations for more than one
     target. This directory contains the respective platform
     configuration files.
 
-projectroot
+**projectroot**
     Contains files and configuration for the target’s runtime. A running
     GNU/Linux system uses many text files for runtime configuration.
     Most of the time, the generic files from the PTXdist installation
     will fit the needs. But if not, customized files are located in this
     directory.
 
-rules
+**rules**
     If something special is required to build the BSP for the target it
     is intended for, then this directory contains these additional
     rules.
 
-patches
+**patches**
     If some special patches are required to build the BSP for this
     target, then this directory contains these patches on a per package
     basis.
 
-tests
+**tests**
     Contains test scripts for automated target setup.
 
 Next we will build the to show some of PTXdist’s main features.
-
-This part describes how to handle a ready-to-use BSP.
-
-Userland can be more generic than a kernel and – for example – a boot
-loader. Due to this it’s possible to use one userland configuration for
-various hardware platforms provided by one BSP. PTXdist defines a
-userland configuration by selecting a config file that contains all the
-required settings.
-
-The selecting step offers the possibility to provide more than one
-predefined configuration. We can use one of them on demand, whenever we
-are going to build the BSP. This is intended for special cases where the
-collection feature does not meet all requirements.
-
-So a PTXdist BSP can provide various combinations:
-
--  one hardware platform, one software platform
-
--  one hardware platform, various software platforms
-
--  various hardware platforms, one software platform
-
--  various hardware platforms, one software platform, various
-   collections
-
--  various hardware platforms, various software platforms
-
--  various hardware platforms, various software platforms, various
-   collections
-
-Every combination supports a special case of requirements. It’s up to
-the user what combination meets the project needs.
-
-Keeping all hardware platforms in one BSP could decrease the maintenance
-overhead. Using one software platform for all hardware platforms also.
-For special cases where hardware platforms differ in main features,
-collections could help to continue using one software platform, by
-switching on or off special applications on a per use-case base.
 
 Selecting a Userland Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -426,48 +400,48 @@ What we Got Now
 After building the project, we find even more sub directories in our
 project.
 
-build-cross
+**|ptxdistPlatformDir|build-cross**
     Contains all packages sources compiled to run on the host and handle
     target architecture dependend things.
 
-build-host
+**|ptxdistPlatformDir|build-host**
     Contains all packages sources compiled to run on the host and handle
     architecture independend things.
 
-build-target
+**|ptxdistPlatformDir|build-target**
     Contains all package sources compiled for the target architecure.
 
-images
+**|ptxdistPlatformDir|images**
     Generated files for the target can be found here: Kernel image and
     root filesystem image.
 
-packages
+**|ptxdistPlatformDir|packages**
     Location for alle individual packages in ipk format.
 
-sysroot-target
+**|ptxdistPlatformDir|sysroot-target**
     Contains everything target architecture dependend (libraries, header
     files and so on).
 
-sysroot-cross
+**|ptxdistPlatformDir|sysroot-cross**
     Contains everything that is host specific but must handle target
     architecture data.
 
-sysroot-host
+**|ptxdistPlatformDir|sysroot-host**
     Contains everything that is only host specific.
 
-root
-    | Target’s root filesystem image. This directory can be mounted as
-      an NFS root for example.
+**|ptxdistPlatformDir|root**
+    Target’s root filesystem image. This directory can be mounted as
+    an NFS root for example.
 
-root-debug
-    | Target’s root filesystem image. The difference to ``root/`` is,
-      all programs and libraries in this directory still have their
-      debug information present. This directory is intended to be used
-      as system root for a debugger. To be used by the debugger, you
-      should setup your debugger with
-    | ``set solib-absolute-prefix </path/to/workspace>/root-debug``
+**|ptxdistPlatformDir|root-debug**
+    Target’s root filesystem image. The difference to ``root/`` is,
+    all programs and libraries in this directory still have their
+    debug information present. This directory is intended to be used
+    as system root for a debugger. To be used by the debugger, you
+    should setup your debugger with
+    ``set solib-absolute-prefix </path/to/workspace>/root-debug``
 
-state
+**|ptxdistPlatformDir|state**
     Building every package is divided onto stages. And stages of one
     package can depend on stages of other packages. In order to handle
     this correctly, this directory contains timestamp files about
@@ -475,7 +449,7 @@ state
 
 This are the generated files:
 
-logfile
+**|ptxdistPlatformDir|logfile**
     Every run of PTXdist will add its output to this file. If something
     fails, this file can help to find the cause.
 
@@ -494,21 +468,21 @@ PTXdist now extracts the content of priorly created *\*.ipk* packages to
 a temporary directory and generates an image out of it. PTXdist supports
 following image types:
 
-**hd.img:** contains bootloader, kernel and root files in an ext2
-partition. Mostly used for X86 target systems.
+- **hd.img:** contains bootloader, kernel and root files in an ext2
+- partition. Mostly used for X86 target systems.
 
-**root.jffs2:** root files inside a jffs2 filesystem.
+- **root.jffs2:** root files inside a jffs2 filesystem.
 
-**uRamdisk:** a u-boot loadable Ramdisk
+- **uRamdisk:** a u-boot loadable Ramdisk
 
-**initrd.gz:** a traditional initrd RAM disk to be used as initrdramfs
-by the kernel
+- **initrd.gz:** a traditional initrd RAM disk to be used as initrdramfs
+- by the kernel
 
-**root.ext2:** root files inside an ext2 filesystem.
+- **root.ext2:** root files inside an ext2 filesystem.
 
-**root.squashfs:** root files inside a squashfs filesystem.
+- **root.squashfs:** root files inside a squashfs filesystem.
 
-**root.tgz:** root files inside a plain gzip compressed tar ball.
+- **root.tgz:** root files inside a plain gzip compressed tar ball.
 
 All these files can be found in ``images`` if enabled.
 
@@ -552,8 +526,8 @@ port 4444. To connect to the emulated system, we can just run a
 Leaving the emulated environment happens by entering the key sequence
 *CTRL-A X* in the development host console.
 
-Adapting the Project
---------------------
+Adapting the |ptxdistBSPName| Project
+-------------------------------------
 
 Handling a fully prepared PTXdist project is easy. But everything is
 fixed to the settings the developer selected. We now want to adapt the
@@ -684,11 +658,11 @@ PTXdist currently supports.
 Adapting Platform Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some parts of the project are platform specific (in contrast to the
+Some parts of the |ptxdistBSPName| project are platform specific (in contrast to the
 userland configuration that could be shared between platforms). We now
 want to change the used Linux kernel of our current platform. It comes
-with a default linux-3.0 and we want to change it to a more recent
-linux-3.7.
+with a default linux-3.19 and we want to change it to a more recent
+linux-4.0.
 
 To do so, we run:
 
@@ -701,9 +675,9 @@ In this Kconfig dialogue we navigate to the entry:
 ::
 
     Linux kernel  --->
-        (\ptxdistPlatformKernelRev{}) kernel version
+        (|ptxdistPlatformKernelRev|) kernel version
 
-and replace the 3.0 value by the 3.7 value.
+and replace the 3.19 value by the 4.0 value.
 
 Since PTXdist checks the MD5 sums of the archives it uses, we also must
 change the MD5 sum in the menu entry according to the selected kernel

@@ -282,6 +282,9 @@ proxy in the form:
 
 ``<protocol>://<address>:<port>``
 
+
+.. _source-arch-loc:
+
 Source Archive Location
 ^^^^^^^^^^^^^^^^^^^^^^^
 
