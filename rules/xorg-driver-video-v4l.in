@@ -15,3 +15,6 @@ config XORG_DRIVER_VIDEO_V4L
 	help
 	  X.Org X server -- Video 4 Linux display driver.
 
+	  STAGING: remove in ptxdist-2016.07.0
+	  Upstream ist dead and it no longer builds with the latest Xorg
+	  server.
