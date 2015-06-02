@@ -8,11 +8,11 @@ Once upon in time, programming embedded systems was easy: all a
 developer needed when he wanted to start a new product was a good
 toolchain, consisting of
 
-a compiler
+- a compiler
 
-maybe an assembler
+- maybe an assembler
 
-probably an EPROM burning device
+- probably an EPROM burning device
 
 and things could start. After some more or less short time, every
 register of the CPU was known, a variety of library routines had been
@@ -116,11 +116,11 @@ distribution, cannot be shrunk below this mark without for example
 losing the packet management, which is an essential feature of using a
 distribution at all.
 
-Additionally, source code for industrial systems has to be
+- Additionally, source code for industrial systems has to be
 
-auditable and
+- auditable and
 
-reproducible.
+- reproducible.
 
 Embedded developers usually want to know what’s in their systems – be it
 that they have to support their software for a long time span (something
@@ -128,6 +128,6 @@ like 10-15 years are usual product lifetimes in automation applications)
 or that they have such a special scenario that they have to maintain
 their integrated source of their Userland themselves.
 
-**Entering PTXdist.**
+.. centered:: **Entering PTXdist.**
 
 
