@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 30 May 2015 10:42:35 +0200
+Subject: [PATCH] use asm/types.h to define __u64 etc.
+
+Otherwise building fails on arm64 with conflicting type definitions.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ include/fuse_kernel.h | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/include/fuse_kernel.h b/include/fuse_kernel.h
+index c632b58fbcf4..29eb58227198 100644
+--- a/include/fuse_kernel.h
++++ b/include/fuse_kernel.h
+@@ -89,11 +89,7 @@
+ #define _LINUX_FUSE_H
+ 
+ #include <sys/types.h>
+-#define __u64 uint64_t
+-#define __s64 int64_t
+-#define __u32 uint32_t
+-#define __s32 int32_t
+-#define __u16 uint16_t
++#include <asm/types.h>
+ 
+ /*
+  * Version negotiation:
