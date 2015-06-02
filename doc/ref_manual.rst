@@ -17,23 +17,23 @@ a:
 ::
 
     $ ptxdist print PTXDIST_TOPDIR
-    /usr/local/lib/ptxdist-@\releasenumber{}@
+    /usr/local/lib/ptxdist-|release|
 
 Replace the ``PTXDIST_TOPDIR`` with one of the other generic variables
 PTXdist provides.
 
-PTXDIST\_TOPDIR
+PTXDIST_TOPDIR
 ~~~~~~~~~~~~~~~
 
 Points always to the installation directory of PTXdist.
 
-PTXDIST\_WORKSPACE
+PTXDIST_WORKSPACE
 ~~~~~~~~~~~~~~~~~~
 
 Everything that references ``PTXDIST_WORKSPACE`` will use the active
 projects’s folder.
 
-PTXDIST\_SYSROOT\_CROSS
+PTXDIST_SYSROOT_CROSS
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 ``PTXDIST_SYSROOT_CROSS`` points to a directory tree all cross relevant
@@ -45,7 +45,7 @@ dependencies (executables, header and library files). Use
 ``$(PTXDIST_SYSROOT_CROSS)/include`` for header files and
 ``$(PTXDIST_SYSROOT_CROSS)/lib`` for libraries.
 
-PTXDIST\_SYSROOT\_HOST
+PTXDIST_SYSROOT_HOST
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ``PTXDIST_SYSROOT_HOST`` points to a directory tree all host relevant
@@ -56,7 +56,7 @@ their dependencies (executables, header and library files). Use
 ``$(PTXDIST_SYSROOT_HOST)/include`` for header files and
 ``$(PTXDIST_SYSROOT_HOST)/lib`` for libraries.
 
-PTXDIST\_SYSROOT\_TARGET
+PTXDIST_SYSROOT_TARGET
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``PTXDIST_SYSROOT_TARGET`` points to a directory tree all target
@@ -70,7 +70,7 @@ target library), not for runtime! Use
 
 Other useful variables:
 
-CROSS\_PATH
+CROSS_PATH
 ~~~~~~~~~~~
 
 Use to find cross tools. This path must be used to create anything that
@@ -85,7 +85,7 @@ Building a library for the target
     If this library needs other resources to be built (other libraries)
     its ``configure`` finds the right information in this path.
 
-HOST\_PATH
+HOST_PATH
 ~~~~~~~~~~
 
 Used to find host tools. This path must be used to create anything that
@@ -98,27 +98,27 @@ ROOTDIR
 current project. Used in very rare cases (to create strange packages
 based on data in target’s root filesystem for example).
 
-PTXCONF\_PLATFORM
+PTXCONF_PLATFORM
 ~~~~~~~~~~~~~~~~~
 
 ``PTXCONF_PLATFORM`` expands to the name of the currently selected
 platform. This name is used in various file names and paths.
 
-PTXDIST\_PLATFORMSUFFIX
+PTXDIST_PLATFORMSUFFIX
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 ``PTXDIST_PLATFORMSUFFIX`` expands to the name of the currently selected
 platform, but with a leading dot. This is used in various files PTXdist
 should search for.
 
-PTXDIST\_PLATFORMCONFIGDIR
+PTXDIST_PLATFORMCONFIGDIR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``PTXDIST_PLATFORMCONFIGDIR`` points to the directory tree of the
 currently selected platform. This path is used in various search
 functions.
 
-PTXDIST\_PLATFORMDIR
+PTXDIST_PLATFORMDIR
 ~~~~~~~~~~~~~~~~~~~~
 
 ``PTXDIST_PLATFORMDIR`` points to the directory build tree of the
@@ -909,7 +909,7 @@ be provided:
     		@$(call targetinfo)
     		@$(call touch)
 
-Replace the <stage\_to\_skip> by ``get``, ``extract``, ``prepare``,
+Replace the <stage_to_skip> by ``get``, ``extract``, ``prepare``,
 ``compile``, ``install`` or ``targetinstall``.
 
 PTXdist parameter reference
