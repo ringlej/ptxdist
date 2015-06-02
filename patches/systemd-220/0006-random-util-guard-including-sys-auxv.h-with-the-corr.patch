@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 2 Jun 2015 10:41:24 +0200
+Subject: [PATCH] random-util: guard including sys/auxv.h with the
+ corresponding ifdef check
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/shared/random-util.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/shared/random-util.c b/src/shared/random-util.c
+index 88f5182508e7..b230044f5099 100644
+--- a/src/shared/random-util.c
++++ b/src/shared/random-util.c
+@@ -23,7 +23,9 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <time.h>
++#ifdef HAVE_SYS_AUXV_H
+ #include <sys/auxv.h>
++#endif
+ #include <linux/random.h>
+ 
+ #include "random-util.h"
