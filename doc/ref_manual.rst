@@ -75,11 +75,11 @@ Use to find cross tools. This path must be used to create anything that
 depends on the target’s architecture, but needs something running on the
 host to do the job. Examples:
 
-Creating a jffs2 image from the target’s root filesystem
+**Creating a jffs2 image from the target’s root filesystem**
     This will need a tool running on the host, but it will create data
     or code that runs on or is used on the target
 
-Building a library for the target
+**Building a library for the target**
     If this library needs other resources to be built (other libraries)
     its ``configure`` finds the right information in this path.
 
@@ -162,7 +162,7 @@ targetinfo
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call targetinfo)
 
@@ -170,7 +170,7 @@ Gives a feedback, what build *stage* is just started. Thats why it
 should always be the first call for each *stage*. For the package
 *foo* and the *compile stage* it will output:
 
-.. code-block:: none
+.. code-block:: bash
 
  --------------------
  target: foo.compile
@@ -181,7 +181,7 @@ touch
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call touch)
 
@@ -189,7 +189,7 @@ Gives a feedback, what build *stage* is just finished. Thats why it
 should always be the last call for each *stage*. For the package
 *foo* and the *compile stage* it will output:
 
-.. code-block:: none
+.. code-block:: bash
 
  finished target foo.compile
 
@@ -198,7 +198,7 @@ clean
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call clean, <directory path>)
 
@@ -209,25 +209,25 @@ install_copy
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_copy, <package>, <UID>, <GID>, <permission>, <source> [, <dest> [, <strip> ]])
 
 Installs given file or directory into:
 
-* the project's ``<platform-dir>/root/``}
-* the project's ``<platform-dir>/root-debug/``}
-* an ipkg/opkg packet in the project's ``<platform-dir>/packages/``}
+* the project's ``<platform-dir>/root/``
+* the project's ``<platform-dir>/root-debug/``
+* an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<UID>
+**<UID>**
   User ID the file should use in the target's root filesystem
-<GID>
+**<GID>**
   Group ID the file should use in the target's root filesystem
-<permission>
+**<permission>**
   Permission (in an octal value) the file should use in the target's root filesystem
 
 The remaining parameters vary with the use case:
@@ -268,13 +268,13 @@ stripping debug information from files is intended. But some kind of files getti
 destroyed when this stripping happens to them. One example is a Linux kernel module.
 If it gets stripped, it can't be loaded into the kernel anymore.
 
-full strip
+**full strip**
   fully strip the file while installing when this parameter is **y** or not
   given at all (default case).
-partially strip
+**partially strip**
   only strips real debug information from the file when this parameter is
   **k**. Useful to keep Linux kernel module loadable at run-time
-no strip
+**no strip**
   preserve the file from being stripped when this parameter is one of the
   following: **0**, **n**, **no**, **N** or **NO**.
 
@@ -282,26 +282,26 @@ Due to the complexity of this macro, here are some usage examples:
 
 Create a directory in the root filesystem:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_copy, foo, 0, 0, 0755, /home/user-foo)
 
 Copy a file from the package build directory to the root filesystem:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/foo)
 
 Copy a file from the package build directory to the root filesystem and rename
 it:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/bar)
 
 Copy a file from the package install directory to the root filesystem:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_copy, foo, 0, 0, 0755, -, /usr/bin/foo)
 
@@ -310,7 +310,7 @@ install_tree
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_tree, <package>, <UID>, <GID>, <source dir>, <destination dir>)
 
@@ -322,18 +322,18 @@ Installs the whole directory tree with all files from the given directory into:
 
 Some of the parameters have fixed meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<UID>
+**<UID>**
   User ID the directories and files should use in the target's root filesystem
   or ``-`` to keep the UID from the source tree
-<GID>
+**<GID>**
   Group ID the directories and files should use in the target's root filesystem
   or ``-`` to keep the GID from the source tree
-<source dir>
+**<source dir>**
   This is the path to the tree of directories and files to be installed. It can
   be ``-`` to use the package directory of the current package instead
-<destination dir>
+**<destination dir>**
   The basename of the to-be-installed tree in the root filesystem
 
 Note: This installation macro
@@ -348,14 +348,14 @@ Examples:
 Install the whole tree found in ``/home/jbe/foo`` to the root filesystem
 at location ``/usr/share/bar``.
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_tree, foo, 0, 0, /home/jbe/foo, /usr/share/bar)
 
 Install all files from the tree found in the current package FOO to the root
 filesystem at location ``/usr/share/bar``.
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_tree, foo, 0, 0, -, /usr/share/bar)
 
@@ -367,7 +367,7 @@ install_alternative_tree
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_alternative_tree, <package>, <UID>, <GID>, <destination dir>)
 
@@ -382,30 +382,30 @@ PTXdist search in the same directories and order for the given directory.
 
 Some of the parameters have fixed meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<UID>
+**<UID>**
   User ID the directories and files should use in the target's root filesystem
   or ``-`` to keep the UID from the source
-<GID>
+**<GID>**
   Group ID the directories and files should use in the target's root
   filesystem or ``-`` to keep the GID from the source
-<destination dir>
+**<destination dir>**
   The basename of the to-be-installed tree in the root filesystem
 
-Note: This installation macro
+.. note:: This installation macro
 
-* uses the same permission flags in the destination dir as found in the source
-  dir. This is valid for directories and regular files
-* skips all directories with names like ``.svn``, ``.git``, ``.pc`` and ``CVS``
-  in the source directory
+  * uses the same permission flags in the destination dir as found in the source
+    dir. This is valid for directories and regular files
+  * skips all directories with names like ``.svn``, ``.git``, ``.pc`` and ``CVS``
+    in the source directory
 
 Examples:
 
 Install the whole tree found in project's ``projectroot/usr/share/bar``
 to the root filesystem at location ``/usr/share/bar``.
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_alternative_tree, foo, 0, 0, /usr/share/bar)
 
@@ -414,7 +414,7 @@ install_alternative
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_alternative, <package>, <UID>, <GID>, <permission>, <destination>)
 
@@ -426,13 +426,13 @@ Installs given files or directories into:
 
 The base parameters and their meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<UID>
+**<UID>**
   User ID the file should use in the target's root filesystem
-<GID>
+**<GID>**
   Group ID the file should use in the target's root filesystem
-<permission>
+**<permission>**
   Permission (in an octal value) the file should use in the target's root filesystem
 
 The parameter <destination> is meant as an absolute path
@@ -467,7 +467,7 @@ The generic rules are looking like the following:
 Note: You can get the current values for the listed variables above via running
 PTXdist with the ``print`` parameter:
 
-.. code-block:: none
+.. code-block:: bash
 
  $ ptxdist print PTXDIST_PLATFORMSUFFIX
 
@@ -476,7 +476,7 @@ install_link
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_link, <package>, <point to>, <where>)
 
@@ -488,12 +488,12 @@ Installs a symbolic link into:
 
 The parameters and their meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<point to>
+**<point to>**
   Path and name the link should point to. Note: This macro rejects absolute
   paths. If needed use relative paths instead.
-<where>
+**<where>**
   Path and name of the symbolic link.
 
 A few usage examples.
@@ -501,13 +501,13 @@ A few usage examples.
 Create a symbolic link as ``/usr/lib/libfoo.so`` pointing to
 ``libfoo.so.1.1.0`` in the same directory:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_link, foo, libfoo.so.1.1.0, /usr/lib/libfoo.so)
 
 Create a symbolic link as ``/usr/bin/foo`` pointing to ``/bin/bar``:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_link, foo, ../../bin/bar, /usr/bin/foo)
 
@@ -516,7 +516,7 @@ install_archive
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_archive, <package>, <UID>, <GID>, <archive> , <base path>)
 
@@ -528,18 +528,18 @@ Installs archives content into:
 
 All parameters have fixed meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<UID>
+**<UID>**
   User ID all files and directory of the archive should use in the target's
   root filesystem. A ``-`` uses the file's/directory's UID in the archive
-<GID>
+**<GID>**
   Group ID the files and directories should use in the target's root filesystem.
   A ``-`` uses the file's/directory's GID in the archive
-<archive>
+**<archive>**
   Name of the archive to be used in this call. The given path and filename is
   used as is
-<base path>
+**<base path>**
   Base path component in the root filesystem the archive should be extracted
   to. Can be just ``/`` for root.
 
@@ -548,7 +548,7 @@ install_lib
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_lib, <package>, <UID>, <GID>, <permission>, <libname>)
 
@@ -560,16 +560,16 @@ Installs the shared library <libname> into the root filesystem.
 
 The parameters and their meanings:
 
-<package>
+**<package>**
   Name of the IPKG/OPKG the macro should work on
-<UID>
+**<UID>**
   User ID the file should use in the target's root filesystem
-<GID>
+**<GID>**
   Group ID the directories and files should use in the target's root filesystem
-<permission>
+**<permission>**
   Permission (as an octal value) the library should use in the target's root
   filesystem (mostly 0644)
-<libname>
+**<libname>**
   Basename of the library without any extension and path
 
 The ``install_lib`` macro searches for the library at the most
@@ -588,7 +588,7 @@ its ``<platform-dir>/packages/foo-1.0.0`` at:
 
 To install this library and its corresponding links, the following line does the job:
 
-.. code-block:: none
+.. code-block:: make
 
  $(call install_lib, foo, 0, 0, 0644, libfoo1)
 
@@ -606,19 +606,19 @@ the string ``enable``, if unset to ``disable`` instead.
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  --$(call ptx/endis, <variable>)-<parameter>
 
 An example:
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --$(call ptx/endis,FOO_VARIABLE)-something
 
 Depending on the state of FOO_VARIABLE this line results into
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --enable-something (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --disable-something (if FOO_VARIABLE is unset)
@@ -635,19 +635,19 @@ the string ``disable``, if unset to ``enable`` instead.
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  --$(call ptx/disen, <variable>)-<parameter>
 
 An example:
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --$(call ptx/disen,FOO_VARIABLE)-something
 
 Depending on the state of FOO_VARIABLE this line results into
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --disable-something (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --enable-something (if FOO_VARIABLE is unset)
@@ -664,19 +664,19 @@ the string ``with``, if unset to ``without`` instead.
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  --$(call ptx/wwo, <variable>)-<parameter>
 
 An example:
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --$(call ptx/wwo,FOO_VARIABLE)-something
 
 Depending on the state of FOO_VARIABLE this line results into
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --with-something (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --without-something (if FOO_VARIABLE is unset)
@@ -691,19 +691,19 @@ the first given string, if unset to the second given string.
 
 Usage:
 
-.. code-block:: none
+.. code-block:: make
 
  --with-something=$(call ptx/ifdef, <variable>, <first-string>, <second-string)
 
 An example:
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --with-something=$(call ptx/ifdef,FOO_VARIABLE,/usr,none)
 
 Depending on the state of FOO_VARIABLE this line results into
 
-.. code-block:: none
+.. code-block:: make
 
  FOO_CONF_OPT += --with-something=/usr (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --with-something=none (if FOO_VARIABLE is unset)
@@ -736,16 +736,17 @@ provides generic rules for each package. If a package’s rule file does
 not provide a specific stage rule, the default stage rule will be used
 instead.
 
-| Omitting one of the stage rules **does not mean** that PTXdist skips
+.. Important::
+  Omitting one of the stage rules **does not mean** that PTXdist skips
   this stage!
-| In this case the default stage rule is used instead.
+  In this case the default stage rule is used instead.
 
 get Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^
 
 If the *get* stage is omitted, PTXdist runs instead:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.get:
     		@$(call targetinfo)
@@ -756,7 +757,7 @@ Which means this step is skipped.
 If the package is an archive that must be downloaded from the web, the
 following rule must exist in this case:
 
-::
+.. code-block:: make
 
     $(|package|_SOURCE):
     		@$(call targetinfo)
@@ -767,7 +768,7 @@ extract Stage Default Rule
 
 If the *extract* stage is omitted, PTXdist runs instead:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.extract:
     		@$(call targetinfo)
@@ -796,7 +797,7 @@ If the package’s rule file defines ``|package|_CONF_TOOL`` to
 ``autoconf`` (``FOO_CONF_TOOL = autoconf`` for our *foo* example),
 PTXdist treats this package as an autotoolized package and runs:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.prepare:
     		@$(call targetinfo)
@@ -813,7 +814,7 @@ If the package’s rule file defines ``|package|_CONF_TOOL`` to ``cmake``
 (``FOO_CONF_TOOL = cmake`` for our *foo* example), PTXdist treats this
 package as a *cmake* based package and runs:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.prepare:
     		@$(call targetinfo)
@@ -829,7 +830,7 @@ If the package’s rule file defines ``|package|_CONF_TOOL`` to ``qmake``
 (``FOO_CONF_TOOL = qmake`` for our *foo* example), PTXdist treats this
 package as a *qmake* based package and runs:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.prepare:
     		@$(call targetinfo)
@@ -846,7 +847,7 @@ compile Stage Default Rule
 
 If the *compile* stage is omitted, PTXdist runs instead:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.compile:
     		@$(call targetinfo)
@@ -873,7 +874,7 @@ install Stage Default Rule
 
 If the *install* stage is omitted, PTXdist runs instead:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.install:
     		@$(call targetinfo)
@@ -891,7 +892,7 @@ targetinstall Stage Default Rule
 
 There is no default rule for a package’s *targetinstall* state. PTXdist
 has no idea what is required on the target at run-time. This stage is up
-to the developer only. Refer to section [sect:reference:sub:`m`\ acros]
+to the developer only. Refer to section :ref:`reference_macros`
 for further info on how to select files to be included in the target’s
 root filesystem.
 
@@ -901,7 +902,7 @@ Skipping a Stage
 For the case that a specific stage should be skipped, an empty rule must
 be provided:
 
-::
+.. code-block:: make
 
     $(STATEDIR)/|package|.<stage_to_skip>:
     		@$(call targetinfo)
@@ -915,7 +916,7 @@ PTXdist parameter reference
 
 PTXdist is a command line tool, which is basicly called as:
 
-::
+.. code-block:: bash
 
     $  ptxdist <action [args]> [options]
 
