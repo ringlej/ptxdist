@@ -157,7 +157,7 @@ ptxd_make_world_init_compat() {
     export pkg_sysroot_dir
 
     # pkg_env
-    pkg_env="SYSROOT='${pkg_sysroot_dir}' V=${PTXDIST_VERBOSE} VERBOSE=${PTXDIST_VERBOSE}"
+    pkg_env="SYSROOT='${pkg_sysroot_dir}' V=${PTXDIST_VERBOSE} VERBOSE=${PTXDIST_VERBOSE/0/}"
     case "${pkg_type}" in
 	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} ${pkg_env}" ;;
 	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig:${PTXDIST_SYSROOT_HOST}/share/pkgconfig' ${pkg_env}" ;;
