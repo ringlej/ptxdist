@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 3 Jun 2015 17:37:45 +0200
+Subject: [PATCH] sd-network: ignore missing directory if networkd is disabled
+
+sd_network_monitor is used by timesyncd and resolved. Both can be enabled
+while networkd is disabled. /run/systemd/netif/links/ only exists if
+networkd is enabled at build-time, so ignore the corresponding error if it
+is disabled.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/libsystemd/sd-network/sd-network.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/libsystemd/sd-network/sd-network.c b/src/libsystemd/sd-network/sd-network.c
+index db1f6997cbba..861f33b3b574 100644
+--- a/src/libsystemd/sd-network/sd-network.c
++++ b/src/libsystemd/sd-network/sd-network.c
+@@ -310,8 +310,10 @@ _public_ int sd_network_monitor_new(sd_network_monitor **m, const char *category
+         if (!category || streq(category, "links")) {
+                 k = inotify_add_watch(fd, "/run/systemd/netif/links/", IN_MOVED_TO|IN_DELETE);
+                 if (k < 0) {
++#ifdef ENABLE_NETWORKD
+                         safe_close(fd);
+                         return -errno;
++#endif
+                 }
+ 
+                 good = true;

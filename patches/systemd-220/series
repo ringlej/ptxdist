@@ -8,4 +8,5 @@
 0006-random-util-guard-including-sys-auxv.h-with-the-corr.patch
 0007-missing-add-more-btrfs-defines.patch
 0008-missing-define-O_PATH-and-AT_EMPTY_PATH.patch
-# 1fd3037015140a7bf9cd2891f4878b07  - git-ptx-patches magic
+0009-sd-network-ignore-missing-directory-if-networkd-is-d.patch
+# ffc145bfa13923d36a62a2a3e80169d6  - git-ptx-patches magic
