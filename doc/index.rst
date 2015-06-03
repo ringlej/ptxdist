@@ -19,7 +19,6 @@ Contents:
    dev_manual
    ref_manual
    daily_work
-   revisions
    thanks
    getting_help
 
