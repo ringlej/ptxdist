@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_PYTHON_SETUPTOOLS
+	tristate
+	select HOST_PYTHON
