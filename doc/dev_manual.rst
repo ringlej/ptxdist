@@ -459,15 +459,15 @@ At this stage things can fail:
 
 -  The package depends on external components (libraries for example)
 
-| If the ``configure`` script is not cross compile aware, we are out of
-  luck. We must patch the source archive in this case to make it work.
-  Refer to section :ref:`configure_rebuild` on how to use
-  PTXdist’s features to simplify this task.
-| If the package depends on external components, these components might
-  be already part of PTXdist. In this case we just have to add this
-  dependency into the menu file and we are done. But if PTXdist cannot
-  fulfill this dependency, we also must add it as a separate package
-  first.
+If the ``configure`` script is not cross compile aware, we are out of
+luck. We must patch the source archive in this case to make it work.
+Refer to section :ref:`configure_rebuild` on how to use
+PTXdist’s features to simplify this task.
+If the package depends on external components, these components might
+be already part of PTXdist. In this case we just have to add this
+dependency into the menu file and we are done. But if PTXdist cannot
+fulfill this dependency, we also must add it as a separate package
+first.
 
 If the *prepare* stage has finished successfully, the next step is to
 compile the package.
@@ -630,15 +630,15 @@ After this command, the target’s root filesystem contains a file called
 ``/usr/bin/foo`` owned by root, its group is also root and everyone has
 execution permissions, but only the user root has write permissions.
 
-| One last task of this port is still open: A reasonable location for
-  the new menu entry in PTXdist’s menu hierarchy. PTXdist arranges its
-  menus on the meaning of each package. Is it a network related tool? Or
-  a scripting language? Or a graphical application?
-| Each of these global meanings have their own submenu, where we can add
-  our new entry to. We just have to edit the head of our new menu file
-  ``./rules/foo.in`` to add it to a specific global menu. If our new
-  package is a network related tool, the head of the menu file should
-  look like:
+One last task of this port is still open: A reasonable location for
+the new menu entry in PTXdist’s menu hierarchy. PTXdist arranges its
+menus on the meaning of each package. Is it a network related tool? Or
+a scripting language? Or a graphical application?
+Each of these global meanings have their own submenu, where we can add
+our new entry to. We just have to edit the head of our new menu file
+``./rules/foo.in`` to add it to a specific global menu. If our new
+package is a network related tool, the head of the menu file should
+look like:
 
 ::
 
@@ -832,7 +832,7 @@ guess its settings we **must disable everything we do want**.
 
 Since every optional parameter adds four lines of code to the rule
 files, PTXdist provides some shortcuts to handle it. Refer to section
-[ref:sub:`p`\ aram\ :sub:`m`\ acros] for further details.
+:ref:`param_macros` for further details.
 
 With these special macros in use, the file content shown above looks
 much simpler:

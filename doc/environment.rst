@@ -137,14 +137,14 @@ Next step is to extract the archive:
 
 ::
 
-    $ tar -xjf ptxdist-\verbatimcmd\ptxdistVendorVersion{}.tar.bz2
+    $ tar -xjf ptxdist-\ |ptxdistVendorVersion|\ .tar.bz2
 
 If everything goes well, we now have a PTXdist- directory, so we can
 change into it:
 
 ::
 
-    $ cd ptxdist-\verbatimcmd\ptxdistVendorVersion
+    $ cd ptxdist-\ |ptxdistVendorVersion|
     $ ls -lF
     total 530
     -rw-r--r--   1 jb user  18446 Sep  9 15:59 COPYING
@@ -197,7 +197,7 @@ If all required components are found the output ends with:
     configure: creating ./config.status
     config.status: creating Makefile
 
-    ptxdist version \ptxdistVendorVersion configured.
+    ptxdist version |ptxdistVendorVersion| configured.
     Using '/usr/local' for installation prefix.
 
     Report bugs to ptxdist@pengutronix.de
@@ -419,7 +419,7 @@ If we want to check if our toolchain was built with the
 
 ::
 
-    $ mytoolchain-gcc -v 2\textgreater{}\&1 | grep with-sysroot
+    $ mytoolchain-gcc -v 2>&1 | grep with-sysroot
 
 If this command **does not** output anything, this toolchain was not
 built with the ``--with-sysroot`` option and cannot be used with
@@ -486,7 +486,7 @@ the board support package:
 
 ::
 
-    $ apt-get install oselas.toolchain-\oselasTCNVendorVersion \oselasTCNVendorPatchLevel -\ptxdistCompilerName-<ptxdistCompilerVersion>
+    $ apt-get install oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
 
 These package names are very long and hard to type without making typos.
 An easier way is to ask the package manager for available toolchains and
@@ -494,8 +494,8 @@ just use the name by copy and paste it.
 
 ::
 
-    $ apt-cache search "oselas.toolchain-.*-\oselasTCNarch.*\oselasTCNvariant.*"
-    oselas.toolchain-\oselasTCNVendorVersion \oselasTCNVendorPatchLevel -\ptxdistCompilerName-<ptxdistCompilerVersion>
+    $ apt-cache search "oselas.toolchain-.*-\ |oselasTCNarch|\ .*\ |oselasTCNvariant|\ .*"
+    oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
 
 The binary OSELAS Toolchain Package for non-Debian Distributions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -533,12 +533,13 @@ configured to use the standard installation paths mentioned below.
 All OSELAS.Toolchain projects install their result into
 ``/opt/OSELAS.Toolchain-/``.
 
-| Usually the ``/opt`` directory is not world writeable. So in order to
-  build our OSELAS.Toolchain into that directory we need to use a root
-  account to change the permissions. PTXdist detects this case and asks
-  if we want to run ``sudo`` to do the job for us. Alternatively we can
-  enter:
-| ``mkdir /opt/OSELAS.Toolchain- chown <username> /opt/OSELAS.Toolchain- chmod a+rwx /opt/OSELAS.Toolchain-``.
+Usually the ``/opt`` directory is not world writeable. So in order to
+build our OSELAS.Toolchain into that directory we need to use a root
+account to change the permissions. PTXdist detects this case and asks
+if we want to run ``sudo`` to do the job for us. Alternatively we can
+enter:
+
+``mkdir /opt/OSELAS.Toolchain- chown <username> /opt/OSELAS.Toolchain- chmod a+rwx /opt/OSELAS.Toolchain-``.
 
 We recommend to keep this installation path as PTXdist expects the
 toolchains at ``/opt``. Whenever we go to select a platform in a
@@ -575,7 +576,7 @@ To select the correct one for our project we can follow the project
 specific documentation or, if we know what revision composition we need,
 we can find the correct configuration file in the following way.
 
-| For example this is one of the predefined toolchains:
+For example this is one of the predefined toolchains:
 
 **i586-unknown-linux-gnu\_gcc-4.7.2\_glibc-2.16.0\_binutils-2.22\_kernel-3.6-sanitized**
 
@@ -609,24 +610,23 @@ toolchain.
 
 The steps to do so are:
 
-In order to build any of the OSELAS.Toolchains, the host must provide
-the tool *fakeroot*. Otherwise the
-message\ ``bash: fakeroot: command not found`` will occur and the build
-stops.
+.. important:: In order to build any of the OSELAS.Toolchains, the host must provide
+  the tool *fakeroot*. Otherwise the
+  message\ ``bash: fakeroot: command not found`` will occur and the build
+  stops.
 
-Please ensure the ’current directory’ (the ``.`` entry) is not part of
-your PATH environment variable. PTXdist tries to sort out this entry,
-but might not be successful in doing so. Check by running
-``ptxdist print PATH`` if the output still contains any kind of ’current
-directory’ as a component. If yes, remove it first.
+.. important:: Please ensure the ’current directory’ (the ``.`` entry) is not part of
+  your PATH environment variable. PTXdist tries to sort out this entry,
+  but might not be successful in doing so. Check by running
+  ``ptxdist print PATH`` if the output still contains any kind of ’current
+  directory’ as a component. If yes, remove it first.
 
 ::
 
-    $ tar xf OSELAS.Toolchain-\verbatimcmd\oselasTCNVendorVersion{}\oselasTCNVendorPatchLevel.tar.bz2
-    $ cd OSELAS.Toolchain-\verbatimcmd\oselasTCNVendorVersion{}\oselasTCNVendorPatchLevel
-    $ ptxdist-\oselasTCNVendorptxdistversion{} select ptxconfigs/\verbatimcmd\ptxcr
-    	\verbatimcmd\oselasToolchainName.ptxconfig
-    $ ptxdist-\oselasTCNVendorptxdistversion{} go
+    $ tar xf OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|.tar.bz2
+    $ cd OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|
+    $ ptxdist-\ |oselasTCNVendorptxdistversion| select ptxconfigs/\ |oselasToolchainName|\ .ptxconfig
+    $ ptxdist-\ |oselasTCNVendorptxdistversion| go
 
 At this stage we have to go to our boss and tell him that it’s probably
 time to go home for the day. Even on reasonably fast machines the time

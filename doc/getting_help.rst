@@ -47,12 +47,12 @@ http://www.kroah.com/lkn/
 Chat/IRC
 --------
 
-**About PTXdist in particular**
+About PTXdist in particular
 
 **irc.freenode.net:6667**
 
-Create a connection to the **irc.freenode.net:6667** server and enter
-the chatroom **#ptxdist**. This is an English room to answer questions
+Create a connection to the ``irc.freenode.net:6667`` server and enter
+the chatroom ``#ptxdist``. This is an English room to answer questions
 about PTXdist. Best time to meet somebody there is at European daytime.
 
 Commercial Support
@@ -64,12 +64,12 @@ quotation for your special requirements.
 
 Contact us at:
 
-**Pengutronix
-Peiner Str. 6-8
-31137 Hildesheim
-Germany
-Phone: +49 - 51 21 / 20 69 17 - 0
-Fax: +49 - 51 21 / 20 69 17 - 55 55**
+| Pengutronix
+| Peiner Str. 6-8
+| 31137 Hildesheim
+| Germany
+| Phone: +49 - 51 21 / 20 69 17 - 0
+| Fax: +49 - 51 21 / 20 69 17 - 55 55
 
 or by electronic mail:
 

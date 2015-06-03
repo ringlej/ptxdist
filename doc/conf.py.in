@@ -95,6 +95,27 @@ pygments_style = 'none'
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
 
+numfig = True
+
+rst_epilog = """
+.. |ptxdistPlatformDir| replace:: ``platform-versatilepb``
+.. |oselasTCNarch| replace:: arm
+.. |oselasTCNvariant| replace:: v4t
+.. |oselasTCNVendorVersion| replace:: 2014.12
+.. |oselasTCNVendorPatchLevel| replace:: .0
+.. |oselasTCNVendorptxdistversion| replace:: 2014.12.0
+.. |oselasToolchainName| replace:: arm-v4t-linux-gnueabi_gcc-4.8.2_glibc-2.18_binutils-2.24_kernel-3.12-sanitized
+.. |ptxdistBSPName| replace:: OSELAS.BSP-Pengutronix-Generic-2015.03.1
+.. |ptxdistCompilerName| replace:: arm-v4t-linux-gnueabi
+.. |ptxdistCompilerVersion| replace:: gcc-4.8.2-glibc-2.18-binutils-2.24-kernel-3.12-sanitized
+.. |ptxdistPlatformKernelRev| replace:: 3.19
+.. |ptxdistPlatformKernelRevNext| replace:: 4.0
+.. |ptxdistPlatformName| replace:: arm-qemu
+.. |ptxdistPlatformVariant| replace:: \ 
+.. |ptxdistPlatformCollection| replace:: \ 
+.. |ptxdistVendorVersion| replace:: 2015.03.0
+.. |package| replace:: <pagage>
+"""
 
 # -- Options for HTML output ----------------------------------------------
 

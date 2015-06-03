@@ -140,7 +140,7 @@ command:
 
 ::
 
-    $ ptxdist <parameter>
+    $ ptxdist |parameter|
 
 To run different functions, this command must be extended by parameters
 to define the function we want to run.
@@ -253,10 +253,10 @@ Extracting the Board Support Package
 In order to work with a PTXdist based project we have to extract the
 archive first.
 
-::
+.. parsed-literal::
 
-    $ tar -zxf <ptxdistBSPName>.tar.gz
-    $ cd <ptxdistBSPName>
+    $ tar -zxf |ptxdistBSPName|\ .tar.gz
+    $ cd |ptxdistBSPName|
 
 PTXdist is project centric, so now after changing into the new directory
 we have access to all valid components.
@@ -330,27 +330,27 @@ Selecting a Hardware Platform
 Before we can build this BSP, we need to select one of the possible
 platforms to build for. In this case we want to build for the :
 
-::
+.. parsed-literal::
 
-    $ ptxdist platform configs/<ptxdistPlatformName>/platformconfig<ptxdistPlatformVariant>
+    $ ptxdist platform configs/\ |ptxdistPlatformName|\ /platformconfig\ |ptxdistPlatformVariant|
     info: selected platformconfig:
-          'configs/<ptxdistPlatformName>/platformconfig<ptxdistPlatformVariant>'
+          'configs/\ |ptxdistPlatformName|\ /platformconfig\ |ptxdistPlatformVariant|\ '
 
-Note: If you have installed the OSELAS.Toolchain() at its default
-location, PTXdist should already have detected the proper toolchain
-while selecting the platform. In this case it will output:
+.. note:: If you have installed the OSELAS.Toolchain() at its default
+  location, PTXdist should already have detected the proper toolchain
+  while selecting the platform. In this case it will output:
 
-::
+.. parsed-literal::
 
     found and using toolchain:
-    '/opt/OSELAS.Toolchain-<oselasTCNVendorVersion><oselasTCNVendorPatchLevel>/<ptxdistCompilerName>/<ptxcr>
-         <ptxdistCompilerVersion>/bin'
+    '/opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ /\ |ptxdistCompilerName|\ /\
+    |ptxdistCompilerVersion|\ /bin'
 
 If it fails you can continue to select the toolchain manually as
 mentioned in the next section. If this autodetection was successful, we
 can omit the steps of the section and continue to build the BSP.
 
-In the unified , one included platform can use more userland features
+In the unified, one included platform can use more userland features
 than another. For example platforms with graphic features will also
 build graphic support, but platforms sans display do not need it. To
 speed up compilation for specific platforms PTXdist provides
@@ -359,11 +359,11 @@ specific cases.
 
 To reduce the package count for the run:
 
-::
+.. parsed-literal::
 
-    $ ptxdist collection configs/<ptxdistPlatformCollection>
+    $ ptxdist collection configs/\ |ptxdistPlatformCollection|
     info: selected collectionconfig:
-          'configs/<ptxdistPlatformCollection>'
+          'configs/\ |ptxdistPlatformCollection|\ '
 
 Selecting a Toolchain
 ~~~~~~~~~~~~~~~~~~~~~
@@ -372,10 +372,9 @@ If not automatically detected, the last step in selecting various
 configurations is to select the toolchain to be used to build everything
 for the target.
 
-::
+.. parsed-literal::
 
-    $ ptxdist toolchain /opt/OSELAS.Toolchain-\oselasTCNVendorVersion \oselasTCNVendorPatchLevel/<ptxdistCompilerName>/\ptxcr
-          <ptxdistCompilerVersion>/bin
+    $ ptxdist toolchain /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ /\ |ptxdistCompilerName|\ /\ |ptxdistCompilerVersion|\ /bin
 
 Building the Root Filesystem Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -400,40 +399,40 @@ What we Got Now
 After building the project, we find even more sub directories in our
 project.
 
-**|ptxdistPlatformDir|build-cross**
+|ptxdistPlatformDir|\ ``/build-cross``
     Contains all packages sources compiled to run on the host and handle
     target architecture dependend things.
 
-**|ptxdistPlatformDir|build-host**
+|ptxdistPlatformDir|\ ``/build-host``
     Contains all packages sources compiled to run on the host and handle
     architecture independend things.
 
-**|ptxdistPlatformDir|build-target**
+|ptxdistPlatformDir|\ ``/build-target``
     Contains all package sources compiled for the target architecure.
 
-**|ptxdistPlatformDir|images**
+|ptxdistPlatformDir|\ ``/images``
     Generated files for the target can be found here: Kernel image and
     root filesystem image.
 
-**|ptxdistPlatformDir|packages**
+|ptxdistPlatformDir|\ ``/packages``
     Location for alle individual packages in ipk format.
 
-**|ptxdistPlatformDir|sysroot-target**
+|ptxdistPlatformDir|\ ``/sysroot-target``
     Contains everything target architecture dependend (libraries, header
     files and so on).
 
-**|ptxdistPlatformDir|sysroot-cross**
+|ptxdistPlatformDir|\ ``/sysroot-cross``
     Contains everything that is host specific but must handle target
     architecture data.
 
-**|ptxdistPlatformDir|sysroot-host**
+|ptxdistPlatformDir|\ ``/sysroot-host``
     Contains everything that is only host specific.
 
-**|ptxdistPlatformDir|root**
+|ptxdistPlatformDir|\ ``/root``
     Target’s root filesystem image. This directory can be mounted as
     an NFS root for example.
 
-**|ptxdistPlatformDir|root-debug**
+|ptxdistPlatformDir|\ ``/root-debug``
     Target’s root filesystem image. The difference to ``root/`` is,
     all programs and libraries in this directory still have their
     debug information present. This directory is intended to be used
@@ -441,7 +440,7 @@ project.
     should setup your debugger with
     ``set solib-absolute-prefix </path/to/workspace>/root-debug``
 
-**|ptxdistPlatformDir|state**
+|ptxdistPlatformDir|\ ``/state``
     Building every package is divided onto stages. And stages of one
     package can depend on stages of other packages. In order to handle
     this correctly, this directory contains timestamp files about
@@ -449,7 +448,7 @@ project.
 
 This are the generated files:
 
-**|ptxdistPlatformDir|logfile**
+|ptxdistPlatformDir|\ ``/logfile``
     Every run of PTXdist will add its output to this file. If something
     fails, this file can help to find the cause.
 
@@ -495,9 +494,9 @@ working QEMU on our development host.
 
 Simply run
 
-::
+.. parsed-literal::
 
-    $ ./configs/<ptxdistPlatformName>/run
+    $ ./configs/\ |ptxdistPlatformName|\ /run
 
 This will start QEMU in full system emulation mode and runs the
 previously built kernel which then uses the generated disk image to
@@ -672,10 +671,10 @@ To do so, we run:
 
 In this Kconfig dialogue we navigate to the entry:
 
-::
+.. parsed-literal::
 
     Linux kernel  --->
-        (|ptxdistPlatformKernelRev|) kernel version
+        (\ |ptxdistPlatformKernelRev|\ ) kernel version
 
 and replace the 3.19 value by the 4.0 value.
 
@@ -759,10 +758,10 @@ When PTXdist has finished its job, the new bootable kernel can be found
 at ``images/linuximage``. To boot it again in the QEMU emulation, the
 hard disk image must be re-created with:
 
-::
+.. parsed-literal::
 
     $ ptxdist images
-    $ ./configs/\ptxdistPlatformName/run
+    $ ./configs/\ |ptxdistPlatformName|\ /run
 
 The emulated system should now start with a 3.7 based kernel with USB
 support.
@@ -782,9 +781,9 @@ such packages.
 In this simple example, we want to add the missing ``head`` command to
 our target’s shell. Assuming we forgot to enable this command, we get:
 
-::
+.. parsed-literal::
 
-    $ ./configs/\ptxdistPlatformName/run
+    $ ./configs/\ |ptxdistPlatformName|\ /run
 
     ptx login: root
     login[xxx]: root login on 'ttyS0'
@@ -822,10 +821,10 @@ change.
 And also once again, after finishing its job, the following commands let
 us test the new command:
 
-::
+.. parsed-literal::
 
     $ ptxdist images
-    $ ./configs/\ptxdistPlatformName/run
+    $ ./configs/|ptxdistPlatformName|/run
 
 Log in on the emulated system and simply check with a:
 
