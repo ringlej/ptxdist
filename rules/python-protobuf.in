@@ -1,0 +1,13 @@
+## SECTION=python
+
+config PYTHON_PROTOBUF
+	tristate
+	select PROTOBUF
+	select PYTHON
+	select HOST_PYTHON_SETUPTOOLS
+	prompt "python-protobuf"
+	help
+	  Protocol Buffers are a way of encoding structured data in an
+	  efficient yet extensible format.
+	  This package contains the Python bindings for protobuf.
+
