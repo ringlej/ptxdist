@@ -110,6 +110,7 @@ endif
 #	#
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \
 		/etc/lighttpd/lighttpd.conf)
+	@$(call install_copy, lighttpd, 0, 0, 0755, /etc/lighttpd/conf.d)
 	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
 		@MODULES@, $(LIGHTTPD_MODULE_STRING))
 
