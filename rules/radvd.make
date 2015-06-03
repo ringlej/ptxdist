@@ -16,19 +16,26 @@ PACKAGES-$(PTXCONF_RADVD) += radvd
 #
 # Paths and names
 #
-RADVD_VERSION	:= 1.12
+RADVD_VERSION	:= 2.11
 RADVD		:= radvd-$(RADVD_VERSION)
 RADVD_SUFFIX	:= tar.xz
-RADVD_MD5	:= baddc38a5f26ca46a9ce7e778b59c1ae
+RADVD_MD5	:= 3a73cf1bc37d7844cafc5004c00f9291
 RADVD_URL	:= http://www.litech.org/radvd/dist/$(RADVD).$(RADVD_SUFFIX)
 RADVD_DIR	:= $(BUILDDIR)/$(RADVD)
 RADVD_SOURCE	:= $(SRCDIR)/$(RADVD).$(RADVD_SUFFIX)
 RADVD_LICENSE	:= BSD
 
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
 #
 # autoconf
 #
 RADVD_CONF_TOOL	:= autoconf
+RADVD_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--without-check
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -44,6 +51,7 @@ $(STATEDIR)/radvd.targetinstall:
 	@$(call install_fixup, radvd, DESCRIPTION, missing)
 
 	@$(call install_copy, radvd, 0, 0, 0755, -, /usr/sbin/radvd)
+	@$(call install_copy, radvd, 0, 0, 0755, -, /usr/sbin/radvdump)
 	@$(call install_alternative, radvd, 0, 0, 0644, /etc/radvd.conf)
 
 ifdef PTXCONF_RADVD_SYSTEMD_SERVICE
