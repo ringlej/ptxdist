@@ -27,8 +27,7 @@ tree.
 Configuring the PTXdist Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Note: assumption is here, the directory ``/myprj`` contains a valid
-PTXdist project.
+.. note:: assumption is here, the directory ``/myprj`` contains a valid PTXdist project.
 
 To make PTXdist use of this kernel source tree, instead of an archive we
 can simply create a link now:
@@ -81,9 +80,10 @@ enter it, and:
    -  Select a name for the kernel configuration file and enter it into
       the **kernel config file** entry.
 
-Even if we do not intend to use a kernel archive, we must setup these
-entries with valid content, else PTXdist will fail. Also the archive
-must be present on the host, else PTXdist will start a download.
+.. Important::
+  Even if we do not intend to use a kernel archive, we must setup these
+  entries with valid content, else PTXdist will fail. Also the archive
+  must be present on the host, else PTXdist will start a download.
 
 Now we can leave the menu and store the new setup. The only still
 missing component is a valid kernel config file now. We can use one of
@@ -231,9 +231,9 @@ With this preparation we can run it on our build host:
     $ cd platform-<platformname>/root
     platform-<platformname>/root$ qemu-<architecture> -cpu <cpu-core> -L . usr/bin/myapp
 
-This command will run the application ``usr/bin/myapp`` built for an CPU
-on the build host and is using all library compontents from the current
-directory.
+This command will run the application ``usr/bin/myapp`` built for an
+<cpu-core> CPU on the build host and is using all library compontents
+from the current directory.
 
 For the stdin and -out QEMU uses the regular mechanism of the build
 host’s operating system. Using QEMU in this way let us simply check our
@@ -257,7 +257,7 @@ the QEMU in the first console as:
     $ cd platform-<platformname>/root-debug
     platform-<platformname>/root-debug$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
 
-Note: PTXdist always builds two root filesystems. ``root/`` and
+.. note:: PTXdist always builds two root filesystems. ``root/`` and
 ``root-debug/``. ``root/`` contains all components without debug
 information (all binaries are in the same size as used later on on the
 real target), while all components in ``root-debug/`` still containing
@@ -383,8 +383,8 @@ command line parameters.
 ``-l<number>``
     limit the system load to the given value.
 
-Please note: using ``-ji`` and ``-je`` can overload the system immediatley.
-These settings are very hard.
+.. Important:: using ``-ji`` and ``-je`` can overload the system
+immediatley. These settings are very hard.
 
 A much softer setup is to just use the ``-j<number>`` parameter. This will run
 up to ``<number>`` tasks at the same time which will be spread over everything
@@ -519,8 +519,8 @@ https://github.com/icecc/icecream.
 
 Read their ``README.md`` for further details.
 
-Please note: as of July 2014 you need at least an *ICECC* in its version
-1.x. Older revisions are known to not work.
+.. Important:: as of July 2014 you need at least an *ICECC* in its version
+  1.x. Older revisions are known to not work.
 
 Enabling PTXdist for the Distributed Compiler
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -793,10 +793,10 @@ without an internet connection.
 PTXdist will now collect all source archives to the ``my_archives/``
 directory.
 
-Note: If PTXdist is configured to share one source archive directory for
-all projects, this step will simply copy the source archives from the
-shared source archive directory. Otherwise PTXdist will start to
-download them from the world wide web.
+.. note:: If PTXdist is configured to share one source archive directory for
+  all projects, this step will simply copy the source archives from the
+  shared source archive directory. Otherwise PTXdist will start to
+  download them from the world wide web.
 
 .. _adding_src_autoconf_lib:
 
@@ -869,7 +869,7 @@ COPYING
 
 You must think about the licence your library uses. The template file
 ``COPYING`` contains some links to GPL/LGPL texts you can use. Replace
-the ``COPYING``\ ’s content by one of the listed licence files or
+the ``COPYING’s`` content by one of the listed licence files or
 something different. But do not omit this step. Never!
 
 Build system related files
@@ -903,23 +903,23 @@ on.
 
 Special hints about some M4 macros:
 
-AC_INIT
+**AC_INIT**
     add the intended revision number (the second argument), an email
     address to report bugs and some web info about your library. The
     intended revision number will be part of the released archive name
     later on. You can keep it in sync with the API\_RELEASE, but you
     must not.
 
-AC_PREFIX_DEFAULT
+**AC_PREFIX_DEFAULT**
     most of the time you can remove this entry, because most users
     expect the default install path prefix is ``/usr/local`` which is
     always the default if not changed by this macro.
 
-API_RELEASE
+**API_RELEASE**
     defines the API version of your library. This API version will be
     part of the binary library’s name later on.
 
-LT_CURRENT / LT_REVISION / LT_AGE
+**LT_CURRENT / LT_REVISION / LT_AGE**
     define the binary compatibility of your library. The rules how these
     numbers are defined are:
 
@@ -935,20 +935,20 @@ LT_CURRENT / LT_REVISION / LT_AGE
     You must manually change these numbers whenever you change the code
     in your library prior a release.
 
-CC_CHECK_CFLAGS / CC_CHECK_LDFLAGS
+**CC_CHECK_CFLAGS / CC_CHECK_LDFLAGS**
     if you need special command line parameters given to the compiler or
     linker, don’t add them unconditionally. Always test, if the tools
     can handle the parameter and fail gracefully if not. Use
     CC_CHECK_CFLAGS to check parameters for the compiler and
     CC_CHECK_LDFLAGS for the linker.
 
-AX_HARDWARE_FP / AX_DETECT_ARMV\*
+**AX_HARDWARE_FP / AX_DETECT_ARMV\***
     sometimes it is important to know for which architecture or CPU the
     current build is for and if it supports hard float or not. Please
     don’t try to guess it. Ask the compiler instead. The M4
     AX\_HARDWARE_FP and AX_DETECT_ARMV\* macros will help you.
 
-REQUIRES
+**REQUIRES**
     to enrich the generated \*.pc file for easier dependency handling
     you should also fill the REQUIRES variable. Here you can define from
     the package management point of view the dependencies of your
@@ -957,7 +957,7 @@ REQUIRES
     ``udev >= 1.0.0`` to the REQUIRES variable. Note: the listed
     packages must be comma-separated.
 
-CONFLICTS
+**CONFLICTS**
     if your library conflicts with a different library, add this
     different library to the CONFLICTS variable (from the package
     management point of view).
@@ -998,13 +998,13 @@ Makefile.am
 
 Special hints:
 
-SUBDIR
+**SUBDIR**
     if your project contains more than one sub-directory to build, add
     these directories here. Keep in mind, these directories are visited
     in this order (but never in parallel), so you must handle
     dependencies manually.
 
-*_CPPFLAGS / *_CFLAGS / *_LIBADD
+**\*_CPPFLAGS / \*_CFLAGS / \*_LIBADD**
     if your library has some optional external dependencies add them on
     demand (external libraries for example). Keep in mind to not mix
     CPPFLAGS and CFLAGS additions. And do not add these additions fixed
@@ -1029,36 +1029,36 @@ library and also handles its dependencies.
 
 Special hints:
 
-Name
+**Name**
     A human-readable name for the library.
 
-Description
+**Description**
     add a brief description of your library here
 
-Version
+**Version**
     the main revision of the library. Will automatically replaced from
     your settings in ``configure.ac``.
 
-URL
+**URL**
     where to find your library. Will automatically replaced from your
     settings in ``configure.ac``.
 
-Requires.private
+**Requires.private**
     comma-separated list of packages your library depends on and managed
     by pkg-config. The listed packages gets honored for the static
     linking case and should not be given again in the *Libs.private*
     line. This line will be filled by the *REQUIRES* variable from the
     ``configure.ac``.
 
-Conflicts
+**Conflicts**
     list of packages your library conflicts with. Will automatically
     replaced from your CONFLICTS variable settings in ``configure.ac``.
 
-Libs
+**Libs**
     defines the linker command line content to link your library against
     other applications or libraries
 
-Libs.private
+**Libs.private**
     defines the linker command line content to link your library
     against other application or libraries statically. List only
     libraries here which are not managed by pkg-config (e.g. do not
@@ -1066,7 +1066,7 @@ Libs.private
     This line will be filled by the *LIBS* variable from the
     ``configure.ac``.
 
-Cflags
+**Cflags**
     required compile flags to make use of your library. Unfortunately
     you must mix CPPFLAGS and CFLAGS here which is a really bad idea.
 
@@ -1114,7 +1114,7 @@ foo.c
 ^^^^^
 
 The main source file of your library. Keep in mind to mark all functions
-with the DSO\_VISIBLE macro you want to export . All other functions are
+with the DSO_VISIBLE macro you want to export. All other functions are
 kept internaly and you cannot link against them from an external
 application.
 
