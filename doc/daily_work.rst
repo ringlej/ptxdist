@@ -258,10 +258,10 @@ the QEMU in the first console as:
     platform-<platformname>/root-debug$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
 
 .. note:: PTXdist always builds two root filesystems. ``root/`` and
-``root-debug/``. ``root/`` contains all components without debug
-information (all binaries are in the same size as used later on on the
-real target), while all components in ``root-debug/`` still containing
-the debug symbols and are much bigger in size.
+  ``root-debug/``. ``root/`` contains all components without debug
+  information (all binaries are in the same size as used later on on the
+  real target), while all components in ``root-debug/`` still containing
+  the debug symbols and are much bigger in size.
 
 The added *-g 1234* parameter lets QEMU wait for a GDB connection to run
 the application.
@@ -384,7 +384,7 @@ command line parameters.
     limit the system load to the given value.
 
 .. Important:: using ``-ji`` and ``-je`` can overload the system
-immediatley. These settings are very hard.
+  immediatley. These settings are very hard.
 
 A much softer setup is to just use the ``-j<number>`` parameter. This will run
 up to ``<number>`` tasks at the same time which will be spread over everything

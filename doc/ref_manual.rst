@@ -596,6 +596,9 @@ Note: The package's install stage must be 'DESTDIR' aware to be able to make
 it install its content into the corresponding packages directory (in our example
 ``<platform-dir>/packages/foo-1.0.0/`` here).
 
+
+.. _param_macros:
+
 ptx/endis
 ~~~~~~~~~
 
