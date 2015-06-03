@@ -221,7 +221,7 @@ export ptxd_install_file_objcopy_args="--only-keep-debug --compress-debug-sectio
 ptxd_install_file_extract_debug() {
     local dir="${1}"
     local dst="${2}"
-    local dbg="$(dirname "${dir}${dst}")/.debug/$(basename "${dst}")"
+    local dbg="$(dirname "${dir}${dst}")/.debug/.$(basename "${dst}").dbg"
 
     install -d "$(dirname "${dbg}")" || return
 
