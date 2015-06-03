@@ -75,10 +75,3 @@ or by electronic mail:
 
 sales@pengutronix.de
 
-.. |image| image:: figures/gup-self-documenting-code.jpg
-.. |image| image:: figures/gup-turing-complete.jpg
-.. |image| image:: figures/gup-project-folder.jpg
-.. |image| image:: figures/gup-never-ever.jpg
-.. |image| image:: figures/gup-hope-and-pray.jpg
-.. |image| image:: figures/gup-git-blame2.jpg
-

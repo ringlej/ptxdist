@@ -19,7 +19,6 @@ Contents:
    dev_manual
    ref_manual
    daily_work
-   thanks
    getting_help
 
 * :ref:`search`

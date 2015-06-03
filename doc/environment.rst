@@ -1,8 +1,6 @@
 Getting a working Environment
 =============================
 
-|image|
-
 Download Software Components
 ----------------------------
 

@@ -210,8 +210,6 @@ hint on what is going wrong (it might not be the final solution).
 Debugging with CPU emulation
 ----------------------------
 
-|image|
-
 If we do not need some target related feature to run our application, we
 can also debug it through a simple CPU emulation. Thanks to QEMU we can
 run ELF binaries for other architectures than our build host is.
@@ -346,8 +344,6 @@ Increasing Build Speed
 Modern host systems are providing more than one CPU core. To make use of
 this additionally computing power recent applications should do their
 work in parallel.
-
-|image|
 
 Using available CPU Cores
 ~~~~~~~~~~~~~~~~~~~~~~~~~

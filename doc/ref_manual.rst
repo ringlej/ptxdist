@@ -1,8 +1,6 @@
 PTXdist Reference
 =================
 
-|image|
-
 Variables Reference
 -------------------
 

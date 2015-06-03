@@ -3,8 +3,6 @@ PTXdist Developer’s Manual
 
 This chapter shows all (or most) of the details of how PTXdist works.
 
-|image|
-
 -  where are the files stored that PTXdist uses when building packages
 
 -  how patching works
