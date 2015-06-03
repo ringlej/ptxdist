@@ -25,8 +25,6 @@ HOST_PYTHON_SETUPTOOLS_SOURCE	:= $(SRCDIR)/$(HOST_PYTHON_SETUPTOOLS).$(HOST_PYTH
 HOST_PYTHON_SETUPTOOLS_DIR	:= $(HOST_BUILDDIR)/$(HOST_PYTHON_SETUPTOOLS)
 HOST_PYTHON_SETUPTOOLS_LICENSE	:= PSF, ZPL
 
-HOST_PYTHON			= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
@@ -40,7 +38,7 @@ HOST_PYTHON_SETUPTOOLS_CONF_TOOL	:= NO
 $(STATEDIR)/host-python-setuptools.compile:
 	@$(call targetinfo)
 	@cd $(HOST_PYTHON_SETUPTOOLS_DIR)/$(HOST_PYTHON_SETUPTOOLS_SUBDIR) && \
-		$(HOST_ENV) $(HOST_PYTHON) \
+		$(HOST_ENV) $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
 		setup.py build
 	@$(call touch)
 
@@ -51,7 +49,7 @@ $(STATEDIR)/host-python-setuptools.compile:
 $(STATEDIR)/host-python-setuptools.install:
 	@$(call targetinfo)
 	@cd $(HOST_PYTHON_SETUPTOOLS_DIR)/$(HOST_PYTHON_SETUPTOOLS_SUBDIR) && \
-		$(HOST_ENV) $(HOST_PYTHON) \
+		$(HOST_ENV) $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
 		setup.py install --root=$(HOST_PYTHON_SETUPTOOLS_PKGDIR) --prefix=
 	@$(call touch)
 
