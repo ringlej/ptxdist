@@ -322,25 +322,25 @@ other rule files PTXdist comes with. Up to the underline character is
 always the package name and after the underline character is always
 PTXdist specific. What does it mean:
 
--  \*\_VERSION brings in the version number of the release and is used
+-  ``*_VERSION`` brings in the version number of the release and is used
    for the download and IPKG/OPKG package generation.
 
--  \*\_MD5 to be sure the correct package has been downloaded, PTXdist
+-  ``*_MD5`` to be sure the correct package has been downloaded, PTXdist
    checks the given MD5 sum against the archive content. If both sums do
    not match, PTXdist rejects the archive and fails the currently
    running build.
 
--  \*\_SUFFIX defines the archive type, to make PTXdist choosing the
+-  ``*_SUFFIX`` defines the archive type, to make PTXdist choosing the
    correct extracting tool.
 
--  \*\_URL defines the full qualified URL into the web for download. If
+-  ``*_URL`` defines the full qualified URL into the web for download. If
    alternative download locations are known, they can be listed in this
    variable, delimiter character is the space.
 
--  \*\_DIR points to the directory this package will be build later on
+-  ``*_DIR`` points to the directory this package will be build later on
    by PTXdist
 
--  \*\_LICENSE enables the user to get a list of licenses she/he is
+-  ``*_LICENSE`` enables the user to get a list of licenses she/he is
    using in her/his project (licenses of the enabled packages).
 
 After enabling the menu entry, we can start to check the *get* and
