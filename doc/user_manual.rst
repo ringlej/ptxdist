@@ -239,6 +239,8 @@ usually needed for daily usage:
     Mostly run once per PTXdist revision to set up global paths and the
     PTXdist behavior.
 
+For a more complete description refer :ref:`ptxdist_parameter_reference`
+
 All these commands depending on various files a PTXdist based project
 provides. So, running the commands make only sense in directorys that
 contains a PTXdist based project. Otherwise PTXdist gets confused and

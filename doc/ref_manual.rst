@@ -920,6 +920,8 @@ be provided:
 Replace the <stage_to_skip> by ``get``, ``extract``, ``prepare``,
 ``compile``, ``install`` or ``targetinstall``.
 
+.. _ptxdist_parameter_reference:
+
 PTXdist parameter reference
 ---------------------------
 
