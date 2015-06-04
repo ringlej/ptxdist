@@ -48,16 +48,32 @@ ptxd_make_world_install() {
 
     ptxd_make_world_install_prepare &&
 
-    cmd=( \
-	"${pkg_path}" \
-	"${pkg_env}" \
-	"${pkg_make_env}" \
-	"${pkg_install_env}" \
-	"${MAKE}" \
-	-C "${pkg_build_dir}" \
-	"${pkg_install_opt}" \
-	-j1 \
-    ) &&
+    case "${pkg_conf_tool}" in
+	python*)
+	cmd=( \
+	    cd "${pkg_build_dir}" '&&' \
+	    "${pkg_path}" \
+	    "${pkg_env}" \
+	    "${pkg_make_env}" \
+	    "${pkg_install_env}" \
+	    "${ptx_build_python}" \
+	    setup.py \
+	    "${pkg_install_opt}" \
+	)
+	;;
+	*)
+	cmd=( \
+	    "${pkg_path}" \
+	    "${pkg_env}" \
+	    "${pkg_make_env}" \
+	    "${pkg_install_env}" \
+	    "${MAKE}" \
+	    -C "${pkg_build_dir}" \
+	    "${pkg_install_opt}" \
+	    -j1 \
+	)
+	;;
+    esac &&
 
     ptxd_verbose "executing:" "${cmd[@]}" &&
 

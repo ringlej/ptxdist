@@ -136,6 +136,8 @@ ptxd_make_world_prepare() {
 	autoconf|cmake|qmake|kconfig|perl)
 	    cd -- "${pkg_build_dir}" &&
 	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
+	python|python3)
+	    : ;; # nothing to do
 	"NO") echo "prepare stage disabled." ;;
 	"")   echo "No prepare tool found. Do nothing." ;;
 	*)    ptxd_bailout "automatic prepare tool selection failed. Set <PKG>_CONF_TOOL";;

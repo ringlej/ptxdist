@@ -112,6 +112,10 @@ ptxd_make_world_init_compat() {
 
 
     # install_opt
+    if [[ -z "${pkg_install_opt}" && "${pkg_conf_tool}" =~ "python" ]]; then
+	local install_opt_ptr="ptx_install_opt_python_${pkg_type}"
+	pkg_install_opt="${!install_opt_ptr}"
+    fi
     if [ -z "${pkg_install_opt}" ]; then
 	pkg_install_opt="install"
 
@@ -127,7 +131,11 @@ ptxd_make_world_init_compat() {
     fi
 
     # DESTDIR
-    pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" INSTALL_ROOT=\"${pkg_pkg_dir}\" ${pkg_install_opt}"
+    if [[ "${pkg_conf_tool}" =~ "python" ]]; then
+	pkg_install_opt="${pkg_install_opt} --root=${pkg_pkg_dir}"
+    else
+	pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" INSTALL_ROOT=\"${pkg_pkg_dir}\" ${pkg_install_opt}"
+    fi
 
     #
     # pkg_binconfig_glob
@@ -303,6 +311,15 @@ ptxd_make_world_init() {
 	    pkg_conf_env="${pkg_conf_env:-${!conf_env_ptr}}"
 
 	    unset conf_opt_ptr conf_env_ptr
+	    ;;
+	python|python3)
+	    local build_python_ptr="ptx_${pkg_conf_tool}_${pkg_type}"
+	    local env_ptr="ptx_conf_env_${pkg_type}"
+
+	    ptx_build_python="${!build_python_ptr}"
+	    pkg_make_env="${pkg_conf_env:-${!env_ptr}}"
+	    pkg_make_opt="${pkg_make_opt:-build}"
+	    pkg_install_env="${pkg_conf_env:-${!env_ptr}}"
 	    ;;
 	*) ;;
     esac

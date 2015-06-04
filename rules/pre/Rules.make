@@ -254,6 +254,9 @@ CROSS_QMAKE_OPT := \
 	-recursive \
 	$(if $(filter 0,$(PTXDIST_VERBOSE)),CONFIG+=silent)
 
+CROSS_PYTHON_INSTALL := install --prefix=/usr
+HOST_PYTHON_INSTALL := install --prefix=
+
 ifdef PTXCONF_GLOBAL_IPV6
 GLOBAL_IPV6_OPTION := --enable-ipv6
 else
