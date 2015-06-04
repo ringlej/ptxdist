@@ -136,4 +136,4 @@ release:
 SPHINXBUILD = @SPHINX@
 
 docs:
-	@$(SPHINXBUILD) -b html -j 4 -d ./Documentation ./doc ./Documentation/html
+	@$(SPHINXBUILD) -b html -d ./Documentation ./doc ./Documentation/html
