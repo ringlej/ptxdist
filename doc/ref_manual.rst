@@ -6,7 +6,7 @@ Variables Reference
 
 The following variables are provided by PTXdist to simplify creating
 rule files. Every developer should use these variables in every single
-line in the rule file to avoid any further adaption when external paths
+line in the **rule file** to avoid any further adaption when external paths
 are changed.
 
 To get their content related to the current project, we can simply run
