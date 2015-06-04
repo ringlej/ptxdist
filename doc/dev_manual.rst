@@ -67,7 +67,7 @@ package in question.
 
 One location is the project’s currently used platform directory. If the
 currently used platform is located in ``configs/``, PTXdist searches in
-``./configs//patches/<package name>``.
+./configs/\ |ptxdistPlatformName|\ /patches/<package name>
 
 If no patch series was found in the platform directory, the next
 location PTXdist it searches for a patch series is the main project
