@@ -54,8 +54,8 @@ fixes per package. They are organized in *patch series* and can be found
 in the ``patches/`` directory within a subdirectory using the same name
 as the package itself.
 
-PTXdist uses the utility ``patch`` or ``quilt`` to apply an existing
-patch series after extracting the archive. So, every patch series
+PTXdist uses the utility ``patch`` or ``quilt`` (or ``git`` on demand) to apply
+an existing patch series after extracting the archive. So, every patch series
 contains a set of patches and one ``series`` file to define the order in
 which the patches must be applied.
 
@@ -1095,10 +1095,10 @@ PTXdist should be used.
 Creating Patches for a Package
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PTXdist uses the utilities ``git``, *patch* or *quilt* to work with
-patches or patch series. We recommend *quilt*, as it can manage patch
-series in a very easy way. For this manual we assume *quilt* is
-installed on the build host.
+PTXdist uses the utilities *git*, *patch* or *quilt* to work with
+patches or patch series. We recommend *git*, as it can manage patch
+series in a very easy way.
+For this manual and the example we use *quilt* instead.
 
 Creating a Patch Series for a Package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
