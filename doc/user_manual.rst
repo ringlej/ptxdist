@@ -47,7 +47,7 @@ itself. By this way, PTXdist can be adapted to any kind of requirement.
 Most users are fine with the information and files the PTXdist base
 installation provides. Development of PTXdist is done in a way to find
 default settings most user can work with. But advanced users can still
-adapt to their special needs.
+adapt it to their special needs.
 
 As stated above, a PTXdist project consists of all required parts, some
 of these parts are separated by design: PTXdist separates a platform
@@ -88,7 +88,7 @@ PTXdist can handle the following project variations:
 PTXdist’s build process
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-When PTXdist is building one part (we call it a *package*)of the whole
+When PTXdist is building one part (we call it a *package*) of the whole
 project, it is divided into up to six stages:
 
 .. figure:: figures/ptxbuild.png
@@ -140,7 +140,7 @@ command:
 
 ::
 
-    $ ptxdist |parameter|
+    $ ptxdist <parameter>
 
 To run different functions, this command must be extended by parameters
 to define the function we want to run.
@@ -682,39 +682,15 @@ Since PTXdist checks the MD5 sums of the archives it uses, we also must
 change the MD5 sum in the menu entry according to the selected kernel
 version.
 
-Use one of the following MD5 sums for a kernel of your choice:
-
--  3.7: ``21223369d682bcf44bcdfe1521095983``
-
--  3.6: ``1a1760420eac802c541a20ab51a093d1``
-
--  3.5: ``24153eaaa81dedc9481ada8cd9c3b83d``
-
--  3.4: ``967f72983655e2479f951195953e8480``
-
--  3.3: ``7133f5a2086a7d7ef97abac610c094f5``
-
--  3.2: ``364066fa18767ec0ae5f4e4abcf9dc51``
-
--  3.1: ``8d43453f8159b2332ad410b19d86a931``
-
--  3.0: ``398e95866794def22b12dfbc15ce89c0``
-
--  2.6.39: ``1aab7a741abe08d42e8eccf20de61e05``
-
--  2.6.38: ``7d471477bfa67546f902da62227fa976``
-
--  2.6.37: ``c8ee37b4fdccdb651e0603d35350b434``
-
 Now we can leave the menu and save the new settings.
 
 A Linux kernel needs a configuration for being built correctly. The
 project comes with a prepared configuration in the file
-``configs//kernelconfig-3.0`` for the 3.0 kernel.
+configs/\ |ptxdistPlatformName|\ /kernelconfig-3.0 for the 3.0 kernel.
 
 It is always a good idea to start with a known-to-work kernel
 configuration. So, for this example, we are using a different
-known-to-work kernel configuration in the ``configs//kernelconfig-3.7``
+known-to-work kernel configuration in the configs/\ |ptxdistPlatformName|\ /kernelconfig-3.7
 file for our new 3.7 kernel.
 
 Adapting Linux Kernel Settings
