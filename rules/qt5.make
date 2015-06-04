@@ -202,7 +202,7 @@ ifndef PTXCONF_QT5_MODULE_QTWEBKIT_VIDEO
 QT5_QMAKE_OPT += "WEBKIT_CONFIG-=video use_gstreamer use_native_fullscreen_video glib"
 endif
 ifdef PTXCONF_QT5_MODULE_QTWEBENGINE
-QT5_QMAKE_OPT += "GYP_CONFIG+=arm_float_abi=$(shell ptxd_cross_cc_v | sed -n "s/^COLLECT_GCC_OPTIONS=.*'-mfloat-abi=\([^']*\)'.*/\1/p" | tail -n1)"
+QT5_QMAKE_OPT += "PTX_QMAKE_CFLAGS=$(shell ptxd_cross_cc_v | sed -n "s/^COLLECT_GCC_OPTIONS=\(.*\)/\1/p" | tail -n1)"
 endif
 
 $(STATEDIR)/qt5.prepare:
