@@ -309,12 +309,12 @@ take a look into some of the top lines of the generated rule file
 ::
 
     FOO_VERSION	:= 1.1.0
-    FOO_MD5		:=
+    FOO_MD5	:=
     FOO		:= foo-$(FOO_VERSION)
     FOO_SUFFIX	:= tar.gz
-    FOO_URL		:= http://www.foo.com/download/src/$(FOO).$(FOO_SUFFIX)
+    FOO_URL	:= http://www.foo.com/download/src/$(FOO).$(FOO_SUFFIX)
     FOO_SOURCE	:= $(SRCDIR)/$(FOO).$(FOO_SUFFIX)
-    FOO_DIR		:= $(BUILDDIR)/$(FOO)
+    FOO_DIR	:= $(BUILDDIR)/$(FOO)
     FOO_LICENSE	:= unknown
 
 We can find these lines with different content in most or all of the
