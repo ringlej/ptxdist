@@ -30,29 +30,7 @@ PYTHON_PROTOBUF_LICENSE	= $(PROTOBUF_LICENSE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_PROTOBUF_CONF_TOOL	:= NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-protobuf.compile:
-	@$(call targetinfo)
-	@cd $(PYTHON_PROTOBUF_DIR)/$(PYTHON_PROTOBUF_SUBDIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py build
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-protobuf.install:
-	@$(call targetinfo)
-	@cd $(PYTHON_PROTOBUF_DIR)/$(PYTHON_PROTOBUF_SUBDIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py install --root=$(PYTHON_PROTOBUF_PKGDIR) --prefix="/usr"
-	@$(call touch)
+PYTHON_PROTOBUF_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Target-Install
