@@ -128,13 +128,13 @@ Rule File Macro Reference
 -------------------------
 
 Rules files in PTXdist are using macros to get things work. Its highly
-recommended to use these macros instead to do something by ourself. Using the
+recommended to use these macros instead of doing something by ourself. Using these
 macros is portable and such easier to maintain in the case a project should be
 upgraded to a more recent PTXdist version.
 
 This chapter describes the predefined macros in PTXdist and their usage.
 
-Whenever one of the macros installs something to the target's root filesystem,
+Whenever one of these macros installs something to the target's root filesystem,
 it also accepts user and group IDs which are common in all filesystems Linux
 supports. These IDs can be given as numerical values and as text strings.
 In the case text strings are given PTXdist converts them into the
