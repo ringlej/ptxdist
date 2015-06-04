@@ -513,6 +513,8 @@ Create a symbolic link as ``/usr/bin/foo`` pointing to ``/bin/bar``:
 
  $(call install_link, foo, ../../bin/bar, /usr/bin/foo)
 
+.. _install_archive:
+
 install_archive
 ~~~~~~~~~~~~~~~
 

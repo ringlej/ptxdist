@@ -1278,7 +1278,7 @@ correct manner:
 The example shown above is from the file ``rules/binary_inst.make`` from
 Pengutronix’s generic BSP. It extracts the archive ``pictures.tgz`` from
 within the BSP’s directory ``local_src/archive_example`` to target’s
-root filesystem. Refer [ref:sub:`i`\ nstall\ :sub:`a`\ rchive] for
+root filesystem. Refer :ref:`install_archive` for
 further information about using the ``install_archive`` macro.
 
 Using an archive can be usefull to install parts of the root filesystem
