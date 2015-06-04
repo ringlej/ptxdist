@@ -145,15 +145,17 @@ its regular rules which one it prefers.
 Many paths shown here contains some parts in angle brackets. These have
 special meanings in this document.
 
-<platform>
-  The name of a platform.
-<platform-src>
-  The directory where the platform is defined
-<platform-dir>
+**<platform>**
+  The name of a platform. Corresponds to the variable
+  ``PTXCONF_PLATFORM``
+**<platform-src>**
+  The directory where the platform is defined. Corresponds to the variable
+  ``PTXDIST_PLATFORMCONFIGDIR``
+**<platform-dir>**
   Concatenated directory name with a leading *platform-* and the name of the
   selected platform name, e.g. <platform>. If the name of the currently active
   platform is *foo*, the final directory name is *platform-foo*.
-
+  Corresponds to the variable ``PTXDIST_PLATFORMDIR``
 
 .. note:: The list of supported macros is not complete yet.
 
