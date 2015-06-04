@@ -28,30 +28,7 @@ PYTHON_RPLICMP_DIR	:= $(BUILDDIR)/$(PYTHON_RPLICMP)
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_RPLICMP_CONF_TOOL	:= NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-rplicmp.compile:
-	@$(call targetinfo)
-	@cd $(PYTHON_RPLICMP_DIR) && \
-		$(CROSS_ENV) $(CROSS_CC) -Wall -pedantic -lcap -c -fPIC -o caplib.o caplib.c && \
-		$(CROSS_ENV) $(CROSS_CC) -Wall -pedantic -lcap -c -fPIC -o icmplib.o icmplib.c && \
-		$(CROSS_ENV) $(CROSS_PYTHON) setup.py build_ext
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-rplicmp.install:
-	@$(call targetinfo)
-	@cd $(PYTHON_RPLICMP_DIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py install --root=$(PYTHON_RPLICMP_PKGDIR) --prefix="/usr"
-	@$(call touch)
+PYTHON_RPLICMP_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Target-Install
