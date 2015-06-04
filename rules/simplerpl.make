@@ -28,28 +28,8 @@ SIMPLERPL_DIR		:= $(BUILDDIR)/$(SIMPLERPL)
 # Prepare
 # ----------------------------------------------------------------------------
 
-SIMPLERPL_CONF_TOOL	:= NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/simplerpl.compile:
-	@$(call targetinfo)
-	@cd $(SIMPLERPL_DIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) setup.py build -e "/usr/bin/env python"
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/simplerpl.install:
-	@$(call targetinfo)
-	@cd $(SIMPLERPL_DIR) && \
-		$(CROSS_PYTHON) \
-		setup.py install --root=$(SIMPLERPL_PKGDIR) --prefix="/usr"
-	@$(call touch)
+SIMPLERPL_CONF_TOOL	:= python
+SIMPLERPL_MAKE_OPT	= build -e "/usr/bin/$(PYTHON_MAJORMINOR)"
 
 # ----------------------------------------------------------------------------
 # Target-Install
