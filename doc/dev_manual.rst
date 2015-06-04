@@ -1246,7 +1246,7 @@ in your own customized rules file.
 The example above is from the file ``rules/binary_inst.make`` from
 Pengutronix’s generic BSP. It copies the file ``ptx_logo.png`` from
 within the BSP’s directory ``local_src/binary_example`` to target’s root
-filesystem. Refer [ref:sub:`i`\ nstall\ :sub:`c`\ opy] for further
+filesystem. Refer :ref:`install_copy` for further
 information about using the ``install_copy`` macro.
 
 The disadvantage of this method is: If we want to install more than one

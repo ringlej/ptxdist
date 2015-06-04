@@ -204,6 +204,8 @@ Usage:
 
 Removes the given directory ``<directory path>``
 
+.. _install_copy:
+
 install_copy
 ~~~~~~~~~~~~~
 
