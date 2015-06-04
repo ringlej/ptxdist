@@ -75,7 +75,7 @@ Use to find cross tools. This path must be used to create anything that
 depends on the target’s architecture, but needs something running on the
 host to do the job. Examples:
 
-**Creating a jffs2 image from the target’s root filesystem**
+**Creating a UBI image from the target’s root filesystem**
     This will need a tool running on the host, but it will create data
     or code that runs on or is used on the target
 
