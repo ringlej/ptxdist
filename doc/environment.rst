@@ -2,16 +2,11 @@ Getting a working Environment
 =============================
 
 Download Software Components
-----------------------------
+-----------------------------
 
 In order to follow this manual, some software archives are needed. There
 are several possibilities how to get these: either as part of an
 evaluation board package or by downloading them from the Pengutronix web
-site.
-
-In order to follow this application note, some software archives are
-needed. There are several possibilities how to get these: either as part
-of an evaluation board package, or by download from a world wide web
 site.
 
 The central place for OSELAS related documentation is
@@ -22,39 +17,10 @@ components which are available to the public).
 In order to build , the following source archives have to be available
 on the development host:
 
-ptxdist-.tar.bz2
-
-.tar.gz
-
-ptxdist-.tar.bz2
-
-OSELAS.Toolchain-.tar.bz2
-
-If they are not available on the development system yet, it is necessary
-to get them.
-
-The PTXdist- is only required to build the toolchain, while PTXdist- is
-required to build the BSP. All PTXdist revisions can co-exist.
-
-To follow the steps below, the following archive has to be available on
-the development host:
-
--  ``ptxdist-.tar.bz2``
-
-PTXdist Installation
---------------------
-
-PTXdist is shipped in an archive. This application note provides
-information about which archive is required to be downloaded and
-installed to get a working environment to build filesystems for their
-target systems.
-
-The PTXdist build system can be used to create a root filesystem for
-embedded Linux devices. In order to start development with PTXdist it is
-necessary to install the software on the development system.
-
-This chapter provides information about how to install and configure
-PTXdist on the development host.
+ * ptxdist-\ |ptxdistVendorVersion|\ .tar.bz2
+ * |ptxdistBSPName|\ .tar.bz2
+ * ptxdist-\ |oselasTCNVendorptxdistversion|\ .tar.bz2
+ * OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ .tar.bz2
 
 Main Parts of PTXdist
 ~~~~~~~~~~~~~~~~~~~~~
@@ -98,16 +64,13 @@ Toolchains:
     about the OSELAS.Toolchain() project can be found here:
     http://www.pengutronix.de/oselas/toolchain/index_en.html
 
-    Building a toolchain is not part of this application note, refer for
+    Building a toolchain is not part of this manual, refer for
     application note “Building Toolchains” instead.
 
 Board Support Package
     This is an optional component, mostly shipped aside with a piece of
     hardware. There are various BSP available, some are generic, some
     are intended for a specific hardware.
-
-Download Required Archives
---------------------------
 
 Extracting the Sources
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -119,7 +82,7 @@ else.
 To install PTXdist, the archive Pengutronix provides has to be
 extracted:
 
-ptxdist-.tar.bz2
+ptxdist-\ |ptxdistVendorVersion|\ .tar.bz2
     The PTXdist software itself
 
 The PTXdist archive has to be extracted into some temporary directory in
@@ -135,14 +98,14 @@ to create it and change into it:
 
 Next step is to extract the archive:
 
-::
+.. parsed-literal::
 
     $ tar -xjf ptxdist-\ |ptxdistVendorVersion|\ .tar.bz2
 
-If everything goes well, we now have a PTXdist- directory, so we can
+If everything goes well, we now have a PTXdist-\ |ptxdistVendorVersion| directory, so we can
 change into it:
 
-::
+.. parsed-literal::
 
     $ cd ptxdist-\ |ptxdistVendorVersion|
     $ ls -lF
@@ -186,7 +149,7 @@ to be done now is to configure the packet:
 This will check your system for required components PTXdist relies on.
 If all required components are found the output ends with:
 
-::
+.. parsed-literal::
 
     [escapechar=^]
     [...]
@@ -484,7 +447,7 @@ Install the binary OSELAS Toolchain
 Now everything is in place to install the binary OSELAS toolchain for
 the board support package:
 
-::
+.. parsed-literal::
 
     $ apt-get install oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
 
@@ -492,7 +455,7 @@ These package names are very long and hard to type without making typos.
 An easier way is to ask the package manager for available toolchains and
 just use the name by copy and paste it.
 
-::
+.. parsed-literal::
 
     $ apt-cache search "oselas.toolchain-.*-\ |oselasTCNarch|\ .*\ |oselasTCNvariant|\ .*"
     oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
@@ -505,10 +468,13 @@ http://debian.pengutronix.de/debian/pool/main/o/
 
 The related OSELAS toolchain package can be found here:
 
-| Subpath is:
-| ``oselas.toolchain---/``
-| Package filename is:
-| ``oselas.toolchain---.deb``.
+Subpath is:
+
+| oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ /
+
+Package filename is:
+
+| oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ *.deb
 
 Package filenames for 32 bit host machines are ending on ``*_i386.deb``
 and for 64 bit host machines on ``*_amd64.deb``.
@@ -520,7 +486,8 @@ PTXdist handles toolchain building as a simple project, like all other
 projects, too. So we can download the OSELAS.Toolchain bundle and build
 the required toolchain for the OSELAS.BoardSupport() Package.
 
-Building any toolchain of the OSELAS.Toolchain- is tested with PTXdist-.
+Building any toolchain of the OSELAS.Toolchain-\ |oselasTCNVendorVersion|  is
+tested with PTXdist-\ |oselasTCNVendorptxdistversion|.
 Pengutronix recommends to use this specific PTXdist to build the
 toolchain. So, it might be essential to install more than one PTXdist
 revision to build the toolchain and later on the Board Support Package
@@ -531,7 +498,7 @@ directory; all OSELAS.Toolchain projects that come with PTXdist are
 configured to use the standard installation paths mentioned below.
 
 All OSELAS.Toolchain projects install their result into
-``/opt/OSELAS.Toolchain-/``.
+/opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ /.
 
 Usually the ``/opt`` directory is not world writeable. So in order to
 build our OSELAS.Toolchain into that directory we need to use a root
@@ -539,7 +506,11 @@ account to change the permissions. PTXdist detects this case and asks
 if we want to run ``sudo`` to do the job for us. Alternatively we can
 enter:
 
-``mkdir /opt/OSELAS.Toolchain- chown <username> /opt/OSELAS.Toolchain- chmod a+rwx /opt/OSELAS.Toolchain-``.
+.. parsed-literal::
+
+   $ mkdir /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|
+   $ chown <username> /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|
+   $ chmod a+rwx /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|
 
 We recommend to keep this installation path as PTXdist expects the
 toolchains at ``/opt``. Whenever we go to select a platform in a
@@ -550,8 +521,8 @@ decide to install the toolchains at a different location, we still can
 use the *toolchain* parameter to define the toolchain to be used on a
 per project base.
 
-Building the OSELAS.Toolchain for 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Building the OSELAS.Toolchain for |ptxdistBSPName|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Do the following steps in your own home directory ($HOME). The final
 OSELAS.Toolchain gets installed to ``opt/``, but must **never** be
@@ -564,51 +535,7 @@ compiler in question and start the build.
 
 The required compiler to build the board support package is
 
-````
-
-So the steps to build this toolchain are:
-
-Naming Conventions used to describe a Toolchain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The OSELAS.Toolchain archive comes with various predefined toolchains.
-To select the correct one for our project we can follow the project
-specific documentation or, if we know what revision composition we need,
-we can find the correct configuration file in the following way.
-
-For example this is one of the predefined toolchains:
-
-**i586-unknown-linux-gnu\_gcc-4.7.2\_glibc-2.16.0\_binutils-2.22\_kernel-3.6-sanitized**
-
-The first part (i586-unknown-linux-gnu) defines the target architecture
-and the target system. In this example it’s an ia32 architecture based
-system, with at least i586 classes (or higher) of processors.
-
-The next part (gcc-4.7.2) defines the compiler release, what revision of
-the basic C library is used (glibc-2.16.0) and what release of binutils
-(binutils-2.22) is used in this toolchain.
-
-The last part (kernel-3.6) defines the kernel header in use for this
-toolchain. This is important, as applications built with this toolchain
-must be run on **at least** this kernel revision.
-
-We can find all predefined toolchains inside the ``ptxconfigs/``
-directory and its subdirectories.
-
-Building a Sample OSELAS.Toolchain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To compile and install an OSELAS.Toolchain we have to extract the
-OSELAS.Toolchain archive, change into the new folder, configure the
-compiler in question and start the build.
-
-As an example we will build the
-
-````
-
-toolchain.
-
-The steps to do so are:
+|oselasToolchainName|\ .ptxconfig
 
 .. important:: In order to build any of the OSELAS.Toolchains, the host must provide
   the tool *fakeroot*. Otherwise the
@@ -621,7 +548,9 @@ The steps to do so are:
   ``ptxdist print PATH`` if the output still contains any kind of ’current
   directory’ as a component. If yes, remove it first.
 
-::
+So the steps to build this toolchain are:
+
+.. parsed-literal::
 
     $ tar xf OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|.tar.bz2
     $ cd OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|
