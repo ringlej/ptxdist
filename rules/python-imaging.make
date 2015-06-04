@@ -29,31 +29,7 @@ PYTHON_IMAGING_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_IMAGING_PATH		:= PATH=$(CROSS_PATH)
-PYTHON_IMAGING_CONF_TOOL	:= NO
-PYTHON_IMAGING_MAKE_ENV		:= $(CROSS_ENV)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-imaging.compile:
-	@$(call targetinfo)
-	cd $(PYTHON_IMAGING_DIR) && \
-		$(PYTHON_IMAGING_PATH) $(PYTHON_IMAGING_MAKE_ENV) \
-		$(CROSS_PYTHON) setup.py build
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-imaging.install:
-	@$(call targetinfo)
-	cd $(PYTHON_IMAGING_DIR) && \
-		$(PYTHON_IMAGING_PATH) $(PYTHON_IMAGING_MAKE_ENV) \
-		python$(PYTHON_MAJORMINOR) setup.py install --root=$(PYTHON_IMAGING_PKGDIR) --prefix=/usr
-	@$(call touch)
+PYTHON_IMAGING_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Target-Install
