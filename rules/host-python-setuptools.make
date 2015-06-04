@@ -29,28 +29,6 @@ HOST_PYTHON_SETUPTOOLS_LICENSE	:= PSF, ZPL
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_PYTHON_SETUPTOOLS_CONF_TOOL	:= NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-python-setuptools.compile:
-	@$(call targetinfo)
-	@cd $(HOST_PYTHON_SETUPTOOLS_DIR)/$(HOST_PYTHON_SETUPTOOLS_SUBDIR) && \
-		$(HOST_ENV) $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
-		setup.py build
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-python-setuptools.install:
-	@$(call targetinfo)
-	@cd $(HOST_PYTHON_SETUPTOOLS_DIR)/$(HOST_PYTHON_SETUPTOOLS_SUBDIR) && \
-		$(HOST_ENV) $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
-		setup.py install --root=$(HOST_PYTHON_SETUPTOOLS_PKGDIR) --prefix=
-	@$(call touch)
+HOST_PYTHON_SETUPTOOLS_CONF_TOOL	:= python
 
 # vim: syntax=make
