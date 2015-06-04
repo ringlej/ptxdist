@@ -29,28 +29,9 @@ PYSERIAL_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYSERIAL_PATH		:= PATH=$(CROSS_PATH)
-PYSERIAL_CONF_TOOL	:= NO
-PYSERIAL_MAKE_ENV	:= $(CROSS_ENV)
+PYSERIAL_CONF_TOOL	:= python
+PYSERIAL_MAKE_OPT	= build -e "/usr/bin/python$(PYTHON_MAJORMINOR)"
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pyserial.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pyserial.install:
-	@$(call targetinfo)
-	@cd $(PYSERIAL_DIR) && \
-		$(PYSERIAL_PATH) $(PYSERIAL_MAKE_ENV) \
-		python setup.py install --root=$(PYSERIAL_PKGDIR) --prefix=/usr
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -75,12 +56,8 @@ $(STATEDIR)/pyserial.targetinstall:
 		$(call install_copy, pyserial, 0, 0, 0644, -, /$$file); \
 	done
 
-# note: the setup.py also installs the miniterm.py script, but with a really
-# broken path to the python interpreter. As a workaround we use the plain script
-# from the build directory instead
 ifdef PTXCONF_PYSERIAL_MINITERM
-	$(call install_copy, pyserial, 0, 0, 0755, \
-		$(PYSERIAL_DIR)/serial/tools/miniterm.py, /usr/bin/miniterm.py)
+	$(call install_copy, pyserial, 0, 0, 0755, -, /usr/bin/miniterm.py)
 endif
 
 # there are some examples that could be useful to check and understand this package
