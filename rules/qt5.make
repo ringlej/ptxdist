@@ -51,6 +51,13 @@ PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES :=
 PTXCONF_QT5_MODULE_QTWEBKIT_QUICK :=
 PTXCONF_QT5_MODULE_QTWEBKIT_WIDGETS :=
 endif
+# QtWebEngine needs at least ARMv6
+ifdef PTXCONF_ARCH_ARM
+ifndef PTXCONF_ARCH_ARM_V6
+PTXCONF_QT5_MODULE_QTWEBENGINE :=
+PTXCONF_QT5_MODULE_QTWEBENGINE_WIDGETS :=
+endif
+endif
 
 # ----------------------------------------------------------------------------
 # Prepare
