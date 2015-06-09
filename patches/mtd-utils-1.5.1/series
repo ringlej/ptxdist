@@ -2,4 +2,9 @@
 #tag:base --start-number 1
 0001-make-ubifs-optional.patch
 0002-Make-liblzo-optional-for-ubifs-tools.patch
-# c7b83aac3f84d721cecd9e53605999f9  - git-ptx-patches magic
+0003-mkfs.ubifs-change-add_directory-argument-to-existing.patch
+0004-mkfs.ubifs-use-xmalloc-xzalloc-for-allocating-memory.patch
+0005-mkfs.ubifs-simplify-make_path-with-xasprintf.patch
+0006-mkfs.ubifs-Add-extended-attribute-support.patch
+0007-mkfs.ubifs-Optionally-create-extended-attribute-with.patch
+# 7f992a19fb7184dce60b52e08bb6e49d  - git-ptx-patches magic

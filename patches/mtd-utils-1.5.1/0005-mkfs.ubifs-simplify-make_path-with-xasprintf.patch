@@ -1,0 +1,31 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Fri, 28 Nov 2014 11:15:18 +0100
+Subject: [PATCH] mkfs.ubifs: simplify make_path with xasprintf
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ mkfs.ubifs/mkfs.ubifs.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
+index cb7b643ce73c..c1e72bbddf9d 100644
+--- a/mkfs.ubifs/mkfs.ubifs.c
++++ b/mkfs.ubifs/mkfs.ubifs.c
+@@ -228,13 +228,9 @@ static char *make_path(const char *dir, const char *name)
+ {
+ 	char *s;
+ 
+-	s = malloc(strlen(dir) + strlen(name) + 2);
+-	if (!s)
+-		return NULL;
+-	strcpy(s, dir);
+-	if (dir[strlen(dir) - 1] != '/')
+-		strcat(s, "/");
+-	strcat(s, name);
++	xasprintf(&s, "%s%s%s",
++		  dir, dir[strlen(dir) - 1] == '/' ? "" : "/", name);
++
+ 	return s;
+ }
+ 
