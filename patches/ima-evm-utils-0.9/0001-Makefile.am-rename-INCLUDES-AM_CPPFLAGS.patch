@@ -1,0 +1,40 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 27 May 2015 10:41:27 +0200
+Subject: [PATCH] Makefile.am: rename INCLUDES -> AM_CPPFLAGS
+
+This patch fixes the following warning during autoreconf:
+
+| src/Makefile.am:19: warning: 'INCLUDES' is the old name for 'AM_CPPFLAGS' (or '*_CPPFLAGS')
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile.am | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index deb18fb09dc7..9f547283d535 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,7 +1,7 @@
+ lib_LTLIBRARIES = libimaevm.la
+ 
+ libimaevm_la_SOURCES = libimaevm.c
+-libimaevm_la_CPPFLAGS = $(OPENSSL_CFLAGS)
++libimaevm_la_CPPFLAGS = $(OPENSSL_CFLAGS) $(AM_CPPFLAGS)
+ # current[:revision[:age]]
+ # result: [current-age].age.revision
+ libimaevm_la_LDFLAGS = -version-info 0:0:0
+@@ -12,11 +12,11 @@ include_HEADERS = imaevm.h
+ bin_PROGRAMS = evmctl
+ 
+ evmctl_SOURCES = evmctl.c
+-evmctl_CPPFLAGS = $(OPENSSL_CFLAGS)
++evmctl_CPPFLAGS = $(OPENSSL_CFLAGS) $(AM_CPPFLAGS)
+ evmctl_LDFLAGS = $(LDFLAGS_READLINE)
+ evmctl_LDADD =  $(OPENSSL_LIBS) -lkeyutils libimaevm.la
+ 
+-INCLUDES = -I$(top_srcdir) -include config.h
++AM_CPPFLAGS = -I$(top_srcdir) -include config.h
+ 
+ DISTCLEANFILES = @DISTCLEANFILES@
+ 
