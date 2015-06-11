@@ -25,6 +25,7 @@ ptxd_make_world_extract() {
     fi
 
     pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
+    rm -rf "${pkg_extract_dir}" || return
 
     case "${pkg_url}" in
 	lndir://*)
