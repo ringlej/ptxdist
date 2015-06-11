@@ -33,11 +33,11 @@ UBIFS image, both evmctl and mkfs.ubifs must be run twice:
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- mkfs.ubifs/mkfs.ubifs.c | 46 +++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+ mkfs.ubifs/mkfs.ubifs.c | 77 +++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 68 insertions(+), 9 deletions(-)
 
 diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
-index 667dce7f2986..bf7c653a8c59 100644
+index 667dce7f2986..f36ae290493a 100644
 --- a/mkfs.ubifs/mkfs.ubifs.c
 +++ b/mkfs.ubifs/mkfs.ubifs.c
 @@ -114,6 +114,7 @@ static char *output;
@@ -112,17 +112,76 @@ index 667dce7f2986..bf7c653a8c59 100644
  		}
  	}
  
-@@ -1091,6 +1119,9 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
+@@ -1063,12 +1091,12 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
+ 	ssize_t pos = 0;
+ 	void *attrval = NULL;
+ 
+-	len = listxattr(path_name, NULL, 0);
++	len = llistxattr(path_name, NULL, 0);
+ 	if (len < 0) {
+ 		if (errno == ENOENT)
+ 			return 0;
+ 
+-		sys_err_msg("flistxattr failed on %s", path_name);
++		sys_err_msg("llistxattr failed on %s", path_name);
+ 
+ 		return len;
+ 	}
+@@ -1078,9 +1106,9 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
+ 
+ 	buf = xmalloc(len);
+ 
+-	len = listxattr(path_name, buf, len);
++	len = llistxattr(path_name, buf, len);
+ 	if (len < 0) {
+-		sys_err_msg("flistxattr failed on %s", path_name);
++		sys_err_msg("llistxattr failed on %s", path_name);
+ 		goto out_free;
+ 	}
+ 
+@@ -1091,19 +1119,37 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
  		name = buf + pos;
  		pos += strlen(name) + 1;
  
-+		if (!strcmp(name, "user.image-inode-number"))
-+			continue;
-+
- 		attrsize = getxattr(path_name, name, NULL, 0);
+-		attrsize = getxattr(path_name, name, NULL, 0);
++		attrsize = lgetxattr(path_name, name, NULL, 0);
  		if (attrsize < 0) {
- 			sys_err_msg("getxattr failed on %s", path_name);
-@@ -1634,6 +1665,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+-			sys_err_msg("getxattr failed on %s", path_name);
++			sys_err_msg("lgetxattr failed on %s", path_name);
+ 			goto out_free;
+ 		}
+ 
+ 		attrval = xmalloc(attrsize);
+-		attrsize = getxattr(path_name, name, attrval, attrsize);
++		attrsize = lgetxattr(path_name, name, attrval, attrsize);
+ 		if (attrsize < 0) {
+-			sys_err_msg("getxattr failed on %s", path_name);
++			sys_err_msg("lgetxattr failed on %s", path_name);
+ 			goto out_free;
+ 		}
+ 
++		if (!strcmp(name, "user.image-inode-number")) {
++			ino_t inum_from_xattr;
++
++			inum_from_xattr = strtoull(attrval, NULL, 10);
++			if (inum != inum_from_xattr) {
++				errno = -EINVAL;
++				sys_err_msg("calculated inum (%llu) doesn't match inum from xattr (%llu) on %s",
++					    (unsigned long long)inum,
++					    (unsigned long long)inum_from_xattr,
++					    path_name);
++				goto out_free;
++			}
++
++			free(attrval);
++			attrval = NULL;
++			continue;
++		}
++
+ 		nm.name = name;
+ 		nm.len = strlen(name);
+ 
+@@ -1634,6 +1680,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  				goto out_free;
  		}
  
@@ -133,7 +192,7 @@ index 667dce7f2986..bf7c653a8c59 100644
  		err = add_dent_node(dir_inum, entry->d_name, inum, type);
  		if (err)
  			goto out_free;
-@@ -1686,6 +1721,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1686,6 +1736,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  				goto out_free;
  		}
  
@@ -144,7 +203,7 @@ index 667dce7f2986..bf7c653a8c59 100644
  		err = add_dent_node(dir_inum, nh_elt->name, inum, type);
  		if (err)
  			goto out_free;
-@@ -1755,6 +1794,11 @@ static int write_data(void)
+@@ -1755,6 +1809,11 @@ static int write_data(void)
  	}
  
  	head_flags = 0;
