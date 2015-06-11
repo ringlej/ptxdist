@@ -392,9 +392,7 @@ add_zoneinfo =							\
 #
 clean =								\
 	DIR="$(strip $(1))";					\
-	if [ -e $$DIR ]; then					\
-		rm -rf $$DIR;					\
-	fi
+	rm -rf $$DIR
 
 
 #
