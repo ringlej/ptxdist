@@ -58,7 +58,6 @@ ptxd_make_world_extract() {
 	    ;;
     esac
 
-    rm -rf "${pkg_extract_dir}" &&
     mkdir -p "${pkg_extract_dir}" || return
 
     ptxd_make_serialize_take
