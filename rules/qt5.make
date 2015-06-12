@@ -232,6 +232,10 @@ $(STATEDIR)/qt5.install:
 	@$(call targetinfo)
 	@$(call world/install, QT5)
 	@find $(QT5_PKGDIR) -name '*.qmltypes' | xargs -r rm
+ifdef PTXCONF_QT5_MODULE_QTWEBKIT
+	@chrpath -d $(QT5_PKGDIR)/usr/lib/qt5/libexec/QtWebProcess
+	@chrpath -d $(QT5_PKGDIR)/usr/lib/qt5/libexec/QtWebPluginProcess
+endif
 	@$(call touch)
 
 QT5_QT_CONF := $(PTXDIST_SYSROOT_CROSS)/bin/qt5/qt.conf
