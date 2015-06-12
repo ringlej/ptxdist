@@ -37,7 +37,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 68 insertions(+), 9 deletions(-)
 
 diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
-index 667dce7f2986..f36ae290493a 100644
+index 667dce7f2986..4ab24a240087 100644
 --- a/mkfs.ubifs/mkfs.ubifs.c
 +++ b/mkfs.ubifs/mkfs.ubifs.c
 @@ -114,6 +114,7 @@ static char *output;
@@ -165,7 +165,7 @@ index 667dce7f2986..f36ae290493a 100644
 +
 +			inum_from_xattr = strtoull(attrval, NULL, 10);
 +			if (inum != inum_from_xattr) {
-+				errno = -EINVAL;
++				errno = EINVAL;
 +				sys_err_msg("calculated inum (%llu) doesn't match inum from xattr (%llu) on %s",
 +					    (unsigned long long)inum,
 +					    (unsigned long long)inum_from_xattr,
