@@ -1,11 +1,11 @@
 From: Raphael Geissert <geissert@debian.org>
-Date: Sat, 10 Jan 2015 09:16:02 +0100
+Date: Fri, 12 Jun 2015 10:34:14 +0200
 Subject: [PATCH] block_diginotar
 
 This is not meant as final patch.
 
 
-Imported from openssl_1.0.1k-1.debian.tar.xz
+Imported from openssl_1.0.2b-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 27 insertions(+)
 
 diff --git a/crypto/x509/x509_vfy.c b/crypto/x509/x509_vfy.c
-index 136bfbda617a..60f9754db1a7 100644
+index 8ce41f9c9a8e..452b09a891ec 100644
 --- a/crypto/x509/x509_vfy.c
 +++ b/crypto/x509/x509_vfy.c
-@@ -117,6 +117,7 @@ static int check_trust(X509_STORE_CTX *ctx);
+@@ -119,6 +119,7 @@ static int check_trust(X509_STORE_CTX *ctx);
  static int check_revocation(X509_STORE_CTX *ctx);
  static int check_cert(X509_STORE_CTX *ctx);
  static int check_policy(X509_STORE_CTX *ctx);
@@ -24,7 +24,7 @@ index 136bfbda617a..60f9754db1a7 100644
  
  static int get_crl_score(X509_STORE_CTX *ctx, X509 **pissuer,
                           unsigned int *preasons, X509_CRL *crl, X509 *x);
-@@ -370,6 +371,9 @@ int X509_verify_cert(X509_STORE_CTX *ctx)
+@@ -475,6 +476,9 @@ int X509_verify_cert(X509_STORE_CTX *ctx)
      if (!ok)
          goto end;
  
@@ -34,7 +34,7 @@ index 136bfbda617a..60f9754db1a7 100644
  #ifndef OPENSSL_NO_RFC3779
      /* RFC 3779 path validation, now that CRL check has been done */
      ok = v3_asid_validate_path(ctx);
-@@ -804,6 +808,29 @@ static int check_crl_time(X509_STORE_CTX *ctx, X509_CRL *crl, int notify)
+@@ -975,6 +979,29 @@ static int check_crl_time(X509_STORE_CTX *ctx, X509_CRL *crl, int notify)
      return 1;
  }
  

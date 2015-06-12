@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Sat, 10 Jan 2015 09:16:02 +0100
+Date: Fri, 12 Jun 2015 10:34:14 +0200
 Subject: [PATCH] pic
 
-Imported from openssl_1.0.1k-1.debian.tar.xz
+Imported from openssl_1.0.2b-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -110,10 +110,10 @@ index 24561e759aba..269fb0b0c69f 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
-index 682a3a3163e2..9d4662cb9624 100644
+index 63b2301fd1f0..176b04d24521 100644
 --- a/crypto/perlasm/x86gas.pl
 +++ b/crypto/perlasm/x86gas.pl
-@@ -161,6 +161,7 @@ sub ::file_end
+@@ -163,6 +163,7 @@ sub ::file_end
  	if ($::macosx)	{ push (@out,"$tmp,2\n"); }
  	elsif ($::elf)	{ push (@out,"$tmp,4\n"); }
  	else		{ push (@out,"$tmp\n"); }
@@ -121,7 +121,7 @@ index 682a3a3163e2..9d4662cb9624 100644
      }
      push(@out,$initseg) if ($initseg);
  }
-@@ -218,8 +219,23 @@ ___
+@@ -221,8 +222,23 @@ ___
      elsif ($::elf)
      {	$initseg.=<<___;
  .section	.init
@@ -146,7 +146,7 @@ index 682a3a3163e2..9d4662cb9624 100644
      elsif ($::coff)
      {   $initseg.=<<___;	# applies to both Cygwin and Mingw
 diff --git a/crypto/x86cpuid.pl b/crypto/x86cpuid.pl
-index b270b44337d1..c01ba8383401 100644
+index e95f6274f5e0..6e8329d78589 100644
 --- a/crypto/x86cpuid.pl
 +++ b/crypto/x86cpuid.pl
 @@ -8,6 +8,8 @@ require "x86asm.pl";
@@ -158,7 +158,7 @@ index b270b44337d1..c01ba8383401 100644
  &function_begin("OPENSSL_ia32_cpuid");
  	&xor	("edx","edx");
  	&pushf	();
-@@ -141,9 +143,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
+@@ -155,9 +157,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  &set_label("nocpuid");
  &function_end("OPENSSL_ia32_cpuid");
  
@@ -169,7 +169,7 @@ index b270b44337d1..c01ba8383401 100644
  	&xor	("eax","eax");
  	&xor	("edx","edx");
  	&picmeup("ecx","OPENSSL_ia32cap_P");
-@@ -157,7 +157,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
+@@ -171,7 +171,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  # This works in Ring 0 only [read DJGPP+MS-DOS+privileged DPMI host],
  # but it's safe to call it on any [supported] 32-bit platform...
  # Just check for [non-]zero return value...
@@ -178,7 +178,7 @@ index b270b44337d1..c01ba8383401 100644
  	&picmeup("ecx","OPENSSL_ia32cap_P");
  	&bt	(&DWP(0,"ecx"),4);
  	&jnc	(&label("nohalt"));	# no TSC
-@@ -224,7 +224,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
+@@ -238,7 +238,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  	&ret	();
  &function_end_B("OPENSSL_far_spin");
  

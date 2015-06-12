@@ -10,12 +10,12 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  3 files changed, 21 insertions(+), 15 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index 5117a0ef9c0b..265ecd559e98 100644
+index f450f2b10b63..dc6345a54797 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -272,18 +272,24 @@ build_all: build_libs build_apps build_tests build_tools
- 
- build_libs: build_crypto build_ssl build_engines
+@@ -276,18 +276,24 @@ build_libs: build_libcrypto build_libssl openssl.pc
+ build_libcrypto: build_crypto build_engines libcrypto.pc
+ build_libssl: build_ssl libssl.pc
  
 +ifeq ($(SHARED_LIBS),)
 +build_ssl: build_engines
@@ -50,7 +50,7 @@ index 5117a0ef9c0b..265ecd559e98 100644
  all_testapps: build_libs build_testapps
  build_testapps:
 diff --git a/crypto/Makefile b/crypto/Makefile
-index 2355661f40fa..04029f8621fe 100644
+index 7869996a9c07..76690a1c8619 100644
 --- a/crypto/Makefile
 +++ b/crypto/Makefile
 @@ -85,7 +85,7 @@ testapps:
@@ -61,7 +61,7 @@ index 2355661f40fa..04029f8621fe 100644
 +	@+target=all; $(RECURSIVE_MAKE)
  
  files:
- 	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
+ 	$(PERL) $(TOP)/util/files.pl "CPUID_OBJ=$(CPUID_OBJ)" Makefile >> $(TOP)/MINFO
 @@ -100,7 +100,7 @@ links:
  # lib: $(LIB): are splitted to avoid end-less loop
  lib:	$(LIB)
@@ -69,10 +69,10 @@ index 2355661f40fa..04029f8621fe 100644
 -$(LIB):	$(LIBOBJ)
 +$(LIB):	$(LIBOBJ) subdirs
  	$(AR) $(LIB) $(LIBOBJ)
- 	[ -z "$(FIPSLIBDIR)" ] || $(AR) $(LIB) $(FIPSLIBDIR)fipscanister.o
+ 	test -z "$(FIPSLIBDIR)" || $(AR) $(LIB) $(FIPSLIBDIR)fipscanister.o
  	$(RANLIB) $(LIB) || echo Never mind.
 diff --git a/engines/Makefile b/engines/Makefile
-index 58e028131786..39f55ec6b345 100644
+index 315ef1ef780d..e7bc9758996c 100644
 --- a/engines/Makefile
 +++ b/engines/Makefile
 @@ -72,7 +72,7 @@ top:

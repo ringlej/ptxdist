@@ -8,11 +8,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index ae41bf75b03f..56c53ec80fbb 100755
+index 3f8c736f763a..c917081dfd9d 100755
 --- a/Configure
 +++ b/Configure
-@@ -106,7 +106,7 @@ my $usage="Usage: Configure [no-<cipher> ...] [enable-<cipher> ...] [experimenta
- my $gcc_devteam_warn = "-Wall -pedantic -DPEDANTIC -Wno-long-long -Wsign-compare -Wmissing-prototypes -Wshadow -Wformat -Werror -DCRYPTO_MDEBUG_ALL -DCRYPTO_MDEBUG_ABORT -DREF_CHECK -DOPENSSL_NO_DEPRECATED";
+@@ -125,7 +125,7 @@ my $clang_disabled_warnings = "-Wno-unused-parameter -Wno-missing-field-initiali
+ my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers -Wno-language-extension-token -Wno-extended-offsetof -Qunused-arguments";
  
  # There are no separate CFLAGS/CPPFLAGS/LDFLAGS, set everything in CFLAGS
 -my $debian_cflags = `dpkg-buildflags --get CFLAGS` . `dpkg-buildflags --get CPPFLAGS` . `dpkg-buildflags --get LDFLAGS` . "-Wa,--noexecstack -Wall";
