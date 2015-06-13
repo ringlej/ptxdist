@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Fri, 12 Jun 2015 10:34:14 +0200
+Date: Sat, 13 Jun 2015 21:50:28 +0200
 Subject: [PATCH] ca
 
-Imported from openssl_1.0.2b-1.debian.tar.xz
+Imported from openssl_1.0.2c-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
