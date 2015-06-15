@@ -11,6 +11,7 @@ menuconfig BAREBOX
 	select BOOTLOADER
 	select HOST_LIBUSB if BAREBOX_NEEDS_HOST_LIBUSB
 	select HOST_OPENSSL if BAREBOX_NEEDS_HOST_OPENSSL
+	select HOST_IMX_CST if BAREBOX_NEEDS_HOST_IMX_CST
 	prompt "barebox                       "
 	bool
 	help
@@ -59,6 +60,10 @@ config BAREBOX_NEEDS_HOST_LIBUSB
 
 config BAREBOX_NEEDS_HOST_OPENSSL
 	prompt "barebox needs openssl"
+	bool
+
+config BAREBOX_NEEDS_HOST_IMX_CST
+	prompt "barebox needs imx-cst"
 	bool
 
 endif
