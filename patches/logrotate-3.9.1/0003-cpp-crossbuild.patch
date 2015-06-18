@@ -1,5 +1,5 @@
 From: unknown author <unknown.author@example.com>
-Date: Fri, 24 Jan 2014 16:45:55 +0100
+Date: Thu, 11 Jun 2015 15:35:31 +0200
 Subject: [PATCH] cpp-crossbuild
 
 Patch from: NIIBE Yutaka <gniibe@fsij.org>
@@ -8,14 +8,14 @@ Cross-building logrotate with dpkg-cross, I encountered a problem.
 dpkg-cross sets CPP variable, and compilation failures, because
 the executable 'cpp' does not accept multiple input files.
 ---
- Makefile |    2 +-
+ Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 64cc601..c710de8 100644
+index 5a42fb6b6a31..76f483a68fa0 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -123,7 +123,7 @@ clean:
+@@ -130,7 +130,7 @@ clean:
  	rm -f ./test/test.ACL ./test/test.SELINUX ./test/error.log
  
  depend:

@@ -1,0 +1,29 @@
+From: unknown author <unknown.author@example.com>
+Date: Thu, 11 Jun 2015 15:35:31 +0200
+Subject: [PATCH] deb-config-h
+
+Fix locations of STATEFILE and DEFAULT_MAIL_COMMAND for Debian.
+---
+ config.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/config.h b/config.h
+index d715c5a83e49..9a7df229d6cd 100644
+--- a/config.h
++++ b/config.h
+@@ -27,7 +27,7 @@
+  * Default settings for Linux - leave these last.
+  */
+ #ifndef DEFAULT_MAIL_COMMAND
+-#define DEFAULT_MAIL_COMMAND "/bin/mail"
++#define DEFAULT_MAIL_COMMAND "/usr/bin/mail"
+ #endif
+ 
+ #ifndef COMPRESS_COMMAND
+@@ -43,5 +43,5 @@
+ #endif
+ 
+ #ifndef STATEFILE
+-#define STATEFILE "/var/lib/logrotate.status"
++#define STATEFILE "/var/lib/logrotate/status"
+ #endif
