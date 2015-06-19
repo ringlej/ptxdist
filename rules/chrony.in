@@ -55,34 +55,14 @@ config CHRONY_INSTALL_CHRONY_STAT
 	  --short-skew  show estimated error, if timesource is currently synced
 	                suppress all other servers
 
-menuconfig CHRONY_INSTALL_CONFIG
+config CHRONY_INSTALL_CONFIG
 	bool
 	default y
-	prompt "Install chrony config files "
+	prompt "Install chrony config files"
 	help
-	  Install /etc/chrony/chrony.conf and /etc/chrony/chony.keys
-	  from a selectable source.
+	  Install /etc/chrony/chrony.conf and /etc/chrony/chony.keys.
 
-	choice
-		prompt "Kind of chrony config"
-		depends on CHRONY_INSTALL_CONFIG
-		default CHRONY_DEFAULTCONFIG
-
-		config CHRONY_DEFAULTCONFIG
-			bool
-			prompt "Use generic"
-			help
-			  Install generic chrony config files.
-			  See <ptxdist-install>/generic/etc/chrony/
-
-		config CHRONY_USERCONFIG
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined chrony config.
-			  PTXdist uses files projectroot/chrony/
-			  in your local project
-	endchoice
+if CHRONY_INSTALL_CONFIG
 
 config CHRONY_DEFAULT_ACCESS_KEY
 	string
@@ -101,6 +81,8 @@ config CHRONY_DEFAULT_NTP_SERVER
 	help
 	  This will set the ntp server for simple
 	  configurations.
+
+endif
 
 config CHRONY_STARTSCRIPT
 	bool

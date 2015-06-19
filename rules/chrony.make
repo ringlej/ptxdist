@@ -60,41 +60,20 @@ $(STATEDIR)/chrony.targetinstall:
 
 # command helper script
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
-	@$(call install_copy, chrony, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, \
-		/usr/bin/chrony_command)
+	@$(call install_alternative, chrony, 0, 0, 0755, /usr/bin/chrony_command)
 endif
 
 # chrony stat convenience wrapper
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_STAT
-	@$(call install_copy, chrony, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_stat, 	\
-		/usr/bin/chrony_stat)
+	@$(call install_alternative, chrony, 0, 0, 0755, /usr/bin/chrony_stat)
 endif
-
 
 # generic one
-ifdef PTXCONF_CHRONY_DEFAULTCONFIG
-	@$(call install_copy, chrony, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/chrony/chrony.conf, \
-		/etc/chrony/chrony.conf)
-	@$(call install_copy, chrony, 0, 0, 0600, \
-		$(PTXDIST_TOPDIR)/generic/etc/chrony/chrony.keys, \
-		/etc/chrony/chrony.keys)
-endif
-
-# users one
-ifdef PTXCONF_CHRONY_USERCONFIG
-	@$(call install_copy, chrony, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/chrony/chrony.conf, \
-		/etc/chrony/chrony.conf)
-	@$(call install_copy, chrony, 0, 0, 0600, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/chrony/chrony.keys, \
-		/etc/chrony/chrony.keys)
-endif
+ifdef PTXCONF_CHRONY_INSTALL_CONFIG
+	@$(call install_alternative, chrony, 0, 0, 0644, /etc/chrony/chrony.conf)
+	@$(call install_alternative, chrony, 0, 0, 0600, /etc/chrony/chrony.keys)
 
 # modify placeholders with data from configuration
-ifdef PTXCONF_CHRONY_INSTALL_CONFIG
 	@$(call install_replace, chrony, /etc/chrony/chrony.conf, \
 		@UNCONFIGURED_CHRONY_SERVER_IP@, $(PTXCONF_CHRONY_DEFAULT_NTP_SERVER))
 
