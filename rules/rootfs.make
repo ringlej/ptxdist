@@ -154,7 +154,7 @@ ifdef PTXCONF_ROOTFS_MTAB_LINK_SELF_MOUNTS
 endif
 ifdef PTXCONF_ROOTFS_MTAB_LINK_VAR
 	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/mtab, /var/tmp/mtab)
+		$(PTXDIST_TOPDIR)/projectroot/etc/mtab, /var/tmp/mtab)
 	@$(call install_link, rootfs, /var/tmp/mtab, /etc/mtab)
 endif
 ifdef PTXCONF_ROOTFS_HOSTNAME
