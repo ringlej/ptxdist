@@ -100,13 +100,13 @@ numfig = True
 rst_epilog = """
 .. |ptxdistPlatformDir| replace:: ``platform-versatilepb``
 .. |oselasTCNarch| replace:: arm
-.. |oselasTCNvariant| replace:: v4t
+.. |oselasTCNvariant| replace:: v5te
 .. |oselasTCNVendorVersion| replace:: 2014.12
 .. |oselasTCNVendorPatchLevel| replace:: .0
 .. |oselasTCNVendorptxdistversion| replace:: 2014.12.0
-.. |oselasToolchainName| replace:: arm-v4t-linux-gnueabi_gcc-4.8.2_glibc-2.18_binutils-2.24_kernel-3.12-sanitized
+.. |oselasToolchainName| replace:: arm-v5te-linux-gnueabi_gcc-4.8.2_glibc-2.18_binutils-2.24_kernel-3.12-sanitized
 .. |ptxdistBSPName| replace:: OSELAS.BSP-Pengutronix-Generic-2015.03.1
-.. |ptxdistCompilerName| replace:: arm-v4t-linux-gnueabi
+.. |ptxdistCompilerName| replace:: arm-v5te-linux-gnueabi
 .. |ptxdistCompilerVersion| replace:: gcc-4.8.2-glibc-2.18-binutils-2.24-kernel-3.12-sanitized
 .. |ptxdistPlatformKernelRev| replace:: 3.19
 .. |ptxdistPlatformKernelRevNext| replace:: 4.0
