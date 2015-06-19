@@ -66,9 +66,7 @@ $(STATEDIR)/ipkg.targetinstall:
 ifdef PTXCONF_IPKG_LOG_WRAPPER
 	@$(call install_copy, ipkg, 0, 0, 0755, -, \
 		/usr/bin/ipkg-cl)
-	@$(call install_copy, ipkg, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/bin/ipkg_log_wrapper, \
-		/usr/bin/ipkg, n)
+	@$(call install_alternative, ipkg, 0, 0, 0755, /usr/bin/ipkg_log_wrapper)
 else
 	@$(call install_copy, ipkg, 0, 0, 0755, \
 		$(IPKG_PKGDIR)/usr/bin/ipkg-cl, \
