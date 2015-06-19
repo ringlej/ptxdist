@@ -36,7 +36,7 @@ ptxd_make_image_extract_xpkg_files() {
 	"${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
 	"${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
 	"${PTXDIST_WORKSPACE}/projectroot${src}" \
-	"${PTXDIST_TOPDIR}/generic${src}" \
+	"${PTXDIST_TOPDIR}//projectroot${src}" \
 	)
 
     if ! ptxd_get_path "${list[@]}"; then
