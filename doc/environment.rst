@@ -14,7 +14,7 @@ http://www.oselas.com and http://www.ptxdist.de. These websites provide
 all required packages and documentation (at least for software
 components which are available to the public).
 
-In order to build , the following source archives have to be available
+In order to build |ptxdistBSPName|, the following source archives have to be available
 on the development host:
 
  * ptxdist-\ |ptxdistVendorVersion|\ .tar.bz2
@@ -151,9 +151,8 @@ If all required components are found the output ends with:
 
 .. parsed-literal::
 
-    [escapechar=^]
     [...]
-    checking whether python development files are present... yes
+    checking whether Python development files are present... yes
     checking for patch... /usr/bin/patch
     checking whether /usr/bin/patch will work... yes
 
@@ -474,7 +473,7 @@ Subpath is:
 
 Package filename is:
 
-| oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ *.deb
+| oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ \*.deb
 
 Package filenames for 32 bit host machines are ending on ``*_i386.deb``
 and for 64 bit host machines on ``*_amd64.deb``.
@@ -608,10 +607,10 @@ new one.
 All toolchains will be installed side by side architecture dependent
 into directory
 
-``/opt/OSELAS.Toolchain-/architecture_part``.
+| /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|/<architecture>
 
 Different toolchains for the same architecture will be installed side by
 side version dependent into directory
 
-``/opt/OSELAS.Toolchain-/architecture_part/version_part``.
+| /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|/<architecture>/<version>
 
