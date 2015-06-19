@@ -62,7 +62,7 @@ install_initramfs =										\
 # initramfs.
 #
 # This macro first looks in $(PTXDIST_WORKSPACE)/initramfs for the file to copy and then
-# in $(PTXDIST_TOPDIR)/generic/initramfs and installs the file under $(ROOTDIR)
+# in $(PTXDIST_TOPDIR)/projectroot/initramfs and installs the file under $(ROOTDIR)
 #
 # $1: packet label (not used)
 # $2: UID
@@ -83,8 +83,8 @@ install_initramfs_alt =										\
 		SRC=$(PTXDIST_WORKSPACE)/initramfs$$FILE$(PTXDIST_PLATFORMSUFFIX);		\
 	elif [ -f $(PTXDIST_WORKSPACE)/initramfs$$FILE ]; then					\
 		SRC=$(PTXDIST_WORKSPACE)/initramfs$$FILE;					\
-	elif [ -f $(PTXDIST_TOPDIR)/generic/initramfs$$FILE ]; then				\
-		SRC=$(PTXDIST_TOPDIR)/generic/initramfs$$FILE;					\
+	elif [ -f $(PTXDIST_TOPDIR)/projectroot/initramfs$$FILE ]; then				\
+		SRC=$(PTXDIST_TOPDIR)/projectroot/initramfs$$FILE;				\
 	elif [ -f $${PKG_PKGDIR}$$FILE ]; then							\
 		SRC=$${PKG_PKGDIR}$$FILE;							\
 	elif [ -f $${PKG_DIR}$$FILE ]; then							\
@@ -93,7 +93,7 @@ install_initramfs_alt =										\
 		echo "initramfs_alt: Search for $$FILE in:";					\
 		echo "$(PTXDIST_WORKSPACE)/initramfs$$FILE$(PTXDIST_PLATFORMSUFFIX)";		\
 		echo "$(PTXDIST_WORKSPACE)/initramfs$$FILE";					\
-		echo "$(PTXDIST_TOPDIR)/generic/initramfs$$FILE";				\
+		echo "$(PTXDIST_TOPDIR)/projectroot/initramfs$$FILE";				\
 		echo "$${PKG_PKGDIR}$$FILE";							\
 		echo "$${PKG_DIR}$$FILE";							\
 		ptxd_bailout "No suitable file $$FILE found to install";			\
