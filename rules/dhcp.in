@@ -34,7 +34,7 @@ config DHCP_DHCPD_CONF
 	  Installs (if present) the "./projectroot/etc/dhcpd.conf"
 	  file from your workspace, otherwise a generic one from the
 	  ptxdist installation
-	  ("<PTXDIST>/generic/etc/dhcpd.conf").
+	  ("<PTXDIST>/projectroot/etc/dhcpd.conf").
 
 
 config DHCP_CLIENT
@@ -54,7 +54,7 @@ config DHCP_DHCLIENT_CONF
 	  Installs (if present) the "./projectroot/etc/dhclient.conf"
 	  file from your workspace, otherwise a generic one from the
 	  ptxdist installation
-	  ("<PTXDIST>/generic/etc/dhclient.conf").
+	  ("<PTXDIST>/projectroot/etc/dhclient.conf").
 
 config DHCP_DHCLIENT_SCRIPT
 	bool "Install /etc/dhclient-script"
@@ -63,7 +63,7 @@ config DHCP_DHCLIENT_SCRIPT
 	  Installs (if present) the "./projectroot/etc/dhclient-script"
 	  file from your workspace, otherwise a generic one from the
 	  ptxdist installation
-	  ("<PTXDIST>/generic/etc/dhclient-script").
+	  ("<PTXDIST>/projectroot/etc/dhclient-script").
 
 endif
 
