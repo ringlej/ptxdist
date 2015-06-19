@@ -136,4 +136,7 @@ release:
 SPHINXBUILD = @SPHINX@
 
 docs:
-	@$(SPHINXBUILD) -b html -d ./Documentation ./doc ./Documentation/html
+	@. scripts/ptxdist_version.sh && \
+	export PTXDIST_VERSION_FULL && \
+	export PTXDIST_VERSION="$${PTXDIST_VERSION_YEAR}.$${PTXDIST_VERSION_MONTH}.$${PTXDIST_VERSION_BUGFIX}"  && \
+	$(SPHINXBUILD) -b html -d ./Documentation ./doc ./Documentation/html
