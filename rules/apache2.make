@@ -135,7 +135,7 @@ endif
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, apache2, www, www, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 	@$(call install_copy, apache2, www, www, 0644, \
-		$(PTXDIST_TOPDIR)/generic/var/www/index.html, \
+		$(PTXDIST_TOPDIR)/projectroot/var/www/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html)
 endif
 
