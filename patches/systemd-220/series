@@ -9,4 +9,5 @@
 0007-missing-add-more-btrfs-defines.patch
 0008-missing-define-O_PATH-and-AT_EMPTY_PATH.patch
 0009-sd-network-ignore-missing-directory-if-networkd-is-d.patch
-# ffc145bfa13923d36a62a2a3e80169d6  - git-ptx-patches magic
+0010-sd-device-enumerator-fix-matching-on-properties-and-.patch
+# db08a6feb9f5f821ab2125c4a3507dbd  - git-ptx-patches magic
