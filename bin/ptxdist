@@ -1436,7 +1436,7 @@ do_config()
 
 		ptxd_dialog_infobox "${PTXDIST_LOG_PROMPT}Checking dependencies. This may take some seconds." &&
 
-		check_premake &&
+		check_premake_compiler &&
 		ptxd_make "${part}_${config}"
 		;;
 	esac
