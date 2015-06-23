@@ -58,6 +58,10 @@ $(STATEDIR)/qt4.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
+# the extra section seems to confuse the Webkit JIT code
+QT4_WRAPPER_BLACKLIST := \
+	TARGET_COMPILER_RECORD_SWITCHES
+
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
 # 'strip' is our special wrapper to avoid stripping for root-debug
 QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)  STRIP=strip MAKEFLAGS="$(PARALLELMFLAGS)"
