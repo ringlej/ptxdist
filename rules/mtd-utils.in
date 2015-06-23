@@ -6,6 +6,7 @@ menuconfig MTD_UTILS
 	select LIBC_M if MTD_UTILS_MKFS_UBIFS
 	select ZLIB
 	select LIBUUID if MTD_UTILS_MKFS_UBIFS
+	select ATTR if MTD_UTILS_MKFS_UBIFS
 	select LIBLZO if MTD_UTILS_USE_LIBLZO
 	help
 	  Memory Technology Device Utilities
