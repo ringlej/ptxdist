@@ -23,7 +23,7 @@ CPUBURN_ARM_SUFFIX	:= tar.bz2
 CPUBURN_ARM_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(CPUBURN_ARM).$(CPUBURN_ARM_SUFFIX)
 CPUBURN_ARM_SOURCE	:= $(SRCDIR)/$(CPUBURN_ARM).$(CPUBURN_ARM_SUFFIX)
 CPUBURN_ARM_DIR		:= $(BUILDDIR)/$(CPUBURN_ARM)
-CPUBURN_ARM_LICENSE	:= unknown
+CPUBURN_ARM_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
