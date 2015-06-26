@@ -491,7 +491,7 @@ ptxd_make_world_patchin_post() {
 	    ptxd_make_world_autogen
 	fi
     ) fi &&
-    if [ -n "${pkg_dir}" ]; then (
+    if [ -e "${pkg_dir}" ]; then (
 	cd "${pkg_dir}" &&
 	if [ "${pkg_type}" = "target" ]; then
 	    ptxd_make_world_patchin_fixup
