@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_ARCH_ARM-$(PTXCONF_CPUBURN_ARM) += cpuburn-arm
+PACKAGES-$(PTXCONF_ARCH_ARM)-$(PTXCONF_CPUBURN_ARM) += cpuburn-arm
 
 #
 # Paths and names
