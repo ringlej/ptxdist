@@ -51,6 +51,8 @@ $(STATEDIR)/cpuburn-arm.targetinstall:
 	@$(call install_fixup, cpuburn-arm,DESCRIPTION,missing)
 
 	@$(call install_copy, cpuburn-arm, 0, 0, 0755, -, /usr/bin/cpuburn-a7)
+	@$(call install_copy, cpuburn-arm, 0, 0, 0755, -, /usr/bin/cpuburn-a8)
+	@$(call install_copy, cpuburn-arm, 0, 0, 0755, -, /usr/bin/cpuburn-a9)
 
 	@$(call install_finish, cpuburn-arm)
 
