@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_OWFS) += owfs
 #
 # Paths and names
 #
-OWFS_VERSION	:= 2.8p6
-OWFS_MD5	:= ffd2cec1ceeccfd911b4f181b66829c2
+OWFS_VERSION	:= 3.1p0
+OWFS_MD5	:= 3d8919af078ae8c9171e5713a1789195
 OWFS		:= owfs-$(OWFS_VERSION)
 OWFS_SUFFIX	:= tar.gz
 OWFS_URL	:= $(call ptx/mirror, SF, owfs/$(OWFS).$(OWFS_SUFFIX))
@@ -36,20 +36,17 @@ OWFS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-debian \
 	--disable-debug \
+	--disable-mutexdebug \
 	--enable-owlib \
-	--disable-tai8570 \
-	--disable-thermocouple \
-	--enable-mt \
-	--disable-i2c \
-	--disable-ha7 \
+	--enable-i2c \
 	--disable-w1 \
 	--disable-owhttpd \
 	--disable-owftpd \
 	--disable-owserver \
+	--disable-owexternal \
 	--disable-ownet \
 	--disable-owtap \
 	--disable-owmalloc \
-	--disable-owtraffic \
 	--disable-owmon \
 	--disable-owcapi \
 	--disable-swig \
@@ -58,9 +55,9 @@ OWFS_AUTOCONF := \
 	--disable-owpython \
 	--disable-owtcl \
 	--disable-profiling \
-	--disable-cache \
 	--disable-zero \
 	--disable-usb \
+	--disable-avahi \
 	--disable-parport \
 	--without-perl5 \
 	--without-php \
@@ -98,7 +95,7 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call install_fixup, owfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
-	@$(call install_lib, owfs, 0, 0, 0644, libow-2.8)
+	@$(call install_lib, owfs, 0, 0, 0644, libow-3.1)
 
 ifdef PTXCONF_OWFS_OWFS
 	@$(call install_copy, owfs, 0, 0, 0755, -, /usr/bin/owfs)
