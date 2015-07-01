@@ -39,10 +39,10 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-soup \
 	--disable-ldap \
 	--enable-aes \
-	--enable-des \
+	--disable-des \
 	--disable-blowfish \
 	--disable-md4 \
-	--enable-md5 \
+	--disable-md5 \
 	--disable-aesni \
 	--enable-sha1 \
 	--enable-sha2 \
@@ -205,14 +205,12 @@ STRONGSWAN_PLUGINS := \
 	libstrongswan-attr.so \
 	libstrongswan-cmac.so \
 	libstrongswan-constraints.so \
-	libstrongswan-des.so \
 	libstrongswan-dnskey.so \
 	libstrongswan-fips-prf.so \
 	libstrongswan-gcm.so \
 	libstrongswan-gmp.so \
 	libstrongswan-hmac.so \
 	libstrongswan-kernel-netlink.so \
-	libstrongswan-md5.so \
 	libstrongswan-nonce.so \
 	libstrongswan-pem.so \
 	libstrongswan-pgp.so \
