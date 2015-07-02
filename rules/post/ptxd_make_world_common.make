@@ -54,8 +54,7 @@ ptx/env = \
 	ptx_python3_host="$(call ptx/escape,$(HOSTPYTHON3))"			\
 	ptx_install_opt_python_host="$(call ptx/escape,$(HOST_PYTHON_INSTALL))"	\
 										\
-	ptx_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)			\
-	ptx_opkg_extra_args=$(PTXCONF_IMAGE_OPKG_EXTRA_ARGS)			\
+	ptx_xpkg_extra_args=$(PTXCONF_IMAGE_XPKG_EXTRA_ARGS)			\
 	ptx_xpkg_type=$(PTXCONF_HOST_PACKAGE_MANAGEMENT)
 
 world/env/impl = \

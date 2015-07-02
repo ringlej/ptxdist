@@ -70,11 +70,12 @@ config IMAGE_IPKG_INDEX
 	  server it allows ipkg on your target to access your ipkg and
 	  install or update them.
 
-config IMAGE_IPKG_EXTRA_ARGS
+config IMAGE_XPKG_EXTRA_ARGS
 	string
-	prompt "extra arguments passed to ipkg-build"
+	prompt "extra arguments passed to ipkg-build/opkg-build"
 	help
-	  If needed you can add extra arguments for ipkg-build here
-	  (e.g. -c if you want ipkg-build to use tar instead of ar.)
+	  If needed you can add extra arguments for
+	  ipkg-build/opkg-build here (e.g. -c if you want ipkg-build
+	  to use tar instead of ar.)
 
 endmenu
