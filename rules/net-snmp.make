@@ -18,13 +18,14 @@ PACKAGES-$(PTXCONF_NET_SNMP) += net-snmp
 #
 # Paths and names
 #
-NET_SNMP_VERSION	:= 5.7.2
-NET_SNMP_MD5		:= 5bddd02e2f82b62daa79f82717737a14
+NET_SNMP_VERSION	:= 5.7.3
+NET_SNMP_MD5		:= d4a3459e1577d0efa8d96ca70a885e53
 NET_SNMP		:= net-snmp-$(NET_SNMP_VERSION)
 NET_SNMP_SUFFIX		:= tar.gz
 NET_SNMP_URL		:= $(call ptx/mirror, SF, net-snmp/$(NET_SNMP).$(NET_SNMP_SUFFIX))
 NET_SNMP_SOURCE		:= $(SRCDIR)/$(NET_SNMP).$(NET_SNMP_SUFFIX)
 NET_SNMP_DIR		:= $(BUILDDIR)/$(NET_SNMP)
+NET_LICENSE		:= BSD like
 
 # ----------------------------------------------------------------------------
 # Prepare

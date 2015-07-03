@@ -1,7 +1,7 @@
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 Date: Tue, 3 Sep 2013 21:12:46 +0200
-Subject: [PATCH] Don't disable udp and tcp when
- --disable-agentx-dom-sock-only is given
+Subject: [PATCH] Don't disable udp and tcp when --disable-agentx-dom-sock-only
+ is given
 
 The configure magic without this patch treats all
 
@@ -13,11 +13,11 @@ the same; i.e. disables the udp and tcp transports. With this patch only the
 first option does have this effect which matches the usual and expected
 semantic.
 ---
- configure.d/config_project_with_enable |    8 +++++---
+ configure.d/config_project_with_enable | 8 +++++---
  1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/configure.d/config_project_with_enable b/configure.d/config_project_with_enable
-index 61ba026..d7c2132 100644
+index 61ba026f355d..d7c2132a0bd4 100644
 --- a/configure.d/config_project_with_enable
 +++ b/configure.d/config_project_with_enable
 @@ -723,9 +723,11 @@ NETSNMP_ARG_ENABLE(local-smux,
