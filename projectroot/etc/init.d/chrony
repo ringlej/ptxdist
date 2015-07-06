@@ -63,7 +63,7 @@ stop_proc() {
 
 set_online(){
         message_n "Setting NTP server ONLINE ... "
-	/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
 	/usr/bin/chronyc <<-EOF
 	password $PASSWORD
 	online
@@ -76,7 +76,7 @@ set_online(){
 
 set_offline(){
         message_n "Setting NTP server OFFLINE ... "
-	/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
 	/usr/bin/chronyc <<-EOF
 	password $PASSWORD
 	offline
@@ -86,7 +86,7 @@ set_offline(){
 }
 
 set_rtc(){
-	/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
 	if [ "$RTC_IOCTL" == "incomplete" ] ; then 
 	# We are running on a system with limited rtc support,
 	# so we cannot let the ntp client do the job. 
@@ -109,7 +109,7 @@ set_rtc(){
 }
 
 status(){
-	/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
 	cat <<-EOF | /usr/bin/chronyc
 	password $PASSWORD
 	tracking
@@ -118,7 +118,7 @@ status(){
 }
 
 statistics(){
-	/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
 	cat <<-EOF | /usr/bin/chronyc
 	password $PASSWORD
 	sourcestats

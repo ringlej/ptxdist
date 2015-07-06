@@ -81,7 +81,7 @@ esac
 done
 }
 
-/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+pidof chronyd > /dev/null || bailout " chronyd is not running "
 
 case $1 in 
 	--help)

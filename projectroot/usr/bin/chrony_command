@@ -19,7 +19,7 @@ bailout(){
 KEY=$(awk '$1 ~ /^commandkey$/ { print $2; exit}' /etc/chrony/chrony.conf)
 PASSWORD=`awk '$1 ~ /^'$KEY'$/ {print $2; exit}' /etc/chrony/chrony.keys`
 
-/bin/pidof chronyd > /dev/null || bailout " chronyd is not running "
+pidof chronyd > /dev/null || bailout " chronyd is not running "
 /usr/bin/chronyc <<-EOF
 password $PASSWORD
 $command
