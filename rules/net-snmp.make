@@ -31,9 +31,6 @@ NET_LICENSE		:= BSD like
 # Prepare
 # ----------------------------------------------------------------------------
 
-NET_SNMP_PATH	:= PATH=$(CROSS_PATH)
-NET_SNMP_ENV 	:= $(CROSS_ENV)
-
 NET_SNMP_MIB_MODULES-y	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_MODULES))
 NET_SNMP_MIB_MODULES-	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_WITHOUT_MIB_MODULES))
 NET_SNMP_MIB_MODULES-$(PTXCONF_NET_SNMP_MIB_MODULES_AGENTX) += agentx
