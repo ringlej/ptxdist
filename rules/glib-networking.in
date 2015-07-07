@@ -1,0 +1,11 @@
+## SECTION=multimedia_gtk
+
+config GLIB_NETWORKING
+	tristate
+	select GLIB
+	select GNUTLS
+	select CA_CERTIFICATES		if RUNTIME
+	select CA_CERTIFICATES_BUNDLE	if RUNTIME
+	prompt "glib-networking"
+	help
+	  network-related giomodules for GLib
