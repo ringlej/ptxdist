@@ -1,0 +1,30 @@
+## SECTION=bytecode_engines
+
+menuconfig NODEJS
+	tristate
+	prompt "nodejs                        "
+	select HOST_NODEJS
+	select OPENSSL
+	select ZLIB
+	help
+	  evented I/O for V8 javascript
+
+	  Node.js is a platform built on Chrome's JavaScript runtime
+	  for easily building fast, scalable network
+	  applications. Node.js uses an event-driven, non-blocking I/O
+	  model that makes it lightweight and efficient, perfect for
+	  data-intensive real-time applications that run across
+	  distributed devices.
+
+
+if NODEJS
+
+config NODEJS_NPM
+	tristate
+	prompt "install npm on target"
+
+config NODEJS_MODULE_LIST
+	string
+	prompt "install nodejs packages"
+	default "express@4.13.0"
+endif
