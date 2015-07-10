@@ -8,14 +8,14 @@ Upstream requires glibc 2.16 but this is useful for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/shared/missing.h | 6 ++++++
+ src/basic/missing.h | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/src/shared/missing.h b/src/shared/missing.h
-index 02dbb8628a6c..5574386a0628 100644
---- a/src/shared/missing.h
-+++ b/src/shared/missing.h
-@@ -838,6 +838,12 @@ static inline int setns(int fd, int nstype) {
+diff --git a/src/basic/missing.h b/src/basic/missing.h
+index 48dfc511266d..98d0d49dade0 100644
+--- a/src/basic/missing.h
++++ b/src/basic/missing.h
+@@ -874,6 +874,12 @@ static inline int setns(int fd, int nstype) {
  #ifndef CLOCK_BOOTTIME_ALARM
  #define CLOCK_BOOTTIME_ALARM 9
  #endif

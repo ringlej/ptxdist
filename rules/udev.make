@@ -105,11 +105,11 @@ UDEV_RULES-y := \
 endif
 
 UDEV_RULES-$(PTXCONF_SYSTEMD) += \
+	60-block.rules \
 	60-drm.rules \
 	60-serial.rules \
 	64-btrfs.rules \
 	70-mouse.rules \
-	70-touchpad.rules \
 	80-net-setup-link.rules
 
 UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
@@ -117,6 +117,9 @@ UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
 	70-uaccess.rules \
 	71-seat.rules \
 	73-seat-late.rules
+
+UDEV_RULES-$(PTXCONF_SYSTEMD_VCONSOLE) += \
+	90-vconsole.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
 ifdef PTXCONF_UDEV_LEGACY

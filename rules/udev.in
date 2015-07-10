@@ -176,6 +176,7 @@ menu "misc helper                   "
 
 config UDEV_ACCELEROMETER
 	bool
+	depends on UDEV_LEGACY
 	prompt "accelerometer"
 	help
 	  When an "change" event is received on an accelerometer,

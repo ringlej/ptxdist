@@ -8,14 +8,14 @@ Not for upstream, but needed for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/shared/missing.h | 5 +++++
+ src/basic/missing.h | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/src/shared/missing.h b/src/shared/missing.h
-index 3568526a54cf..2346b2d46e23 100644
---- a/src/shared/missing.h
-+++ b/src/shared/missing.h
-@@ -961,6 +961,11 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
+diff --git a/src/basic/missing.h b/src/basic/missing.h
+index de9c6f341d11..48dfc511266d 100644
+--- a/src/basic/missing.h
++++ b/src/basic/missing.h
+@@ -1028,6 +1028,11 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
  #define RENAME_NOREPLACE (1 << 0)
  #endif
  

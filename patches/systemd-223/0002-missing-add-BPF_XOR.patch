@@ -6,14 +6,14 @@ BPF_XOR was introduced in kernel 3.7
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/shared/missing.h | 4 ++++
+ src/basic/missing.h | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/src/shared/missing.h b/src/shared/missing.h
-index db6450a168ca..3568526a54cf 100644
---- a/src/shared/missing.h
-+++ b/src/shared/missing.h
-@@ -860,6 +860,10 @@ static inline int setns(int fd, int nstype) {
+diff --git a/src/basic/missing.h b/src/basic/missing.h
+index 09fe36770e62..de9c6f341d11 100644
+--- a/src/basic/missing.h
++++ b/src/basic/missing.h
+@@ -927,6 +927,10 @@ static inline int setns(int fd, int nstype) {
  #  define BPF_XOR 0xa0
  #endif
  

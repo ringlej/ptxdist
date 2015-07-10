@@ -29,14 +29,8 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-silent-rules \
 	--disable-static \
-	--disable-nls \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-introspection \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
-	--disable-python-devel \
 	--disable-dbus \
 	--disable-utmp \
 	--disable-compat-libs \
@@ -46,7 +40,6 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-blkid \
 	--disable-seccomp \
 	--disable-ima \
-	--disable-chkconfig \
 	--disable-selinux \
 	--disable-apparmor \
 	--disable-xz \
@@ -56,7 +49,6 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
-	--disable-gcrypt \
 	--disable-audit \
 	--disable-elfutils \
 	--disable-libcryptsetup \
@@ -89,10 +81,8 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-networkd \
 	--disable-efi \
 	--disable-gnuefi \
-	--disable-terminal \
 	--disable-kdbus \
 	--disable-myhostname \
-	--disable-gudev \
 	--enable-hwdb \
 	--disable-manpages \
 	--disable-hibernate \
@@ -107,12 +97,5 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--with-sysvrcnd-path="" \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
-
-$(STATEDIR)/host-systemd.prepare:
-	@$(call targetinfo)
-	@$(call world/prepare, HOST_SYSTEMD)
-#	# needed for broken v220 tarball
-	@$(call compile, HOST_SYSTEMD, clean-generic)
-	@$(call touch)
 
 # vim: syntax=make

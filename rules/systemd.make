@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 220
-SYSTEMD_MD5	:= 60acd92b04c0f5faa806678abd433014
+SYSTEMD_VERSION	:= 223
+SYSTEMD_MD5	:= fd7b7c622fc2b7deed44f9722227d488
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
-SYSTEMD_SUFFIX	:= tar.xz
-SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
+SYSTEMD_SUFFIX	:= tar.gz
+SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
 SYSTEMD_LICENSE	:= GPLv2+, LGPLv2.1, MIT
@@ -64,14 +64,8 @@ SYSTEMD_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-silent-rules \
 	--disable-static \
-	--disable-nls \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-introspection \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
-	--disable-python-devel \
 	--disable-dbus \
 	--disable-utmp \
 	--enable-compat-libs \
@@ -81,7 +75,6 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-blkid \
 	--disable-seccomp \
 	--disable-ima \
-	--disable-chkconfig \
 	$(GLOBAL_SELINUX_OPTION) \
 	--disable-apparmor \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
@@ -91,7 +84,6 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
-	--disable-gcrypt \
 	--disable-audit \
 	--disable-elfutils \
 	--disable-libcryptsetup \
@@ -122,12 +114,10 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-polkit \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-resolved \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
-	--disable-efi \
+	--enable-efi \
 	--disable-gnuefi \
-	--disable-terminal \
-	--disable-kdbus \
+	--enable-kdbus \
 	--enable-myhostname \
-	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
 	--disable-manpages \
 	--disable-hibernate \
@@ -149,13 +139,6 @@ SYSTEMD_CONF_OPT	:= \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
-
-$(STATEDIR)/systemd.prepare:
-	@$(call targetinfo)
-	@$(call world/prepare, SYSTEMD)
-#	# needed for broken v220 tarball
-	@$(call compile, SYSTEMD, clean-generic)
-	@$(call touch)
 
 # FIXME kernel from systemd README:
 # - devtmpfs, cgroups are mandatory.
