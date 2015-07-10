@@ -1,5 +1,5 @@
 From: Kurt Roeckx <kurt@roeckx.be>
-Date: Sat, 13 Jun 2015 21:50:29 +0200
+Date: Fri, 10 Jul 2015 07:03:00 +0200
 Subject: [PATCH] Disable the freelist
 
 We don't define OPENSSL_NO_BUF_FREELISTS globally sinc it changes structures and
@@ -7,7 +7,7 @@ would break the ABI.  Instead we just do it in the .c files that try to do
 something with it.
 
 
-Imported from openssl_1.0.2c-1.debian.tar.xz
+Imported from openssl_1.0.2d-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

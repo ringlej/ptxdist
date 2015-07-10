@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Sat, 13 Jun 2015 21:50:28 +0200
+Date: Fri, 10 Jul 2015 07:03:00 +0200
 Subject: [PATCH] engines-path
 
-Imported from openssl_1.0.2c-1.debian.tar.xz
+Imported from openssl_1.0.2d-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -26,10 +26,10 @@ index a8c5d393f699..37c748791db8 100755
  		print OUT "#define ENGINESDIR \"$foo\"\n";
  		}
 diff --git a/Makefile.org b/Makefile.org
-index 9f4faae2df95..f450f2b10b63 100644
+index d77e26495887..f1fabdd8e94d 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -531,7 +531,7 @@ install: all install_docs install_sw
+@@ -532,7 +532,7 @@ install: all install_docs install_sw
  install_sw:
  	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
  		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \

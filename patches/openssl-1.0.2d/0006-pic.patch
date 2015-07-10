@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Sat, 13 Jun 2015 21:50:29 +0200
+Date: Fri, 10 Jul 2015 07:03:00 +0200
 Subject: [PATCH] pic
 
-Imported from openssl_1.0.2c-1.debian.tar.xz
+Imported from openssl_1.0.2d-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
