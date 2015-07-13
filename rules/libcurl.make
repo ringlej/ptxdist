@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.38.0
-LIBCURL_MD5	:= b6e3ea55bb718f2270489581efa50a8a
+LIBCURL_VERSION	:= 7.43.0
+LIBCURL_MD5	:= 11bddbb452a8b766b932f859aaeeed39
 LIBCURL		:= curl-$(LIBCURL_VERSION)
-LIBCURL_SUFFIX	:= tar.gz
-LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
+LIBCURL_SUFFIX	:= tar.bz2
+LIBCURL_URL	:= https://github.com/bagder/curl/releases/download/curl-7_43_0/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_SOURCE	:= $(SRCDIR)/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_DIR	:= $(BUILDDIR)/$(LIBCURL)
 LIBCURL_LICENSE	:= MIT
@@ -44,29 +44,43 @@ LIBCURL_AUTOCONF := \
 	\
 	--disable-ldap \
 	--disable-ldaps \
+	--disable-rtsp \
 	--disable-dict \
 	--disable-telnet \
+	--disable-pop3 \
+	--disable-imap \
+	--disable-smb \
+	--disable-smtp \
+	--disable-gopher \
 	--disable-manual \
 	\
 	--disable-ares \
 	--disable-sspi \
+	--disable-ntlm-wb \
 	--disable-debug \
 	--disable-verbose \
 	\
 	--enable-thread \
 	--enable-nonblocking\
 	--enable-hidden-symbols \
+	--enable-proxy \
 	\
 	--without-krb4 \
 	--without-spnego \
 	--without-gssapi \
+	--without-winssl \
+	--without-darwinssl \
 	--without-gnutls \
 	--without-nss \
+	--without-winidn \
 	--without-libidn \
 	--without-axtls \
+	--without-polarssl \
 	--without-cyassl \
+	--without-librtmp \
 	\
 	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
+	--disable-nghttp2 \
 	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
 	--$(call ptx/endis, PTXCONF_LIBCURL_TFTP)-tftp \
