@@ -224,6 +224,13 @@ ifdef PTXCONF_BUSYBOX_TELNETD_SYSTEMD_UNIT
 		/lib/systemd/system/sockets.target.wants/telnetd.socket)
 endif
 
+ifdef PTXCONF_BUSYBOX_CROND_SYSTEMD_UNIT
+	@$(call install_alternative, busybox, 0, 0, 0644, \
+		/lib/systemd/system/crond.service)
+	@$(call install_link, busybox, ../crond.service, \
+		/lib/systemd/system/multi-user.target.wants/crond.service)
+endif
+
 #	#
 #	# config files
 #	#
