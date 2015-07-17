@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006-2008 by Robert Schwebel
 #               2009, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2015 by Bruno Thomsen <bth@kamstrup.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,8 +18,8 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.5.26
-PHP5_MD5	:= a3de70d115b8580e50c433f83691cfaf
+PHP5_VERSION	:= 5.5.27
+PHP5_MD5	:= 2efe7c087d7073bffa64e5d538f22711
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.xz
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
