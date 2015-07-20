@@ -1,0 +1,8 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_DEJAVU
+	bool
+	select XORG_FONTS
+	prompt "dejavu"
+	help
+	  Contains the DejaVu font family based on the Vera Fonts.
