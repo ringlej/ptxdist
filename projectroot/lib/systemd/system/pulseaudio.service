@@ -1,0 +1,12 @@
+[Unit]
+Description=Sound Service
+
+[Service]
+Environment=USERPROFILE=/run/pulse
+Environment=XDG_RUNTIME_DIR=/run
+Environment=XDG_CONFIG_HOME=/run/config
+ExecStart=/usr/bin/pulseaudio --daemonize=no
+Restart=on-failure
+
+[Install]
+Also=pulseaudio.socket

@@ -1,0 +1,23 @@
+## SECTION=system_libraries
+
+config PULSEAUDIO
+	tristate
+	select HOST_ORC
+	select LIBC_M
+	select LIBC_RT
+	select LIBC_PTHREAD
+	select ALSA_LIB
+	select JSON_C
+	select LIBCAP
+	select LIBLTDL
+	select LIBSNDFILE
+	select ORC
+	select SYSTEMD
+	select UDEV
+	select UDEV_LIBUDEV
+	prompt "pulseaudio"
+	help
+	  PulseAudio is a sound system for POSIX OSes, meaning that it is a
+	  proxy for your sound applications. It allows you to do advanced
+	  operations on your sound data as it passes between your
+	  application and your hardware.
