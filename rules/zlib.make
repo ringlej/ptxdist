@@ -44,7 +44,6 @@ ZLIB_CONF_TOOL := autoconf
 ZLIB_CONF_OPT := \
 	--prefix=/usr \
 	--uname=Linux \
-	$(call ptx/ifdef, PTXCONF_ZLIB_STATIC,--static) \
 	--libdir=/usr/$(CROSS_LIB_DIR)
 
 # ----------------------------------------------------------------------------
@@ -54,7 +53,6 @@ ZLIB_CONF_OPT := \
 $(STATEDIR)/zlib.targetinstall:
 	@$(call targetinfo)
 
-ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_init, zlib)
 	@$(call install_fixup, zlib,PRIORITY,optional)
 	@$(call install_fixup, zlib,SECTION,base)
@@ -64,7 +62,6 @@ ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_lib, zlib, 0, 0, 0644, libz)
 
 	@$(call install_finish, zlib)
-endif
 	@$(call touch)
 
 # vim: syntax=make
