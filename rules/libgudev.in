@@ -1,0 +1,10 @@
+## SECTION=system_libraries
+
+config LIBGUDEV
+	tristate
+	select GLIB
+	select UDEV
+	select UDEV_LIBUDEV
+	prompt "libgudev"
+	help
+	  GObject-based wrapper library for libudev
