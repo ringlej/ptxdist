@@ -1,0 +1,31 @@
+From: Michael Grzeschik <m.grzeschik@pengutronix.de>
+Date: Wed, 22 Jul 2015 18:18:59 +0200
+Subject: [PATCH] npmbox: add build from source option to npmunbox
+
+Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
+---
+ lib/node_modules/npmbox/npmunbox.js | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/lib/node_modules/npmbox/npmunbox.js b/lib/node_modules/npmbox/npmunbox.js
+index 66d6ef3..1cdc375 100644
+--- a/lib/node_modules/npmbox/npmunbox.js
++++ b/lib/node_modules/npmbox/npmunbox.js
+@@ -43,6 +43,7 @@ if (args.length<1 || argv.help) {
+ 	console.log("  -O, -save-optional   npm --save-optional swtich.");
+ 	console.log("  -B, -save-bundle     npm --save-bundle swtich.");
+ 	console.log("  -E, -save-exact      npm --save-exact swtich.");
++	console.log("  -b, -build-from-source      npm --build-from-source swtich.");
+ 	console.log("");
+ 	process.exit(0);
+ }
+@@ -55,7 +56,8 @@ var options = {
+ 	"save-dev": argv.D || argv["save-dev"] || false,
+ 	"save-optional": argv.O || argv["save-optional"] || false,
+ 	"save-bundle": argv.B || argv["save-bundle"] || false,
+-	"save-exact": argv.E || argv["save-exact"] || false
++	"save-exact": argv.E || argv["save-exact"] || false,
++	"build-from-source": argv.b || argv["build-from-source"] || false
+ };
+ if (argv.C || argv.prefix) options.prefix = argv.C || argv.prefix;
+ 

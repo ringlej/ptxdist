@@ -70,7 +70,7 @@ $(STATEDIR)/nodejs.install:
 	@$(call install, NODEJS)
 	@$(foreach module, $(call remove_quotes, $(PTXCONF_NODEJS_MODULE_LIST)), \
 		cd $(NODEJS_PKGDIR)/usr/lib/ && \
-		$(call node/env, npmunbox $(SRCDIR)/$(module).npmbox);)
+		$(call node/env, npmunbox -build-from-source $(SRCDIR)/$(module).npmbox);)
 	@$(call touch)
 
 
