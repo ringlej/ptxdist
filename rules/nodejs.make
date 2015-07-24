@@ -33,10 +33,16 @@ NODEJS_SOURCES += $(foreach module,$(call remove_quotes, $(PTXCONF_NODEJS_MODULE
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifeq ($(PTXCONF_ARCH_STRING),i386)
+NODEJS_ARCH := ia32
+else
+NODEJS_ARCH := $(PTXCONF_ARCH_STRING)
+endif
+
 NODEJS_CONF_TOOL := autoconf
 NODEJS_CONF_OPT := \
 	--prefix=/usr \
-	--dest-cpu=$(PTXCONF_ARCH_STRING) \
+	--dest-cpu=$(NODEJS_ARCH) \
 	--without-snapshot \
 	--shared-openssl \
 	--shared-zlib \
@@ -53,7 +59,7 @@ endef
 
 node/env = \
 	$(CROSS_ENV) \
-	npm_config_arch=$(PTXCONF_ARCH_STRING) \
+	npm_config_arch=$(NODEJS_ARCH) \
 	npm_prefix=$(NODEJS_PKGDIR)/usr/lib \
 	npm_config_cache=$(HOST_NODEJS_PKGDIR)/npm \
 	npm_config_tmp=$(PTXDIST_TEMPDIR)/nodejs \
