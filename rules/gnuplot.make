@@ -16,9 +16,9 @@ PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 #
 # Paths and names
 #
-GNUPLOT_VERSION	:= 4.6.2
+GNUPLOT_VERSION	:= 4.6.7
 GNUPLOT_MAJ_VER := $(basename $(GNUPLOT_VERSION))
-GNUPLOT_MD5	:= 060e0a77cabb6d6055c5917b0f0b5769
+GNUPLOT_MD5	:= fbcb4715acf228fcd2957f9d218b9167
 GNUPLOT		:= gnuplot-$(GNUPLOT_VERSION)
 GNUPLOT_SUFFIX	:= tar.gz
 GNUPLOT_URL	:= $(call ptx/mirror, SF, gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX))
@@ -42,7 +42,6 @@ GNUPLOT_AUTOCONF = \
 	--$(call ptx/endis, PTXCONF_GNUPLOT_X)-mouse \
 	--disable-x11-mbfonts \
 	--disable-x11-external \
-	--disable-thin-splines \
 	--disable-volatile-data \
 	--disable-raise-console \
 	--disable-objects \

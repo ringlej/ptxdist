@@ -16,7 +16,7 @@ Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/docs/Makefile.in b/docs/Makefile.in
-index 0560553..628c006 100644
+index 1552a3b76da1..d48dac68c590 100644
 --- a/docs/Makefile.in
 +++ b/docs/Makefile.in
 @@ -85,7 +85,7 @@ LIBS = @LIBS@
