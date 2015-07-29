@@ -41,7 +41,14 @@ endif
 SYSTEMD_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	ac_cv_path_INTLTOOL_MERGE=: \
-	ac_cv_path_KMOD=/bin/kmod
+	ac_cv_path_KEXEC=/sbin/kexec \
+	ac_cv_path_KILL=/bin/kill \
+	ac_cv_path_KMOD=/bin/kmod \
+	ac_cv_path_MOUNT_PATH=/bin/mount \
+	ac_cv_path_UMOUNT_PATH=/bin/umount \
+	ac_cv_path_SULOGIN=/sbin/sulogin \
+	ac_cv_path_QUOTACHECK=/usr/sbin/quotacheck \
+	ac_cv_path_QUOTAON=/usr/sbin/quotaon
 
 SYSTEMD_CONF_ENV += cc_cv_CFLAGS__flto=no
 
