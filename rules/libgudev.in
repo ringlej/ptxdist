@@ -5,6 +5,7 @@ config LIBGUDEV
 	select GLIB
 	select UDEV
 	select UDEV_LIBUDEV
+	select UDEV_LIBGUDEV	if !SYSTEMD
 	prompt "libgudev"
 	help
 	  GObject-based wrapper library for libudev
