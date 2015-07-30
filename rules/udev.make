@@ -95,10 +95,14 @@ UDEV_RULES-y := \
 	78-sound-card.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
-	42-usb-hid-pm.rules \
+	42-usb-hid-pm.rules
+
+ifndef PTXCONF_SYSTEMD
+UDEV_RULES-y := \
 	60-persistent-serial.rules \
 	75-tty-description.rules \
 	95-udev-late.rules
+endif
 
 UDEV_RULES-$(PTXCONF_SYSTEMD) += \
 	60-drm.rules \
