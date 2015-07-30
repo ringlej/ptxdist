@@ -11,7 +11,7 @@ menuconfig QT5
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	select ZLIB
-	select DBUS			if QT5_DBUS
+	select DBUS			if QT5_DBUS || QT5_MODULE_QTWEBENGINE
 	select GLIB			if QT5_GLIB
 	select LIBPNG			if QT5_LIBPNG
 	select LIBJPEG			if QT5_LIBJPEG
