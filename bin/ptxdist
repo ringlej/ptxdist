@@ -1890,7 +1890,7 @@ EOF
 			;;
 		get)
 			declare -a pkgs
-			check_premake &&
+			check_premake_compiler &&
 
 			if [ ${#} -eq 0 ]; then
 				ptxd_make_log get
