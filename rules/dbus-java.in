@@ -1,4 +1,6 @@
-## SECTION=middleware
+## SECTION=staging
+## old section:
+### SECTION=middleware
 
 menuconfig DBUS_JAVA
 	tristate
@@ -13,6 +15,9 @@ menuconfig DBUS_JAVA
 	help
 	  Runtime shared native libraries and classes to make JAVA talking
 	  with DBus.
+
+	  STAGING: remove in ptxdist-2016.08.0
+	  libmatthew-java's upstream is no longer available.
 
 if DBUS_JAVA
 
