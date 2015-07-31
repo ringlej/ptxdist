@@ -40,6 +40,7 @@ SYSTEMD_WRAPPER_BLACKLIST := TARGET_HARDEN_PIE
 endif
 SYSTEMD_CONF_ENV	:= \
 	$(CROSS_ENV) \
+	cc_cv_CFLAGS__Werror_shadow=no \
 	ac_cv_path_INTLTOOL_MERGE=: \
 	ac_cv_path_KEXEC=/sbin/kexec \
 	ac_cv_path_KILL=/bin/kill \

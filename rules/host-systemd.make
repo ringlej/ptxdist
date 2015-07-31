@@ -18,7 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 # ----------------------------------------------------------------------------
 
 HOST_SYSTEMD_CONF_ENV	:= \
-        $(HOST_ENV) \
+	$(HOST_ENV) \
+	cc_cv_CFLAGS__Werror_shadow=no \
 	ac_cv_path_INTLTOOL_MERGE=:
 
 #
