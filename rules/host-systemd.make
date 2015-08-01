@@ -45,7 +45,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-apparmor \
 	--disable-xz \
 	--disable-zlib \
-	--enable-bzip2 \
+	--disable-bzip2 \
 	--disable-lz4 \
 	--disable-pam \
 	--disable-acl \
