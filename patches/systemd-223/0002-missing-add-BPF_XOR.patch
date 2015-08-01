@@ -4,6 +4,8 @@ Subject: [PATCH] missing: add BPF_XOR
 
 BPF_XOR was introduced in kernel 3.7
 
+Not for upstream, but needed for host-systemd.
+
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/basic/missing.h | 4 ++++

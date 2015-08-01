@@ -6,4 +6,5 @@
 0004-missing-define-__NR_kcmp-if-necessary.patch
 0005-missing-define-O_PATH-and-AT_EMPTY_PATH.patch
 0006-HACK-configure.ac-don-t-use-AM_PATH_LIBGCRYPT.patch
-# defe636145de2bd40ef12fd72c1c0786  - git-ptx-patches magic
+0007-missing-define-syncfs.patch
+# 9bd5de3ee85a5be568fc8a27b0adaa70  - git-ptx-patches magic
