@@ -2,6 +2,8 @@
 
 menuconfig QUAGGA
 	tristate
+	select NET_SNMP
+	select NET_SNMP_MIB_MODULES_AGENTX
 	prompt "quagga"
 	help
 	  Quagga Routing Suite. Quagga is a routing software suite, providing
