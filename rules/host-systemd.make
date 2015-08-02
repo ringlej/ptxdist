@@ -19,6 +19,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 
 HOST_SYSTEMD_CONF_ENV	:= \
 	$(HOST_ENV) \
+	AR=ar NM=nm RANLIB=ranlib \
+	cc_cv_CFLAGS__flto=no \
+	cc_cv_LDFLAGS__Wl___gc_sections=no \
 	cc_cv_CFLAGS__Werror_shadow=no \
 	ac_cv_path_INTLTOOL_MERGE=:
 
