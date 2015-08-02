@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 223
-SYSTEMD_MD5	:= fd7b7c622fc2b7deed44f9722227d488
+SYSTEMD_VERSION	:= 224
+SYSTEMD_MD5	:= fad64d2ae64af4b6034950e91b2c8e2b
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
