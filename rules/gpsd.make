@@ -21,7 +21,7 @@ GPSD_VERSION	:= 2.39
 GPSD_MD5	:= 3db437196a6840c252fca99b6c19d4d0
 GPSD		:= gpsd-$(GPSD_VERSION)
 GPSD_SUFFIX	:= tar.gz
-GPSD_URL	:= http://download.berlios.de/gpsd/$(GPSD).$(GPSD_SUFFIX)
+GPSD_URL	:= $(call ptx/mirror, SF, gpsd.berlios/$(GPSD).$(GPSD_SUFFIX))
 GPSD_SOURCE	:= $(SRCDIR)/$(GPSD).$(GPSD_SUFFIX)
 GPSD_DIR	:= $(BUILDDIR)/$(GPSD)
 
