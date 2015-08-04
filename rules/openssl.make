@@ -23,7 +23,9 @@ OPENSSL_BUGFIX	:= d
 OPENSSL_MD5	:= 38dd619b2e77cbac69b99f52a053d25a
 OPENSSL		:= openssl-$(OPENSSL_VERSION)$(OPENSSL_BUGFIX)
 OPENSSL_SUFFIX	:= tar.gz
-OPENSSL_URL	:= http://www.openssl.org/source/$(OPENSSL).$(OPENSSL_SUFFIX)
+OPENSSL_URL	:= \
+	http://www.openssl.org/source/$(OPENSSL).$(OPENSSL_SUFFIX) \
+	http://www.openssl.org/source/old/$(OPENSSL_VERSION)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_SOURCE	:= $(SRCDIR)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_DIR	:= $(BUILDDIR)/$(OPENSSL)
 OPENSSL_LICENSE	:= openssl
