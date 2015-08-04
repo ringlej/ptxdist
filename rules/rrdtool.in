@@ -10,6 +10,7 @@ menuconfig RRDTOOL
 	select PANGO		if RRDTOOL_RRD_GRAPH
 	select LIBXML2
 	select LIBXML2_SAX1
+	select LIBXML2_READER
 # for autotools only
 	select HOST_GETTEXT
 	prompt "rrdtool                       "
