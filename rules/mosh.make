@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MOSH) += mosh
 #
 # Paths and names
 #
-MOSH_VERSION	:= 1.2.4
-MOSH_MD5	:= c2d918f4d91fdc32546e2e089f9281b2
+MOSH_VERSION	:= 1.2.5
+MOSH_MD5	:= 56d7147cf7031583ba7d8db09033e0c5
 MOSH		:= mosh-$(MOSH_VERSION)
 MOSH_SUFFIX	:= tar.gz
 MOSH_URL	:= https://mosh.mit.edu/$(MOSH).$(MOSH_SUFFIX)
