@@ -1,8 +1,18 @@
-Index: Python-3.4.2/Lib/distutils/command/build_ext.py
-===================================================================
---- Python-3.4.2.orig/Lib/distutils/command/build_ext.py	2014-10-08 10:18:12.000000000 +0200
-+++ Python-3.4.2/Lib/distutils/command/build_ext.py	2014-10-24 12:04:09.465932044 +0200
-@@ -237,7 +237,7 @@
+From: Han Sirkstra <han@protonic.nl>
+Date: Wed, 2 Sep 2015 12:49:53 +0200
+Subject: [PATCH] python3: don't leak host path into cross compilation
+
+Signed-off-by: David Jander <david@protonic.nl>
+---
+ Lib/distutils/command/build_ext.py | 2 +-
+ setup.py                           | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Lib/distutils/command/build_ext.py b/Lib/distutils/command/build_ext.py
+index 3ab2d04bf98a..acbe648036fc 100644
+--- a/Lib/distutils/command/build_ext.py
++++ b/Lib/distutils/command/build_ext.py
+@@ -237,7 +237,7 @@ class build_ext(Command):
          # Python's library directory must be appended to library_dirs
          # See Issues: #1600860, #4366
          if (sysconfig.get_config_var('Py_ENABLE_SHARED')):
@@ -11,13 +21,13 @@ Index: Python-3.4.2/Lib/distutils/command/build_ext.py
                  # building third party extensions
                  self.library_dirs.append(sysconfig.get_config_var('LIBDIR'))
              else:
-Index: Python-3.4.2/setup.py
-===================================================================
---- Python-3.4.2.orig/setup.py	2014-10-08 10:18:16.000000000 +0200
-+++ Python-3.4.2/setup.py	2014-10-24 12:04:07.225932121 +0200
-@@ -493,7 +493,8 @@
+diff --git a/setup.py b/setup.py
+index 5d4f44465a8a..c37cb33b2f12 100644
+--- a/setup.py
++++ b/setup.py
+@@ -493,7 +493,8 @@ class PyBuildExt(build_ext):
                          add_dir_to_list(dir_list, directory)
-
+ 
          if os.path.normpath(sys.base_prefix) != '/usr' \
 -                and not sysconfig.get_config_var('PYTHONFRAMEWORK'):
 +                and not sysconfig.get_config_var('PYTHONFRAMEWORK') \
