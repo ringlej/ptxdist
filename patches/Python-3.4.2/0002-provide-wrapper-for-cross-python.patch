@@ -1,0 +1,117 @@
+Index: Python-3.4.2/cross-python-wrapper.in
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ Python-3.4.2/cross-python-wrapper.in	2014-12-02 17:02:50.784275253 +0100
+@@ -0,0 +1,8 @@
++#!/bin/sh
++
++_PYTHON_PROJECT_BASE=@abs_builddir@
++_PYTHON_HOST_PLATFORM=@_PYTHON_HOST_PLATFORM@
++
++export _PYTHON_PROJECT_BASE _PYTHON_HOST_PLATFORM
++
++exec @PYTHON_INTERP@ "${@}"
+Index: Python-3.4.2/configure.ac
+===================================================================
+--- Python-3.4.2.orig/configure.ac	2014-10-08 10:18:16.000000000 +0200
++++ Python-3.4.2/configure.ac	2014-12-02 17:02:41.700275265 +0100
+@@ -62,21 +62,24 @@
+         for interp in python$PACKAGE_VERSION python3 python; do
+ 	    which $interp >/dev/null 2>&1 || continue
+ 	    if $interp -c 'import sys;sys.exit(not sys.version_info@<:@:2@:>@ >= (3,3))'; then
++	        PYTHON_INTERP=$(which $interp)
+ 	        break
+ 	    fi
+-            interp=
++	        PYTHON_INTERP=
+ 	done
+-        if test x$interp = x; then
++        if test x$PYTHON_INTERP = x; then
+ 	    AC_MSG_ERROR([python$PACKAGE_VERSION interpreter not found])
+ 	fi
+-        AC_MSG_RESULT($interp)
+-	PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib:$(srcdir)/Lib/$(PLATDIR) '$interp
++        AC_MSG_RESULT($PYTHON_INTERP)
++	PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib:$(srcdir)/Lib/$(PLATDIR) '$PYTHON_INTERP
+     fi
+ elif test "$cross_compiling" = maybe; then
+     AC_MSG_ERROR([Cross compiling required --host=HOST-TUPLE and --build=ARCH])
+ else
++    PYTHON_INTERP=`which python$PACKAGE_VERSION python3 python | head -1`
+     PYTHON_FOR_BUILD='./$(BUILDPYTHON) -E'
+ fi
++AC_SUBST(PYTHON_INTERP)
+ AC_SUBST(PYTHON_FOR_BUILD)
+ 
+ dnl Ensure that if prefix is specified, it does not end in a slash. If
+@@ -4814,6 +4817,7 @@
+ 
+ # generate output files
+ AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc Misc/python-config.sh)
++AC_CONFIG_FILES(cross-python-wrapper)
+ AC_CONFIG_FILES([Modules/ld_so_aix], [chmod +x Modules/ld_so_aix])
+ AC_OUTPUT
+ 
+Index: Python-3.4.2/configure
+===================================================================
+--- Python-3.4.2.orig/configure	2014-10-08 10:18:16.000000000 +0200
++++ Python-3.4.2/configure	2014-12-02 17:03:21.828275213 +0100
+@@ -731,6 +731,7 @@
+ SOVERSION
+ VERSION
+ PYTHON_FOR_BUILD
++PYTHON_INTERP
+ host_os
+ host_vendor
+ host_cpu
+@@ -2960,25 +2961,28 @@
+         for interp in python$PACKAGE_VERSION python3 python; do
+ 	    which $interp >/dev/null 2>&1 || continue
+ 	    if $interp -c 'import sys;sys.exit(not sys.version_info[:2] >= (3,3))'; then
++	        PYTHON_INTERP=$(which $interp)
+ 	        break
+ 	    fi
+-            interp=
++	        PYTHON_INTERP=
+ 	done
+-        if test x$interp = x; then
++        if test x$PYTHON_INTERP = x; then
+ 	    as_fn_error $? "python$PACKAGE_VERSION interpreter not found" "$LINENO" 5
+ 	fi
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $interp" >&5
+-$as_echo "$interp" >&6; }
+-	PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib:$(srcdir)/Lib/$(PLATDIR) '$interp
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PYTHON_INTERP" >&5
++$as_echo "$PYTHON_INTERP" >&6; }
++	PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib:$(srcdir)/Lib/$(PLATDIR) '$PYTHON_INTERP
+     fi
+ elif test "$cross_compiling" = maybe; then
+     as_fn_error $? "Cross compiling required --host=HOST-TUPLE and --build=ARCH" "$LINENO" 5
+ else
++    PYTHON_INTERP=`which python$PACKAGE_VERSION python3 python | head -1`
+     PYTHON_FOR_BUILD='./$(BUILDPYTHON) -E'
+ fi
+ 
+ 
+ 
++
+ if test "$prefix" != "/"; then
+     prefix=`echo "$prefix" | sed -e 's/\/$//g'`
+ fi
+@@ -15421,6 +15425,8 @@
+ # generate output files
+ ac_config_files="$ac_config_files Makefile.pre Modules/Setup.config Misc/python.pc Misc/python-config.sh"
+ 
++ac_config_files="$ac_config_files cross-python-wrapper"
++
+ ac_config_files="$ac_config_files Modules/ld_so_aix"
+ 
+ cat >confcache <<\_ACEOF
+@@ -16124,6 +16130,7 @@
+     "Modules/Setup.config") CONFIG_FILES="$CONFIG_FILES Modules/Setup.config" ;;
+     "Misc/python.pc") CONFIG_FILES="$CONFIG_FILES Misc/python.pc" ;;
+     "Misc/python-config.sh") CONFIG_FILES="$CONFIG_FILES Misc/python-config.sh" ;;
++    "cross-python-wrapper") CONFIG_FILES="$CONFIG_FILES cross-python-wrapper" ;;
+     "Modules/ld_so_aix") CONFIG_FILES="$CONFIG_FILES Modules/ld_so_aix" ;;
+ 
+   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;

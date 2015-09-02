@@ -1,0 +1,27 @@
+Index: Python-3.4.2/Lib/distutils/command/build_ext.py
+===================================================================
+--- Python-3.4.2.orig/Lib/distutils/command/build_ext.py	2014-10-08 10:18:12.000000000 +0200
++++ Python-3.4.2/Lib/distutils/command/build_ext.py	2014-10-24 12:04:09.465932044 +0200
+@@ -237,7 +237,7 @@
+         # Python's library directory must be appended to library_dirs
+         # See Issues: #1600860, #4366
+         if (sysconfig.get_config_var('Py_ENABLE_SHARED')):
+-            if sys.executable.startswith(os.path.join(sys.exec_prefix, "bin")):
++            if not sysconfig.python_build:
+                 # building third party extensions
+                 self.library_dirs.append(sysconfig.get_config_var('LIBDIR'))
+             else:
+Index: Python-3.4.2/setup.py
+===================================================================
+--- Python-3.4.2.orig/setup.py	2014-10-08 10:18:16.000000000 +0200
++++ Python-3.4.2/setup.py	2014-10-24 12:04:07.225932121 +0200
+@@ -493,7 +493,8 @@
+                         add_dir_to_list(dir_list, directory)
+
+         if os.path.normpath(sys.base_prefix) != '/usr' \
+-                and not sysconfig.get_config_var('PYTHONFRAMEWORK'):
++                and not sysconfig.get_config_var('PYTHONFRAMEWORK') \
++                and not cross_compiling:
+             # OSX note: Don't add LIBDIR and INCLUDEDIR to building a framework
+             # (PYTHONFRAMEWORK is set) to avoid # linking problems when
+             # building a framework with different architectures than

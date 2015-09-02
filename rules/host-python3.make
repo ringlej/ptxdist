@@ -17,9 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON3) += host-python3
 #
 # Paths and names
 #
-HOST_PYTHON3_DIR	= $(HOST_BUILDDIR)/$(PYTHON3)
-
-HOSTPYTHON3		= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)
+HOST_PYTHON3_DIR	=  $(HOST_BUILDDIR)/$(PYTHON3)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,8 +39,8 @@ HOST_PYTHON3_AUTOCONF := \
 	--with-pymalloc \
 	--with-signal-module \
 	--with-threads \
-	--with-wctype-functions \
-	--without-doc-strings
+	--without-doc-strings \
+	--without-ensurepip
 
 # ----------------------------------------------------------------------------
 # Install
@@ -51,7 +49,6 @@ HOST_PYTHON3_AUTOCONF := \
 $(STATEDIR)/host-python3.install:
 	@$(call targetinfo)
 	@$(call install, HOST_PYTHON3,,h)
-	install -m 0755 $(HOST_PYTHON3_DIR)/Parser/pgen $(HOST_PYTHON3_PKGDIR)/bin
 #
 # remove "python" so that it doesn't interfere with the build
 # machine's python
