@@ -29,13 +29,13 @@ PYTHON_DJANGO_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_DJANGO_CONF_TOOL	:= python
+PYTHON_DJANGO_CONF_TOOL	:= python3
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-PYTHON_DJANGO_PYTHON_PATH = /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/django
+PYTHON_DJANGO_PYTHON_PATH = /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/django
 
 $(STATEDIR)/python-django.targetinstall:
 	@$(call targetinfo)

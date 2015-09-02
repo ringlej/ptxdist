@@ -2,9 +2,9 @@
 
 menuconfig PYTHON_DJANGO
 	tristate
-	select PYTHON
-	select PYTHON_SQLITE
-	select PYTHON_ZLIB
+	select PYTHON3
+	select PYTHON3_SQLITE
+	select PYTHON3_ZLIB
 	prompt "django                        "
 	help
 	  Django is a high-level Python Web framework that encourages rapid
