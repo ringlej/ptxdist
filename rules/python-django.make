@@ -64,6 +64,8 @@ $(STATEDIR)/python-django.targetinstall:
 			done; \
 		done; \
 	done
+	@$(call install_copy, python-django, 0, 0, 0644, -, \
+		$(PYTHON_DJANGO_PYTHON_PATH)/conf/locale/__init__.py)
 
 	@$(call install_finish, python-django)
 
