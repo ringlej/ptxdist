@@ -104,7 +104,7 @@ $(STATEDIR)/python3.install.post:
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
 
 	# Byte compile all libraries
-	@$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR) -m compileall -b -q $(PYTHON3_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)
+	@$(HOSTPYTHON3) -m compileall -b -q $(PYTHON3_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
