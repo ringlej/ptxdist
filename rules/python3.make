@@ -84,12 +84,22 @@ $(STATEDIR)/python3.install:
 	@$(call install, PYTHON3)
 	@$(call touch)
 
+PYTHON3_PLATFORM := $(call remove_quotes,$(PTXCONF_ARCH_STRING))
+ifdef PTXCONF_ARCH_ARM64
+PYTHON3_PLATFORM := arm
+endif
+
 $(STATEDIR)/python3.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, PYTHON3)
 
-	@cp "$(PYTHON3_DIR)/cross-python-wrapper" "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
-	@chmod a+x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@rm -f "$(CROSS_PYTHON3)"
+	@echo '#!/bin/sh'						>> "$(CROSS_PYTHON3)"
+	@echo '_PYTHON_PROJECT_BASE=$(PYTHON3_DIR)'			>> "$(CROSS_PYTHON3)"
+	@echo '_PYTHON_HOST_PLATFORM=linux2-$(PYTHON3_PLATFORM)'	>> "$(CROSS_PYTHON3)"
+	@echo 'export _PYTHON_PROJECT_BASE _PYTHON_HOST_PLATFORM'	>> "$(CROSS_PYTHON3)"
+	@echo 'exec $(HOSTPYTHON3) "$${@}"'				>> "$(CROSS_PYTHON3)"
+	@chmod a+x "$(CROSS_PYTHON3)"
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
 
