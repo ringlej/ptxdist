@@ -48,6 +48,7 @@ PYTHON3_ENV 	:= \
 	ac_cv_broken_sem_getvalue=no \
 	ac_cv_file__dev_ptmx=no \
 	ac_cv_file__dev_ptc=no \
+	ac_cv_working_tzset=yes \
 	LDFLAGS="-L $(PTXDIST_SYSROOT_TARGET)/lib/ \
 		 -L $(PTXDIST_SYSROOT_TARGET)/usr/lib/"
 
