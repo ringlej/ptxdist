@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PYTHON3) += python3
 #
 # Paths and names
 #
-PYTHON3_VERSION		:= 3.4.2
-PYTHON3_MD5		:= 5566bc7e1fdf6bed45f9a750d5f80fc2
+PYTHON3_VERSION		:= 3.5.0
+PYTHON3_MD5		:= d149d2812f10cbe04c042232e7964171
 PYTHON3_MAJORMINOR	:= $(basename $(PYTHON3_VERSION))
 PYTHON3_SITEPACKAGES	:= /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages
 PYTHON3			:= Python-$(PYTHON3_VERSION)
-PYTHON3_SUFFIX		:= tgz
+PYTHON3_SUFFIX		:= tar.xz
 PYTHON3_SOURCE		:= $(SRCDIR)/$(PYTHON3).$(PYTHON3_SUFFIX)
 PYTHON3_DIR		:= $(BUILDDIR)/$(PYTHON3)
 
@@ -36,8 +36,8 @@ CROSS_PYTHON3		:= $(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON3_PATH	:= PATH=$(HOST_PATH)
-PYTHON3_ENV 	:= \
+# Note: the LDFLAGS are used by Python scripts
+PYTHON3_ENV	:= \
 	$(CROSS_ENV) \
 	ac_sys_system=Linux \
 	ac_sys_release=2 \
@@ -52,23 +52,26 @@ PYTHON3_ENV 	:= \
 	LDFLAGS="-L $(PTXDIST_SYSROOT_TARGET)/lib/ \
 		 -L $(PTXDIST_SYSROOT_TARGET)/usr/lib/"
 
+
 PYTHON3_BINCONFIG_GLOB := ""
 
 #
 # autoconf
 #
-PYTHON3_AUTOCONF := \
+PYTHON3_CONF_TOOL	:= autoconf
+PYTHON3_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--enable-shared \
-	--with-pymalloc \
+	--with-system-expat \
+	--with-system-ffi \
 	--with-signal-module \
-	--with-threads \
+	--with-threads=pthread \
 	--without-doc-strings \
+	--without-tsc \
+	--with-pymalloc \
+	--without-valgrind \
 	--without-ensurepip
-
-PYTHON3_MAKEVARS := \
-	PGEN_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/pgen
 
 # ----------------------------------------------------------------------------
 # Install
@@ -77,11 +80,14 @@ PYTHON3_MAKEVARS := \
 $(STATEDIR)/python3.install:
 	@$(call targetinfo)
 
-	# Remove unimportant libfiles that produce errors when compiled
-	@rm -vrf $(BUILDDIR)/Python-$(PYTHON3_VERSION)/Lib/lib2to3
-	@rm -vrf $(BUILDDIR)/Python-$(PYTHON3_VERSION)/Lib/test
+#	# remove unneeded stuff
+	@find $(PYTHON3_DIR) \( -name test -o -name tests \) -print0 | xargs -0 rm -vrf
 
 	@$(call install, PYTHON3)
+
+	@rm -vrf $(PYTHON3_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/config-$(PYTHON3_MAJORMINOR)m
+	@$(call world/env, PYTHON3) ptxd_make_world_install_python_cleanup
+
 	@$(call touch)
 
 PYTHON3_PLATFORM := $(call remove_quotes,$(PTXCONF_ARCH_STRING))
@@ -103,21 +109,28 @@ $(STATEDIR)/python3.install.post:
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
 
-	# Byte compile all libraries
-	@$(HOSTPYTHON3) -m compileall -b -q $(PYTHON3_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= lib-tk
+# These cannot be disabled during build, so just don't install the disabled modules
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_NCURSES)	+= curses _curses*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SQLITE)	+= sqlite3
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_BZ2)		+= bz2.pyc _bz2*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LZMA)		+= lzma.pyc _lzma*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_ZLIB)		+= gzip.pyc zlib*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_READLINE)	+= readline*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DB)		+= dbm _dbm*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SSL)		+= ssl.pyc _ssl*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= tkinter
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_IDLELIB)	+= idlelib
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DISTUTILS)	+= distutils
 
 ifneq ($(PYTHON3_SKIP-y),)
-PYTHON3_SKIP_LIST_PRE  :=-a \! -wholename $(quote)*/
-PYTHON3_SKIP_LIST_POST :=/*$(quote)
+PYTHON3_SKIP_LIST_PRE  :=-o -name $(quote)
+PYTHON3_SKIP_LIST_POST :=$(quote)
 
 PYTHON3_SKIP_LIST := $(subst $(space),$(PYTHON3_SKIP_LIST_POST) $(PYTHON3_SKIP_LIST_PRE),$(PYTHON3_SKIP-y))
 PYTHON3_SKIP_LIST := $(PYTHON3_SKIP_LIST_PRE)$(PYTHON3_SKIP_LIST)$(PYTHON3_SKIP_LIST_POST)
@@ -135,9 +148,9 @@ $(STATEDIR)/python3.targetinstall:
 
 	@cd $(PYTHON3_PKGDIR) && \
 		find ./usr/lib/python$(PYTHON3_MAJORMINOR) \
-		\! -wholename "*/test/*" -a \! -wholename "*/tests/*" \
-		$(PYTHON3_SKIP_LIST) \
-		-a \( -name "*.so" -o -name "*.pyc" \) | \
+		\( -name test -o -name tests -o -name __pycache__ \
+		$(PYTHON3_SKIP_LIST) \) -prune \
+		-o -name "*.so" -print -o -name "*.pyc" -print | \
 		while read file; do \
 		$(call install_copy, python3, 0, 0, 644, -, $${file##.}); \
 	done

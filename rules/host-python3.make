@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON3) += host-python3
 #
 # Paths and names
 #
-HOST_PYTHON3_DIR	=  $(HOST_BUILDDIR)/$(PYTHON3)
+HOST_PYTHON3_DIR	= $(HOST_BUILDDIR)/$(PYTHON3)
 
 HOSTPYTHON3		= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)
 
@@ -25,7 +25,6 @@ HOSTPYTHON3		= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_PYTHON3_PATH	:= PATH=$(HOST_PATH)
 HOST_PYTHON3_ENV	:= \
 	$(HOST_ENV) \
 	ac_sys_system=Linux \
@@ -35,7 +34,8 @@ HOST_PYTHON3_ENV	:= \
 #
 # autoconf
 #
-HOST_PYTHON3_AUTOCONF := \
+HOST_PYTHON3_CONF_TOOL	:= autoconf
+HOST_PYTHON3_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-shared \
 	--with-pymalloc \
