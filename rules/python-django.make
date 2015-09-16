@@ -48,7 +48,7 @@ $(STATEDIR)/python-django.targetinstall:
 
 #	# everything but locales
 	@cd "$(PYTHON_DJANGO_PKGDIR)$(PYTHON_DJANGO_PYTHON_PATH)" && \
-	find -type d -name locale -prune -o -type f -printf '%P\n' | while read fn; do \
+	find -type d -name locale -prune -o -type f ! -name "*.py" -printf '%P\n' | while read fn; do \
 		$(call install_copy, python-django, 0, 0, 0644, -, \
 			$(PYTHON_DJANGO_PYTHON_PATH)/$$fn); \
 	done
@@ -65,7 +65,7 @@ $(STATEDIR)/python-django.targetinstall:
 		done; \
 	done
 	@$(call install_copy, python-django, 0, 0, 0644, -, \
-		$(PYTHON_DJANGO_PYTHON_PATH)/conf/locale/__init__.py)
+		$(PYTHON_DJANGO_PYTHON_PATH)/conf/locale/__init__.pyc)
 
 	@$(call install_finish, python-django)
 
