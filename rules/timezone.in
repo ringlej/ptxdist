@@ -57,7 +57,9 @@ config TIMEZONE_FACTORY
 
 config TIMEZONE_GMT0
 	bool
-	prompt "GMT-0"
+	prompt "GMT0"
+	help
+	  This includes GMT-0 and GMT+0
 
 config TIMEZONE_ICELAND
 	bool
@@ -98,10 +100,6 @@ config TIMEZONE_EGYPT
 config TIMEZONE_GB
 	bool
 	prompt "GB"
-
-config TIMEZONE_GMT0
-	bool
-	prompt "GMT0"
 
 config TIMEZONE_INDIAN
 	bool
@@ -234,10 +232,6 @@ config TIMEZONE_CST6CDT
 config TIMEZONE_EST
 	bool
 	prompt "EST"
-
-config TIMEZONE_GMT0
-	bool
-	prompt "GMT+0"
 
 config TIMEZONE_HONGKONG
 	bool
