@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_STRONGSWAN) += strongswan
 #
 # Paths and names
 #
-STRONGSWAN_VERSION	:= 5.3.2
-STRONGSWAN_MD5		:= fab014be1477ef4ebf9a765e10f8802c
+STRONGSWAN_VERSION	:= 5.3.3
+STRONGSWAN_MD5		:= 5a25f3d1c31a77ef44d14a2e7b3eaad0
 STRONGSWAN		:= strongswan-$(STRONGSWAN_VERSION)
 STRONGSWAN_SUFFIX	:= tar.bz2
 STRONGSWAN_URL		:= https://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
@@ -38,6 +38,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-bliss \
 	--disable-blowfish \
 	--disable-ccm \
+	--disable-chapoly \
 	--enable-cmac \
 	--disable-ctr \
 	--disable-des \
@@ -142,6 +143,8 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-imv-attestation \
 	--disable-imc-swid \
 	--disable-imv-swid \
+	--disable-imc-hcd \
+	--disable-imv-hcd \
 	--disable-tnc-ifmap \
 	--disable-tnc-imc \
 	--disable-tnc-imv \
