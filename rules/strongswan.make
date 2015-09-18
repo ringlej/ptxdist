@@ -33,55 +33,55 @@ STRONGSWAN_LICENSE	:= GPL
 STRONGSWAN_CONF_TOOL	:= autoconf
 STRONGSWAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_STRONGSWAN_LIBCURL)-curl \
-	--$(call ptx/endis, PTXCONF_STRONGSWAN_OPENSSL)-openssl \
-	--disable-unbound \
-	--disable-soup \
-	--disable-ldap \
 	--enable-aes \
-	--disable-des \
+	--$(call ptx/endis, PTXCONF_STRONGSWAN_AFALG)-af-alg \
+	--disable-bliss \
 	--disable-blowfish \
+	--disable-ccm \
+	--enable-cmac \
+	--disable-ctr \
+	--disable-des \
+	--enable-fips-prf \
+	--enable-gcm \
+	--disable-gcrypt \
+	--enable-gmp \
+	--enable-hmac \
 	--disable-md4 \
 	--disable-md5 \
+	--enable-nonce \
+	--disable-ntru \
+	--$(call ptx/endis, PTXCONF_STRONGSWAN_OPENSSL)-openssl \
+	--disable-padlock \
+	--enable-random \
+	--disable-rc2 \
+	--disable-rdrand \
 	--disable-aesni \
 	--enable-sha1 \
 	--enable-sha2 \
-	--enable-fips-prf \
-	--enable-gmp \
-	--disable-rdrand \
-	--enable-random \
-	--disable-rc2 \
-	--enable-nonce \
-	--disable-ntru \
-	--enable-x509 \
-	--enable-revocation \
-	--enable-constraints \
-	--enable-pubkey \
-	--disable-sshkey \
+	--enable-xcbc \
+	--enable-dnskey \
+	--enable-pem \
+	--enable-pgp \
 	--enable-pkcs1 \
 	--enable-pkcs7 \
 	--enable-pkcs8 \
 	--disable-pkcs12 \
-	--enable-pgp \
-	--enable-dnskey \
-	--disable-ipseckey \
-	--disable-keychain \
-	--enable-pem \
-	--enable-hmac \
-	--enable-cmac \
-	--enable-xcbc \
-	--$(call ptx/endis, PTXCONF_STRONGSWAN_AFALG)-af-alg \
-	--disable-test-vectors \
+	--enable-pubkey \
+	--disable-sshkey \
+	--enable-x509 \
+	--$(call ptx/endis, PTXCONF_STRONGSWAN_LIBCURL)-curl \
+	--disable-files \
+	--disable-ldap \
+	--disable-soup \
+	--disable-unbound \
+	--disable-winhttp \
 	--disable-mysql \
 	--disable-sqlite \
-	--enable-stroke \
-	--disable-medsrv \
-	--disable-medcli \
-	--disable-smp \
-	--disable-sql \
-	--disable-leak-detective \
-	--disable-lock-profiler \
-	--disable-load-tester \
+	--disable-addrblock \
+	--enable-acert \
+	--disable-agent \
+	--enable-constraints \
+	--disable-coupling \
 	--disable-dnscert \
 	--disable-eap-sim \
 	--disable-eap-sim-file \
@@ -101,17 +101,37 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-eap-tnc \
 	--disable-eap-dynamic \
 	--disable-eap-radius \
+	--disable-ext-auth \
+	--disable-ipseckey \
+	--disable-keychain \
+	--disable-pkcs11 \
+	--enable-revocation \
+	--disable-whitelist \
 	--enable-xauth-generic \
 	--disable-xauth-eap \
 	--disable-xauth-pam \
 	--disable-xauth-noauth \
-	--disable-tnc-ifmap \
-	--disable-tnc-pdp \
-	--disable-tnc-imc \
-	--disable-tnc-imv \
-	--disable-tnccs-11 \
-	--disable-tnccs-20 \
-	--disable-tnccs-dynamic \
+	--enable-kernel-netlink \
+	--disable-kernel-pfkey \
+	--disable-kernel-pfroute \
+	--disable-kernel-iph \
+	--disable-kernel-libipsec \
+	--disable-kernel-wfp \
+	--enable-socket-default \
+	--disable-socket-dynamic \
+	--disable-socket-win \
+	--enable-stroke \
+	--disable-smp \
+	--disable-sql \
+	--disable-uci \
+	--disable-vici \
+	--disable-android-dns \
+	--enable-attr \
+	--disable-attr-sql \
+	--disable-dhcp \
+	--disable-osx-attr \
+	--enable-resolve \
+	--disable-unity \
 	--disable-imc-test \
 	--disable-imv-test \
 	--disable-imc-scanner \
@@ -122,71 +142,63 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-imv-attestation \
 	--disable-imc-swid \
 	--disable-imv-swid \
-	--enable-kernel-netlink \
-	--disable-kernel-pfkey \
-	--disable-kernel-pfroute \
-	--disable-kernel-libipsec \
-	--disable-libipsec \
-	--enable-socket-default \
-	--disable-socket-dynamic \
-	--disable-farp \
-	--disable-dumm \
-	--disable-fast \
-	--disable-manager \
-	--disable-mediation \
-	--disable-integrity-test \
-	--enable-load-warning \
-	--enable-ikev1 \
-	--enable-ikev2 \
-	--enable-charon \
-	--disable-cmd \
-	--enable-pki \
-	--enable-scepclient \
-	--enable-scripts \
-	--disable-conftest \
-	--enable-updown \
-	--enable-attr \
-	--disable-attr-sql \
-	--disable-dhcp \
-	--disable-osx-attr \
-	--enable-resolve \
-	--disable-padlock \
-	--disable-gcrypt \
-	--disable-agent \
-	--disable-pkcs11 \
-	--disable-ctr \
-	--disable-ccm \
-	--enable-gcm \
-	--disable-addrblock \
-	--enable-acert \
-	--disable-unity \
-	--disable-uci \
-	--disable-android-dns \
+	--disable-tnc-ifmap \
+	--disable-tnc-imc \
+	--disable-tnc-imv \
+	--disable-tnc-pdp \
+	--disable-tnccs-11 \
+	--disable-tnccs-20 \
+	--disable-tnccs-dynamic \
 	--disable-android-log \
-	--disable-maemo \
-	--disable-nm \
-	--disable-ha \
-	--disable-whitelist \
-	--disable-lookip \
-	--disable-error-notify \
 	--disable-certexpire \
 	--disable-connmark \
 	--disable-forecast \
-	--disable-systime-fix \
-	--disable-led \
 	--disable-duplicheck \
-	--disable-coupling \
+	--disable-error-notify \
+	--disable-farp \
+	--disable-ha \
+	--disable-led \
+	--disable-load-tester \
+	--disable-lookip \
+	--disable-maemo \
 	--disable-radattr \
-	--disable-monolithic \
+	--disable-systime-fix \
+	--disable-test-vectors \
+	--enable-updown \
+	--disable-aikgen \
+	--enable-charon \
+	--disable-cmd \
+	--disable-conftest \
+	--disable-dumm \
+	--disable-fast \
+	--disable-libipsec \
+	--disable-manager \
+	--disable-medcli \
+	--disable-medsrv \
+	--disable-nm \
+	--enable-pki \
+	--enable-scepclient \
+	--enable-scripts \
+	--disable-svc \
+	--$(call ptx/endis, PTXCONF_STRONGSWAN_SYSTEMD_UNIT)-systemd \
+	--disable-swanctl \
+	--disable-tkm \
 	--disable-bfd-backtraces \
+	--disable-dbghelp-backtraces \
+	--enable-ikev1 \
+	--enable-ikev2 \
+	--disable-integrity-test \
+	--enable-load-warning \
+	--disable-mediation \
 	--disable-unwind-backtraces \
 	--disable-ruby-gems \
 	--disable-ruby-gems-install \
 	--disable-python-eggs \
 	--disable-python-eggs-install \
-	--disable-files \
 	--disable-coverage \
-	--disable-tkm \
+	--disable-leak-detective \
+	--disable-lock-profiler \
+	--disable-monolithic \
 	--disable-defaults \
 	--enable-dependency-tracking \
 	--enable-shared \
@@ -246,7 +258,7 @@ $(STATEDIR)/strongswan.targetinstall:
 	@$(call install_init, strongswan)
 	@$(call install_fixup, strongswan,PRIORITY,optional)
 	@$(call install_fixup, strongswan,SECTION,base)
-	@$(call install_fixup, strongswan,AUTHOR,"Christoph Fritz <chf.fritz@googlemail.com>")
+	@$(call install_fixup, strongswan,AUTHOR,"Christoph Fritz <chf@fritzc.com>")
 	@$(call install_fixup, strongswan,DESCRIPTION,missing)
 
 	@$(call install_alternative, strongswan, 0, 0, 0644, /etc/strongswan.conf)
