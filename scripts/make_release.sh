@@ -2,7 +2,45 @@
 
 set -e
 
-origin=origin
+usage() {
+cat <<-EOF
+
+Usage: `basename "$0"` OPTIONS [origin] [master] [stable]
+
+    -h              this help
+    -t <tagopts>    Options to pass to git tag. Default: -s
+    -s <suffix>     Suffix to append to release tag name. Default is no suffix
+
+    [origin]        The git remote to push to. Default: origin
+    [master]        The master branch for new releases. Default: master
+    [stable]        The stable/ branch branch dir for stable releases. Default: stable
+EOF
+}
+
+suffix=
+tagopts=-s
+
+while getopts "ht:s:" OPT
+do
+    case "$OPT" in
+	h)
+	    usage
+	    exit 1
+	    ;;
+	t)
+	    tagopts="$OPTARG"
+	    ;;
+	s)
+	    suffix="_$OPTARG"
+	    ;;
+    esac
+done
+shift $(expr $OPTIND - 1)
+
+origin=${1:-origin}
+master=${2:-master}
+stable=${3:-stable}
+
 v="ptxdist-"
 
 branch="$(git symbolic-ref HEAD)"
@@ -29,23 +67,23 @@ fi
 
 # guess if we're going to make a new or stable release
 case "${branch}" in
-    master)
-	release="${v}$(date +%Y.%m).0"
-	prev_release="${v}*.0"
+    ${master})
+	release="${v}$(date +%Y.%m).0${suffix}"
+	prev_release="${v}*.0${suffix}"
 	;;
-    stable/*)
-	release="${branch##stable/}"
-	release="${release%.x}"
-	inc="$(git tag -l "${release}.*" | wc -l)"
+    ${stable}/*)
+	release="${branch##${stable}/}"
+	release="${release%.x${suffix}}"
+	inc="$(git tag -l "${release}.*${suffix}" | wc -l)"
 	if [ ${inc} -eq 0 ]; then
 	    echo "about to make stable a release for '${release}', but no '.0' found" >&2
 	    exit 1
 	fi
-	prev_release="${release}.$((inc - 1))"
-	release="${release}.${inc}"
+	prev_release="${release}.$((inc - 1))${suffix}"
+	release="${release}.${inc}${suffix}"
 	;;
     *)
-	echo "please checkout either master or stable branch" >&2
+	echo "please checkout either ${master} or ${stable} branch" >&2
 	exit 1
 	;;
 esac
@@ -70,7 +108,7 @@ log="${tmp}/log"
 printf "${release}\n\n" > "${log}"
 git shortlog "${prev_release}"..HEAD >> "${log}"
 echo "creating tag '${release}'"
-git tag -s -F "${log}" "${release}"
+git tag ${tagopts} -F "${log}" "${release}"
 
 # create tarball
 here="$(pwd)"

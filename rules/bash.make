@@ -32,6 +32,7 @@ BASH_LICENSE	:= GPLv2
 BASH_PATH	:= PATH=$(CROSS_PATH)
 BASH_ENV	:= $(CROSS_ENV)
 
+BASH_ENV    += bash_cv_unusable_rtsigs=yes
 
 BASH_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_ROOT) \
