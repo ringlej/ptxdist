@@ -1,0 +1,40 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 15 Sep 2015 12:27:00 +0200
+Subject: [PATCH] use shipped sources
+
+Only depend on generator tools existence. This way shipped sources are used
+and no extra host tools are needed. This is especially useful when
+cross-compiling because the tools are built for the target architecture.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.pre.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index ce2c0aa29006..4779227a7845 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -696,11 +696,11 @@ Programs/_freeze_importlib.o: Programs/_freeze_importlib.c Makefile
+ Programs/_freeze_importlib: Programs/_freeze_importlib.o $(LIBRARY_OBJS_OMIT_FROZEN)
+ 	$(LINKCC) $(PY_LDFLAGS) -o $@ Programs/_freeze_importlib.o $(LIBRARY_OBJS_OMIT_FROZEN) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
+ 
+-Python/importlib_external.h: $(srcdir)/Lib/importlib/_bootstrap_external.py Programs/_freeze_importlib
++Python/importlib_external.h: $(srcdir)/Lib/importlib/_bootstrap_external.py | Programs/_freeze_importlib
+ 	./Programs/_freeze_importlib \
+ 		$(srcdir)/Lib/importlib/_bootstrap_external.py Python/importlib_external.h
+ 
+-Python/importlib.h: $(srcdir)/Lib/importlib/_bootstrap.py Programs/_freeze_importlib
++Python/importlib.h: $(srcdir)/Lib/importlib/_bootstrap.py | Programs/_freeze_importlib
+ 	./Programs/_freeze_importlib \
+ 		$(srcdir)/Lib/importlib/_bootstrap.py Python/importlib.h
+ 
+@@ -762,7 +762,7 @@ Python/sysmodule.o: $(srcdir)/Python/sysmodule.c Makefile
+ 
+ $(IO_OBJS): $(IO_H)
+ 
+-$(GRAMMAR_H): $(GRAMMAR_INPUT) $(PGEN)
++$(GRAMMAR_H): $(GRAMMAR_INPUT) | $(PGEN)
+ 		@$(MKDIR_P) Include
+ 		$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+ $(GRAMMAR_C): $(GRAMMAR_H)

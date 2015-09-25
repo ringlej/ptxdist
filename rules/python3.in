@@ -2,18 +2,25 @@
 
 menuconfig PYTHON3
 	tristate "python3                       "
+	select HOST_PYTHON3
 	select LIBC_DL
+	select LIBC_CRYPT
+	select LIBC_M
+	select LIBC_NSL
 	select LIBC_UTIL
 	select LIBC_PTHREAD
-	select HOST_PYTHON3
 	select GCCLIBS_CXX
+	select EXPAT
+	select LIBFFI
 	select NCURSES		if PYTHON3_NCURSES
 	select SQLITE		if PYTHON3_SQLITE
 	select BZIP2		if PYTHON3_BZ2
 	select BZIP2_LIBBZ2	if PYTHON3_BZ2
+	select XZ		if PYTHON3_LZMA
 	select ZLIB		if PYTHON3_ZLIB
 	select READLINE		if PYTHON3_READLINE
 	select DB		if PYTHON3_DB
+	select OPENSSL		if PYTHON3_SSL
 	help
 	  Python is a dynamic object-oriented programming
 	  language that can be used for many kinds of
@@ -33,6 +40,9 @@ config PYTHON3_SQLITE
 config PYTHON3_BZ2
 	bool "libbz2 bindings"
 
+config PYTHON3_LZMA
+	bool "lzma bindings"
+
 config PYTHON3_ZLIB
 	bool "zlib bindings"
 
@@ -42,6 +52,9 @@ config PYTHON3_READLINE
 config PYTHON3_DB
 	bool "db bindings"
 
+config PYTHON3_SSL
+	bool "ssl bindings"
+
 config PYTHON3_SYMLINK
 	bool
 	prompt "install symbolic link /usr/bin/python"
@@ -49,7 +62,7 @@ config PYTHON3_SYMLINK
 
 config PYTHON3_LIBTK
 	bool
-	prompt "Include lib-tk packages"
+	prompt "Include TK packages"
 
 config PYTHON3_IDLELIB
 	bool

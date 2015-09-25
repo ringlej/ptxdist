@@ -1,8 +1,5 @@
 ## SECTION=core
 
-# comment "Time zone support doesn't work with OSELAS.Toolchain-1.1.0"
-# comment "and prio versions, hence marked as broken for now"
-
 menuconfig TIMEZONE
 	tristate
 	prompt "Timezone Files                "
@@ -60,7 +57,9 @@ config TIMEZONE_FACTORY
 
 config TIMEZONE_GMT0
 	bool
-	prompt "GMT-0"
+	prompt "GMT0"
+	help
+	  This includes GMT-0 and GMT+0
 
 config TIMEZONE_ICELAND
 	bool
@@ -101,10 +100,6 @@ config TIMEZONE_EGYPT
 config TIMEZONE_GB
 	bool
 	prompt "GB"
-
-config TIMEZONE_GMT0
-	bool
-	prompt "GMT0"
 
 config TIMEZONE_INDIAN
 	bool
@@ -237,10 +232,6 @@ config TIMEZONE_CST6CDT
 config TIMEZONE_EST
 	bool
 	prompt "EST"
-
-config TIMEZONE_GMT0
-	bool
-	prompt "GMT+0"
 
 config TIMEZONE_HONGKONG
 	bool
