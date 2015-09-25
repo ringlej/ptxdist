@@ -29,6 +29,9 @@ PSLIB_LICENSE	:= LGPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
+PSLIB_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_prog_DOC_TO_MAN=
 #
 # autoconf
 #

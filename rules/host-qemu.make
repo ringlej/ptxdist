@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.2.0
-HOST_QEMU_MD5		:= f7a5e2da22d057eb838a91da7aff43c8
+HOST_QEMU_VERSION	:= 2.3.0
+HOST_QEMU_MD5		:= 2fab3ea4460de9b57192e5b8b311f221
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -77,13 +77,14 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-docs \
 	--disable-vhost-net \
 	--disable-spice \
-	--disable-glx \
+	--disable-opengl \
 	--disable-rbd \
 	--disable-libiscsi \
 	--disable-libnfs \
 	--disable-smartcard-nss \
 	--disable-libusb \
 	--disable-usb-redir \
+	--disable-bzip2 \
 	--disable-guest-agent \
 	--disable-seccomp \
 	--disable-glusterfs \

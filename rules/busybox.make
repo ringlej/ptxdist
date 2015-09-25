@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.23.1
-BUSYBOX_MD5	:= 5c94d6301a964cd91619bd4d74605245
+BUSYBOX_VERSION	:= 1.23.2
+BUSYBOX_MD5	:= 7925683d7dd105aabe9b6b618d48cc73
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
 BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -222,6 +222,13 @@ ifdef PTXCONF_BUSYBOX_TELNETD_SYSTEMD_UNIT
 		/lib/systemd/system/telnetd@.service)
 	@$(call install_link, busybox, ../telnetd.socket, \
 		/lib/systemd/system/sockets.target.wants/telnetd.socket)
+endif
+
+ifdef PTXCONF_BUSYBOX_CROND_SYSTEMD_UNIT
+	@$(call install_alternative, busybox, 0, 0, 0644, \
+		/lib/systemd/system/crond.service)
+	@$(call install_link, busybox, ../crond.service, \
+		/lib/systemd/system/multi-user.target.wants/crond.service)
 endif
 
 #	#

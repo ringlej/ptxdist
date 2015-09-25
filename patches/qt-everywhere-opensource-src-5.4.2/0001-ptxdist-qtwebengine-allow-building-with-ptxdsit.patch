@@ -1,0 +1,30 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 12 May 2015 11:38:35 +0200
+Subject: [PATCH] ptxdist: qtwebengine: allow building with ptxdsit
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtwebengine/tools/qmake/mkspecs/features/functions.prf | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/qtwebengine/tools/qmake/mkspecs/features/functions.prf b/qtwebengine/tools/qmake/mkspecs/features/functions.prf
+index 4c2547d571db..6b5d34b527a5 100644
+--- a/qtwebengine/tools/qmake/mkspecs/features/functions.prf
++++ b/qtwebengine/tools/qmake/mkspecs/features/functions.prf
+@@ -12,6 +12,7 @@ defineTest(isPlatformSupported) {
+   !isPythonVersionSupported(): return(false)
+   linux-g++*|win32-msvc2013|macx-clang: return(true)
+   boot2qt: return(true)
++  linux-ptx-g++: return(true)
+ 
+   skipBuild("Qt WebEngine can currently only be built for Linux (GCC), Windows (MSVC 2013), OS X (XCode 5.1+) or Qt for Device Creation.")
+   return(false)
+@@ -61,7 +62,7 @@ defineReplace(getChromiumSrcDir) {
+ }
+ 
+ defineReplace(extractCFlag) {
+-    CFLAGS = $$QMAKE_CC $$QMAKE_CFLAGS
++    CFLAGS = $$QMAKE_CC $$QMAKE_CFLAGS $$PTX_QMAKE_CFLAGS
+     !isEmpty(ANDROID_TARGET_CFLAGS): CFLAGS = $$ANDROID_TARGET_CFLAGS
+     OPTION = $$find(CFLAGS, $$1)
+     OPTION = $$split(OPTION, =)

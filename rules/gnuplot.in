@@ -6,8 +6,8 @@ menuconfig GNUPLOT
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	select ZLIB
-	select LIBPNG if GNUPLOT_PNG
-	select XORG_LIB_XT if GNUPLOT_X
+	select LIBGD		if GNUPLOT_GD
+	select XORG_LIB_XT	if GNUPLOT_X
 	help
 	  A command-line driven interactive plotting program for
 	  making 2D and 3D graphs from data and functions.
@@ -49,26 +49,9 @@ config GNUPLOT_X
 	help
 	  Enable the graphical X11 user interface of GNUplot
 
-config GNUPLOT_PLOT
-	bool
-	prompt "use Unix plot library"
-	depends on BROKEN
-	help
-	  If you link this program with the Unix plot library
-	  (rather outdated) it will be able to generate Unix
-	  plot output.
-
-config GNUPLOT_PNG
-	bool
-	prompt "PNG support"
-	help
-	  Include support for PNG (Portable Network Graphics)
-	  graphics format
-
 config GNUPLOT_GD
 	bool
 	prompt "GD support"
-	depends on BROKEN
 	help
 	  Use the GD library.
 	  GD is an open source code library for the dynamic

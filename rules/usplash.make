@@ -13,7 +13,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_X86_64
 PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_USPLASH) += usplash
+endif
 
 #
 # Paths and names

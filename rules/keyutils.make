@@ -8,8 +8,8 @@ PACKAGES-$(PTXCONF_KEYUTILS) += keyutils
 #
 # Paths and names
 #
-KEYUTILS_VERSION	:= 1.5.5
-KEYUTILS_MD5		:= d759680b2f23c99af95938f5026f25fb
+KEYUTILS_VERSION	:= 1.5.9
+KEYUTILS_MD5		:= 7f8ac985c45086b5fbcd12cecd23cf07
 KEYUTILS		:= keyutils-$(KEYUTILS_VERSION)
 KEYUTILS_SUFFIX		:= tar.bz2
 KEYUTILS_URL		:= http://people.redhat.com/~dhowells/keyutils/$(KEYUTILS).$(KEYUTILS_SUFFIX)
@@ -24,12 +24,13 @@ KEYUTILS_LICENSE	:= GPLv2+, LGPLv2.1+
 KEYUTILS_CONF_TOOL := NO
 KEYUTILS_MAKE_OPT := \
 	$(CROSS_ENV_CC) \
-	BUILDFOR=""
+	CFLAGS="-O2 -g3 -Wall" \
+	BUILDFOR="" \
+	LIBDIR=/lib \
+	USRLIBDIR=/usr/lib
 
 KEYUTILS_INSTALL_OPT := \
 	$(KEYUTILS_MAKE_OPT) \
-	LIBDIR=/lib \
-	USRLIBDIR=/usr/lib \
 	install
 
 # ----------------------------------------------------------------------------

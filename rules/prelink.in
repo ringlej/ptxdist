@@ -21,6 +21,7 @@ config PRELINK_RC_ONCE
 	help
 	  install a script that will be run on the first boot to
 	  prelink all programs and libraries.
+	  warning! this can increase first boot with a few minutes!
 
 config PRELINK_SKIP_ON_NFSROOT
 	bool

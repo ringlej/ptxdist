@@ -46,7 +46,7 @@ config SYSLOGNG_CONFIG
 	  Installs (if present) the "./projectroot/etc/syslog-ng.conf"
 	  file from your workspace, otherwise a generic one from the
 	  ptxdist installation
-	  ("<PTXDIST>/generic/etc/syslog-ng.conf").
+	  ("<PTXDIST>/projectroot/etc/syslog-ng.conf").
 
 config SYSLOGNG_STARTSCRIPT
 	bool
@@ -55,6 +55,6 @@ config SYSLOGNG_STARTSCRIPT
 	  Installs (if present) the
 	  "./projectroot/etc/init.d/syslog-ng" startscript from your
 	  workspace, otherwise a generic one from the ptxdist
-	  installation ("<PTXDIST>/generic/etc/init.d/syslog-ng").
+	  installation ("<PTXDIST>/projectroot/etc/init.d/syslog-ng").
 
 endif

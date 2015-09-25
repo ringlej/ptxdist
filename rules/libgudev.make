@@ -1,0 +1,66 @@
+# -*-makefile-*-
+#
+# Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_LIBGUDEV) += libgudev
+
+#
+# Paths and names
+#
+ifdef PTXCONF_SYSTEMD
+LIBGUDEV_VERSION	:= 230
+LIBGUDEV_MD5		:= e4dee8f3f349e9372213d33887819a4d
+LIBGUDEV		:= libgudev-$(LIBGUDEV_VERSION)
+LIBGUDEV_SUFFIX		:= tar.xz
+LIBGUDEV_URL		:= https://download.gnome.org/sources/libgudev/$(LIBGUDEV_VERSION)/$(LIBGUDEV).$(LIBGUDEV_SUFFIX)
+LIBGUDEV_SOURCE		:= $(SRCDIR)/$(LIBGUDEV).$(LIBGUDEV_SUFFIX)
+LIBGUDEV_DIR		:= $(BUILDDIR)/$(LIBGUDEV)
+LIBGUDEV_LICENSE	:= LGPLv2.1+
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+#
+# autoconf
+#
+LIBGUDEV_CONF_TOOL	:= autoconf
+LIBGUDEV_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
+	--disable-introspection
+endif
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libgudev.targetinstall:
+	@$(call targetinfo)
+
+ifdef PTXCONF_SYSTEMD
+	@$(call install_init, libgudev)
+	@$(call install_fixup, libgudev,PRIORITY,optional)
+	@$(call install_fixup, libgudev,SECTION,base)
+	@$(call install_fixup, libgudev,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
+	@$(call install_fixup, libgudev,DESCRIPTION,missing)
+
+	@$(call install_lib, libgudev, 0, 0, 0644, libgudev-1.0)
+
+	@$(call install_finish, libgudev)
+endif
+
+	@$(call touch)
+
+# vim: syntax=make

@@ -35,6 +35,7 @@ FBV_DIR		:= $(BUILDDIR)/$(FBV)
 FBV_CONF_TOOL	:= autoconf
 FBV_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_FBV_PNG)-libpng \
 	--disable-debug
 
 # ----------------------------------------------------------------------------

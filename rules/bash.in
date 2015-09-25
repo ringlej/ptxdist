@@ -131,7 +131,9 @@ config BASH_DPARAN_ARITH
 
 config BASH_EXTPATTERN
 	bool
-	prompt "Include ksh-style extended pattern matching"
+	default y
+	# fails to build without this in 4.3.30
+	prompt "Include ksh-style extended pattern matching" if BROKEN
 
 config BASH_EXTPATTERN_DEFLT
 	bool

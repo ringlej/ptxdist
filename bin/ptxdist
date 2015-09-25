@@ -1304,11 +1304,17 @@ parse_first()
 		-je*)
 			PTXDIST_PARALLELMFLAGS_EXTERN="-j${arg#*e}"
 			;;
+		-j)
+			PTXDIST_PARALLELMFLAGS="auto"
+			;;
+		-j[1-9]*)
+			PTXDIST_PARALLELMFLAGS="-j${arg#*j}"
+			;;
 		-l*)
-			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*l}"
+			PTXDIST_LOADMFLAGS="-l${arg#*l}"
 			;;
 		--load-average=*)
-			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*=}"
+			PTXDIST_LOADMFLAGS="-l${arg#*=}"
 			;;
 		-n*)
 			PTX_NICE="${arg#*n}"
@@ -1430,7 +1436,7 @@ do_config()
 
 		ptxd_dialog_infobox "${PTXDIST_LOG_PROMPT}Checking dependencies. This may take some seconds." &&
 
-		check_premake &&
+		check_premake_compiler &&
 		ptxd_make "${part}_${config}"
 		;;
 	esac
@@ -1884,7 +1890,7 @@ EOF
 			;;
 		get)
 			declare -a pkgs
-			check_premake &&
+			check_premake_compiler &&
 
 			if [ ${#} -eq 0 ]; then
 				ptxd_make_log get
@@ -2153,7 +2159,7 @@ setup_env() {
 	unset $({
 		export -p  | sed -n 's/^declare -x \([^=]*\).*$/\1/p'
 		export -fp | sed -n 's/^declare -fx \([^=]*\).*$/\1/p'
-		} | egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$")
+		} | egrep -v "^(PTXDIST_PTXRC|PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|TMPDIR|KCONFIG_ALLCONFIG|KCONFIG_SEED|http_proxy|https_proxy|ftp_proxy|no_proxy${whitelist})$")
 
 	######## the environment is clean now ########
 
@@ -2243,8 +2249,6 @@ setup_libs_early() {
 #
 # out: PTXCONF_*	user preferences
 #      PTXDIST_SRCDIR
-#      PTXDIST_PARALLELMFLAGS_INTERN
-#      PTXDIST_PARALLELMFLAGS_EXTERN
 #      PTXDIST_PTXRC
 #
 setup_config() {
@@ -2304,13 +2308,19 @@ setup_config() {
 	if [ -n "${PTXCONF_SETUP_NO_PROXY}" ]; then
 		export no_proxy="${PTXCONF_SETUP_NO_PROXY}"
 	fi
+}
 
-	#
-	# setup PARALLELMFLAGS
-	#
-
+#
+# setup parallel building
+#
+# out: PTXDIST_PARALLELMFLAGS
+#      PTXDIST_PARALLELMFLAGS_INTERN
+#      PTXDIST_PARALLELMFLAGS_EXTERN
+#
+setup_parallel() {
 	# default no parallel for now
-	local pmf_extern="-j1"
+	local pmf_extern=""
+	local pmf_intern=""
 	local cpus
 
 	# this one is for Linux
@@ -2323,13 +2333,21 @@ setup_config() {
 	elif ! cpus="$(sysctl -n hw.ncpu)" 2> /dev/null; then
 		cpus=1
 	fi
-	local pmf_intern="-j$(( ${cpus} * 2 ))"
+	local pmf_cpus="-j$(( ${cpus} * 2 ))"
+
+	if [ -z "${PTXDIST_PARALLELMFLAGS}" ]; then
+		pmf_intern="${pmf_cpus}"
+		pmf_extern="-j1"
+	elif [ "${PTXDIST_PARALLELMFLAGS}" == "auto" ]; then
+		PTXDIST_PARALLELMFLAGS="${pmf_cpus}"
+	fi
 
 	#
 	# user may override these, via cmdline
 	#
 	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
+	export PTXDIST_PARALLELMFLAGS_EXTERN
 }
 
 
@@ -2609,8 +2627,9 @@ setup_export() {
 		PTXDIST_PLATFORMSUFFIX \
 		PTXDIST_PLATFORMCONFIGDIR \
 		\
+		PTXDIST_PARALLELMFLAGS \
 		PTXDIST_PARALLELMFLAGS_INTERN \
-		PTXDIST_LOADMFLAGS_INTERN \
+		PTXDIST_LOADMFLAGS \
 		\
 		PTXDIST_CCACHE \
 		PTXDIST_FORCE_DOWNLOAD \
@@ -2641,6 +2660,8 @@ main() {
 
 	parse_first &&
 	# --- vars to config files are setup ---
+
+	setup_parallel &&
 
 	setup_auto_version &&
 

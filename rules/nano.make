@@ -29,6 +29,11 @@ NANO_DIR		:= $(BUILDDIR)/$(NANO)
 # Prepare
 # ----------------------------------------------------------------------------
 
+NANO_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_header_magic_h=no \
+	ac_cv_lib_magic_magic_open=no
+
 #
 # autoconf
 #

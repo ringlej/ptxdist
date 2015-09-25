@@ -49,7 +49,7 @@ BAREBOX_MAKEVARS := \
 	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
 	$(PARALLELMFLAGS)
 
-BAREBOX_TAGS_OPT := TAGS cscope
+BAREBOX_TAGS_OPT := TAGS tags cscope
 
 ifdef PTXCONF_BAREBOX
 $(BAREBOX_CONFIG):
@@ -99,7 +99,7 @@ endif
 
 $(STATEDIR)/barebox.compile:
 	@$(call targetinfo)
-	@cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
+	@+cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
 		$(MAKE) $(BAREBOX_MAKEVARS)
 	@$(call touch)
 

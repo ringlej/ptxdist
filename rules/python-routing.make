@@ -28,29 +28,7 @@ PYTHON_ROUTING_DIR	:= $(BUILDDIR)/$(PYTHON_ROUTING)
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_ROUTING_CONF_TOOL	:= NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-routing.compile:
-	@$(call targetinfo)
-	@cd $(PYTHON_ROUTING_DIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py build_ext
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-routing.install:
-	@$(call targetinfo)
-	@cd $(PYTHON_ROUTING_DIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py install --root=$(PYTHON_ROUTING_PKGDIR) --prefix="/usr"
-	@$(call touch)
+PYTHON_ROUTING_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Target-Install

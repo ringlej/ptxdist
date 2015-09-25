@@ -1,0 +1,6 @@
+## SECTION=imx-hab
+
+config HOST_IMX_CST
+	tristate
+	help
+	  Freescale Code Signing Tool for High Assurance Boot.

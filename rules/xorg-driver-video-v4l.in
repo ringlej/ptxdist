@@ -1,4 +1,6 @@
-## SECTION=multimedia_xorg_driver_video
+## SECTION=staging
+## old section:
+### SECTION=multimedia_xorg_driver_video
 
 # configuration for xorg-driver-video-v4l
 
@@ -13,3 +15,6 @@ config XORG_DRIVER_VIDEO_V4L
 	help
 	  X.Org X server -- Video 4 Linux display driver.
 
+	  STAGING: remove in ptxdist-2016.07.0
+	  Upstream ist dead and it no longer builds with the latest Xorg
+	  server.

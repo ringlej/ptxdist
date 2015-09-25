@@ -1,0 +1,8 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_LIBERATION
+	bool
+	select XORG_FONTS
+	prompt "liberation"
+	help
+	  Fonts with the same metrics as Times, Arial and Courier

@@ -29,26 +29,22 @@ SVGALIB_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
-SVGALIB_CONF_ENV	:= $(CROSS_ENV)
-SVGALIB_CONF_ENV	+= S_KERNELRELEASE=$(KERNEL_HEADER_VERSION)
 SVGALIB_CONF_TOOL	:= NO
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
+SVGALIB_MAKE_ENV	:= \
+	$(CROSS_ENV) \
+	S_KERNELRELEASE=$(KERNEL_HEADER_VERSION)
+
 $(STATEDIR)/svgalib.compile:
 	@$(call targetinfo)
 
-	cd $(SVGALIB_DIR) && $(SVGALIB_PATH) $(SVGALIB_CONF_ENV) \
-		$(MAKE) $(PARALLELMFLAGS) $(SVGALIB_MAKEVARS) sharedlib/libvga.so.$(SVGALIB_VERSION)
-
-	cd $(SVGALIB_DIR) && $(SVGALIB_PATH) $(SVGALIB_CONF_ENV) \
-		$(MAKE) $(PARALLELMFLAGS) $(SVGALIB_MAKEVARS) sharedlib/libvgagl.so.$(SVGALIB_VERSION)
-
+	@$(call compile, SVGALIB, sharedlib/libvga.so.$(SVGALIB_VERSION))
+	@$(call compile, SVGALIB, sharedlib/libvgagl.so.$(SVGALIB_VERSION))
 ifdef PTXCONF_SVGALIB_VGATEST
-	cd $(SVGALIB_DIR)/demos && $(SVGALIB_PATH) $(SVGALIB_CONF_ENV) \
-		$(MAKE) $(PARALLELMFLAGS) $(SVGALIB_MAKEVARS) vgatest
+	@$(call compile, SVGALIB, -C demos vgatest)
 endif
 
 	@$(call touch)

@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_STRONGSWAN) += strongswan
 #
 # Paths and names
 #
-STRONGSWAN_VERSION	:= 5.2.2
-STRONGSWAN_MD5		:= 7ee1a33060b2bde35be0f6d78a1d26d0
+STRONGSWAN_VERSION	:= 5.3.2
+STRONGSWAN_MD5		:= fab014be1477ef4ebf9a765e10f8802c
 STRONGSWAN		:= strongswan-$(STRONGSWAN_VERSION)
 STRONGSWAN_SUFFIX	:= tar.bz2
-STRONGSWAN_URL		:= http://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
+STRONGSWAN_URL		:= https://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
 STRONGSWAN_SOURCE	:= $(SRCDIR)/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
 STRONGSWAN_DIR		:= $(BUILDDIR)/$(STRONGSWAN)
 STRONGSWAN_LICENSE	:= GPL
@@ -39,10 +39,11 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-soup \
 	--disable-ldap \
 	--enable-aes \
-	--enable-des \
+	--disable-des \
 	--disable-blowfish \
 	--disable-md4 \
-	--enable-md5 \
+	--disable-md5 \
+	--disable-aesni \
 	--enable-sha1 \
 	--enable-sha2 \
 	--enable-fips-prf \
@@ -80,7 +81,6 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-sql \
 	--disable-leak-detective \
 	--disable-lock-profiler \
-	--disable-unit-tester \
 	--disable-load-tester \
 	--disable-dnscert \
 	--disable-eap-sim \
@@ -170,6 +170,8 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-lookip \
 	--disable-error-notify \
 	--disable-certexpire \
+	--disable-connmark \
+	--disable-forecast \
 	--disable-systime-fix \
 	--disable-led \
 	--disable-duplicheck \
@@ -178,8 +180,12 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-monolithic \
 	--disable-bfd-backtraces \
 	--disable-unwind-backtraces \
+	--disable-ruby-gems \
+	--disable-ruby-gems-install \
+	--disable-python-eggs \
+	--disable-python-eggs-install \
+	--disable-files \
 	--disable-coverage \
-	--disable-unit-tester \
 	--disable-tkm \
 	--disable-defaults \
 	--enable-dependency-tracking \
@@ -199,14 +205,12 @@ STRONGSWAN_PLUGINS := \
 	libstrongswan-attr.so \
 	libstrongswan-cmac.so \
 	libstrongswan-constraints.so \
-	libstrongswan-des.so \
 	libstrongswan-dnskey.so \
 	libstrongswan-fips-prf.so \
 	libstrongswan-gcm.so \
 	libstrongswan-gmp.so \
 	libstrongswan-hmac.so \
 	libstrongswan-kernel-netlink.so \
-	libstrongswan-md5.so \
 	libstrongswan-nonce.so \
 	libstrongswan-pem.so \
 	libstrongswan-pgp.so \

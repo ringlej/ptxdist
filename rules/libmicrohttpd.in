@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 menuconfig LIBMICROHTTPD
 	tristate
@@ -11,6 +13,10 @@ menuconfig LIBMICROHTTPD
 	  libmicrohttpd is a small C library for embedding HTTP server
 	  functionality into applications. It will be used in future
 	  GNUnet versions as part of the HTTP transport.
+
+	  STAGING: remove in ptxdist-2016.08.0
+	  Upstream is at revision 0.9 and the archives for 0.4.4 seems no longer
+	  available.
 
 if LIBMICROHTTPD
 

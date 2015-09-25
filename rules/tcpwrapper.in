@@ -31,6 +31,6 @@ config	TCPWRAPPER_INSTALL_HOSTS_ACCESS_CONFIGS
 	prompt "Install /etc/hosts.{allow|deny}"
 	help
 	  Install the hosts.allow and hosts.deny configs from either
-	  projectroot or from ptxdist/generics.
+	  projectroot or from ptxdist/projectroot.
 
 endif

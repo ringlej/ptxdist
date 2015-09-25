@@ -89,22 +89,27 @@ UDEV_RULES-y := \
 	50-udev-default.rules \
 	60-persistent-alsa.rules \
 	60-persistent-input.rules \
-	60-persistent-serial.rules \
 	60-persistent-storage-tape.rules \
 	60-persistent-storage.rules \
 	75-net-description.rules \
-	75-tty-description.rules \
-	78-sound-card.rules \
-	95-udev-late.rules
+	78-sound-card.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
 	42-usb-hid-pm.rules
 
+ifndef PTXCONF_SYSTEMD
+UDEV_RULES-y := \
+	60-persistent-serial.rules \
+	75-tty-description.rules \
+	95-udev-late.rules
+endif
+
 UDEV_RULES-$(PTXCONF_SYSTEMD) += \
+	60-block.rules \
 	60-drm.rules \
+	60-serial.rules \
 	64-btrfs.rules \
 	70-mouse.rules \
-	70-touchpad.rules \
 	80-net-setup-link.rules
 
 UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
@@ -113,6 +118,9 @@ UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
 	71-seat.rules \
 	73-seat-late.rules
 
+UDEV_RULES-$(PTXCONF_SYSTEMD_VCONSOLE) += \
+	90-vconsole.rules
+
 UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
 ifdef PTXCONF_UDEV_LEGACY
 UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-acl.rules
@@ -120,7 +128,7 @@ else
 UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-udev-acl.rules
 endif
 UDEV_RULES-$(PTXCONF_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
-UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-keyboard.rules
+UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-evdev.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keyboard-force-release.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keymap.rules
 UDEV_RULES-$(PTXCONF_UDEV_MTD_PROBE)		+= 75-probe_mtd.rules
@@ -243,12 +251,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_UDEV_BBINIT_LINK)),)
 		../init.d/udev, \
 		/etc/rc.d/$(PTXCONF_UDEV_BBINIT_LINK))
 endif
-endif
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udev.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udevmonitor.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udevtrigger.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udev-finish.conf)
 endif
 endif
 	@$(call install_finish, udev)

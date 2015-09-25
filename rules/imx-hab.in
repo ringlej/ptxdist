@@ -1,0 +1,5 @@
+## SECTION=bootloader
+
+menu "i.MX HAB                      "
+source "generated/imx-hab.in"
+endmenu

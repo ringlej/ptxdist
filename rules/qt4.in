@@ -901,6 +901,7 @@ config QT4_BUILD_WEBKIT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 	select QT4_BUILD_SQL
+	select QT4_X11_XRENDER if QT4_PLATFORM_X11
 	prompt "Webkit"
 	help
 	  QtWebKit provides a Web browser engine that makes it easy to embed

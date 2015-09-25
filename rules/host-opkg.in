@@ -8,5 +8,5 @@ config HOST_OPKG
 	  opkg is used on the development host to install packets into
 	  some directory. Example:
 
-		opkg-cl -o . --force-depends -f ../generic/etc/opkg.conf install foo.ipk
+		opkg-cl -o . --force-depends -f ../projectroot/etc/opkg.conf install foo.ipk
 

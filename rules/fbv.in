@@ -17,20 +17,5 @@ config FBV_PNG
 	prompt "png support"
 	default y
 
-config FBV_UNGIF
-	bool
-	depends on BROKEN
-	prompt "(un)gif support"
-
-config FBV_JPEG
-	bool
-	depends on BROKEN
-	prompt "jpeg support"
-
-config FBV_BMP
-	bool
-	depends on BROKEN
-	prompt "bmp support"
-
 endif
 

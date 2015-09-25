@@ -159,6 +159,8 @@ if XORG_SERVER
 # ----------------------------------------------------------------------------
 
 config XORG_SERVER_LIBDRM
+	select XORG_SERVER_EXT_DPMS
+	select XORG_SERVER_EXT_PRESENT
 	bool
 
 menu "xorg servers                  "
@@ -203,6 +205,8 @@ config XORG_SERVER_XNEST
 
 config XORG_SERVER_XWAYLAND
 	bool
+	select XORG_SERVER_EXT_COMPOSITE
+	select XORG_SERVER_EXT_DRI3
 	prompt "Xwayland server"
 	help
 
@@ -262,10 +266,6 @@ config XORG_SERVER_OPT_AIGLX
 	depends on BROKEN
 	prompt "aiglx"
 
-config XORG_SERVER_STRING_REGISTRY
-	bool
-	prompt "string registry"
-
 config XORG_SERVER_OPT_INSTALL_SETUID
 	bool
 	prompt "install server suid root"
@@ -280,6 +280,7 @@ config XORG_SERVER_OPT_SECURE_RPC
 
 config XORG_SERVER_UDEV
 	bool
+	select XORG_SERVER_LIBDRM
 	prompt "detect input devices via udev"
 	help
 	  FIXME
@@ -497,9 +498,6 @@ config XORG_SERVER_EXT_DBE
 
 config XORG_SERVER_EXT_DPMS
 	bool
-	depends on BROKEN
-	# If enabled, I get this:
-	# sysroot-target/usr/include/X11/extensions/dpms.h:40: error: expected ')' before '*' token
 	prompt "dpms"
 	help
 	  FIXME

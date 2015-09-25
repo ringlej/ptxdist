@@ -23,7 +23,7 @@ MESALIB_VERSION	:= 10.3.3
 MESALIB_MD5	:= 4fe6fc9e28fb2a88a2387e5d3a49ae8b
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(subst .0,,$(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/older-versions/10.x/$(subst .0,,$(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
@@ -133,12 +133,10 @@ MESALIB_CONF_OPT	:= \
 # Compile
 # ----------------------------------------------------------------------------
 
-MESALIB_MAKE_OPT := HOST_CC=$(HOSTCC)
-
 $(STATEDIR)/mesalib.compile:
 	@$(call targetinfo)
 	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/glsl/
-	@$(call compile, MESALIB)
+	@$(call world/compile, MESALIB)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

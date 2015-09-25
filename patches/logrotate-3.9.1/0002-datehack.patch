@@ -1,0 +1,23 @@
+From: unknown author <unknown.author@example.com>
+Date: Thu, 11 Jun 2015 15:35:31 +0200
+Subject: [PATCH] datehack
+
+No longer consider state file dates before 1996 as fatal errors.
+(Closes: #65534)
+---
+ logrotate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/logrotate.c b/logrotate.c
+index d3deb6add62a..8ffcff6f6ac0 100644
+--- a/logrotate.c
++++ b/logrotate.c
+@@ -2334,7 +2334,7 @@ static int readState(char *stateFilename)
+ 	}
+ 
+ 	/* Hack to hide earlier bug */
+-	if ((year != 1900) && (year < 1996 || year > 2100)) {
++	if ((year != 1900) && (year < 1970 || year > 2100)) {
+ 	    message(MESS_ERROR,
+ 		    "bad year %d for file %s in state file %s\n", year,
+ 		    argv[0], stateFilename);

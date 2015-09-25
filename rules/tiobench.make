@@ -28,23 +28,10 @@ TIOBENCH_DIR		:= $(BUILDDIR)/$(TIOBENCH)
 # Prepare
 # ----------------------------------------------------------------------------
 
-TIOBENCH_PATH	:= PATH=$(CROSS_PATH)
-TIOBENCH_ENV 	:= $(CROSS_ENV)
-
-$(STATEDIR)/tiobench.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tiobench.compile:
-	@$(call targetinfo)
-	cd $(TIOBENCH_DIR) && $(TIOBENCH_PATH) $(MAKE) \
-		CC=$(PTXCONF_GNU_TARGET)-gcc LINK=$(PTXCONF_GNU_TARGET)-gcc \
-		$(PARALLELMFLAGS)
-	@$(call touch)
+TIOBENCH_ENV_TOOL	:= NO
+TIOBENCH_MAKE_OPT	:= \
+	$(CROSS_ENV_CC) \
+	LINK=$(CROSS_CC)
 
 # ----------------------------------------------------------------------------
 # Install

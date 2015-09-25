@@ -43,7 +43,7 @@ config INITRAMFS_SPEC_FILE
 	    ${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}/<location>
 	    ${PTXDIST_WORKSPACE}/projectroot/<location>${PTXDIST_PLATFORMSUFFIX}
 	    ${PTXDIST_WORKSPACE}/projectroot/<location>
-	    ${PTXDIST_TOPDIR}/generic/<location>
+	    ${PTXDIST_TOPDIR}/projectroot/<location>
 	    ${pkg_pkg_dir}/<location>
 	    ${pkg_dir}/<location>
 

@@ -1,0 +1,81 @@
+## SECTION=networking
+
+menuconfig QUAGGA
+	tristate
+	select NET_SNMP
+	select NET_SNMP_MIB_MODULES_AGENTX
+	prompt "quagga                        "
+	help
+	  Quagga Routing Suite. Quagga is a routing software suite, providing
+	  implementations of OSPFv2, OSPFv3, RIP v1 and v2, RIPng and BGP-4
+	  for Unix platforms, particularly FreeBSD, Linux, Solaris and NetBSD.
+	  Quagga is a fork of GNU Zebra which was developed by Kunihiro
+	  Ishiguro. The Quagga tree aims to build a more involved community
+	  around Quagga than the current centralised model of GNU Zebra.
+
+if QUAGGA
+
+config QUAGGA_VTYSH
+	bool
+	default y
+	prompt "Install vtysh"
+	help
+	  Disable the vtysh component if you do not need it
+
+config QUAGGA_ZEBRA
+	bool
+	default y
+	prompt "Install zebra"
+	help
+	  Disable the zebra component if you do not need it
+
+config QUAGGA_BGPD
+	bool
+	default y
+	prompt "Install bgpd"
+	help
+	  Disable the bgpd component if you do not need it
+
+config QUAGGA_RIPD
+	bool
+	default y
+	prompt "Install ripd"
+	help
+	  Disable the ripd component if you do not need it
+
+config QUAGGA_RIPNGD
+	bool
+	default y
+	prompt "Install ripngd"
+	help
+	  Disable the ripngd component if you do not need it
+
+config QUAGGA_OSPFD
+	bool
+	default y
+	prompt "Install ospfd"
+	help
+	  Disable the ospfd component if you do not need it
+
+config QUAGGA_OSPF6D
+	bool
+	default y
+	prompt "Install ospf6d"
+	help
+	  Disable the ospf6d component if you do not need it
+
+config QUAGGA_BABELD
+	bool
+	default y
+	prompt "Install babeld"
+	help
+	  Disable the babeld component if you do not need it
+
+config QUAGGA_WATCHQUAGGA
+	bool
+	default y
+	prompt "Install watchquagga"
+	help
+	  Disable the watchquagga component if you do not need it
+
+endif

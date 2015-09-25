@@ -65,7 +65,7 @@ install_copy = 											\
 # fakeroot.
 #
 # This macro first looks in $(PTXDIST_WORKSPACE)/projectroot for the file to copy and then
-# in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)
+# in $(PTXDIST_TOPDIR)/projectroot and installs the file under $(ROOTDIR)
 #
 # $1: xpkg label
 # $2: UID
@@ -93,7 +93,7 @@ install_alternative =									\
 # fakeroot. Adds filename to conffiles
 #
 # This macro first looks in $(PTXDIST_WORKSPACE)/projectroot for the file to copy and then
-# in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)
+# in $(PTXDIST_TOPDIR)/projectroot and installs the file under $(ROOTDIR)
 #
 # $1: xpkg label
 # $2: UID

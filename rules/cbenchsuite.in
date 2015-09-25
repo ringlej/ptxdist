@@ -1,0 +1,14 @@
+## SECTION=test_suites
+
+config CBENCHSUITE
+	tristate
+	select HOST_CMAKE
+	select LIBC_PTHREAD
+	select LIBC_DL
+	select LIBC_M
+	select LIBUUID
+	select SQLITE
+	prompt "cbenchsuite"
+	help
+	  cbenchsuite is a benchmark suite including plotter for high accuracy
+	  measurements. See http://cbenchsuite.org

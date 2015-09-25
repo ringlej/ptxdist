@@ -1,4 +1,6 @@
-## SECTION=communication
+## SECTION=staging
+## old section:
+### SECTION=communication
 
 menuconfig LIBMATTHEW_JAVA
 	tristate
@@ -6,6 +8,9 @@ menuconfig LIBMATTHEW_JAVA
 	help
 	  These are a selection of libraries for Java which I have written
 	  because they are useful and not provided with normal Java.
+
+	  STAGING: remove in ptxdist-2016.08.0
+	  libmatthew-java's upstream is no longer available.
 
 if LIBMATTHEW_JAVA
 

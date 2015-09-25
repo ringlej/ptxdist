@@ -55,12 +55,16 @@ range="${tag}..${tag2}"
 
 echo "$PTX_PATCHES_HEADER" > .ptxdist/series.0
 :> .ptxdist/series.1
-if grep -q "^#tag:" .ptxdist/series; then
-	tagline=$(grep "#tag:${tag}" .ptxdist/series)
+touch .ptxdist/series.append
+if grep -q "^#tag:" .ptxdist/series .ptxdist/series.append; then
+	tagline=$(cat .ptxdist/series .ptxdist/series.append | grep "#tag:${tag}")
 	t=$(echo "${tagline}"|cut -d' ' -f1)
 	if [ "#tag:${tag}" == "${t}" ]; then
 		tagopt=$(echo "${tagline}"|cut -d' ' -s -f2-)
-		sed -e "/$PTX_PATCHES_HEADER/d" -n -e "0,/#tag:${tag}/p" .ptxdist/series >> .ptxdist/series.0
+		sed -e "/$PTX_PATCHES_HEADER/d" -n \
+			-e '/git-ptx-patches magic/d' \
+			-e "0,/#tag:${tag}/p" \
+			.ptxdist/series .ptxdist/series.append >> .ptxdist/series.0
 		# Remove patches before #tag:${tag} so they don't get rm'd with remove_old=yes
 		sed -i --follow-symlinks "0,/#tag:${tag}/d" .ptxdist/series
 		if [ -n "${tag2}" ]; then
@@ -79,6 +83,7 @@ else
 	fi
 	echo "#tag:${tag} --start-number 1" >> .ptxdist/series.0
 fi
+rm .ptxdist/series.append
 
 case "$remove_old" in
 	"no") ;;

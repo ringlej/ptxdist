@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2011 by George McCollister <george.mccollister@gmail.com>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -26,7 +26,6 @@ HOST_OPENSSL_DIR	= $(HOST_BUILDDIR)/$(HOST_OPENSSL)
 # ----------------------------------------------------------------------------
 
 HOST_OPENSSL_CONF_ENV	:= $(HOST_ENV)
-HOST_OPENSSL_MAKE_PAR	:= NO
 
 #
 # autoconf
@@ -35,7 +34,9 @@ HOST_OPENSSL_MAKE_PAR	:= NO
 HOST_OPENSSL_CONF_OPT = \
 	--prefix=/ \
 	--install_prefix=$(HOST_OPENSSL_PKGDIR) \
-	--libdir=/lib -fPIC
+	--libdir=/lib \
+	shared
+
 HOST_OPENSSL_INSTALL_OPT := \
 	install_sw
 

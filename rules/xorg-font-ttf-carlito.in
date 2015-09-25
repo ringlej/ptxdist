@@ -1,0 +1,12 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_CARLITO
+	bool
+	select XORG_FONTS
+	prompt "carlito"
+	help
+	  Carlito is metric-compatible with Calibri font. Carlito comes in
+	  regular, bold, italic, and bold italic. The family covers
+	  Latin-Greek-Cyrillic (not a complete set, though) with about 2,000
+	  glyphs. It has the same character coverage as Calibri.
+	  This font is sans-serif typeface family based on Lato.

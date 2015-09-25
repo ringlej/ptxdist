@@ -83,11 +83,12 @@ if CAIRO_GL || CAIRO_GLES2
 
 config CAIRO_GLX
 	bool
-	depends on !CAIRO_EGL
+	depends on !CAIRO_EGL && CAIRO_GL
 	prompt "GLX support"
 
 config CAIRO_EGL
 	bool
+	depends on CAIRO_GL || CAIRO_GLES2
 	prompt "EGL support"
 
 endif

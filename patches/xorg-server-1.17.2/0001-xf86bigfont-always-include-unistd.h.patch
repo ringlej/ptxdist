@@ -1,0 +1,37 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 28 May 2015 23:47:37 +0200
+Subject: [PATCH] xf86bigfont: always include unistd.h
+
+Otherwise compiling can fail with:
+
+xf86bigfont.c: In function 'ProcXF86BigfontQueryVersion':
+xf86bigfont.c:287:9: error: implicit declaration of function 'geteuid' [-Werror=implicit-function-declaration]
+xf86bigfont.c:287:9: warning: nested extern declaration of 'geteuid' [-Wnested-externs]
+xf86bigfont.c:288:9: error: implicit declaration of function 'getegid' [-Werror=implicit-function-declaration]
+xf86bigfont.c:288:9: warning: nested extern declaration of 'getegid' [-Wnested-externs]
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Xext/xf86bigfont.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Xext/xf86bigfont.c b/Xext/xf86bigfont.c
+index 46b3242d1bc9..65df73449b4c 100644
+--- a/Xext/xf86bigfont.c
++++ b/Xext/xf86bigfont.c
+@@ -39,6 +39,7 @@
+ #endif
+ 
+ #include <sys/types.h>
++#include <unistd.h>
+ #ifdef HAS_SHM
+ #if defined(linux) && (!defined(__GNU_LIBRARY__) || __GNU_LIBRARY__ < 2)
+ /* libc4 does not define __GNU_LIBRARY__, libc5 defines __GNU_LIBRARY__ as 1 */
+@@ -58,7 +59,6 @@
+ #include <sys/shm.h>
+ #include <sys/stat.h>
+ #include <stdlib.h>
+-#include <unistd.h>
+ #include <time.h>
+ #include <errno.h>
+ #endif

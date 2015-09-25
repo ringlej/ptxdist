@@ -52,7 +52,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-libblkid \
 	--disable-quota \
 	--disable-backtrace \
-	--disable-debugfs \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_DEBUGFS)-debugfs \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_IMAGER)-imager \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_RESIZER)-resizer \
 	--disable-defrag \
@@ -138,6 +138,10 @@ ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4DEV
 	@$(call install_link, e2fsprogs, e2fsck, /sbin/fsck.ext4dev)
 endif
 
+
+ifdef PTXCONF_E2FSPROGS_INSTALL_DEBUGFS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/debugfs)
+endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2IMAGE
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/e2image)

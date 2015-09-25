@@ -298,7 +298,7 @@ config ROOTFS_FSTAB
 
 choice
 	prompt "install /etc/mtab"
-	default ROOTFS_MTAB_FILE
+	default ROOTFS_MTAB_LINK_SELF_MOUNTS
 
 	config ROOTFS_MTAB_FILE
 		bool

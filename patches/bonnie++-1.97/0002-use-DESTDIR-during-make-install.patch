@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 30 Apr 2015 17:47:05 +0200
+Subject: [PATCH] use DESTDIR during 'make install'
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.in | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 4f14819dd35c..14ac33ca54bb 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -52,15 +52,15 @@ generate_randfile: generate_randfile.o
+ 	$(LINK) generate_randfile.o -o generate_randfile
+ 
+ install-bin: $(EXE) $(EXES)
+-	mkdir -p $(eprefix)/bin $(eprefix)/sbin
+-	@INSTALL_PROGRAM@ @stripping@ $(EXES) $(eprefix)/sbin
+-	@INSTALL_PROGRAM@ @stripping@ $(EXE) $(eprefix)/bin
+-	@INSTALL_SCRIPT@ $(SCRIPTS) $(eprefix)/bin
++	mkdir -p $(eprefix)/bin $(DESTDIR)$(eprefix)/sbin
++	@INSTALL_PROGRAM@ @stripping@ $(EXES) $(DESTDIR)$(eprefix)/sbin
++	@INSTALL_PROGRAM@ @stripping@ $(EXE) $(DESTDIR)$(eprefix)/bin
++	@INSTALL_SCRIPT@ $(SCRIPTS) $(DESTDIR)$(eprefix)/bin
+ 
+ install: install-bin
+-	mkdir -p @mandir@/man1 @mandir@/man8
+-	@INSTALL_DATA@ $(MAN1) @mandir@/man1
+-	@INSTALL_DATA@ $(MAN8) @mandir@/man8
++	mkdir -p @mandir@/man1 $(DESTDIR)@mandir@/man8
++	@INSTALL_DATA@ $(MAN1) $(DESTDIR)@mandir@/man1
++	@INSTALL_DATA@ $(MAN8) $(DESTDIR)@mandir@/man8
+ 
+ %.o: %.cpp
+ 	$(CXX) -c $<

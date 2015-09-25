@@ -25,7 +25,7 @@ config THTTPD__GENERIC_SITE
 	prompt "Populate a generic website"
 	help
 	  This install a generic website into /var/www/index.html
-	  from <ptxdist-install>/generic/var/www/thttpd.html
+	  from <ptxdist-install>/projectroot/var/www/thttpd.html
 
 config THTTPD__INSTALL_HTPASSWD
 	bool "Install mkpasswd tool."

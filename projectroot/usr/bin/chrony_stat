@@ -1,0 +1,107 @@
+#!/bin/sh
+# get chrony sync status
+PREFIX="chrony stat: "
+
+bailout(){
+        echo "${PREFIX}ERROR   --- $*" >&2
+        exit 1
+}
+
+KEY=$(awk '$1 ~ /^commandkey$/ { print $2; exit}' /etc/chrony/chrony.conf)
+PASSWORD=`awk '$1 ~ /^'$KEY'$/ {print $2; exit}' /etc/chrony/chrony.keys`
+command=sources
+
+command_helper(){
+/usr/bin/chronyc <<-EOF
+password $PASSWORD
+$command
+EOF
+}
+
+show_help(){
+cat << EOF
+  
+  Usage $0 [ --full | --bool | --skew | --short-skew | --help ]
+
+  --full 	or no argument: show server name and verbose status
+  
+  --bool 	show server name and 
+  	 	a) true, if timesource is currently synced
+	 	b) false otherwise
+		
+  --skew 	show servername and
+  	 	a) estimated error, if timesource is currently synced
+	 	b) false otherwise
+		
+  --short-skew 	show estimated error, if timesource is currently synced
+  		suppress all other servers
+
+EOF
+}
+
+get_status(){
+while read status server info; do
+case $status in
+	'^*') echo -e "$server\tsynchronized `echo $info | sed s/'.*]'//g`" ;;
+	'^+') echo -e "$server\twaiting" ;;
+	'^?') echo -e "$server\tunreacheable" ;;
+	'^x') echo -e "$server\terror" ;;
+	'^~') echo -e "$server\tbad time" ;;
+	'=*'|'=+'|'=?'|'=x'|'=~') echo "peer  : $status" ;;
+	'#*'|'#+'|'#?'|'#x'|'#~') echo "local : $status" ;;
+esac
+done
+}
+
+get_bool(){
+while read status server info; do
+case $status in
+	'^*') echo -e "$server\ttrue" ;;
+	'^'*) 
+		echo -e "$server\tfalse" ;;
+esac
+done
+}
+
+get_skew(){
+while read status server info; do
+case $status in
+	'^*') echo -e "$server\t`echo $info | sed -e s/'.*]'//g -e s/"^\ "//g -e s@'+/- '@@g`" ;;
+	'^'*) 
+		echo -e "$server\tundef" ;;
+esac
+done
+}
+
+get_short_skew(){
+while read status server info; do
+case $status in
+	'^*') echo $info | sed -e s/'.*]'//g -e s/"^\ "//g -e s@'+/- '@@g ;;
+esac
+done
+}
+
+pidof chronyd > /dev/null || bailout " chronyd is not running "
+
+case $1 in 
+	--help)
+	show_help
+	exit 0
+	;;
+	--bool)
+	command_helper | while read l ; do get_bool "$l"; done
+	exit 0
+	;;
+	--skew)
+	command_helper | while read l ; do get_skew "$l"; done
+	exit 0
+	;;
+	--short-skew)
+	command_helper | while read l ; do get_short_skew "$l"; done
+	exit 0
+	;;
+	*|'')
+	command_helper | while read l ; do get_status "$l"; done
+	exit 0
+	;;
+esac

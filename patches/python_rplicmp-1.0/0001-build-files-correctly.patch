@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 4 Jun 2015 22:04:44 +0200
+Subject: [PATCH] build files correctly
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ setup.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index c06dd85be917..b18627353ebd 100644
+--- a/setup.py
++++ b/setup.py
+@@ -4,8 +4,8 @@ from Cython.Distutils import build_ext
+ 
+ ext_modules=[
+     Extension("RplIcmp",
+-              ["RplIcmp.pyx", "tinyICMPlib.pxd"],
+-              extra_link_args=["caplib.o", "icmplib.o", "-lcap"],
++              ["RplIcmp.pyx", "tinyICMPlib.pxd", "caplib.c", "icmplib.c"],
++              extra_link_args=["-lcap"],
+              )
+ 			      ]
+ 

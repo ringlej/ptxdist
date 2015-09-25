@@ -44,28 +44,8 @@ $(STATEDIR)/pyserial3.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYSERIAL3_PATH		:= PATH=$(CROSS_PATH)
-PYSERIAL3_CONF_TOOL	:= NO
-PYSERIAL3_MAKE_ENV	:= $(CROSS_ENV)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pyserial3.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pyserial3.install:
-	@$(call targetinfo)
-	@cd $(PYSERIAL3_DIR) && \
-		$(PYSERIAL3_PATH) $(PYSERIAL3_MAKE_ENV) \
-		python3 setup.py install --root=$(PYSERIAL3_PKGDIR) --prefix=/usr
-	@$(call touch)
+PYSERIAL3_CONF_TOOL	:= python3
+PYSERIAL3_MAKE_OPT	= build -e "/usr/bin/python$(PYTHON3_MAJORMINOR)"
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -90,12 +70,9 @@ $(STATEDIR)/pyserial3.targetinstall:
 		$(call install_copy, pyserial3, 0, 0, 0644, -, /$$file); \
 	done
 
-# note: the setup.py also installs the miniterm.py script, but with a really
-# broken path to the python interpreter. As a workaround we use the plain script
-# from the build directory instead
 ifdef PTXCONF_PYSERIAL3_MINITERM
 	$(call install_copy, pyserial3, 0, 0, 0755, \
-		$(PYSERIAL3_DIR)/build/lib/serial/tools/miniterm.py, /usr/bin/miniterm3.py)
+		$(PYSERIAL3_PKGDIR)/usr/bin/miniterm.py, /usr/bin/miniterm3.py)
 endif
 
 	@$(call install_finish, pyserial3)

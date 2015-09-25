@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 12 May 2015 11:29:53 +0200
+Subject: [PATCH] qtmultimedia: videonode plugins require
+ qtmultimediaquicktools
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtmultimedia/src/src.pro | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/qtmultimedia/src/src.pro b/qtmultimedia/src/src.pro
+index 26f99bc29fe3..6cbe4f0347ad 100644
+--- a/qtmultimedia/src/src.pro
++++ b/qtmultimedia/src/src.pro
+@@ -23,6 +23,8 @@ qtHaveModule(quick) {
+     SUBDIRS += \
+         src_qtmultimediaquicktools \
+         src_imports
++
++    src_plugins.depends += src_qtmultimediaquicktools
+ }
+ 
+ # Optional bits

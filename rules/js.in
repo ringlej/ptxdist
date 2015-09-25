@@ -1,4 +1,6 @@
-## SECTION=scripting_languages
+## SECTION=staging
+## old section:
+### SECTION=scripting_languages
 
 config JS
 	tristate
@@ -11,3 +13,6 @@ config JS
 	help
 	  Spidermonkey is the JavaScript engine of the Mozilla firefox project.
 
+	  STAGING: remove in ptxdist-2016.07.0
+	  This is unmaintained in PTXdist. It needs to be updated to the
+	  latest version.

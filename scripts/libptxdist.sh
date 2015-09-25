@@ -255,7 +255,16 @@ ptxd_kconfig() {
 	pushd "${tmpdir}" > /dev/null
 
 	ln -sf "${PTXDIST_TOPDIR}/rules" &&
-	ln -sf "${PTXDIST_TOPDIR}/config" &&
+	mkdir config &&
+	ptxd_in_path PTXDIST_PATH config &&
+	for dir in "${ptxd_reply[@]}"; do
+		local tmp
+		for tmp in $(( cd "${dir}" && ls ) 2>/dev/null); do
+			if [ ! -e "config/${tmp}" ]; then
+				ln -sfT "${dir}/${tmp}" "config/${tmp}" || break
+			fi
+		done
+	done &&
 	ln -sf "${PTXDIST_TOPDIR}/platforms" &&
 	ln -sf "${PTXDIST_WORKSPACE}" workspace &&
 	ln -sf "${PTX_KGEN_DIR}/generated" || return
@@ -356,7 +365,7 @@ ptxd_make() {
 		done
 	done
 	${PTX_NICE:+nice -n ${PTX_NICE}} "${PTXCONF_SETUP_HOST_MAKE}" \
-	    "${PTX_MAKE_ARGS[@]}" "${PTXDIST_PARALLELMFLAGS_EXTERN}" \
+	    "${PTX_MAKE_ARGS[@]}" ${PTXDIST_PARALLELMFLAGS_EXTERN} ${PTXDIST_LOADMFLAGS} \
 	    -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
 }
 

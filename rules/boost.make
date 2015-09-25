@@ -60,9 +60,11 @@ BOOST_JAM	:= \
 	toolset=gcc-$(PTXCONF_ARCH_STRING) \
 	target-os=linux
 
+JAM_PAR		:= \
+	$(if $(PTXDIST_PARALLELMFLAGS),$(PTXDIST_PARALLELMFLAGS),$(PARALLELMFLAGS))
 JAM_MAKE_OPT	:= \
-	$(if $(shell test $(subst -j,,$(PARALLELMFLAGS)) -le 64 && echo 1),$(PARALLELMFLAGS),-j64) \
-	$(PTXDIST_LOADMFLAGS_INTERN) \
+	$(if $(shell test $(subst -j,,$(JAM_PAR)) -le 64 && echo 1),$(JAM_PAR),-j64) \
+	$(PTXDIST_LOADMFLAGS) \
 	stage
 
 JAM_INSTALL_OPT	:= \

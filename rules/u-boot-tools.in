@@ -1,28 +1,8 @@
 ## SECTION=shell_and_console
 
-menuconfig U_BOOT_TOOLS
+config U_BOOT_TOOLS
 	tristate
-	prompt "u-boot-tools                  "
+	prompt "u-boot-tools"
 	help
 	  some helpful tools from U-Boot project. Most important tool in
 	  this section is fw_printenv/fw_setenv to read/write U-Boot settings.
-
-if U_BOOT_TOOLS
-
-config U_BOOT_TOOLS_TOOL_ENV
-	tristate
-	default n
-	prompt "fw_printenv/fw_setenv"
-	help
-	  the U-Boot fw_printenv and fw_setenv commands are used to
-	  read and write U-Boot environment /dev/mtdX partitions on
-	  target through linux.
-	  The tool will require a configuration on target named
-	  /etc/fw_env.config. See U-Boot source directory tools/env
-	  for detailed description.
-	  Choosing this option will install a /etc/fw_env.config to
-	  target-fs either from your BSP or a generic one which is
-	  likely to not work with your board. Please read the
-	  comments in that generic configuration.
-
-endif

@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
+
+config HOST_IMA_EVM_UTILS
+	tristate
+	help
+	  Integrity Measurement Architecture to know EXACTLY what has
+	  been run on your machine.

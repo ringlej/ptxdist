@@ -24,10 +24,6 @@ choice
 		select SYSTEMD
 		prompt "systemd         "
 
-	config INITMETHOD_UPSTART
-		bool
-		prompt "upstart         "
-
 	config INITMETHOD_INITNG
 		bool
 		depends on BROKEN

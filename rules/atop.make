@@ -29,11 +29,8 @@ ATOP_DIR	:= $(BUILDDIR)/$(ATOP)
 # Prepare
 # ----------------------------------------------------------------------------
 
-ATOP_COMPILE_ENV := $(CROSS_ENV)
-
-$(STATEDIR)/atop.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+ATOP_CONF_TOOL		:= NO
+ATOP_COMPILE_ENV	:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install

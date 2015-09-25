@@ -41,7 +41,6 @@ NCURSES_AUTOCONF_SHARED := \
 	--libdir=/$(CROSS_LIB_DIR) \
 	--without-debug \
 	--without-normal \
-	--with-shared \
 	--without-ada \
 	--without-gpm \
 	--without-manpages \
@@ -79,6 +78,7 @@ endif
 NCURSES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(NCURSES_AUTOCONF_SHARED) \
+	--with-shared \
 	--without-progs
 
 # ----------------------------------------------------------------------------

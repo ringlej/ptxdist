@@ -150,13 +150,6 @@ ifdef PTXCONF_DBUS_SYSTEMD_UNIT
 	@$(call install_link, dbus, ../dbus.service, \
 		/lib/systemd/system/multi-user.target.wants/dbus.service)
 endif
-
-ifdef PTXCONF_INITMETHOD_UPSTART
-ifdef PTXCONF_DBUS_STARTSCRIPT
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/init/dbus.conf)
-endif
-endif
-
 	@$(call install_finish, dbus)
 
 	@$(call touch)

@@ -16,7 +16,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON) += host-python
 #
 # Paths and names
 #
-HOST_PYTHON_DIR	=  $(HOST_BUILDDIR)/$(PYTHON)
+HOST_PYTHON_DIR	= $(HOST_BUILDDIR)/$(PYTHON)
+
+HOSTPYTHON	= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR)
 
 # ----------------------------------------------------------------------------
 # Prepare

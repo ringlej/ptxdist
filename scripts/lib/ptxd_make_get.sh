@@ -52,6 +52,7 @@ ptxd_make_get_http() {
 	rm -f -- "${path}."*
 
 	local temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
+	ptxd_make_serialize_take
 	wget \
 	    --passive-ftp \
 	    --progress=bar:force \
@@ -66,8 +67,10 @@ ptxd_make_get_http() {
 		file "${temp_file}" | grep -vq " HTML " &&
 		touch -- "${temp_file}" &&
 		mv -- "${temp_file}" "${path}"
+		ptxd_make_serialize_put
 		return
 	}
+	ptxd_make_serialize_put
 
 	rm -f -- "${temp_file}"
 
@@ -123,6 +126,7 @@ ptxd_make_get_git() {
 		ptxd_bailout "git url '${url}' has no 'tag' option"
 	fi
 
+	ptxd_make_serialize_take
 	echo "${PROMPT}git: fetching '${url} into '${mirror}'..."
 	if [ ! -d "${mirror}" ]; then
 		git init --bare --shared "${mirror}"
@@ -139,10 +143,12 @@ ptxd_make_get_git() {
 	chmod g+w "${mirror}/FETCH_HEAD"
 
 	if ! git --git-dir="${mirror}" rev-parse --verify -q "${tag}" > /dev/null; then
+		ptxd_make_serialize_put
 		ptxd_bailout "git: tag '${tag}' not found in '${url}'"
 	fi &&
 
 	git --git-dir="${mirror}" archive --prefix="${prefix}" -o "${path}" "${tag}"
+	ptxd_make_serialize_put
 }
 export -f ptxd_make_get_git
 
@@ -201,6 +207,7 @@ ptxd_make_get_svn() {
 		ptxd_bailout "svn url '${url}' has no 'rev' option"
 	fi
 
+	ptxd_make_serialize_take
 	echo "${PROMPT}svn: fetching '${url} into '${mirror}'..."
 	if [ ! -d "${mirror}" ]; then
 		svn checkout -r ${rev} "${url}" "${mirror}"
@@ -213,6 +220,7 @@ ptxd_make_get_svn() {
 	tar --exclude-vcs --show-stored-names ${tarcomp} \
 		--mtime="${lmtime}" --transform "s|^\.|${prefix}|g" \
 		--create --file "${path}" -C "${mirror}" .
+	ptxd_make_serialize_put
 }
 export -f ptxd_make_get_svn
 

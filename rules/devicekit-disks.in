@@ -15,7 +15,7 @@ menuconfig DEVICEKIT_DISKS
 	select POLKIT
 	select UDEV
 	select UDEV_LIBUDEV
-	select UDEV_LIBGUDEV
+	select LIBGUDEV
 	# busybox mount can't handle all the options
 	depends on !BUSYBOX_MOUNT || ALLYES
 	depends on !BUSYBOX_UMOUNT || ALLYES

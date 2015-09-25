@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 menuconfig SITECOPY
 	tristate
@@ -8,7 +10,10 @@ menuconfig SITECOPY
 	select OPENSSL		if SITECOPY_OPENSSL
 	help
 	  Synchronize local and remote web site via FTP or WebDAV
-        
+
+	  STAGING: remove in ptxdist-2016.08.0
+	  Archives are gone and no reliable new URL found.
+
 if SITECOPY
 
 config SITECOPY_FTP

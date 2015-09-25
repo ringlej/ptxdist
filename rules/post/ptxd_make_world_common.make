@@ -46,8 +46,15 @@ ptx/env = \
 	ptx_conf_opt_autoconf_cross="$(call ptx/escape,$(HOST_CROSS_AUTOCONF))"	\
 	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"\
 										\
-	ptx_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)			\
-	ptx_opkg_extra_args=$(PTXCONF_IMAGE_OPKG_EXTRA_ARGS)			\
+	ptx_python_target="$(call ptx/escape,$(CROSS_PYTHON))"			\
+	ptx_python3_target="$(call ptx/escape,$(CROSS_PYTHON3))"		\
+	ptx_install_opt_python_target="$(call ptx/escape,$(CROSS_PYTHON_INSTALL))"\
+										\
+	ptx_python_host="$(call ptx/escape,$(HOSTPYTHON))"			\
+	ptx_python3_host="$(call ptx/escape,$(HOSTPYTHON3))"			\
+	ptx_install_opt_python_host="$(call ptx/escape,$(HOST_PYTHON_INSTALL))"	\
+										\
+	ptx_xpkg_extra_args=$(PTXCONF_IMAGE_XPKG_EXTRA_ARGS)			\
 	ptx_xpkg_type=$(PTXCONF_HOST_PACKAGE_MANAGEMENT)
 
 world/env/impl = \
@@ -102,7 +109,7 @@ world/env/impl = \
 	pkg_deprecated_makevars="$(call ptx/escape, $($(1)_MAKEVARS))"
 
 world/env= \
-	$(call ptx/env) \
-	$(call world/env/impl,$(strip $(1)))
+	$(call world/env/impl,$(strip $(1))) \
+	$(call ptx/env)
 
 # vim: syntax=make

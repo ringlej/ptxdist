@@ -4,16 +4,18 @@
 menuconfig PHP5
 	tristate
 	prompt "php5                          "
-	select APACHE2	if PHP5_SAPI_APXS2 || PHP5_SAPI_APXS2FILTER
-	select LIBCURL	if PHP5_EXT_CURL
-	select LIBXML2	if PHP5_XML_LIBXML2
-	select LIBXSLT	if PHP5_XML_LIBXML2_XSLT
-	select MYSQL	if PHP5_EXT_MYSQL
-	select PHP5_XML	if PHP5_EXT_SOAP
-	select XMLRPC_C	if PHP5_XML_LIBXML2_XMLRPC
-	select SQLITE	if PHP5_EXT_SQLITE3
-	select ZLIB	if PHP5_EXT_ZLIB
-	select OPENSSL	if PHP5_EXT_OPENSSL
+	select APACHE2		if PHP5_SAPI_APXS2 || PHP5_SAPI_APXS2FILTER
+	select LIBCURL		if PHP5_EXT_CURL
+	select LIBXML2		if PHP5_XML_LIBXML2
+	select LIBXML2_C14N	if PHP5_XML_LIBXML2
+	select LIBXML2_DTD	if PHP5_XML_LIBXML2
+	select LIBXML2_XINCLUDE	if PHP5_XML_LIBXML2
+	select LIBXSLT		if PHP5_XML_LIBXML2_XSLT
+	select PHP5_XML		if PHP5_EXT_SOAP
+	select XMLRPC_C		if PHP5_XML_LIBXML2_XMLRPC
+	select SQLITE		if PHP5_EXT_SQLITE3
+	select ZLIB		if PHP5_EXT_ZLIB
+	select OPENSSL		if PHP5_EXT_OPENSSL
 
 if PHP5
 
@@ -208,6 +210,7 @@ config PHP5_XML_LIBXML2_DOM
 
 config PHP5_XML_LIBXML2_XSLT
 	bool
+	select PHP5_XML_LIBXML2_DOM
 	prompt "xslt support"
 	help
 	  XMLWriter support
@@ -242,8 +245,8 @@ config PHP5_EXT_CURL
 
 config PHP5_EXT_MYSQL
 	bool
-	# mysql is currently in staging
-	depends on STAGING
+	# mysql was removed
+	depends on BROKEN
 	prompt "mysql"
 	help
 	  Enable MySQL database support for PHP.

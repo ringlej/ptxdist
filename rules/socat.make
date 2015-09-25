@@ -60,7 +60,7 @@ SOCAT_CONF_OPT	:= \
 	--enable-pty \
 	--enable-ext2 \
 	--disable-readline \
-	--disable-openssl \
+	--$(call ptx/endis, PTXCONF_SOCAT_OPENSSL)-openssl \
 	--disable-fips \
 	--enable-tun \
 	--enable-sycls \

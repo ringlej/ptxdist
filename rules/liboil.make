@@ -29,13 +29,15 @@ LIBOIL_DIR	:= $(BUILDDIR)/$(LIBOIL)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBOIL_PATH	:= PATH=$(CROSS_PATH)
-LIBOIL_ENV 	:= $(CROSS_ENV)
+LIBOIL_CONF_ENV	:= $(CROSS_ENV)
+ifdef PTXCONF_ARCH_ARM64
+LIBOIL_CONF_ENV += as_cv_unaligned_access=no
+endif
 
 #
 # autoconf
 #
-LIBOIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBOIL_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install

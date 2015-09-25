@@ -35,7 +35,20 @@ VORBIS_TOOLS_LICENSE	:= GPLv2
 VORBIS_TOOLS_CONF_TOOL := autoconf
 VORBIS_TOOLS_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-threads \
+	--disable-rpath \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_VORBIS_TOOLS_OGG123)-ogg123 \
+	--$(call ptx/endis, PTXCONF_VORBIS_TOOLS_OGGDEC)-oggdec \
+	--$(call ptx/endis, PTXCONF_VORBIS_TOOLS_OGGENC)-oggenc \
+	--$(call ptx/endis, PTXCONF_VORBIS_TOOLS_OGGINFO)-ogginfo \
+	--$(call ptx/endis, PTXCONF_VORBIS_TOOLS_VCUT)-vcut \
+	--$(call ptx/endis, PTXCONF_VORBIS_TOOLS_VORBISCOMMENT)-vorbiscomment \
+	--disable-oggtest \
+	--disable-vorbistest \
+	--disable-curltest \
+	--$(call ptx/wwo, PTXCONF_VORBIS_TOOLS_FLAC)-flac \
+	--$(call ptx/wwo, PTXCONF_VORBIS_TOOLS_OGG123)-speex \
 	--without-kate \
 	--without-curl
 
@@ -43,7 +56,7 @@ VORBIS_TOOLS_CONF_OPT := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-VORBIS_TOOLS_PROGS :=
+VORBIS_TOOLS_PROGS_y :=
 VORBIS_TOOLS_PROGS_$(PTXCONF_VORBIS_TOOLS_OGG123) += ogg123
 VORBIS_TOOLS_PROGS_$(PTXCONF_VORBIS_TOOLS_OGGDEC) += oggdec
 VORBIS_TOOLS_PROGS_$(PTXCONF_VORBIS_TOOLS_OGGENC) += oggenc

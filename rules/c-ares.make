@@ -35,8 +35,16 @@ C_ARES_LICENSE	:= MIT
 #
 C_ARES_CONF_TOOL      := autoconf
 C_ARES_CONF_OPT              := \
- 	$(CROSS_AUTOCONF_USR) \
- 	--enable-nonblocking
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--enable-optimize \
+	--enable-warnings \
+	--disable-werror \
+	--disable-curldebug \
+	--enable-symbol-hiding \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-nonblocking \
+	--with-random=/dev/urandom
 
 # ----------------------------------------------------------------------------
 # Target-Install

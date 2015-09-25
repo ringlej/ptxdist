@@ -1,0 +1,9 @@
+## SECTION=networking
+
+config OPENNHRP
+	tristate
+	select C_ARES
+	prompt "opennhrp"
+	help
+	  OpenNHRP implements NBMA Next Hop Resolution Protocol
+	  (as defined in RFC 2332)

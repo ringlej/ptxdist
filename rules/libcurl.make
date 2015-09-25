@@ -17,36 +17,14 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.38.0
-LIBCURL_MD5	:= b6e3ea55bb718f2270489581efa50a8a
+LIBCURL_VERSION	:= 7.43.0
+LIBCURL_MD5	:= 11bddbb452a8b766b932f859aaeeed39
 LIBCURL		:= curl-$(LIBCURL_VERSION)
-LIBCURL_SUFFIX	:= tar.gz
-LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
+LIBCURL_SUFFIX	:= tar.bz2
+LIBCURL_URL	:= https://github.com/bagder/curl/releases/download/curl-7_43_0/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_SOURCE	:= $(SRCDIR)/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_DIR	:= $(BUILDDIR)/$(LIBCURL)
 LIBCURL_LICENSE	:= MIT
-
-CERTDATA := certdata.txt
-CERTDATA_URL := http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/$(CERTDATA)?raw=1
-CERTDATA_SOURCE := $(SRCDIR)/$(CERTDATA)
-$(CERTDATA_SOURCE) := CERTDATA
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libcurl.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBCURL_DIR))
-	@$(call extract, LIBCURL, $(BUILDDIR))
-	@$(call patchin, LIBCURL, $(LIBCURL_DIR))
-ifdef PTXCONF_LIBCURL_CA_BUNDLE
-	@$(call get, CERTDATA)
-	@cd $(LIBCURL_DIR); \
-	ln -s $(CERTDATA_SOURCE) ; \
-	$(LIBCURL_DIR)/lib/mk-ca-bundle.pl -n -u $(LIBCURL_DIR)/ca-bundle.crt
-endif
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -66,48 +44,52 @@ LIBCURL_AUTOCONF := \
 	\
 	--disable-ldap \
 	--disable-ldaps \
+	--disable-rtsp \
 	--disable-dict \
 	--disable-telnet \
+	--disable-pop3 \
+	--disable-imap \
+	--disable-smb \
+	--disable-smtp \
+	--disable-gopher \
 	--disable-manual \
 	\
 	--disable-ares \
 	--disable-sspi \
+	--disable-ntlm-wb \
 	--disable-debug \
 	--disable-verbose \
 	\
 	--enable-thread \
 	--enable-nonblocking\
 	--enable-hidden-symbols \
+	--enable-proxy \
 	\
 	--without-krb4 \
 	--without-spnego \
 	--without-gssapi \
+	--without-winssl \
+	--without-darwinssl \
 	--without-gnutls \
 	--without-nss \
-	--without-ca-path \
+	--without-winidn \
 	--without-libidn \
 	--without-axtls \
+	--without-polarssl \
 	--without-cyassl \
+	--without-librtmp \
 	\
 	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
+	--disable-nghttp2 \
 	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
 	--$(call ptx/endis, PTXCONF_LIBCURL_TFTP)-tftp \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
-	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2
-
-ifdef PTXCONF_LIBCURL_CA_BUNDLE
-LIBCURL_AUTOCONF += --with-ca-bundle=/etc/ssl/certs/ca-bundle.crt
-else
-LIBCURL_AUTOCONF += --without-ca-bundle
-endif
-
-ifdef PTXCONF_LIBCURL_SSL
-LIBCURL_AUTOCONF += --with-ssl=$(SYSROOT)
-else
-LIBCURL_AUTOCONF += --without-ssl
-endif
+	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2 \
+	--with-ssl=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,$(SYSROOT),no) \
+	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
+	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,10 +106,6 @@ $(STATEDIR)/libcurl.targetinstall:
 
 ifdef PTXCONF_LIBCURL_CURL
 	@$(call install_copy, libcurl, 0, 0, 0755, -, /usr/bin/curl)
-endif
-
-ifdef PTXCONF_LIBCURL_CA_BUNDLE
-	@$(call install_copy, libcurl, 0, 0, 0444, $(LIBCURL_DIR)/ca-bundle.crt, /etc/ssl/certs/ca-bundle.crt)
 endif
 	@$(call install_lib, libcurl, 0, 0, 0644, libcurl)
 

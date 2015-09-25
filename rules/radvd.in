@@ -3,7 +3,6 @@
 menuconfig RADVD
 	bool
 	prompt "radvd                         "
-	select LIBDAEMON
 	help
 	  Router Advertisement Daemon
 

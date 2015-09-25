@@ -29,7 +29,7 @@ PYZMQ_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYZMQ_CONF_TOOL	:= NO
+PYZMQ_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -37,20 +37,9 @@ PYZMQ_CONF_TOOL	:= NO
 
 $(STATEDIR)/pyzmq.compile:
 	@$(call targetinfo)
-	cd $(PYZMQ_DIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py build --zmq=bundled
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pyzmq.install:
-	@$(call targetinfo)
-	@cd $(PYZMQ_DIR) && \
-		$(CROSS_ENV) $(CROSS_PYTHON) \
-		setup.py install --root=$(PYZMQ_PKGDIR) --prefix=/usr
+	@mkdir -p $(PYZMQ_DIR)/build
+	echo '{ "have_sys_un_h": true, "no_libzmq_extension": true, "libzmq_extension": false, "skip_check_zmq": true }' > $(PYZMQ_DIR)/build/config.json
+	@$(call world/compile, PYZMQ)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

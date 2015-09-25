@@ -6,7 +6,7 @@ menuconfig VORBIS_TOOLS
 	select LIBOGG
 	select LIBVORBIS
 	select LIBAO if VORBIS_TOOLS_OGG123
-	select FLAC if VORBIS_TOOLS_OGG123 || VORBIS_TOOLS_OGGENC
+	select FLAC if VORBIS_TOOLS_FLAC
 	select SPEEX if VORBIS_TOOLS_OGG123
 	select SPEEX_FLOAT_API if VORBIS_TOOLS_OGG123
 	help
@@ -14,8 +14,12 @@ menuconfig VORBIS_TOOLS
 
 if VORBIS_TOOLS
 
+config VORBIS_TOOLS_FLAC
+	bool
+
 config VORBIS_TOOLS_OGG123
 	bool "ogg123"
+	select VORBIS_TOOLS_FLAC
 	help
 	  ogg123 (a playback tool)
 
@@ -26,6 +30,7 @@ config VORBIS_TOOLS_OGGDEC
 
 config VORBIS_TOOLS_OGGENC
 	bool "oggenc"
+	select VORBIS_TOOLS_FLAC
 	help
 	  oggenc (an encoder)
 

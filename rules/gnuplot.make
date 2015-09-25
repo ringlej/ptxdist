@@ -16,9 +16,9 @@ PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 #
 # Paths and names
 #
-GNUPLOT_VERSION	:= 4.6.2
+GNUPLOT_VERSION	:= 4.6.7
 GNUPLOT_MAJ_VER := $(basename $(GNUPLOT_VERSION))
-GNUPLOT_MD5	:= 060e0a77cabb6d6055c5917b0f0b5769
+GNUPLOT_MD5	:= fbcb4715acf228fcd2957f9d218b9167
 GNUPLOT		:= gnuplot-$(GNUPLOT_VERSION)
 GNUPLOT_SUFFIX	:= tar.gz
 GNUPLOT_URL	:= $(call ptx/mirror, SF, gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX))
@@ -39,43 +39,37 @@ GNUPLOT_ENV	:= $(CROSS_ENV)
 GNUPLOT_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-history-file \
+	--$(call ptx/endis, PTXCONF_GNUPLOT_X)-mouse \
 	--disable-x11-mbfonts \
-	--enable-binary-data-file \
-	--disable-with-image \
-	--disable-binary-x11-polygon \
-	--disable-thin-splines \
-	--enable-datastrings \
-	--disable-histograms \
+	--disable-x11-external \
+	--disable-volatile-data \
+	--disable-raise-console \
 	--disable-objects \
-	--disable-stringvariables \
 	--disable-macros \
-	--disable-iris \
-	--disable-mgr \
-	--disable-rgip \
 	--disable-h3d-quadtree \
 	--disable-h3d-gridbox \
 	--disable-wxwidgets \
-	--without-kpsexpand \
+	--enable-backwards-compatibility \
+	--disable-stats \
+	--disable-qt \
+	--without-lispdir \
 	--without-latex \
+	--without-kpsexpand \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_X)-x \
 	--without-lasergnu \
 	--without-linux-vga \
 	--without-ggi \
 	--without-xmi \
 	--with-readline=builtin \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_GD)-gd \
+	--$(call ptx/wwo, PTXCONF_GNUPLOT_PDF)-pdf \
+	--without-lua \
 	--without-cwdrc \
 	--without-lisp-files \
 	--without-row-help \
 	--without-tutorial \
 	--without-wx-config \
-	--without-lua \
-	--$(call ptx/endis, PTXCONF_GNUPLOT_X)-mouse \
-	--$(call ptx/wwo, PTXCONF_GNUPLOT_X)-x \
-	--$(call ptx/wwo, PTXCONF_GNUPLOT_PLOT)-plot \
-	--$(call ptx/wwo, PTXCONF_GNUPLOT_PNG)-png \
-	--$(call ptx/wwo, PTXCONF_GNUPLOT_GD)-gd \
-	--without-plot \
-	--$(call ptx/wwo, PTXCONF_GNUPLOT_PDF)-pdf \
-	--without-tutorial \
+	--without-bitmap-terminals \
 	--without-cairo
 
 GNUPLOT_MAKE_OPT := -C src

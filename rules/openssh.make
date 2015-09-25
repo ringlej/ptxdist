@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 6.6p1
-OPENSSH_MD5	:= 3e9800e6bca1fbac0eea4d41baa7f239
+OPENSSH_VERSION	:= 6.9p1
+OPENSSH_MD5	:= 0b161c44fc31fbc6b76a6f8ae639f16f
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
@@ -56,12 +56,13 @@ OPENSSH_CONF_OPT	:= \
 	--enable-libutil \
 	--disable-pututline \
 	--disable-pututxline \
+	--with-openssl \
+	--without-ssh1 \
 	--with-stackprotect \
 	--with-hardening \
 	--without-rpath \
 	--with-zlib=$(SYSROOT) \
 	--without-skey \
-	--without-tcp-wrappers \
 	--without-ldns \
 	--without-libedit \
 	--without-audit \
@@ -121,10 +122,6 @@ ifdef PTXCONF_OPENSSH_SSHD_SYSTEMD_UNIT
 	@$(call install_alternative, openssh, 0, 0, 0644, \
 		/usr/lib/tmpfiles.d/ssh.conf)
 endif
-endif
-
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, openssh, 0, 0, 0644, /etc/init/ssh.conf)
 endif
 
 ifdef PTXCONF_OPENSSH_SCP

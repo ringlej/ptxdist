@@ -5,6 +5,7 @@ config MPG123
 	prompt "mpg123"
 	select LIBLTDL
 	select ALSA_LIB
+	select ALSA_LIB_PCM
 	help
 	  mpg123 is a real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1,2 and 3
 	  (MPEG 1.0 layer 3 aka MP3 most commonly tested). Among others working with Linux,

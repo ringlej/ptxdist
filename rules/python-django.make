@@ -29,31 +29,7 @@ PYTHON_DJANGO_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_DJANGO_PATH	:= PATH=$(CROSS_PATH)
-PYTHON_DJANGO_CONF_TOOL	:= NO
-PYTHON_DJANGO_MAKE_ENV	:= $(CROSS_ENV)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-django.compile:
-	@$(call targetinfo)
-	cd $(PYTHON_DJANGO_DIR) && \
-		$(PYTHON_DJANGO_PATH) $(PYTHON_DJANGO_MAKE_ENV) \
-		$(CROSS_PYTHON) setup.py build
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/python-django.install:
-	@$(call targetinfo)
-	cd $(PYTHON_DJANGO_DIR) && \
-		$(PYTHON_DJANGO_PATH) $(PYTHON_DJANGO_MAKE_ENV) \
-		$(CROSS_PYTHON) setup.py install --root=$(PYTHON_DJANGO_PKGDIR) --prefix=/usr
-	@$(call touch)
+PYTHON_DJANGO_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Target-Install

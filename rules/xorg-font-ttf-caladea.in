@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_CALADEA
+	bool
+	select XORG_FONTS
+	prompt "caladea"
+	help
+	  Caladea is metric-compatible with Cambria font. This font is
+	  sans-serif typeface family based on Lato.

@@ -1,0 +1,12 @@
+## SECTION=networking
+
+config DHCP_HELPER
+	tristate
+	prompt "dhcp-helper"
+	help
+	  dhcp-helper is a DHCP and BOOTP relay agent. It listens for DHCP and
+	  BOOTP broadcasts on directly connected subnets and relays them to DHCP
+	  or BOOTP servers elsewhere.  It also relays replies from the remote
+	  servers back to partially configured hosts. Once hosts are fully
+	  configured they can communicate directly with their servers and no
+	  longer need the services of a relay.

@@ -20,14 +20,6 @@ if CVS
 
 comment "build options   ---"
 
-config CVS_NDBM
-	bool
-	default y
-	prompt "use built in ndbm"
-	help
-	  Use the NDBM library distributed with CVS rather than attempting to use a
-	  system NDBM library. Note: Disabling this may not work
-
 config CVS_CLIENT
 	bool
 	select CVS_PSSWRD_CLIENT

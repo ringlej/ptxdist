@@ -25,4 +25,11 @@ if GLIB
 #	bool
 #	prompt "experimental version"
 
+config GLIB_GDBUS
+	bool
+	prompt "gdbus"
+	help
+	  gdbus is a command line dbus tool, based on the glib internal gdbus
+	  implementation.
+
 endif

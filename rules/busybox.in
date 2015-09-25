@@ -90,6 +90,12 @@ config BUSYBOX_TELNETD_SYSTEMD_UNIT
 	depends on BUSYBOX_TELNETD && SYSTEMD
 	prompt "telnetd systemd service files"
 
+config BUSYBOX_CROND_SYSTEMD_UNIT
+	bool
+	default y
+	depends on BUSYBOX_CROND && SYSTEMD
+	prompt "crond systemd service files"
+
 comment "---"
 
 source "config/busybox/Config.in"

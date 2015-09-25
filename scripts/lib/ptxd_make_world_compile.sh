@@ -17,13 +17,28 @@ ptxd_make_world_compile() {
 	# no build dir -> assume the package has nothing to build.
 	return
     fi &&
-
-    ptxd_eval \
-	"${pkg_path}" \
-	"${pkg_env}" \
-	"${pkg_make_env}" \
-	"${MAKE}" -C "${pkg_build_dir}" \
-	"${pkg_make_opt}" \
-	"${pkg_make_par}"
+    case "${pkg_conf_tool}" in
+	python*)
+	(
+	ptxd_eval \
+	    cd "${pkg_build_dir}" '&&' \
+	    "${pkg_path}" \
+	    "${pkg_env}" \
+	    "${pkg_make_env}" \
+	    "${ptx_build_python}" \
+	    setup.py \
+	    "${pkg_make_opt}"
+	)
+	;;
+	*)
+	ptxd_eval \
+	    "${pkg_path}" \
+	    "${pkg_env}" \
+	    "${pkg_make_env}" \
+	    "${MAKE}" -C "${pkg_build_dir}" \
+	    "${pkg_make_opt}" \
+	    "${pkg_make_par}"
+	;;
+    esac
 }
 export -f ptxd_make_world_compile

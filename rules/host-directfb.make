@@ -22,13 +22,11 @@ HOST_DIRECTFB_DIR	= $(HOST_BUILDDIR)/$(DIRECTFB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_DIRECTFB_PATH	:= PATH=$(HOST_PATH)
-HOST_DIRECTFB_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_DIRECTFB_AUTOCONF	:= \
+HOST_DIRECTFB_CONF_TOOL	:= autoconf
+HOST_DIRECTFB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--disable-osx \
 	--disable-x11 \
@@ -52,14 +50,8 @@ HOST_DIRECTFB_AUTOCONF	:= \
 	\
 	--enable-png
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-directfb.compile:
-	@$(call targetinfo)
-	cd $(HOST_DIRECTFB_DIR)/tools && $(HOST_DIRECTFB_PATH) $(MAKE) $(PARALLELMFLAGS) directfb-csource
-	@$(call touch)
+HOST_DIRECTFB_MAKE_OPT	:= \
+	-C tools directfb-csource
 
 # ----------------------------------------------------------------------------
 # Install

@@ -110,6 +110,7 @@ endif
 #	#
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \
 		/etc/lighttpd/lighttpd.conf)
+	@$(call install_copy, lighttpd, 0, 0, 0755, /etc/lighttpd/conf.d)
 	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
 		@MODULES@, $(LIGHTTPD_MODULE_STRING))
 
@@ -134,10 +135,6 @@ endif
 endif
 endif
 
-ifdef PTXCONF_INITMETHOD_UPSTART
-	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init/lighttpd.conf)
-endif
-
 ifdef PTXCONF_LIGHTTPD_SYSTEMD_UNIT
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \
 		/lib/systemd/system/lighttpd.service)
@@ -148,19 +145,19 @@ endif
 ifdef PTXCONF_LIGHTTPD_GENERIC_SITE
 ifdef PTXCONF_LIGHTTPD_MOD_FASTCGI_PHP
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/var/www/lighttpd.html, \
+		$(PTXDIST_TOPDIR)/projectroot/var/www/lighttpd.html, \
 		/var/www/index.html)
 
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/var/www/bottles.php, \
+		$(PTXDIST_TOPDIR)/projectroot/var/www/bottles.php, \
 		/var/www/bottles.php)
 
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/var/www/more_bottles.php, \
+		$(PTXDIST_TOPDIR)/projectroot/var/www/more_bottles.php, \
 		/var/www/more_bottles.php)
 else
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/var/www/httpd.html, \
+		$(PTXDIST_TOPDIR)/projectroot/var/www/httpd.html, \
 		/var/www/index.html)
 endif
 endif

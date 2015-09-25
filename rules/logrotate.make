@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2015 by Marc Kleine-Budde <mkl@pengutronix.de>
 #           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LOGROTATE) += logrotate
 #
 # Paths and names
 #
-LOGROTATE_VERSION	:= 3.8.7
-LOGROTATE_MD5		:= 99e08503ef24c3e2e3ff74cc5f3be213
+LOGROTATE_VERSION	:= 3.9.1
+LOGROTATE_MD5		:= 4492b145b6d542e4a2f41e77fa199ab0
 LOGROTATE		:= logrotate-$(LOGROTATE_VERSION)
 LOGROTATE_SUFFIX	:= tar.gz
 LOGROTATE_URL		:= https://fedorahosted.org/releases/l/o/logrotate/$(LOGROTATE).$(LOGROTATE_SUFFIX)
@@ -30,11 +30,12 @@ LOGROTATE_LICENSE	:= GPLv2
 # Compile
 # ----------------------------------------------------------------------------
 
-LOGROTATE_PATH		:= PATH=$(CROSS_PATH)
-LOGROTATE_MAKE_ENV	:= $(CROSS_ENV) RPM_OPT_FLAGS='$(strip $(CROSS_CPPFLAGS))'
-LOGROTATE_MAKE_OPT	:= OS_NAME=Linux LFS=-D_FILE_OFFSET_BITS=64
-
-LOGROTATE_INSTALL_OPT	:= PREFIX=$(LOGROTATE_PKGDIR) install
+LOGROTATE_CONF_TOOL := autoconf
+LOGROTATE_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/wwo, PTXCONF_LOGROTATE_ACL)-acl \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -50,6 +51,16 @@ $(STATEDIR)/logrotate.targetinstall:
 	@$(call install_fixup, logrotate,DESCRIPTION,missing)
 
 	@$(call install_copy, logrotate, 0, 0, 0755, -, /usr/sbin/logrotate)
+	@$(call install_alternative, logrotate, 0, 0, 0644, /etc/logrotate.conf)
+
+ifdef PTXCONF_LOGROTATE_SYSTEMD_UNIT
+	@$(call install_alternative, logrotate, 0, 0, 0644, \
+		/lib/systemd/system/logrotate.timer)
+	@$(call install_alternative, logrotate, 0, 0, 0644, \
+		/lib/systemd/system/logrotate.service)
+	@$(call install_link, logrotate, ../logrotate.timer, \
+		/lib/systemd/system/multi-user.target.wants/logrotate.timer)
+endif
 
 	@$(call install_finish, logrotate)
 

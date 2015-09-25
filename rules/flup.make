@@ -29,28 +29,7 @@ FLUP_LICENSE	:= BSD, MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-FLUP_PATH	:= PATH=$(CROSS_PATH)
-FLUP_CONF_ENV	:= $(CROSS_ENV)
-FLUP_CONF_TOOL	:= NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/flup.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/flup.install:
-	@$(call targetinfo)
-	@cd $(FLUP_DIR) && \
-		$(FLUP_PATH) $(FLUP_MAKE_ENV) \
-		$(CROSS_PYTHON) setup.py install --root=$(FLUP_PKGDIR) --prefix=/usr
-	@$(call touch)
+FLUP_CONF_TOOL	:= python
 
 # ----------------------------------------------------------------------------
 # Target-Install

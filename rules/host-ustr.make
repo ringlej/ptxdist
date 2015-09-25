@@ -25,4 +25,6 @@ HOST_USTR_INSTALL_OPT := \
 	$(HOST_USTR_MAKE_OPT) \
 	install
 
+HOST_USTR_CFLAGS := -fgnu89-inline
+
 # vim: syntax=make

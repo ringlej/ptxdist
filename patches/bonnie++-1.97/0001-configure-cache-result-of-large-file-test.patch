@@ -1,0 +1,32 @@
+From: Alexander Stein <alexander.stein@systec-electronic.com>
+Date: Mon, 27 Apr 2015 13:22:58 +0200
+Subject: [PATCH] configure: cache result of large file test
+
+Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
+---
+ configure.in | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index f92f0ab8ea8f..015e8ba82e71 100644
+--- a/configure.in
++++ b/configure.in
+@@ -83,6 +83,7 @@ void * thread_func(void * param) { return NULL; }
+   , thread_ldflags="-pthread")
+ 
+ AC_SUBST(large_file)
++AC_CACHE_CHECK([Large file support], bonnie_cv_sys_largefile,
+ AC_TRY_RUN([#ifndef _LARGEFILE64_SOURCE
+ #define _LARGEFILE64_SOURCE
+ #endif
+@@ -118,8 +119,8 @@ int main () {
+   }
+   close(fd);
+   return 0;
+-}], large_file="yes")
+-if [[ -n "$large_file" ]]; then
++}], bonnie_cv_sys_largefile=yes, bonnie_cv_sys_largefile=no))
++if [[ "x$bonnie_cv_sys_largefile" = "xyes" ]]; then
+    large_file="#define _LARGEFILE64_SOURCE"
+ fi
+ 

@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.42.1
-GLIB_MD5	:= 89c4119e50e767d3532158605ee9121a
+GLIB_VERSION	:= 2.44.0
+GLIB_MD5	:= 74cf7b4ea200b76e42a4c22c8daf0f93
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -81,6 +81,9 @@ GLIB_CONF_OPT	:= \
 	--with-threads=posix \
 	--with-pcre=internal
 
+# workaround for broken libtool
+GLIB_CFLAGS:= -Wl,-rpath-link,$(GLIB_DIR)/gmodule/.libs
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -107,6 +110,9 @@ $(STATEDIR)/glib.targetinstall:
 		$(call install_lib, glib, 0, 0, 0644, $$i); \
 	done
 
+ifdef PTXCONF_GLIB_GDBUS
+	@$(call install_copy, glib, 0, 0, 0755, -, /usr/bin/gdbus)
+endif
 	@$(call install_finish, glib)
 
 	@$(call touch)

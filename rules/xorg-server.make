@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.16.1
-XORG_SERVER_MD5		:= b1ff364222e921d32de40c4786e8bc47
+XORG_SERVER_VERSION	:= 1.17.2
+XORG_SERVER_MD5		:= 397e405566651150490ff493e463f1ad
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(call ptx/mirror, XORG, individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX))
@@ -27,6 +27,10 @@ XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+# The xorg module loader needs lazy symbol binding
+XORG_SERVER_WRAPPER_BLACKLIST := \
+        TARGET_HARDEN_BINDNOW
 
 XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 	ac_cv_sys_linker_h=yes \
@@ -61,7 +65,6 @@ XORG_SERVER_CONF_OPT	= \
 	--disable-install-libxf86config \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_AIGLX)-aiglx \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_GLX_TLS)-glx-tls \
-	--$(call ptx/endis, PTXCONF_XORG_SERVER_STRING_REGISTRY)-registry \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_COMPOSITE)-composite \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_SHM)-mitshm \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_XRES)-xres \
@@ -100,6 +103,9 @@ XORG_SERVER_CONF_OPT	= \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XORG)-pciaccess \
 	--enable-linux-acpi \
 	--enable-linux-apm \
+	--disable-listen-tcp \
+	--enable-listen-unix \
+	--enable-listen-local \
 	--disable-systemd-logind \
 	--disable-suid-wrapper \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XORG)-xorg \
@@ -107,6 +113,7 @@ XORG_SERVER_CONF_OPT	= \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XVFB)-xvfb \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XNEST)-xnest \
 	--disable-xquartz \
+	--$(call ptx/endis, PTXCONF_XORG_SERVER_EXT_DRI3)-xshmfence \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWAYLAND)-xwayland \
 	--disable-standalone-xpbproxy \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_XWIN)-xwin \
@@ -237,23 +244,11 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 		$(XORG_PREFIX)/lib/xorg/modules/libwfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libvgahw.so)
+ifdef PTXCONF_XORG_DRIVER_VIDEO_MODESETTING
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/modesetting_drv.so)
 endif
-
-# FIXME: Should be included on demand only
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/multimedia/bt829_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/multimedia/tda8425_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/multimedia/tda9850_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, - ,\
-		/usr/lib/xorg/modules/multimedia/uda1380_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/multimedia/fi1236_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, - ,\
-		/usr/lib/xorg/modules/multimedia/msp3430_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/multimedia/tda9885_drv.so)
+endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \

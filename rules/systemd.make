@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 219
-SYSTEMD_MD5	:= e0d6c9a4b4f69f66932d2230298c9a34
+SYSTEMD_VERSION	:= 224
+SYSTEMD_MD5	:= fad64d2ae64af4b6034950e91b2c8e2b
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
-SYSTEMD_SUFFIX	:= tar.xz
-SYSTEMD_URL	:= http://www.freedesktop.org/software/systemd/$(SYSTEMD).$(SYSTEMD_SUFFIX)
+SYSTEMD_SUFFIX	:= tar.gz
+SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
 SYSTEMD_LICENSE	:= GPLv2+, LGPLv2.1, MIT
@@ -40,8 +40,16 @@ SYSTEMD_WRAPPER_BLACKLIST := TARGET_HARDEN_PIE
 endif
 SYSTEMD_CONF_ENV	:= \
 	$(CROSS_ENV) \
+	cc_cv_CFLAGS__Werror_shadow=no \
 	ac_cv_path_INTLTOOL_MERGE=: \
-	ac_cv_path_KMOD=/bin/kmod
+	ac_cv_path_KEXEC=/sbin/kexec \
+	ac_cv_path_KILL=/bin/kill \
+	ac_cv_path_KMOD=/bin/kmod \
+	ac_cv_path_MOUNT_PATH=/bin/mount \
+	ac_cv_path_UMOUNT_PATH=/bin/umount \
+	ac_cv_path_SULOGIN=/sbin/sulogin \
+	ac_cv_path_QUOTACHECK=/usr/sbin/quotacheck \
+	ac_cv_path_QUOTAON=/usr/sbin/quotaon
 
 SYSTEMD_CONF_ENV += cc_cv_CFLAGS__flto=no
 
@@ -57,14 +65,8 @@ SYSTEMD_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-silent-rules \
 	--disable-static \
-	--disable-nls \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-introspection \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
-	--disable-python-devel \
 	--disable-dbus \
 	--disable-utmp \
 	--enable-compat-libs \
@@ -74,7 +76,6 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-blkid \
 	--disable-seccomp \
 	--disable-ima \
-	--disable-chkconfig \
 	$(GLOBAL_SELINUX_OPTION) \
 	--disable-apparmor \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
@@ -84,7 +85,6 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
-	--disable-gcrypt \
 	--disable-audit \
 	--disable-elfutils \
 	--disable-libcryptsetup \
@@ -115,11 +115,10 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-polkit \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-resolved \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
-	--disable-efi \
-	--disable-terminal \
-	--disable-kdbus \
+	--enable-efi \
+	--disable-gnuefi \
+	--enable-kdbus \
 	--enable-myhostname \
-	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
 	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
 	--disable-manpages \
 	--disable-hibernate \
@@ -162,8 +161,9 @@ endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
 endif
-#	# don't touch /etc
+#	# don't touch /etc and /home
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/etc.conf
+	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/home.conf
 #	# the upstream default (graphical.target) wants display-manager.service
 	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/lib/systemd/system/default.target
 	@$(call touch)
@@ -197,14 +197,12 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolve-host,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved,) \
 	systemd-shutdown \
-	systemd-shutdownd \
 	systemd-sleep \
 	systemd-socket-proxyd \
 	systemd-sysctl \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
 	systemd-update-done \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-user-sessions,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
 
 $(STATEDIR)/systemd.targetinstall:
@@ -315,6 +313,8 @@ ifdef PTXCONF_SYSTEMD_NETWORK
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/network)
 	@$(call install_alternative_tree, systemd, 0, 0, /lib/systemd/network)
 endif
+	@$(call install_alternative, systemd, 0, 0, 0644, \
+		/lib/systemd/network/99-default.link)
 
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)

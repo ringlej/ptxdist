@@ -1,0 +1,10 @@
+## SECTION=test_suites
+
+config CPUBURN_ARM
+	tristate
+	prompt "cpuburn-arm"
+	help
+	  This is Siarhei Siamashka's CPU burn variant for ARM. It's a set of
+	  tools to burn as much power on your CPU as possible.
+
+	  https://ssvb.github.io/2012/04/10/cpuburn-arm-cortex-a9.html

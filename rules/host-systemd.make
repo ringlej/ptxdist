@@ -18,7 +18,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 # ----------------------------------------------------------------------------
 
 HOST_SYSTEMD_CONF_ENV	:= \
-        $(HOST_ENV) \
+	$(HOST_ENV) \
+	AR=ar NM=nm RANLIB=ranlib \
+	cc_cv_CFLAGS__flto=no \
+	cc_cv_LDFLAGS__Wl___gc_sections=no \
+	cc_cv_CFLAGS__Werror_shadow=no \
 	ac_cv_path_INTLTOOL_MERGE=:
 
 #
@@ -29,14 +33,8 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-silent-rules \
 	--disable-static \
-	--disable-nls \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-introspection \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
-	--disable-python-devel \
 	--disable-dbus \
 	--disable-utmp \
 	--disable-compat-libs \
@@ -46,17 +44,15 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-blkid \
 	--disable-seccomp \
 	--disable-ima \
-	--disable-chkconfig \
 	--disable-selinux \
 	--disable-apparmor \
 	--disable-xz \
 	--disable-zlib \
-	--enable-bzip2 \
+	--disable-bzip2 \
 	--disable-lz4 \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
-	--disable-gcrypt \
 	--disable-audit \
 	--disable-elfutils \
 	--disable-libcryptsetup \
@@ -88,10 +84,9 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-resolved \
 	--disable-networkd \
 	--disable-efi \
-	--disable-terminal \
+	--disable-gnuefi \
 	--disable-kdbus \
 	--disable-myhostname \
-	--disable-gudev \
 	--enable-hwdb \
 	--disable-manpages \
 	--disable-hibernate \

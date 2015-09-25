@@ -1,8 +1,11 @@
 ## SECTION=disk_and_file
-config LOGROTATE
+
+menuconfig LOGROTATE
 	tristate
-	prompt "logrotate"
+	prompt "logrotate                     "
 	select LIBPOPT
+	select ACL if LOGROTATE_ACL
+	select ACL_SHARED if LOGROTATE_ACL
 	help
 	  The logrotate utility is designed to simplify the
 	  administration of log files on a system which generates a lot
@@ -11,3 +14,16 @@ config LOGROTATE
 	  be set to handle a log file daily, weekly, monthly or when the
 	  log file gets to a certain size. Normally, logrotate runs as
 	  a daily cron job.
+
+if LOGROTATE
+
+config LOGROTATE_ACL
+	bool "acl support"
+
+config LOGROTATE_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd timer/service files"
+
+endif

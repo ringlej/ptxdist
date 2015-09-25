@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 25 May 2015 21:38:45 +0200
+Subject: [PATCH] sys/stat.h is needed when building with libudev
+
+It is needed for fstat() and since udev v220 it is no longer included via
+libudev.h.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/loader/loader.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/loader/loader.c b/src/loader/loader.c
+index 47e1f58746ce..def125528932 100644
+--- a/src/loader/loader.c
++++ b/src/loader/loader.c
+@@ -74,6 +74,7 @@
+ #include <unistd.h>
+ #include <stdlib.h>
+ #include <errno.h>
++#include <sys/stat.h>
+ #ifdef USE_DRICONF
+ #include "xmlconfig.h"
+ #include "xmlpool.h"

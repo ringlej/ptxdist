@@ -8,8 +8,8 @@ PACKAGES-$(PTXCONF_IMA_EVM_UTILS) += ima-evm-utils
 #
 # Paths and names
 #
-IMA_EVM_UTILS_VERSION	:= 0.2
-IMA_EVM_UTILS_MD5	:= 3d31ff2bbd42690b6825068447b15dfd
+IMA_EVM_UTILS_VERSION	:= 0.9
+IMA_EVM_UTILS_MD5	:= b4005df0bcf63ec33744c6dea5e670b2
 IMA_EVM_UTILS		:= ima-evm-utils-$(IMA_EVM_UTILS_VERSION)
 IMA_EVM_UTILS_SUFFIX	:= tar.gz
 IMA_EVM_UTILS_URL	:= $(call ptx/mirror, SF, linux-ima/$(IMA_EVM_UTILS).$(IMA_EVM_UTILS_SUFFIX))
@@ -21,10 +21,9 @@ IMA_EVM_UTILS_LICENSE	:= LGPLv2+
 # Prepare
 # ----------------------------------------------------------------------------
 
-IMA_EVM_UTILS_CONF_TOOL	:= autoconf
+IMA_EVM_UTILS_CONF_TOOL := autoconf
 IMA_EVM_UTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-static \
 	--disable-debug
 
 # ----------------------------------------------------------------------------
@@ -41,7 +40,7 @@ $(STATEDIR)/ima-evm-utils.targetinstall:
 	@$(call install_fixup, ima-evm-utils,DESCRIPTION,missing)
 
 	@$(call install_copy, ima-evm-utils, 0, 0, 0755, -, /usr/bin/evmctl)
-	@$(call install_tree, ima-evm-utils, 0, 0, -, /usr/lib/ima-evm-utils/)
+	@$(call install_lib, ima-evm-utils, 0, 0, 0644, libimaevm)
 
 	@$(call install_finish, ima-evm-utils)
 

@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_X86_64
 PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_LIBX86) += libx86
+endif
 
 #
 # Paths and names

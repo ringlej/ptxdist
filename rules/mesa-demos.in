@@ -153,6 +153,7 @@ if MESA_DEMOS_GLES2
 
 config MESA_DEMOS_ES2_INFO
 	bool
+	select MESA_DEMOS_X11
 	prompt "es2_info"
 
 config MESA_DEMOS_ES2GEARS_SCREEN
@@ -161,10 +162,12 @@ config MESA_DEMOS_ES2GEARS_SCREEN
 
 config MESA_DEMOS_ES2GEARS_X11
 	bool
+	select MESA_DEMOS_X11
 	prompt "es2gears_x11"
 
 config MESA_DEMOS_ES2TRI
 	bool
+	select MESA_DEMOS_X11
 	prompt "es2tri"
 
 config MESA_DEMOS_ES2GEARS_WAYLAND

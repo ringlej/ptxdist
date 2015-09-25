@@ -18,12 +18,6 @@ config ATTR_TOOLS
 	bool
 	prompt "install tools"
 
-config ATTR_SHARED
-	bool
-	depends on ATTR
-	default y
-	prompt "install shared lib"
-
 config ATTR_GETTEXT
 	bool
 	depends on ATTR

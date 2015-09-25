@@ -256,18 +256,18 @@ comment "Development features"
 
 config KERNEL_EXTRA_MAKEVARS
 	string
-	default "CONFIG_DEBUG_SECTION_MISMATCH=y"
+	default ""
 	prompt "Additional kbuild options"
 	help
 	  Specify extra parameters for the kernel build system here. Useful
 	  options include:
 
 	  * CONFIG_DEBUG_SECTION_MISMATCH=y
-	  Enable this feature if you want kernel's builsystem to check for
+	  Enable this feature if you want the kernel's buildsystem to check for
 	  section mismatches (__devinit/__devexit, __init/__exit). This
 	  entry is valid for 2.6.25 kernels and above. Previous kernel versions
 	  do this check automatically. Enabling this feature is recommended
-	  for kernel development.
+	  for kernel development only because it changes how code is inlined.
 	  Changing this entry will rebuild the whole kernel.
 
 	  * C=1

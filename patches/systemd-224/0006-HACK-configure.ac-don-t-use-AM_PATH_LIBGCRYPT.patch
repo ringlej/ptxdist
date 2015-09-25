@@ -1,0 +1,59 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 7 Jul 2015 09:58:21 +0200
+Subject: [PATCH] HACK: configure.ac: don't use AM_PATH_LIBGCRYPT
+
+Otherwise autogen.sh fails if libgcrypt/gettext/intltool is not installed.
+
+Note: Upstream rejected patches to make AM_PATH_LIBGCRYPT optional so we
+disable this here with a hack to avoid unnecessary dependencies.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index a16ca6396b2c..353afaec7ee6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -54,6 +54,7 @@ SET_ARCH(IA32, i*86*)
+ SET_ARCH(MIPS, mips*)
+ SET_ARCH(AARCH64, aarch64*)
+ 
++m4_ifdef([AM_NLS__DISABLED], [
+ # i18n stuff for the PolicyKit policy files, heck whether intltool can be found, disable NLS otherwise
+ AC_CHECK_PROG(intltool_found, [intltool-merge], [yes], [no])
+ AS_IF([test x"$intltool_found" != xyes],
+@@ -76,6 +77,12 @@ AS_IF([test -z "$INTLTOOL_POLICY_RULE"], [
+     INTLTOOL_POLICY_RULE='%.policy: %.policy.in ; @echo "  ITMRG   " $@ && echo "*** intltool support required to build target $@" && false'
+     AC_SUBST(INTLTOOL_POLICY_RULE)
+ ])
++],[
++touch `dirname $0`/po/Makefile.in.in
++echo -e 'all:\ninstall:\n' > `dirname $0`/po/Makefile
++INTLTOOL_POLICY_RULE=
++AC_SUBST(INTLTOOL_POLICY_RULE)
++])
+ 
+ GETTEXT_PACKAGE=systemd
+ AC_SUBST(GETTEXT_PACKAGE)
+@@ -673,6 +680,7 @@ fi
+ AM_CONDITIONAL([HAVE_SMACK], [test "x$have_smack" = "xyes"])
+ 
+ # ------------------------------------------------------------------------------
++m4_ifdef([AM_PATH_LIBGCRYPT__DISABLED], [
+ AC_ARG_ENABLE([gcrypt],
+         AS_HELP_STRING([--disable-gcrypt],[Disable optional GCRYPT support]),
+                 [case "${enableval}" in
+@@ -701,6 +709,11 @@ else
+         GCRYPT_LIBS=
+         GCRYPT_CFLAGS=
+ fi
++],[
++GCRYPT_LIBS=
++GCRYPT_CFLAGS=
++have_gcrypt=no
++])
+ AC_SUBST(GCRYPT_LIBS)
+ AC_SUBST(GCRYPT_CFLAGS)
+ AM_CONDITIONAL([HAVE_GCRYPT], [test "x$have_gcrypt" != xno])

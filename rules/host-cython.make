@@ -29,23 +29,6 @@ HOST_CYTHON_LICENSE	:= APLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_CYTHON_PATH        := PATH=$(HOST_PATH)
-HOST_CYTHON_CONF_TOOL	:= NO
-
-$(STATEDIR)/host-cython.compile:
-	@$(call targetinfo)
-	@cd $(HOST_CYTHON_DIR) && \
-		python2 setup.py build
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-cython.install:
-	@$(call targetinfo)
-	@cd $(HOST_CYTHON_DIR) && \
-		python2 setup.py install --root=$(HOST_CYTHON_PKGDIR) --prefix=
-	@$(call touch)
+HOST_CYTHON_CONF_TOOL	:= python
 
 # vim: syntax=make

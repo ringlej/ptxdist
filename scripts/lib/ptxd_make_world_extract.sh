@@ -60,6 +60,7 @@ ptxd_make_world_extract() {
 
     mkdir -p "${pkg_extract_dir}" || return
 
+    ptxd_make_serialize_take
     echo "\
 extract: pkg_src=$(ptxd_print_path ${pkg_src})
 extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
@@ -68,6 +69,7 @@ extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
     tmpdir="$(mktemp -d "${pkg_dir}.XXXXXX")"
     if ! ptxd_make_extract_archive "${pkg_src}" "${tmpdir}"; then
 	rm -rf "${tmpdir}"
+	ptxd_make_serialize_put
 	ptxd_bailout "failed to extract '${pkg_src}'."
     fi
     local depth=$[${pkg_strip_level:=1}+1]
@@ -83,6 +85,7 @@ extract: pkg_extract_dir=$(ptxd_print_path ${pkg_dir})"
     fi
     local ret=$?
     rm -rf "${tmpdir}"
+    ptxd_make_serialize_put
     return ${ret}
 }
 

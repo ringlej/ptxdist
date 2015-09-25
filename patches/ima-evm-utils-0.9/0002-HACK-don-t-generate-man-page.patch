@@ -1,0 +1,19 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 3 Jun 2015 16:08:51 +0200
+Subject: [PATCH] HACK: don't generate man page
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 06ebf59ea4aa..e527f34f1faa 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,5 +1,4 @@
+ SUBDIRS = src
+-dist_man_MANS = evmctl.1
+ 
+ doc_DATA =  examples/ima-genkey-self.sh examples/ima-genkey.sh examples/ima-gen-local-ca.sh
+ EXTRA_DIST = autogen.sh $(doc_DATA)

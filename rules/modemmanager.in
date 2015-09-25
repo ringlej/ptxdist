@@ -4,7 +4,7 @@ menuconfig MODEMMANAGER
 	tristate
 	select GLIB
 	select UDEV
-	select UDEV_LIBGUDEV
+	select LIBGUDEV
 	select LIBMBIM
 	select LIBQMI
 	prompt "modemmanager                  "

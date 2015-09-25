@@ -1,0 +1,167 @@
+#!/bin/sh
+#
+# This is a chrony init.d script which ist called by init(1)
+# with [start|stop] as argument. This version does not
+# need an additional start-stop daemon.
+#
+# Last change:  Bjørn Bürger <b.buerger@pengutronix.de>
+# Date:		Tue Mar  6 16:00:30 UTC 2007
+
+PATH=/sbin:/bin:/usr/bin:/usr/sbin
+BINARY="/usr/sbin/chronyd"
+CONFIG="/etc/chrony/chrony.conf"
+PREFIX="chrony: "
+# This system doesn´t have full rtc ioctl support for
+# chrony statistic functions
+RTC_IOCTL="incomplete"
+
+# some chronyc commands need prior autentication: extract keys from config
+KEY=$(awk '$1 ~ /^commandkey$/ { print $2; exit}' /etc/chrony/chrony.conf)
+PASSWORD=`awk '$1 ~ /^'$KEY'$/ {print $2; exit}' /etc/chrony/chrony.keys`
+
+# convenience functions
+message(){
+	echo "${PREFIX}$*" >&2
+}
+
+message_n(){
+	echo -n "${PREFIX}$*" >&2
+}
+
+bailout(){
+	echo "${PREFIX}ERROR   --- $*" >&2
+	exit 1
+}
+
+usage(){
+	echo "Usage: $0 {start|stop|restart|force-reload|online|offline|set-rtc|status|statistics}"
+}
+
+killproc() {
+	killall $1
+}
+
+# main functions
+start_proc() {
+	message_n "Reading system time from RealTimeClock ..."
+	/sbin/hwclock --hctosys || message_n " ### FAILED ### "
+	message "DONE"
+	message_n "Starting NTP server: chronyd ..."
+	[ -e "$CONFIG" ] || bailout "Configfile $CONFIG not found, PANIC!"
+	$BINARY -f $CONFIG
+	message "DONE"
+}
+
+stop_proc() {
+	message_n "Stopping NTP server: chronyd ..."
+	killproc chronyd
+	message "DONE"
+	message_n "Writing system time to RealTimeClock ..."
+	/sbin/hwclock --systohc || message_n " ### FAILED ### "
+	message "DONE"
+}
+
+set_online(){
+        message_n "Setting NTP server ONLINE ... "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
+	/usr/bin/chronyc <<-EOF
+	password $PASSWORD
+	online
+	burst 5/10
+	quit
+	EOF
+	message "DONE"
+	exit 0
+}
+
+set_offline(){
+        message_n "Setting NTP server OFFLINE ... "
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
+	/usr/bin/chronyc <<-EOF
+	password $PASSWORD
+	offline
+	EOF
+	message "DONE"
+	exit 0
+}
+
+set_rtc(){
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
+	if [ "$RTC_IOCTL" == "incomplete" ] ; then 
+	# We are running on a system with limited rtc support,
+	# so we cannot let the ntp client do the job. 
+	stop_proc
+	sleep 1
+	start_proc
+	exit 0
+	else
+	# This requires enhanced rtc support
+        message_n "Setting NTP time to RTC ... "
+	cat <<-EOF | /usr/bin/chronyc
+	password $PASSWORD
+	trimrtc
+	writertc
+	dump
+	EOF
+	message "DONE"
+	exit 0
+	fi
+}
+
+status(){
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
+	cat <<-EOF | /usr/bin/chronyc
+	password $PASSWORD
+	tracking
+	sources
+	EOF
+}
+
+statistics(){
+	pidof chronyd > /dev/null || bailout " chronyd is not running "
+	cat <<-EOF | /usr/bin/chronyc
+	password $PASSWORD
+	sourcestats
+	EOF
+}
+
+case "$1" in
+        start)
+        	start_proc
+		;;
+	stop)
+		stop_proc
+		;;
+        restart|force-reload)
+                message "Restarting NTP server: chronyd ... "
+                stop_proc
+		sleep 1
+                start_proc
+                ;;
+        reload)
+                message "Reload is not supported"
+		exit 1
+		;;
+	online)
+		set_online
+		;;
+	offline)
+		set_offline
+		;;
+	set-rtc)
+		set_rtc
+		;;
+	status)
+		status
+		;;
+	statistics)
+		statistics
+		;;
+        *)
+                usage
+		exit 1
+                ;;
+esac
+
+exit 0
+

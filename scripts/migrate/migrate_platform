@@ -17,3 +17,11 @@ s/^\(\(# \)\?PTXCONF\)_COMPILER_PREFIX_UBOOT\(.*$\)/\1_COMPILER_PREFIX_BOOTLOADE
 #
 s/^\(\(# \)\?PTXCONF\)_IMAGE_UBI_VOLUME_SIZE\(.*$\)/\1_IMAGE_UBI_ROOT_VOL_SIZE\3/
 s/^\(\(# \)\?PTXCONF\)_IMAGE_UBIFS_MAX_LEB_COUNT\(.*$\)/\1_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT\3/
+
+#
+# from   : ptxdist-2015.06.0
+# to     : ptxdist-2015.07.0
+# symbol : IMAGE_IPKG_EXTRA_ARGS -> IMAGE_XPKG_EXTRA_ARGS
+# reason : use same symbol for ipkg and opkb build
+#
+s/^\(\(# \)\?PTXCONF\)_IMAGE_IPKG_EXTRA_ARGS\(.*$\)/\1_IMAGE_XPKG_EXTRA_ARGS\3/
