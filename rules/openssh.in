@@ -67,6 +67,7 @@ config OPENSSH_SCP_TARGET_USE
 
 config OPENSSH_SFTP
 	bool "sftp (client)"
+	select OPENSSH_SSH
 	help
 	  Install the secure ftp client (sftp) on the target
 

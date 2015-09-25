@@ -1,0 +1,36 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Wed, 9 Sep 2015 19:47:54 +0200
+Subject: [PATCH] fcgi_base: make python3 aware
+
+When run with python3, we get this error:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.4/site-packages/flup/server/fcgi_base.py", line 567, in run
+  File "/usr/lib/python3.4/site-packages/flup/server/fcgi_base.py", line 1066, in handler
+  File "/usr/lib/python3.4/site-packages/flup/server/fcgi_base.py", line 1177, in _sanitizeEnv
+TypeError: 'str' does not support the buffer interface
+
+This commit was found in upstream commit 3af8659 and was backported to flup6
+revision 1.1.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ flup/server/fcgi_base.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/flup/server/fcgi_base.py b/flup/server/fcgi_base.py
+index 08e5701f0db5..455613220a93 100644
+--- a/flup/server/fcgi_base.py
++++ b/flup/server/fcgi_base.py
+@@ -1172,9 +1172,9 @@ class BaseFCGIServer(object):
+                              ('SERVER_PORT', '80'),
+                              ('SERVER_PROTOCOL', 'HTTP/1.0')]:
+             if name not in environ:
+-                environ['wsgi.errors'].write('%s: missing FastCGI param %s '
++                environ['wsgi.errors'].write(bytearray('%s: missing FastCGI param %s '
+                                              'required by WSGI!\n' %
+-                                             (self.__class__.__name__, name))
++                                             (self.__class__.__name__, name), 'utf'))
+                 environ[name] = default
+             
+     def error(self, req):

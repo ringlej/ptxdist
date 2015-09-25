@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYTHON_DJANGO) += python-django
 #
 # Paths and names
 #
-PYTHON_DJANGO_VERSION	:= 1.6.5
-PYTHON_DJANGO_MD5	:= e4c5b2d35ecb3807317713afa70a0c77
+PYTHON_DJANGO_VERSION	:= 1.8.4
+PYTHON_DJANGO_MD5	:= 8eb569a5b9d984d9f3366fda67fb0bb8
 PYTHON_DJANGO		:= Django-$(PYTHON_DJANGO_VERSION)
 PYTHON_DJANGO_SUFFIX	:= tar.gz
 PYTHON_DJANGO_URL	:= https://www.djangoproject.com/download/$(PYTHON_DJANGO_VERSION)/tarball/
@@ -29,13 +29,13 @@ PYTHON_DJANGO_LICENSE	:= BSD
 # Prepare
 # ----------------------------------------------------------------------------
 
-PYTHON_DJANGO_CONF_TOOL	:= python
+PYTHON_DJANGO_CONF_TOOL	:= python3
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-PYTHON_DJANGO_PYTHON_PATH = /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/django
+PYTHON_DJANGO_PYTHON_PATH = /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/django
 
 $(STATEDIR)/python-django.targetinstall:
 	@$(call targetinfo)
@@ -48,7 +48,7 @@ $(STATEDIR)/python-django.targetinstall:
 
 #	# everything but locales
 	@cd "$(PYTHON_DJANGO_PKGDIR)$(PYTHON_DJANGO_PYTHON_PATH)" && \
-	find -type d -name locale -prune -o -type f -printf '%P\n' | while read fn; do \
+	find -type d -name locale -prune -o -type f ! -name "*.py" -printf '%P\n' | while read fn; do \
 		$(call install_copy, python-django, 0, 0, 0644, -, \
 			$(PYTHON_DJANGO_PYTHON_PATH)/$$fn); \
 	done
@@ -64,6 +64,8 @@ $(STATEDIR)/python-django.targetinstall:
 			done; \
 		done; \
 	done
+	@$(call install_copy, python-django, 0, 0, 0644, -, \
+		$(PYTHON_DJANGO_PYTHON_PATH)/conf/locale/__init__.pyc)
 
 	@$(call install_finish, python-django)
 

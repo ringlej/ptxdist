@@ -21,6 +21,20 @@ ptxd_make_world_install_prepare() {
 }
 export -f ptxd_make_world_install_prepare
 
+ptxd_make_world_install_python_cleanup() {
+    find "${pkg_pkg_dir}" -type d -name bin -prune -o -name "*.py" -print | while read file; do
+	if [ -e "${file}c" -o ! -d "$(dirname "${file}")/__pycache__" ]; then
+	    # not python3 or already handled
+	    return
+	fi
+	mv -v "$(dirname "${file}")/__pycache__/$(basename "${file%py}")"cpython-??.pyc "${file}c" || return
+    done &&
+    check_pipe_status &&
+    find "${pkg_pkg_dir}" -type d -name __pycache__  -print0 | xargs -0 rm -vrf &&
+    check_pipe_status
+}
+export -f ptxd_make_world_install_python_cleanup
+
 #
 # FIXME: kick ${pkg_install_env}
 #
@@ -60,6 +74,10 @@ ptxd_make_world_install() {
 	    setup.py \
 	    "${pkg_install_opt}" \
 	)
+        if [ "${pkg_type}" = target ]; then
+	    cmd[${#cmd[@]}]='&&'
+	    cmd[${#cmd[@]}]=ptxd_make_world_install_python_cleanup
+	fi
 	;;
 	*)
 	cmd=( \
