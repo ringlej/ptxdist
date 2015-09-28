@@ -228,7 +228,7 @@ ptxd_install_file_extract_debug() {
     # this can fail if objcopy does not support compressing debug sections or
     # is compiled without zlib support
     "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}" |&
-	grep -q "\(unrecognized option\|unable to initialize commpress status\)"
+	grep -q "\(unrecognized option\|unable to initialize com*press status\)"
     local -a status=( "${PIPESTATUS[@]}" )
     if [ ${status[0]} -ne 0 ]; then
 	if [ ${status[1]} -eq 0 ]; then
