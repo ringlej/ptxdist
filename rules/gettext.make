@@ -25,6 +25,10 @@ GETTEXT_SUFFIX	:= tar.xz
 GETTEXT_URL	:= $(call ptx/mirror, GNU, gettext/$(GETTEXT).$(GETTEXT_SUFFIX))
 GETTEXT_SOURCE	:= $(SRCDIR)/$(GETTEXT).$(GETTEXT_SUFFIX)
 GETTEXT_DIR	:= $(BUILDDIR)/$(GETTEXT)
+GETTEXT_LICENSE	:= GPLv3+, LGPLv2.1+
+GETTEXT_LICENSE_FILES := \
+	file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
+	file://gettext-runtime/intl/COPYING.LIB;md5=a4b192f7208753fc0fc8d88c733e6106 \
 
 # ----------------------------------------------------------------------------
 # Prepare
