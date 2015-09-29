@@ -207,6 +207,7 @@ ifdef PTXCONF_NCURSES_TERMCAP
 	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/a/ansi, n);
 	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/l/linux, n);
 	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/s/screen, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/s/screen-256color, n);
 endif
 
 	@$(call install_finish, ncurses)
