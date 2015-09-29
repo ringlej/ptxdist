@@ -24,6 +24,7 @@ HOST_LOCALEDEF_SUFFIX	:= tar.bz2
 HOST_LOCALEDEF_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_LOCALEDEF).$(HOST_LOCALEDEF_SUFFIX)
 HOST_LOCALEDEF_SOURCE	:= $(SRCDIR)/$(HOST_LOCALEDEF).$(HOST_LOCALEDEF_SUFFIX)
 HOST_LOCALEDEF_DIR	:= $(HOST_BUILDDIR)/$(HOST_LOCALEDEF)
+HOST_LOCALEDEF_LICENSE	:= LGPLv2.1+, GPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare
