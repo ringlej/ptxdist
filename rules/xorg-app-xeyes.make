@@ -23,6 +23,7 @@ XORG_APP_XEYES_SUFFIX	:= tar.bz2
 XORG_APP_XEYES_URL	:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XEYES).$(XORG_APP_XEYES_SUFFIX))
 XORG_APP_XEYES_SOURCE	:= $(SRCDIR)/$(XORG_APP_XEYES).$(XORG_APP_XEYES_SUFFIX)
 XORG_APP_XEYES_DIR	:= $(BUILDDIR)/$(XORG_APP_XEYES)
+XORG_APP_XEYES_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

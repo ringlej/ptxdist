@@ -23,7 +23,9 @@ HOST_LNDIR_SUFFIX	:= tar.bz2
 HOST_LNDIR_URL		:= $(call ptx/mirror, XORG, individual/util/$(HOST_LNDIR).$(HOST_LNDIR_SUFFIX))
 HOST_LNDIR_SOURCE	:= $(SRCDIR)/$(HOST_LNDIR).$(HOST_LNDIR_SUFFIX)
 HOST_LNDIR_DIR		:= $(HOST_BUILDDIR)/$(HOST_LNDIR)
-HOST_LNDIR_LICENSE	:= LNDIR
+HOST_LNDIR_LICENSE	:= MIT
+HOST_LNDIR_LICENSE_FILES := \
+	file://COPYING;md5=28f22421a52f2e70ef04c9ce398fa28e
 
 # ----------------------------------------------------------------------------
 # Prepare

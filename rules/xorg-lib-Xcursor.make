@@ -23,6 +23,7 @@ XORG_LIB_XCURSOR_SUFFIX		:= tar.bz2
 XORG_LIB_XCURSOR_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XCURSOR).$(XORG_LIB_XCURSOR_SUFFIX))
 XORG_LIB_XCURSOR_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XCURSOR).$(XORG_LIB_XCURSOR_SUFFIX)
 XORG_LIB_XCURSOR_DIR		:= $(BUILDDIR)/$(XORG_LIB_XCURSOR)
+XORG_LIB_XCURSOR_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

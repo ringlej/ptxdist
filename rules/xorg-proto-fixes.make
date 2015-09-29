@@ -25,6 +25,7 @@ XORG_PROTO_FIXES_SUFFIX		:= tar.bz2
 XORG_PROTO_FIXES_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_FIXES).$(XORG_PROTO_FIXES_SUFFIX))
 XORG_PROTO_FIXES_SOURCE		:= $(SRCDIR)/$(XORG_PROTO_FIXES).$(XORG_PROTO_FIXES_SUFFIX)
 XORG_PROTO_FIXES_DIR		:= $(BUILDDIR)/$(XORG_PROTO_FIXES)
+XORG_PROTO_FIXES_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,6 +23,7 @@ HOST_MAKEDEPEND_SUFFIX	:= tar.bz2
 HOST_MAKEDEPEND_URL	:= $(call ptx/mirror, XORG, individual/util/$(HOST_MAKEDEPEND).$(HOST_MAKEDEPEND_SUFFIX))
 HOST_MAKEDEPEND_SOURCE	:= $(SRCDIR)/$(HOST_MAKEDEPEND).$(HOST_MAKEDEPEND_SUFFIX)
 HOST_MAKEDEPEND_DIR	:= $(HOST_BUILDDIR)/$(HOST_MAKEDEPEND)
+HOST_MAKEDEPEND_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

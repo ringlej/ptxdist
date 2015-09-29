@@ -23,6 +23,7 @@ XORG_APP_XKBCOMP_SUFFIX		:= tar.bz2
 XORG_APP_XKBCOMP_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_XKBCOMP).$(XORG_APP_XKBCOMP_SUFFIX))
 XORG_APP_XKBCOMP_SOURCE		:= $(SRCDIR)/$(XORG_APP_XKBCOMP).$(XORG_APP_XKBCOMP_SUFFIX)
 XORG_APP_XKBCOMP_DIR		:= $(BUILDDIR)/$(XORG_APP_XKBCOMP)
+XORG_APP_XKBCOMP_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

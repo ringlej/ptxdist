@@ -23,6 +23,7 @@ XORG_LIB_XDAMAGE_SUFFIX		:= tar.bz2
 XORG_LIB_XDAMAGE_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XDAMAGE).$(XORG_LIB_XDAMAGE_SUFFIX))
 XORG_LIB_XDAMAGE_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XDAMAGE).$(XORG_LIB_XDAMAGE_SUFFIX)
 XORG_LIB_XDAMAGE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XDAMAGE)
+XORG_LIB_XDAMAGE_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

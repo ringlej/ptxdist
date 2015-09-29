@@ -24,6 +24,7 @@ XORG_PROTO_DRI3_SUFFIX	:= tar.bz2
 XORG_PROTO_DRI3_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_DRI3).$(XORG_PROTO_DRI3_SUFFIX))
 XORG_PROTO_DRI3_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_DRI3).$(XORG_PROTO_DRI3_SUFFIX)
 XORG_PROTO_DRI3_DIR	:= $(BUILDDIR)/$(XORG_PROTO_DRI3)
+XORG_PROTO_DRI3_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

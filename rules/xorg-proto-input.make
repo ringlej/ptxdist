@@ -25,6 +25,7 @@ XORG_PROTO_INPUT_SUFFIX	:= tar.bz2
 XORG_PROTO_INPUT_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_INPUT).$(XORG_PROTO_INPUT_SUFFIX))
 XORG_PROTO_INPUT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_INPUT).$(XORG_PROTO_INPUT_SUFFIX)
 XORG_PROTO_INPUT_DIR	:= $(BUILDDIR)/$(XORG_PROTO_INPUT)
+XORG_PROTO_INPUT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

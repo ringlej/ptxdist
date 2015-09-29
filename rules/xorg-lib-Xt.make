@@ -23,6 +23,7 @@ XORG_LIB_XT_SUFFIX	:= tar.bz2
 XORG_LIB_XT_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XT).$(XORG_LIB_XT_SUFFIX))
 XORG_LIB_XT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XT).$(XORG_LIB_XT_SUFFIX)
 XORG_LIB_XT_DIR		:= $(BUILDDIR)/$(XORG_LIB_XT)
+XORG_LIB_XT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
