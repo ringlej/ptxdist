@@ -23,7 +23,13 @@ PULSEAUDIO_SUFFIX	:= tar.xz
 PULSEAUDIO_URL		:= http://freedesktop.org/software/pulseaudio/releases/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
 PULSEAUDIO_SOURCE	:= $(SRCDIR)/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
 PULSEAUDIO_DIR		:= $(BUILDDIR)/$(PULSEAUDIO)
-PULSEAUDIO_LICENSE	:= unknown
+PULSEAUDIO_LICENSE	:= MIT, GPL-2.0+, LGPL-2.1+, Rdisc, ADRIAN
+PULSEAUDIO_LICENSE_FILES	:= \
+	file://LICENSE;md5=dae3286e7999e70ddc23636cd25c89bd \
+	file://GPL;md5=4325afd396febcb659c36b49533135d4 \
+	file://LGPL;md5=2d5025d4aa3495befef8f17206a5b0a1 \
+	file://src/pulsecore/g711.c;startline=2;endline=24;md5=663902612456e1794f328632f8b6a20a \
+	file://src/modules/echo-cancel/adrian-license.txt;md5=abbab006a561fbffccedf1c3531f34ab
 
 # ----------------------------------------------------------------------------
 # Prepare
