@@ -25,7 +25,7 @@ STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
 STRACE_SOURCE	:= $(SRCDIR)/$(STRACE).$(STRACE_SUFFIX)
 STRACE_DIR	:= $(BUILDDIR)/$(STRACE)
-STRACE_LICENSE	:= BSD
+STRACE_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -24,7 +24,7 @@ LIGHTTPD_SUFFIX		:= tar.xz
 LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_SOURCE		:= $(SRCDIR)/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
-LIGHTTPD_LICENSE	:= BSD
+LIGHTTPD_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

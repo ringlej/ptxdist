@@ -26,7 +26,7 @@ ZLIB_URL	:= \
 	$(call ptx/mirror, SF, libpng/$(ZLIB).$(ZLIB_SUFFIX))
 ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).$(ZLIB_SUFFIX)
 ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
-ZLIB_LICENSE	:= zlib
+ZLIB_LICENSE	:= Zlib
 ZLIB_LICENSE_FILES := file://README;md5=d8d5d8b9343c56f64978164a53cce0e4
 
 # ----------------------------------------------------------------------------

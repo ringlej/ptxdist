@@ -23,7 +23,7 @@ HOST_UNFS3_SUFFIX	:= tar.gz
 HOST_UNFS3_URL		:= $(call ptx/mirror, SF, unfs3/$(HOST_UNFS3).$(HOST_UNFS3_SUFFIX))
 HOST_UNFS3_SOURCE	:= $(SRCDIR)/$(HOST_UNFS3).$(HOST_UNFS3_SUFFIX)
 HOST_UNFS3_DIR		:= $(HOST_BUILDDIR)/$(HOST_UNFS3)
-HOST_UNFS3_LICENSE	:= UNFS
+HOST_UNFS3_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

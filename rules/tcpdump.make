@@ -23,7 +23,7 @@ TCPDUMP_SUFFIX	:= tar.gz
 TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
-TCPDUMP_LICENSE := BSD
+TCPDUMP_LICENSE := BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

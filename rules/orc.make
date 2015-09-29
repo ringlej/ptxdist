@@ -23,7 +23,7 @@ ORC_SUFFIX	:= tar.xz
 ORC_URL		:= http://gstreamer.freedesktop.org/data/src/orc/$(ORC).$(ORC_SUFFIX)
 ORC_SOURCE	:= $(SRCDIR)/$(ORC).$(ORC_SUFFIX)
 ORC_DIR		:= $(BUILDDIR)/$(ORC)
-ORC_LICENSE	:= Orc
+ORC_LICENSE	:= BSD-2-Clause, BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

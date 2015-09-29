@@ -29,7 +29,7 @@ OPENSSL_URL	:= \
 	http://www.openssl.org/source/old/$(OPENSSL_BASE)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_SOURCE	:= $(SRCDIR)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_DIR	:= $(BUILDDIR)/$(OPENSSL)
-OPENSSL_LICENSE	:= openssl
+OPENSSL_LICENSE	:= OpenSSL
 
 # ----------------------------------------------------------------------------
 # Prepare
