@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.0.24.1
-ALSA_LIB_MD5		:= 7cc05f25e1d5b65da8fb3fdcd540f226
+ALSA_LIB_VERSION	:= 1.0.29
+ALSA_LIB_MD5		:= de67e0eca72474d6b1121037dafe1024
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -51,7 +51,6 @@ ALSA_LIB_ENV 	:= $(CROSS_ENV)
 #
 ALSA_LIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-static \
 	--enable-shared \
 	--enable-fast-install \
 	--enable-libtool-lock \
