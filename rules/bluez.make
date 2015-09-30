@@ -87,6 +87,9 @@ ifdef PTXCONF_BLUEZ_UTILS
 			l2test mpris-proxy rctest rfcomm sdptool, \
 		$(call install_copy, bluez, 0, 0, 0755, -, \
 			/usr/bin/$(binprogram));)
+
+	@$(call install_copy, bluez, 0, 0, 0755, $(BLUEZ_DIR)/attrib/gatttool, \
+		/usr/bin/gatttool)
 endif
 
 ifdef PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS
