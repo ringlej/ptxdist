@@ -23,7 +23,7 @@ LIBTASN1_SUFFIX		:= tar.gz
 LIBTASN1_URL		:= $(call ptx/mirror, GNU, libtasn1/$(LIBTASN1).$(LIBTASN1_SUFFIX))
 LIBTASN1_SOURCE		:= $(SRCDIR)/$(LIBTASN1).$(LIBTASN1_SUFFIX)
 LIBTASN1_DIR		:= $(BUILDDIR)/$(LIBTASN1)
-LIBTASN1_LICENSE	:= LGPLv2.1,GPL
+LIBTASN1_LICENSE	:= LGPLv2.1, GPLv3
 
 # ----------------------------------------------------------------------------
 # Prepare
