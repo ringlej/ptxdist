@@ -23,7 +23,7 @@ FLEX_SUFFIX	:= tar.bz2
 FLEX_URL	:= $(call ptx/mirror, SF, flex/$(FLEX).$(FLEX_SUFFIX))
 FLEX_SOURCE	:= $(SRCDIR)/$(FLEX).$(FLEX_SUFFIX)
 FLEX_DIR	:= $(BUILDDIR)/$(FLEX)
-FLEX_LICENSE	:= unknown
+FLEX_LICENSE	:= BSD-2-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
