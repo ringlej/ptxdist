@@ -63,21 +63,25 @@ if QT5
 config QT5_PREPARE_EXAMPLES
 	bool
 
+if QT5_PLATFORM_XCB
+
 config QT5_X11
 	bool
-	default QT5_PLATFORM_XCB
+	default y
 
 config QT5_XI
 	bool
-	default QT5_PLATFORM_XCB
+	default y
 
 config QT5_XV
 	bool
-	default QT5_MODULE_QTMULTIMEDIA && QT5_PLATFORM_XCB
+	default QT5_MODULE_QTMULTIMEDIA
 
 config QT5_XRENDER
 	bool
-	default QT5_PLATFORM_XCB
+	default y
+
+endif
 
 menu "Feature Options             "
 
