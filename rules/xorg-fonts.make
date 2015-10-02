@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_XORG_FONTS) += xorg-fonts
 #
 XORG_FONTS_VERSION	:= 1.0.0
 XORG_FONTS_DIR_INSTALL	:= $(BUILDDIR)/xorg-fonts-$(XORG_FONTS_VERSION)-install
+XORG_FONTS_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Install
