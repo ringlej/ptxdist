@@ -1,0 +1,90 @@
+From: Jon Ringle <jringle@gridpoint.com>
+Date: Fri, 2 Oct 2015 22:44:07 -0400
+Subject: [PATCH] glib-2.0.pc.in: use '-isystem dir' rather than '-Idir'
+
+glib produces warnings in that gcc will turn to errors when a project builds
+with -Werror:
+/usr/include/glib-2.0/gio/glistmodel.h: In function 'GListModel* G_LIST_MODEL(gconstpointer)':
+/usr/include/glib-2.0/gobject/gtype.h:479:88: error: cast from type 'gconstpointer {aka const void*}' to type 'GTypeInstance* {aka _GTypeInstance*}' casts away qualifiers [-Werror=cast-qual]
+ #define G_TYPE_CHECK_INSTANCE_CAST(instance, g_type, c_type)    (_G_TYPE_CIC ((instance), (g_type), c_type))
+                                                                                        ^
+/usr/include/glib-2.0/gobject/gtype.h:2186:57: note: in definition of macro '_G_TYPE_CIC'
+     ((ct*) g_type_check_instance_cast ((GTypeInstance*) ip, gt))
+                                                         ^
+/usr/include/glib-2.0/gobject/gtype.h:1565:12: note: in expansion of macro 'G_TYPE_CHECK_INSTANCE_CAST'
+     return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); }               \
+            ^
+/usr/include/glib-2.0/gio/glistmodel.h:36:1: note: in expansion of macro 'G_DECLARE_INTERFACE'
+ G_DECLARE_INTERFACE(GListModel, g_list_model, G, LIST_MODEL, GObject)
+ ^
+/usr/include/glib-2.0/gio/glistmodel.h: In function 'gboolean G_IS_LIST_MODEL(gconstpointer)':
+/usr/include/glib-2.0/gobject/gtype.h:491:88: error: cast from type 'gconstpointer {aka const void*}' to type 'GTypeInstance* {aka _GTypeInstance*}' casts away qualifiers [-Werror=cast-qual]
+ #define G_TYPE_CHECK_INSTANCE_TYPE(instance, g_type)            (_G_TYPE_CIT ((instance), (g_type)))
+                                                                                        ^
+/usr/include/glib-2.0/gobject/gtype.h:2200:44: note: in definition of macro '_G_TYPE_CIT'
+   GTypeInstance *__inst = (GTypeInstance*) ip; GType __t = gt; gboolean __r; \
+                                            ^
+/usr/include/glib-2.0/gobject/gtype.h:1567:12: note: in expansion of macro 'G_TYPE_CHECK_INSTANCE_TYPE'
+     return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                              \
+            ^
+/usr/include/glib-2.0/gio/glistmodel.h:36:1: note: in expansion of macro 'G_DECLARE_INTERFACE'
+ G_DECLARE_INTERFACE(GListModel, g_list_model, G, LIST_MODEL, GObject)
+ ^
+/usr/include/glib-2.0/gio/glistmodel.h: In function 'GListModelInterface* G_LIST_MODEL_GET_IFACE(gconstpointer)':
+/usr/include/glib-2.0/gobject/gtype.h:533:88: error: cast from type 'gconstpointer {aka const void*}' to type 'GTypeInstance* {aka _GTypeInstance*}' casts away qualifiers [-Werror=cast-qual]
+ #define G_TYPE_INSTANCE_GET_INTERFACE(instance, g_type, c_type) (_G_TYPE_IGI ((instance), (g_type), c_type))
+                                                                                        ^
+/usr/include/glib-2.0/gobject/gtype.h:2196:89: note: in definition of macro '_G_TYPE_IGI'
+ #define _G_TYPE_IGI(ip, gt, ct)         ((ct*) g_type_interface_peek (((GTypeInstance*) ip)->g_class, gt))
+                                                                                         ^
+/usr/include/glib-2.0/gobject/gtype.h:1569:12: note: in expansion of macro 'G_TYPE_INSTANCE_GET_INTERFACE'
+     return G_TYPE_INSTANCE_GET_INTERFACE (ptr, module_obj_name##_get_type (), ModuleObjName##Interface); } \
+            ^
+/usr/include/glib-2.0/gio/glistmodel.h:36:1: note: in expansion of macro 'G_DECLARE_INTERFACE'
+ G_DECLARE_INTERFACE(GListModel, g_list_model, G, LIST_MODEL, GObject)
+ ^
+/usr/include/glib-2.0/gio/gliststore.h: In function 'GListStore* G_LIST_STORE(gconstpointer)':
+/usr/include/glib-2.0/gobject/gtype.h:479:88: error: cast from type 'gconstpointer {aka const void*}' to type 'GTypeInstance* {aka _GTypeInstance*}' casts away qualifiers [-Werror=cast-qual]
+ #define G_TYPE_CHECK_INSTANCE_CAST(instance, g_type, c_type)    (_G_TYPE_CIC ((instance), (g_type), c_type))
+                                                                                        ^
+/usr/include/glib-2.0/gobject/gtype.h:2186:57: note: in definition of macro '_G_TYPE_CIC'
+     ((ct*) g_type_check_instance_cast ((GTypeInstance*) ip, gt))
+                                                         ^
+/usr/include/glib-2.0/gobject/gtype.h:1396:12: note: in expansion of macro 'G_TYPE_CHECK_INSTANCE_CAST'
+     return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); }             \
+            ^
+/usr/include/glib-2.0/gio/gliststore.h:36:1: note: in expansion of macro 'G_DECLARE_FINAL_TYPE'
+ G_DECLARE_FINAL_TYPE(GListStore, g_list_store, G, LIST_STORE, GObject)
+ ^
+/usr/include/glib-2.0/gio/gliststore.h: In function 'gboolean G_IS_LIST_STORE(gconstpointer)':
+/usr/include/glib-2.0/gobject/gtype.h:491:88: error: cast from type 'gconstpointer {aka const void*}' to type 'GTypeInstance* {aka _GTypeInstance*}' casts away qualifiers [-Werror=cast-qual]
+ #define G_TYPE_CHECK_INSTANCE_TYPE(instance, g_type)            (_G_TYPE_CIT ((instance), (g_type)))
+                                                                                        ^
+/usr/include/glib-2.0/gobject/gtype.h:2200:44: note: in definition of macro '_G_TYPE_CIT'
+   GTypeInstance *__inst = (GTypeInstance*) ip; GType __t = gt; gboolean __r; \
+                                            ^
+/usr/include/glib-2.0/gobject/gtype.h:1398:12: note: in expansion of macro 'G_TYPE_CHECK_INSTANCE_TYPE'
+     return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                            \
+            ^
+/usr/include/glib-2.0/gio/gliststore.h:36:1: note: in expansion of macro 'G_DECLARE_FINAL_TYPE'
+ G_DECLARE_FINAL_TYPE(GListStore, g_list_store, G, LIST_STORE, GObject)
+ ^
+
+suppress these by using -isystem dir to include the directories so that a
+project using these headers compiled with -Werror doesn't fail
+
+Signed-off-by: Jon Ringle <jringle@gridpoint.com>
+---
+ glib-2.0.pc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/glib-2.0.pc.in b/glib-2.0.pc.in
+index 275fc0163299..7b15ca91c5aa 100644
+--- a/glib-2.0.pc.in
++++ b/glib-2.0.pc.in
+@@ -13,4 +13,4 @@ Version: @VERSION@
+ Requires.private: @PCRE_REQUIRES@
+ Libs: -L${libdir} -lglib-2.0 @INTLLIBS@
+ Libs.private: @G_THREAD_LIBS@ @G_LIBS_EXTRA@ @PCRE_LIBS@ @INTLLIBS@ @ICONV_LIBS@ @CARBON_LIBS@ @COCOA_LIBS@
+-Cflags: -I${includedir}/glib-2.0 -I${libdir}/glib-2.0/include @GLIB_EXTRA_CFLAGS@
++Cflags: -isystem ${includedir}/glib-2.0 -isystem ${libdir}/glib-2.0/include @GLIB_EXTRA_CFLAGS@
