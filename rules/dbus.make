@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.8.16
-DBUS_MD5	:= 020824a38850501e7d6ba8307a7c5ac3
+DBUS_VERSION	:= 1.10.0
+DBUS_MD5	:= 5af6297348107a906c8449817a728b3b
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -46,8 +46,10 @@ DBUS_CONF_OPT	:= \
 	--disable-checks \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
+	--disable-ducktype-docs \
 	--enable-abstract-sockets=yes \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
+	--disable-apparmor \
 	--disable-libaudit \
 	--enable-inotify \
 	--disable-kqueue \
@@ -60,10 +62,11 @@ DBUS_CONF_OPT	:= \
 	--enable-epoll \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
 	--disable-stats \
-	--without-dbus-glib \
+	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
 	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
 	--without-valgrind \
-	--with-systemdsystemunitdir=/lib/systemd/system
+	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemduserunitdir=/usr/lib/systemd/user
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -109,18 +112,10 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/session.d/)
 
 #	#
-#	# install /etc/dbus-1/system.conf config file
+#	# install config files
 #	#
-ifdef PTXCONF_DBUS_SYSTEM_CONF
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/system.conf)
-endif
-
-#	#
-#	# instal /etc/dbus-1/session.conf config file
-#	#
-ifdef PTXCONF_DBUS_SESSION_CONF
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/session.conf)
-endif
+	@$(call install_alternative, dbus, 0, 0, 0644, /usr/share/dbus-1/system.conf)
+	@$(call install_alternative, dbus, 0, 0, 0644, /usr/share/dbus-1/session.conf)
 
 #	#
 #	# busybox init: start script
