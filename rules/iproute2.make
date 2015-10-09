@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 3.18.0
-IPROUTE2_MD5		:= 6f6ad51a00007880460e103367b16057
+IPROUTE2_VERSION	:= 4.2.0
+IPROUTE2_MD5		:= 51c54cc3245eff451154938fbc0f64f5
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.xz
 IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
@@ -40,13 +40,18 @@ $(STATEDIR)/iproute2.prepare:
 	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/Config
 	@echo 'TC_CONFIG_XT:=n'		>> $(IPROUTE2_DIR)/Config
 	@echo 'IPT_LIB_DIR:=/usr/lib'	>> $(IPROUTE2_DIR)/Config
+	@echo 'TC_CONFIG_ELF:=n'	>> $(IPROUTE2_DIR)/Config
+ifndef PTXCONF_GLOBAL_SELINUX
+	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/Config
+endif
+	@echo 'HAVE_MNL:=n'		>> $(IPROUTE2_DIR)/Config
 ifdef PTXCONF_IPROUTE2_ARPD
 	@echo BUILD_ARPD=y >> $(IPROUTE2_DIR)/Config
 endif
 	@$(call touch)
 
 IPROUTE2_MAKE_OPT := \
-	ROOTDIR=$(SYSROOT) \
+	DESTDIR=$(SYSROOT) \
 	LDFLAGS='-rdynamic' \
 	WFLAGS="-Wall"
 

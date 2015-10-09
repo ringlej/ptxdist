@@ -9,6 +9,7 @@ menuconfig IPROUTE2
 	select LIBC_RESOLV
 	select LIBC_PTHREAD if IPROUTE2_ARPD
 	select GCCLIBS_GCC_S if IPROUTE2_IP || IPROUTE2_TC
+	select LIBSELINUX if GLOBAL_SELINUX
 	help
 	  Networking and traffic control tools
 
