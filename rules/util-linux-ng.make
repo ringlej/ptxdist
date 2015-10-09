@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.26.2
-UTIL_LINUX_NG_MD5	:= 9bdf368c395f1b70325d0eb22c7f48fb
+UTIL_LINUX_NG_VERSION	:= 2.27
+UTIL_LINUX_NG_MD5	:= 5b06bbda9309624ee7add15bc8d8ca22
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(basename $(UTIL_LINUX_NG_VERSION))/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(UTIL_LINUX_NG_VERSION)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
@@ -39,7 +39,6 @@ UTIL_LINUX_NG_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	$(call ptx/ncurses, PTXCONF_UTIL_LINUX_NG_USES_NCURSES) \
 	scanf_cv_type_modifier=as \
-	ac_cv_lib_termcap_tgetnum=no \
 	ac_cv_path_BLKID=no \
 	ac_cv_path_PERL=no \
 	ac_cv_path_VOLID=no
@@ -54,6 +53,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-static \
 	--disable-gtk-doc \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-assert \
 	--disable-nls \
 	--disable-rpath \
 	--disable-static-programs \
@@ -84,11 +84,11 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-fdformat \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_HWCLOCK)-hwclock \
 	--disable-wdctl \
+	--disable-cal \
 	--disable-switch_root \
 	--disable-pivot_root \
 	--disable-tunelp \
 	--disable-kill \
-	--disable-deprecated-last \
 	--disable-last \
 	--disable-utmpdump \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
@@ -120,17 +120,23 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-pg-bell \
 	--disable-use-tty-group \
 	--disable-sulogin-emergency-mount \
+	--disable-usrdir-path \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
 	--disable-colors-default \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
+	--with-util \
+	--without-termcap \
 	--without-selinux \
 	--without-audit \
 	--without-udev \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
+	--without-tinfo \
+	--without-readline \
 	--without-utempter \
+	--without-libz \
 	--without-user \
 	--without-systemd \
 	--with-systemdsystemunitdir=/lib/systemd/system \

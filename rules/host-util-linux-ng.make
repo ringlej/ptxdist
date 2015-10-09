@@ -40,16 +40,26 @@ HOST_UTIL_LINUX_NG_CONF_OPT	:= \
 	--enable-libblkid \
 	--enable-libmount \
 	--disable-bash-completion \
+	--disable-pylibmount \
 	--disable-pg-bell \
 	--disable-use-tty-group \
 	--disable-sulogin-emergency-mount \
+	--disable-usrdir-path \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
+	--disable-colors-default \
+	--without-libiconv-prefix \
+	--without-libintl-prefix \
+	--with-util \
+	--without-termcap \
 	--without-audit \
 	--without-udev \
 	--without-ncurses \
 	--without-slang \
+	--without-tinfo \
+	--without-readline \
 	--without-utempter \
+	--without-libz \
 	--without-user \
 	--without-systemd \
 	--without-smack \

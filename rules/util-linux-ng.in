@@ -7,7 +7,6 @@ menuconfig UTIL_LINUX_NG
 	select UTIL_LINUX_NG_LIBBLKID
 	select UTIL_LINUX_NG_LIBUUID		if UTIL_LINUX_NG_MKSWAP_UUID
 	select NCURSES				if UTIL_LINUX_NG_USES_NCURSES
-	select UTIL_LINUX_NG_USES_NCURSES 	if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
 
 if UTIL_LINUX_NG
 
@@ -263,6 +262,7 @@ comment "BusyBox' readprofile is selected!"
 
 config UTIL_LINUX_NG_SETTERM
 	bool
+	select UTIL_LINUX_NG_USES_NCURSES
 	prompt "setterm"
 	help
 	  setterm - set terminal attributes like terminal name, cursor
