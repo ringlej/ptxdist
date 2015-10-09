@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_LIBCAP) += libcap
 #
 # Paths and names
 #
-LIBCAP_VERSION	:= 2.22
-LIBCAP_MD5	:= ce64058bdb3f086ddbfca8ce6c919845
+LIBCAP_VERSION	:= 2.24
+LIBCAP_MD5	:= d43ab9f680435a7fff35b4ace8d45b80
 LIBCAP		:= libcap-$(LIBCAP_VERSION)
-LIBCAP_SUFFIX	:= tar.bz2
+LIBCAP_SUFFIX	:= tar.xz
 LIBCAP_URL	:= \
 	$(call ptx/mirror, KERNEL, libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)) \
 	http://mirror.linux.org.au/linux/libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)
