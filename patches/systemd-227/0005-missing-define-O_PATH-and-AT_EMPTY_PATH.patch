@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 6 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 48dfc511266d..98d0d49dade0 100644
+index fc901bede511..0efbf64ac2c7 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -874,6 +874,12 @@ static inline int setns(int fd, int nstype) {
+@@ -897,6 +897,12 @@ static inline int setns(int fd, int nstype) {
  #ifndef CLOCK_BOOTTIME_ALARM
  #define CLOCK_BOOTTIME_ALARM 9
  #endif

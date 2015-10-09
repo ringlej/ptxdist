@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 5 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index de9c6f341d11..48dfc511266d 100644
+index 4bf02db7adce..fc901bede511 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -1028,6 +1028,11 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
+@@ -1055,6 +1055,11 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
  #define RENAME_NOREPLACE (1 << 0)
  #endif
  
@@ -26,4 +26,4 @@ index de9c6f341d11..48dfc511266d 100644
 +
  #if !HAVE_DECL_KCMP
  static inline int kcmp(pid_t pid1, pid_t pid2, int type, unsigned long idx1, unsigned long idx2) {
-         return syscall(__NR_kcmp, pid1, pid2, type, idx1, idx2);
+ #if defined(__NR_kcmp)

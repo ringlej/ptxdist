@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 224
-SYSTEMD_MD5	:= fad64d2ae64af4b6034950e91b2c8e2b
+SYSTEMD_VERSION	:= 227
+SYSTEMD_MD5	:= a06aa8cd1e2bfa952f84d1b433d8fec2
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -183,7 +183,6 @@ SYSTEMD_HELPER := \
 	systemd-hostnamed \
 	systemd-initctl \
 	systemd-journald \
-	systemd-machine-id-commit \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOCALES,systemd-localed,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-logind,) \
 	systemd-modules-load \

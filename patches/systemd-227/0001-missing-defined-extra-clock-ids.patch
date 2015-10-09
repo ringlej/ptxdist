@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 10 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index ed6cd80c7538..09fe36770e62 100644
+index 59e835a4664b..7ddd56d92149 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -865,6 +865,16 @@ static inline int setns(int fd, int nstype) {
+@@ -888,6 +888,16 @@ static inline int setns(int fd, int nstype) {
  #define NDA_MAX (__NDA_MAX - 1)
  #endif
  
