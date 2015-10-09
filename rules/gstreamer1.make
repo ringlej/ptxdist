@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.4.5
-GSTREAMER1_MD5		:= 88a9289c64a4950ebb4f544980234289
+GSTREAMER1_VERSION	:= 1.6.0
+GSTREAMER1_MD5		:= 201c15ac4b956833f7f6774485433969
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -34,6 +34,7 @@ GSTREAMER1_LICENSE	:= LGPLv2.1+
 # autoconf
 #
 GSTREAMER1_GENERIC_CONF_OPT = \
+	--runstatedir=/run \
 	--disable-nls \
 	--disable-rpath \
 	--disable-fatal-warnings \
@@ -57,7 +58,8 @@ GSTREAMER1_GENERIC_CONF_OPT = \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 
-GSTREAMER1_AUTOCONF := \
+GSTREAMER1_CONF_TOOL	:= autoconf
+GSTREAMER1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GSTREAMER1_GENERIC_CONF_OPT) \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_DEBUG)-gst-debug \
@@ -77,7 +79,10 @@ GSTREAMER1_AUTOCONF := \
 	--disable-docbook \
 	\
 	--disable-check \
-	--enable-Bsymbolic
+	--enable-Bsymbolic \
+	--with-ptp-helper-setuid-user=nobody \
+	--with-ptp-helper-setuid-group=nogroup \
+	--with-ptp-helper-permissions=setuid-root
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -114,6 +119,8 @@ endif
 
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)
+	@$(call install_copy, gstreamer1, 0, 0, 4755, -, \
+		/usr/libexec/gstreamer-1.0/gst-ptp-helper)
 
 ifdef PTXCONF_PRELINK
 	@$(call install_alternative, gstreamer1, 0, 0, 0644, \
