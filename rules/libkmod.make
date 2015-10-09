@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 20
-LIBKMOD_MD5	:= d6f4fef718a50bd88080de6a43bc64d8
+LIBKMOD_VERSION	:= 21
+LIBKMOD_MD5	:= ee246fab2e1cba9fbdcad6a86ec31531
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX))
@@ -34,10 +34,10 @@ LIBKMOD_CONF_TOOL	:= autoconf
 LIBKMOD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_ROOT) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-static \
-	--enable-shared \
+	--disable-experimental \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_TOOLS)-tools \
 	--disable-manpages \
+	--disable-test-modules \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug \
 	--disable-python \
