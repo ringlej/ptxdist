@@ -243,11 +243,6 @@ config GST_PLUGINS_GOOD1_X
 	bool
 	prompt "x"
 
-config GST_PLUGINS_GOOD1_XSHM
-	bool
-	depends on GST_PLUGINS_GOOD1_X
-	prompt "xshm support"
-
 config GST_PLUGINS_GOOD1_AALIB
 	bool
 	depends on BROKEN
