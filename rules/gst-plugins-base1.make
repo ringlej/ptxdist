@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE1) += gst-plugins-base1
 #
 # Paths and names
 #
-GST_PLUGINS_BASE1_VERSION	:= 1.4.5
-GST_PLUGINS_BASE1_MD5		:= 357165af625c0ca353ab47c5d843920e
+GST_PLUGINS_BASE1_VERSION	:= 1.6.0
+GST_PLUGINS_BASE1_MD5		:= 3c223f1d2716e1861ba84287ea02b164
 GST_PLUGINS_BASE1		:= gst-plugins-base-$(GST_PLUGINS_BASE1_VERSION)
 GST_PLUGINS_BASE1_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
@@ -82,6 +82,7 @@ GST_PLUGINS_BASE1_CONF_OPT	= \
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ZLIB)-zlib \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_XSHM)-xshm \
+	--disable-gio_unix_2_0 \
 	--disable-freetypetest
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
@@ -94,12 +95,6 @@ endif
 
 ifneq ($(call remove_quotes,$(GST_PLUGINS_BASE1_ENABLEC-)),)
 GST_PLUGINS_BASE1_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_BASE1_ENABLEC-)))
-endif
-
-ifdef PTXCONF_GST_PLUGINS_BASE1_X
-GST_PLUGINS_BASE1_CONF_OPT += --with-x=$(SYSROOT)/usr
-else
-GST_PLUGINS_BASE1_CONF_OPT += --without-x
 endif
 
 # ----------------------------------------------------------------------------
