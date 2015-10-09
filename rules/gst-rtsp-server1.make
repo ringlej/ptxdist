@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.4.5
-GST_RTSP_SERVER1_MD5		:= a9f9b8899ec7ab33663cda7627db40d3
+GST_RTSP_SERVER1_VERSION	:= 1.6.0
+GST_RTSP_SERVER1_MD5		:= c8162f67c184663c1e1aa3ce872ef1e3
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
@@ -38,6 +38,7 @@ GST_RTSP_SERVER1_CONF_OPT	:= \
 	--disable-debug \
 	--disable-valgrind \
 	--disable-gcov \
+	--disable-examples \
 	--disable-tests \
 	--disable-introspection \
 	--disable-docbook \
