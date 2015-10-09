@@ -9,7 +9,6 @@ menuconfig GLIB
 	select LIBC_PTHREAD
 	select LIBFFI
 	select GCCLIBS_GCC_S
-	select HOST_GLIB
 	select HOST_GTK_DOC
 	select ICONV
 	select ZLIB
