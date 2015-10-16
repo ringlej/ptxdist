@@ -49,7 +49,7 @@ $(STATEDIR)/xorg-fonts.targetinstall:
 $(STATEDIR)/xorg-fonts.targetinstall.post:
 	@$(call targetinfo)
 
-	find $(XORG_FONTS_DIR_INSTALL) -mindepth 1 -type d | while read dir; do \
+	@find $(XORG_FONTS_DIR_INSTALL) -mindepth 1 -type d | while read dir; do \
 		echo $$dir;\
 		case "$${dir}" in \
 			*/[Ee]ncodings)	\
