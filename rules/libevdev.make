@@ -23,7 +23,7 @@ LIBEVDEV_SUFFIX		:= tar.xz
 LIBEVDEV_URL		:= http://www.freedesktop.org/software/libevdev/$(LIBEVDEV).$(LIBEVDEV_SUFFIX)
 LIBEVDEV_SOURCE		:= $(SRCDIR)/$(LIBEVDEV).$(LIBEVDEV_SUFFIX)
 LIBEVDEV_DIR		:= $(BUILDDIR)/$(LIBEVDEV)
-LIBEVDEV_LICENSE	:= unknown
+LIBEVDEV_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
