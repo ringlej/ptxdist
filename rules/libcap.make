@@ -25,7 +25,7 @@ LIBCAP_URL	:= \
 	http://mirror.linux.org.au/linux/libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)
 LIBCAP_SOURCE	:= $(SRCDIR)/$(LIBCAP).$(LIBCAP_SUFFIX)
 LIBCAP_DIR	:= $(BUILDDIR)/$(LIBCAP)
-LIBCAP_LICENSE	:= BSD, GPLv2
+LIBCAP_LICENSE	:= BSD-3-Clause, GPLv2
 LIBCAP_LICENSE_FILES := file://License;md5=3f84fd6f29d453a56514cb7e4ead25f1
 
 # ----------------------------------------------------------------------------
