@@ -23,6 +23,7 @@ FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
 FONTCONFIG_SOURCE	:= $(SRCDIR)/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
 FONTCONFIG_DIR		:= $(BUILDDIR)/$(FONTCONFIG)
+FONTCONFIG_LICENSE	:= MIT, Unicode-TOU, public_domain
 
 
 # ----------------------------------------------------------------------------
