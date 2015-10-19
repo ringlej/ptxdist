@@ -23,7 +23,7 @@ LIBVA_INTEL_DRIVER_SUFFIX	:= tar.bz2
 LIBVA_INTEL_DRIVER_URL		:= http://www.freedesktop.org/software/vaapi/releases/libva-intel-driver/$(LIBVA_INTEL_DRIVER).$(LIBVA_INTEL_DRIVER_SUFFIX)
 LIBVA_INTEL_DRIVER_SOURCE	:= $(SRCDIR)/$(LIBVA_INTEL_DRIVER).$(LIBVA_INTEL_DRIVER_SUFFIX)
 LIBVA_INTEL_DRIVER_DIR		:= $(BUILDDIR)/$(LIBVA_INTEL_DRIVER)
-LIBVA_INTEL_DRIVER_LICENSE	:= unknown
+LIBVA_INTEL_DRIVER_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
