@@ -24,6 +24,7 @@ LIBTHEORA_SUFFIX	:= tar.gz
 LIBTHEORA_URL		:= http://downloads.xiph.org/releases/theora/$(LIBTHEORA).$(LIBTHEORA_SUFFIX)
 LIBTHEORA_SOURCE	:= $(SRCDIR)/$(LIBTHEORA).$(LIBTHEORA_SUFFIX)
 LIBTHEORA_DIR		:= $(BUILDDIR)/$(LIBTHEORA)
+LIBTHEORA_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
