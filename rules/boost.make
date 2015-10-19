@@ -24,6 +24,7 @@ BOOST_SUFFIX	:= tar.bz2
 BOOST_URL	:= $(call ptx/mirror, SF, boost/$(BOOST).$(BOOST_SUFFIX))
 BOOST_SOURCE	:= $(SRCDIR)/$(BOOST).$(BOOST_SUFFIX)
 BOOST_DIR	:= $(BUILDDIR)/$(BOOST)
+BOOST_LICENSE	:= BSL-1.0
 
 # ----------------------------------------------------------------------------
 # Prepare
