@@ -23,6 +23,7 @@ EVENTLOG_SUFFIX		:= tar.gz
 EVENTLOG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/sources/2.0/src/$(EVENTLOG).$(EVENTLOG_SUFFIX)
 EVENTLOG_SOURCE		:= $(SRCDIR)/$(EVENTLOG).$(EVENTLOG_SUFFIX)
 EVENTLOG_DIR		:= $(BUILDDIR)/$(EVENTLOG)
+EVENTLOG_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
