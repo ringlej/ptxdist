@@ -23,6 +23,7 @@ XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(call ptx/mirror, XORG, individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX))
 XORG_SERVER_SOURCE	:= $(SRCDIR)/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
+XORG_SERVER_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
