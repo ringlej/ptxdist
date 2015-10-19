@@ -23,7 +23,7 @@ LLDPD_SUFFIX	:= tar.gz
 LLDPD_URL		:= http://media.luffy.cx/files/lldpd//$(LLDPD).$(LLDPD_SUFFIX)
 LLDPD_SOURCE	:= $(SRCDIR)/$(LLDPD).$(LLDPD_SUFFIX)
 LLDPD_DIR		:= $(BUILDDIR)/$(LLDPD)
-LLDPD_LICENSE	:= ICS
+LLDPD_LICENSE	:= ISC
 
 # ----------------------------------------------------------------------------
 # Prepare
