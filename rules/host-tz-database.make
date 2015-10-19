@@ -45,7 +45,7 @@ TZDATA_STRIP_LEVEL	:= 0
 HOST_TZ_DATABASE_SOURCES := $(TZCODE_SOURCE) $(TZDATA_SOURCE)
 HOST_TZ_DATABASE_LICENSE := public_domain, BSD
 HOST_TZ_DATABASE_LICENSE_FILES := \
-	file://date.c;startline=5;endline=15;md5=b4967bd3c27deb8e6b8e25642c9054d4
+	file://date.c;startline=2;endline=15;md5=3f476fcbaee7a2c36b94589389ef1321
 
 # ----------------------------------------------------------------------------
 # Extract
