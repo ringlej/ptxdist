@@ -24,6 +24,7 @@ FBV_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBV).$(FB
 #FBV_URL	:= http://s-tech.elsat.net.pl/fbv/$(FBV).$(FBV_SUFFIX)
 FBV_SOURCE	:= $(SRCDIR)/$(FBV).$(FBV_SUFFIX)
 FBV_DIR		:= $(BUILDDIR)/$(FBV)
+FBV_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare
