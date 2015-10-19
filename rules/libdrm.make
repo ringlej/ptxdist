@@ -25,6 +25,8 @@ LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 LIBDRM_LICENSE	:= MIT
+LIBDRM_LICENSE_FILES	:= \
+	file://xf86drm.c;startline=10;endline=31;md5=30492a61897fb94bd0efd13b4f129d7a
 
 # ----------------------------------------------------------------------------
 # Prepare
