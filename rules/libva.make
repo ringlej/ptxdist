@@ -23,7 +23,7 @@ LIBVA_SUFFIX	:= tar.bz2
 LIBVA_URL	:= http://www.freedesktop.org/software/vaapi/releases/libva/$(LIBVA).$(LIBVA_SUFFIX)
 LIBVA_SOURCE	:= $(SRCDIR)/$(LIBVA).$(LIBVA_SUFFIX)
 LIBVA_DIR	:= $(BUILDDIR)/$(LIBVA)
-LIBVA_LICENSE	:= unknown
+LIBVA_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
