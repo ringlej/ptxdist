@@ -26,6 +26,9 @@ MESALIB_SUFFIX	:= tar.bz2
 MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/older-versions/10.x/$(subst .0,,$(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
+MESALIB_LICENSE	:= MIT
+MESALIB_LICENSE_FILES := \
+	file://docs/license.html;md5=6a23445982a7a972ac198e93cc1cb3de
 
 # ----------------------------------------------------------------------------
 # Prepare
