@@ -23,7 +23,7 @@ MTDEV_SUFFIX	:= tar.bz2
 MTDEV_URL	:= http://bitmath.org/code/mtdev/$(MTDEV).$(MTDEV_SUFFIX)
 MTDEV_SOURCE	:= $(SRCDIR)/$(MTDEV).$(MTDEV_SUFFIX)
 MTDEV_DIR	:= $(BUILDDIR)/$(MTDEV)
-MTDEV_LICENSE	:= MIT/X11
+MTDEV_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
