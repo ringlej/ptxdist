@@ -23,7 +23,7 @@ GSTREAMER_VAAPI1_SUFFIX		:= tar.bz2
 GSTREAMER_VAAPI1_URL		:= http://www.freedesktop.org/software/vaapi/releases/gstreamer-vaapi/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
 GSTREAMER_VAAPI1_SOURCE		:= $(SRCDIR)/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
 GSTREAMER_VAAPI1_DIR		:= $(BUILDDIR)/$(GSTREAMER_VAAPI1)
-GSTREAMER_VAAPI1_LICENSE	:= unknown
+GSTREAMER_VAAPI1_LICENSE	:= LGPLv2+
 
 # ----------------------------------------------------------------------------
 # Prepare
