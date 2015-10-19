@@ -23,6 +23,7 @@ PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(call ptx/mirror, XORG, individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX))
 PIXMAN_SOURCE	:= $(SRCDIR)/$(PIXMAN).$(PIXMAN_SUFFIX)
 PIXMAN_DIR	:= $(BUILDDIR)/$(PIXMAN)
+PIXMAN_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
