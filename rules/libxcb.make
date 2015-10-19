@@ -23,6 +23,7 @@ LIBXCB_SUFFIX		:= tar.bz2
 LIBXCB_URL		:= http://xcb.freedesktop.org/dist/$(LIBXCB).$(LIBXCB_SUFFIX)
 LIBXCB_SOURCE		:= $(SRCDIR)/$(LIBXCB).$(LIBXCB_SUFFIX)
 LIBXCB_DIR		:= $(BUILDDIR)/$(LIBXCB)
+LIBXCB_LICENSE		:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
