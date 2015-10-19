@@ -24,6 +24,7 @@ LIBOIL_SUFFIX	:= tar.gz
 LIBOIL_URL	:= http://liboil.freedesktop.org/download/$(LIBOIL).$(LIBOIL_SUFFIX)
 LIBOIL_SOURCE	:= $(SRCDIR)/$(LIBOIL).$(LIBOIL_SUFFIX)
 LIBOIL_DIR	:= $(BUILDDIR)/$(LIBOIL)
+LIBOIL_LICENSE	:= BSD-2-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
