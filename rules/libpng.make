@@ -25,7 +25,7 @@ LIBPNG_SUFFIX	:= tar.xz
 LIBPNG_URL	:= $(call ptx/mirror, SF, libpng/$(LIBPNG).$(LIBPNG_SUFFIX))
 LIBPNG_SOURCE	:= $(SRCDIR)/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_DIR	:= $(BUILDDIR)/$(LIBPNG)
-LIBPNG_LICENSE	:= libpng
+LIBPNG_LICENSE	:= Zlib
 
 # ----------------------------------------------------------------------------
 # Prepare
