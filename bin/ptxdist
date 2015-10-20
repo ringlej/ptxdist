@@ -1971,6 +1971,9 @@ EOF
 			fi
 			while [ ${#} -gt 0 ]; do
 				if [ -n "${!1}" ]; then
+					if [ "${PTXDIST_VERBOSE}" = "1" ]; then
+						echo -n "${1}="
+					fi
 					echo "${!1}"
 				else
 					local check
