@@ -24,6 +24,8 @@ NCURSES_URL	:= $(call ptx/mirror, GNU, ncurses/$(NCURSES).$(NCURSES_SUFFIX))
 NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 NCURSES_LICENSE	:= MIT
+NCURSES_LICENSE_FILES	:= \
+	file://include/curses.h;startline=2;endline=26;md5=3d0f6ef3745ae794471d5c62b7deb9c3
 
 # ----------------------------------------------------------------------------
 # Prepare
