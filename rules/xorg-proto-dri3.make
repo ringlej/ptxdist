@@ -25,6 +25,8 @@ XORG_PROTO_DRI3_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_DR
 XORG_PROTO_DRI3_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_DRI3).$(XORG_PROTO_DRI3_SUFFIX)
 XORG_PROTO_DRI3_DIR	:= $(BUILDDIR)/$(XORG_PROTO_DRI3)
 XORG_PROTO_DRI3_LICENSE	:= MIT
+XORG_PROTO_DRI3_LICENSE_FILES := \
+	file://dri3proto.h;startline=2;endline=20;md5=2dd66dffa047e40483dd101640f3043b
 
 # ----------------------------------------------------------------------------
 # Prepare
