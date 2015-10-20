@@ -24,6 +24,8 @@ XORG_PROTO_PRESENT_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROT
 XORG_PROTO_PRESENT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_PRESENT).$(XORG_PROTO_PRESENT_SUFFIX)
 XORG_PROTO_PRESENT_DIR		:= $(BUILDDIR)/$(XORG_PROTO_PRESENT)
 XORG_PROTO_PRESENT_LICENSE	:= MIT
+XORG_PROTO_PRESENT_LICENSE_FILES := \
+	file://presentproto.h;startline=2;endline=20;md5=2dd66dffa047e40483dd101640f3043b
 
 # ----------------------------------------------------------------------------
 # Prepare
