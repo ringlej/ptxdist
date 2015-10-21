@@ -23,13 +23,13 @@ FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
-FREETYPE_LICENSE	:= BSD-2-Clause, GPLv2+
+FREETYPE_LICENSE	:= BSD-2-Clause, FTL, GPLv2+
 FREETYPE_LICENSE_FILES	:= \
 	file://docs/LICENSE.TXT;md5=c017ff17fc6f0794adf93db5559ccd56 \
 	file://docs/GPLv2.TXT;md5=8ef380476f642c20ebf40fecb0add2ec \
 	file://docs/FTL.TXT;md5=d479e83797f699fe873b38dadd0fcd4c \
-	file://src/bdf/README;md5=974e7263a97f094a0f56cdda8f576390 \
-	file://src/pcf/README;md5=118e06ed92eb2c4264855375715b3515
+	file://src/bdf/README;startline=98;endline=140;md5=d0c2c2e2e102c393a12869bc34515be2 \
+	file://src/pcf/README;startline=69;endline=88;md5=e0f11f550450e58753f2d54ddaf17d34
 
 FREETYPE_URL := \
 	http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX) \
