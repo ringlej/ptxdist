@@ -1,0 +1,12 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_VLGOTHIC
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "VL Gothic"
+	help
+	  VL Gothic is beautiful Japanese free Gothic TrueType font,
+	  developed by Project Vine.
+	  It is based on Sazanami Gothic (by Electronic Font Open
+	  Laboratory) and M+1C/M+1M font (by M+ FONTS PROJECT).
