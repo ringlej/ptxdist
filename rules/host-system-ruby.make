@@ -12,6 +12,7 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_HOST_SYSTEM_RUBY) += host-system-ruby
+HOST_SYSTEM_RUBY_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
 # Prepare
