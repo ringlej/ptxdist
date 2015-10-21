@@ -3,6 +3,7 @@
 config XORG_FONT_TTF_DEJAVU
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_TTF
 	prompt "dejavu"
 	help
 	  Contains the DejaVu font family based on the Vera Fonts.
