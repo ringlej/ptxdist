@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 # Paths and names
 #
 GLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
-GLIBC_LICENSE	:= GPLv2, LGPLv2.1
+GLIBC_LICENSE	:= GPL-2.0, LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Target-Install

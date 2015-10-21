@@ -23,7 +23,7 @@ USB_MODESWITCH_SUFFIX	:= tar.bz2
 USB_MODESWITCH_URL	:= http://www.draisberghof.de/usb_modeswitch/$(USB_MODESWITCH).$(USB_MODESWITCH_SUFFIX)
 USB_MODESWITCH_SOURCE	:= $(SRCDIR)/$(USB_MODESWITCH).$(USB_MODESWITCH_SUFFIX)
 USB_MODESWITCH_DIR	:= $(BUILDDIR)/$(USB_MODESWITCH)
-USB_MODESWITCH_LICENSE	:= GPLv2
+USB_MODESWITCH_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

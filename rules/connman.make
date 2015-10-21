@@ -23,7 +23,7 @@ CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= $(call ptx/mirror, KERNEL, network/connman/$(CONNMAN).$(CONNMAN_SUFFIX))
 CONNMAN_SOURCE	:= $(SRCDIR)/$(CONNMAN).$(CONNMAN_SUFFIX)
 CONNMAN_DIR	:= $(BUILDDIR)/$(CONNMAN)
-CONNMAN_LICENSE	:= GPLv2
+CONNMAN_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

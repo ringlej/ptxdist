@@ -23,7 +23,7 @@ MOSH_SUFFIX	:= tar.gz
 MOSH_URL	:= https://mosh.mit.edu/$(MOSH).$(MOSH_SUFFIX)
 MOSH_SOURCE	:= $(SRCDIR)/$(MOSH).$(MOSH_SUFFIX)
 MOSH_DIR	:= $(BUILDDIR)/$(MOSH)
-MOSH_LICENSE	:= GPLv3
+MOSH_LICENSE	:= GPL-3.0
 
 #
 # autoconf

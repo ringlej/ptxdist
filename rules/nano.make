@@ -24,7 +24,7 @@ NANO_SUFFIX		:= tar.gz
 NANO_URL		:= http://www.nano-editor.org/dist/v2.3/$(NANO).$(NANO_SUFFIX)
 NANO_SOURCE		:= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
 NANO_DIR		:= $(BUILDDIR)/$(NANO)
-NANO_LICENSE		:= GPLv3+
+NANO_LICENSE		:= GPL-3.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

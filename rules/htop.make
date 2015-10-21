@@ -24,7 +24,7 @@ HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
 HTOP_SOURCE	:= $(SRCDIR)/$(HTOP).$(HTOP_SUFFIX)
 HTOP_DIR	:= $(BUILDDIR)/$(HTOP)
-HTOP_LICENSE	:= GPLv2
+HTOP_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

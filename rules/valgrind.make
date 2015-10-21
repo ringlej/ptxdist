@@ -26,7 +26,7 @@ VALGRIND_SUFFIX		:= tar.bz2
 VALGRIND_URL		:= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_SOURCE		:= $(SRCDIR)/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_DIR		:= $(BUILDDIR)/$(VALGRIND)
-VALGRIND_LICENSE	:= GPLv2
+VALGRIND_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -24,7 +24,7 @@ USBUTILS_SUFFIX		:= tar.xz
 USBUTILS_URL		:= $(call ptx/mirror, KERNEL, utils/usb/usbutils/$(USBUTILS).$(USBUTILS_SUFFIX))
 USBUTILS_SOURCE		:= $(SRCDIR)/$(USBUTILS).$(USBUTILS_SUFFIX)
 USBUTILS_DIR		:= $(BUILDDIR)/$(USBUTILS)
-USBUTILS_LICENSE	:= GPLv2
+USBUTILS_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

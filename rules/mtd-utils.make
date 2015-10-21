@@ -24,7 +24,7 @@ MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_SOURCE	:= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
-MTD_UTILS_LICENSE	:= GPLv2+
+MTD_UTILS_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

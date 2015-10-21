@@ -24,7 +24,7 @@ GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_SOURCE	:= $(SRCDIR)/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_DIR		:= $(BUILDDIR)/$(GSTREAMER1)
-GSTREAMER1_LICENSE	:= LGPLv2.1+
+GSTREAMER1_LICENSE	:= LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

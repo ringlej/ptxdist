@@ -17,6 +17,6 @@ PACKAGES-$(PTXCONF_LIBBLKID) += libblkid
 # ----------------------------------------------------------------------------
 # Virtual fake package (spawned from util-linux)
 # ----------------------------------------------------------------------------
-LIBBLKID_LICENSE	:= LGPLv2.1+
+LIBBLKID_LICENSE	:= LGPL-2.1+
 
 # vim: syntax=make

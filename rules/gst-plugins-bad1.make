@@ -24,7 +24,7 @@ GST_PLUGINS_BAD1_SUFFIX		:= tar.xz
 GST_PLUGINS_BAD1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-bad/$(GST_PLUGINS_BAD1).$(GST_PLUGINS_BAD1_SUFFIX)
 GST_PLUGINS_BAD1_SOURCE		:= $(SRCDIR)/$(GST_PLUGINS_BAD1).$(GST_PLUGINS_BAD1_SUFFIX)
 GST_PLUGINS_BAD1_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_BAD1)
-GST_PLUGINS_BAD1_LICENSE	:= LGPLv2.1+
+GST_PLUGINS_BAD1_LICENSE	:= LGPL-2.1+
 
 
 # ----------------------------------------------------------------------------

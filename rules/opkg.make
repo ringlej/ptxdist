@@ -24,7 +24,7 @@ OPKG_SUFFIX	:= tar.gz
 OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFIX)
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
-OPKG_LICENSE	:= GPLv2+
+OPKG_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

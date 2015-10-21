@@ -24,7 +24,7 @@ XFSPROGS_SUFFIX	:= tar.gz
 XFSPROGS_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars/$(XFSPROGS).$(XFSPROGS_SUFFIX)
 XFSPROGS_SOURCE	:= $(SRCDIR)/$(XFSPROGS).$(XFSPROGS_SUFFIX)
 XFSPROGS_DIR	:= $(BUILDDIR)/$(XFSPROGS)
-XFSPROGS_LICENSE:= GPLv2, LGPLv2.1
+XFSPROGS_LICENSE:= GPL-2.0, LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare

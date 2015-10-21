@@ -34,7 +34,7 @@ UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
-UDEV_LICENSE	:= GPLv2
+UDEV_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

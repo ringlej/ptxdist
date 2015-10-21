@@ -24,7 +24,7 @@ PCIUTILS_SUFFIX		:= tar.xz
 PCIUTILS_URL		:= $(call ptx/mirror, KERNEL, ../software/utils/pciutils/$(PCIUTILS).$(PCIUTILS_SUFFIX))
 PCIUTILS_SOURCE		:= $(SRCDIR)/$(PCIUTILS).$(PCIUTILS_SUFFIX)
 PCIUTILS_DIR		:= $(BUILDDIR)/$(PCIUTILS)
-PCIUTILS_LICENSE	:= GPLv2
+PCIUTILS_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

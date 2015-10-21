@@ -23,7 +23,7 @@ MPG123_SUFFIX	:= tar.bz2
 MPG123_URL	:= http://www.mpg123.org/download/$(MPG123).$(MPG123_SUFFIX)
 MPG123_SOURCE	:= $(SRCDIR)/$(MPG123).$(MPG123_SUFFIX)
 MPG123_DIR	:= $(BUILDDIR)/$(MPG123)
-MPG123_LICENSE	:= LGPLv2.1
+MPG123_LICENSE	:= LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare

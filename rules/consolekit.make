@@ -23,7 +23,7 @@ CONSOLEKIT_SUFFIX	:= tar.bz2
 CONSOLEKIT_URL		:= http://www.freedesktop.org/software/ConsoleKit/dist/$(CONSOLEKIT).$(CONSOLEKIT_SUFFIX)
 CONSOLEKIT_SOURCE	:= $(SRCDIR)/$(CONSOLEKIT).$(CONSOLEKIT_SUFFIX)
 CONSOLEKIT_DIR		:= $(BUILDDIR)/$(CONSOLEKIT)
-CONSOLEKIT_LICENSE	:= GPLv2
+CONSOLEKIT_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

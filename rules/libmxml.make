@@ -21,7 +21,7 @@ LIBMXML_SUFFIX	:= tar.gz
 LIBMXML_URL	:= http://www.msweet.org/files/project3/$(LIBMXML).$(LIBMXML_SUFFIX)
 LIBMXML_SOURCE	:= $(SRCDIR)/$(LIBMXML).$(LIBMXML_SUFFIX)
 LIBMXML_DIR	:= $(BUILDDIR)/mxml-$(LIBMXML_VERSION)
-LIBMXML_LICENSE	:= LGPLv2
+LIBMXML_LICENSE	:= LGPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

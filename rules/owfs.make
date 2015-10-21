@@ -23,7 +23,7 @@ OWFS_SUFFIX	:= tar.gz
 OWFS_URL	:= $(call ptx/mirror, SF, owfs/$(OWFS).$(OWFS_SUFFIX))
 OWFS_SOURCE	:= $(SRCDIR)/$(OWFS).$(OWFS_SUFFIX)
 OWFS_DIR	:= $(BUILDDIR)/$(OWFS)
-OWFS_LICENSE	:= GPLv2+, LGPLv2+
+OWFS_LICENSE	:= GPL-2.0+, LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

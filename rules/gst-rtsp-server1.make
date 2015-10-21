@@ -23,7 +23,7 @@ GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
 GST_RTSP_SERVER1_SOURCE		:= $(SRCDIR)/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
 GST_RTSP_SERVER1_DIR		:= $(BUILDDIR)/$(GST_RTSP_SERVER1)
-GST_RTSP_SERVER1_LICENSE	:= LGPLv2+
+GST_RTSP_SERVER1_LICENSE	:= LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

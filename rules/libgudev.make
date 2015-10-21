@@ -24,7 +24,7 @@ LIBGUDEV_SUFFIX		:= tar.xz
 LIBGUDEV_URL		:= https://download.gnome.org/sources/libgudev/$(LIBGUDEV_VERSION)/$(LIBGUDEV).$(LIBGUDEV_SUFFIX)
 LIBGUDEV_SOURCE		:= $(SRCDIR)/$(LIBGUDEV).$(LIBGUDEV_SUFFIX)
 LIBGUDEV_DIR		:= $(BUILDDIR)/$(LIBGUDEV)
-LIBGUDEV_LICENSE	:= LGPLv2.1+
+LIBGUDEV_LICENSE	:= LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

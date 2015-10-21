@@ -30,7 +30,7 @@ PTRTD_SUFFIX		:= tar.gz
 PTRTD_URL		:= https://ptrtd.googlecode.com/files/ptrtd_$(PTRTD_VERSION)$(PTRTD_VERSION_SUFFIX).$(PTRTD_SUFFIX)
 PTRTD_SOURCE		:= $(SRCDIR)/ptrtd_$(PTRTD_VERSION)$(PTRTD_VERSION_SUFFIX).$(PTRTD_SUFFIX)
 PTRTD_DIR		:= $(BUILDDIR)/$(PTRTD)
-PTRTD_LICENSE      	:= GPLv2
+PTRTD_LICENSE      	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

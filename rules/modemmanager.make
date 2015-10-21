@@ -23,7 +23,7 @@ MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= http://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
 MODEMMANAGER_SOURCE	:= $(SRCDIR)/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
 MODEMMANAGER_DIR	:= $(BUILDDIR)/$(MODEMMANAGER)
-MODEMMANAGER_LICENSE	:= GPLv2+, GPLv3+, LGPLv2.1+
+MODEMMANAGER_LICENSE	:= GPL-2.0+, GPL-3.0+, LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

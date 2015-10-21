@@ -27,7 +27,7 @@ WPA_SUPPLICANT_DIR	:= $(BUILDDIR)/$(WPA_SUPPLICANT)
 WPA_SUPPLICANT_SUBDIR	:= $(WPA_SUPPLICANT_NAME)
 WPA_SUPPLICANT_DEFCONF	:= $(shell ptxd_get_alternative config/wpasupplicant defconfig && echo $$ptxd_reply)
 WPA_SUPPLICANT_CONFIG	:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_SUBDIR)/.config
-WPA_SUPPLICANT_LICENSE	:= GPLv2
+WPA_SUPPLICANT_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
