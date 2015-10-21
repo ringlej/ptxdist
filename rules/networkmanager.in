@@ -19,6 +19,8 @@ menuconfig NETWORKMANAGER
 	select UDEV			if RUNTIME
 	select LIBGUDEV
 	select MODEMMANAGER		if NETWORKMANAGER_WWAN
+	select PPP			if NETWORKMANAGER_PPP
+	select PPP_PLUGINS		if NETWORKMANAGER_PPP
 	select WPA_SUPPLICANT		if NETWORKMANAGER_WIRELESS && RUNTIME
 	select WPA_SUPPLICANT_CTRL_IFACE_DBUS if NETWORKMANAGER_WIRELESS && RUNTIME
 	select DBUS_PYTHON		if NETWORKMANAGER_EXAMPLES && RUNTIME
@@ -66,6 +68,10 @@ config NETWORKMANAGER_WWAN
 	help
 	  Enable ModemManager interface support, wwan and bluetooth
 	  plugins depend on it.
+
+config NETWORKMANAGER_PPP
+	bool
+	prompt "enable ppp support"
 
 config NETWORKMANAGER_EXAMPLES
 	bool

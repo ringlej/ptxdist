@@ -47,7 +47,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-wimax \
 	--disable-polkit \
 	--disable-modify-system \
-	--disable-ppp \
+	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
 	--disable-bluez5-dun \
 	--disable-concheck \
 	--enable-more-warnings \
@@ -76,6 +76,10 @@ NETWORKMANAGER_CONF_OPT := \
 	--without-valgrind \
 	--without-tests
 
+ifdef PTXCONF_NETWORKMANAGER_PPP
+NETWORKMANAGER_CONF_OPT += \
+	--with-pppd-plugin-dir=$(PPP_SHARED_INST_PATH)
+endif
 
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 NETWORKMANAGER_LDFLAGS	:= \
@@ -179,6 +183,9 @@ endif
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-device-plugin-wwan)
 	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-wwan)
+endif
+ifdef PTXCONF_NETWORKMANAGER_PPP
+	@$(call install_copy, networkmanager, 0, 0, 0644, -, $(PPP_SHARED_INST_PATH)/nm-pppd-plugin.so)
 endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm)
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-util)
