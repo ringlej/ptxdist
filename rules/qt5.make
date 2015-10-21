@@ -26,7 +26,12 @@ QT5_URL		:= \
 QT5_SOURCE	:= $(SRCDIR)/$(QT5).$(QT5_SUFFIX)
 QT5_DIR		:= $(BUILDDIR)/$(QT5)
 QT5_BUILD_OOT	:= YES
-QT5_LICENSE	:= LGPLv2.1
+QT5_LICENSE	:= LGPLv2.1, Nokia-Qt-exception-1.1, LGPLv3, GFDL-1.3
+QT5_LICENSE_FILES := \
+	file://LICENSE.LGPLv21;md5=cff17b12416c896e10ae2c17a64252e7 \
+	file://LGPL_EXCEPTION.txt;md5=0145c4d1b6f96a661c2c139dfb268fb6 \
+	file://LICENSE.LGPLv3;md5=c1939be5579666be947371bc8120425f \
+	file://LICENSE.FDL;md5=6d9f2a9af4c8b8c3c769f6cc1b6aaf7e
 QT5_MKSPECS	:= $(shell ptxd_get_alternative config/qt5 linux-ptx-g++ && echo $$ptxd_reply)
 
 ifdef PTXCONF_QT5
