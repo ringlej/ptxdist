@@ -63,6 +63,9 @@ config NETWORKMANAGER_WIRELESS
 config NETWORKMANAGER_WWAN
 	bool
 	prompt "enable WWAN support"
+	help
+	  Enable ModemManager interface support, wwan and bluetooth
+	  plugins depend on it.
 
 config NETWORKMANAGER_EXAMPLES
 	bool
