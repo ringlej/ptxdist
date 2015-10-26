@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config NBD
+	tristate
+	prompt "NBD server and client"
+	help
+	  NBD client and server utils.
