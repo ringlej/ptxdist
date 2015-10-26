@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 #
 # Paths and names
 #
-LIGHTTPD_VERSION	:= 1.4.35
-LIGHTTPD_MD5		:= c7ae774eab4cb7ac85e41b712f4ee9ba
+LIGHTTPD_VERSION	:= 1.4.37
+LIGHTTPD_MD5		:= ca40168f54b46ee29475868ced8507d6
 LIGHTTPD		:= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX		:= tar.xz
 LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
@@ -47,6 +47,7 @@ LIGHTTPD_AUTOCONF := \
 	--without-ldap \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ATTR)-attr \
 	--without-valgrind \
+	--without-libunwind \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_OPENSSL)-openssl \
 	--without-kerberos5 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_PCRE)-pcre \
