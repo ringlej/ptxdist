@@ -44,7 +44,7 @@ CAIRO_CONF_OPT	:= \
 	--disable-gcov \
 	--disable-valgrind \
 	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib \
-	--disable-xlib-xrender \
+	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib-xrender \
 	--$(call ptx/endis, PTXCONF_CAIRO_XCB)-xcb \
 	--disable-xlib-xcb \
 	--$(call ptx/endis, PTXCONF_CAIRO_XCB)-xcb-shm \
