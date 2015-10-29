@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GSTREAMER_VAAPI1) += gstreamer-vaapi1
 #
 # Paths and names
 #
-GSTREAMER_VAAPI1_VERSION	:= 0.5.10
-GSTREAMER_VAAPI1_MD5		:= 3bd90b696b644be943450ba0c1497193
+GSTREAMER_VAAPI1_VERSION	:= 0.6.1
+GSTREAMER_VAAPI1_MD5		:= f01425481bd161f57334dab7ab4069d3
 GSTREAMER_VAAPI1		:= gstreamer-vaapi-$(GSTREAMER_VAAPI1_VERSION)
 GSTREAMER_VAAPI1_SUFFIX		:= tar.bz2
 GSTREAMER_VAAPI1_URL		:= http://www.freedesktop.org/software/vaapi/releases/gstreamer-vaapi/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
@@ -33,6 +33,7 @@ GSTREAMER_VAAPI1_ENABLE-y					:= drm
 GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_X11)		+= x11
 GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_GLX)		+= glx
 GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_WAYLAND)	+= wayland
+GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_EGL)		+= egl
 
 #
 # autoconf
@@ -48,8 +49,7 @@ GSTREAMER_VAAPI1_CONF_OPT	= \
 	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-)) \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--with-gstreamer-api=$(basename GSTREAMER1_VERSION)
+	--disable-gtk-doc-pdf
 
 # ----------------------------------------------------------------------------
 # Target-Install

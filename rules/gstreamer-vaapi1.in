@@ -5,6 +5,10 @@ config GSTREAMER_VAAPI1
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
 	select LIBVA
+	select MESALIB			if GSTREAMER_VAAPI1_EGL
+	select GST_PLUGINS_BAD1		if GSTREAMER_VAAPI1_EGL
+	select GST_PLUGINS_BAD1_GL	if GSTREAMER_VAAPI1_EGL
+	select GST_PLUGINS_BAD1_EGL	if GSTREAMER_VAAPI1_EGL
 	prompt "gstreamer-vaapi1"
 	help
 	  Gstreamer-vaapi is a collection of GStreamer plugins and helper
@@ -24,5 +28,9 @@ config GSTREAMER_VAAPI1_GLX
 config GSTREAMER_VAAPI1_WAYLAND
 	bool
 	default LIBVA_WAYLAND
+
+config GSTREAMER_VAAPI1_EGL
+	bool
+	default LIBVA_EGL
 
 endif
