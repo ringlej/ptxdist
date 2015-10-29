@@ -43,6 +43,9 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-ifcfg-suse \
 	--enable-ifupdown \
 	--disable-ifnet \
+	--disable-code-coverage \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
+	--disable-introspection \
 	--disable-qt \
 	--disable-wimax \
 	--disable-polkit \
@@ -51,6 +54,8 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-bluez5-dun \
 	--disable-concheck \
 	--enable-more-warnings \
+	--disable-more-asserts \
+	--disable-more-logging \
 	--disable-vala \
 	--disable-tests \
 	--disable-gtk-doc \
