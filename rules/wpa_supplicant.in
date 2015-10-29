@@ -17,4 +17,11 @@ config WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	help
 	  Add support for (old and new) DBus control interface
 
+config WPA_SUPPLICANT_PASSPHRASE
+	bool
+	prompt "installl wpa_passphrase"
+	help
+	  Install wpa_passphrase tool (Generate a WPA PSK from an ASCII
+	  passphrase for a SSID)
+
 endif

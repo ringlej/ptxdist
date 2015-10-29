@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WPA_SUPPLICANT) += wpa_supplicant
 # Paths and names
 #
 WPA_SUPPLICANT_NAME	:= wpa_supplicant
-WPA_SUPPLICANT_VERSION	:= 2.4
-WPA_SUPPLICANT_MD5	:= f0037dbe03897dcaf2ad2722e659095d
+WPA_SUPPLICANT_VERSION	:= 2.5
+WPA_SUPPLICANT_MD5	:= 96ff75c3a514f1f324560a2376f13110
 WPA_SUPPLICANT		:= $(WPA_SUPPLICANT_NAME)-$(WPA_SUPPLICANT_VERSION)
 WPA_SUPPLICANT_SUFFIX	:= tar.gz
 WPA_SUPPLICANT_URL	:= http://hostap.epitest.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
@@ -99,6 +99,11 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
 		/sbin/wpa_supplicant)
+
+ifdef PTXCONF_WPA_SUPPLICANT_PASSPHRASE
+	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
+		/sbin/wpa_passphrase)
+endif
 
 ifdef PTXCONF_WPA_SUPPLICANT_INSTALL_CLI
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, /sbin/wpa_cli)
