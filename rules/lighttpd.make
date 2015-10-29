@@ -30,14 +30,13 @@ LIGHTTPD_LICENSE	:= BSD-3-Clause
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIGHTTPD_PATH	:= PATH=$(CROSS_PATH)
-LIGHTTPD_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIGHTTPD_AUTOCONF := \
+LIGHTTPD_CONF_TOOL	:= autoconf
+LIGHTTPD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--runstatedir=/run \
 	--libdir=/usr/lib/lighttpd \
 	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-lfs \
 	$(GLOBAL_IPV6_OPTION) \
