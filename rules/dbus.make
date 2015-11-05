@@ -101,17 +101,6 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_lib, dbus, 0, 0, 0644, libdbus-1)
 
 #	#
-#	# create system.d and event.d directories, which are used by the configuration and startup files
-#	#
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/system.d/)
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/event.d/)
-
-#	#
-#	# create session.d directory, which is needed to launch a session bus
-#	#
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/session.d/)
-
-#	#
 #	# install config files
 #	#
 	@$(call install_alternative, dbus, 0, 0, 0644, /usr/share/dbus-1/system.conf)
