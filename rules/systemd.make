@@ -134,7 +134,7 @@ SYSTEMD_CONF_OPT	:= \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
 	--with-tty-gid=112 \
-	--with-dbuspolicydir=/etc/dbus-1/system.d \
+	--with-dbuspolicydir=/usr/share/dbus-1/system.d \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
 	--with-rootprefix= \
@@ -289,7 +289,7 @@ ifdef PTXCONF_SYSTEMD_NETWORK
 		/etc/systemd/resolved.conf)
 endif
 	@$(call install_tree, systemd, 0, 0, -, /etc/systemd/system/)
-	@$(call install_tree, systemd, 0, 0, -, /etc/dbus-1/system.d/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system.d/)
 
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
