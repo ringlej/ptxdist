@@ -40,25 +40,28 @@ $(STATEDIR)/os-release.targetinstall: $(PTXDIST_PTXCONFIG) $(PTXDIST_PLATFORMCON
 	@$(call install_fixup,os-release,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup,os-release,DESCRIPTION,missing)
 
-	@$(call install_alternative, os-release, 0, 0, 0644, /etc/os-release)
+	@$(call install_alternative, os-release, 0, 0, 0644, /usr/lib/os-release)
 
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@VENDOR@, $(PTXCONF_PROJECT_VENDOR))
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@PROJECT@, $(PTXCONF_PROJECT))
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@PRJVERSION@, $(PTXCONF_PROJECT_VERSION))
 
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@PLATFORM@, $(PTXCONF_PLATFORM))
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@PLATVERSION@, $(PTXCONF_PLATFORM_VERSION))
 
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@PTXDIST_VERSION@, $(PTXDIST_VERSION_FULL))
 
-	@$(call install_replace, os-release, /etc/os-release, \
+	@$(call install_replace, os-release, /usr/lib/os-release, \
 		@DATE@, $(shell date +%FT%T%z))
+
+	@$(call install_link, os-release, ../usr/lib/os-release, \
+		/etc/os-release)
 
 	@$(call install_finish,os-release)
 
