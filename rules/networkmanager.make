@@ -66,7 +66,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-session-tracking=no \
 	--with-suspend-resume=systemd \
 	--with-crypto=gnutls \
-	--with-dbus-sys-dir=/etc/dbus-1/system.d \
+	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
 	--with-dhclient=/sbin/dhclient \
 	--without-dhcpcd \
@@ -197,7 +197,7 @@ endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-glib)
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-glib-vpn)
 
-	@$(call install_tree, networkmanager, 0, 0, -, /etc/dbus-1/system.d/)
+	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system.d/)
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
