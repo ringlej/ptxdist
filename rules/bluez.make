@@ -55,7 +55,7 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-experimental \
 	--disable-sixaxis \
 	--disable-android \
-	--with-dbusconfdir=/etc \
+	--with-dbusconfdir=/usr/share \
 	--with-dbussystembusdir=/usr/share/dbus-1/system-services \
 	--with-dbussessionbusdir=/usr/share/dbus-1/services \
 	--with-udevdir=/lib/udev \
@@ -111,7 +111,7 @@ ifdef PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS
 endif
 
 	@$(call install_copy, bluez, 0, 0, 0644, -, \
-		/etc/dbus-1/system.d/bluetooth.conf)
+		/usr/share/dbus-1/system.d/bluetooth.conf)
 	@$(call install_tree, bluez, 0, 0, -, /lib/udev/rules.d/)
 
 ifdef PTXCONF_BLUEZ_SYSTEMD_UNIT
