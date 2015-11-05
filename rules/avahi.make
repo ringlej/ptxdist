@@ -74,7 +74,7 @@ AVAHI_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_AVAHI_COMPAT)-compat-libdns_sd \
 	--disable-compat-howl \
 	--with-distro=none \
-	--with-dbus-sys=/etc/dbus-1/system.d \
+	--with-dbus-sys=/usr/share/dbus-1/system.d \
 	--with-xml=expat \
 	--with-avahi-user=$(PTXCONF_AVAHI_USER) \
 	--with-avahi-group=$(PTXCONF_AVAHI_GROUP) \
@@ -107,7 +107,7 @@ $(STATEDIR)/avahi.targetinstall:
 
 ifdef PTXCONF_AVAHI_DBUS
 	@$(call install_alternative, avahi, 0, 0, 0644, \
-		/etc/dbus-1/system.d/avahi-dbus.conf)
+		/usr/share/dbus-1/system.d/avahi-dbus.conf)
 endif
 
 ifdef PTXCONF_AVAHI_QT4
