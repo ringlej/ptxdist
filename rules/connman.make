@@ -62,6 +62,7 @@ CONNMAN_CONF_OPT	:= \
 	--disable-tools \
 	--$(call ptx/endis, PTXCONF_CONNMAN_CLIENT)-client \
 	--enable-datafiles \
+	--with-dbusconfdir=/usr/share \
 	--with-systemdunitdir=/lib/systemd/system
 
 CONNMAN_TESTS := \
@@ -169,7 +170,7 @@ endif
 		/var/lib/connman/settings)
 
 #	# dbus config
-	@$(call install_alternative, connman, 0, 0, 0644, /etc/dbus-1/system.d/connman.conf)
+	@$(call install_alternative, connman, 0, 0, 0644, /usr/share/dbus-1/system.d/connman.conf)
 
 #	# command line client
 ifdef PTXCONF_CONNMAN_CLIENT
