@@ -46,7 +46,7 @@ MODEMMANAGER_CONF_OPT	:= \
 	--disable-vala \
 	--disable-more-warnings \
 	--with-gnu-ld \
-	--with-dbus-sys-dir=/etc/dbus-1/system.d \
+	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--with-udev-base-dir=/lib/udev \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--without-polkit \
@@ -75,7 +75,7 @@ $(STATEDIR)/modemmanager.targetinstall:
 	@$(call install_tree, modemmanager, 0, 0, -, /usr/lib/ModemManager/)
 
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
-		/etc/dbus-1/system.d/org.freedesktop.ModemManager1.conf)
+		/usr/share/dbus-1/system.d/org.freedesktop.ModemManager1.conf)
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
 		/usr/share/dbus-1/system-services/org.freedesktop.ModemManager1.service)
 
