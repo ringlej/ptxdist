@@ -36,7 +36,8 @@ CONSOLEKIT_CONF_TOOL	:= autoconf
 CONSOLEKIT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-pam-module \
-	--disable-docbook-docs
+	--disable-docbook-docs \
+	--with-dbus-sys=/usr/share/dbus-1/system.d
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,7 +56,7 @@ $(STATEDIR)/consolekit.targetinstall:
 		/etc/ConsoleKit/seats.d/00-primary.seat)
 # dbus
 	@$(call install_copy, consolekit, 0, 0, 0644, -, \
-		/etc/dbus-1/system.d/ConsoleKit.conf)
+		/usr/share/dbus-1/system.d/ConsoleKit.conf)
 	@$(call install_copy, consolekit, 0, 0, 0644, -, \
 		/usr/share/dbus-1/interfaces/org.freedesktop.ConsoleKit.Manager.xml)
 	@$(call install_copy, consolekit, 0, 0, 0644, -, \
