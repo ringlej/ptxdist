@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	:= 3080801
-SQLITE_MD5	:= a6381941ffe8817ba19669ec0c0ede6f
+SQLITE_VERSION	:= 3090200
+SQLITE_MD5	:= bc4eb5b3fc5cfcb6e059794306cac1ca
 SQLITE		:= sqlite-autoconf-$(SQLITE_VERSION)
 SQLITE_SUFFIX	:= tar.gz
 SQLITE_URL	:= http://www.sqlite.org/2015/$(SQLITE).$(SQLITE_SUFFIX)
