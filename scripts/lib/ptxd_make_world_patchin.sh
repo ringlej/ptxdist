@@ -404,6 +404,9 @@ ptxd_make_world_autogen() {
     # look for autogen.sh
     local pkg_patch_autogen="${pkg_patch_dir}/autogen.sh"
     if [ ! -x "${pkg_patch_autogen}" ]; then
+	if [ -e "${pkg_patch_autogen}" -o -L "${pkg_patch_autogen}" ]; then
+	    ptxd_bailout "'$(ptxd_print_path "${pkg_patch_autogen}")' is not executable or a broken link"
+	fi
 	unset pkg_patch_autogen
     fi
 
