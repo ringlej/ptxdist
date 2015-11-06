@@ -317,7 +317,9 @@ endif
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
 
+ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
+endif
 
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd)
 
