@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/lib/Makefile b/lib/Makefile
-index faffb399842e..82a2561ad7e7 100644
+index 02ddd3b5f285..feaaa13525d8 100644
 --- a/lib/Makefile
 +++ b/lib/Makefile
-@@ -61,19 +61,19 @@ else
+@@ -60,19 +60,19 @@ else
  	SHARED_EXT_VER = $(SHARED_EXT).$(LIBVER)
  endif
  
@@ -37,7 +37,7 @@ index faffb399842e..82a2561ad7e7 100644
  
  clean:
  	@rm -f core *.o *.a *.$(SHARED_EXT) *.$(SHARED_EXT).* liblz4.pc
-@@ -92,7 +92,7 @@ liblz4.pc: liblz4.pc.in Makefile
+@@ -91,7 +91,7 @@ liblz4.pc: liblz4.pc.in Makefile
              -e 's|@VERSION@|$(VERSION)|' \
               $< >$@
  
