@@ -1,13 +1,13 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Wed, 3 Jun 2015 11:40:12 +0200
+Date: Wed, 3 Jun 2015 20:11:09 +0200
 Subject: [PATCH] use hackbench from rt-tests
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  modules/linux_perf/CMakeLists.txt   |   6 -
  modules/linux_perf/hackbench.c      | 381 ------------------------------------
- modules/linux_perf/perf_hackbench.c |  46 ++++-
- 3 files changed, 37 insertions(+), 396 deletions(-)
+ modules/linux_perf/perf_hackbench.c |  70 ++++++-
+ 3 files changed, 60 insertions(+), 397 deletions(-)
  delete mode 100644 modules/linux_perf/hackbench.c
 
 diff --git a/modules/linux_perf/CMakeLists.txt b/modules/linux_perf/CMakeLists.txt
@@ -412,10 +412,15 @@ index 1636999403cd..000000000000
 -
 -
 diff --git a/modules/linux_perf/perf_hackbench.c b/modules/linux_perf/perf_hackbench.c
-index e289694c518c..ddc489af34c3 100644
+index e289694c518c..1143caccdd0d 100644
 --- a/modules/linux_perf/perf_hackbench.c
 +++ b/modules/linux_perf/perf_hackbench.c
-@@ -7,16 +7,18 @@
+@@ -3,21 +3,33 @@
+ 
+ #include <cbench/option.h>
+ #include <cbench/plugin_id_helper.h>
++#include <cbench/requirement.h>
+ #include <cbench/version.h>
  #include <cbench/exec_helper.h>
  
  struct header plugin_hackbench_defaults[] = {
@@ -429,14 +434,24 @@ index e289694c518c..ddc489af34c3 100644
  	OPTION_SENTINEL
  };
  
++static struct requirement hackbench_requirements[] = {
++	{
++		.name = "hackbench",
++	}, {
++		/* Sentinel */
++	}
++};
++
  static struct version plugin_hackbench_versions[] = {
  	{
 -		.version = "0.1",
 +		.version = "0.2",
  		.default_options = plugin_hackbench_defaults,
++		.requirements = hackbench_requirements,
  		.nr_independent_values = 1,
  	}, {
-@@ -25,14 +27,20 @@ static struct version plugin_hackbench_versions[] = {
+ 		/* Sentinel */
+@@ -25,36 +37,52 @@ static struct version plugin_hackbench_versions[] = {
  };
  
  static char hackbench_pipe[] = "-pipe";
@@ -461,7 +476,27 @@ index e289694c518c..ddc489af34c3 100644
  
  	char *result;
  };
-@@ -48,13 +56,12 @@ static int hackbench_install(struct plugin *plug)
+ 
++static int hackbench_init(struct module *mod, const struct plugin_id *plug)
++{
++	char *args[] = {"hackbench", "-h", NULL};
++	int ret;
++
++	ret = subproc_call("hackbench", args);
++	if (WIFEXITED(ret) && WEXITSTATUS(ret) == 1)
++		hackbench_requirements[0].found = 1;
++
++	return 0;
++}
++
+ static int hackbench_install(struct plugin *plug)
+ {
+ 	struct hackbench_data *d = malloc(sizeof(*d));
+ 	const struct header *opts = plugin_get_options(plug);
+-	const char *bin_path = plugin_get_bin_path(plug);
+ 	char *hb_bin;
+ 	int argi = 1;
+ 
  	if (!d)
  		return -1;
  
@@ -476,7 +511,7 @@ index e289694c518c..ddc489af34c3 100644
  	d->hb_bin = hb_bin;
  	d->args[0] = hb_bin;
  
-@@ -63,6 +70,8 @@ static int hackbench_install(struct plugin *plug)
+@@ -63,6 +91,8 @@ static int hackbench_install(struct plugin *plug)
  		++argi;
  	}
  
@@ -485,7 +520,7 @@ index e289694c518c..ddc489af34c3 100644
  	sprintf(d->groups, "%d", option_get_int32(opts, "groups"));
  	d->args[argi] = d->groups;
  	++argi;
-@@ -73,10 +82,24 @@ static int hackbench_install(struct plugin *plug)
+@@ -73,10 +103,24 @@ static int hackbench_install(struct plugin *plug)
  		d->args[argi] = hackbench_thread;
  	++argi;
  
@@ -510,7 +545,7 @@ index e289694c518c..ddc489af34c3 100644
  	d->args[argi] = NULL;
  
  	plugin_set_data(plug, d);
-@@ -107,8 +130,13 @@ static int hackbench_parse_results(struct plugin *plug)
+@@ -107,8 +151,13 @@ static int hackbench_parse_results(struct plugin *plug)
  	struct hackbench_data *d = plugin_get_data(plug);
  	struct data *data = data_alloc(DATA_TYPE_RESULT, 1);
  	double res;
@@ -525,3 +560,11 @@ index e289694c518c..ddc489af34c3 100644
  	data_add_double(data, res);
  
  	plugin_add_results(plug, data);
+@@ -150,6 +199,7 @@ static const struct header *hackbench_data_hdr(struct plugin *plug)
+ const struct plugin_id plugin_hackbench = {
+ 	.name = "hackbench",
+ 	.description = "Benchmark that spawns a number of groups that internally send/receive packets. Also known within the linux kernel perf tool as sched-messaging.",
++	.module_init = hackbench_init,
+ 	.install = hackbench_install,
+ 	.uninstall = hackbench_uninstall,
+ 	.parse_results = hackbench_parse_results,
