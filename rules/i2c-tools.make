@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_I2C_TOOLS) += i2c-tools
 #
 # Paths and names
 #
-I2C_TOOLS_VERSION	:= 3.1.0
-I2C_TOOLS_MD5		:= f15019e559e378c6e9d5d6299a00df21
+I2C_TOOLS_VERSION	:= 3.1.2
+I2C_TOOLS_MD5		:= 7104a1043d11a5e2c7b131614eb1b962
 I2C_TOOLS		:= i2c-tools-$(I2C_TOOLS_VERSION)
 I2C_TOOLS_SUFFIX	:= tar.bz2
-I2C_TOOLS_URL		:= http://dl.lm-sensors.org/i2c-tools/releases/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
+I2C_TOOLS_URL		:= http://dl.lm-sensors.org/i2c-tools/releases/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX) http://jdelvare.nerim.net/mirror/i2c-tools/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_SOURCE	:= $(SRCDIR)/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_DIR		:= $(BUILDDIR)/$(I2C_TOOLS)
 I2C_TOOLS_LICENSE	:= GPL-2.0+
