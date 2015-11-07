@@ -218,7 +218,7 @@ ptxd_make_world_install_post() {
     # create directories first to avoid race contitions with -jeX
     find "${pkg_pkg_dir}" -type d -printf "%P\0" | \
 	xargs -0 -I{} mkdir -p "${pkg_sysroot_dir}/{}" &&
-    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
+    cp -dpr --remove-destination -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
     # host and cross packages
     if [ "${pkg_type}" != "target" ]; then
