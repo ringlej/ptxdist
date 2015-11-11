@@ -37,12 +37,9 @@ BUSYBOX_TAGS_OPT := TAGS tags
 $(STATEDIR)/busybox.prepare:
 	@$(call targetinfo)
 
-	@cd $(BUSYBOX_DIR) && \
-		$(BUSYBOX_PATH)  \
-		$(MAKE) distclean $(BUSYBOX_MAKE_OPT)
+	@$(call compile, BUSYBOX, distclean)
 	@grep -e PTXCONF_BUSYBOX_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_BUSYBOX_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
-
 	@$(call ptx/oldconfig, BUSYBOX)
 
 	@$(call touch)
@@ -53,9 +50,11 @@ BUSYBOX_MAKE_OPT := \
 	SUBARCH=$(PTXCONF_ARCH_STRING) \
 	CROSS_COMPILE=$(COMPILER_PREFIX)
 
+BUSYBOX_CPPFLAGS := \
+	-I$(KERNEL_HEADERS_INCLUDE_DIR)
+
 BUSYBOX_MAKE_ENV := \
 	$(CROSS_ENV) \
-	CFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR)" \
 	SKIP_STRIP=y
 
 BUSYBOX_INSTALL_ENV := \
