@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NBD) += nbd
 #
 # Paths and names
 #
-NBD_VERSION	:= 3.11
-NBD_MD5		:= 73d11644a28b9f335292cdb3bdc4b74b
+NBD_VERSION	:= 3.12.1
+NBD_MD5		:= 055eb1c5a95cc6976256dcc84ae63abb
 NBD		:= nbd-$(NBD_VERSION)
 NBD_SUFFIX	:= tar.xz
 NBD_URL		:= http://downloads.sourceforge.net/project/nbd/nbd/$(NBD_VERSION)/$(NBD).$(NBD_SUFFIX)
