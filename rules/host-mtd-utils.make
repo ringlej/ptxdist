@@ -23,10 +23,6 @@ HOST_MTD_UTILS_DIR	= $(HOST_BUILDDIR)/$(MTD_UTILS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_MTD_UTILS_COMPILE_ENV := \
-	$(HOST_ENV) \
-	WITHOUT_XATTR=1
-
 # don't use := here
 HOST_MTD_UTILS_MAKEVARS	= \
 	PREFIX=/ \
