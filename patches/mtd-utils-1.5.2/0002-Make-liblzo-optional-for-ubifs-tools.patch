@@ -11,7 +11,7 @@ Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
  2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 8d1506df37f9..228dc9cc6ea2 100644
+index 5cc0125c5243..9cfd9700a570 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -107,7 +107,7 @@ $(call _mkdep,lib/,libmtd.a)
@@ -24,7 +24,7 @@ index 8d1506df37f9..228dc9cc6ea2 100644
  
  #
 diff --git a/mkfs.ubifs/compr.c b/mkfs.ubifs/compr.c
-index 4152b6af8832..244d4507b5ce 100644
+index 34b2f6001b6b..549b4de13932 100644
 --- a/mkfs.ubifs/compr.c
 +++ b/mkfs.ubifs/compr.c
 @@ -24,7 +24,11 @@
@@ -39,7 +39,7 @@ index 4152b6af8832..244d4507b5ce 100644
  #include <linux/types.h>
  
  #define crc32 __zlib_crc32
-@@ -86,6 +90,8 @@ static int zlib_deflate(void *in_buf, size_t in_len, void *out_buf,
+@@ -85,6 +89,8 @@ static int zlib_deflate(void *in_buf, size_t in_len, void *out_buf,
  	return 0;
  }
  
@@ -48,7 +48,7 @@ index 4152b6af8832..244d4507b5ce 100644
  static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
  			size_t *out_len)
  {
-@@ -103,6 +109,17 @@ static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
+@@ -102,6 +108,17 @@ static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
  
  	return 0;
  }

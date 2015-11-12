@@ -3,16 +3,17 @@ Date: Fri, 28 Nov 2014 11:11:26 +0100
 Subject: [PATCH] mkfs.ubifs: use xmalloc/xzalloc for allocating memory
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Reviewed-by: Daniel Walter <dwalter@sigma-star.at>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  mkfs.ubifs/mkfs.ubifs.c | 64 +++++++++++--------------------------------------
  1 file changed, 14 insertions(+), 50 deletions(-)
 
 diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
-index fbcaf1ffbed6..cb7b643ce73c 100644
+index 1b816ae483e0..049219b52cc5 100644
 --- a/mkfs.ubifs/mkfs.ubifs.c
 +++ b/mkfs.ubifs/mkfs.ubifs.c
-@@ -260,13 +260,8 @@ static int is_contained(const char *file, const char *dir)
+@@ -259,13 +259,8 @@ static int is_contained(const char *file, const char *dir)
  	file_base = dirname(copy);
  
  	/* Turn the paths into the canonical form */
@@ -28,7 +29,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  
  	if (!realpath(file_base, real_file)) {
  		perror("Could not canonicalize file path");
-@@ -501,9 +496,7 @@ static int get_options(int argc, char**argv)
+@@ -500,9 +495,7 @@ static int get_options(int argc, char**argv)
  		case 'r':
  		case 'd':
  			root_len = strlen(optarg);
@@ -39,7 +40,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  
  			/*
  			 * The further code expects '/' at the end of the root
-@@ -911,9 +904,7 @@ static int add_to_index(union ubifs_key *key, char *name, int lnum, int offs,
+@@ -910,9 +903,7 @@ static int add_to_index(union ubifs_key *key, char *name, int lnum, int offs,
  	struct idx_entry *e;
  
  	dbg_msg(3, "LEB %d offs %d len %d", lnum, offs, len);
@@ -50,7 +51,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  	e->next = NULL;
  	e->prev = idx_list_last;
  	e->key = *key;
-@@ -1194,9 +1185,7 @@ static struct inum_mapping *lookup_inum_mapping(dev_t dev, ino_t inum)
+@@ -1193,9 +1184,7 @@ static struct inum_mapping *lookup_inum_mapping(dev_t dev, ino_t inum)
  			return im;
  		im = im->next;
  	}
@@ -61,7 +62,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  	im->next = hash_table[k];
  	im->prev = NULL;
  	im->dev = dev;
-@@ -1356,9 +1345,7 @@ static int add_non_dir(const char *path_name, ino_t *inum, unsigned int nlink,
+@@ -1355,9 +1344,7 @@ static int add_non_dir(const char *path_name, ino_t *inum, unsigned int nlink,
  			/* New entry */
  			im->use_inum = *inum;
  			im->use_nlink = 1;
@@ -72,7 +73,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  			strcpy(im->path_name, path_name);
  		} else {
  			/* Existing entry */
-@@ -1708,21 +1695,14 @@ static int write_index(void)
+@@ -1707,21 +1694,14 @@ static int write_index(void)
  	head_flags = LPROPS_INDEX;
  	/* Allocate index node */
  	idx_sz = ubifs_idx_node_sz(c, c->fanout);
@@ -96,7 +97,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  	idx_ptr[0] = idx_list_first;
  	for (i = 1; i < idx_cnt; i++)
  		idx_ptr[i] = idx_ptr[i - 1]->next;
-@@ -2165,13 +2145,8 @@ static int init(void)
+@@ -2164,13 +2144,8 @@ static int init(void)
  	c->lpt_first = UBIFS_LOG_LNUM + c->log_lebs;
  	c->lpt_last = c->lpt_first + c->lpt_lebs - 1;
  
@@ -112,7 +113,7 @@ index fbcaf1ffbed6..cb7b643ce73c 100644
  
  	/* Initialize LPT's own lprops */
  	for (i = 0; i < c->lpt_lebs; i++) {
-@@ -2183,23 +2158,12 @@ static int init(void)
+@@ -2182,23 +2157,12 @@ static int init(void)
  	c->dark_wm = ALIGN(UBIFS_MAX_NODE_SZ, c->min_io_size);
  	dbg_msg(1, "dead_wm %d  dark_wm %d", c->dead_wm, c->dark_wm);
  

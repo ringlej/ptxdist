@@ -10,9 +10,9 @@ Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  mkfs.ubifs/key.h        |  18 +++++
- mkfs.ubifs/mkfs.ubifs.c | 201 +++++++++++++++++++++++++++++++++++++++++-------
+ mkfs.ubifs/mkfs.ubifs.c | 205 +++++++++++++++++++++++++++++++++++++++++-------
  mkfs.ubifs/ubifs.h      |   9 +++
- 3 files changed, 201 insertions(+), 27 deletions(-)
+ 3 files changed, 205 insertions(+), 27 deletions(-)
 
 diff --git a/mkfs.ubifs/key.h b/mkfs.ubifs/key.h
 index d3a02d4ff1a6..39379fd48178 100644
@@ -44,24 +44,38 @@ index d3a02d4ff1a6..39379fd48178 100644
   * @c: UBIFS file-system description object
   * @key: key to initialize
 diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
-index c1e72bbddf9d..667dce7f2986 100644
+index a99c61382304..30cd10c25819 100644
 --- a/mkfs.ubifs/mkfs.ubifs.c
 +++ b/mkfs.ubifs/mkfs.ubifs.c
-@@ -26,6 +26,8 @@
+@@ -25,6 +25,10 @@
  #include "mkfs.ubifs.h"
  #include <crc32.h>
  #include "common.h"
 +#include <sys/types.h>
++#ifndef WITHOUT_XATTR
 +#include <attr/xattr.h>
++#endif
  
  /* Size (prime number) of hash table for link counting */
  #define HASH_TABLE_SIZE 10099
-@@ -981,20 +983,168 @@ static int add_node(union ubifs_key *key, char *name, void *node, int len)
+@@ -980,20 +984,170 @@ static int add_node(union ubifs_key *key, char *name, void *node, int len)
  	return 0;
  }
  
-+int add_xattr(struct stat *st, ino_t inum, const void *data, unsigned int data_len,
-+	      struct qstr *nm)
++#ifdef WITHOUT_XATTR
++static inline int inode_add_xattr(struct ubifs_ino_node *host_ino,
++				  const char *path_name, struct stat *st, ino_t inum)
++{
++	(void)host_ino;
++	(void)path_name;
++	(void)st;
++	(void)inum;
++
++	return 0;
++}
++#else
++static int add_xattr(struct stat *st, ino_t inum, const void *data,
++		     unsigned int data_len, struct qstr *nm)
 +{
 +	struct ubifs_ino_node *ino;
 +	struct ubifs_dent_node *xent;
@@ -131,21 +145,20 @@ index c1e72bbddf9d..667dce7f2986 100644
 +}
 +
 +static int inode_add_xattr(struct ubifs_ino_node *host_ino,
-+		const char *path_name, struct stat *st, ino_t inum)
++			   const char *path_name, struct stat *st, ino_t inum)
 +{
 +	int ret;
 +	struct qstr nm;
 +	void *buf = NULL;
 +	ssize_t len;
 +	ssize_t pos = 0;
-+	void *attrval = NULL;
 +
-+	len = listxattr(path_name, NULL, 0);
++	len = llistxattr(path_name, NULL, 0);
 +	if (len < 0) {
 +		if (errno == ENOENT)
 +			return 0;
 +
-+		sys_err_msg("flistxattr failed on %s", path_name);
++		sys_err_msg("llistxattr failed on %s", path_name);
 +
 +		return len;
 +	}
@@ -155,29 +168,23 @@ index c1e72bbddf9d..667dce7f2986 100644
 +
 +	buf = xmalloc(len);
 +
-+	len = listxattr(path_name, buf, len);
++	len = llistxattr(path_name, buf, len);
 +	if (len < 0) {
-+		sys_err_msg("flistxattr failed on %s", path_name);
++		sys_err_msg("llistxattr failed on %s", path_name);
 +		goto out_free;
 +	}
 +
 +	while (pos < len) {
++		char attrbuf[1024] = { };
 +		char *name;
 +		ssize_t attrsize;
 +
 +		name = buf + pos;
 +		pos += strlen(name) + 1;
 +
-+		attrsize = getxattr(path_name, name, NULL, 0);
++		attrsize = lgetxattr(path_name, name, attrbuf, sizeof(attrbuf) - 1);
 +		if (attrsize < 0) {
-+			sys_err_msg("getxattr failed on %s", path_name);
-+			goto out_free;
-+		}
-+
-+		attrval = xmalloc(attrsize);
-+		attrsize = getxattr(path_name, name, attrval, attrsize);
-+		if (attrsize < 0) {
-+			sys_err_msg("getxattr failed on %s", path_name);
++			sys_err_msg("lgetxattr failed on %s", path_name);
 +			goto out_free;
 +		}
 +
@@ -189,12 +196,9 @@ index c1e72bbddf9d..667dce7f2986 100644
 +		host_ino->xattr_size += CALC_XATTR_BYTES(attrsize);
 +		host_ino->xattr_names += nm.len;
 +
-+		ret = add_xattr(st, inum, attrval, attrsize, &nm);
++		ret = add_xattr(st, inum, attrbuf, attrsize, &nm);
 +		if (ret < 0)
 +			goto out_free;
-+
-+		free(attrval);
-+		attrval = NULL;
 +	}
 +
 +noxattr:
@@ -203,10 +207,10 @@ index c1e72bbddf9d..667dce7f2986 100644
 +
 +out_free:
 +	free(buf);
-+	free(attrval);
 +
 +	return -1;
 +}
++#endif
 +
  /**
 - * add_inode_with_data - write an inode.
@@ -229,7 +233,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  
  	if (c->default_compr != UBIFS_COMPR_NONE)
  		use_flags |= UBIFS_COMPR_FL;
-@@ -1038,18 +1188,13 @@ static int add_inode_with_data(struct stat *st, ino_t inum, void *data,
+@@ -1037,18 +1191,13 @@ static int add_inode_with_data(struct stat *st, ino_t inum, void *data,
  
  	len = UBIFS_INO_NODE_SZ + data_len;
  
@@ -254,7 +258,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  }
  
  /**
-@@ -1065,8 +1210,8 @@ static int add_inode(struct stat *st, ino_t inum, int flags)
+@@ -1064,8 +1213,8 @@ static int add_inode(struct stat *st, ino_t inum, int flags)
   * is being created does not exist at the host file system, but is defined by
   * the device table.
   */
@@ -265,7 +269,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  {
  	int fd, flags = 0;
  
-@@ -1081,7 +1226,7 @@ static int add_dir_inode(DIR *dir, ino_t inum, loff_t size, unsigned int nlink,
+@@ -1080,7 +1229,7 @@ static int add_dir_inode(DIR *dir, ino_t inum, loff_t size, unsigned int nlink,
  			flags = 0;
  	}
  
@@ -274,7 +278,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  }
  
  /**
-@@ -1090,12 +1235,12 @@ static int add_dir_inode(DIR *dir, ino_t inum, loff_t size, unsigned int nlink,
+@@ -1089,12 +1238,12 @@ static int add_dir_inode(DIR *dir, ino_t inum, loff_t size, unsigned int nlink,
   * @inum: target inode number
   * @flags: source inode flags
   */
@@ -289,7 +293,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  }
  
  /**
-@@ -1118,7 +1263,7 @@ static int add_symlink_inode(const char *path_name, struct stat *st, ino_t inum,
+@@ -1117,7 +1266,7 @@ static int add_symlink_inode(const char *path_name, struct stat *st, ino_t inum,
  	if (len > UBIFS_MAX_INO_DATA)
  		return err_msg("symlink too long for %s", path_name);
  
@@ -298,7 +302,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  }
  
  /**
-@@ -1276,12 +1421,14 @@ static int add_file(const char *path_name, struct stat *st, ino_t inum,
+@@ -1275,12 +1424,14 @@ static int add_file(const char *path_name, struct stat *st, ino_t inum,
  			return err;
  		}
  	} while (ret != 0);
@@ -314,7 +318,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  }
  
  /**
-@@ -1361,15 +1508,15 @@ static int add_non_dir(const char *path_name, ino_t *inum, unsigned int nlink,
+@@ -1360,15 +1511,15 @@ static int add_non_dir(const char *path_name, ino_t *inum, unsigned int nlink,
  	if (S_ISREG(st->st_mode))
  		return add_file(path_name, st, *inum, flags);
  	if (S_ISCHR(st->st_mode))
@@ -334,7 +338,7 @@ index c1e72bbddf9d..667dce7f2986 100644
  
  	return err_msg("file '%s' has unknown inode type", path_name);
  }
-@@ -1549,7 +1696,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1548,7 +1699,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  
  	creat_sqnum = dir_creat_sqnum;
  

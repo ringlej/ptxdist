@@ -6,16 +6,17 @@ A 'non_existing' argument which is only used with !non_existing
 is just too confusing. Change this to positive logic.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Reviewed-by: Daniel Walter <dwalter@sigma-star.at>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  mkfs.ubifs/mkfs.ubifs.c | 22 +++++++++++-----------
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
-index 200c8a5007e4..fbcaf1ffbed6 100644
+index ca17e2bca3ac..1b816ae483e0 100644
 --- a/mkfs.ubifs/mkfs.ubifs.c
 +++ b/mkfs.ubifs/mkfs.ubifs.c
-@@ -1396,12 +1396,12 @@ static int add_non_dir(const char *path_name, ino_t *inum, unsigned int nlink,
+@@ -1395,12 +1395,12 @@ static int add_non_dir(const char *path_name, ino_t *inum, unsigned int nlink,
   * @dir_name: directory path name
   * @dir_inum: UBIFS inode number of directory
   * @st: directory inode statistics
@@ -32,7 +33,7 @@ index 200c8a5007e4..fbcaf1ffbed6 100644
  {
  	struct dirent *entry;
  	DIR *dir = NULL;
-@@ -1417,7 +1417,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1416,7 +1416,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  	unsigned long long dir_creat_sqnum = ++c->max_sqnum;
  
  	dbg_msg(2, "%s", dir_name);
@@ -41,7 +42,7 @@ index 200c8a5007e4..fbcaf1ffbed6 100644
  		dir = opendir(dir_name);
  		if (dir == NULL)
  			return sys_err_msg("cannot open directory '%s'",
-@@ -1435,7 +1435,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1434,7 +1434,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  	 * Before adding the directory itself, we have to iterate over all the
  	 * entries the device table adds to this directory and create them.
  	 */
@@ -50,7 +51,7 @@ index 200c8a5007e4..fbcaf1ffbed6 100644
  		struct stat dent_st;
  
  		errno = 0;
-@@ -1493,7 +1493,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1492,7 +1492,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  		inum = ++c->highest_inum;
  
  		if (S_ISDIR(dent_st.st_mode)) {
@@ -59,7 +60,7 @@ index 200c8a5007e4..fbcaf1ffbed6 100644
  			if (err)
  				goto out_free;
  			nlink += 1;
-@@ -1545,7 +1545,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1544,7 +1544,7 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  		inum = ++c->highest_inum;
  
  		if (S_ISDIR(nh_elt->mode)) {
@@ -68,7 +69,7 @@ index 200c8a5007e4..fbcaf1ffbed6 100644
  			if (err)
  				goto out_free;
  			nlink += 1;
-@@ -1571,14 +1571,14 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1570,14 +1570,14 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  		goto out_free;
  
  	free(name);
@@ -85,7 +86,7 @@ index 200c8a5007e4..fbcaf1ffbed6 100644
  		closedir(dir);
  	return -1;
  }
-@@ -1625,7 +1625,7 @@ static int write_data(void)
+@@ -1624,7 +1624,7 @@ static int write_data(void)
  	}
  
  	head_flags = 0;

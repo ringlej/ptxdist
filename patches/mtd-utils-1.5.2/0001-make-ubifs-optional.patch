@@ -8,7 +8,7 @@ Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index eade23467074..8d1506df37f9 100644
+index 3ce8587b22a1..5cc0125c5243 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -31,7 +31,9 @@ UBI_BINS = \

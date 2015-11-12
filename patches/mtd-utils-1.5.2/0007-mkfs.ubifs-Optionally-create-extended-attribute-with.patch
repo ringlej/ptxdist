@@ -33,14 +33,14 @@ UBIFS image, both evmctl and mkfs.ubifs must be run twice:
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- mkfs.ubifs/mkfs.ubifs.c | 77 +++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 68 insertions(+), 9 deletions(-)
+ mkfs.ubifs/mkfs.ubifs.c | 69 ++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 68 insertions(+), 1 deletion(-)
 
 diff --git a/mkfs.ubifs/mkfs.ubifs.c b/mkfs.ubifs/mkfs.ubifs.c
-index 667dce7f2986..4ab24a240087 100644
+index 30cd10c25819..58200dea9732 100644
 --- a/mkfs.ubifs/mkfs.ubifs.c
 +++ b/mkfs.ubifs/mkfs.ubifs.c
-@@ -114,6 +114,7 @@ static char *output;
+@@ -115,6 +115,7 @@ static char *output;
  static int out_fd;
  static int out_ubi;
  static int squash_owner;
@@ -48,7 +48,7 @@ index 667dce7f2986..4ab24a240087 100644
  
  /* The 'head' (position) which nodes are written */
  static int head_lnum;
-@@ -136,7 +137,7 @@ static struct inum_mapping **hash_table;
+@@ -137,7 +138,7 @@ static struct inum_mapping **hash_table;
  /* Inode creation sequence number */
  static unsigned long long creat_sqnum;
  
@@ -57,7 +57,7 @@ index 667dce7f2986..4ab24a240087 100644
  
  static const struct option longopts[] = {
  	{"root",               1, NULL, 'r'},
-@@ -160,6 +161,7 @@ static const struct option longopts[] = {
+@@ -161,6 +162,7 @@ static const struct option longopts[] = {
  	{"log-lebs",           1, NULL, 'l'},
  	{"orph-lebs",          1, NULL, 'p'},
  	{"squash-uids" ,       0, NULL, 'U'},
@@ -65,7 +65,7 @@ index 667dce7f2986..4ab24a240087 100644
  	{NULL, 0, NULL, 0}
  };
  
-@@ -200,6 +202,9 @@ static const char *helptext =
+@@ -201,6 +203,9 @@ static const char *helptext =
  "-V, --version            display version information\n"
  "-g, --debug=LEVEL        display debug information (0 - none, 1 - statistics,\n"
  "                         2 - files, 3 - more details)\n"
@@ -75,10 +75,36 @@ index 667dce7f2986..4ab24a240087 100644
  "-h, --help               display this help text\n\n"
  "Note, SIZE is specified in bytes, but it may also be specified in Kilobytes,\n"
  "Megabytes, and Gigabytes if a KiB, MiB, or GiB suffix is used.\n\n"
-@@ -221,6 +226,25 @@ static const char *helptext =
- "flag may make the first mount very slow, because the \"free space fixup\" procedure\n"
- "takes time. This feature is supported by the Linux kernel starting from version 3.0.\n";
+@@ -616,6 +621,10 @@ static int get_options(int argc, char**argv)
+ 		case 'U':
+ 			squash_owner = 1;
+ 			break;
++		case 'a':
++			do_create_inum_attr = 1;
++			break;
++
+ 		}
+ 	}
  
+@@ -985,6 +994,14 @@ static int add_node(union ubifs_key *key, char *name, void *node, int len)
+ }
+ 
+ #ifdef WITHOUT_XATTR
++static inline int create_inum_attr(ino_t inum, const char *name)
++{
++	(void)inum;
++	(void)name;
++
++	return 0;
++}
++
+ static inline int inode_add_xattr(struct ubifs_ino_node *host_ino,
+ 				  const char *path_name, struct stat *st, ino_t inum)
+ {
+@@ -996,6 +1013,26 @@ static inline int inode_add_xattr(struct ubifs_ino_node *host_ino,
+ 	return 0;
+ }
+ #else
 +static int create_inum_attr(ino_t inum, const char *name)
 +{
 +	char *str;
@@ -98,90 +124,35 @@ index 667dce7f2986..4ab24a240087 100644
 +	return ret;
 +}
 +
- /**
-  * make_path - make a path name from a directory and a name.
-  * @dir: directory path name
-@@ -615,6 +639,10 @@ static int get_options(int argc, char**argv)
- 		case 'U':
- 			squash_owner = 1;
- 			break;
-+		case 'a':
-+			do_create_inum_attr = 1;
-+			break;
 +
- 		}
- 	}
- 
-@@ -1063,12 +1091,12 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
- 	ssize_t pos = 0;
- 	void *attrval = NULL;
- 
--	len = listxattr(path_name, NULL, 0);
-+	len = llistxattr(path_name, NULL, 0);
- 	if (len < 0) {
- 		if (errno == ENOENT)
- 			return 0;
- 
--		sys_err_msg("flistxattr failed on %s", path_name);
-+		sys_err_msg("llistxattr failed on %s", path_name);
- 
- 		return len;
- 	}
-@@ -1078,9 +1106,9 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
- 
- 	buf = xmalloc(len);
- 
--	len = listxattr(path_name, buf, len);
-+	len = llistxattr(path_name, buf, len);
- 	if (len < 0) {
--		sys_err_msg("flistxattr failed on %s", path_name);
-+		sys_err_msg("llistxattr failed on %s", path_name);
- 		goto out_free;
- 	}
- 
-@@ -1091,19 +1119,37 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
- 		name = buf + pos;
- 		pos += strlen(name) + 1;
- 
--		attrsize = getxattr(path_name, name, NULL, 0);
-+		attrsize = lgetxattr(path_name, name, NULL, 0);
- 		if (attrsize < 0) {
--			sys_err_msg("getxattr failed on %s", path_name);
-+			sys_err_msg("lgetxattr failed on %s", path_name);
- 			goto out_free;
- 		}
- 
- 		attrval = xmalloc(attrsize);
--		attrsize = getxattr(path_name, name, attrval, attrsize);
-+		attrsize = lgetxattr(path_name, name, attrval, attrsize);
- 		if (attrsize < 0) {
--			sys_err_msg("getxattr failed on %s", path_name);
-+			sys_err_msg("lgetxattr failed on %s", path_name);
+ static int add_xattr(struct stat *st, ino_t inum, const void *data,
+ 		     unsigned int data_len, struct qstr *nm)
+ {
+@@ -1110,6 +1147,23 @@ static int inode_add_xattr(struct ubifs_ino_node *host_ino,
  			goto out_free;
  		}
  
 +		if (!strcmp(name, "user.image-inode-number")) {
 +			ino_t inum_from_xattr;
 +
-+			inum_from_xattr = strtoull(attrval, NULL, 10);
++			inum_from_xattr = strtoull(attrbuf, NULL, 10);
 +			if (inum != inum_from_xattr) {
 +				errno = EINVAL;
-+				sys_err_msg("calculated inum (%llu) doesn't match inum from xattr (%llu) on %s",
++				sys_err_msg("calculated inum (%llu) doesn't match inum from xattr (%llu) size (%zd) on %s",
 +					    (unsigned long long)inum,
 +					    (unsigned long long)inum_from_xattr,
++					    attrsize,
 +					    path_name);
 +				goto out_free;
 +			}
 +
-+			free(attrval);
-+			attrval = NULL;
 +			continue;
 +		}
 +
  		nm.name = name;
  		nm.len = strlen(name);
  
-@@ -1634,6 +1680,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1637,6 +1691,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  				goto out_free;
  		}
  
@@ -192,7 +163,7 @@ index 667dce7f2986..4ab24a240087 100644
  		err = add_dent_node(dir_inum, entry->d_name, inum, type);
  		if (err)
  			goto out_free;
-@@ -1686,6 +1736,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
+@@ -1689,6 +1747,10 @@ static int add_directory(const char *dir_name, ino_t dir_inum, struct stat *st,
  				goto out_free;
  		}
  
@@ -203,7 +174,7 @@ index 667dce7f2986..4ab24a240087 100644
  		err = add_dent_node(dir_inum, nh_elt->name, inum, type);
  		if (err)
  			goto out_free;
-@@ -1755,6 +1809,11 @@ static int write_data(void)
+@@ -1758,6 +1820,11 @@ static int write_data(void)
  	}
  
  	head_flags = 0;
