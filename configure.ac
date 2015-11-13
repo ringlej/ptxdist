@@ -288,6 +288,9 @@ else
 fi
 AC_SUBST(SPHINX)
 
+AC_PATH_PROGS(RST2MAN, rst2man,, $PATH)
+AC_SUBST(RST2MAN)
+
 dnl
 dnl Checks for Python, needed for ipkg-utils
 dnl
