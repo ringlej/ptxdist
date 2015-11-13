@@ -1717,7 +1717,7 @@ parse_second()
 			;;
 
 		--help|help)
-			usage
+			man -l ${PTXDIST_TOPDIR}/man/ptxdist.1.gz
 			exit
 			;;
 
