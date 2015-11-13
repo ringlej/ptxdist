@@ -2035,7 +2035,10 @@ EOF
 			exit 1
 			;;
 		*)
-			usage
+			echo "ptxdist: '${cmd}' is not a PTXdist command."
+			echo
+			echo "Run '${0}' for a list of commands and options or '${0} --help' for more details."
+			echo
 			exit 1
 			;;
 		esac
