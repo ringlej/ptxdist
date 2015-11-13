@@ -3,6 +3,8 @@
 
 config HOST_IMA_EVM_UTILS
 	tristate
+	select HOST_ATTR
+	select HOST_OPENSSL
 	help
 	  Integrity Measurement Architecture to know EXACTLY what has
 	  been run on your machine.
