@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PULSEAUDIO) += pulseaudio
 #
 # Paths and names
 #
-PULSEAUDIO_VERSION	:= 6.0
-PULSEAUDIO_MD5		:= b691e83b7434c678dffacfa3a027750e
+PULSEAUDIO_VERSION	:= 7.1
+PULSEAUDIO_MD5		:= 9d0a9817b632cac8e3f3834d7eb1c99d
 PULSEAUDIO		:= pulseaudio-$(PULSEAUDIO_VERSION)
 PULSEAUDIO_SUFFIX	:= tar.xz
 PULSEAUDIO_URL		:= http://freedesktop.org/software/pulseaudio/releases/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
@@ -25,7 +25,7 @@ PULSEAUDIO_SOURCE	:= $(SRCDIR)/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
 PULSEAUDIO_DIR		:= $(BUILDDIR)/$(PULSEAUDIO)
 PULSEAUDIO_LICENSE	:= MIT, GPL-2.0+, LGPL-2.1+, Rdisc, ADRIAN
 PULSEAUDIO_LICENSE_FILES	:= \
-	file://LICENSE;md5=dae3286e7999e70ddc23636cd25c89bd \
+	file://LICENSE;md5=d9ae089c8dc5339f8ac9d8563038a29f \
 	file://GPL;md5=4325afd396febcb659c36b49533135d4 \
 	file://LGPL;md5=2d5025d4aa3495befef8f17206a5b0a1 \
 	file://src/pulsecore/g711.c;startline=2;endline=24;md5=663902612456e1794f328632f8b6a20a \
@@ -97,9 +97,10 @@ PULSEAUDIO_CONF_OPT	:= \
 	--with-database=simple \
 	--without-fftw \
 	--without-speex \
+	--without-soxr \
 	--with-systemduserunitdir=/usr/lib/systemd/user
 
-PULSEAUDIO_LDFLAGS	:= -Wl,-rpath,/usr/lib/pulseaudio:/usr/lib/pulse-6.0/modules
+PULSEAUDIO_LDFLAGS	:= -Wl,-rpath,/usr/lib/pulseaudio:/usr/lib/pulse-$(PULSEAUDIO_VERSION)/modules
 
 # ----------------------------------------------------------------------------
 # Install
