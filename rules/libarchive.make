@@ -42,9 +42,10 @@ LIBARCHIVE_CONF_OPT	:= \
 	--disable-acl \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--with-zlib \
-	--with-bz2lib \
+	--$(call ptx/wwo, PTXCONF_LIBARCHIVE_BZIP2)-bz2lib \
+	--with-lzmadec \
 	--without-iconv \
-	--with-lzma \
+	--$(call ptx/wwo, PTXCONF_LIBARCHIVE_LZMA)-lzma \
 	--without-nettle \
 	--without-openssl \
 	--without-xml2 \
