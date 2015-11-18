@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBARCHIVE) += libarchive
 #
 # Paths and names
 #
-LIBARCHIVE_VERSION	:= 3.0.4
-LIBARCHIVE_MD5		:= af443ca9a10ddbcbf00f7ae34ca7fc16
+LIBARCHIVE_VERSION	:= 3.1.2
+LIBARCHIVE_MD5		:= efad5a503f66329bb9d2f4308b5de98a
 LIBARCHIVE		:= libarchive-$(LIBARCHIVE_VERSION)
 LIBARCHIVE_SUFFIX	:= tar.gz
 LIBARCHIVE_URL		:= http://www.libarchive.org/downloads/$(LIBARCHIVE).$(LIBARCHIVE_SUFFIX)
@@ -38,6 +38,7 @@ LIBARCHIVE_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_LIBARCHIVE_BSDTAR)-bsdtar \
 	--$(call ptx/endis, PTXCONF_LIBARCHIVE_BSDCPIO)-bsdcpio \
 	--disable-rpath \
+	--enable-posix-regex-lib=libc \
 	--disable-xattr \
 	--disable-acl \
 	$(GLOBAL_LARGE_FILE_OPTION) \
@@ -46,11 +47,11 @@ LIBARCHIVE_CONF_OPT	:= \
 	--with-lzmadec \
 	--without-iconv \
 	--$(call ptx/wwo, PTXCONF_LIBARCHIVE_LZMA)-lzma \
+	--without-lzo2 \
 	--without-nettle \
 	--without-openssl \
 	--without-xml2 \
-	--without-expat \
-	--without-libregex
+	--without-expat
 
 # ----------------------------------------------------------------------------
 # Target-Install
