@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBARCHIVE
+	tristate
+	select HOST_ZLIB
