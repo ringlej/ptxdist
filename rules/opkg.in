@@ -2,6 +2,7 @@
 
 menuconfig OPKG
 	tristate
+	select LIBARCHIVE
 	select LIBCURL if OPKG_CURL
 	select OPENSSL if OPKG_OPENSSL
 	prompt "opkg                          "
