@@ -12,11 +12,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 10 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 59e835a4664b..7ddd56d92149 100644
+index d539ed00e406..d6dcfc1f449b 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -888,6 +888,16 @@ static inline int setns(int fd, int nstype) {
- #define NDA_MAX (__NDA_MAX - 1)
+@@ -905,6 +905,16 @@ static inline int setns(int fd, int nstype) {
+ #define RTA_PREF 20
  #endif
  
 +#ifndef CLOCK_BOOTTIME

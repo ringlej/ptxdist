@@ -13,11 +13,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 9 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index b6dc5db75418..c3f835bfceef 100644
+index 2d477700efb0..850e166f8b93 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -303,6 +303,8 @@ AC_SEARCH_LIBS([cap_init], [cap], [], [AC_MSG_ERROR([*** POSIX caps library not
- CAP_LIBS="$LIBS"
+@@ -302,6 +302,8 @@ CAP_LIBS="$LIBS"
+ LIBS="$save_LIBS"
  AC_SUBST(CAP_LIBS)
  
 +AC_CHECK_DECLS([syncfs], [], [], [[#include <unistd.h>]])
@@ -26,10 +26,10 @@ index b6dc5db75418..c3f835bfceef 100644
  AC_CHECK_FUNCS([__secure_getenv secure_getenv])
  AC_CHECK_DECLS([gettid, pivot_root, name_to_handle_at, setns, getrandom, renameat2, kcmp, keyctl, key_serial_t, LO_FLAGS_PARTSCAN],
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 0efbf64ac2c7..949688298f20 100644
+index 60d635e91fe2..c4d9505d38f1 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -903,6 +903,13 @@ static inline int setns(int fd, int nstype) {
+@@ -920,6 +920,13 @@ static inline int setns(int fd, int nstype) {
  #ifndef AT_EMPTY_PATH
  #define AT_EMPTY_PATH	0x1000	/* Allow empty relative pathname */
  #endif

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 227
-SYSTEMD_MD5	:= a06aa8cd1e2bfa952f84d1b433d8fec2
+SYSTEMD_VERSION	:= 228
+SYSTEMD_MD5	:= 5c3def06320d59a753eeff292e91823a
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -79,7 +79,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-apparmor \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--disable-zlib \
-	--enable-bzip2 \
+	--disable-bzip2 \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_LZ4)-lz4 \
 	--disable-pam \
 	--disable-acl \

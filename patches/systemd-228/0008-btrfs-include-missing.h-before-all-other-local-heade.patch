@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 19 Nov 2015 16:53:42 +0100
+Subject: [PATCH] btrfs: include missing.h before all other local header files
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/basic/btrfs-util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/basic/btrfs-util.c b/src/basic/btrfs-util.c
+index be40dc570221..7321de739ab7 100644
+--- a/src/basic/btrfs-util.c
++++ b/src/basic/btrfs-util.c
+@@ -26,6 +26,7 @@
+ #include <linux/btrfs.h>
+ #endif
+ 
++#include "missing.h"
+ #include "alloc-util.h"
+ #include "btrfs-ctree.h"
+ #include "btrfs-util.h"
+@@ -33,7 +34,6 @@
+ #include "fd-util.h"
+ #include "fileio.h"
+ #include "macro.h"
+-#include "missing.h"
+ #include "path-util.h"
+ #include "selinux-util.h"
+ #include "smack-util.h"
