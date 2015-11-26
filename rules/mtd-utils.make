@@ -169,6 +169,10 @@ ifdef PTXCONF_MTD_UTILS_UBIATTACH
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/ubiattach)
 endif
+ifdef PTXCONF_MTD_UTILS_UBIBLOCK
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/ubiblock)
+endif
 ifdef PTXCONF_MTD_UTILS_UBIDETACH
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/ubidetach)
