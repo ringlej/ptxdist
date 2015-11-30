@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_STRONGSWAN) += strongswan
 #
 # Paths and names
 #
-STRONGSWAN_VERSION	:= 5.3.3
-STRONGSWAN_MD5		:= 5a25f3d1c31a77ef44d14a2e7b3eaad0
+STRONGSWAN_VERSION	:= 5.3.5
+STRONGSWAN_MD5		:= a2f9ea185f27e7f8413d4cd2ee61efe4
 STRONGSWAN		:= strongswan-$(STRONGSWAN_VERSION)
 STRONGSWAN_SUFFIX	:= tar.bz2
 STRONGSWAN_URL		:= https://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
@@ -59,6 +59,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-aesni \
 	--enable-sha1 \
 	--enable-sha2 \
+	--disable-sha3 \
 	--enable-xcbc \
 	--enable-dnskey \
 	--enable-pem \
