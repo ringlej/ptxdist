@@ -284,7 +284,7 @@ ptxd_create_section_from_license()
 {
     local -A section
     local orig_IFS="${IFS}"
-    IFS=$', '
+    IFS=$'(), '
 
     for license in ${1}; do
 	local osi="false"
@@ -312,6 +312,8 @@ ptxd_create_section_from_license()
 	ignore) # META packages
 	    echo ignore
 	    return 0
+	    ;;
+	AND|OR|WITH|"")
 	    ;;
 	*)
 	    section[other]="true"
@@ -346,7 +348,7 @@ export -f ptxd_make_world_license_add_flag
 
 ptxd_make_world_license_flags() {
     local orig_IFS="${IFS}"
-    IFS=$', '
+    IFS=$'(), '
 
     for license in ${pkg_license}; do
 	case "${license}" in
@@ -359,6 +361,9 @@ ptxd_make_world_license_flags() {
 	    ;;
 	nosource|nopatches|attribution)
 	    ptxd_make_world_license_add_flag "${license}"
+	    ;;
+	OR)
+	    ptxd_make_world_license_add_flag choice
 	    ;;
 	esac
     done

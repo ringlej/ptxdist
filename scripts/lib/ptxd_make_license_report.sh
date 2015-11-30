@@ -34,6 +34,7 @@ ptxd_make_license_report_header() {
 	\licensereporttrue
 
 	\makeindex[name=attribution,intoc,title=attribution Package Index]
+	\makeindex[name=choice,intoc,title=choice Package Index]
 	\makeindex[name=nosource,intoc,title=nosource Package Index]
 	\makeindex[name=nopatches,intoc,title=nopatches Package Index]
 
@@ -96,8 +97,13 @@ ptxd_make_license_report_footer() {
 	Packages marked with the {\it attribution} flag require some sort
 	of attribution. Please refer to the package license for further
 	details.
+	\section{choice\label{choice}}
+	Packages marked with the {\it choice} flag require the licensee to
+	make some kind of license choice. Please refer to the package
+	license for further details.
 
 	\printindex[attribution]
+	\printindex[choice]
 	\printindex[nosource]
 	\printindex[nopatches]
 
