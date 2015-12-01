@@ -26,6 +26,10 @@ config LIBDRM_RADEON
 	bool
 	prompt "radeon KMS support"
 
+config LIBDRM_AMDGPU
+	bool
+	prompt "amdgpu KMS support"
+
 config LIBDRM_NOUVEAU
 	bool
 	prompt "nouveau KMS support"
