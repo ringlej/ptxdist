@@ -7,15 +7,11 @@ job and do something.
 
 Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
 ---
-
-#20091205: rsc: added to the sourceforge tracker
-#          https://sourceforge.net/tracker/?func=detail&aid=2909392&group_id=3857&atid=303857
-
- tiotest.c |    3 +++
+ tiotest.c | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/tiotest.c b/tiotest.c
-index 38f54e7..6407d70 100644
+index 38f54e7917a0..6407d70252bf 100644
 --- a/tiotest.c
 +++ b/tiotest.c
 @@ -112,6 +112,9 @@ void parse_args( ArgumentOptions* args, int argc, char *argv[] )
