@@ -105,7 +105,7 @@ config ALSA_LIB_ALISP
 	default y
 	prompt "alisp"
 	help
-	  Disable the sequencer component if you do not need it
+	  Disable the alisp component if you do not need it
 
 
 endif
