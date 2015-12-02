@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_BOOST) += boost
 #
 # Paths and names
 #
-BOOST_VERSION	:= 1_55_0
-BOOST_MD5	:= d6eef4b4cacb2183f2bf265a5a03a354
+BOOST_VERSION	:= 1_59_0
+BOOST_MD5	:= 6aa9a5c6a4ca1016edd0ed1178e3cb87
 BOOST		:= boost_$(BOOST_VERSION)
 BOOST_SUFFIX	:= tar.bz2
 BOOST_URL	:= $(call ptx/mirror, SF, boost/$(BOOST).$(BOOST_SUFFIX))
@@ -43,6 +43,18 @@ ifneq ($(PTXCONF_BOOST_INST_MT_DBG)$(PTXCONF_BOOST_INST_MT_RED),)
 JAM_LIB_MULTI	:= multi
 endif
 
+BOOST_ABI	:= sysv
+ifneq ($(PTXCONF_ARCH_ARM)$(PTXCONF_ARCH_ARM64),)
+BOOST_ARCH	:= arm
+BOOST_ABI	:= aapcs
+endif
+ifdef PTXCONF_ARCH_X86
+BOOST_ARCH	:= x86
+endif
+ifdef PTXCONF_ARCH_PPC
+BOOST_ARCH	:= power
+endif
+
 # they reinvent their own wheel^Hmake: jam
 # -q: quit on error
 # -d: debug level, default=1
@@ -50,7 +62,7 @@ BOOST_JAM	:= \
 	$(BOOST_DIR)/b2 \
 	--user-config=user-config.jam \
 	-q \
-	-d0 \
+	$$(if $$(filter 0,$$(PTXDIST_VERBOSE)),-d0) \
 	--layout=tagged \
 	-sNO_BZIP2=0 \
 	-sZLIB_INCLUDE=$(SYSROOT)/usr/include \
@@ -59,7 +71,11 @@ BOOST_JAM	:= \
 	threading=$(subst $(space),$(comma),$(strip $(JAM_LIB_SINGLE) $(JAM_LIB_MULTI))) \
 	link=shared \
 	toolset=gcc-$(PTXCONF_ARCH_STRING) \
-	target-os=linux
+	target-os=linux \
+	abi=$(BOOST_ABI) \
+	binary-format=elf \
+	architecture=$(BOOST_ARCH) \
+	address-model=$(call ptx/ifdef, ARCH_LP64,64,32)
 
 JAM_PAR		:= \
 	$(if $(PTXDIST_PARALLELMFLAGS),$(PTXDIST_PARALLELMFLAGS),$(PARALLELMFLAGS))
@@ -78,8 +94,10 @@ BOOST_LIBRARIES-y				:= date_time
 
 BOOST_LIBRARIES-$(PTXCONF_BOOST_ATOMIC)		+= atomic
 BOOST_LIBRARIES-$(PTXCONF_BOOST_CHRONO)		+= chrono
+BOOST_LIBRARIES-$(PTXCONF_BOOST_CONTAINER)	+= container
 BOOST_LIBRARIES-$(PTXCONF_BOOST_CONTEXT)	+= context
 BOOST_LIBRARIES-$(PTXCONF_BOOST_COROUTINE)	+= coroutine
+BOOST_LIBRARIES-$(PTXCONF_BOOST_COROUTINE2)	+= coroutine2
 BOOST_LIBRARIES-$(PTXCONF_BOOST_DATE_TIME)	+= date_time
 BOOST_LIBRARIES-$(PTXCONF_BOOST_EXCEPTION)	+= exception
 BOOST_LIBRARIES-$(PTXCONF_BOOST_FILESYSTEM)	+= filesystem
@@ -116,9 +134,9 @@ $(STATEDIR)/boost.prepare:
 	@cd $(BOOST_DIR) && \
 		echo "using gcc : $(PTXCONF_ARCH_STRING) : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
 	@echo "all:"					>  $(BOOST_DIR)/Makefile
-	@echo "	@$(BOOST_JAM) $(JAM_MAKE_OPT)"		>> $(BOOST_DIR)/Makefile
+	@echo '	@$(BOOST_JAM) $(JAM_MAKE_OPT)'		>> $(BOOST_DIR)/Makefile
 	@echo "install:"				>> $(BOOST_DIR)/Makefile
-	@echo "	@$(BOOST_JAM) $(JAM_INSTALL_OPT)"	>> $(BOOST_DIR)/Makefile
+	@echo '	@$(BOOST_JAM) $(JAM_INSTALL_OPT)'	>> $(BOOST_DIR)/Makefile
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
