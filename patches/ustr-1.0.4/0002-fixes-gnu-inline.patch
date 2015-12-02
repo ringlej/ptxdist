@@ -1,0 +1,875 @@
+From: =?UTF-8?q?V=C3=A1clav=20Ovs=C3=ADk?= <vaclav.ovsik@gmail.com>
+Date: Wed, 2 Dec 2015 10:00:56 +0100
+Subject: [PATCH] fixes/gnu-inline
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This patch adds `__attribute__ ((gnu_inline))' into prototype macros
+before `inline' to force GNU89 behaviour of inline functions
+in C99 mode.
+See http://www.gnu.org/software/gcc/gcc-5/porting_to.html
+
+Signed-off-by: Václav Ovsík <vaclav.ovsik@gmail.com>
+---
+ ustr-b-dbg-code.c       | 8 ++++----
+ ustr-b-opt-code.c       | 8 ++++----
+ ustr-cmp-dbg-code.c     | 8 ++++----
+ ustr-cmp-opt-code.c     | 8 ++++----
+ ustr-compiler.h         | 4 ++--
+ ustr-fmt-dbg-code.c     | 8 ++++----
+ ustr-fmt-opt-code.c     | 8 ++++----
+ ustr-ins-dbg-code.c     | 8 ++++----
+ ustr-ins-opt-code.c     | 8 ++++----
+ ustr-io-dbg-code.c      | 8 ++++----
+ ustr-io-opt-code.c      | 8 ++++----
+ ustr-main-dbg-code.c    | 2 +-
+ ustr-main-opt-code.c    | 2 +-
+ ustr-parse-dbg-code.c   | 8 ++++----
+ ustr-parse-opt-code.c   | 8 ++++----
+ ustr-pool-dbg-code.c    | 8 ++++----
+ ustr-pool-opt-code.c    | 8 ++++----
+ ustr-replace-dbg-code.c | 8 ++++----
+ ustr-replace-opt-code.c | 8 ++++----
+ ustr-sc-dbg-code.c      | 8 ++++----
+ ustr-sc-opt-code.c      | 8 ++++----
+ ustr-set-dbg-code.c     | 8 ++++----
+ ustr-set-opt-code.c     | 8 ++++----
+ ustr-split-dbg-code.c   | 8 ++++----
+ ustr-split-opt-code.c   | 8 ++++----
+ ustr-spn-dbg-code.c     | 8 ++++----
+ ustr-spn-opt-code.c     | 8 ++++----
+ ustr-srch-dbg-code.c    | 8 ++++----
+ ustr-srch-opt-code.c    | 8 ++++----
+ ustr-sub-dbg-code.c     | 8 ++++----
+ ustr-sub-opt-code.c     | 8 ++++----
+ ustr-utf8-dbg-code.c    | 8 ++++----
+ ustr-utf8-opt-code.c    | 8 ++++----
+ 33 files changed, 124 insertions(+), 124 deletions(-)
+
+diff --git a/ustr-b-dbg-code.c b/ustr-b-dbg-code.c
+index 4a7fdac3f68b..60e383e7db36 100644
+--- a/ustr-b-dbg-code.c
++++ b/ustr-b-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-b.h"
+diff --git a/ustr-b-opt-code.c b/ustr-b-opt-code.c
+index 45e9e87c522f..4011898e341e 100644
+--- a/ustr-b-opt-code.c
++++ b/ustr-b-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-b.h"
+diff --git a/ustr-cmp-dbg-code.c b/ustr-cmp-dbg-code.c
+index 7b8af33c0c3b..4c3adc241566 100644
+--- a/ustr-cmp-dbg-code.c
++++ b/ustr-cmp-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-cmp.h"
+diff --git a/ustr-cmp-opt-code.c b/ustr-cmp-opt-code.c
+index 2076d1cd9831..ff5d02c09b17 100644
+--- a/ustr-cmp-opt-code.c
++++ b/ustr-cmp-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-cmp.h"
+diff --git a/ustr-compiler.h b/ustr-compiler.h
+index 9e7127697db3..38ae0268c631 100644
+--- a/ustr-compiler.h
++++ b/ustr-compiler.h
+@@ -92,7 +92,7 @@
+ #endif
+ 
+ #if USTR_CONF_COMPILE_USE_INLINE
+-#define USTR__INLINE inline
++#define USTR__INLINE  __attribute__ ((gnu_inline)) inline
+ #else
+ #define USTR__INLINE /* no inline */
+ #endif
+@@ -123,7 +123,7 @@
+ # if USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #  define USTR_CONF_II_PROTO static USTR__INLINE
+ # else
+-#  define USTR_CONF_II_PROTO extern inline
++#  define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ # endif
+ #endif
+ 
+diff --git a/ustr-fmt-dbg-code.c b/ustr-fmt-dbg-code.c
+index 4249bb127ee3..1f147a0e3afa 100644
+--- a/ustr-fmt-dbg-code.c
++++ b/ustr-fmt-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-fmt.h"
+diff --git a/ustr-fmt-opt-code.c b/ustr-fmt-opt-code.c
+index c73e3752ac03..989b29f24827 100644
+--- a/ustr-fmt-opt-code.c
++++ b/ustr-fmt-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-fmt.h"
+diff --git a/ustr-ins-dbg-code.c b/ustr-ins-dbg-code.c
+index 39f9bba6561d..4c6d5ea0dd8a 100644
+--- a/ustr-ins-dbg-code.c
++++ b/ustr-ins-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+@@ -17,5 +17,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-ins.h"
+diff --git a/ustr-ins-opt-code.c b/ustr-ins-opt-code.c
+index 1aca8276e1e7..859b44d638ac 100644
+--- a/ustr-ins-opt-code.c
++++ b/ustr-ins-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+@@ -17,5 +17,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-ins.h"
+diff --git a/ustr-io-dbg-code.c b/ustr-io-dbg-code.c
+index c361c936da01..d42e43f0286d 100644
+--- a/ustr-io-dbg-code.c
++++ b/ustr-io-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-io.h"
+diff --git a/ustr-io-opt-code.c b/ustr-io-opt-code.c
+index b1b452564237..ae8de8774eeb 100644
+--- a/ustr-io-opt-code.c
++++ b/ustr-io-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-io.h"
+diff --git a/ustr-main-dbg-code.c b/ustr-main-dbg-code.c
+index 4b821ce96788..abaa53a814cb 100644
+--- a/ustr-main-dbg-code.c
++++ b/ustr-main-dbg-code.c
+@@ -7,5 +7,5 @@
+ #define USTR_CONF_E_PROTO  extern
+ #define USTR_CONF_I_PROTO
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+diff --git a/ustr-main-opt-code.c b/ustr-main-opt-code.c
+index 233fb60d05c8..7ef6e988cb45 100644
+--- a/ustr-main-opt-code.c
++++ b/ustr-main-opt-code.c
+@@ -7,5 +7,5 @@
+ #define USTR_CONF_E_PROTO  extern
+ #define USTR_CONF_I_PROTO
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+diff --git a/ustr-parse-dbg-code.c b/ustr-parse-dbg-code.c
+index c9653afc35fa..6e1707d1082a 100644
+--- a/ustr-parse-dbg-code.c
++++ b/ustr-parse-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-parse.h"
+diff --git a/ustr-parse-opt-code.c b/ustr-parse-opt-code.c
+index 0c8df4db34ae..fc96db23d3a0 100644
+--- a/ustr-parse-opt-code.c
++++ b/ustr-parse-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-parse.h"
+diff --git a/ustr-pool-dbg-code.c b/ustr-pool-dbg-code.c
+index adf751990a8d..957f9ca65b43 100644
+--- a/ustr-pool-dbg-code.c
++++ b/ustr-pool-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-pool.h"
+diff --git a/ustr-pool-opt-code.c b/ustr-pool-opt-code.c
+index 2b0367c13022..c1b24131e03d 100644
+--- a/ustr-pool-opt-code.c
++++ b/ustr-pool-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-pool.h"
+diff --git a/ustr-replace-dbg-code.c b/ustr-replace-dbg-code.c
+index fe0218730dfc..90531ac4ad51 100644
+--- a/ustr-replace-dbg-code.c
++++ b/ustr-replace-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-srch.h"
+@@ -19,5 +19,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-replace.h"
+diff --git a/ustr-replace-opt-code.c b/ustr-replace-opt-code.c
+index e76b3bbf0468..6232753831a4 100644
+--- a/ustr-replace-opt-code.c
++++ b/ustr-replace-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-srch.h"
+@@ -19,5 +19,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-replace.h"
+diff --git a/ustr-sc-dbg-code.c b/ustr-sc-dbg-code.c
+index 0011c63b3074..d7ce3174d79c 100644
+--- a/ustr-sc-dbg-code.c
++++ b/ustr-sc-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-spn.h"
+ #include "ustr-utf8.h"
+@@ -18,5 +18,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-sc.h"
+diff --git a/ustr-sc-opt-code.c b/ustr-sc-opt-code.c
+index 7cb81ba5d8be..4a97ed9109c9 100644
+--- a/ustr-sc-opt-code.c
++++ b/ustr-sc-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-spn.h"
+ #include "ustr-utf8.h"
+@@ -18,5 +18,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-sc.h"
+diff --git a/ustr-set-dbg-code.c b/ustr-set-dbg-code.c
+index 023875ac5058..cf7707140b5a 100644
+--- a/ustr-set-dbg-code.c
++++ b/ustr-set-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+@@ -17,5 +17,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-set.h"
+diff --git a/ustr-set-opt-code.c b/ustr-set-opt-code.c
+index e72688898885..34dcaf6849d0 100644
+--- a/ustr-set-opt-code.c
++++ b/ustr-set-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+@@ -17,5 +17,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-set.h"
+diff --git a/ustr-split-dbg-code.c b/ustr-split-dbg-code.c
+index 03e5ca51cbfb..e40d2a599740 100644
+--- a/ustr-split-dbg-code.c
++++ b/ustr-split-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-spn.h"
+@@ -19,5 +19,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-split.h"
+diff --git a/ustr-split-opt-code.c b/ustr-split-opt-code.c
+index d64e3003e61a..74f4b1c46327 100644
+--- a/ustr-split-opt-code.c
++++ b/ustr-split-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-spn.h"
+@@ -19,5 +19,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-split.h"
+diff --git a/ustr-spn-dbg-code.c b/ustr-spn-dbg-code.c
+index ff97432885c7..b0b09d4dee5d 100644
+--- a/ustr-spn-dbg-code.c
++++ b/ustr-spn-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-srch.h"
+ #include "ustr-utf8.h"
+@@ -18,5 +18,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-spn.h"
+diff --git a/ustr-spn-opt-code.c b/ustr-spn-opt-code.c
+index 3ff0a079bb5f..92c5ccc40a8d 100644
+--- a/ustr-spn-opt-code.c
++++ b/ustr-spn-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-srch.h"
+ #include "ustr-utf8.h"
+@@ -18,5 +18,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-spn.h"
+diff --git a/ustr-srch-dbg-code.c b/ustr-srch-dbg-code.c
+index 40e4dbfb230f..0f4da216dd7f 100644
+--- a/ustr-srch-dbg-code.c
++++ b/ustr-srch-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-cmp-internal.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+@@ -17,6 +17,6 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-srch.h"
+ 
+diff --git a/ustr-srch-opt-code.c b/ustr-srch-opt-code.c
+index 635464d1ab82..8dde13dde4ae 100644
+--- a/ustr-srch-opt-code.c
++++ b/ustr-srch-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-cmp-internal.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+@@ -17,6 +17,6 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-srch.h"
+ 
+diff --git a/ustr-sub-dbg-code.c b/ustr-sub-dbg-code.c
+index f994716564d2..b1712e6b40e7 100644
+--- a/ustr-sub-dbg-code.c
++++ b/ustr-sub-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #include "ustr-ins.h"
+@@ -19,5 +19,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-sub.h"
+diff --git a/ustr-sub-opt-code.c b/ustr-sub-opt-code.c
+index 8cdb4ebe741b..91780c790450 100644
+--- a/ustr-sub-opt-code.c
++++ b/ustr-sub-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #include "ustr-ins.h"
+@@ -19,5 +19,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-sub.h"
+diff --git a/ustr-utf8-dbg-code.c b/ustr-utf8-dbg-code.c
+index 2666fc26f7b8..30786e991055 100644
+--- a/ustr-utf8-dbg-code.c
++++ b/ustr-utf8-dbg-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-utf8.h"
+diff --git a/ustr-utf8-opt-code.c b/ustr-utf8-opt-code.c
+index 91fa75401178..abdf4c0727f2 100644
+--- a/ustr-utf8-opt-code.c
++++ b/ustr-utf8-opt-code.c
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
++#define USTR_CONF_I_PROTO  extern  __attribute__ ((gnu_inline)) inline
+ #define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_II_PROTO extern  __attribute__ ((gnu_inline)) inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+@@ -16,5 +16,5 @@
+ #undef  USTR_CONF_I_PROTO
+ #define USTR_CONF_I_PROTO
+ #undef  USTR_CONF_II_PROTO
+-#define USTR_CONF_II_PROTO inline
++#define USTR_CONF_II_PROTO  __attribute__ ((gnu_inline)) inline
+ #include "ustr-utf8.h"
