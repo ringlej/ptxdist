@@ -38,6 +38,8 @@ LIBMEMCACHE_ENV := \
 #
 LIBMEMCACHE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+LIBMEMCACHE_CFLAGS := -D_XOPEN_SOURCE=600
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
