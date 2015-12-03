@@ -352,6 +352,9 @@ ptxd_make_world_license_flags() {
 
     for license in ${pkg_license}; do
 	case "${license}" in
+	ignore)
+	    ptxd_make_world_license_add_flag nosource
+	    ;;
 	*proprietary*)
 	    ptxd_make_world_license_add_flag nosource
 	    ptxd_make_world_license_add_flag nopatches
