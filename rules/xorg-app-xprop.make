@@ -35,7 +35,7 @@ XORG_APP_XPROP_DIR	:= $(BUILDDIR)/$(XORG_APP_XPROP)
 XORG_APP_XPROP_CONF_TOOL	:= autoconf
 XORG_APP_XPROP_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

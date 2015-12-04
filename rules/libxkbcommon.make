@@ -40,7 +40,7 @@ LIBXKBCOMMON_CONF_OPT	:= \
 	--disable-strict-compilation \
 	--disable-docs \
 	--$(call ptx/endis, PTXCONF_LIBXKBCOMMON_X11)-x11 \
-	--with-xkb-config-root=$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/xkb
+	--with-xkb-config-root=$(XORG_DATADIR)/X11/xkb
 
 # ----------------------------------------------------------------------------
 # Target-Install

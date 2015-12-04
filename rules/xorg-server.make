@@ -148,8 +148,8 @@ XORG_SERVER_CONF_OPT	= \
 #
 
 # if no value is given ignore the "--datadir" switch
-ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
-	XORG_SERVER_CONF_OPT += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+ifneq ($(call remove_quotes,$(XORG_DATADIR)),)
+	XORG_SERVER_CONF_OPT += --datadir=$(XORG_DATADIR)
 endif
 
 #
@@ -193,7 +193,7 @@ endif
 
 ifdef PTXCONF_XORG_SERVER_UDEV
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/X11/xorg.conf.d/10-evdev.conf)
+		$(XORG_DATADIR)/X11/xorg.conf.d/10-evdev.conf)
 endif
 
 ifdef PTXCONF_XORG_SERVER_XVFB
