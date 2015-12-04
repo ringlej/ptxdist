@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 4 Dec 2015 16:20:43 +0100
+Subject: [PATCH] soname
+
+Imported from openssl_1.0.2e-1.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ crypto/opensslv.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/crypto/opensslv.h b/crypto/opensslv.h
+index abcef15b17d9..77d01b993529 100644
+--- a/crypto/opensslv.h
++++ b/crypto/opensslv.h
+@@ -88,7 +88,7 @@ extern "C" {
+  * should only keep the versions that are binary compatible with the current.
+  */
+ # define SHLIB_VERSION_HISTORY ""
+-# define SHLIB_VERSION_NUMBER "1.0.0"
++# define SHLIB_VERSION_NUMBER "1.0.2"
+ 
+ 
+ #ifdef  __cplusplus

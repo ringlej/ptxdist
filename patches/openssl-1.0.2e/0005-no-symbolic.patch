@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Fri, 10 Jul 2015 07:03:00 +0200
+Date: Fri, 4 Dec 2015 16:20:43 +0100
 Subject: [PATCH] no-symbolic
 
-Imported from openssl_1.0.2d-1.debian.tar.xz
+Imported from openssl_1.0.2e-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  3 files changed, 16 insertions(+), 10 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index f1fabdd8e94d..88415138fff5 100644
+index 7c6da5e78ed3..3258f13bf732 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -277,18 +277,24 @@ build_libs: build_libcrypto build_libssl openssl.pc
+@@ -279,18 +279,24 @@ build_libs: build_libcrypto build_libssl openssl.pc
  build_libcrypto: build_crypto build_engines libcrypto.pc
  build_libssl: build_ssl libssl.pc
  
@@ -67,7 +67,7 @@ index 7869996a9c07..76690a1c8619 100644
  	test -z "$(FIPSLIBDIR)" || $(AR) $(LIB) $(FIPSLIBDIR)fipscanister.o
  	$(RANLIB) $(LIB) || echo Never mind.
 diff --git a/engines/Makefile b/engines/Makefile
-index 315ef1ef780d..e7bc9758996c 100644
+index df7def6174fd..ec27bc24be64 100644
 --- a/engines/Makefile
 +++ b/engines/Makefile
 @@ -72,7 +72,7 @@ top:
