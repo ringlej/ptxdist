@@ -7,6 +7,7 @@ menuconfig LLDPD
 	select LIBEVENT
 	select NET_SNMP if LLDPD_SNMP
 	select NET_SNMP_MIB_MODULES_AGENTX if LLDPD_SNMP
+	select JSON_C if LLDPD_JSON
 	select LIBXML2 if LLDPD_XML
 	select BUSYBOX_START_STOP_DAEMON if LLDPD_STARTSCRIPT
 	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS if LLDPD_STARTSCRIPT
@@ -66,13 +67,22 @@ config LLDPD_DOT3
 	prompt "Enable Dot3 extension (PHY stuff)"
 	default y
 
+config LLDPD_CUSTOM_TLV
+	bool
+	prompt "Enable Custom TLV support"
+	default y
+
 config LLDPD_OLDIES
 	bool
-	prompt "Enable compatibility with Linux kernel older than 2.6.18"
+	prompt "Enable compatibility with Linux kernel older than 2.6.32"
 
 config LLDPD_SNMP
 	bool
 	prompt "Enable the use of SNMP"
+
+config LLDPD_JSON
+	bool
+	prompt "Enable JSON output via json-c"
 
 config LLDPD_XML
 	bool
@@ -82,6 +92,12 @@ config LLDPD_STARTSCRIPT
 	bool
 	prompt "install /etc/init.d/lldpd"
 	default y
+
+config LLDPD_SYSTEMD_UNIT
+	bool
+	prompt "install systemd service file"
+	default y
+	depends on SYSTEMD
 
 config LLDPD_DAEMON_ARGS
 	string

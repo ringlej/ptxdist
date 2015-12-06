@@ -1,0 +1,13 @@
+[Unit]
+Description=LLDP daemon
+After=network.target
+RequiresMountsFor=@PRIVSEP_CHROOT@
+
+[Service]
+Type=notify
+NotifyAccess=main
+ExecStart=/usr/sbin/lldpd @DAEMON_ARGS@
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
