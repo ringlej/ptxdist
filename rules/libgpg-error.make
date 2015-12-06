@@ -32,7 +32,7 @@ LIBGPG_ERROR_LICENSE_FILES := \
 	file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
 	file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1
 
-LIBGPG_ERROR_TARGET	:= $(shell target=$(PTXCONF_GNU_TARGET); echo $${target/-*-linux/-$(if $(PTXCONF_ARCH_X86),pc,unknown)-linux})
+LIBGPG_ERROR_TARGET	:= $(patsubst i%86-pc-linux-gnu,i686-pc-linux-gnu,$(shell target=$(PTXCONF_GNU_TARGET); echo $${target/-*-linux/-$(if $(PTXCONF_ARCH_X86),pc,unknown)-linux}))
 
 # ----------------------------------------------------------------------------
 # Prepare
