@@ -7,4 +7,5 @@
 0005-mkfs.ubifs-simplify-make_path-with-xasprintf.patch
 0006-mkfs.ubifs-Add-extended-attribute-support.patch
 0007-mkfs.ubifs-Optionally-create-extended-attribute-with.patch
-# 7f992a19fb7184dce60b52e08bb6e49d  - git-ptx-patches magic
+0008-flashcp-Use-llu-to-print-filestat.st_size.patch
+# 8764f3d82b4d5ad37ce34647ab99cd01  - git-ptx-patches magic
