@@ -263,3 +263,12 @@ s/^\(\(# \)\?PTXCONF_\)BASH_COMPLETION/\1BASH_BASHCOMPLETION/
 # reason : options renamed
 #
 s/^\(\(# \)\?PTXCONF_\)PYTHON_DJANGO/\1PYTHON3_DJANGO/
+#
+# from   : ptxdist-2016.12.0
+# to     : ptxdist-2017.01.0
+# symbol : UDEV_* -> UDEV_LEGACY_* / SYSTEMD_UDEV_*
+# reason : systemd / udev split
+#
+s/^\(\(# \)\?PTXCONF_\)UDEV_\(DEBUG\|SYSLOG\|ETC_CONF\|KEYMAPS\|STARTSCRIPT\|ACCELEROMETER\)\>/\1UDEV_LEGACY_\3/
+s/^\(\(# \)\?PTXCONF_\)UDEV_\(DRIVERS_RULES\|CUST_RULES\|PERSISTENT_.*\|COLLECT\|MTD_PROBE\)\>\(.*\)$/\1UDEV_LEGACY_\3\4\n\1SYSTEMD_UDEV_\3\4/
+s/^\(\(# \)\?PTXCONF_\)UDEV_\(HWDB\)\>/\1SYSTEMD_UDEV_\3/

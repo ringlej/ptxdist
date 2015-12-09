@@ -118,7 +118,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-gnuefi \
 	--disable-tpm \
 	--enable-myhostname \
-	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_UDEV_HWDB)-hwdb \
 	--disable-manpages \
 	--disable-hibernate \
 	--disable-ldconfig \
@@ -161,7 +161,7 @@ SYSTEMD_LDFLAGS	:= -Wl,-rpath,/lib/systemd
 $(STATEDIR)/systemd.install:
 	@$(call targetinfo)
 	@$(call world/install, SYSTEMD)
-ifdef PTXCONF_UDEV_HWDB
+ifdef PTXCONF_SYSTEMD_UDEV_HWDB
 	@systemd-hwdb update --usr --root $(SYSTEMD_PKGDIR)
 endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
@@ -208,6 +208,46 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
 	systemd-update-done \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
+
+SYSTEMD_UDEV_HELPER-y :=
+
+SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_ATA)	+= ata_id
+SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_CDROM)	+= cdrom_id
+SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_SCSI)	+= scsi_id
+SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_V4L)	+= v4l_id
+SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_COLLECT)		+= collect
+SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_MTD_PROBE)		+= mtd_probe
+
+SYSTEMD_UDEV_RULES-y := \
+	50-udev-default.rules \
+	60-persistent-alsa.rules \
+	60-persistent-input.rules \
+	60-persistent-storage-tape.rules \
+	60-persistent-storage.rules \
+	60-block.rules \
+	60-drm.rules \
+	60-sensor.rules \
+	60-serial.rules \
+	64-btrfs.rules \
+	70-mouse.rules \
+	75-net-description.rules \
+	78-sound-card.rules \
+	80-net-setup-link.rules
+
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
+	70-power-switch.rules \
+	70-uaccess.rules \
+	71-seat.rules \
+	73-seat-late.rules
+
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_VCONSOLE) += \
+	90-vconsole.rules
+
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_CDROM)	+= 60-cdrom_id.rules
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_UDEV_HWDB)			+= 60-evdev.rules
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_V4L)	+= 60-persistent-v4l.rules
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_UDEV_MTD_PROBE)		+= 75-probe_mtd.rules
+SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
 
 $(STATEDIR)/systemd.targetinstall:
 	@$(call targetinfo)
@@ -339,6 +379,26 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/machines)
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/profile.d/systemd.sh)
+
+	@$(call install_copy, systemd, 0, 0, 0755, -, /lib/systemd/systemd-udevd)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/udevadm)
+	@$(call install_lib, systemd, 0, 0, 0644, libudev)
+
+	@$(foreach helper, $(SYSTEMD_UDEV_HELPER-y), \
+		$(call install_copy, systemd, 0, 0, 0755, -, \
+			/lib/udev//$(helper));)
+
+	@$(foreach rule, $(SYSTEMD_UDEV_RULES-y), \
+		$(call install_copy, systemd, 0, 0, 0644, -, \
+			/lib/udev/rules.d/$(rule));)
+
+ifdef PTXCONF_SYSTEMD_UDEV_HWDB
+	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/hwdb.bin)
+endif
+
+ifdef PTXCONF_SYSTEMD_UDEV_CUST_RULES
+	@$(call install_tree_alternative, v, 0, 0, -, /lib/udev/rules.d)
+endif
 
 	@$(call install_finish, systemd)
 

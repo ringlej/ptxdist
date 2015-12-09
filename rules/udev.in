@@ -1,15 +1,31 @@
 ## SECTION=shell_and_console
-menuconfig UDEV
+
+config UDEV
 	tristate
-	prompt "udev                          "
+	select VIRTUAL
+	select SYSTEMD		if INITMETHOD_SYSTEMD
+	select UDEV_LEGACY	if !INITMETHOD_SYSTEMD
+
+if UDEV
+
+config UDEV_LIBUDEV
+	bool
+	select UDEV_LEGACY_LIBUDEV	if UDEV_LEGACY
+
+endif
+
+menuconfig UDEV_LEGACY
+	tristate
+	prompt "udev (legacy)                 "
 	select ROOTFS_DEV
 	select ROOTFS_RUN
 	select LIBC_RT
 	select LIBKMOD
 	select LIBBLKID
-	select HOST_GPERF	if UDEV_KEYMAPS
-	select PCIUTILS		if UDEV_PERSISTENT_PCI
-	select USBUTILS		if UDEV_PERSISTENT_USB
+	select HOST_GPERF	if UDEV_LEGACY_KEYMAPS
+	select PCIUTILS		if UDEV_LEGACY_PERSISTENT_PCI
+	select USBUTILS		if UDEV_LEGACY_PERSISTENT_USB
+	depends on SYSTEMD = n
 	help
 	  udev provides a dynamic device directory containing only the files for
 	  actually present devices. It creates or removes device node files in the
@@ -27,13 +43,11 @@ menuconfig UDEV
 	  Ensure: This udev implementation requires at least kernel 2.6.32 and
 	  must have sysfs, unix domain sockets, networking and devtmpfs enabled.
 
-if UDEV
-
-if SYSTEMD = n
+if UDEV_LEGACY
 
 menu "build options                 "
 
-config UDEV_DEBUG
+config UDEV_LEGACY_DEBUG
 	bool
 	prompt "enable debug messages"
 	help
@@ -41,7 +55,7 @@ config UDEV_DEBUG
 	  into the udev binaries. The actual level of debugging is specified
 	  in the udev config file (refer entry "udev_log")
 
-config UDEV_SYSLOG
+config UDEV_LEGACY_SYSLOG
 	bool
 	prompt "enable system logging"
 	help
@@ -51,21 +65,18 @@ config UDEV_SYSLOG
 
 endmenu
 
-endif
-
 menu "install options               "
 
-config UDEV_ETC_CONF
+config UDEV_LEGACY_ETC_CONF
 	bool
 	default y
-	depends on SYSTEMD = n
 	prompt "install udev.conf"
 	help
 	  Installs /etc/udev/udev.conf. If you don't wish to install the
 	  generic udev.conf, just put a copy of your own udev.conf file into
 	  your own projectroot/etc/udev/
 
-config UDEV_DRIVERS_RULES
+config UDEV_LEGACY_DRIVERS_RULES
 	bool
 	prompt "install udev driver rules"
 	help
@@ -75,33 +86,27 @@ config UDEV_DRIVERS_RULES
 	  udev start.
 	  If unsure say Y.
 
-config UDEV_KEYMAPS
+config UDEV_LEGACY_KEYMAPS
 	bool
-	depends on SYSTEMD = n
 	prompt "install keymaps"
 	help
 	  This will install the keymaps shipped with udev. These are mostly
 	  to map custom hardware's multimedia keys of various laptops
 
-config UDEV_HWDB
-	bool
-	depends on SYSTEMD
-	prompt "install hardware database"
-
-config UDEV_CUST_RULES
+config UDEV_LEGACY_CUST_RULES
 	bool
 	prompt "install customized udev rules"
 	help
 	  This will install the customized udev rules files from
 	  projectroot/lib/udev/rules.d into /lib/udev/rules.d
 
-config UDEV_LIBUDEV
+config UDEV_LEGACY_LIBUDEV
 	bool
 	prompt "install libudev"
 	help
 	  Install libudev.so on the target.
 
-config UDEV_STARTSCRIPT
+config UDEV_LEGACY_STARTSCRIPT
 	bool
 	default y
 	prompt "install /etc/init.d/udev"
@@ -113,38 +118,35 @@ endmenu
 
 menu "persistent device node links  "
 
-config UDEV_PERSISTENT_ATA
+config UDEV_LEGACY_PERSISTENT_ATA
 	bool
 	prompt "ata"
 
-config UDEV_PERSISTENT_CDROM
+config UDEV_LEGACY_PERSISTENT_CDROM
 	bool
 	prompt "cdrom"
 
-config UDEV_PERSISTENT_GENERATOR
+config UDEV_LEGACY_PERSISTENT_GENERATOR
 	bool
-	depends on SYSTEMD = n
 	prompt "cd / network generator"
 	help
 	  This will generate udev-based persistent naming rules for
 	  your CD/DVD media and network devices
 	  Warning: this needs write access to /etc/udev/rules.d/
 
-config UDEV_PERSISTENT_PCI
+config UDEV_LEGACY_PERSISTENT_PCI
 	bool
-	depends on SYSTEMD = n
 	prompt "pci"
 
-config UDEV_PERSISTENT_USB
+config UDEV_LEGACY_PERSISTENT_USB
 	bool
-	depends on SYSTEMD = n
 	prompt "usb"
 
-config UDEV_PERSISTENT_SCSI
+config UDEV_LEGACY_PERSISTENT_SCSI
 	bool
 	prompt "scsi"
 
-config UDEV_PERSISTENT_V4L
+config UDEV_LEGACY_PERSISTENT_V4L
 	bool
 	prompt "v4l"
 
@@ -152,7 +154,7 @@ endmenu
 
 menu "misc helper                   "
 
-config UDEV_ACCELEROMETER
+config UDEV_LEGACY_ACCELEROMETER
 	bool
 	depends on SYSTEMD = n
 	prompt "accelerometer"
@@ -162,13 +164,13 @@ config UDEV_ACCELEROMETER
 	  value of the property, calculate the device's new orientation,
 	  and export it as ID_INPUT_ACCELEROMETER_ORIENTATION.
 
-config UDEV_COLLECT
+config UDEV_LEGACY_COLLECT
 	bool
 	prompt "collect"
 	help
 	  Collect variables across events
 
-config UDEV_MTD_PROBE
+config UDEV_LEGACY_MTD_PROBE
 	bool
 	prompt "mtd_probe"
 	help
