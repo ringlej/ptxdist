@@ -95,7 +95,7 @@ UDEV_RULES-y := \
 	78-sound-card.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
-	42-usb-hid-pm.rules
+	50-firmware.rules
 
 ifndef PTXCONF_SYSTEMD
 UDEV_RULES-y += \
