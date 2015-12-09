@@ -32,7 +32,7 @@ menuconfig UDEV
 
 if UDEV
 
-if SYSTEMD = no
+if SYSTEMD = n
 
 menu "build options                 "
 
