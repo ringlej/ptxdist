@@ -1,0 +1,7 @@
+[Unit]
+Description=OpenCT
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/openct-control init
+ExecStop=/usr/sbin/openct-control shutdown
