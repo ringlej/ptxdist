@@ -214,15 +214,8 @@ ifdef PTXCONF_UDEV_KEYMAPS
 endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
-	@if [ -d $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/ ]; then \
-		$(call install_tree, udev, 0, 0, \
-			$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d, \
-			/lib/udev/rules.d); \
-	else \
-		echo "UDEV_CUST_RULES is enabled but Directory containing" \
-			"customized udev rules is missing!"; \
-		exit 1; \
-	fi
+	$(call install_tree_alternative, udev, 0, 0, /lib/udev/rules.d, \
+		/lib/udev/rules.d)
 endif
 
 	@$(foreach helper, $(UDEV_HELPER-y), \
