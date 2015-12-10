@@ -22,13 +22,8 @@ UDEV_VERSION	= $(SYSTEMD_VERSION)
 UDEV		= $(SYSTEMD)
 UDEV_LICENSE	= $(SYSTEMD_LICENSE)
 else
-ifdef PTXCONF_UDEV_LEGACY
-UDEV_VERSION	:= 172
-UDEV_MD5	:= bd122d04cf758441f498aad0169a454f
-else
 UDEV_VERSION	:= 182
 UDEV_MD5	:= e31c83159b017e8ab0fa2f4bca758a41
-endif
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
@@ -68,20 +63,12 @@ UDEV_CONF_OPT	:= \
 	--with-pci-ids-path=/usr/share/pci.ids$(call ptx/ifdef, PTXCONF_PCIUTILS_COMPRESS,.gz,) \
 	--with-systemdsystemunitdir=/lib/systemd/system
 
-ifdef PTXCONF_UDEV_LEGACY
-UDEV_CONF_OPT += \
-	--$(call ptx/endis,PTXCONF_UDEV_ACL)-udev_acl \
-	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_EDD)-edd \
-	--libexecdir=/lib/udev \
-	--enable-hwdb
-else
 UDEV_CONF_OPT += \
 	--disable-manpages \
 	--libexecdir=/lib \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib \
 	--$(call ptx/endis,PTXCONF_UDEV_MTD_PROBE)-mtd_probe
-endif
 
 endif # PTXCONF_SYSTEMD
 
@@ -93,9 +80,6 @@ UDEV_RULES-y := \
 	60-persistent-storage.rules \
 	75-net-description.rules \
 	78-sound-card.rules
-
-UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
-	50-firmware.rules
 
 ifndef PTXCONF_SYSTEMD
 UDEV_RULES-y += \
@@ -123,11 +107,6 @@ UDEV_RULES-$(PTXCONF_SYSTEMD_VCONSOLE) += \
 	90-vconsole.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
-ifdef PTXCONF_UDEV_LEGACY
-UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-acl.rules
-else
-UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-udev-acl.rules
-endif
 UDEV_RULES-$(PTXCONF_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
 UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-evdev.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keyboard-force-release.rules
@@ -150,19 +129,9 @@ UDEV_HELPER-$(PTXCONF_UDEV_KEYMAPS)			+= keymap
 UDEV_HELPER-$(PTXCONF_UDEV_MTD_PROBE)			+= mtd_probe
 UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= rule_generator.functions
 UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_SCSI)		+= scsi_id
-UDEV_HELPER-$(PTXCONF_UDEV_ACL)				+= udev-acl
 UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_V4L)		+= v4l_id
 UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= write_cd_rules
 UDEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_GENERATOR)	+= write_net_rules
-
-ifdef PTXCONF_UDEV_LEGACY
-DEV_HELPER-$(PTXCONF_UDEV_LEGACY)			+= firmware
-DEV_HELPER-$(PTXCONF_UDEV_LEGACY)			+= input_id
-DEV_HELPER-$(PTXCONF_UDEV_LEGACY)			+= path_id
-DEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_PCI)		+= pci-db
-DEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_USB)		+= usb-db
-DEV_HELPER-$(PTXCONF_UDEV_PERSISTENT_USB)		+= usb_id
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -190,17 +159,12 @@ ifdef PTXCONF_UDEV_HWDB
 	@$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/hwdb.bin)
 endif
 
-ifdef PTXCONF_UDEV_LEGACY
-	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
-	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevadm)
-else
 ifdef PTXCONF_SYSTEMD
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/systemd/systemd-udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
 else
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
-endif
 endif
 
 	@$(foreach rule, $(UDEV_RULES-y), \
@@ -221,11 +185,6 @@ endif
 	@$(foreach helper, $(UDEV_HELPER-y), \
 		$(call install_copy, udev, 0, 0, 0755, -, \
 			/lib/udev//$(helper));)
-
-ifdef PTXCONF_UDEV_ACL
-	@$(call install_link, udev, ../../udev/udev-acl, \
-		/lib/ConsoleKit/run-seat.d/udev-acl.ck)
-endif
 
 ifdef PTXCONF_UDEV_LIBUDEV
 	@$(call install_lib, udev, 0, 0, 0644, libudev)

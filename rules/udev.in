@@ -3,13 +3,12 @@ menuconfig UDEV
 	tristate
 	prompt "udev                          "
 	select ROOTFS_DEV
-	select ROOTFS_RUN	if !UDEV_LEGACY
+	select ROOTFS_RUN
 	select LIBC_RT
-	select LIBKMOD		if !UDEV_LEGACY
-	select LIBBLKID		if !UDEV_LEGACY
+	select LIBKMOD
+	select LIBBLKID
 	select HOST_GPERF	if UDEV_KEYMAPS
-	select ACL		if UDEV_ACL
-	select GLIB		if UDEV_ACL || UDEV_LIBGUDEV
+	select GLIB		if UDEV_LIBGUDEV
 	select PCIUTILS		if UDEV_PERSISTENT_PCI
 	select USBUTILS		if UDEV_PERSISTENT_USB
 	help
@@ -34,12 +33,6 @@ if UDEV
 if SYSTEMD = n
 
 menu "build options                 "
-
-config UDEV_LEGACY
-	bool
-	prompt "use older udev version"
-	help
-	  This may be necessary e.g. for systems without devtmpfs
 
 config UDEV_DEBUG
 	bool
@@ -137,11 +130,6 @@ config UDEV_PERSISTENT_CDROM
 	bool
 	prompt "cdrom"
 
-config UDEV_PERSISTENT_EDD
-	bool
-	depends on UDEV_LEGACY
-	prompt "BIOS EDD data"
-
 config UDEV_PERSISTENT_GENERATOR
 	bool
 	depends on SYSTEMD = n
@@ -175,20 +163,13 @@ menu "misc helper                   "
 
 config UDEV_ACCELEROMETER
 	bool
-	depends on UDEV_LEGACY
+	depends on SYSTEMD = n
 	prompt "accelerometer"
 	help
 	  When an "change" event is received on an accelerometer,
 	  open its device node, and from the value, as well as the previous
 	  value of the property, calculate the device's new orientation,
 	  and export it as ID_INPUT_ACCELEROMETER_ORIENTATION.
-
-config UDEV_ACL
-	bool
-	depends on UDEV_LEGACY
-	prompt "local user acl permissions support"
-	help
-	  FIXME
 
 config UDEV_COLLECT
 	bool
