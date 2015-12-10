@@ -162,8 +162,50 @@ menuconfig QT5_GUI
 
 if QT5_GUI
 
+comment "supported plugins"
+
+config QT5_PLATFORM_DEFAULT
+	string
+	default "xcb"		if QT5_PLATFORM_DEFAULT_XCB
+	default "eglfs"		if QT5_PLATFORM_DEFAULT_EGLFS
+	default "directfb"	if QT5_PLATFORM_DEFAULT_DIRECTFB
+	default "linuxfb"	if QT5_PLATFORM_DEFAULT_LINUXFB
+	default "kms"		if QT5_PLATFORM_DEFAULT_KMS
+	default "wayland"	if QT5_PLATFORM_DEFAULT_WAYLAND
+
+config QT5_PLATFORM_XCB
+	bool
+	prompt "XCB"
+
+config QT5_PLATFORM_EGLFS
+	bool
+	depends on QT5_OPENGL_ES2
+	prompt "eglfs"
+
+config QT5_PLATFORM_DIRECTFB
+	bool
+	prompt "DirectFB"
+
+config QT5_PLATFORM_LINUXFB
+	bool
+	prompt "LinuxFB"
+
+config QT5_PLATFORM_KMS
+	bool
+	depends on QT5_OPENGL_ES2
+	prompt "KMS"
+
+comment "default plugin"
+
 choice
-	prompt "default platform"
+	prompt "selected"
+	help
+	  At least one GUI platform plugin must be selected here to be used as
+	  the default. Don't keep this entry as '--nothing--'.
+
+config QT5_PLATFORM_DEFAULT_MISSING
+	bool
+	prompt "--nothing--"
 
 config QT5_PLATFORM_DEFAULT_XCB
 	bool
@@ -196,37 +238,6 @@ config QT5_PLATFORM_DEFAULT_WAYLAND
 	prompt "wayland"
 
 endchoice
-
-config QT5_PLATFORM_DEFAULT
-	string
-	default "xcb"		if QT5_PLATFORM_DEFAULT_XCB
-	default "eglfs"		if QT5_PLATFORM_DEFAULT_EGLFS
-	default "directfb"	if QT5_PLATFORM_DEFAULT_DIRECTFB
-	default "linuxfb"	if QT5_PLATFORM_DEFAULT_LINUXFB
-	default "kms"		if QT5_PLATFORM_DEFAULT_KMS
-	default "wayland"	if QT5_PLATFORM_DEFAULT_WAYLAND
-
-config QT5_PLATFORM_XCB
-	bool
-	prompt "XCB"
-
-config QT5_PLATFORM_EGLFS
-	bool
-	depends on QT5_OPENGL_ES2
-	prompt "eglfs"
-
-config QT5_PLATFORM_DIRECTFB
-	bool
-	prompt "DirectFB"
-
-config QT5_PLATFORM_LINUXFB
-	bool
-	prompt "LinuxFB"
-
-config QT5_PLATFORM_KMS
-	bool
-	depends on QT5_OPENGL_ES2
-	prompt "KMS"
 
 endif
 

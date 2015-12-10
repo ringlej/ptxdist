@@ -193,6 +193,12 @@ QT5_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_QT5_GLIB)-glib \
 	--no-android-style-assets
 
+ifdef PTXCONF_QT5_GUI
+ifndef PTXCONF_QT5_PLATFORM_DEFAULT
+$(error Qt5: select at least one GUI platform!)
+endif
+endif
+
 # Note: these options are not listed in '--help' but they exist
 QT5_CONF_OPT += \
 	--disable-sm \
