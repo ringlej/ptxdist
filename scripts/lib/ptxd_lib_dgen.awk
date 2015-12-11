@@ -21,6 +21,7 @@ BEGIN {
 	DGEN_RULESFILES_MAKE	= ENVIRON["PTX_DGEN_RULESFILES_MAKE"];
 	PTXDIST_TEMPDIR		= ENVIRON["PTXDIST_TEMPDIR"];
 	PARALLEL		= ENVIRON["PTXDIST_PARALLELMFLAGS_EXTERN"]
+	CHECK_LICENSES		= 0
 }
 
 #
@@ -193,6 +194,8 @@ $1 ~ /^PTXCONF_/ {
 		}
 	} while (sub(/_+[^_]+$/, "", this_PKG));
 
+	if (this_PKG = "PROJECT_CHECK_LICENSES")
+		CHECK_LICENSES = 1;
 	next;
 }
 
@@ -278,6 +281,12 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	}
 	print "$(STATEDIR)/" this_pkg ".report: "                     "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".release: "                    "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+	if (CHECK_LICENSES) {
+		if (prefix == "")
+			print "$(STATEDIR)/" this_pkg ".targetinstall.post: $(STATEDIR)/" this_pkg ".report"	> DGEN_DEPS_POST;
+		else
+			print "$(STATEDIR)/" this_pkg ".install.post: $(STATEDIR)/" this_pkg ".report"		> DGEN_DEPS_POST;
+	}
 
 	#
 	# conditional dependencies
