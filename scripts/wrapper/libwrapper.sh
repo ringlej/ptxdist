@@ -151,6 +151,7 @@ cc_add_target_ld_args() {
 
 cc_add_host_ld_args() {
 	if ${LINKING}; then
+		add_arg ${pkg_ldflags}
 		add_late_arg ${PTXDIST_HOST_LDFLAGS}
 	fi
 }
