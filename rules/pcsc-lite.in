@@ -4,7 +4,6 @@ menuconfig PCSC_LITE
 	tristate "pcsc-lite                     "
 	select UDEV		if PCSC_LITE_LIBUDEV
 	select UDEV_LIBUDEV	if PCSC_LITE_LIBUDEV
-	select LIBUSB		if PCSC_LITE_LIBUSB
 	help
 	  Middleware to access a smart card using PC/SC (library)
 
@@ -20,9 +19,6 @@ if PCSC_LITE
 
 config PCSC_LITE_LIBUDEV
 	bool "libudev support"
-
-config PCSC_LITE_LIBUSB
-	bool "libusb support"
 
 config PCSC_LITE_DEBUGATR
 	bool "enable ATR debug messages from pcscd"

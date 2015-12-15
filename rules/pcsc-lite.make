@@ -39,7 +39,7 @@ PCSC_LITE_CONF_TOOL := autoconf
 PCSC_LITE_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_PCSC_LITE_LIBUDEV)-libudev \
-	--$(call ptx/endis, PTXCONF_PCSC_LITE_LIBUSB)-libusb \
+	--disable-libusb \
 	--enable-usbdropdir=/usr/lib/pcsc \
 	--$(call ptx/endis, PTXCONF_PCSC_LITE_DEBUGATR)-debugatr \
 	--with-systemdsystemunitdir=/lib/systemd/system
