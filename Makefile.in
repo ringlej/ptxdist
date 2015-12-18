@@ -119,9 +119,10 @@ dist: dirty-check
 	@git archive "$(project)" --prefix="$(project)"/ > "${project}.tar"
 	tar xf "${project}.tar"
 	echo -n "${version}" > "${project}/.tarball-version"
-	cd "$(project)" && ./autogen.sh && make man
+	cd "$(project)" && ./autogen.sh && ./configure && make man
 
 	tar --owner=0 --group=0 -rf "${project}.tar" \
+		"${project}/man/ptxdist.1.gz" \
 		"${project}/configure" \
 		"${project}/.tarball-version"
 	bzip2 "${project}.tar"
