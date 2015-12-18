@@ -8,7 +8,6 @@ menuconfig UDEV
 	select LIBKMOD
 	select LIBBLKID
 	select HOST_GPERF	if UDEV_KEYMAPS
-	select GLIB		if UDEV_LIBGUDEV
 	select PCIUTILS		if UDEV_PERSISTENT_PCI
 	select USBUTILS		if UDEV_PERSISTENT_USB
 	help
@@ -101,14 +100,6 @@ config UDEV_LIBUDEV
 	prompt "install libudev"
 	help
 	  Install libudev.so on the target.
-
-config UDEV_LIBGUDEV
-	bool
-	depends on SYSTEMD = n
-	select UDEV_LIBUDEV
-	prompt "install libgudev"
-	help
-	  Install libgudev.so on the target.
 
 config UDEV_STARTSCRIPT
 	bool

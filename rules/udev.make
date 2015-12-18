@@ -53,7 +53,7 @@ UDEV_CONF_OPT	:= \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/endis,PTXCONF_UDEV_DEBUG)-debug \
 	--$(call ptx/endis,PTXCONF_UDEV_SYSLOG)-logging \
-	--$(call ptx/endis,PTXCONF_UDEV_LIBGUDEV)-gudev \
+	--disable-gudev \
 	--disable-introspection \
 	--$(call ptx/endis,PTXCONF_UDEV_KEYMAPS)-keymap \
 	--$(call ptx/endis,PTXCONF_UDEV_PERSISTENT_GENERATOR)-rule_generator \
@@ -188,10 +188,6 @@ endif
 
 ifdef PTXCONF_UDEV_LIBUDEV
 	@$(call install_lib, udev, 0, 0, 0644, libudev)
-endif
-
-ifdef PTXCONF_UDEV_LIBGUDEV
-	@$(call install_lib, udev, 0, 0, 0644, libgudev-1.0)
 endif
 
 ifdef PTXCONF_UDEV_STARTSCRIPT
