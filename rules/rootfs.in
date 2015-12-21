@@ -421,7 +421,7 @@ choice
 		prompt "link to /run/systemd/resolve/resolv.conf"
 		help
 		  If enabled, it installs /etc/resolv.conf as a link to
-		  /run/resolv.conf. This file is provided by
+		  /run/systemd/resolve/resolv.conf. This file is provided by
 		  systemd-resolved and is filled with data from the systemd
 		  managed interfaces.
 
