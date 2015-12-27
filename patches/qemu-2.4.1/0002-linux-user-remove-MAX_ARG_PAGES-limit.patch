@@ -1,0 +1,274 @@
+From: =?UTF-8?q?Stefan=20Br=C3=BCns?= <address@hidden>
+Date: Wed, 23 Sep 2015 14:39:19 +0200
+Subject: [PATCH] linux-user: remove MAX_ARG_PAGES limit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Instead of creating a temporary copy for the whole environment and
+the arguments, directly copy everything to the target stack.
+
+For this to work, we have to change the order of stack creation and
+copying the arguments.
+
+Signed-off-by: Stefan Brüns <address@hidden>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ linux-user/elfload.c   | 110 ++++++++++++++++++++++++-------------------------
+ linux-user/flatload.c  |   2 +-
+ linux-user/linuxload.c |   7 ----
+ linux-user/qemu.h      |   7 ----
+ linux-user/syscall.c   |   6 ---
+ 5 files changed, 56 insertions(+), 76 deletions(-)
+
+diff --git a/linux-user/elfload.c b/linux-user/elfload.c
+index 0b3c337fae9d..55b9d99e8495 100644
+--- a/linux-user/elfload.c
++++ b/linux-user/elfload.c
+@@ -1365,66 +1365,69 @@ static bool elf_check_ehdr(struct elfhdr *ehdr)
+  * to be put directly into the top of new user memory.
+  *
+  */
+-static abi_ulong copy_elf_strings(int argc,char ** argv, void **page,
+-                                  abi_ulong p)
++static abi_ulong copy_elf_strings(int argc, char **argv, char *scratch,
++                                  abi_ulong p, abi_ulong stack_limit)
+ {
+-    char *tmp, *tmp1, *pag = NULL;
+-    int len, offset = 0;
++    char *tmp;
++    int len, offset;
++    abi_ulong top = p;
+ 
+     if (!p) {
+         return 0;       /* bullet-proofing */
+     }
++
++    offset = ((p - 1) % TARGET_PAGE_SIZE) + 1;
++
+     while (argc-- > 0) {
+         tmp = argv[argc];
+         if (!tmp) {
+             fprintf(stderr, "VFS: argc is wrong");
+             exit(-1);
+         }
+-        tmp1 = tmp;
+-        while (*tmp++);
+-        len = tmp - tmp1;
+-        if (p < len) {  /* this shouldn't happen - 128kB */
++        len = strlen(tmp) + 1;
++        tmp += len;
++
++        if (len > (p - stack_limit)) {
+             return 0;
+         }
+         while (len) {
+-            --p; --tmp; --len;
+-            if (--offset < 0) {
+-                offset = p % TARGET_PAGE_SIZE;
+-                pag = (char *)page[p/TARGET_PAGE_SIZE];
+-                if (!pag) {
+-                    pag = g_try_malloc0(TARGET_PAGE_SIZE);
+-                    page[p/TARGET_PAGE_SIZE] = pag;
+-                    if (!pag)
+-                        return 0;
+-                }
+-            }
+-            if (len == 0 || offset == 0) {
+-                *(pag + offset) = *tmp;
+-            }
+-            else {
+-                int bytes_to_copy = (len > offset) ? offset : len;
+-                tmp -= bytes_to_copy;
+-                p -= bytes_to_copy;
+-                offset -= bytes_to_copy;
+-                len -= bytes_to_copy;
+-                memcpy_fromfs(pag + offset, tmp, bytes_to_copy + 1);
++            int bytes_to_copy = (len > offset) ? offset : len;
++            tmp -= bytes_to_copy;
++            p -= bytes_to_copy;
++            offset -= bytes_to_copy;
++            len -= bytes_to_copy;
++
++            memcpy_fromfs(scratch + offset, tmp, bytes_to_copy);
++
++            if (offset == 0) {
++                memcpy_to_target(p, scratch, top - p);
++                top = p;
++                offset = TARGET_PAGE_SIZE;
+             }
+         }
+     }
++    if (offset) {
++        memcpy_to_target(p, scratch + offset, top - p);
++    }
++
+     return p;
+ }
+ 
+-static abi_ulong setup_arg_pages(abi_ulong p, struct linux_binprm *bprm,
++/* Older linux kernels provide up to MAX_ARG_PAGES (default: 32) of
++ * argument/environment space. Newer kernels (>2.6.33) allow more,
++ * dependent on stack size, but guarantee at least 32 pages for
++ * backwards compatibility.
++ */
++#define STACK_LOWER_LIMIT (32 * TARGET_PAGE_SIZE)
++
++static abi_ulong setup_arg_pages(struct linux_binprm *bprm,
+                                  struct image_info *info)
+ {
+-    abi_ulong stack_base, size, error, guard;
+-    int i;
++    abi_ulong size, error, guard;
+ 
+-    /* Create enough stack to hold everything.  If we don't use
+-       it for args, we'll use it for something else.  */
+     size = guest_stack_size;
+-    if (size < MAX_ARG_PAGES*TARGET_PAGE_SIZE) {
+-        size = MAX_ARG_PAGES*TARGET_PAGE_SIZE;
++    if (size < STACK_LOWER_LIMIT) {
++        size = STACK_LOWER_LIMIT;
+     }
+     guard = TARGET_PAGE_SIZE;
+     if (guard < qemu_real_host_page_size) {
+@@ -1442,18 +1445,8 @@ static abi_ulong setup_arg_pages(abi_ulong p, struct linux_binprm *bprm,
+     target_mprotect(error, guard, PROT_NONE);
+ 
+     info->stack_limit = error + guard;
+-    stack_base = info->stack_limit + size - MAX_ARG_PAGES*TARGET_PAGE_SIZE;
+-    p += stack_base;
+-
+-    for (i = 0 ; i < MAX_ARG_PAGES ; i++) {
+-        if (bprm->page[i]) {
+-            /* FIXME - check return value of memcpy_to_target() for failure */
+-            memcpy_to_target(stack_base, bprm->page[i], TARGET_PAGE_SIZE);
+-            g_free(bprm->page[i]);
+-        }
+-        stack_base += TARGET_PAGE_SIZE;
+-    }
+-    return p;
++
++    return info->stack_limit + size - sizeof(void *);
+ }
+ 
+ /* Map and zero the bss.  We need to explicitly zero any fractional pages
+@@ -2197,6 +2190,7 @@ int load_elf_binary(struct linux_binprm *bprm, struct image_info *info)
+     struct image_info interp_info;
+     struct elfhdr elf_ex;
+     char *elf_interpreter = NULL;
++    char *scratch;
+ 
+     info->start_mmap = (abi_ulong)ELF_START_MMAP;
+ 
+@@ -2208,18 +2202,24 @@ int load_elf_binary(struct linux_binprm *bprm, struct image_info *info)
+        when we load the interpreter.  */
+     elf_ex = *(struct elfhdr *)bprm->buf;
+ 
+-    bprm->p = copy_elf_strings(1, &bprm->filename, bprm->page, bprm->p);
+-    bprm->p = copy_elf_strings(bprm->envc,bprm->envp,bprm->page,bprm->p);
+-    bprm->p = copy_elf_strings(bprm->argc,bprm->argv,bprm->page,bprm->p);
++    /* Do this so that we can load the interpreter, if need be.  We will
++       change some of these later */
++    bprm->p = setup_arg_pages(bprm, info);
++
++    scratch = g_new0(char, TARGET_PAGE_SIZE);
++    bprm->p = copy_elf_strings(1, &bprm->filename, scratch,
++                               bprm->p, info->stack_limit);
++    bprm->p = copy_elf_strings(bprm->envc, bprm->envp, scratch,
++                               bprm->p, info->stack_limit);
++    bprm->p = copy_elf_strings(bprm->argc, bprm->argv, scratch,
++                               bprm->p, info->stack_limit);
++    g_free(scratch);
++
+     if (!bprm->p) {
+         fprintf(stderr, "%s: %s\n", bprm->filename, strerror(E2BIG));
+         exit(-1);
+     }
+ 
+-    /* Do this so that we can load the interpreter, if need be.  We will
+-       change some of these later */
+-    bprm->p = setup_arg_pages(bprm->p, bprm, info);
+-
+     if (elf_interpreter) {
+         load_elf_interp(elf_interpreter, &interp_info, bprm->buf);
+ 
+diff --git a/linux-user/flatload.c b/linux-user/flatload.c
+index 566a7a87a345..ceacb9844a45 100644
+--- a/linux-user/flatload.c
++++ b/linux-user/flatload.c
+@@ -707,7 +707,7 @@ static int load_flat_shared_library(int id, struct lib_info *libs)
+ int load_flt_binary(struct linux_binprm *bprm, struct image_info *info)
+ {
+     struct lib_info libinfo[MAX_SHARED_LIBS];
+-    abi_ulong p = bprm->p;
++    abi_ulong p;
+     abi_ulong stack_len;
+     abi_ulong start_addr;
+     abi_ulong sp;
+diff --git a/linux-user/linuxload.c b/linux-user/linuxload.c
+index 506e837ae18b..dbaf0ec58604 100644
+--- a/linux-user/linuxload.c
++++ b/linux-user/linuxload.c
+@@ -135,10 +135,7 @@ int loader_exec(int fdexec, const char *filename, char **argv, char **envp,
+              struct linux_binprm *bprm)
+ {
+     int retval;
+-    int i;
+ 
+-    bprm->p = TARGET_PAGE_SIZE*MAX_ARG_PAGES-sizeof(unsigned int);
+-    memset(bprm->page, 0, sizeof(bprm->page));
+     bprm->fd = fdexec;
+     bprm->filename = (char *)filename;
+     bprm->argc = count(argv);
+@@ -172,9 +169,5 @@ int loader_exec(int fdexec, const char *filename, char **argv, char **envp,
+         return retval;
+     }
+ 
+-    /* Something went wrong, return the inode and free the argument pages*/
+-    for (i=0 ; i<MAX_ARG_PAGES ; i++) {
+-        g_free(bprm->page[i]);
+-    }
+     return(retval);
+ }
+diff --git a/linux-user/qemu.h b/linux-user/qemu.h
+index 7d0009e81c1a..0341df8604c8 100644
+--- a/linux-user/qemu.h
++++ b/linux-user/qemu.h
+@@ -143,12 +143,6 @@ extern const char *qemu_uname_release;
+ extern unsigned long mmap_min_addr;
+ 
+ /* ??? See if we can avoid exposing so much of the loader internals.  */
+-/*
+- * MAX_ARG_PAGES defines the number of pages allocated for arguments
+- * and envelope for the new program. 32 should suffice, this gives
+- * a maximum env+arg of 128kB w/4KB pages!
+- */
+-#define MAX_ARG_PAGES 33
+ 
+ /* Read a good amount of data initially, to hopefully get all the
+    program headers loaded.  */
+@@ -160,7 +154,6 @@ extern unsigned long mmap_min_addr;
+  */
+ struct linux_binprm {
+         char buf[BPRM_BUF_SIZE] __attribute__((aligned));
+-        void *page[MAX_ARG_PAGES];
+         abi_ulong p;
+ 	int fd;
+         int e_uid, e_gid;
+diff --git a/linux-user/syscall.c b/linux-user/syscall.c
+index f62c69894899..7d4e60e1f364 100644
+--- a/linux-user/syscall.c
++++ b/linux-user/syscall.c
+@@ -5799,12 +5799,6 @@ abi_long do_syscall(void *cpu_env, int num, abi_long arg1,
+             }
+             *q = NULL;
+ 
+-            /* This case will not be caught by the host's execve() if its
+-               page size is bigger than the target's. */
+-            if (total_size > MAX_ARG_PAGES * TARGET_PAGE_SIZE) {
+-                ret = -TARGET_E2BIG;
+-                goto execve_end;
+-            }
+             if (!(p = lock_user_string(arg1)))
+                 goto execve_efault;
+             ret = get_errno(execve(p, argp, envp));

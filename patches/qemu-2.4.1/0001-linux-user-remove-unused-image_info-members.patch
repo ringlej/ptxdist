@@ -1,0 +1,48 @@
+From: =?UTF-8?q?Stefan=20Br=C3=BCns?= <address@hidden>
+Date: Wed, 23 Sep 2015 14:38:18 +0200
+Subject: [PATCH] linux-user: remove unused image_info members
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Stefan Brüns <address@hidden>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ linux-user/elfload.c | 3 ---
+ linux-user/qemu.h    | 2 --
+ 2 files changed, 5 deletions(-)
+
+diff --git a/linux-user/elfload.c b/linux-user/elfload.c
+index 17883686f070..0b3c337fae9d 100644
+--- a/linux-user/elfload.c
++++ b/linux-user/elfload.c
+@@ -1447,7 +1447,6 @@ static abi_ulong setup_arg_pages(abi_ulong p, struct linux_binprm *bprm,
+ 
+     for (i = 0 ; i < MAX_ARG_PAGES ; i++) {
+         if (bprm->page[i]) {
+-            info->rss++;
+             /* FIXME - check return value of memcpy_to_target() for failure */
+             memcpy_to_target(stack_base, bprm->page[i], TARGET_PAGE_SIZE);
+             g_free(bprm->page[i]);
+@@ -2200,8 +2199,6 @@ int load_elf_binary(struct linux_binprm *bprm, struct image_info *info)
+     char *elf_interpreter = NULL;
+ 
+     info->start_mmap = (abi_ulong)ELF_START_MMAP;
+-    info->mmap = 0;
+-    info->rss = 0;
+ 
+     load_elf_image(bprm->filename, bprm->fd, info,
+                    &elf_interpreter, bprm->buf);
+diff --git a/linux-user/qemu.h b/linux-user/qemu.h
+index 8012cc2f5b86..7d0009e81c1a 100644
+--- a/linux-user/qemu.h
++++ b/linux-user/qemu.h
+@@ -36,8 +36,6 @@ struct image_info {
+         abi_ulong       start_brk;
+         abi_ulong       brk;
+         abi_ulong       start_mmap;
+-        abi_ulong       mmap;
+-        abi_ulong       rss;
+         abi_ulong       start_stack;
+         abi_ulong       stack_limit;
+         abi_ulong       entry;
