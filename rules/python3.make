@@ -108,6 +108,10 @@ $(STATEDIR)/python3.install.post:
 	@chmod a+x "$(CROSS_PYTHON3)"
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
+	sed -e 's;prefix_real=.*;prefix_real=$(SYSROOT)/usr;' \
+		"$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)-config" \
+		> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
+	@chmod +x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
 
 	@$(call touch)
 
