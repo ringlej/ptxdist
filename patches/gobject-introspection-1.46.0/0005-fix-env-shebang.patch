@@ -1,0 +1,19 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 27 Dec 2015 18:14:25 +0100
+Subject: [PATCH] fix env shebang
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tests/offsets/gen-gitestoffsets | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/offsets/gen-gitestoffsets b/tests/offsets/gen-gitestoffsets
+index 77351060cd5b..5bf5f562e7d2 100755
+--- a/tests/offsets/gen-gitestoffsets
++++ b/tests/offsets/gen-gitestoffsets
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/usr/bin/env python
+ # -*- Mode: Python -*-
+ # GObject-Introspection - a framework for introspecting GObject libraries
+ # Copyright (C) 2008  Red Hat, Inc.

@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_GOBJECT_INTROSPECTION
+	select HOST_GLIB
+	select HOST_QEMU
+	select HOST_QEMU_USR
+	bool
