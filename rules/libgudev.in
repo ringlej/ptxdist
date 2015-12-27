@@ -5,7 +5,16 @@ config LIBGUDEV
 	select GLIB
 	select UDEV
 	select UDEV_LIBUDEV
-	select UDEV_LIBGUDEV	if !SYSTEMD
+	select UDEV_LIBGUDEV		if !SYSTEMD
+	select GOBJECT_INTROSPECTION	if LIBGUDEV_INTROSPECTION
 	prompt "libgudev"
 	help
 	  GObject-based wrapper library for libudev
+
+if LIBGUDEV
+
+config LIBGUDEV_INTROSPECTION
+	bool
+	default GOBJECT_INTROSPECTION_HELPER
+
+endif

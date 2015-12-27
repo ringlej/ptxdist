@@ -39,7 +39,7 @@ LIBGUDEV_CONF_OPT	:= \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
-	--disable-introspection
+	--$(call ptx/endis, PTXCONF_LIBGUDEV_INTROSPECTION)-introspection
 endif
 
 # ----------------------------------------------------------------------------
@@ -57,6 +57,10 @@ ifdef PTXCONF_SYSTEMD
 	@$(call install_fixup, libgudev,DESCRIPTION,missing)
 
 	@$(call install_lib, libgudev, 0, 0, 0644, libgudev-1.0)
+ifdef PTXCONF_LIBGUDEV_INTROSPECTION
+	@$(call install_copy, libgudev, 0, 0, 0644, -, \
+		/usr/lib/girepository-1.0/GUdev-1.0.typelib)
+endif
 
 	@$(call install_finish, libgudev)
 endif
