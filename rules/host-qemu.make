@@ -111,4 +111,19 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-tcmalloc \
 	--disable-tools
 
+$(STATEDIR)/host-qemu.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, HOST_QEMU)
+ifdef PTXCONF_HOST_QEMU_USR
+	@echo -e '#!/bin/sh\nexec $(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS) -L $(PTXDIST_SYSROOT_TOOLCHAIN) -E LD_LIBRARY_PATH=$(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR) "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+	sed \
+		-e 's|RTLDLIST=/lib|RTLDLIST=$(PTXDIST_SYSROOT_TOOLCHAIN)/lib|'\
+		-e 's|eval $$add_env|eval $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross -E "$${add_env// /,}"|' \
+		-e 's|verify_out=`|verify_out=`$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross |' \
+		$(PTXDIST_SYSROOT_TOOLCHAIN)/usr/bin/ldd > $(PTXDIST_SYSROOT_CROSS)/bin/ldd-cross
+	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/ldd-cross
+endif
+	@$(call touch)
+
 # vim: syntax=make
