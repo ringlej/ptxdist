@@ -47,7 +47,7 @@ GSTREAMER1_GENERIC_CONF_OPT = \
 	--disable-static-plugins \
 	\
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-introspection \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
@@ -121,6 +121,11 @@ endif
 		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)
 	@$(call install_copy, gstreamer1, 0, 0, 4755, -, \
 		/usr/libexec/gstreamer-1.0/gst-ptp-helper)
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_tree, gstreamer1, 0, 0, -, \
+		/usr/lib/girepository-1.0)
+endif
 
 ifdef PTXCONF_PRELINK
 	@$(call install_alternative, gstreamer1, 0, 0, 0644, \

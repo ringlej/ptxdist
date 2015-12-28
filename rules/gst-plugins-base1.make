@@ -131,6 +131,11 @@ endif
 		$(call install_copy, gst-plugins-base1, 0, 0, 0644, -, \
 			/usr/lib/gstreamer-1.0/libgst$(plugin).so);)
 
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_tree, gst-plugins-base1, 0, 0, -, \
+		/usr/lib/girepository-1.0)
+endif
+
 	@$(call install_finish, gst-plugins-base1)
 
 	@$(call touch)

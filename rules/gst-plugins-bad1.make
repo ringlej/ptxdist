@@ -268,6 +268,11 @@ $(STATEDIR)/gst-plugins-bad1.targetinstall:
 			/usr/lib/gstreamer-1.0/libgst$${plugin}.so); \
 	done
 
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_tree, gst-plugins-bad1, 0, 0, -, \
+		/usr/lib/girepository-1.0)
+endif
+
 	@$(call install_finish, gst-plugins-bad1)
 
 	@$(call touch)

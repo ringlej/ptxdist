@@ -6,6 +6,7 @@ menuconfig GSTREAMER1
 	select LIBC_M
 	select GLIB
 	select HOST_FLEX
+	select GOBJECT_INTROSPECTION	if GSTREAMER1_INTROSPECTION
 	help
 	  GStreamer is a streaming media framework, based on graphs of
 	  filters which operate on media data. Applications using this
@@ -16,6 +17,10 @@ menuconfig GSTREAMER1
 	  installing new plug-ins.
 
 if GSTREAMER1
+
+	config GSTREAMER1_INTROSPECTION
+		bool
+		default GOBJECT_INTROSPECTION_HELPER
 
 	comment "compile options"
 
