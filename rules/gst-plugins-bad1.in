@@ -689,6 +689,8 @@ config GST_PLUGINS_BAD1_GTK3
 
 config GST_PLUGINS_BAD1_QT
 	bool
+	# Needs Qt 5.5.x
+	depends on BROKEN
 	prompt "qt"
 
 config GST_PLUGINS_BAD1_LIBVISUAL
