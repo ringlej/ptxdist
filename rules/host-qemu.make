@@ -54,7 +54,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-user \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_USR)-linux-user \
 	--disable-bsd-user \
-	--disable-guest-base \
+	--enable-guest-base \
 	--disable-docs \
 	--disable-guest-agent \
 	--disable-guest-agent-msi \
