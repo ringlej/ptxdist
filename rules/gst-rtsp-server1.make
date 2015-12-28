@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.6.1
-GST_RTSP_SERVER1_MD5		:= fbb67bb9375ae483fcffe6390bcfbefb
+GST_RTSP_SERVER1_VERSION	:= 1.6.2
+GST_RTSP_SERVER1_MD5		:= a1cafefb5fc14ac5d7e7d8cdbdfa9694
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
