@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 11 Jan 2016 15:48:00 +0100
+Subject: [PATCH] rpcgen: don't link to libtirpc
+
+It's not necessay and causes problems when cross-compiling:
+rpcgen is a host-tool and configure only checks for a target libtirpc.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tools/rpcgen/Makefile.am | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/tools/rpcgen/Makefile.am b/tools/rpcgen/Makefile.am
+index 8a9ec89cea76..51a2bfa006f6 100644
+--- a/tools/rpcgen/Makefile.am
++++ b/tools/rpcgen/Makefile.am
+@@ -12,7 +12,6 @@ rpcgen_SOURCES = rpc_clntout.c rpc_cout.c rpc_hout.c rpc_main.c \
+ rpcgen_CFLAGS=$(CFLAGS_FOR_BUILD)
+ rpcgen_CPPLAGS=$(CPPFLAGS_FOR_BUILD)
+ rpcgen_LDFLAGS=$(LDFLAGS_FOR_BUILD)
+-rpcgen_LDADD=$(LIBTIRPC)
+ 
+ MAINTAINERCLEANFILES = Makefile.in
+ 

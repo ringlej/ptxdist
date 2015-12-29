@@ -2,111 +2,35 @@
 menuconfig NFSUTILS
 	tristate
 	prompt "nfsutils                      "
-	select GCCLIBS_GCC_S	if NFSUTILS_INSTALL_NFSSTAT
-	# we need libblkid
+	select GCCLIBS_GCC_S
 	select LIBBLKID
-	select TCPWRAPPER	if NFSUTILS_WITH_TCPWRAPPERS
-	select LIBEVENT		if NFSUTILS_V4
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_LIBMOUNT
+	select RPCBIND			if RUNTIME
+	select LIBTIRPC			if GLOBAL_IPV6
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
-   	  access to shared files across networks.  The NFS protocol is designed
-   	  to be portable across different machines, operating systems, network
-   	  architectures, and transport protocols.  This portability is achieved
-   	  through the use of Remote Procedure Call (RPC) primitives built on
-   	  top of an eXternal Data Representation (XDR).  Implementations
-   	  already exist for a variety of machines, from personal computers to
-	  supercomputers. See RFC1094 for Details.
-	  RFC1094 URL: http://www.ietf.org/rfc/rfc1094.txt
-
-	  PTXdist currently supports version 2 and 3 of the NFS protocol,
-	  but not NFSv4. Patches are welcome. You will find the NFSv4 protocol
-	  specification in RFC3530: http://www.ietf.org/rfc/rfc3530.txt
-
-# -----
+	  access to shared files across networks. The NFS protocol is designed
+	  to be portable across different machines, operating systems, network
+	  architectures, and transport protocols.
 
 if NFSUTILS
 
-comment "build options"
-
-config	NFSUTILS_V4
+config NFSUTILS_CLIENT
 	bool
-	depends on BROKEN
-	prompt "Enable support for NFSv4"
+	prompt "client"
 	help
-          Enable support for version 4 of the NFS protocol.
+	  Install all tools and daemons to mount nfs filesystems.
 
-config	NFSUTILS_V41
+config NFSUTILS_SERVER
 	bool
-	depends on NFSUTILS_V4
-	depends on BROKEN
-	prompt "Enable support for NFSv4.1"
+	prompt "server"
 	help
-          Enable support for version 4.1 of the NFS protocol.
-
-config	NFSUTILS_WITH_TCPWRAPPERS
-	bool
-	prompt "Use TCP Wrappers"
-
-choice
-	prompt "statd's userid"
-	default NFSUTILS_RPCUSER_UID
-
-	config NFSUTILS_RPCUSER_UID
-		bool
-		prompt "rpcuser"
-		help
-		  rpc.statd runs as user rpcuser
-
-	config NFSUTILS_NOBODY_UID
-		bool
-		prompt "nobody"
-		help
-		  rpc.statd runs as user nobody
-
-endchoice
-
-# -----
-
-comment "install options"
-
-config	NFSUTILS_INSTALL_EXPORTFS
-	bool
-	prompt "Install exportfs"
-
-config	NFSUTILS_INSTALL_MOUNTD
-	bool
-	select NFSUTILS_INSTALL_EXPORTFS
-	prompt "Install rpc.mountd"
-
-config  NFSUTILS_INSTALL_MOUNT
-	bool
-	prompt "Install mount/umount"
-
-config	NFSUTILS_INSTALL_NFSD
-	bool
-	prompt "Install rpc.nfsd"
-
-config	NFSUTILS_INSTALL_NFSSTAT
-	bool
-	prompt "Install nfsstat"
-
-config  NFSUTILS_INSTALL_SHOWMOUNT
-	bool
-	prompt "Install showmount"
-
-config  NFSUTILS_INSTALL_STATD
-	bool
-	prompt "Install rpc.statd"
-# this feature needs /var/lib
-	select ROOTFS_VAR
-	select ROOTFS_VAR_LIB
-
-# -----
-
-comment "runtime options"
+	  Install all tools and daemons to run a NFS server.
 
 config NFSUTILS_NFSD_STARTSCRIPT
 	bool
+	depends on NFSUTILS_SERVER
 	default y
 	prompt "install /etc/init.d/nfsd"
 
@@ -115,13 +39,5 @@ config NFSUTILS_SYSTEMD_UNIT
 	default y
 	depends on SYSTEMD
 	prompt "install systemd unit files"
-
-config NFSUTILS_INSTALL_USER_EXPORTS
-	bool
-	prompt "Install user's /etc/exports"
-	help
-	  This installs a user defined /etc/exports. PTXdist
-	  uses files projectroot/etc/exports in your local
-	  project
 
 endif

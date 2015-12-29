@@ -1,0 +1,45 @@
+From: Steve Dickson <steved@redhat.com>
+Date: Mon, 9 Nov 2015 11:28:30 -0500
+Subject: [PATCH] systemd: Decouple the starting and stopping of
+ rpcbind/nfs-server
+
+Commit b98f2af15 introduced a regression that cause the
+starting and stop of rpcbind and the nfs-server to
+be depended on each other
+
+The starting of the NFS server should start rpcbind
+but bring rpcbind down should not bring the NFS
+server down.
+
+Signed-off-by: Steve Dickson <steved@redhat.com>
+---
+ systemd/nfs-server.service | 2 +-
+ systemd/rpc-statd.service  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/systemd/nfs-server.service b/systemd/nfs-server.service
+index 12b02f26f9ce..317e5d689767 100644
+--- a/systemd/nfs-server.service
++++ b/systemd/nfs-server.service
+@@ -1,7 +1,7 @@
+ [Unit]
+ Description=NFS server and services
+ DefaultDependencies=no
+-Requires= network.target proc-fs-nfsd.mount rpcbind.service
++Requires= network.target proc-fs-nfsd.mount rpcbind.target
+ Requires= nfs-mountd.service
+ Wants=rpc-statd.service nfs-idmapd.service
+ Wants=rpc-statd-notify.service
+diff --git a/systemd/rpc-statd.service b/systemd/rpc-statd.service
+index 14604d783ddf..f16ea425dc77 100644
+--- a/systemd/rpc-statd.service
++++ b/systemd/rpc-statd.service
+@@ -3,7 +3,7 @@ Description=NFS status monitor for NFSv2/3 locking.
+ DefaultDependencies=no
+ Conflicts=umount.target
+ Requires=nss-lookup.target rpcbind.target
+-After=network.target nss-lookup.target rpcbind.target
++After=network.target nss-lookup.target rpcbind.service
+ 
+ PartOf=nfs-utils.service
+ 

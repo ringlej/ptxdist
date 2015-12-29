@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NFSUTILS) += nfsutils
 #
 # Paths and names
 #
-NFSUTILS_VERSION	:= 1.3.0
-NFSUTILS_MD5		:= 3ac3726eda563946d1f44ac3e5b61d56
+NFSUTILS_VERSION	:= 1.3.3
+NFSUTILS_MD5		:= 9b87d890669eaaec8e97a2b0a35b2665
 NFSUTILS		:= nfs-utils-$(NFSUTILS_VERSION)
 NFSUTILS_SUFFIX		:= tar.bz2
 NFSUTILS_URL		:= $(call ptx/mirror, SF, nfs/$(NFSUTILS).$(NFSUTILS_SUFFIX))
@@ -29,68 +29,40 @@ NFSUTILS_LICENSE	:= GPL-2.0+
 # Prepare
 # ----------------------------------------------------------------------------
 
-NFSUTILS_PATH	:= PATH=$(CROSS_PATH)
-NFSUTILS_ENV 	:= \
+NFSUTILS_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	knfsd_cv_bsd_signals=no
 
 #
 # autoconf
 #
-NFSUTILS_AUTOCONF := \
+NFSUTILS_CONF_TOOL	:= autoconf
+NFSUTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nfsv4 \
+	--disable-nfsv41 \
 	--disable-gss \
+	--disable-svcgss \
 	--disable-kprefix \
-	--disable-tirpc \
-	--disable-ipv6 \
+	--disable-uuid \
+	--$(call ptx/endis, PTXCONF_NFSUTILS_CLIENT)-mount \
+	--$(call ptx/endis, PTXCONF_NFSUTILS_CLIENT)-libmount-mount \
+	--$(call ptx/endis, PTXCONF_GLOBAL_IPV6)-tirpc \
+	$(GLOBAL_IPV6_OPTION) \
+	--disable-mountconfig \
+	--disable-nfsdcltrack \
+	--enable-osdlogin \
 	--disable-caps \
-	--enable-shared \
-	--enable-static \
-	--with-rpcgen=internal \
-	--disable-libmount-mount
-
-# don't trust the default value. Set it as we use it here
-NFSUTILS_AUTOCONF += \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--with-statedir=/var/lib/nfs \
-	--with-statdpath=/var/lib/nfs
-
-ifdef PTXCONF_NFSUTILS_V4
-NFSUTILS_AUTOCONF += --enable-nfsv4
-else
-NFSUTILS_AUTOCONF += --disable-nfsv4
-endif
-
-ifdef PTXCONF_NFSUTILS_V41
-NFSUTILS_AUTOCONF += --enable-nfsv41
-else
-NFSUTILS_AUTOCONF += --disable-nfsv41
-endif
-
-ifdef PTXCONF_NFSUTILS_WITH_TCPWRAPPERS
-NFSUTILS_AUTOCONF += --with-tcp-wrappers=$(SYSROOT)
-else
-NFSUTILS_AUTOCONF += --without-tcp-wrappers
-endif
-
-ifdef PTXCONF_NFSUTILS_RPCUSER_UID
-NFSUTILS_RPCUSER_UID := 65533
-endif
-ifdef PTXCONF_NFSUTILS_NOBODY_UID
-NFSUTILS_RPCUSER_UID := 65534
-endif
-
-NFSUTILS_AUTOCONF += --with-statduser=$(NFSUTILS_RPCUSER_UID)
-
-#  --disable-uuid          Exclude uuid support to avoid buggy libblkid
-#  --enable-mount          Create mount.nfs and don't use the util-linux
-#                          mount(8) functionality. [default=yes]
-#  --with-start-statd=scriptname
-#                          When an nfs filesystems is mounted with locking, run
-#                          this script
-#  --with-tcp-wrappers[=PATH]      Enable tcpwrappers support
-#                 (optionally in PATH)
-#  --with-krb5=DIR         use Kerberos v5 installation in DIR
+	--with-statdpath=/var/lib/nfs \
+	--with-statduser=rpcuser \
+	--with-systemd=/lib/systemd/system \
+	--with-rpcgen=internal \
+	--without-mountfile \
+	--without-tcp-wrappers \
+	--without-krb5 \
+	--without-gssglue
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -105,72 +77,47 @@ $(STATEDIR)/nfsutils.targetinstall:
 	@$(call install_fixup, nfsutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, nfsutils,DESCRIPTION,missing)
 
-ifdef PTXCONF_NFSUTILS_INSTALL_EXPORTFS
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/exportfs)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_MOUNTD
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.mountd)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_NFSD
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.nfsd)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_NFSSTAT
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsstat)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsiostat)
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/showmount)
-endif
 
-ifdef PTXCONF_NFSUTILS_INSTALL_STATD
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.statd)
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/start-statd)
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/sm-notify)
-endif
 
-ifdef PTXCONF_NFSUTILS_INSTALL_MOUNT
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/mount.nfs)
-	@$(call install_link, nfsutils, mount.nfs, /sbin/umount.nfs)
-ifdef PTXCONF_NFSUTILS_V4
-	@$(call install_link, nfsutils, mount.nfs, /sbin/mount.nfs4)
-	@$(call install_link, nfsutils, mount.nfs, /sbin/umount.nfs4)
-endif
-endif
-
-#	#
-#	# create the /var/lib/nfs folder
-#	# for locking this folder must be persistent on server side!
-#	# Do not use tmpfs or any other non persistent filesystem.
-#	#
-
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0755, \
+	@$(call install_copy, nfsutils, rpcuser, 0, 0755, \
 		/var/lib/nfs)
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
-		/var/lib/nfs/etab)
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
-		/var/lib/nfs/rmtab)
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
-		/var/lib/nfs/xtab)
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0644, -, \
-		/var/lib/nfs/state)
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0755, \
-		/var/lib/nfs/sm)
-	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0755, \
-		/var/lib/nfs/sm.bak)
 
+ifdef PTXCONF_NFSUTILS_SYSTEMD_UNIT
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
 		/usr/lib/tmpfiles.d/nfs.conf)
-	@$(call install_replace, nfsutils, /usr/lib/tmpfiles.d/nfs.conf, \
-		@RPCUSER@, $(NFSUTILS_RPCUSER_UID))
+else
+	@$(call install_copy, nfsutils, rpcuser, 0, 0644, -, \
+		/var/lib/nfs/etab)
+	@$(call install_copy, nfsutils, rpcuser, 0, 0644, -, \
+		/var/lib/nfs/rmtab)
+	@$(call install_copy, nfsutils, rpcuser, 0, 0644, -, \
+		/var/lib/nfs/xtab)
+	@$(call install_copy, nfsutils, rpcuser, 0, 0644, -, \
+		/var/lib/nfs/state)
+	@$(call install_copy, nfsutils, rpcuser, 0, 0755, \
+		/var/lib/nfs/sm)
+	@$(call install_copy, nfsutils, rpcuser, 0, 0755, \
+		/var/lib/nfs/sm.bak)
+endif
 
-ifdef PTXCONF_NFSUTILS_INSTALL_USER_EXPORTS
-#	# install user defined exportfs
-	@$(call install_copy, nfsutils, 0, 0, 0644, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/exports, \
-		/etc/exports, n)
+ifdef PTXCONF_NFSUTILS_CLIENT
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/mount.nfs)
+	@$(call install_link, nfsutils, mount.nfs, /sbin/umount.nfs)
+endif
+
+ifdef PTXCONF_NFSUTILS_SERVER
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.nfsd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.mountd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/exportfs)
+
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/etc/exports)
 endif
 
 #	#
@@ -187,22 +134,37 @@ ifneq ($(call remove_quotes,$(PTXCONF_NFSUTILS_NFSD_BBINIT_LINK)),)
 endif
 endif
 endif
+
 ifdef PTXCONF_NFSUTILS_SYSTEMD_UNIT
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/nfs.target)
-	@$(call install_link, nfsutils, ../nfs.target, \
-		/lib/systemd/system/multi-user.target.wants/nfs.target)
-
-ifdef PTXCONF_NFSUTILS_INSTALL_STATD
-	@$(call install_alternative, nfsutils, 0, 0, 0644, \
 		/lib/systemd/system/rpc-statd.service)
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/rpc-statd-notify.service)
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/var-lib-nfs.mount)
+	@$(call install_link, nfsutils, ../var-lib-nfs.mount, \
+		/lib/systemd/system/local-fs.target.requires/var-lib-nfs.mount)
+
+ifdef PTXCONF_NFSUTILS_CLIENT
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/nfs-client.target)
+	@$(call install_link, nfsutils, ../nfs-client.target, \
+		/lib/systemd/system/multi-user.target.wants/nfs-client.target)
+	@$(call install_link, nfsutils, ../nfs-client.target, \
+		/lib/systemd/system/remote-fs.target.wants/nfs-client.target)
+endif
+ifdef PTXCONF_NFSUTILS_SERVER
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/proc-fs-nfsd.mount)
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/nfs-mountd.service)
+	@$(call install_alternative, nfsutils, 0, 0, 0644, \
+		/lib/systemd/system/nfs-server.service)
+	@$(call install_link, nfsutils, ../nfs-server.service, \
+		/lib/systemd/system/multi-user.target.wants/nfs-server.service)
 endif
 endif
 	@$(call install_finish, nfsutils)
-
-# FIXME: not installed yet:
-# /sbin/rpcdebug
-
 	@$(call touch)
 
 # vim: syntax=make
