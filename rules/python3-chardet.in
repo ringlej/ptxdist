@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_CHARDET
+	tristate
+	select PYTHON3
+	prompt "chardet"
+	help
+	  universal character encoding detector for Python3
