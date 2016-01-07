@@ -72,6 +72,14 @@ KERNEL_MAKEVARS += \
 endif
 
 #
+# Make the build more predictable if $(KERNEL_DIR) is not a symlink
+#
+KERNEL_MAKEVARS += \
+	`test -h "$(KERNEL_DIR)" || echo " \
+	KBUILD_BUILD_TIMESTAMP="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" \
+	KBUILD_BUILD_USER=ptxdist \
+	KBUILD_BUILD_HOST=ptxdist"`
+#
 # support the different kernel image formats
 #
 KERNEL_IMAGE := $(call remove_quotes, $(PTXCONF_KERNEL_IMAGE))
