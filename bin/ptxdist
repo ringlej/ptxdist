@@ -744,9 +744,10 @@ check_compiler() {
 	}
 
 	local compiler_ver_should
+	toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
 	compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)" && {
 		local compiler="${compiler_prefix}gcc"
-		local compiler_ver_is="$(${compiler} -dumpversion 2> /dev/null || true)"
+		local compiler_ver_is="$(${toolchain}/${compiler} -dumpversion 2> /dev/null || true)"
 
 		if [ -z "${compiler_ver_is}" ]; then
 			echo
@@ -765,14 +766,16 @@ check_compiler() {
 		fi
 	}
 
-	toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
 	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld; do
-		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
+		ptxd_replace_link "${toolchain}/${compiler_prefix}${cc}" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
-	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
-		ptxd_replace_link "$(which ${compiler_prefix}${tool})"  "${wrapper_dir}/${compiler_prefix}${tool}"
+	for tool in "${toolchain}/${compiler_prefix}"* ; do
+		local toolname="$(basename "${tool}")"
+		if [ ! -e "${wrapper_dir}/${toolname}" ]; then
+			ptxd_replace_link "${tool}"  "${wrapper_dir}/${toolname}"
+		fi
 	done &&
 	PATH="${wrapper_dir}:${PATH}" &&
 	check_compiler_icecc
