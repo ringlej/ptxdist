@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_AIOHTTP_WSGI
+	tristate
+	select PYTHON3
+	select PYTHON3_AIOHTTP
+	prompt "aiohttp-wsgi"
+	help
+	  WSGI adapter for aiohttp.
