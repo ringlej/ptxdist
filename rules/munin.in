@@ -2,6 +2,8 @@
 
 menuconfig MUNIN
 	tristate
+	select HOST_SYSTEM_PERL
+	select HOST_SYSTEM_PERL_BUILD
 	select PERL
 	select NET_SERVER_PERL	if RUNTIME
 	select BASH		if RUNTIME
