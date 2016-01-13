@@ -50,6 +50,14 @@ GOBJECT_INTROSPECTION_LDFLAGS := -Wl,-rpath,$(GOBJECT_INTROSPECTION_DIR)/.libs
 # Install
 # ----------------------------------------------------------------------------
 
+$(STATEDIR)/gobject-introspection.install:
+	@$(call targetinfo)
+	@$(call world/install, GOBJECT_INTROSPECTION)
+#	# the rpath is only needed while building the package itself
+	@chrpath --delete $(GOBJECT_INTROSPECTION_PKGDIR)/usr/bin/g-ir-compiler
+	@chrpath --delete $(GOBJECT_INTROSPECTION_PKGDIR)/usr/lib/libgirepository-1.0.so
+	@$(call touch)
+
 $(STATEDIR)/gobject-introspection.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, GOBJECT_INTROSPECTION)
