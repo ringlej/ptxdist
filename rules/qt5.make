@@ -363,7 +363,7 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)		+= mediaservice/libgstmediac
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)		+= mediaservice/libgstmediaplayer
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA)			+= playlistformats/libqtmultimedia_m3u
 ifdef PTXCONF_QT5_OPENGL_ES2
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA)			+= video/videonode/libeglvideonode
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= video/videonode/libeglvideonode
 endif
 QT5_QML-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= QtMultimedia
 
