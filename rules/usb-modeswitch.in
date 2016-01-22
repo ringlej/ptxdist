@@ -1,11 +1,26 @@
 ## SECTION=shell_and_console
 
-config USB_MODESWITCH
+menuconfig USB_MODESWITCH
 	tristate
-	prompt "usb-modeswitch"
+	prompt "usb-modeswitch                "
 	select LIBUSB
+	select TCL if (USB_MODESWITCH_UDEV_HELPER || USB_MODESWITCH_SYSTEMD_UNIT) && RUNTIME
 	help
 	  USB_ModeSwitch is (surprise!) a mode switching tool
 	  for controlling 'multi-mode' USB devices.
+
+if USB_MODESWITCH
+
+config USB_MODESWITCH_UDEV_HELPER
+	bool "install udev helper"
+	default y
+	depends on UDEV
+
+config USB_MODESWITCH_SYSTEMD_UNIT
+	bool "install systemd unit file"
+	default y
+	depends on SYSTEMD
+
+endif
 
 # vim: set sw=8 ts=8 noet ft=kconfig:
