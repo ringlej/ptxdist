@@ -5,6 +5,7 @@ config USB_MODESWITCH
 	prompt "usb-modeswitch"
 	select LIBUSB
 	help
-	  Activating switchable USB devices on Linux.
+	  USB_ModeSwitch is (surprise!) a mode switching tool
+	  for controlling 'multi-mode' USB devices.
 
 # vim: set sw=8 ts=8 noet ft=kconfig:
