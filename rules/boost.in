@@ -30,6 +30,7 @@ menuconfig BOOST
 	  For details see the project homepage:
 
 		http://www.boost.org/
+
 if BOOST
 comment "Targetinstall Options         "
 
@@ -65,7 +66,10 @@ comment "Boost Libraries"
 
 config BOOST_ATOMIC
 	bool
+	select BOOST_CHRONO
+	select BOOST_DATE_TIME
 	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "atomic"
 	help
 	  Boost atomic library
@@ -150,6 +154,11 @@ config BOOST_LOCALE
 
 config BOOST_LOG
 	bool
+	select BOOST_DATE_TIME
+	select BOOST_FILESYSTEM
+	select BOOST_REGEX
+	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "log"
 	help
 	  Boost log library
@@ -158,13 +167,13 @@ config BOOST_MATH
 	bool
 	prompt "math"
 	help
-	  Boost iostream library
+	  Boost Math library
 
 config BOOST_MPI
 	bool
 	prompt "mpi"
 	help
-	  Boost iostream library
+	  Boost MPI library
 
 config BOOST_PROGRAM_OPTIONS
 	bool
@@ -222,7 +231,7 @@ config BOOST_TIMER
 	select BOOST_SYSTEM
 	prompt "timer"
 	help
-	  Boost iostream library
+	  Boost timer library
 
 config BOOST_WAVE
 	bool
