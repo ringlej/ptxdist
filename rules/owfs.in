@@ -46,4 +46,8 @@ config OWFS_OWFS
 	depends on !BUSYBOX_MOUNT && !BUSYBOX_UMOUNT || ALLYES
 	prompt "owfs"
 
+config OWFS_OWCAPI
+	bool
+	prompt "owcapi"
+
 endif
