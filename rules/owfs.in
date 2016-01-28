@@ -4,7 +4,7 @@ comment "owfs conflicts with BusyBox' mount!"
 	depends on BUSYBOX_MOUNT
 
 comment "owfs conflicts with BusyBox' umount!"
-	depends on BUSYBOX_MOUNT
+	depends on BUSYBOX_UMOUNT
 
 menuconfig OWFS
 	tristate
