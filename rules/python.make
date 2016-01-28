@@ -185,6 +185,7 @@ $(STATEDIR)/python.targetinstall:
 	done
 
 	@$(call install_copy, python, 0, 0, 755, -, /usr/bin/python$(PYTHON_MAJORMINOR))
+	@$(call install_link, python, python$(PYTHON_MAJORMINOR), /usr/bin/python2)
 	@$(call install_lib, python, 0, 0, 644, libpython$(PYTHON_MAJORMINOR))
 
 ifdef PTXCONF_PYTHON_SYMLINK
