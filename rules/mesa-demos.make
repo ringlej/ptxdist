@@ -44,7 +44,7 @@ MESA_DEMOS_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESA_DEMOS_EGL)-egl \
 	--$(call ptx/endis, PTXCONF_MESA_DEMOS_GLES1)-gles1 \
 	--$(call ptx/endis, PTXCONF_MESA_DEMOS_GLES2)-gles2 \
-	--$(call ptx/endis, PTXCONF_MESA_DEMOS_VG)-vg \
+	--disable-vg \
 	--disable-osmesa \
 	--disable-libdrm \
 	--$(call ptx/endis, PTXCONF_MESA_DEMOS_X11)-x11 \
@@ -90,8 +90,6 @@ MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2GEARS_SCREEN)	+= es2gears_screen
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2GEARS_WAYLAND)	+= es2gears_wayland
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2GEARS_X11)	+= es2gears_x11
 MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_ES2TRI)		+= es2tri
-MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_TEX2VGIMAGE)	+= tex2vgimage
-MESA_DEMOS_BIN-$(PTXCONF_MESA_DEMOS_VGIMAGE2TEX)	+= vgimage2tex
 
 $(STATEDIR)/mesa-demos.targetinstall:
 	@$(call targetinfo)
