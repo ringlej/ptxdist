@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Fri, 4 Dec 2015 16:20:43 +0100
+Date: Sun, 31 Jan 2016 23:41:30 +0100
 Subject: [PATCH] soname
 
-Imported from openssl_1.0.2e-1.debian.tar.xz
+Imported from openssl_1.0.2f-2.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/crypto/opensslv.h b/crypto/opensslv.h
-index abcef15b17d9..77d01b993529 100644
+index 03b8c4843784..8f57c71483e4 100644
 --- a/crypto/opensslv.h
 +++ b/crypto/opensslv.h
 @@ -88,7 +88,7 @@ extern "C" {

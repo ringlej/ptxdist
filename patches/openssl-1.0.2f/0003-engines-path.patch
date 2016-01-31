@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Fri, 4 Dec 2015 16:20:43 +0100
+Date: Sun, 31 Jan 2016 23:41:30 +0100
 Subject: [PATCH] engines-path
 
-Imported from openssl_1.0.2e-1.debian.tar.xz
+Imported from openssl_1.0.2f-2.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  4 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/Configure b/Configure
-index 0119aae101a3..4156e27b6cff 100755
+index bbdd2f99ec82..64951a663d3f 100755
 --- a/Configure
 +++ b/Configure
-@@ -1954,7 +1954,7 @@ while (<IN>)
+@@ -1957,7 +1957,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{
@@ -26,10 +26,10 @@ index 0119aae101a3..4156e27b6cff 100755
  		print OUT "#define ENGINESDIR \"$foo\"\n";
  		}
 diff --git a/Makefile.org b/Makefile.org
-index 0333644415a2..7c6da5e78ed3 100644
+index 76fdbdf6ac5c..9aee32001139 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -537,7 +537,7 @@ install: all install_docs install_sw
+@@ -533,7 +533,7 @@ install: all install_docs install_sw
  install_sw:
  	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
  		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \
