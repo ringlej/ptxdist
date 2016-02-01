@@ -110,10 +110,6 @@ config MESALIB_GLES2
 	select MESALIB_OPENGL
 	prompt "OpenGL ES2"
 
-config MESALIB_OPENVG
-	bool
-	prompt "OpenVG"
-
 config MESALIB_EGL
 	bool
 	select MESALIB_UDEV

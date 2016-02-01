@@ -21,6 +21,7 @@ HOST_MESALIB_CONF_ENV := \
 	$(HOST_ENV) \
 	ac_cv_prog_PYTHON2=$(PTXDIST_TOPDIR)/bin/python
 
+HOST_MESALIB_BUILD_OOT	:= YES
 HOST_MESALIB_CONF_TOOL	:= autoconf
 HOST_MESALIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
@@ -34,7 +35,6 @@ HOST_MESALIB_CONF_OPT	:= \
 	--enable-opengl \
 	--disable-gles1 \
 	--disable-gles2 \
-	--disable-openvg \
 	--disable-dri \
 	--disable-dri3 \
 	--disable-glx \
@@ -43,28 +43,31 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-egl \
 	--disable-xa \
 	--disable-gbm \
+	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
+	--disable-va \
 	--disable-omx \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-xlib-glx \
-	--disable-gallium-egl \
-	--disable-gallium-gbm \
 	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
+	--disable-shader-cache \
 	--disable-shared-glapi \
 	--disable-sysfs \
+	--disable-glx-read-only-text \
 	--disable-driglx-direct \
 	--disable-glx-tls \
 	--disable-llvm-shared-libs \
 	--disable-gallium-llvm \
+	--with-sha1= \
 	--with-gallium-drivers= \
 	--with-dri-drivers=
 
 $(STATEDIR)/host-mesalib.install:
 	@$(call targetinfo)
-	install -D -m755 $(HOST_MESALIB_DIR)/src/glsl/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
+	install -D -m755 $(HOST_MESALIB_DIR)-build/src/glsl/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
 	@$(call touch)
 
 # vim: syntax=make
