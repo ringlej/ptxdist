@@ -1,0 +1,141 @@
+From: mjw <mjw@a5019735-40e9-0310-863c-91ae7b9d1cf9>
+Date: Thu, 21 Jan 2016 11:37:43 +0000
+Subject: [PATCH] Bug #357833 Setting RLIMIT_DATA to zero breaks with linux
+ 4.5+
+
+We used to set the process datasize rlimit to zero to prevent
+any internal use of brk() from having any effect. But later
+linux kernels redefine RLIMIT_DATA as the size of any data
+areas, including some dynamic mmap memory allocations.
+
+See bug #357833 for the commit that went into linux 4.5
+changing the definition of RLIMIT_DATA. So don't mess with
+RLIMIT_DATA anymore. Just remember it for use in the syscall
+wrappers.
+
+This also cleans up some hacks around the execv and spawn wrappers.
+
+git-svn-id: svn://svn.valgrind.org/valgrind/trunk@15766 a5019735-40e9-0310-863c-91ae7b9d1cf9
+---
+ coregrind/m_libcproc.c                | 11 -----------
+ coregrind/m_main.c                    | 15 ++++++++-------
+ coregrind/m_syswrap/syswrap-generic.c |  3 ---
+ coregrind/m_syswrap/syswrap-solaris.c | 12 ------------
+ 4 files changed, 8 insertions(+), 33 deletions(-)
+
+diff --git a/coregrind/m_libcproc.c b/coregrind/m_libcproc.c
+index f314b55eea88..a30f7dc8f0c5 100644
+--- a/coregrind/m_libcproc.c
++++ b/coregrind/m_libcproc.c
+@@ -450,9 +450,6 @@ void VG_(execv) ( const HChar* filename, const HChar** argv )
+    HChar** envp;
+    SysRes res;
+ 
+-   /* restore the DATA rlimit for the child */
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &VG_(client_rlimit_data));
+-
+    envp = VG_(env_clone)(VG_(client_envp));
+    VG_(env_remove_valgrind_env_stuff)( envp, True /*ro_strings*/, NULL );
+ 
+@@ -511,17 +508,9 @@ Int VG_(spawn) ( const HChar *filename, const HChar **argv )
+ #  undef COPY_CHAR_TO_ARGENV
+ #  undef COPY_STRING_TOARGENV
+ 
+-   /* HACK: Temporarily restore the DATA rlimit for spawned child. */
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &VG_(client_rlimit_data));
+-
+    SysRes res = VG_(do_syscall5)(__NR_spawn, (UWord) filename, (UWord) NULL, 0,
+                                  (UWord) argenv, argenv_size);
+ 
+-   /* Restore DATA rlimit back to its previous value set in m_main.c. */
+-   struct vki_rlimit zero = { 0, 0 };
+-   zero.rlim_max = VG_(client_rlimit_data).rlim_max;
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &zero);
+-
+    VG_(free)(argenv);
+    for (HChar **p = envp; *p != NULL; p++) {
+       VG_(free)(*p);
+diff --git a/coregrind/m_main.c b/coregrind/m_main.c
+index 1821c9412fa7..9b659ae564b5 100644
+--- a/coregrind/m_main.c
++++ b/coregrind/m_main.c
+@@ -1627,7 +1627,6 @@ Int valgrind_main ( Int argc, HChar **argv, HChar **envp )
+    Bool    logging_to_fd      = False;
+    const HChar* xml_fname_unexpanded = NULL;
+    Int     loglevel, i;
+-   struct vki_rlimit zero = { 0, 0 };
+    XArray* addr2dihandle = NULL;
+ 
+    //============================================================
+@@ -1800,13 +1799,15 @@ Int valgrind_main ( Int argc, HChar **argv, HChar **envp )
+    VG_(debugLog)(1, "main", "... %s\n", VG_(name_of_launcher));
+ 
+    //--------------------------------------------------------------
+-   // Get the current process datasize rlimit, and set it to zero.
+-   // This prevents any internal uses of brk() from having any effect.
+-   // We remember the old value so we can restore it on exec, so that
+-   // child processes will have a reasonable brk value.
++   // We used to set the process datasize rlimit to zero to prevent
++   // any internal use of brk() from having any effect. But later
++   // linux kernels redefine RLIMIT_DATA as the size of any data
++   // areas, including some dynamic mmap memory allocations.
++   // See bug #357833 for the commit that went into linux 4.5
++   // changing the definition of RLIMIT_DATA. So don't mess with
++   // RLIMIT_DATA here now anymore. Just remember it for use in
++   // the syscall wrappers.
+    VG_(getrlimit)(VKI_RLIMIT_DATA, &VG_(client_rlimit_data));
+-   zero.rlim_max = VG_(client_rlimit_data).rlim_max;
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &zero);
+ 
+    // Get the current process stack rlimit.
+    VG_(getrlimit)(VKI_RLIMIT_STACK, &VG_(client_rlimit_stack));
+diff --git a/coregrind/m_syswrap/syswrap-generic.c b/coregrind/m_syswrap/syswrap-generic.c
+index aa60d675218e..061c1e1436b8 100644
+--- a/coregrind/m_syswrap/syswrap-generic.c
++++ b/coregrind/m_syswrap/syswrap-generic.c
+@@ -3014,9 +3014,6 @@ PRE(sys_execve)
+       vg_assert(j == tot_args+1);
+    }
+ 
+-   /* restore the DATA rlimit for the child */
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &VG_(client_rlimit_data));
+-
+    /*
+       Set the signal state up for exec.
+ 
+diff --git a/coregrind/m_syswrap/syswrap-solaris.c b/coregrind/m_syswrap/syswrap-solaris.c
+index 25029d4d1d20..76df4692d1b3 100644
+--- a/coregrind/m_syswrap/syswrap-solaris.c
++++ b/coregrind/m_syswrap/syswrap-solaris.c
+@@ -1539,21 +1539,12 @@ PRE(sys_spawn)
+ #undef COPY_CHAR_TO_ARGENV
+ #undef COPY_STRING_TOARGENV
+ 
+-   /* HACK: Temporarily restore the DATA rlimit for spawned child.
+-      This is a terrible hack to provide sensible brk limit for child. */
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &VG_(client_rlimit_data));
+-
+    /* Actual spawn() syscall. */
+    SysRes res = VG_(do_syscall5)(__NR_spawn, (UWord) path, (UWord) attrs,
+                                  attrs_size, (UWord) argenv, argenv_size);
+    SET_STATUS_from_SysRes(res);
+    VG_(free)(argenv);
+ 
+-   /* Restore DATA rlimit back to its previous value set in m_main.c. */
+-   struct vki_rlimit zero = { 0, 0 };
+-   zero.rlim_max = VG_(client_rlimit_data).rlim_max;
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &zero);
+-
+    if (SUCCESS) {
+       PRINT("   spawn: process %d spawned child %ld\n", VG_(getpid)(), RES);
+    }
+@@ -3619,9 +3610,6 @@ PRE(sys_execve)
+       VG_(sigprocmask)(VKI_SIG_SETMASK, &tst->sig_mask, NULL);
+    }
+ 
+-   /* Restore the DATA rlimit for the child. */
+-   VG_(setrlimit)(VKI_RLIMIT_DATA, &VG_(client_rlimit_data));
+-
+    /* Debug-only printing. */
+    if (0) {
+       HChar **cpp;
