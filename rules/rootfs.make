@@ -240,6 +240,13 @@ ifdef PTXCONF_ROOTFS_SERVICES
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/services)
 endif
 
+ifdef PTXCONF_ROOTFS_INIT_LINK
+	@$(call install_link, rootfs, /sbin/init, /init)
+endif
+ifdef PTXCONF_ROOTFS_INIT_BIN
+	@$(call install_alternative, rootfs, 0, 0, 0755, /init)
+endif
+
 	@$(call install_finish, rootfs)
 
 	@$(call touch)
