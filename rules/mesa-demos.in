@@ -34,10 +34,6 @@ menuconfig MESA_DEMOS_X
 
 if MESA_DEMOS_X11
 
-config MESA_DEMOS_CORENDER
-	bool
-	prompt "corender"
-
 config MESA_DEMOS_GLSYNC
 	bool
 	prompt "glsync"
@@ -154,10 +150,6 @@ config MESA_DEMOS_ES2_INFO
 	bool
 	select MESA_DEMOS_X11
 	prompt "es2_info"
-
-config MESA_DEMOS_ES2GEARS_SCREEN
-	bool
-	prompt "es2gears_screen"
 
 config MESA_DEMOS_ES2GEARS_X11
 	bool
