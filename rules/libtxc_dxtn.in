@@ -2,6 +2,7 @@
 
 config LIBTXC_DXTN
 	tristate
+	select MESALIB	if BUILDTIME
 	prompt "libtxc_dxtn"
 	help
 	  This library enables S3TC texture compression support in the
