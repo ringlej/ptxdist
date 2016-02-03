@@ -1,6 +1,6 @@
 ## SECTION=networking
 
-menuconfig PYTHON_DJANGO
+menuconfig PYTHON3_DJANGO
 	tristate
 	select PYTHON3
 	select PYTHON3_SQLITE
@@ -11,9 +11,9 @@ menuconfig PYTHON_DJANGO
 	  Django is a high-level Python Web framework that encourages rapid
 	  development and clean, pragmatic design.
 
-if PYTHON_DJANGO
+if PYTHON3_DJANGO
 
-	config PYTHON_DJANGO_LOCALES
+	config PYTHON3_DJANGO_LOCALES
 		string
 		prompt "Django locales"
 		default "de en"
