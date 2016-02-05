@@ -29,11 +29,6 @@ MESA_DEMOS_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
-MESA_DEMOS_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	ac_cv_header_GL_glut_h=no \
-	ac_cv_lib_glut_glutInit=no
-
 #
 # autoconf
 #
@@ -51,7 +46,8 @@ MESA_DEMOS_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESA_DEMOS_WAYLAND)-wayland \
 	--disable-gbm \
 	--disable-freetype2 \
-	--disable-rbug
+	--disable-rbug \
+	--without-glut
 
 
 # ----------------------------------------------------------------------------
