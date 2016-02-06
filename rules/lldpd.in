@@ -4,7 +4,9 @@ menuconfig LLDPD
 	tristate
 	prompt "lldpd                         "
 	select INITMETHOD
+	select LIBBSD
 	select LIBEVENT
+	select READLINE
 	select NET_SNMP if LLDPD_SNMP
 	select NET_SNMP_MIB_MODULES_AGENTX if LLDPD_SNMP
 	select JSON_C if LLDPD_JSON
@@ -74,7 +76,7 @@ config LLDPD_CUSTOM_TLV
 
 config LLDPD_OLDIES
 	bool
-	prompt "Enable compatibility with Linux kernel older than 2.6.32"
+	prompt "Enable compatibility with Linux kernel older than 2.6.39"
 
 config LLDPD_SNMP
 	bool

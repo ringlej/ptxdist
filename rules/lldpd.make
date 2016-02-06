@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LLDPD) += lldpd
 #
 # Paths and names
 #
-LLDPD_VERSION	:= 0.7.19
-LLDPD_MD5	:= 4e924420e00ccd5dc289506f43221820
+LLDPD_VERSION	:= 0.9.0
+LLDPD_MD5	:= ed0226129b0c90b3a45c273fe1aba8de
 LLDPD		:= lldpd-$(LLDPD_VERSION)
 LLDPD_SUFFIX	:= tar.gz
 LLDPD_URL	:= http://media.luffy.cx/files/lldpd//$(LLDPD).$(LLDPD_SUFFIX)
