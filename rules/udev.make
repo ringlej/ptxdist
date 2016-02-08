@@ -214,7 +214,7 @@ ifdef PTXCONF_UDEV_KEYMAPS
 endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
-	$(call install_alternative_tree, udev, 0, 0, /lib/udev/rules.d)
+	@$(call install_alternative_tree, udev, 0, 0, /lib/udev/rules.d)
 endif
 
 	@$(foreach helper, $(UDEV_HELPER-y), \
