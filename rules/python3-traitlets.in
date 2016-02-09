@@ -1,0 +1,7 @@
+## SECTION=python3
+
+config PYTHON3_TRAITLETS
+	tristate
+	prompt "traitlets"
+	help
+	  A configuration system for Python applications.
