@@ -1,0 +1,7 @@
+## SECTION=python3
+
+config PYTHON3_PICKLESHARE
+	tristate
+	prompt "pickleshare"
+	help
+	  Tiny 'shelve'-like database with concurrency support
