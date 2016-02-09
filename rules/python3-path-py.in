@@ -1,0 +1,7 @@
+## SECTION=python3
+
+config PYTHON3_PATH_PY
+	tristate
+	prompt "path-py"
+	help
+	  A module wrapper for os.path
