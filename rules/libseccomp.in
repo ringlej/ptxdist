@@ -1,0 +1,13 @@
+## SECTION=system_libraries
+
+config LIBSECCOMP
+	bool
+	prompt "libseccomp"
+	help
+	  An Enhanced Seccomp (mode 2) Helper Library
+
+	  The libseccomp library provides an easy to use, platform independent, interface
+	  to the Linux Kernel's syscall filtering mechanism.  The libseccomp API is
+	  designed to abstract away the underlying BPF based syscall filter language and
+	  present a more conventional function-call based filtering interface that should
+	  be familiar to, and easily adopted by, application developers.
