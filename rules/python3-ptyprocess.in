@@ -1,0 +1,7 @@
+## SECTION=python3
+
+config PYTHON3_PTYPROCESS
+	tristate
+	prompt "ptyprocess"
+	help
+	  Run a subprocess in a pseudo terminal
