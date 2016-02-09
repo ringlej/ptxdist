@@ -81,7 +81,6 @@ JAM_PAR		:= \
 	$(if $(PTXDIST_PARALLELMFLAGS),$(PTXDIST_PARALLELMFLAGS),$(PARALLELMFLAGS))
 JAM_MAKE_OPT	:= \
 	$(if $(shell test $(subst -j,,$(JAM_PAR)) -le 64 && echo 1),$(JAM_PAR),-j64) \
-	$(PTXDIST_LOADMFLAGS) \
 	stage
 
 JAM_INSTALL_OPT	:= \
