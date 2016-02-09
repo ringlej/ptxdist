@@ -1,0 +1,7 @@
+## SECTION=python3
+
+config PYTHON3_DECORATOR
+	tristate
+	prompt "decorator"
+	help
+	  Better living through Python with decorators
