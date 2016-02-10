@@ -2,6 +2,7 @@
 
 config PYTHON3_DECORATOR
 	tristate
+	select PYTHON3
 	prompt "decorator"
 	help
 	  Better living through Python with decorators
