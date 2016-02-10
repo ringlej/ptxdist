@@ -2,6 +2,7 @@
 
 config PYTHON3_IPYTHON_GENUTILS
 	tristate
+	select PYTHON3
 	prompt "ipython-genutils"
 	help
 	  Vestigial utilities from IPython.
