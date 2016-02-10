@@ -2,6 +2,7 @@
 
 config PYTHON3_PICKLESHARE
 	tristate
+	select PYTHON3
 	prompt "pickleshare"
 	help
 	  Tiny 'shelve'-like database with concurrency support
