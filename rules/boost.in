@@ -245,8 +245,32 @@ config BOOST_WAVE
 
 config BOOST_PYTHON
 	bool
+
+choice
 	prompt "python"
-	depends on BROKEN
-	help
-	  boost python support (still broken)
+	default BOOST_NOPYTHON
+
+	config BOOST_NOPYTHON
+		bool
+		prompt "no python support"
+		help
+		  Select this option if you don't want to build boost.python.
+
+	config BOOST_PYTHON2
+		bool
+		prompt "python2"
+		select PYTHON
+		select BOOST_PYTHON
+		help
+		  Select this option if you want to use boost.python in combination with python2.
+
+	config BOOST_PYTHON3
+		bool
+		prompt "python3"
+		select PYTHON3
+		select BOOST_PYTHON
+		help
+		  Select this option if you want to use boost.python in combination with python3.
+endchoice
+
 endif

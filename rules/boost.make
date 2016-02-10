@@ -132,6 +132,16 @@ $(STATEDIR)/boost.prepare:
 	cd $(BOOST_DIR) && ./bootstrap.sh $(BOOST_CONF_OPT)
 	@cd $(BOOST_DIR) && \
 		echo "using gcc : $(PTXCONF_ARCH_STRING) : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
+
+ifdef PTXCONF_BOOST_PYTHON3
+	@cd $(BOOST_DIR) && \
+		echo "using python : $(PYTHON3_MAJORMINOR) : $(SYSROOT)/usr/bin/python : $(SYSROOT)/usr/include/python$(PYTHON3_MAJORMINOR)m : $(SYSROOT)/usr/lib/python$(PYTHON3_MAJORMINOR) ;" >> $(BOOST_DIR)/user-config.jam
+endif
+ifdef PTXCONF_BOOST_PYTHON2
+	@cd $(BOOST_DIR) && \
+		echo "using python : $(PYTHON_MAJORMINOR) : $(SYSROOT)/usr/bin/python : $(SYSROOT)/usr/include/python$(PYTHON_MAJORMINOR)m : $(SYSROOT)/usr/lib/python$(PYTHON_MAJORMINOR) ;" >> $(BOOST_DIR)/user-config.jam
+endif
+
 	@echo "all:"					>  $(BOOST_DIR)/Makefile
 	@echo '	@$(BOOST_JAM) $(JAM_MAKE_OPT)'		>> $(BOOST_DIR)/Makefile
 	@echo "install:"				>> $(BOOST_DIR)/Makefile
