@@ -3,6 +3,7 @@
 config PYTHON3_PATH_PY
 	tristate
 	select PYTHON3
+	select HOST_PYTHON3_SETUPTOOLS
 	prompt "path-py"
 	help
 	  A module wrapper for os.path
