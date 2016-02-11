@@ -75,7 +75,7 @@ BOOST_JAM	:= \
 	abi=$(BOOST_ABI) \
 	binary-format=elf \
 	architecture=$(BOOST_ARCH) \
-	address-model=$(call ptx/ifdef, ARCH_LP64,64,32)
+	address-model=$(call ptx/ifdef, PTXCONF_ARCH_LP64,64,32)
 
 JAM_PAR		:= \
 	$(if $(PTXDIST_PARALLELMFLAGS),$(PTXDIST_PARALLELMFLAGS),$(PARALLELMFLAGS))
