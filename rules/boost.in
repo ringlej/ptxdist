@@ -11,6 +11,8 @@ menuconfig BOOST
 	select ZLIB		if BOOST_IOSTREAMS
 	select BZIP2		if BOOST_IOSTREAMS
 	select BZIP2_LIBBZ2	if BOOST_IOSTREAMS
+	select PYTHON		if BOOST_PYTHON2
+	select PYTHON3		if BOOST_PYTHON3
 	prompt "boost                         "
 	help
 
@@ -259,7 +261,6 @@ choice
 	config BOOST_PYTHON2
 		bool
 		prompt "python2"
-		select PYTHON
 		select BOOST_PYTHON
 		help
 		  Select this option if you want to use boost.python in combination with python2.
@@ -267,7 +268,6 @@ choice
 	config BOOST_PYTHON3
 		bool
 		prompt "python3"
-		select PYTHON3
 		select BOOST_PYTHON
 		help
 		  Select this option if you want to use boost.python in combination with python3.
