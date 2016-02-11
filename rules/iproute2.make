@@ -45,8 +45,8 @@ ifndef PTXCONF_GLOBAL_SELINUX
 	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/Config
 endif
 	@echo 'HAVE_MNL:=n'		>> $(IPROUTE2_DIR)/Config
-ifdef PTXCONF_IPROUTE2_ARPD
-	@echo BUILD_ARPD=y >> $(IPROUTE2_DIR)/Config
+ifndef PTXCONF_IPROUTE2_ARPD
+	@echo 'HAVE_BERKELEY_DB:=n'	>> $(IPROUTE2_DIR)/Config
 endif
 	@$(call touch)
 
