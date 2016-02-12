@@ -11,6 +11,7 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_PPC
 PACKAGES-$(PTXCONF_LIBSECCOMP) += libseccomp
 
 #
@@ -52,5 +53,7 @@ $(STATEDIR)/libseccomp.targetinstall:
 	@$(call install_finish, libseccomp)
 
 	@$(call touch)
+
+endif
 
 # vim: syntax=make

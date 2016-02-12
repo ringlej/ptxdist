@@ -73,7 +73,7 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-kmod \
 	--disable-xkbcommon \
 	--enable-blkid \
-	--$(call ptx/endis,PTXCONF_SYSTEMD_SECCOMP)-seccomp \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_SECCOMP$(PTXCONF_ARCH_PPC))-seccomp \
 	--disable-ima \
 	$(GLOBAL_SELINUX_OPTION) \
 	--disable-apparmor \
