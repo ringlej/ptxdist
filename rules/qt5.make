@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QT5) += qt5
 #
 # Paths and names
 #
-QT5_VERSION	:= 5.4.2
-QT5_MD5		:= c23bd0f14d66e7901d24906a1edce9b0
+QT5_VERSION	:= 5.6.0
+QT5_MD5		:= 47763c168f58b1196271b231f03c8bae
 QT5		:= qt-everywhere-opensource-src-$(QT5_VERSION)
 QT5_SUFFIX	:= tar.xz
 QT5_URL		:= \
@@ -28,9 +28,10 @@ QT5_DIR		:= $(BUILDDIR)/$(QT5)
 QT5_BUILD_OOT	:= YES
 QT5_LICENSE	:= LGPL-2.1, Nokia-Qt-exception-1.1, LGPL-3.0, GFDL-1.3
 QT5_LICENSE_FILES := \
-	file://LICENSE.LGPLv21;md5=cff17b12416c896e10ae2c17a64252e7 \
-	file://LGPL_EXCEPTION.txt;md5=0145c4d1b6f96a661c2c139dfb268fb6 \
-	file://LICENSE.LGPLv3;md5=c1939be5579666be947371bc8120425f \
+	file://LICENSE.LGPLv21;md5=58a180e1cf84c756c29f782b3a485c29 \
+	file://LGPL_EXCEPTION.txt;md5=9625233da42f9e0ce9d63651a9d97654 \
+	file://LICENSE.GPLv3;md5=40f9bf30e783ddc201497165dfb32afb \
+	file://LICENSE.LGPLv3;md5=b8c75190712063cde04e1f41b6fdad98 \
 	file://LICENSE.FDL;md5=6d9f2a9af4c8b8c3c769f6cc1b6aaf7e
 QT5_MKSPECS	:= $(shell ptxd_get_alternative config/qt5 linux-ptx-g++ && echo $$ptxd_reply)
 
@@ -44,23 +45,18 @@ endif
 ifdef PTXCONF_ARCH_PPC
 PTXCONF_QT5_MODULE_QTCONNECTIVITY :=
 PTXCONF_QT5_MODULE_QTCONNECTIVITY_QUICK :=
-PTXCONF_QT5_MODULE_QTQUICK1 :=
-PTXCONF_QT5_MODULE_QTQUICK1_DEBUG :=
-PTXCONF_QT5_MODULE_QTQUICK1_WEBKIT :=
 PTXCONF_QT5_MODULE_QTSCRIPT :=
 PTXCONF_QT5_MODULE_QTSCRIPT_WIDGETS :=
 PTXCONF_QT5_MODULE_QTWEBENGINE :=
 PTXCONF_QT5_MODULE_QTWEBENGINE_WIDGETS :=
-PTXCONF_QT5_MODULE_QTWEBKIT :=
-PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES :=
-PTXCONF_QT5_MODULE_QTWEBKIT_QUICK :=
-PTXCONF_QT5_MODULE_QTWEBKIT_WIDGETS :=
+PTXCONF_QT5_MODULE_QTWEBVIEW :=
 endif
 # QtWebEngine needs at least ARMv6
 ifdef PTXCONF_ARCH_ARM
 ifndef PTXCONF_ARCH_ARM_V6
 PTXCONF_QT5_MODULE_QTWEBENGINE :=
 PTXCONF_QT5_MODULE_QTWEBENGINE_WIDGETS :=
+PTXCONF_QT5_MODULE_QTWEBVIEW :=
 endif
 endif
 
@@ -105,9 +101,9 @@ QT5_CONF_OPT	:= \
 	-examplesdir /usr/lib/qt5/examples \
 	-hostbindir /usr/bin/qt5 \
 	-release \
+	--disable-optimized-tools \
 	-opensource \
 	-confirm-license \
-	--$(call ptx/endis, PTXCONF_QT5_CXX11)-c++11 \
 	--enable-shared \
 	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-largefile \
 	--$(call ptx/endis, PTXCONF_QT5_ACCESSIBILITY)-accessibility \
@@ -126,34 +122,48 @@ QT5_CONF_OPT	:= \
 	-force-pkg-config \
 	\
 	-system-zlib \
-	--disable-journald \
+	--disable-mtdev \
+	--$(call ptx/endis, PTXCONF_QT5_JOURNALD)-journald \
+	--disable-syslog \
 	$(call ptx/ifdef, PTXCONF_QT5_GIF,,-no-gif) \
 	$(call ptx/qt5-system, QT5_LIBPNG)-libpng \
 	$(call ptx/qt5-system, QT5_LIBJPEG)-libjpeg \
 	$(call ptx/qt5-system, QT5_GUI)-freetype \
 	-qt-harfbuzz \
 	--$(call ptx/endis, PTXCONF_QT5_OPENSSL)-openssl \
+	--disable-libproxy \
 	-qt-pcre \
 	-system-xcb \
+	$(call ptx/qt5-system, QT5_PLATFORM_XCB)-xkbcommon-x11 \
+	--$(call ptx/endis, PTXCONF_QT5_INPUT_LIBINPUT)-xkbcommon-evdev \
+	--$(call ptx/endis, PTXCONF_QT5_XI)-xinput2 \
+	--$(call ptx/endis, PTXCONF_QT5_X11)-xcb-xlib \
+	--$(call ptx/endis, PTXCONF_QT5_GLIB)-glib \
+	--disable-pulseaudio \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTMULTIMEDIA)-alsa \
+	--disable-gtkstyle \
 	\
 	-make libs \
 	-make tools \
 	$(call ptx/ifdef, PTXCONF_QT5_PREPARE_EXAMPLES,-make examples) \
+	$(call ptx/qt5-module, QT3D, qt3d) \
 	-skip qtactiveqt \
 	-skip qtandroidextras \
+	$(call ptx/qt5-module, QTCANVAS3D, qtcanvas3d) \
 	$(call ptx/qt5-module, QTCONNECTIVITY, qtconnectivity) \
 	$(call ptx/qt5-module, QTDECLARATIVE, qtdeclarative) \
-	$(call ptx/qt5-module, QTENGINIO, qtenginio) \
 	-skip qtdoc \
+	$(call ptx/qt5-module, QTENGINIO, qtenginio) \
 	$(call ptx/qt5-module, QTGRAPHICALEFFECTS, qtgraphicaleffects) \
 	$(call ptx/qt5-module, QTIMAGEFORMATS, qtimageformats) \
 	$(call ptx/qt5-module, QTLOCATION, qtlocation) \
 	-skip qtmacextras \
 	$(call ptx/qt5-module, QTMULTIMEDIA, qtmultimedia) \
-	$(call ptx/qt5-module, QTQUICK1, qtquick1) \
 	$(call ptx/qt5-module, QTQUICKCONTROLS, qtquickcontrols) \
+	$(call ptx/qt5-module, QTQUICKCONTROLS2, qtquickcontrols2) \
 	$(call ptx/qt5-module, QTSCRIPT, qtscript) \
 	$(call ptx/qt5-module, QTSENSORS, qtsensors) \
+	$(call ptx/qt5-module, QTSERIALBUS, qtserialbus) \
 	$(call ptx/qt5-module, QTSERIALPORT, qtserialport) \
 	$(call ptx/qt5-module, QTSVG, qtsvg) \
 	$(call ptx/qt5-module, QTTOOLS, qttools) \
@@ -161,9 +171,8 @@ QT5_CONF_OPT	:= \
 	$(call ptx/qt5-module, QTWAYLAND, qtwayland) \
 	$(call ptx/qt5-module, QTWEBCHANNEL, qtwebchannel) \
 	$(call ptx/qt5-module, QTWEBENGINE, qtwebengine) \
-	$(call ptx/qt5-module, QTWEBKIT, qtwebkit) \
-	$(call ptx/qt5-module, QTWEBKIT_EXAMPLES, qtwebkit-examples) \
 	$(call ptx/qt5-module, QTWEBSOCKETS, qtwebsockets) \
+	$(call ptx/qt5-module, QTWEBVIEW, qtwebview) \
 	-skip qtwinextras \
 	$(call ptx/qt5-module, QTX11EXTRAS, qtx11extras) \
 	$(call ptx/qt5-module, QTXMLPATTERNS, qtxmlpatterns) \
@@ -171,27 +180,31 @@ QT5_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_QT5_GUI)-gui \
 	--$(call ptx/endis, PTXCONF_QT5_WIDGETS)-widgets \
 	--disable-rpath \
-	--disable-optimized-qmake \
 	--disable-nis \
 	--disable-cups \
 	--$(call ptx/endis, PTXCONF_ICONV)-iconv \
+	--$(call ptx/endis, PTXCONF_QT5_INPUT_EVDEV)-evdev \
+	--$(call ptx/endis, PTXCONF_QT5_INPUT_TSLIB)-tslib \
 	--$(call ptx/endis, PTXCONF_QT5_ICU)-icu \
 	--$(call ptx/endis, PTXCONF_QT5_GUI)-fontconfig \
 	--disable-strip \
 	--disable-pch \
+	--disable-ltcg \
 	--$(call ptx/endis, PTXCONF_QT5_DBUS)-dbus$(call ptx/ifdef, PTXCONF_QT5_DBUS,-linked,) \
 	--disable-separate-debug-info \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_XCB)-xcb \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS)-eglfs \
+	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS_KMS)-kms \
+	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS_KMS)-gbm \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_DIRECTFB)-directfb \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_LINUXFB)-linuxfb \
-	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_KMS)-kms \
+	--disable-mirclient \
 	$(call ptx/ifdef, PTXCONF_QT5_GUI,-qpa $(PTXCONF_QT5_PLATFORM_DEFAULT)) \
 	-xplatform linux-ptx-g++ \
 	--opengl=$(call ptx/ifdef, PTXCONF_QT5_OPENGL,$(PTXCONF_QT5_OPENGL_API),no) \
-	--disable-system-proxies \
-	--$(call ptx/endis, PTXCONF_QT5_GLIB)-glib \
-	--no-android-style-assets
+	--$(call ptx/endis, PTXCONF_QT5_INPUT_LIBINPUT)-libinput \
+	$(call ptx/ifdef, PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST,-gstreamer 1.0,-no-gstreamer) \
+	--disable-system-proxies
 
 ifdef PTXCONF_QT5_GUI
 ifndef PTXCONF_QT5_PLATFORM_DEFAULT
@@ -206,21 +219,18 @@ QT5_CONF_OPT += \
 	--$(call ptx/endis, PTXCONF_QT5_GUI)-libudev \
 	--$(call ptx/endis, PTXCONF_QT5_OPENGL)-egl \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_XCB)-xkb \
-	$(call ptx/qt5-system, QT5_PLATFORM_XCB)-xkbcommon \
-	--$(call ptx/endis, PTXCONF_QT5_XI)-xinput2 \
 	--$(call ptx/endis, PTXCONF_QT5_XRENDER)-xrender \
 	--$(call ptx/endis, PTXCONF_QT5_XV)-xvideo \
-	--$(call ptx/endis, PTXCONF_QT5_INPUT_EVDEV)-evdev \
-	--$(call ptx/endis, PTXCONF_QT5_INPUT_TSLIB)-tslib
 
 QT5_QMAKE_OPT := CONFIG+=release CONFIG-=debug
 
-ifndef PTXCONF_QT5_MODULE_QTWEBKIT_VIDEO
-# explicitly disable gstreamer use
-QT5_QMAKE_OPT += "WEBKIT_CONFIG-=video use_gstreamer use_native_fullscreen_video glib"
-endif
 ifdef PTXCONF_QT5_MODULE_QTWEBENGINE
 QT5_QMAKE_OPT += "PTX_QMAKE_CFLAGS=$(shell ptxd_cross_cc_v | sed -n "s/^COLLECT_GCC_OPTIONS=\(.*\)/\1/p" | tail -n1)"
+endif
+ifdef PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST
+QT5_MAKE_OPT += "GST_VERSION=1.0"
+else
+QT5_QMAKE_OPT += "QT_CONFIG-=gstreamer-0.10 gstreamer-1.0"
 endif
 
 $(STATEDIR)/qt5.prepare:
@@ -243,12 +253,6 @@ $(STATEDIR)/qt5.install:
 	@$(call targetinfo)
 	@$(call world/install, QT5)
 	@find $(QT5_PKGDIR) -name '*.qmltypes' | xargs -r rm
-ifdef PTXCONF_QT5_MODULE_QTWEBKIT_QUICK
-	@chrpath -d $(QT5_PKGDIR)/usr/lib/qt5/libexec/QtWebProcess
-ifdef PTXCONF_QT5_X11
-	@chrpath -d $(QT5_PKGDIR)/usr/lib/qt5/libexec/QtWebPluginProcess
-endif
-endif
 	@$(call touch)
 
 QT5_QT_CONF := $(PTXDIST_SYSROOT_CROSS)/bin/qt5/qt.conf
@@ -274,6 +278,10 @@ $(STATEDIR)/qt5.install.post:
 # Target-Install
 # ----------------------------------------------------------------------------
 
+### Qt3d ###
+QT5_LIBS_$(PTXCONF_QT5_MODULE_QT3D)				+= Qt3d
+QT5_QML-$(PTXCONF_QT5_MODULE_QT3D_QUICK)			+= Qt3D
+
 ### QtBase ###
 QT5_LIBS-y							:= Qt5Core
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE)				+= Qt5Concurrent
@@ -286,6 +294,8 @@ QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE_SQL)			+= Qt5Sql
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE)				+= Qt5Test
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE_WIDGETS)			+= Qt5Widgets
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE)				+= Qt5Xml
+QT5_LIBS-$(PTXCONF_QT5_PLATFORM_EGLFS)				+= Qt5EglDeviceIntegration
+QT5_LIBS-$(PTXCONF_QT5_PLATFORM_XCB)				+= Qt5XcbQpa
 QT5_PLUGINS-$(PTXCONF_QT5_DBUS)					+= bearer/libqconnmanbearer
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTBASE)			+= bearer/libqgenericbearer
 QT5_PLUGINS-$(PTXCONF_QT5_DBUS)					+= bearer/libqnmbearer
@@ -307,6 +317,12 @@ QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS)			+= platforms/libqeglfs
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_LINUXFB)			+= platforms/libqlinuxfb
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTBASE_GUI)			+= platforms/libqminimal
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS)			+= platforms/libqminimalegl
+### FIXME ###
+QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS_KMS)			+= egldeviceintegrations/libqeglfs-kms-integration
+
+### QtCanvas3d ###
+QT5_LIBS_$(PTXCONF_QT5_MODULE_CANVAS3D)				+= QtCanvas3d
+QT5_QML-$(PTXCONF_QT5_MODULE_QTCANVAS3D_QUICK)			+= QtCanvas3D
 
 ### QtConnectivity ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTCONNECTIVITY)			+= Qt5Bluetooth
@@ -319,8 +335,13 @@ QT5_LIBS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE)			+= Qt5Qml
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_QUICK)		+= Qt5Quick
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_QUICK)		+= Qt5QuickParticles
 QT5_LIBS-							+= Qt5QuickTest
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_qtquick2
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_native
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_server
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_local
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_tcp
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_debugger
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_DEBUG)		+= qmltooling/libqmldbg_profiler
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTDECLARATIVE_QUICK_DEBUG)	+= qmltooling/libqmldbg_inspector
 QT5_QML-$(PTXCONF_QT5_MODULE_QTDECLARATIVE)			+= Qt
 QT5_QML-$(PTXCONF_QT5_MODULE_QTDECLARATIVE)			+= QtQuick
 QT5_QML-$(PTXCONF_QT5_MODULE_QTDECLARATIVE)			+= QtQuick.2
@@ -337,7 +358,6 @@ QT5_QML-$(PTXCONF_QT5_MODULE_QTGRAPHICALEFFECTS)		+= QtGraphicalEffects
 ### QtImageFormats ###
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqdds
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqicns
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqjp2
 QT5_PLUGINS-$(PTXCONF_QT5_LIBMNG)				+= imageformats/libqmng
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqtga
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqtiff
@@ -349,6 +369,7 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqwebp
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= Qt5Positioning
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= position/libqtposition_positionpoll
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= geoservices/libqtgeoservices_osm
+QT5_QML-$(PTXCONF_QT5_MODULE_QTLOCATION_QUICK)			+= QtLocation
 QT5_QML-$(PTXCONF_QT5_MODULE_QTLOCATION_QUICK)			+= QtPositioning
 
 ### QtMultimedia ###
@@ -363,17 +384,9 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)		+= mediaservice/libgstmediac
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)		+= mediaservice/libgstmediaplayer
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA)			+= playlistformats/libqtmultimedia_m3u
 ifdef PTXCONF_QT5_OPENGL_ES2
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= video/videonode/libeglvideonode
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA)			+= video/videonode/libeglvideonode
 endif
 QT5_QML-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= QtMultimedia
-
-### QtQuick1 ###
-QT5_LIBS-$(PTXCONF_QT5_MODULE_QTQUICK1)				+= Qt5Declarative
-QT5_PLUGINS-							+= designer/libqdeclarativeview
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTQUICK1_DEBUG)		+= qml1tooling/libqmldbg_inspector
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTQUICK1_DEBUG)		+= qml1tooling/libqmldbg_tcp_qtdeclarative
-QT5_IMPORTS-$(PTXCONF_QT5_MODULE_QTQUICK1)			+= Qt
-QT5_IMPORTS-$(PTXCONF_QT5_MODULE_QTQUICK1_WEBKIT)		+= QtWebKit
 
 ### QtQuickControls ###
 # all in QT5_QML- added by QtDeclarative
@@ -390,6 +403,9 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTSENSORS)			+= sensorgestures/libqtsensorgestu
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTSENSORS)			+= sensors/libqtsensors_generic
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTSENSORS)			+= sensors/libqtsensors_linuxsys
 QT5_QML-$(PTXCONF_QT5_MODULE_QTSENSORS_QUICK)			+= QtSensors
+
+### QtSerialBus ###
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QTSERIALBus)			+= Qt5SerialBus
 
 ### QtSerialPort ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTSERIALPORT)			+= Qt5SerialPort
@@ -415,22 +431,24 @@ endif
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND_MESA)		+= wayland-graphics-integration-client/libdrm-egl-server
 #QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-graphics-integration-client/libxcomposite-glx
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-decoration-client/libbradient
+
 ### QtWebChannel ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBCHANNEL)			+= Qt5WebChannel
 QT5_QML-$(PTXCONF_QT5_MODULE_QTWEBCHANNEL)			+= QtWebChannel
+
 ### QtWebEngine ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBENGINE)			+= Qt5WebEngine
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBENGINE)			+= Qt5WebEngineCore
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBENGINE_WIDGETS)		+= Qt5WebEngineWidgets
 QT5_QML-$(PTXCONF_QT5_MODULE_QTWEBENGINE)			+= QtWebEngine
 
-### QtWebKit ###
-QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBKIT)				+= Qt5WebKit
-QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBKIT_WIDGETS)			+= Qt5WebKitWidgets
-QT5_QML-$(PTXCONF_QT5_MODULE_QTWEBKIT_QUICK)			+= QtWebKit
-
 ### QtWebSockets ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBSOCKETS)			+= Qt5WebSockets
+QT5_QML-$(PTXCONF_QT5_MODULE_QTWEBSOCKETS_QUICK)		+= QtWebSockets
+
+### QtWebView ###
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBVIEW)			+= Qt5WebView
+QT5_QML-$(PTXCONF_QT5_MODULE_QTWEBVIEW)				+= QtWebView
 
 ### QtX11Extras ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTX11EXTRAS)			+= Qt5X11Extras
@@ -456,18 +474,13 @@ ifdef PTXCONF_QT5_MODULE_QTWEBENGINE
 	@$(call install_copy, qt5, 0, 0, 0755, -, \
 		/usr/lib/qt5/libexec/QtWebEngineProcess)
 	@$(call install_copy, qt5, 0, 0, 0755, -, \
-		/usr/share/qt5/qtwebengine_resources.pak)
+		/usr/share/qt5/resources/qtwebengine_resources.pak)
+	@$(call install_copy, qt5, 0, 0, 0755, -, \
+		/usr/share/qt5/resources/qtwebengine_resources_100p.pak)
+	@$(call install_copy, qt5, 0, 0, 0755, -, \
+		/usr/share/qt5/resources/qtwebengine_resources_200p.pak)
 	@$(call install_link, qt5, ../icu/$(ICU_VERSION)/icudt$(basename $(ICU_VERSION))$(call ptx/ifdef,PTXCONF_ENDIAN_LITTLE,l,b).dat, \
 		/usr/share/qt5/icudtl.dat)
-endif
-
-ifdef PTXCONF_QT5_MODULE_QTWEBKIT_QUICK
-	@$(call install_copy, qt5, 0, 0, 0755, -, \
-		/usr/lib/qt5/libexec/QtWebProcess)
-ifdef PTXCONF_QT5_X11
-	@$(call install_copy, qt5, 0, 0, 0755, -, \
-		/usr/lib/qt5/libexec/QtWebPluginProcess)
-endif
 endif
 
 	@$(foreach plugin, $(QT5_PLUGINS-y), \

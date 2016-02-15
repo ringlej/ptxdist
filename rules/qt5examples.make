@@ -7,13 +7,13 @@ PTXCONF_QT5_MODULE_QTCONNECTIVITY :=
 PTXCONF_QT5_MODULE_QTQUICK1 :=
 PTXCONF_QT5_MODULE_QTSCRIPT :=
 PTXCONF_QT5_MODULE_QTWEBENGINE :=
-PTXCONF_QT5_MODULE_QTWEBKIT :=
-PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES :=
+PTXCONF_QT5_MODULE_QTWEBVIEW :=
 endif
 # QtWebEngine needs at least ARMv6
 ifdef PTXCONF_ARCH_ARM
 ifndef PTXCONF_ARCH_ARM_V6
 PTXCONF_QT5_MODULE_QTWEBENGINE :=
+PTXCONF_QT5_MODULE_QTWEBVIEW :=
 endif
 endif
 
@@ -209,6 +209,286 @@ ifdef PTXCONF_QT5_EXAMPLES_BLUETOOTH_QML_SCANNER
 		/usr/lib/qt5/examples/bluetooth/scanner/scanner.qml)
 endif
 endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CELLPHONE
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/cellphone/cellphone)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_FRAMEBUFFER
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/framebuffer/framebuffer)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_INTERACTION
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/interaction/interaction)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_JSONMODELS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/jsonmodels/jsonmodels)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_ONEQT
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/oneqt/oneqt)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_PLANETS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/planets/planets)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_QUICKITEMTEXTURE
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/quickitemtexture/quickitemtexture)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_TEXTUREANDLIGHT
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/canvas3d/textureandlight/textureandlight)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_FRAMEBUFFER
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/framebuffer/qml/framebuffer/framebuffer.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/framebuffer/qml/framebuffer/main.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/framebuffer/qml/framebuffer/qtlogo.png)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_INTERACTION
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/interaction/qml/interaction/barrel.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/interaction/qml/interaction/barrel.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/interaction/qml/interaction/interaction.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/interaction/qml/interaction/main.qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_JSONMODELS
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/bush.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/bush.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/gold.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/gold.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/jsonmodels.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/jsonmodels.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/pallet.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/pallet.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/rock.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/rock.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/woodbox.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/jsonmodels/qml/jsonmodels/woodbox.json)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_QUICKITEMTEXTURE
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/quickitemtexture/qml/quickitemtexture/main.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/quickitemtexture/qml/quickitemtexture/quickitemtexture.js)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_TEXTUREANDLIGHT
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/textureandlight/qml/textureandlight/main.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/textureandlight/qml/textureandlight/qtlogo.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/textureandlight/qml/textureandlight/textureandlight.js)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_THREEJS_CELLPHONE
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/calendar.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/camera.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/clock.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/contacts.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/gallery.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/games.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/lock.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/mail.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/maps.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/menu_background.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/music.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/plutomap1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/qtlogo_with_alpha.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/settings.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/todo.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/images/videos.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/cellphone.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/cellphone_case.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/cellphone_front.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/cellphone_icon.json)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/cellphoneapp.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/cellphonecanvas.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/colorselector.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/fpsdisplay.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/cellphone/qml/cellphone/main.qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_THREEJS_ONEQT
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/ImageCube.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/InfoSheet.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/Navibutton.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/SwipeArea.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/imagecube.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/oneqt.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/dataviz.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/devices.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/embedded.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/iot.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/multiscreen.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/puzzle-pieces.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/qtlogo.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/oneqt/textures/qtlogosmall.png)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTCANVAS3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_CANVAS3D_CANVAS3D_THREEJS_PLANETS
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/FpsDisplay.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/InfoSheet.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/PlanetButton.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/StyledSlider.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/earth.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/earthbump1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/earthcloudmapcolortrans.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/earthmap1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/earthspec1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/galaxy_starfield.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/jupiter.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/jupitermap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/mars.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/marsbump1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/marsmap1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/mercury.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/mercurybump.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/mercurymap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/moonbump1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/moonmap1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/neptune.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/neptunemap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/plutobump1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/plutomap1k.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/saturn.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/saturnmap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/saturnringcolortrans.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/sun.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/sunmap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/uranus.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/uranusmap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/uranusringcolortrans.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/venus.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/venusbump.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/images/venusmap.jpg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/planets.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/canvas3d/canvas3d/threejs/planets/planets.qml)
+endif
+endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_CORELIB_IPC_LOCALFORTUNECLIENT
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
@@ -329,1790 +609,6 @@ ifdef PTXCONF_QT5_EXAMPLES_DBUS_REMOTECONTROLLEDCAR_CONTROLLER
 		/usr/lib/qt5/examples/dbus/remotecontrolledcar/controller/car.xml)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/dbus/remotecontrolledcar/controller/controller)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_FLICKR
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/flickr/flickr)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/flickr.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/flickr.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/flickr64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/flickr80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/flickr_harmattan.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/common/Progress.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/common/RssModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/common/ScrollBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/common/Slider.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/common/qmldir)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/flickr-90.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/flickr.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/GridDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/ImageDetails.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/ListDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/TitleBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/ToolBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/gloss.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/lineedit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/lineedit.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/quit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/stripes.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/titlebar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/titlebar.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/toolbutton.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/flickr/qml/flickr/mobile/images/toolbutton.sci)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_I18N
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/i18n/i18n)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/i18n/i18n.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/i18n/i18n.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/i18n/qml/i18n/base.ts)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/i18n/qml/i18n/i18n.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/i18n/qml/i18n/qml_en_AU.ts)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/i18n/qml/i18n/qml_fr.ts)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_POSITIONERS
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/positioners/positioners)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/positioners/positioners.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/positioners/positioners.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/positioners/qml/positioners/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/positioners/qml/positioners/add.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/positioners/qml/positioners/del.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/positioners/qml/positioners/positioners.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_SHADEREFFECTS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/Curtain.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/CurtainEffect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/DropShadow.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/DropShadowEffect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/Grayscale.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/GrayscaleEffect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/ImageMask.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/ImageMaskEffect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/RadialWave.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/RadialWaveEffect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/Water.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/WaterEffect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/Curtain.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/DropShadow.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/Grayscale.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/ImageMask.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/RadialWave.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/Water.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/back.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/bg.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/desaturate.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/drop_shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/fabric.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/flower.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/image1.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/image2.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/qt-logo.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/shader_effects.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/sky.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/toolbar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/images/wave.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/qml/shadereffects/main.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/shadereffects/shadereffects)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_SQLLOCALSTORAGE
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/sqllocalstorage/qml/sqllocalstorage/hello.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/sqllocalstorage/sqllocalstorage)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/sqllocalstorage/sqllocalstorage.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/sqllocalstorage/sqllocalstorage64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/sqllocalstorage/sqllocalstorage80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_ANIMATION_EASING
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/easing)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/easing.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/easing.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/easing.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/qml/easing/content/QuitButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/qml/easing/content/quit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/easing/qml/easing/easing.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_ANIMATION_STATES
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/states/qml/states/qt-logo.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/states/qml/states/states.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/states/qml/states/transitions.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/animation/states/states)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/states/states.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/states/states.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_ANIMATION_BASICS_COLOR_ANIMATION
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/color-animation)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/color-animation.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/color-animation.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/qml/color-animation/color-animation.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/qml/color-animation/images/face-smile.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/qml/color-animation/images/moon.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/qml/color-animation/images/shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/qml/color-animation/images/star.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/color-animation/qml/color-animation/images/sun.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_ANIMATION_BASICS_PROPERTY_ANIMATION
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/property-animation)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/property-animation.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/property-animation.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/qml/property-animation/images/face-smile.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/qml/property-animation/images/moon.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/qml/property-animation/images/shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/qml/property-animation/images/star.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/qml/property-animation/images/sun.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/basics/property-animation/qml/property-animation/property-animation.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_ANIMATION_BEHAVIORS_BEHAVIOR_EXAMPLE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/animation/behaviors/behavior-example/behavior-example)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/behaviors/behavior-example/behavior-example.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/behaviors/behavior-example/behavior-example.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/behaviors/behavior-example/qml/behaviours/SideRect.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/animation/behaviors/behavior-example/qml/behaviours/behavior-example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_NETWORKACCESSMANAGERFACTORY
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/networkaccessmanagerfactory/networkaccessmanagerfactory)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/networkaccessmanagerfactory/qml/networkaccessmanagerfactory/view.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS_QGRAPHICSGRIDLAYOUT
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/qgraphicslayouts/qgraphicsgridlayout/qgraphicsgridlayout)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/qgraphicslayouts/qgraphicsgridlayout/qml/qgraphicsgridlayout/qgraphicsgridlayout.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_QGRAPHICSLAYOUTS_QGRAPHICSLINEARLAYOUT
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/qgraphicslayouts/qgraphicslinearlayout/qgraphicslinearlayout)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/qgraphicslayouts/qgraphicslinearlayout/qml/qgraphicslinearlayout/qgraphicslinearlayout.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_ADDING
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/adding/adding)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/adding/example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_ATTACHED
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/attached/attached)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/attached/example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_BINDING
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/binding/binding)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/binding/example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_COERCION
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/coercion/coercion)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/coercion/example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_DEFAULT
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/default/default)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/default/example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_EXTENDED
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/extended/example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/extended/extended)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_GROUPED
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/grouped/example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/grouped/grouped)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_METHODS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/methods/example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/methods/methods)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_PROPERTIES
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/properties/example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/properties/properties)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_SIGNAL
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/signal/example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/signal/signal)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_CPPEXTENSIONS_REFERENCEEXAMPLES_VALUESOURCE
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/valuesource/example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/cppextensions/referenceexamples/valuesource/valuesource)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_CALCULATOR
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/calculator)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/calculator.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/calculator.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/calculator64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/calculator80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/calculator_harmattan.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/Display.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/calculator.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/images/button-.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/images/button-blue.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/images/button-green.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/images/button-purple.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/images/button-red.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/images/display.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/CalculatorCore/qmldir)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/calculator/qml/calculator/calculator.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_MINEHUNT
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/README)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/minehunt)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/Explosion.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/Tile.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/back.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/bomb-color.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/bomb.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/face-sad.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/face-smile-big.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/face-smile.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/flag-color.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/flag.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/front.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/quit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/MinehuntCore/pics/star.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/minehunt/qml/minehunt/minehunt.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_PHOTOVIEWER
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/photoviewer)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/photoviewer.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/photoviewer.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/photoviewer64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/photoviewer80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/photoviewer_harmattan.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/AlbumDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/BusyIndicator.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/EditableButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/PhotoDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/ProgressBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/RssModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/Tag.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/images/box-shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/images/busy.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/images/cardboard.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/qmldir)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/PhotoViewerCore/script/script.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/i18n/base.ts)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/i18n/qml_fr.qm)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/i18n/qml_fr.ts)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/photoviewer/qml/photoviewer/photoviewer.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_RSSNEWS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/BusyIndicator.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/CategoryDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/NewsDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/RssFeeds.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/ScrollBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/images/busy.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/content/images/scrollbar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/qml/rssnews/rssnews.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/rssnews)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/rssnews.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/rssnews.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/rssnews64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/rssnews80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/rssnews/rssnews_harmattan.desktop)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_SAMEGAME
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/BoomBlock.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/Dialog.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/blueStar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/blueStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/greenStar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/greenStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/redStar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/redStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/star.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/pics/yellowStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/qmldir)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/SamegameCore/samegame.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/highscores/README)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/highscores/score_data.xml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/highscores/score_style.xsl)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/highscores/scores.php)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/qml/samegame/samegame.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/samegame)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/samegame.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/samegame.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/samegame64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/samegame80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/samegame/samegame_harmattan.desktop)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_SNAKE
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/Cookie.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/HighScoreModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/Link.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/Skull.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/README)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/blueStar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/blueStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/cookie.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/eyes.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/head.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/head.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/pause.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/redStar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/redStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/skull.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/snake.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/star.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/stoneShadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/yellowStar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/pics/yellowStone.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/content/snake.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/qml/snake/snake.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/snake)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/snake.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/snake.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/snake64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/snake80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/snake/snake_harmattan.desktop)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_DEMOS_TWITTER
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/FatDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/Input.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/Loading.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/MultiTitleBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/RssModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/SearchView.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/TitleBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/ToolBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/UserModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/gloss.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/lineedit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/lineedit.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/loading.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/quit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/stripes.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/titlebar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/titlebar.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/toolbutton.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/images/toolbutton.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/TwitterCore/qmldir)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/qml/twitter/twitter.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/twitter)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/twitter.desktop)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/twitter.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/twitter64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/twitter80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/demos/twitter/twitter_harmattan.desktop)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_IMAGEELEMENTS_BORDERIMAGE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/borderimage)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/borderimage.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/borderimage.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/borderimage.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/MyBorderImage.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/ShadowRectangle.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/bw.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/colors-round.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/colors-stretch.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/colors.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/content/shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/borderimage/qml/borderimage/shadows.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_IMAGEELEMENTS_IMAGE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/image/image)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/image/image.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/image/image.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/image/qml/image/ImageCell.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/image/qml/image/image.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/image/qml/image/qt-logo.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_IMAGEELEMENTS_SHADOWS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/borderimage.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/MyBorderImage.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/ShadowRectangle.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/bw.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/colors-round.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/colors-stretch.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/colors.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/content/shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/qml/shadows/shadows.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/shadows)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/shadows.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/imageelements/shadows/shadows.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_KEYINTERACTION_FOCUS
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/focus)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/focus.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/focus.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/FocusCore/ContextMenu.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/FocusCore/GridMenu.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/FocusCore/ListMenu.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/FocusCore/ListViewDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/FocusCore/images/arrow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/FocusCore/images/qt-logo.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/keyinteraction/focus/qml/focus/focus.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_ABSTRACTITEMMODEL
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/abstractitemmodel/abstractitemmodel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/abstractitemmodel/qml/abstractitemmodel/view.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_GRIDVIEW
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/gridview)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/gridview.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/gridviewexample.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/gridview-example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/AddressBook_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/AudioPlayer_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/Camera_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/DateBook_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/EMail_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/TodoList_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/gridview/qml/gridview-example/pics/VideoPlayer_48.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_OBJECTLISTMODEL
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/objectlistmodel/objectlistmodel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/objectlistmodel/qml/objectlistmodel/view.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_PACKAGE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/package/package)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/package/qml/package/Delegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/package/qml/package/view.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_PARALLAX
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/parallax)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/parallax.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/parallax64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/parallax80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/Clock.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/ParallaxView.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/Smiley.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/parallax.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/pics/background.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/pics/face-smile.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/pics/home-page.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/pics/shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/pics/yast-joystick.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/parallax/qml/parallax/pics/yast-wol.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_PATHVIEW
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/pathview)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/pathview.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/pathview.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pathview-example.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/AddressBook_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/AudioPlayer_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/Camera_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/DateBook_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/EMail_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/TodoList_48.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/pathview/qml/pathview-example/pics/VideoPlayer_48.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_STRINGLISTMODEL
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/stringlistmodel/qml/stringlistmodel/view.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/stringlistmodel/stringlistmodel)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_VISUALITEMMODEL
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/visualitemmodel/qml/visualitemmodel/visualitemmodel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/visualitemmodel/visualitemmodel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/visualitemmodel/visualitemmodel.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/visualitemmodel/visualitemmodel.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_DYNAMICLIST
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/dynamiclist)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/dynamiclist.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/dynamiclist.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/PetsModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/PressAndHoldButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/RecipesModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/TextButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/arrow-down.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/arrow-up.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/fruit-salad.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/hamburger.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/lemonade.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/list-delete.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/minus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/moreDown.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/moreUp.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/pancakes.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/plus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/content/pics/vegetable-soup.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/dynamiclist.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/expandingdelegates.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/highlight.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/highlightranges.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/dynamiclist/qml/dynamic/sections.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_EXPANDINGDELEGATES
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/expandingdelegates)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/expandingdelegates.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/expandingdelegates.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/PetsModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/PressAndHoldButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/RecipesModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/TextButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/arrow-down.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/arrow-up.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/fruit-salad.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/hamburger.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/lemonade.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/list-delete.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/minus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/moreDown.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/moreUp.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/pancakes.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/plus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/content/pics/vegetable-soup.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/dynamiclist.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/expandingdelegates.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/highlight.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/highlightranges.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/expandingdelegates/qml/expandingdelegates/sections.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_HIGHLIGHT
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/highlight)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/highlight.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/highlight.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/PetsModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/PressAndHoldButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/RecipesModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/TextButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/arrow-down.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/arrow-up.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/fruit-salad.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/hamburger.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/lemonade.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/list-delete.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/minus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/moreDown.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/moreUp.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/pancakes.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/plus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/content/pics/vegetable-soup.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/dynamiclist.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/expandingdelegates.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/highlight.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/highlightranges.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlight/qml/highlight/sections.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_HIGHLIGHTRANGES
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/highlightranges)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/highlightranges.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/highlightranges.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/PetsModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/PressAndHoldButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/RecipesModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/TextButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/arrow-down.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/arrow-up.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/fruit-salad.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/hamburger.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/lemonade.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/list-delete.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/minus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/moreDown.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/moreUp.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/pancakes.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/plus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/content/pics/vegetable-soup.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/dynamiclist.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/expandingdelegates.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/highlight.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/highlightranges.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/highlightranges/qml/highlightranges/sections.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_MODELVIEWS_LISTVIEW_SECTIONS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/PetsModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/PressAndHoldButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/RecipesModel.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/TextButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/arrow-down.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/arrow-up.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/fruit-salad.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/hamburger.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/lemonade.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/list-delete.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/minus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/moreDown.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/moreUp.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/pancakes.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/plus-sign.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/content/pics/vegetable-soup.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/dynamiclist.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/expandingdelegates.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/highlight.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/highlightranges.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/qml/sections/sections.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/sections)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/sections.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/modelviews/listview/sections/sections.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_RIGHTTOLEFT_LAYOUTDIRECTION
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutdirection/layoutdirection)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutdirection/layoutdirection.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutdirection/layoutdirection64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutdirection/layoutdirection80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutdirection/qml/layoutdirection/layoutdirection.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_RIGHTTOLEFT_LAYOUTMIRRORING
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutmirroring/layoutmirroring)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutmirroring/layoutmirroring.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutmirroring/layoutmirroring64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutmirroring/layoutmirroring80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/layoutmirroring/qml/layoutmirroring/layoutmirroring.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_RIGHTTOLEFT_TEXTALIGNMENT
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/textalignment/qml/textalignment/textalignment.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/textalignment/textalignment)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/textalignment/textalignment.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/textalignment/textalignment64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/righttoleft/textalignment/textalignment80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TEXT_TEXTSELECTION
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/qml/textselection/pics/endHandle.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/qml/textselection/pics/endHandle.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/qml/textselection/pics/startHandle.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/qml/textselection/pics/startHandle.sci)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/qml/textselection/textselection.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/textselection)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/textselection.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/textselection/textselection.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TEXT_FONTS_AVAILABLEFONTS
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/availableFonts)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/availableFonts.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/availableFonts.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/qml/availableFonts/availableFonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/qml/availableFonts/banner.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/qml/availableFonts/fonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/qml/availableFonts/fonts/tarzeau_ocr_a.ttf)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/availableFonts/qml/availableFonts/hello.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TEXT_FONTS_BANNER
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/banner)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/banner.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/banner.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/qml/banner/availableFonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/qml/banner/banner.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/qml/banner/fonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/qml/banner/fonts/tarzeau_ocr_a.ttf)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/banner/qml/banner/hello.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TEXT_FONTS_FONTS
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/fonts)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/fonts.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/fonts.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/qml/fonts-qml/availableFonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/qml/fonts-qml/banner.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/qml/fonts-qml/fonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/qml/fonts-qml/fonts/tarzeau_ocr_a.ttf)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/fonts/qml/fonts-qml/hello.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TEXT_FONTS_HELLO
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/hello)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/hello.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/hello.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/qml/hello/availableFonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/qml/hello/banner.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/qml/hello/fonts.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/qml/hello/fonts/tarzeau_ocr_a.ttf)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/text/fonts/hello/qml/hello/hello.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_THREADING_THREADEDLISTMODEL
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/threadedlistmodel/qml/threadedlistmodel/dataloader.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/threadedlistmodel/qml/threadedlistmodel/timedisplay.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/threading/threadedlistmodel/threadedlistmodel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/threadedlistmodel/threadedlistmodel.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/threadedlistmodel/threadedlistmodel64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/threadedlistmodel/threadedlistmodel80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_THREADING_WORKERSCRIPT
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/workerscript/qml/workerscript/workerscript.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/workerscript/qml/workerscript/workerscript.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/threading/workerscript/workerscript)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/workerscript/workerscript.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/workerscript/workerscript64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/threading/workerscript/workerscript80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_PINCHAREA
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/pincharea/pincharea)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/pincharea/pincharea.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/pincharea/pincharea64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/pincharea/pincharea80.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/pincharea/qml/pincharea/flickresize.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/pincharea/qml/pincharea/qt-logo.jpg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_GESTURES_EXPERIMENTAL_GESTURES
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/gestures/experimental-gestures/experimental-gestures)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/gestures/experimental-gestures/experimentalgestures.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/gestures/experimental-gestures/experimentalgestures.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/gestures/experimental-gestures/qml/experimental-gestures/experimental-gestures.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOUCHINTERACTION_MOUSEAREA_MOUSEAREA_EXAMPLE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/mousearea/mousearea-example/mousearea-example)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/mousearea/mousearea-example/mouseareaexample.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/mousearea/mousearea-example/mouseareaexample.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/touchinteraction/mousearea/mousearea-example/qml/mousearea-example/mousearea-example.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOYS_CLOCKS
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/clocks)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/clocks.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/clocks.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/clocks.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/Clock.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/QuitButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/center.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/clock-night.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/clock.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/hour.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/minute.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/quit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/clocks/qml/clocks/content/second.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOYS_CORKBOARDS
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/corkboards)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/corkboards.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/corkboards.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/qml/corkboards/Day.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/qml/corkboards/cork.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/qml/corkboards/corkboards.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/qml/corkboards/note-yellow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/corkboards/qml/corkboards/tack.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOYS_DYNAMICSCENE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/dynamicscene)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/dynamicscene.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/dynamicscene.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/GenericSceneItem.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/PaletteItem.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/PerspectiveItem.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/Sun.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/dynamicscene.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/NOTE)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/face-smile.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/moon.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/rabbit_brown.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/rabbit_bw.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/star.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/sun.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/images/tree_s.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/dynamicscene/qml/dynamicscene/itemCreation.js)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOYS_TIC_TAC_TOE
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/Button.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/TicTac.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/pics/board.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/pics/o.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/pics/x.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/tic-tac-toe.js)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/tic-tac-toe.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/tic-tac-toe)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/tictactoe.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tic-tac-toe/tictactoe.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TOYS_TVTENNIS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tvtennis/qml/tvtennis/tvtennis.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/toys/tvtennis/tvtennis)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tvtennis/tvtennis.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/toys/tvtennis/tvtennis.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER1_BASICS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter1-basics/app.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter1-basics/chapter1-basics)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER2_METHODS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter2-methods/app.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter2-methods/chapter2-methods)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER3_BINDINGS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter3-bindings/app.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter3-bindings/chapter3-bindings)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER4_CUSTOMPROPERTYTYPES
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter4-customPropertyTypes/app.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter4-customPropertyTypes/chapter4-customPropertyTypes)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_TUTORIALS_EXTENDING_CHAPTER5_LISTPROPERTIES
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter5-listproperties/app.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/tutorials/extending/chapter5-listproperties/chapter5-listproperties)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_DIALCONTROL
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/dialcontrol)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/dialcontrol.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/dialcontrol.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/Dial.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/QuitButton.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/needle.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/needle_shadow.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/overlay.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/content/quit.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/dialcontrol/qml/dialcontrol/dialcontrol.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_FLIPABLE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/flipable)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/flipable.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/flipable.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/qml/flipable/content/5_heart.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/qml/flipable/content/9_club.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/qml/flipable/content/Card.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/qml/flipable/content/back.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/flipable/qml/flipable/flipable.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_MAIN
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/main)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/main.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/main.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/ScrollBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/SearchBox.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/TabWidget.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/content/ProgressBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/content/Spinner.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/content/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/content/spinner-bg.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/content/spinner-select.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/images/clear.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/images/lineedit-bg-focus.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/images/lineedit-bg.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/main.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/pics/niagara_falls.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/main/qml/main/tab.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_PROGRESSBAR
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/progressbar/progressbar)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/progressbar/progressbar.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/progressbar/progressbar.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/progressbar/qml/progressbar/content/ProgressBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/progressbar/qml/progressbar/content/background.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/progressbar/qml/progressbar/main.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SCROLLBAR
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/qml/scrollbar/ScrollBar.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/qml/scrollbar/main.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/qml/scrollbar/niagara_falls.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/scrollbar)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/scrollbar.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/scrollbar64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/scrollbar/scrollbar80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SEARCHBOX
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/qml/searchbox/SearchBox.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/qml/searchbox/images/clear.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/qml/searchbox/images/lineedit-bg-focus.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/qml/searchbox/images/lineedit-bg.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/qml/searchbox/main.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/searchbox)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/searchbox.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/searchbox64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/searchbox/searchbox80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SLIDESWITCH
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/qml/slideswitch/content/Switch.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/qml/slideswitch/content/background.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/qml/slideswitch/content/knob.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/qml/slideswitch/slideswitch.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/slideswitch)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/slideswitch.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/slideswitch/slideswitch.svg)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_SPINNER
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/qml/spinner/content/Spinner.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/qml/spinner/content/spinner-bg.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/qml/spinner/content/spinner-select.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/qml/spinner/main.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/spinner)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/spinner.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/spinner64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/spinner/spinner80.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICK1)),)
-ifdef PTXCONF_QT5_EXAMPLES_DECLARATIVE_UI_COMPONENTS_TABWIDGET
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/qml/tabwidget/TabWidget.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/qml/tabwidget/main.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/qml/tabwidget/tab.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/tabwidget)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/tabwidget.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/tabwidget64.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/declarative/ui-components/tabwidget/tabwidget80.png)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTTOOLS)),)
@@ -2262,89 +758,163 @@ endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
 ifdef PTXCONF_QT5_EXAMPLES_LOCATION_QML_LOCATION_MAPVIEWER
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/dialogs/Message.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/Geocode.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/dialogs/RouteDialog.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/GeocodeForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/3dItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/Locale.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/CircleItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/LocaleForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/ImageItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/Message.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/MapComponent.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/MessageForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/Marker.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/ReverseGeocode.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/MiniMap.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/ReverseGeocodeForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/PolygonItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteAddress.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/PolylineItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteAddressForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/RectangleItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteCoordinate.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/content/map/VideoItem.qml)
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteCoordinateForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/demo.ogv)
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteList.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/mapviewer/icon.png)
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteListDelegate.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/forms/RouteListHeader.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/helper.js)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/CircleItem.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/ImageItem.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/MapComponent.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/Marker.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/MiniMap.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/PolygonItem.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/PolylineItem.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/map/RectangleItem.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/location/mapviewer/mapviewer.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/menus/ItemPopupMenu.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/menus/MainMenu.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/menus/MapPopupMenu.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/menus/MarkerPopupMenu.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/location/mapviewer/qml_location_mapviewer)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/resources/icon.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/resources/marker.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/resources/scale.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/mapviewer/resources/scale_end.png)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
 ifdef PTXCONF_QT5_EXAMPLES_LOCATION_QML_LOCATION_PLACES
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/CategoryDelegate.qml)
+		/usr/lib/qt5/examples/location/places/forms/Message.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/CategoryDialog.qml)
+		/usr/lib/qt5/examples/location/places/forms/MessageForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/CategoryView.qml)
+		/usr/lib/qt5/examples/location/places/forms/PlaceDetails.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/EditorialDelegate.qml)
+		/usr/lib/qt5/examples/location/places/forms/PlaceDetailsForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/EditorialPage.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchBoundingBox.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/Group.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchBoundingBoxForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/MapComponent.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchBoundingCircle.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/OptionsDialog.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchBoundingCircleForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/PlaceDelegate.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchCenter.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/PlaceDialog.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchCenterForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/PlaceEditorials.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchOptions.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/PlaceImages.qml)
+		/usr/lib/qt5/examples/location/places/forms/SearchOptionsForm.ui.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/PlaceReviews.qml)
+		/usr/lib/qt5/examples/location/places/helper.js)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/PlacesUtils.js)
+		/usr/lib/qt5/examples/location/places/items/MainMenu.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/RatingView.qml)
+		/usr/lib/qt5/examples/location/places/items/MapComponent.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/ReviewDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/ReviewPage.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/SearchBox.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/SearchResultDelegate.qml)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/location/places/content/places/SearchResultView.qml)
+		/usr/lib/qt5/examples/location/places/items/SearchBar.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/location/places/places.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/location/places/qml_location_places)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/categories.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/left.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/marker.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/right.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/scale.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/scale_end.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/search.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/resources/star.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/CategoryDelegate.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/CategoryView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/EditorialDelegate.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/EditorialPage.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/EditorialView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/ImageView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/RatingView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/ReviewDelegate.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/ReviewPage.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/ReviewView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/SearchResultDelegate.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/SearchResultView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places/views/SuggestionView.qml)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
 ifdef PTXCONF_QT5_EXAMPLES_LOCATION_PLACES_LIST
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places_list/Marker.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/places_list/marker.png)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/location/places_list/places_list)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
@@ -2359,6 +929,18 @@ ifdef PTXCONF_QT5_EXAMPLES_LOCATION_PLACES_MAP
 		/usr/lib/qt5/examples/location/places_map/places_map)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/location/places_map/places_map.qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
+ifdef PTXCONF_QT5_EXAMPLES_LOCATION_PLANESPOTTER
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/planespotter/Plane.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/planespotter/airplane.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/location/planespotter/planespotter)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/location/planespotter/planespotter.qml)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTMULTIMEDIA)),)
@@ -2934,6 +1516,14 @@ ifdef PTXCONF_QT5_EXAMPLES_OPENGL_HELLOGL2
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
+ifdef PTXCONF_QT5_EXAMPLES_OPENGL_HELLOGLES3
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/opengl/hellogles3/hellogles3)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/opengl/hellogles3/qtlogo.png)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_OPENGL_HELLOWINDOW
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/opengl/hellowindow/hellowindow)
@@ -3221,6 +1811,288 @@ ifdef PTXCONF_QT5_EXAMPLES_QPA_WINDOWS
 		/usr/lib/qt5/examples/qpa/windows/windows)
 endif
 endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_ANAGLYPH_RENDERING
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/anaglyph-rendering/anaglyph-rendering)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_ASSIMP_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/assimp-cpp/assimp-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_ASSIMP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/assimp/assimp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_AUDIO_VISUALIZER_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/audio-visualizer-qml/audio-visualizer-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_BASICSHAPES_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/basicshapes-cpp/basicshapes-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_BIGMODEL_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/bigmodel-qml/bigmodel-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_BIGSCENE_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/bigscene-cpp/bigscene-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_BIGSCENE_INSTANCED_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/bigscene-instanced-qml/bigscene-instanced-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CLIP_PLANES_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/clip-planes-qml/clip-planes-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CONTROLS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/controls/controls)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CPP_EXAMPLE
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/cpp_example/cpp_example)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CUSTOM_MESH_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/custom-mesh-cpp/custom-mesh-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CUSTOM_MESH_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/custom-mesh-qml/custom-mesh-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CYLINDER_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/cylinder-cpp/cylinder-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_CYLINDER_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/cylinder-qml/cylinder-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_DEFERRED_RENDERER_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/deferred-renderer-cpp/deferred-renderer-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_DEFERRED_RENDERER_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/deferred-renderer-qml/deferred-renderer-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_DYNAMICSCENE_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/dynamicscene-cpp/dynamicscene-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_ENABLED_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/enabled-qml/enabled-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_GLTF
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/gltf/gltf)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_GOOCH_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/gooch-qml/gooch-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_INSTANCED_ARRAYS_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/instanced-arrays-qml/instanced-arrays-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_KEYBOARDINPUT_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/keyboardinput-qml/keyboardinput-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_LIGHTS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/lights/lights)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_LOADER_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/loader-qml/loader-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_MATERIALS_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/materials-cpp/materials-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_MATERIALS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/materials/materials)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_MOUSEINPUT_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/mouseinput-qml/mouseinput-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_MULTIVIEWPORT
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/multiviewport/multiviewport)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_PICKING_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/picking-qml/picking-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_PLANETS_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/planets-qml/planets-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_PLASMA
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/plasma/plasma)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_PLAYGROUND_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/playground-qml/playground-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SCENE3D_LOADER
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/scene3d-loader/scene3d-loader)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SCENE3D
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/scene3d/scene3d)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SHADOW_MAP_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/shadow-map-qml/shadow-map-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SIMPLE_CPP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/simple-cpp/simple-cpp)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SIMPLE_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/simple-qml/simple-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SIMPLE_SHADERS_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/simple-shaders-qml/simple-shaders-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_SKYBOX
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/skybox/skybox)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_TESSELLATION_MODES
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/tessellation-modes/tessellation-modes)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_TORUS_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/torus-qml/torus-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_TRANSFORMS_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/transforms-qml/transforms-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_TRANSPARENCY_QML_SCENE3D
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/transparency-qml-scene3d/transparency-qml-scene3d)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_TRANSPARENCY_QML
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/transparency-qml/transparency-qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_WAVE
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/wave/wave)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QT3D)),)
+ifdef PTXCONF_QT5_EXAMPLES_QT3D_WIREFRAME
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qt3d/wireframe/wireframe)
+endif
+endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_QTCONCURRENT_IMAGESCALING
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
@@ -3279,6 +2151,24 @@ ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_QTESTLIB_TUTORIAL5
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/qtestlib/tutorial5/tutorial5)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTQUICKCONTROLS2)),)
+ifdef PTXCONF_QT5_EXAMPLES_QTLABSCONTROLS_GALLERY
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qtlabscontrols/gallery/gallery)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
+ifdef PTXCONF_QT5_EXAMPLES_QTPOSITIONING_SATELLITEINFO
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qtpositioning/satelliteinfo/satelliteinfo)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSENSORS)),)
+ifdef PTXCONF_QT5_EXAMPLES_QTSENSORS_SHAKEIT
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/qtsensors/shakeit/shakeit)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTDECLARATIVE)),)
@@ -4348,9 +3238,13 @@ endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTDECLARATIVE)),)
 ifdef PTXCONF_QT5_EXAMPLES_QUICK_DEMOS_STOCQT
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/quick/demos/stocqt/content/+windows/Settings.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/quick/demos/stocqt/content/Button.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/quick/demos/stocqt/content/CheckBox.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/quick/demos/stocqt/content/Settings.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/quick/demos/stocqt/content/StockChart.qml)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
@@ -4371,6 +3265,8 @@ ifdef PTXCONF_QT5_EXAMPLES_QUICK_DEMOS_STOCQT
 		/usr/lib/qt5/examples/quick/demos/stocqt/content/images/wheel-touch.png)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/quick/demos/stocqt/content/images/wheel.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/quick/demos/stocqt/content/qmldir)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/quick/demos/stocqt/stocqt)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
@@ -4411,6 +3307,12 @@ ifdef PTXCONF_QT5_EXAMPLES_QUICK_DEMOS_TWEETSEARCH
 		/usr/lib/qt5/examples/quick/demos/tweetsearch/tweetsearch)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/quick/demos/tweetsearch/tweetsearch.qml)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTDECLARATIVE)),)
+ifdef PTXCONF_QT5_EXAMPLES_QUICK_DIALOGS_SYSTEMDIALOGS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/quick/dialogs/systemdialogs/systemdialogs)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTDECLARATIVE)),)
@@ -4749,6 +3651,40 @@ ifdef PTXCONF_QT5_EXAMPLES_SCRIPT_QSTETRIX
 		/usr/lib/qt5/examples/script/qstetrix/tetrixwindow.js)
 endif
 endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSENSORS)),)
+ifdef PTXCONF_QT5_EXAMPLES_SENSORS_ACCELBUBBLE
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/sensors/accelbubble/accelbubble)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSENSORS)),)
+ifdef PTXCONF_QT5_EXAMPLES_SENSORS_MAZE
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/sensors/maze/maze)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSENSORS)),)
+ifdef PTXCONF_QT5_EXAMPLES_SENSORS_QMLQTSENSORS
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/sensors/qmlqtsensors/qmlqtsensors)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSENSORS)),)
+ifdef PTXCONF_QT5_EXAMPLES_SENSORS_QMLSENSORGESTURES
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/sensors/qmlsensorgestures/qmlsensorgestures)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSENSORS)),)
+ifdef PTXCONF_QT5_EXAMPLES_SENSORS_SENSOR_EXPLORER
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/sensors/sensor_explorer/Explorer/libdeclarative_explorer.so)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/sensors/sensor_explorer/Explorer/qmldir)
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/sensors/sensor_explorer/sensor_explorer)
+endif
+endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_SQL_BOOKS
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
@@ -5082,6 +4018,16 @@ endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
 ifdef PTXCONF_QT5_EXAMPLES_WEBENGINE_QUICKNANOBROWSER
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webengine/quicknanobrowser/ApplicationRoot.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webengine/quicknanobrowser/BrowserDialog.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webengine/quicknanobrowser/BrowserWindow.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webengine/quicknanobrowser/DownloadView.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webengine/quicknanobrowser/FullScreenNotification.qml)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/webengine/quicknanobrowser/icons/go-next.png)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/webengine/quicknanobrowser/icons/go-previous.png)
@@ -5091,200 +4037,64 @@ ifdef PTXCONF_QT5_EXAMPLES_WEBENGINE_QUICKNANOBROWSER
 		/usr/lib/qt5/examples/webengine/quicknanobrowser/icons/view-refresh.png)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/webengine/quicknanobrowser/quicknanobrowser)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webengine/quicknanobrowser/quickwindow.qml)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_BROWSER
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/Info_mac.plist)
+ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_CONTENTMANIPULATION
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/browser)
+		/usr/lib/qt5/examples/webenginewidgets/contentmanipulation/contentmanipulation)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/browser.icns)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/browser.ico)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/addtab.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/browser.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/closetab.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/defaultbookmarks.xbel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/defaulticon.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/history.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/data/loading.gif)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/browser/htmls/notfound.html)
+		/usr/lib/qt5/examples/webenginewidgets/contentmanipulation/jquery.min.js)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_FANCYBROWSER
+ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_COOKIEBROWSER
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/cookiebrowser/view-refresh.png)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
+ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_DEMOBROWSER
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/Info_mac.plist)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/addtab.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/closetab.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/defaultbookmarks.xbel)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/defaulticon.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/demobrowser.svg)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/history.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/data/loading.gif)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webenginewidgets/fancybrowser/fancybrowser)
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/demobrowser)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webenginewidgets/fancybrowser/jquery.min.js)
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/demobrowser.icns)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/demobrowser.ico)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/webenginewidgets/demobrowser/htmls/notfound.html)
 endif
 endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITQML
-	@$(call install_tree, qt5-examples, 0, 0, -, \
-		/usr/lib/qt5/examples/webkitqml/shared)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITQML_FLICKRVIEW
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
+ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_MARKDOWNEDITOR
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitqml/flickrview/flickrview)
+		/usr/lib/qt5/examples/webenginewidgets/markdowneditor/markdowneditor)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitqml/flickrview/flickrview.qml)
+		/usr/lib/qt5/examples/webenginewidgets/markdowneditor/resources/default.md)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitqml/flickrview/images/flickr.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITQML_YOUTUBEVIEW
+		/usr/lib/qt5/examples/webenginewidgets/markdowneditor/resources/index.html)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitqml/youtubeview/content/YouTubeDialog.qml)
+		/usr/lib/qt5/examples/webenginewidgets/markdowneditor/resources/markdown.css)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitqml/youtubeview/content/player.html)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitqml/youtubeview/youtubeview)
+		/usr/lib/qt5/examples/webenginewidgets/markdowneditor/resources/marked.min.js)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitqml/youtubeview/youtubeview.qml)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_BROWSER
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/Info_mac.plist)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/browser)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/browser.icns)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/browser.ico)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/addtab.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/browser.svg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/closetab.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/defaultbookmarks.xbel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/defaulticon.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/history.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/data/loading.gif)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/browser/htmls/notfound.html)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_DOMTRAVERSAL
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/domtraversal/domtraversal)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_FANCYBROWSER
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/fancybrowser/fancybrowser)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/fancybrowser/jquery.min.js)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_FORMEXTRACTOR
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/formextractor/form.html)
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/formextractor/formextractor)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_FRAMECAPTURE
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/framecapture/framecapture)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_IMAGEANALYZER
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/README)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/images/README)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/images/bellaCoola.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/images/flower.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/images/mtRainier.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/images/seaShell.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/images/trees.jpg)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/imageanalyzer/resources/index.html)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_PREVIEWER
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/previewer/previewer)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_SIMPLESELECTOR
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/simpleselector/simpleselector)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_EMBEDDED_ANOMALY
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/anomaly)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/src/images/button-close.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/src/images/edit-find.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/src/images/go-next.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/src/images/go-previous.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/src/images/list-add.png)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/embedded/anomaly/src/images/list-remove.png)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_SCROLLER_PLOT
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/scroller/plot/plot)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_SCROLLER_WHEEL
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/scroller/wheel/wheel)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBKIT_EXAMPLES)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBKITWIDGETS_XMLPATTERNS_QOBJECTXMLMODEL
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webkitwidgets/xmlpatterns/qobjectxmlmodel/qobjectxmlmodel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/xmlpatterns/qobjectxmlmodel/queries/statisticsInHTML.xq)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/webkitwidgets/xmlpatterns/qobjectxmlmodel/queries/wholeTree.xq)
+		/usr/lib/qt5/examples/webenginewidgets/markdowneditor/resources/qwebchannel.js)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBSOCKETS)),)
@@ -5321,6 +4131,12 @@ ifdef PTXCONF_QT5_EXAMPLES_WEBSOCKETS_SSLECHOSERVER
 		/usr/lib/qt5/examples/websockets/sslechoserver/localhost.cert)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/websockets/sslechoserver/localhost.key)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBVIEW)),)
+ifdef PTXCONF_QT5_EXAMPLES_WEBVIEW_MINIBROWSER
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/webview/minibrowser/minibrowser)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
@@ -6118,12 +4934,6 @@ ifdef PTXCONF_QT5_EXAMPLES_WIDGETS_MAINWINDOWS_MENUS
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
-ifdef PTXCONF_QT5_EXAMPLES_WIDGETS_MAINWINDOWS_RECENTFILES
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/widgets/mainwindows/recentfiles/recentfiles)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_WIDGETS_MAINWINDOWS_SDI
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/widgets/mainwindows/sdi/images/copy.png)
@@ -6737,6 +5547,14 @@ endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_WIDGETS_WIDGETS_TABLET
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/widgets/widgets/tablet/images/cursor-airbrush.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/widgets/widgets/tablet/images/cursor-eraser.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/widgets/widgets/tablet/images/cursor-felt-marker.png)
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/widgets/widgets/tablet/images/cursor-pencil.png)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/widgets/widgets/tablet/tablet)
 endif
