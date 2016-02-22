@@ -31,8 +31,12 @@ LINUXPTP_LICENSE	:= GPL-2.0+
 # ----------------------------------------------------------------------------
 
 LINUXPTP_CONF_TOOL	:= NO
+
+LINUXPTP_MAKE_ENV	:= \
+	$(CROSS_ENV) \
+	CROSS_COMPILE=$(COMPILER_PREFIX)
+
 LINUXPTP_MAKE_OPT	:= \
-	$(CROSS_ENV_PROGS) \
 	prefix=/usr
 
 # ----------------------------------------------------------------------------
