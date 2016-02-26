@@ -241,7 +241,7 @@ SDL_AUTOCONF += --disable-nasm
 endif
 
 SDL_AUTOCONF += \
-  --disable-pulseaudio \
+	--disable-pulseaudio \
 	--disable-video-ps2gs \
 	--disable-video-ggi \
 	--disable-video-svga \
