@@ -54,6 +54,29 @@ config BAREBOX_BAREBOXENV
 	  environment. Enable this option access the barebox environment
 	  from the target Linux system.
 
+config BAREBOX_BAREBOXCRC32
+	prompt "install 'bareboxcrc32'"
+	bool
+	help
+	  The tool 'bareboxcrc32' can be used to calculate the crc32 of
+	  files, with the same crc32 flavour that the barebox crc32
+	  command uses.
+
+config BAREBOX_KERNEL_INSTALL
+	prompt "install 'kernel-install'"
+	bool
+	help
+	  The tool 'kernel-install' can be used to install a kernel
+	  according to the bootloader spec:
+	  http://www.freedesktop.org/wiki/Specifications/BootLoaderSpec/
+
+config BAREBOX_BAREBOXIMD
+	prompt "install 'bareboximd'"
+	bool
+	help
+	  The tool 'bareboximd' can be used to extract metadata from
+	  the (flashed) barebox image.
+
 config BAREBOX_NEEDS_HOST_LIBUSB
 	prompt "barebox needs libusb"
 	bool
