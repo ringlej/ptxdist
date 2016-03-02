@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Sun, 31 Jan 2016 23:41:30 +0100
+Date: Wed, 2 Mar 2016 07:41:48 +0100
 Subject: [PATCH] valgrind
 
-Imported from openssl_1.0.2f-2.debian.tar.xz
+Imported from openssl_1.0.2g-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

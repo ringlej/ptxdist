@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Sun, 31 Jan 2016 23:41:30 +0100
+Date: Wed, 2 Mar 2016 07:41:48 +0100
 Subject: [PATCH] no-rpath
 
-Imported from openssl_1.0.2f-2.debian.tar.xz
+Imported from openssl_1.0.2g-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.shared b/Makefile.shared
-index e753f44e18fd..6e3f886980bf 100644
+index a2aa9804c1d9..5b960d9cdaec 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -153,7 +153,7 @@ DO_GNU_SO=$(CALC_VERSIONS); \
