@@ -16,28 +16,24 @@ PACKAGES-$(PTXCONF_FUSE) += fuse
 #
 # Paths and names
 #
-FUSE_VERSION	:= 2.9.4
-FUSE_MD5	:= ecb712b5ffc6dffd54f4a405c9b372d8
+FUSE_VERSION	:= 2.9.5
+FUSE_MD5	:= c901b77a1c4584c7ac6c2b67c0713f2b
 FUSE		:= fuse-$(FUSE_VERSION)
 FUSE_SUFFIX	:= tar.gz
-FUSE_URL	:= $(call ptx/mirror, SF, fuse/$(FUSE).$(FUSE_SUFFIX))
+FUSE_URL	:= https://github.com/libfuse/libfuse/releases/download/fuse_$(subst .,_,$(FUSE_VERSION))/$(FUSE).$(FUSE_SUFFIX)
 FUSE_SOURCE	:= $(SRCDIR)/$(FUSE).$(FUSE_SUFFIX)
 FUSE_DIR	:= $(BUILDDIR)/$(FUSE)
-FUSE_LICENSE	:= GPL-2.0 (tools), LGPL-2.1 (libs)
+FUSE_LICENSE	:= GPL-2.0 AND LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-FUSE_PATH	:= PATH=$(CROSS_PATH)
-FUSE_ENV	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-# don't use := here
-#
-FUSE_AUTOCONF = \
+FUSE_CONF_TOOL	:= autoconf
+FUSE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-example \
 	--disable-mtab \
