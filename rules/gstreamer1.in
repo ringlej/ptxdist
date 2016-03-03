@@ -5,6 +5,7 @@ menuconfig GSTREAMER1
 	prompt "gstreamer                     "
 	select LIBC_M
 	select GLIB
+	select HOST_GLIB
 	select HOST_FLEX
 	select GOBJECT_INTROSPECTION	if GSTREAMER1_INTROSPECTION
 	help
