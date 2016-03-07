@@ -206,6 +206,11 @@ choice
 config QT5_PLATFORM_DEFAULT_MISSING
 	bool
 	prompt "--nothing--"
+	depends on !QT5_PLATFORM_XCB
+	depends on !QT5_PLATFORM_EGLFS
+	depends on !QT5_PLATFORM_DIRECTFB
+	depends on !QT5_PLATFORM_LINUXFB
+	depends on !QT5_MODULE_QTWAYLAND
 
 config QT5_PLATFORM_DEFAULT_XCB
 	bool
