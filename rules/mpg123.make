@@ -41,6 +41,10 @@ MPG123_CONF_OPT		:= \
 	--with-audio=alsa\
 	--with-default-audio=alsa\
 	--enable-modules=no
+
+# needed when compiling without IPv6
+MPG123_CPPFLAGS := -D_GNU_SOURCE
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
