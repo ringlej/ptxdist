@@ -7,6 +7,7 @@ menuconfig GNUPLOT
 	select GCCLIBS_GCC_S
 	select ZLIB
 	select LIBGD		if GNUPLOT_GD
+	select LIBGD_PNG	if GNUPLOT_GD
 	select XORG_LIB_XT	if GNUPLOT_X
 	help
 	  A command-line driven interactive plotting program for
