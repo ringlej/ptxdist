@@ -8,6 +8,7 @@ config LIBEPOXY
 	select HOST_XORG_UTIL_MACROS
 	select XORG_LIB_X11
 	select MESALIB
+	select MESALIB_EGL
 	prompt "libepoxy"
 	help
 	  FIXME
