@@ -3,6 +3,7 @@
 
 config HOST_MTD_UTILS
 	tristate
+	select HOST_ACL
 	select HOST_ATTR
 	select HOST_LIBLZO
 	select HOST_LIBUUID
