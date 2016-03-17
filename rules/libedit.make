@@ -23,6 +23,7 @@ LIBEDIT_SUFFIX	:= tar.gz
 LIBEDIT_URL	:= http://www.thrysoee.dk/editline/$(LIBEDIT).$(LIBEDIT_SUFFIX)
 LIBEDIT_SOURCE	:= $(SRCDIR)/$(LIBEDIT).$(LIBEDIT_SUFFIX)
 LIBEDIT_DIR	:= $(BUILDDIR)/$(LIBEDIT)
+LIBEDIT_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
