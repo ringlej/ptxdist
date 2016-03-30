@@ -8,19 +8,18 @@ Not for upstream, but needed for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/basic/missing.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ src/basic/missing.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 461c122ca9c3..5b3093d8a3f6 100644
+index 3d9ba1464608..34af717a7ce8 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -1072,6 +1072,11 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
+@@ -1079,6 +1079,10 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
  #define RENAME_NOREPLACE (1 << 0)
  #endif
  
 +#ifndef __NR_kcmp
-+# warning "__NR_kcmp unknown"
 +# define __NR_kcmp 0xffffffff
 +#endif
 +

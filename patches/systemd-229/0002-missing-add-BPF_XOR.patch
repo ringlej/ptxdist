@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index d6dcfc1f449b..461c122ca9c3 100644
+index d73a73f64088..3d9ba1464608 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -967,6 +967,10 @@ static inline int setns(int fd, int nstype) {
+@@ -970,6 +970,10 @@ static inline int setns(int fd, int nstype) {
  #  define BPF_XOR 0xa0
  #endif
  

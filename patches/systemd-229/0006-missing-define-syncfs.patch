@@ -13,7 +13,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 9 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 2d477700efb0..850e166f8b93 100644
+index 507ad1cc0660..c998f6848d47 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -302,6 +302,8 @@ CAP_LIBS="$LIBS"
@@ -24,12 +24,12 @@ index 2d477700efb0..850e166f8b93 100644
 +
  AC_CHECK_FUNCS([memfd_create])
  AC_CHECK_FUNCS([__secure_getenv secure_getenv])
- AC_CHECK_DECLS([gettid, pivot_root, name_to_handle_at, setns, getrandom, renameat2, kcmp, keyctl, key_serial_t, LO_FLAGS_PARTSCAN],
+ AC_CHECK_DECLS([gettid, pivot_root, name_to_handle_at, setns, getrandom, renameat2,
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 60d635e91fe2..c4d9505d38f1 100644
+index d17d725116e5..c64131da01c7 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -920,6 +920,13 @@ static inline int setns(int fd, int nstype) {
+@@ -923,6 +923,13 @@ static inline int setns(int fd, int nstype) {
  #ifndef AT_EMPTY_PATH
  #define AT_EMPTY_PATH	0x1000	/* Allow empty relative pathname */
  #endif

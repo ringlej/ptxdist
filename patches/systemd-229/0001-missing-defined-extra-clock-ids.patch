@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 10 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index d539ed00e406..d6dcfc1f449b 100644
+index 36b060496a7b..d73a73f64088 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -905,6 +905,16 @@ static inline int setns(int fd, int nstype) {
+@@ -908,6 +908,16 @@ static inline int setns(int fd, int nstype) {
  #define RTA_PREF 20
  #endif
  

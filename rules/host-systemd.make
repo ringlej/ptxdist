@@ -31,6 +31,7 @@ HOST_SYSTEMD_CONF_ENV	:= \
 HOST_SYSTEMD_CONF_TOOL	:= autoconf
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--disable-gcrypt \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-address-sanitizer \
@@ -57,8 +58,8 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
-	--disable-microhttpd \
 	--disable-gnutls \
+	--disable-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
 	--disable-libiptc \

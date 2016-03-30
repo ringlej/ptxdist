@@ -8,14 +8,15 @@ Upstream requires glibc 2.16 but this is useful for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/basic/missing.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ src/basic/missing.h    | 6 ++++++
+ src/basic/xattr-util.c | 1 +
+ 2 files changed, 7 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 5b3093d8a3f6..60d635e91fe2 100644
+index 34af717a7ce8..d17d725116e5 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -914,6 +914,12 @@ static inline int setns(int fd, int nstype) {
+@@ -917,6 +917,12 @@ static inline int setns(int fd, int nstype) {
  #ifndef CLOCK_BOOTTIME_ALARM
  #define CLOCK_BOOTTIME_ALARM 9
  #endif
@@ -28,3 +29,15 @@ index 5b3093d8a3f6..60d635e91fe2 100644
  
  #ifndef IPV6_UNICAST_IF
  #define IPV6_UNICAST_IF 76
+diff --git a/src/basic/xattr-util.c b/src/basic/xattr-util.c
+index 8d7f14f3827e..dd9d2ebb1155 100644
+--- a/src/basic/xattr-util.c
++++ b/src/basic/xattr-util.c
+@@ -25,6 +25,7 @@
+ #include <sys/time.h>
+ #include <sys/xattr.h>
+ 
++#include "missing.h"
+ #include "alloc-util.h"
+ #include "fd-util.h"
+ #include "macro.h"

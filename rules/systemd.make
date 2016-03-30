@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 228
-SYSTEMD_MD5	:= 5c3def06320d59a753eeff292e91823a
+SYSTEMD_VERSION	:= 229
+SYSTEMD_MD5	:= 5d696f65381b2608da70544df07c2b3c
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -40,7 +40,6 @@ endif
 SYSTEMD_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	cc_cv_CFLAGS__Werror_shadow=no \
-	ac_cv_path_INTLTOOL_MERGE=: \
 	ac_cv_path_KEXEC=/sbin/kexec \
 	ac_cv_path_KILL=/bin/kill \
 	ac_cv_path_KMOD=/bin/kmod \
@@ -62,6 +61,7 @@ SYSTEMD_CONF_TOOL	:= autoconf
 SYSTEMD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-gcrypt \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-address-sanitizer \
@@ -88,8 +88,8 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
-	--disable-microhttpd \
 	--disable-gnutls \
+	--disable-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
 	--disable-libiptc \
@@ -192,7 +192,6 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
 	systemd-remount-fs \
 	systemd-reply-password \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolve-host,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved,) \
 	systemd-shutdown \
 	systemd-sleep \
@@ -285,6 +284,7 @@ ifdef PTXCONF_SYSTEMD_TIMEDATE
 		/etc/systemd/timesyncd.conf)
 endif
 ifdef PTXCONF_SYSTEMD_NETWORK
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-resolve)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/resolved.conf)
 endif
