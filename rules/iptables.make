@@ -4,6 +4,8 @@
 #               2007 by Carsten Schlote, konzeptpark
 #               2008 by Juergen Beisert
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2016 by Andreas Geisenhainer <andreas.geisenhainer@atsonline.de>
+#
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,8 +21,8 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.4.21
-IPTABLES_MD5		:= 536d048c8e8eeebcd9757d0863ebb0c0
+IPTABLES_VERSION	:= 1.6.0
+IPTABLES_MD5		:= 27ba3451cb622467fc9267a176f19a31
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -43,12 +45,11 @@ IPTABLES_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-devel \
 	--$(call ptx/endis, PTXCONF_IPTABLES_LIBIPQ)-libipq \
+	--disable-bpf-compiler \
+	--disable-nfsynproxy \
+	--$(call ptx/endis, PTXCONF_IPTABLES_NFTABLES_COMPAT)-nftables \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
-
-## broken configure.ac, so setting these would _enable_ the options:
-#	--disable-bpf-compiler
-#	--disable-nfsynproxy
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,8 +111,8 @@ endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_TOOLS
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/xtables-multi)
-
 	@$(call install_link, iptables, ../sbin/xtables-multi, /usr/bin/iptables-xml)
+	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/nfnl_osf)
 
 ifdef PTXCONF_IPTABLES_IPV6
 # 	# IPv6 part
@@ -151,6 +152,28 @@ endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_APPLY
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/iptables-apply)
+endif
+
+#	#  compability layer for nftables
+ifdef PTXCONF_IPTABLES_NFTABLES_COMPAT
+	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/xtables-compat-multi)
+
+ifdef PTXCONF_IPTABLES_IPV4
+# 	# IPv4 part
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/iptables-compat)
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/iptables-compat-save)
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/iptables-compat-restore)
+endif
+
+ifdef PTXCONF_IPTABLES_IPV6
+# 	# IPv6 part
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/ip6tables-compat)
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/ip6tables-compat-save)
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/ip6tables-compat-restore)
+endif
+
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/arptables-compat)
+	@$(call install_link, iptables, xtables-compat-multi, /usr/sbin/ebtables-compat)
 endif
 
 	@$(call install_finish, iptables)
