@@ -12,4 +12,3 @@ config LIBNFNETLINK
           This library is not meant as a public API for application
           developers. It is only used by other netfilter.org projects,
           such as libnetfilter_log,
-
