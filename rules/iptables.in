@@ -25,6 +25,16 @@ config IPTABLES_IPV4
 	bool
 	prompt "IPv4 support"
 
+config IPTABLES_IPV6_SYSTEMD_UNIT
+	bool
+	prompt "Activate IPv6 systemd service unit"
+	select IPTABLES_IPV6
+
+config IPTABLES_IPV4_SYSTEMD_UNIT
+	bool
+	prompt "Activate IPv4 systemd service unit"
+	select IPTABLES_IPV4
+
 config IPTABLES_LIBIPQ
 	bool
 	prompt "Enable libipq"
