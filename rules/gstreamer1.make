@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.6.3
-GSTREAMER1_MD5		:= b4cdeb2b9cb20dd6ac022a4f417eae0d
+GSTREAMER1_VERSION	:= 1.8.0
+GSTREAMER1_MD5		:= 6846d7289ec323c38c49b818171e955a
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -38,6 +38,7 @@ GSTREAMER1_GENERIC_CONF_OPT = \
 	--disable-nls \
 	--disable-rpath \
 	--disable-fatal-warnings \
+	--disable-extra-check \
 	\
 	--disable-debug \
 	--disable-profiling \
@@ -63,8 +64,9 @@ GSTREAMER1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GSTREAMER1_GENERIC_CONF_OPT) \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_DEBUG)-gst-debug \
-	--$(call ptx/endis,PTXCONF_GSTREAMER1_CMDLINEPARSER)-parse \
-	--$(call ptx/endis,PTXCONF_GSTREAMER1_OPTIONPARSING)-option-parsing \
+	--$(call ptx/endis,PTXCONF_GSTREAMER1_DEBUG)-gst-tracer-hooks \
+	--enable-parse \
+	--enable-option-parsing \
 	--disable-trace \
 	--disable-alloc-trace \
 	--enable-registry \
@@ -73,7 +75,7 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-tests \
 	--disable-failing-tests \
 	--disable-benchmarks \
-	--enable-tools \
+	--$(call ptx/endis,PTXCONF_GSTREAMER1_INSTALL_TOOLS)-tools \
 	--disable-poisoning \
 	\
 	--disable-docbook \
@@ -97,18 +99,17 @@ $(STATEDIR)/gstreamer1.targetinstall:
 	@$(call install_fixup, gstreamer1,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gstreamer1,DESCRIPTION,missing)
 
-ifdef PTXCONF_GSTREAMER1_INSTALL_TYPEFIND
-	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
-		/usr/bin/gst-typefind-1.0)
-endif
-ifdef PTXCONF_GSTREAMER1_INSTALL_INSPECT
+ifdef PTXCONF_GSTREAMER1_INSTALL_TOOLS
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/bin/gst-inspect-1.0)
-endif
-ifdef PTXCONF_GSTREAMER1_INSTALL_LAUNCH
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/bin/gst-launch-1.0)
+	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
+		/usr/bin/gst-typefind-1.0)
+	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
+		/usr/bin/gst-stats-1.0)
 endif
+
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstbase-1.0)
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstcontroller-1.0)
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstnet-1.0)
@@ -116,6 +117,8 @@ endif
 
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoreelements)
+	@$(call install_lib, gstreamer1, 0, 0, 0644, \
+		gstreamer-1.0/libgstcoretracers)
 
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)

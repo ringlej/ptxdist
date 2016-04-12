@@ -23,35 +23,14 @@ if GSTREAMER1
 		bool
 		default GOBJECT_INTROSPECTION_HELPER
 
-	comment "compile options"
-
 	config GSTREAMER1_DEBUG
 		bool
-		prompt "debug support"
+		default y
+		prompt "enable debug support"
 
-	config GSTREAMER1_CMDLINEPARSER
+	config GSTREAMER1_INSTALL_TOOLS
 		bool
-		prompt "commandline parser"
-
-	config GSTREAMER1_OPTIONPARSING
-		bool
-		prompt "option parsing when gst init"
-
-	comment "install options"
-
-	config GSTREAMER1_INSTALL_TYPEFIND
-		bool
-		prompt "install gst-typefind"
-
-	config GSTREAMER1_INSTALL_INSPECT
-		bool
-		prompt "install gst-inspect"
-
-	config GSTREAMER1_INSTALL_LAUNCH
-		bool
-		select GSTREAMER1_CMDLINEPARSER
-		select GSTREAMER1_OPTIONPARSING
-		prompt "install gst-launch"
-
+		default y
+		prompt "install tools"
 endif
 
