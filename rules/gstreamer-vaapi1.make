@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_GSTREAMER_VAAPI1) += gstreamer-vaapi1
 #
 # Paths and names
 #
-GSTREAMER_VAAPI1_VERSION	:= 0.6.1
-GSTREAMER_VAAPI1_MD5		:= f01425481bd161f57334dab7ab4069d3
+GSTREAMER_VAAPI1_VERSION	:= 1.8.0
+GSTREAMER_VAAPI1_MD5		:= 5e3218d4aa25232109152a3c5900bec7
 GSTREAMER_VAAPI1		:= gstreamer-vaapi-$(GSTREAMER_VAAPI1_VERSION)
-GSTREAMER_VAAPI1_SUFFIX		:= tar.bz2
-GSTREAMER_VAAPI1_URL		:= http://www.freedesktop.org/software/vaapi/releases/gstreamer-vaapi/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
+GSTREAMER_VAAPI1_SUFFIX		:= tar.xz
+GSTREAMER_VAAPI1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer-vaapi/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
 GSTREAMER_VAAPI1_SOURCE		:= $(SRCDIR)/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
 GSTREAMER_VAAPI1_DIR		:= $(BUILDDIR)/$(GSTREAMER_VAAPI1)
 GSTREAMER_VAAPI1_LICENSE	:= LGPL-2.0+
@@ -41,15 +41,17 @@ GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_EGL)		+= egl
 GSTREAMER_VAAPI1_CONF_TOOL	:= autoconf
 GSTREAMER_VAAPI1_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-builtin-videoparsers \
-	--enable-builtin-codecparsers \
-	--disable-builtin-libvpx \
+	--runstatedir=/run \
+	--disable-fatal-warnings \
+	--disable-extra-check \
+	--disable-debug \
 	--enable-encoders \
 	$(addprefix --enable-,$(GSTREAMER_VAAPI1_ENABLE-y)) \
 	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-)) \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf
+	--disable-gtk-doc-pdf \
+	--disable-gobject-cast-checks
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -65,16 +67,7 @@ $(STATEDIR)/gstreamer-vaapi1.targetinstall:
 	@$(call install_fixup, gstreamer-vaapi1,DESCRIPTION,missing)
 
 	@$(call install_lib, gstreamer-vaapi1, 0, 0, 0644, \
-		libgstvaapi-$(basename $(GSTREAMER1_VERSION)))
-
-	@$(foreach api, $(GSTREAMER_VAAPI1_ENABLE-y), \
-		$(call install_lib, gstreamer-vaapi1, 0, 0, 0644, \
-		libgstvaapi-$(api)-$(basename $(GSTREAMER1_VERSION)));)
-
-	@$(call install_lib, gstreamer-vaapi1, 0, 0, 0644, \
 		gstreamer-1.0/libgstvaapi)
-	@$(call install_lib, gstreamer-vaapi1, 0, 0, 0644, \
-		gstreamer-1.0/libgstvaapi_parse)
 
 	@$(call install_finish, gstreamer-vaapi1)
 
