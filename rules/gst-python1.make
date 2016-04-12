@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PYTHON1) += gst-python1
 #
 # Paths and names
 #
-GST_PYTHON1_VERSION	:= 1.6.2
-GST_PYTHON1_MD5		:= 14b6cfe1a0db5cc01c6a58f7b4af6184
+GST_PYTHON1_VERSION	:= 1.8.0
+GST_PYTHON1_MD5		:= f67007283fe873da0cc29e0083c7d28a
 GST_PYTHON1		:= gst-python-$(GST_PYTHON1_VERSION)
 GST_PYTHON1_SUFFIX	:= tar.xz
 GST_PYTHON1_URL		:= http://gstreamer.freedesktop.org/src/gst-python/$(GST_PYTHON1).$(GST_PYTHON1_SUFFIX)
