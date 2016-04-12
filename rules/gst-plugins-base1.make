@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE1) += gst-plugins-base1
 #
 # Paths and names
 #
-GST_PLUGINS_BASE1_VERSION	:= 1.6.3
-GST_PLUGINS_BASE1_MD5		:= 3ddde0ad598ef69f58d6a2e87f8b460f
+GST_PLUGINS_BASE1_VERSION	:= 1.8.0
+GST_PLUGINS_BASE1_MD5		:= 20cc8231609318310f2a55f64c86cbb4
 GST_PLUGINS_BASE1		:= gst-plugins-base-$(GST_PLUGINS_BASE1_VERSION)
 GST_PLUGINS_BASE1_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
@@ -58,6 +58,7 @@ GST_PLUGINS_BASE1_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE1_IVORBIS)		+= ivorbis
 GST_PLUGINS_BASE1_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE1_IVORBIS)		+= ivorbisdec
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_LIBVISUAL)		+= libvisual
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_OGG)		+= ogg
+GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_OPUS)		+= opus
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_PANGO)		+= pango
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_THEORA)		+= theora
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_VORBIS)		+= vorbis
@@ -81,9 +82,7 @@ GST_PLUGINS_BASE1_CONF_OPT	= \
 	\
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ZLIB)-zlib \
-	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_XSHM)-xshm \
-	--disable-gio_unix_2_0 \
-	--disable-freetypetest
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_XSHM)-xshm
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
 # when no plugins are given it falls back to its default which is
