@@ -12,6 +12,7 @@ menuconfig BAREBOX
 	select HOST_LIBUSB if BAREBOX_NEEDS_HOST_LIBUSB
 	select HOST_OPENSSL if BAREBOX_NEEDS_HOST_OPENSSL
 	select HOST_IMX_CST if BAREBOX_NEEDS_HOST_IMX_CST
+	select HOST_LZOP if BAREBOX_NEEDS_HOST_LZOP
 	prompt "barebox                       "
 	bool
 	help
@@ -100,5 +101,13 @@ config BAREBOX_NEEDS_HOST_IMX_CST
 	  correct dependencies so that the proprieraty "cst" program
 	  is installed before barebox is compiled. THe signing is done
 	  in barebox and needs special configuration for your board.
+
+config BAREBOX_NEEDS_HOST_LZOP
+	prompt "barebox needs lzop"
+	bool
+	help
+	  The barebox executable can be compressed. Select this if
+	  lzop is used in order to compile lzop for your development
+	  host.
 
 endif
