@@ -10,7 +10,7 @@ menuconfig NETWORKMANAGER
 	select LIBNEWT			if NETWORKMANAGER_NMTUI
 	select DBUS
 	select DBUS_GLIB
-	select READLINE			# for 'nmcli'
+	select READLINE			if NETWORKMANAGER_NMCLI
 	select LIBUUID
 	select GNUTLS
 	select LIBNL3
@@ -61,6 +61,13 @@ config NETWORKMANAGER_SYSTEMD_UNIT
 config NETWORKMANAGER_WIRELESS
 	bool
 	prompt "enable wireless support"
+
+config NETWORKMANAGER_NMCLI
+	bool
+	default y
+	prompt "install nmcli"
+	help
+	  Build and install the 'nmcli' tool.
 
 config NETWORKMANAGER_WWAN
 	bool
