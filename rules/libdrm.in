@@ -54,6 +54,10 @@ config LIBDRM_TEGRA
 	bool
 	prompt "tegra KMS support"
 
+config LIBDRM_VC4
+	bool
+	prompt "vc4 KMS support"
+
 config LIBDRM_TESTS
 	bool
 	prompt "install test programs"

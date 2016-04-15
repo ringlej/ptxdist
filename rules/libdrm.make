@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.65
-LIBDRM_MD5	:= de91d20c354ca46ebbc134b9e34faa9e
+LIBDRM_VERSION	:= 2.4.67
+LIBDRM_MD5	:= c8c42b4b5855822da68236062ac8bacd
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
@@ -46,6 +46,8 @@ LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_EXYNOS) += exynos-experimental-api
 LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_EXYNOS) += exynos
 LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_TEGRA) += tegra-experimental-api
 LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_TEGRA) += tegra
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_VC4) += vc4
+# vc4 is a headers only backend
 
 LIBDRM_BACKENDSC-y += $(LIBDRM_BACKENDS-y)
 LIBDRM_BACKENDSC- += $(LIBDRM_BACKENDS-)
@@ -64,7 +66,8 @@ LIBDRM_CONF_OPT := \
 	--$(call ptx/endis, PTXCONF_LIBDRM_TESTS)-install-test-programs \
 	--disable-cairo-tests \
 	--disable-manpages \
-	--disable-valgrind
+	--disable-valgrind \
+	--without-xsltproc
 
 
 # ----------------------------------------------------------------------------
