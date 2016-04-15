@@ -48,7 +48,7 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-udev \
 	--disable-cups \
 	--disable-obex \
-	--enable-client \
+	--$(call ptx/endis, PTXCONF_BLUEZ_CLIENT)-client \
 	--enable-systemd \
 	--enable-datafiles \
 	--disable-manpages \
@@ -82,11 +82,15 @@ $(STATEDIR)/bluez.targetinstall:
 	@$(call install_lib, bluez, 0, 0, 0644, libbluetooth)
 
 ifdef PTXCONF_BLUEZ_UTILS
-	@$(foreach binprogram, bccmd bluemoon bluetoothctl btmon ciptool \
+	@$(foreach binprogram, bccmd bluemoon btmon ciptool \
 			hciattach hciconfig hcidump hcitool hex2hcd l2ping \
 			l2test mpris-proxy rctest rfcomm sdptool, \
 		$(call install_copy, bluez, 0, 0, 0755, -, \
 			/usr/bin/$(binprogram));)
+endif
+
+ifdef PTXCONF_BLUEZ_CLIENT
+	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/bin/bluetoothctl)
 
 	@$(call install_copy, bluez, 0, 0, 0755, $(BLUEZ_DIR)/attrib/gatttool, \
 		/usr/bin/gatttool)
