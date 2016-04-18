@@ -39,8 +39,6 @@ WPA_SUPPLICANT_MAKE_ENV	:= \
 	LIBDIR=/lib \
 	BINDIR=/sbin
 
-WPA_SUPPLICANT_CPPFLAGS	:= -I$(SYSROOT)/usr/include/libnl3
-
 #
 # autoconf
 #
