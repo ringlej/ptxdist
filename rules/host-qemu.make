@@ -119,6 +119,8 @@ ifdef PTXCONF_HOST_QEMU_USR
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@sed \
 		-e 's|RTLDLIST=/lib|RTLDLIST=$(PTXDIST_SYSROOT_TOOLCHAIN)/lib|'\
+		-e 's|RTLDLIST="/lib|RTLDLIST="$(PTXDIST_SYSROOT_TOOLCHAIN)/lib|' \
+		-e 's|RTLDLIST="\(.*\) /lib|RTLDLIST="\1 $(PTXDIST_SYSROOT_TOOLCHAIN)/lib|' \
 		-e 's|eval $$add_env|eval $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross -E "$${add_env// /,}"|' \
 		-e 's|verify_out=`|verify_out=`$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross |' \
 		-e 's|#! */.*$$|#!$(shell readlink $(PTXDIST_TOPDIR)/bin/bash)|' \
