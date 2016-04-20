@@ -69,6 +69,13 @@ GSTREAMER_AUTOCONF := \
 	--disable-check \
 	--enable-Bsymbolic
 
+ifdef PTXCONF_ARCH_ARM64
+# The configure check defines default values for known architectures.
+# This value for arm64 is taken from a newer gstreamer version.
+GSTREAMER_AUTOCONF += \
+	as_cv_unaligned_access=no
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
