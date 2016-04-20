@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PULSEAUDIO) += pulseaudio
 #
 # Paths and names
 #
-PULSEAUDIO_VERSION	:= 7.1
-PULSEAUDIO_MD5		:= 9d0a9817b632cac8e3f3834d7eb1c99d
+PULSEAUDIO_VERSION	:= 8.0
+PULSEAUDIO_MD5		:= 8678442ba0bb4b4c33ac6f62542962df
 PULSEAUDIO		:= pulseaudio-$(PULSEAUDIO_VERSION)
 PULSEAUDIO_SUFFIX	:= tar.xz
 PULSEAUDIO_URL		:= http://freedesktop.org/software/pulseaudio/releases/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
@@ -147,7 +147,7 @@ $(STATEDIR)/pulseaudio.targetinstall:
 
 	@$(call install_lib, pulseaudio, 0, 0, 0644, libpulse)
 	@$(call install_lib, pulseaudio, 0, 0, 0644, libpulse-simple)
-	@$(call install_lib, pulseaudio, 0, 0, 0644, libpulsecore-$(PULSEAUDIO_VERSION))
+	@$(call install_lib, pulseaudio, 0, 0, 0644, pulseaudio/libpulsecore-$(PULSEAUDIO_VERSION))
 	@$(call install_lib, pulseaudio, 0, 0, 0644, pulseaudio/libpulsecommon-$(PULSEAUDIO_VERSION))
 	@$(call install_tree, pulseaudio, 0, 0, -, /usr/lib/pulse-$(PULSEAUDIO_VERSION)/modules)
 
