@@ -20,10 +20,10 @@ NBD_VERSION	:= 3.12.1
 NBD_MD5		:= 055eb1c5a95cc6976256dcc84ae63abb
 NBD		:= nbd-$(NBD_VERSION)
 NBD_SUFFIX	:= tar.xz
-NBD_URL		:= http://downloads.sourceforge.net/project/nbd/nbd/$(NBD_VERSION)/$(NBD).$(NBD_SUFFIX)
+NBD_URL		:= $(call ptx/mirror, SF, nbd/$(NBD).$(NBD_SUFFIX))
 NBD_SOURCE	:= $(SRCDIR)/$(NBD).$(NBD_SUFFIX)
 NBD_DIR		:= $(BUILDDIR)/$(NBD)
-NBD_LICENSE	:= GPLv2
+NBD_LICENSE	:= GPL-2.0
 
 #
 # autoconf
@@ -51,8 +51,8 @@ $(STATEDIR)/nbd.targetinstall:
 	@$(call install_fixup, nbd,AUTHOR,"Markus Pargmann <mpa@pengutronix.de>")
 	@$(call install_fixup, nbd,DESCRIPTION,missing)
 
-	@$(call install_copy, nbd, 0, 0, 0755, $(NBD_DIR)/nbd-client, /bin/nbd-client)
-	@$(call install_copy, nbd, 0, 0, 0755, $(NBD_DIR)/nbd-server, /bin/nbd-server)
+	@$(call install_copy, nbd, 0, 0, 0755, -, /usr/sbin/nbd-client)
+	@$(call install_copy, nbd, 0, 0, 0755, -, /usr/bin/nbd-server)
 
 	@$(call install_finish, nbd)
 
