@@ -79,7 +79,7 @@ GLIB_CONF_OPT	:= \
 	--disable-coverage \
 	--with-libiconv=no \
 	--with-threads=posix \
-	--with-pcre=internal
+	--with-pcre=system
 
 # workaround for broken libtool
 GLIB_CFLAGS:= -Wl,-rpath-link,$(GLIB_DIR)/gmodule/.libs

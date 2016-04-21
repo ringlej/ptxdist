@@ -8,6 +8,8 @@ menuconfig GLIB
 	select LIBC_RESOLV
 	select LIBC_PTHREAD
 	select LIBFFI
+	select LIBPCRE
+	select LIBPCRE_ENABLE_UTF8
 	select GCCLIBS_GCC_S
 	select HOST_GTK_DOC
 	select ICONV

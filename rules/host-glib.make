@@ -53,7 +53,7 @@ HOST_GLIB_CONF_OPT	:= \
 	--disable-coverage \
 	--with-libiconv=no \
 	--with-threads=posix \
-	--with-pcre=internal
+	--with-pcre=system
 
 $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)
