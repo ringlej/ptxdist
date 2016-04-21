@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.4.1
-HOST_QEMU_MD5		:= a895e93ec1dafc34bc64ed676f0d55a6
+HOST_QEMU_VERSION	:= 2.5.1
+HOST_QEMU_MD5		:= 42e73182dea8b9213fa7050e168a4615
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -54,7 +54,6 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-user \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_USR)-linux-user \
 	--disable-bsd-user \
-	--enable-guest-base \
 	--disable-docs \
 	--disable-guest-agent \
 	--disable-guest-agent-msi \
@@ -63,13 +62,14 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-debug-info \
 	--disable-sparse \
 	--disable-gnutls \
+	--disable-nettle \
+	--disable-gcrypt \
 	--disable-sdl \
 	--disable-qom-cast-debug \
 	--disable-gtk \
 	--disable-vte \
 	--disable-curses \
 	--disable-vnc \
-	--disable-vnc-tls \
 	--disable-vnc-sasl \
 	--disable-vnc-jpeg \
 	--disable-vnc-png \
@@ -94,7 +94,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-rbd \
 	--disable-libiscsi \
 	--disable-libnfs \
-	--disable-smartcard-nss \
+	--disable-smartcard \
 	--disable-libusb \
 	--disable-usb-redir \
 	--disable-lzo \
@@ -109,7 +109,10 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-vhdx \
 	--disable-numa \
 	--disable-tcmalloc \
-	--disable-tools
+	--disable-jemalloc \
+	--disable-tools \
+	\
+	--with-system-pixman
 
 $(STATEDIR)/host-qemu.install.post:
 	@$(call targetinfo)
