@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/tests/offsets/gen-gitestoffsets b/tests/offsets/gen-gitestoffsets
-index 77351060cd5b..5bf5f562e7d2 100755
+index 94a2062d3d2c..9a8d19f47426 100755
 --- a/tests/offsets/gen-gitestoffsets
 +++ b/tests/offsets/gen-gitestoffsets
 @@ -1,4 +1,4 @@

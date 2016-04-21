@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GOBJECT_INTROSPECTION) += gobject-introspection
 #
 # Paths and names
 #
-GOBJECT_INTROSPECTION_VERSION	:= 1.46.0
-GOBJECT_INTROSPECTION_MD5	:= adb40a31c7c80b65b0f4c8fd71b493dc
+GOBJECT_INTROSPECTION_VERSION	:= 1.48.0
+GOBJECT_INTROSPECTION_MD5	:= 01301fa9019667d48e927353e08bc218
 GOBJECT_INTROSPECTION		:= gobject-introspection-$(GOBJECT_INTROSPECTION_VERSION)
 GOBJECT_INTROSPECTION_SUFFIX	:= tar.xz
 GOBJECT_INTROSPECTION_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/$(basename $(GOBJECT_INTROSPECTION_VERSION))/$(GOBJECT_INTROSPECTION).$(GOBJECT_INTROSPECTION_SUFFIX)
@@ -39,12 +39,13 @@ GOBJECT_INTROSPECTION_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-doctool \
-	--enable-host-gi \
-	--enable-gi-cross-wrapper=$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross \
 	--without-cairo
 
 # needed so g-ir-compiler runs in qemu
 GOBJECT_INTROSPECTION_LDFLAGS := -Wl,-rpath,$(GOBJECT_INTROSPECTION_DIR)/.libs
+
+GOBJECT_INTROSPECTION_MAKE_ENV	:= \
+	GI_CROSS_LAUNCHER="$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross"
 
 # ----------------------------------------------------------------------------
 # Install

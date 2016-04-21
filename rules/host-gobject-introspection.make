@@ -31,7 +31,6 @@ HOST_GOBJECT_INTROSPECTION_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-doctool \
-	--disable-host-gi \
 	--without-cairo
 
 # ----------------------------------------------------------------------------
@@ -46,19 +45,28 @@ $(STATEDIR)/host-gobject-introspection.install.post:
 	@echo 'export pkg_ldflags="$$(find $${pkg_dir} -name .libs -printf "-Wl,-rpath,%p ")$${pkg_ldflags}"' \
 							>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
 	@echo 'export CC=$(CROSS_CC)'			>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
+	@echo 'export GI_CROSS_LAUNCHER="$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross"' \
+							>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
+	@echo 'PATH="$(PTXDIST_SYSROOT_CROSS)/bin/qemu:$$PATH"' \
+							>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
 	@echo 'exec "$(PTXDIST_SYSROOT_HOST)/bin/g-ir-scanner" \
-		--use-binary-wrapper=$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross \
-		--use-ldd-wrapper=$(PTXDIST_SYSROOT_CROSS)/bin/ldd-cross \
 		"$${@}"'				>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
-	@echo -e '#!/bin/sh\n$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross $(SYSROOT)/usr/bin/g-ir-compiler --includedir $(SYSROOT)/usr/share/gir-1.0 "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-compiler
+
+	@echo '#!/bin/sh'				>  $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-compiler
+	@echo '$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross \
+		$(SYSROOT)/usr/bin/g-ir-compiler --includedir \
+		$(SYSROOT)/usr/share/gir-1.0 "$${@}"'	>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-compiler
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-compiler
+
 	@sed -i 's;"/share";"$(PTXDIST_SYSROOT_HOST)/share";' \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-scanner" \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-annotation-tool"
+
 	@sed -i 's;'/lib';'$(PTXDIST_SYSROOT_HOST)/lib';' \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-scanner" \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-annotation-tool"
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
