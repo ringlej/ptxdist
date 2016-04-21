@@ -30,6 +30,10 @@ LIBGUDEV_LICENSE	:= LGPL-2.1+
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_ARCH_PPC
+PTXCONF_LIBGUDEV_INTROSPECTION :=
+endif
+
 #
 # autoconf
 #
