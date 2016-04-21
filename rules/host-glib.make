@@ -33,7 +33,6 @@ HOST_GLIB_CONF_ENV	:= \
 HOST_GLIB_CONF_TOOL	:= autoconf
 HOST_GLIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--enable-silent-rules \
 	--disable-debug \
 	--disable-gc-friendly \
 	--enable-mem-pools \
@@ -51,7 +50,10 @@ HOST_GLIB_CONF_OPT	:= \
 	--disable-man \
 	--disable-dtrace \
 	--disable-systemtap \
-	--disable-coverage
+	--disable-coverage \
+	--with-libiconv=no \
+	--with-threads=posix \
+	--with-pcre=internal
 
 $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)

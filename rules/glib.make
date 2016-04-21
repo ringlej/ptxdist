@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #GLIB_VERSION	:= 2.27.93
 #GLIB_MD5	:=
 #else
-GLIB_VERSION	:= 2.46.0
-GLIB_MD5	:= 6d58f9d70893a63e75c2b7df79375ee7
+GLIB_VERSION	:= 2.48.0
+GLIB_MD5	:= 093a586f37d2853bdb129231e1b350e0
 #endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -57,7 +57,7 @@ GLIB_CONF_ENV	:= \
 GLIB_CONF_TOOL	:= autoconf
 GLIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-silent-rules \
+	--runstatedir=/run \
 	--enable-debug=minimum \
 	--disable-gc-friendly \
 	--enable-mem-pools \
