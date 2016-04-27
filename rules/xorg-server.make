@@ -191,9 +191,11 @@ ifdef PTXCONF_PRELINK
 		/etc/prelink.conf.d/xorg)
 endif
 
+ifdef PTXCONF_XORG_SERVER_XORG
 ifdef PTXCONF_XORG_SERVER_UDEV
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_DATADIR)/X11/xorg.conf.d/10-evdev.conf)
+endif
 endif
 
 ifdef PTXCONF_XORG_SERVER_XVFB
