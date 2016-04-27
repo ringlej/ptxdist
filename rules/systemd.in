@@ -19,6 +19,7 @@ menuconfig SYSTEMD
 	select LZ4		if SYSTEMD_LZ4
 	select LIBSECCOMP	if SYSTEMD_SECCOMP
 	select LIBSELINUX	if GLOBAL_SELINUX
+	select IPTABLES		if SYSTEMD_IPMASQUERADE
 	# for udev:
 	select ROOTFS_DEV
 	select LIBKMOD
@@ -80,6 +81,13 @@ config SYSTEMD_LOGIND
 config SYSTEMD_NETWORK
 	bool
 	prompt "network configuration with systemd"
+
+config SYSTEMD_IPMASQUERADE
+	bool
+	depends on SYSTEMD_NETWORK
+	prompt "IP forwarding and masquerading support"
+	help
+	  Pv4/IPv6 support also needs to be enabled in iptables package
 
 config SYSTEMD_TIMEDATE
 	bool

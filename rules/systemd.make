@@ -92,7 +92,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
-	--disable-libiptc \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_IPMASQUERADE)-libiptc \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-bootchart \
