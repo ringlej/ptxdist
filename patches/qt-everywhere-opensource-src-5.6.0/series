@@ -6,8 +6,9 @@
 0100-eglfs-plugin-needs-egl-for-correct-cflags.patch
 0101-qtwebengine-make-sure-sysroot-is-always-set-on-ARM.patch
 0102-qtbase-examples-fix-building-without-session-managem.patch
+0103-qt3d-link-with-latomic-if-necessary.patch
 #tag:hacks --start-number 200
 0200-ptxdist-qtwebengine-allow-building-with-ptxdsit.patch
 0201-HACK-put-wayland-scanner-outout-in-srcdir.patch
 0202-qtwebengine-define-TRUE-in-case-of-USE_SYSTEM_LIBJPE.patch
-# f5d40d79a61654f5248844f73c0274f0  - git-ptx-patches magic
+# d5dd92d5dbf8f69f80adb7ff72e9f273  - git-ptx-patches magic
