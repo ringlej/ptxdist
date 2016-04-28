@@ -158,6 +158,29 @@ $(STATEDIR)/kernel.tags:
 # Compile
 # ----------------------------------------------------------------------------
 
+KERNEL_TOOL_PERF_OPTS := \
+	NO_LIBPERL=1 \
+	NO_LIBPYTHON=1 \
+	NO_NEWT=1 \
+	SLANG=1 \
+	NO_GTK2=1 \
+	DEMANGLE=1 \
+	LIBEL=1 \
+	NO_LIBUNWIND=1 \
+	BACKTRACE=1 \
+	NO_LIBNUMA=1 \
+	NO_LIBAUDIT=1 \
+	NO_LIBBIONIC=1 \
+	NO_LIBCRYPTO=1 \
+	LIBDW_DWARF_UNWIND=1 \
+	NO_PERF_READ_VDSO32=1 \
+	NO_PERF_READ_VDSOX32=1 \
+	ZLIB=1 \
+	NO_LIBBABELTRACE=1 \
+	NO_LZMA=1 \
+	AUXTRACE=1 \
+	NO_LIBBPF=1
+
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
 	@rm -f \
@@ -165,6 +188,14 @@ $(STATEDIR)/kernel.compile:
 		$(KERNEL_DIR)/usr/.initramfs_data.cpio.*
 	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
+ifdef PTXCONF_KERNEL_TOOL_PERF
+	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		$(KERNEL_MAKEVARS) -C tools/perf
+endif
+ifdef PTXCONF_KERNEL_TOOL_IIO
+	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		$(KERNEL_MAKEVARS) -C tools/iio
+endif
 	@$(call touch)
 
 endif # !PTXCONF_PROJECT_USE_PRODUCTION
@@ -204,6 +235,7 @@ ifdef PTXCONF_KERNEL_XPKG
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
 	@$(call install_copy, kernel, 0, 0, 0755, /boot);
+
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_IMAGE_PATH_y), /boot/$(KERNEL_IMAGE), n)
 endif
@@ -211,6 +243,20 @@ endif
 # install the ELF kernel image for debugging purpose
 ifdef PTXCONF_KERNEL_VMLINUX
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
+endif
+
+ifdef PTXCONF_KERNEL_TOOL_PERF
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/perf/perf, \
+		/usr/bin/perf)
+endif
+
+ifdef PTXCONF_KERNEL_TOOL_IIO
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/generic_buffer, \
+		/usr/bin/iio_generic_buffer)
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/lsiio, \
+		/usr/bin/lsiio)
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/iio_event_monitor, \
+		/usr/bin/iio_event_monitor)
 endif
 
 	@$(call install_finish, kernel)
