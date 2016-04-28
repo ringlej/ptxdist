@@ -196,7 +196,7 @@ $(STATEDIR)/kernel.targetinstall:
 # delete the kernel image, it might be out-of-date
 	@rm -f $(IMAGEDIR)/linuximage
 
-ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
+ifdef PTXCONF_KERNEL_XPKG
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
 	@$(call install_fixup, kernel, SECTION,base)

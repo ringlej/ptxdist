@@ -1,9 +1,20 @@
 ## SECTION=core
 
-config KERNEL
+menuconfig KERNEL
+	bool "kernel tools                  "
+
+if KERNEL
+
+config KERNEL_XPKG
 	bool
+	help
+	  Select this symbol if kernel tools or other non kernel
+	  modules are installed.
 
 config KERNEL_VMLINUX
+	select KERNEL_XPKG
 	bool
 	help
 	  install kernel image to /boot/vmlinux
+
+endif
