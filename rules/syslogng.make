@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2016 Pengutronix, Steffen Trumtrar <entwicklung@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,14 +18,15 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 #
 # Paths and names
 #
-SYSLOGNG_VERSION	:= 2.0.10
-SYSLOGNG_MD5		:= 3f96ccf13dda0b9e150e511bcffde795
+SYSLOGNG_VERSION	:= 3.7.3
+SYSLOG_LIBVERSION	:= 3.7
+SYSLOGNG_MD5		:= 803d61a713d6d41a973942d417fec999
 SYSLOGNG		:= syslog-ng-$(SYSLOGNG_VERSION)
 SYSLOGNG_SUFFIX		:= tar.gz
-SYSLOGNG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/sources/2.0/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_URL		:= https://github.com/balabit/syslog-ng/releases/download/syslog-ng-$(SYSLOGNG_VERSION)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_SOURCE		:= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_DIR		:= $(BUILDDIR)/$(SYSLOGNG)
-SYSLOGNG_LICENSE	:= GPL-2.0+
+SYSLOGNG_LICENSE	:= GPL-2.0+, LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -37,26 +39,23 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 SYSLOGNG_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
-	--disable-sun-door
-
-ifdef PTXCONF_SYSLOGNG_TCP_WRAPPER
-SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
-else
-SYSLOGNG_AUTOCONF += --disable-tcp-wrapper
-endif
-
-ifdef PTXCONF_SYSLOGNG_SPOOF_SOURCE
-SYSLOGNG_AUTOCONF += \
-	--enable-spoof-source \
+	--disable-sun-door \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_AMQP_DESTINATION)-amqp \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_MONGODB_DESTINATION)-mongodb \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_PYTHON_DESTINATION)-python \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_SYSTEMD)-systemd \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_SPOOF_SOURCE)-spoof-source \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_STOMP_DESTINATION)-stomp \
+	--$(call ptx/endis, PTXCONF_SYSLOGNG_TCP_WRAPPER)-tcp-wrapper \
+	--with-systemd-journal=system \
+	--with-systemdsystemunitdir=/lib/systemd/system \
+	--localstatedir=/var/run \
 	--with-libnet=$(SYSROOT)/usr/bin
-else
-SYSLOGNG_AUTOCONF += --disable-spoof-source
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -73,7 +72,9 @@ $(STATEDIR)/syslogng.targetinstall:
 
 #	# binary
 	@$(call install_copy, syslogng, 0, 0, 0755, -, \
-		/sbin/syslog-ng)
+		/usr/sbin/syslog-ng)
+	@$(call install_lib, syslogng, 0, 0, 0644, libsyslog-ng-$(SYSLOG_LIBVERSION))
+	@$(call install_tree, syslogng, 0, 0, -, /usr/lib/syslog-ng)
 
 #	# config
 ifdef PTXCONF_SYSLOGNG_CONFIG
@@ -90,6 +91,17 @@ ifneq ($(call remove_quotes,$(PTXCONF_SYSLOGNG_BBINIT_LINK)),)
 		../init.d/syslog-ng, \
 		/etc/rc.d/$(PTXCONF_SYSLOGNG_BBINIT_LINK))
 endif
+endif
+endif
+
+ifdef PTXCONF_INITMETHOD_SYSTEMD
+ifdef PTXCONF_SYSLOGNG_SYSTEMD
+	@$(call install_alternative, syslogng, 0, 0, 0644, \
+		/lib/systemd/system/syslog-ng.service)
+	@$(call install_link, syslogng, ../syslog-ng.service, \
+		/lib/systemd/system/multi-user.target.wants/syslog-ng.service)
+	@$(call install_link, syslogng, syslog.service, \
+		/lib/systemd/system/syslog.service)
 endif
 endif
 	@$(call install_finish, syslogng)
