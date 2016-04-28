@@ -112,7 +112,7 @@ config UDEV_LIBUDEV
 
 config UDEV_LIBGUDEV
 	bool
-	depends on !SYSTEMD
+	depends on SYSTEMD = n
 	select UDEV_LIBUDEV
 	prompt "install libgudev"
 	help

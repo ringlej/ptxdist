@@ -5,7 +5,7 @@ config LIBGUDEV
 	select GLIB
 	select UDEV
 	select UDEV_LIBUDEV
-	select UDEV_LIBGUDEV		if !SYSTEMD
+	select UDEV_LIBGUDEV		if SYSTEMD = n
 	select GOBJECT_INTROSPECTION	if LIBGUDEV_INTROSPECTION
 	prompt "libgudev"
 	help
