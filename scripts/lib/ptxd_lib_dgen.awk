@@ -132,7 +132,6 @@ $1 ~ /^PTX_MAP_._DEP/ {
 		next;
 
 	this_PKG_DEP = ""
-	this_PKG_dep = ""
 	for (i = 1; i <= n; i++) {
 		this_DEP = this_DEP_array[i];
 
@@ -150,10 +149,7 @@ $1 ~ /^PTX_MAP_._DEP/ {
 			continue;
 		}
 
-		this_dep = PKG_to_pkg[this_DEP];
-
 		this_PKG_DEP = this_PKG_DEP " " this_DEP;
-		this_PKG_dep = this_PKG_dep " " this_dep;
 	}
 
 	# no deps to pkgs
@@ -161,12 +157,9 @@ $1 ~ /^PTX_MAP_._DEP/ {
 		next;
 
 	if (dep_type == "R")
-		PKG_to_R_DEP[this_PKG] = this_PKG_DEP;
+		PKG_to_R_DEP[this_PKG] = PKG_to_R_DEP[this_PKG] this_PKG_DEP;
 	else
-		PKG_to_B_DEP[this_PKG] = this_PKG_DEP;
-	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
-	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
-	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_ALL_MAKE;
+		PKG_to_B_DEP[this_PKG] = PKG_to_B_DEP[this_PKG] this_PKG_DEP;
 
 	next;
 }
@@ -204,6 +197,33 @@ function write_include(this_PKG) {
 	# include this rules file
 	#
 	print "include " PKG_to_filename[this_PKG]			> DGEN_RULESFILES_MAKE;
+}
+
+function write_maps(this_PKG, dep_type) {
+	if (dep_type == "R")
+		this_PKG_DEP = PKG_to_R_DEP[this_PKG];
+	else
+		this_PKG_DEP = PKG_to_B_DEP[this_PKG];
+
+	if (this_PKG_DEP == "")
+		return;
+
+	n = split(this_PKG_DEP, this_DEP_array, " ");
+	asort(this_DEP_array, this_DEP_array);
+	this_PKG_dep = ""
+	this_PKG_DEP = ""
+	last = ""
+	for (i = 1; i <= n; i++) {
+		if (last ==  this_DEP_array[i])
+			continue
+		this_PKG_DEP = this_PKG_DEP " " this_DEP_array[i];
+		this_PKG_dep = this_PKG_dep " " PKG_to_pkg[this_DEP_array[i]];
+		last = this_DEP_array[i]
+	}
+
+	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
+	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
+	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_ALL_MAKE;
 }
 
 function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
@@ -389,6 +409,8 @@ END {
 		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_pkg)
 
 		write_include(this_PKG)
+		write_maps(this_PKG, "R")
+		write_maps(this_PKG, "B")
 		if (this_pkg_prefix != "image-") {
 			write_deps_pkg_all(this_PKG, this_pkg)
 			write_vars_pkg_all(this_PKG, this_pkg, this_pkg_prefix)
