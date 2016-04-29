@@ -122,6 +122,8 @@ HOST_QEMU_CONF_OPT	:= \
 	\
 	--with-system-pixman
 
+QEMU_CROSS_DL = $(shell ptxd_cross_cc_v |sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
+
 $(STATEDIR)/host-qemu.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_QEMU)
@@ -130,9 +132,7 @@ ifdef PTXCONF_HOST_QEMU_USR
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@install -d -m 755 $(PTXDIST_SYSROOT_CROSS)/bin/qemu/
 	@sed \
-		-e 's|RTLDLIST=/lib|RTLDLIST=$(PTXDIST_SYSROOT_TOOLCHAIN)/lib|'\
-		-e 's|RTLDLIST="/lib|RTLDLIST="$(PTXDIST_SYSROOT_TOOLCHAIN)/lib|' \
-		-e 's|RTLDLIST="\(.*\) /lib|RTLDLIST="\1 $(PTXDIST_SYSROOT_TOOLCHAIN)/lib|' \
+		-e 's|RTLDLIST=.*|RTLDLIST="$(PTXDIST_SYSROOT_TOOLCHAIN)$(QEMU_CROSS_DL)"|' \
 		-e 's|eval $$add_env|eval $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross -E "$${add_env// /,}"|' \
 		-e 's|verify_out=`|verify_out=`$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross |' \
 		-e 's|#! */.*$$|#!$(shell readlink $(PTXDIST_TOPDIR)/bin/bash)|' \
