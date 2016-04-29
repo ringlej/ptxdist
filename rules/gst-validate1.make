@@ -70,8 +70,6 @@ $(STATEDIR)/gst-validate1.targetinstall:
 	@$(call install_lib, gst-validate1, 0, 0, 0644, libgstvalidate-1.0)
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
 		libgstvalidate-default-overrides-1.0)
-	@$(call install_lib, gst-validate1, 0, 0, 0644, \
-		libgstvalidatevideo-1.0)
 
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
 		gstreamer-1.0/libgstvalidateplugin-1.0)
@@ -80,13 +78,9 @@ $(STATEDIR)/gst-validate1.targetinstall:
 		gstreamer-1.0/validate/libgstvalidatefaultinjection)
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
 		gstreamer-1.0/validate/libgstvalidategapplication)
-	@$(call install_lib, gst-validate1, 0, 0, 0644, \
-		gstreamer-1.0/validate/libgstvalidatessim)
 
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
 		/usr/bin/gst-validate-1.0)
-	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
-		/usr/bin/gst-validate-images-check-1.0)
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
 		/usr/bin/gst-validate-media-check-1.0)
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
@@ -94,6 +88,17 @@ $(STATEDIR)/gst-validate1.targetinstall:
 
 	@$(call install_tree, gst-validate1, 0, 0, -, \
 		/usr/share/gstreamer-1.0/validate/scenarios)
+
+ifdef PTXCONF_GST_VALIDATE1_VIDEO
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		libgstvalidatevideo-1.0)
+
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		gstreamer-1.0/validate/libgstvalidatessim)
+
+	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
+		/usr/bin/gst-validate-images-check-1.0)
+endif
 
 ifdef PTXCONF_GST_VALIDATE1_LAUNCHER
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
