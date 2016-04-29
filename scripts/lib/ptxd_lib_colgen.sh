@@ -22,7 +22,7 @@ ptxd_colgen_generate_sections()
 
 	$1 ~ /^PTX_MAP_._DEP/ {
 		pkg = gensub(/PTX_MAP_._DEP_/, "", "g", $1);
-		deps[pkg] = $2;
+		deps[pkg] = deps[pkg] " " $2;
 
 		next;
 	}
@@ -53,9 +53,12 @@ ptxd_colgen_generate_sections()
 				"\t"	"default COLLECTION_ALL\n"	> col_in;
 
 			m = split(deps[pkg], dep, " ");
+			asort(dep, sdep);
+			last = "";
 			for (j = 1; j <= m; j++) {
-				if (dep[j] in module_pkgs)
-					print "\tselect " dep[j]	> col_in;
+				if (sdep[j] in module_pkgs && sdep[j] != last )
+					print "\tselect " sdep[j]	> col_in;
+				last = sdep[j]
 			}
 
 			printf "\n"					> col_in;
