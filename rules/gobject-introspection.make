@@ -42,22 +42,12 @@ GOBJECT_INTROSPECTION_CONF_OPT	:= \
 	--without-cairo
 
 # needed so g-ir-compiler runs in qemu
-GOBJECT_INTROSPECTION_LDFLAGS := -Wl,-rpath,$(GOBJECT_INTROSPECTION_DIR)/.libs
-
-GOBJECT_INTROSPECTION_MAKE_ENV	:= \
-	GI_CROSS_LAUNCHER="$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross"
+GOBJECT_INTROSPECTION_MAKE_ENV	= \
+	GI_CROSS_LAUNCHER="$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross -E LD_LIBRARY_PATH='$(GOBJECT_INTROSPECTION_DIR)/.libs:$(QEMU_CROSS_LD_LIBRARY_PATH)'"
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
-
-$(STATEDIR)/gobject-introspection.install:
-	@$(call targetinfo)
-	@$(call world/install, GOBJECT_INTROSPECTION)
-#	# the rpath is only needed while building the package itself
-	@chrpath --delete $(GOBJECT_INTROSPECTION_PKGDIR)/usr/bin/g-ir-compiler
-	@chrpath --delete $(GOBJECT_INTROSPECTION_PKGDIR)/usr/lib/libgirepository-1.0.so
-	@$(call touch)
 
 $(STATEDIR)/gobject-introspection.install.post:
 	@$(call targetinfo)
