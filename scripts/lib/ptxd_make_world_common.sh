@@ -348,6 +348,7 @@ ptxd_make_world_init() {
 	pkg_conf_dir="."
     else
 	pkg_build_oot=true
+	pkg_conf_dir="$(ptxd_abs2rel "${pkg_build_dir}" "${pkg_conf_dir}")"
     fi
 
     #
