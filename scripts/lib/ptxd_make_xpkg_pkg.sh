@@ -574,16 +574,21 @@ ptxd_install_find() {
     local strip="${5}"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
+    if [ -z "${glob}" ]; then
+	local glob="-o -print"
+    fi
 
     ptxd_install_setup_src &&
     test -d "${src}" &&
 
-    find "${src}" -path "*/.svn" -prune -o -path "*/.git" -prune -o \
-		-path "*/.pc" -prune -o -path "*/CVS" -prune -o \
-		! -path "${src}" -print | while read file; do
+    find "${src}" ! -path "${src}" -a \( \
+		-path "*/.svn" -prune -o -path "*/.git" -prune -o \
+		-path "*/.pc" -prune -o -path "*/CVS" -prune \
+		${glob} \) | while read file; do
 	local dst_file="${dst}${file#${src}}"
 	ptxd_install_generic "${file}" "${dst_file}" "${usr}" "${grp}" "${strip}" || return
     done
+    check_pipe_status
 }
 export -f ptxd_install_find
 
@@ -596,6 +601,31 @@ ptxd_install_tree() {
     ptxd_install_error "install_tree failed!"
 }
 export -f ptxd_install_tree
+
+ptxd_install_glob() {
+    local cmd="file"
+    local src="${1}"
+    local dst="${2}"
+    local yglob=( ${3} )
+    local nglob=( ${4} )
+    local glob
+
+    if [ -n "${3}" ]; then
+	yglob=( "${yglob[@]/#/-o -path }" )
+	glob="${yglob[*]/%/ -print }"
+    else
+	glob="-o -print"
+    fi
+    if [ -n "${4}" ]; then
+	nglob=( "${nglob[@]/#/-o -path }" )
+	glob="${nglob[*]/%/ -prune } ${glob}"
+    fi
+    shift 4
+
+    ptxd_install_find "${src}" "${dst}" "$@" ||
+    ptxd_install_error "install_glob failed!"
+}
+export -f ptxd_install_glob
 
 ptxd_install_alternative_tree() {
     local cmd="alternative"
