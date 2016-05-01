@@ -72,7 +72,7 @@ $(STATEDIR)/modemmanager.targetinstall:
 	@$(call install_copy, modemmanager, 0, 0, 0755, -, /usr/bin/mmcli)
 
 	@$(call install_lib, modemmanager, 0, 0, 0644, libmm-glib)
-	@$(call install_tree, modemmanager, 0, 0, -, /usr/lib/ModemManager/)
+	@$(call install_glob, modemmanager, 0, 0, -, /usr/lib/ModemManager/, *.so)
 
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
 		/usr/share/dbus-1/system.d/org.freedesktop.ModemManager1.conf)
