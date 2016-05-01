@@ -530,13 +530,16 @@ ptxd_install_generic() {
     local strip="$5"
 
     local -a stat
-    stat=( $(stat -c "%u %g %a 0x%t 0x%T" "${file}") ) &&
+    local orig_IFS="${IFS}"
+    local IFS=":"
+    stat=( $(stat -c "%u:%g:%a:0x%t:0x%T:%F" "${file}") ) &&
+    IFS="${orig_IFS}"
     local usr="${usr:-${stat[0]}}" &&
     local grp="${grp:-${stat[1]}}" &&
     local mod="${stat[2]}" &&
     local major="${stat[3]}" &&
     local minor="${stat[4]}" &&
-    local type="$(stat -c "%F" "${file}")" &&
+    local type="${stat[5]}" &&
 
     case "${type}" in
         "directory")
