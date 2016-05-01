@@ -256,7 +256,7 @@ ptxd_install_file_strip() {
     local dst="${1}"
 
     case "${strip:-y}" in
-	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
+	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug -R .GCC.command.line ) ;;
 	y) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment -R .GCC.command.line ) ;;
     esac
 
