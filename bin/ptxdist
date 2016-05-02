@@ -948,6 +948,7 @@ Setup and Project Actions:
   allmodconfig			run 'make allmodconfig' on ptxconfig file
   allyesconfig			run 'make allyesconfig' on ptxconfig file
   allnoconfig			run 'make allnoconfig' on ptxconfig file
+  alldefconfig			run 'make alldefconfig' on ptxconfig file
   randconfig			run 'make randconfig' on ptxconfig file
 
   migrate			migrate config files from a previous
@@ -1380,7 +1381,7 @@ parse_first()
 #
 # calls menu/old config on several components
 #
-# $1	what kind of config ("menuconfig", "oldconfig", "allmodconfig", "allyesconfig", "allnoconfig")
+# $1	what kind of config ("menuconfig", "oldconfig", "all*config", "randconfig")
 # $2	what to "config"
 # $...	optional parameters
 #
@@ -1396,7 +1397,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"nconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig"|"randconfig")
+	menuconfig|nconfig|oldconfig|all*config|randconfig)
 		;;
 	*)
 		echo
@@ -1750,7 +1751,7 @@ parse_second()
 
 ######## *config, *setup, toolchain
 
-		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig|randconfig)
+		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig|alldefconfig|randconfig)
 			do_config "${cmd}" "${@}"
 			exit
 			;;

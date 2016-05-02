@@ -302,17 +302,8 @@ ptxd_kconfig() {
 			"${conf}" --oldconfig "${file_kconfig}"
 		fi
 		;;
-	allmodconfig)
-		"${conf}" --allmodconfig "${file_kconfig}"
-		;;
-	allyesconfig)
-		"${conf}" --allyesconfig "${file_kconfig}"
-		;;
-	allnoconfig)
-		"${conf}" --allnoconfig "${file_kconfig}"
-		;;
-	randconfig)
-		"${conf}" --randconfig "${file_kconfig}"
+	all*config|randconfig)
+		"${conf}" --${config} "${file_kconfig}"
 		;;
 	dep)
 		copy_back="false"
