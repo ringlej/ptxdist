@@ -8,11 +8,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index 646194960bf0..e4ae865dbdec 100755
+index 974407e2d9a5..020f215dd1e8 100755
 --- a/Configure
 +++ b/Configure
-@@ -125,7 +125,7 @@ my $clang_disabled_warnings = "-Wno-unused-parameter -Wno-missing-field-initiali
- my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers -Wno-language-extension-token -Wno-extended-offsetof -Qunused-arguments";
+@@ -132,7 +132,7 @@ my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers
+ my $warn_make_depend = 0;
  
  # There are no separate CFLAGS/CPPFLAGS/LDFLAGS, set everything in CFLAGS
 -my $debian_cflags = `dpkg-buildflags --get CFLAGS` . `dpkg-buildflags --get CPPFLAGS` . `dpkg-buildflags --get LDFLAGS` . "-Wa,--noexecstack -Wall";
