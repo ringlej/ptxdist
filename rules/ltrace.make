@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_LTRACE) += ltrace
 #
 # Paths and names
 #
-LTRACE_VERSION	:= 0.5.1
-LTRACE_MD5	:= 7dae92a19979e65bbf8ec50c0ed54d9a
-LTRACE_SUFFIX	:= orig.tar.gz
+LTRACE_VERSION	:= 0.7.3
+LTRACE_MD5	:= b3dd199af8f18637f7d4ef97fdfb9d14
+LTRACE_SUFFIX	:= orig.tar.bz2
 LTRACE		:= ltrace-$(LTRACE_VERSION)
 LTRACE_TARBALL	:= ltrace_$(LTRACE_VERSION).$(LTRACE_SUFFIX)
-LTRACE_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LTRACE_TARBALL)
+LTRACE_URL	:= http://snapshot.debian.org/archive/debian/20140102T220511Z/pool/main/l/ltrace/$(LTRACE_TARBALL)
 LTRACE_SOURCE	:= $(SRCDIR)/$(LTRACE_TARBALL)
 LTRACE_DIR	:= $(BUILDDIR)/$(LTRACE)
 
@@ -29,15 +29,15 @@ LTRACE_DIR	:= $(BUILDDIR)/$(LTRACE)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LTRACE_PATH	:= PATH=$(CROSS_PATH)
-LTRACE_ENV 	:= $(CROSS_ENV)
-LTRACE_MAKEVARS	:= ARCH=$(PTXCONF_ARCH_STRING)
-LTRACE_MAKE_PAR	:= NO
-
 #
 # autoconf
 #
-LTRACE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LTRACE_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--disable-werror \
+	--disable-valgrind \
+	--without-libunwind
 
 # ----------------------------------------------------------------------------
 # Target-Install
