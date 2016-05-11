@@ -8,15 +8,15 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
-index a86ed7c..6daf03d 100644
+index 26a330881282..360db50fcd30 100644
 --- a/scripts/kconfig/mconf.c
 +++ b/scripts/kconfig/mconf.c
-@@ -971,7 +971,7 @@ static int handle_exit(void)
- 	case -1:
- 		printf(_("\n\n"
- 			 "*** End of the configuration.\n"
--			 "*** Execute 'make' to start the build or try 'make help'."
-+			 "*** Execute 'ptxdist go' to build the project or try 'ptxdist help'."
- 			 "\n\n"));
+@@ -975,7 +975,7 @@ static int handle_exit(void)
+ 		if (!silent)
+ 			printf(_("\n\n"
+ 				 "*** End of the configuration.\n"
+-				 "*** Execute 'make' to start the build or try 'make help'."
++				 "*** Execute 'ptxdist go' to build the project or try 'ptxdist help'."
+ 				 "\n\n"));
  		res = 0;
  		break;
