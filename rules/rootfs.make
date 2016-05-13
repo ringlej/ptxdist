@@ -132,13 +132,13 @@ ifdef PTXCONF_ROOTFS_PASSWD
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/passwd)
 endif
 ifdef PTXCONF_ROOTFS_SHADOW
-	@$(call install_alternative, rootfs, 0, 0, 0640, /etc/shadow)
+	@$(call install_alternative, rootfs, 0, shadow, 0640, /etc/shadow)
 endif
 ifdef PTXCONF_ROOTFS_GROUP
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/group)
 endif
 ifdef PTXCONF_ROOTFS_GSHADOW
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/gshadow)
+	@$(call install_alternative, rootfs, 0, shadow, 0640, /etc/gshadow)
 endif
 ifdef PTXCONF_ROOTFS_FSTAB
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/fstab)
