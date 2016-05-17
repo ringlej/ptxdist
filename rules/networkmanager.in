@@ -2,19 +2,19 @@
 
 menuconfig NETWORKMANAGER
 	tristate
+	# intltool is unconditionally requested by configure
+	select HOST_INTLTOOL
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_PTHREAD
 	select LIBC_RT
-	select NCURSES			if NETWORKMANAGER_NMTUI
 	select LIBNEWT			if NETWORKMANAGER_NMTUI
 	select DBUS
-	select DBUS_GLIB
 	select READLINE			if NETWORKMANAGER_NMCLI
 	select LIBUUID
+	select GLIB
 	select GNUTLS
 	select LIBNL3
-	select HOST_INTLTOOL		# why? NLS is disabled!!!
 	select LIBNDP
 	select UDEV			if RUNTIME
 	select LIBGUDEV
