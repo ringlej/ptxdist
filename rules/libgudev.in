@@ -2,11 +2,12 @@
 
 config LIBGUDEV
 	tristate
-	select GLIB
+	select VIRTUAL			if SYSTEMD = n
+	select GLIB			if SYSTEMD
 	select UDEV
 	select UDEV_LIBUDEV
 	select UDEV_LIBGUDEV		if SYSTEMD = n
-	select GOBJECT_INTROSPECTION	if LIBGUDEV_INTROSPECTION
+	select GOBJECT_INTROSPECTION	if LIBGUDEV_INTROSPECTION && SYSTEMD
 	prompt "libgudev"
 	help
 	  GObject-based wrapper library for libudev
