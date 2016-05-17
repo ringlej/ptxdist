@@ -2348,6 +2348,10 @@ setup_parallel() {
 	if [ -z "${PTXDIST_PARALLELMFLAGS}" ]; then
 		pmf_intern="${pmf_cpus}"
 		pmf_extern="-j1"
+	elif [ "${PTXDIST_PARALLELMFLAGS}" == "-j1" ]; then
+		unset PTXDIST_PARALLELMFLAGS
+		pmf_intern="-j1"
+		pmf_extern="-j1"
 	elif [ "${PTXDIST_PARALLELMFLAGS}" == "auto" ]; then
 		PTXDIST_PARALLELMFLAGS="${pmf_cpus}"
 	fi
