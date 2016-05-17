@@ -2,6 +2,7 @@
 
 config LIBUUID
 	tristate
+	select VIRTUAL
 	select UTIL_LINUX_NG
 	select UTIL_LINUX_NG_LIBUUID
 	help
