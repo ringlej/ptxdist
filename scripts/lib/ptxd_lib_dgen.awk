@@ -135,6 +135,11 @@ $1 ~ /^PTX_MAP_._DEP/ {
 	for (i = 1; i <= n; i++) {
 		this_DEP = this_DEP_array[i];
 
+		if (this_DEP ~ /^VIRTUAL$/) {
+			virtual_pkg[this_PKG] = 1
+			continue;
+		}
+
 		if (!(this_DEP in PKG_to_pkg))
 			continue
 
@@ -209,6 +214,16 @@ function write_maps(this_PKG, dep_type) {
 		return;
 
 	n = split(this_PKG_DEP, this_DEP_array, " ");
+	for (i = 1; i <= n; i++) {
+		if (this_DEP_array[i] in virtual_pkg) {
+			if (dep_type == "R")
+				virtual_PKG_DEP = PKG_to_R_DEP[this_DEP_array[i]];
+			else
+				virtual_PKG_DEP = PKG_to_B_DEP[this_DEP_array[i]];
+			this_PKG_DEP = this_PKG_DEP " " virtual_PKG_DEP
+		}
+	}
+	n = split(this_PKG_DEP, this_DEP_array, " ");
 	asort(this_DEP_array, this_DEP_array);
 	this_PKG_dep = ""
 	this_PKG_DEP = ""
@@ -216,10 +231,17 @@ function write_maps(this_PKG, dep_type) {
 	for (i = 1; i <= n; i++) {
 		if (last ==  this_DEP_array[i])
 			continue
+		if (this_DEP_array[i] in virtual_pkg)
+			continue
 		this_PKG_DEP = this_PKG_DEP " " this_DEP_array[i];
 		this_PKG_dep = this_PKG_dep " " PKG_to_pkg[this_DEP_array[i]];
 		last = this_DEP_array[i]
 	}
+
+	if (dep_type == "R")
+		 PKG_to_R_DEP[this_PKG]= this_PKG_DEP;
+	else
+		 PKG_to_B_DEP[this_PKG]= this_PKG_DEP;
 
 	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
 	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;

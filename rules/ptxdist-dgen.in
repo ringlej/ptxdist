@@ -13,3 +13,6 @@ config RUNTIME
 config BUILDTIME
 	bool
 	default y if PTXDIST_DEP_TARGET != "run"
+
+config VIRTUAL
+	bool
