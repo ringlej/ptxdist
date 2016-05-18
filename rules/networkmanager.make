@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.2.0
-NETWORKMANAGER_MD5	:= d431bad77b68326282249bdb53ade6b4
+NETWORKMANAGER_VERSION	:= 1.2.2
+NETWORKMANAGER_MD5	:= a922bf20c2243c9014fb14c4427ad035
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
 NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.2/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
@@ -62,9 +62,17 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
+	--with-libnm-glib \
 	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-hostname-persist=default \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
+	--with-logging-backend-default="" \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-logind \
+	--without-consolekit \
 	--with-session-tracking=no \
-	--with-suspend-resume=systemd \
+	--with-suspend-resume=$(call ptx/ifdef,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT,systemd,upower) \
+	--without-selinux \
+	--without-libaudit \
 	--with-crypto=gnutls \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
@@ -74,7 +82,8 @@ NETWORKMANAGER_CONF_OPT := \
 	--without-netconfig \
 	--with-iptables=/usr/sbin/iptables \
 	--with-dnsmasq=/usr/sbin/dnsmasq \
-	--without-system-ca-path \
+	--with-dnssec-trigger=/bin/true \
+	--with-system-ca-path=/etc/ssl/certs \
 	--with-kernel-firmware-dir=/lib/firmware \
 	--without-libsoup \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMCLI)-nmcli \
