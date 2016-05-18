@@ -116,7 +116,8 @@ ptxd_make_world_patchin_apply_git_compat()
 	    "${pkg_patchin_dir}/.ptxdist/git-patches/${patch_file%.*}"
 	echo "${patch_file%.*}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/git-patches/series" || return
 
-    done < "${pkg_patchin_dir}/.ptxdist/series"
+    done < "${pkg_patchin_dir}/.ptxdist/series" &&
+    touch "${pkg_patchin_dir}/.ptxdist/git-patches/series"
 }
 export -f ptxd_make_world_patchin_apply_git_compat
 
