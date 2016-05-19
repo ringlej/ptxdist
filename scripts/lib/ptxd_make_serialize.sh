@@ -49,7 +49,7 @@ ptxd_make_serialize_init() {
     local num="${PTXDIST_PARALLELMFLAGS#-j}"
     local sync
 
-    if make -h | grep -q -- --output-sync; then
+    if make -h | grep -q -- --output-sync && [ -n "${PTXDIST_FD_STDOUT}" ]; then
 	sync="--output-sync="
     fi
 
