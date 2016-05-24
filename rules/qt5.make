@@ -109,7 +109,7 @@ QT5_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_QT5_ACCESSIBILITY)-accessibility \
 	--disable-sql-db2 \
 	--disable-sql-ibase \
-	--disable-sql-mysql \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTBASE_SQL_MYSQL)-sql-mysql \
 	--disable-sql-oci \
 	--disable-sql-odbc \
 	--disable-sql-psql \
@@ -221,6 +221,10 @@ QT5_CONF_OPT += \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_XCB)-xkb \
 	--$(call ptx/endis, PTXCONF_QT5_XRENDER)-xrender \
 	--$(call ptx/endis, PTXCONF_QT5_XV)-xvideo \
+
+ifdef PTXCONF_QT5_MODULE_QTBASE_SQL_MYSQL
+QT5_CONF_OPT += -mysql_config $(SYSROOT)/usr/bin/mysql_config
+endif
 
 QT5_QMAKE_OPT := CONFIG+=release CONFIG-=debug
 
