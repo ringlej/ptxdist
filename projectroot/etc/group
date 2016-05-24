@@ -19,6 +19,7 @@ video:x:113:
 lock:x:114:
 audio:x:115:
 input:x:116:
+mysql:x:117:
 systemd-journal:x:201:
 systemd-network:x:202:
 systemd-journal-remote:x:203:
