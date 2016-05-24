@@ -27,14 +27,14 @@ ptxd_make_world_install_python_cleanup() {
 	chmod -x "${file}"
     done &&
     find "${pkg_pkg_dir}" -type d -name bin -prune -o -name "*.py" -print | while read file; do
-	if [ -e "${file}c" -o ! -d "$(dirname "${file}")/__pycache__" ]; then
+	if [ ! -d "$(dirname "${file}")/__pycache__" ]; then
 	    # not python3 or already handled
 	    continue
 	fi
-	mv -v "$(dirname "${file}")/__pycache__/$(basename "${file%py}")"cpython-??.pyc "${file}c" || return
+	cp -v "$(dirname "${file}")/__pycache__/$(basename "${file%py}")"cpython-??.pyc "${file}c" || return
     done &&
     check_pipe_status &&
-    find "${pkg_pkg_dir}" -type d -name __pycache__  -print0 | xargs -0 rm -vrf &&
+    find "${pkg_pkg_dir}" -type d -name __pycache__  -print0 | xargs -0 rm -rf &&
     check_pipe_status ||
     ptxd_bailout "Cache cleanup for Python3 packages failed!"
 }
