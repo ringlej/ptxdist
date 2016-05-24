@@ -22,6 +22,10 @@ ptxd_make_world_install_prepare() {
 export -f ptxd_make_world_install_prepare
 
 ptxd_make_world_install_python_cleanup() {
+    find "${pkg_pkg_dir}" -type f -name "*.so" -print | while read file; do
+	# Python installs shared libraries with executable flags
+	chmod -x "${file}"
+    done &&
     find "${pkg_pkg_dir}" -type d -name bin -prune -o -name "*.py" -print | while read file; do
 	if [ -e "${file}c" -o ! -d "$(dirname "${file}")/__pycache__" ]; then
 	    # not python3 or already handled
