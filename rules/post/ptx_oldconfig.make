@@ -3,7 +3,11 @@
 ifdef PTXDIST_QUIET
 _ptx_oldconfig := silentoldconfig
 else
+ifeq ($(filter --output-sync%,$(PTXDIST_PARALLELMFLAGS_EXTERN)),)
 _ptx_oldconfig := oldconfig
+else
+_ptx_oldconfig := silentoldconfig
+endif
 endif
 
 #
@@ -20,7 +24,7 @@ endif
 #
 define ptx/oldconfig
 	cd "$($(strip $(1))_DIR)" && $($(strip $(1))_PATH) $($(strip $(1))_ENV) $(MAKE)	\
-		$($(strip $(1))_MAKEVARS) $($(strip $(1))_MAKE_OPT) $(_ptx_oldconfig)
+		$(filter-out --output-sync%,$($(strip $(1))_MAKEVARS) $($(strip $(1))_MAKE_OPT)) $(_ptx_oldconfig)
 endef
 
 # vim: syntax=make
