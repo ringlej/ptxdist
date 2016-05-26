@@ -44,11 +44,8 @@ $(STATEDIR)/python3-pexpect.targetinstall:
 	@$(call install_fixup, python3-pexpect, AUTHOR, "Florian Scherf <f.scherf@pengutronix.de>")
 	@$(call install_fixup, python3-pexpect, DESCRIPTION, missing)
 
-	@for file in `find $(PYTHON3_PEXPECT_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/pexpect  \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-pexpect, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/pexpect/$$file); \
-	done
+	@$(call install_glob, python3-pexpect, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/pexpect,, *.py)
 
 	@$(call install_finish, python3-pexpect)
 
