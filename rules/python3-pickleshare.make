@@ -44,8 +44,7 @@ $(STATEDIR)/python3-pickleshare.targetinstall:
 	@$(call install_fixup, python3-pickleshare, AUTHOR, "Florian Scherf <f.scherf@pengutronix.de>")
 	@$(call install_fixup, python3-pickleshare, DESCRIPTION, missing)
 
-	@$(call install_copy, python3-pickleshare, 0, 0, 0644, \
-		$(PYTHON3_PICKLESHARE_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/pickleshare.pyc, \
+	@$(call install_copy, python3-pickleshare, 0, 0, 0644, -, \
 		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/pickleshare.pyc)
 
 	@$(call install_finish, python3-pickleshare)
