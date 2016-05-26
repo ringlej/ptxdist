@@ -10,6 +10,8 @@ menuconfig SYSTEMD
 	select LIBC_RT
 	select LIBC_DL
 	select LIBCAP
+	select LIBKMOD
+	select LIBKMOD_TOOLS
 	select UDEV		if RUNTIME
 	select UDEV_LIBUDEV
 	select UTIL_LINUX_NG
@@ -22,7 +24,6 @@ menuconfig SYSTEMD
 	select IPTABLES		if SYSTEMD_IPMASQUERADE
 	# for udev:
 	select ROOTFS_DEV
-	select LIBKMOD
 	select LIBBLKID
 	select GLIB		if UDEV_LIBGUDEV
 	select HOST_SYSTEMD	if UDEV_HWDB
