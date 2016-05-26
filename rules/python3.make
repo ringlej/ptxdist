@@ -120,17 +120,17 @@ $(STATEDIR)/python3.install.post:
 # ----------------------------------------------------------------------------
 
 # These cannot be disabled during build, so just don't install the disabled modules
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_NCURSES)	+= curses _curses*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SQLITE)	+= sqlite3
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_BZ2)		+= bz2.pyc _bz2*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LZMA)		+= lzma.pyc _lzma*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_ZLIB)		+= gzip.pyc zlib*so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_READLINE)	+= readline*so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DB)		+= dbm _dbm*so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SSL)		+= ssl.pyc _ssl*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= tkinter
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_IDLELIB)	+= idlelib
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DISTUTILS)	+= distutils
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_NCURSES)	+= */curses */_curses*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SQLITE)	+= */sqlite3
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_BZ2)		+= */bz2.pyc */_bz2*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LZMA)		+= */lzma.pyc */_lzma*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_ZLIB)		+= */gzip.pyc */zlib*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_READLINE)	+= */readline*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DB)		+= */dbm */_dbm*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SSL)		+= */ssl.pyc */_ssl*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= */tkinter
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_IDLELIB)	+= */idlelib
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DISTUTILS)	+= */distutils
 
 $(STATEDIR)/python3.targetinstall:
 	@$(call targetinfo)
