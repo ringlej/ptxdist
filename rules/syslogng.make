@@ -52,7 +52,7 @@ SYSLOGNG_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_SPOOF_SOURCE)-spoof-source \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_STOMP_DESTINATION)-stomp \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_TCP_WRAPPER)-tcp-wrapper \
-	--with-systemd-journal=system \
+	--with-systemd-journal=$(call ptx/ifdef, PTXCONF_SYSLOGNG_SYSTEMD,system,no) \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--localstatedir=/var/run \
 	--with-libnet=$(SYSROOT)/usr/bin
