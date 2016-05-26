@@ -44,11 +44,8 @@ $(STATEDIR)/python3-ptyprocess.targetinstall:
 	@$(call install_fixup, python3-ptyprocess, AUTHOR, "Florian Scherf <f.scherf@pengutronix.de>")
 	@$(call install_fixup, python3-ptyprocess, DESCRIPTION, missing)
 
-	@for file in `find $(PYTHON3_PTYPROCESS_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/ptyprocess \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-ptyprocess, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/ptyprocess/$$file); \
-	done
+	@$(call install_glob, python3-ptyprocess, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/ptyprocess,, *.py)
 
 	@$(call install_finish, python3-ptyprocess)
 
