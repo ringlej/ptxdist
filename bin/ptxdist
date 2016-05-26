@@ -1022,6 +1022,9 @@ Options:
   --debug, -d			print out additional info (like make decisions)
   --quiet, -q			suppress output, show only stderr
   --verbose, -v			be more verbose, print command before execute them
+  --output-sync			Improve output readability for parallel building.
+				Disabled by default except for quiet builds.
+  --no-output-sync		Disable output-sync if enabled by default.
 
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
 				(default = 2*CPUs)
@@ -1327,6 +1330,12 @@ parse_first()
 		--nice=*)
 			PTX_NICE="${arg#*=}"
 			PTX_NICE="${PTX_NICE:-10}"
+			;;
+		--output-sync)
+			PTXDIST_OUTPUT_SYNC=1
+			;;
+		--no-output-sync)
+			PTXDIST_OUTPUT_SYNC=0
 			;;
 		-q|--quiet)
 			PTXDIST_QUIET=1
@@ -2326,12 +2335,14 @@ setup_config() {
 # out: PTXDIST_PARALLELMFLAGS
 #      PTXDIST_PARALLELMFLAGS_INTERN
 #      PTXDIST_PARALLELMFLAGS_EXTERN
+#      PTXDIST_OUTPUT_SYNC
 #
 setup_parallel() {
 	# default no parallel for now
 	local pmf_extern=""
 	local pmf_intern=""
 	local cpus
+	local output_sync=""
 
 	# this one is for Linux
 	if [ -r /proc/cpuinfo ]; then
@@ -2356,12 +2367,19 @@ setup_parallel() {
 		PTXDIST_PARALLELMFLAGS="${pmf_cpus}"
 	fi
 
+	PTXDIST_OUTPUT_SYNC="${PTXDIST_OUTPUT_SYNC:-${PTXDIST_QUIET}}"
+	if [ "${PTXDIST_OUTPUT_SYNC}" == "1" ]; then
+		if make -h | grep -q -- --output-sync; then
+			PTXDIST_OUTPUT_SYNC="--output-sync="
+		fi
+	fi
+
 	#
 	# user may override these, via cmdline
 	#
 	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
-	export PTXDIST_PARALLELMFLAGS_EXTERN
+	export PTXDIST_PARALLELMFLAGS_EXTERN PTXDIST_OUTPUT_SYNC
 }
 
 
@@ -2649,6 +2667,7 @@ setup_export() {
 		PTXDIST_FORCE_DOWNLOAD \
 		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
+		PTXDIST_OUTPUT_SYNC \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
 		PTXDIST_VERBOSE

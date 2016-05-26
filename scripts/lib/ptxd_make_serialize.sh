@@ -47,21 +47,20 @@ export -f ptxd_make_serialize_setup
 
 ptxd_make_serialize_init() {
     local num="${PTXDIST_PARALLELMFLAGS#-j}"
-    local sync
-
-    if make -h | grep -q -- --output-sync && [ -n "${PTXDIST_FD_STDOUT}" ]; then
-	sync="--output-sync="
-    fi
+    local sync mflags
 
     if [ -n "${num}" ]; then
 	ptxd_make_serialize_setup global "${num}" || return
-	local mflags="${sync:+${sync}recurse} -j --jobserver-fds=${ptxd_make_serialize_global_readfd},${ptxd_make_serialize_global_writefd}"
+	sync="${PTXDIST_OUTPUT_SYNC:+${PTXDIST_OUTPUT_SYNC}recurse}"
+	mflags="${sync} -j --jobserver-fds=${ptxd_make_serialize_global_readfd},${ptxd_make_serialize_global_writefd}"
 	PTXDIST_PARALLELMFLAGS_INTERN="${mflags}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${mflags}"
     else
 	case "${PTXDIST_PARALLELMFLAGS_INTERN}" in
 	-j1) ;;
-	*) PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN} ${sync:+${sync}target --no-print-directory}" ;;
+	*)
+	    sync="${PTXDIST_OUTPUT_SYNC:+${PTXDIST_OUTPUT_SYNC}target --no-print-directory}"
+	    PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN} ${sync}" ;;
 	esac
     fi
 
