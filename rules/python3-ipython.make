@@ -56,11 +56,8 @@ $(STATEDIR)/python3-ipython.targetinstall:
 	@$(call install_fixup, python3-ipython, DESCRIPTION, missing)
 
 #	# We have to install the source code to avoid python3 error: "OSError: could not get source code"
-	@for file in `find $(PYTHON3_IPYTHON_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/IPython \
-			! -type d ! -name "*.pyc" -printf "%P\n"`; do \
-		$(call install_copy, python3-ipython, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/IPython/$$file); \
-	done
+	@$(call install_glob, python3-ipython, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/IPython,, *.pyc)
 
 	@$(call install_copy, python3-ipython, 0, 0, 0755, -, /usr/bin/ipython3)
 
