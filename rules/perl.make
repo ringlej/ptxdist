@@ -43,6 +43,18 @@ PERL_SITELIB		:= /usr/lib/perl5/site_perl/$(PERL_VERSION)
 CROSS_PERL= $(PTXDIST_SYSROOT_CROSS)/bin/cross-perl
 
 # ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/perl.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PERL_DIR))
+	@$(call extract, PERL)
+	@$(call extract, PERLCROSS)
+	@$(call patchin, PERL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
