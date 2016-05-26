@@ -47,21 +47,15 @@ $(STATEDIR)/python3-django.targetinstall:
 	@$(call install_fixup, python3-django, DESCRIPTION, missing)
 
 #	# everything but locales
-	@cd "$(PYTHON3_DJANGO_PKGDIR)$(PYTHON3_DJANGO_PYTHON_PATH)" && \
-	find -type d -name locale -prune -o -type f ! -name "*.py" -printf '%P\n' | while read fn; do \
-		$(call install_copy, python3-django, 0, 0, 0644, -, \
-			$(PYTHON3_DJANGO_PYTHON_PATH)/$$fn); \
-	done
+	@$(call install_glob, python3-django, 0, 0, -, \
+		$(PYTHON3_DJANGO_PYTHON_PATH),, */locale */bin *.py)
 
 #	# locales
 	@cd "$(PYTHON3_DJANGO_PKGDIR)$(PYTHON3_DJANGO_PYTHON_PATH)" && \
 	find -type d -name locale -printf '%P\n' | while read localedir; do \
 		for locale in $(call remove_quotes, $(PTXCONF_PYTHON3_DJANGO_LOCALES)); do \
-			cd "$(PYTHON3_DJANGO_PKGDIR)$(PYTHON3_DJANGO_PYTHON_PATH)/$$localedir/$$locale" && \
-				find -type f -not \( -name \*.py -o -name \*.po \) -printf "%P\n" | while read fn; do \
-					$(call install_copy, python3-django, 0, 0, 0644, -, \
-						$(PYTHON3_DJANGO_PYTHON_PATH)/$$localedir/$$locale/$$fn); \
-			done; \
+			$(call install_glob, python3-django, 0, 0, -, \
+				$(PYTHON3_DJANGO_PYTHON_PATH)/$$localedir/$$locale,, *.po *.py); \
 		done; \
 	done
 	@$(call install_copy, python3-django, 0, 0, 0644, -, \
