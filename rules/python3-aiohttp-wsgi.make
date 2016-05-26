@@ -46,11 +46,8 @@ $(STATEDIR)/python3-aiohttp-wsgi.targetinstall:
 	@$(call install_fixup, python3-aiohttp-wsgi, AUTHOR, "Bastian Stender <bst@pengutronix.de>")
 	@$(call install_fixup, python3-aiohttp-wsgi, DESCRIPTION, "WSGI adapter for aiohttp.")
 
-	@cd "$(PYTHON3_AIOHTTP_WSGI_PKGDIR)$(PYTHON3_AIOHTTP_WSGI_PYTHON_PATH)" && \
-	find . -type f ! -name "*.py" | while read fn; do \
-		$(call install_copy, python3-aiohttp-wsgi, 0, 0, 0644, -, \
-				$(PYTHON3_AIOHTTP_WSGI_PYTHON_PATH)/$$fn); \
-	done
+	@$(call install_glob, python3-aiohttp-wsgi, 0, 0, -, \
+		$(PYTHON3_AIOHTTP_WSGI_PYTHON_PATH),, *.py)
 
 	@$(call install_finish, python3-aiohttp-wsgi)
 
