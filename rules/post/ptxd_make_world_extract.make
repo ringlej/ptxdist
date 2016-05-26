@@ -41,7 +41,8 @@ $(STATEDIR)/klibc-%.extract:
 $(STATEDIR)/%.extract:
 	@$(call targetinfo)
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
+		$(call extract, $($(src)));)
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_$(*)), $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
 	@$(call touch)
 
