@@ -43,12 +43,8 @@ $(STATEDIR)/python3-chardet.targetinstall:
 	@$(call install_fixup, python3-chardet,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, python3-chardet,DESCRIPTION,missing)
 
-	@for file in `find $(PYTHON3_CHARDET_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/chardet  \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-chardet, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/chardet/$$file); \
-	done
-
+	@$(call install_glob, python3-chardet, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/chardet,, *.py)
 
 	@$(call install_finish, python3-chardet)
 
