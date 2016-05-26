@@ -44,11 +44,8 @@ $(STATEDIR)/python3-ipython-genutils.targetinstall:
 	@$(call install_fixup, python3-ipython-genutils, AUTHOR, "Florian Scherf <f.scherf@pengutronix.de>")
 	@$(call install_fixup, python3-ipython-genutils, DESCRIPTION, missing)
 
-	@for file in `find $(PYTHON3_IPYTHON_GENUTILS_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/ipython_genutils  \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-ipython-genutils, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/ipython_genutils/$$file); \
-	done
+	@$(call install_glob, python3-ipython-genutils, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/ipython_genutils,, *.py)
 
 	@$(call install_finish, python3-ipython-genutils)
 
