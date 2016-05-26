@@ -43,11 +43,8 @@ $(STATEDIR)/python3-traitlets.targetinstall:
 	@$(call install_fixup, python3-traitlets, AUTHOR, "Florian Scherf <f.scherf@pengutronix.de>")
 	@$(call install_fixup, python3-traitlets, DESCRIPTION, missing)
 
-	@for file in `find $(PYTHON3_TRAITLETS_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/traitlets  \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-traitlets, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/traitlets/$$file); \
-	done
+	@$(call install_glob, python3-traitlets, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/traitlets,, *.py)
 
 	@$(call install_finish, python3-traitlets)
 
