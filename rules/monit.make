@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2014 by Alexander Dahl <post@lespocky.de>
+# Copyright (C) 2014,2016 by Alexander Dahl <post@lespocky.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,13 +16,13 @@ PACKAGES-$(PTXCONF_MONIT) += monit
 #
 # Paths and names
 #
-MONIT_VERSION	:= 5.6
-MONIT_MD5		:= 19dfc1ce8512e832134d06eedd96ba50
-MONIT			:= monit-$(MONIT_VERSION)
+MONIT_VERSION	:= 5.17.1
+MONIT_MD5	:= 6918ed7411a244c9e158f5e54c86be78
+MONIT		:= monit-$(MONIT_VERSION)
 MONIT_SUFFIX	:= tar.gz
-MONIT_URL		:= http://mmonit.com/monit/dist/$(MONIT).$(MONIT_SUFFIX)
+MONIT_URL	:= http://mmonit.com/monit/dist/$(MONIT).$(MONIT_SUFFIX)
 MONIT_SOURCE	:= $(SRCDIR)/$(MONIT).$(MONIT_SUFFIX)
-MONIT_DIR		:= $(BUILDDIR)/$(MONIT)
+MONIT_DIR	:= $(BUILDDIR)/$(MONIT)
 MONIT_LICENSE	:= AGPL-3.0
 
 # ----------------------------------------------------------------------------
@@ -36,6 +36,7 @@ MONIT_CONF_ENV	:= $(CROSS_ENV) \
 MONIT_CONF_TOOL	:= autoconf
 MONIT_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-optimized \
+	--disable-profiling \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--without-pam \
 	--$(call ptx/wwo, PTXCONF_MONIT_SSL)-ssl \
