@@ -63,11 +63,8 @@ $(STATEDIR)/python3-gi.targetinstall:
 	@$(call install_fixup, python3-gi,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, python3-gi,DESCRIPTION,missing)
 
-	@for file in `find $(PYTHON3_GI_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi  \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-gi, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi/$$file); \
-	done
+	@$(call install_glob, python3-gi, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi,, *.py *.la)
 
 	@$(call install_finish, python3-gi)
 
