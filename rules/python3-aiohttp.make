@@ -44,11 +44,8 @@ $(STATEDIR)/python3-aiohttp.targetinstall:
 	@$(call install_fixup, python3-aiohttp,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, python3-aiohttp,DESCRIPTION,missing)
 
-	@for file in `find $(PYTHON3_AIOHTTP_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/aiohttp  \
-			! -type d ! -name "*.py" -printf "%P\n"`; do \
-		$(call install_copy, python3-aiohttp, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/aiohttp/$$file); \
-	done
+	@$(call install_glob, python3-aiohttp, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/aiohttp,, *.py)
 
 	@$(call install_finish, python3-aiohttp)
 
