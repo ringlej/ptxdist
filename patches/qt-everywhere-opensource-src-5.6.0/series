@@ -2,6 +2,7 @@
 #tag:base --start-number 1
 #tag:upstream --start-number 1
 0001-Disable-c-standard-compiler-flags-for-the-host-build.patch
+0002-Search-for-libsystemd-first-fall-back-to-libsystemd-.patch
 #tag:fixes --start-number 100
 0100-eglfs-plugin-needs-egl-for-correct-cflags.patch
 0101-qtwebengine-make-sure-sysroot-is-always-set-on-ARM.patch
@@ -11,4 +12,4 @@
 0200-ptxdist-qtwebengine-allow-building-with-ptxdsit.patch
 0201-HACK-put-wayland-scanner-outout-in-srcdir.patch
 0202-qtwebengine-define-TRUE-in-case-of-USE_SYSTEM_LIBJPE.patch
-# d5dd92d5dbf8f69f80adb7ff72e9f273  - git-ptx-patches magic
+# 08e3e873ae4e579c68fcd1e3500a81f2  - git-ptx-patches magic
