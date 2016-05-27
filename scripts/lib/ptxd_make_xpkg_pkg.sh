@@ -227,16 +227,16 @@ ptxd_install_file_extract_debug() {
 
     # this can fail if objcopy does not support compressing debug sections or
     # is compiled without zlib support
-    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}" |&
+    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}" |&
 	grep -q "\(unrecognized option\|unable to initialize com*press status\)"
     local -a status=( "${PIPESTATUS[@]}" )
     if [ ${status[0]} -ne 0 ]; then
 	if [ ${status[1]} -eq 0 ]; then
 	    ptxd_install_file_objcopy_args="--only-keep-debug"
-	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}"
 	else
 	    # do it again to see the error message
-	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}"
 	fi
     fi &&
     chmod -x "${dbg}" &&
@@ -252,32 +252,34 @@ export -f ptxd_install_file_extract_debug
 #
 #
 ptxd_install_file_strip() {
-    local -a strip_cmd
+    local -a strip_cmd files
     local dst="${1}"
+    local i file
 
     case "${strip:-y}" in
 	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug -R .GCC.command.line ) ;;
 	y) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment -R .GCC.command.line ) ;;
     esac
 
-    #
-    # create hardlink so that inode stays the same during strip
-    # (fixes 64 bit fakeroot <-> 32 bit strip issue)
-    #
-    local tmp="strip"
-    local file dir
-    for file in "${sdirs[@]/%/${dst}}"; do
-	ln -f "${file}" "${file}.${tmp}" || return
+    files=( "${sdirs[@]/%/${dst}}" )
+    install -d "$(dirname "${files[0]}")" &&
+    "${strip_cmd[@]}" -o "${files[0]}" "${src}" &&
+    for (( i=1 ; ${i} < ${#files[@]} ; i=$[i+1] )); do
+	install -m "${mod_rw}" -D "${files[0]}" "${files[${i}]}" || return
+    done &&
+
+    files=( "${dirs[@]/%/${dst}}" ) &&
+    for file in "${files[@]}"; do
+	if [ ! -e "${file}" ]; then
+	    install -m "${mod_rw}" -D "${src}" "${file}" || return
+	fi
     done &&
 
     if [ "${strip}" != "k" ]; then
 	for dir in "${ddirs[@]}"; do
 	    ptxd_install_file_extract_debug "${dir}" "${dst}" || return
 	done
-    fi &&
-
-    "${strip_cmd[@]}" "${sdirs[@]/%/${dst}}" &&
-    rm -f "${sdirs[@]/%/${dst}.${tmp}}"
+    fi
 }
 export -f ptxd_install_file_strip
 
@@ -312,17 +314,22 @@ install ${cmd}:
 	echo "using '$(ptxd_print_path "${src}")' instead"
     fi &&
 
-    # just install with r/w permissions for now
-    for d in "${dirs[@]/%/${dst}}"; do
-	install -m "${mod_rw}" -D "${src}" "${d}" || return
-    done &&
+    if [ -z "${stip}" ]; then
+	if readelf -h "${src}" &> /dev/null; then
+	    strip="y"
+	else
+	    strip="n"
+	fi
+    fi
 
     case "${strip}" in
-	0|n|no|N|NO) ;;
-	y|k|"")
-	    if readelf -h "${src}" > /dev/null 2>&1; then
-		ptxd_install_file_strip "${dst}"
-	    fi
+	0|n|no|N|NO)
+	    for d in "${dirs[@]/%/${dst}}"; do
+		install -m "${mod_rw}" -D "${src}" "${d}" || return
+	    done
+	    ;;
+	y|k)
+	    ptxd_install_file_strip "${dst}"
 	    ;;
 	*)
 	    if [ "${strip:0:1}" = "/" ] && \
@@ -765,7 +772,7 @@ ptxd_install_shared() {
     local mod="$5"
     local filename="$(basename "${src}")"
 
-    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
+    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" "y" &&
 
     find -H "$(dirname "${src}")" -maxdepth 1 -type l | while read file; do
 	if [ "$(basename "$(readlink -f "${file}")")" = "${filename}" ]; then
