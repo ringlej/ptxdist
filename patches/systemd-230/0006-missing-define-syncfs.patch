@@ -8,31 +8,30 @@ Upstream requires glibc 2.16 but this is useful for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.ac        | 2 ++
- src/basic/missing.h | 7 +++++++
+ configure.ac        | 1 +
+ src/basic/missing.h | 8 ++++++++
  2 files changed, 9 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 507ad1cc0660..c998f6848d47 100644
+index 35f96228f06a..00a68a7ea867 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -302,6 +302,8 @@ CAP_LIBS="$LIBS"
- LIBS="$save_LIBS"
- AC_SUBST(CAP_LIBS)
- 
-+AC_CHECK_DECLS([syncfs], [], [], [[#include <unistd.h>]])
-+
- AC_CHECK_FUNCS([memfd_create])
- AC_CHECK_FUNCS([__secure_getenv secure_getenv])
- AC_CHECK_DECLS([gettid, pivot_root, name_to_handle_at, setns, getrandom, renameat2,
+@@ -309,6 +309,7 @@ AC_CHECK_DECLS([
+         pivot_root,
+         name_to_handle_at,
+         setns,
++        syncfs,
+         getrandom,
+         renameat2,
+         kcmp,
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index d17d725116e5..c64131da01c7 100644
+index 187b16757887..e67763c9b8ca 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -923,6 +923,13 @@ static inline int setns(int fd, int nstype) {
- #ifndef AT_EMPTY_PATH
+@@ -849,6 +849,14 @@ struct btrfs_ioctl_quota_ctl_args {
  #define AT_EMPTY_PATH	0x1000	/* Allow empty relative pathname */
  #endif
+ 
 +#if !HAVE_DECL_SYNCFS
 +static inline int syncfs(int fd)
 +{
@@ -40,6 +39,7 @@ index d17d725116e5..c64131da01c7 100644
 +        return -1;
 +}
 +#endif
- 
++
  #ifndef IPV6_UNICAST_IF
  #define IPV6_UNICAST_IF 76
+ #endif

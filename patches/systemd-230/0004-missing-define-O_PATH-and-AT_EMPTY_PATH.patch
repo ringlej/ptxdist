@@ -8,29 +8,30 @@ Upstream requires glibc 2.16 but this is useful for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/basic/missing.h    | 6 ++++++
+ src/basic/missing.h    | 7 +++++++
  src/basic/xattr-util.c | 1 +
- 2 files changed, 7 insertions(+)
+ 2 files changed, 8 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 34af717a7ce8..d17d725116e5 100644
+index 5f7d9c65d816..187b16757887 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -917,6 +917,12 @@ static inline int setns(int fd, int nstype) {
- #ifndef CLOCK_BOOTTIME_ALARM
+@@ -842,6 +842,13 @@ struct btrfs_ioctl_quota_ctl_args {
  #define CLOCK_BOOTTIME_ALARM 9
  #endif
+ 
 +#ifndef O_PATH
 +#define O_PATH		010000000
 +#endif
 +#ifndef AT_EMPTY_PATH
 +#define AT_EMPTY_PATH	0x1000	/* Allow empty relative pathname */
 +#endif
- 
++
  #ifndef IPV6_UNICAST_IF
  #define IPV6_UNICAST_IF 76
+ #endif
 diff --git a/src/basic/xattr-util.c b/src/basic/xattr-util.c
-index 8d7f14f3827e..dd9d2ebb1155 100644
+index 8256899edae3..dc64a9aeb4c8 100644
 --- a/src/basic/xattr-util.c
 +++ b/src/basic/xattr-util.c
 @@ -25,6 +25,7 @@

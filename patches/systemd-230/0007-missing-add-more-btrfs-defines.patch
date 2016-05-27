@@ -4,14 +4,14 @@ Subject: [PATCH] missing: add more btrfs defines
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/basic/missing.h | 41 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ src/basic/missing.h | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index c64131da01c7..31fe1c5d44a7 100644
+index e67763c9b8ca..bb97544f750e 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -387,6 +387,23 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -310,6 +310,23 @@ struct btrfs_ioctl_quota_ctl_args {
          __u64 cmd;
          __u64 status;
  };
@@ -35,7 +35,7 @@ index c64131da01c7..31fe1c5d44a7 100644
  #endif
  
  #ifndef BTRFS_IOC_DEFRAG
-@@ -461,11 +478,35 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -384,11 +401,31 @@ struct btrfs_ioctl_quota_ctl_args {
                                 struct btrfs_ioctl_quota_ctl_args)
  #endif
  
@@ -64,10 +64,6 @@ index c64131da01c7..31fe1c5d44a7 100644
 +                               struct btrfs_ioctl_quota_rescan_args)
 +#endif
 +
-+#ifndef BTRFS_IOC_QUOTA_RESCAN_WAIT
-+#define BTRFS_IOC_QUOTA_RESCAN_WAIT _IO(BTRFS_IOCTL_MAGIC, 46)
-+#endif
-+
- #ifndef BTRFS_FIRST_FREE_OBJECTID
- #define BTRFS_FIRST_FREE_OBJECTID 256
+ #ifndef BTRFS_IOC_QUOTA_RESCAN_WAIT
+ #define BTRFS_IOC_QUOTA_RESCAN_WAIT _IO(BTRFS_IOCTL_MAGIC, 46)
  #endif

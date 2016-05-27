@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index d73a73f64088..3d9ba1464608 100644
+index e5554c6e1a22..5f7d9c65d816 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -970,6 +970,10 @@ static inline int setns(int fd, int nstype) {
+@@ -898,6 +898,10 @@ struct btrfs_ioctl_quota_ctl_args {
  #  define BPF_XOR 0xa0
  #endif
  

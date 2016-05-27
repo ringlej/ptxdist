@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 229
-SYSTEMD_MD5	:= 5d696f65381b2608da70544df07c2b3c
+SYSTEMD_VERSION	:= 230
+SYSTEMD_MD5	:= f2f10a6f100c38582b4f02d60210227d
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -68,7 +68,6 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-undefined-sanitizer \
 	--disable-dbus \
 	--disable-utmp \
-	--enable-compat-libs \
 	--disable-coverage \
 	--enable-kmod \
 	--disable-xkbcommon \
@@ -77,6 +76,8 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-ima \
 	$(GLOBAL_SELINUX_OPTION) \
 	--disable-apparmor \
+	--enable-adm-group \
+	--disable-wheel-group \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--disable-zlib \
 	--disable-bzip2 \
@@ -95,7 +96,6 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_IPMASQUERADE)-libiptc \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
-	--enable-bootchart \
 	--enable-quotacheck \
 	--enable-tmpfiles \
 	--disable-sysusers \
@@ -116,6 +116,7 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
 	--enable-efi \
 	--disable-gnuefi \
+	--disable-tpm \
 	--enable-kdbus \
 	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
@@ -174,9 +175,6 @@ endif
 SYSTEMD_HELPER := \
 	systemd \
 	systemd-ac-power \
-	systemd-activate \
-	systemd-bootchart \
-	systemd-bus-proxyd \
 	systemd-cgroups-agent \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_COREDUMP,systemd-coredump,) \
 	systemd-fsck \
@@ -250,6 +248,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-path)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-socket-activate)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
 ifdef PTXCONF_SYSTEMD_TIMEDATE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/timedatectl)
@@ -271,8 +270,6 @@ endif
 #	# configuration
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/system.conf)
-	@$(call install_alternative, systemd, 0, 0, 0644, \
-		/etc/systemd/bootchart.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/journald.conf)
 ifdef PTXCONF_SYSTEMD_LOGIND

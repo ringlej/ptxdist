@@ -15,7 +15,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  create mode 100644 src/basic/_uchar.h
 
 diff --git a/configure.ac b/configure.ac
-index c998f6848d47..e78ed97a8b7c 100644
+index 00a68a7ea867..650a5be1edf2 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -291,6 +291,7 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "x$have_python" = "xyes"])
@@ -111,7 +111,7 @@ index 000000000000..b15d355ae0c5
 +
 +#endif	/* uchar.h */
 diff --git a/src/basic/escape.h b/src/basic/escape.h
-index 1b28bd10afc2..007e9df8015d 100644
+index deaa4def2828..36d437cfaa2f 100644
 --- a/src/basic/escape.h
 +++ b/src/basic/escape.h
 @@ -23,7 +23,6 @@
@@ -123,10 +123,10 @@ index 1b28bd10afc2..007e9df8015d 100644
  #include "string-util.h"
  #include "missing.h"
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 31fe1c5d44a7..ff370fea99d1 100644
+index bb97544f750e..0d28c1a4c22a 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -34,7 +34,11 @@
+@@ -35,7 +35,11 @@
  #include <stdlib.h>
  #include <sys/resource.h>
  #include <sys/syscall.h>
@@ -139,7 +139,7 @@ index 31fe1c5d44a7..ff370fea99d1 100644
  
  #ifdef HAVE_AUDIT
 diff --git a/src/basic/utf8.h b/src/basic/utf8.h
-index 12c272d66e35..bea93a64437e 100644
+index f9b9c9468bb1..6ac9a3c8d087 100644
 --- a/src/basic/utf8.h
 +++ b/src/basic/utf8.h
 @@ -22,7 +22,6 @@

@@ -8,16 +8,16 @@ Not for upstream, but needed for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/basic/missing.h | 4 ++++
+ src/basic/missing_syscall.h | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 3d9ba1464608..34af717a7ce8 100644
---- a/src/basic/missing.h
-+++ b/src/basic/missing.h
-@@ -1079,6 +1079,10 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
- #define RENAME_NOREPLACE (1 << 0)
- #endif
+diff --git a/src/basic/missing_syscall.h b/src/basic/missing_syscall.h
+index d502d3b9cad8..83c60d804531 100644
+--- a/src/basic/missing_syscall.h
++++ b/src/basic/missing_syscall.h
+@@ -235,6 +235,10 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
+ 
+ /* ======================================================================= */
  
 +#ifndef __NR_kcmp
 +# define __NR_kcmp 0xffffffff
@@ -25,4 +25,4 @@ index 3d9ba1464608..34af717a7ce8 100644
 +
  #if !HAVE_DECL_KCMP
  static inline int kcmp(pid_t pid1, pid_t pid2, int type, unsigned long idx1, unsigned long idx2) {
- #if defined(__NR_kcmp)
+ #  ifdef __NR_kcmp

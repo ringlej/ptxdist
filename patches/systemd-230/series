@@ -11,6 +11,6 @@
 0008-HACK-include-missing.h-in-btrfs-ctree.h-for-BTRFS_UU.patch
 0009-HACK-add-local-copy-of-uchar.h.patch
 0010-HACK-fix-building-without-linux-sctp.h.patch
+0011-missing-add-SMACK_MAGIC-EFIVARFS_MAGIC-BINFMTFS_MAGI.patch
 #tag:upstream --start-number 100
-0100-basic-user-utils.c-needs-missing.h-for-secure_getenv.patch
-# dd2b53d96b8d4daf6822fc2a3324bc5b  - git-ptx-patches magic
+# 7f7dfeb35e2a532321c19ec07f30f1fb  - git-ptx-patches magic
