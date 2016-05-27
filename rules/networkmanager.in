@@ -84,8 +84,8 @@ config NETWORKMANAGER_EXAMPLES
 	bool
 	prompt "install examples for Network Manager"
 
-menu "plugins"
+endif
+
+menu "networkmanager plugins        "
 source "generated/networkmanager_plugins.in"
 endmenu
-
-endif
