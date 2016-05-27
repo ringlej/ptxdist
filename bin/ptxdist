@@ -2373,6 +2373,9 @@ setup_parallel() {
 			PTXDIST_OUTPUT_SYNC="--output-sync="
 		fi
 	fi
+	if [[ "${PTXDIST_OUTPUT_SYNC}" =~ [01] ]]; then
+		unset PTXDIST_OUTPUT_SYNC
+	fi
 
 	#
 	# user may override these, via cmdline
