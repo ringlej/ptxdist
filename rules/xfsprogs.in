@@ -6,6 +6,7 @@ menuconfig XFSPROGS
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
+	select LIBBLKID
 	select LIBUUID
 	select HOST_LIBUUID
 	help

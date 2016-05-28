@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XFSPROGS) += xfsprogs
 #
 # Paths and names
 #
-XFSPROGS_VERSION:= 4.2.0
-XFSPROGS_MD5	:= e1b9438d3e6775b9df52cc9a13e9f9a6
+XFSPROGS_VERSION:= 4.5.0
+XFSPROGS_MD5	:= fcba94b6c74b726dac956d7a650c0c31
 XFSPROGS	:= xfsprogs-$(XFSPROGS_VERSION)
 XFSPROGS_SUFFIX	:= tar.gz
 XFSPROGS_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars/$(XFSPROGS).$(XFSPROGS_SUFFIX)
@@ -36,7 +36,9 @@ XFSPROGS_CONF_OPT	:= \
 	--sbindir=/usr/sbin \
 	--libdir=/usr/lib \
 	--datarootdir=/usr/share \
-	--enable-static \
+	--disable-static \
+	--disable-gettext \
+	--enable-blkid \
 	--disable-readline \
 	--disable-editline \
 	--disable-termcap \
