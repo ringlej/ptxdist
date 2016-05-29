@@ -28,6 +28,20 @@ error: 'CMakeLists.txt' not found in:
 
 EOF
 	exit 1
+    elif [ "${pkg_conf_tool}" = "cmake" -a "${pkg_type}" = "cross" ]; then
+	cat >&2 <<EOF
+
+error: sorry - cmake 'cross' packages are not supported
+
+EOF
+	exit 1
+    elif [ \( "${pkg_conf_tool}" = "qmake" -o "${pkg_conf_tool}" = "perl" \) -a "${pkg_type}" != "target" ]; then
+	cat >&2 <<EOF
+
+error: only ${pkg_conf_tool} taget packages are supported
+
+EOF
+	exit 1
     fi
 }
 export -f ptxd_make_world_prepare_sanity_check
@@ -37,9 +51,6 @@ export -f ptxd_make_world_prepare_sanity_check
 # prepare for cmake based pkgs
 #
 ptxd_make_world_prepare_cmake() {
-    [ "${pkg_type}" == "cross" ] && \
-	ptxd_bailout "sorry - cmake 'cross' packages are not supported"
-
     ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -55,9 +66,6 @@ export -f ptxd_make_world_prepare_cmake
 # prepare for qmake based pkgs
 #
 ptxd_make_world_prepare_qmake() {
-    [ "${pkg_type}" != "target" ] && \
-	ptxd_bailout "only qmake taget packages are supported"
-
     ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -100,9 +108,6 @@ export -f ptxd_make_world_prepare_kconfig
 # prepare for perl modules
 #
 ptxd_make_world_prepare_perl() {
-    [ "${pkg_type}" != "target" ] && \
-	ptxd_bailout "only perl taget packages are supported"
-
     ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
