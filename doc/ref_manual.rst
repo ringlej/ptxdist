@@ -759,6 +759,60 @@ All parameters have fixed meanings:
   Base path component in the root filesystem the archive should be extracted
   to. Can be just ``/`` for root.
 
+install_glob
+~~~~~~~~~~~~
+
+Usage:
+
+.. code-block:: make
+
+ $(call install_glob, <package>, <UID>, <GID>, <source dir>, <destination dir>, <yglob>, <nglob>[, <strip>])
+
+Installs parts of a directory tree with all files from the given directory
+into:
+
+* the project's ``<platform-dir>/root/``
+* the project's ``<platform-dir>/root-debug/``
+* an ipkg packet in the project's ``<platform-dir>/packages/``
+
+Some of the parameters have fixed meanings:
+
+**<package>**
+  Name of the IPKG/OPKG the macro should work on
+**<UID>**
+  User ID the directories and files should use in the target's root filesystem
+  or ``-`` to keep the UID from the source tree
+**<GID>**
+  Group ID the directories and files should use in the target's root filesystem
+  or ``-`` to keep the GID from the source tree
+**<source dir>**
+  This is the path to the tree of directories and files to be installed. It can
+  be ``-`` to use the package directory of the current package instead
+**<destination dir>**
+  The basename of the to-be-installed tree in the root filesystem
+**<yglob>**
+  A list of pathname patterns. All files or directories that match _any_
+  pattern in the list are installed. Note: the patterns must match the
+  whole absolute path, e.g. ``*/foo``. An empty list is equivalent to a
+  pattern that matches all files.
+**<nglob>**
+  Like ``<yglob>`` but any matching files or directories will not be
+  installed. For directories, this includes the whole contents of the
+  directory.
+
+Except for the pathname patterns, this command works like ``install_tree``.
+The ``<yglob>`` and ``<nglob>`` patterns are combined: Only files that
+match ``<yglob>`` and do not match ``<nglob>`` are installed.
+
+Examples:
+
+Install all shared libraries found in ``$(PKGDIR)/usr/lib/foo`` except
+libbar.so
+
+.. code-block:: make
+
+ $(call install_glob, foo, 0, 0, -, /usr/lib/foo, *.so, */libbar.so)
+
 install_lib
 ~~~~~~~~~~~
 
