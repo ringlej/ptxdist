@@ -256,6 +256,20 @@ Options
 ``--verbose``, ``-v``
   be more verbose, print command before execute them
 
+``--output-sync``, ``--no-output-sync``
+  enable or disable output synchronization. By default output
+  synchronization is only enabled for quiet builds. Output synchronization
+  is implemented by the ``make`` ``--output-sync`` option. For building
+  packages in parallel, ``--output-sync=recurse`` is used. For individual
+  ``make`` commands in the build stages ``--output-sync=target`` is used.
+  This means, that the output for each individual make target and each
+  build stage is grouped together.
+
+  Note: If  output synchronization enabled then the output for each build
+  stage is collected by make and won't be visible until the build stage is
+  completed. As a result, there will be long periods of time with no
+  visible progress.
+
 ``--j-intern=<n>``, ``-ji<n>``
   set number of parallel jobs within packages. PTXdist will use this
   number for example when calling ``make`` during the compile stage.
