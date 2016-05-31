@@ -287,10 +287,8 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
 
-	@cd $(KERNEL_PKGDIR) && \
-		find lib -type f | while read file; do \
-			$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, k) \
-	done
+	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules, *.ko,, k)
+	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules,, *.ko, n)
 
 	@$(call install_finish, kernel-modules)
 endif
