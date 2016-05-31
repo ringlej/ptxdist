@@ -770,9 +770,10 @@ ptxd_install_shared() {
     local usr="$3"
     local grp="$4"
     local mod="$5"
+    local strip="${6:-y}"
     local filename="$(basename "${src}")"
 
-    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" "y" &&
+    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" "${strip}" &&
 
     find -H "$(dirname "${src}")" -maxdepth 1 -type l | while read file; do
 	if [ "$(basename "$(readlink -f "${file}")")" = "${filename}" ]; then

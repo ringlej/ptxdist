@@ -170,7 +170,7 @@ ptxd_install_toolchain_lib() {
 
 		perm="$(stat -c %a "${lib_path}")"
 
-		echo "ptxd_install_shared \"${lib_path}\" \"${prefix}\" 0 0 \"${perm}\"" >> "${STATEDIR}/${packet}.cmds"
+		echo "ptxd_install_shared \"${lib_path}\" \"${prefix}\" 0 0 \"${perm}\" \"${strip}\"" >> "${STATEDIR}/${packet}.cmds"
 	    fi
 	else
 	    echo "error: found ${lib_path}, but neither file nor link" 2>&1
