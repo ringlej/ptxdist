@@ -47,7 +47,7 @@ ACL_INSTALL_OPT := \
 ACL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/lib \
-	--$(call ptx/endis, PTXCONF_ACL_SHARED)-shared \
+	--enable-shared \
 	--$(call ptx/endis, PTXCONF_ACL_GETTEXT)-gettext
 
 # ----------------------------------------------------------------------------
@@ -68,9 +68,8 @@ ifdef PTXCONF_ACL_TOOLS
 	@$(call install_copy, acl, 0, 0, 0755, -, /usr/bin/setfacl)
 	@$(call install_copy, acl, 0, 0, 0755, -, /usr/bin/getfacl)
 endif
-ifdef PTXCONF_ACL_SHARED
 	@$(call install_lib, acl, 0, 0, 0644, libacl)
-endif
+
 	@$(call install_finish, acl)
 
 	@$(call touch)
