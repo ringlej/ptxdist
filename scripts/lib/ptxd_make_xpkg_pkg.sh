@@ -314,10 +314,10 @@ install ${cmd}:
 	echo "using '$(ptxd_print_path "${src}")' instead"
     fi &&
 
-    if [ "${strip}" != "n" ]; then
+    if [ -z "${strip}" ]; then
 	if ! readelf -h "${src}" &> /dev/null; then
 	    strip="n"
-	elif [ -z "${strip}" ]; then
+	else
 	    strip="y"
 	fi
     fi &&
