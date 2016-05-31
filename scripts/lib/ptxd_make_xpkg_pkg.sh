@@ -320,7 +320,7 @@ install ${cmd}:
 	elif [ -z "${strip}" ]; then
 	    strip="y"
 	fi
-    fi
+    fi &&
 
     case "${strip}" in
 	0|n|no|N|NO)
