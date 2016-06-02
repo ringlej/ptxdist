@@ -13,6 +13,7 @@ menuconfig GTK
 	select CAIRO_PS
 	select CAIRO_SVG
 	select CAIRO_GOBJECT
+	select CAIRO_XLIB
 	select GDK_PIXBUF
 
 	# disabling xkb is broken
