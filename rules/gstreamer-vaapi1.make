@@ -41,17 +41,11 @@ GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_EGL)		+= egl
 GSTREAMER_VAAPI1_CONF_TOOL	:= autoconf
 GSTREAMER_VAAPI1_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
-	--runstatedir=/run \
-	--disable-fatal-warnings \
-	--disable-extra-check \
-	--disable-debug \
+	$(GSTREAMER1_BASIC_CONF_OPT) \
+	\
 	--enable-encoders \
 	$(addprefix --enable-,$(GSTREAMER_VAAPI1_ENABLE-y)) \
-	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-)) \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-gobject-cast-checks
+	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-))
 
 # ----------------------------------------------------------------------------
 # Target-Install

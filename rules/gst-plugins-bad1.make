@@ -216,9 +216,11 @@ GST_PLUGINS_BAD1_CONF_TOOL	:= autoconf
 
 GST_PLUGINS_BAD1_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GSTREAMER_GENERIC_CONF_OPT) \
+	$(GSTREAMER1_GENERIC_CONF_OPT) \
+	\
 	--enable-external \
 	--enable-experimental \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BAD1_ORC)-orc \
 	\

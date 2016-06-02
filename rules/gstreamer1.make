@@ -33,31 +33,37 @@ GSTREAMER1_LICENSE	:= LGPL-2.1+
 #
 # autoconf
 #
-GSTREAMER1_GENERIC_CONF_OPT = \
+GSTREAMER1_BASIC_CONF_OPT = \
 	--runstatedir=/run \
-	--disable-nls \
-	--disable-rpath \
+	\
 	--disable-fatal-warnings \
 	--disable-extra-check \
 	\
 	--disable-debug \
-	--disable-profiling \
-	--disable-valgrind \
-	--disable-gcov \
-	--disable-examples \
-	--disable-static-plugins \
-	\
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-gobject-cast-checks \
-	--disable-glib-asserts \
+	--disable-glib-asserts
+
+GSTREAMER1_GENERIC_CONF_OPT = \
+	$(GSTREAMER1_BASIC_CONF_OPT) \
+	\
+	--disable-nls \
+	--disable-rpath \
+	\
+	--disable-profiling \
+	--disable-valgrind \
+	--disable-gcov \
+	--disable-examples \
+	\
+	--enable-Bsymbolic \
+	--disable-static-plugins \
 	\
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
+	--with-package-origin="PTXdist"
 
 GSTREAMER1_CONF_TOOL	:= autoconf
 GSTREAMER1_CONF_OPT	:= \
@@ -77,11 +83,12 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-benchmarks \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_INSTALL_TOOLS)-tools \
 	--disable-poisoning \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--disable-docbook \
 	\
 	--disable-check \
-	--enable-Bsymbolic \
 	--with-ptp-helper-setuid-user=nobody \
 	--with-ptp-helper-setuid-group=nogroup \
 	--with-ptp-helper-permissions=setuid-root

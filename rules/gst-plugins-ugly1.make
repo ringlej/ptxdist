@@ -59,19 +59,10 @@ GST_PLUGINS_UGLY1_ENABLEP-y	+= $(GST_PLUGINS_UGLY1_ENABLE-y)
 GST_PLUGINS_UGLY1_CONF_TOOL	:= autoconf
 GST_PLUGINS_UGLY1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GSTREAMER1_GENERIC_CONF_OPT) \
 	--enable-option-checking \
-	--enable-silent-rules \
-        --disable-nls \
-        --disable-rpath \
-	--disable-debug \
-	--disable-profiling \
-	--disable-valgrind \
-	--disable-gcov \
-	--disable-examples \
 	--enable-external \
-	--enable-experimental \
-	--disable-gtk-doc \
-	--with-package-origin="PTXDist"
+	--enable-experimental
 
 #
 # the --with-plugins sadly only applies to depencyless plugings

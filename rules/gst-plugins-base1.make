@@ -73,12 +73,14 @@ GST_PLUGINS_BASE1_ENABLEP-y	+= $(GST_PLUGINS_BASE1_ENABLE-y)
 GST_PLUGINS_BASE1_CONF_TOOL	= autoconf
 GST_PLUGINS_BASE1_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GSTREAMER_GENERIC_CONF_OPT) \
+	$(GSTREAMER1_GENERIC_CONF_OPT) \
+	\
 	--enable-external \
 	--disable-experimental \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ORC)-orc \
-	--enable-Bsymbolic \
 	\
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ZLIB)-zlib \

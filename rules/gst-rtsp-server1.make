@@ -35,17 +35,17 @@ GST_RTSP_SERVER1_LICENSE	:= LGPL-2.0+
 GST_RTSP_SERVER1_CONF_TOOL	:= autoconf
 GST_RTSP_SERVER1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-extra-check \
-	--disable-debug \
+	$(GSTREAMER1_BASIC_CONF_OPT) \
+	\
 	--disable-valgrind \
 	--disable-gcov \
 	--disable-examples \
 	--disable-tests \
 	--disable-introspection \
 	--disable-docbook \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf
+	\
+	--enable-Bsymbolic \
+	--disable-static-plugins
 
 # ----------------------------------------------------------------------------
 # Target-Install
