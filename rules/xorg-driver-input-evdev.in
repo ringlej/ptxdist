@@ -11,6 +11,7 @@ config XORG_DRIVER_INPUT_EVDEV
 	select LIBEVDEV
 	select MTDEV
 	select XORG_SERVER
+	select XORG_SERVER_XORG
 	help
 	  evdev is an Xorg input driver for Linux's generic
 	  event devices.  It therefore supports all input
