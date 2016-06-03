@@ -5,6 +5,7 @@ menuconfig PANGO
 	prompt "pango                         "
 	select LIBC_M
 	select CAIRO
+	select CAIRO_FREETYPE
 	select GLIB
 	select WINE if PANGO__WINE
 
