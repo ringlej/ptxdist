@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.5.2
-FREETYPE_MD5		:= 10e8f4d6a019b124088d18bc26123a25
+FREETYPE_VERSION	:= 2.6.3
+FREETYPE_MD5		:= 0037b25a8c090bc8a1218e867b32beb1
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
 FREETYPE_LICENSE	:= BSD-2-Clause, FTL, GPL-2.0+
 FREETYPE_LICENSE_FILES	:= \
-	file://docs/LICENSE.TXT;md5=c017ff17fc6f0794adf93db5559ccd56 \
+	file://docs/LICENSE.TXT;md5=4af6221506f202774ef74f64932878a1 \
 	file://docs/GPLv2.TXT;md5=8ef380476f642c20ebf40fecb0add2ec \
 	file://docs/FTL.TXT;md5=d479e83797f699fe873b38dadd0fcd4c \
 	file://src/bdf/README;startline=98;endline=140;md5=d0c2c2e2e102c393a12869bc34515be2 \
@@ -48,7 +48,8 @@ FREETYPE_CONF_OPT	:= \
 	--disable-static \
 	--with-zlib \
 	--without-bzip2 \
-	--without-png
+	--without-png \
+	--without-harfbuzz
 
 
 # ----------------------------------------------------------------------------

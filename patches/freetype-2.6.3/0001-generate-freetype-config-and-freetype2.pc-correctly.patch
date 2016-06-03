@@ -5,16 +5,16 @@ Subject: [PATCH] generate freetype-config and freetype2.pc correctly
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  builds/unix/configure.ac       |  4 +++-
- builds/unix/freetype-config.in | 14 +++++++-------
- builds/unix/freetype2.in       | 12 ++++++------
+ builds/unix/freetype-config.in | 12 ++++++------
+ builds/unix/freetype2.in       | 14 +++++++-------
  builds/unix/unix-def.in        |  3 ---
  4 files changed, 16 insertions(+), 17 deletions(-)
 
 diff --git a/builds/unix/configure.ac b/builds/unix/configure.ac
-index 0a67dce..d3f17d1 100644
+index b568e51e04e2..cdb0df29d72f 100644
 --- a/builds/unix/configure.ac
 +++ b/builds/unix/configure.ac
-@@ -765,7 +765,9 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
+@@ -1006,7 +1006,9 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
  # and `builds/unix/unix-cc.mk' that will be used by the build system
  #
  AC_CONFIG_FILES([unix-cc.mk:unix-cc.in
@@ -26,10 +26,10 @@ index 0a67dce..d3f17d1 100644
  # re-generate the Jamfile to use libtool now
  #
 diff --git a/builds/unix/freetype-config.in b/builds/unix/freetype-config.in
-index e4c504d..49be65f 100644
+index f74707d5aea1..e18f5cd76e77 100644
 --- a/builds/unix/freetype-config.in
 +++ b/builds/unix/freetype-config.in
-@@ -12,12 +12,12 @@
+@@ -12,11 +12,11 @@
  LC_ALL=C
  export LC_ALL
  
@@ -40,14 +40,12 @@ index e4c504d..49be65f 100644
  exec_prefix_set="no"
 -includedir="%includedir%"
 -libdir="%libdir%"
--enable_shared="%build_libtool_libs%"
 +includedir="@includedir@"
 +libdir="@libdir@"
-+enable_shared="@build_libtool_libs@"
  
  usage()
  {
-@@ -73,7 +73,7 @@ while test $# -gt 0 ; do
+@@ -74,7 +74,7 @@ while test $# -gt 0 ; do
      echo_exec_prefix=yes
      ;;
    --version)
@@ -56,47 +54,50 @@ index e4c504d..49be65f 100644
      exit 0
      ;;
    --ftversion)
-@@ -137,7 +137,7 @@ if test "$echo_cflags" = "yes" ; then
- fi
+@@ -141,7 +141,7 @@ fi
  
  if test "$echo_libs" = "yes" ; then
--  libs="-lfreetype %LIBZ% %LIBBZ2% %LIBPNG% %FT2_EXTRA_LIBS%"
-+  libs="-lfreetype @LIBZ@ @LIBBZ2@ @LIBPNG@ @FT2_EXTRA_LIBS@"
-   if test "${SYSROOT}$libdir" != "/usr/lib"  &&
-      test "${SYSROOT}$libdir" != "/usr/lib64"; then
-     echo -L${SYSROOT}$libdir $libs
+   libs="-lfreetype"
+-  staticlibs="%LIBSSTATIC_CONFIG%"
++  staticlibs="@LIBSSTATIC_CONFIG@"
+   if test "$show_static" = "yes" ; then
+     libs="$staticlibs"
+   fi
 diff --git a/builds/unix/freetype2.in b/builds/unix/freetype2.in
-index 5e545b6..b8accab 100644
+index c4dfda4abcca..8c4d7e184293 100644
 --- a/builds/unix/freetype2.in
 +++ b/builds/unix/freetype2.in
-@@ -1,12 +1,12 @@
--prefix="%prefix%"
--exec_prefix="%exec_prefix%"
--libdir="%libdir%"
--includedir="%includedir%/freetype2"
-+prefix="@prefix@"
-+exec_prefix="@exec_prefix@"
-+libdir="@libdir@"
-+includedir="@includedir@/freetype2"
+@@ -1,14 +1,14 @@
+-prefix=%prefix%
+-exec_prefix=%exec_prefix%
+-libdir=%libdir%
+-includedir=%includedir%
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
  
  Name: FreeType 2
+ URL: http://freetype.org
  Description: A free, high-quality, and portable font engine.
 -Version: %ft_version%
 +Version: @ft_version@
  Requires:
+-Requires.private: %REQUIRES_PRIVATE%
++Requires.private: @REQUIRES_PRIVATE@
  Libs: -L${libdir} -lfreetype
--Libs.private: %LIBZ% %LIBBZ2% %LIBPNG% %FT2_EXTRA_LIBS%
-+Libs.private: @LIBZ@ @LIBBZ2@ @LIBPNG@ @FT2_EXTRA_LIBS@
- Cflags: -I${includedir}
+-Libs.private: %LIBS_PRIVATE%
++Libs.private: @LIBS_PRIVATE@
+ Cflags: -I${includedir}/freetype2
 diff --git a/builds/unix/unix-def.in b/builds/unix/unix-def.in
-index 491e974..968d095 100644
+index f7b557fb4094..71bb39cb3959 100644
 --- a/builds/unix/unix-def.in
 +++ b/builds/unix/unix-def.in
-@@ -133,7 +133,4 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
+@@ -142,7 +142,4 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
  	chmod a-w $@.tmp
  	mv $@.tmp $@
  
--all: $(OBJ_BUILD)/freetype-config \
+-all install: $(OBJ_BUILD)/freetype-config \
 -     $(OBJ_BUILD)/freetype2.pc
 -
  # EOF
