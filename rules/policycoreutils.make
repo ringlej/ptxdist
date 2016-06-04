@@ -153,7 +153,9 @@ ifdef PTXCONF_POLICYCOREUTILS_SEMANAGE
 	@$(call install_copy, policycoreutils, 0, 0, 0644, -, $(PYTHON_SITEPACKAGES)/seobject.py)
 endif
 
+ifdef PTXCONF_POLICYCOREUTILS_SESTATUS
 	@$(call install_alternative, policycoreutils, 0, 0, 0644, /etc/sestatus.conf)
+endif
 
 	@$(call install_finish, policycoreutils)
 
