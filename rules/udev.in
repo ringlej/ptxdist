@@ -66,7 +66,7 @@ menu "install options               "
 config UDEV_ETC_CONF
 	bool
 	default y
-	depends on !SYSTEMD
+	depends on SYSTEMD = n
 	prompt "install udev.conf"
 	help
 	  Installs /etc/udev/udev.conf. If you don't wish to install the
@@ -85,7 +85,7 @@ config UDEV_DRIVERS_RULES
 
 config UDEV_KEYMAPS
 	bool
-	depends on !SYSTEMD
+	depends on SYSTEMD = n
 	prompt "install keymaps"
 	help
 	  This will install the keymaps shipped with udev. These are mostly
