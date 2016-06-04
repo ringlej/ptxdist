@@ -8,19 +8,22 @@ Upstream requires kernel 3.11 but this is useful for host-systemd.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.ac      | 1 +
+ configure.ac      | 4 ++++
  src/core/socket.c | 4 ++++
- 2 files changed, 5 insertions(+)
+ 2 files changed, 8 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 650a5be1edf2..f7eb2c4f963f 100644
+index 650a5be1edf2..2edcd7f28f0e 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -292,6 +292,7 @@ AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers n
+@@ -292,6 +292,10 @@ AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers n
  AC_CHECK_HEADERS([linux/btrfs.h], [], [])
  AC_CHECK_HEADERS([linux/memfd.h], [], [])
  AC_CHECK_HEADERS([uchar.h], [], [])
-+AC_CHECK_HEADERS([linux/sctp.h], [], [])
++AC_CHECK_HEADERS([linux/sctp.h], [], [], [
++#include <stdint.h>
++#include <sys/socket.h>
++])
  
  # unconditionally pull-in librt with old glibc versions
  AC_SEARCH_LIBS([clock_gettime], [rt], [], [])
