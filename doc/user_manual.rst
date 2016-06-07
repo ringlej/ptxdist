@@ -345,7 +345,7 @@ platforms to build for. In this case we want to build for the :
 .. parsed-literal::
 
     found and using toolchain:
-    '/opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ /\ |ptxdistCompilerName|\ /\
+    '/opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ /\ |ptxdistCompilerName|\ /\
     |ptxdistCompilerVersion|\ /bin'
 
 If it fails you can continue to select the toolchain manually as
@@ -376,7 +376,7 @@ for the target.
 
 .. parsed-literal::
 
-    $ ptxdist toolchain /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ /\ |ptxdistCompilerName|\ /\ |ptxdistCompilerVersion|\ /bin
+    $ ptxdist toolchain /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ /\ |ptxdistCompilerName|\ /\ |ptxdistCompilerVersion|\ /bin
 
 Building the Root Filesystem Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

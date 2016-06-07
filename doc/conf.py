@@ -101,8 +101,7 @@ rst_epilog = """
 .. |ptxdistPlatformDir| replace:: ``platform-versatilepb``
 .. |oselasTCNarch| replace:: arm
 .. |oselasTCNvariant| replace:: v5te
-.. |oselasTCNVendorVersion| replace:: 2014.12
-.. |oselasTCNVendorPatchLevel| replace:: .0
+.. |oselasTCNVendorVersion| replace:: 2014.12.0
 .. |oselasTCNVendorptxdistversion| replace:: 2014.12.0
 .. |oselasToolchainName| replace:: arm-v5te-linux-gnueabi_gcc-4.8.2_glibc-2.18_binutils-2.24_kernel-3.12-sanitized
 .. |ptxdistBSPName| replace:: OSELAS.BSP-Pengutronix-Generic-2015.03.1

@@ -448,7 +448,7 @@ the board support package:
 
 .. parsed-literal::
 
-    $ apt-get install oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
+    $ apt-get install oselas.toolchain-\ |oselasTCNVendorVersion|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
 
 These package names are very long and hard to type without making typos.
 An easier way is to ask the package manager for available toolchains and
@@ -457,7 +457,7 @@ just use the name by copy and paste it.
 .. parsed-literal::
 
     $ apt-cache search "oselas.toolchain-.*-\ |oselasTCNarch|\ .*\ |oselasTCNvariant|\ .*"
-    oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
+    oselas.toolchain-\ |oselasTCNVendorVersion|\ -\ |ptxdistCompilerName|\ -<ptxdistCompilerVersion>
 
 The binary OSELAS Toolchain Package for non-Debian Distributions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -469,11 +469,11 @@ The related OSELAS toolchain package can be found here:
 
 Subpath is:
 
-| oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ /
+| oselas.toolchain-\ |oselasTCNVendorVersion|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ /
 
 Package filename is:
 
-| oselas.toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ \*.deb
+| oselas.toolchain-\ |oselasTCNVendorVersion|\ -\ |ptxdistCompilerName|\ -\ |ptxdistCompilerVersion|\ \*.deb
 
 Package filenames for 32 bit host machines are ending on ``*_i386.deb``
 and for 64 bit host machines on ``*_amd64.deb``.
@@ -551,8 +551,8 @@ So the steps to build this toolchain are:
 
 .. parsed-literal::
 
-    $ tar xf OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|.tar.bz2
-    $ cd OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|
+    $ tar xf OSELAS.Toolchain-\ |oselasTCNVendorVersion|.tar.bz2
+    $ cd OSELAS.Toolchain-\ |oselasTCNVendorVersion|
     $ ptxdist-\ |oselasTCNVendorptxdistversion| select ptxconfigs/\ |oselasToolchainName|\ .ptxconfig
     $ ptxdist-\ |oselasTCNVendorptxdistversion| go
 
@@ -607,10 +607,10 @@ new one.
 All toolchains will be installed side by side architecture dependent
 into directory
 
-| /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|/<architecture>
+| /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|/<architecture>
 
 Different toolchains for the same architecture will be installed side by
 side version dependent into directory
 
-| /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ |oselasTCNVendorPatchLevel|/<architecture>/<version>
+| /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|/<architecture>/<version>
 
