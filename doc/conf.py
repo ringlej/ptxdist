@@ -14,6 +14,7 @@
 
 import sys
 import os
+import re
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -97,24 +98,73 @@ pygments_style = 'none'
 
 numfig = True
 
+gnu_target = os.getenv("PTXCONF_GNU_TARGET") or "arm-v5te-linux-gnueabi"
+try:
+	toolchain = os.readlink(os.path.join(os.getenv("PTXDIST_PLATFORMDIR",""), "selected_toolchain")).split("/")
+except:
+	toolchain = "/opt/OSELAS.Toolchain-2014.12.2/arm-v5te-linux-gnueabi/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin".split("/")
+
+ptxdistPlatformDir = "``platform-" + (os.getenv("PTXCONF_PLATFORM") or "versatilepb") + "``"
+oselasTCNarch = gnu_target.split("-")[0]
+oselasTCNvariant = gnu_target.split("-")[1]
+oselasTCNVendorVersion = toolchain[-4].split("-")[1]
+oselasTCNVendorptxdistversion = re.sub(r"\..$",".0", toolchain[-4].split("-")[1])
+oselasToolchainName = toolchain[-3] + "_" + re.sub(r"-([a-z])",r"_\1", toolchain[-2], 3)
+ptxdistBSPName = os.getenv("PTXCONF_PROJECT", "") + os.getenv("PTXCONF_PROJECT_VERSION", "") or "OSELAS.BSP-Pengutronix-Generic-2015.03.1"
+ptxdistCompilerName = gnu_target
+ptxdistCompilerVersion = toolchain[-2]
+ptxdistPlatformKernelRev = os.getenv("PTXCONF_KERNEL_VERSION") or "4.5"
+ptxdistPlatformKernelRevNext = "4.6"
+ptxdistPlatformName = os.getenv("PTXCONF_PLATFORM") or "versatilepb"
+ptxdistPlatformVariant = "\ "
+ptxdistPlatformCollection = "\ "
+ptxdistVendorVersion = os.getenv("PTXDIST_VERSION_YEAR") + "." + os.getenv("PTXDIST_VERSION_MONTH") + "." + os.getenv("PTXDIST_VERSION_BUGFIX")
+package = "<package>"
+
+sys.path.append(".")
+try:
+	from replace import *
+except:
+	pass
+
 rst_epilog = """
-.. |ptxdistPlatformDir| replace:: ``platform-versatilepb``
-.. |oselasTCNarch| replace:: arm
-.. |oselasTCNvariant| replace:: v5te
-.. |oselasTCNVendorVersion| replace:: 2014.12.0
-.. |oselasTCNVendorptxdistversion| replace:: 2014.12.0
-.. |oselasToolchainName| replace:: arm-v5te-linux-gnueabi_gcc-4.8.2_glibc-2.18_binutils-2.24_kernel-3.12-sanitized
-.. |ptxdistBSPName| replace:: OSELAS.BSP-Pengutronix-Generic-2015.03.1
-.. |ptxdistCompilerName| replace:: arm-v5te-linux-gnueabi
-.. |ptxdistCompilerVersion| replace:: gcc-4.8.2-glibc-2.18-binutils-2.24-kernel-3.12-sanitized
-.. |ptxdistPlatformKernelRev| replace:: 3.19
-.. |ptxdistPlatformKernelRevNext| replace:: 4.0
-.. |ptxdistPlatformName| replace:: arm-qemu
-.. |ptxdistPlatformVariant| replace:: \ 
-.. |ptxdistPlatformCollection| replace:: \ 
+.. |ptxdistPlatformDir| replace:: %s
+.. |oselasTCNarch| replace:: %s
+.. |oselasTCNvariant| replace:: %s
+.. |oselasTCNVendorVersion| replace:: %s
+.. |oselasTCNVendorptxdistversion| replace:: %s
+.. |oselasToolchainName| replace:: %s
+.. |ptxdistBSPName| replace:: %s
+.. |ptxdistCompilerName| replace:: %s
+.. |ptxdistCompilerVersion| replace:: %s
+.. |ptxdistPlatformKernelRev| replace:: %s
+.. |ptxdistPlatformKernelRevNext| replace:: %s
+.. |ptxdistPlatformName| replace:: %s
+.. |ptxdistPlatformVariant| replace:: %s
+.. |ptxdistPlatformCollection| replace:: %s
 .. |ptxdistVendorVersion| replace:: %s
-.. |package| replace:: <pagage>
-""" % os.getenv("PTXDIST_VERSION")
+.. |package| replace:: %s
+""" % (
+	ptxdistPlatformDir,
+	oselasTCNarch,
+	oselasTCNvariant,
+	oselasTCNVendorVersion,
+	oselasTCNVendorptxdistversion,
+	oselasToolchainName,
+	ptxdistBSPName,
+	ptxdistCompilerName,
+	ptxdistCompilerVersion,
+	ptxdistPlatformKernelRev,
+	ptxdistPlatformKernelRevNext,
+	ptxdistPlatformName,
+	ptxdistPlatformVariant,
+	ptxdistPlatformCollection,
+	ptxdistVendorVersion,
+	package
+)
+
+if os.getenv("PTXDIST_VERBOSE","0") == "1":
+	print(rst_epilog)
 
 # -- Options for HTML output ----------------------------------------------
 

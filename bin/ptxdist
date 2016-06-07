@@ -1006,6 +1006,8 @@ Misc:
 				Not specifying the directory will undo the change.
   bash				enter a ptxdist environment bash shell
   bash <cmd> [args...]		execute <cmd> in ptxdist environment
+  docs-html			generate HTML documentation
+  docs-latex			generate LaTeX / PDF documentation
   export_src <target dir>	export all source archives needed for this
 				project to <target dir>
 Overwrite defaults:
@@ -1201,6 +1203,34 @@ drop() {
 	fi
 }
 
+create_docs() {
+	local builder srcdir outdir dir entry
+
+	builder="${1}"
+	outdir=${PTXDIST_WORKSPACE}/Documentation
+
+	if [ "${PTXDIST_TOPDIR}" = "${PTXDIST_WORKSPACE}" ]; then
+		srcdir="${PTXDIST_TEMPDIR}/docs"
+	else
+		srcdir="${STATEDIR}/docs"
+		rm -rf "${srcdir}" &&
+		ptxd_source_kconfig "${PTXDIST_PTXCONFIG}" &&
+		ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}"
+	fi &&
+
+	mkdir "${srcdir}" &&
+	ptxd_in_path PTXDIST_PATH doc &&
+	for dir in "${ptxd_reply[@]}"; do
+		for entry in $(cd "${dir}"; ls); do
+			cp -an "${dir}/${entry}" "${srcdir}/${entry}" || return
+		done
+	done &&
+	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
+		"${outdir}/${builder}" &&
+	if [ "${builder}" = "latex" ]; then
+		make -C "${outdir}/${builder}"
+	fi
+}
 
 projects() {
 	local ifs_old projects projectdir
@@ -1882,6 +1912,10 @@ EOF
 		drop)
 			check_config &&
 			drop "${1}" "${2}"
+			exit
+			;;
+		docs-*)
+			create_docs "${cmd#docs-}" &&
 			exit
 			;;
 		export_src)

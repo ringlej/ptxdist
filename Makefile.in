@@ -16,6 +16,7 @@ CPPFLAGS	:= @CPPFLAGS@
 LDFLAGS		:= @LDFLAGS@
 
 SHELL		:= @BASH@
+RST2MAN		:= @RST2MAN@
 
 export SHELL
 
@@ -69,6 +70,7 @@ environment:
 	@ln -sf @BASH@  "$(abs_srcdir)/bin/bash"
 	@ln -sf @SYSCTL@ "$(abs_srcdir)/bin/sysctl"
 	@ln -sf @MAKE@ "$(abs_srcdir)/bin/make"
+	@ln -sf @SPHINX@ "$(abs_srcdir)/bin/sphinx-build"
 	@echo " done"
 
 man: man/ptxdist.1.gz
@@ -139,11 +141,3 @@ maintainer-clean: distclean
 release:
 	@scripts/make_$@.sh
 
-SPHINXBUILD = @SPHINX@
-RST2MAN = @RST2MAN@
-
-docs:
-	@. scripts/ptxdist_version.sh && \
-	export PTXDIST_VERSION_FULL && \
-	export PTXDIST_VERSION="$${PTXDIST_VERSION_YEAR}.$${PTXDIST_VERSION_MONTH}.$${PTXDIST_VERSION_BUGFIX}"  && \
-	$(SPHINXBUILD) -b html -d ./Documentation ./doc ./Documentation/html
