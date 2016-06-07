@@ -153,7 +153,7 @@ Package Definition
 
   ``cookie:<value>`` to specify a cookie that should be sent.
 
-  Files in the local filesystem can be addressed with 'file://' URLs. In
+  Files in the local filesystem can be addressed with ``file://`` URLs. In
   this case, the URL can also point to a directory. In this case
   ``<PKG>_DIR`` will be a symlink to the specified directory. 'lndir://'
   can be used to create a shadow copy instead. For locations inside the BSP
@@ -176,7 +176,7 @@ Package Definition
   to set this to anything other than
   ``$(SRCDIR)/$(<PKG>).$(<PKG>_SUFFIX)``.
 
-  For local URLs ('file://' or 'lndir://') ``<PKG>_SOURCE`` must not be
+  For local URLs (``file://`` or ``lndir://``) ``<PKG>_SOURCE`` must not be
   set.
 
 ``<PKG>_DIR``
@@ -194,7 +194,7 @@ Package Definition
 
 ``<PKG>_LICENSE_FILES``
   A space separated list of URLs of license text files. The URLs must be
-  'file://' URLs relative to ``<PKG>_DIR``. Absolute URLs using
+  ``file://`` URLs relative to ``<PKG>_DIR``. Absolute URLs using
   ``$(PTXDIST_WORKSPACE)`` can be used in case the license text is missing
   in the upstream archive. Arguments are appended with ';' as separator.
   The ``md5=<md5sum>`` argument is mandatory. It defines the md5 checksum
@@ -236,7 +236,7 @@ of the corresponding target package if it exists.
   default is ``YES`` for cmake packages and ``NO`` for everything else.
   It will use ``$(<PKG>_DIR)-build`` as build directory.
 
-  This is especially useful for 'file://' URLS that point to directories to
+  This is especially useful for ``file://`` URLS that point to directories to
   keep the source tree free of build files.
 
 ``<PKG>_SUBDIR``
