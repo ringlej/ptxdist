@@ -28,8 +28,6 @@ config NFTABLES_DEBUG
 config NFTABLES_MGMP
 	bool
 	prompt "use mini-GMP"
-	# broken in v0.5 (seems to be fixed some time after)
-	depends on BROKEN
 	help
 	  use the nftables build-in mini-GMP instead of linking to the shared
 	  libgmp. (may reduce debugging verbosity on some files)
