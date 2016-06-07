@@ -1195,4 +1195,4 @@ PTXdist is a command line tool, which is basicly called as:
 
     $  ptxdist <action [args]> [options]
 
-.. include:: ref_parameter.rst
+.. include:: ref_parameter.inc

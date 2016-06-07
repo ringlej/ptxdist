@@ -72,7 +72,7 @@ environment:
 	@echo " done"
 
 man: man/ptxdist.1.gz
-man/ptxdist.1.gz: doc/man.rst doc/ref_parameter.rst
+man/ptxdist.1.gz: doc/ptxdist.man doc/ref_parameter.rst
 	@mkdir -pv man
 	$(RST2MAN) $< 2>/dev/null | gzip > $@
 

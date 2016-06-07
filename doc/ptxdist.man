@@ -17,4 +17,4 @@ complete documentation.
 
 .. role:: ref(emphasis)
 
-.. include:: ref_parameter.rst
+.. include:: ref_parameter.inc
