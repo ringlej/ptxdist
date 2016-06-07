@@ -12,9 +12,11 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+from __future__ import print_function
 import sys
 import os
 import re
+import fileinput
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -127,44 +129,36 @@ try:
 except:
 	pass
 
-rst_epilog = """
-.. |ptxdistPlatformDir| replace:: %s
-.. |oselasTCNarch| replace:: %s
-.. |oselasTCNvariant| replace:: %s
-.. |oselasTCNVendorVersion| replace:: %s
-.. |oselasTCNVendorptxdistversion| replace:: %s
-.. |oselasToolchainName| replace:: %s
-.. |ptxdistBSPName| replace:: %s
-.. |ptxdistCompilerName| replace:: %s
-.. |ptxdistCompilerVersion| replace:: %s
-.. |ptxdistPlatformKernelRev| replace:: %s
-.. |ptxdistPlatformKernelRevNext| replace:: %s
-.. |ptxdistPlatformName| replace:: %s
-.. |ptxdistPlatformVariant| replace:: %s
-.. |ptxdistPlatformCollection| replace:: %s
-.. |ptxdistVendorVersion| replace:: %s
-.. |package| replace:: %s
-""" % (
-	ptxdistPlatformDir,
-	oselasTCNarch,
-	oselasTCNvariant,
-	oselasTCNVendorVersion,
-	oselasTCNVendorptxdistversion,
-	oselasToolchainName,
-	ptxdistBSPName,
-	ptxdistCompilerName,
-	ptxdistCompilerVersion,
-	ptxdistPlatformKernelRev,
-	ptxdistPlatformKernelRevNext,
-	ptxdistPlatformName,
-	ptxdistPlatformVariant,
-	ptxdistPlatformCollection,
-	ptxdistVendorVersion,
-	package
-)
+replace_dict = {
+	b"|ptxdistPlatformDir|": ptxdistPlatformDir,
+	b"|oselasTCNarch|": oselasTCNarch,
+	b"|oselasTCNvariant|": oselasTCNvariant,
+	b"|oselasTCNVendorVersion|": oselasTCNVendorVersion,
+	b"|oselasTCNVendorptxdistversion|": oselasTCNVendorptxdistversion,
+	b"|oselasToolchainName|": oselasToolchainName,
+	b"|ptxdistBSPName|": ptxdistBSPName,
+	b"|ptxdistCompilerName|": ptxdistCompilerName,
+	b"|ptxdistCompilerVersion|": ptxdistCompilerVersion,
+	b"|ptxdistPlatformKernelRev|": ptxdistPlatformKernelRev,
+	b"|ptxdistPlatformKernelRevNext|": ptxdistPlatformKernelRevNext,
+	b"|ptxdistPlatformName|": ptxdistPlatformName,
+	b"|ptxdistPlatformVariant|": ptxdistPlatformVariant,
+	b"|ptxdistPlatformCollection|": ptxdistPlatformCollection,
+	b"|ptxdistVendorVersion|": ptxdistVendorVersion,
+	b"|package|": package
+}
+
+for line in fileinput.FileInput(files=filter(os.path.isfile, os.listdir(".")), inplace=True, mode="rb"):
+	for key, value in replace_dict.items():
+		line = line.replace(key, value.encode(encoding="utf-8"))
+	try:
+		sys.stdout.buffer.write(line)
+	except:
+		sys.stdout.write(line)
 
 if os.getenv("PTXDIST_VERBOSE","0") == "1":
-	print(rst_epilog)
+	for key, value in sorted(replace_dict.items()):
+		print("%s => '%s'" % (key, value))
 
 # -- Options for HTML output ----------------------------------------------
 
