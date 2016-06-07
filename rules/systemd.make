@@ -156,7 +156,7 @@ $(STATEDIR)/systemd.install:
 	@$(call targetinfo)
 	@$(call world/install, SYSTEMD)
 ifdef PTXCONF_UDEV_HWDB
-	@systemd-hwdb update --root $(SYSTEMD_PKGDIR)
+	@systemd-hwdb update --usr --root $(SYSTEMD_PKGDIR)
 endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service

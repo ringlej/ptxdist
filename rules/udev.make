@@ -186,7 +186,7 @@ ifdef PTXCONF_UDEV_ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
 endif
 ifdef PTXCONF_UDEV_HWDB
-	@$(call install_copy, udev, 0, 0, 0644, -, /etc/udev/hwdb.bin)
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/hwdb.bin)
 endif
 
 ifdef PTXCONF_UDEV_LEGACY
