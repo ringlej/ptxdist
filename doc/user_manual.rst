@@ -255,9 +255,9 @@ Extracting the Board Support Package
 In order to work with a PTXdist based project we have to extract the
 archive first.
 
-.. parsed-literal::
+::
 
-    $ tar -zxf |ptxdistBSPName|\ .tar.gz
+    $ tar -zxf |ptxdistBSPName|.tar.gz
     $ cd |ptxdistBSPName|
 
 PTXdist is project centric, so now after changing into the new directory
@@ -332,21 +332,21 @@ Selecting a Hardware Platform
 Before we can build this BSP, we need to select one of the possible
 platforms to build for. In this case we want to build for the :
 
-.. parsed-literal::
+::
 
-    $ ptxdist platform configs/\ |ptxdistPlatformName|\ /platformconfig\ |ptxdistPlatformVariant|
+    $ ptxdist platform configs/|ptxdistPlatformName|/platformconfig|ptxdistPlatformVariant|
     info: selected platformconfig:
-          'configs/\ |ptxdistPlatformName|\ /platformconfig\ |ptxdistPlatformVariant|\ '
+          'configs/|ptxdistPlatformName|/platformconfig|ptxdistPlatformVariant|'
 
 .. note:: If you have installed the OSELAS.Toolchain() at its default
   location, PTXdist should already have detected the proper toolchain
   while selecting the platform. In this case it will output:
 
-.. parsed-literal::
+::
 
     found and using toolchain:
-    '/opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ /\ |ptxdistCompilerName|\ /\
-    |ptxdistCompilerVersion|\ /bin'
+    '/opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/|ptxdistCompilerName|/\
+    |ptxdistCompilerVersion|/bin'
 
 If it fails you can continue to select the toolchain manually as
 mentioned in the next section. If this autodetection was successful, we
@@ -361,11 +361,11 @@ specific cases.
 
 To reduce the package count for the run:
 
-.. parsed-literal::
+::
 
-    $ ptxdist collection configs/\ |ptxdistPlatformCollection|
+    $ ptxdist collection configs/|ptxdistPlatformCollection|
     info: selected collectionconfig:
-          'configs/\ |ptxdistPlatformCollection|\ '
+          'configs/|ptxdistPlatformCollection|'
 
 Selecting a Toolchain
 ~~~~~~~~~~~~~~~~~~~~~
@@ -374,9 +374,9 @@ If not automatically detected, the last step in selecting various
 configurations is to select the toolchain to be used to build everything
 for the target.
 
-.. parsed-literal::
+::
 
-    $ ptxdist toolchain /opt/OSELAS.Toolchain-\ |oselasTCNVendorVersion|\ /\ |ptxdistCompilerName|\ /\ |ptxdistCompilerVersion|\ /bin
+    $ ptxdist toolchain /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/|ptxdistCompilerName|/|ptxdistCompilerVersion|/bin
 
 Building the Root Filesystem Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -496,9 +496,9 @@ working QEMU on our development host.
 
 Simply run
 
-.. parsed-literal::
+::
 
-    $ ./configs/\ |ptxdistPlatformName|\ /run
+    $ ./configs/|ptxdistPlatformName|/run
 
 This will start QEMU in full system emulation mode and runs the
 previously built kernel which then uses the generated disk image to
@@ -673,10 +673,10 @@ To do so, we run:
 
 In this Kconfig dialogue we navigate to the entry:
 
-.. parsed-literal::
+::
 
     Linux kernel  --->
-        (\ |ptxdistPlatformKernelRev|\ ) kernel version
+        (|ptxdistPlatformKernelRev|) kernel version
 
 and replace the 3.19 value by the 4.0 value.
 
@@ -688,11 +688,11 @@ Now we can leave the menu and save the new settings.
 
 A Linux kernel needs a configuration for being built correctly. The
 project comes with a prepared configuration in the file
-configs/\ |ptxdistPlatformName|\ /kernelconfig-3.0 for the 3.0 kernel.
+configs/|ptxdistPlatformName|/kernelconfig-3.0 for the 3.0 kernel.
 
 It is always a good idea to start with a known-to-work kernel
 configuration. So, for this example, we are using a different
-known-to-work kernel configuration in the configs/\ |ptxdistPlatformName|\ /kernelconfig-3.7
+known-to-work kernel configuration in the configs/|ptxdistPlatformName|/kernelconfig-3.7
 file for our new 3.7 kernel.
 
 Adapting Linux Kernel Settings
@@ -736,10 +736,10 @@ When PTXdist has finished its job, the new bootable kernel can be found
 at ``images/linuximage``. To boot it again in the QEMU emulation, the
 hard disk image must be re-created with:
 
-.. parsed-literal::
+::
 
     $ ptxdist images
-    $ ./configs/\ |ptxdistPlatformName|\ /run
+    $ ./configs/|ptxdistPlatformName|/run
 
 The emulated system should now start with a 3.7 based kernel with USB
 support.
@@ -759,9 +759,9 @@ such packages.
 In this simple example, we want to add the missing ``head`` command to
 our target’s shell. Assuming we forgot to enable this command, we get:
 
-.. parsed-literal::
+::
 
-    $ ./configs/\ |ptxdistPlatformName|\ /run
+    $ ./configs/|ptxdistPlatformName|/run
 
     ptx login: root
     login[xxx]: root login on 'ttyS0'
@@ -799,7 +799,7 @@ change.
 And also once again, after finishing its job, the following commands let
 us test the new command:
 
-.. parsed-literal::
+::
 
     $ ptxdist images
     $ ./configs/|ptxdistPlatformName|/run

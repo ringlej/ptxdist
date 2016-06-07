@@ -12,10 +12,10 @@ are changed.
 To get their content related to the current project, we can simply run
 a:
 
-.. parsed-literal::
+::
 
     $ ptxdist print PTXDIST_TOPDIR
-    /usr/local/lib/ptxdist-\ |release|
+    /usr/local/lib/ptxdist-|release|
 
 Replace the ``PTXDIST_TOPDIR`` with one of the other generic variables
 PTXdist provides.
