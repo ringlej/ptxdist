@@ -432,15 +432,15 @@ file and we can simply run:
     [...]
 
     checking build system type... i686-host-linux-gnu
-    checking host system type... <ptxdistCompilerName>
+    checking host system type... |ptxdistCompilerName|
     checking whether to enable maintainer-specific portions of Makefiles... no
     checking for a BSD-compatible install... /usr/bin/install -c
     checking whether build environment is sane... yes
     checking for a thread-safe mkdir -p... /bin/mkdir -p
     checking for gawk... gawk
     checking whether make sets $(MAKE)... yes
-    checking for <ptxdistCompilerName>-strip... <ptxdistCompilerName>-strip
-    checking for <ptxdistCompilerName>-gcc... <ptxdistCompilerName>-gcc
+    checking for <ptxdistCompilerName>-strip... |ptxdistCompilerName|-strip
+    checking for <ptxdistCompilerName>-gcc... |ptxdistCompilerName|-gcc
     checking for C compiler default output file name... a.out
 
     [...]
@@ -738,7 +738,7 @@ To do a fast check if this addition was successful, we run:
 ::
 
     $ ptxdist print FOO_AUTOCONF
-    --prefix=/usr --sysconfdir=/etc --host=<ptxdistCompilerName> --build=i686-host-linux-gnu --enable-debug --with-bar
+    --prefix=/usr --sysconfdir=/etc --host=|ptxdistCompilerName| --build=i686-host-linux-gnu --enable-debug --with-bar
 
 .. note:: It depends on the currently selected platform and its architecture
  what content this variable will have. The content shown above is an
