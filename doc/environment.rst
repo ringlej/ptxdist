@@ -102,8 +102,8 @@ Next step is to extract the archive:
 
     $ tar -xjf ptxdist-|ptxdistVendorVersion|.tar.bz2
 
-If everything goes well, we now have a PTXdist-|ptxdistVendorVersion| directory, so we can
-change into it:
+If everything goes well, we now have a ``ptxdist-|ptxdistVendorVersion|``
+directory, so we can change into it:
 
 ::
 
