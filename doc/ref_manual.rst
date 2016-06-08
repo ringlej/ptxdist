@@ -871,6 +871,8 @@ it install its content into the corresponding packages directory (in our example
 
 .. _param_macros:
 
+.. _ptxEndis:
+
 ptx/endis
 ~~~~~~~~~
 
@@ -898,7 +900,9 @@ Depending on the state of FOO_VARIABLE this line results into
  FOO_CONF_OPT += --enable-something (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --disable-something (if FOO_VARIABLE is unset)
 
-Refer ``ptx/disen`` for the opposite string expansion.
+Refer :ref:`ptxDisen` for the opposite string expansion.
+
+.. _ptxDisen:
 
 ptx/disen
 ~~~~~~~~~
@@ -927,7 +931,7 @@ Depending on the state of FOO_VARIABLE this line results into
  FOO_CONF_OPT += --disable-something (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --enable-something (if FOO_VARIABLE is unset)
 
-Refer ``ptx/endis`` for the opposite string expansion.
+Refer :ref:`ptxEndis` for the opposite string expansion.
 
 ptx/wwo
 ~~~~~~~
