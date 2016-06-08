@@ -140,7 +140,7 @@ programs are installed on the development host (e.g. external dependencies).
 The ``configure`` script will stop if it discovers that something is missing.
 
 The PTXdist installation is based on GNU autotools, so the first thing
-to be done now is to configure the packet:
+to be done now is to configure the package:
 
 ::
 
