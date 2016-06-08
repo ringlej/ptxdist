@@ -350,8 +350,7 @@ platforms to build for. In this case we want to build for the :
 ::
 
     found and using toolchain:
-    '/opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/|ptxdistCompilerName|/\
-    |ptxdistCompilerVersion|/bin'
+    '/opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/|ptxdistCompilerName|/|ptxdistCompilerVersion|/bin'
 
 If it fails you can continue to select the toolchain manually as
 mentioned in the next section. If this autodetection was successful, we
