@@ -100,7 +100,7 @@ Runtime Configuration
 Many packages are using run-time configuration files along with their
 executables and libraries. PTXdist provides default configuration files
 for the most common cases. These files can be found in the
-``generic/etc`` directory and they are using the same names as the ones
+``projectroot/etc`` directory and they are using the same names as the ones
 at run-time (and their install directory on the target side will also be
 ``/etc``).
 
@@ -109,9 +109,10 @@ absence of a common case. The project must provide replacements of these
 files with a more useful content in every case where the (empty) default
 one does not meet the target’s requirements.
 
-PTXdist first searches the project local ``./projectroot/etc`` directory
-for a specific configuration file and falls back to use the default one
-if none exists locally.
+PTXdist first searches in the local project directory for a specific
+configuration file and falls back to use the default one if none exists
+locally. Refer section :ref:`install_alternative` for further
+details in which order and locations PTXdist searches for these kind of files.
 
 A popular example is the configuration file ``/etc/fstab``. The default
 one coming with PTXdist works for the most common cases. But if our

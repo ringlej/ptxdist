@@ -623,6 +623,8 @@ to the root filesystem at location ``/usr/share/bar``.
 
  $(call install_alternative_tree, foo, 0, 0, /usr/share/bar)
 
+.. _install_alternative:
+
 install_alternative
 ~~~~~~~~~~~~~~~~~~~
 
