@@ -271,7 +271,7 @@ Options
 ``-j[<n>]``
   set the global number of parallel jobs. This is basically a more
   intelligent combination of ``-je`` and ``-ji``. A single package rarely
-  uses all the available CPUs. Usually only the compile can use more than
+  uses all the available CPUs. Usually only the compile stage can use more than
   one CPU and even then there are often idle CPUs. With the global job
   pool, tasks from multiple packages can be executed in parallel without
   overloading the system.
