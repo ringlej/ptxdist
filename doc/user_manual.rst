@@ -491,46 +491,6 @@ following image types:
 
 All these files can be found in ``images`` if enabled.
 
-Running all Parts in an emulated Environment (QEMU)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The is prepared to give every user a chance to run the results of the
-previous steps even in the absense of real hardware. All we need is a
-working QEMU on our development host.
-
-Simply run
-
-::
-
-    $ ./configs/|ptxdistPlatformName|/run
-
-This will start QEMU in full system emulation mode and runs the
-previously built kernel which then uses the generated disk image to
-bring up a full Linux based system.
-
-The running system uses a serial device for its communication. QEMU
-forwards this emulated device to the current development host console.
-So, we can watch the starting kernel’s output and log in on this system.
-
-Note: Log in as user ’\ ``root``\ ’ with no password (just enter).
-
-Also a telnet deamon is running in this emulation. QEMU is configured to
-forward the standard telnet port 23 of the emulated system to host’s
-port 4444. To connect to the emulated system, we can just run a
-
-::
-
-    $ telnet localhost 4444
-    Trying 127.0.0.1...
-    Connected to localhost.
-    Escape character is '^]'.
-
-    ptx login: root
-    root@ptx:~
-
-Leaving the emulated environment happens by entering the key sequence
-*CTRL-A X* in the development host console.
-
 Adapting the |ptxdistBSPName| Project
 -------------------------------------
 
@@ -558,20 +518,6 @@ supports help and search features. PTXdist uses all of these features.
 *Kconfig* supports a text based user interface by using the *ncurses*
 library to manipulate the screen content and should work on nearly all
 host systems.
-
-For example running PTXdist’s ``menuconfig`` subcommand in this way
-
-::
-
-    $ ptxdist menuconfig
-
-will show the following console output
-
-.. figure:: figures/menuconfig_intro.png
-   :alt:  Main userland configuration menu
-   :align: center
-
-   Main userland configuration menu
 
 Navigate in Kconfig menu (select, search, ...)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -619,42 +565,16 @@ Meaning of visual feedbacks in Kconfig
 -  Some entries need a free text to enter, they are marked with leading
    brackets ``()`` and the free text in it
 
-Menus and submenus in Kconfig (sectioning)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are dozens of entries in the PTXdist configuring menus. To handle
-them, they are divided and separated into logical units.
 
-The main building blocks in the *userland configuration* menu are:
 
--  Host Options: Some parts of the project are build host relevant only.
-   For example PTXdist can build the DDD debugger to debug applications
-   running on the target.
 
--  Root Filesystem: Settings to arrange target’s root filesystem and to
-   select the main C runtime library
 
--  Applications: Everything we like to run on your target.
 
-The main building blocks in the *platform configuration* menu are:
 
--  Architecture: Basic settings, like the main and sub architecture the
-   target system uses, the toolchain to be used to build everything and
-   some other architecture dependent settings.
 
--  Linux kernel: Which kernel revision and kernel configuration should
-   be used
 
--  Bootloader: Which bootloader (if any) should be built in the project
 
--  The kind of image to populate a root filesystem into the target
-   system
-
-The main building blocks in the *board setup configuration* menu are:
-
--  Network: Network settings for the target
-
--  Host: Host setup to be able to reach the target system
 
 At this point it could be useful to walk to the whole menus and their
 submenus to get an idea about the amount of features and applications
@@ -663,177 +583,37 @@ PTXdist currently supports.
 Adapting Platform Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some parts of the |ptxdistBSPName| project are platform specific (in contrast to the
-userland configuration that could be shared between platforms). We now
-want to change the used Linux kernel of our current platform. It comes
-with a default linux-3.19 and we want to change it to a more recent
-linux-4.0.
-
 To do so, we run:
 
 ::
 
     $ ptxdist menuconfig platform
 
-In this Kconfig dialogue we navigate to the entry:
 
-::
 
-    Linux kernel  --->
-        (|ptxdistPlatformKernelRev|) kernel version
 
-and replace the 3.19 value by the 4.0 value.
 
-Since PTXdist checks the MD5 sums of the archives it uses, we also must
-change the MD5 sum in the menu entry according to the selected kernel
-version.
 
-Now we can leave the menu and save the new settings.
-
-A Linux kernel needs a configuration for being built correctly. The
-project comes with a prepared configuration in the file
-configs/|ptxdistPlatformName|/kernelconfig-3.0 for the 3.0 kernel.
-
-It is always a good idea to start with a known-to-work kernel
-configuration. So, for this example, we are using a different
-known-to-work kernel configuration in the configs/|ptxdistPlatformName|/kernelconfig-3.7
-file for our new 3.7 kernel.
 
 Adapting Linux Kernel Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this section we want to show how to change some Linux kernel settings
-of our project.
-
-First of all, we run
 
 ::
 
     $ ptxdist menuconfig kernel
 
-This command will start the kernel’s Kconfig. For this example we want
-to enable USB host support in the kernel. To do so, we navigate to:
+
+
 
 ::
 
-    Device Drivers  --->
-        [ ] USB support  --->
-            < > Support for Host-side USB
-                < > OHCI HCD support
 
-Note: All the listed empty ``[ ]`` and ``< >`` above must be activated
-to get all submenu entries.
 
-We leave the menu and save the new kernel configuration.
 
-To start building a new kernel with the new configuration, we again run:
+
 
 ::
 
     $ ptxdist go
-
-This builds or re-builds the kernel, because we changed its settings.
-
-Note: If nothing was changed, ``ptxdist go`` also will do nothing.
-
-When PTXdist has finished its job, the new bootable kernel can be found
-at ``images/linuximage``. To boot it again in the QEMU emulation, the
-hard disk image must be re-created with:
-
-::
-
-    $ ptxdist images
-    $ ./configs/|ptxdistPlatformName|/run
-
-The emulated system should now start with a 3.7 based kernel with USB
-support.
-
-Adapting Userland Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-After changing some platform and kernel settings, we are now reaching
-the most interesting area: Userland.
-
-In the userland area we can enable and use all the applications and
-services PTXdist provides. Many of them are working out of the box when
-enabled and executed on the target side. Some need additional runtime
-configuration, but PTXdist comes with most common configurations for
-such packages.
-
-In this simple example, we want to add the missing ``head`` command to
-our target’s shell. Assuming we forgot to enable this command, we get:
-
-::
-
-    $ ./configs/|ptxdistPlatformName|/run
-
-    ptx login: root
-    login[xxx]: root login on 'ttyS0'
-    root@ptx:~ head /etc/fstab
-    -sh: head: not found
-
-To change this, we first run:
-
-::
-
-    $ ptxdist menuconfig
-
-The additional command we want to enable is provided by the *Busybox*
-package. So we navigate to:
-
-::
-
-    Shell & Console Tools --->
-        -*- busybox  --->
-            Coreutils  --->
-                [ ] head
-
-After activating the ``[ ] head`` entry, we leave the menu and save the
-new configuration.
-
-Once again, a
-
-::
-
-    $ ptxdist go
-
-will build or re-build the busybox package due to its configuration
-change.
-
-And also once again, after finishing its job, the following commands let
-us test the new command:
-
-::
-
-    $ ptxdist images
-    $ ./configs/|ptxdistPlatformName|/run
-
-Log in on the emulated system and simply check with a:
-
-::
-
-    ptx login: root
-    login[xxx]: root login on 'ttyS0'
-    root@ptx:~ head /etc/fstab
-    #
-    # /etc/fstab
-    #
-
-    # special filesystems
-    proc    /proc                   proc    defaults                        0 0
-    debugfs /sys/kernel/debug       debugfs defaults,noauto                 0 0
-    devpts  /dev/pts                devpts  defaults                        0 0
-    none    /tmp                    tmpfs   defaults,mode=1777,uid=0,gid=0  0 0
-    none    /sys                    sysfs   defaults                        0 0
-
-We are done now. These simple examples should give the users a quick
-feeling how things are working in PTXdist and how to modify them.
-Adapting this generic BSP to a different platform with nearly the same
-features as our reference platforms is possible with this knowledge.
-
-But most of the time, a user needs more detailed adaptions to be able to
-fit all requirements of the new platform. At this point of time we are
-no longer ordinary users of PTXdist, we become developers now.
-
-So, right now it’s time to read the *PTXdist Developer’s Manual*
 
