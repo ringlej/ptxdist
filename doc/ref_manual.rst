@@ -138,7 +138,7 @@ Package Definition
   This is the download URL for the source archive. It is a space separated
   list of URLs. PTXdist will try each URL until it finds one that works.
   There are two main reasons to provide more than one URL: 1. Additional
-  mirror(s) in case the main location is unavailable. 2. Some Projects move
+  mirror(s) in case the main location is unavailable. 2. Some projects move
   old versions into a separate directory when a new version is released.
   Providing both versions of the URL ensures that PTXdist still has a
   working URL after the next upstream release.

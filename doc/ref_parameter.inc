@@ -254,7 +254,7 @@ Options
   This means, that the output for each individual make target and each
   build stage is grouped together.
 
-  Note: If  output synchronization enabled then the output for each build
+  Note: If output synchronization is enabled then the output for each build
   stage is collected by make and won't be visible until the build stage is
   completed. As a result, there will be long periods of time with no
   visible progress.

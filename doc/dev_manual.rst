@@ -906,7 +906,7 @@ For example:
 In this example, our new package depends on the compression library
 *zlib*. PTXdist comes with a target *zlib*. All we need to do in this
 case is to declare that our new package *foo* depends on *zlib*. This
-kind of dependencies is managed in the menu file of our new package by
+kind of dependency is managed in the menu file of our new package by
 simply adding the ``select ZLIB`` line. After this addition our menu
 file looks like:
 
