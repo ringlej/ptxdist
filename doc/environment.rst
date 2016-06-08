@@ -75,9 +75,9 @@ Board Support Package
 Extracting the Sources
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Do the following steps at best in your own home directory ($HOME). You
-need root permissions only in the ``make install`` step, and **nowhere**
-else.
+.. important:: Do the following steps at best in your own home directory ($HOME).
+  You need *root* permissions only in the ``make install`` step, and **nowhere**
+  else.
 
 To install PTXdist, the archive Pengutronix provides has to be
 extracted:
