@@ -135,9 +135,9 @@ directory, so we can change into it:
 Prerequisites
 ~~~~~~~~~~~~~
 
-Before PTXdist can be installed it has to be checked if all necessary
-programs are installed on the development host. The configure script
-will stop if it discovers that something is missing.
+Before PTXdist can be installed it has to check if all necessary
+programs are installed on the development host (e.g. external dependencies).
+The ``configure`` script will stop if it discovers that something is missing.
 
 The PTXdist installation is based on GNU autotools, so the first thing
 to be done now is to configure the packet:
