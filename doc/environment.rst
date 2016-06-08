@@ -292,7 +292,7 @@ cross compiler instead of the native one:
 
     $ arm-softfloat-linux-gnu-gcc test.c -o test
 
-Also part of what we consider to be the “toolchain” is the runtime
+Also part of what we consider to be the “toolchain” is the run-time
 library (libc, dynamic linker). All programs running on the embedded
 system are linked against the libc, which also offers the interface from
 user space functions to the kernel.
@@ -305,7 +305,7 @@ floating point code, it will fail. This is also the case when the
 toolchain builds code for i686 CPUs, whereas the target is i586.
 
 So in order to make things working consistently it is necessary that the
-runtime libc is identical with the libc the compiler was built against.
+run-time libc is identical with the libc the compiler was built against.
 
 PTXdist doesn’t contain a pre-built binary toolchain. Remember that it’s
 not a distribution but a development tool. But it can be used to build a

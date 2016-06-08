@@ -36,7 +36,7 @@ required software components.
 
    -  Userland (root filesystem)
 
--  Adapted files (or generic ones) for runtime configuration
+-  Adapted files (or generic ones) for run-time configuration
 
 -  Patches for all kind of components (to fix bugs or improve features)
 
@@ -291,8 +291,8 @@ Notes about some of the files and directories listed above:
     configuration files.
 
 **projectroot**
-    Contains files and configuration for the target’s runtime. A running
-    GNU/Linux system uses many text files for runtime configuration.
+    Contains files and configuration for the target’s run-time. A running
+    GNU/Linux system uses many text files for run-time configuration.
     Most of the time, the generic files from the PTXdist installation
     will fit the needs. But if not, customized files are located in this
     directory.

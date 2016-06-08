@@ -7,7 +7,7 @@ This chapter shows all (or most) of the details of how PTXdist works.
 
 -  how patching works
 
--  where is PTXdist fetching a package’s runtime configuration files
+-  where is PTXdist fetching a package’s run-time configuration files
    from
 
 -  how to control a package’s build stages
@@ -26,7 +26,7 @@ Rule Files
 
 When building a single package, PTXdist needs the information on how to
 handle the package, i.e. on how to get it from the source up to what the
-target needs at runtime. This information is provided by a rule file per
+target needs at run-time. This information is provided by a rule file per
 package.
 
 PTXdist collects all rule files in its ``rules/`` directory. Whenever
@@ -97,11 +97,11 @@ project.
 Runtime Configuration
 ~~~~~~~~~~~~~~~~~~~~~
 
-Many packages are using runtime configuration files along with their
+Many packages are using run-time configuration files along with their
 executables and libraries. PTXdist provides default configuration files
 for the most common cases. These files can be found in the
 ``generic/etc`` directory and they are using the same names as the ones
-at runtime (and their install directory on the target side will also be
+at run-time (and their install directory on the target side will also be
 ``/etc``).
 
 But some of these default configuration files are empty, due to the
@@ -176,7 +176,7 @@ handle:
 -  **file**: This kind of package is intended to add a few simple files
    into the build process. We assume these files do not need any
    processing, they are ready to use and must only be present in the
-   build process or at runtime (HTML files for example). Refer to the
+   build process or at run-time (HTML files for example). Refer to the
    section :ref:`adding_files` for further details on how to use
    it.
 
@@ -927,7 +927,7 @@ provides the features *foo* and *bar* and its ``configure`` provides
 switches to enable/disable them independently, we can also add
 dependencies on demand. Let’s assume feature *foo* needs the compression
 library *libz* and *bar* needs the XML2 library *libxml2*. These
-libraries are only required at runtime if the correspondig feature is
+libraries are only required at run-time if the correspondig feature is
 enabled. To add these dependencies on demand, the menu file looks like:
 
 ::
@@ -975,10 +975,10 @@ In our example there is a hidden dependency to the math library
 ``libm``. Our new package was built successfully, because the linker was
 able to link our binaries against the ``libm`` from the toolchain. But
 in this case the ``libm`` must also be available in the target’s root
-filesystem to fulfil the runtime dependency: We have to force PTXdist to
+filesystem to fulfil the run-time dependency: We have to force PTXdist to
 install ``libm``. ``libm`` is part of the *glibc* package, but is not
 installed by default (to keep the root filesystem small). So, it **does
-not** help to select the ``GLIBC`` symbol, to get a ``libm`` at runtime.
+not** help to select the ``GLIBC`` symbol, to get a ``libm`` at run-time.
 
 The correct solution here is to add a ``select LIBC_M`` to our menu
 file. With all the additions above it now looks like:

@@ -55,7 +55,7 @@ Global Variables
   packages built for the target are searching in this directory tree for
   their dependencies (header and library files). These files are for
   compile time only (for example to link a target executable against a
-  target library), not for runtime! Use
+  target library), not for run-time! Use
   ``$(PTXDIST_SYSROOT_TARGET)/include`` for header files and
   ``$(PTXDIST_SYSROOT_TARGET)/lib`` for libraries.
 
@@ -845,7 +845,7 @@ The parameters and their meanings:
 The ``install_lib`` macro searches for the library at the most
 common directories ``/lib`` and ``/usr/lib``. And it searches always
 in the package's corresponding directory in ``<platform-dir>/packages/``.
-It also handles all required links to make the library work at runtime.
+It also handles all required links to make the library work at run-time.
 
 An example.
 

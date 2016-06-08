@@ -129,7 +129,7 @@ hints on how to discover these dependencies.
 Dependencies on Shared Libraries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Getting the missed shared library for example at runtime is something
+Getting the missed shared library for example at run-time is something
 easily done: The dynamic linker prints the missing library to the
 console.
 
@@ -158,7 +158,7 @@ Dependencies on other Resources
 Sometimes a binary fails to run due to missing files, directories or
 device nodes. Often the error message (if any) which the binary creates
 in this case is ambiguous. Here the ``strace`` tool can help us, namely
-to observe the binary at runtime. ``strace`` shows all the system calls
+to observe the binary at run-time. ``strace`` shows all the system calls
 the binary or its shared libraries are performing.
 
 ``strace`` is one of the target debugging tools which PTXdist provides
@@ -217,7 +217,7 @@ run ELF binaries for other architectures than our build host is.
 Running an Application made for a different Architecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PTXdist creates a fully working root filesystem with all runtime
+PTXdist creates a fully working root filesystem with all run-time
 components in ``root/``. Lets assume we made a PTXdist based project for
 a CPU. Part of this project is our application ``myapp`` we are
 currently working on. PTXdist builds the root filesystem and also
@@ -314,9 +314,9 @@ Now we can step through our application by using the commands *step*,
 *next*, *stepi*, *nexti*, *until* and so on.
 
 .. note:: It might be impossible for GDB to find debug symbols for
-  components like the main C runtime library. In this case they where
+  components like the main C run-time library. In this case they where
   stripped while building the toolchain. There is a switch in the
-  OSELAS.Toolchain menu to keep the debug symbols also for the C runtime
+  OSELAS.Toolchain menu to keep the debug symbols also for the C run-time
   library. But be warned: This will enlarge the OSELAS.Toolchain
   installation on your harddisk! When the toolchain was built with the
   debug symbols kept, it will be also possible for GDB to debug C library
