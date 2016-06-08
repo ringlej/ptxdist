@@ -315,7 +315,7 @@ Notes about some of the files and directories listed above:
 **tests**
     Contains test scripts for automated target setup.
 
-Next we will build the to show some of PTXdist’s main features.
+Next we will build the BSP to show some of PTXdist’s main features.
 
 Selecting a Userland Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
