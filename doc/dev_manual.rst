@@ -829,7 +829,7 @@ order. For example some kind of package would also build some X related
 tools, if X libraries are found. In this case it depends on the build
 order, if the X related tools are built or not. All the autocheck
 features are problematic here. So, if we do not want ``configure`` to
-guess its settings we **must disable everything we do want**.
+guess its settings we **must disable everything we do not want**.
 
 Since every optional parameter adds four lines of code to the rule
 files, PTXdist provides some shortcuts to handle it. Refer to section
