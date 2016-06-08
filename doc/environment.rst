@@ -173,7 +173,7 @@ for the installation process.
 
 The installation paths are configured in a way that several PTXdist
 versions can be installed in parallel. So if an old version of PTXdist
-is already installed there is no need to remove it.
+is already installed, there is no need to remove it.
 
 One of the most important tasks for the ``configure`` script is to find
 out if all the programs PTXdist depends on are already present on the
