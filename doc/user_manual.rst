@@ -565,20 +565,39 @@ Meaning of visual feedbacks in Kconfig
 -  Some entries need a free text to enter, they are marked with leading
    brackets ``()`` and the free text in it
 
+Adapting Userland Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+To do so, we run:
 
+::
 
+    $ ptxdist menuconfig
 
+will show the following console output
 
+.. figure:: figures/menuconfig_intro.png
+   :alt:  Main userland configuration menu
+   :align: center
 
+   Main userland configuration menu
 
+The main building blocks in the *userland configuration* menu are:
 
+-  Host Options: Some parts of the project are build host relevant only.
+   For example PTXdist can build the DDD debugger to debug applications
+   running on the target.
 
+-  Root Filesystem: Settings to arrange target’s root filesystem and to
+   select the main C run-time library
 
+-  Applications: Everything we like to run on our target.
 
 At this point it could be useful to walk to the whole menus and their
 submenus to get an idea about the amount of features and applications
 PTXdist currently supports.
+
+Note: don't forget to save your changes prior leaving this menu.
 
 Adapting Platform Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -589,31 +608,55 @@ To do so, we run:
 
     $ ptxdist menuconfig platform
 
+The main building blocks in the *platform configuration* menu are:
 
+-  Architecture: Basic settings, like the main and sub architecture the
+   target system uses, the toolchain to be used to build everything and
+   some other architecture dependent settings.
 
+-  Linux kernel: Which kernel revision and kernel configuration should
+   be used
 
+-  Bootloader: Which bootloader (if any) should be built in the project
 
+-  The kind of image to populate a root filesystem into the target
+   system
 
+Note: don't forget to save your changes prior leaving this menu.
 
 Adapting Linux Kernel Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Just run the following command:
 
 ::
 
     $ ptxdist menuconfig kernel
 
+Note: don't forget to save your changes prior leaving this menu.
 
+Adapting Bootloader Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Just run the following command:
 
 ::
 
+    $ ptxdist menuconfig barebox
 
+Note: don't forget to save your changes prior leaving this menu.
 
+Making Changes Real
+~~~~~~~~~~~~~~~~~~~
 
+After a change in whatever menu the next build-run will compile
+or re-compile the changed parts. Due to complex dependencies between these parts
+PTXdist might compile or re-compile more than the changed part.
 
+To apply the changes just run:
 
 ::
 
     $ ptxdist go
 
+Note: If nothing was changed, ``ptxdist go`` also will do nothing.
