@@ -52,17 +52,6 @@ Setup and Project Actions
   setup the environment specific settings like the network IP address and
   so on.
 
-``projects``
-  if the generic projects coming in a separate archive
-  are installed, this actions lists the projects a user can clone for its
-  own work.
-
-``clone <from> <to>``
-  this action clones an existing project from
-  the ``projects`` list into a new directory. The <from>argument must be a
-  name gotten from ``ptxdist projects`` command, the <to>argument is the
-  new project (and directory) name, created in the current directory.
-
 ``menuconfig``
   start the menu to configure the project’s root
   filesystem. This is in respect to user land only. Its the main menu to

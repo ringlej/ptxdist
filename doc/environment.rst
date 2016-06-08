@@ -257,25 +257,6 @@ archive directory for all projects it handles: navigate to menu entry
 *Source Directory* and enter the path to the directory where PTXdist
 should store archives to share between its projects.
 
-Generic Project Location
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-If we already installed the generic projects we should also configure
-PTXdist to know this location. If we already did so, we can use the
-command ``ptxdist projects`` to get a list of available projects and
-``ptxdist clone`` to get a local working copy of a shared generic
-project.
-
-Navigate to menu entry *Project Searchpath* and enter the path to
-projects that can be used in such a way. Here we can configure more than
-one path, each part can be delemited by a colon. For example for
-PTXdist’s generic projects and our own previous projects like this:
-
-``/usr/local/lib/ptxdist-/projects:/office/my_projects/ptxdist``
-
-Leave the menu and store the configuration. PTXdist is now ready for
-use.
-
 If there is no toolchain available yet, the next step is to build one at
 least for the desired target architecture. Refer to the application note
 “Building Toolchains” for further details.
