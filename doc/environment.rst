@@ -257,14 +257,6 @@ archive directory for all projects it handles: navigate to menu entry
 *Source Directory* and enter the path to the directory where PTXdist
 should store archives to share between its projects.
 
-If there is no toolchain available yet, the next step is to build one at
-least for the desired target architecture. Refer to the application note
-“Building Toolchains” for further details.
-
-In order to build the toolchain in the next step, the specific PTXdist-
-is required. We must repeat the previous steps with the PTXdist- to
-install it on our host as well. All PTXdist revisions can co-exist.
-
 Toolchains
 ----------
 
@@ -461,6 +453,9 @@ and for 64 bit host machines on ``*_amd64.deb``.
 
 Building a Toolchain
 ~~~~~~~~~~~~~~~~~~~~
+
+If there is no different toolchain available yet, the next step is to build one
+at least for the desired target architecture.
 
 PTXdist handles toolchain building as a simple project, like all other
 projects, too. So we can download the OSELAS.Toolchain bundle and build
