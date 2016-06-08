@@ -174,7 +174,7 @@ Misc Actions
 
 ``newpackage <type>``
   create a new PTXdist package. For most package types, this will create
-  <pkg>.make and <pkg>.in files in rules/. Use ``newpackage help`` for a
+  <pkg>.make and <pkg>.in files in ``rules/``. Use ``newpackage help`` for a
   list of available package types.
 
 ``nfsroot``
