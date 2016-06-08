@@ -189,6 +189,11 @@ usually needed for daily usage:
     the current selected platform. To run this feature, the kernel must
     be already set up for this platform.
 
+``menuconfig barebox``
+    Runs the standard Barebox bootloader Kconfig to configure the bootloader for
+    the current selected platform. To run this feature, the bootloader must
+    be already set up for this platform.
+
 ``menuconfig collection``
     If multiple platforms are sharing one userland configuration,
     collections can define a subset of all selected packages for
