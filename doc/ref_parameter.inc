@@ -178,7 +178,8 @@ Misc Actions
   list of available package types.
 
 ``nfsroot``
-  run a userspace NFS server and export the nfsroot.
+  run a userspace NFS server and export the nfsroot (refer section
+  :ref:`nfsroot` for further details).
 
 ``print <var>``
   print the contents of a variable. It will first look for a shell variable

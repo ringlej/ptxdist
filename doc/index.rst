@@ -18,7 +18,7 @@ Contents:
    user_manual_section
    dev_manual
    ref_manual
-   daily_work
+   daily_work_section
    getting_help
 
 * :ref:`search`

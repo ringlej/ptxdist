@@ -166,7 +166,8 @@ Package Definition
   archive defined ``<PKG>_SOURCE`` and use it if available.
 
   Git URLs must either start with 'git://' or end with '.git'. They have a
-  mandatory ``tag=<tagname>`` option.
+  mandatory ``tag=<tagname>`` option. Refer :ref:`gitSources` how to make use of
+  it.
 
   Svn URLs must start with 'svn://'. They have a mandatory
   ``rev=r<number>`` option.
