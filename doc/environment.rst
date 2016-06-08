@@ -199,7 +199,7 @@ now install PTXdist into it’s final location. In order to write to
     [...]
 
 If we don’t have root access to the machine it is also possible to
-install PTXdist into some other directory with the ``--prefix`` option.
+install PTXdist into some different directory with the ``--prefix`` option.
 We need to take care that the ``bin/`` directory below the new
 installation dir is added to our ``$PATH`` environment variable (for
 example by exporting it in ``~/.bashrc``).
@@ -461,7 +461,7 @@ PTXdist handles toolchain building as a simple project, like all other
 projects, too. So we can download the OSELAS.Toolchain bundle and build
 the required toolchain for the OSELAS.BoardSupport() Package.
 
-Building any toolchain of the OSELAS.Toolchain-|oselasTCNVendorVersion|  is
+Building any toolchain of the OSELAS.Toolchain-|oselasTCNVendorVersion| is
 tested with PTXdist-|oselasTCNVendorptxdistversion|.
 Pengutronix recommends to use this specific PTXdist to build the
 toolchain. So, it might be essential to install more than one PTXdist
