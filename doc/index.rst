@@ -15,7 +15,7 @@ Contents:
 
    welcome
    environment
-   user_manual
+   user_manual_section
    dev_manual
    ref_manual
    daily_work
