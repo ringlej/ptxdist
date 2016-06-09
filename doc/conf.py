@@ -118,7 +118,6 @@ ptxdistCompilerVersion = toolchain[-2]
 ptxdistPlatformKernelRev = os.getenv("PTXCONF_KERNEL_VERSION") or "4.5"
 ptxdistPlatformKernelRevNext = "4.6"
 ptxdistPlatformName = "platform-" + os.getenv("PTXCONF_PLATFORM") or "versatilepb"
-ptxdistPlatformVariant = "\ "
 ptxdistPlatformCollection = "\ "
 ptxdistVendorVersion = os.getenv("PTXDIST_VERSION_YEAR") + "." + os.getenv("PTXDIST_VERSION_MONTH") + "." + os.getenv("PTXDIST_VERSION_BUGFIX")
 package = "<package>"
@@ -142,7 +141,6 @@ replace_dict = {
 	b"|ptxdistPlatformKernelRev|": ptxdistPlatformKernelRev,
 	b"|ptxdistPlatformKernelRevNext|": ptxdistPlatformKernelRevNext,
 	b"|ptxdistPlatformName|": ptxdistPlatformName,
-	b"|ptxdistPlatformVariant|": ptxdistPlatformVariant,
 	b"|ptxdistPlatformCollection|": ptxdistPlatformCollection,
 	b"|ptxdistVendorVersion|": ptxdistVendorVersion,
 	b"|package|": package

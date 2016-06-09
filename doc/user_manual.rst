@@ -334,9 +334,9 @@ platforms to build for. In this case we want to build for the :
 
 ::
 
-    $ ptxdist platform configs/|ptxdistPlatformName|/platformconfig|ptxdistPlatformVariant|
+    $ ptxdist platform configs/|ptxdistPlatformName|/platformconfig
     info: selected platformconfig:
-          'configs/|ptxdistPlatformName|/platformconfig|ptxdistPlatformVariant|'
+          'configs/|ptxdistPlatformName|/platformconfig'
 
 .. note:: If you have installed the OSELAS.Toolchain() at its default
   location, PTXdist should already have detected the proper toolchain
