@@ -452,7 +452,7 @@ project.
     this correctly, this directory contains timestamp files about
     finished stages.
 
-This are the generated files:
+And one important file in case of trouble:
 
 |ptxdistPlatformDir|\ ``/logfile``
     Every run of PTXdist will add its output to this file. If something
