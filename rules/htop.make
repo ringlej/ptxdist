@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 1.0.3
-HTOP_MD5	:= e768b9b55c033d9c1dffda72db3a6ac7
+HTOP_VERSION	:= 2.0.1
+HTOP_MD5	:= f75fe92b4defaa80d99109830f34b5e2
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
@@ -41,6 +41,8 @@ HTOP_CONF_ENV	:= \
 HTOP_CONF_TOOL	:= autoconf
 HTOP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-proc \
+	--enable-linux-affinity \
 	--disable-unicode
 
 # ----------------------------------------------------------------------------
