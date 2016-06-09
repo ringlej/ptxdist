@@ -62,7 +62,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
-	--with-libnm-glib \
+	--without-libnm-glib \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--with-hostname-persist=default \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
@@ -205,9 +205,6 @@ ifdef PTXCONF_NETWORKMANAGER_PPP
 	@$(call install_copy, networkmanager, 0, 0, 0644, -, $(PPP_SHARED_INST_PATH)/nm-pppd-plugin.so)
 endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm)
-	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-util)
-	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-glib)
-	@$(call install_lib, networkmanager, 0, 0, 0644, libnm-glib-vpn)
 
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system.d/)
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
