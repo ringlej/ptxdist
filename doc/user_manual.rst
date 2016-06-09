@@ -356,21 +356,6 @@ If it fails you can continue to select the toolchain manually as
 mentioned in the next section. If this autodetection was successful, we
 can omit the steps of the section and continue to build the BSP.
 
-In the unified, one included platform can use more userland features
-than another. For example platforms with graphic features will also
-build graphic support, but platforms sans display do not need it. To
-speed up compilation for specific platforms PTXdist provides
-collections, to reduce the amount of programs to be compiled for
-specific cases.
-
-To reduce the package count for the run:
-
-::
-
-    $ ptxdist collection configs/|ptxdistPlatformCollection|
-    info: selected collectionconfig:
-          'configs/|ptxdistPlatformCollection|'
-
 Selecting a Toolchain
 ~~~~~~~~~~~~~~~~~~~~~
 
