@@ -4,6 +4,7 @@ config LIBGUDEV
 	tristate
 	select VIRTUAL			if SYSTEMD = n
 	select GLIB			if SYSTEMD
+	select HOST_GLIB
 	select UDEV
 	select UDEV_LIBUDEV
 	select UDEV_LIBGUDEV		if SYSTEMD = n
