@@ -15,7 +15,7 @@ a:
 ::
 
     $ ptxdist print PTXDIST_TOPDIR
-    /usr/local/lib/ptxdist-|release|
+    /usr/local/lib/ptxdist-|ptxdistVendorVersion|
 
 Replace the ``PTXDIST_TOPDIR`` with one of the other generic variables
 PTXdist provides.
