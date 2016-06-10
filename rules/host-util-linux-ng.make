@@ -51,7 +51,6 @@ HOST_UTIL_LINUX_NG_CONF_OPT	:= \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--with-util \
-	--without-termcap \
 	--without-audit \
 	--without-udev \
 	--without-ncurses \

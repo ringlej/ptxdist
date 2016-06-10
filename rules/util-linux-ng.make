@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.27.1
-UTIL_LINUX_NG_MD5	:= 3cd2698d1363a2c64091c2dadc974647
+UTIL_LINUX_NG_VERSION	:= 2.28
+UTIL_LINUX_NG_MD5	:= e534e6ccc49107e5d31c329af798ef7d
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(basename $(UTIL_LINUX_NG_VERSION))/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(UTIL_LINUX_NG_VERSION)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPL-2.0, GPL-2.0+, GPL-3.0+, LGPL-2.0+, BSD-3-Clause, BSD-4-Clause, public_domain
@@ -127,7 +127,6 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--with-util \
-	--without-termcap \
 	--without-selinux \
 	--without-audit \
 	--without-udev \
