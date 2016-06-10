@@ -115,8 +115,6 @@ oselasToolchainName = toolchain[-3] + "_" + re.sub(r"-([a-z])",r"_\1", toolchain
 ptxdistBSPName = "OSELAS.BSP-" + os.getenv("PTXCONF_PROJECT_VENDOR") + "-" + os.getenv("PTXCONF_PROJECT", "") + os.getenv("PTXCONF_PROJECT_VERSION", "")
 ptxdistCompilerName = gnu_target
 ptxdistCompilerVersion = toolchain[-2]
-ptxdistPlatformKernelRev = os.getenv("PTXCONF_KERNEL_VERSION") or "4.5"
-ptxdistPlatformKernelRevNext = "4.6"
 ptxdistPlatformName = "platform-" + os.getenv("PTXCONF_PLATFORM") or "versatilepb"
 ptxdistPlatformCollection = "\ "
 ptxdistVendorVersion = os.getenv("PTXDIST_VERSION_YEAR") + "." + os.getenv("PTXDIST_VERSION_MONTH") + "." + os.getenv("PTXDIST_VERSION_BUGFIX")
@@ -138,8 +136,6 @@ replace_dict = {
 	b"|ptxdistBSPName|": ptxdistBSPName,
 	b"|ptxdistCompilerName|": ptxdistCompilerName,
 	b"|ptxdistCompilerVersion|": ptxdistCompilerVersion,
-	b"|ptxdistPlatformKernelRev|": ptxdistPlatformKernelRev,
-	b"|ptxdistPlatformKernelRevNext|": ptxdistPlatformKernelRevNext,
 	b"|ptxdistPlatformName|": ptxdistPlatformName,
 	b"|ptxdistPlatformCollection|": ptxdistPlatformCollection,
 	b"|ptxdistVendorVersion|": ptxdistVendorVersion,
