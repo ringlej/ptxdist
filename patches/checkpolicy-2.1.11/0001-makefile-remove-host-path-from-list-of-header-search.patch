@@ -4,12 +4,12 @@ Subject: [PATCH] makefile: remove host path from list of header search dirs
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile      |    2 +-
- test/Makefile |    2 +-
+ Makefile      | 2 +-
+ test/Makefile | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index e5fae3d..02f7b7e 100644
+index e5fae3dfb229..02f7b7efc90e 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -12,7 +12,7 @@ YACC = bison -y
@@ -22,7 +22,7 @@ index e5fae3d..02f7b7e 100644
  CHECKOBJS = y.tab.o lex.yy.o queue.o module_compiler.o parse_util.o \
  	    policy_define.o
 diff --git a/test/Makefile b/test/Makefile
-index 0731e89..51d0f63 100644
+index 0731e89a641f..51d0f639bc77 100644
 --- a/test/Makefile
 +++ b/test/Makefile
 @@ -7,7 +7,7 @@ LIBDIR=$(PREFIX)/lib
