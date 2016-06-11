@@ -134,7 +134,7 @@ dnl   $1: tool to search for
 dnl   $2: package where the tool is (e.g. 'coreutils')
 AC_DEFUN([GNU_TOOL],
 	[AC_CACHE_CHECK([for GNU $1], [ac_cv_path_gnu_$1],
-		[AC_PATH_PROGS_FEATURE_CHECK([gnu_$1], [g$1 $1.gnu $1],
+		[AC_PATH_PROGS_FEATURE_CHECK([gnu_$1], [g$1 $1.gnu $1-gnu $1],
 			[[out=`$ac_path_gnu_$1 --version 2>/dev/null | $SED -ne "s/.*\(GNU\) $2.*/\1/p"`
 				test "x$out" = xGNU && ac_cv_path_gnu_$1=$ac_path_gnu_$1 ac_path_gnu_$1_found=:]],
 			[AC_MSG_ERROR([could not find GNU $1])])])
