@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/qtwebengine/src/core/gyp_run.pro b/qtwebengine/src/core/gyp_run.pro
-index dea1a2225ae2..b14c7db4a404 100644
+index 5bedc9acbc29..8ad87b352ea3 100644
 --- a/qtwebengine/src/core/gyp_run.pro
 +++ b/qtwebengine/src/core/gyp_run.pro
 @@ -47,7 +47,7 @@ cross_compile {

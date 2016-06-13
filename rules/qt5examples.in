@@ -56,6 +56,14 @@ config QT5_EXAMPLES_BLUETOOTH_BTSCANNER
 	depends on QT5_MODULE_QTBASE_WIDGETS
 	depends on QT5_MODULE_QTCONNECTIVITY
 
+config QT5_EXAMPLES_BLUETOOTH_QML_CHAT
+	bool
+	prompt "qml_chat"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTCONNECTIVITY
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
 config QT5_EXAMPLES_BLUETOOTH_HEARTLISTENER
 	bool
 	prompt "heartlistener"
@@ -68,6 +76,15 @@ config QT5_EXAMPLES_BLUETOOTH_HEARTLISTENER
 config QT5_EXAMPLES_BLUETOOTH_LOWENERGYSCANNER
 	bool
 	prompt "lowenergyscanner"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTCONNECTIVITY
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_BLUETOOTH_QML_PICTURETRANSFER
+	bool
+	prompt "qml_picturetransfer"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTCONNECTIVITY
@@ -98,14 +115,6 @@ menuconfig QT5_EXAMPLES_CANVAS3D
 
 if QT5_EXAMPLES_CANVAS3D
 
-config QT5_EXAMPLES_CANVAS3D_CELLPHONE
-	bool
-	prompt "cellphone"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTCANVAS3D
-	depends on QT5_MODULE_QTDECLARATIVE
-
 config QT5_EXAMPLES_CANVAS3D_FRAMEBUFFER
 	bool
 	prompt "framebuffer"
@@ -132,24 +141,6 @@ config QT5_EXAMPLES_CANVAS3D_JSONMODELS
 	depends on QT5_MODULE_QTCANVAS3D
 	depends on QT5_MODULE_QTDECLARATIVE
 
-config QT5_EXAMPLES_CANVAS3D_ONEQT
-	bool
-	prompt "oneqt"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTCANVAS3D
-	depends on QT5_MODULE_QTDECLARATIVE
-	depends on QT5_MODULE_QTDECLARATIVE_QUICK
-
-config QT5_EXAMPLES_CANVAS3D_PLANETS
-	bool
-	prompt "planets"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTCANVAS3D
-	depends on QT5_MODULE_QTDECLARATIVE
-	depends on QT5_MODULE_QTDECLARATIVE_QUICK
-
 config QT5_EXAMPLES_CANVAS3D_QUICKITEMTEXTURE
 	bool
 	prompt "quickitemtexture"
@@ -168,16 +159,37 @@ config QT5_EXAMPLES_CANVAS3D_TEXTUREANDLIGHT
 	depends on QT5_MODULE_QTDECLARATIVE_QUICK
 
 
-menuconfig QT5_EXAMPLES_CANVAS3D_CANVAS3D_THREEJS
+menuconfig QT5_EXAMPLES_CANVAS3D_THREEJS
 	bool
-	prompt "canvas3d/threejs            "
+	prompt "threejs                     "
 
-if QT5_EXAMPLES_CANVAS3D_CANVAS3D_THREEJS
+if QT5_EXAMPLES_CANVAS3D_THREEJS
 
-config QT5_EXAMPLES_CANVAS3D_CANVAS3D_THREEJS_PLANETS
+config QT5_EXAMPLES_CANVAS3D_THREEJS_CELLPHONE
+	bool
+	prompt "cellphone"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTCANVAS3D
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_CANVAS3D_THREEJS_ONEQT
+	bool
+	prompt "oneqt"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTCANVAS3D
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_CANVAS3D_THREEJS_PLANETS
 	bool
 	prompt "planets"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTCANVAS3D
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
 
 endif
 endif
@@ -235,6 +247,13 @@ config QT5_EXAMPLES_CORELIB_THREADS_MANDELBROT
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
 
+config QT5_EXAMPLES_CORELIB_THREADS_QUEUEDCUSTOMTYPE
+	bool
+	prompt "queuedcustomtype"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
 config QT5_EXAMPLES_CORELIB_THREADS_SEMAPHORES
 	bool
 	prompt "semaphores"
@@ -256,6 +275,17 @@ if QT5_EXAMPLES_CORELIB_TOOLS
 config QT5_EXAMPLES_CORELIB_TOOLS_CONTIGUOUSCACHE
 	bool
 	prompt "contiguouscache"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+config QT5_EXAMPLES_CORELIB_TOOLS_CUSTOMTYPE
+	bool
+	prompt "customtype"
+	depends on QT5_MODULE_QTBASE
+
+config QT5_EXAMPLES_CORELIB_TOOLS_CUSTOMTYPESENDING
+	bool
+	prompt "customtypesending"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_WIDGETS
 
@@ -358,6 +388,82 @@ config QT5_EXAMPLES_DESIGNER_WORLDTIMECLOCKBUILDER
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
 	depends on QT5_MODULE_QTTOOLS
+
+endif
+
+menuconfig QT5_EXAMPLES_ENGINIO_QUICK
+	bool
+	prompt "enginio/quick               "
+
+if QT5_EXAMPLES_ENGINIO_QUICK
+
+config QT5_EXAMPLES_ENGINIO_QUICK_IMAGE_GALLERY
+	bool
+	prompt "image-gallery"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTENGINIO
+
+config QT5_EXAMPLES_ENGINIO_QUICK_SOCIALTODOS
+	bool
+	prompt "socialtodos"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTENGINIO
+
+config QT5_EXAMPLES_ENGINIO_QUICK_TODOS
+	bool
+	prompt "todos"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTENGINIO
+
+config QT5_EXAMPLES_ENGINIO_QUICK_USERS
+	bool
+	prompt "users"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTENGINIO
+
+endif
+
+menuconfig QT5_EXAMPLES_ENGINIO_WIDGETS
+	bool
+	prompt "enginio/widgets             "
+
+if QT5_EXAMPLES_ENGINIO_WIDGETS
+
+config QT5_EXAMPLES_ENGINIO_WIDGETS_CLOUDADDRESSBOOK
+	bool
+	prompt "cloudaddressbook"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTENGINIO
+
+config QT5_EXAMPLES_ENGINIO_WIDGETS_IMAGE_GALLERY
+	bool
+	prompt "image-gallery"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTENGINIO
+
+config QT5_EXAMPLES_ENGINIO_WIDGETS_TODOS
+	bool
+	prompt "todos"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTENGINIO
 
 endif
 
@@ -562,6 +668,11 @@ config QT5_EXAMPLES_MULTIMEDIA_VIDEO_QMLVIDEO
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTDECLARATIVE
 	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTMULTIMEDIA
+
+config QT5_EXAMPLES_MULTIMEDIA_VIDEO_QMLVIDEOFILTER_OPENCL
+	bool
+	prompt "qmlvideofilter_opencl"
 	depends on QT5_MODULE_QTMULTIMEDIA
 
 config QT5_EXAMPLES_MULTIMEDIA_VIDEO_QMLVIDEOFX
@@ -783,6 +894,14 @@ config QT5_EXAMPLES_NFC_ANNOTATEDURL
 	depends on QT5_MODULE_QTBASE_WIDGETS
 	depends on QT5_MODULE_QTCONNECTIVITY
 
+config QT5_EXAMPLES_NFC_QML_CORKBOARD
+	bool
+	prompt "qml_corkboard"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTCONNECTIVITY
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
 config QT5_EXAMPLES_NFC_NDEFEDITOR
 	bool
 	prompt "ndefeditor"
@@ -810,6 +929,13 @@ if QT5_EXAMPLES_OPENGL
 config QT5_EXAMPLES_OPENGL_2DPAINTING
 	bool
 	prompt "2dpainting"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+config QT5_EXAMPLES_OPENGL_CONTEXTINFO
+	bool
+	prompt "contextinfo"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
@@ -881,11 +1007,28 @@ menuconfig QT5_EXAMPLES_POSITIONING
 
 if QT5_EXAMPLES_POSITIONING
 
+config QT5_EXAMPLES_POSITIONING_GEOFLICKR
+	bool
+	prompt "geoflickr"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTLOCATION
+
 config QT5_EXAMPLES_POSITIONING_LOGFILEPOSITIONSOURCE
 	bool
 	prompt "logfilepositionsource"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTLOCATION
+
+config QT5_EXAMPLES_POSITIONING_SATELLITEINFO
+	bool
+	prompt "satelliteinfo"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
 	depends on QT5_MODULE_QTLOCATION
 
 config QT5_EXAMPLES_POSITIONING_WEATHERINFO
@@ -1005,6 +1148,62 @@ config QT5_EXAMPLES_QML_REFERENCEEXAMPLES_VALUESOURCE
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTDECLARATIVE
+
+endif
+
+menuconfig QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML
+	bool
+	prompt "tutorials/extending-qml     "
+
+if QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML
+
+config QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML_CHAPTER1_BASICS
+	bool
+	prompt "chapter1-basics"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML_CHAPTER2_METHODS
+	bool
+	prompt "chapter2-methods"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML_CHAPTER3_BINDINGS
+	bool
+	prompt "chapter3-bindings"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML_CHAPTER4_CUSTOMPROPERTYTYPES
+	bool
+	prompt "chapter4-customPropertyTypes"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML_CHAPTER5_LISTPROPERTIES
+	bool
+	prompt "chapter5-listproperties"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QML_TUTORIALS_EXTENDING_QML_CHAPTER6_PLUGINS
+	bool
+	prompt "chapter6-plugins"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
 
 endif
 endif
@@ -1469,55 +1668,6 @@ config QT5_EXAMPLES_QTESTLIB_TUTORIAL5
 
 endif
 
-menuconfig QT5_EXAMPLES_QTLABSCONTROLS
-	bool
-	prompt "qtlabscontrols              "
-
-if QT5_EXAMPLES_QTLABSCONTROLS
-
-config QT5_EXAMPLES_QTLABSCONTROLS_GALLERY
-	bool
-	prompt "gallery"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTDECLARATIVE
-	depends on QT5_MODULE_QTQUICKCONTROLS2
-
-endif
-
-menuconfig QT5_EXAMPLES_QTPOSITIONING
-	bool
-	prompt "qtpositioning               "
-
-if QT5_EXAMPLES_QTPOSITIONING
-
-config QT5_EXAMPLES_QTPOSITIONING_SATELLITEINFO
-	bool
-	prompt "satelliteinfo"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTDECLARATIVE
-	depends on QT5_MODULE_QTDECLARATIVE_QUICK
-	depends on QT5_MODULE_QTLOCATION
-
-endif
-
-menuconfig QT5_EXAMPLES_QTSENSORS
-	bool
-	prompt "qtsensors                   "
-
-if QT5_EXAMPLES_QTSENSORS
-
-config QT5_EXAMPLES_QTSENSORS_SHAKEIT
-	bool
-	prompt "shakeit"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTDECLARATIVE_QUICK
-	depends on QT5_MODULE_QTSENSORS
-
-endif
-
 menuconfig QT5_EXAMPLES_QUICK
 	bool
 	prompt "quick                       "
@@ -1632,6 +1782,14 @@ config QT5_EXAMPLES_QUICK_SHADEREFFECTS
 config QT5_EXAMPLES_QUICK_TEXT
 	bool
 	prompt "text"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QUICK_TEXTUREPROVIDER
+	bool
+	prompt "textureprovider"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTDECLARATIVE
@@ -1784,22 +1942,6 @@ config QT5_EXAMPLES_QUICK_DEMOS_TWEETSEARCH
 
 endif
 
-menuconfig QT5_EXAMPLES_QUICK_DIALOGS
-	bool
-	prompt "dialogs                     "
-
-if QT5_EXAMPLES_QUICK_DIALOGS
-
-config QT5_EXAMPLES_QUICK_DIALOGS_SYSTEMDIALOGS
-	bool
-	prompt "systemdialogs"
-	depends on QT5_MODULE_QTBASE
-	depends on QT5_MODULE_QTBASE_GUI
-	depends on QT5_MODULE_QTBASE_WIDGETS
-	depends on QT5_MODULE_QTDECLARATIVE
-
-endif
-
 menuconfig QT5_EXAMPLES_QUICK_LOCALSTORAGE
 	bool
 	prompt "localstorage                "
@@ -1896,6 +2038,31 @@ config QT5_EXAMPLES_QUICK_PARTICLES_SYSTEM
 
 endif
 
+menuconfig QT5_EXAMPLES_QUICK_QUICKWIDGETS
+	bool
+	prompt "quickwidgets                "
+
+if QT5_EXAMPLES_QUICK_QUICKWIDGETS
+
+config QT5_EXAMPLES_QUICK_QUICKWIDGETS_QQUICKVIEWCOMPARISON
+	bool
+	prompt "qquickviewcomparison"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QUICK_QUICKWIDGETS_QUICKWIDGET
+	bool
+	prompt "quickwidget"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+endif
+
 menuconfig QT5_EXAMPLES_QUICK_SCENEGRAPH
 	bool
 	prompt "scenegraph                  "
@@ -1905,6 +2072,14 @@ if QT5_EXAMPLES_QUICK_SCENEGRAPH
 config QT5_EXAMPLES_QUICK_SCENEGRAPH_CUSTOMGEOMETRY
 	bool
 	prompt "customgeometry"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QUICK_SCENEGRAPH_GRAPH
+	bool
+	prompt "graph"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTDECLARATIVE
@@ -1965,6 +2140,143 @@ config QT5_EXAMPLES_QUICK_SCENEGRAPH_TWOTEXTUREPROVIDERS
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTDECLARATIVE
 	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+endif
+
+menuconfig QT5_EXAMPLES_QUICKCONTROLS_CONTROLS
+	bool
+	prompt "controls/controls           "
+
+if QT5_EXAMPLES_QUICKCONTROLS_CONTROLS
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_BASICLAYOUTS
+	bool
+	prompt "basiclayouts"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_CALENDAR
+	bool
+	prompt "calendar"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_SQL
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_FILESYSTEMBROWSER
+	bool
+	prompt "filesystembrowser"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_GALLERY
+	bool
+	prompt "gallery"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_STYLES
+	bool
+	prompt "styles"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_TABLEVIEW
+	bool
+	prompt "tableview"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_TEXTEDITOR
+	bool
+	prompt "texteditor"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_TOUCH
+	bool
+	prompt "touch"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_CONTROLS_UIFORMS
+	bool
+	prompt "uiforms"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+endif
+
+menuconfig QT5_EXAMPLES_QUICKCONTROLS_DIALOGS
+	bool
+	prompt "controls/dialogs            "
+
+if QT5_EXAMPLES_QUICKCONTROLS_DIALOGS
+
+config QT5_EXAMPLES_QUICKCONTROLS_DIALOGS_SYSTEMDIALOGS
+	bool
+	prompt "systemdialogs"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTDECLARATIVE
+
+endif
+
+menuconfig QT5_EXAMPLES_QUICKCONTROLS_EXTRAS
+	bool
+	prompt "controls/extras             "
+
+if QT5_EXAMPLES_QUICKCONTROLS_EXTRAS
+
+config QT5_EXAMPLES_QUICKCONTROLS_EXTRAS_DASHBOARD
+	bool
+	prompt "dashboard"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_EXTRAS_FLAT
+	bool
+	prompt "flat"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+
+config QT5_EXAMPLES_QUICKCONTROLS_EXTRAS_GALLERY
+	bool
+	prompt "gallery"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+
+endif
+
+menuconfig QT5_EXAMPLES_QUICKCONTROLS2
+	bool
+	prompt "controls2                   "
+
+if QT5_EXAMPLES_QUICKCONTROLS2
+
+config QT5_EXAMPLES_QUICKCONTROLS2_GALLERY
+	bool
+	prompt "gallery"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
 
 endif
 endif
@@ -2057,6 +2369,14 @@ config QT5_EXAMPLES_SENSORS_ACCELBUBBLE
 	depends on QT5_MODULE_QTDECLARATIVE
 	depends on QT5_MODULE_QTSENSORS
 
+config QT5_EXAMPLES_SENSORS_GRUE_APP
+	bool
+	prompt "grue_app"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTSENSORS
+
 config QT5_EXAMPLES_SENSORS_MAZE
 	bool
 	prompt "maze"
@@ -2090,6 +2410,154 @@ config QT5_EXAMPLES_SENSORS_SENSOR_EXPLORER
 	depends on QT5_MODULE_QTDECLARATIVE
 	depends on QT5_MODULE_QTDECLARATIVE_QUICK
 	depends on QT5_MODULE_QTSENSORS
+
+config QT5_EXAMPLES_SENSORS_GESTURE
+	bool
+	prompt "gesture"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSENSORS
+
+config QT5_EXAMPLES_SENSORS_SHAKEIT
+	bool
+	prompt "shakeit"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTSENSORS
+
+endif
+
+menuconfig QT5_EXAMPLES_SERIALBUS
+	bool
+	prompt "serialbus                   "
+
+if QT5_EXAMPLES_SERIALBUS
+
+config QT5_EXAMPLES_SERIALBUS_CAN
+	bool
+	prompt "can"
+	depends on QT5_MODULE_
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+
+menuconfig QT5_EXAMPLES_SERIALBUS_MODBUS
+	bool
+	prompt "modbus                      "
+
+if QT5_EXAMPLES_SERIALBUS_MODBUS
+
+config QT5_EXAMPLES_SERIALBUS_MODBUS_ADUEDITOR
+	bool
+	prompt "adueditor"
+	depends on QT5_MODULE_
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+config QT5_EXAMPLES_SERIALBUS_MODBUS_MODBUSMASTER
+	bool
+	prompt "modbusmaster"
+	depends on QT5_MODULE_
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+config QT5_EXAMPLES_SERIALBUS_MODBUS_MODBUSSLAVE
+	bool
+	prompt "modbusslave"
+	depends on QT5_MODULE_
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+endif
+endif
+
+menuconfig QT5_EXAMPLES_SERIALPORT
+	bool
+	prompt "serialport                  "
+
+if QT5_EXAMPLES_SERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_BLOCKINGMASTER
+	bool
+	prompt "blockingmaster"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_BLOCKINGSLAVE
+	bool
+	prompt "blockingslave"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_CENUMERATOR
+	bool
+	prompt "cenumerator"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_CREADERASYNC
+	bool
+	prompt "creaderasync"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_CREADERSYNC
+	bool
+	prompt "creadersync"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_CWRITERASYNC
+	bool
+	prompt "cwriterasync"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_CWRITERSYNC
+	bool
+	prompt "cwritersync"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_ENUMERATOR
+	bool
+	prompt "enumerator"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_MASTER
+	bool
+	prompt "master"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_SLAVE
+	bool
+	prompt "slave"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALPORT
+
+config QT5_EXAMPLES_SERIALPORT_TERMINAL
+	bool
+	prompt "terminal"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALPORT
 
 endif
 
@@ -2351,11 +2819,41 @@ config QT5_EXAMPLES_UITOOLS_TEXTFINDER
 
 endif
 
+menuconfig QT5_EXAMPLES_WEBCHANNEL
+	bool
+	prompt "webchannel                  "
+
+if QT5_EXAMPLES_WEBCHANNEL
+
+config QT5_EXAMPLES_WEBCHANNEL_CHATSERVER
+	bool
+	prompt "chatserver"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTWEBCHANNEL
+
+config QT5_EXAMPLES_WEBCHANNEL_STANDALONE
+	bool
+	prompt "standalone"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTWEBCHANNEL
+
+endif
+
 menuconfig QT5_EXAMPLES_WEBENGINE
 	bool
 	prompt "webengine                   "
 
 if QT5_EXAMPLES_WEBENGINE
+
+config QT5_EXAMPLES_WEBENGINE_MINIMAL
+	bool
+	prompt "minimal"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE
+	depends on QT5_MODULE_QTWEBENGINE
 
 config QT5_EXAMPLES_WEBENGINE_QUICKNANOBROWSER
 	bool
@@ -2380,6 +2878,14 @@ config QT5_EXAMPLES_WEBENGINEWIDGETS_CONTENTMANIPULATION
 	depends on QT5_MODULE_QTBASE_WIDGETS
 	depends on QT5_MODULE_QTWEBENGINE
 
+config QT5_EXAMPLES_WEBENGINEWIDGETS_COOKIEBROWSER
+	bool
+	prompt "cookiebrowser"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTWEBENGINE
+
 config QT5_EXAMPLES_WEBENGINEWIDGETS_DEMOBROWSER
 	bool
 	prompt "demobrowser"
@@ -2396,7 +2902,76 @@ config QT5_EXAMPLES_WEBENGINEWIDGETS_MARKDOWNEDITOR
 	depends on QT5_MODULE_QTBASE_WIDGETS
 	depends on QT5_MODULE_QTWEBENGINE
 
+config QT5_EXAMPLES_WEBENGINEWIDGETS_MINIMAL
+	bool
+	prompt "minimal"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTWEBENGINE
+
+config QT5_EXAMPLES_WEBENGINEWIDGETS_SIMPLEBROWSER
+	bool
+	prompt "simplebrowser"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTWEBENGINE
+
 endif
+endif
+
+menuconfig QT5_EXAMPLES_WEBSOCKETS
+	bool
+	prompt "websockets                  "
+
+if QT5_EXAMPLES_WEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_ECHOCLIENT
+	bool
+	prompt "echoclient"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTWEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_ECHOSERVER
+	bool
+	prompt "echoserver"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTWEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_QMLWEBSOCKETCLIENT
+	bool
+	prompt "qmlwebsocketclient"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTWEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_QMLWEBSOCKETSERVER
+	bool
+	prompt "qmlwebsocketserver"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTDECLARATIVE_QUICK
+	depends on QT5_MODULE_QTWEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_CHATSERVER
+	bool
+	prompt "chatserver"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTWEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_SSLECHOCLIENT
+	bool
+	prompt "sslechoclient"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTWEBSOCKETS
+
+config QT5_EXAMPLES_WEBSOCKETS_SSLECHOSERVER
+	bool
+	prompt "sslechoserver"
+	depends on QT5_MODULE_QTBASE
+	depends on QT5_MODULE_QTWEBSOCKETS
+
 endif
 
 menuconfig QT5_EXAMPLES_WEBVIEW
@@ -2894,6 +3469,12 @@ config QT5_EXAMPLES_WIDGETS_ITEMVIEWS_STARDELEGATE
 	prompt "stardelegate"
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
+	depends on QT5_MODULE_QTBASE_WIDGETS
+
+config QT5_EXAMPLES_WIDGETS_ITEMVIEWS_STORAGEVIEW
+	bool
+	prompt "storageview"
+	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_WIDGETS
 
 endif

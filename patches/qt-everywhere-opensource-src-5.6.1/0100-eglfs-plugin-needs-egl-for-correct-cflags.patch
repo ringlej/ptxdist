@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro b/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro
-index 0f493fdc01d7..79a2e708e894 100644
+index a628cdccd938..f7e3400615e6 100644
 --- a/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro
 +++ b/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro
-@@ -7,6 +7,8 @@ load(qt_plugin)
+@@ -2,6 +2,8 @@ TARGET = qeglfs
  
  QT += platformsupport-private eglfs_device_lib-private
  
