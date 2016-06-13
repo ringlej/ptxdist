@@ -288,7 +288,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
 
 	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules, *.ko,, k)
-	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules,, *.ko, n)
+	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules,, *.ko */build */source, n)
 
 	@$(call install_finish, kernel-modules)
 endif
