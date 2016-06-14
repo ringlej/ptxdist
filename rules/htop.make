@@ -30,11 +30,6 @@ HTOP_LICENSE	:= GPL-2.0
 # Prepare
 # ----------------------------------------------------------------------------
 
-HTOP_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	ac_cv_file__proc_stat=yes \
-	ac_cv_file__proc_meminfo=yes
-
 #
 # autoconf
 #
@@ -42,6 +37,8 @@ HTOP_CONF_TOOL	:= autoconf
 HTOP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-proc \
+	--enable-cgroup \
+	--enable-taskstats \
 	--enable-linux-affinity \
 	--disable-unicode
 
