@@ -115,6 +115,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SCHEDUTILS)-schedutils \
 	--disable-wall \
 	--disable-write \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_ZRAMCTL)-zramctl \
 	--disable-bash-completion \
 	--disable-pylibmount \
 	--disable-pg-bell \
@@ -267,6 +268,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FINDFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/findfs)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_ZRAMCTL
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/zramctl)
 endif
 
 	@$(call install_finish, util-linux-ng)

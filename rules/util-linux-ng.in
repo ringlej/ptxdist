@@ -366,4 +366,10 @@ config UTIL_LINUX_NG_FINDFS
 comment "BusyBox' findfs is selected!"
 	depends on BUSYBOX_FINDFS
 
+config UTIL_LINUX_NG_ZRAMCTL
+	bool
+	prompt "zramctl"
+	help
+	  The zramctl program is a tool to set up and control zram devices.
+
 endif
