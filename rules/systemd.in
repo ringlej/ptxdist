@@ -8,7 +8,8 @@ menuconfig SYSTEMD
 	select ROOTFS_RUN
 	select LIBC_PTHREAD
 	select LIBC_RT
-	select LIBC_DL
+	select LIBC_DL		if SYSTEMD_NETWORK
+	select LIBC_M		if SYSTEMD_NETWORK || SYSTEMD_TIMEDATE
 	select LIBCAP
 	select LIBKMOD
 	select LIBKMOD_TOOLS
