@@ -18,12 +18,6 @@ if E2FSPROGS
 menu "build options                 "
 # -----------------------------------
 
-config E2FSPROGS_COMPRESSION
-	bool
-	prompt "compression"
-	help
-	  Enable experimental compression support.
-
 config E2FSPROGS_IMAGER
 	bool
 	# no prompt
