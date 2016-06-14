@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.5.1
-HOST_QEMU_MD5		:= 42e73182dea8b9213fa7050e168a4615
+HOST_QEMU_VERSION	:= 2.6.0
+HOST_QEMU_MD5		:= ca3f70b43f093e33e9e014f144067f13
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -85,6 +85,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-virtfs \
 	--disable-xen \
 	--disable-xen-pci-passthrough \
+	--disable-xen-pv-domain-build \
 	--disable-brlapi \
 	--disable-curl \
 	--enable-fdt \
