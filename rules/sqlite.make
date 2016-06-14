@@ -5,6 +5,7 @@
 #               2009 by Erwin Rol <erwin@erwinrol.com>
 #               2010, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #               2011 by Markus Rathgeb <rathgeb.markus@googlemail.com>
+#               2016 by Clemens Gruber <clemens.gruber@pqgruber.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,11 +21,11 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	:= 3090200
-SQLITE_MD5	:= bc4eb5b3fc5cfcb6e059794306cac1ca
+SQLITE_VERSION	:= 3130000
+SQLITE_MD5	:= 4e83f39fa2ffb610ac5ecd36865da6a2
 SQLITE		:= sqlite-autoconf-$(SQLITE_VERSION)
 SQLITE_SUFFIX	:= tar.gz
-SQLITE_URL	:= http://www.sqlite.org/2015/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_URL	:= http://www.sqlite.org/2016/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_SOURCE	:= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_DIR	:= $(BUILDDIR)/$(SQLITE)
 SQLITE_LICENSE	:= public_domain
@@ -37,11 +38,10 @@ SQLITE_CONF_ENV := \
 	$(CROSS_ENV) \
 	CPPFLAGS=" \
 	-DSQLITE_ENABLE_COLUMN_METADATA \
-	-DSQLITE_ENABLE_FTS3 \
+	-DSQLITE_ENABLE_FTS4 \
+	-DSQLITE_ENABLE_JSON1 \
 	-DSQLITE_ENABLE_RTREE=1 \
 	-DSQLITE_ENABLE_UNLOCK_NOTIFY \
-	-DSQLITE_OMIT_LOOKASIDE=1 \
-	-DSQLITE_SECURE_DELETE \
 	-DSQLITE_SOUNDEX=1 \
 	"
 
