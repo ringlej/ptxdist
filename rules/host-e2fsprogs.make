@@ -31,7 +31,7 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-bsd-shlibs \
 	--disable-profile \
 	--disable-gcov \
-	--enable-hardening \
+	--disable-hardening \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
 	--disable-testio-debug \
