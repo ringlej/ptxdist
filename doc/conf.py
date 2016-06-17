@@ -106,16 +106,16 @@ try:
 except:
 	toolchain = "/opt/OSELAS.Toolchain-2014.12.2/arm-v5te-linux-gnueabi/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin".split("/")
 
-ptxdistPlatformDir = "``platform-" + (os.getenv("PTXCONF_PLATFORM") or "versatilepb") + "``"
+ptxdistPlatformDir = "``platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb") + "``"
 oselasTCNarch = gnu_target.split("-")[0]
 oselasTCNvariant = gnu_target.split("-")[1]
 oselasTCNVendorVersion = toolchain[-4].split("-")[1]
 oselasTCNVendorptxdistversion = re.sub(r"\..$",".0", toolchain[-4].split("-")[1])
 oselasToolchainName = toolchain[-3] + "_" + re.sub(r"-([a-z])",r"_\1", toolchain[-2], 3)
-ptxdistBSPName = "OSELAS.BSP-" + os.getenv("PTXCONF_PROJECT_VENDOR") + "-" + os.getenv("PTXCONF_PROJECT", "") + os.getenv("PTXCONF_PROJECT_VERSION", "")
+ptxdistBSPName = "OSELAS.BSP-" + os.getenv("PTXCONF_PROJECT_VENDOR", "Pengutronix") + "-" + os.getenv("PTXCONF_PROJECT", "Example") + os.getenv("PTXCONF_PROJECT_VERSION", "")
 ptxdistCompilerName = gnu_target
 ptxdistCompilerVersion = toolchain[-2]
-ptxdistPlatformName = "platform-" + os.getenv("PTXCONF_PLATFORM") or "versatilepb"
+ptxdistPlatformName = "platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb")
 ptxdistPlatformCollection = "\ "
 ptxdistVendorVersion = os.getenv("PTXDIST_VERSION_YEAR") + "." + os.getenv("PTXDIST_VERSION_MONTH") + "." + os.getenv("PTXDIST_VERSION_BUGFIX")
 package = "<package>"
