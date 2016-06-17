@@ -212,6 +212,21 @@ handle:
    kernel driver. It also creates a driver template to give the
    developer an easy point to start.
 
+-  **kernel**: PTXdist comes with the ability to handle one kernel in its
+   platform. This type of package enables us to handle more than one kernel in
+   the project.
+
+-  **barebox**: PTXdist comes with the ability to handle one bootloader in its
+   platform. This type of package enables us to handle more than one bootloader
+   in the project.
+
+-  **image-genimage**: This kind of package can handle all kind of image
+   generation for almost every target independent of its complexity.
+
+-  **blspec-entry**: PTXdist comes with the ability to handle one bootspec in its
+   platform. This type of package enables us to handle more than one bootspec
+   in the project.
+
 .. _foo_example:
 
 Rule File Creation
