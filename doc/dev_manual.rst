@@ -1241,37 +1241,29 @@ On the other hand, sometimes files should be included that are not
 covered by any open source license and so, should not be shipped in the
 source code format.
 
-PTXdist provides more than one way to add such type of data files to the
-root filesystem it creates. The examples in this chapter refer our
-generic board support package. It comes with an example how to add
-binary only files into PTXdist’s build mechanism.
+Add binary Files File by File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Old style -- single files
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The old style to add a simple file is present in PTXdist since its early
-days: Just use the ``install_copy`` macro in the *targetinstall* stage
-in your own customized rules file.
+Doing to on a file by file base can happen by just using the ``install_copy``
+macro in the *targetinstall* stage in our own customized rules file.
 
 ::
 
     @$(call install_copy, binary_example, 0, 0, 0644, \
-       $(PTXDIST_WORKSPACE)/local_src/binary_example/ptx_logo.png, \
+       </path/to/some/file/>ptx_logo.png, \
        /example/ptx_logo.png)
 
-The example above is from the file ``rules/binary_inst.make`` from
-Pengutronix’s generic BSP. It copies the file ``ptx_logo.png`` from
-within the BSP’s directory ``local_src/binary_example`` to target’s root
-filesystem. Refer :ref:`install_copy` for further
-information about using the ``install_copy`` macro.
+It copies the file ``ptx_logo.png`` from some location to target’s root
+filesystem. Refer :ref:`install_copy` for further information about using the
+``install_copy`` macro.
 
-The disadvantage of this method is: If we want to install more than one
+The disadvantage of this method is: if we want to install more than one
 file, we need one call to the ``install_copy`` macro per file. This is
 even harder if not only a set of files is to be installed, but a whole
 directory tree with files instead.
 
-New style -- using archives
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Add binary Files via an Archive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a whole tree of files is to be installed, working with a *tar* based
 archive could make life easier. In this case the archive itself provides
@@ -1288,14 +1280,10 @@ correct manner:
 ::
 
     @$(call install_archive, binary_example, -, -, \
-       $(PTXDIST_WORKSPACE)/local_src/archive_example/pictures.tgz, \
-       /)
+       </path/to/an/>archive.tgz, /)
 
-The example shown above is from the file ``rules/binary_inst.make`` from
-Pengutronix’s generic BSP. It extracts the archive ``pictures.tgz`` from
-within the BSP’s directory ``local_src/archive_example`` to target’s
-root filesystem. Refer :ref:`install_archive` for
-further information about using the ``install_archive`` macro.
+Refer :ref:`install_archive` for further information about using the
+``install_archive`` macro.
 
 Using an archive can be usefull to install parts of the root filesystem
 that are not covered by any open source license. Its possible to ship
@@ -1311,8 +1299,7 @@ it in the same way than every other software component.
 Creating a Rules File
 ~~~~~~~~~~~~~~~~~~~~~
 
-To get a rules and menu file we can copy the one from the generic BSP,
-or we let PTXdist create them for us.
+Let PTXdist create one for us.
 
 ::
 
@@ -1322,7 +1309,7 @@ or we let PTXdist create them for us.
 
     ptxdist: enter package name.......: my_binfiles
     ptxdist: enter version number.....: 1
-    ptxdist: enter package author.....: Juergen Borleis <jbe@pengutronix.de>
+    ptxdist: enter package author.....: My Name <me@my-org.com>
     ptxdist: enter package section....: rootfs
 
 Now two new files are present in the BSP:
