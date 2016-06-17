@@ -1082,7 +1082,7 @@ for patches in:
 
 #. project (``./patches/foo-1.1.0``)
 
-#. platform (``./configs//patches/foo-1.1.0``)
+#. platform (``./configs/|ptxdistPlatformName|/patches/foo-1.1.0``)
 
 #. ptxdist (``<ptxdist/installation/path>/patches/foo-1.1.0``)
 
