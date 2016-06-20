@@ -680,7 +680,7 @@ available:
     ./host-eggdbus.in:## SECTION=hosttools_noprompt
     ./libssh2.in:## SECTION=networking
 
-Porting a new package to PTXdist is finished now.
+Porting a new package to PTXdist is (almost) finished now.
 
 To check it right away, we simply run these two commands:
 
