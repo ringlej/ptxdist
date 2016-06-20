@@ -13,4 +13,4 @@ But most of the time, a user needs more detailed adaptions to be able to
 fit all requirements of the new platform. At this point of time we are
 no longer ordinary users of PTXdist, we become developers now.
 
-So, right now it’s time to read the *PTXdist Developer’s Manual*
+So, right now it’s time to read the :ref:`ptx_dev_manual`

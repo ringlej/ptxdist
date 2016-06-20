@@ -1,3 +1,5 @@
+.. _ptx_dev_manual:
+
 PTXdist Developer’s Manual
 ==========================
 
