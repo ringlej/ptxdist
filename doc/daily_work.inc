@@ -1079,7 +1079,7 @@ m4/*
 
 M4 macros used in ``configure.ac``.
 
-If you use more no generic M4 macros in your ``configure.ac`` file,
+If you use more non-generic M4 macros in your ``configure.ac`` file,
 don’t forget to add their source files to the m4 directory. This will
 enable any user of your library to re-generate the autotools based files
 without providing all dependencies by themself.

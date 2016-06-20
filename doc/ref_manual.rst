@@ -76,7 +76,7 @@ Other useful variables:
 
 ``HOST_PATH``
   Used to find host tools. This path must be used to create anything that
-  not depends on the architecture.
+  doesn't depend on the architecture.
 
 ``ROOTDIR``
   ``ROOTDIR`` points to the root of the target’s root filesystem in the

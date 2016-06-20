@@ -240,7 +240,7 @@ usually needed for daily usage:
 For a more complete description refer :ref:`ptxdist_parameter_reference`
 
 All these commands depending on various files a PTXdist based project
-provides. So, running the commands make only sense in directorys that
+provides. So, running the commands make only sense in directories that
 contains a PTXdist based project. Otherwise PTXdist gets confused and
 confuses the user with funny error messages.
 
