@@ -337,4 +337,4 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-highlight_language = 'c'
+highlight_language = 'sh'
