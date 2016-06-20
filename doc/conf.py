@@ -106,7 +106,7 @@ try:
 except:
 	toolchain = "/opt/OSELAS.Toolchain-2014.12.2/arm-v5te-linux-gnueabi/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin".split("/")
 
-ptxdistPlatformDir = "``platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb") + "``"
+ptxdistPlatformDir = "platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb")
 oselasTCNarch = gnu_target.split("-")[0]
 oselasTCNvariant = gnu_target.split("-")[1]
 oselasTCNVendorVersion = toolchain[-4].split("-")[1]

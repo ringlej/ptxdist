@@ -225,8 +225,8 @@ With this preparation we can run it on our build host:
 
 ::
 
-    $ cd platform-<platformname>/root
-    platform-<platformname>/root$ qemu-<architecture> -cpu <cpu-core> -L . usr/bin/myapp
+    $ cd |ptxdistPlatformDir|/root
+    |ptxdistPlatformDir|/root$ qemu-<architecture> -cpu <cpu-core> -L . usr/bin/myapp
 
 This command will run the application ``usr/bin/myapp`` built for an
 <cpu-core> CPU on the build host and is using all library compontents
@@ -251,8 +251,8 @@ the QEMU in the first console as:
 
 ::
 
-    $ cd platform-<platformname>/root-debug
-    platform-<platformname>/root-debug$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
+    $ cd ptxdistPlatformDir/root-debug
+    ptxdistPlatformDir/root-debug$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
 
 .. note:: PTXdist always builds two root filesystems. ``root/`` and
   ``root-debug/``. ``root/`` contains all components without debug

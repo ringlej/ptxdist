@@ -383,40 +383,39 @@ What we Got Now
 After building the project, we find even more sub directories in our
 project.
 
-|ptxdistPlatformDir|\ ``/build-cross``
+``|ptxdistPlatformDir|/build-cross``
     Contains all packages sources compiled to run on the host and handle
     target architecture dependend things.
 
-|ptxdistPlatformDir|\ ``/build-host``
+``|ptxdistPlatformDir|/build-host``
     Contains all packages sources compiled to run on the host and handle
     architecture independend things.
 
-|ptxdistPlatformDir|\ ``/build-target``
+``|ptxdistPlatformDir|/build-target``
     Contains all package sources compiled for the target architecure.
 
-|ptxdistPlatformDir|\ ``/images``
+``|ptxdistPlatformDir|/images``
     Generated files for the target can be found here: Kernel image and
     root filesystem image.
 
-|ptxdistPlatformDir|\ ``/packages``
+``|ptxdistPlatformDir|/packages``
     Location for alle individual packages in ipk format.
 
-|ptxdistPlatformDir|\ ``/sysroot-target``
+``|ptxdistPlatformDir|/sysroot-target``
     Contains everything target architecture dependend (libraries, header
     files and so on).
 
-|ptxdistPlatformDir|\ ``/sysroot-cross``
+``|ptxdistPlatformDir|/sysroot-cross``
     Contains everything that is host specific but must handle target
     architecture data.
 
-|ptxdistPlatformDir|\ ``/sysroot-host``
+``|ptxdistPlatformDir|/sysroot-host``
     Contains everything that is only host specific.
 
-|ptxdistPlatformDir|\ ``/root``
+``|ptxdistPlatformDir|/root``
     Target’s root filesystem image. This directory can be mounted as
     an NFS root for example.
 
-|ptxdistPlatformDir|\ ``/root-debug``
     Target’s root filesystem image. The difference to ``root/`` is,
     all programs and libraries in this directory still have their
     debug information present. This directory is intended to be used
@@ -424,7 +423,8 @@ project.
     should setup your debugger with
     ``set solib-absolute-prefix </path/to/workspace>/root-debug``
 
-|ptxdistPlatformDir|\ ``/state``
+``|ptxdistPlatformDir|/root-debug``
+``|ptxdistPlatformDir|/state``
     Building every package is divided onto stages. And stages of one
     package can depend on stages of other packages. In order to handle
     this correctly, this directory contains timestamp files about
@@ -432,6 +432,6 @@ project.
 
 And one important file in case of trouble:
 
-|ptxdistPlatformDir|\ ``/logfile``
+``|ptxdistPlatformDir|/logfile``
     Every run of PTXdist will add its output to this file. If something
     fails, this file can help to find the cause.
