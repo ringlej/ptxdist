@@ -667,17 +667,19 @@ file in the following order:
 
 * project's directory ``projectroot.<platform>/etc/foo``
 * project's directory ``projectroot/etc/foo.<platform>``
-* platform's directory ``<platform-src>/projectroot/etc/foo``
+* platform's directory ``<platform-src>/projectroot/etc/foo.<platform>``
 * project's directory ``projectroot/etc/foo``
+* platform's directory ``<platform-src>/projectroot/etc/foo``
 * ptxdist's directory ``generic/etc/foo``
 * project's directory ``$(FOO_DIR)/etc/foo``
 
 The generic rules are looking like the following:
 
-* ``$(PTXDIST_WORKSPACE)/projectroot.$(PTXDIST_PLATFORMSUFFIX)/etc/foo``
+* ``$(PTXDIST_WORKSPACE)/projectroot$(PTXDIST_PLATFORMSUFFIX)/etc/foo``
 * ``$(PTXDIST_WORKSPACE)/projectroot/etc/foo$(PTXDIST_PLATFORMSUFFIX)``
-* ``$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/etc/foo``
+* ``$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/etc/foo$(PTXDIST_PLATFORMSUFFIX)``
 * ``$(PTXDIST_WORKSPACE)/projectroot/etc/foo``
+* ``$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/etc/foo``
 * ``$(PTXDIST_TOPDIR)/generic/etc/foo``
 * ``$(FOO_DIR)/etc/foo``
 
