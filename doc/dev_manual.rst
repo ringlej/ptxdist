@@ -21,7 +21,7 @@ PTXdist’s directory hierarchy
 
 .. note:: Referenced directories are meant relative to the PTXdist main
   installation location (if not otherwise stated). If not configured
-  differently, this main path is ``/usr/local/lib/ptxdist-<version>``
+  differently, this main path is ``/usr/local/lib/ptxdist-|ptxdistVendorVersion|``
 
 Rule Files
 ~~~~~~~~~~
