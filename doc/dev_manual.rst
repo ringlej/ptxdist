@@ -67,7 +67,7 @@ package in question.
 
 One location is the project’s currently used platform directory. If the
 currently used platform is located in ``configs/``, PTXdist searches in
-./configs/|ptxdistPlatformName|/patches/<package name>
+./configs/|ptxdistPlatformConfigDir|/patches/<package name>
 
 If no patch series was found in the platform directory, the next
 location PTXdist it searches for a patch series is the main project
@@ -1098,7 +1098,7 @@ for patches in:
 
 #. project (``./patches/foo-1.1.0``)
 
-#. platform (``./configs/|ptxdistPlatformName|/patches/foo-1.1.0``)
+#. platform (``./configs/|ptxdistPlatformConfigDir|/patches/foo-1.1.0``)
 
 #. ptxdist (``<ptxdist/installation/path>/patches/foo-1.1.0``)
 

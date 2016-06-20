@@ -115,7 +115,7 @@ oselasToolchainName = toolchain[-3] + "_" + re.sub(r"-([a-z])",r"_\1", toolchain
 ptxdistBSPName = "OSELAS.BSP-" + os.getenv("PTXCONF_PROJECT_VENDOR", "Pengutronix") + "-" + os.getenv("PTXCONF_PROJECT", "Example") + os.getenv("PTXCONF_PROJECT_VERSION", "")
 ptxdistCompilerName = gnu_target
 ptxdistCompilerVersion = toolchain[-2]
-ptxdistPlatformName = "platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb")
+ptxdistPlatformConfigDir = os.path.basename(os.getenv("PTXDIST_PLATFORMCONFIGDIR")) if os.getenv("PTXDIST_PLATFORMCONFIGDIR") != os.getenv("PTXDIST_TOPDIR") else "platform-versatilepb"
 ptxdistPlatformCollection = "\ "
 ptxdistVendorVersion = os.getenv("PTXDIST_VERSION_YEAR") + "." + os.getenv("PTXDIST_VERSION_MONTH") + "." + os.getenv("PTXDIST_VERSION_BUGFIX")
 package = "<package>"
@@ -136,7 +136,7 @@ replace_dict = {
 	b"|ptxdistBSPName|": ptxdistBSPName,
 	b"|ptxdistCompilerName|": ptxdistCompilerName,
 	b"|ptxdistCompilerVersion|": ptxdistCompilerVersion,
-	b"|ptxdistPlatformName|": ptxdistPlatformName,
+	b"|ptxdistPlatformConfigDir|": ptxdistPlatformConfigDir,
 	b"|ptxdistPlatformCollection|": ptxdistPlatformCollection,
 	b"|ptxdistVendorVersion|": ptxdistVendorVersion,
 	b"|package|": package
