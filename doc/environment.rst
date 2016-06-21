@@ -511,11 +511,6 @@ The required compiler to build the board support package is
 
 |oselasToolchainName|.ptxconfig
 
-.. important:: In order to build any of the OSELAS.Toolchains, the host must provide
-  the tool *fakeroot*. Otherwise the
-  message\ ``bash: fakeroot: command not found`` will occur and the build
-  stops.
-
 .. important:: Please ensure the ’current directory’ (the ``.`` entry) is not part of
   your PATH environment variable. PTXdist tries to sort out this entry,
   but might not be successful in doing so. Check by running
