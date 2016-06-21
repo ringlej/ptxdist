@@ -109,28 +109,27 @@ directory, so we can change into it:
 
     $ cd ptxdist-|ptxdistVendorVersion|
     $ ls -lF
-    total 530
-    -rw-r--r--   1 jb user  18446 Sep  9 15:59 COPYING
-    -rw-r--r--   1 jb user   4048 Sep  9 15:59 CREDITS
-    -rw-r--r--   1 jb user 115540 Sep  9 15:59 ChangeLog
-    -rw-r--r--   1 jb user     57 Sep  9 15:59 INSTALL
-    -rw-r--r--   1 jb user   3868 Sep  9 15:59 Makefile.in
-    -rw-r--r--   1 jb user   4268 Sep  9 15:59 README
-    -rw-r--r--   1 jb user   2324 Sep  9 15:59 README.devel
-    -rw-r--r--   1 jb user  63516 Sep  9 15:59 TODO
-    -rwxr-xr-x   1 jb user     28 Sep  9 15:59 autogen.sh
-    drwxr-xr-x   2 jb user     72 Sep  9 15:59 bin
-    drwxr-xr-x  12 jb user    352 Sep  9 15:59 config
-    -rwxr-xr-x   1 jb user 224087 Sep  9 17:34 configure
-    -rw-r--r--   1 jb user  12196 Sep  9 15:59 configure.ac
-    drwxr-xr-x  10 jb user    248 Sep  9 15:59 generic
-    drwxr-xr-x 242 jb user   8168 Sep  9 15:59 patches
-    drwxr-xr-x   2 jb user   1624 Sep  9 15:59 platforms
-    drwxr-xr-x   4 jb user    112 Sep  9 15:59 plugins
-    lrwxrwxrwx   1 jb user      7 Oct  4 20:42 projectroot -> generic
-    drwxr-xr-x   6 jb user  60664 Sep  9 15:59 rules
-    drwxr-xr-x   9 jb user    936 Sep  9 15:59 scripts
-    drwxr-xr-x   2 jb user    512 Sep  9 15:59 tests
+    total 396
+    -rw-r--r--   1 jbe ptx  18446 Apr 29 09:36 COPYING
+    -rw-r--r--   1 jbe ptx   3933 Apr 29 09:36 CREDITS
+    -rw-r--r--   1 jbe ptx     57 Apr 29 09:36 INSTALL
+    -rw-r--r--   1 jbe ptx   4483 Apr 29 09:36 Makefile.in
+    -rw-r--r--   1 jbe ptx   3501 Apr 29 09:36 README
+    -rw-r--r--   1 jbe ptx   2324 Apr 29 09:36 README.devel
+    -rwxr-xr-x   1 jbe ptx     28 Apr 29 09:36 autogen.sh*
+    drwxr-xr-x   2 jbe ptx   4096 Apr 29 09:36 bin/
+    drwxr-xr-x  16 jbe ptx   4096 Apr 29 09:36 config/
+    -rwxr-xr-x   1 jbe ptx 214583 Apr 29 15:55 configure*
+    -rw-r--r--   1 jbe ptx  12570 Apr 29 09:36 configure.ac
+    drwxr-xr-x   4 jbe ptx   4096 Apr 29 09:36 doc/
+    drwxr-xr-x   2 jbe ptx   4096 Jun 21 09:52 man/
+    drwxr-xr-x 263 jbe ptx  12288 Apr 29 09:36 patches/
+    drwxr-xr-x   2 jbe ptx   4096 Apr 29 09:36 platforms/
+    drwxr-xr-x   4 jbe ptx   4096 Apr 29 09:36 plugins/
+    drwxr-xr-x  11 jbe ptx   4096 Apr 29 09:36 projectroot/
+    drwxr-xr-x   6 jbe ptx  69632 Apr 29 09:36 rules/
+    drwxr-xr-x   9 jbe ptx   4096 Apr 29 09:36 scripts/
+    drwxr-xr-x   2 jbe ptx   4096 Apr 29 09:36 tests/
 
 Prerequisites
 ~~~~~~~~~~~~~
