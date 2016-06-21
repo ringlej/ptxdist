@@ -14,14 +14,14 @@ a temporary directory and generates an image out of it. PTXdist supports
 following image types:
 
 - **hd.img:** contains bootloader, kernel and root files in an ext2
-- partition. Mostly used for X86 target systems.
+  partition. Mostly used for X86 target systems.
 
 - **root.jffs2:** root files inside a jffs2 filesystem.
 
 - **uRamdisk:** a u-boot loadable Ramdisk
 
 - **initrd.gz:** a traditional initrd RAM disk to be used as initrdramfs
-- by the kernel
+  by the kernel
 
 - **root.ext2:** root files inside an ext2 filesystem.
 
