@@ -529,7 +529,7 @@ In all of these cases we must patch the sources to make them work. Refer
 to section :ref:`patching_packages` on how to use PTXdist’s
 features to simplify this task.
 
-In this example we expect the best case: Everything went fine, even for
+In this example we expect the best case: everything went fine, even for
 cross compiling. So, we can continue with the next stage: *install*
 
 ::
@@ -699,12 +699,12 @@ To check it right away, we simply run these two commands:
 .. important:: Discover somehow hidden dependencies with one more last check!
 
 Up to this point all the development of the new package was done in an already
-built BSP. Doing so sometimes somehow hidden dependcies cannot be seen:
+built BSP. Doing so sometimes somehow hidden dependencies cannot be seen:
 everything seems fine, the new package builds always successfully and the
 results are working on the target.
 
 So to check for this kind of dependencies there is still one more final check
-todo (even if its boring and takes time):
+to do (even if its boring and takes time):
 
 ::
 
