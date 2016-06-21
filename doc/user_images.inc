@@ -29,4 +29,4 @@ following image types:
 
 - **root.tgz:** root files inside a plain gzip compressed tar ball.
 
-All these files can be found in ``images`` if enabled.
+All these files can be found in ``|ptxdistPlatformDir|/images`` if enabled.
