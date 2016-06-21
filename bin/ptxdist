@@ -1228,6 +1228,7 @@ create_docs() {
 	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
 		"${outdir}/${builder}" &&
 	if [ "${builder}" = "latex" ]; then
+		sed -i s/pdflatex/xelatex/ ${outdir}/${builder}/Makefile
 		make -C "${outdir}/${builder}"
 	fi
 }

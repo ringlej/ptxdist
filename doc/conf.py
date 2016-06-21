@@ -112,7 +112,10 @@ oselasTCNvariant = gnu_target.split("-")[1]
 oselasTCNVendorVersion = toolchain[-4].split("-")[1]
 oselasTCNVendorptxdistversion = re.sub(r"\..$",".0", toolchain[-4].split("-")[1])
 oselasToolchainName = toolchain[-3] + "_" + re.sub(r"-([a-z])",r"_\1", toolchain[-2], 3)
-ptxdistBSPName = "OSELAS.BSP-" + os.getenv("PTXCONF_PROJECT_VENDOR", "Pengutronix") + "-" + os.getenv("PTXCONF_PROJECT", "Example") + os.getenv("PTXCONF_PROJECT_VERSION", "")
+ptxdistHwVendor = os.getenv("PTXCONF_PROJECT_VENDOR", "Pengutronix")
+ptxdistHwProduct = os.getenv("PTXCONF_PROJECT", "Example")
+ptxdistBSPName = "OSELAS.BSP-" + ptxdistHwVendor + "-" + ptxdistHwProduct + os.getenv("PTXCONF_PROJECT_VERSION", "")
+ptxdistBSPRevision = os.getenv("PTXDIST_BSP_AUTOVERSION", "???")
 ptxdistCompilerName = gnu_target
 ptxdistCompilerVersion = toolchain[-2]
 ptxdistPlatformConfigDir = os.path.basename(os.getenv("PTXDIST_PLATFORMCONFIGDIR")) if os.getenv("PTXDIST_PLATFORMCONFIGDIR") != os.getenv("PTXDIST_TOPDIR") else "platform-versatilepb"
@@ -133,7 +136,10 @@ replace_dict = {
 	b"|oselasTCNVendorVersion|": oselasTCNVendorVersion,
 	b"|oselasTCNVendorptxdistversion|": oselasTCNVendorptxdistversion,
 	b"|oselasToolchainName|": oselasToolchainName,
+	b"|ptxdistHwVendor|": ptxdistHwVendor,
+	b"|ptxdistHwProduct|": ptxdistHwProduct,
 	b"|ptxdistBSPName|": ptxdistBSPName,
+	b"|ptxdistBSPRevision|": ptxdistBSPRevision,
 	b"|ptxdistCompilerName|": ptxdistCompilerName,
 	b"|ptxdistCompilerVersion|": ptxdistCompilerVersion,
 	b"|ptxdistPlatformConfigDir|": ptxdistPlatformConfigDir,
@@ -251,20 +257,38 @@ htmlhelp_basename = 'ptxdistdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '11pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': '\\input{preamble.inc}',
+
+'inputenc': '''
+\\ifdefined\\DeclareUnicodeCharacter\\else
+\\newcommand{\\DeclareUnicodeCharacter}[2]{}
+\\fi
+''',
+
+'extraclassoptions': 'oneside,openany',
+
+'maketitle': '\\input{titlepage.inc}'
 }
+
+latex_additional_files = [
+  'titlepage.inc',
+  'preamble.inc',
+  'figures/new_logo_2006_ptx.pdf',
+  'figures/small_leiste_200dpi.jpg',
+  'figures/warning.pdf',
+]
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'ptxdist.tex', u'PTXdist Documentation',
+  ('index', "OSELAS.BSP-" + ptxdistHwVendor + "-" + ptxdistHwProduct + '-Quickstart.tex', u'PTXdist Quickstart Manual',
    u'The PTXdist project', 'manual'),
 ]
 
