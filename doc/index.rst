@@ -6,8 +6,6 @@
 Welcome to the PTXdist Universe
 ===============================
 
-Contents:
-
 .. toctree::
    :glob:
    :numbered:
