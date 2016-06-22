@@ -390,7 +390,7 @@ should always be the first call for each *stage*. For the package
  --------------------
 
 touch
-------
+~~~~~~
 
 Usage:
 
