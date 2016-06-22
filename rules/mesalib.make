@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 11.1.2
-MESALIB_MD5	:= 0a1e9b0419b7cda01203eedaedfd37b5
+MESALIB_VERSION	:= 11.2.2
+MESALIB_MD5	:= e0ec73f7273662a74366f0d76dd19ac3
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
@@ -131,7 +131,7 @@ MESALIB_CONF_OPT	:= \
 
 $(STATEDIR)/mesalib.compile:
 	@$(call targetinfo)
-	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/glsl/
+	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/compiler/
 	@$(call world/compile, MESALIB)
 	@$(call touch)
 
