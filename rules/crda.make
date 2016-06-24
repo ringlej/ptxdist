@@ -71,7 +71,7 @@ $(STATEDIR)/crda.targetinstall:
 	@$(call install_lib, crda, 0, 0, 0644, libreg)
 
 	# regulatory.bin was downloaded from:
-	# git://git.kernel.org/pub/scm/linux/kernel/git/linville/wireless-regdb.git
+	# https://git.kernel.org/cgit/linux/kernel/git/sforshee/wireless-regdb.git/plain/regulatory.bin
 	@$(call install_alternative, crda, 0, 0, 0644, \
 		/usr/lib/crda/regulatory.bin)
 
