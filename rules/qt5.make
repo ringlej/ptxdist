@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QT5) += qt5
 #
 # Paths and names
 #
-QT5_VERSION	:= 5.6.1
-QT5_MD5		:= d647574345c45b5ab8b41b2d46efffb9
+QT5_VERSION	:= 5.6.1-1
+QT5_MD5		:= f44fd4fcae71087f90d9c68e9d8be449
 QT5		:= qt-everywhere-opensource-src-$(QT5_VERSION)
 QT5_SUFFIX	:= tar.xz
 QT5_URL		:= \
