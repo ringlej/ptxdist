@@ -1138,10 +1138,9 @@ If the *compile* stage is omitted, PTXdist runs instead:
 			$(MAKE) $(@package@_MAKE_OPT) $(@package@_MAKE_PAR)
     		@$(call touch)
 
-If the ``@package@_MAKE_ENV`` is not defined, it defaults to
-``$(CROSS_ENV)``. If some additional variables should be added to the
-``@package@_MAKE_ENV``, always begin with the ``$(CROSS_ENV)`` and then
-add the additional variables.
+If some additional variables should be added to the ``@package@_MAKE_ENV``,
+always begin with the ``$(CROSS_ENV)`` and then add the additional
+variables.
 
 If the ``@package@_MAKE_OPT`` is intended for additional parameters to
 be forwarded to ``make`` or to overwrite some settings from the
