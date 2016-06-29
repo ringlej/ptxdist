@@ -745,14 +745,14 @@ We now want to forward these options to the ``configure`` script when it
 runs in the *prepare* stage. To do so, we must again open the rule file
 with our favourite editor and navigate to the *prepare* stage entry.
 
-PTXdist uses the variable ``FOO_AUTOCONF`` as the list of parameters to
+PTXdist uses the variable ``FOO_CONF_OPT`` as the list of parameters to
 be given to ``configure``.
 
 Currently this variable is commented out and defined to:
 
 ::
 
-    # FOO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+    # FOO_CONF_OPT := $(CROSS_AUTOCONF_USR)
 
 The variable ``CROSS_AUTOCONF_USR`` is predefined by PTXdist and
 contains all basic parameters to instruct ``configure`` to prepare for a
@@ -763,7 +763,7 @@ in this line and supplement this expression as follows:
 
 ::
 
-    FOO_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
     	--enable-debug \
     	--with-bar
 
@@ -775,7 +775,7 @@ To do a fast check if this addition was successful, we run:
 
 ::
 
-    $ ptxdist print FOO_AUTOCONF
+    $ ptxdist print FOO_CONF_OPT
     --prefix=/usr --sysconfdir=/etc --host=|ptxdistCompilerName| --build=i686-host-linux-gnu --enable-debug --with-bar
 
 .. note:: It depends on the currently selected platform and its architecture
@@ -843,18 +843,18 @@ file and add the correct parameters:
     #
     # autoconf
     #
-    FOO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR)
 
     ifdef PTXCONF_FOO_DEBUG
-    FOO_AUTOCONF += --enable-debug
+    FOO_CONF_OPT += --enable-debug
     else
-    FOO_AUTOCONF += --disable-debug
+    FOO_CONF_OPT += --disable-debug
     endif
 
     ifdef PTXCONF_FOO_BAR
-    FOO_AUTOCONF += --with-bar
+    FOO_CONF_OPT += --with-bar
     else
-    FOO_AUTOCONF += --without-bar
+    FOO_CONF_OPT += --without-bar
     endif
 
 .. important:: Please note the trailing ``PTXCONF_`` for each define. While Kconfig is
@@ -881,7 +881,7 @@ much simpler:
     #
     # autoconf
     #
-    FOO_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
     	$(call ptx/endis, PTXCONF_FOO_DEBUG)-debug \
     	$(call ptx/wwo, PTXCONF_FOO_BAR)-bar
 
