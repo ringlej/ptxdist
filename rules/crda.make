@@ -34,7 +34,7 @@ CRDA_LICENSE_FILES := \
 
 $(STATEDIR)/crda.prepare:
 	@$(call targetinfo)
-ifdef PTXCONF_ARCH_X86_64
+ifdef PTXCONF_ARCH_LP64
 	@cp $(CRDA_DIR)/keys-ssl.c.64 $(CRDA_DIR)/keys-ssl.c
 else
 	@cp $(CRDA_DIR)/keys-ssl.c.32 $(CRDA_DIR)/keys-ssl.c
