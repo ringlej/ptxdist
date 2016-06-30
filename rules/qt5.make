@@ -396,6 +396,9 @@ QT5_QML-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= QtMultimedia
 ### QtQuickControls ###
 # all in QT5_QML- added by QtDeclarative
 
+### QtQuickControls2 ###
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QTQUICKCONTROLS2)			+= Qt5LabsTemplates
+
 ### QtScript ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTSCRIPT)				+= Qt5Script
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTSCRIPT_WIDGETS)			+= Qt5ScriptTools
