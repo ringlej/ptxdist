@@ -377,6 +377,8 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 # add deps to virtual pkgs
 #
 function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
+	if (this_pkg ~ /^host-dummy-install-info$/)
+		return;
 	if (this_pkg ~ /^host-pkg-config$/)
 		return;
 	if (this_pkg ~ /^host-chrpath$/)

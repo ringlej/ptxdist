@@ -33,6 +33,10 @@ $(STATEDIR)/virtual-cross-tools.install:
 	@$(call touch)
 
 
+ifdef PTXCONF_HOST_DUMMY_INSTALL_INFO
+$(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-dummy-install-info.install.post
+endif
+
 ifdef PTXCONF_HOST_PKG_CONFIG
 $(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-pkg-config.install.post
 endif
