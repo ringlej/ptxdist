@@ -8,18 +8,18 @@ versions.
 Signed-off-by: Markus Pargmann <mpa@pengutronix.de>
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- keys-ssl.c.32 | 42 ++++++++++++++++++++++++++++++++++++++++++
- keys-ssl.c.64 | 42 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 84 insertions(+)
+ keys-ssl.c.32 | 70 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ keys-ssl.c.64 | 70 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 140 insertions(+)
  create mode 100644 keys-ssl.c.32
  create mode 100644 keys-ssl.c.64
 
 diff --git a/keys-ssl.c.32 b/keys-ssl.c.32
 new file mode 100644
-index 000000000000..593b06da7520
+index 000000000000..024afeb20577
 --- /dev/null
 +++ b/keys-ssl.c.32
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,70 @@
 +#include <stdint.h>
 +#include <openssl/bn.h>
 +static BN_ULONG e_0[1] = {
@@ -47,6 +47,33 @@ index 000000000000..593b06da7520
 +	0x376024f2, 0x2a2ead68, 0x88d35dce, 0xd6579971, 
 +};
 +
++#include <stdint.h>
++#include <openssl/bn.h>
++static BN_ULONG e_1[1] = {
++	0x00010001, 
++};
++
++#include <stdint.h>
++#include <openssl/bn.h>
++static BN_ULONG n_1[64] = {
++	0xc4ff951d, 0xa066f4da, 0xd5e1c45f, 0xe6e0d246, 
++	0x84e3c7a1, 0xe7fb4616, 0xf6e26899, 0x11151b7a, 
++	0xc5ee7852, 0x6c3f93fb, 0xd0d8dec8, 0x96790b2b, 
++	0xa129207c, 0xb1722bf4, 0x044137b1, 0x3673e797, 
++	0x2912661e, 0x18327707, 0x9a5ed820, 0xd37e005c, 
++	0x7568a1ea, 0x655b7f25, 0xa29c63c6, 0xe731f136, 
++	0xeeecac1e, 0x3036d253, 0xa5cb80c7, 0x85ef7a7f, 
++	0x45ebba27, 0x2ad91b73, 0xccd3df7d, 0x715756f6, 
++	0x36fa6823, 0x28900fac, 0x469b935f, 0xf1026fe9, 
++	0x21f0531f, 0x98b8d156, 0xb22dea88, 0x180b2895, 
++	0xa9fd602d, 0x8ad9fe76, 0x19da1044, 0x510cd145, 
++	0x1184fbca, 0x0b09f968, 0x1cfd24d5, 0x578b9616, 
++	0x146b61c4, 0x3b1b0817, 0x323d718b, 0x205bd497, 
++	0x1eb31270, 0x2d7e66f4, 0x52c2032a, 0x389f7c6a, 
++	0x3fd9d759, 0x7c68dd6f, 0x71257e90, 0xac7ea583, 
++	0x2c413815, 0xf239d766, 0x28843903, 0xb540e39c, 
++};
++
 +
 +struct pubkey {
 +	struct bignum_st e, n;
@@ -61,13 +88,14 @@ index 000000000000..593b06da7520
 +
 +__attribute__((unused)) static struct pubkey keys[] = {
 +	KEYS(e_0, n_0),
++	KEYS(e_1, n_1),
 +};
 diff --git a/keys-ssl.c.64 b/keys-ssl.c.64
 new file mode 100644
-index 000000000000..ca0fc2978910
+index 000000000000..15110e56058d
 --- /dev/null
 +++ b/keys-ssl.c.64
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,70 @@
 +#include <stdint.h>
 +#include <openssl/bn.h>
 +static BN_ULONG e_0[1] = {
@@ -95,6 +123,33 @@ index 000000000000..ca0fc2978910
 +	0x2a2ead68376024f2, 0xd657997188d35dce, 
 +};
 +
++#include <stdint.h>
++#include <openssl/bn.h>
++static BN_ULONG e_1[1] = {
++	0x0000000000010001, 
++};
++
++#include <stdint.h>
++#include <openssl/bn.h>
++static BN_ULONG n_1[32] = {
++	0xa066f4dac4ff951d, 0xe6e0d246d5e1c45f, 
++	0xe7fb461684e3c7a1, 0x11151b7af6e26899, 
++	0x6c3f93fbc5ee7852, 0x96790b2bd0d8dec8, 
++	0xb1722bf4a129207c, 0x3673e797044137b1, 
++	0x183277072912661e, 0xd37e005c9a5ed820, 
++	0x655b7f257568a1ea, 0xe731f136a29c63c6, 
++	0x3036d253eeecac1e, 0x85ef7a7fa5cb80c7, 
++	0x2ad91b7345ebba27, 0x715756f6ccd3df7d, 
++	0x28900fac36fa6823, 0xf1026fe9469b935f, 
++	0x98b8d15621f0531f, 0x180b2895b22dea88, 
++	0x8ad9fe76a9fd602d, 0x510cd14519da1044, 
++	0x0b09f9681184fbca, 0x578b96161cfd24d5, 
++	0x3b1b0817146b61c4, 0x205bd497323d718b, 
++	0x2d7e66f41eb31270, 0x389f7c6a52c2032a, 
++	0x7c68dd6f3fd9d759, 0xac7ea58371257e90, 
++	0xf239d7662c413815, 0xb540e39c28843903, 
++};
++
 +
 +struct pubkey {
 +	struct bignum_st e, n;
@@ -109,4 +164,5 @@ index 000000000000..ca0fc2978910
 +
 +__attribute__((unused)) static struct pubkey keys[] = {
 +	KEYS(e_0, n_0),
++	KEYS(e_1, n_1),
 +};

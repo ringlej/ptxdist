@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CRDA) += crda
 #
 # Paths and names
 #
-CRDA_VERSION	:= 3.13
-CRDA_MD5	:= 66b1b0417c1ad19f0009a5c0c0c1aebc
+CRDA_VERSION	:= 3.18
+CRDA_MD5	:= 0431fef3067bf503dfb464069f06163a
 CRDA		:= crda-$(CRDA_VERSION)
 CRDA_SUFFIX	:= tar.xz
 CRDA_URL	:= $(call ptx/mirror, KERNEL, ../software/network/crda/$(CRDA).$(CRDA_SUFFIX))
