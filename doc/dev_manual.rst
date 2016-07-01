@@ -1057,43 +1057,97 @@ file. With all the additions above it now looks like:
   file. In this case it does not help to enable the required parts in our
   project configuration, because this has no effect on the build order!
 
-Managing Non Autotool Packages
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Managing Plain Makefile Packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Many packages are still coming with a plain ``Makefile``. The user has
 to adapt it to make it work in a cross compile environment as well.
 PTXdist can also handle this kind of packages. We only have to specifiy
 a special *prepare* and *compile* stage.
 
-Such packages often have no special need for any kind of preparation. We
-can omit this stage by defining this empty rule:
+Such packages often have no special need for any kind of preparation. In
+this we must instruct PTXdist to do nothing in the *prepare* stage:
 
 ::
 
-    $(STATEDIR)/foo.prepare:
-          @$(call targetinfo)
-          @$(call touch)
+    FOO_CONF_TOOL := NO
 
 To compile the package, we can use ``make``\ ’s feature to overwrite
 variables used in the ``Makefile``. With this feature we can still use
 the original ``Makefile`` but with our own (cross compile) settings.
 
 Most of the time the generic compile rule can be used, only a few
-settings are required. To use only ``make`` instead of the autotools, we
-must instruct PTXdist to not use them by defining:
+settings are required. For a well defined ``Makefile`` it is sufficient to
+set up the correct cross compile environment for the *compile* stage:
 
 ::
 
-    FOO_CONF_TOOL := NO
+    FOO_MAKE_ENV := $(CROSS_ENV)
 
 ``make`` will be called in this case with:
 
-``cd $(FOO_DIR) && $(FOO_MAKE_ENV) $(MAKE) $(FOO_MAKE_OPT)``
+``$(FOO_MAKE_ENV) $(MAKE) -C $(FOO_DIR) $(FOO_MAKE_OPT)``
 
 So, in the rule file only the two variables ``FOO_MAKE_ENV`` and
 ``FOO_MAKE_OPT`` must be set, to forward the required settings to the
 package’s buildsystem. If the package cannot be built in parallel, we
 can also add the ``FOO_MAKE_PAR := NO``. ``YES`` is the default.
+
+Managing CMake / QMake Packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Building packages that use ``cmake`` or ``qmake`` is much like building
+packages with an autotools based buildsystem. We need to specify the
+configuration tool:
+
+::
+
+    FOO_CONF_TOOL := cmake
+
+or
+
+::
+
+    FOO_CONF_TOOL := qmake
+
+And provide the correct configuration options. The syntax is different so
+PTXdist provides additional macros to simplify configurable features.
+For ``cmake`` the configuration options typically look like this:
+
+::
+
+    FOO_CONF_OPT := \
+    	$(CROSS_CMAKE_USR) \
+    	-DBUILD_TESTS:BOOL=OFF \
+    	-DENABLE_BAR:BOOL=$(call ptx/onoff, PTXCONF_FOO_BAR)
+
+For ``qmake`` the configuration options typically look like this:
+
+::
+
+    FOO_CONF_OPT := \
+    	$(CROSS_QMAKE_OPT) \
+    	PREFIX=/usr
+
+Please note that currently only host and target ``cmake`` packages and only
+target ``qmake`` packages are supported.
+
+Managing Python Packages
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+As with any other package, the correct configuration tool must be selected
+for Python packages:
+
+::
+
+    FOO_CONF_TOOL := python
+
+.. note:: For Python3 packages the value must be ``python3``.
+
+No Makefiles are used when building Python packages so the usual ``make``
+and ``make install`` for the *compile* and *install* stages cannot be used.
+PTXdist will call ``python setup.py build`` and ``python setup.py install``
+instead.
 
 .. note:: *FOO* is still the name of our example package. It must be
   replaced by the real package name.
