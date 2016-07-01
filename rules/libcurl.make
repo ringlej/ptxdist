@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.43.0
-LIBCURL_MD5	:= 11bddbb452a8b766b932f859aaeeed39
+LIBCURL_VERSION	:= 7.49.1
+LIBCURL_MD5	:= 6bb1f7af5b58b30e4e6414b8c1abccab
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.bz2
-LIBCURL_URL	:= https://github.com/bagder/curl/releases/download/curl-7_43_0/$(LIBCURL).$(LIBCURL_SUFFIX)
+LIBCURL_URL	:= https://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_SOURCE	:= $(SRCDIR)/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_DIR	:= $(BUILDDIR)/$(LIBCURL)
 LIBCURL_LICENSE	:= MIT
