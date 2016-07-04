@@ -36,7 +36,7 @@ XFSPROGS_CONF_OPT	:= \
 	--sbindir=/usr/sbin \
 	--libdir=/usr/lib \
 	--datarootdir=/usr/share \
-	--disable-static \
+	--enable-static \
 	--disable-gettext \
 	--enable-blkid \
 	--disable-readline \
