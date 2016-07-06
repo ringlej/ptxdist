@@ -128,7 +128,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-debug \
 	--without-python \
 	--with-ntp-servers= \
-	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" +%s` \
+	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01 UTC" +%s` \
 	--with-system-uid-max=999 \
 	--with-system-gid-max=999 \
 	--with-dns-servers= \
