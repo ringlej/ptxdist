@@ -831,13 +831,13 @@ executing '${pkg_label}.${1}'
 export -f ptxd_install_run
 
 ptxd_install_fixup_timestamps() {
-    local timestamp="${PTXDIST_VERSION_YEAR}${PTXDIST_VERSION_MONTH}010000"
+    local timestamp="${PTXDIST_VERSION_YEAR}-${PTXDIST_VERSION_MONTH}-01 UTC"
     local touch_args
     if touch --help | grep -q -- --no-dereference &> /dev/null; then
 	touch_args="--no-dereference"
     fi
 
-    find "${1}" -print0 | xargs -0 touch ${touch_args} -c -t "${timestamp}"
+    find "${1}" -print0 | xargs -0 touch ${touch_args} -c -d "${timestamp}"
 }
 export -f ptxd_install_fixup_timestamps
 
