@@ -2,3 +2,4 @@
 
 config HOST_LIBFFI
 	tristate
+	default ALLYES

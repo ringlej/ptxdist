@@ -2,6 +2,7 @@
 
 menuconfig HOST_QEMU
 	tristate
+	default ALLYES
 	prompt "host-side qemu                "
 	select HOST_GLIB
 	select HOST_ZLIB

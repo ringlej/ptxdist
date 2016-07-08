@@ -2,3 +2,4 @@
 
 config HOST_ORC
 	tristate
+	default ALLYES
