@@ -7,7 +7,7 @@ ptxd_colgen_generate_sections()
     # ignore the '-q' option to get a valid collection.
     #
     unset PTXDIST_QUIET
-    ptxd_make_log "print-PACKAGES-m" | gawk '
+    ptxd_make_log "print-PACKAGES-m" "print-CROSS_PACKAGES-m" "print-HOST_PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
 		col_in     = "'"${PTX_KGEN_DIR}"'" "/generated/ptx_collection.in";
@@ -46,11 +46,17 @@ ptxd_colgen_generate_sections()
 			pkg = sorted[i];
 			pkg_lc = module_pkgs[pkg];
 
+			if (pkg_lc ~ /^host-|cross-/)
+				prompt = ""
+			else
+				prompt = "\tprompt \"" pkg_lc "\" if COLLECTION_MANUAL\n"
+
 			printf \
 				"config " pkg "\n"\
 				"\t"	"bool\n"\
-				"\t"	"prompt \"" pkg_lc "\" if COLLECTION_MANUAL\n"\
+				prompt\
 				"\t"	"default COLLECTION_ALL\n"	> col_in;
+
 
 			m = split(deps[pkg], dep, " ");
 			asort(dep, sdep);
