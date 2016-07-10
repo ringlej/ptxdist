@@ -82,7 +82,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-vnc-jpeg \
 	--disable-vnc-png \
 	--disable-cocoa \
-	--disable-virtfs \
+	--enable-virtfs \
 	--disable-xen \
 	--disable-xen-pci-passthrough \
 	--disable-xen-pv-domain-build \
