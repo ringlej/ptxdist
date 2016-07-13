@@ -193,7 +193,7 @@ done
 
 echo "creating index.....: "
 
-(cd $REPODIR/$PROJECT/dists/$DIST && ${TYPE}-make-index . > Packages)
+(cd $REPODIR/$PROJECT/dists/$DIST && ${TYPE}-make-index . > Packages && gzip -c Packages > Packages.gz)
 
 exit
 

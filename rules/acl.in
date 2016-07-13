@@ -17,11 +17,6 @@ config ACL_TOOLS
 	bool
 	prompt "install tools"
 
-config ACL_SHARED
-	bool
-	default y
-	prompt "install shared lib"
-
 config ACL_GETTEXT
 	bool
 	prompt "gettext support"

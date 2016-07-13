@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_PEXPECT
+	tristate
+	select PYTHON3
+	prompt "pexpect"
+	help
+	  Pexpect allows easy control of interactive console applications.

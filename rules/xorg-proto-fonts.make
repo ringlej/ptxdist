@@ -25,6 +25,7 @@ XORG_PROTO_FONTS_SUFFIX		:= tar.bz2
 XORG_PROTO_FONTS_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_FONTS).$(XORG_PROTO_FONTS_SUFFIX))
 XORG_PROTO_FONTS_SOURCE		:= $(SRCDIR)/$(XORG_PROTO_FONTS).$(XORG_PROTO_FONTS_SUFFIX)
 XORG_PROTO_FONTS_DIR		:= $(BUILDDIR)/$(XORG_PROTO_FONTS)
+XORG_PROTO_FONTS_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

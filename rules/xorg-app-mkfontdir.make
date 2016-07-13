@@ -24,6 +24,7 @@ XORG_APP_MKFONTDIR_SUFFIX	:= tar.bz2
 XORG_APP_MKFONTDIR_URL		:= $(call ptx/mirror, XORG, individual/app/$(XORG_APP_MKFONTDIR).$(XORG_APP_MKFONTDIR_SUFFIX))
 XORG_APP_MKFONTDIR_SOURCE	:= $(SRCDIR)/$(XORG_APP_MKFONTDIR).$(XORG_APP_MKFONTDIR_SUFFIX)
 XORG_APP_MKFONTDIR_DIR		:= $(BUILDDIR)/$(XORG_APP_MKFONTDIR)
+XORG_APP_MKFONTDIR_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,7 +36,7 @@ XORG_APP_MKFONTDIR_DIR		:= $(BUILDDIR)/$(XORG_APP_MKFONTDIR)
 XORG_APP_MKFONTDIR_CONF_TOOL	:= autoconf
 XORG_APP_MKFONTDIR_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

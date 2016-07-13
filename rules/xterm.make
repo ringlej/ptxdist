@@ -23,6 +23,9 @@ XTERM_SUFFIX	:= tgz
 XTERM_URL	:= ftp://invisible-island.net/xterm/$(XTERM).$(XTERM_SUFFIX)
 XTERM_SOURCE	:= $(SRCDIR)/$(XTERM).$(XTERM_SUFFIX)
 XTERM_DIR	:= $(BUILDDIR)/$(XTERM)
+XTERM_LICENSE	:= MIT
+XTERM_LICENSE_FILES := \
+	file://xterm.h;startline=4;endline=30;md5=1abc86c2506fe2c8138eb8d3bdb785e3
 
 # ----------------------------------------------------------------------------
 # Prepare

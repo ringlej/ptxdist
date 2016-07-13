@@ -21,11 +21,13 @@ QT4_VERSION	:= 4.8.7
 QT4_MD5		:= d990ee66bf7ab0c785589776f35ba6ad
 QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
-QT4_URL		:= http://download.qt-project.org/official_releases/qt/4.8/$(QT4_VERSION)/$(QT4).$(QT4_SUFFIX)
+QT4_URL		:= \
+	http://download.qt.io/official_releases/qt/4.8/$(QT4_VERSION)/$(QT4).$(QT4_SUFFIX) \
+	http://download.qt.io/archive/qt/4.8/$(QT4_VERSION)/$(QT4).$(QT4_SUFFIX)
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
 QT4_BUILD_OOT	:= YES
-QT4_LICENSE	:= GPL3, LGPLv2.1
+QT4_LICENSE	:= GPL3, LGPL-2.1
 ifdef PTXCONF_QT4_EXAMPLES
 QT4_DEVPKG	:= NO
 endif

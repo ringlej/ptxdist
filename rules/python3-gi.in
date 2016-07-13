@@ -1,0 +1,11 @@
+## SECTION=python3
+
+config PYTHON3_GI
+	tristate
+	select LIBFFI
+	select PYTHON3
+	select GOBJECT_INTROSPECTION_HELPER
+	select GOBJECT_INTROSPECTION
+	prompt "GI bindings"
+	help
+	  Python 3 bindings for gobject-introspection libraries

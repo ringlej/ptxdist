@@ -4,3 +4,4 @@ config HOST_GLIB
 	tristate
 	select HOST_ZLIB
 	select HOST_LIBFFI
+	select HOST_LIBPCRE

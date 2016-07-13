@@ -24,7 +24,7 @@ BZIP2_SUFFIX	:= tar.gz
 BZIP2_URL	:= http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).$(BZIP2_SUFFIX)
 BZIP2_SOURCE	:= $(SRCDIR)/$(BZIP2).$(BZIP2_SUFFIX)
 BZIP2_DIR	:= $(BUILDDIR)/$(BZIP2)
-BZIP2_LICENSE	:= BSD
+BZIP2_LICENSE	:= bzip2-1.0.6
 
 # ----------------------------------------------------------------------------
 # Prepare

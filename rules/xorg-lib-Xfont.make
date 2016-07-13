@@ -23,6 +23,7 @@ XORG_LIB_XFONT_SUFFIX	:= tar.bz2
 XORG_LIB_XFONT_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XFONT).$(XORG_LIB_XFONT_SUFFIX))
 XORG_LIB_XFONT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFONT).$(XORG_LIB_XFONT_SUFFIX)
 XORG_LIB_XFONT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFONT)
+XORG_LIB_XFONT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

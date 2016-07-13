@@ -1,0 +1,39 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 12 Feb 2014 11:28:04 +0100
+Subject: [PATCH] use '-I' instead of '-isystem' for local path
+
+Otherwise e.g. a 'md5.h' from system paths may be used instead of the
+local one.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/Makefile.am  | 2 +-
+ test/Makefile.am | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 4649937bb891..265c631d7e70 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -2,7 +2,7 @@
+ 
+ AM_CPPFLAGS = \
+ 	-I$(top_builddir) \
+-	-isystem $(top_srcdir)/include/bsd/ \
++	-I$(top_srcdir)/include/bsd/ \
+ 	-include $(top_builddir)/config.h \
+ 	-DLIBBSD_OVERLAY -DLIBBSD_DISABLE_DEPRECATED \
+ 	-D__REENTRANT
+diff --git a/test/Makefile.am b/test/Makefile.am
+index 9b79f06540ce..dcc7d1d55914 100644
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -7,7 +7,7 @@ HEADERS_CPPFLAGS = \
+ 	-D__REENTRANT
+ 
+ AM_CPPFLAGS = \
+-	-isystem $(top_srcdir)/include/bsd/ \
++	-I$(top_srcdir)/include/bsd/ \
+ 	$(HEADERS_CPPFLAGS) \
+ 	-DLIBBSD_OVERLAY
+ 

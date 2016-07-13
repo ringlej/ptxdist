@@ -23,7 +23,7 @@ POLICYCOREUTILS_SUFFIX	:= tar.gz
 POLICYCOREUTILS_URL	:= https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20120924/$(POLICYCOREUTILS).$(POLICYCOREUTILS_SUFFIX)
 POLICYCOREUTILS_SOURCE	:= $(SRCDIR)/$(POLICYCOREUTILS).$(POLICYCOREUTILS_SUFFIX)
 POLICYCOREUTILS_DIR	:= $(BUILDDIR)/$(POLICYCOREUTILS)
-POLICYCOREUTILS_LICENSE	:= GPLv2+
+POLICYCOREUTILS_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -153,7 +153,9 @@ ifdef PTXCONF_POLICYCOREUTILS_SEMANAGE
 	@$(call install_copy, policycoreutils, 0, 0, 0644, -, $(PYTHON_SITEPACKAGES)/seobject.py)
 endif
 
+ifdef PTXCONF_POLICYCOREUTILS_SESTATUS
 	@$(call install_alternative, policycoreutils, 0, 0, 0644, /etc/sestatus.conf)
+endif
 
 	@$(call install_finish, policycoreutils)
 

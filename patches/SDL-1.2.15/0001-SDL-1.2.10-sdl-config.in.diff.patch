@@ -8,11 +8,11 @@ Teach sdl-config the concept of sysroot, but disable manual prefix overwriting.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- sdl-config.in |   14 +++++++-------
+ sdl-config.in | 14 +++++++-------
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/sdl-config.in b/sdl-config.in
-index e0fcc0c..0159c47 100644
+index e0fcc0ced54a..0159c474dfcb 100644
 --- a/sdl-config.in
 +++ b/sdl-config.in
 @@ -23,10 +23,10 @@ while test $# -gt 0; do

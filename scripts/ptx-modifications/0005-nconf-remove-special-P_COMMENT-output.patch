@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 9 deletions(-)
 
 diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
-index 4fbecd2..ce9173d 100644
+index d42d534a66cd..99951c7c9ba1 100644
 --- a/scripts/kconfig/nconf.c
 +++ b/scripts/kconfig/nconf.c
 @@ -767,15 +767,6 @@ static void build_conf(struct menu *menu)

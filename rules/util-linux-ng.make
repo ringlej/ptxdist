@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.26.2
-UTIL_LINUX_NG_MD5	:= 9bdf368c395f1b70325d0eb22c7f48fb
+UTIL_LINUX_NG_VERSION	:= 2.28
+UTIL_LINUX_NG_MD5	:= e534e6ccc49107e5d31c329af798ef7d
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(basename $(UTIL_LINUX_NG_VERSION))/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(UTIL_LINUX_NG_VERSION)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
-UTIL_LINUX_NG_LICENSE	:= GPLv2, GPLv2+, GPLv3+, LGPLv2+, BSD, public_domain
+UTIL_LINUX_NG_LICENSE	:= GPL-2.0, GPL-2.0+, GPL-3.0+, LGPL-2.0+, BSD-3-Clause, BSD-4-Clause, public_domain
 UTIL_LINUX_NG_LICENSE_FILES := \
 	file://Documentation/licenses/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 	file://Documentation/licenses/COPYING.BSD-3;md5=58dcd8452651fc8b07d1f65ce07ca8af \
@@ -39,7 +39,6 @@ UTIL_LINUX_NG_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	$(call ptx/ncurses, PTXCONF_UTIL_LINUX_NG_USES_NCURSES) \
 	scanf_cv_type_modifier=as \
-	ac_cv_lib_termcap_tgetnum=no \
 	ac_cv_path_BLKID=no \
 	ac_cv_path_PERL=no \
 	ac_cv_path_VOLID=no
@@ -54,6 +53,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-static \
 	--disable-gtk-doc \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-assert \
 	--disable-nls \
 	--disable-rpath \
 	--disable-static-programs \
@@ -84,11 +84,11 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-fdformat \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_HWCLOCK)-hwclock \
 	--disable-wdctl \
+	--disable-cal \
 	--disable-switch_root \
 	--disable-pivot_root \
 	--disable-tunelp \
 	--disable-kill \
-	--disable-deprecated-last \
 	--disable-last \
 	--disable-utmpdump \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LINE)-line \
@@ -115,22 +115,28 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SCHEDUTILS)-schedutils \
 	--disable-wall \
 	--disable-write \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_ZRAMCTL)-zramctl \
 	--disable-bash-completion \
 	--disable-pylibmount \
 	--disable-pg-bell \
 	--disable-use-tty-group \
 	--disable-sulogin-emergency-mount \
+	--disable-usrdir-path \
 	--disable-makeinstall-chown \
 	--disable-makeinstall-setuid \
 	--disable-colors-default \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
+	--with-util \
 	--without-selinux \
 	--without-audit \
 	--without-udev \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
+	--without-tinfo \
+	--without-readline \
 	--without-utempter \
+	--without-libz \
 	--without-user \
 	--without-systemd \
 	--with-systemdsystemunitdir=/lib/systemd/system \
@@ -262,6 +268,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FINDFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/findfs)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_ZRAMCTL
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/zramctl)
 endif
 
 	@$(call install_finish, util-linux-ng)

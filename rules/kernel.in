@@ -1,9 +1,37 @@
 ## SECTION=core
 
-config KERNEL
+menuconfig KERNEL
+	bool "kernel tools                  "
+	select LIBELF		if KERNEL_TOOL_PERF
+	select LIBELF_LIBDW	if KERNEL_TOOL_PERF
+	select SLANG		if KERNEL_TOOL_PERF
+	select BINUTILS		if KERNEL_TOOL_PERF
+
+if KERNEL
+
+config KERNEL_XPKG
 	bool
+	help
+	  Select this symbol if kernel tools or other non kernel
+	  modules are installed.
 
 config KERNEL_VMLINUX
+	select KERNEL_XPKG
 	bool
 	help
 	  install kernel image to /boot/vmlinux
+
+config KERNEL_TOOL_PERF
+	select KERNEL_XPKG
+	bool "perf"
+	help
+	  perf helps to analyze and measure performance using hardware and
+	  software counters.
+
+config KERNEL_TOOL_IIO
+	select KERNEL_XPKG
+	bool "iio (>=v4.5)"
+	help
+	  IIO tools help to access and analyze the iio devices.
+
+endif

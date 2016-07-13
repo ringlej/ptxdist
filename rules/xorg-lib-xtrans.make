@@ -24,6 +24,7 @@ XORG_LIB_XTRANS_SUFFIX	:= tar.bz2
 XORG_LIB_XTRANS_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX))
 XORG_LIB_XTRANS_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
 XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
+XORG_LIB_XTRANS_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

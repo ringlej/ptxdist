@@ -1,0 +1,48 @@
+## SECTION=communication
+
+menuconfig OPENCT
+	tristate "openct                        "
+	select LIBLTDL
+	select LIBC_C
+	select LIBC_DL
+	select LIBC_PTHREAD	if OPENCT_PCSC
+	select PCSC_LITE	if OPENCT_PCSC
+	select LIBUSB		if OPENCT_USB
+	select LIBUSB_COMPAT	if OPENCT_USB
+	help
+	  OpenCT implements drivers for many card terminals, smart card
+	  readers, and usb crypto tokens. OpenCT can be used as CT-API or
+	  PC/SC Ifdhandler driver, but also directly.
+
+if OPENCT
+
+config OPENCT_USB
+	bool "USB Support"
+	help
+	  Add USB support.
+
+config OPENCT_API
+	bool "Use OpenCT API"
+	default y
+	help
+	  Add support for OpenCT communication.
+
+config OPENCT_PCSC
+	bool "Use PCSC"
+	default y
+	select OPENCT_API
+	help
+	  Use PCSC as the control daemon.
+
+config OPENCT_TOOLS
+	bool "Install utilites"
+	help
+	  Install also utilities like 'openct-tool', 'ifdhandler',
+	  'ifdproxy' and 'openct-control'.
+
+config OPENCT_SYSTEMD_UNIT
+	bool "install systemd unit"
+	depends on SYSTEMD
+	default y
+
+endif

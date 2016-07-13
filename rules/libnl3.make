@@ -23,7 +23,7 @@ LIBNL3_SUFFIX	:= tar.gz
 LIBNL3_URL	:= http://www.infradead.org/~tgr/libnl/files/$(LIBNL3).$(LIBNL3_SUFFIX)
 LIBNL3_SOURCE	:= $(SRCDIR)/$(LIBNL3).$(LIBNL3_SUFFIX)
 LIBNL3_DIR	:= $(BUILDDIR)/$(LIBNL3)
-LIBNL3_LICENSE	:= GPLv2
+LIBNL3_LICENSE	:= GPL-2.0
 
 #
 # autoconf

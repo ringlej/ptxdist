@@ -1,4 +1,6 @@
-## SECTION=shell_and_console
+## SECTION=staging
+## old section:
+### SECTION=shell_and_console
 
 config CONSOLEKIT
 	tristate
@@ -18,3 +20,6 @@ config CONSOLEKIT
 	  bus.
 
 	  Homepage: http://www.freedesktop.org/wiki/Software/ConsoleKit
+
+	  STAGING: remove in ptxdist-2017.03.0
+	  Upstream is dead. This is replaced by systemd session management

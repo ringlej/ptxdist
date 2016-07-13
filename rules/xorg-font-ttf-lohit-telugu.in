@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_LOHIT_TELUGU
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "Lohit Telugu"
+	help
+	  Lohit TrueType font for Telugu Language

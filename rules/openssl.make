@@ -19,9 +19,9 @@ PACKAGES-$(PTXCONF_OPENSSL) += openssl
 # Paths and names
 #
 OPENSSL_BASE	:= 1.0.2
-OPENSSL_BUGFIX	:= d
+OPENSSL_BUGFIX	:= h
 OPENSSL_VERSION	:= $(OPENSSL_BASE)$(OPENSSL_BUGFIX)
-OPENSSL_MD5	:= 38dd619b2e77cbac69b99f52a053d25a
+OPENSSL_MD5	:= 9392e65072ce4b614c1392eefc1f23d0
 OPENSSL		:= openssl-$(OPENSSL_VERSION)
 OPENSSL_SUFFIX	:= tar.gz
 OPENSSL_URL	:= \
@@ -29,7 +29,7 @@ OPENSSL_URL	:= \
 	http://www.openssl.org/source/old/$(OPENSSL_BASE)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_SOURCE	:= $(SRCDIR)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_DIR	:= $(BUILDDIR)/$(OPENSSL)
-OPENSSL_LICENSE	:= openssl
+OPENSSL_LICENSE	:= OpenSSL
 
 # ----------------------------------------------------------------------------
 # Prepare

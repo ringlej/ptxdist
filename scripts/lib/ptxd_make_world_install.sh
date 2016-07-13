@@ -22,16 +22,21 @@ ptxd_make_world_install_prepare() {
 export -f ptxd_make_world_install_prepare
 
 ptxd_make_world_install_python_cleanup() {
+    find "${pkg_pkg_dir}" -type f -name "*.so" -print | while read file; do
+	# Python installs shared libraries with executable flags
+	chmod -x "${file}"
+    done &&
     find "${pkg_pkg_dir}" -type d -name bin -prune -o -name "*.py" -print | while read file; do
-	if [ -e "${file}c" -o ! -d "$(dirname "${file}")/__pycache__" ]; then
+	if [ ! -d "$(dirname "${file}")/__pycache__" ]; then
 	    # not python3 or already handled
-	    return
+	    continue
 	fi
-	mv -v "$(dirname "${file}")/__pycache__/$(basename "${file%py}")"cpython-??.pyc "${file}c" || return
+	cp -v "$(dirname "${file}")/__pycache__/$(basename "${file%py}")"cpython-??.pyc "${file}c" || return
     done &&
     check_pipe_status &&
-    find "${pkg_pkg_dir}" -type d -name __pycache__  -print0 | xargs -0 rm -vrf &&
-    check_pipe_status
+    find "${pkg_pkg_dir}" -type d -name __pycache__  -print0 | xargs -0 rm -rf &&
+    check_pipe_status ||
+    ptxd_bailout "Cache cleanup for Python3 packages failed!"
 }
 export -f ptxd_make_world_install_python_cleanup
 
@@ -97,7 +102,7 @@ ptxd_make_world_install() {
 
     "${echo:-echo}" \
 	"${cmd[@]}" \
-	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" --
+	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" -- 2>&1
     check_pipe_status
 }
 export -f ptxd_make_world_install
@@ -217,7 +222,7 @@ ptxd_make_world_install_post() {
     # create directories first to avoid race contitions with -jeX
     find "${pkg_pkg_dir}" -type d -printf "%P\0" | \
 	xargs -0 -I{} mkdir -p "${pkg_sysroot_dir}/{}" &&
-    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
+    cp -dpr --remove-destination -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
     # host and cross packages
     if [ "${pkg_type}" != "target" ]; then

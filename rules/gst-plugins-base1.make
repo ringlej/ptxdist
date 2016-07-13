@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE1) += gst-plugins-base1
 #
 # Paths and names
 #
-GST_PLUGINS_BASE1_VERSION	:= 1.4.5
-GST_PLUGINS_BASE1_MD5		:= 357165af625c0ca353ab47c5d843920e
+GST_PLUGINS_BASE1_VERSION	:= 1.8.2
+GST_PLUGINS_BASE1_MD5		:= f55254ca18b845a9a7d8fe671bc09c24
 GST_PLUGINS_BASE1		:= gst-plugins-base-$(GST_PLUGINS_BASE1_VERSION)
 GST_PLUGINS_BASE1_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
 GST_PLUGINS_BASE1_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
 GST_PLUGINS_BASE1_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_BASE1)
-GST_PLUGINS_BASE1_LICENSE	:= LGPLv2+
+GST_PLUGINS_BASE1_LICENSE	:= LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,6 +58,7 @@ GST_PLUGINS_BASE1_ENABLEC-$(PTXCONF_GST_PLUGINS_BASE1_IVORBIS)		+= ivorbis
 GST_PLUGINS_BASE1_ENABLEP-$(PTXCONF_GST_PLUGINS_BASE1_IVORBIS)		+= ivorbisdec
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_LIBVISUAL)		+= libvisual
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_OGG)		+= ogg
+GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_OPUS)		+= opus
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_PANGO)		+= pango
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_THEORA)		+= theora
 GST_PLUGINS_BASE1_ENABLE-$(PTXCONF_GST_PLUGINS_BASE1_VORBIS)		+= vorbis
@@ -72,17 +73,18 @@ GST_PLUGINS_BASE1_ENABLEP-y	+= $(GST_PLUGINS_BASE1_ENABLE-y)
 GST_PLUGINS_BASE1_CONF_TOOL	= autoconf
 GST_PLUGINS_BASE1_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GSTREAMER_GENERIC_CONF_OPT) \
+	$(GSTREAMER1_GENERIC_CONF_OPT) \
+	\
 	--enable-external \
 	--disable-experimental \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ORC)-orc \
-	--enable-Bsymbolic \
 	\
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ZLIB)-zlib \
-	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_XSHM)-xshm \
-	--disable-freetypetest
+	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_XSHM)-xshm
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
 # when no plugins are given it falls back to its default which is
@@ -94,12 +96,6 @@ endif
 
 ifneq ($(call remove_quotes,$(GST_PLUGINS_BASE1_ENABLEC-)),)
 GST_PLUGINS_BASE1_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_BASE1_ENABLEC-)))
-endif
-
-ifdef PTXCONF_GST_PLUGINS_BASE1_X
-GST_PLUGINS_BASE1_CONF_OPT += --with-x=$(SYSROOT)/usr
-else
-GST_PLUGINS_BASE1_CONF_OPT += --without-x
 endif
 
 # ----------------------------------------------------------------------------
@@ -135,6 +131,11 @@ endif
 	@$(foreach plugin, $(GST_PLUGINS_BASE1_ENABLEP-y), \
 		$(call install_copy, gst-plugins-base1, 0, 0, 0644, -, \
 			/usr/lib/gstreamer-1.0/libgst$(plugin).so);)
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_tree, gst-plugins-base1, 0, 0, -, \
+		/usr/lib/girepository-1.0)
+endif
 
 	@$(call install_finish, gst-plugins-base1)
 

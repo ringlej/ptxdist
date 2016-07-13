@@ -42,7 +42,7 @@ XORG_APP_XINIT_CONF_TOOL := autoconf
 XORG_APP_XINIT_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-xinitdir=/etc/X11/xinit \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

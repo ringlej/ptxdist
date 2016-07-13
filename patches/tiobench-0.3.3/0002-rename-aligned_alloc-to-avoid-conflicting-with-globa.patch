@@ -5,11 +5,11 @@ Subject: [PATCH] rename aligned_alloc to avoid conflicting with global
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- tiotest.c |    4 ++--
+ tiotest.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/tiotest.c b/tiotest.c
-index 6407d70..611fb76 100644
+index 6407d70252bf..611fb76f9635 100644
 --- a/tiotest.c
 +++ b/tiotest.c
 @@ -31,7 +31,7 @@ static const char* versionStr = "tiotest v0.3.3 (C) 1999-2000 Mika Kuoppala <mik

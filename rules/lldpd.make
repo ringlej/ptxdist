@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2013 by Alexander Dahl <post@lespocky.de>
+# Copyright (C) 2015 by Clemens Gruber <clemens.gruber@pqgruber.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,14 +17,14 @@ PACKAGES-$(PTXCONF_LLDPD) += lldpd
 #
 # Paths and names
 #
-LLDPD_VERSION	:= 0.7.6
-LLDPD_MD5		:= dbd90a68b91448dcb94a4a77c5d8ef65
-LLDPD			:= lldpd-$(LLDPD_VERSION)
+LLDPD_VERSION	:= 0.9.2
+LLDPD_MD5	:= b809887bc927fb558fd5dd64b6c0a494
+LLDPD		:= lldpd-$(LLDPD_VERSION)
 LLDPD_SUFFIX	:= tar.gz
-LLDPD_URL		:= http://media.luffy.cx/files/lldpd//$(LLDPD).$(LLDPD_SUFFIX)
+LLDPD_URL	:= http://media.luffy.cx/files/lldpd//$(LLDPD).$(LLDPD_SUFFIX)
 LLDPD_SOURCE	:= $(SRCDIR)/$(LLDPD).$(LLDPD_SUFFIX)
-LLDPD_DIR		:= $(BUILDDIR)/$(LLDPD)
-LLDPD_LICENSE	:= ICS
+LLDPD_DIR	:= $(BUILDDIR)/$(LLDPD)
+LLDPD_LICENSE	:= ISC
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -40,9 +41,12 @@ LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_LLDPD_LLDPMED)-lldpmed \
 	--$(call ptx/endis, PTXCONF_LLDPD_DOT1)-dot1 \
 	--$(call ptx/endis, PTXCONF_LLDPD_DOT3)-dot3 \
+	--$(call ptx/endis, PTXCONF_LLDPD_CUSTOM_TLV)-custom \
 	--$(call ptx/endis, PTXCONF_LLDPD_OLDIES)-oldies \
 	--$(call ptx/wwo, PTXCONF_LLDPD_SNMP)-snmp \
+	--$(call ptx/wwo, PTXCONF_LLDPD_JSON)-json \
 	--$(call ptx/wwo, PTXCONF_LLDPD_XML)-xml \
+	--with-systemdsystemunitdir=/lib/systemd/system \
 	--with-privsep-user="$(PTXCONF_LLDPD_PRIVSEP_USER)" \
 	--with-privsep-group="$(PTXCONF_LLDPD_PRIVSEP_GROUP)" \
 	--with-privsep-chroot="$(PTXCONF_LLDPD_PRIVSEP_CHROOT)"
@@ -80,6 +84,18 @@ ifneq ($(call remove_quotes,$(PTXCONF_LLDPD_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_LLDPD_BBINIT_LINK))
 endif
 endif
+endif
+
+ifdef PTXCONF_LLDPD_SYSTEMD_UNIT
+	@$(call install_alternative, lldpd, 0, 0, 0644, /lib/systemd/system/lldpd.service)
+	@$(call install_replace, lldpd, /lib/systemd/system/lldpd.service, \
+		@DAEMON_ARGS@, $(PTXCONF_LLDPD_DAEMON_ARGS))
+	@$(call install_replace, lldpd, /lib/systemd/system/lldpd.service, \
+		@PRIVSEP_CHROOT@, $(PTXCONF_LLDPD_PRIVSEP_CHROOT))
+	@$(call install_link, lldpd, \
+		../lldpd.service, \
+		/lib/systemd/system/multi-user.target.wants/lldpd.service \
+	)
 endif
 
 	@$(call install_finish, lldpd)

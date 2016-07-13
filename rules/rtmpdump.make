@@ -23,7 +23,7 @@ RTMPDUMP_SUFFIX		:= tgz
 RTMPDUMP_URL		:= http://rtmpdump.mplayerhq.hu/download/$(RTMPDUMP).$(RTMPDUMP_SUFFIX)
 RTMPDUMP_SOURCE		:= $(SRCDIR)/$(RTMPDUMP).$(RTMPDUMP_SUFFIX)
 RTMPDUMP_DIR		:= $(BUILDDIR)/$(RTMPDUMP)
-RTMPDUMP_LICENSE	:= LGPLv2.1+,GPLv2+
+RTMPDUMP_LICENSE	:= LGPL-2.1+,GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

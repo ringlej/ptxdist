@@ -23,7 +23,7 @@ DBUS_PYTHON_SUFFIX	:= tar.gz
 DBUS_PYTHON_URL		:= http://dbus.freedesktop.org/releases/dbus-python/$(DBUS_PYTHON).$(DBUS_PYTHON_SUFFIX)
 DBUS_PYTHON_SOURCE	:= $(SRCDIR)/$(DBUS_PYTHON).$(DBUS_PYTHON_SUFFIX)
 DBUS_PYTHON_DIR		:= $(BUILDDIR)/$(DBUS_PYTHON)
-DBUS_PYTHON_LICENSE	:= AFLv2.1, GPLv2+
+DBUS_PYTHON_LICENSE	:= AFL-2.1, GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

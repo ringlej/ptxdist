@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_INITMETHOD_BBINIT) += initmethod-bbinit
 #
 INITMETHOD_BBINIT_VERSION	:= 1.0.0
 INITMETHOD_BBINIT		:= initmethod-bbinit-$(INITMETHOD_BBINIT_VERSION)
+INITMETHOD_BBINIT_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

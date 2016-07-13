@@ -87,4 +87,16 @@ define ptx/wwo
 $(call ptx/ifdef, $(1), with, without)
 endef
 
+
+#
+# $(call ptx/onoff, PTXCONF_SYMBOL) returns "ON" or "OFF"
+# depending on the symbol is defined or not
+#
+# $(call ptx/onoff, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/onoff
+$(call ptx/ifdef, $(1), ON, OFF)
+endef
+
 # vim: syntax=make

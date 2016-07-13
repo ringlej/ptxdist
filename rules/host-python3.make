@@ -63,4 +63,11 @@ $(STATEDIR)/host-python3.install:
 		"$(HOST_PYTHON3_PKGDIR)/bin/python3-config"
 	@$(call touch)
 
+$(STATEDIR)/host-python3.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, HOST_PYTHON3)
+	@sed -i 's;prefix_build="";prefix_build="$(PTXDIST_SYSROOT_HOST)";' \
+		$(PTXDIST_SYSROOT_HOST)/bin/python3*-config
+	@$(call touch)
+
 # vim: syntax=make

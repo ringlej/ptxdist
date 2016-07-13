@@ -37,7 +37,7 @@ XORG_APP_XVINFO_ENV 	:= $(CROSS_ENV)
 #
 XORG_APP_XVINFO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

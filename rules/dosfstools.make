@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_DOSFSTOOLS) += dosfstools
 #
 # Paths and names
 #
-DOSFSTOOLS_VERSION	:= 3.0.26
-DOSFSTOOLS_MD5		:= 45012f5f56f2aae3afcd62120b9e5a08
+DOSFSTOOLS_VERSION	:= 3.0.28
+DOSFSTOOLS_MD5		:= 6a047a6c65186b9ebb1853709adb36db
 DOSFSTOOLS		:= dosfstools-$(DOSFSTOOLS_VERSION)
 DOSFSTOOLS_SUFFIX	:= tar.xz
 DOSFSTOOLS_SRC		:= $(DOSFSTOOLS).$(DOSFSTOOLS_SUFFIX)
-DOSFSTOOLS_URL		:= http://www.daniel-baumann.ch/files/software/dosfstools/$(DOSFSTOOLS_SRC)
+DOSFSTOOLS_URL		:= https://github.com/dosfstools/dosfstools/releases/download/v$(DOSFSTOOLS_VERSION)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SOURCE	:= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		:= $(BUILDDIR)/$(DOSFSTOOLS)
-DOSFSTOOLS_LICENSE	:= GPLv3
+DOSFSTOOLS_LICENSE	:= GPL-3.0
 
 # ----------------------------------------------------------------------------
 # Prepare (nothing to be done here)

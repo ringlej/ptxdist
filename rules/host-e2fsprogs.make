@@ -27,18 +27,17 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-symlink-install \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
-	--enable-compression \
-	--enable-htree \
 	--disable-elf-shlibs \
 	--disable-bsd-shlibs \
 	--disable-profile \
 	--disable-gcov \
+	--disable-hardening \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
 	--disable-testio-debug \
 	--enable-libuuid \
 	--enable-libblkid \
-	--disable-quota \
+	--disable-backtrace \
 	--disable-debugfs \
 	--disable-imager \
 	--disable-resizer \
@@ -47,9 +46,14 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-e2initrd-helper \
 	--disable-tls \
 	--disable-uuidd \
+	--enable-mmp \
+	--enable-tdb \
+	--disable-bmap-stats \
+	--disable-bmap-stats-ops \
 	--disable-nls \
 	--enable-threads=posix \
-	--disable-rpath
+	--disable-rpath \
+	--disable-fuse2fs
 
 # vim: syntax=make
 

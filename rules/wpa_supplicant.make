@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WPA_SUPPLICANT) += wpa_supplicant
 # Paths and names
 #
 WPA_SUPPLICANT_NAME	:= wpa_supplicant
-WPA_SUPPLICANT_VERSION	:= 2.4
-WPA_SUPPLICANT_MD5	:= f0037dbe03897dcaf2ad2722e659095d
+WPA_SUPPLICANT_VERSION	:= 2.5
+WPA_SUPPLICANT_MD5	:= 96ff75c3a514f1f324560a2376f13110
 WPA_SUPPLICANT		:= $(WPA_SUPPLICANT_NAME)-$(WPA_SUPPLICANT_VERSION)
 WPA_SUPPLICANT_SUFFIX	:= tar.gz
 WPA_SUPPLICANT_URL	:= http://hostap.epitest.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
@@ -27,7 +27,7 @@ WPA_SUPPLICANT_DIR	:= $(BUILDDIR)/$(WPA_SUPPLICANT)
 WPA_SUPPLICANT_SUBDIR	:= $(WPA_SUPPLICANT_NAME)
 WPA_SUPPLICANT_DEFCONF	:= $(shell ptxd_get_alternative config/wpasupplicant defconfig && echo $$ptxd_reply)
 WPA_SUPPLICANT_CONFIG	:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_SUBDIR)/.config
-WPA_SUPPLICANT_LICENSE	:= GPLv2
+WPA_SUPPLICANT_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -38,8 +38,6 @@ WPA_SUPPLICANT_MAKE_ENV	:= \
 	$(CROSS_ENV) \
 	LIBDIR=/lib \
 	BINDIR=/sbin
-
-WPA_SUPPLICANT_CPPFLAGS	:= -I$(SYSROOT)/usr/include/libnl3
 
 #
 # autoconf
@@ -73,7 +71,7 @@ $(STATEDIR)/wpa_supplicant.install:
 	@$(call world/install, WPA_SUPPLICANT)
 
 	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/dbus-wpa_supplicant.conf" \
-		"$(WPA_SUPPLICANT_PKGDIR)/etc/dbus-1/system.d/wpa_supplicant.conf"
+		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system.d/wpa_supplicant.conf"
 	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.epitest.hostap.WPASupplicant.service" \
 		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service"
 	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.w1.wpa_supplicant1.service" \
@@ -100,13 +98,18 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
 		/sbin/wpa_supplicant)
 
+ifdef PTXCONF_WPA_SUPPLICANT_PASSPHRASE
+	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
+		/sbin/wpa_passphrase)
+endif
+
 ifdef PTXCONF_WPA_SUPPLICANT_INSTALL_CLI
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, /sbin/wpa_cli)
 endif
 
 ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
-		/etc/dbus-1/system.d/wpa_supplicant.conf)
+		/usr/share/dbus-1/system.d/wpa_supplicant.conf)
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
 		/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service)
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \

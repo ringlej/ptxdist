@@ -25,6 +25,7 @@ HOST_LIBPCRE_CONF_OPT :=\
 	 $(HOST_AUTOCONF) \
 	--disable-pcregrep-libz \
 	--disable-pcregrep-libbz2 \
-	--enable-utf8
+	--enable-utf8 \
+	--enable-unicode-properties
 
 # vim: syntax=make

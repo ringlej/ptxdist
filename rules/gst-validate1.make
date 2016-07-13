@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_GST_VALIDATE1) += gst-validate1
 #
 # Paths and names
 #
-GST_VALIDATE1_VERSION	:= 1.4.0
-GST_VALIDATE1_MD5	:= f85b335f39a29c1ebee231bd17767b4e
+GST_VALIDATE1_VERSION	:= 1.8.2
+GST_VALIDATE1_MD5	:= 23e4018616e8591c323f96b34f008813
 GST_VALIDATE1		:= gst-validate-$(GST_VALIDATE1_VERSION)
 GST_VALIDATE1_SUFFIX	:= tar.xz
 GST_VALIDATE1_URL	:= http://gstreamer.freedesktop.org/data/src/gst-validate/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
 GST_VALIDATE1_SOURCE	:= $(SRCDIR)/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
 GST_VALIDATE1_DIR	:= $(BUILDDIR)/$(GST_VALIDATE1)
-GST_VALIDATE1_LICENSE	:= LGPLv2.1+
+GST_VALIDATE1_LICENSE	:= LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -40,6 +40,7 @@ GST_VALIDATE1_CONF_ENV	:= \
 GST_VALIDATE1_CONF_TOOL	:= autoconf
 GST_VALIDATE1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--runstatedir=/run \
 	--disable-nls \
 	--disable-rpath \
 	--disable-debug \
@@ -70,6 +71,14 @@ $(STATEDIR)/gst-validate1.targetinstall:
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
 		libgstvalidate-default-overrides-1.0)
 
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		gstreamer-1.0/libgstvalidateplugin-1.0)
+
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		gstreamer-1.0/validate/libgstvalidatefaultinjection)
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		gstreamer-1.0/validate/libgstvalidategapplication)
+
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
 		/usr/bin/gst-validate-1.0)
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
@@ -78,7 +87,18 @@ $(STATEDIR)/gst-validate1.targetinstall:
 		/usr/bin/gst-validate-transcoding-1.0)
 
 	@$(call install_tree, gst-validate1, 0, 0, -, \
-		/usr/share/gstreamer-1.0/validate-scenario)
+		/usr/share/gstreamer-1.0/validate/scenarios)
+
+ifdef PTXCONF_GST_VALIDATE1_VIDEO
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		libgstvalidatevideo-1.0)
+
+	@$(call install_lib, gst-validate1, 0, 0, 0644, \
+		gstreamer-1.0/validate/libgstvalidatessim)
+
+	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \
+		/usr/bin/gst-validate-images-check-1.0)
+endif
 
 ifdef PTXCONF_GST_VALIDATE1_LAUNCHER
 	@$(call install_copy, gst-validate1, 0, 0, 0755, -, \

@@ -23,6 +23,7 @@ XORG_LIB_XAW_SUFFIX	:= tar.bz2
 XORG_LIB_XAW_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX))
 XORG_LIB_XAW_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAW)
+XORG_LIB_XAW_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

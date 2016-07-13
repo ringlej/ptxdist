@@ -17,14 +17,17 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.42.12
-E2FSPROGS_MD5		:= 68255f51be017a93f2f6402fab06c2bf
+E2FSPROGS_VERSION	:= 1.43.1
+E2FSPROGS_MD5		:= 1775f3f0eed9dee1c5f39e08d1964a97
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
 E2FSPROGS_SOURCE	:= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
-E2FSPROGS_LICENSE	:= GPLv2+, LGPLv2+, BSD, MIT
+E2FSPROGS_LICENSE	:= GPL-2.0+, LGPL-2.0+, BSD-3-Clause, MIT
+E2FSPROGS_LICENSE_FILES	:= \
+	file://NOTICE;md5=b48f21d765b875bd10400975d12c1ca2 \
+	file://lib/uuid/gen_uuid.c;startline=4;endline=31;md5=697cf5d1be275fa2588beaaf2bb481bd
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -39,18 +42,16 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-symlink-install \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
-	--$(call ptx/endis,PTXCONF_E2FSPROGS_COMPRESSION)-compression \
-	--enable-htree \
 	--enable-elf-shlibs \
 	--disable-bsd-shlibs \
 	--disable-profile \
 	--disable-gcov \
+	--disable-hardening \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
 	--disable-testio-debug \
 	--disable-libuuid \
 	--disable-libblkid \
-	--disable-quota \
 	--disable-backtrace \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_DEBUGFS)-debugfs \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_IMAGER)-imager \
@@ -60,9 +61,14 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-e2initrd-helper \
 	--disable-tls \
 	--disable-uuidd \
+	--enable-mmp \
+	--enable-tdb \
+	--disable-bmap-stats \
+	--disable-bmap-stats-ops \
 	--disable-nls \
 	--enable-threads=posix \
 	--disable-rpath \
+	--disable-fuse2fs \
 	--with-root-prefix=
 
 E2FSPROGS_MAKE_OPT	:= $(if $(filter 1,$(strip $(PTXDIST_VERBOSE))),V=1)

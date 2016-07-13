@@ -17,7 +17,7 @@ RNG_TOOLS_SUFFIX	:= tar.gz
 RNG_TOOLS_URL		:= $(call ptx/mirror, SF, gkernel/$(RNG_TOOLS).$(RNG_TOOLS_SUFFIX))
 RNG_TOOLS_SOURCE	:= $(SRCDIR)/$(RNG_TOOLS).$(RNG_TOOLS_SUFFIX)
 RNG_TOOLS_DIR		:= $(BUILDDIR)/$(RNG_TOOLS)
-RNG_TOOLS_LICENSE	:= GPLv2
+RNG_TOOLS_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -48,6 +48,15 @@ ifneq ($(call remove_quotes,$(PTXCONF_RNG_TOOLS_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_RNG_TOOLS_BBINIT_LINK))
 endif
 endif
+endif
+ifdef PTXCONF_RNG_TOOLS_SYSTEMD_UNIT
+	@$(call install_alternative, rng-tools, 0, 0, 0644, \
+		/lib/systemd/system/rngd.service)
+	@$(call install_link, rng-tools, ../rngd.service, \
+		/lib/systemd/system/basic.target.wants/rngd.service)
+endif
+ifdef PTXCONF_RNG_TOOLS_RNGTEST
+	@$(call install_copy, rng-tools, 0, 0, 0755, -, /usr/bin/rngtest)
 endif
 	@$(call install_finish, rng-tools)
 

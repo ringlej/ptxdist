@@ -24,7 +24,7 @@ SDL_SUFFIX	:= tar.gz
 SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)
 SDL_SOURCE	:= $(SRCDIR)/$(SDL).$(SDL_SUFFIX)
 SDL_DIR		:= $(BUILDDIR)/$(SDL)
-SDL_LICENSE	:= LGPLv2.1
+SDL_LICENSE	:= LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -241,6 +241,7 @@ SDL_AUTOCONF += --disable-nasm
 endif
 
 SDL_AUTOCONF += \
+	--disable-pulseaudio \
 	--disable-video-ps2gs \
 	--disable-video-ggi \
 	--disable-video-svga \

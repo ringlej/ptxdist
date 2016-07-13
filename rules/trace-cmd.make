@@ -23,7 +23,7 @@ TRACE_CMD_SUFFIX	:= tar.bz2
 TRACE_CMD_URL		:= http://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;tag=trace-cmd-v$(TRACE_CMD_VERSION)
 TRACE_CMD_SOURCE	:= $(SRCDIR)/$(TRACE_CMD).$(TRACE_CMD_SUFFIX)
 TRACE_CMD_DIR		:= $(BUILDDIR)/$(TRACE_CMD)
-TRACE_CMD_LICENSE	:= GPLv2
+TRACE_CMD_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

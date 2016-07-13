@@ -1,0 +1,9 @@
+## SECTION=shell_and_console
+
+config MEMTOOL
+	tristate
+	prompt "memtool"
+	help
+	  A handy tool to manipulate and read memory mapped registers. The
+	  available subcommands are inspired by the respective commands of the
+	  barebox bootloader.

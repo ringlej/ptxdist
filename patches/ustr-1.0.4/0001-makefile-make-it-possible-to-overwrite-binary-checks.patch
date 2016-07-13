@@ -9,11 +9,11 @@ as we are on linux.
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile |   16 ++++++++++++++--
+ Makefile | 16 ++++++++++++++--
  1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 7a0f317..9eab99b 100644
+index 7a0f31795067..9eab99bbe19b 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -457,12 +457,24 @@ ustr-import: ustr-import.in autoconf_64b autoconf_vsnprintf

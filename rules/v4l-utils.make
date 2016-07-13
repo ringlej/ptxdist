@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 1.6.2
-V4L_UTILS_MD5		:= 9cb3c178f937954e65bf30920af433ef
+V4L_UTILS_VERSION	:= 1.10.0
+V4L_UTILS_MD5		:= 945a38979138997e805828a4a53e53ec
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_SOURCE	:= $(SRCDIR)/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_DIR		:= $(BUILDDIR)/$(V4L_UTILS)
-V4L_UTILS_LICENSE	:= GPLv2+ (tools); LGPLv2.1+ (libs)
+V4L_UTILS_LICENSE	:= GPL-2.0+ (tools); LGPL-2.1+ (libs)
 
 # ----------------------------------------------------------------------------
 # Prepare

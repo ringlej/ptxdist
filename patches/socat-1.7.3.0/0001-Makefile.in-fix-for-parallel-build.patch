@@ -1,0 +1,26 @@
+From: Markus Niebel <Markus.Niebel@tq-group.de>
+Date: Tue, 25 Aug 2015 17:48:55 +0200
+Subject: [PATCH] Makefile.in: fix for parallel build
+
+Let filan depend on vsnprintf_r.o and snprinterr.o to fix the issue.
+
+original patch for OE-Core by: Robert Yang <liezhi.yang at windriver.com>
+
+Signed-off-by: Markus Niebel <Markus.Niebel@tq-group.de>
+---
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index f2a6edb87890..88b784b1592c 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -118,7 +118,7 @@ PROCAN_OBJS=procan_main.o procan.o procan-cdefs.o hostan.o error.o sycls.o sysut
+ procan: $(PROCAN_OBJS)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(PROCAN_OBJS) $(CLIBS)
+ 
+-filan: filan_main.o filan.o fdname.o error.o sycls.o sysutils.o utils.o
++filan: filan_main.o filan.o fdname.o error.o sycls.o sysutils.o utils.o vsnprintf_r.o snprinterr.o
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ filan_main.o filan.o fdname.o error.o sycls.o sysutils.o utils.o vsnprintf_r.o snprinterr.o $(CLIBS)
+ 
+ libxio.a: $(XIOOBJS) $(UTLOBJS)

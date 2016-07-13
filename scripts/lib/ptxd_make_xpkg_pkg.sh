@@ -227,16 +227,16 @@ ptxd_install_file_extract_debug() {
 
     # this can fail if objcopy does not support compressing debug sections or
     # is compiled without zlib support
-    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}" |&
-	grep -q "\(unrecognized option\|unable to initialize commpress status\)"
+    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}" |&
+	grep -q "\(unrecognized option\|unable to initialize com*press status\)"
     local -a status=( "${PIPESTATUS[@]}" )
     if [ ${status[0]} -ne 0 ]; then
 	if [ ${status[1]} -eq 0 ]; then
 	    ptxd_install_file_objcopy_args="--only-keep-debug"
-	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}"
 	else
 	    # do it again to see the error message
-	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${dir}${dst}" "${dbg}"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}"
 	fi
     fi &&
     chmod -x "${dbg}" &&
@@ -252,32 +252,34 @@ export -f ptxd_install_file_extract_debug
 #
 #
 ptxd_install_file_strip() {
-    local -a strip_cmd
+    local -a strip_cmd files
     local dst="${1}"
+    local i file
 
     case "${strip:-y}" in
-	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
+	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug -R .GCC.command.line ) ;;
 	y) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment -R .GCC.command.line ) ;;
     esac
 
-    #
-    # create hardlink so that inode stays the same during strip
-    # (fixes 64 bit fakeroot <-> 32 bit strip issue)
-    #
-    local tmp="strip"
-    local file dir
-    for file in "${sdirs[@]/%/${dst}}"; do
-	ln -f "${file}" "${file}.${tmp}" || return
+    files=( "${sdirs[@]/%/${dst}}" )
+    install -d "$(dirname "${files[0]}")" &&
+    "${strip_cmd[@]}" -o "${files[0]}" "${src}" &&
+    for (( i=1 ; ${i} < ${#files[@]} ; i=$[i+1] )); do
+	install -m "${mod_rw}" -D "${files[0]}" "${files[${i}]}" || return
+    done &&
+
+    files=( "${dirs[@]/%/${dst}}" ) &&
+    for file in "${files[@]}"; do
+	if [ ! -e "${file}" ]; then
+	    install -m "${mod_rw}" -D "${src}" "${file}" || return
+	fi
     done &&
 
     if [ "${strip}" != "k" ]; then
 	for dir in "${ddirs[@]}"; do
 	    ptxd_install_file_extract_debug "${dir}" "${dst}" || return
 	done
-    fi &&
-
-    "${strip_cmd[@]}" "${sdirs[@]/%/${dst}}" &&
-    rm -f "${sdirs[@]/%/${dst}.${tmp}}"
+    fi
 }
 export -f ptxd_install_file_strip
 
@@ -312,17 +314,22 @@ install ${cmd}:
 	echo "using '$(ptxd_print_path "${src}")' instead"
     fi &&
 
-    # just install with r/w permissions for now
-    for d in "${dirs[@]/%/${dst}}"; do
-	install -m "${mod_rw}" -D "${src}" "${d}" || return
-    done &&
+    if [ -z "${strip}" ]; then
+	if ! readelf -h "${src}" &> /dev/null; then
+	    strip="n"
+	else
+	    strip="y"
+	fi
+    fi &&
 
     case "${strip}" in
-	0|n|no|N|NO) ;;
-	y|k|"")
-	    if readelf -h "${src}" > /dev/null 2>&1; then
-		ptxd_install_file_strip "${dst}"
-	    fi
+	0|n|no|N|NO)
+	    for d in "${dirs[@]/%/${dst}}"; do
+		install -m "${mod_rw}" -D "${src}" "${d}" || return
+	    done
+	    ;;
+	y|k)
+	    ptxd_install_file_strip "${dst}"
 	    ;;
 	*)
 	    if [ "${strip:0:1}" = "/" ] && \
@@ -530,13 +537,16 @@ ptxd_install_generic() {
     local strip="$5"
 
     local -a stat
-    stat=( $(stat -c "%u %g %a 0x%t 0x%T" "${file}") ) &&
+    local orig_IFS="${IFS}"
+    local IFS=":"
+    stat=( $(stat -c "%u:%g:%a:0x%t:0x%T:%F" "${file}") ) &&
+    IFS="${orig_IFS}"
     local usr="${usr:-${stat[0]}}" &&
     local grp="${grp:-${stat[1]}}" &&
     local mod="${stat[2]}" &&
     local major="${stat[3]}" &&
     local minor="${stat[4]}" &&
-    local type="$(stat -c "%F" "${file}")" &&
+    local type="${stat[5]}" &&
 
     case "${type}" in
         "directory")
@@ -571,16 +581,21 @@ ptxd_install_find() {
     local strip="${5}"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
+    if [ -z "${glob}" ]; then
+	local glob="-o -print"
+    fi
 
     ptxd_install_setup_src &&
     test -d "${src}" &&
 
-    find "${src}" -path "*/.svn" -prune -o -path "*/.git" -prune -o \
-		-path "*/.pc" -prune -o -path "*/CVS" -prune -o \
-		! -path "${src}" -print | while read file; do
+    find "${src}" ! -path "${src}" -a \( \
+		-path "*/.svn" -prune -o -path "*/.git" -prune -o \
+		-path "*/.pc" -prune -o -path "*/CVS" -prune \
+		${glob} \) | while read file; do
 	local dst_file="${dst}${file#${src}}"
 	ptxd_install_generic "${file}" "${dst_file}" "${usr}" "${grp}" "${strip}" || return
     done
+    check_pipe_status
 }
 export -f ptxd_install_find
 
@@ -593,6 +608,31 @@ ptxd_install_tree() {
     ptxd_install_error "install_tree failed!"
 }
 export -f ptxd_install_tree
+
+ptxd_install_glob() {
+    local cmd="file"
+    local src="${1}"
+    local dst="${2}"
+    local yglob=( ${3} )
+    local nglob=( ${4} )
+    local glob
+
+    if [ -n "${3}" ]; then
+	yglob=( "${yglob[@]/#/-o -path }" )
+	glob="${yglob[*]/%/ -print }"
+    else
+	glob="-o -print"
+    fi
+    if [ -n "${4}" ]; then
+	nglob=( "${nglob[@]/#/-o -path }" )
+	glob="${nglob[*]/%/ -prune } ${glob}"
+    fi
+    shift 4
+
+    ptxd_install_find "${src}" "${dst}" "$@" ||
+    ptxd_install_error "install_glob failed!"
+}
+export -f ptxd_install_glob
 
 ptxd_install_alternative_tree() {
     local cmd="alternative"
@@ -730,9 +770,10 @@ ptxd_install_shared() {
     local usr="$3"
     local grp="$4"
     local mod="$5"
+    local strip="${6:-y}"
     local filename="$(basename "${src}")"
 
-    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
+    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" "${strip}" &&
 
     find -H "$(dirname "${src}")" -maxdepth 1 -type l | while read file; do
 	if [ "$(basename "$(readlink -f "${file}")")" = "${filename}" ]; then

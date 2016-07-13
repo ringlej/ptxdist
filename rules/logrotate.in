@@ -5,7 +5,6 @@ menuconfig LOGROTATE
 	prompt "logrotate                     "
 	select LIBPOPT
 	select ACL if LOGROTATE_ACL
-	select ACL_SHARED if LOGROTATE_ACL
 	help
 	  The logrotate utility is designed to simplify the
 	  administration of log files on a system which generates a lot

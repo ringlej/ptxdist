@@ -5,6 +5,9 @@ config HOST_SYSTEM_PERL
 
 if HOST_SYSTEM_PERL
 
+config HOST_SYSTEM_PERL_BUILD
+	bool
+
 config HOST_SYSTEM_PERL_JSON
 	bool
 

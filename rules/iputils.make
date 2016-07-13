@@ -23,7 +23,7 @@ IPUTILS_SUFFIX	:= tar.bz2
 IPUTILS_URL	:= http://www.skbuff.net/iputils/$(IPUTILS).$(IPUTILS_SUFFIX)
 IPUTILS_SOURCE	:= $(SRCDIR)/$(IPUTILS).$(IPUTILS_SUFFIX)
 IPUTILS_DIR	:= $(BUILDDIR)/$(IPUTILS)
-IPUTILS_LICENSE	:= GPLv2
+IPUTILS_LICENSE	:= GPL-2.0
 IPUTILS_LICENSE_FILES := file://ninfod/COPYING;md5=5e9a325527978995c41e6d9a83f6e6bd
 
 # ----------------------------------------------------------------------------

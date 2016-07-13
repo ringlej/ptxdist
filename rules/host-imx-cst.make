@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2014, 2015 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2014, 2015, 2016 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,11 +16,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_IMX_CST) += host-imx-cst
 #
 # Paths and names
 #
-HOST_IMX_CST_VERSION	:= 2.2
-HOST_IMX_CST_MD5	:= 08b6522b7458b772a11576f4a0795866
+HOST_IMX_CST_VERSION	:= 2.3.1
+HOST_IMX_CST_MD5	:= 01684a853e9245dbd6db42acad5861dd
 HOST_IMX_CST		:= cst-$(HOST_IMX_CST_VERSION)
-HOST_IMX_CST_SUFFIX	:= tgz
-HOST_IMX_CST_URL	:= https://www.freescale.com/webapp/sps/download/license.jsp?colCode=IMX_CST_TOOL
+HOST_IMX_CST_SUFFIX	:= tar.gz
+HOST_IMX_CST_URL	:= https://www.nxp.com/webapp/sps/download/license.jsp?colCode=IMX_CST_TOOL
 HOST_IMX_CST_SOURCE	:= $(SRCDIR)/$(HOST_IMX_CST).$(HOST_IMX_CST_SUFFIX)
 HOST_IMX_CST_DIR	:= $(HOST_BUILDDIR)/$(HOST_IMX_CST)
 HOST_IMX_CST_LICENSE	:= proprietary
@@ -33,7 +33,7 @@ $(HOST_IMX_CST_SOURCE):
 	@$(call targetinfo)
 	@echo "************************************************************************"
 	@echo "*"
-	@echo "* Due to license restrictions please download manually from:"
+	@echo "* Due to license restrictions please download version $(HOST_IMX_CST_VERSION) manually from:"
 	@echo "*"
 	@echo "*    $(HOST_IMX_CST_URL)"
 	@echo "*"
@@ -69,10 +69,21 @@ HOST_IMX_CST_PROGS := \
 	srktool \
 	x5092wtls
 
+HOST_IMX_CST_LIBS := \
+	libbackend.a \
+	libfrontend.a
+
+HOST_IMX_CST_ARCH := \
+	linux$(call ptx/ifeq, GNU_BUILD, x86_64-%, 64, 32)
+
 $(STATEDIR)/host-imx-cst.install:
 	@$(call targetinfo)
 	@$(foreach prog, $(HOST_IMX_CST_PROGS), \
-		install -v -m0755 -D $(HOST_IMX_CST_DIR)/linux/$(prog) $(HOST_IMX_CST_PKGDIR)/bin/$(prog);)
+		install -v -m0755 -D $(HOST_IMX_CST_DIR)/$(HOST_IMX_CST_ARCH)/$(prog) \
+		$(HOST_IMX_CST_PKGDIR)/bin/$(prog);)
+	@$(foreach lib, $(HOST_IMX_CST_LIBS), \
+		install -v -m0644 -D $(HOST_IMX_CST_DIR)/$(HOST_IMX_CST_ARCH)/lib/$(lib) \
+		$(HOST_IMX_CST_PKGDIR)/lib/imx-cst/$(lib);)
 	@$(call touch)
 
 # vim: syntax=make

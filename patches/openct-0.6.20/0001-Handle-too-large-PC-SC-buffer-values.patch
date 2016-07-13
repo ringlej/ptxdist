@@ -1,0 +1,77 @@
+From: =?UTF-8?q?Marcin=20Cie=C5=9Blak?= <saper@saper.info>
+Date: Sun, 15 Nov 2015 00:05:56 +0000
+Subject: [PATCH] Handle too large PC/SC buffer values
+
+pcsc-lite starting from 1.8.14 provides 65548 byte
+receive buffers to IFDHTransmitToICC(), which is
+a maximal extended APDU size. Unfortunately this
+is more than CT API can use (16 bits).
+
+If more than 65536 bytes are about to be sent,
+return IFD_PROTOCOL_NOT_SUPPORTED.
+
+Receive at most 65536 bytes. pcsc-lite will always
+specify 65548 buffer, even if the client application
+requests less; therefore we cannot return an error
+in this case.
+
+Discussion:
+https://lists.alioth.debian.org/pipermail/pcsclite-muscle/Week-of-Mon-20151109/000493.html
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/pcsc/pcsc.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/src/pcsc/pcsc.c b/src/pcsc/pcsc.c
+index 0ed9a619e53b..d769eb5625ec 100644
+--- a/src/pcsc/pcsc.c
++++ b/src/pcsc/pcsc.c
+@@ -25,6 +25,7 @@
+ #ifdef DEBUG_IFDH
+ #include <syslog.h>
+ #endif
++#include <limits.h>
+ #ifdef __APPLE__
+ #include <PCSC/wintypes.h>
+ #include <PCSC/pcsclite.h>
+@@ -390,6 +391,10 @@ IFDHTransmitToICC(DWORD Lun, SCARD_IO_HEADER SendPci,
+ 	ctn = ((unsigned short)(Lun >> 16)) % IFDH_MAX_READERS;
+ 	slot = ((unsigned short)(Lun & 0x0000FFFF)) % IFDH_MAX_SLOTS;
+ 
++	if (TxLength > USHRT_MAX) {
++		(*RxLength) = 0;
++		return IFD_PROTOCOL_NOT_SUPPORTED;
++	}
+ #ifdef HAVE_PTHREAD
+ 	pthread_mutex_lock(&ifdh_context_mutex[ctn]);
+ #endif
+@@ -399,7 +404,7 @@ IFDHTransmitToICC(DWORD Lun, SCARD_IO_HEADER SendPci,
+ #endif
+ 		dad = (UCHAR) ((slot == 0) ? 0x00 : slot + 1);
+ 		sad = 0x02;
+-		lr = (unsigned short)(*RxLength);
++		lr = (*RxLength > USHRT_MAX) ? USHRT_MAX : (unsigned short)(*RxLength);
+ 		lc = (unsigned short)TxLength;
+ 
+ 		ret = CT_data(ctn, &dad, &sad, lc, TxBuffer, &lr, RxBuffer);
+@@ -438,6 +443,10 @@ IFDHControl(DWORD Lun, PUCHAR TxBuffer,
+ 	ctn = ((unsigned short)(Lun >> 16)) % IFDH_MAX_READERS;
+ 	slot = ((unsigned short)(Lun & 0x0000FFFF)) % IFDH_MAX_SLOTS;
+ 
++	if (TxLength > USHRT_MAX) {
++		(*RxLength) = 0;
++		return IFD_PROTOCOL_NOT_SUPPORTED;
++	}
+ #ifdef HAVE_PTHREAD
+ 	pthread_mutex_lock(&ifdh_context_mutex[ctn]);
+ #endif
+@@ -447,7 +456,7 @@ IFDHControl(DWORD Lun, PUCHAR TxBuffer,
+ #endif
+ 		dad = 0x01;
+ 		sad = 0x02;
+-		lr = (unsigned short)(*RxLength);
++		lr = (*RxLength > USHRT_MAX) ? USHRT_MAX : (unsigned short)(*RxLength);
+ 		lc = (unsigned short)TxLength;
+ 
+ 		ret = CT_data(ctn, &dad, &sad, lc, TxBuffer, &lr, RxBuffer);

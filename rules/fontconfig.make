@@ -16,13 +16,14 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.11.0
-FONTCONFIG_MD5		:= 84278204cd7f36adbea7ad8094e039ac
+FONTCONFIG_VERSION	:= 2.11.1
+FONTCONFIG_MD5		:= e75e303b4f7756c2b16203a57ac87eba
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
 FONTCONFIG_SOURCE	:= $(SRCDIR)/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
 FONTCONFIG_DIR		:= $(BUILDDIR)/$(FONTCONFIG)
+FONTCONFIG_LICENSE	:= MIT, Unicode-TOU, public_domain
 
 
 # ----------------------------------------------------------------------------

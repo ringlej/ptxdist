@@ -11,6 +11,8 @@ menuconfig BOOST
 	select ZLIB		if BOOST_IOSTREAMS
 	select BZIP2		if BOOST_IOSTREAMS
 	select BZIP2_LIBBZ2	if BOOST_IOSTREAMS
+	select PYTHON		if BOOST_PYTHON2
+	select PYTHON3		if BOOST_PYTHON3
 	prompt "boost                         "
 	help
 
@@ -23,13 +25,14 @@ menuconfig BOOST
 	  The boost team aims to establish "existing practice" and provide
 	  reference implementations so that Boost libraries are suitable for
 	  eventual standardization. Ten Boost libraries are already included in
-	  the C++ Standards Committee's Library Technical Report ( TR1) and in 
+	  the C++ Standards Committee`s Library Technical Report ( TR1) and in 
 	  the new C++11 Standard. C++11 also includes several more Boost libraries 
 	  in addition to those from TR1. More Boost libraries are proposed for TR2.
 
 	  For details see the project homepage:
 
 		http://www.boost.org/
+
 if BOOST
 comment "Targetinstall Options         "
 
@@ -65,7 +68,10 @@ comment "Boost Libraries"
 
 config BOOST_ATOMIC
 	bool
+	select BOOST_CHRONO
+	select BOOST_DATE_TIME
 	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "atomic"
 	help
 	  Boost atomic library
@@ -76,6 +82,12 @@ config BOOST_CHRONO
 	prompt "chrono"
 	help
 	  Boost chrono library
+
+config BOOST_CONTAINER
+	bool
+	prompt "container"
+	help
+	  Boost container library
 
 config BOOST_CONTEXT
 	bool
@@ -89,6 +101,13 @@ config BOOST_COROUTINE
 	prompt "coroutine"
 	help
 	  Boost coroutine library
+
+config BOOST_COROUTINE2
+	bool
+	select BOOST_CONTEXT
+	prompt "coroutine2"
+	help
+	  Boost coroutine2 library
 
 config BOOST_DATE_TIME
 	bool
@@ -137,6 +156,11 @@ config BOOST_LOCALE
 
 config BOOST_LOG
 	bool
+	select BOOST_DATE_TIME
+	select BOOST_FILESYSTEM
+	select BOOST_REGEX
+	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "log"
 	help
 	  Boost log library
@@ -145,13 +169,13 @@ config BOOST_MATH
 	bool
 	prompt "math"
 	help
-	  Boost iostream library
+	  Boost Math library
 
 config BOOST_MPI
 	bool
 	prompt "mpi"
 	help
-	  Boost iostream library
+	  Boost MPI library
 
 config BOOST_PROGRAM_OPTIONS
 	bool
@@ -209,7 +233,7 @@ config BOOST_TIMER
 	select BOOST_SYSTEM
 	prompt "timer"
 	help
-	  Boost iostream library
+	  Boost timer library
 
 config BOOST_WAVE
 	bool
@@ -223,8 +247,30 @@ config BOOST_WAVE
 
 config BOOST_PYTHON
 	bool
+
+choice
 	prompt "python"
-	depends on BROKEN
-	help
-	  boost python support (still broken)
+	default BOOST_NOPYTHON
+
+	config BOOST_NOPYTHON
+		bool
+		prompt "no python support"
+		help
+		  Select this option if you don't want to build boost.python.
+
+	config BOOST_PYTHON2
+		bool
+		prompt "python2"
+		select BOOST_PYTHON
+		help
+		  Select this option if you want to use boost.python in combination with python2.
+
+	config BOOST_PYTHON3
+		bool
+		prompt "python3"
+		select BOOST_PYTHON
+		help
+		  Select this option if you want to use boost.python in combination with python3.
+endchoice
+
 endif

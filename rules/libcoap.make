@@ -23,7 +23,7 @@ LIBCOAP_SUFFIX	:= tar.gz
 LIBCOAP_URL	:= $(call ptx/mirror, SF, libcoap/$(LIBCOAP).$(LIBCOAP_SUFFIX))
 LIBCOAP_SOURCE	:= $(SRCDIR)/$(LIBCOAP).$(LIBCOAP_SUFFIX)
 LIBCOAP_DIR	:= $(BUILDDIR)/$(LIBCOAP)
-LIBCOAP_LICENSE	:= BSD, GPLv2
+LIBCOAP_LICENSE	:= BSD, GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

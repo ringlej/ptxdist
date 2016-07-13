@@ -1,0 +1,37 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Mon, 18 Apr 2016 15:58:59 +0200
+Subject: [PATCH] Do not compile tests for disabled features
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ doc/examples/Makefile.am | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/doc/examples/Makefile.am b/doc/examples/Makefile.am
+index 7bb02daccda0..1866188f61b5 100644
+--- a/doc/examples/Makefile.am
++++ b/doc/examples/Makefile.am
+@@ -12,7 +12,6 @@ endif
+ 
+ # example programs
+ noinst_PROGRAMS = \
+-  basicauthentication \
+   hellobrowser \
+   logging \
+   responseheaders 
+@@ -29,10 +28,15 @@ if HAVE_W32
+ AM_CPPFLAGS += -DWINDOWS
+ endif
+ 
++if ENABLE_BAUTH
++noinst_PROGRAMS += \
++  basicauthentication
++
+ basicauthentication_SOURCES = \
+  basicauthentication.c 
+ basicauthentication_LDADD = \
+  $(top_builddir)/src/microhttpd/libmicrohttpd.la 
++endif
+ 
+ hellobrowser_SOURCES = \
+  hellobrowser.c 

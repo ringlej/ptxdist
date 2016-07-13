@@ -23,7 +23,7 @@ LIBMIKMOD_SUFFIX	:= tar.gz
 LIBMIKMOD_URL		:= $(call ptx/mirror, SF, mikmod/$(LIBMIKMOD).$(LIBMIKMOD_SUFFIX))
 LIBMIKMOD_SOURCE	:= $(SRCDIR)/$(LIBMIKMOD).$(LIBMIKMOD_SUFFIX)
 LIBMIKMOD_DIR		:= $(BUILDDIR)/$(LIBMIKMOD)
-LIBMIKMOD_LICENSE	:= LGPLv2+
+LIBMIKMOD_LICENSE	:= LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

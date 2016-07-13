@@ -23,7 +23,7 @@ PROTOBUF_SUFFIX		:= tar.bz2
 PROTOBUF_URL		:= http://protobuf.googlecode.com/files/$(PROTOBUF).$(PROTOBUF_SUFFIX)
 PROTOBUF_SOURCE		:= $(SRCDIR)/$(PROTOBUF).$(PROTOBUF_SUFFIX)
 PROTOBUF_DIR		:= $(BUILDDIR)/$(PROTOBUF)
-PROTOBUF_LICENSE	:= BSD New
+PROTOBUF_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

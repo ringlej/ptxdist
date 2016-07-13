@@ -18,14 +18,14 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.9
-STRACE_MD5	:= 885eafadb10f6c60464a266d3929a2a4
+STRACE_VERSION	:= 4.10
+STRACE_MD5	:= 107a5be455493861189e9b57a3a51912
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
 STRACE_SOURCE	:= $(SRCDIR)/$(STRACE).$(STRACE_SUFFIX)
 STRACE_DIR	:= $(BUILDDIR)/$(STRACE)
-STRACE_LICENSE	:= BSD
+STRACE_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

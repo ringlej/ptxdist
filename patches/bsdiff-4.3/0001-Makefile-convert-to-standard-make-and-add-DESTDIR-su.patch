@@ -1,0 +1,32 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 6 Nov 2015 11:55:04 +0100
+Subject: [PATCH] Makefile: convert to standard make and add DESTDIR support
+
+---
+ Makefile | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index a5226071b4f7..e11950fc5723 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,8 @@
+-CFLAGS		+=	-O3 -lbz2
++CFLAGS		+=	-O3
++LDLIBS		+=	-lbz2
+ 
+ PREFIX		?=	/usr/local
++INSTALL		?=	install
+ INSTALL_PROGRAM	?=	${INSTALL} -c -s -m 555
+ INSTALL_MAN	?=	${INSTALL} -c -m 444
+ 
+@@ -9,7 +11,5 @@ bsdiff:		bsdiff.c
+ bspatch:	bspatch.c
+ 
+ install:
+-	${INSTALL_PROGRAM} bsdiff bspatch ${PREFIX}/bin
+-.ifndef WITHOUT_MAN
+-	${INSTALL_MAN} bsdiff.1 bspatch.1 ${PREFIX}/man/man1
+-.endif
++	${INSTALL_PROGRAM} bsdiff bspatch ${DESTDIR}${PREFIX}/bin
++	${INSTALL_MAN} bsdiff.1 bspatch.1 ${DESTDIR}${PREFIX}/man/man1

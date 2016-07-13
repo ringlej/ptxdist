@@ -23,7 +23,7 @@ FBTERM_SUFFIX	:= tar.gz
 FBTERM_URL	:= http://fbterm.googlecode.com/files/$(FBTERM).$(FBTERM_SUFFIX)
 FBTERM_SOURCE	:= $(SRCDIR)/$(FBTERM).$(FBTERM_SUFFIX)
 FBTERM_DIR	:= $(BUILDDIR)/$(FBTERM)
-FBTERM_LICENSE	:= GPLv2
+FBTERM_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

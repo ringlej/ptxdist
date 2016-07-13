@@ -25,6 +25,7 @@ XORG_PROTO_BIGREQS_SUFFIX	:= tar.bz2
 XORG_PROTO_BIGREQS_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_BIGREQS).$(XORG_PROTO_BIGREQS_SUFFIX))
 XORG_PROTO_BIGREQS_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_BIGREQS).$(XORG_PROTO_BIGREQS_SUFFIX)
 XORG_PROTO_BIGREQS_DIR		:= $(BUILDDIR)/$(XORG_PROTO_BIGREQS)
+XORG_PROTO_BIGREQS_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

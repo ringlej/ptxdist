@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 11 Jun 2016 16:29:29 +0200
+Subject: [PATCH] test: don't link to libfl
+
+It is not needed and newer version of libfl can cause build errors:
+
+[...]/lib/libfl.so: undefined reference to `yylex'
+collect2: error: ld returned 1 exit status
+<builtin>: recipe for target 'dispol' failed
+make[2]: *** [dispol] Error 1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ test/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/Makefile b/test/Makefile
+index 51d0f639bc77..78c6614a0afb 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -9,7 +9,7 @@ INCLUDEDIR ?= $(PREFIX)/include
+ CFLAGS ?= -g -Wall -W -Werror -O2 -pipe
+ override CFLAGS +=
+ 
+-LDLIBS=-lfl -lselinux $(LIBDIR)/libsepol.a -L$(LIBDIR)
++LDLIBS=-lselinux $(LIBDIR)/libsepol.a -L$(LIBDIR)
+ 
+ all: dispol dismod
+ 

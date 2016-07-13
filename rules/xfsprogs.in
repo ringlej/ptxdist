@@ -6,7 +6,9 @@ menuconfig XFSPROGS
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
+	select LIBBLKID
 	select LIBUUID
+	select HOST_LIBUUID
 	help
 	 The xfsprogs package provides the filesystem utilities for use
 	 with the xfs filesystem.
@@ -58,13 +60,6 @@ config XFSPROGS_INSTALL_NCHECK
 	select XFSPROGS_INSTALL_DB
 	help
 	  Install the xfs_ncheck program
-
-config XFSPROGS_INSTALL_CHECK
-	bool
-	select XFSPROGS_INSTALL_DB
-	prompt "xfs_check"
-	help
-	  Install the xfs_check program
 
 config XFSPROGS_INSTALL_ADMIN
 	bool

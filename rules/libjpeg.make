@@ -25,7 +25,9 @@ LIBJPEG_TARBALL	:= jpegsrc.v$(LIBJPEG_VERSION).$(LIBJPEG_SUFFIX)
 LIBJPEG_URL	:= http://ijg.org/files/$(LIBJPEG_TARBALL)
 LIBJPEG_SOURCE	:= $(SRCDIR)/$(LIBJPEG_TARBALL)
 LIBJPEG_DIR	:= $(BUILDDIR)/$(LIBJPEG)
-LIBJPEG_LICENSE	:= jpeg
+LIBJPEG_LICENSE	:= IJG
+LIBJPEG_LICENSE_FILES := \
+	file://README;md5=ea93a8a2fed10106b63bc21679edacb9
 
 # ----------------------------------------------------------------------------
 # Prepare

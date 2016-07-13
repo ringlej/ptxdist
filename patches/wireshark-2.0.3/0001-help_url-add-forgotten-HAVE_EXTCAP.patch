@@ -1,0 +1,25 @@
+From: Alexander Aring <aar@pengutronix.de>
+Date: Wed, 27 Apr 2016 16:51:08 +0200
+Subject: [PATCH] help_url: add forgotten HAVE_EXTCAP
+
+Signed-off-by: Alexander Aring <aar@pengutronix.de>
+---
+ ui/help_url.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/ui/help_url.c b/ui/help_url.c
+index 7a2b9a026e1c..144eb9855f4c 100644
+--- a/ui/help_url.c
++++ b/ui/help_url.c
+@@ -265,9 +265,11 @@ topic_action_url(topic_action_e action)
+     case(HELP_EXPERT_INFO_DIALOG):
+         url = user_guide_url("ChAdvExpert.html");
+         break;
++#if HAVE_EXTCAP
+     case(HELP_EXTCAP_OPTIONS_DIALOG):
+         url = user_guide_url("ChExtcapOptions.html");
+         break;
++#endif
+     case(HELP_STATS_SUMMARY_DIALOG):
+         url = user_guide_url("ChStatSummary.html");
+         break;

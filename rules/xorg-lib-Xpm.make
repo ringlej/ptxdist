@@ -23,6 +23,7 @@ XORG_LIB_XPM_SUFFIX	:= tar.bz2
 XORG_LIB_XPM_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XPM).$(XORG_LIB_XPM_SUFFIX))
 XORG_LIB_XPM_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XPM).$(XORG_LIB_XPM_SUFFIX)
 XORG_LIB_XPM_DIR	:= $(BUILDDIR)/$(XORG_LIB_XPM)
+XORG_LIB_XPM_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

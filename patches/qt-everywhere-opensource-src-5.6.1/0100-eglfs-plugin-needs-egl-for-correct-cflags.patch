@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 15 Feb 2016 15:24:41 +0100
+Subject: [PATCH] eglfs-plugin: needs egl for correct cflags
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro b/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro
+index a628cdccd938..f7e3400615e6 100644
+--- a/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro
++++ b/qtbase/src/plugins/platforms/eglfs/eglfs-plugin.pro
+@@ -2,6 +2,8 @@ TARGET = qeglfs
+ 
+ QT += platformsupport-private eglfs_device_lib-private
+ 
++CONFIG += egl
++
+ SOURCES += $$PWD/qeglfsmain.cpp
+ 
+ OTHER_FILES += $$PWD/eglfs.json

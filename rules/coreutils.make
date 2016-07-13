@@ -23,7 +23,7 @@ COREUTILS_SUFFIX	:= tar.xz
 COREUTILS_URL		:= $(call ptx/mirror, GNU, coreutils/$(COREUTILS).$(COREUTILS_SUFFIX))
 COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).$(COREUTILS_SUFFIX)
 COREUTILS_DIR		:= $(BUILDDIR)/$(COREUTILS)
-COREUTILS_LICENSE	:= GPLv3
+COREUTILS_LICENSE	:= GPL-3.0
 
 # ----------------------------------------------------------------------------
 # Prepare

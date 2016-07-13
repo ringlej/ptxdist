@@ -17,14 +17,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-#ifdef PTXCONF_GLIB_EXPERIMENTAL
-#GLIB_VERSION	:= 2.27.93
-#GLIB_MD5	:=
-#else
-GLIB_VERSION	:= 2.44.0
-GLIB_MD5	:= 74cf7b4ea200b76e42a4c22c8daf0f93
-#endif
-
+GLIB_VERSION	:= 2.48.1
+GLIB_MD5	:= 67bd3b75c9f6d5587b457dc01cdcd5bb
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.xz
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
@@ -32,7 +26,7 @@ GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
 GLIB_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glib/$(basename $(GLIB_VERSION))/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
-GLIB_LICENSE	:= LGPLv2+
+GLIB_LICENSE	:= LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -57,7 +51,7 @@ GLIB_CONF_ENV	:= \
 GLIB_CONF_TOOL	:= autoconf
 GLIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-silent-rules \
+	--runstatedir=/run \
 	--enable-debug=minimum \
 	--disable-gc-friendly \
 	--enable-mem-pools \
@@ -79,7 +73,7 @@ GLIB_CONF_OPT	:= \
 	--disable-coverage \
 	--with-libiconv=no \
 	--with-threads=posix \
-	--with-pcre=internal
+	--with-pcre=system
 
 # workaround for broken libtool
 GLIB_CFLAGS:= -Wl,-rpath-link,$(GLIB_DIR)/gmodule/.libs

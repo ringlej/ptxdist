@@ -5,6 +5,7 @@
 
 #include <locale.h>
 #include <ctype.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +43,7 @@ static int tty_stdio;
 static int valid_stdin = 1;
 static int sync_kconfig;
 static int conf_cnt;
-static char line[128];
+static char line[PATH_MAX];
 static struct menu *rootEntry;
 
 static void print_help(struct menu *menu)
@@ -110,7 +111,7 @@ static int conf_askvalue(struct symbol *sym, const char *def)
 		/* fall through */
 	case oldaskconfig:
 		fflush(stdout);
-		xfgets(line, 128, stdin);
+		xfgets(line, sizeof(line), stdin);
 		if (!tty_stdio)
 			printf("\n");
 		return 1;
@@ -312,7 +313,7 @@ static int conf_choice(struct menu *menu)
 			/* fall through */
 		case oldaskconfig:
 			fflush(stdout);
-			xfgets(line, 128, stdin);
+			xfgets(line, sizeof(line), stdin);
 			strip(line);
 			if (line[0] == '?') {
 				print_help(menu);
@@ -503,7 +504,7 @@ static struct option long_opts[] = {
 static void conf_usage(const char *progname)
 {
 
-	printf("Usage: %s [option] <kconfig-file>\n", progname);
+	printf("Usage: %s [-s] [option] <kconfig-file>\n", progname);
 	printf("[option] is _one_ of the following:\n");
 	printf("  --listnewconfig         List new options\n");
 	printf("  --oldaskconfig          Start a new configuration using a line-oriented program\n");
@@ -534,13 +535,17 @@ int main(int ac, char **av)
 
 	tty_stdio = isatty(0) && isatty(1) && isatty(2);
 
-	while ((opt = getopt_long(ac, av, "", long_opts, NULL)) != -1) {
+	while ((opt = getopt_long(ac, av, "s", long_opts, NULL)) != -1) {
+		if (opt == 's') {
+			conf_set_message_callback(NULL);
+			continue;
+		}
+		if (opt == writedepend) {
+			dep_output = 1;
+			continue;
+		}
 		input_mode = (enum input_mode)opt;
 		switch (opt) {
-		case writedepend:
-			dep_output = 1;
-			input_mode = silentoldconfig;
-			break;
 		case silentoldconfig:
 			sync_kconfig = 1;
 			break;
@@ -717,8 +722,6 @@ int main(int ac, char **av)
 			  input_mode != olddefconfig));
 		break;
 	}
-	if (dep_output)
-		create_dep_output();
 
 	if (sync_kconfig) {
 		/* silentoldconfig is used during the build so we shall update autoconf.
@@ -746,6 +749,10 @@ int main(int ac, char **av)
 			exit(1);
 		}
 	}
+
+	if (dep_output)
+		create_dep_output();
+
 	return 0;
 }
 

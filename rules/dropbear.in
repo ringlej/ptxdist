@@ -15,7 +15,7 @@ menuconfig DROPBEAR
 	  dropbear is a SSH 2 server and client designed
 	  to be small enough to be used in small memory
 	  environments, while still being functional and
- 	  secure enough for general use.
+	  secure enough for general use.
 
 	  It implements most required features of the
 	  SSH 2 protocol, and other features such as X11

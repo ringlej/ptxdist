@@ -23,7 +23,7 @@ AUDIOFILE_SUFFIX	:= tar.gz
 AUDIOFILE_URL		:= http://audiofile.68k.org/$(AUDIOFILE).$(AUDIOFILE_SUFFIX)
 AUDIOFILE_SOURCE	:= $(SRCDIR)/$(AUDIOFILE).$(AUDIOFILE_SUFFIX)
 AUDIOFILE_DIR		:= $(BUILDDIR)/$(AUDIOFILE)
-AUDIOFILE_LICENSE	:= GPLv2, LGPLv2
+AUDIOFILE_LICENSE	:= GPL-2.0, LGPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

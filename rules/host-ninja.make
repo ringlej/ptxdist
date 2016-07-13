@@ -23,6 +23,7 @@ HOST_NINJA_SUFFIX	:= tar.gz
 HOST_NINJA_URL		:= https://github.com/martine/ninja/archive/v$(HOST_NINJA_VERSION).$(HOST_NINJA_SUFFIX)
 HOST_NINJA_SOURCE	:= $(SRCDIR)/$(HOST_NINJA).$(HOST_NINJA_SUFFIX)
 HOST_NINJA_DIR		:= $(HOST_BUILDDIR)/$(HOST_NINJA)
+HOST_NINJA_LICENSE	:= Apache-2.0
 
 # ----------------------------------------------------------------------------
 # Compile

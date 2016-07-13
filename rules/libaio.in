@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBAIO
+	tristate
+	prompt "libaio"
+	help
+	  Library for asynchronous I/O access

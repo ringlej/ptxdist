@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_FLEX) += flex
 #
 # Paths and names
 #
-FLEX_VERSION	:= 2.5.35
-FLEX_MD5	:= 10714e50cea54dc7a227e3eddcd44d57
+FLEX_VERSION	:= 2.5.39
+FLEX_MD5	:= 477679c37ff8b28248a9b05f1da29a82
 FLEX		:= flex-$(FLEX_VERSION)
-FLEX_SUFFIX	:= tar.bz2
+FLEX_SUFFIX	:= tar.xz
 FLEX_URL	:= $(call ptx/mirror, SF, flex/$(FLEX).$(FLEX_SUFFIX))
 FLEX_SOURCE	:= $(SRCDIR)/$(FLEX).$(FLEX_SUFFIX)
 FLEX_DIR	:= $(BUILDDIR)/$(FLEX)
-FLEX_LICENSE	:= unknown
+FLEX_LICENSE	:= BSD-2-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

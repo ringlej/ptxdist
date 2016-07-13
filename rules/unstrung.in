@@ -1,0 +1,26 @@
+## SECTION=networking
+
+menuconfig UNSTRUNG
+	tristate
+	prompt "unstrung                      "
+	select BOOST
+	select LIBPCAP
+	select LIBUSB
+	help
+	  Unstrung is an implementation of the IETF ROLL Working Group's RPL
+	  RFC6550 routing protocol. RPL is pronounced Ripple. RPL is an IETF
+	  protocol that provides connectivity among nodes that can not all
+	  hear each other, but rather have to form a multihop mesh-like
+	  network.
+
+if UNSTRUNG
+
+config UNSTRUNG_TESTING
+	bool
+	prompt "testing tools"
+	help
+	  If enabled testing programs peck, senddio, senddao will be builed and
+	  installed.
+
+endif
+

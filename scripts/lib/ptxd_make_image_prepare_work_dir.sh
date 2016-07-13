@@ -61,7 +61,7 @@ ${list[*]}
 	ptxd_replace_magic "${ptxd_reply}" >> "${xpkg_conf}" &&
 
     DESTDIR="${work_dir}" \
-	${ptx_xpkg_type}-cl -f "${xpkg_conf}" -o "${work_dir}" \
+	${ptx_xpkg_type} -f "${xpkg_conf}" -o "${work_dir}" \
 	install "${ptxd_reply_ipkg_files[@]}" &&
 
     # fix directory permissions

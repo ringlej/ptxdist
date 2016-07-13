@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config POSTGRESQL
+	tristate
+	prompt "postgresql"
+	help
+	  A database.

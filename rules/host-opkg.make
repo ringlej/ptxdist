@@ -32,9 +32,8 @@ HOST_OPKG_ENV	:= $(HOST_ENV)
 HOST_OPKG_CONF_TOOL	:= autoconf
 HOST_OPKG_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--enable-shave \
-	--with-opkglockfile=/lock \
 	--disable-static \
+	--disable-libopkg-api \
 	--disable-pathfinder \
 	--disable-curl \
 	--disable-sha256 \

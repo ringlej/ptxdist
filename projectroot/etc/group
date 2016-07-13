@@ -1,6 +1,7 @@
 root:x:0:
 daemon:x:1:
 adm:x:4:
+shadow:x:42:
 utmp:x:43:
 users:x:100:
 ftp:x:101:
@@ -18,6 +19,7 @@ video:x:113:
 lock:x:114:
 audio:x:115:
 input:x:116:
+mysql:x:117:
 systemd-journal:x:201:
 systemd-network:x:202:
 systemd-journal-remote:x:203:

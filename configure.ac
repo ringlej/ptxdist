@@ -134,7 +134,7 @@ dnl   $1: tool to search for
 dnl   $2: package where the tool is (e.g. 'coreutils')
 AC_DEFUN([GNU_TOOL],
 	[AC_CACHE_CHECK([for GNU $1], [ac_cv_path_gnu_$1],
-		[AC_PATH_PROGS_FEATURE_CHECK([gnu_$1], [g$1 $1.gnu $1],
+		[AC_PATH_PROGS_FEATURE_CHECK([gnu_$1], [g$1 $1.gnu $1-gnu $1],
 			[[out=`$ac_path_gnu_$1 --version 2>/dev/null | $SED -ne "s/.*\(GNU\) $2.*/\1/p"`
 				test "x$out" = xGNU && ac_cv_path_gnu_$1=$ac_path_gnu_$1 ac_path_gnu_$1_found=:]],
 			[AC_MSG_ERROR([could not find GNU $1])])])
@@ -279,6 +279,18 @@ if test -z "$MSGFMT"; then
 	AC_MSG_ERROR([gettext could not be found, please install])
 fi
 
+AC_PATH_PROG(SPHINX, sphinx-build,, $PATH)
+if test -z "$SPHINX"; then
+	AC_MSG_NOTICE([sphinx not found, required to build the documentation])
+	SPHINX=sphinx-build
+else
+	AC_MSG_NOTICE([sphinx found, run 'make docs' to get documentation])
+fi
+AC_SUBST(SPHINX)
+
+AC_PATH_PROGS(RST2MAN, rst2man,, $PATH)
+AC_SUBST(RST2MAN)
+
 dnl
 dnl Checks for Python, needed for ipkg-utils
 dnl
@@ -380,6 +392,7 @@ AC_ARG_WITH([bash-completion],
 	[BASH_COMPLETION_DIR=/etc/bash_completion.d]
 )
 AC_SUBST(BASH_COMPLETION_DIR)
+AC_SUBST(PACKAGE_VERSION)
 
 AC_MSG_RESULT([])
 AC_CONFIG_FILES( \

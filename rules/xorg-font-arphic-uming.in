@@ -3,6 +3,6 @@
 config XORG_FONT_ARPHIC_UMING
 	bool
 	select XORG_FONTS
-	prompt "'AR PL UMing' Chinese font collection Kaiti style"
+	prompt "'AR PL UMing' Chinese font collection Mingti style"
 	help
 	  FIXME

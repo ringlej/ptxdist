@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_ANDROID
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "Android"
+	help
+	  Fonts from the Debian android-fonts package.

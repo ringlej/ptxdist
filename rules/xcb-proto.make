@@ -24,6 +24,7 @@ XCB_PROTO_SUFFIX	:= tar.bz2
 XCB_PROTO_URL		:= http://xcb.freedesktop.org/dist/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
 XCB_PROTO_SOURCE	:= $(SRCDIR)/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
 XCB_PROTO_DIR		:= $(BUILDDIR)/$(XCB_PROTO)
+XCB_PROTO_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

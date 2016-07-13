@@ -2,27 +2,29 @@
 
 menuconfig NETWORKMANAGER
 	tristate
+	# intltool is unconditionally requested by configure
+	select HOST_INTLTOOL
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_PTHREAD
 	select LIBC_RT
-	select NCURSES			if NETWORKMANAGER_NMTUI
-	select LIBNEWT			if NETWORKMANAGER_NMTUI
 	select DBUS
-	select DBUS_GLIB
-	select READLINE			# for 'nmcli'
-	select LIBUUID
+	select DBUS_PYTHON			if NETWORKMANAGER_EXAMPLES && RUNTIME
+	select GLIB
 	select GNUTLS
-	select LIBNL3
-	select HOST_INTLTOOL		# why? NLS is disabled!!!
-	select LIBNDP
-	select UDEV			if RUNTIME
 	select LIBGUDEV
-	select MODEMMANAGER		if NETWORKMANAGER_WWAN
-	select WPA_SUPPLICANT		if NETWORKMANAGER_WIRELESS && RUNTIME
-	select WPA_SUPPLICANT_CTRL_IFACE_DBUS if NETWORKMANAGER_WIRELESS && RUNTIME
-	select DBUS_PYTHON		if NETWORKMANAGER_EXAMPLES && RUNTIME
-	select SYSTEMD			if NETWORKMANAGER_SYSTEMD_UNIT
+	select LIBNDP
+	select LIBNEWT				if NETWORKMANAGER_NMTUI
+	select LIBNL3
+	select LIBUUID
+	select MODEMMANAGER			if NETWORKMANAGER_WWAN
+	select PPP				if NETWORKMANAGER_PPP
+	select PPP_PLUGINS			if NETWORKMANAGER_PPP
+	select READLINE				if NETWORKMANAGER_NMCLI
+	select SYSTEMD				if NETWORKMANAGER_SYSTEMD_UNIT
+	select UDEV				if RUNTIME
+	select WPA_SUPPLICANT			if NETWORKMANAGER_WIRELESS && RUNTIME
+	select WPA_SUPPLICANT_CTRL_IFACE_DBUS	if NETWORKMANAGER_WIRELESS && RUNTIME
 	prompt "networkmanager                "
 	help
 	  NetworkManager is a tool to automate network configuration as far as
@@ -60,12 +62,30 @@ config NETWORKMANAGER_WIRELESS
 	bool
 	prompt "enable wireless support"
 
+config NETWORKMANAGER_NMCLI
+	bool
+	default y
+	prompt "install nmcli"
+	help
+	  Build and install the 'nmcli' tool.
+
 config NETWORKMANAGER_WWAN
 	bool
 	prompt "enable WWAN support"
+	help
+	  Enable ModemManager interface support, wwan and bluetooth
+	  plugins depend on it.
+
+config NETWORKMANAGER_PPP
+	bool
+	prompt "enable ppp support"
 
 config NETWORKMANAGER_EXAMPLES
 	bool
 	prompt "install examples for Network Manager"
 
 endif
+
+menu "networkmanager plugins        "
+source "generated/networkmanager_plugins.in"
+endmenu

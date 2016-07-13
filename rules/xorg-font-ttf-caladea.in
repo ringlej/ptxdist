@@ -3,6 +3,7 @@
 config XORG_FONT_TTF_CALADEA
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_TTF
 	prompt "caladea"
 	help
 	  Caladea is metric-compatible with Cambria font. This font is

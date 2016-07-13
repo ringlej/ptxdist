@@ -23,7 +23,10 @@ LIBLTDL_SUFFIX	:= tar.gz
 LIBLTDL_URL	:= $(call ptx/mirror, GNU, libtool/$(LIBLTDL).$(LIBLTDL_SUFFIX))
 LIBLTDL_SOURCE	:= $(SRCDIR)/$(LIBLTDL).$(LIBLTDL_SUFFIX)
 LIBLTDL_DIR	:= $(BUILDDIR)/$(LIBLTDL)
-LIBLTDL_LICENSE	:= LGPLv2+ (libltdl), GPLv2+ (libtool)
+# License for libltdl only
+LIBLTDL_LICENSE	:= LGPL-2.0+
+LIBLTDL_LICENSE_FILES := \
+	file://libltdl/COPYING.LIB;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Prepare

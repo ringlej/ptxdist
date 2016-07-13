@@ -9,6 +9,7 @@ menuconfig GSTREAMER
 	select LIBXML2_READER	if GSTREAMER_LOADSAVE
 	select LIBXML2_OUTPUT	if GSTREAMER_LOADSAVE
 	select LIBXML2_SAX1	if GSTREAMER_LOADSAVE
+	select HOST_GLIB
 	select HOST_FLEX
 	help
 	  GStreamer is a streaming media framework, based on graphs of

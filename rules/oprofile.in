@@ -25,6 +25,7 @@ if OPROFILE
 
 config OPROFILE_VMLINUX
 	bool
+	select KERNEL
 	select KERNEL_VMLINUX
 	prompt "Install vmlinux"
 	help

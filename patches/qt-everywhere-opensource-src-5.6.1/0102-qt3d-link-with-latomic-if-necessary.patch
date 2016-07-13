@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 21 Apr 2016 16:25:30 +0200
+Subject: [PATCH] qt3d: link with -latomic if necessary
+
+Without this, building qt3d on PowerPC fails with:
+
+.obj/qnodeid.o:qnodeid.cpp:function Qt3DCore::QNodeId::createId(): error: undefined reference to '__atomic_fetch_add_8'
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qt3d/src/core/nodes/nodes.pri | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/qt3d/src/core/nodes/nodes.pri b/qt3d/src/core/nodes/nodes.pri
+index 64823813e1d3..d4cd1b5b923a 100644
+--- a/qt3d/src/core/nodes/nodes.pri
++++ b/qt3d/src/core/nodes/nodes.pri
+@@ -1,5 +1,7 @@
+ INCLUDEPATH += $$PWD
+ 
++atomic64-libatomic: LIBS += -latomic
++
+ HEADERS += \
+     $$PWD/qnode.h \
+     $$PWD/qnode_p.h \

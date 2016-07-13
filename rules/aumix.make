@@ -23,7 +23,7 @@ AUMIX_SUFFIX	:= tar.bz2
 AUMIX_URL	:= $(call ptx/mirror, SF, aumix/$(AUMIX).$(AUMIX_SUFFIX))
 AUMIX_SOURCE	:= $(SRCDIR)/$(AUMIX).$(AUMIX_SUFFIX)
 AUMIX_DIR	:= $(BUILDDIR)/$(AUMIX)
-AUMIX_LICENSE	:= GPLv2
+AUMIX_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

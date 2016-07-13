@@ -1,0 +1,33 @@
+## SECTION=communication
+
+menuconfig PCSC_LITE
+	tristate "pcsc-lite                     "
+	select UDEV		if PCSC_LITE_LIBUDEV
+	select UDEV_LIBUDEV	if PCSC_LITE_LIBUDEV
+	help
+	  Middleware to access a smart card using PC/SC (library)
+
+	  The purpose of PC/SC Lite is to provide a Windows(R) SCard
+	  interface in a very small form factor for communicating to
+	  smartcards and readers.
+
+	  The PC/SC Lite library is used to connect to the PC/SC
+	  daemon from a client application and provide access to the
+	  desired reader.
+
+if PCSC_LITE
+
+config PCSC_LITE_LIBUDEV
+	bool "libudev support"
+
+config PCSC_LITE_DEBUGATR
+	bool "enable ATR debug messages from pcscd"
+	help
+	  Enabled some debugging features.
+
+config PCSC_LITE_SYSTEMD_UNIT
+	bool "install systemd unit"
+	depends on SYSTEMD
+	default y
+
+endif

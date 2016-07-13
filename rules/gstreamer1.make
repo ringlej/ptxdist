@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.4.5
-GSTREAMER1_MD5		:= 88a9289c64a4950ebb4f544980234289
+GSTREAMER1_VERSION	:= 1.8.2
+GSTREAMER1_MD5		:= 0f011ee793cbcfa96d6b51d8271349fa
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_SOURCE	:= $(SRCDIR)/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_DIR		:= $(BUILDDIR)/$(GSTREAMER1)
-GSTREAMER1_LICENSE	:= LGPLv2.1+
+GSTREAMER1_LICENSE	:= LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -33,36 +33,46 @@ GSTREAMER1_LICENSE	:= LGPLv2.1+
 #
 # autoconf
 #
-GSTREAMER1_GENERIC_CONF_OPT = \
-	--disable-nls \
-	--disable-rpath \
+GSTREAMER1_BASIC_CONF_OPT = \
+	--runstatedir=/run \
+	\
 	--disable-fatal-warnings \
+	--disable-extra-check \
 	\
 	--disable-debug \
-	--disable-profiling \
-	--disable-valgrind \
-	--disable-gcov \
-	--disable-examples \
-	--disable-static-plugins \
-	\
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-introspection \
 	\
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-gobject-cast-checks \
-	--disable-glib-asserts \
+	--disable-glib-asserts
+
+GSTREAMER1_GENERIC_CONF_OPT = \
+	$(GSTREAMER1_BASIC_CONF_OPT) \
+	\
+	--disable-nls \
+	--disable-rpath \
+	\
+	--disable-profiling \
+	--disable-valgrind \
+	--disable-gcov \
+	--disable-examples \
+	\
+	--enable-Bsymbolic \
+	--disable-static-plugins \
 	\
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
+	--with-package-origin="PTXdist"
 
-GSTREAMER1_AUTOCONF := \
+GSTREAMER1_CONF_TOOL	:= autoconf
+GSTREAMER1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GSTREAMER1_GENERIC_CONF_OPT) \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_DEBUG)-gst-debug \
-	--$(call ptx/endis,PTXCONF_GSTREAMER1_CMDLINEPARSER)-parse \
-	--$(call ptx/endis,PTXCONF_GSTREAMER1_OPTIONPARSING)-option-parsing \
+	--$(call ptx/endis,PTXCONF_GSTREAMER1_DEBUG)-gst-tracer-hooks \
+	--enable-parse \
+	--enable-option-parsing \
 	--disable-trace \
 	--disable-alloc-trace \
 	--enable-registry \
@@ -71,13 +81,17 @@ GSTREAMER1_AUTOCONF := \
 	--disable-tests \
 	--disable-failing-tests \
 	--disable-benchmarks \
-	--enable-tools \
+	--$(call ptx/endis,PTXCONF_GSTREAMER1_INSTALL_TOOLS)-tools \
 	--disable-poisoning \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--disable-docbook \
 	\
 	--disable-check \
-	--enable-Bsymbolic
+	--with-ptp-helper-setuid-user=nobody \
+	--with-ptp-helper-setuid-group=nogroup \
+	--with-ptp-helper-permissions=setuid-root
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -92,18 +106,17 @@ $(STATEDIR)/gstreamer1.targetinstall:
 	@$(call install_fixup, gstreamer1,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gstreamer1,DESCRIPTION,missing)
 
-ifdef PTXCONF_GSTREAMER1_INSTALL_TYPEFIND
-	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
-		/usr/bin/gst-typefind-1.0)
-endif
-ifdef PTXCONF_GSTREAMER1_INSTALL_INSPECT
+ifdef PTXCONF_GSTREAMER1_INSTALL_TOOLS
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/bin/gst-inspect-1.0)
-endif
-ifdef PTXCONF_GSTREAMER1_INSTALL_LAUNCH
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/bin/gst-launch-1.0)
+	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
+		/usr/bin/gst-typefind-1.0)
+	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
+		/usr/bin/gst-stats-1.0)
 endif
+
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstbase-1.0)
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstcontroller-1.0)
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstnet-1.0)
@@ -111,9 +124,18 @@ endif
 
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoreelements)
+	@$(call install_lib, gstreamer1, 0, 0, 0644, \
+		gstreamer-1.0/libgstcoretracers)
 
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)
+	@$(call install_copy, gstreamer1, 0, 0, 4755, -, \
+		/usr/libexec/gstreamer-1.0/gst-ptp-helper)
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_tree, gstreamer1, 0, 0, -, \
+		/usr/lib/girepository-1.0)
+endif
 
 ifdef PTXCONF_PRELINK
 	@$(call install_alternative, gstreamer1, 0, 0, 0644, \

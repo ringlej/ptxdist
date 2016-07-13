@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_COMIC_JENS
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "Comic Jens"
+	help
+	  A free alternative to Comic Sans.

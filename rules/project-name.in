@@ -201,5 +201,15 @@ config PROJECT_DEVMIRROR
 	  Enter a URL where *-dev.tar.gz packages can be downloaded
 	  Use: ptxdist getdev
 
+comment "------------------------------------"
+comment "license information handling"
+comment "------------------------------------"
 
+config PROJECT_CHECK_LICENSES
+	bool
+	prompt "check licenses during normal build"
+	help
+	  If this is enabled <pkg>.report is build during the normal build
+	  process. As a result all specified md5 sums for license files are
+	  verified.
 endmenu
