@@ -23,7 +23,7 @@ LIBNEWT_SUFFIX	:= tar.gz
 LIBNEWT_URL	:= https://fedorahosted.org/releases/n/e/newt/$(LIBNEWT).$(LIBNEWT_SUFFIX)
 LIBNEWT_SOURCE	:= $(SRCDIR)/$(LIBNEWT).$(LIBNEWT_SUFFIX)
 LIBNEWT_DIR	:= $(BUILDDIR)/$(LIBNEWT)
-LIBNEWT_LICENSE	:= GPLv2
+LIBNEWT_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

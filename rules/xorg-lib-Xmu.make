@@ -23,6 +23,7 @@ XORG_LIB_XMU_SUFFIX	:= tar.bz2
 XORG_LIB_XMU_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XMU).$(XORG_LIB_XMU_SUFFIX))
 XORG_LIB_XMU_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XMU).$(XORG_LIB_XMU_SUFFIX)
 XORG_LIB_XMU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XMU)
+XORG_LIB_XMU_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

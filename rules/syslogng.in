@@ -6,10 +6,13 @@ menuconfig SYSLOGNG
 	prompt "syslog-ng                     "
 	select EVENTLOG
 	select GLIB
+	select PYTHON		if SYSLOGNG_PYTHON_DESTINATION
 	select LIBC_NSL
 	select LIBC_RT
 	select LIBNET		if SYSLOGNG_SPOOF_SOURCE
+	select LIBPCRE
 	select TCPWRAPPER	if SYSLOGNG_TCP_WRAPPER
+	select SYSTEMD		if SYSLOGNG_SYSTEMD
 	help
 	  The next generation syslog daemon.
 
@@ -36,6 +39,31 @@ config SYSLOGNG_SPOOF_SOURCE
 	  destinations though the original message can be
 	  received by TCP as well.
 
+config SYSLOGNG_AMQP_DESTINATION
+	bool
+	prompt "support the AMQP destination"
+	help
+	  Enables the ability to publish AMQP messages.
+
+config SYSLOGNG_MONGODB_DESTINATION
+	bool
+	prompt "support the MongoDB destination"
+	help
+	  Enables the ability to send messages to a MongoDB database.
+
+config SYSLOGNG_PYTHON_DESTINATION
+	bool
+	prompt "support the python destination"
+	help
+	  Enables the ability to use inline python in the
+	  syslog-ng configuration file.
+
+config SYSLOGNG_STOMP_DESTINATION
+	bool
+	prompt "support the STOMP destination"
+	help
+	  Enables the ability to send STOMP messages to message brokers.
+
 comment "runtime options   ---"
 
 config SYSLOGNG_CONFIG
@@ -47,6 +75,15 @@ config SYSLOGNG_CONFIG
 	  file from your workspace, otherwise a generic one from the
 	  ptxdist installation
 	  ("<PTXDIST>/projectroot/etc/syslog-ng.conf").
+
+config SYSLOGNG_SYSTEMD
+	bool
+	default y
+	prompt "Enable systemd support"
+	depends on INITMETHOD_SYSTEMD
+	help
+	  Installs the systemd service file and enables support for the
+	  systemd-journal
 
 config SYSLOGNG_STARTSCRIPT
 	bool

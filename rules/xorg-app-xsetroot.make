@@ -36,7 +36,7 @@ XORG_APP_XSETROOT_ENV 	:= $(CROSS_ENV)
 #
 XORG_APP_XSETROOT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

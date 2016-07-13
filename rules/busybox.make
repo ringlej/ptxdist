@@ -16,15 +16,15 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.23.2
-BUSYBOX_MD5	:= 7925683d7dd105aabe9b6b618d48cc73
+BUSYBOX_VERSION	:= 1.24.2
+BUSYBOX_MD5	:= 2eaae519cac1143bcf583636a745381f
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
 BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_KCONFIG	:= $(BUSYBOX_DIR)/Config.in
-BUSYBOX_LICENSE	:= GPLv2
+BUSYBOX_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -37,25 +37,25 @@ BUSYBOX_TAGS_OPT := TAGS tags
 $(STATEDIR)/busybox.prepare:
 	@$(call targetinfo)
 
-	@cd $(BUSYBOX_DIR) && \
-		$(BUSYBOX_PATH)  \
-		$(MAKE) distclean $(BUSYBOX_MAKE_OPT)
+	@$(call compile, BUSYBOX, distclean)
 	@grep -e PTXCONF_BUSYBOX_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_BUSYBOX_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
-
 	@$(call ptx/oldconfig, BUSYBOX)
 
 	@$(call touch)
 
 BUSYBOX_MAKE_OPT := \
+	KCONFIG_NOTIMESTAMP=1 \
 	V=$(PTXDIST_VERBOSE) \
 	ARCH=$(PTXCONF_ARCH_STRING) \
 	SUBARCH=$(PTXCONF_ARCH_STRING) \
 	CROSS_COMPILE=$(COMPILER_PREFIX)
 
+BUSYBOX_CPPFLAGS := \
+	-I$(KERNEL_HEADERS_INCLUDE_DIR)
+
 BUSYBOX_MAKE_ENV := \
 	$(CROSS_ENV) \
-	CFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR)" \
 	SKIP_STRIP=y
 
 BUSYBOX_INSTALL_ENV := \

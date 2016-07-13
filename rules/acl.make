@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_ACL) += acl
 #
 # Paths and names
 #
-ACL_VERSION	:= 2.2.49
-ACL_MD5		:= 181445894cca986da9ae0099d5ce2d08
+ACL_VERSION	:= 2.2.52
+ACL_MD5		:= a61415312426e9c2212bd7dc7929abda
 ACL		:= acl-$(ACL_VERSION)
 ACL_SUFFIX	:= tar.gz
 ACL_URL		:= http://download.savannah.gnu.org/releases/acl/$(ACL).src.$(ACL_SUFFIX)
 ACL_SOURCE	:= $(SRCDIR)/$(ACL).src.$(ACL_SUFFIX)
 ACL_DIR		:= $(BUILDDIR)/$(ACL)
-ACL_LICENSE	:= GPLv2, LGPLv2.1
+ACL_LICENSE	:= GPL-2.0, LGPL-2.1
 ACL_LICENSE_FILES := \
 	file://doc/COPYING;md5=c781d70ed2b4d48995b790403217a249 \
 	file://doc/COPYING.LGPL;md5=9e9a206917f8af112da634ce3ab41764
@@ -47,7 +47,7 @@ ACL_INSTALL_OPT := \
 ACL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/lib \
-	--$(call ptx/endis, PTXCONF_ACL_SHARED)-shared \
+	--enable-shared \
 	--$(call ptx/endis, PTXCONF_ACL_GETTEXT)-gettext
 
 # ----------------------------------------------------------------------------
@@ -68,9 +68,8 @@ ifdef PTXCONF_ACL_TOOLS
 	@$(call install_copy, acl, 0, 0, 0755, -, /usr/bin/setfacl)
 	@$(call install_copy, acl, 0, 0, 0755, -, /usr/bin/getfacl)
 endif
-ifdef PTXCONF_ACL_SHARED
 	@$(call install_lib, acl, 0, 0, 0644, libacl)
-endif
+
 	@$(call install_finish, acl)
 
 	@$(call touch)

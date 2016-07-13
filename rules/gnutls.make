@@ -23,7 +23,7 @@ GNUTLS_SUFFIX	:= tar.xz
 GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_SOURCE	:= $(SRCDIR)/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_DIR	:= $(BUILDDIR)/$(GNUTLS)
-GNUTLS_LICENSE	:= LGPLv3+
+GNUTLS_LICENSE	:= LGPL-3.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

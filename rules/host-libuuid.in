@@ -3,6 +3,7 @@
 
 config HOST_LIBUUID
 	tristate
+	select VIRTUAL
 	select HOST_UTIL_LINUX_NG
 	default ALLYES
 	help

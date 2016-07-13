@@ -29,6 +29,7 @@ $1 == "LICENSE" {
 	gsub("^host-", "", $3);
 	gsub("^cross-", "", $3);
 	names[$2] = $3
+	license_type[$2] = $5
 }
 
 function make_more_dot(pkg, file, level, deps, i) {
@@ -52,7 +53,7 @@ function make_more_dot(pkg, file, level, deps, i) {
 }
 
 function make_dot(pkg) {
-	file = report_dir"/"raw_names[pkg]"/graph.dot"
+	file = report_dir"/"license_type[pkg]"/"raw_names[pkg]"/graph.dot"
 	delete hit_deps
 	printf "digraph \"%s\" {\n", pkg	> file
 	printf "rankdir=LR;\n"			> file

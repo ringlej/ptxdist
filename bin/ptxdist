@@ -744,9 +744,10 @@ check_compiler() {
 	}
 
 	local compiler_ver_should
+	toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
 	compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)" && {
 		local compiler="${compiler_prefix}gcc"
-		local compiler_ver_is="$(${compiler} -dumpversion 2> /dev/null || true)"
+		local compiler_ver_is="$(${toolchain}/${compiler} -dumpversion 2> /dev/null || true)"
 
 		if [ -z "${compiler_ver_is}" ]; then
 			echo
@@ -765,14 +766,16 @@ check_compiler() {
 		fi
 	}
 
-	toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
 	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld; do
-		ptxd_replace_link "$(which ${compiler_prefix}${cc})" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
+		ptxd_replace_link "${toolchain}/${compiler_prefix}${cc}" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
-	for tool in ar as nm objcopy objdump ranlib readelf size strip ; do
-		ptxd_replace_link "$(which ${compiler_prefix}${tool})"  "${wrapper_dir}/${compiler_prefix}${tool}"
+	for tool in "${toolchain}/${compiler_prefix}"* ; do
+		local toolname="$(basename "${tool}")"
+		if [ ! -e "${wrapper_dir}/${toolname}" ]; then
+			ptxd_replace_link "${tool}"  "${wrapper_dir}/${toolname}"
+		fi
 	done &&
 	PATH="${wrapper_dir}:${PATH}" &&
 	check_compiler_icecc
@@ -945,6 +948,7 @@ Setup and Project Actions:
   allmodconfig			run 'make allmodconfig' on ptxconfig file
   allyesconfig			run 'make allyesconfig' on ptxconfig file
   allnoconfig			run 'make allnoconfig' on ptxconfig file
+  alldefconfig			run 'make alldefconfig' on ptxconfig file
   randconfig			run 'make randconfig' on ptxconfig file
 
   migrate			migrate config files from a previous
@@ -1002,6 +1006,8 @@ Misc:
 				Not specifying the directory will undo the change.
   bash				enter a ptxdist environment bash shell
   bash <cmd> [args...]		execute <cmd> in ptxdist environment
+  docs-html			generate HTML documentation
+  docs-latex			generate LaTeX / PDF documentation
   export_src <target dir>	export all source archives needed for this
 				project to <target dir>
 Overwrite defaults:
@@ -1018,6 +1024,9 @@ Options:
   --debug, -d			print out additional info (like make decisions)
   --quiet, -q			suppress output, show only stderr
   --verbose, -v			be more verbose, print command before execute them
+  --output-sync			Improve output readability for parallel building.
+				Disabled by default except for quiet builds.
+  --no-output-sync		Disable output-sync if enabled by default.
 
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
 				(default = 2*CPUs)
@@ -1194,6 +1203,35 @@ drop() {
 	fi
 }
 
+create_docs() {
+	local builder srcdir outdir dir entry
+
+	builder="${1}"
+	outdir=${PTXDIST_WORKSPACE}/Documentation
+
+	if [ "${PTXDIST_TOPDIR}" = "${PTXDIST_WORKSPACE}" ]; then
+		srcdir="${PTXDIST_TEMPDIR}/docs"
+	else
+		srcdir="${STATEDIR}/docs"
+		rm -rf "${srcdir}" &&
+		ptxd_source_kconfig "${PTXDIST_PTXCONFIG}" &&
+		ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}"
+	fi &&
+
+	mkdir "${srcdir}" &&
+	ptxd_in_path PTXDIST_PATH doc &&
+	for dir in "${ptxd_reply[@]}"; do
+		for entry in $(cd "${dir}"; ls); do
+			cp -an "${dir}/${entry}" "${srcdir}/${entry}" || return
+		done
+	done &&
+	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
+		"${outdir}/${builder}" &&
+	if [ "${builder}" = "latex" ]; then
+		sed -i s/pdflatex/xelatex/ ${outdir}/${builder}/Makefile
+		make -C "${outdir}/${builder}"
+	fi
+}
 
 projects() {
 	local ifs_old projects projectdir
@@ -1324,6 +1362,12 @@ parse_first()
 			PTX_NICE="${arg#*=}"
 			PTX_NICE="${PTX_NICE:-10}"
 			;;
+		--output-sync)
+			PTXDIST_OUTPUT_SYNC=1
+			;;
+		--no-output-sync)
+			PTXDIST_OUTPUT_SYNC=0
+			;;
 		-q|--quiet)
 			PTXDIST_QUIET=1
 			;;
@@ -1377,7 +1421,7 @@ parse_first()
 #
 # calls menu/old config on several components
 #
-# $1	what kind of config ("menuconfig", "oldconfig", "allmodconfig", "allyesconfig", "allnoconfig")
+# $1	what kind of config ("menuconfig", "oldconfig", "all*config", "randconfig")
 # $2	what to "config"
 # $...	optional parameters
 #
@@ -1393,7 +1437,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"nconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig"|"randconfig")
+	menuconfig|nconfig|oldconfig|all*config|randconfig)
 		;;
 	*)
 		echo
@@ -1717,7 +1761,7 @@ parse_second()
 			;;
 
 		--help|help)
-			usage
+			man -l ${PTXDIST_TOPDIR}/man/ptxdist.1.gz
 			exit
 			;;
 
@@ -1747,7 +1791,7 @@ parse_second()
 
 ######## *config, *setup, toolchain
 
-		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig|randconfig)
+		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig|alldefconfig|randconfig)
 			do_config "${cmd}" "${@}"
 			exit
 			;;
@@ -1871,6 +1915,10 @@ EOF
 			drop "${1}" "${2}"
 			exit
 			;;
+		docs-*)
+			create_docs "${cmd#docs-}" &&
+			exit
+			;;
 		export_src)
 			if [ -z "${1}" ]; then
 				echo
@@ -1971,6 +2019,9 @@ EOF
 			fi
 			while [ ${#} -gt 0 ]; do
 				if [ -n "${!1}" ]; then
+					if [ "${PTXDIST_VERBOSE}" = "1" ]; then
+						echo -n "${1}="
+					fi
 					echo "${!1}"
 				else
 					local check
@@ -2032,7 +2083,10 @@ EOF
 			exit 1
 			;;
 		*)
-			usage
+			echo "ptxdist: '${cmd}' is not a PTXdist command."
+			echo
+			echo "Run '${0}' for a list of commands and options or '${0} --help' for more details."
+			echo
 			exit 1
 			;;
 		esac
@@ -2316,12 +2370,14 @@ setup_config() {
 # out: PTXDIST_PARALLELMFLAGS
 #      PTXDIST_PARALLELMFLAGS_INTERN
 #      PTXDIST_PARALLELMFLAGS_EXTERN
+#      PTXDIST_OUTPUT_SYNC
 #
 setup_parallel() {
 	# default no parallel for now
 	local pmf_extern=""
 	local pmf_intern=""
 	local cpus
+	local output_sync=""
 
 	# this one is for Linux
 	if [ -r /proc/cpuinfo ]; then
@@ -2338,8 +2394,22 @@ setup_parallel() {
 	if [ -z "${PTXDIST_PARALLELMFLAGS}" ]; then
 		pmf_intern="${pmf_cpus}"
 		pmf_extern="-j1"
+	elif [ "${PTXDIST_PARALLELMFLAGS}" == "-j1" ]; then
+		unset PTXDIST_PARALLELMFLAGS
+		pmf_intern="-j1"
+		pmf_extern="-j1"
 	elif [ "${PTXDIST_PARALLELMFLAGS}" == "auto" ]; then
 		PTXDIST_PARALLELMFLAGS="${pmf_cpus}"
+	fi
+
+	PTXDIST_OUTPUT_SYNC="${PTXDIST_OUTPUT_SYNC:-${PTXDIST_QUIET}}"
+	if [ "${PTXDIST_OUTPUT_SYNC}" == "1" ]; then
+		if make -h | grep -q -- --output-sync; then
+			PTXDIST_OUTPUT_SYNC="--output-sync="
+		fi
+	fi
+	if [[ "${PTXDIST_OUTPUT_SYNC}" =~ [01] ]]; then
+		unset PTXDIST_OUTPUT_SYNC
 	fi
 
 	#
@@ -2347,7 +2417,7 @@ setup_parallel() {
 	#
 	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
-	export PTXDIST_PARALLELMFLAGS_EXTERN
+	export PTXDIST_PARALLELMFLAGS_EXTERN PTXDIST_OUTPUT_SYNC
 }
 
 
@@ -2635,6 +2705,7 @@ setup_export() {
 		PTXDIST_FORCE_DOWNLOAD \
 		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
+		PTXDIST_OUTPUT_SYNC \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
 		PTXDIST_VERBOSE

@@ -1,0 +1,8 @@
+## SECTION=disk_and_file
+config MMC_UTILS
+	tristate
+	prompt "mmc-utils"
+	help
+	  mmc-utils is a tool for configuring MMC storage devices from userspace
+
+	  See https://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/Documentation/mmc/mmc-tools.txt for details.

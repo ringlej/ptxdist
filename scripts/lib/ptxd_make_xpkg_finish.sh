@@ -86,14 +86,13 @@ EOF
     #
     # create pkg
     #
-    echo "xpkg_finish:	creating ${ptx_xpkg_type} package ... " &&
+    echo -e "xpkg_finish:	creating ${ptx_xpkg_type} package ...\n" &&
     ptxd_make_xpkg_finish_impl &&
     rm -rf "${pkg_xpkg_tmp}" || {
 	local ret=$?
-	echo "failed"
+	echo -e "\nxpkg_finish: failed.\n"
 	return ${ret}
     }
-
-    echo "done."
+    echo -e "\nxpkg_finish: done.\n"
 }
 export -f ptxd_make_xpkg_finish

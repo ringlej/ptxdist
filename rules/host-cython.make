@@ -23,7 +23,7 @@ HOST_CYTHON_SUFFIX	:= tar.gz
 HOST_CYTHON_URL		:= http://cython.org/release/$(HOST_CYTHON).$(HOST_CYTHON_SUFFIX)
 HOST_CYTHON_SOURCE	:= $(SRCDIR)/$(HOST_CYTHON).$(HOST_CYTHON_SUFFIX)
 HOST_CYTHON_DIR		:= $(HOST_BUILDDIR)/$(HOST_CYTHON)
-HOST_CYTHON_LICENSE	:= APLv2
+HOST_CYTHON_LICENSE	:= Apache-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

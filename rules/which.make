@@ -23,7 +23,7 @@ WHICH_SUFFIX	:= tar.gz
 WHICH_URL	:= $(call ptx/mirror, GNU, which/$(WHICH).$(WHICH_SUFFIX))
 WHICH_SOURCE	:= $(SRCDIR)/$(WHICH).$(WHICH_SUFFIX)
 WHICH_DIR	:= $(BUILDDIR)/$(WHICH)
-WHICH_LICENSE	:= GPLv3
+WHICH_LICENSE	:= GPL-3.0
 
 # ----------------------------------------------------------------------------
 # Prepare

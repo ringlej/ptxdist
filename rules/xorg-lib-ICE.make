@@ -23,6 +23,7 @@ XORG_LIB_ICE_SUFFIX	:= tar.bz2
 XORG_LIB_ICE_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_ICE).$(XORG_LIB_ICE_SUFFIX))
 XORG_LIB_ICE_SOURCE	:= $(SRCDIR)/$(XORG_LIB_ICE).$(XORG_LIB_ICE_SUFFIX)
 XORG_LIB_ICE_DIR	:= $(BUILDDIR)/$(XORG_LIB_ICE)
+XORG_LIB_ICE_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

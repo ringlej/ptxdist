@@ -23,7 +23,7 @@ LIBXKBCOMMON_SUFFIX	:= tar.xz
 LIBXKBCOMMON_URL	:= http://xkbcommon.org/download/$(LIBXKBCOMMON).$(LIBXKBCOMMON_SUFFIX)
 LIBXKBCOMMON_SOURCE	:= $(SRCDIR)/$(LIBXKBCOMMON).$(LIBXKBCOMMON_SUFFIX)
 LIBXKBCOMMON_DIR	:= $(BUILDDIR)/$(LIBXKBCOMMON)
-LIBXKBCOMMON_LICENSE	:= MIT/X11
+LIBXKBCOMMON_LICENSE	:= MIT, X11, HPND
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -40,7 +40,7 @@ LIBXKBCOMMON_CONF_OPT	:= \
 	--disable-strict-compilation \
 	--disable-docs \
 	--$(call ptx/endis, PTXCONF_LIBXKBCOMMON_X11)-x11 \
-	--with-xkb-config-root=$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/xkb
+	--with-xkb-config-root=$(XORG_DATADIR)/X11/xkb
 
 # ----------------------------------------------------------------------------
 # Target-Install

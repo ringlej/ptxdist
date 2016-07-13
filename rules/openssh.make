@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 6.9p1
-OPENSSH_MD5	:= 0b161c44fc31fbc6b76a6f8ae639f16f
+OPENSSH_VERSION	:= 7.2p2
+OPENSSH_MD5	:= 13009a9156510d8f27e752659075cced
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
@@ -57,7 +57,6 @@ OPENSSH_CONF_OPT	:= \
 	--disable-pututline \
 	--disable-pututxline \
 	--with-openssl \
-	--without-ssh1 \
 	--with-stackprotect \
 	--with-hardening \
 	--without-rpath \

@@ -25,6 +25,7 @@ XORG_FONT_UTIL_SUFFIX	:= tar.bz2
 XORG_FONT_UTIL_URL	:= $(call ptx/mirror, XORG, individual/font/$(XORG_FONT_UTIL).$(XORG_FONT_UTIL_SUFFIX))
 XORG_FONT_UTIL_SOURCE	:= $(SRCDIR)/$(XORG_FONT_UTIL).$(XORG_FONT_UTIL_SUFFIX)
 XORG_FONT_UTIL_DIR	:= $(BUILDDIR)/$(XORG_FONT_UTIL)
+XORG_FONT_UTIL_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

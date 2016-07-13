@@ -24,7 +24,7 @@ LOGROTATE_SUFFIX	:= tar.gz
 LOGROTATE_URL		:= https://fedorahosted.org/releases/l/o/logrotate/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_SOURCE	:= $(SRCDIR)/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_DIR		:= $(BUILDDIR)/$(LOGROTATE)
-LOGROTATE_LICENSE	:= GPLv2
+LOGROTATE_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Compile

@@ -3,7 +3,6 @@
 menuconfig QT5
 	tristate
 	select HOST_SYSTEM_PERL
-	select HOST_SYSTEM_RUBY		if QT5_MODULE_QTWEBKIT
 	select LIBC_PTHREAD
 	select LIBC_DL
 	select LIBC_RT
@@ -17,22 +16,26 @@ menuconfig QT5
 	select LIBJPEG			if QT5_LIBJPEG
 	select LIBMNG			if QT5_LIBMNG
 	select ICU			if QT5_ICU
-	select LIBDRM			if QT5_PLATFORM_KMS || QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
-	select MESALIB			if QT5_OPENGL_DESKTOP || QT5_PLATFORM_KMS
-	select MESALIB_GBM		if QT5_PLATFORM_KMS
-	select MESALIB_EGL		if QT5_MODULE_QTWAYLAND_MESA
+	select SYSTEMD			if QT5_JOURNALD
+	select OPENSSL			if QT5_OPENSSL
+	select LIBDRM			if QT5_PLATFORM_EGLFS_KMS || QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
+	select MESALIB			if QT5_OPENGL_DESKTOP || QT5_PLATFORM_EGLFS_KMS
+	select MESALIB_GBM		if QT5_PLATFORM_EGLFS_KMS
+	select MESALIB_EGL		if QT5_PLATFORM_EGLFS_KMS || QT5_MODULE_QTWAYLAND_MESA
+	select MESALIB_EGL_DRM		if QT5_PLATFORM_EGLFS_KMS
 	select MESALIB_EGL_WAYLAND	if QT5_MODULE_QTWAYLAND_MESA
 	select PLATFORM_OPENGL		if QT5_OPENGL_ES2
 	select SQLITE			if QT5_MODULE_QTBASE_SQL_SQLITE
-	select OPENSSL			if QT5_OPENSSL
+	select MYSQL			if QT5_MODULE_QTBASE_SQL_MYSQL
 	select FONTCONFIG		if QT5_GUI
 	select FREETYPE			if QT5_GUI
-	select UDEV			if QT5_GUI
+	select UDEV			if QT5_GUI || QT5_INPUT_LIBINPUT
 	select UDEV_LIBUDEV		if QT5_GUI
 	select TSLIB			if QT5_INPUT_TSLIB
 	select DIRECTFB			if QT5_PLATFORM_DIRECTFB
+	select LIBINPUT			if QT5_INPUT_LIBINPUT
 	select LIBXCB			if QT5_PLATFORM_XCB
-	select LIBXKBCOMMON		if QT5_PLATFORM_XCB
+	select LIBXKBCOMMON		if QT5_PLATFORM_XCB || QT5_INPUT_LIBINPUT
 	select LIBXKBCOMMON_X11		if QT5_PLATFORM_XCB
 	select XCB_UTIL			if QT5_PLATFORM_XCB
 	select XORG_LIB_X11		if QT5_X11
@@ -41,15 +44,18 @@ menuconfig QT5
 	select XORG_LIB_XEXT		if QT5_XV
 	select XORG_LIB_XRENDER		if QT5_XRENDER
 	select XORG_LIB_XCOMPOSITE	if QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
+	select XORG_LIB_XCURSOR		if QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
 	select XORG_LIB_XRANDR		if QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
+	select XORG_LIB_XSCRNSAVER	if QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
+	select XORG_LIB_XTST		if QT5_MODULE_QTWEBENGINE && QT5_PLATFORM_XCB
+	select LIBXML2			if QT5_MODULE_QTWEBENGINE
+	select LIBXML2_CATALOG		if QT5_MODULE_QTWEBENGINE
+	select LIBXML2_WRITER		if QT5_MODULE_QTWEBENGINE
+	select LIBXSLT			if QT5_MODULE_QTWEBENGINE
 	select ALSA_LIB			if QT5_MODULE_QTMULTIMEDIA
-	select GSTREAMER		if QT5_MODULE_QTMULTIMEDIA_GST
-	select GST_PLUGINS_BASE		if QT5_MODULE_QTMULTIMEDIA_GST
-	select LIBXML2			if QT5_MODULE_QTWEBKIT
-	select LIBXML2_READER		if QT5_MODULE_QTWEBKIT
-	select LIBXSLT			if QT5_MODULE_QTWEBKIT
-	select GSTREAMER1		if QT5_MODULE_QTWEBKIT_VIDEO
-	select GST_PLUGINS_BASE1	if QT5_MODULE_QTWEBKIT_VIDEO
+	select ALSA_LIB_PCM		if QT5_MODULE_QTMULTIMEDIA
+	select GSTREAMER1		if QT5_MODULE_QTMULTIMEDIA_GST
+	select GST_PLUGINS_BASE1	if QT5_MODULE_QTMULTIMEDIA_GST
 	select WAYLAND			if QT5_MODULE_QTWAYLAND
 	select QT5_MODULE_QTBASE
 	prompt "qt5                           "
@@ -63,21 +69,25 @@ if QT5
 config QT5_PREPARE_EXAMPLES
 	bool
 
+if QT5_PLATFORM_XCB
+
 config QT5_X11
 	bool
-	default QT5_PLATFORM_XCB
+	default y
 
 config QT5_XI
 	bool
-	default QT5_PLATFORM_XCB
+	default y
 
 config QT5_XV
 	bool
-	default QT5_MODULE_QTMULTIMEDIA && QT5_PLATFORM_XCB
+	default QT5_MODULE_QTMULTIMEDIA
 
 config QT5_XRENDER
 	bool
-	default QT5_PLATFORM_XCB
+	default y
+
+endif
 
 menu "Feature Options             "
 
@@ -117,6 +127,10 @@ config QT5_GLIB
 	bool
 	prompt "glib support"
 
+config QT5_JOURNALD
+	bool
+	prompt "journald support"
+
 config QT5_OPENSSL
 	bool
 	prompt "OpenSSL support"
@@ -146,10 +160,6 @@ config QT5_OPENGL_API
 
 endif
 
-config QT5_CXX11
-	bool
-	prompt "C++11 support"
-
 endmenu
 
 menuconfig QT5_GUI
@@ -158,8 +168,59 @@ menuconfig QT5_GUI
 
 if QT5_GUI
 
+comment "supported plugins"
+
+config QT5_PLATFORM_DEFAULT
+	string
+	default "xcb"		if QT5_PLATFORM_DEFAULT_XCB
+	default "eglfs"		if QT5_PLATFORM_DEFAULT_EGLFS
+	default "directfb"	if QT5_PLATFORM_DEFAULT_DIRECTFB
+	default "linuxfb"	if QT5_PLATFORM_DEFAULT_LINUXFB
+	default "wayland"	if QT5_PLATFORM_DEFAULT_WAYLAND
+
+config QT5_PLATFORM_XCB
+	bool
+	prompt "XCB"
+
+config QT5_PLATFORM_EGLFS
+	bool
+	prompt "eglfs"
+
+if QT5_PLATFORM_EGLFS
+
+config QT5_PLATFORM_EGLFS_KMS
+	bool
+	default y
+	prompt "KMS/GBM backend"
+
+endif
+
+config QT5_PLATFORM_DIRECTFB
+	bool
+	# fails to build for Qt 5.6.0
+	depends on BROKEN
+	prompt "DirectFB"
+
+config QT5_PLATFORM_LINUXFB
+	bool
+	prompt "LinuxFB"
+
+comment "default plugin"
+
 choice
-	prompt "default platform"
+	prompt "selected"
+	help
+	  At least one GUI platform plugin must be selected here to be used as
+	  the default. Don't keep this entry as '--nothing--'.
+
+config QT5_PLATFORM_DEFAULT_MISSING
+	bool
+	prompt "--nothing--"
+	depends on !QT5_PLATFORM_XCB
+	depends on !QT5_PLATFORM_EGLFS
+	depends on !QT5_PLATFORM_DIRECTFB
+	depends on !QT5_PLATFORM_LINUXFB
+	depends on !QT5_MODULE_QTWAYLAND
 
 config QT5_PLATFORM_DEFAULT_XCB
 	bool
@@ -181,48 +242,12 @@ config QT5_PLATFORM_DEFAULT_LINUXFB
 	depends on QT5_PLATFORM_LINUXFB
 	prompt "LinuxFB"
 
-config QT5_PLATFORM_DEFAULT_KMS
-	bool
-	depends on QT5_PLATFORM_KMS
-	prompt "KMS"
-
 config QT5_PLATFORM_DEFAULT_WAYLAND
 	bool
 	depends on QT5_MODULE_QTWAYLAND
 	prompt "wayland"
 
 endchoice
-
-config QT5_PLATFORM_DEFAULT
-	string
-	default "xcb"		if QT5_PLATFORM_DEFAULT_XCB
-	default "eglfs"		if QT5_PLATFORM_DEFAULT_EGLFS
-	default "directfb"	if QT5_PLATFORM_DEFAULT_DIRECTFB
-	default "linuxfb"	if QT5_PLATFORM_DEFAULT_LINUXFB
-	default "kms"		if QT5_PLATFORM_DEFAULT_KMS
-	default "wayland"	if QT5_PLATFORM_DEFAULT_WAYLAND
-
-config QT5_PLATFORM_XCB
-	bool
-	prompt "XCB"
-
-config QT5_PLATFORM_EGLFS
-	bool
-	depends on QT5_OPENGL_ES2
-	prompt "eglfs"
-
-config QT5_PLATFORM_DIRECTFB
-	bool
-	prompt "DirectFB"
-
-config QT5_PLATFORM_LINUXFB
-	bool
-	prompt "LinuxFB"
-
-config QT5_PLATFORM_KMS
-	bool
-	depends on QT5_OPENGL_ES2
-	prompt "KMS"
 
 endif
 
@@ -239,6 +264,10 @@ config QT5_INPUT_EVDEV
 	default y
 	prompt "evdev"
 
+config QT5_INPUT_LIBINPUT
+	bool
+	prompt "libinput"
+
 config QT5_INPUT_TSLIB
 	bool
 	prompt "tslib"
@@ -248,6 +277,17 @@ endmenu
 endif
 
 menu "Modules                     "
+
+config QT5_MODULE_QT3D
+	bool
+	select QT5_MODULE_QTDECLARATIVE
+	select QT5_MODULE_QTGRAPHICALEFFECTS
+	prompt "Qt3D"
+
+config QT5_MODULE_QT3D_QUICK
+	bool
+	depends on QT5_MODULE_QT3D
+	default QT5_MODULE_QTDECLARATIVE
 
 config QT5_MODULE_QTBASE
 	bool
@@ -283,9 +323,23 @@ config QT5_MODULE_QTBASE_SQL_SQLITE
 	bool
 	prompt "SQLite backend"
 
+config QT5_MODULE_QTBASE_SQL_MYSQL
+	bool
+	prompt "mySQL backend"
+
 endif
 
 endif
+
+config QT5_MODULE_QTCANVAS3D
+	bool
+	select QT5_MODULE_QTDECLARATIVE
+	prompt "QtCanvas3D"
+
+config QT5_MODULE_QTCANVAS3D_QUICK
+	bool
+	depends on QT5_MODULE_QTCANVAS3D
+	default QT5_MODULE_QTDECLARATIVE
 
 config QT5_MODULE_QTCONNECTIVITY
 	bool
@@ -314,6 +368,14 @@ config QT5_MODULE_QTDECLARATIVE_DEBUG
 config QT5_MODULE_QTDECLARATIVE_QUICK
 	bool
 	default QT5_MODULE_QTDECLARATIVE && QT5_GUI
+
+config QT5_MODULE_QTDECLARATIVE_QUICK_WIDGETS
+	bool
+	default QT5_MODULE_QTDECLARATIVE_QUICK && QT5_WIDGETS
+
+config QT5_MODULE_QTDECLARATIVE_QUICK_DEBUG
+	bool
+	default QT5_MODULE_QTDECLARATIVE_QUICK && QT5_MODULE_QTDECLARATIVE_DEBUG
 
 config QT5_MODULE_QTDECLARATIVE_ACCESSIBILITY
 	bool
@@ -365,32 +427,17 @@ config QT5_MODULE_QTMULTIMEDIA_WIDGETS
 	bool
 	default QT5_MODULE_QTMULTIMEDIA && QT5_WIDGETS
 
-config QT5_MODULE_QTQUICK1
-	bool
-	depends on QT5_GUI
-	select QT5_MODULE_QTBASE_WIDGETS
-	select QT5_MODULE_QTBASE_SQL
-	select QT5_MODULE_QTSCRIPT
-	prompt "QtQuick1"
-
-if QT5_MODULE_QTQUICK1
-
-config QT5_MODULE_QTQUICK1_DEBUG
-	bool
-	prompt "QML debugging"
-
-endif
-
-config QT5_MODULE_QTQUICK1_WEBKIT
-	bool
-	default QT5_MODULE_QTQUICK1 && QT5_MODULE_QTWEBKIT
-
 config QT5_MODULE_QTQUICKCONTROLS
 	bool
 	select QT5_ACCESSIBILITY
 	select QT5_MODULE_QTDECLARATIVE
 	select QT5_GUI
 	prompt "QtQuickControls"
+
+config QT5_MODULE_QTQUICKCONTROLS2
+	bool
+	select QT5_MODULE_QTQUICKCONTROLS
+	prompt "QtQuickControls2"
 
 config QT5_MODULE_QTSCRIPT
 	bool
@@ -408,6 +455,11 @@ config QT5_MODULE_QTSENSORS_QUICK
 	bool
 	depends on QT5_MODULE_QTSENSORS
 	default QT5_MODULE_QTDECLARATIVE
+
+config QT5_MODULE_QTSERIALBUS
+	bool
+	select QT5_MODULE_QTSERIALPORT
+	prompt "QtSerialBus"
 
 config QT5_MODULE_QTSERIALPORT
 	bool
@@ -458,7 +510,9 @@ config QT5_MODULE_QTWEBENGINE
 	bool
 	select QT5_GUI
 	select QT5_ICU
+	select QT5_OPENSSL
 	select QT5_MODULE_QTQUICKCONTROLS
+	select QT5_MODULE_QTWEBCHANNEL
 	prompt "QtWebEngine"
 
 if QT5_MODULE_QTWEBENGINE
@@ -469,43 +523,20 @@ config QT5_MODULE_QTWEBENGINE_WIDGETS
 
 endif
 
-config QT5_MODULE_QTWEBKIT
-	bool
-	depends on QT5_GUI
-	select QT5_ICU
-	select QT5_MODULE_QTBASE_SQL
-	prompt "QtWebKit"
-
-if QT5_MODULE_QTWEBKIT
-
-config QT5_MODULE_QTWEBKIT_QUICK
-	bool
-	default QT5_MODULE_QTDECLARATIVE
-
-config QT5_MODULE_QTWEBKIT_VIDEO
-	bool
-	prompt "video support (with gstreamer 1.x)"
-
-config QT5_MODULE_QTWEBKIT_WIDGETS
-	bool
-	default QT5_WIDGETS
-
-# FIXME: xml2/xslt deps
-# FIXME: enable/disable dep detection
-
-endif
-
-config QT5_MODULE_QTWEBKIT_EXAMPLES
-	bool
-	depends on QT5_GUI
-	select QT5_MODULE_QTBASE_WIDGETS
-	select QT5_MODULE_QTWEBKIT
-	select QT5_MODULE_QTTOOLS
-	select QT5_MODULE_QTXMLPATTERNS
-
 config QT5_MODULE_QTWEBSOCKETS
 	bool
 	prompt "QtWebSockets"
+
+config QT5_MODULE_QTWEBSOCKETS_QUICK
+	bool
+	depends on QT5_MODULE_QTWEBSOCKETS
+	default QT5_MODULE_QTDECLARATIVE
+
+config QT5_MODULE_QTWEBVIEW
+	bool
+	select QT5_MODULE_QTDECLARATIVE
+	select QT5_MODULE_QTWEBENGINE
+	prompt "QtWebView"
 
 config QT5_MODULE_QTX11EXTRAS
 	bool

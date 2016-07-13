@@ -2,6 +2,7 @@
 
 config GLIB_NETWORKING
 	tristate
+	select HOST_INTLTOOL
 	select GLIB
 	select GNUTLS
 	select CA_CERTIFICATES		if RUNTIME

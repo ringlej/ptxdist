@@ -38,7 +38,7 @@ XORG_APP_RGB_ENV 	:= $(CROSS_ENV)
 #
 XORG_APP_RGB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -54,7 +54,7 @@ $(STATEDIR)/xorg-app-rgb.targetinstall:
 	@$(call install_fixup, xorg-app-rgb,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-rgb, 0, 0, 0644, -, \
-		$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/rgb.txt, n)
+		$(XORG_DATADIR)/X11/rgb.txt, n)
 
 	@$(call install_finish, xorg-app-rgb)
 

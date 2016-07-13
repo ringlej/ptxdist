@@ -303,7 +303,7 @@ all_on_board() {
 	test_end
 	test_begin
 	checking "for regular ps on target"
-	remote 'ps --help | grep -q "^-o"' 2>> "$LOGFILE"
+	remote 'ps --help all | grep -q -e "-o"' 2>> "$LOGFILE"
 	result fatal
 	test_end
 }

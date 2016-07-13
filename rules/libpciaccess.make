@@ -23,6 +23,7 @@ LIBPCIACCESS_SUFFIX	:= tar.bz2
 LIBPCIACCESS_URL	:= $(call ptx/mirror, XORG, individual/lib/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX))
 LIBPCIACCESS_SOURCE	:= $(SRCDIR)/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX)
 LIBPCIACCESS_DIR	:= $(BUILDDIR)/$(LIBPCIACCESS)
+LIBPCIACCESS_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

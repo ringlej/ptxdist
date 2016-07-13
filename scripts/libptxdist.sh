@@ -302,21 +302,13 @@ ptxd_kconfig() {
 			"${conf}" --oldconfig "${file_kconfig}"
 		fi
 		;;
-	allmodconfig)
-		"${conf}" --allmodconfig "${file_kconfig}"
-		;;
-	allyesconfig)
-		"${conf}" --allyesconfig "${file_kconfig}"
-		;;
-	allnoconfig)
-		"${conf}" --allnoconfig "${file_kconfig}"
-		;;
-	randconfig)
-		"${conf}" --randconfig "${file_kconfig}"
+	all*config|randconfig)
+		"${conf}" --${config} "${file_kconfig}"
 		;;
 	dep)
 		copy_back="false"
-		yes "" | "${conf}" --writedepend "${file_kconfig}" &&
+		KCONFIG_ALLCONFIG=".config" "${conf}" \
+			--writedepend --alldefconfig "${file_kconfig}" &&
 		cp -- ".config" "${PTXDIST_DGEN_DIR}/${part}config"
 		;;
 	*)

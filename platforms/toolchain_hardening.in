@@ -2,9 +2,8 @@
 
 menu "hardening options             "
 
-config TARGET_HARDEN_STACK
-	bool
-	prompt "Enable stack protector (cc -fstack-protector)"
+choice
+	prompt "Stack Protector"
 	help
 	  This is a mainline GCC feature, which adds safety checks against
 	  stack overwrites. This renders many potential code injection
@@ -12,6 +11,24 @@ config TARGET_HARDEN_STACK
 	  code injection vulnerabilities into denial of service or into
 	  non-issues (depending on the application).
 	  http://en.wikipedia.org/wiki/Stack-smashing_protection
+
+config TARGET_HARDEN_STACK_NONE
+	bool
+	prompt "disabled                   "
+
+config TARGET_HARDEN_STACK
+	bool
+	prompt "cc -fstack-protector       "
+
+config TARGET_HARDEN_STACK_STRONG
+	bool
+	prompt "cc -fstack-protector-strong"
+
+config TARGET_HARDEN_STACK_ALL
+	bool
+	prompt "cc -fstack-protector-all   "
+
+endchoice
 
 config TARGET_HARDEN_FORTIFY
 	bool

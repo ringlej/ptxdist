@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_OPENVPN) += openvpn
 #
 # Paths and names
 #
-OPENVPN_VERSION		:= 2.3.6
-OPENVPN_MD5		:= 6ca03fe0fd093e0d01601abee808835c
+OPENVPN_VERSION		:= 2.3.11
+OPENVPN_MD5		:= fe17a25235d65e60af8986c6c78c4650
 OPENVPN			:= openvpn-$(OPENVPN_VERSION)
-OPENVPN_SUFFIX		:= tar.gz
+OPENVPN_SUFFIX		:= tar.xz
 OPENVPN_URL		:= http://swupdate.openvpn.org/community/releases/$(OPENVPN).$(OPENVPN_SUFFIX)
 OPENVPN_SOURCE		:= $(SRCDIR)/$(OPENVPN).$(OPENVPN_SUFFIX)
 OPENVPN_DIR		:= $(BUILDDIR)/$(OPENVPN)
@@ -44,7 +44,7 @@ OPENVPN_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_OPENVPN_LZO)-lzo \
 	--disable-plugins \
 	--disable-debug \
-	--enable-small \
+	--$(call ptx/endis, PTXCONF_OPENVPN_SMALL)-small \
 	--disable-iproute2 \
 	--disable-selinux \
 	--$(call ptx/endis, PTXCONF_OPENVPN_SYSTEMD)-systemd \

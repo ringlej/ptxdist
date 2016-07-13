@@ -3,6 +3,7 @@
 config HOST_OPKG
 	tristate
 	default ALLYES
+	select HOST_LIBARCHIVE
 	select HOST_OPKG_UTILS
 	help
 	  opkg is used on the development host to install packets into

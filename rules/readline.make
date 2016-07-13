@@ -24,7 +24,7 @@ READLINE_SUFFIX		:= tar.gz
 READLINE_URL		:= $(call ptx/mirror, GNU, readline/$(READLINE).$(READLINE_SUFFIX))
 READLINE_SOURCE		:= $(SRCDIR)/$(READLINE).$(READLINE_SUFFIX)
 READLINE_DIR		:= $(BUILDDIR)/$(READLINE)
-READLINE_LICENSE	:= GPLv3+
+READLINE_LICENSE	:= GPL-3.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_HANAZONO
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "Hanazono"
+	help
+	  Japanese TrueType mincho font by KAGE system and FontForge

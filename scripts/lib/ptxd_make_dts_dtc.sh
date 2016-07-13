@@ -38,7 +38,7 @@ ptxd_make_dts_dtb() {
     fi &&
 
     deps="${ptx_state_dir}/dtc.$(basename "${dts}").deps"
-    tmp_deps="${PTXDIST_TEMPDIR}/dts.deps"
+    tmp_deps="${PTXDIST_TEMPDIR}/dtc.$(basename "${dts}").deps"
 
     echo "CPP $(ptxd_print_path "${tmp_dts}")" &&
     cpp \

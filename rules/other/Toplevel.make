@@ -4,7 +4,7 @@
 #
 
 # make sure bash is used to execute commands from makefiles
-SHELL=bash
+SHELL=$(PTXDIST_TOPDIR)/bin/bash
 export SHELL
 
 unexport MAKEFLAGS
@@ -108,7 +108,8 @@ include $(PTX_DGEN_DEPS_POST)
 # ----------------------------------------------------------------------------
 
 print-%: FORCE
-	@[ "$(origin $(*))" != "undefined" ] && echo "$($(*))"
+	$(if $(filter k,$(MAKEFLAGS)),,$($(if $(filter undefined,$(origin $(*))),$(error $(*) undefined))))
+	@echo "$(if $(filter 1,$(PTXDIST_VERBOSE)),$(*)=)$($(*))"
 
 .PHONY: $(PHONY)
 

@@ -151,6 +151,7 @@ cc_add_target_ld_args() {
 
 cc_add_host_ld_args() {
 	if ${LINKING}; then
+		add_arg ${pkg_ldflags}
 		add_late_arg ${PTXDIST_HOST_LDFLAGS}
 	fi
 }
@@ -167,6 +168,8 @@ cc_add_fortify() {
 cc_add_stack() {
 	if ${STDLIB}; then
 		add_opt_arg TARGET_HARDEN_STACK "-fstack-protector" "--param=ssp-buffer-size=4"
+		add_opt_arg TARGET_HARDEN_STACK_STRONG "-fstack-protector-strong"
+		add_opt_arg TARGET_HARDEN_STACK_ALL "-fstack-protector-all"
 	fi
 }
 

@@ -1,8 +1,12 @@
 ## SECTION=shell_and_console
 config I2C_TOOLS
 	tristate
+	depends on !(BUSYBOX_I2CDETECT || BUSYBOX_I2CDUMP || BUSYBOX_I2CGET || BUSYBOX_I2CSET) || ALLYES
 	prompt "i2c-tools"
 	help
 	  The userland i2c tools from lm-sensors. They provide generic access
 	  to i2c devices.
+
+comment "BusyBox' i2c tools are selected!"
+	depends on BUSYBOX_I2CDETECT || BUSYBOX_I2CDUMP || BUSYBOX_I2CGET || BUSYBOX_I2CSET
 

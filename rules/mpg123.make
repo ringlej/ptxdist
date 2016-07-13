@@ -16,14 +16,16 @@ PACKAGES-$(PTXCONF_MPG123) += mpg123
 #
 # Paths and names
 #
-MPG123_VERSION	:= 1.16.0
-MPG123_MD5	:= 169cfc32b32b5cae99212fe8e4347215
+MPG123_VERSION	:= 1.23.1
+MPG123_MD5	:= f99210d31467dbf587e1e2974f329e5d
 MPG123		:= mpg123-$(MPG123_VERSION)
 MPG123_SUFFIX	:= tar.bz2
 MPG123_URL	:= http://www.mpg123.org/download/$(MPG123).$(MPG123_SUFFIX)
 MPG123_SOURCE	:= $(SRCDIR)/$(MPG123).$(MPG123_SUFFIX)
 MPG123_DIR	:= $(BUILDDIR)/$(MPG123)
-MPG123_LICENSE	:= LGPLv2.1
+MPG123_LICENSE	:= LGPL-2.1
+MPG123_LICENSE_FILES := \
+	file://COPYING;md5=1e86753638d3cf2512528b99079bc4f3
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -39,6 +41,10 @@ MPG123_CONF_OPT		:= \
 	--with-audio=alsa\
 	--with-default-audio=alsa\
 	--enable-modules=no
+
+# needed when compiling without IPv6
+MPG123_CPPFLAGS := -D_GNU_SOURCE
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -54,6 +60,7 @@ $(STATEDIR)/mpg123.targetinstall:
 
 	@$(call install_copy, mpg123, 0, 0, 0755, -, /usr/bin/mpg123)
 	@$(call install_lib, mpg123, 0, 0, 0644, libmpg123)
+	@$(call install_lib, mpg123, 0, 0, 0644, libout123)
 
 	@$(call install_finish, mpg123)
 

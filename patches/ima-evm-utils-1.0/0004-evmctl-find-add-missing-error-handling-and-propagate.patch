@@ -1,0 +1,40 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 13 Nov 2015 14:04:37 +0100
+Subject: [PATCH] evmctl: find(): add missing error handling and propagate
+ error
+
+This patch adds the missing error handling to the while() loop in the find()
+function, so that evmctl properly fails on errors.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/evmctl.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/src/evmctl.c b/src/evmctl.c
+index 19f5f3bc87b0..6606e4958080 100644
+--- a/src/evmctl.c
++++ b/src/evmctl.c
+@@ -1097,13 +1097,20 @@ static int find(const char *path, int dts, find_cb_t func)
+ 	}
+ 
+ 	while ((de = readdir(dir))) {
++		int err;
++
+ 		if (!strcmp(de->d_name, "..") || !strcmp(de->d_name, "."))
+ 			continue;
+ 		log_debug("path: %s, type: %u\n", de->d_name, de->d_type);
+ 		if (de->d_type == DT_DIR)
+-			find(de->d_name, dts, func);
++			err = find(de->d_name, dts, func);
+ 		else if (dts & (1 << de->d_type))
+-			func(de->d_name);
++			err = func(de->d_name);
++
++		if (err) {
++			closedir(dir);
++			return -1;
++		}
+ 	}
+ 
+ 	if (chdir("..")) {

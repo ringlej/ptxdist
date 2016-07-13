@@ -35,7 +35,7 @@ XORG_APP_XAUTH_CONF_TOOL	:= autoconf
 XORG_APP_XAUTH_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

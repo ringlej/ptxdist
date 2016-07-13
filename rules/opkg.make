@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 #
 # Paths and names
 #
-OPKG_VERSION	:= 0.2.2
-OPKG_MD5	:= b3ecef90d67d2aed2a14c2116a027482
+OPKG_VERSION	:= 0.3.0
+OPKG_MD5	:= 3412cdc71d78b98facc84b19331ec64e
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
 OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFIX)
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
-OPKG_LICENSE	:= GPLv2+
+OPKG_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -38,14 +38,13 @@ OPKG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
+	--disable-libopkg-api \
 	--$(call ptx/endis, PTXCONF_OPKG_PATHFINDER)-pathfinder \
 	--$(call ptx/endis, PTXCONF_OPKG_CURL)-curl \
 	--$(call ptx/endis, PTXCONF_OPKG_SHA256)-sha256 \
 	--$(call ptx/endis, PTXCONF_OPKG_OPENSSL)-openssl \
 	--$(call ptx/endis, PTXCONF_OPKG_SSL_CURL)-ssl-curl \
-	--$(call ptx/endis, PTXCONF_OPKG_GPG)-gpg \
-	--enable-shave \
-	--with-opkglockfile=/var/lock/opkg.lock
+	--$(call ptx/endis, PTXCONF_OPKG_GPG)-gpg
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -65,7 +64,7 @@ ifdef PTXCONF_OPKG_GPG
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
 endif
 #	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/update-alternatives)
-	@$(call install_copy, opkg, 0, 0, 0755, $(OPKG_PKGDIR)/usr/bin/opkg-cl, /usr/bin/opkg)
+	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg)
 
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/ldconfig)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/depmod)

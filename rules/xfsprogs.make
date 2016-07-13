@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2010 by Bart vdr. Meulen <bartvdrmeulen@gmail.com>
+# Copyright (C) 2015 by Lucas Stach <dev@lynxeye.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,14 +17,14 @@ PACKAGES-$(PTXCONF_XFSPROGS) += xfsprogs
 #
 # Paths and names
 #
-XFSPROGS_VERSION:= 3.0.5
-XFSPROGS_MD5	:= d2f981b1ae9348405a331b4c33a08cab
+XFSPROGS_VERSION:= 4.5.0
+XFSPROGS_MD5	:= fcba94b6c74b726dac956d7a650c0c31
 XFSPROGS	:= xfsprogs-$(XFSPROGS_VERSION)
 XFSPROGS_SUFFIX	:= tar.gz
-XFSPROGS_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars-oct_09/$(XFSPROGS).$(XFSPROGS_SUFFIX)
+XFSPROGS_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars/$(XFSPROGS).$(XFSPROGS_SUFFIX)
 XFSPROGS_SOURCE	:= $(SRCDIR)/$(XFSPROGS).$(XFSPROGS_SUFFIX)
 XFSPROGS_DIR	:= $(BUILDDIR)/$(XFSPROGS)
-XFSPROGS_LICENSE:= GPLv2, LGPLv2.1
+XFSPROGS_LICENSE:= GPL-2.0, LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -32,21 +33,16 @@ XFSPROGS_LICENSE:= GPLv2, LGPLv2.1
 XFSPROGS_CONF_TOOL	:= autoconf
 XFSPROGS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--sbindir=/usr/sbin \
+	--libdir=/usr/lib \
+	--datarootdir=/usr/share \
+	--disable-static \
+	--disable-gettext \
+	--enable-blkid \
 	--disable-readline \
 	--disable-editline \
 	--disable-termcap \
-	--disable-blkid \
 	--disable-lib64
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-XFSPROGS_INSTALL_OPT := \
-	prefix=${XFSPROGS_PKGDIR}/usr \
-	PKG_ROOT_SBIN_DIR=${XFSPROGS_PKGDIR}/sbin \
-	PKG_ROOT_LIB_DIR=${XFSPROGS_PKGDIR}/lib \
-	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -84,10 +80,6 @@ endif
 
 ifdef PTXCONF_XFSPROGS_INSTALL_METADUMP
 	@$(call install_copy, xfsprogs, 0, 0, 0755, -, /usr/sbin/xfs_metadump)
-endif
-
-ifdef PTXCONF_XFSPROGS_INSTALL_CHECK
-	@$(call install_copy, xfsprogs, 0, 0, 0755, -, /usr/sbin/xfs_check)
 endif
 
 ifdef PTXCONF_XFSPROGS_INSTALL_NCHECK

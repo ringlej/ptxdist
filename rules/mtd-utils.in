@@ -241,6 +241,12 @@ config MTD_UTILS_UBIATTACH
 comment "busybox' ubiattach is selected!"
 	depends on BUSYBOX_UBIATTACH
 
+config MTD_UTILS_UBIBLOCK
+	bool
+	prompt "ubiblock"
+	help
+	  Manage block interfaces for UBI volumes
+
 config MTD_UTILS_UBICRC32
 	bool
 	prompt "ubicrc32"

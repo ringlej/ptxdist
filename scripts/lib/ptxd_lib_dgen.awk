@@ -21,6 +21,7 @@ BEGIN {
 	DGEN_RULESFILES_MAKE	= ENVIRON["PTX_DGEN_RULESFILES_MAKE"];
 	PTXDIST_TEMPDIR		= ENVIRON["PTXDIST_TEMPDIR"];
 	PARALLEL		= ENVIRON["PTXDIST_PARALLELMFLAGS_EXTERN"]
+	CHECK_LICENSES		= 0
 }
 
 #
@@ -131,9 +132,13 @@ $1 ~ /^PTX_MAP_._DEP/ {
 		next;
 
 	this_PKG_DEP = ""
-	this_PKG_dep = ""
 	for (i = 1; i <= n; i++) {
 		this_DEP = this_DEP_array[i];
+
+		if (this_DEP ~ /^VIRTUAL$/) {
+			virtual_pkg[this_PKG] = 1
+			continue;
+		}
 
 		if (!(this_DEP in PKG_to_pkg))
 			continue
@@ -149,10 +154,7 @@ $1 ~ /^PTX_MAP_._DEP/ {
 			continue;
 		}
 
-		this_dep = PKG_to_pkg[this_DEP];
-
 		this_PKG_DEP = this_PKG_DEP " " this_DEP;
-		this_PKG_dep = this_PKG_dep " " this_dep;
 	}
 
 	# no deps to pkgs
@@ -160,12 +162,9 @@ $1 ~ /^PTX_MAP_._DEP/ {
 		next;
 
 	if (dep_type == "R")
-		PKG_to_R_DEP[this_PKG] = this_PKG_DEP;
+		PKG_to_R_DEP[this_PKG] = PKG_to_R_DEP[this_PKG] this_PKG_DEP;
 	else
-		PKG_to_B_DEP[this_PKG] = this_PKG_DEP;
-	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
-	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
-	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_ALL_MAKE;
+		PKG_to_B_DEP[this_PKG] = PKG_to_B_DEP[this_PKG] this_PKG_DEP;
 
 	next;
 }
@@ -193,6 +192,8 @@ $1 ~ /^PTXCONF_/ {
 		}
 	} while (sub(/_+[^_]+$/, "", this_PKG));
 
+	if (this_PKG = "PROJECT_CHECK_LICENSES")
+		CHECK_LICENSES = 1;
 	next;
 }
 
@@ -201,6 +202,50 @@ function write_include(this_PKG) {
 	# include this rules file
 	#
 	print "include " PKG_to_filename[this_PKG]			> DGEN_RULESFILES_MAKE;
+}
+
+function write_maps(this_PKG, dep_type) {
+	if (dep_type == "R")
+		this_PKG_DEP = PKG_to_R_DEP[this_PKG];
+	else
+		this_PKG_DEP = PKG_to_B_DEP[this_PKG];
+
+	if (this_PKG_DEP == "")
+		return;
+
+	n = split(this_PKG_DEP, this_DEP_array, " ");
+	for (i = 1; i <= n; i++) {
+		if (this_DEP_array[i] in virtual_pkg) {
+			if (dep_type == "R")
+				virtual_PKG_DEP = PKG_to_R_DEP[this_DEP_array[i]];
+			else
+				virtual_PKG_DEP = PKG_to_B_DEP[this_DEP_array[i]];
+			this_PKG_DEP = this_PKG_DEP " " virtual_PKG_DEP
+		}
+	}
+	n = split(this_PKG_DEP, this_DEP_array, " ");
+	asort(this_DEP_array, this_DEP_array);
+	this_PKG_dep = ""
+	this_PKG_DEP = ""
+	last = ""
+	for (i = 1; i <= n; i++) {
+		if (last ==  this_DEP_array[i])
+			continue
+		if (this_DEP_array[i] in virtual_pkg)
+			continue
+		this_PKG_DEP = this_PKG_DEP " " this_DEP_array[i];
+		this_PKG_dep = this_PKG_dep " " PKG_to_pkg[this_DEP_array[i]];
+		last = this_DEP_array[i]
+	}
+
+	if (dep_type == "R")
+		 PKG_to_R_DEP[this_PKG]= this_PKG_DEP;
+	else
+		 PKG_to_B_DEP[this_PKG]= this_PKG_DEP;
+
+	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
+	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
+	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_ALL_MAKE;
 }
 
 function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
@@ -277,6 +322,13 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 		print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
 	}
 	print "$(STATEDIR)/" this_pkg ".report: "                     "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".release: "                    "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+	if (CHECK_LICENSES) {
+		if (prefix == "")
+			print "$(STATEDIR)/" this_pkg ".targetinstall.post: $(STATEDIR)/" this_pkg ".report"	> DGEN_DEPS_POST;
+		else
+			print "$(STATEDIR)/" this_pkg ".install.post: $(STATEDIR)/" this_pkg ".report"		> DGEN_DEPS_POST;
+	}
 
 	#
 	# conditional dependencies
@@ -379,6 +431,8 @@ END {
 		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_pkg)
 
 		write_include(this_PKG)
+		write_maps(this_PKG, "R")
+		write_maps(this_PKG, "B")
 		if (this_pkg_prefix != "image-") {
 			write_deps_pkg_all(this_PKG, this_pkg)
 			write_vars_pkg_all(this_PKG, this_pkg, this_pkg_prefix)

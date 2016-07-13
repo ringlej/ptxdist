@@ -19,14 +19,14 @@ PACKAGES-$(PTXCONF_PROCPS) += procps
 #
 # Paths and names
 #
-PROCPS_VERSION	:= 3.3.10
-PROCPS_MD5	:= 1fb7f3f6bf92ce6c5c9ed9949ae858fe
+PROCPS_VERSION	:= 3.3.11
+PROCPS_MD5	:= 6cc5b94c1c5b8cbc89ad345a7b522f74
 PROCPS		:= procps-ng-$(PROCPS_VERSION)
 PROCPS_SUFFIX	:= tar.xz
 PROCPS_URL	:= $(call ptx/mirror, SF, procps-ng/Production/$(PROCPS).$(PROCPS_SUFFIX))
 PROCPS_SOURCE	:= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
-PROCPS_LICENSE	:= GPLv2 (tools), LGPLv2 (libs)
+PROCPS_LICENSE	:= GPL-2.0 (tools), LGPL-2.0 (libs)
 PROCPS_LICENSE_FILES := \
 	file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 	file://COPYING.LIB;md5=4cf66a4984120007c9881cc871cf49db
@@ -74,60 +74,60 @@ $(STATEDIR)/procps.targetinstall:
 	@$(call install_lib, procps, 0, 0, 0644, libprocps)
 
 ifdef PTXCONF_PROCPS_FREE
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/free, \
 		/usr/bin/free)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pgrep, \
 		/usr/bin/pgrep)
 endif
 ifdef PTXCONF_PROCPS_PIDOF
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pidof, \
 		/usr/bin/pidof)
 endif
 ifdef PTXCONF_PROCPS_PKILL
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pkill, \
 		/usr/bin/pkill)
 endif
 ifdef PTXCONF_PROCPS_PMAP
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pmap, \
 		/usr/bin/pmap)
 endif
 ifdef PTXCONF_PROCPS_PS
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/ps, \
 		/bin/ps)
 endif
 ifdef PTXCONF_PROCPS_PWDX
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pwdx, \
 		/usr/bin/pwdx)
 endif
 ifdef PTXCONF_PROCPS_SLABTOP
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/slabtop, \
 		/usr/bin/slabtop)
 endif
 ifdef PTXCONF_PROCPS_SYSCTL
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/sbin/sysctl, \
 		/sbin/sysctl)
 	@$(call install_alternative, procps, 0, 0, 0644, /etc/sysctl.conf, n)
 endif
 ifdef PTXCONF_PROCPS_TOP
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/top, \
 		/usr/bin/top)
 endif
 ifdef PTXCONF_PROCPS_UPTIME
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/uptime, \
 		/usr/bin/uptime)
 endif
 ifdef PTXCONF_PROCPS_VMSTAT
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/vmstat, \
 		/usr/bin/vmstat)
 endif
 ifdef PTXCONF_PROCPS_W
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/w, \
 		/usr/bin/w)
 endif
 ifdef PTXCONF_PROCPS_WATCH
-	@$(call install_copy, procps, 0, 0, 0755, -, \
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/watch, \
 		/usr/bin/watch)
 endif
 

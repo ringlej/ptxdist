@@ -24,7 +24,7 @@ FBTEST_SUFFIX	:= tar.gz
 FBTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)
 FBTEST_SOURCE	:= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
 FBTEST_DIR	:= $(BUILDDIR)/$(FBTEST)
-FBTEST_LICENSE	:= GPLv2
+FBTEST_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Compile

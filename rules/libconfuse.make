@@ -23,6 +23,7 @@ LIBCONFUSE_SUFFIX	:= tar.gz
 LIBCONFUSE_URL		:= http://savannah.nongnu.org/download/confuse/$(LIBCONFUSE).$(LIBCONFUSE_SUFFIX)
 LIBCONFUSE_SOURCE	:= $(SRCDIR)/$(LIBCONFUSE).$(LIBCONFUSE_SUFFIX)
 LIBCONFUSE_DIR		:= $(BUILDDIR)/$(LIBCONFUSE)
+LIBCONFUSE_LICENSE	:= ISC
 
 # ----------------------------------------------------------------------------
 # Prepare

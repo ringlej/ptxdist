@@ -1,0 +1,21 @@
+From: Alexander Aring <aar@pengutronix.de>
+Date: Tue, 26 Apr 2016 11:25:44 +0200
+Subject: [PATCH] main: remove double dagid entry
+
+Signed-off-by: Alexander Aring <aar@pengutronix.de>
+---
+ programs/sunshine/main.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/programs/sunshine/main.cpp b/programs/sunshine/main.cpp
+index b005ccf42fd9..98911c888ade 100644
+--- a/programs/sunshine/main.cpp
++++ b/programs/sunshine/main.cpp
+@@ -47,7 +47,6 @@ static struct option const longopts[] =
+     { "sleep",     1, NULL,  OPTION_SLEEP},
+     { "interval",  1, NULL, 'W'},
+     { "dagid",     1, NULL, 'G'},
+-    { "dagid",     1, NULL, 'G'},
+     { "rank",      1, NULL, 'R'},
+     { "kill",      0, 0, 'K'},
+     { "verbose",   0, 0, 'v'},

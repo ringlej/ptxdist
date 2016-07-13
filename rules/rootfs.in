@@ -421,7 +421,7 @@ choice
 		prompt "link to /run/systemd/resolve/resolv.conf"
 		help
 		  If enabled, it installs /etc/resolv.conf as a link to
-		  /run/resolv.conf. This file is provided by
+		  /run/systemd/resolve/resolv.conf. This file is provided by
 		  systemd-resolved and is filled with data from the systemd
 		  managed interfaces.
 
@@ -440,5 +440,28 @@ config ROOTFS_SERVICES
 	  If enabled, it installs the "./projectroot/etc/services" file if
 	  present, else a generic one from the ptxdist directory.
 
-endmenu
+choice
+	prompt "install /init"
+	default ROOTFS_INIT_NONE
 
+	config ROOTFS_INIT_LINK
+		bool
+		prompt "link to /sbin/init"
+		help
+		  Create a symlink from /init to /sbin/init. This is useful for
+		  initramfs for example in which /init is executed by default.
+
+	config ROOTFS_INIT_BIN
+		bool
+		prompt "binary from file"
+		help
+		  Install the /init binary instead of a symlink to /sbin/init.
+
+	config ROOTFS_INIT_NONE
+		bool
+		prompt "none"
+		help
+		  If enabled, no /init will be install.
+endchoice
+
+endmenu

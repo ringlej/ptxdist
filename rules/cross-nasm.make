@@ -24,6 +24,9 @@ CROSS_NASM_SUFFIX	:= tar.xz
 CROSS_NASM_URL		:= http://www.nasm.us/pub/nasm/releasebuilds/$(CROSS_NASM_VERSION)/$(CROSS_NASM).$(CROSS_NASM_SUFFIX)
 CROSS_NASM_SOURCE	:= $(SRCDIR)/$(CROSS_NASM).$(CROSS_NASM_SUFFIX)
 CROSS_NASM_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_NASM)
+CROSS_NASM_LICENSE	:= BSD-2-Clause
+CROSS_NASM_LICENSE_FILES := \
+	file://LICENSE;md5=90904486f8fbf1861cf42752e1a39efe
 
 # ----------------------------------------------------------------------------
 # Prepare

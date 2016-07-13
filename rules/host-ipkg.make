@@ -34,4 +34,14 @@ HOST_IPKG_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-shared
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-ipkg.install:
+	@$(call targetinfo)
+	@$(call install, HOST_IPKG)
+	@ln -s ipkg-cl $(HOST_IPKG_PKGDIR)/bin/ipkg
+	@$(call touch)
+
 # vim: syntax=make

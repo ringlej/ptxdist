@@ -23,6 +23,7 @@ XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(call ptx/mirror, XORG, individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX))
 XORG_SERVER_SOURCE	:= $(SRCDIR)/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
+XORG_SERVER_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -147,8 +148,8 @@ XORG_SERVER_CONF_OPT	= \
 #
 
 # if no value is given ignore the "--datadir" switch
-ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
-	XORG_SERVER_CONF_OPT += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+ifneq ($(call remove_quotes,$(XORG_DATADIR)),)
+	XORG_SERVER_CONF_OPT += --datadir=$(XORG_DATADIR)
 endif
 
 #
@@ -190,9 +191,11 @@ ifdef PTXCONF_PRELINK
 		/etc/prelink.conf.d/xorg)
 endif
 
+ifdef PTXCONF_XORG_SERVER_XORG
 ifdef PTXCONF_XORG_SERVER_UDEV
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/usr/lib/X11/xorg.conf.d/10-evdev.conf)
+		$(XORG_DATADIR)/X11/xorg.conf.d/10-evdev.conf)
+endif
 endif
 
 ifdef PTXCONF_XORG_SERVER_XVFB

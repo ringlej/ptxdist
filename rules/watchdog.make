@@ -23,7 +23,7 @@ WATCHDOG_SUFFIX		:= tar.gz
 WATCHDOG_URL		:= $(call ptx/mirror, SF, watchdog/$(WATCHDOG).$(WATCHDOG_SUFFIX))
 WATCHDOG_SOURCE		:= $(SRCDIR)/$(WATCHDOG).$(WATCHDOG_SUFFIX)
 WATCHDOG_DIR		:= $(BUILDDIR)/$(WATCHDOG)
-WATCHDOG_LICENSE	:= GPLv2
+WATCHDOG_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_LOHIT_BENGALI
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "Lohit Bengali"
+	help
+	  Lohit TrueType font for Bengali Language

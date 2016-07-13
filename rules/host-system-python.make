@@ -12,6 +12,7 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_HOST_SYSTEM_PYTHON) += host-system-python
+HOST_SYSTEM_PYTHON_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

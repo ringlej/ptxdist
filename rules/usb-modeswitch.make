@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_USB_MODESWITCH) += usb-modeswitch
 #
 # Paths and names
 #
-USB_MODESWITCH_VERSION	:= 2.2.1
-USB_MODESWITCH_MD5	:= 46cd7fa937655ab2df616c1d5dfb121e
+USB_MODESWITCH_VERSION	:= 2.3.0
+USB_MODESWITCH_MD5	:= 7faf7dccd50b3ca8aaa16fcb5bf0dc2f
 USB_MODESWITCH		:= usb-modeswitch-$(USB_MODESWITCH_VERSION)
 USB_MODESWITCH_SUFFIX	:= tar.bz2
 USB_MODESWITCH_URL	:= http://www.draisberghof.de/usb_modeswitch/$(USB_MODESWITCH).$(USB_MODESWITCH_SUFFIX)
 USB_MODESWITCH_SOURCE	:= $(SRCDIR)/$(USB_MODESWITCH).$(USB_MODESWITCH_SUFFIX)
 USB_MODESWITCH_DIR	:= $(BUILDDIR)/$(USB_MODESWITCH)
-USB_MODESWITCH_LICENSE	:= GPLv2
+USB_MODESWITCH_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,6 +35,18 @@ USB_MODESWITCH_LICENSE	:= GPLv2
 USB_MODESWITCH_CONF_TOOL	:= NO
 USB_MODESWITCH_MAKE_ENV		:= $(CROSS_ENV)
 USB_MODESWITCH_MAKE_OPT		:= $(CROSS_ENV_PROGS)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/usb-modeswitch.install:
+	@$(call targetinfo)
+	@$(call world/install, USB_MODESWITCH)
+	@mkdir -p $(USB_MODESWITCH_PKGDIR)/lib/systemd/system
+	@install -m 0644 $(USB_MODESWITCH_DIR)/usb_modeswitch@.service \
+		$(USB_MODESWITCH_PKGDIR)/lib/systemd/system/usb_modeswitch@.service
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -51,6 +63,18 @@ $(STATEDIR)/usb-modeswitch.targetinstall:
 
 	@$(call install_copy, usb-modeswitch, 0, 0, 0755, -, \
 		/usr/sbin/usb_modeswitch)
+ifneq ($(PTXCONF_USB_MODESWITCH_UDEV_HELPER)$(PTXCONF_USB_MODESWITCH_SYSTEMD_UNIT),)
+	@$(call install_copy, usb-modeswitch, 0, 0, 0755, -, \
+		/usr/sbin/usb_modeswitch_dispatcher)
+endif
+ifdef PTXCONF_USB_MODESWITCH_UDEV_HELPER
+	@$(call install_copy, usb-modeswitch, 0, 0, 0755, -, \
+		/lib/udev/usb_modeswitch)
+endif
+ifdef PTXCONF_USB_MODESWITCH_SYSTEMD_UNIT
+	@$(call install_copy, usb-modeswitch, 0, 0, 0644, -, \
+		/lib/systemd/system/usb_modeswitch@.service)
+endif
 
 	@$(call install_finish, usb-modeswitch)
 

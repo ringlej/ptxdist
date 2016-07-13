@@ -24,6 +24,7 @@ XORG_LIB_XDMCP_SUFFIX	:= tar.bz2
 XORG_LIB_XDMCP_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XDMCP).$(XORG_LIB_XDMCP_SUFFIX))
 XORG_LIB_XDMCP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XDMCP).$(XORG_LIB_XDMCP_SUFFIX)
 XORG_LIB_XDMCP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XDMCP)
+XORG_LIB_XDMCP_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

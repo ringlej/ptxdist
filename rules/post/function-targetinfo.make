@@ -23,8 +23,7 @@ endif
 targetinfo = 								\
 	target="$(strip $(@))";						\
 	target="$${target\#\#*/}";					\
-	dep="$(strip $^)";						\
-	dep="$${dep\#\#*/}";						\
+	dep="$(strip $(notdir $^))";				\
 	echo "$${target} : $${dep}" >> $(DEP_OUTPUT);			\
 	$(_targetinfo_opt_output)					\
 	target="target: $${target\#\#*/}";				\

@@ -23,6 +23,12 @@ $(STATEDIR)/host-system-perl.prepare:
 	@echo "Checking for Perl ..."
 	@perl -v >/dev/null 2>&1 || \
 		ptxd_bailout "'perl' not found! Please install.";
+ifdef PTXCONF_HOST_SYSTEM_PERL_BUILD
+	@echo "Checking for Perl: Module::Build"
+	@perl -e "require Module::Build" 2>/dev/null || \
+		ptxd_bailout "Module::Build perl module is required. \
+	Please install libmodule-build-perl (debian)."
+endif
 ifdef PTXCONF_HOST_SYSTEM_PERL_JSON
 	@echo "Checking for Perl: JSON"
 	@perl -e "require JSON" 2>/dev/null || \

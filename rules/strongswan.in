@@ -6,6 +6,7 @@ menuconfig STRONGSWAN
 	select LIBGMP
 	select LIBCURL if STRONGSWAN_LIBCURL
 	select OPENSSL if STRONGSWAN_OPENSSL
+	select SYSTEMD if STRONGSWAN_SYSTEMD_UNIT
 	help
 	  strongSwan is a complete IPsec implementation.
 	  Please keep in mind to configure the kernel accordingly to fulfill
@@ -48,7 +49,7 @@ config STRONGSWAN_AFALG
 config STRONGSWAN_SYSTEMD_UNIT
 	bool
 	default y
-	depends on SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	prompt "install systemd service file"
 
 endif

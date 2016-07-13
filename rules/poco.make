@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_POCO) += poco
 #
 # Paths and names
 #
-POCO_VERSION	:= 1.4.6p2
-POCO_MD5	:= 33f6a0b7e7fd6b86a1028b1e7fa78b84
+POCO_VERSION	:= 1.6.1
+POCO_MD5	:= 8bc6b7dc22a8cbd97257028c02ac2707
 POCO		:= poco-$(POCO_VERSION)
 POCO_SUFFIX	:= tar.gz
-POCO_URL	:= http://pocoproject.org/releases/poco-1.4.6/$(POCO).$(POCO_SUFFIX)
+POCO_URL	:= http://pocoproject.org/releases/$(POCO)/$(POCO).$(POCO_SUFFIX)
 POCO_SOURCE	:= $(SRCDIR)/$(POCO).$(POCO_SUFFIX)
 POCO_DIR	:= $(shell readlink -f "$(BUILDDIR)/$(POCO)")
-POCO_LICENSE	:= unknown
+POCO_LICENSE	:= BSL-1.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -63,6 +63,7 @@ $(STATEDIR)/poco.targetinstall:
 	@$(call install_lib, poco, 0, 0, 0644, libPocoXML)
 	@$(call install_lib, poco, 0, 0, 0644, libPocoNet)
 	@$(call install_lib, poco, 0, 0, 0644, libPocoFoundation)
+	@$(call install_lib, poco, 0, 0, 0644, libPocoJSON)
 
 	@$(call install_finish, poco)
 

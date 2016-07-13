@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBZIP) += libzip
 #
 # Paths and names
 #
-LIBZIP_VERSION	:= 0.11.2
-LIBZIP_MD5	:= c5437df15e4825d40cdc3ec8b9b7516c
+LIBZIP_VERSION	:= 1.1.2
+LIBZIP_MD5	:= 0820a1ae5733518f5d6e289cb642c08e
 LIBZIP		:= libzip-$(LIBZIP_VERSION)
 LIBZIP_SUFFIX	:= tar.gz
 LIBZIP_URL	:= http://www.nih.at/libzip/$(LIBZIP).$(LIBZIP_SUFFIX)

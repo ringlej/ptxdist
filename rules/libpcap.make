@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 #
 # Paths and names
 #
-LIBPCAP_VERSION	:= 1.5.3
-LIBPCAP_MD5	:= 7e7321fb3aff2f2bb05c8229f3795d4a
+LIBPCAP_VERSION	:= 1.7.4
+LIBPCAP_MD5	:= b2e13142bbaba857ab1c6894aedaf547
 LIBPCAP		:= libpcap-$(LIBPCAP_VERSION)
 LIBPCAP_SUFFIX	:= tar.gz
 LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
 LIBPCAP_SOURCE	:= $(SRCDIR)/$(LIBPCAP).$(LIBPCAP_SUFFIX)
 LIBPCAP_DIR	:= $(BUILDDIR)/$(LIBPCAP)
-LIBPCAP_LICENSE	:= BSD
+LIBPCAP_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -34,7 +34,8 @@ LIBPCAP_ENV  := \
 	$(CROSS_ENV) \
 	ac_cv_linux_vers=2 \
 	ac_cv_lib_nl_nl_socket_alloc=no \
-	ac_cv_lib_nl_nl_handle_alloc=no
+	ac_cv_lib_nl_nl_handle_alloc=no \
+	ac_cv_lbl_hci_channel_monitor_is_defined=no
 
 LIBPCAP_COMPILE_ENV := \
 	$(CROSS_ENV_CFLAGS) \
@@ -47,19 +48,22 @@ LIBPCAP_COMPILE_ENV := \
 #
 LIBPCAP_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
 	--enable-protochain \
+	$(GLOBAL_IPV6_OPTION) \
 	--disable-optimizer-dbg \
 	--disable-yydebug \
 	--disable-universal \
 	--enable-shared \
+	--disable-usb \
 	--$(call ptx/endis, PTXCONF_LIBPCAP_BLUETOOTH)-bluetooth \
 	--disable-canusb \
 	--disable-can \
 	--disable-dbus \
+	--disable-packet-ring \
 	--with-libnl=$(SYSROOT)/usr \
 	--without-dag \
-	--without-septel
+	--without-septel \
+	--without-snf
 
 ifdef PTXCONF_ARCH_MINGW
 LIBPCAP_AUTOCONF += --with-pcap=null

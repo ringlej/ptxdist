@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.5.1
-MTD_UTILS_MD5		:= 4ad1f758d49615efe14edb107eddac5c
+MTD_UTILS_VERSION	:= 1.5.2
+MTD_UTILS_MD5		:= 596bc7b20a6d4fb86d63fc9b8af674d6
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_SOURCE	:= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
-MTD_UTILS_LICENSE	:= GPLv2+
+MTD_UTILS_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -168,6 +168,10 @@ endif
 ifdef PTXCONF_MTD_UTILS_UBIATTACH
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/ubiattach)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIBLOCK
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/ubiblock)
 endif
 ifdef PTXCONF_MTD_UTILS_UBIDETACH
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \

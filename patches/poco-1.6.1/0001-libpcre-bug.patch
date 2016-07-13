@@ -1,0 +1,12 @@
+diff --git a/Foundation/Makefile b/Foundation/Makefile
+index 45ade1c..895b575 100644
+--- a/Foundation/Makefile
++++ b/Foundation/Makefile
+@@ -46,6 +46,7 @@ pcre_utf8_objects = pcre_ucd pcre_tables
+ 
+ ifdef POCO_UNBUNDLED
+ 	SYSLIBS += -lpcre -lz
++	objects += $(pcre_utf8_objects) # unicode.cpp uses internal pcre tables
+ else
+ 	objects += $(zlib_objects) $(pcre_objects) $(pcre_utf8_objects)
+ endif

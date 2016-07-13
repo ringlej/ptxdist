@@ -1,0 +1,18 @@
+## SECTION=python3
+
+config PYTHON3_IPYTHON
+	tristate
+	select PYTHON3
+	select PYTHON3_READLINE		if RUNTIME
+	select PYTHON3_DISTUTILS	if RUNTIME
+	select PYTHON3_IPYTHON_GENUTILS if RUNTIME
+	select PYTHON3_TRAITLETS	if RUNTIME
+	select PYTHON3_DECORATOR	if RUNTIME
+	select PYTHON3_PATH_PY		if RUNTIME
+	select PYTHON3_PEXPECT		if RUNTIME
+	select PYTHON3_PICKLESHARE	if RUNTIME
+	select PYTHON3_PTYPROCESS	if RUNTIME
+	select PYTHON3_SIMPLEGENERIC	if RUNTIME
+	prompt "ipython"
+	help
+	  IPython: Productive Interactive Computing

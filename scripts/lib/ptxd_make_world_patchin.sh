@@ -31,9 +31,6 @@ ptxd_make_world_patchin_apply_init()
     else
 	# is there a "series" file
 	pkg_patch_series="${pkg_patch_dir}/series"
-	if [ \! -e "${pkg_patch_series}" ]; then
-	    unset pkg_patch_series
-	fi
     fi
 
     # decide which tool to use
@@ -119,7 +116,8 @@ ptxd_make_world_patchin_apply_git_compat()
 	    "${pkg_patchin_dir}/.ptxdist/git-patches/${patch_file%.*}"
 	echo "${patch_file%.*}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/git-patches/series" || return
 
-    done < "${pkg_patchin_dir}/.ptxdist/series"
+    done < "${pkg_patchin_dir}/.ptxdist/series" &&
+    touch "${pkg_patchin_dir}/.ptxdist/git-patches/series"
 }
 export -f ptxd_make_world_patchin_apply_git_compat
 
@@ -219,6 +217,7 @@ export -f ptxd_make_world_patchin_apply_patch
 ptxd_make_world_patchin_apply()
 {
     local \
+	tmp_patch_series \
 	pkg_patch_series \
 	pkg_patch_tool
 
@@ -252,19 +251,10 @@ ptxd_make_world_patchin_apply()
     #
     ln -s "${pkg_patch_dir}" "${pkg_patchin_dir}/.ptxdist/patches" &&
 
+    tmp_patch_series="${pkg_patchin_dir}/.ptxdist/series" &&
+
     # link series file - if not available create it
-    if [ -z "${pkg_patch_series}" ]; then
-
-	ptxd_pedantic "series file for '$(ptxd_print_path "${pkg_patch_dir}")' is missing"
-
-	# if writable, create series file next to the patches
-	if [ -w "${pkg_patch_dir}/" ]; then
-	    pkg_patch_series="${pkg_patch_dir}/series" &&
-	    ln -s "${pkg_patch_series}" "${pkg_patchin_dir}/.ptxdist/series"
-	else
-	    pkg_patch_series="${pkg_patchin_dir}/.ptxdist/series"
-	fi &&
-
+    if [ ! -e "${pkg_patch_series}" ]; then
 	#
 	# look for patches (and archives) and put into series file
 	# (the "sed" removes "./" from find's output)
@@ -277,18 +267,24 @@ ptxd_make_world_patchin_apply()
 	    -name "*.bz2" -o \
 	    -name "*.gz" | \
 	    sed -e "s:^[.]/::" | sort > \
-	    "${pkg_patch_series}" &&
+	    "${tmp_patch_series}" &&
 	popd > /dev/null
 
 	# no patches found
-	if [ \! -s "${pkg_patch_series}" ]; then
-	    rm -f \
-		"${pkg_patchin_dir}/.ptxdist/series" \
-		"${pkg_patch_series}" &&
+	if [ \! -s "${tmp_patch_series}" ]; then
+	    rm -f "${tmp_patch_series}" &&
 	    unset pkg_patch_series
+	else
+	    ptxd_pedantic "series file for '$(ptxd_print_path "${pkg_patch_dir}")' is missing" &&
+
+	    # if writable, create series file next to the patches
+	    if [ -w "${pkg_patch_dir}/" ]; then
+		mv "${tmp_patch_series}" "${pkg_patch_series}" &&
+		ln -s "${pkg_patch_series}" "${tmp_patch_series}"
+	    fi
 	fi
     else
-	ln -s "${pkg_patch_series}" "${pkg_patchin_dir}/.ptxdist/series"
+	ln -s "${pkg_patch_series}" "${tmp_patch_series}"
 
 	#
 	# check for non existing patches
@@ -404,6 +400,9 @@ ptxd_make_world_autogen() {
     # look for autogen.sh
     local pkg_patch_autogen="${pkg_patch_dir}/autogen.sh"
     if [ ! -x "${pkg_patch_autogen}" ]; then
+	if [ -e "${pkg_patch_autogen}" -o -L "${pkg_patch_autogen}" ]; then
+	    ptxd_bailout "'$(ptxd_print_path "${pkg_patch_autogen}")' is not executable or a broken link"
+	fi
 	unset pkg_patch_autogen
     fi
 
@@ -412,7 +411,7 @@ ptxd_make_world_autogen() {
 
     # run autogen.sh if available
     if [ -n "${pkg_patch_autogen}" ]; then
-	"${pkg_patch_autogen}" || return
+	"${pkg_patch_autogen}" 2>&1 || return
 	echo -e "patchin: autogen: done\n"
     fi
 }

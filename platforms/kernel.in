@@ -12,9 +12,16 @@ menuconfig KERNEL
 
 if KERNEL
 
+config KERNEL_XPKG
+	bool
+	help
+	  Select this symbol if kernel tools or other non kernel
+	  modules are installed.
+
 config KERNEL_INSTALL
 	bool
 	prompt "install kernel into /boot"
+	select KERNEL_XPKG
 
 config KERNEL_MODULES
 	bool

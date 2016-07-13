@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_U_BOOT_TOOLS) += u-boot-tools
 #
 # Paths and names
 #
-U_BOOT_TOOLS_VERSION	:= 2015.04
-U_BOOT_TOOLS_MD5	:= 570bdc2c47270c2a98ca60ff6c5c74cd
+U_BOOT_TOOLS_VERSION	:= 2016.05
+U_BOOT_TOOLS_MD5	:= 3a8613d753dfa707c937991a35404510
 U_BOOT_TOOLS		:= u-boot-$(U_BOOT_TOOLS_VERSION)
 U_BOOT_TOOLS_SUFFIX	:= tar.bz2
 U_BOOT_TOOLS_URL	:= ftp://ftp.denx.de/pub/u-boot/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
 U_BOOT_TOOLS_SOURCE	:= $(SRCDIR)/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
 U_BOOT_TOOLS_DIR	:= $(BUILDDIR)/u-boot-tools-$(U_BOOT_TOOLS_VERSION)
-U_BOOT_TOOLS_LICENSE	:= GPLv2
+U_BOOT_TOOLS_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -25,6 +25,7 @@ XORG_PROTO_RENDER_SUFFIX	:= tar.bz2
 XORG_PROTO_RENDER_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_RENDER).$(XORG_PROTO_RENDER_SUFFIX))
 XORG_PROTO_RENDER_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_RENDER).$(XORG_PROTO_RENDER_SUFFIX)
 XORG_PROTO_RENDER_DIR		:= $(BUILDDIR)/$(XORG_PROTO_RENDER)
+XORG_PROTO_RENDER_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

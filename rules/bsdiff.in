@@ -1,0 +1,10 @@
+## SECTION=shell_and_console
+
+config BSDIFF
+	bool
+	prompt "bsdiff"
+	select BZIP2
+	select BZIP2_LIBBZ2
+	help
+	  bsdiff and bspatch are tools for building and applying
+	  patches to binary files.

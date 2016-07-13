@@ -1,0 +1,19 @@
+## SECTION=multimedia_gtk
+
+
+config GOBJECT_INTROSPECTION_HELPER
+	tristate
+	prompt "gobject-introspection"
+	help
+	  Generate interface introspection data for GObject libraries
+
+if GOBJECT_INTROSPECTION_HELPER
+
+config GOBJECT_INTROSPECTION
+	tristate
+	default GOBJECT_INTROSPECTION_HELPER
+	select HOST_CHRPATH
+	select HOST_GOBJECT_INTROSPECTION
+	select GLIB
+
+endif

@@ -1,0 +1,20 @@
+## SECTION=applications
+
+config MYSQL
+	tristate
+	select HOST_CMAKE
+	select HOST_MYSQL
+	select LIBAIO
+	select ZLIB
+	select LIBC_PTHREAD
+	select LIBC_RT
+	select LIBC_M
+	select LIBC_CRYPT
+	select LIBC_DL
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select NCURSES
+	select SYSTEMD
+	prompt "mysql"
+	help
+	  mySQL, an SQL database engine

@@ -23,7 +23,7 @@ LIBMAD_SUFFIX	:= tar.gz
 LIBMAD_URL	:= ftp://ftp.mars.org/pub/mpeg/$(LIBMAD).$(LIBMAD_SUFFIX)
 LIBMAD_SOURCE	:= $(SRCDIR)/$(LIBMAD).$(LIBMAD_SUFFIX)
 LIBMAD_DIR	:= $(BUILDDIR)/$(LIBMAD)
-LIBMAD_LICENSE	:= GPLv2+
+LIBMAD_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

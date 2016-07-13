@@ -24,6 +24,8 @@ NCURSES_URL	:= $(call ptx/mirror, GNU, ncurses/$(NCURSES).$(NCURSES_SUFFIX))
 NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 NCURSES_LICENSE	:= MIT
+NCURSES_LICENSE_FILES	:= \
+	file://include/curses.h.in;startline=2;endline=26;md5=3d0f6ef3745ae794471d5c62b7deb9c3
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,6 +82,8 @@ NCURSES_AUTOCONF := \
 	$(NCURSES_AUTOCONF_SHARED) \
 	--with-shared \
 	--without-progs
+
+NCURSES_CPPFLAGS := -P
 
 # ----------------------------------------------------------------------------
 # Install
@@ -207,6 +211,8 @@ ifdef PTXCONF_NCURSES_TERMCAP
 	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/a/ansi, n);
 	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/l/linux, n);
 	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/s/screen, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/s/screen-256color, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/d/dumb, n);
 endif
 
 	@$(call install_finish, ncurses)

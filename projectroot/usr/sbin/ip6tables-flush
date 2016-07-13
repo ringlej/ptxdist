@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if ! ip6tables --list >/dev/null 2>&1; then
+        echo "ipv6 filtering is not supported by the running kernel."
+        exit 3
+fi
+
+ip6tables -F
+ip6tables -X
+ip6tables -Z
+for table in $(cat /proc/net/ip6_tables_names);
+do
+        ip6tables -t $table -F
+        ip6tables -t $table -X
+        ip6tables -t $table -Z
+done
+ip6tables -P INPUT ACCEPT
+ip6tables -P OUTPUT ACCEPT
+ip6tables -P FORWARD ACCEPT

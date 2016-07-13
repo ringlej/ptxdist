@@ -33,7 +33,7 @@ FNR == 1 {
 	#
 	# first remove pkg_pkg_dir
 	#
-	prefix = gensub(this_regex, "\\1", "", FILENAME);
+	prefix = gensub(this_regex, "\\1", 1, FILENAME);
 	replace[prefix "include"] = replace["includedir"];
 	replace[prefix "lib"]     = replace["libdir"];
 

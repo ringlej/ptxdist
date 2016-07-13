@@ -25,6 +25,7 @@ XORG_PROTO_GL_SUFFIX	:= tar.bz2
 XORG_PROTO_GL_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_GL).$(XORG_PROTO_GL_SUFFIX))
 XORG_PROTO_GL_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_GL).$(XORG_PROTO_GL_SUFFIX)
 XORG_PROTO_GL_DIR	:= $(BUILDDIR)/$(XORG_PROTO_GL)
+XORG_PROTO_GL_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,6 +23,8 @@ ptx/env = \
 										\
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_image_dir="$(call ptx/escape,$(IMAGEDIR))"				\
+	ptx_report_dir="$(call ptx/escape,$(REPORTDIR))"			\
+	ptx_release_dir="$(call ptx/escape,$(RELEASEDIR))"			\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
 	ptx_pkg_dev_dir="$(call ptx/escape,$(PTXDIST_DEVPKG_PLATFORMDIR))"	\
@@ -71,6 +73,7 @@ world/env/impl = \
 	pkg_config="$(call ptx/escape,$($(1)_CONFIG))"				\
 	pkg_path="$(call ptx/escape,$($(1)_PATH))"				\
 	pkg_src="$(call ptx/escape,$($(1)_SOURCE))"				\
+	pkg_srcs="$(call ptx/escape,$($(1)_SOURCES))"				\
 	pkg_md5="$(call ptx/escape,$($(1)_MD5))"				\
 	pkg_url="$(call ptx/escape,$($(1)_URL))"				\
 										\

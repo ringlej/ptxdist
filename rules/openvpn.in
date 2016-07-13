@@ -35,6 +35,13 @@ menuconfig OPENVPN
 
 if OPENVPN
 
+config OPENVPN_SMALL
+	bool
+	prompt "Enable smaller executable size"
+	default y
+	help
+	  This disables OCC, usage message, and verb 4 parm list.
+
 config OPENVPN_LZO
 	bool
 	prompt "Enable LZO compression"

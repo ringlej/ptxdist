@@ -23,12 +23,9 @@ HOST_ZLIB_DIR	= $(HOST_BUILDDIR)/$(ZLIB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_ZLIB_PATH	:= PATH=$(HOST_PATH)
-HOST_ZLIB_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_ZLIB_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_ZLIB_CONF_TOOL	:= autoconf
 
 # vim: syntax=make

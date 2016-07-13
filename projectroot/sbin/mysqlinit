@@ -1,0 +1,12 @@
+#!/bin/sh
+
+MYSQLD_OPTS=
+
+# since mySQL runs as a regular user, we need to give its working directory
+# to it.
+
+chown mysql.mysql "$1"
+chmod 0755 "$1"
+
+# now let mySQL do its initializing job
+/usr/bin/mysqld --defaults-file=/etc/mysql/my.cnf --initialize --user=mysql --skip-ssl --pid-file=/tmp/mysqld.pid $MYSQLD_OPTS

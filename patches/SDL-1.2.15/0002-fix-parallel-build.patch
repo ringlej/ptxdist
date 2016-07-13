@@ -6,11 +6,11 @@ We have to create the objects dir before saving gcc's output into it.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile.in |    2 +-
+ Makefile.in | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index ab51035..6e24672 100644
+index ab51035e0b01..6e2467275138 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -71,7 +71,7 @@ depend:

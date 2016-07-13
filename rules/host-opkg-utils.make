@@ -23,7 +23,7 @@ HOST_OPKG_UTILS_SUFFIX	:= tar.gz
 HOST_OPKG_UTILS_URL	:= http://www.novatech-llc.com/files/$(HOST_OPKG_UTILS).$(HOST_OPKG_UTILS_SUFFIX)
 HOST_OPKG_UTILS_SOURCE	:= $(SRCDIR)/$(HOST_OPKG_UTILS).$(HOST_OPKG_UTILS_SUFFIX)
 HOST_OPKG_UTILS_DIR	:= $(HOST_BUILDDIR)/$(HOST_OPKG_UTILS)
-HOST_OPKG_UTILS_LICENSE	:= GPLv2
+HOST_OPKG_UTILS_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

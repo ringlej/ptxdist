@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.4.5
-GST_RTSP_SERVER1_MD5		:= a9f9b8899ec7ab33663cda7627db40d3
+GST_RTSP_SERVER1_VERSION	:= 1.8.2
+GST_RTSP_SERVER1_MD5		:= 193ae75a676f39294f64b162bbe2369d
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
 GST_RTSP_SERVER1_SOURCE		:= $(SRCDIR)/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
 GST_RTSP_SERVER1_DIR		:= $(BUILDDIR)/$(GST_RTSP_SERVER1)
-GST_RTSP_SERVER1_LICENSE	:= LGPLv2+
+GST_RTSP_SERVER1_LICENSE	:= LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,15 +35,17 @@ GST_RTSP_SERVER1_LICENSE	:= LGPLv2+
 GST_RTSP_SERVER1_CONF_TOOL	:= autoconf
 GST_RTSP_SERVER1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-debug \
+	$(GSTREAMER1_BASIC_CONF_OPT) \
+	\
 	--disable-valgrind \
 	--disable-gcov \
+	--disable-examples \
 	--disable-tests \
 	--disable-introspection \
 	--disable-docbook \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf
+	\
+	--enable-Bsymbolic \
+	--disable-static-plugins
 
 # ----------------------------------------------------------------------------
 # Target-Install

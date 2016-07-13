@@ -16,13 +16,14 @@ PACKAGES-$(PTXCONF_LIBEDIT) += libedit
 #
 # Paths and names
 #
-LIBEDIT_VERSION	:= 20100424-3.0
-LIBEDIT_MD5	:= eb4482139525beff12c8ef59f1a84aae
+LIBEDIT_VERSION	:= 20150325-3.1
+LIBEDIT_MD5	:= 43cdb5df3061d78b5e9d59109871b4f6
 LIBEDIT		:= libedit-$(LIBEDIT_VERSION)
 LIBEDIT_SUFFIX	:= tar.gz
 LIBEDIT_URL	:= http://www.thrysoee.dk/editline/$(LIBEDIT).$(LIBEDIT_SUFFIX)
 LIBEDIT_SOURCE	:= $(SRCDIR)/$(LIBEDIT).$(LIBEDIT_SUFFIX)
 LIBEDIT_DIR	:= $(BUILDDIR)/$(LIBEDIT)
+LIBEDIT_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

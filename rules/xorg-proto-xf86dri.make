@@ -25,6 +25,7 @@ XORG_PROTO_XF86DRI_SUFFIX	:= tar.bz2
 XORG_PROTO_XF86DRI_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_XF86DRI).$(XORG_PROTO_XF86DRI_SUFFIX))
 XORG_PROTO_XF86DRI_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86DRI).$(XORG_PROTO_XF86DRI_SUFFIX)
 XORG_PROTO_XF86DRI_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86DRI)
+XORG_PROTO_XF86DRI_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
