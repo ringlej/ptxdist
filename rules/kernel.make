@@ -34,7 +34,7 @@ KERNEL_MD5		:= $(call remove_quotes,$(PTXCONF_KERNEL_MD5))
 KERNEL_SUFFIX		:= tar.xz
 KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
-KERNEL_LICENSE		:= GPLv2
+KERNEL_LICENSE		:= GPL-2.0
 KERNEL_URL		:= $(call kernel-url, KERNEL)
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DEVPKG		:= NO
@@ -71,6 +71,14 @@ KERNEL_MAKEVARS += \
 	DEPMOD=$(PTXCONF_SYSROOT_HOST)/sbin/depmod
 endif
 
+#
+# Make the build more predictable if $(KERNEL_DIR) is not a symlink
+#
+KERNEL_MAKEVARS += \
+	`test -h "$(KERNEL_DIR)" || echo " \
+	KBUILD_BUILD_TIMESTAMP="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" \
+	KBUILD_BUILD_USER=ptxdist \
+	KBUILD_BUILD_HOST=ptxdist"`
 #
 # support the different kernel image formats
 #
@@ -150,6 +158,29 @@ $(STATEDIR)/kernel.tags:
 # Compile
 # ----------------------------------------------------------------------------
 
+KERNEL_TOOL_PERF_OPTS := \
+	NO_LIBPERL=1 \
+	NO_LIBPYTHON=1 \
+	NO_NEWT=1 \
+	SLANG=1 \
+	NO_GTK2=1 \
+	DEMANGLE=1 \
+	LIBEL=1 \
+	NO_LIBUNWIND=1 \
+	BACKTRACE=1 \
+	NO_LIBNUMA=1 \
+	NO_LIBAUDIT=1 \
+	NO_LIBBIONIC=1 \
+	NO_LIBCRYPTO=1 \
+	LIBDW_DWARF_UNWIND=1 \
+	NO_PERF_READ_VDSO32=1 \
+	NO_PERF_READ_VDSOX32=1 \
+	ZLIB=1 \
+	NO_LIBBABELTRACE=1 \
+	NO_LZMA=1 \
+	AUXTRACE=1 \
+	NO_LIBBPF=1
+
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
 	@rm -f \
@@ -157,6 +188,15 @@ $(STATEDIR)/kernel.compile:
 		$(KERNEL_DIR)/usr/.initramfs_data.cpio.*
 	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
+ifdef PTXCONF_KERNEL_TOOL_PERF
+	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		$(KERNEL_MAKEVARS) -C tools/perf
+endif
+ifdef PTXCONF_KERNEL_TOOL_IIO
+	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
+		$(KERNEL_MAKEVARS) -C tools/iio
+endif
 	@$(call touch)
 
 endif # !PTXCONF_PROJECT_USE_PRODUCTION
@@ -188,7 +228,7 @@ $(STATEDIR)/kernel.targetinstall:
 # delete the kernel image, it might be out-of-date
 	@rm -f $(IMAGEDIR)/linuximage
 
-ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
+ifdef PTXCONF_KERNEL_XPKG
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
 	@$(call install_fixup, kernel, SECTION,base)
@@ -196,6 +236,7 @@ ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
 	@$(call install_copy, kernel, 0, 0, 0755, /boot);
+
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_IMAGE_PATH_y), /boot/$(KERNEL_IMAGE), n)
 endif
@@ -203,6 +244,20 @@ endif
 # install the ELF kernel image for debugging purpose
 ifdef PTXCONF_KERNEL_VMLINUX
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
+endif
+
+ifdef PTXCONF_KERNEL_TOOL_PERF
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/perf/perf, \
+		/usr/bin/perf)
+endif
+
+ifdef PTXCONF_KERNEL_TOOL_IIO
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/generic_buffer, \
+		/usr/bin/iio_generic_buffer)
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/lsiio, \
+		/usr/bin/lsiio)
+	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/iio_event_monitor, \
+		/usr/bin/iio_event_monitor)
 endif
 
 	@$(call install_finish, kernel)
@@ -232,10 +287,8 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
 
-	@cd $(KERNEL_PKGDIR) && \
-		find lib -type f | while read file; do \
-			$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, k) \
-	done
+	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules, *.ko,, k)
+	@$(call install_glob, kernel-modules, 0, 0, -, /lib/modules,, *.ko */build */source, n)
 
 	@$(call install_finish, kernel-modules)
 endif

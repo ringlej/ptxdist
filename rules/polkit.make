@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_POLKIT) += polkit
 #
 # Paths and names
 #
-POLKIT_VERSION	:= 0.104
-POLKIT_MD5	:= e380b4c6fb1e7bccf854e92edc0a8ce1
+POLKIT_VERSION	:= 0.105
+POLKIT_MD5	:= 9c29e1b6c214f0bd6f1d4ee303dfaed9
 POLKIT		:= polkit-$(POLKIT_VERSION)
 POLKIT_SUFFIX	:= tar.gz
-POLKIT_URL	:= http://hal.freedesktop.org/releases/$(POLKIT).$(POLKIT_SUFFIX)
+POLKIT_URL	:= https://www.freedesktop.org/software/polkit/releases/$(POLKIT).$(POLKIT_SUFFIX)
 POLKIT_SOURCE	:= $(SRCDIR)/$(POLKIT).$(POLKIT_SUFFIX)
 POLKIT_DIR	:= $(BUILDDIR)/$(POLKIT)
 

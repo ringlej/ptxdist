@@ -24,7 +24,7 @@ BONNIEXX_SUFFIX		:= tgz
 BONNIEXX_URL		:= http://www.coker.com.au/bonnie++/experimental/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_SOURCE		:= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_DIR		:= $(BUILDDIR)/$(BONNIEXX)
-BONNIEXX_LICENSE	:= GPLv2
+BONNIEXX_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

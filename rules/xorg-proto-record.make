@@ -25,6 +25,7 @@ XORG_PROTO_RECORD_SUFFIX	:= tar.bz2
 XORG_PROTO_RECORD_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_RECORD).$(XORG_PROTO_RECORD_SUFFIX))
 XORG_PROTO_RECORD_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_RECORD).$(XORG_PROTO_RECORD_SUFFIX)
 XORG_PROTO_RECORD_DIR		:= $(BUILDDIR)/$(XORG_PROTO_RECORD)
+XORG_PROTO_RECORD_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

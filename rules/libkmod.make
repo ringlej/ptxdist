@@ -16,15 +16,18 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 20
-LIBKMOD_MD5	:= d6f4fef718a50bd88080de6a43bc64d8
+LIBKMOD_VERSION	:= 22
+LIBKMOD_MD5	:= 4371b847f3fbfaa4e9aa890ad616748f
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX))
 LIBKMOD_SOURCE	:= $(SRCDIR)/$(LIBKMOD).$(LIBKMOD_SUFFIX)
 LIBKMOD_DIR	:= $(BUILDDIR)/$(LIBKMOD)
 # note: library: LGPLv2, tools: GPLv2
-LIBKMOD_LICENSE	:= GPLv2, LGPLv2
+LIBKMOD_LICENSE	:= GPL-2.0, LGPL-2.0
+LIBKMOD_LICENSE_FILES := \
+	file://tools/COPYING;md5=751419260aa954499f7abaabaa882bbe \
+	file://libkmod/COPYING;md5=a6f89e2100d9b6cdffcea4f398e37343
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -34,10 +37,10 @@ LIBKMOD_CONF_TOOL	:= autoconf
 LIBKMOD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_ROOT) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-static \
-	--enable-shared \
+	--disable-experimental \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_TOOLS)-tools \
 	--disable-manpages \
+	--disable-test-modules \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_LOGGING)-logging \
 	--$(call ptx/endis, PTXCONF_LIBKMOD_DEBUG)-debug \
 	--disable-python \

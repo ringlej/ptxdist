@@ -8,7 +8,6 @@ menuconfig MESA_DEMOS
 	select MESALIB_EGL		if MESA_DEMOS_EGL
 	select MESALIB_GLES1		if MESA_DEMOS_GLES1
 	select MESALIB_GLES2		if MESA_DEMOS_GLES2
-	select MESALIB_OPENVG		if MESA_DEMOS_VG
 	select MESALIB_EGL_WAYLAND	if MESA_DEMOS_WAYLAND
 	select XORG_LIB_X11		if MESA_DEMOS_X11
 	select XORG_LIB_XEXT		if MESA_DEMOS_X11
@@ -34,10 +33,6 @@ menuconfig MESA_DEMOS_X
 	prompt "X demos"
 
 if MESA_DEMOS_X11
-
-config MESA_DEMOS_CORENDER
-	bool
-	prompt "corender"
 
 config MESA_DEMOS_GLSYNC
 	bool
@@ -156,10 +151,6 @@ config MESA_DEMOS_ES2_INFO
 	select MESA_DEMOS_X11
 	prompt "es2_info"
 
-config MESA_DEMOS_ES2GEARS_SCREEN
-	bool
-	prompt "es2gears_screen"
-
 config MESA_DEMOS_ES2GEARS_X11
 	bool
 	select MESA_DEMOS_X11
@@ -174,25 +165,6 @@ config MESA_DEMOS_ES2GEARS_WAYLAND
 	bool
 	select MESA_DEMOS_WAYLAND
 	prompt "es2gears_wayland"
-
-endif
-
-menuconfig MESA_DEMOS_VG
-	bool
-	select MESA_DEMOS_GLES1
-	select MESA_DEMOS_EGL
-	select MESA_DEMOS_X11
-	prompt "OpenVG demos"
-
-if MESA_DEMOS_VG
-
-config MESA_DEMOS_VGIMAGE2TEX
-	bool
-	prompt "vgimage2tex"
-
-config MESA_DEMOS_TEX2VGIMAGE
-	bool
-	prompt "tex2vgimage"
 
 endif
 

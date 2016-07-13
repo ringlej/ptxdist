@@ -1,0 +1,23 @@
+From: Philipp Zabel <p.zabel@pengutronix.de>
+Date: Tue, 4 Aug 2015 13:53:28 +0200
+Subject: [PATCH] qtwebengine: #define TRUE in case of USE_SYSTEM_LIBJPEG
+
+Otherwise libjpeg headers typedefs boolean to an incompatible enum.
+
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ qtwebengine/src/3rdparty/chromium/ui/gfx/codec/jpeg_codec.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/qtwebengine/src/3rdparty/chromium/ui/gfx/codec/jpeg_codec.cc b/qtwebengine/src/3rdparty/chromium/ui/gfx/codec/jpeg_codec.cc
+index 8a08fe0291af..ef52a292ac87 100644
+--- a/qtwebengine/src/3rdparty/chromium/ui/gfx/codec/jpeg_codec.cc
++++ b/qtwebengine/src/3rdparty/chromium/ui/gfx/codec/jpeg_codec.cc
+@@ -13,6 +13,7 @@
+ 
+ extern "C" {
+ #if defined(USE_SYSTEM_LIBJPEG)
++#define TRUE
+ #include <jpeglib.h>
+ #elif defined(USE_LIBJPEG_TURBO)
+ #include "third_party/libjpeg_turbo/jpeglib.h"

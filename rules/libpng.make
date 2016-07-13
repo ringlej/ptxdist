@@ -18,14 +18,14 @@ PACKAGES-$(PTXCONF_LIBPNG) += libpng
 #
 # Paths and names
 #
-LIBPNG_VERSION	:= 1.2.50
-LIBPNG_MD5	:= a3e00fccbfe356174ab515b5c00641c7
+LIBPNG_VERSION	:= 1.2.54
+LIBPNG_MD5	:= bbb7a7264f1c7d9c444fd16bf6f89832
 LIBPNG		:= libpng-$(LIBPNG_VERSION)
 LIBPNG_SUFFIX	:= tar.xz
 LIBPNG_URL	:= $(call ptx/mirror, SF, libpng/$(LIBPNG).$(LIBPNG_SUFFIX))
 LIBPNG_SOURCE	:= $(SRCDIR)/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_DIR	:= $(BUILDDIR)/$(LIBPNG)
-LIBPNG_LICENSE	:= libpng
+LIBPNG_LICENSE	:= Zlib
 
 # ----------------------------------------------------------------------------
 # Prepare

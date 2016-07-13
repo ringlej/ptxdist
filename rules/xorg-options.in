@@ -47,16 +47,6 @@ config XORG_KEYBOARD_MAPPING_SUPPORT
 	  Note: A german keyboard does not support the '@¤\[]{}|' keys when
 	  disabled!
 
-config XORG_DEFAULT_DATA_DIR
-	string
-	prompt "default location for x' data files"
-	default "/usr/lib"
-	help
-	  Define here the default path, where X searches for its data files
-	  (fonts, configurations, keyboard mappings, etc.). X adds an "X11"
-	  postfix to this path. So /usr/lib as a default path will result in
-	  /usr/lib/X11 with additional subdirectories for all the data files.
-
 config XORG_OPTIONS_TRANS_UNIX
 	bool
 	prompt "unix domain socket transport"

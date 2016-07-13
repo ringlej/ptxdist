@@ -23,6 +23,7 @@ XKEYBOARD_CONFIG_SUFFIX		:= tar.bz2
 XKEYBOARD_CONFIG_URL		:= http://xlibs.freedesktop.org/xkbdesc/$(XKEYBOARD_CONFIG).$(XKEYBOARD_CONFIG_SUFFIX)
 XKEYBOARD_CONFIG_SOURCE		:= $(SRCDIR)/$(XKEYBOARD_CONFIG).$(XKEYBOARD_CONFIG_SUFFIX)
 XKEYBOARD_CONFIG_DIR		:= $(BUILDDIR)/$(XKEYBOARD_CONFIG)
+XKEYBOARD_CONFIG_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,7 +37,7 @@ XKEYBOARD_CONFIG_ENV	:= $(CROSS_ENV)
 #
 XKEYBOARD_CONFIG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(XORG_DATADIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -52,11 +53,11 @@ $(STATEDIR)/xkeyboard-config.targetinstall:
 	@$(call install_fixup, xkeyboard-config,DESCRIPTION,missing)
 
 	@cd $(XKEYBOARD_CONFIG_PKGDIR) &&					\
-	for dir in `find .$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/xkb -type d`; do	\
+	for dir in `find .$(XORG_DATADIR)/X11/xkb -type d`; do	\
 		$(call install_copy, xkeyboard-config, 0, 0, 0755, /$$dir);	\
 	done
 	@cd $(XKEYBOARD_CONFIG_PKGDIR) &&					\
-	for file in `find .$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/xkb -type f`; do\
+	for file in `find .$(XORG_DATADIR)/X11/xkb -type f`; do\
 		$(call install_copy, xkeyboard-config, 0, 0, 0644,		\
 			$(XKEYBOARD_CONFIG_PKGDIR)/$$file, /$$file);		\
 	done

@@ -5,7 +5,9 @@ menuconfig GSTREAMER1
 	prompt "gstreamer                     "
 	select LIBC_M
 	select GLIB
+	select HOST_GLIB
 	select HOST_FLEX
+	select GOBJECT_INTROSPECTION	if GSTREAMER1_INTROSPECTION
 	help
 	  GStreamer is a streaming media framework, based on graphs of
 	  filters which operate on media data. Applications using this
@@ -17,35 +19,18 @@ menuconfig GSTREAMER1
 
 if GSTREAMER1
 
-	comment "compile options"
+	config GSTREAMER1_INTROSPECTION
+		bool
+		default GOBJECT_INTROSPECTION_HELPER
 
 	config GSTREAMER1_DEBUG
 		bool
-		prompt "debug support"
+		default y
+		prompt "enable debug support"
 
-	config GSTREAMER1_CMDLINEPARSER
+	config GSTREAMER1_INSTALL_TOOLS
 		bool
-		prompt "commandline parser"
-
-	config GSTREAMER1_OPTIONPARSING
-		bool
-		prompt "option parsing when gst init"
-
-	comment "install options"
-
-	config GSTREAMER1_INSTALL_TYPEFIND
-		bool
-		prompt "install gst-typefind"
-
-	config GSTREAMER1_INSTALL_INSPECT
-		bool
-		prompt "install gst-inspect"
-
-	config GSTREAMER1_INSTALL_LAUNCH
-		bool
-		select GSTREAMER1_CMDLINEPARSER
-		select GSTREAMER1_OPTIONPARSING
-		prompt "install gst-launch"
-
+		default y
+		prompt "install tools"
 endif
 

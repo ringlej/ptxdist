@@ -16,18 +16,17 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 224
-SYSTEMD_MD5	:= fad64d2ae64af4b6034950e91b2c8e2b
+SYSTEMD_VERSION	:= 230
+SYSTEMD_MD5	:= f2f10a6f100c38582b4f02d60210227d
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
-SYSTEMD_LICENSE	:= GPLv2+, LGPLv2.1, MIT
+SYSTEMD_LICENSE	:= GPL-2.0+, LGPL-2.1
 SYSTEMD_LICENSE_FILES := \
 	file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
-	file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c \
-	file://LICENSE.MIT;md5=544799d0b492f119fa04641d1b8868ed
+	file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,7 +40,6 @@ endif
 SYSTEMD_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	cc_cv_CFLAGS__Werror_shadow=no \
-	ac_cv_path_INTLTOOL_MERGE=: \
 	ac_cv_path_KEXEC=/sbin/kexec \
 	ac_cv_path_KILL=/bin/kill \
 	ac_cv_path_KMOD=/bin/kmod \
@@ -63,24 +61,26 @@ SYSTEMD_CONF_TOOL	:= autoconf
 SYSTEMD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-gcrypt \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-dbus \
 	--disable-utmp \
-	--enable-compat-libs \
 	--disable-coverage \
 	--enable-kmod \
 	--disable-xkbcommon \
 	--enable-blkid \
-	--disable-seccomp \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_SECCOMP$(PTXCONF_ARCH_PPC))-seccomp \
 	--disable-ima \
 	$(GLOBAL_SELINUX_OPTION) \
 	--disable-apparmor \
+	--enable-adm-group \
+	--disable-wheel-group \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_XZ)-xz \
 	--disable-zlib \
-	--enable-bzip2 \
+	--disable-bzip2 \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_LZ4)-lz4 \
 	--disable-pam \
 	--disable-acl \
@@ -89,14 +89,13 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
-	--disable-microhttpd \
 	--disable-gnutls \
+	--disable-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
-	--disable-libiptc \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_IPMASQUERADE)-libiptc \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
-	--enable-bootchart \
 	--enable-quotacheck \
 	--enable-tmpfiles \
 	--disable-sysusers \
@@ -117,6 +116,7 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)-networkd \
 	--enable-efi \
 	--disable-gnuefi \
+	--disable-tpm \
 	--enable-kdbus \
 	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
@@ -135,7 +135,7 @@ SYSTEMD_CONF_OPT	:= \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
 	--with-tty-gid=112 \
-	--with-dbuspolicydir=/etc/dbus-1/system.d \
+	--with-dbuspolicydir=/usr/share/dbus-1/system.d \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
 	--with-rootprefix= \
@@ -156,7 +156,7 @@ $(STATEDIR)/systemd.install:
 	@$(call targetinfo)
 	@$(call world/install, SYSTEMD)
 ifdef PTXCONF_UDEV_HWDB
-	@systemd-hwdb update --root $(SYSTEMD_PKGDIR)
+	@systemd-hwdb update --usr --root $(SYSTEMD_PKGDIR)
 endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
@@ -175,16 +175,12 @@ endif
 SYSTEMD_HELPER := \
 	systemd \
 	systemd-ac-power \
-	systemd-activate \
-	systemd-bootchart \
-	systemd-bus-proxyd \
 	systemd-cgroups-agent \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_COREDUMP,systemd-coredump,) \
 	systemd-fsck \
 	systemd-hostnamed \
 	systemd-initctl \
 	systemd-journald \
-	systemd-machine-id-commit \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOCALES,systemd-localed,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-logind,) \
 	systemd-modules-load \
@@ -194,7 +190,6 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
 	systemd-remount-fs \
 	systemd-reply-password \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolve-host,) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved,) \
 	systemd-shutdown \
 	systemd-sleep \
@@ -253,6 +248,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-path)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-socket-activate)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
 ifdef PTXCONF_SYSTEMD_TIMEDATE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/timedatectl)
@@ -275,8 +271,6 @@ endif
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/system.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
-		/etc/systemd/bootchart.conf)
-	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/journald.conf)
 ifdef PTXCONF_SYSTEMD_LOGIND
 	@$(call install_alternative, systemd, 0, 0, 0644, \
@@ -287,11 +281,12 @@ ifdef PTXCONF_SYSTEMD_TIMEDATE
 		/etc/systemd/timesyncd.conf)
 endif
 ifdef PTXCONF_SYSTEMD_NETWORK
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-resolve)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/resolved.conf)
 endif
 	@$(call install_tree, systemd, 0, 0, -, /etc/systemd/system/)
-	@$(call install_tree, systemd, 0, 0, -, /etc/dbus-1/system.d/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system.d/)
 
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
@@ -319,7 +314,9 @@ endif
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
 
+ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
+endif
 
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd)
 

@@ -25,6 +25,7 @@ XORG_PROTO_EVIEEXT_SUFFIX	:= tar.bz2
 XORG_PROTO_EVIEEXT_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_EVIEEXT).$(XORG_PROTO_EVIEEXT_SUFFIX))
 XORG_PROTO_EVIEEXT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_EVIEEXT).$(XORG_PROTO_EVIEEXT_SUFFIX)
 XORG_PROTO_EVIEEXT_DIR		:= $(BUILDDIR)/$(XORG_PROTO_EVIEEXT)
+XORG_PROTO_EVIEEXT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

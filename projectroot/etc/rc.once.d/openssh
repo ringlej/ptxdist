@@ -1,33 +1,53 @@
 #!/bin/sh
 
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
-OPENSSH_RSAKEY_DEFAULT="/etc/ssh/ssh_host_rsa_key"
-OPENSSH_DSAKEY_DEFAULT="/etc/ssh/ssh_host_dsa_key"
+get_hostkeys() {
+	[ -f /etc/ssh/sshd_config ] || return
+	sed -n 's/^HostKey[ \t][ \t]*\(.*\)/\1/p' /etc/ssh/sshd_config
+}
 
-test -n "$OPENSSH_RSAKEY" || \
-	OPENSSH_RSAKEY=$OPENSSH_RSAKEY_DEFAULT
-test -n "$OPENSSH_DSAKEY" || \
-	OPENSSH_DSAKEY=$OPENSSH_DSAKEY_DEFAULT
-
-gen_key() {
-
-	key_type=$1
-	key_file=$2
-
-	rm -f $key_file > /dev/null 2>&1
-
-	echo -n "generating $key_type key..."
-	ssh-keygen -t $key_type -f $key_file -N "" > /dev/null 2>&1
-
-	if [ "$?" = "0" ]; then
-		echo "done"
+host_keys_required() {
+	hostkeys="$(get_hostkeys)"
+	if [ "$hostkeys" ]; then
+		echo "$hostkeys"
 	else
-		echo "failed"
-		exit 1
+		# No HostKey directives found, so we pick secure defaults
+		echo /etc/ssh/ssh_host_ed25519_key
+		echo /etc/ssh/ssh_host_rsa_key
 	fi
 }
 
-gen_key rsa "$OPENSSH_RSAKEY"
-gen_key dsa "$OPENSSH_DSAKEY"
+create_key() {
+	msg="$1"
+	shift
+	hostkeys="$1"
+	shift
+	file="$1"
+	shift
 
+	if echo "$hostkeys" | grep -x "$file" >/dev/null; then
+		echo "$msg; this may take some time ..."
+		rm -f $file &&
+		ssh-keygen -q -f "$file" -N '' "$@" || return
+		echo "$msg; done."
+	fi
+}
+
+create_keys() {
+	hostkeys="$(host_keys_required)"
+
+	create_key "Creating DSA key" \
+		"$hostkeys" /etc/ssh/ssh_host_dsa_key -t dsa &&
+	create_key "Creating ECDSA key" \
+		"$hostkeys" /etc/ssh/ssh_host_ecdsa_key -t ecdsa &&
+	create_key "Creating ED25519 key" \
+		"$hostkeys" /etc/ssh/ssh_host_ed25519_key -t ed25519 &&
+	create_key "Creating RSA key" \
+		"$hostkeys" /etc/ssh/ssh_host_rsa_key -t rsa -b 4096
+}
+
+if ! create_keys; then
+	echo "Generating SSH keys failed!"
+	exit 1
+fi

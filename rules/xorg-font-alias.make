@@ -23,6 +23,7 @@ XORG_FONT_ALIAS_SUFFIX	:= tar.bz2
 XORG_FONT_ALIAS_URL	:= $(call ptx/mirror, XORG, individual/font/$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX))
 XORG_FONT_ALIAS_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX)
 XORG_FONT_ALIAS_DIR	:= $(BUILDDIR)/$(XORG_FONT_ALIAS)
+XORG_FONT_ALIAS_LICENSE	:= Vakulenko
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,6 +23,7 @@ menuconfig GST_PLUGINS_GOOD1
 	select V4L_UTILS_LIBV4L2	if GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
 	select ORC			if GST_PLUGINS_GOOD1_ORC
 	select LIBSHOUT			if GST_PLUGINS_GOOD1_SHOUT2
+	select PULSEAUDIO		if GST_PLUGINS_GOOD1_PULSE
 
 	prompt "gst-plugins-good              "
 	help
@@ -243,11 +244,6 @@ config GST_PLUGINS_GOOD1_X
 	bool
 	prompt "x"
 
-config GST_PLUGINS_GOOD1_XSHM
-	bool
-	depends on GST_PLUGINS_GOOD1_X
-	prompt "xshm support"
-
 config GST_PLUGINS_GOOD1_AALIB
 	bool
 	depends on BROKEN
@@ -289,7 +285,6 @@ config GST_PLUGINS_GOOD1_LIBPNG
 
 config GST_PLUGINS_GOOD1_PULSE
 	bool
-	depends on BROKEN
 	prompt "pulse"
 
 config GST_PLUGINS_GOOD1_DV1394

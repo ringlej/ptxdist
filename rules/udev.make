@@ -34,7 +34,7 @@ UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX))
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
-UDEV_LICENSE	:= GPLv2
+UDEV_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -95,10 +95,10 @@ UDEV_RULES-y := \
 	78-sound-card.rules
 
 UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
-	42-usb-hid-pm.rules
+	50-firmware.rules
 
 ifndef PTXCONF_SYSTEMD
-UDEV_RULES-y := \
+UDEV_RULES-y += \
 	60-persistent-serial.rules \
 	75-tty-description.rules \
 	95-udev-late.rules
@@ -186,7 +186,7 @@ ifdef PTXCONF_UDEV_ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
 endif
 ifdef PTXCONF_UDEV_HWDB
-	@$(call install_copy, udev, 0, 0, 0644, -, /etc/udev/hwdb.bin)
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/hwdb.bin)
 endif
 
 ifdef PTXCONF_UDEV_LEGACY
@@ -214,15 +214,7 @@ ifdef PTXCONF_UDEV_KEYMAPS
 endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
-	@if [ -d $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/ ]; then \
-		$(call install_tree, udev, 0, 0, \
-			$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d, \
-			/lib/udev/rules.d); \
-	else \
-		echo "UDEV_CUST_RULES is enabled but Directory containing" \
-			"customized udev rules is missing!"; \
-		exit 1; \
-	fi
+	@$(call install_alternative_tree, udev, 0, 0, /lib/udev/rules.d)
 endif
 
 	@$(foreach helper, $(UDEV_HELPER-y), \

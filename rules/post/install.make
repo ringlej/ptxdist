@@ -185,6 +185,34 @@ install_archive =		\
 	echo "ptxd_install_archive '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
+# install_glob
+#
+# Installs all files and subdirectories with user/group ownership and
+# permissions via fakeroot.
+#
+#
+# $1: xpkg label
+# $2: OWN, use '-' to use the real UID of each file/directory
+# $3: GID, use '-' to use the real GID of each file/directory
+# $4: the toplevel directory, or  "-": to use $(PKG_PKGDIR)/$destination
+# $5: the target directory.
+# $6: the search patterns for 'find -path'
+# $7: the search patterns for '! find -path'
+# $8: strip
+#
+install_glob =			\
+	XPKG=$(subst _,-,$(strip $(1)));	\
+	OWN=$(strip $(2));	\
+	GRP=$(strip $(3));	\
+	DIR=$(strip $(4));	\
+	DST=$(strip $(5));	\
+	YGLOB="$(strip $(6))";	\
+	NGLOB="$(strip $(7))";	\
+	STRIP=$(strip $(8));	\
+	$(call install_check, install_tree);	\
+	echo "ptxd_install_glob '$$DIR' '$$DST' '$$YGLOB' '$$NGLOB' '$$OWN' '$$GRP' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
+
+#
 # install_spec
 #
 # Installs files specified by a spec file

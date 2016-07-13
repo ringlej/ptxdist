@@ -4,14 +4,14 @@ Subject: [PATCH] conf: add an option to output the dependency information
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/conf.c | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ scripts/kconfig/conf.c | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index d19944f..fb77365 100644
+index 866369f10ff8..46c6e1bb5910 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
-@@ -34,6 +34,7 @@ enum input_mode {
+@@ -35,6 +35,7 @@ enum input_mode {
  	savedefconfig,
  	listnewconfig,
  	olddefconfig,
@@ -19,7 +19,7 @@ index d19944f..fb77365 100644
  } input_mode = oldaskconfig;
  
  static int indent = 1;
-@@ -446,6 +447,36 @@ static void check_conf(struct menu *menu)
+@@ -447,6 +448,36 @@ static void check_conf(struct menu *menu)
  		check_conf(child);
  }
  
@@ -56,7 +56,7 @@ index d19944f..fb77365 100644
  static struct option long_opts[] = {
  	{"oldaskconfig",    no_argument,       NULL, oldaskconfig},
  	{"oldconfig",       no_argument,       NULL, oldconfig},
-@@ -465,6 +496,7 @@ static struct option long_opts[] = {
+@@ -466,6 +497,7 @@ static struct option long_opts[] = {
  	 * value but not 'n') with the counter-intuitive name.
  	 */
  	{"oldnoconfig",     no_argument,       NULL, olddefconfig},
@@ -64,7 +64,7 @@ index d19944f..fb77365 100644
  	{NULL, 0, NULL, 0}
  };
  
-@@ -494,6 +526,7 @@ int main(int ac, char **av)
+@@ -495,6 +527,7 @@ int main(int ac, char **av)
  	int opt;
  	const char *name, *defconfig_file = NULL /* gcc uninit */;
  	struct stat tmpstat;
@@ -72,23 +72,25 @@ index d19944f..fb77365 100644
  
  	setlocale(LC_ALL, "");
  	bindtextdomain(PACKAGE, LOCALEDIR);
-@@ -504,6 +537,10 @@ int main(int ac, char **av)
- 	while ((opt = getopt_long(ac, av, "", long_opts, NULL)) != -1) {
+@@ -507,6 +540,10 @@ int main(int ac, char **av)
+ 			conf_set_message_callback(NULL);
+ 			continue;
+ 		}
++		if (opt == writedepend) {
++			dep_output = 1;
++			continue;
++		}
  		input_mode = (enum input_mode)opt;
  		switch (opt) {
-+		case writedepend:
-+			dep_output = 1;
-+			input_mode = silentoldconfig;
-+			break;
  		case silentoldconfig:
- 			sync_kconfig = 1;
- 			break;
-@@ -680,6 +717,8 @@ int main(int ac, char **av)
- 			  input_mode != olddefconfig));
- 		break;
+@@ -710,6 +747,10 @@ int main(int ac, char **av)
+ 			exit(1);
+ 		}
  	}
++
 +	if (dep_output)
 +		create_dep_output();
++
+ 	return 0;
+ }
  
- 	if (sync_kconfig) {
- 		/* silentoldconfig is used during the build so we shall update autoconf.

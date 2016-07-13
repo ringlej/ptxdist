@@ -16,13 +16,14 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_UGLY1) += gst-plugins-ugly1
 #
 # Paths and names
 #
-GST_PLUGINS_UGLY1_VERSION	:= 1.4.5
-GST_PLUGINS_UGLY1_MD5		:= 6954beed7bb9a93e426dee543ff46393
+GST_PLUGINS_UGLY1_VERSION	:= 1.8.2
+GST_PLUGINS_UGLY1_MD5		:= f781790cf64b44522b01ab560f16d4de
 GST_PLUGINS_UGLY1		:= gst-plugins-ugly-$(GST_PLUGINS_UGLY1_VERSION)
 GST_PLUGINS_UGLY1_SUFFIX	:= tar.xz
 GST_PLUGINS_UGLY1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-ugly/$(GST_PLUGINS_UGLY1).$(GST_PLUGINS_UGLY1_SUFFIX)
 GST_PLUGINS_UGLY1_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_UGLY1).$(GST_PLUGINS_UGLY1_SUFFIX)
 GST_PLUGINS_UGLY1_DIR		:= $(BUILDDIR)/$(GST_PLUGINS_UGLY1)
+GST_PLUGINS_UGLY1_LICENSE	:= LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -43,6 +44,7 @@ GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_DVDREADSRC)	+= dvdread
 GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_LAME)		+= lame
 GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_MAD)		+= mad
 GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_MPEG2DEC)		+= mpeg2dec
+GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_MPG123)		+= mpg123
 GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_SID)		+= sidplay
 GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_TWOLAME)		+= twolame
 GST_PLUGINS_UGLY1_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY1_X264)		+= x264
@@ -57,19 +59,10 @@ GST_PLUGINS_UGLY1_ENABLEP-y	+= $(GST_PLUGINS_UGLY1_ENABLE-y)
 GST_PLUGINS_UGLY1_CONF_TOOL	:= autoconf
 GST_PLUGINS_UGLY1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GSTREAMER1_GENERIC_CONF_OPT) \
 	--enable-option-checking \
-	--enable-silent-rules \
-        --disable-nls \
-        --disable-rpath \
-	--disable-debug \
-	--disable-profiling \
-	--disable-valgrind \
-	--disable-gcov \
-	--disable-examples \
 	--enable-external \
-	--enable-experimental \
-	--disable-gtk-doc \
-	--with-package-origin="PTXDist"
+	--enable-experimental
 
 #
 # the --with-plugins sadly only applies to depencyless plugings

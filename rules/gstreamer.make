@@ -24,6 +24,7 @@ GSTREAMER_SUFFIX	:= tar.bz2
 GSTREAMER_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER).$(GSTREAMER_SUFFIX)
 GSTREAMER_SOURCE	:= $(SRCDIR)/$(GSTREAMER).$(GSTREAMER_SUFFIX)
 GSTREAMER_DIR		:= $(BUILDDIR)/$(GSTREAMER)
+GSTREAMER_LICENSE	:= LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -67,6 +68,13 @@ GSTREAMER_AUTOCONF := \
 	--disable-docbook \
 	--disable-check \
 	--enable-Bsymbolic
+
+ifdef PTXCONF_ARCH_ARM64
+# The configure check defines default values for known architectures.
+# This value for arm64 is taken from a newer gstreamer version.
+GSTREAMER_AUTOCONF += \
+	as_cv_unaligned_access=no
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

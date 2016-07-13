@@ -4,6 +4,7 @@ config XORG_DRIVER_INPUT_VOID
 	tristate
 	depends on XORG_DRIVER_INPUT
 	select XORG_SERVER
+	select XORG_SERVER_XORG
 	prompt "void"
 	help
 	  This package provides the void input driver, which

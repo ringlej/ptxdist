@@ -23,7 +23,7 @@ OWFS_SUFFIX	:= tar.gz
 OWFS_URL	:= $(call ptx/mirror, SF, owfs/$(OWFS).$(OWFS_SUFFIX))
 OWFS_SOURCE	:= $(SRCDIR)/$(OWFS).$(OWFS_SUFFIX)
 OWFS_DIR	:= $(BUILDDIR)/$(OWFS)
-OWFS_LICENSE	:= GPLv2+, LGPLv2+
+OWFS_LICENSE	:= GPL-2.0+, LGPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -48,7 +48,6 @@ OWFS_AUTOCONF := \
 	--disable-owtap \
 	--disable-owmalloc \
 	--disable-owmon \
-	--disable-owcapi \
 	--disable-swig \
 	--disable-owperl \
 	--disable-owphp \
@@ -81,6 +80,11 @@ OWFS_AUTOCONF += --enable-owfs
 else
 OWFS_AUTOCONF += --disable-owfs
 endif
+ifdef PTXCONF_OWFS_OWCAPI
+OWFS_AUTOCONF += --enable-owcapi
+else
+OWFS_AUTOCONF += --disable-owcapi
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -96,6 +100,9 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
 	@$(call install_lib, owfs, 0, 0, 0644, libow-3.1)
+ifdef PTXCONF_OWFS_OWCAPI
+	@$(call install_lib, owfs, 0, 0, 0644, libowcapi-3.1)
+endif
 
 ifdef PTXCONF_OWFS_OWFS
 	@$(call install_copy, owfs, 0, 0, 0755, -, /usr/bin/owfs)

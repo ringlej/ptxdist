@@ -7,6 +7,7 @@ menuconfig IPTABLES
 	select LIBC_M
 	select LIBC_DL
 	select GCCLIBS_GCC_S
+	select LIBNFTNL
 	select LIBNFNETLINK if IPTABLES_LIBNFNETLINK
 	help
 	  Iptables  is used to set up, maintain, and inspect the
@@ -24,6 +25,16 @@ config IPTABLES_IPV6
 config IPTABLES_IPV4
 	bool
 	prompt "IPv4 support"
+
+config IPTABLES_IPV6_SYSTEMD_UNIT
+	bool
+	prompt "Activate IPv6 systemd service unit"
+	select IPTABLES_IPV6
+
+config IPTABLES_IPV4_SYSTEMD_UNIT
+	bool
+	prompt "Activate IPv4 systemd service unit"
+	select IPTABLES_IPV4
 
 config IPTABLES_LIBIPQ
 	bool
@@ -60,5 +71,12 @@ config IPTABLES_LIBNFNETLINK
 	prompt "configure libnfnetlink"
 	help
 	  Select if iptables should be build against libnfnetlink
+
+config IPTABLES_NFTABLES_COMPAT
+	bool
+	select NFTABLES
+	prompt "nftables compat"
+	help
+	  install xtables-compat-multi, allowing compability with nftables
 
 endif

@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config NBD
+	tristate
+	select GLIB
+	prompt "NBD server and client"
+	help
+	  NBD client and server utils.

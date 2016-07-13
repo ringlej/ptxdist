@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_WIRESHARK) += wireshark
 #
 # Paths and names
 #
-WIRESHARK_VERSION	:= 1.10.6
-WIRESHARK_MD5		:= c67435039d67ef1757bfff0ab88824ab
+WIRESHARK_VERSION	:= 2.0.3
+WIRESHARK_MD5		:= 62dc20f5a77542feed2e38f18db8ae3b
 WIRESHARK		:= wireshark-$(WIRESHARK_VERSION)
 WIRESHARK_SUFFIX	:= tar.bz2
 WIRESHARK_URL		:= http://www.wireshark.org/download/src/all-versions/$(WIRESHARK).$(WIRESHARK_SUFFIX)
@@ -46,6 +46,7 @@ WIRESHARK_CONF_OPT	= \
 	--enable-tshark \
 	--enable-editcap \
 	--enable-capinfos \
+	--enable-captype \
 	--enable-mergecap \
 	--enable-reordercap \
 	--disable-text2pcap \
@@ -54,14 +55,22 @@ WIRESHARK_CONF_OPT	= \
 	--disable-airpcap \
 	--enable-dumpcap \
 	--disable-rawshark \
+	--disable-androiddump \
+	--disable-androiddump-use-libpcap \
+	--disable-echld \
+	--disable-tfshark \
 	--disable-pcap-ng-default \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-setcap-install \
 	--disable-setuid-install \
+	--without-qt \
+	--without-gtk2 \
+	--without-gtk3 \
 	--without-gnutls \
 	--without-gcrypt \
 	--with-libnl=3 \
 	--without-libsmi \
+	--without-osx-integration \
 	--with-pcap=$(SYSROOT)/usr \
 	--with-zlib \
 	--without-lua \
@@ -72,7 +81,9 @@ WIRESHARK_CONF_OPT	= \
 	--without-c-ares \
 	--without-adns \
 	--without-geoip \
-	--without-plugins
+	--without-sbc \
+	--without-plugins \
+	--without-extcap
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -89,11 +100,13 @@ $(STATEDIR)/wireshark.targetinstall:
 #
 # executables
 #
-	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/editcap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/capinfos)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/captype)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/dumpcap)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/editcap)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/idl2wrs)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/mergecap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/reordercap)
-	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/dumpcap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/tshark)
 #
 # libraries used by some of the executables

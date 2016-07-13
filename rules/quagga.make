@@ -23,7 +23,7 @@ QUAGGA_SUFFIX	:= tar.gz
 QUAGGA_URL	:= http://download.savannah.gnu.org/releases/quagga/$(QUAGGA).$(QUAGGA_SUFFIX)
 QUAGGA_SOURCE	:= $(SRCDIR)/$(QUAGGA).$(QUAGGA_SUFFIX)
 QUAGGA_DIR	:= $(BUILDDIR)/$(QUAGGA)
-QUAGGA_LICENSE	:= GPLv2
+QUAGGA_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

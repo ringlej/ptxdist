@@ -31,13 +31,13 @@ HOST_SYSTEMD_CONF_ENV	:= \
 HOST_SYSTEMD_CONF_TOOL	:= autoconf
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--disable-gcrypt \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-dbus \
 	--disable-utmp \
-	--disable-compat-libs \
 	--disable-coverage \
 	--disable-kmod \
 	--disable-xkbcommon \
@@ -46,6 +46,8 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-ima \
 	--disable-selinux \
 	--disable-apparmor \
+	--disable-adm-group \
+	--disable-wheel-group \
 	--disable-xz \
 	--disable-zlib \
 	--disable-bzip2 \
@@ -57,14 +59,13 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
-	--disable-microhttpd \
 	--disable-gnutls \
+	--disable-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
 	--disable-libiptc \
 	--disable-binfmt \
 	--disable-vconsole \
-	--disable-bootchart \
 	--disable-quotacheck \
 	--disable-tmpfiles \
 	--disable-sysusers \
@@ -85,6 +86,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-networkd \
 	--disable-efi \
 	--disable-gnuefi \
+	--disable-tpm \
 	--disable-kdbus \
 	--disable-myhostname \
 	--enable-hwdb \

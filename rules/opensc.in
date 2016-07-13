@@ -1,0 +1,42 @@
+## SECTION=communication
+
+menuconfig OPENSC
+	tristate "opensc                        "
+	select ZLIB
+	select READLINE		if OPENSC_READLINE
+	select OPENCT		if OPENSC_OPENCT
+	select PCSC_LITE	if OPENSC_PCSC
+	help
+	  Smart card utilities with support for PKCS#15 compatible cards
+
+	  OpenSC provides a set of libraries and utilities to access
+	  smart cards. It mainly focuses on cards that support
+	  cryptographic operations. It facilitates their use in
+	  security applications such as mail encryption,
+	  authentication, and digital signature. OpenSC implements the
+	  PKCS#11 API.
+
+if OPENSC
+
+choice
+	prompt "select SIM provider"
+	default OPENSC_PCSC
+
+	config OPENSC_OPENCT
+		bool "openct"
+
+	config OPENSC_PCSC
+		bool "pcsc-lite"
+
+endchoice
+
+config OPENSC_READLINE
+	bool "readline support"
+
+config OPENSC_TOOLS
+	bool "install tools"
+
+config OPENSC_TESTSUITE
+	bool "install testsuite"
+
+endif

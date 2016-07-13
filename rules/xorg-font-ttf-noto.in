@@ -1,0 +1,12 @@
+## SECTION=multimedia_xorg_font_ttf
+
+config XORG_FONT_TTF_NOTO
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	prompt "Noto"
+	help
+	  Noto is a collection of font families, each visually harmonized
+	  across scripts.
+	  The name "Noto" is short for "No Tofu", describing the aim of
+	  covering all living Unicode scripts.

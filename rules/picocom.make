@@ -23,7 +23,7 @@ PICOCOM_SUFFIX	:= tar.gz
 PICOCOM_URL	:= https://picocom.googlecode.com/files//$(PICOCOM).$(PICOCOM_SUFFIX)
 PICOCOM_SOURCE	:= $(SRCDIR)/$(PICOCOM).$(PICOCOM_SUFFIX)
 PICOCOM_DIR	:= $(BUILDDIR)/$(PICOCOM)
-PICOCOM_LICENSE	:= GPLv2+
+PICOCOM_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

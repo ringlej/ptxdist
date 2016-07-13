@@ -24,7 +24,7 @@ CANUTILS_SUFFIX		:= tar.bz2
 CANUTILS_URL		:= http://www.pengutronix.de/software/socket-can/download/canutils/v4.0/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_SOURCE		:= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_DIR		:= $(BUILDDIR)/$(CANUTILS)
-CANUTILS_LICENSE	:= GPLv2
+CANUTILS_LICENSE	:= GPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

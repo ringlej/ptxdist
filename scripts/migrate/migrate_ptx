@@ -255,3 +255,11 @@ s/^\(\(# \)\?PTXCONF_\)HACKBENCH\(.*\)$/\1RT_TESTS\3\n\1RT_TESTS_HACKBENCH=y/
 # reason : option renamed
 #
 s/^\(\(# \)\?PTXCONF_\)BASH_COMPLETION/\1BASH_BASHCOMPLETION/
+
+#
+# from   : ptxdist-2016.01.0
+# to     : ptxdist-2016.02.0
+# symbol : PYTHON_DJANGO -> PYTHON3_DJANGO
+# reason : options renamed
+#
+s/^\(\(# \)\?PTXCONF_\)PYTHON_DJANGO/\1PYTHON3_DJANGO/

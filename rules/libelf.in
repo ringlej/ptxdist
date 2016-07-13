@@ -1,13 +1,35 @@
 ## SECTION=system_libraries
 
-config LIBELF
+menuconfig LIBELF
 	tristate
 	prompt "libelf"
+	select ZLIB
 	help
-	  an ELF object file access library
+	  The libelf1 package provides a shared library which allows reading
+	  and writing ELF files on a high level.  Third party programs depend
+	  on this package to read internals of ELF files.
 
-	  The elf library provides routines to access, and manipulate,
-	  Elf object files. It is still not complete, but is required
-	  for a number of programs, such as Eli (a state of the art
-	  compiler generation system), and Elk (the Extension Language
-	  Kit - an implementation of the Scheme programming language.)
+if LIBELF
+
+config LIBELF_LIBDW
+	bool
+	prompt "libdw"
+	help
+	  libdw1 provides a library that provides access to DWARF debug
+	  information stored inside ELF files.
+
+config LIBELF_LIBASM
+	bool
+	prompt "libasm"
+	help
+	  The libasm1 package provides a library with a programmable assembler
+	  interface.  It allows you to create ELF files on a low level.
+
+config LIBELF_ELFSUTILS
+	bool
+	prompt "elfutils"
+	select LIBELF_LIBDW
+	help
+	  Elfutils is a collection of utilities to handle ELF objects.
+
+endif

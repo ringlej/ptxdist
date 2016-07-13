@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
+
+config HOST_KEYUTILS
+	tristate
+	help
+	  Tools to control the key management system build into the
+          Linux kernel.

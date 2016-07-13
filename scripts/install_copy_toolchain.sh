@@ -170,7 +170,22 @@ ptxd_install_toolchain_lib() {
 
 		perm="$(stat -c %a "${lib_path}")"
 
-		echo "ptxd_install_shared \"${lib_path}\" \"${prefix}\" 0 0 \"${perm}\"" >> "${STATEDIR}/${packet}.cmds"
+		echo "ptxd_install_file \"${lib_path}\" \"${prefix}/${lib}\" 0 0 \"${perm}\" \"${strip}\"" >> "${STATEDIR}/${packet}.cmds"
+
+		# now create some links to that lib
+		# e.g. libstdc++.so.6 -> libstdc++.so.6.6.6
+
+		# the fullversion (6.6.6)
+		v_full="${lib#*.so.}"
+		# library name with major version (libstdc++.so.6)
+		lib_v_major="${lib%${v_full}}${v_full%%.*}"
+
+		if test "${v_full}" != "${lib}" -a \
+		    "${lib_v_major}" != "${lib}"; then
+		    echo "extra link - ${prefix}/${lib_v_major}"
+
+		    echo "ptxd_install_link \"${lib}\" \"${prefix}/${lib_v_major}\"" >> "${STATEDIR}/${packet}.cmds"
+		fi
 	    fi
 	else
 	    echo "error: found ${lib_path}, but neither file nor link" 2>&1
@@ -231,8 +246,11 @@ ptxd_install_copy_toolchain() {
 		;;
 	    s)
 		case "${OPTARG}" in
-		    y|yes|1|true|"")
+		    y|yes|1|true)
 			args="${args} strip=y"
+			;;
+		    "")
+			args="${args} strip="
 			;;
 		    *)
 			args="${args} strip=n"

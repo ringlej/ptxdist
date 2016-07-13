@@ -25,6 +25,7 @@ XORG_PROTO_RANDR_SUFFIX	:= tar.bz2
 XORG_PROTO_RANDR_URL	:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX))
 XORG_PROTO_RANDR_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX)
 XORG_PROTO_RANDR_DIR	:= $(BUILDDIR)/$(XORG_PROTO_RANDR)
+XORG_PROTO_RANDR_LICENSE := MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

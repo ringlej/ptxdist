@@ -25,6 +25,7 @@ XORG_PROTO_XCMISC_SUFFIX	:= tar.bz2
 XORG_PROTO_XCMISC_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORG_PROTO_XCMISC).$(XORG_PROTO_XCMISC_SUFFIX))
 XORG_PROTO_XCMISC_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XCMISC).$(XORG_PROTO_XCMISC_SUFFIX)
 XORG_PROTO_XCMISC_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XCMISC)
+XORG_PROTO_XCMISC_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

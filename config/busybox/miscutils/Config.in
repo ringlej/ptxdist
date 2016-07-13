@@ -48,6 +48,34 @@ config BUSYBOX_FEATURE_CROND_DIR
 	depends on BUSYBOX_CROND || BUSYBOX_CRONTAB
 	help
 	  Location of crond spool.
+config BUSYBOX_I2CGET
+	bool "i2cget"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Read from I2C/SMBus chip registers.
+
+config BUSYBOX_I2CSET
+	bool "i2cset"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Set I2C registers.
+
+config BUSYBOX_I2CDUMP
+	bool "i2cdump"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Examine I2C registers.
+
+config BUSYBOX_I2CDETECT
+	bool "i2cdetect"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Detect I2C chips.
+
 config BUSYBOX_LESS
 	bool "less"
 	default y
@@ -74,6 +102,14 @@ config BUSYBOX_FEATURE_LESS_FLAGS
 	depends on BUSYBOX_LESS
 	help
 	  The -M/-m flag enables a more sophisticated status line.
+
+config BUSYBOX_FEATURE_LESS_TRUNCATE
+	bool "Enable -S"
+	default y
+	depends on BUSYBOX_LESS
+	help
+	  The -S flag causes long lines to be truncated rather than
+	  wrapped.
 
 config BUSYBOX_FEATURE_LESS_MARKS
 	bool "Enable marks"

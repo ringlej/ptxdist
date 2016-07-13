@@ -24,7 +24,7 @@ APACHE2_SUFFIX	:= tar.bz2
 APACHE2_URL	:= http://archive.apache.org/dist/httpd/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
-APACHE2_LICENSE	:= APLv2
+APACHE2_LICENSE	:= Apache-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

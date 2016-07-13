@@ -38,7 +38,7 @@ XORG_APP_XDM_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_SECURE_RPC)-secure-rpc \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--datadir=$(XORG_DATADIR) \
 	--enable-xpm-logos \
 	--disable-xdmshell \
 	--disable-xdm-auth \

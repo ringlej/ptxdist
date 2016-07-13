@@ -23,7 +23,7 @@ CAIRO_SUFFIX	:= tar.xz
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
 CAIRO_DIR	:= $(BUILDDIR)/$(CAIRO)
-CAIRO_LICENSE	:= LGPLv2.1,MPL
+CAIRO_LICENSE	:= LGPL-2.1, MPL-1.1
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -44,7 +44,7 @@ CAIRO_CONF_OPT	:= \
 	--disable-gcov \
 	--disable-valgrind \
 	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib \
-	--disable-xlib-xrender \
+	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib-xrender \
 	--$(call ptx/endis, PTXCONF_CAIRO_XCB)-xcb \
 	--disable-xlib-xcb \
 	--$(call ptx/endis, PTXCONF_CAIRO_XCB)-xcb-shm \

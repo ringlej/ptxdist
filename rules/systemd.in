@@ -8,8 +8,11 @@ menuconfig SYSTEMD
 	select ROOTFS_RUN
 	select LIBC_PTHREAD
 	select LIBC_RT
-	select LIBC_DL
+	select LIBC_DL		if SYSTEMD_NETWORK
+	select LIBC_M		if SYSTEMD_NETWORK || SYSTEMD_TIMEDATE
 	select LIBCAP
+	select LIBKMOD
+	select LIBKMOD_TOOLS
 	select UDEV		if RUNTIME
 	select UDEV_LIBUDEV
 	select UTIL_LINUX_NG
@@ -17,10 +20,11 @@ menuconfig SYSTEMD
 	select MACHINE_ID	if RUNTIME
 	select XZ		if SYSTEMD_XZ
 	select LZ4		if SYSTEMD_LZ4
+	select LIBSECCOMP	if SYSTEMD_SECCOMP
 	select LIBSELINUX	if GLOBAL_SELINUX
+	select IPTABLES		if SYSTEMD_IPMASQUERADE
 	# for udev:
 	select ROOTFS_DEV
-	select LIBKMOD
 	select LIBBLKID
 	select GLIB		if UDEV_LIBGUDEV
 	select HOST_SYSTEMD	if UDEV_HWDB
@@ -80,6 +84,13 @@ config SYSTEMD_NETWORK
 	bool
 	prompt "network configuration with systemd"
 
+config SYSTEMD_IPMASQUERADE
+	bool
+	depends on SYSTEMD_NETWORK
+	prompt "IP forwarding and masquerading support"
+	help
+	  Pv4/IPv6 support also needs to be enabled in iptables package
+
 config SYSTEMD_TIMEDATE
 	bool
 	default y
@@ -93,6 +104,13 @@ config SYSTEMD_COREDUMP
 	prompt "enable generating coredumps"
 	help
 	  Enable this only if you need to debug a crashing systemd service
+
+config SYSTEMD_SECCOMP
+	bool
+	prompt "enable seccomp filtering support"
+	help
+	  Enable this if you want to use SystemCallFilter in service files
+
 
 endif
 

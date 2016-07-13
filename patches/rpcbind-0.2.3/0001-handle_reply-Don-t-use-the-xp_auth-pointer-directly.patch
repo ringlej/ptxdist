@@ -1,0 +1,36 @@
+From: Steve Dickson <steved@redhat.com>
+Date: Mon, 2 Nov 2015 17:05:18 -0500
+Subject: [PATCH] handle_reply: Don't use the xp_auth pointer directly
+
+In the latest libtirpc version to access the xp_auth
+one must use the SVC_XP_AUTH macro. To be backwards
+compatible a couple ifdefs were added to use the
+macro when it exists.
+
+Signed-off-by: Steve Dickson <steved@redhat.com>
+---
+ src/rpcb_svc_com.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/rpcb_svc_com.c b/src/rpcb_svc_com.c
+index ff9ce6bfde02..18b850fcdeed 100644
+--- a/src/rpcb_svc_com.c
++++ b/src/rpcb_svc_com.c
+@@ -1274,10 +1274,17 @@ handle_reply(int fd, SVCXPRT *xprt)
+ 	a.rmt_localvers = fi->versnum;
+ 
+ 	xprt_set_caller(xprt, fi);
++#if defined(SVC_XP_AUTH)
++	SVC_XP_AUTH(xprt) = svc_auth_none;
++#else 
+ 	xprt->xp_auth = &svc_auth_none;
++#endif
+ 	svc_sendreply(xprt, (xdrproc_t) xdr_rmtcall_result, (char *) &a);
++#if !defined(SVC_XP_AUTH)
+ 	SVCAUTH_DESTROY(xprt->xp_auth);
+ 	xprt->xp_auth = NULL;
++#endif
++
+ done:
+ 	if (buffer)
+ 		free(buffer);

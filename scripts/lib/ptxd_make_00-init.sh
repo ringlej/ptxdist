@@ -261,8 +261,10 @@ ptxd_init_cross_env() {
     #
 
     # add <DIR>/lib/pkgconfig and <DIR>/share/pkgconfig
-    local -a pkg_libdir
+    local -a pkg_libdir pkg_lib_system_path pkg_system_incpath
     pkg_libdir=( "${prefix[@]/%//${lib_dir}/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
+    pkg_system_libpath=( "${pkg_libdir[@]/%//../../lib}" "${pkg_libdir[@]/%//../lib}" "/usr/lib" "/lib" )
+    pkg_system_incpath=( "${pkg_libdir[@]/%//../../include}" "${pkg_libdir[@]/%//../include}" "/usr/include" "/include" )
 
     #
     # PKG_CONFIG_PATH contains additional pkg-config search
@@ -289,7 +291,7 @@ ptxd_init_cross_env() {
     fi
 
     IFS=":"
-    PTXDIST_CROSS_ENV_PKG_CONFIG="PKG_CONFIG_PATH='${pkg_path[*]}' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
+    PTXDIST_CROSS_ENV_PKG_CONFIG="PKG_CONFIG_PATH='${pkg_path[*]}' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}' PKG_CONFIG_SYSTEM_LIBRARY_PATH='${pkg_system_libpath[*]}' PKG_CONFIG_SYSTEM_INCLUDE_PATH='${pkg_system_incpath[*]}'"
     export PTXDIST_CROSS_ENV_PKG_CONFIG
     IFS="${orig_IFS}"
 }

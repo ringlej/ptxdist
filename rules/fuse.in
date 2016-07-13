@@ -9,7 +9,7 @@ menuconfig FUSE
 	  utilities for filesystems in userspace
 
 	  The project page is found at
-	  http://fuse.sourceforge.net/
+	  https://github.com/libfuse/libfuse
 
 if FUSE
 

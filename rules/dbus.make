@@ -18,14 +18,14 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.8.16
-DBUS_MD5	:= 020824a38850501e7d6ba8307a7c5ac3
+DBUS_VERSION	:= 1.10.8
+DBUS_MD5	:= e912e930f249454752512aa7ac864d43
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
 DBUS_SOURCE	:= $(SRCDIR)/$(DBUS).$(DBUS_SUFFIX)
 DBUS_DIR	:= $(BUILDDIR)/$(DBUS)
-DBUS_LICENSE	:= AFLv2.1, GPLv2+
+DBUS_LICENSE	:= AFL-2.1, GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -46,8 +46,10 @@ DBUS_CONF_OPT	:= \
 	--disable-checks \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
+	--disable-ducktype-docs \
 	--enable-abstract-sockets=yes \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
+	--disable-apparmor \
 	--disable-libaudit \
 	--enable-inotify \
 	--disable-kqueue \
@@ -60,10 +62,11 @@ DBUS_CONF_OPT	:= \
 	--enable-epoll \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
 	--disable-stats \
-	--without-dbus-glib \
+	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
 	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
 	--without-valgrind \
-	--with-systemdsystemunitdir=/lib/systemd/system
+	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemduserunitdir=/usr/lib/systemd/user
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -98,29 +101,10 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_lib, dbus, 0, 0, 0644, libdbus-1)
 
 #	#
-#	# create system.d and event.d directories, which are used by the configuration and startup files
+#	# install config files
 #	#
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/system.d/)
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/event.d/)
-
-#	#
-#	# create session.d directory, which is needed to launch a session bus
-#	#
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/session.d/)
-
-#	#
-#	# install /etc/dbus-1/system.conf config file
-#	#
-ifdef PTXCONF_DBUS_SYSTEM_CONF
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/system.conf)
-endif
-
-#	#
-#	# instal /etc/dbus-1/session.conf config file
-#	#
-ifdef PTXCONF_DBUS_SESSION_CONF
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/session.conf)
-endif
+	@$(call install_alternative, dbus, 0, 0, 0644, /usr/share/dbus-1/system.conf)
+	@$(call install_alternative, dbus, 0, 0, 0644, /usr/share/dbus-1/session.conf)
 
 #	#
 #	# busybox init: start script

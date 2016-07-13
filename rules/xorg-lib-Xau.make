@@ -23,6 +23,7 @@ XORG_LIB_XAU_SUFFIX	:= tar.bz2
 XORG_LIB_XAU_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XAU).$(XORG_LIB_XAU_SUFFIX))
 XORG_LIB_XAU_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XAU).$(XORG_LIB_XAU_SUFFIX)
 XORG_LIB_XAU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAU)
+XORG_LIB_XAU_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

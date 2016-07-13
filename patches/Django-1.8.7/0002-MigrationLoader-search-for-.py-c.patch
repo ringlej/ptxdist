@@ -1,0 +1,36 @@
+From 65d28e3e9a47ad270e7017b6b2b269978c01c428 Mon Sep 17 00:00:00 2001
+From: Florian Scherf <f.scherf@pengutronix.de>
+Date: Wed, 3 Feb 2016 17:32:32 +0100
+Subject: [PATCH] MigrationLoader: search for *.py(c)
+
+The MigrationLoader originally searchs for *.py but we
+are running *.pyc only.
+Without this patch "./manage.py migrate" will crash.
+
+Signed-off-by: Florian Scherf <f.scherf@pengutronix.de>
+---
+ django/db/migrations/loader.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/django/db/migrations/loader.py b/django/db/migrations/loader.py
+index bbd60a6..77b50fd 100644
+--- a/django/db/migrations/loader.py
++++ b/django/db/migrations/loader.py
+@@ -88,10 +88,12 @@ class MigrationLoader(object):
+                     six.moves.reload_module(module)
+             self.migrated_apps.add(app_config.label)
+             directory = os.path.dirname(module.__file__)
+-            # Scan for .py files
++            # Scan for .py(c) files
+             migration_names = set()
+             for name in os.listdir(directory):
+-                if name.endswith(".py"):
++                root, ext = os.path.splitext(name)
++
++                if ext in ['.py', '.pyc']:
+                     import_name = name.rsplit(".", 1)[0]
+                     if import_name[0] not in "_.~":
+                         migration_names.add(import_name)
+-- 
+2.7.0.rc3
+

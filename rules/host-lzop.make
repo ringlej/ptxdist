@@ -30,4 +30,8 @@ HOST_LZOP_DIR		:= $(HOST_BUILDDIR)/$(HOST_LZOP)
 
 HOST_LZOP_CONF_TOOL	:= autoconf
 
+# This is needed to pass configure check with host-gcc 6.1
+# Otherwise, we get "error: ACC conformance test failed"
+HOST_LZOP_CFLAGS	:= -std=c90 -fPIC
+
 # vim: syntax=make

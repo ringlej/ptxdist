@@ -24,7 +24,7 @@ BAREBOX_SUFFIX	:= tar.bz2
 BAREBOX_URL	:= $(call barebox-url, BAREBOX)
 BAREBOX_SOURCE	:= $(SRCDIR)/$(BAREBOX).$(BAREBOX_SUFFIX)
 BAREBOX_DIR	:= $(BUILDDIR)/$(BAREBOX)
-BAREBOX_LICENSE	:= GPLv2
+BAREBOX_LICENSE	:= GPL-2.0
 
 BAREBOX_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_BAREBOX_CONFIG))
 
@@ -107,15 +107,32 @@ $(STATEDIR)/barebox.compile:
 # Install
 # ----------------------------------------------------------------------------
 
+BAREBOX_PROGS_HOST := \
+	bareboxenv \
+	kernel-install \
+	bareboxcrc32 \
+	bareboximd \
+	setupmbr/setupmbr
+
+BAREBOX_PROGS_TARGET_y :=
+BAREBOX_PROGS_TARGET_$(PTXCONF_BAREBOX_BAREBOXENV) += bareboxenv
+BAREBOX_PROGS_TARGET_$(PTXCONF_BAREBOX_BAREBOXCRC32) += kernel-install
+BAREBOX_PROGS_TARGET_$(PTXCONF_BAREBOX_KERNEL_INSTALL) += bareboxcrc32
+BAREBOX_PROGS_TARGET_$(PTXCONF_BAREBOX_BAREBOXIMD) += bareboximd
+
 $(STATEDIR)/barebox.install:
 	@$(call targetinfo)
-	@install -v -D -m755 $(BAREBOX_DIR)/scripts/bareboxenv $(PTXCONF_SYSROOT_HOST)/bin/bareboxenv
-ifdef PTXCONF_ARCH_X86
-	@if [ -e $(BAREBOX_DIR)/scripts/setupmbr/setupmbr ]; then \
-		install -v -D -m755 $(BAREBOX_DIR)/scripts/setupmbr/setupmbr \
-			$(PTXCONF_SYSROOT_HOST)/bin/setupmbr; \
-	fi
-endif
+
+	@$(foreach prog, $(BAREBOX_PROGS_HOST), \
+		if [ -e $(BAREBOX_DIR)/scripts/$(prog) ]; then \
+			install -v -D -m755 $(BAREBOX_DIR)/scripts/$(prog) \
+				$(PTXCONF_SYSROOT_HOST)/bin/$(notdir $(prog)) || exit; \
+		fi;)
+
+	@$(foreach prog, $(BAREBOX_PROGS_TARGET_y), \
+		install -v -D -m755 $(BAREBOX_DIR)/scripts/$(prog)-target \
+			$(BAREBOX_PKGDIR)/usr/bin/$(prog) || exit;)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -125,18 +142,20 @@ endif
 $(STATEDIR)/barebox.targetinstall:
 	@$(call targetinfo)
 
-ifdef PTXCONF_BAREBOX_BAREBOXENV
+ifneq ($(strip $(BAREBOX_PROGS_TARGET_y)),)
 	@$(call install_init, barebox)
 	@$(call install_fixup, barebox,PRIORITY,optional)
 	@$(call install_fixup, barebox,SECTION,base)
 	@$(call install_fixup, barebox,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, barebox,DESCRIPTION,missing)
 
-	@$(call install_copy, barebox, 0, 0, 0755, $(BAREBOX_DIR)/scripts/bareboxenv-target, \
-		/usr/bin/bareboxenv)
+	@$(foreach prog, $(BAREBOX_PROGS_TARGET_y), \
+		$(call install_copy, barebox, 0, 0, 0755, -, \
+			/usr/bin/$(prog));)
 
 	@$(call install_finish, barebox)
 endif
+
 	@rm -f $(IMAGEDIR)/barebox-image
 	@find $(BAREBOX_DIR)/images/ -name "barebox-*.img" | sort | while read image; do \
 		install -D -m644 $$image $(IMAGEDIR)/`basename $$image`; \
@@ -167,6 +186,8 @@ endif
 $(STATEDIR)/barebox.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX)
+	@$(foreach prog, $(BAREBOX_PROGS_HOST), \
+		rm -rf $(PTXCONF_SYSROOT_HOST)/bin/$(notdir $(prog));)
 	rm -rf $(IMAGEDIR)/barebox-image $(IMAGEDIR)/barebox-default-environment
 
 # ----------------------------------------------------------------------------

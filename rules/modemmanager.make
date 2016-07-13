@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_MODEMMANAGER) += modemmanager
 #
 # Paths and names
 #
-MODEMMANAGER_VERSION	:= 1.4.8
-MODEMMANAGER_MD5	:= 03242732a8dbaccd52100b7e7bb1998e
+MODEMMANAGER_VERSION	:= 1.4.14
+MODEMMANAGER_MD5	:= cabb72e7c2ddf6af96eca2c9f3d168a3
 MODEMMANAGER		:= ModemManager-$(MODEMMANAGER_VERSION)
 MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= http://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
 MODEMMANAGER_SOURCE	:= $(SRCDIR)/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
 MODEMMANAGER_DIR	:= $(BUILDDIR)/$(MODEMMANAGER)
-MODEMMANAGER_LICENSE	:= GPLv2+, GPLv3+, LGPLv2.1+
+MODEMMANAGER_LICENSE	:= GPL-2.0+, GPL-3.0+, LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -46,7 +46,7 @@ MODEMMANAGER_CONF_OPT	:= \
 	--disable-vala \
 	--disable-more-warnings \
 	--with-gnu-ld \
-	--with-dbus-sys-dir=/etc/dbus-1/system.d \
+	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--with-udev-base-dir=/lib/udev \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--without-polkit \
@@ -72,10 +72,10 @@ $(STATEDIR)/modemmanager.targetinstall:
 	@$(call install_copy, modemmanager, 0, 0, 0755, -, /usr/bin/mmcli)
 
 	@$(call install_lib, modemmanager, 0, 0, 0644, libmm-glib)
-	@$(call install_tree, modemmanager, 0, 0, -, /usr/lib/ModemManager/)
+	@$(call install_glob, modemmanager, 0, 0, -, /usr/lib/ModemManager/, *.so)
 
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
-		/etc/dbus-1/system.d/org.freedesktop.ModemManager1.conf)
+		/usr/share/dbus-1/system.d/org.freedesktop.ModemManager1.conf)
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
 		/usr/share/dbus-1/system-services/org.freedesktop.ModemManager1.service)
 

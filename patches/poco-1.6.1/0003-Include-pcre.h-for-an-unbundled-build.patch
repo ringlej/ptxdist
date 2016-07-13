@@ -1,0 +1,38 @@
+From 94bb16fdeea5cd804c586b282cdbdd1c45360718 Mon Sep 17 00:00:00 2001
+From: zosrothko <zosrothko@orange.fr>
+Date: Tue, 17 Nov 2015 18:45:44 +0100
+Subject: [PATCH] Include <pcre.h> for an unbundled build.
+
+---
+ Foundation/include/Poco/RegularExpression.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/Foundation/include/Poco/RegularExpression.h b/Foundation/include/Poco/RegularExpression.h
+index 9181d29..e2b3446 100644
+--- a/Foundation/include/Poco/RegularExpression.h
++++ b/Foundation/include/Poco/RegularExpression.h
+@@ -28,17 +28,19 @@
+ #include <map>
+ 
+ 
++#ifdef POCO_UNBUNDLED
++#include <pcre.h>
++#else
+ //
+ // Copy these definitions from pcre.h
+ // to avoid pulling in the entire header file
+ //
+ extern "C"
+ {
+-	struct real_pcre8_or_16;                 /* declaration; the definition is private  */
+ 	typedef struct real_pcre8_or_16 pcre;
+ 	struct pcre_extra;
+ }
+-
++#endif
+ 
+ namespace Poco {
+ 
+-- 
+2.1.4
+

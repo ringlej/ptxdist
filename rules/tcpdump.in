@@ -3,6 +3,7 @@ menuconfig TCPDUMP
 	tristate
 	prompt "tcpdump                       "
 	select LIBPCAP
+	select LIBCAP_NG if TCPDUMP_ENABLE_LIBCAP_NG
 	select OPENSSL if TCPDUMP_ENABLE_CRYPTO
 	help
 	  Tcpdump  prints out the headers of packets on a network interface
@@ -14,6 +15,12 @@ menuconfig TCPDUMP
 	  expression will be processed by tcpdump.
 
 if TCPDUMP
+
+config TCPDUMP_ENABLE_LIBCAP_NG
+	bool
+	prompt "use libcap-ng as well"
+	help
+	  Use libpcap and libcap-ng
 
 config TCPDUMP_ENABLE_CRYPTO
 	bool

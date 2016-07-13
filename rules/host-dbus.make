@@ -37,8 +37,10 @@ HOST_DBUS_CONF_OPT	:= \
 	--disable-checks \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
+	--disable-ducktype-docs \
 	--enable-abstract-sockets=yes \
 	--disable-selinux \
+	--disable-apparmor \
 	--disable-libaudit \
 	--disable-inotify \
 	--disable-kqueue \
@@ -50,7 +52,7 @@ HOST_DBUS_CONF_OPT	:= \
 	--disable-epoll \
 	--disable-x11-autolaunch \
 	--disable-stats \
-	--without-dbus-glib \
+	--disable-user-session \
 	--without-x \
 	--without-valgrind
 

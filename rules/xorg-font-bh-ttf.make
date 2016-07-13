@@ -24,6 +24,7 @@ XORG_FONT_BH_TTF_SUFFIX		:= tar.bz2
 XORG_FONT_BH_TTF_URL		:= $(call ptx/mirror, XORG, individual/font/$(XORG_FONT_BH_TTF).$(XORG_FONT_BH_TTF_SUFFIX))
 XORG_FONT_BH_TTF_SOURCE		:= $(SRCDIR)/$(XORG_FONT_BH_TTF).$(XORG_FONT_BH_TTF_SUFFIX)
 XORG_FONT_BH_TTF_DIR		:= $(BUILDDIR)/$(XORG_FONT_BH_TTF)
+XORG_FONT_BH_TTF_LICENSE	:= Luxi
 
 ifdef PTXCONF_XORG_FONT_BH_TTF
 $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-bh-ttf.targetinstall

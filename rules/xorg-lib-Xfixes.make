@@ -23,6 +23,7 @@ XORG_LIB_XFIXES_SUFFIX	:= tar.bz2
 XORG_LIB_XFIXES_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX))
 XORG_LIB_XFIXES_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
 XORG_LIB_XFIXES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFIXES)
+XORG_LIB_XFIXES_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

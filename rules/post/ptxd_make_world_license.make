@@ -20,4 +20,16 @@ $(STATEDIR)/%.report:
 	@$(call world/license, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
+# create a "release" of all required information including licenses, sources and patches
+
+world/release = \
+	$(call world/env, $(1)) \
+	ptxd_make_world_release
+
+$(STATEDIR)/%.release:
+	@$(call targetinfo)
+	@$(call world/release, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(call touch)
+
+
 # vim: syntax=make

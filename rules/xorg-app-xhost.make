@@ -36,7 +36,7 @@ XORG_APP_XHOST_CONF_TOOL	:= autoconf
 XORG_APP_XHOST_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--datadir=$(XORG_DATADIR) \
 	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_SECURE_RPC)-secure-rpc
 
 # ----------------------------------------------------------------------------

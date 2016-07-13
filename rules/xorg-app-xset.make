@@ -34,7 +34,7 @@ XORG_APP_XSET_DIR	:= $(BUILDDIR)/$(XORG_APP_XSET)
 XORG_APP_XSET_CONF_TOOL	:= autoconf
 XORG_APP_XSET_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--datadir=$(XORG_DATADIR) \
 	--with-xf86misc
 
 # ----------------------------------------------------------------------------

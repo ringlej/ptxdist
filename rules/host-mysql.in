@@ -1,0 +1,10 @@
+## SECTION=hosttools_noprompt
+
+config HOST_MYSQL
+	tristate
+	select HOST_LIBAIO
+	select HOST_NCURSES
+	select HOST_CMAKE
+	select HOST_SYSTEMD
+	help
+	  Required host part of the mySQL build system

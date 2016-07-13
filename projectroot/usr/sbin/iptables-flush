@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if ! iptables --list >/dev/null 2>&1; then
+	echo "ipv4 filtering is not supported by the running kernel."
+	exit 3
+fi
+
+iptables -F
+iptables -X
+iptables -Z
+for table in $(cat /proc/net/ip_tables_names)
+do
+        iptables -t $table -F
+        iptables -t $table -X
+        iptables -t $table -Z
+done
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT

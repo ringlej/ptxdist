@@ -23,7 +23,7 @@ LIBINPUT_SUFFIX		:= tar.xz
 LIBINPUT_URL		:= http://www.freedesktop.org/software/libinput/$(LIBINPUT).$(LIBINPUT_SUFFIX)
 LIBINPUT_SOURCE		:= $(SRCDIR)/$(LIBINPUT).$(LIBINPUT_SUFFIX)
 LIBINPUT_DIR		:= $(BUILDDIR)/$(LIBINPUT)
-LIBINPUT_LICENSE	:= unknown
+LIBINPUT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

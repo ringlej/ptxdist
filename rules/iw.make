@@ -23,7 +23,7 @@ IW_SUFFIX	:= tar.xz
 IW_URL		:= http://www.kernel.org/pub/software/network/iw/$(IW).$(IW_SUFFIX)
 IW_SOURCE	:= $(SRCDIR)/$(IW).$(IW_SUFFIX)
 IW_DIR		:= $(BUILDDIR)/$(IW)
-IW_LICENSE	:= unknown
+IW_LICENSE	:= ISC
 
 # ----------------------------------------------------------------------------
 # Prepare

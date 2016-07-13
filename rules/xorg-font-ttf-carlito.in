@@ -3,6 +3,7 @@
 config XORG_FONT_TTF_CARLITO
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_TTF
 	prompt "carlito"
 	help
 	  Carlito is metric-compatible with Calibri font. Carlito comes in

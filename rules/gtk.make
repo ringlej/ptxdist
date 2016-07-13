@@ -23,7 +23,7 @@ GTK_SUFFIX	:= tar.bz2
 GTK_URL		:= http://ftp.gtk.org/pub/gtk/3.2/$(GTK).$(GTK_SUFFIX)
 GTK_SOURCE	:= $(SRCDIR)/$(GTK).$(GTK_SUFFIX)
 GTK_DIR		:= $(BUILDDIR)/$(GTK)
-GTK_LICENSE	:= LGPLv2
+GTK_LICENSE	:= LGPL-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,9 +41,11 @@ GTK_ENV := \
 #
 GTK_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--x-includes=$(XORG_PREFIX)/include \
 	--x-libraries=$(XORG_LIBDIR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-debug \
+	--disable-rebuilds \
 	--enable-gtk2-dependency \
 	--$(call ptx/endis, PTXCONF_GTK_XKB)-xkb \
 	--$(call ptx/endis, PTXCONF_GTK_XINERAMA)-xinerama \

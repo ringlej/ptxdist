@@ -1,0 +1,30 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 26 May 2016 10:25:21 +0200
+Subject: [PATCH] make the package DESTDIR aware
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/Makefile | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index eadb336b47e3..8a037c865c29 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -53,11 +53,11 @@ $(libname): $(libaio_sobjs) libaio.map
+ 	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) $(LINK_FLAGS)
+ 
+ install: $(all_targets)
+-	install -D -m 644 libaio.h $(includedir)/libaio.h
+-	install -D -m 644 libaio.a $(libdir)/libaio.a
+-	install -D -m 755 $(libname) $(libdir)/$(libname)
+-	ln -sf $(libname) $(libdir)/$(soname)
+-	ln -sf $(libname) $(libdir)/libaio.so
++	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
++	install -D -m 644 libaio.a $(DESTDIR)$(libdir)/libaio.a
++	install -D -m 755 $(libname) $(DESTDIR)$(libdir)/$(libname)
++	ln -sf $(libname) $(DESTDIR)$(libdir)/$(soname)
++	ln -sf $(libname) $(DESTDIR)$(libdir)/libaio.so
+ 
+ $(libaio_objs): libaio.h
+ 

@@ -1,0 +1,7 @@
+[Unit]
+Description=Hardware RNG Daemon
+DefaultDependencies=no
+Before=local-fs.target
+
+[Service]
+ExecStart=/usr/sbin/rngd -f

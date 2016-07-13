@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBBSD) += libbsd
 #
 # Paths and names
 #
-LIBBSD_VERSION	:= 0.6.0
-LIBBSD_MD5	:= f6c75f0a9818e323a589bcbd560a0eb4
+LIBBSD_VERSION	:= 0.8.2
+LIBBSD_MD5	:= cdee252ccff978b50ad2336278c506c9
 LIBBSD		:= libbsd-$(LIBBSD_VERSION)
 LIBBSD_SUFFIX	:= tar.xz
 LIBBSD_URL	:= http://libbsd.freedesktop.org/releases/$(LIBBSD).$(LIBBSD_SUFFIX)
 LIBBSD_SOURCE	:= $(SRCDIR)/$(LIBBSD).$(LIBBSD_SUFFIX)
 LIBBSD_DIR	:= $(BUILDDIR)/$(LIBBSD)
-LIBBSD_LICENSE	:= BSD
+LIBBSD_LICENSE	:= BSD-4-Clause, BSD-3-Clause, BSD-2-Clause-NetBSD, ISC, MIT, BEER-WARE, public_domain
 
 # ----------------------------------------------------------------------------
 # Prepare

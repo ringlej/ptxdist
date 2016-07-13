@@ -23,6 +23,7 @@ XORG_LIB_XKBFILE_SUFFIX		:= tar.bz2
 XORG_LIB_XKBFILE_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XKBFILE).$(XORG_LIB_XKBFILE_SUFFIX))
 XORG_LIB_XKBFILE_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XKBFILE).$(XORG_LIB_XKBFILE_SUFFIX)
 XORG_LIB_XKBFILE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XKBFILE)
+XORG_LIB_XKBFILE_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

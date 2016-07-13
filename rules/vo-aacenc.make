@@ -23,7 +23,9 @@ VO_AACENC_SUFFIX	:= tar.gz
 VO_AACENC_URL		:= $(call ptx/mirror, SF, opencore-amr/$(VO_AACENC).$(VO_AACENC_SUFFIX))
 VO_AACENC_SOURCE	:= $(SRCDIR)/$(VO_AACENC).$(VO_AACENC_SUFFIX)
 VO_AACENC_DIR		:= $(BUILDDIR)/$(VO_AACENC)
-VO_AACENC_LICENSE	:= unknown
+VO_AACENC_LICENSE	:= Apache-2.0
+VO_AACENC_LICENSE_FILES	:= \
+	file://NOTICE;md5=2585210914532b10fe3eba73b74c1544
 
 # ----------------------------------------------------------------------------
 # Prepare

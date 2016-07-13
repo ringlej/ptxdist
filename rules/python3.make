@@ -108,6 +108,10 @@ $(STATEDIR)/python3.install.post:
 	@chmod a+x "$(CROSS_PYTHON3)"
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
+	sed -e 's;prefix_real=.*;prefix_real=$(SYSROOT)/usr;' \
+		"$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)-config" \
+		> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
+	@chmod +x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
 
 	@$(call touch)
 
@@ -116,25 +120,17 @@ $(STATEDIR)/python3.install.post:
 # ----------------------------------------------------------------------------
 
 # These cannot be disabled during build, so just don't install the disabled modules
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_NCURSES)	+= curses _curses*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SQLITE)	+= sqlite3
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_BZ2)		+= bz2.pyc _bz2*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LZMA)		+= lzma.pyc _lzma*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_ZLIB)		+= gzip.pyc zlib*so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_READLINE)	+= readline*so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DB)		+= dbm _dbm*so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SSL)		+= ssl.pyc _ssl*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= tkinter
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_IDLELIB)	+= idlelib
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DISTUTILS)	+= distutils
-
-ifneq ($(PYTHON3_SKIP-y),)
-PYTHON3_SKIP_LIST_PRE  :=-o -name $(quote)
-PYTHON3_SKIP_LIST_POST :=$(quote)
-
-PYTHON3_SKIP_LIST := $(subst $(space),$(PYTHON3_SKIP_LIST_POST) $(PYTHON3_SKIP_LIST_PRE),$(PYTHON3_SKIP-y))
-PYTHON3_SKIP_LIST := $(PYTHON3_SKIP_LIST_PRE)$(PYTHON3_SKIP_LIST)$(PYTHON3_SKIP_LIST_POST)
-endif
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_NCURSES)	+= */curses */_curses*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SQLITE)	+= */sqlite3
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_BZ2)		+= */bz2.pyc */_bz2*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LZMA)		+= */lzma.pyc */_lzma*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_ZLIB)		+= */gzip.pyc */zlib*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_READLINE)	+= */readline*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DB)		+= */dbm */_dbm*so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SSL)		+= */ssl.pyc */_ssl*.so
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= */tkinter
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_IDLELIB)	+= */idlelib
+PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DISTUTILS)	+= */distutils
 
 $(STATEDIR)/python3.targetinstall:
 	@$(call targetinfo)
@@ -146,14 +142,8 @@ $(STATEDIR)/python3.targetinstall:
 	@$(call install_fixup, python3,AUTHOR,"Han Sierkstra <han@protonic.nl>")
 	@$(call install_fixup, python3,DESCRIPTION,missing)
 
-	@cd $(PYTHON3_PKGDIR) && \
-		find ./usr/lib/python$(PYTHON3_MAJORMINOR) \
-		\( -name test -o -name tests -o -name __pycache__ \
-		$(PYTHON3_SKIP_LIST) \) -prune \
-		-o -name "*.so" -print -o -name "*.pyc" -print | \
-		while read file; do \
-		$(call install_copy, python3, 0, 0, 644, -, $${file##.}); \
-	done
+	@$(call install_glob, python3, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR), \
+		*.so *.pyc, */test */tests */__pycache__ $(PYTHON3_SKIP-y))
 
 	@$(call install_copy, python3, 0, 0, 755, -, /usr/bin/python$(PYTHON3_MAJORMINOR))
 	@$(call install_lib, python3, 0, 0, 644, libpython$(PYTHON3_MAJORMINOR)m)

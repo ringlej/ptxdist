@@ -16,20 +16,27 @@ PACKAGES-$(PTXCONF_LIBTASN1) += libtasn1
 #
 # Paths and names
 #
-LIBTASN1_VERSION	:= 3.2
-LIBTASN1_MD5		:= 1b07629163025b9693aae9b8957842b2
+LIBTASN1_VERSION	:= 4.8
+LIBTASN1_MD5		:= 9a6767705725544f2b86670dcfb34107
 LIBTASN1		:= libtasn1-$(LIBTASN1_VERSION)
 LIBTASN1_SUFFIX		:= tar.gz
 LIBTASN1_URL		:= $(call ptx/mirror, GNU, libtasn1/$(LIBTASN1).$(LIBTASN1_SUFFIX))
 LIBTASN1_SOURCE		:= $(SRCDIR)/$(LIBTASN1).$(LIBTASN1_SUFFIX)
 LIBTASN1_DIR		:= $(BUILDDIR)/$(LIBTASN1)
-LIBTASN1_LICENSE	:= LGPLv2.1,GPL
+LIBTASN1_LICENSE	:= LGPL-2.1, GPL-3.0
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 LIBTASN1_CONF_TOOL := autoconf
+
+LIBTASN1_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-doc \
+	--disable-gtk-doc-html \
+	--disable-valgrind-tests
 
 # ----------------------------------------------------------------------------
 # Target-Install

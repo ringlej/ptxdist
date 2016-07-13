@@ -1,0 +1,3 @@
+0001-libpcre-bug.patch
+0002-fix-parallel-building.patch
+0003-Include-pcre.h-for-an-unbundled-build.patch

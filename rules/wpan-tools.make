@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WPAN_TOOLS) += wpan-tools
 #
 # Paths and names
 #
-WPAN_TOOLS_VERSION	:= 0.4
-WPAN_TOOLS_MD5		:= 7dec36cec484cf4cbfb717536bd7aa83
+WPAN_TOOLS_VERSION	:= 0.6
+WPAN_TOOLS_MD5		:= 05322b1bc2fcdc040d326f0a5017aa4e
 WPAN_TOOLS		:= wpan-tools-$(WPAN_TOOLS_VERSION)
 WPAN_TOOLS_SUFFIX	:= tar.gz
 WPAN_TOOLS_URL		:= http://wpan.cakelab.org/releases/$(WPAN_TOOLS).$(WPAN_TOOLS_SUFFIX)
@@ -49,6 +49,7 @@ $(STATEDIR)/wpan-tools.targetinstall:
 	@$(call install_fixup, wpan-tools,DESCRIPTION,missing)
 
 	@$(call install_copy, wpan-tools, 0, 0, 0755, -, /usr/bin/iwpan)
+	@$(call install_copy, wpan-tools, 0, 0, 0755, -, /usr/bin/wpan-ping)
 
 	@$(call install_finish, wpan-tools)
 

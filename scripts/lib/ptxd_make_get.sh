@@ -132,15 +132,15 @@ ptxd_make_get_git() {
 		git init --bare --shared "${mirror}"
 	else
 		git --git-dir="${mirror}" remote rm origin
-	fi
+	fi &&
 	# overwrite everything so the git repository is in a defined state
 	git --git-dir="${mirror}" config transfer.fsckObjects true &&
 	git --git-dir="${mirror}" config tar.tar.bz2.command "bzip2 -c" &&
-	git --git-dir="${mirror}" config tar.tar.xz.command "xz -c"
+	git --git-dir="${mirror}" config tar.tar.xz.command "xz -c" &&
 	git --git-dir="${mirror}" remote add origin "${url}" &&
 	git --git-dir="${mirror}" fetch --progress -pf origin "+refs/*:refs/*"  &&
 	# at least for some git versions this is not group writeable for shared repos
-	chmod g+w "${mirror}/FETCH_HEAD"
+	chmod g+w "${mirror}/FETCH_HEAD" &&
 
 	if ! git --git-dir="${mirror}" rev-parse --verify -q "${tag}" > /dev/null; then
 		ptxd_make_serialize_put

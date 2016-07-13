@@ -1,0 +1,100 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Tue, 15 Mar 2016 15:02:02 +0100
+Subject: [PATCH] Fix_buildsystem: use compile only tests
+
+Testing compiler features need not to run to test them.
+---
+ storage/innobase/innodb.cmake | 36 ++++++++++++++++--------------------
+ 1 file changed, 16 insertions(+), 20 deletions(-)
+
+diff --git a/storage/innobase/innodb.cmake b/storage/innobase/innodb.cmake
+index 809e58941e95..944f4e10803b 100644
+--- a/storage/innobase/innodb.cmake
++++ b/storage/innobase/innodb.cmake
+@@ -108,7 +108,7 @@ IF(HAVE_NANOSLEEP)
+ ENDIF()
+ 
+ IF(NOT MSVC)
+-  CHECK_C_SOURCE_RUNS(
++  CHECK_CXX_SOURCE_COMPILES(
+   "
+   #define _GNU_SOURCE
+   #include <fcntl.h>
+@@ -131,28 +131,27 @@ ENDIF()
+ 
+ IF(NOT MSVC)
+ # either define HAVE_IB_GCC_ATOMIC_BUILTINS or not
+-IF(NOT CMAKE_CROSSCOMPILING)
+-  CHECK_C_SOURCE_RUNS(
+-  "#include<stdint.h>
++CHECK_CXX_SOURCE_COMPILES("
++  #include<stdint.h>
+   int main()
+   {
+     __sync_synchronize();
+     return(0);
+   }"
+-  HAVE_IB_GCC_SYNC_SYNCHRONISE
+-  )
+-  CHECK_C_SOURCE_RUNS(
+-  "#include<stdint.h>
++  HAVE_IB_GCC_SYNC_SYNCHRONISE)
++
++CHECK_CXX_SOURCE_COMPILES("
++  #include<stdint.h>
+   int main()
+   {
+     __atomic_thread_fence(__ATOMIC_ACQUIRE);
+     __atomic_thread_fence(__ATOMIC_RELEASE);
+     return(0);
+   }"
+-  HAVE_IB_GCC_ATOMIC_THREAD_FENCE
+-  )
+-  CHECK_C_SOURCE_RUNS(
+-  "#include<stdint.h>
++  HAVE_IB_GCC_ATOMIC_THREAD_FENCE)
++
++CHECK_CXX_SOURCE_COMPILES("
++  #include<stdint.h>
+   int main()
+   {
+     unsigned char	a = 0;
+@@ -164,9 +163,7 @@ IF(NOT CMAKE_CROSSCOMPILING)
+ 			      __ATOMIC_RELEASE, __ATOMIC_ACQUIRE);
+     return(0);
+   }"
+-  HAVE_IB_GCC_ATOMIC_COMPARE_EXCHANGE
+-  )
+-ENDIF()
++  HAVE_IB_GCC_ATOMIC_COMPARE_EXCHANGE)
+ 
+ IF(HAVE_IB_GCC_SYNC_SYNCHRONISE)
+  ADD_DEFINITIONS(-DHAVE_IB_GCC_SYNC_SYNCHRONISE=1)
+@@ -181,8 +178,7 @@ IF(HAVE_IB_GCC_ATOMIC_COMPARE_EXCHANGE)
+ ENDIF()
+ 
+  # either define HAVE_IB_ATOMIC_PTHREAD_T_GCC or not
+-IF(NOT CMAKE_CROSSCOMPILING)
+-  CHECK_C_SOURCE_RUNS(
++CHECK_CXX_SOURCE_COMPILES(
+   "
+   #include <pthread.h>
+   #include <string.h>
+@@ -201,14 +197,14 @@ IF(NOT CMAKE_CROSSCOMPILING)
+     return(0);
+   }"
+   HAVE_IB_ATOMIC_PTHREAD_T_GCC)
+-ENDIF()
++
+ IF(HAVE_IB_ATOMIC_PTHREAD_T_GCC)
+   ADD_DEFINITIONS(-DHAVE_IB_ATOMIC_PTHREAD_T_GCC=1)
+ ENDIF()
+ 
+ # Only use futexes on Linux if GCC atomics are available
+-IF(NOT MSVC AND NOT CMAKE_CROSSCOMPILING)
+-  CHECK_C_SOURCE_RUNS(
++IF(NOT MSVC)
++  CHECK_CXX_SOURCE_COMPILES(
+   "
+   #include <stdio.h>
+   #include <unistd.h>

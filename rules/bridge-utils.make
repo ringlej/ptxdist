@@ -24,7 +24,7 @@ BRIDGE_UTILS_SUFFIX	:= tar.gz
 BRIDGE_UTILS_URL	:= $(call ptx/mirror, SF, bridge/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX))
 BRIDGE_UTILS_SOURCE	:= $(SRCDIR)/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
 BRIDGE_UTILS_DIR	:= $(BUILDDIR)/$(BRIDGE_UTILS)
-BRIDGE_UTILS_LICENSE	:= GPLv2+
+BRIDGE_UTILS_LICENSE	:= GPL-2.0+
 
 
 # ----------------------------------------------------------------------------

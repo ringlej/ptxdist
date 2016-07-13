@@ -19,13 +19,16 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 10.3.3
-MESALIB_MD5	:= 4fe6fc9e28fb2a88a2387e5d3a49ae8b
-MESALIB		:= MesaLib-$(MESALIB_VERSION)
-MESALIB_SUFFIX	:= tar.bz2
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/older-versions/10.x/$(subst .0,,$(MESALIB_VERSION))/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_VERSION	:= 11.1.2
+MESALIB_MD5	:= 0a1e9b0419b7cda01203eedaedfd37b5
+MESALIB		:= mesa-$(MESALIB_VERSION)
+MESALIB_SUFFIX	:= tar.xz
+MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
+MESALIB_LICENSE	:= MIT
+MESALIB_LICENSE_FILES := \
+	file://docs/license.html;md5=6a23445982a7a972ac198e93cc1cb3de
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,23 +65,12 @@ MESALIB_DRI_LIBS-y += \
 	$(subst nouveau,nouveau_vieux,$(MESALIB_DRI_DRIVERS-y)) \
 	$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y))
 
-ifeq ($(MESALIB_GALLIUM_DRIVERS-y),)
-MESALIB_GALLIUM_EGL	:=
-MESALIB_GALLIUM_GBM	:=
-else
-MESALIB_GALLIUM_EGL	:= $(PTXCONF_MESALIB_EGL)
-MESALIB_GALLIUM_GBM	:= $(PTXCONF_MESALIB_GBM)
-endif
-
 MESALIB_LIBS-y				:= libglapi
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLX)	+= libGL
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLES1)	+= libGLESv1_CM
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLES2)	+= libGLESv2
-MESALIB_LIBS-$(PTXCONF_MESALIB_OPENVG)	+= libOpenVG
 MESALIB_LIBS-$(PTXCONF_MESALIB_EGL)	+= libEGL
-MESALIB_LIBS-$(MESALIB_GALLIUM_EGL)	+= egl/egl_gallium
 MESALIB_LIBS-$(PTXCONF_MESALIB_GBM)	+= libgbm
-MESALIB_LIBS-$(MESALIB_GALLIUM_GBM)	+= gbm/gbm_gallium_drm
 
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_X11)	+= x11
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_DRM)	+= drm
@@ -86,9 +78,11 @@ MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_WAYLAND)	+= wayland
 
 MESALIB_LIBS-$(PTXCONF_MESALIB_EGL_WAYLAND)	+= libwayland-egl
 
+MESALIB_BUILD_OOT	:= YES
 MESALIB_CONF_TOOL	:= autoconf
 MESALIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-largefile \
 	--disable-static \
 	--enable-shared \
 	--disable-debug \
@@ -99,7 +93,6 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESALIB_OPENGL)-opengl \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES1)-gles1 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES2)-gles2 \
-	--$(call ptx/endis, PTXCONF_MESALIB_OPENVG)-openvg \
 	--enable-dri \
 	--disable-dri3 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLX)-glx \
@@ -108,22 +101,25 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESALIB_EGL)-egl \
 	--disable-xa \
 	--$(call ptx/endis, PTXCONF_MESALIB_GBM)-gbm \
+	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
+	--disable-va \
 	--disable-omx \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-xlib-glx \
-	--$(call ptx/endis, MESALIB_GALLIUM_EGL)-gallium-egl \
-	--$(call ptx/endis, MESALIB_GALLIUM_GBM)-gallium-gbm \
 	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
+	--disable-shader-cache \
 	--enable-shared-glapi \
 	--disable-sysfs \
+	--disable-glx-read-only-text \
 	--enable-driglx-direct \
 	--enable-glx-tls \
 	--disable-gallium-llvm \
 	--enable-llvm-shared-libs \
+	--with-sha1= \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \

@@ -23,6 +23,7 @@ XORG_LIB_XRENDER_SUFFIX		:= tar.bz2
 XORG_LIB_XRENDER_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XRENDER).$(XORG_LIB_XRENDER_SUFFIX))
 XORG_LIB_XRENDER_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XRENDER).$(XORG_LIB_XRENDER_SUFFIX)
 XORG_LIB_XRENDER_DIR		:= $(BUILDDIR)/$(XORG_LIB_XRENDER)
+XORG_LIB_XRENDER_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

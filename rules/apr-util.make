@@ -23,7 +23,7 @@ APR_UTIL_SUFFIX		:= tar.bz2
 APR_UTIL_URL		:= http://archive.apache.org/dist/apr/$(APR_UTIL).$(APR_UTIL_SUFFIX)
 APR_UTIL_SOURCE		:= $(SRCDIR)/$(APR_UTIL).$(APR_UTIL_SUFFIX)
 APR_UTIL_DIR		:= $(BUILDDIR)/$(APR_UTIL)
-APR_UTIL_LICENSE	:= APLv2
+APR_UTIL_LICENSE	:= Apache-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

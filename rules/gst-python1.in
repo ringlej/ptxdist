@@ -1,0 +1,9 @@
+## SECTION=multimedia_gstreamer1
+
+config GST_PYTHON1
+	tristate
+	select GSTREAMER1
+	select PYTHON3_GI
+	prompt "gst-python"
+	help
+	  GStreamer GObject Introspection overrides for Python 3

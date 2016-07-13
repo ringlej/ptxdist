@@ -1,8 +1,8 @@
 ## SECTION=shell_and_console
 
-config RNG_TOOLS
+menuconfig RNG_TOOLS
 	tristate
-	prompt "rng-tools rngd"
+	prompt "rng-tools rngd                "
 	help
 	  random number generator daemon - seed kernel random from hwrng
 
@@ -16,8 +16,23 @@ config RNG_TOOLS
 	      http://sourceforge.net/projects/gkernel/
 	      git://git.kernel.org/pub/scm/utils/kernel/rng-tools/rng-tools.git
 
+if RNG_TOOLS
+
 config RNG_TOOLS_STARTSCRIPT
 	bool
 	default y
 	depends on RNG_TOOLS
 	prompt "install /etc/init.d/rngd"
+
+config RNG_TOOLS_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files"
+
+config RNG_TOOLS_RNGTEST
+	bool
+	default n
+	prompt "install rngtest"
+
+endif

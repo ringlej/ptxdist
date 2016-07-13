@@ -118,6 +118,7 @@ menu "drivers"
 
 	config GPSD_DRIVER_UBX
 		bool
+		select GPSD_DRIVER_NMEA
 		prompt "ubx"
 
 	config GPSD_DRIVER_EVERMORE

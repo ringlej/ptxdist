@@ -23,6 +23,7 @@ XORG_LIB_FONTENC_SUFFIX		:= tar.bz2
 XORG_LIB_FONTENC_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_FONTENC).$(XORG_LIB_FONTENC_SUFFIX))
 XORG_LIB_FONTENC_SOURCE		:= $(SRCDIR)/$(XORG_LIB_FONTENC).$(XORG_LIB_FONTENC_SUFFIX)
 XORG_LIB_FONTENC_DIR		:= $(BUILDDIR)/$(XORG_LIB_FONTENC)
+XORG_LIB_FONTENC_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
