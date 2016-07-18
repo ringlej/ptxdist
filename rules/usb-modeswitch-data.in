@@ -1,0 +1,10 @@
+## SECTION=shell_and_console
+
+config USB_MODESWITCH_DATA
+	tristate
+	prompt "usb-modeswitch-data"
+	depends on USB_MODESWITCH && UDEV
+	help
+	  Device database and udev rules file for USB_ModeSwitch.
+
+# vim: set sw=8 ts=8 noet ft=kconfig:
