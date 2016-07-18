@@ -45,6 +45,7 @@ Fonts:
 
 Tools:
    - *Sphinx* version 1.3.4, better 1.4.2 (for all kind of document formats)
+   - *Sphinx* theme from https://readthedocs.org/
    - *TeX Live 2016* (for the "Portable Document Format", e.g. PDF)
 
 Building the Documentation
