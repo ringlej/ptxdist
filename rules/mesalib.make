@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 11.2.2
-MESALIB_MD5	:= e0ec73f7273662a74366f0d76dd19ac3
+MESALIB_VERSION	:= 12.0.1
+MESALIB_MD5	:= 972fd5ad5a63aeabf173fb9adefc6522
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
@@ -28,7 +28,7 @@ MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 MESALIB_LICENSE	:= MIT
 MESALIB_LICENSE_FILES := \
-	file://docs/license.html;md5=6a23445982a7a972ac198e93cc1cb3de
+	file://docs/license.html;md5=899fbe7e42d494c7c8c159c7001693d5
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -108,8 +108,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-omx \
 	--disable-opencl \
 	--disable-opencl-icd \
-	--disable-xlib-glx \
-	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
 	--disable-shader-cache \
 	--enable-shared-glapi \
@@ -119,10 +117,12 @@ MESALIB_CONF_OPT	:= \
 	--enable-glx-tls \
 	--disable-gallium-llvm \
 	--enable-llvm-shared-libs \
+	--disable-libglvnd \
 	--with-sha1= \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
+	--without-vulkan-drivers \
 	--with-egl-platforms="$(MESALIBS_EGL_PLATFORMS-y)"
 
 # ----------------------------------------------------------------------------
