@@ -586,7 +586,7 @@ The skeleton for the *targetinstall* stage looks like this:
     	@$(call install_fixup, foo,DEPENDS,)
     	@$(call install_fixup, foo,DESCRIPTION,missing)
 
-    	@$call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foobar, /dev/null)
+    	@$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foobar, /dev/null)
 
     	@$(call install_finish, foo)
     	@$(call touch)
