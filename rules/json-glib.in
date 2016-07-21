@@ -1,0 +1,17 @@
+## SECTION=multimedia_gtk
+
+config JSON_GLIB
+	tristate
+	prompt "json-glib"
+	select GLIB
+	select GOBJECT_INTROSPECTION	if JSON_GLIB_INTROSPECTION
+	help
+	  A library providing (de)serialization support for the JSON format.
+
+if JSON_GLIB
+
+config JSON_GLIB_INTROSPECTION
+	bool
+	default GOBJECT_INTROSPECTION_HELPER
+
+endif
