@@ -1,9 +1,8 @@
 ## SECTION=devicetree
 
 menuconfig HOST_DTC
-	bool
-	depends on DTC && !KERNEL_DTC
-	prompt "Build device tree compiler    "
+	tristate "dtc (standalone)              "
+	depends on !KERNEL_DTC
 	help
 	  Select this if the HOST_DTC tool is required without
 	  building a device tree. (It is also used for building
