@@ -99,11 +99,11 @@ ptxd_install_setup() {
     esac
 
     # all dirs
-    dirs=("${ptx_nfsroot}" "${ptx_nfsroot_dbg}" "${pkg_xpkg_tmp}")
+    dirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
 
     # nfs root dirs
     # no setuid/setguid bit here
-    ndirs=("${ptx_nfsroot}" "${ptx_nfsroot_dbg}")
+    ndirs=("${ptx_nfsroot}")
 
     # package dirs
     # this goes into the ipkg, thus full file modes here

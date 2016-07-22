@@ -417,18 +417,10 @@ project.
     an NFS root for example. Refer :ref:`nfsroot` for further details how to
     make use of it. In case of a debug session, this directory can be used
     by a modern GDB for its sysroot as well by using
-    ``set sysroot </path/to/workspace>/|ptxdistPlatformDir|/root``.
-
-``|ptxdistPlatformDir|/root-debug``
-    Target’s root filesystem image intended to be used as system filesystem root
-    for a debugger. The difference to ``|ptxdistPlatformDir|/root/`` is, all
-    programs and libraries in this directory still have their debug information
-    present. To be used by the debugger, we should setup our debugger with
-    ``set sysroot </path/to/workspace>/|ptxdistPlatformDir|/root-debug``.
-    Please note: this feature will fade-out soon. It is replaced by a long
-    time supported feature used by modern GDBs: using sub-directories named
-    ``.debug`` present in the ``|ptxdistPlatformDir|/root`` directory
-    instead.
+    ``set sysroot </path/to/workspace>/|ptxdistPlatformDir|/root``:
+    All binaries are stripped but all debug symbols are saved in special
+    debug files in ``.debug`` sub-directories. GDB knows about this and
+    will load these files automatically.
 
 ``|ptxdistPlatformDir|/state``
     Building every package is divided onto stages. And stages of one

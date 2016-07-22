@@ -506,7 +506,6 @@ check_dirs() {
 		"${STATEDIR}" \
 		"${IMAGEDIR}" \
 		"${ROOTDIR}" \
-		"${ROOTDIR_DEBUG}" \
 		"${PTXDIST_SRCDIR}" \
 	        "${PTXDIST_GEN_CONFIG_DIR}" \
 		; do
@@ -1057,7 +1056,7 @@ clean() {
 		rm -fr -- "${IMAGEDIR}"
 		echo "${PTXDIST_LOG_PROMPT}cleaning root directory..."
 		rm -fr -- "${ROOTDIR}"
-		rm -fr -- "${ROOTDIR_DEBUG}"
+		rm -fr -- "${PTXDIST_PLATFORMDIR}/root-debug"
 		echo "${PTXDIST_LOG_PROMPT}cleaning packages..."
 		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PTXDIST_LOG_PROMPT}cleaning targetinstall stages..."
@@ -1153,7 +1152,7 @@ clean() {
 	rm -fr -- "${IMAGEDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing root..."
 	rm -fr -- "${ROOTDIR}"
-	rm -fr -- "${ROOTDIR_DEBUG}"
+	rm -fr -- "${PTXDIST_PLATFORMDIR}/root-debug"
 	echo "${PTXDIST_LOG_PROMPT}removing state..."
 	rm -fr -- "${STATEDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing logfile..."

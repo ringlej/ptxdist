@@ -103,7 +103,7 @@ ptxd_make_image_fix_permissions() {
     local -a ptxd_reply_ipkg_file ptxd_reply_perm_files &&
     ptxd_get_ipkg_files ${image_pkgs_selected_target} || return
 
-    set -- "${ptx_nfsroot}" "${ptx_nfsroot_dbg}"
+    set -- "${ptx_nfsroot}"
 
     exec 3> "${fixscript}"
     while [ ${#} -ne 0 ]; do

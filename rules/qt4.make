@@ -65,7 +65,7 @@ QT4_WRAPPER_BLACKLIST := \
 	TARGET_COMPILER_RECORD_SWITCHES
 
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
-# 'strip' is our special wrapper to avoid stripping for root-debug
+# 'strip' is our special wrapper to avoid stripping
 QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)  STRIP=strip MAKEFLAGS="$(PARALLELMFLAGS)"
 QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR)
 

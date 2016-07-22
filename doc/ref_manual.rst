@@ -431,7 +431,6 @@ Usage:
 Installs given file or directory into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
@@ -532,7 +531,6 @@ Usage:
 Installs the whole directory tree with all files from the given directory into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
@@ -589,7 +587,6 @@ Usage:
 Installs the whole source directory tree with all files from the given directory into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg packet in the project's ``<platform-dir>/packages/``
 
 The ``<destination dir>`` is used like in the ``install_alternative`` to let
@@ -638,7 +635,6 @@ Usage:
 Installs given files or directories into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 The base parameters and their meanings:
@@ -702,7 +698,6 @@ Usage:
 Installs a symbolic link into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 The parameters and their meanings:
@@ -744,7 +739,6 @@ Usage:
 Installs archives content into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 All parameters have fixed meanings:
@@ -777,7 +771,6 @@ Installs parts of a directory tree with all files from the given directory
 into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
@@ -830,7 +823,6 @@ Usage:
 Installs the shared library <libname> into the root filesystem.
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 The parameters and their meanings:
