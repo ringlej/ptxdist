@@ -182,10 +182,11 @@ if ROOTFS_VAR
 
 config ROOTFS_VAR_RUN
 	bool
+	select ROOTFS_RUN
 	prompt "/var/run"
 	default y
 	help
-	  Create a /var/run directory in the root filesystem.
+	  This will not create a directory but a symlink to /run.
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
 
