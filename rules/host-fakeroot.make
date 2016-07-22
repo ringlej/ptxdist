@@ -47,7 +47,7 @@ HOST_FAKEROOT_CONF_OPT := \
 $(STATEDIR)/host-fakeroot.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_FAKEROOT)
-	@sed -ie 's,FAKEROOT_SYSROOT,$(PTXCONF_SYSROOT_HOST),' \
+	@sed -i -e 's,FAKEROOT_SYSROOT,$(PTXCONF_SYSROOT_HOST),' \
 		$(PTXCONF_SYSROOT_HOST)/bin/fakeroot
 	@$(call touch)
 
