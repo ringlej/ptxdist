@@ -103,6 +103,8 @@ world/env/impl = \
 	pkg_install_opt="$(call ptx/escape,$($(1)_INSTALL_OPT))"		\
 	pkg_binconfig_glob="$(call ptx/escape,$($(1)_BINCONFIG_GLOB))"		\
 										\
+	pkg_nfsroot_dirs="$(call ptx/escape,$($(1)_NFSROOT_DIRS))"		\
+										\
 	pkg_deprecated_builddir="$(call ptx/escape,$($(1)_BUILDDIR))"		\
 	pkg_deprecated_env="$(call ptx/escape,$($(1)_ENV))"			\
 	pkg_deprecated_autoconf="$(call ptx/escape,$($(1)_AUTOCONF))"		\

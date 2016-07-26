@@ -93,27 +93,32 @@ ptxd_install_resolve_usr_grp() {
 export -f ptxd_install_resolve_usr_grp
 
 ptxd_install_setup() {
+    local image
+    local -a nfsroot_dirs
+
     case "${dst}" in
 	/*|"") ;;
 	*) ptxd_bailout "'dst' must be an absolute path!" ;;
     esac
 
+    nfsroot_dirs=("${ptx_nfsroot}" ${pkg_nfsroot_dirs})
+
     # all dirs
-    dirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
+    dirs=("${nfsroot_dirs[@]}" "${pkg_xpkg_tmp}")
 
     # nfs root dirs
     # no setuid/setguid bit here
-    ndirs=("${ptx_nfsroot}")
+    ndirs=("${nfsroot_dirs[@]}")
 
     # package dirs
     # this goes into the ipkg, thus full file modes here
     pdirs=("${pkg_xpkg_tmp}")
 
     # strip dirs
-    sdirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
+    sdirs=("${nfsroot_dirs[@]}" "${pkg_xpkg_tmp}")
 
     # dirs with separate debug files
-    ddirs=("${ptx_nfsroot}")
+    ddirs=("${nfsroot_dirs[@]}")
 
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))" &&

@@ -423,6 +423,10 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 	print "ifneq ($(strip $(" this_PKG "_PKGS)),)"									> DGEN_DEPS_POST
 	print "$(" this_PKG "_IMAGE):" " \
 		$(STATEDIR)/host-$(call remove_quotes,$(PTXCONF_HOST_PACKAGE_MANAGEMENT)).install.post"		> DGEN_DEPS_POST
+	print "ifeq ($(strip $(" this_PKG "_NFSROOT)),YES)"							> DGEN_DEPS_POST
+	print "$(foreach pkg,$(" this_PKG "_PKGS),$(eval $(PTX_MAP_TO_PACKAGE_$(pkg))_NFSROOT_DIRS += " \
+		"$(PTXDIST_PLATFORMDIR)/nfsroot/" this_pkg "))"							> DGEN_DEPS_POST
+	print "endif"												> DGEN_DEPS_POST
 	print "endif"												> DGEN_DEPS_POST
 }
 
