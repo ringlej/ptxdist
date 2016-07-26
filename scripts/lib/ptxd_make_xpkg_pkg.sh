@@ -316,8 +316,14 @@ install ${cmd}:
 
     # check if src is a link
     if [ -L "${src}" ]; then
-	ptxd_pedantic "file '$(ptxd_print_path "${src}")' is a link" &&
+	local old="${src}"
 	src="$(readlink -f "${src}")" &&
+	if [ "${src}" = /dev/null ]; then
+	    echo "'${old}' is a link to '/dev/null', skipping file."
+	    echo
+	    return
+	fi &&
+	ptxd_pedantic "file '$(ptxd_print_path "${old}")' is a link" &&
 	echo "using '$(ptxd_print_path "${src}")' instead"
     fi &&
 
@@ -594,6 +600,11 @@ ptxd_install_find() {
     fi
 
     ptxd_install_setup_src &&
+    if [ -L "${src}" -a "$(readlink -f "${src}")" = /dev/null ]; then
+	echo "'${src}' is a link to '/dev/null', skipping."
+	echo
+	return
+    fi &&
     test -d "${src}" &&
 
     find "${src}" ! -path "${src}" -a \( \
@@ -655,6 +666,12 @@ export -f ptxd_install_alternative_tree
 ptxd_install_archive() {
     local archive="$1"
     shift
+
+    if [ -L "${archive}" -a "$(readlink -f "${archive}")" = /dev/null ]; then
+	echo "'${archive}' is a link to '/dev/null', skipping."
+	echo
+	return
+    fi &&
 
     local dir="$(mktemp -d "${PTXDIST_TEMPDIR}/install_archive.XXXXXX")" &&
 

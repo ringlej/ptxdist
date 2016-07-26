@@ -621,6 +621,9 @@ to the root filesystem at location ``/usr/share/bar``.
 
  $(call install_alternative_tree, foo, 0, 0, /usr/share/bar)
 
+To install nothing, use a symlink to ``/dev/null`` instead of the base
+directory. See :ref:`install_alternative` for more details.
+
 .. _install_alternative:
 
 install_alternative
@@ -685,6 +688,13 @@ PTXdist with the ``print`` parameter:
 .. code-block:: bash
 
  $ ptxdist print PTXDIST_PLATFORMSUFFIX
+
+``install_alternative`` is used by upstream PTXdist packages to install
+config files. In some rare use-cases the file should not be installed at
+all. For example if the config file is generated at runtime or provided by
+a special configuration package. This is possibly by creating a symlink to
+``/dev/null`` instead of a file at one of the locations described above.
+PTXdist skip installing the file if it detects such a symlink.
 
 install_link
 ~~~~~~~~~~~~
