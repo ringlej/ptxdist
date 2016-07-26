@@ -102,7 +102,11 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 
 	PKG_to_pkg[this_PKG] = this_pkg;
 	pkg_to_PKG[this_pkg] = this_PKG;
-	PKG_to_filename[this_PKG] = FILENAME;
+	# make sure each file is only included once
+	if (FILENAME) {
+		PKG_to_filename[this_PKG] = FILENAME;
+		FILENAME = "";
+	}
 
 	print "PTX_MAP_TO_package_" this_PKG "=\"" this_pkg "\""	> MAP_ALL;
 	print "PTX_MAP_TO_package_" this_PKG "="   this_pkg 		> MAP_ALL_MAKE;
@@ -201,7 +205,8 @@ function write_include(this_PKG) {
 	#
 	# include this rules file
 	#
-	print "include " PKG_to_filename[this_PKG]			> DGEN_RULESFILES_MAKE;
+	if (this_PKG in PKG_to_filename)
+		print "include " PKG_to_filename[this_PKG]		> DGEN_RULESFILES_MAKE;
 }
 
 function write_maps(this_PKG, dep_type) {
