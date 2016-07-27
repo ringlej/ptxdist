@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 230
-SYSTEMD_MD5	:= f2f10a6f100c38582b4f02d60210227d
+SYSTEMD_VERSION	:= 231
+SYSTEMD_MD5	:= e6fa7f4a9c06f0427ff0539a90c69390
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -117,7 +117,6 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-efi \
 	--disable-gnuefi \
 	--disable-tpm \
-	--enable-kdbus \
 	--enable-myhostname \
 	--$(call ptx/endis,PTXCONF_UDEV_HWDB)-hwdb \
 	--disable-manpages \
@@ -140,6 +139,9 @@ SYSTEMD_CONF_OPT	:= \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
 	--with-rootprefix= \
 	--with-rootlibdir=/lib
+
+# needed for private libsystemd-shared
+SYSTEMD_LDFLAGS	:= -Wl,-rpath,/lib/systemd
 
 # FIXME kernel from systemd README:
 # - devtmpfs, cgroups are mandatory.
@@ -216,6 +218,7 @@ $(STATEDIR)/systemd.targetinstall:
 #	#
 
 	@$(call install_lib, systemd, 0, 0, 0644, libsystemd)
+	@$(call install_lib, systemd, 0, 0, 0644, systemd/libsystemd-shared-$(SYSTEMD_VERSION))
 
 	@$(call install_lib, systemd, 0, 0, 0644, libnss_myhostname)
 ifdef PTXCONF_SYSTEMD_NETWORK
