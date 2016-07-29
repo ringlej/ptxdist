@@ -54,6 +54,10 @@ config NTP_FG
 	bool
 	prompt "Forum Graphic GPS"
 
+config NTP_GPSD
+	bool
+	prompt "GPSD JSON receiver"
+
 config NTP_HEATH
 	bool
 	prompt "Heath GC-1000 WWV/WWVH receiver "
@@ -158,6 +162,10 @@ config NTP_TRUETIME
 	bool
 	prompt "Kinemetrics/TrueTime receivers"
 
+config NTP_TSYNCPCI
+	bool
+	prompt "Spectracom TSYNC timing board"
+
 config NTP_TT560
 	bool
 	prompt "TrueTime 560 IRIG-B decoder [BROKEN]"
@@ -166,10 +174,6 @@ config NTP_TT560
 config NTP_ULINK
 	bool
 	prompt "Ultralink WWVB receiver"
-
-config NTP_USNO
-	bool
-	prompt "USNO modem service"
 
 config NTP_WWV
 	bool

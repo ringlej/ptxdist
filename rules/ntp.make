@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	:= 4.2.6p5
-NTP_MD5		:= 00df80a84ec9528fcfb09498075525bc
+NTP_VERSION	:= 4.2.8p7
+NTP_MD5		:= 46dfba933c3e4bc924d8e55068797578
 NTP		:= ntp-$(NTP_VERSION)
 NTP_SUFFIX	:= tar.gz
 NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
@@ -40,10 +40,11 @@ NTP_ENV 	:= \
 #
 NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
-	--with-binsubdir=sbin \
+	--bindir=/usr/sbin \
 	--without-lineeditlibs \
 	--without-net-snmp-config \
-	--disable-linuxcaps
+	--disable-linuxcaps \
+	--with-yielding-select=yes
 
 ifdef PTXCONF_NTP_ALL_CLOCK_DRIVERS
 NTP_AUTOCONF += --enable-all-clocks
@@ -105,6 +106,9 @@ endif
 ifdef PTXCONF_NTP_FG
 NTP_AUTOCONF += --enable-FG
 endif
+ifdef PTXCONF_NTP_GPSD
+NTP_AUTOCONF += --enable-GPSD
+endif
 ifdef PTXCONF_NTP_HEATH
 NTP_AUTOCONF += --enable-HEATH
 endif
@@ -162,6 +166,9 @@ endif
 ifdef PTXCONF_NTP_RIPENCC
 NTP_AUTOCONF += --enable-RIPENCC
 endif
+ifdef PTXCONF_NTP_SEL240X
+NTP_AUTOCONF += --enable-SEL240X
+endif
 ifdef PTXCONF_NTP_SHM
 NTP_AUTOCONF += --enable-SHM
 endif
@@ -177,14 +184,14 @@ endif
 ifdef PTXCONF_NTP_TRUETIME
 NTP_AUTOCONF += --enable-TRUETIME
 endif
+ifdef PTXCONF_NTP_TSYNCPCI
+NTP_AUTOCONF += --enable-TSYNCPCI
+endif
 ifdef PTXCONF_NTP_TT560
 NTP_AUTOCONF += --enable-TT560
 endif
 ifdef PTXCONF_NTP_ULINK
 NTP_AUTOCONF += --enable-ULINK
-endif
-ifdef PTXCONF_NTP_USNO
-NTP_AUTOCONF += --enable-USNO
 endif
 ifdef PTXCONF_NTP_WWV
 NTP_AUTOCONF += --enable-WWV
