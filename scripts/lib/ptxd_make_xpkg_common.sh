@@ -9,6 +9,21 @@
 #
 
 #
+# perm file separator changed to allow ':' in filenames
+#
+# $1: perm file path
+#
+ptxd_check_obsolete_perm() {
+	while [ $# -gt 0 ]; do
+		if test -s "${1}" && ! grep -q -P "\x1F" "${1}"; then
+			ptxd_bailout "obsolete perm file detected, please run 'ptxdist clean root'"
+		fi
+		shift
+	done
+}
+export -f ptxd_check_obsolete_perm
+
+#
 # change permissions and ownership of files and create device nodes.
 # the paths specified in the permissions file are prefixed with the
 # current working directory.
@@ -19,6 +34,7 @@
 # $1: permissions file
 #
 ptxd_dopermissions() {
+	ptxd_check_obsolete_perm "${@}"
 	gawk -f "${PTXDIST_LIB_DIR}/ptxd_lib_dopermissions.awk" "${@}"
 }
 export -f ptxd_dopermissions

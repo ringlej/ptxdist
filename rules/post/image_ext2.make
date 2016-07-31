@@ -15,7 +15,7 @@ ifdef PTXCONF_IMAGE_EXT2
 $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 	@echo -n "Creating root.ext2 from working dir..."
 	@cd $(image/work_dir);						\
-	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
+	(awk $(DOPERMISSIONS) $(image/permissions) &&			\
 	(								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/bin/genext2fs ";	\
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\

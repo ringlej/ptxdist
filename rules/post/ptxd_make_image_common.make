@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-DOPERMISSIONS := '{	\
+DOPERMISSIONS := '{ FS = "\x1F";	\
 	if ($$1 == "f")	\
 		printf("chmod %s \".%s\"; chown %s.%s \".%s\";\n", $$5, $$2, $$3, $$4, $$2);	\
 	if ($$1 == "n")	\

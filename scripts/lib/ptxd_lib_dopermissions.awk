@@ -1,7 +1,7 @@
 #!/usr/bin/awk -f
 
 BEGIN {
-	FS = ":";
+	FS = "\x1F";
 }
 
 $1 ~ "f" {
