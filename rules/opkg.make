@@ -91,7 +91,7 @@ ifdef PTXCONF_OPKG_OPKG_CONF_CHECKSIG
 		"option signature_ca_file /etc/ssl/certs/opkg.crt")
 else
 	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CHECKSIG@, \
-		"option check_signature 0")
+		"#option check_signature 0")
 	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CAPATH@, \
 		"#option signature_ca_path /etc/ssl/certs")
 	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CAFILE@, \
