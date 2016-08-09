@@ -89,7 +89,7 @@ config SYSTEMD_IPMASQUERADE
 	depends on SYSTEMD_NETWORK
 	prompt "IP forwarding and masquerading support"
 	help
-	  Pv4/IPv6 support also needs to be enabled in iptables package
+	  IPv4/IPv6 support also needs to be enabled in iptables package
 
 config SYSTEMD_TIMEDATE
 	bool
