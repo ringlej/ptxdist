@@ -22,4 +22,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_IMA_EVM_UTILS) += host-ima-evm-utils
 #
 HOST_IMA_EVM_UTILS_CONF_TOOL	:= autoconf
 
+HOST_IMA_EVM_UTILS_CPPFLAGS	= \
+	-isystem $(PTXDIST_SYSROOT_HOST)/kernel-headers/include
+
 # vim: syntax=make

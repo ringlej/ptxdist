@@ -7,6 +7,7 @@ config HOST_IMA_EVM_UTILS
 	select HOST_ATTR
 	select HOST_OPENSSL
 	select HOST_KEYUTILS
+	select HOST_KERNEL_HEADER
 	help
 	  Integrity Measurement Architecture to know EXACTLY what has
 	  been run on your machine.
