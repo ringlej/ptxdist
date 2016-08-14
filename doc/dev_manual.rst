@@ -324,7 +324,7 @@ The rule file skeleton still lacks some important information. Let’s
 take a look into some of the top lines of the generated rule file
 ``./rules/foo.make``:
 
-::
+.. code-block:: make
 
     FOO_VERSION	:= 1.1.0
     FOO_MD5	:=
@@ -568,7 +568,7 @@ rule file ``./rules/foo.make``.
 
 The skeleton for the *targetinstall* stage looks like this:
 
-::
+.. code-block:: make
 
     # ----------------------------------------------------------------------------
     # Target-Install
@@ -797,7 +797,7 @@ especially a parameter like ``--enable-debug``. To let the user decide
 if this parameter is to be used or not, we must add a menu entry. So,
 let’s expand our menu. Here is its current content:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -810,7 +810,7 @@ let’s expand our menu. Here is its current content:
 We’ll add two menu entries, one for each optional parameter we want to
 add on demand to the ``configure`` parameters:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -838,7 +838,7 @@ add on demand to the ``configure`` parameters:
 To make usage of the new menu entries, we must check them in the rule
 file and add the correct parameters:
 
-::
+.. code-block:: make
 
     #
     # autoconf
@@ -876,7 +876,7 @@ files, PTXdist provides some shortcuts to handle it. Refer to section
 With these special macros in use, the file content shown above looks
 much simpler:
 
-::
+.. code-block:: make
 
     #
     # autoconf
@@ -889,8 +889,7 @@ If some parts of a package are built on demand only, they must also be
 installed on demand only. Besides the *prepare* stage, we also must
 modify our *targetinstall* stage:
 
-::
-
+.. code-block:: make
 
     	@$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/foo)
 
@@ -900,8 +899,6 @@ modify our *targetinstall* stage:
 
     	@$(call install_finish, foo)
     	@$(call touch)
-
-    [...]
 
 Now we can play with our new menu entries and check if they are working
 as expected:
@@ -933,7 +930,7 @@ kind of dependency is managed in the menu file of our new package by
 simply adding the ``select ZLIB`` line. After this addition our menu
 file looks like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -969,7 +966,7 @@ library *libz* and *bar* needs the XML2 library *libxml2*. These
 libraries are only required at run-time if the correspondig feature is
 enabled. To add these dependencies on demand, the menu file looks like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -1022,7 +1019,7 @@ not** help to select the ``GLIBC`` symbol, to get a ``libm`` at run-time.
 The correct solution here is to add a ``select LIBC_M`` to our menu
 file. With all the additions above it now looks like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -1068,7 +1065,7 @@ a special *prepare* and *compile* stage.
 Such packages often have no special need for any kind of preparation. In
 this we must instruct PTXdist to do nothing in the *prepare* stage:
 
-::
+.. code-block:: make
 
     FOO_CONF_TOOL := NO
 
@@ -1080,7 +1077,7 @@ Most of the time the generic compile rule can be used, only a few
 settings are required. For a well defined ``Makefile`` it is sufficient to
 set up the correct cross compile environment for the *compile* stage:
 
-::
+.. code-block:: make
 
     FOO_MAKE_ENV := $(CROSS_ENV)
 
@@ -1100,13 +1097,13 @@ Building packages that use ``cmake`` or ``qmake`` is much like building
 packages with an autotools based buildsystem. We need to specify the
 configuration tool:
 
-::
+.. code-block:: make
 
     FOO_CONF_TOOL := cmake
 
 or
 
-::
+.. code-block:: make
 
     FOO_CONF_TOOL := qmake
 
@@ -1114,7 +1111,7 @@ And provide the correct configuration options. The syntax is different so
 PTXdist provides additional macros to simplify configurable features.
 For ``cmake`` the configuration options typically look like this:
 
-::
+.. code-block:: make
 
     FOO_CONF_OPT := \
     	$(CROSS_CMAKE_USR) \
@@ -1123,7 +1120,7 @@ For ``cmake`` the configuration options typically look like this:
 
 For ``qmake`` the configuration options typically look like this:
 
-::
+.. code-block:: make
 
     FOO_CONF_OPT := \
     	$(CROSS_QMAKE_OPT) \
@@ -1138,7 +1135,7 @@ Managing Python Packages
 As with any other package, the correct configuration tool must be selected
 for Python packages:
 
-::
+.. code-block:: make
 
     FOO_CONF_TOOL := python
 
