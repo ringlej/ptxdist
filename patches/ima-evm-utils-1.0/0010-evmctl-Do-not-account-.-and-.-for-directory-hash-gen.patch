@@ -15,10 +15,10 @@ Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
  1 file changed, 3 insertions(+)
 
 diff --git a/src/libimaevm.c b/src/libimaevm.c
-index 6b81e7e2d7aa..4eb37e2bf167 100644
+index ea8e4f41488c..29d50c99c733 100644
 --- a/src/libimaevm.c
 +++ b/src/libimaevm.c
-@@ -224,6 +224,9 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
+@@ -225,6 +225,9 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
  	}
  
  	while ((de = readdir(dir))) {

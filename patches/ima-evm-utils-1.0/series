@@ -4,7 +4,11 @@
 0002-Makefile.am-rename-INCLUDES-AM_CPPFLAGS.patch
 0003-evmctl-find-add-missing-closedir-dir-on-error.patch
 0004-evmctl-find-add-missing-error-handling-and-propagate.patch
-0005-evmctl-add-support-for-offline-image-preparation.patch
-0006-evmctl-Do-not-account-.-and-.-for-directory-hash-gen.patch
-0007-HACK-don-t-generate-man-page.patch
-# dd0364c455ca5a28b5a5de995af71285  - git-ptx-patches magic
+0005-evmctl-add-fallback-definitions-for-XATTR_NAME_IMA.patch
+0006-evmctl-libimaevm-use-EVP_MAX_MD_SIZE-for-hash-size-i.patch
+0007-libimaevm-use-SHA_DIGEST_LENGTH-instead-of-open-codi.patch
+0008-evmctl-add-parameter-e-to-set-evm-hash-algo.patch
+0009-evmctl-add-support-for-offline-image-preparation.patch
+0010-evmctl-Do-not-account-.-and-.-for-directory-hash-gen.patch
+0011-HACK-don-t-generate-man-page.patch
+# fd0c40bbcc8fc866030c326fe29b69aa  - git-ptx-patches magic

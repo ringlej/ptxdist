@@ -37,18 +37,18 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  3 files changed, 74 insertions(+), 9 deletions(-)
 
 diff --git a/src/evmctl.c b/src/evmctl.c
-index 6606e4958080..d66e6b06ad23 100644
+index d7352d87ef71..ec1fed395656 100644
 --- a/src/evmctl.c
 +++ b/src/evmctl.c
-@@ -314,6 +314,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
- 	char uuid[16];
+@@ -320,6 +320,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  	struct h_misc_64 hmac_misc;
  	int hmac_size;
+ 	const EVP_MD *md;
 +	ino_t ino;
  
  	if (lstat(file, &st)) {
  		log_err("Failed to stat: %s\n", file);
-@@ -336,9 +337,25 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+@@ -342,9 +343,25 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  			}
  			close(fd);
  		}
@@ -75,7 +75,7 @@ index 6606e4958080..d66e6b06ad23 100644
  	list_size = llistxattr(file, list, sizeof(list));
  	if (list_size < 0) {
  		log_err("llistxattr() failed\n");
-@@ -384,7 +401,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+@@ -396,7 +413,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  		struct h_misc *hmac = (struct h_misc *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -84,7 +84,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -393,7 +410,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+@@ -405,7 +422,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  		struct h_misc_64 *hmac = (struct h_misc_64 *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -93,7 +93,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -402,7 +419,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+@@ -414,7 +431,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  		struct h_misc_32 *hmac = (struct h_misc_32 *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -102,15 +102,15 @@ index 6606e4958080..d66e6b06ad23 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -855,6 +872,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
- 	ssize_t list_size;
+@@ -868,6 +885,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  	struct h_misc_64 hmac_misc;
  	int hmac_size;
+ 	const EVP_MD *md;
 +	ino_t ino;
  
  	key = file2bin(keyfile, NULL, &keylen);
  	if (!key) {
-@@ -892,10 +910,26 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -905,10 +923,26 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		close(fd);
  	}
  
@@ -137,7 +137,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		log_err("llistxattr() failed: %s\n", file);
  		goto out;
  	}
-@@ -932,7 +966,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -951,7 +985,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		struct h_misc *hmac = (struct h_misc *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -146,7 +146,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -941,7 +975,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -960,7 +994,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		struct h_misc_64 *hmac = (struct h_misc_64 *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -155,7 +155,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -950,7 +984,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -969,7 +1003,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		struct h_misc_32 *hmac = (struct h_misc_32 *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -164,7 +164,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -1469,6 +1503,9 @@ static void usage(void)
+@@ -1494,6 +1528,9 @@ static void usage(void)
  		"      --smack        use extra SMACK xattrs for EVM\n"
  		"      --m32          force EVM hmac/signature for 32 bit target system\n"
  		"      --m64          force EVM hmac/signature for 64 bit target system\n"
@@ -174,7 +174,7 @@ index 6606e4958080..d66e6b06ad23 100644
  		"  -v                 increase verbosity level\n"
  		"  -h, --help         display this help and exit\n"
  		"\n");
-@@ -1507,6 +1544,7 @@ static struct option opts[] = {
+@@ -1533,6 +1570,7 @@ static struct option opts[] = {
  	{"recursive", 0, 0, 'r'},
  	{"m32", 0, 0, '3'},
  	{"m64", 0, 0, '6'},
@@ -182,16 +182,16 @@ index 6606e4958080..d66e6b06ad23 100644
  	{"smack", 0, 0, 256},
  	{"version", 0, 0, 257},
  	{}
-@@ -1555,7 +1593,7 @@ int main(int argc, char *argv[])
+@@ -1581,7 +1619,7 @@ int main(int argc, char *argv[])
  	g_argc = argc;
  
  	while (1) {
--		c = getopt_long(argc, argv, "hvnsda:p::fu::k:t:ri", opts, &lind);
-+		c = getopt_long(argc, argv, "hvnsda:p::fu::k:t:rim", opts, &lind);
+-		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:ri", opts, &lind);
++		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:rim", opts, &lind);
  		if (c == -1)
  			break;
  
-@@ -1619,6 +1657,9 @@ int main(int argc, char *argv[])
+@@ -1648,6 +1686,9 @@ int main(int argc, char *argv[])
  		case '6':
  			msize = 64;
  			break;
@@ -202,11 +202,11 @@ index 6606e4958080..d66e6b06ad23 100644
  			evm_config_xattrnames = evm_extra_smack_xattrs;
  			break;
 diff --git a/src/imaevm.h b/src/imaevm.h
-index 711596c3f3fa..84632a487074 100644
+index ef7858b8faa0..79f70974015a 100644
 --- a/src/imaevm.h
 +++ b/src/imaevm.h
-@@ -180,6 +180,7 @@ struct libevm_params {
- 	const char *hash_algo;
+@@ -181,6 +181,7 @@ struct libevm_params {
+ 	const char *evm_hash_algo;
  	const char *keyfile;
  	const char *keypass;
 +	bool image_mode;
@@ -214,7 +214,7 @@ index 711596c3f3fa..84632a487074 100644
  
  struct RSA_ASN1_template {
 diff --git a/src/libimaevm.c b/src/libimaevm.c
-index 575f0535fe07..6b81e7e2d7aa 100644
+index 595908395514..ea8e4f41488c 100644
 --- a/src/libimaevm.c
 +++ b/src/libimaevm.c
 @@ -40,6 +40,7 @@
@@ -233,7 +233,7 @@ index 575f0535fe07..6b81e7e2d7aa 100644
  
  #include <openssl/pem.h>
  #include <openssl/evp.h>
-@@ -222,7 +224,28 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
+@@ -223,7 +225,28 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
  	}
  
  	while ((de = readdir(dir))) {
