@@ -67,6 +67,7 @@ $(STATEDIR)/libnl3.targetinstall:
 
 	@$(call install_lib, libnl3, 0, 0, 0644, libnl-3)
 	@$(call install_lib, libnl3, 0, 0, 0644, libnl-genl-3)
+	@$(call install_lib, libnl3, 0, 0, 0644, libnl-idiag-3)
 	@$(call install_lib, libnl3, 0, 0, 0644, libnl-nf-3)
 	@$(call install_lib, libnl3, 0, 0, 0644, libnl-route-3)
 
