@@ -30,9 +30,11 @@ HOST_DTC_DIR		:= $(HOST_BUILDDIR)/$(HOST_DTC)
 # ----------------------------------------------------------------------------
 
 HOST_DTC_CONF_TOOL := NO
-HOST_DTC_COMPILE_OPT := PREFIX=
+HOST_DTC_MAKE_OPT := \
+	PREFIX= \
+	$(HOST_ENV_CC)
 HOST_DTC_INSTALL_OPT := \
-	$(HOST_DTC_COMPILE_OPT) \
+	$(HOST_DTC_MAKE_OPT) \
 	install
 
 # vim: syntax=make
