@@ -1,5 +1,4 @@
 ## SECTION=hosttools_noprompt
-## SECTION=hosttools_platform
 
 config HOST_KERNEL_HEADER
 	tristate
