@@ -8,6 +8,7 @@ config JS
 	select LIBC_DL
 	select LIBC_PTHREAD
 	select ZLIB
+	select LIBFFI
 	help
 	  SpiderMonkey is Mozilla's JavaScript engine written in C/C++.
 	  It is used in various Mozilla products, including Firefox,
