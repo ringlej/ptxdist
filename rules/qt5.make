@@ -282,12 +282,15 @@ $(STATEDIR)/qt5.install.post:
 # Target-Install
 # ----------------------------------------------------------------------------
 
+QT5_LIBS-y							:=
+QT5_QML-y							:=
+
 ### Qt3d ###
-QT5_LIBS_$(PTXCONF_QT5_MODULE_QT3D)				+= Qt3d
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QT3D)				+= Qt53DCore Qt53DInput Qt53DLogic Qt53DQuick Qt53DQuickInput Qt53DQuickRender Qt53DRender
 QT5_QML-$(PTXCONF_QT5_MODULE_QT3D_QUICK)			+= Qt3D
 
 ### QtBase ###
-QT5_LIBS-y							:= Qt5Core
+QT5_LIBS-y							+= Qt5Core
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE)				+= Qt5Concurrent
 QT5_LIBS-$(PTXCONF_QT5_DBUS)					+= Qt5DBus
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE_GUI)			+= Qt5Gui
@@ -371,7 +374,7 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqwebp
 
 
 ### QtLocation ###
-QT5_LIBS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= Qt5Positioning
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= Qt5Positioning Qt5Location
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= position/libqtposition_positionpoll
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= geoservices/libqtgeoservices_osm
 QT5_QML-$(PTXCONF_QT5_MODULE_QTLOCATION_QUICK)			+= QtLocation
