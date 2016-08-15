@@ -140,7 +140,9 @@ ptxd_make_get_git() {
 	git --git-dir="${mirror}" remote add origin "${url}" &&
 	git --git-dir="${mirror}" fetch --progress -pf origin "+refs/*:refs/*"  &&
 	# at least for some git versions this is not group writeable for shared repos
-	chmod g+w "${mirror}/FETCH_HEAD" &&
+	if [ "$(stat -c '%A' "${mirror}/FETCH_HEAD" | cut -c 6)" != "w" ]; then
+		chmod g+w "${mirror}/FETCH_HEAD"
+	fi &&
 
 	if ! git --git-dir="${mirror}" rev-parse --verify -q "${tag}" > /dev/null; then
 		ptxd_make_serialize_put
