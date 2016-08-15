@@ -35,6 +35,11 @@ JS_LICENSE	:= MPL-2.0
 #
 # autoconf
 #
+
+JS_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	PYTHON=python
+
 # $(JS_SUBDIR)/configure.in:
 #   In Mozilla, we use the names $target, $host and $build incorrectly, but are
 #   too far gone to back out now. See Bug 475488:
