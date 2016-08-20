@@ -113,6 +113,11 @@ Build Actions
   download everything at once. Afterwards the packages can be built without
   internet access.
 
+``urlcheck [<package>]``
+  this action will check if the URL for the package (or all packages) still
+  works. It does not download the whole file, so this is relatively fast,
+  but may not be 100% correct in all cases.
+
 ``get <package>``, ``extract <package>``, ``prepare <package>``, ``compile <package>``, ``install <package>``, ``targetinstall <package>``
   this action will build the corresponding stage for the specified package
   including all previous stages and other dependencies. Multiple packages
