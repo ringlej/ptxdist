@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_GBULB
+	tristate
+	select PYTHON3
+	select PYTHON3_GI
+	select GLIB
+	prompt "python3-gbulb"
+	help
+	  A Python library that implements a PEP 3156 interface for the GLib main event loop.
