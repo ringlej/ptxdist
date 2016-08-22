@@ -6,6 +6,7 @@ menuconfig HOST_QEMU
 	prompt "host-side qemu                "
 	select HOST_GLIB
 	select HOST_ZLIB
+	select HOST_LIBUSB	if HOST_QEMU_SYS
 	select HOST_PIXMAN	if HOST_QEMU_SYS
 
 if HOST_QEMU

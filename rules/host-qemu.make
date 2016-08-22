@@ -104,7 +104,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-libiscsi \
 	--disable-libnfs \
 	--disable-smartcard \
-	--disable-libusb \
+	--enable-libusb \
 	--disable-usb-redir \
 	--disable-lzo \
 	--disable-snappy \
