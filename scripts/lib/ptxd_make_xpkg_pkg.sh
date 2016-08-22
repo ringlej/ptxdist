@@ -196,7 +196,7 @@ ptxd_install_setup_src() {
 export -f ptxd_install_setup_src
 
 ptxd_install_dir() {
-    local sep="\x1F"
+    local sep="$(echo -e "\x1F")"
     local dir="$1"
     local usr="$2"
     local grp="$3"
@@ -216,7 +216,7 @@ install directory:
     install -m "${mod_nfs}" -d "${ndirs[@]/%/${dir}}" &&
     install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
 
-    echo -e "f${sep}${dir}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}" ||
+    echo "f${sep}${dir}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}" ||
     ptxd_install_error "install_dir failed!"
 }
 export -f ptxd_install_dir
@@ -291,7 +291,7 @@ export -f ptxd_install_file_strip
 
 
 ptxd_install_file_impl() {
-    local sep="\x1F"
+    local sep="$(echo -e "\x1F")"
     local src="$1"
     local dst="$2"
     local usr="$3"
@@ -363,7 +363,7 @@ Usually, just remove the 6th parameter and everything works fine.
     # now change to requested user and group
     chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
 
-    echo -e "f${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}"
+    echo "f${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_file_impl
 
@@ -405,7 +405,7 @@ install link:
 export -f ptxd_install_ln
 
 ptxd_install_mknod() {
-    local sep="\x1F"
+    local sep="$(echo -e "\x1F")"
     local dst="$1"
     local usr="$2"
     local grp="$3"
@@ -435,7 +435,7 @@ install device node:
     done &&
     chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
 
-    echo -e "n${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}${sep}${type}${sep}${major}${sep}${minor}" >> "${pkg_xpkg_perms}"
+    echo "n${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}${sep}${type}${sep}${major}${sep}${minor}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_mknod
 
