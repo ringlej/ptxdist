@@ -1,8 +1,12 @@
-From: unknown author <unknown.author@example.com>
-Date: Wed, 27 May 2015 15:58:57 +0200
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 6 Sep 2016 13:04:27 +0200
 Subject: [PATCH] glibc-xattr-types
 
 Fix the type of xattr functions to match the glibc headers.
+
+Imported from fakeroot_1.21-2.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  libfakeroot.c | 16 ++++++++--------
  wrapfunc.inp  | 12 ++++++------

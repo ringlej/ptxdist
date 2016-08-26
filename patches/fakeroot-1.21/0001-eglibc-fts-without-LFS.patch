@@ -1,7 +1,10 @@
-From: unknown author <unknown.author@example.com>
-Date: Wed, 27 May 2015 15:58:57 +0200
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 6 Sep 2016 13:04:27 +0200
 Subject: [PATCH] eglibc-fts-without-LFS
 
+Imported from fakeroot_1.21-2.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  libfakeroot.c | 8 --------
  1 file changed, 8 deletions(-)
