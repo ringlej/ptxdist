@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.12
-STRACE_MD5	:= efb8611fc332e71ec419c53f59faa93e
+STRACE_VERSION	:= 4.13
+STRACE_MD5	:= 4b78c7febdd24c79d5147824d1a080a3
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
