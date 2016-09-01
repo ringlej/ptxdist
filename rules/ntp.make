@@ -366,6 +366,14 @@ ifdef PTXCONF_NTP_NTPQ
 endif
 
 #	#
+#	# ntptime
+#	#
+ifdef PTXCONF_NTP_NTPTIME
+	@$(call install_copy, ntp, 0, 0, 0755, -, \
+		/usr/sbin/ntptime)
+endif
+
+#	#
 #	# other dirs
 #	#
 	@$(call install_copy, ntp, 0, 0, 0755, /var/log/ntpstats)
