@@ -16,6 +16,7 @@
 # ${opts[]}	: an array of options
 #
 ptxd_make_get_http() {
+	local temp_file
 	set -- "${opts[@]}"
 	unset opts
 
@@ -51,7 +52,7 @@ ptxd_make_get_http() {
 	# remove any pending or half downloaded files
 	rm -f -- "${path}."*
 
-	local temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
+	temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 	ptxd_make_serialize_take
 	wget \
 	    --passive-ftp \
