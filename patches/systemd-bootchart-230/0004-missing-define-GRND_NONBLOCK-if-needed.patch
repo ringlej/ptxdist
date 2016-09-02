@@ -1,0 +1,21 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 5 Sep 2016 14:20:40 +0200
+Subject: [PATCH] missing: define GRND_NONBLOCK if needed
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/missing.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/missing.h b/src/missing.h
+index e323d269c98e..a24ad0391ecc 100644
+--- a/src/missing.h
++++ b/src/missing.h
+@@ -55,3 +55,7 @@ static inline int getrandom(void *buffer, size_t count, unsigned flags) {
+         return syscall(__NR_getrandom, buffer, count, flags);
+ }
+ #endif
++
++#ifndef GRND_NONBLOCK
++#define GRND_NONBLOCK 0x0001
++#endif

@@ -35,6 +35,7 @@ SYSTEMD_BOOTCHART_LICENSE	:= unknown
 SYSTEMD_BOOTCHART_CONF_TOOL	:= autoconf
 SYSTEMD_BOOTCHART_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-man \
 	--with-rootprefix=/ \
 	--with-rootlibdir=/lib
 
