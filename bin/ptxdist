@@ -969,6 +969,7 @@ Setup and Project Actions:
 Build Actions:
 
   go				start building the current project
+  get				get all package sources
 
   get <package>			get package sources
   extract <package>		extract package

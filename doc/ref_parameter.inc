@@ -108,6 +108,11 @@ Build Actions
   enabled meanwhile. If enables this step also builds the kernel and
   bootloader image.
 
+``get``
+  this action will download the sources for all packages. This is useful to
+  download everything at once. Afterwards the packages can be built without
+  internet access.
+
 ``get <package>``, ``extract <package>``, ``prepare <package>``, ``compile <package>``, ``install <package>``, ``targetinstall <package>``
   this action will build the corresponding stage for the specified package
   including all previous stages and other dependencies. Multiple packages
