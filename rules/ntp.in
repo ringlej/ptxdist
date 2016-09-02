@@ -202,12 +202,10 @@ source "generated/networking_ntp.in"
 # ---------- Install Options
 
 comment "Install Options"
-depends on NTP
 
 config NTP_NTPDATE
 	bool
 	prompt "install ntpdate"
-	depends on NTP
 	help
 	  ntpdate sets the local date and time by polling the Network
 	  Time Protocol (NTP) server(s) given as the server arguments
@@ -216,7 +214,6 @@ config NTP_NTPDATE
 config NTP_NTPD
 	bool
 	prompt "install ntpd"
-	depends on NTP
 	depends on !BUSYBOX_NTPD || ALLYES
 	help
 	  The ntpd program is an operating system daemon which sets and
@@ -241,7 +238,6 @@ config NTP_NTPD_SYSTEMD_UNIT
 config NTP_NTPDC
 	bool
 	prompt "install ntpdc"
-	depends on NTP
 	help
 	  ntpdc is used to query the ntpd daemon about its
 	  current state and to request changes in that state.
@@ -255,7 +251,6 @@ config NTP_NTPC_STARTSCRIPT
 config NTP_NTPQ
 	bool
 	prompt "install ntpq"
-	depends on NTP
 	help
 	  The ntpq utility program is used to monitor NTP daemon ntpd
 	  operations and determine performance.
@@ -263,7 +258,6 @@ config NTP_NTPQ
 config NTP_NTPTIME
 	bool
 	prompt "install ntptime"
-	depends on NTP
 	help
 	  The ntptime utility program is used to read the kernel's NTP time
 	  variables.
