@@ -38,17 +38,17 @@ DT_UTILS_CONF_TOOL := autoconf
 $(STATEDIR)/dt-utils.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, dt)
-	@$(call install_fixup, dt,PRIORITY,optional)
-	@$(call install_fixup, dt,SECTION,base)
-	@$(call install_fixup, dt,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
-	@$(call install_fixup, dt,DESCRIPTION,missing)
+	@$(call install_init, dt-utils)
+	@$(call install_fixup, dt-utils,PRIORITY,optional)
+	@$(call install_fixup, dt-utils,SECTION,base)
+	@$(call install_fixup, dt-utils,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
+	@$(call install_fixup, dt-utils,DESCRIPTION,missing)
 
-	@$(call install_lib, dt, 0, 0, 0644, libdt-utils)
-	@$(call install_copy, dt, 0, 0, 0755, -, /usr/bin/barebox-state)
-	@$(call install_copy, dt, 0, 0, 0755, -, /usr/bin/fdtdump)
+	@$(call install_lib, dt-utils, 0, 0, 0644, libdt-utils)
+	@$(call install_copy, dt-utils, 0, 0, 0755, -, /usr/bin/barebox-state)
+	@$(call install_copy, dt-utils, 0, 0, 0755, -, /usr/bin/fdtdump)
 
-	@$(call install_finish, dt)
+	@$(call install_finish, dt-utils)
 
 	@$(call touch)
 
