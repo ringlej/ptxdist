@@ -72,3 +72,6 @@ The command:
 will build the Latex based documentation which results into the final
 *Portable Document Format* document. This result can be found in
 ``Documentation/latex/``.
+
+Both commands can be executed in the BSP or the toplevel PTXdist directory
+to create the BSP specific or generic documentation respectively.

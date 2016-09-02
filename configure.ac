@@ -284,7 +284,7 @@ if test -z "$SPHINX"; then
 	AC_MSG_NOTICE([sphinx not found, required to build the documentation])
 	SPHINX=sphinx-build
 else
-	AC_MSG_NOTICE([sphinx found, run 'make docs' to get documentation])
+	AC_MSG_NOTICE([sphinx found, run 'ptxdist docs-html' to get documentation])
 fi
 AC_SUBST(SPHINX)
 
