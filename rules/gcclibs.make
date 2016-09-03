@@ -47,6 +47,14 @@ ifdef PTXCONF_GCCLIBS_GCJ
 	@$(call install_copy_toolchain_lib, gcclibs, libgcj.so)
 endif
 
+ifdef PTXCONF_GCCLIBS_LIBASAN
+	@$(call install_copy_toolchain_lib, gcclibs, libasan.so)
+endif
+
+ifdef PTXCONF_GCCLIBS_LIBUBSAN
+	@$(call install_copy_toolchain_lib, gcclibs, libubsan.so)
+endif
+
 	@$(call install_finish, gcclibs)
 
 	@$(call touch)

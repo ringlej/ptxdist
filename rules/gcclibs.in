@@ -35,4 +35,28 @@ config GCCLIBS_GCJ
 	  Installs the GNU Java Library
 	  libgcj
 
+config GCCLIBS_LIBASAN
+	bool "libasan"
+	select GCCLIBS
+	select GCCLIBS_GCC_S
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_PTHREAD
+	select LIBC_RT
+	help
+	  Installs the AddressSanitizer runtime library
+	  libasan
+
+config GCCLIBS_LIBUBSAN
+	bool "libubsan"
+	select GCCLIBS
+	select GCCLIBS_GCC_S
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_PTHREAD
+	select LIBC_RT
+	help
+	  Installs the UndefinedBehaviorSanitizer runtime library
+	  libubsan
+
 endmenu
