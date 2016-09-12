@@ -3,6 +3,7 @@
 menuconfig SYSTEMD
 	tristate
 	select HOST_GPERF
+	select HOST_CHRPATH
 	# for 'ln --relative'
 	select HOST_COREUTILS
 	select ROOTFS_RUN
