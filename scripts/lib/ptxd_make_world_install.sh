@@ -136,7 +136,17 @@ ptxd_make_world_install_unpack() {
 		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
 	    fi
 	done
-    fi
+    fi &&
+
+    # prefix paths in la files with sysroot
+    find "${pkg_pkg_dir}" \( -name "*.la" -o -name "*.prl" \) -print0 | xargs -r -0 -- \
+	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
+    check_pipe_status &&
+
+    # fix paths in *-config scripts
+    local config &&
+    find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" -print0 | \
+	xargs -r -0 sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" "${config}"
 }
 export -f ptxd_make_world_install_unpack
 
@@ -205,27 +215,18 @@ ptxd_make_world_install_post() {
     if [ \! -d "${pkg_pkg_dir}" ]; then
 	return
     fi &&
-    # prefix paths in la files with sysroot
-    find "${pkg_pkg_dir}" \( -name "*.la" -o -name "*.prl" \) -print0 | xargs -r -0 -- \
-	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
-    check_pipe_status &&
-
-    # fix *-config and copy into sysroot_cross for target packages
-    local config &&
-    find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" | while read config; do
-	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" "${config}" &&
-	if [ "${pkg_type}" = "target" ]; then
-	    cp -P -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
-	fi
-    done &&
 
     # create directories first to avoid race contitions with -jeX
     find "${pkg_pkg_dir}" -type d -printf "%P\0" | \
 	xargs -0 -I{} mkdir -p "${pkg_sysroot_dir}/{}" &&
     cp -dpr --link --remove-destination -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
-    # host and cross packages
-    if [ "${pkg_type}" != "target" ]; then
+    if [ "${pkg_type}" = "target" ]; then
+	# copy *-config into sysroot_cross for target packages
+	find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" -print0 | \
+	    xargs -r -0 cp -P -t "${PTXDIST_SYSROOT_CROSS}/bin" --
+    else
+	# host and cross packages
 	ptxd_make_world_install_library_path
     fi
 }
