@@ -1,22 +1,22 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Wed, 4 May 2016 09:27:51 +0200
+Date: Tue, 27 Sep 2016 08:39:47 +0200
 Subject: [PATCH] engines-path
 
-Imported from openssl_1.0.2h-1.debian.tar.xz
+Imported from openssl_1.0.2j-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  Configure               |  2 +-
- Makefile.org            |  2 +-
+ Makefile.org            |  4 ++--
  engines/Makefile        | 10 +++++-----
  engines/ccgost/Makefile |  8 ++++----
- 4 files changed, 11 insertions(+), 11 deletions(-)
+ 4 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Configure b/Configure
-index 110849367256..90d41302421d 100755
+index 738cee34030f..fe3c3c70181c 100755
 --- a/Configure
 +++ b/Configure
-@@ -1964,7 +1964,7 @@ while (<IN>)
+@@ -1969,7 +1969,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{
@@ -26,10 +26,19 @@ index 110849367256..90d41302421d 100755
  		print OUT "#define ENGINESDIR \"$foo\"\n";
  		}
 diff --git a/Makefile.org b/Makefile.org
-index 76fdbdf6ac5c..9aee32001139 100644
+index 2377f5029187..4c92e2167ecd 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -533,7 +533,7 @@ install: all install_docs install_sw
+@@ -368,7 +368,7 @@ libcrypto.pc: Makefile
+ 	    echo 'exec_prefix=$${prefix}'; \
+ 	    echo 'libdir=$${exec_prefix}/$(LIBDIR)'; \
+ 	    echo 'includedir=$${prefix}/include'; \
+-	    echo 'enginesdir=$${libdir}/engines'; \
++	    echo 'enginesdir=$${libdir}/openssl-1.0.2/engines'; \
+ 	    echo ''; \
+ 	    echo 'Name: OpenSSL-libcrypto'; \
+ 	    echo 'Description: OpenSSL cryptography library'; \
+@@ -536,7 +536,7 @@ install: all install_docs install_sw
  install_sw:
  	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
  		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \

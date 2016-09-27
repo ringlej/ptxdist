@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index 974407e2d9a5..020f215dd1e8 100755
+index bf0da9cd950b..43d5f2f4f6b5 100755
 --- a/Configure
 +++ b/Configure
 @@ -132,7 +132,7 @@ my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers

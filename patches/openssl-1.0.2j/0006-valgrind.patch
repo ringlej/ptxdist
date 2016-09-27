@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Wed, 4 May 2016 09:27:51 +0200
+Date: Tue, 27 Sep 2016 08:39:47 +0200
 Subject: [PATCH] valgrind
 
-Imported from openssl_1.0.2h-1.debian.tar.xz
+Imported from openssl_1.0.2j-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/crypto/rand/md_rand.c b/crypto/rand/md_rand.c
-index 5c13d57765b0..9e0064e79083 100644
+index bd76e23e3deb..66564b0305d6 100644
 --- a/crypto/rand/md_rand.c
 +++ b/crypto/rand/md_rand.c
 @@ -480,6 +480,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)

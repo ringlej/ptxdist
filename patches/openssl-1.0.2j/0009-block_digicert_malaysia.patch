@@ -1,8 +1,8 @@
 From: Raphael Geissert <geissert@debian.org>
-Date: Wed, 4 May 2016 09:27:51 +0200
+Date: Tue, 27 Sep 2016 08:39:47 +0200
 Subject: [PATCH] block_digicert_malaysia
 
-Imported from openssl_1.0.2h-1.debian.tar.xz
+Imported from openssl_1.0.2j-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/crypto/x509/x509_vfy.c b/crypto/x509/x509_vfy.c
-index 3cddc32279e1..7970ac58eff7 100644
+index 574ffeef84c2..34df6ac0f9a0 100644
 --- a/crypto/x509/x509_vfy.c
 +++ b/crypto/x509/x509_vfy.c
-@@ -1008,10 +1008,11 @@ static int check_ca_blacklist(X509_STORE_CTX *ctx)
+@@ -1122,10 +1122,11 @@ static int check_ca_blacklist(X509_STORE_CTX *ctx)
  	for (i = sk_X509_num(ctx->chain) - 1; i >= 0; i--)
  		{
  		x = sk_X509_value(ctx->chain, i);
