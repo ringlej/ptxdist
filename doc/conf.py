@@ -172,6 +172,8 @@ html_context = {
     'css_files': ['_static/css/custom.css'],
     'script_files': [
         '_static/js/jquery-3.1.0.min.js',
+        '_static/underscore.js',
+        '_static/doctools.js',
         '_static/js/main.js',
     ],
 }
