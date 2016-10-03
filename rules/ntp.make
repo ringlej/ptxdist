@@ -25,6 +25,7 @@ NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_S
 NTP_SOURCE	:= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
 NTP_DIR		:= $(BUILDDIR)/$(NTP)
 NTP_LICENSE	:= ntp
+NTP_LICENSE_FILES	:= file://COPYRIGHT;md5=f41fedb22dffefcbfafecc85b0f79cfa
 
 # ----------------------------------------------------------------------------
 # Prepare
