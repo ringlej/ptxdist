@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_GOOD1) += gst-plugins-good1
 #
 # Paths and names
 #
-GST_PLUGINS_GOOD1_VERSION	:= 1.8.3
-GST_PLUGINS_GOOD1_MD5		:= 473ebb1f15c67de99ddb6e4d027c0876
+GST_PLUGINS_GOOD1_VERSION	:= 1.10.0
+GST_PLUGINS_GOOD1_MD5		:= ace9fde726ac785661dda0edbc649d77
 GST_PLUGINS_GOOD1		:= gst-plugins-good-$(GST_PLUGINS_GOOD1_VERSION)
 GST_PLUGINS_GOOD1_SUFFIX	:= tar.xz
 GST_PLUGINS_GOOD1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD1).$(GST_PLUGINS_GOOD1_SUFFIX)
@@ -126,7 +126,7 @@ GST_PLUGINS_GOOD1_CONF_OPT	= \
 	--enable-external \
 	--enable-experimental \
 	\
-	--$(call ptx/endis,PTXCONF_GST_PLUGINS_GOOD1_ORC)-orc \
+	--enable-orc \
 	--disable-directsound \
 	--disable-waveform \
 	\
