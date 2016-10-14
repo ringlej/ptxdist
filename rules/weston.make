@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 1.7.0
-WESTON_MD5	:= 1fde8a44f48cd177438522850d6ba4be
+WESTON_VERSION	:= 1.12.0
+WESTON_MD5	:= 310af6d7f8ba03c3418cec8ad72ea748
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -38,6 +38,7 @@ WESTON_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--enable-shared \
+	--disable-devdocs \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-egl \
 	--enable-xkbcommon \
 	--disable-setuid-install \
@@ -47,24 +48,31 @@ WESTON_CONF_OPT		:= \
 	--$(call ptx/endis, PTXCONF_WESTON_DRM_COMPOSITOR)-drm-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-wayland-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_HEADLESS_COMPOSITOR)-headless-compositor \
-	--disable-rpi-compositor \
 	--$(call ptx/endis, PTXCONF_WESTON_FBDEV_COMPOSITOR)-fbdev-compositor \
 	--disable-rdp-compositor \
 	--disable-screen-sharing \
 	--disable-vaapi-recorder \
 	--enable-simple-clients \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-simple-egl-clients \
+	--disable-simple-dmabuf-intel-client \
+	--disable-simple-dmabuf-v4l-client \
 	--enable-clients \
 	--enable-resize-optimization \
 	--disable-weston-launch \
 	--enable-fullscreen-shell \
 	--disable-colord \
 	--disable-dbus \
+	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-systemd-login \
+	--disable-junit-xml \
 	--disable-ivi-shell \
 	--$(call ptx/endis, PTXCONF_WESTON_WCAP_TOOLS)-wcap-tools \
 	--disable-libunwind \
 	--disable-demo-clients-install \
-	--with-cairo=$(call ptx/ifdef, PTXCONF_WESTON_GL,glesv2,image)
+	--disable-lcms \
+	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD)-systemd-notify \
+	--with-cairo=$(call ptx/ifdef, PTXCONF_WESTON_GL,glesv2,image) \
+	--with-jpeg \
+	--without-webp
 
 
 # ----------------------------------------------------------------------------
