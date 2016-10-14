@@ -4,6 +4,7 @@ menuconfig GSTREAMER1
 	tristate
 	prompt "gstreamer                     "
 	select LIBC_M
+	select LIBUNWIND
 	select GLIB
 	select HOST_GLIB
 	select HOST_FLEX
