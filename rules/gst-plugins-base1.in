@@ -8,6 +8,8 @@ menuconfig GST_PLUGINS_BASE1
 
 	select GLIB
 	select GSTREAMER1
+	select ORC
+	select HOST_ORC
 
 	select ALSA_LIB		if GST_PLUGINS_BASE1_ALSA
 	select ALSA_LIB_PCM	if GST_PLUGINS_BASE1_ALSA
@@ -21,7 +23,6 @@ menuconfig GST_PLUGINS_BASE1
 	select LIBXML2		if GST_PLUGINS_BASE1_SUBPARSE
 	select LIBXML2_HTML	if GST_PLUGINS_BASE1_SUBPARSE
 	select OPUS		if GST_PLUGINS_BASE1_OPUS
-	select ORC		if GST_PLUGINS_BASE1_ORC
 	select ZLIB		if GST_PLUGINS_BASE1_ZLIB
 	select LIBTREMOR	if GST_PLUGINS_BASE1_IVORBIS
 
@@ -44,15 +45,11 @@ menuconfig GST_PLUGINS_BASE1
 
 if GST_PLUGINS_BASE1
 
-config GST_PLUGINS_BASE1_ORC
-	bool
-
 comment "dependency-less plugins"
 # -------------------------------
 
 config GST_PLUGINS_BASE1_ADDER
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "adder"
 
 config GST_PLUGINS_BASE1_APP
@@ -61,7 +58,6 @@ config GST_PLUGINS_BASE1_APP
 
 config GST_PLUGINS_BASE1_AUDIOCONVERT
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "audioconvert"
 
 config GST_PLUGINS_BASE1_AUDIORATE
@@ -78,7 +74,6 @@ config GST_PLUGINS_BASE1_ENCODING
 
 config GST_PLUGINS_BASE1_VIDEOCONVERT
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "videoconvert"
 
 config GST_PLUGINS_BASE1_GIO
@@ -91,7 +86,6 @@ config GST_PLUGINS_BASE1_PLAYBACK
 
 config GST_PLUGINS_BASE1_AUDIORESAMPLE
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "audioresample"
 
 config GST_PLUGINS_BASE1_SUBPARSE
@@ -108,7 +102,6 @@ config GST_PLUGINS_BASE1_TYPEFIND
 
 config GST_PLUGINS_BASE1_VIDEOTESTSRC
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "videotestsrc"
 
 config GST_PLUGINS_BASE1_VIDEORATE
@@ -117,12 +110,10 @@ config GST_PLUGINS_BASE1_VIDEORATE
 
 config GST_PLUGINS_BASE1_VIDEOSCALE
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "videoscale"
 
 config GST_PLUGINS_BASE1_VOLUME
 	bool
-	select GST_PLUGINS_BASE1_ORC
 	prompt "volume"
 
 comment "plugins with dependencies"

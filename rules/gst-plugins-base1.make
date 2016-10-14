@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE1) += gst-plugins-base1
 #
 # Paths and names
 #
-GST_PLUGINS_BASE1_VERSION	:= 1.8.3
-GST_PLUGINS_BASE1_MD5		:= 4d03dd81828ea6b98a44c8f1ab7f4976
+GST_PLUGINS_BASE1_VERSION	:= 1.10.0
+GST_PLUGINS_BASE1_MD5		:= 2114878715a69fc0ab850c4286eddbc6
 GST_PLUGINS_BASE1		:= gst-plugins-base-$(GST_PLUGINS_BASE1_VERSION)
 GST_PLUGINS_BASE1_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
@@ -80,7 +80,7 @@ GST_PLUGINS_BASE1_CONF_OPT	= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
-	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ORC)-orc \
+	--enable-orc \
 	\
 	--disable-iso-codes \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_BASE1_ZLIB)-zlib \
