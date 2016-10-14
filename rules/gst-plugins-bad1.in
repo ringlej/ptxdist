@@ -5,6 +5,7 @@ menuconfig GST_PLUGINS_BAD1
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
+	select ORC
 	select BZIP2		if GST_PLUGINS_BAD1_BZ2
 	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD1_BZ2
 	select BLUEZ		if GST_PLUGINS_BAD1_BLUEZ
@@ -22,8 +23,8 @@ menuconfig GST_PLUGINS_BAD1
 	select MESALIB_GLES2	if GST_PLUGINS_BAD1_GLES2
 	select MESALIB_EGL	if GST_PLUGINS_BAD1_EGL
 	select MESALIB_GLX	if GST_PLUGINS_BAD1_GLX
+	select LIBDRM		if GST_PLUGINS_BAD1_KMS
 	select OPUS		if GST_PLUGINS_BAD1_OPUS
-	select ORC		if GST_PLUGINS_BAD1_ORC
 	select QT5		if GST_PLUGINS_BAD1_QT
 	select QT5_GUI		if GST_PLUGINS_BAD1_QT
 	select QT5_MODULE_QTDECLARATIVE	if GST_PLUGINS_BAD1_QT
@@ -34,6 +35,7 @@ menuconfig GST_PLUGINS_BAD1
 	select LIBUSB		if GST_PLUGINS_BAD1_UVCH264
 	select VO_AACENC	if GST_PLUGINS_BAD1_VOAACENC
 	select WAYLAND		if GST_PLUGINS_BAD1_WAYLAND
+	select WAYLAND_PROTOCOLS if GST_PLUGINS_BAD1_WAYLAND
 
 	prompt "gst-plugins-bad               "
 	help
@@ -45,9 +47,6 @@ menuconfig GST_PLUGINS_BAD1
 
 
 if GST_PLUGINS_BAD1
-
-config GST_PLUGINS_BAD1_ORC
-	bool
 
 config GST_PLUGINS_BAD1_ACCURIP
 	bool
@@ -305,6 +304,10 @@ config GST_PLUGINS_BAD1_STEREO
 	bool
 	prompt "stereo"
 
+config GST_PLUGINS_BAD1_TIMECODE
+	bool
+	prompt "timecode"
+
 config GST_PLUGINS_BAD1_TTA
 	bool
 	# Non ported plugin
@@ -423,10 +426,9 @@ config GST_PLUGINS_BAD1_DASH
 
 config GST_PLUGINS_BAD1_DC1394
 	bool
-	# Non ported plugin
+	# needs libdc1394
 	depends on BROKEN
 	prompt "dc1394"
-	depends on BROKEN
 
 config GST_PLUGINS_BAD1_DECKLINK
 	bool
@@ -454,7 +456,6 @@ config GST_PLUGINS_BAD1_DAALA
 
 config GST_PLUGINS_BAD1_DTS
 	bool
-	select GST_PLUGINS_BAD1_ORC
 	prompt "dts"
 	depends on BROKEN
 
@@ -478,6 +479,12 @@ config GST_PLUGINS_BAD1_FBDEV
 	bool
 	prompt "fbdev"
 
+config GST_PLUGINS_BAD1_FDK_AAC
+	bool
+	# needs fdk-aac
+	depends on BROKEN
+	prompt "fdk_aac"
+
 config GST_PLUGINS_BAD1_FLITE
 	bool
 	prompt "flite"
@@ -498,6 +505,10 @@ config GST_PLUGINS_BAD1_KATE
 	prompt "kate"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD1_KMS
+	bool
+	prompt "kms"
+
 config GST_PLUGINS_BAD1_LADSPA
 	bool
 	prompt "ladspa"
@@ -505,10 +516,9 @@ config GST_PLUGINS_BAD1_LADSPA
 
 config GST_PLUGINS_BAD1_LV2
 	bool
-	# Non ported plugin
+	# needs liblilv
 	depends on BROKEN
 	prompt "lv2"
-	depends on BROKEN
 
 config GST_PLUGINS_BAD1_LIBDE265
 	bool
@@ -559,10 +569,9 @@ config GST_PLUGINS_BAD1_MPLEX
 
 config GST_PLUGINS_BAD1_MUSEPACK
 	bool
-	# Non ported plugin
+	# needs libmpcdec
 	depends on BROKEN
 	prompt "musepack"
-	depends on BROKEN
 
 config GST_PLUGINS_BAD1_NAS
 	bool
@@ -790,6 +799,12 @@ config GST_PLUGINS_BAD1_X265
 	# needs x265
 	depends on BROKEN
 	prompt "x265"
+
+config GST_PLUGINS_BAD1_WEBRTCDSP
+	bool
+	# needs webrtc-audio-processing
+	depends on BROKEN
+	prompt "webrtcdsp"
 
 endif
 
