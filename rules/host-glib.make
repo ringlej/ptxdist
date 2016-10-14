@@ -46,6 +46,7 @@ HOST_GLIB_CONF_OPT	:= \
 	--disable-fam \
 	--disable-xattr \
 	--disable-libelf \
+	--disable-libmount \
 	--disable-gtk-doc \
 	--disable-man \
 	--disable-dtrace \
