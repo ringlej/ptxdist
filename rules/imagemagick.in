@@ -1,0 +1,41 @@
+## SECTION=multimedia_tools
+
+menuconfig IMAGEMAGICK
+	tristate
+	select ZLIB 	if IMAGEMAGICK_USE_ZLIB
+	select LIBPNG 	if IMAGEMAGICK_USE_LIBPNG
+	select LIBJPEG 	if IMAGEMAGICK_USE_LIBJPEG
+	prompt "imagemagick                   "
+	help
+	  ImageMagick® is a software suite to create, edit, compose, or convert
+	  bitmap images. It can read and write images in a variety of formats
+	  (over 200) including PNG, JPEG, JPEG-2000, GIF, TIFF, DPX, EXR, WebP,
+	  Postscript, PDF, and SVG. Use ImageMagick to resize, flip, mirror,
+	  rotate, distort, shear and transform images, adjust image colors, apply
+	  various special effects, or draw text, lines, polygons, ellipses and
+	  Bézier curves.
+
+if IMAGEMAGICK
+
+config IMAGEMAGICK_USE_ZLIB
+	bool
+	default y
+	prompt "Enable ZLIB"
+	help
+	  Enable ZLIB support
+
+config IMAGEMAGICK_USE_LIBPNG
+	bool
+	default y
+	prompt "Enable PNG"
+	help
+	  Enable PNG support
+
+config IMAGEMAGICK_USE_LIBJPEG
+	bool
+	default y
+	prompt "Enable JPEG"
+	help
+	  Enable JPEG support
+	  
+endif
