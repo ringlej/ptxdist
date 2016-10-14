@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_UGLY1) += gst-plugins-ugly1
 #
 # Paths and names
 #
-GST_PLUGINS_UGLY1_VERSION	:= 1.8.3
-GST_PLUGINS_UGLY1_MD5		:= 4fc66c77253b0ad5ce224bda654b2e7d
+GST_PLUGINS_UGLY1_VERSION	:= 1.10.0
+GST_PLUGINS_UGLY1_MD5		:= a640a30f3b1bac2257f0dcaad283660b
 GST_PLUGINS_UGLY1		:= gst-plugins-ugly-$(GST_PLUGINS_UGLY1_VERSION)
 GST_PLUGINS_UGLY1_SUFFIX	:= tar.xz
 GST_PLUGINS_UGLY1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-ugly/$(GST_PLUGINS_UGLY1).$(GST_PLUGINS_UGLY1_SUFFIX)
@@ -60,9 +60,9 @@ GST_PLUGINS_UGLY1_CONF_TOOL	:= autoconf
 GST_PLUGINS_UGLY1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GSTREAMER1_GENERIC_CONF_OPT) \
-	--enable-option-checking \
 	--enable-external \
-	--enable-experimental
+	--enable-experimental \
+	--enable-orc
 
 #
 # the --with-plugins sadly only applies to depencyless plugings
