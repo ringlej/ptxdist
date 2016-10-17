@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBASSUAN) += libassuan
 #
 # Paths and names
 #
-LIBASSUAN_VERSION	:= 2.2.0
-LIBASSUAN_MD5		:= a104faed3e97b9c302c5d67cc22b1d60
+LIBASSUAN_VERSION	:= 2.4.3
+LIBASSUAN_MD5		:= 8e01a7c72d3e5d154481230668e6eb5a
 LIBASSUAN		:= libassuan-$(LIBASSUAN_VERSION)
 LIBASSUAN_SUFFIX	:= tar.bz2
 LIBASSUAN_URL		:= ftp://ftp.gnupg.org/gcrypt/libassuan/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
@@ -32,7 +32,12 @@ LIBASSUAN_LICENSE_FILES	:= \
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBASSUAN_CONF_TOOL := autoconf
+#
+# autoconf
+#
+LIBASSUAN_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000"
 
 # ----------------------------------------------------------------------------
 # Target-Install
