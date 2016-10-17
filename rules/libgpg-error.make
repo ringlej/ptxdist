@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGPG_ERROR) += libgpg-error
 #
 # Paths and names
 #
-LIBGPG_ERROR_VERSION	:= 1.20
-LIBGPG_ERROR_MD5	:= 9997d9203b672402a04760176811589d
+LIBGPG_ERROR_VERSION	:= 1.24
+LIBGPG_ERROR_MD5	:= feb42198c0aaf3b28eabe8f41a34b983
 LIBGPG_ERROR		:= libgpg-error-$(LIBGPG_ERROR_VERSION)
 LIBGPG_ERROR_SUFFIX	:= tar.bz2
 LIBGPG_ERROR_URL	:= \
@@ -50,7 +50,8 @@ LIBGPG_ERROR_CONF_OPT	:= \
 	--disable-rpath \
 	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
 	--disable-languages \
-	--disable-doc
+	--disable-doc \
+	--disable-tests
 
 $(STATEDIR)/libgpg-error.prepare:
 	@$(call targetinfo)
