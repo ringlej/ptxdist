@@ -38,7 +38,7 @@ $(STATEDIR)/iproute2.prepare:
 	@$(call world/prepare, IPROUTE2)
 # overwrite options we don't want, or may be misdetected
 	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/Config
-	@echo 'TC_CONFIG_XT:=y'		>> $(IPROUTE2_DIR)/Config
+	@echo 'TC_CONFIG_XT:=n'		>> $(IPROUTE2_DIR)/Config
 	@echo 'IPT_LIB_DIR:=/usr/lib'	>> $(IPROUTE2_DIR)/Config
 	@echo 'TC_CONFIG_ELF:=n'	>> $(IPROUTE2_DIR)/Config
 ifndef PTXCONF_GLOBAL_SELINUX
