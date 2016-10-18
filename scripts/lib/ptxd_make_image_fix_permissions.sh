@@ -32,7 +32,7 @@ export -f ptxd_make_image_fix_permissions_generate
 ptxd_make_image_fix_permissions_check() {
     local workdir="${1}"
     local ifs_orig="${IFS}"
-    IFS="\x1F"
+    IFS="$(echo -e "\x1F")"
 
     ptxd_check_obsolete_perm "${ptxd_reply_perm_files[@]}"
 
