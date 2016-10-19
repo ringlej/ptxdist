@@ -1,0 +1,24 @@
+## SECTION=qt
+
+menuconfig QWT5
+	tristate
+	prompt "qwt5                          "
+	select QT5
+	select QT5_GUI
+	select QT5_MODULE_QTBASE_WIDGETS
+	select QT5_MODULE_QTSVG if QWT_SVG
+	help
+	  The Qwt library contains GUI Components and utility classes
+	  which are primarily useful for programs with a technical
+	  background. Beside a 2D plot widget it provides scales, sliders,
+	  dials, compasses, thermometers, wheels and knobs to control or
+	  display values, arrays, or ranges of type double.
+
+if QWT5
+
+config QWT5_SVG
+	bool
+	prompt "SVG support"
+
+endif
+

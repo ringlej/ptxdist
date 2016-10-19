@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 3 Aug 2011 16:09:42 +0200
+Subject: [PATCH] disable designer plugins
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qwtconfig.pri | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qwtconfig.pri b/qwtconfig.pri
+index c1645fd935ca..d2f902cb70c5 100644
+--- a/qwtconfig.pri
++++ b/qwtconfig.pri
+@@ -118,7 +118,7 @@ QWT_CONFIG     += QwtOpenGL
+ # Otherwise you have to build it from the designer directory.
+ ######################################################################
+ 
+-QWT_CONFIG     += QwtDesigner
++# QWT_CONFIG     += QwtDesigner
+ 
+ ######################################################################
+ # Compile all Qwt classes into the designer plugin instead
