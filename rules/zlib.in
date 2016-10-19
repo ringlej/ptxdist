@@ -1,7 +1,7 @@
 ## SECTION=system_libraries
-menuconfig ZLIB
+config ZLIB
 	tristate
-	prompt "zlib                          "
+	prompt "zlib"
 	select GCCLIBS_GCC_S
 	help
 	  A Massively Spiffy Yet Delicately Unobtrusive
