@@ -23,6 +23,7 @@ SCREEN_SUFFIX	:= tar.gz
 SCREEN_URL	:= $(call ptx/mirror, GNU, screen/$(SCREEN).$(SCREEN_SUFFIX))
 SCREEN_SOURCE	:= $(SRCDIR)/$(SCREEN).$(SCREEN_SUFFIX)
 SCREEN_DIR	:= $(BUILDDIR)/$(SCREEN)
+SCREEN_LICENSE	:= GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

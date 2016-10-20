@@ -59,6 +59,7 @@ ptxd_make_xpkg_prepare() {
 	"${pkg_xpkg_perms}" \
 	"${pkg_xpkg_install_deps}" &&
     mkdir -p -- "${pkg_xpkg_control_dir}" &&
+    touch "${pkg_xpkg_perms}" &&
     touch "${pkg_xpkg_cmds}" || return
 
     ptxd_make_xpkg_deps || return

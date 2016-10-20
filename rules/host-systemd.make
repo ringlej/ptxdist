@@ -87,7 +87,6 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-efi \
 	--disable-gnuefi \
 	--disable-tpm \
-	--disable-kdbus \
 	--disable-myhostname \
 	--enable-hwdb \
 	--disable-manpages \

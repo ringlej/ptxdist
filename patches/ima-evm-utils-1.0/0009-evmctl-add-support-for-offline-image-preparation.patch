@@ -1,0 +1,265 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Mon, 1 Dec 2014 15:23:21 +0100
+Subject: [PATCH] evmctl: add support for offline image preparation
+
+With this patch it's possible to sign a directory hierarchy, so that a
+filesystem image (e.g. an ubifs) can be generated.
+
+Creating the ima and evm signatues for an images with evmctl has to problems:
+1) The inode-numbers of the files are different in the to be created image and
+   in the current filesystem.
+2) The inode generation can be different, too.
+
+These problems are solved in a 4-step process:
+
+1) evmctl generates signatures and writes them to the extended attributed
+   (the usual process so far).
+2) The image, for example an ubifs image, is generted. mkfs.ubifs generates
+   the image (including extended attributes) and stores the used inode number
+   in an extended attribute "user.image-inode-number".
+3) evmct is started again to generate the signatures, this time with the
+   additional paramter "--image". Instead of using an ioctl to get the inode
+   number and generation, the inode is read from the extended attribute
+   "user.image-inode-number", the generation is set to "0".
+4) The image (omitting the exteneded attribute "user.image-inode-number") is
+   generated.
+
+This patch adds the command line parameter "--image" to read the inode number
+from the extended attribute "user.image-inode-number" instead of using an
+ioctl(). The inode generation is set to 0, too.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/evmctl.c    | 57 +++++++++++++++++++++++++++++++++++++++++++++++++--------
+ src/imaevm.h    |  1 +
+ src/libimaevm.c | 25 ++++++++++++++++++++++++-
+ 3 files changed, 74 insertions(+), 9 deletions(-)
+
+diff --git a/src/evmctl.c b/src/evmctl.c
+index d7352d87ef71..ec1fed395656 100644
+--- a/src/evmctl.c
++++ b/src/evmctl.c
+@@ -320,6 +320,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 	struct h_misc_64 hmac_misc;
+ 	int hmac_size;
+ 	const EVP_MD *md;
++	ino_t ino;
+ 
+ 	if (lstat(file, &st)) {
+ 		log_err("Failed to stat: %s\n", file);
+@@ -342,9 +343,25 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 			}
+ 			close(fd);
+ 		}
+-		log_info("generation: %u\n", generation);
+ 	}
+ 
++	if (params.image_mode) {
++		char buf[128] = { };
++
++		err = lgetxattr(file, "user.image-inode-number", buf, sizeof(buf) - 1);
++		if (err < 0) {
++			log_err("image mode: xattr 'user.image-inode-number' not found.\n");
++			return -1;
++		}
++		ino = strtoull(buf, NULL, 10);
++		generation = 0;
++	} else {
++		ino = st.st_ino;
++	}
++
++	log_info("inode-number: %llu\n", (unsigned long long)ino);
++	log_info("generation: %u\n", generation);
++
+ 	list_size = llistxattr(file, list, sizeof(list));
+ 	if (list_size < 0) {
+ 		log_err("llistxattr() failed\n");
+@@ -396,7 +413,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 		struct h_misc *hmac = (struct h_misc *)&hmac_misc;
+ 
+ 		hmac_size = sizeof(*hmac);
+-		hmac->ino = st.st_ino;
++		hmac->ino = ino;
+ 		hmac->generation = generation;
+ 		hmac->uid = st.st_uid;
+ 		hmac->gid = st.st_gid;
+@@ -405,7 +422,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 		struct h_misc_64 *hmac = (struct h_misc_64 *)&hmac_misc;
+ 
+ 		hmac_size = sizeof(*hmac);
+-		hmac->ino = st.st_ino;
++		hmac->ino = ino;
+ 		hmac->generation = generation;
+ 		hmac->uid = st.st_uid;
+ 		hmac->gid = st.st_gid;
+@@ -414,7 +431,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 		struct h_misc_32 *hmac = (struct h_misc_32 *)&hmac_misc;
+ 
+ 		hmac_size = sizeof(*hmac);
+-		hmac->ino = st.st_ino;
++		hmac->ino = ino;
+ 		hmac->generation = generation;
+ 		hmac->uid = st.st_uid;
+ 		hmac->gid = st.st_gid;
+@@ -868,6 +885,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ 	struct h_misc_64 hmac_misc;
+ 	int hmac_size;
+ 	const EVP_MD *md;
++	ino_t ino;
+ 
+ 	key = file2bin(keyfile, NULL, &keylen);
+ 	if (!key) {
+@@ -905,10 +923,26 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ 		close(fd);
+ 	}
+ 
++	if (params.image_mode) {
++		char buf[128] = { };
++
++		err = lgetxattr(file, "user.image-inode-number", buf, sizeof(buf) - 1);
++		if (err < 0) {
++			log_err("image mode: xattr 'user.image-inode-number' not found.\n");
++			goto out;
++		}
++		ino = strtoull(buf, NULL, 10);
++		generation = 0;
++	} else {
++		ino = st.st_ino;
++	}
++
++	log_info("inode-number: %llu\n", (unsigned long long)ino);
+ 	log_info("generation: %u\n", generation);
+ 
+ 	list_size = llistxattr(file, list, sizeof(list));
+ 	if (list_size <= 0) {
++		err = -1;
+ 		log_err("llistxattr() failed: %s\n", file);
+ 		goto out;
+ 	}
+@@ -951,7 +985,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ 		struct h_misc *hmac = (struct h_misc *)&hmac_misc;
+ 
+ 		hmac_size = sizeof(*hmac);
+-		hmac->ino = st.st_ino;
++		hmac->ino = ino;
+ 		hmac->generation = generation;
+ 		hmac->uid = st.st_uid;
+ 		hmac->gid = st.st_gid;
+@@ -960,7 +994,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ 		struct h_misc_64 *hmac = (struct h_misc_64 *)&hmac_misc;
+ 
+ 		hmac_size = sizeof(*hmac);
+-		hmac->ino = st.st_ino;
++		hmac->ino = ino;
+ 		hmac->generation = generation;
+ 		hmac->uid = st.st_uid;
+ 		hmac->gid = st.st_gid;
+@@ -969,7 +1003,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ 		struct h_misc_32 *hmac = (struct h_misc_32 *)&hmac_misc;
+ 
+ 		hmac_size = sizeof(*hmac);
+-		hmac->ino = st.st_ino;
++		hmac->ino = ino;
+ 		hmac->generation = generation;
+ 		hmac->uid = st.st_uid;
+ 		hmac->gid = st.st_gid;
+@@ -1494,6 +1528,9 @@ static void usage(void)
+ 		"      --smack        use extra SMACK xattrs for EVM\n"
+ 		"      --m32          force EVM hmac/signature for 32 bit target system\n"
+ 		"      --m64          force EVM hmac/signature for 64 bit target system\n"
++		"  -m, --image        image generation mode:\n"
++		"                     Read inode number from xattr 'user.image-inode-number',\n"
++		"                     and force inode generation to 0.\n"
+ 		"  -v                 increase verbosity level\n"
+ 		"  -h, --help         display this help and exit\n"
+ 		"\n");
+@@ -1533,6 +1570,7 @@ static struct option opts[] = {
+ 	{"recursive", 0, 0, 'r'},
+ 	{"m32", 0, 0, '3'},
+ 	{"m64", 0, 0, '6'},
++	{"image", 0, 0, 'm'},
+ 	{"smack", 0, 0, 256},
+ 	{"version", 0, 0, 257},
+ 	{}
+@@ -1581,7 +1619,7 @@ int main(int argc, char *argv[])
+ 	g_argc = argc;
+ 
+ 	while (1) {
+-		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:ri", opts, &lind);
++		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:rim", opts, &lind);
+ 		if (c == -1)
+ 			break;
+ 
+@@ -1648,6 +1686,9 @@ int main(int argc, char *argv[])
+ 		case '6':
+ 			msize = 64;
+ 			break;
++		case 'm':
++			params.image_mode = true;
++			break;
+ 		case 256:
+ 			evm_config_xattrnames = evm_extra_smack_xattrs;
+ 			break;
+diff --git a/src/imaevm.h b/src/imaevm.h
+index ef7858b8faa0..79f70974015a 100644
+--- a/src/imaevm.h
++++ b/src/imaevm.h
+@@ -181,6 +181,7 @@ struct libevm_params {
+ 	const char *evm_hash_algo;
+ 	const char *keyfile;
+ 	const char *keypass;
++	bool image_mode;
+ };
+ 
+ struct RSA_ASN1_template {
+diff --git a/src/libimaevm.c b/src/libimaevm.c
+index 595908395514..ea8e4f41488c 100644
+--- a/src/libimaevm.c
++++ b/src/libimaevm.c
+@@ -40,6 +40,7 @@
+ 
+ /* should we use logger instead for library? */
+ #define USE_FPRINTF
++#define _GNU_SOURCE
+ 
+ #include <sys/types.h>
+ #include <sys/param.h>
+@@ -49,6 +50,7 @@
+ #include <dirent.h>
+ #include <string.h>
+ #include <stdio.h>
++#include <attr/xattr.h>
+ 
+ #include <openssl/pem.h>
+ #include <openssl/evp.h>
+@@ -223,7 +225,28 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
+ 	}
+ 
+ 	while ((de = readdir(dir))) {
+-		ino = de->d_ino;
++		if (params.image_mode) {
++			char *name;
++			char buf[128] = { };
++
++			err = asprintf(&name, "%s/%s", file, de->d_name);
++			if (err == -1) {
++				log_err("failed to allocate mem\n");
++				return err;
++			}
++
++			err = lgetxattr(file, "user.image-inode-number", buf, sizeof(buf) - 1);
++			if (err < 0) {
++				log_err("image mode: xattr 'user.image-inode-number' not found.\n");
++				return -1;
++			}
++			ino = strtoull(buf, NULL, 10);
++
++			free(name);
++		} else {
++			ino = de->d_ino;
++		}
++
+ 		off = de->d_off;
+ 		type = de->d_type;
+ 		log_debug("entry: %s, ino: %llu, type: %u, off: %llu, reclen: %hu\n",

@@ -22,11 +22,6 @@ config FAKE_OVERLAYFS_VAR
 
 if !FAKE_OVERLAYFS_VAR
 
-config FAKE_OVERLAYFS_VAR_RUN
-	bool "/var/run"
-	select ROOTFS_VAR	if ROOTFS
-	select ROOTFS_VAR_RUN	if ROOTFS
-
 config FAKE_OVERLAYFS_VAR_LIB
 	bool "/var/lib"
 	select ROOTFS_VAR	if ROOTFS

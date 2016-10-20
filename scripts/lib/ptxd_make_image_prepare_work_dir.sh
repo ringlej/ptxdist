@@ -66,10 +66,11 @@ ${list[*]}
 
     # fix directory permissions
     {
-	echo "cd '${work_dir}' &&"
+	echo "cd '${work_dir}' || exit"
 	ptxd_dopermissions "${ptxd_reply_perm_files[@]}"
 	echo ":"
     } | sh &&
+    check_pipe_status &&
 
     ptxd_install_fixup_timestamps "${work_dir}"
 }

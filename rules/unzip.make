@@ -25,7 +25,7 @@ UNZIP		:= unzip-$(UNZIP_VERSION)
 UNZIP_URL	:= $(call ptx/mirror, SF, infozip/$(UNZIP_ARCHIVE))
 UNZIP_SOURCE	:= $(SRCDIR)/$(UNZIP_ARCHIVE)
 UNZIP_DIR	:= $(BUILDDIR)/$(UNZIP)
-UNZIP_LICENSE	:= Info-ZIP, BSD-like
+UNZIP_LICENSE	:= Info-ZIP
 UNZIP_LICENSE_FILES := file://LICENSE;md5=28dcc51d0d279f531e4be676efb0071f
 
 # ----------------------------------------------------------------------------

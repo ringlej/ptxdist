@@ -93,27 +93,32 @@ ptxd_install_resolve_usr_grp() {
 export -f ptxd_install_resolve_usr_grp
 
 ptxd_install_setup() {
+    local image
+    local -a nfsroot_dirs
+
     case "${dst}" in
 	/*|"") ;;
 	*) ptxd_bailout "'dst' must be an absolute path!" ;;
     esac
 
+    nfsroot_dirs=("${ptx_nfsroot}" ${pkg_nfsroot_dirs})
+
     # all dirs
-    dirs=("${ptx_nfsroot}" "${ptx_nfsroot_dbg}" "${pkg_xpkg_tmp}")
+    dirs=("${nfsroot_dirs[@]}" "${pkg_xpkg_tmp}")
 
     # nfs root dirs
     # no setuid/setguid bit here
-    ndirs=("${ptx_nfsroot}" "${ptx_nfsroot_dbg}")
+    ndirs=("${nfsroot_dirs[@]}")
 
     # package dirs
     # this goes into the ipkg, thus full file modes here
     pdirs=("${pkg_xpkg_tmp}")
 
     # strip dirs
-    sdirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
+    sdirs=("${nfsroot_dirs[@]}" "${pkg_xpkg_tmp}")
 
     # dirs with separate debug files
-    ddirs=("${ptx_nfsroot}")
+    ddirs=("${nfsroot_dirs[@]}")
 
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))" &&
@@ -191,6 +196,7 @@ ptxd_install_setup_src() {
 export -f ptxd_install_setup_src
 
 ptxd_install_dir() {
+    local sep="$(echo -e "\x1F")"
     local dir="$1"
     local usr="$2"
     local grp="$3"
@@ -210,7 +216,7 @@ install directory:
     install -m "${mod_nfs}" -d "${ndirs[@]/%/${dir}}" &&
     install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
 
-    echo "f:${dir}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}" ||
+    echo "f${sep}${dir}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}" ||
     ptxd_install_error "install_dir failed!"
 }
 export -f ptxd_install_dir
@@ -285,6 +291,7 @@ export -f ptxd_install_file_strip
 
 
 ptxd_install_file_impl() {
+    local sep="$(echo -e "\x1F")"
     local src="$1"
     local dst="$2"
     local usr="$3"
@@ -309,8 +316,14 @@ install ${cmd}:
 
     # check if src is a link
     if [ -L "${src}" ]; then
-	ptxd_pedantic "file '$(ptxd_print_path "${src}")' is a link" &&
+	local old="${src}"
 	src="$(readlink -f "${src}")" &&
+	if [ "${src}" = /dev/null ]; then
+	    echo "'${old}' is a link to '/dev/null', skipping file."
+	    echo
+	    return
+	fi &&
+	ptxd_pedantic "file '$(ptxd_print_path "${old}")' is a link" &&
 	echo "using '$(ptxd_print_path "${src}")' instead"
     fi &&
 
@@ -350,7 +363,7 @@ Usually, just remove the 6th parameter and everything works fine.
     # now change to requested user and group
     chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
 
-    echo "f:${dst}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
+    echo "f${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_file_impl
 
@@ -392,6 +405,7 @@ install link:
 export -f ptxd_install_ln
 
 ptxd_install_mknod() {
+    local sep="$(echo -e "\x1F")"
     local dst="$1"
     local usr="$2"
     local grp="$3"
@@ -421,7 +435,7 @@ install device node:
     done &&
     chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
 
-    echo "n:${dst}:${usr}:${grp}:${mod}:${type}:${major}:${minor}" >> "${pkg_xpkg_perms}"
+    echo "n${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}${sep}${type}${sep}${major}${sep}${minor}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_mknod
 
@@ -586,6 +600,11 @@ ptxd_install_find() {
     fi
 
     ptxd_install_setup_src &&
+    if [ -L "${src}" -a "$(readlink -f "${src}")" = /dev/null ]; then
+	echo "'${src}' is a link to '/dev/null', skipping."
+	echo
+	return
+    fi &&
     test -d "${src}" &&
 
     find "${src}" ! -path "${src}" -a \( \
@@ -647,6 +666,12 @@ export -f ptxd_install_alternative_tree
 ptxd_install_archive() {
     local archive="$1"
     shift
+
+    if [ -L "${archive}" -a "$(readlink -f "${archive}")" = /dev/null ]; then
+	echo "'${archive}' is a link to '/dev/null', skipping."
+	echo
+	return
+    fi &&
 
     local dir="$(mktemp -d "${PTXDIST_TEMPDIR}/install_archive.XXXXXX")" &&
 
@@ -831,13 +856,13 @@ executing '${pkg_label}.${1}'
 export -f ptxd_install_run
 
 ptxd_install_fixup_timestamps() {
-    local timestamp="${PTXDIST_VERSION_YEAR}${PTXDIST_VERSION_MONTH}010000"
+    local timestamp="${PTXDIST_VERSION_YEAR}-${PTXDIST_VERSION_MONTH}-01 UTC"
     local touch_args
     if touch --help | grep -q -- --no-dereference &> /dev/null; then
 	touch_args="--no-dereference"
     fi
 
-    find "${1}" -print0 | xargs -0 touch ${touch_args} -c -t "${timestamp}"
+    find "${1}" -print0 | xargs -0 touch ${touch_args} -c -d "${timestamp}"
 }
 export -f ptxd_install_fixup_timestamps
 

@@ -1955,6 +1955,12 @@ ifdef PTXCONF_QT5_EXAMPLES_SENSORS_GRUE_APP
 		/usr/lib/qt5/examples/sensors/grue/import/import.json)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/sensors/grue/libgruesensor.prl)
+	@$(call install_link, qt5-examples, libgruesensor.so.1.0.0, \
+		/usr/lib/qt5/examples/sensors/grue/libgruesensor.so)
+	@$(call install_link, qt5-examples, libgruesensor.so.1.0.0, \
+		/usr/lib/qt5/examples/sensors/grue/libgruesensor.so.1)
+	@$(call install_link, qt5-examples, libgruesensor.so.1.0.0, \
+		/usr/lib/qt5/examples/sensors/grue/libgruesensor.so.1.0)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/sensors/grue/libgruesensor.so.1.0.0)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \

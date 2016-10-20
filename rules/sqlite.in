@@ -5,7 +5,6 @@ menuconfig SQLITE
 	select LIBC_DL
 	select LIBC_PTHREAD	if SQLITE_THREADSAFE
 	select GCCLIBS_GCC_S
-	select TCL		if SQLITE_TCL
 	select READLINE		if SQLITE_READLINE
 	help
 	  SQLite is a software library that implements a self-contained,

@@ -6,7 +6,7 @@
 #
 # to debug in a typical ptxdist environment do something like this:
 #
-# ./kdevelop_debug.sh -e root-debug/bin/busybox -s root-debug \
+# ./kdevelop_debug.sh -e root/bin/busybox -s root \
 #                     -t 192.168.23.194:1234 \
 #                     -d arm-softfloat-linux-gnu-gdb
 #

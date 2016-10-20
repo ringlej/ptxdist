@@ -2,9 +2,9 @@
 
 menuconfig AT91BOOTSTRAP2
 	tristate
-	prompt "AT91 bootstrap 2.x            "
+	prompt "AT91 bootstrap 3.x            "
 	help
-	  Note: this is for AT91 bootstrap version 2.x
+	  Note: this is for AT91 bootstrap version 3.4 or later.
 
 	  The AT91Bootstrap application is a first level bootloader
 	  for Atmel AT91SAM9 ARM Thumb-based microcontrollers.
@@ -35,10 +35,10 @@ if AT91BOOTSTRAP2
 
 config AT91BOOTSTRAP2_VERSION
 	string
-	default "2.13"
+	default "3.8.5"
 	prompt "AT91 Bootstrap version"
 	help
-	  Enter the AT91 Bootstrap version you want to build. Usally something like "1.11"
+	  Enter the AT91 Bootstrap version you want to build. Usally something like "3.8.5"
 
 config AT91BOOTSTRAP2_MD5
 	prompt "AT91 Bootstrap source md5sum"

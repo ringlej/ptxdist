@@ -2,6 +2,7 @@
 
 config HOST_PYTHON
 	tristate
+	default ALLYES
 	help
 	  Python is an interpreted, interactive,
 	  object-oriented, extensible programming language.

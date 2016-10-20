@@ -26,6 +26,8 @@ ZIP		:= zip$(ZIP_AVERSION)
 ZIP_URL		:= $(call ptx/mirror, SF, infozip/$(ZIP_ARCHIVE))
 ZIP_SOURCE	:= $(SRCDIR)/$(ZIP_ARCHIVE)
 ZIP_DIR		:= $(BUILDDIR)/$(ZIP)
+ZIP_LICENSE	:= Info-ZIP
+ZIP_LICENSE_FILES	:= file://LICENSE;md5=04d43c5d70b496c032308106e26ae17d
 
 # ----------------------------------------------------------------------------
 # Compile

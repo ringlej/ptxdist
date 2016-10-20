@@ -18,8 +18,8 @@ endif
 #
 # Paths and names
 #
-MONO_VERSION	:= 2.10.1
-MONO_MD5	:= ae8d1875447527599e68dd6c1d82bc11
+MONO_VERSION	:= 3.2.6
+MONO_MD5	:= 076e815090f9807f273b06a98e76e274
 MONO		:= mono-$(MONO_VERSION)
 MONO_SUFFIX	:= tar.bz2
 MONO_URL	:= http://download.mono-project.com/sources/mono/$(MONO).$(MONO_SUFFIX)
@@ -27,6 +27,19 @@ MONO_SOURCE	:= $(SRCDIR)/$(MONO).$(MONO_SUFFIX)
 MONO_DIR	:= $(BUILDDIR)/$(MONO)
 MONO_LICENSE	:= unknown
 MONO_DEVPKG	:= NO
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/mono.extract:
+	@$(call targetinfo)
+	@$(call clean, $(MONO_DIR))
+	@$(call extract, MONO)
+#	# The mono archive has some stray .git files in it's externals-subdirs
+	@find $(MONO_DIR) -name .git -print0 | xargs -0 rm -v
+	@$(call patchin, MONO)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -45,7 +58,7 @@ MONO_CONF_OPT	:= \
 	--disable-solaris-tar-check \
 	--disable-nls \
 	--disable-mcs-build \
-	--enable-quiet-build \
+	--enable-silent-rules \
 	--disable-parallel-mark \
 	--disable-dev-random \
 	--enable-shared-handles \
@@ -53,32 +66,50 @@ MONO_CONF_OPT	:= \
 	--disable-big-arrays \
 	--disable-dtrace \
 	--disable-llvm \
+	--disable-loadedllvm \
 	--disable-mono-debugger \
 	--with-libgdiplus=installed \
-	--with-glib=embedded \
 	--with-gc=included \
 	--with-tls=pthread \
 	--with-sigaltstack=no \
 	--with-static_mono=no \
+	--with-shared_mono=yes \
 	--with-xen_opt=no \
 	--with-large-heap=no \
 	--with-ikvm-native=yes \
-	--with-jit=yes \
-	--with-interp=no \
-	--without-x \
 	--with-profile2=no \
 	--with-profile4=no \
-	--with-moonlight=no \
+	--with-profile4_5=no \
+	--with-monodroid=no \
 	--with-monotouch=no \
+	--with-mobile=no \
 	--with-oprofile=no \
 	--with-malloc-mempools=no \
-	--with-mcs-docs=no
+	--with-mcs-docs=no \
+	--with-lazy-gc-thread-creation=no \
+	--enable-libraries \
+	--enable-executables \
+	--disable-extension-module \
+	--disable-small-config \
+	--enable-system-aot \
+	--enable-boehm \
+	--disable-nacl-codegen \
+	--disable-nacl-gc \
+	--disable-icall-symbol-map \
+	--enable-icall-export \
+	--disable-icall-tables \
+	--with-jumptables=no \
+	--with-sgen=no
 
-#  --enable-minimal=LIST      drop support for LIST subsystems.
-#     LIST is a comma-separated list from: aot, profiler, decimal, pinvoke, debug,
-#     reflection_emit, reflection_emit_save, large_code, logging, com, ssa, generics, attach, jit, simd,soft_debug.
-
-#  --with-glib=embedded|system    Choose glib API: system or embedded (default to system)
+# --enable-minimal=LIST      drop support for LIST subsystems.
+# --with-crosspkgdir=/path/to/pkg-config/dir      Change pkg-config dir to custom dir
+#
+# LIST is a comma-separated list from: aot, profiler, decimal, pinvoke, debug,
+# appdomains, verifier, reflection_emit, reflection_emit_save, large_code,
+# logging, com, ssa, generics, attach, jit, simd, soft_debug, perfcounters,
+# normalization, assembly_remapping, shared_perfcounters, remoting, security,
+# sgen_remset, sgen_marksweep_par, sgen_marksweep_fixed,
+# sgen_marksweep_fixed_par, sgen_copying.],
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,52 @@
+From: yann-morin-1998 <yann.morin.1998@free.fr>
+Date: Tue, 30 Aug 2016 22:52:15 +0200
+Subject: [PATCH] configure: add option to not build manpages (#14)
+
+Man pages are not always needed, especially on embedded systems.
+
+Add a configure option to not build them; by default, build them.
+
+Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
+---
+ Makefile.am  |  5 ++++-
+ configure.ac | 10 +++++++++-
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index a71f8d8f8d19..e6510d5b3706 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -74,7 +74,10 @@ EXTRA_DIST = \
+ MANPAGES = man/bootchart.conf.5 man/systemd-bootchart.1
+ MANPAGES_ALIAS = man/bootchart.conf.d.5
+ 
+-man_MANS = $(MANPAGES) $(MANPAGES_ALIAS)
++if COND_man
++MAYBE_MANPAGES = $(MANPAGES) $(MANPAGES_ALIAS)
++endif
++man_MANS = $(MAYBE_MANPAGES)
+ 
+ man/bootchart.conf.d.5: man/bootchart.conf.5
+ 
+diff --git a/configure.ac b/configure.ac
+index f8e62d83aea2..90e8b0344c8e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -167,8 +167,16 @@ AC_ARG_WITH([rootlibdir],
+ AC_SUBST([rootprefix], [$with_rootprefix])
+ AC_SUBST([rootlibdir], [$with_rootlibdir])
+ 
++AC_ARG_ENABLE([man],
++        AS_HELP_STRING([--diable-man],[Build the man pages (default: yes)]),
++        [build_man=$enableval],
++        [build_man=yes])
++
+ AC_PATH_PROG([XSLTPROC], [xsltproc])
+-AS_IF([test -z "$XSLTPROC"], AC_MSG_ERROR([*** xsltproc is required for man pages]))
++AS_IF([test -z "$XSLTPROC" -a "$build_man" = "yes"],
++                [AC_MSG_ERROR([*** xsltproc is required for man pages])])
++
++AM_CONDITIONAL([COND_man],[test "$build_man" = "yes"])
+ 
+ AC_CONFIG_FILES([
+         Makefile

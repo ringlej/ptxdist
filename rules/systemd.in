@@ -3,6 +3,7 @@
 menuconfig SYSTEMD
 	tristate
 	select HOST_GPERF
+	select HOST_CHRPATH
 	# for 'ln --relative'
 	select HOST_COREUTILS
 	select ROOTFS_RUN
@@ -43,7 +44,7 @@ menuconfig SYSTEMD
 
 if SYSTEMD
 
-comment "D-Bus is needed for the enabled fatures"
+comment "D-Bus is needed for the enabled features"
 	depends on SYSTEMD_DBUS && !DBUS
 
 config SYSTEMD_DBUS
@@ -89,7 +90,7 @@ config SYSTEMD_IPMASQUERADE
 	depends on SYSTEMD_NETWORK
 	prompt "IP forwarding and masquerading support"
 	help
-	  Pv4/IPv6 support also needs to be enabled in iptables package
+	  IPv4/IPv6 support also needs to be enabled in iptables package
 
 config SYSTEMD_TIMEDATE
 	bool

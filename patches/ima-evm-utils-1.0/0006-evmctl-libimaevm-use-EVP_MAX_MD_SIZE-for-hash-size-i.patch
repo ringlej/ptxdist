@@ -1,0 +1,73 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 26 Mar 2016 22:58:07 +0100
+Subject: [PATCH] evmctl, libimaevm: use EVP_MAX_MD_SIZE for hash size instead
+ of open coding it
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/evmctl.c    | 10 +++++-----
+ src/libimaevm.c |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/evmctl.c b/src/evmctl.c
+index f120bf96b69d..559e4cbf9176 100644
+--- a/src/evmctl.c
++++ b/src/evmctl.c
+@@ -446,7 +446,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 
+ static int sign_evm(const char *file, const char *key)
+ {
+-	unsigned char hash[20];
++	unsigned char hash[EVP_MAX_MD_SIZE];
+ 	unsigned char sig[1024];
+ 	int len, err;
+ 
+@@ -481,7 +481,7 @@ static int sign_evm(const char *file, const char *key)
+ 
+ static int hash_ima(const char *file)
+ {
+-	unsigned char hash[66]; /* MAX hash size + 2 */
++	unsigned char hash[EVP_MAX_MD_SIZE + 2]; /* MAX hash size + 2 */
+ 	int len, err, offset;
+ 	int algo = get_hash_algo(params.hash_algo);
+ 
+@@ -519,7 +519,7 @@ static int hash_ima(const char *file)
+ 
+ static int sign_ima(const char *file, const char *key)
+ {
+-	unsigned char hash[64];
++	unsigned char hash[EVP_MAX_MD_SIZE];
+ 	unsigned char sig[1024];
+ 	int len, err;
+ 
+@@ -699,7 +699,7 @@ static int cmd_sign_evm(struct command *cmd)
+ 
+ static int verify_evm(const char *file)
+ {
+-	unsigned char hash[20];
++	unsigned char hash[EVP_MAX_MD_SIZE];
+ 	unsigned char sig[1024];
+ 	int len;
+ 
+@@ -982,7 +982,7 @@ out:
+ 
+ static int hmac_evm(const char *file, const char *key)
+ {
+-	unsigned char hash[20];
++	unsigned char hash[EVP_MAX_MD_SIZE];
+ 	unsigned char sig[1024];
+ 	int len, err;
+ 
+diff --git a/src/libimaevm.c b/src/libimaevm.c
+index 575f0535fe07..32638e79ffdc 100644
+--- a/src/libimaevm.c
++++ b/src/libimaevm.c
+@@ -517,7 +517,7 @@ int verify_hash(const unsigned char *hash, int size, unsigned char *sig, int sig
+ 
+ int ima_verify_signature(const char *file, unsigned char *sig, int siglen)
+ {
+-	unsigned char hash[64];
++	unsigned char hash[EVP_MAX_MD_SIZE];
+ 	int hashlen, sig_hash_algo;
+ 
+ 	if (sig[0] != 0x03) {

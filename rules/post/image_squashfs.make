@@ -19,7 +19,7 @@ ifdef PTXCONF_IMAGE_SQUASHFS
 $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install.post
 	@echo -n "Creating root.squashfs from working dir..."
 	@cd $(image/work_dir);							\
-	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
+	(awk $(DOPERMISSIONS) $(image/permissions) &&			\
 	(								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mksquashfs ";	\
 		echo -n "$(image/work_dir) ";					\

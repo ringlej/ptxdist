@@ -135,7 +135,8 @@ config IPROUTE2_TC
 	bool
 	prompt "tc"
 	help
-	  In Quality Of Service (QOS) and Class Of Service (COS)
-	  scenarios used for traffic controlling
+	  tc is used to configure Traffic Control in the Linux Kernel, which
+	  consists of Shaping, Scheduling, Policing and Dropping.
+	  Processing of traffic is controlled by qdiscs, classes and filters.
 
 endif

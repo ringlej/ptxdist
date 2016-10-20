@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_SYSTEMD
+	tristate
+	select PYTHON3
+	select SYSTEMD
+	prompt "python3-systemd"
+	help
+	  Python module for native access to the systemd facilities.

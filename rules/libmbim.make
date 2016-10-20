@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBMBIM) += libmbim
 #
 # Paths and names
 #
-LIBMBIM_VERSION	:= 1.12.2
-LIBMBIM_MD5	:= 921fb5ab3f13f1e00833e009d8f3b4f6
+LIBMBIM_VERSION	:= 1.14.0
+LIBMBIM_MD5	:= 2ed809e65c85353d3ab59e372890e549
 LIBMBIM		:= libmbim-$(LIBMBIM_VERSION)
 LIBMBIM_SUFFIX	:= tar.xz
 LIBMBIM_URL	:= http://www.freedesktop.org/software/libmbim/$(LIBMBIM).$(LIBMBIM_SUFFIX)

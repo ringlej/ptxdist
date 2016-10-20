@@ -5,7 +5,7 @@ menu "toolchain                     "
 config CROSSCHAIN_VENDOR
 	string
 	prompt "check for specific toolchain vendor"
-	default "OSELAS.Toolchain-2013.12"
+	default "OSELAS.Toolchain-2016.06"
 	help
 	  Add here an unique vendor string to ensure this project will
 	  be build with the correct toolchain.
@@ -19,7 +19,7 @@ config CROSSCHAIN_VENDOR
 config CROSSCHAIN_CHECK
 	string
 	prompt "check for specific gcc version"
-	default "4.8.2"
+	default "5.4.0"
 	help
 	  PTXdist calls your cross compiler with -dumpversion and
 	  compares the output with this string. This should help
@@ -47,7 +47,7 @@ if LIBC_GLIBC
 config GLIBC_VERSION
 	string
 	prompt "check for specific glibc version"
-	default "2.18"
+	default "2.23"
 	help
 	  Specify the glibc version this BSP shall be built with. This information
           is used to guess the toolchain path if you use "ptxdist toolchain"

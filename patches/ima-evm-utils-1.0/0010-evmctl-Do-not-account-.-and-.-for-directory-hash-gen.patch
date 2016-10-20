@@ -1,0 +1,30 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Mon, 1 Dec 2014 15:22:19 +0100
+Subject: [PATCH] evmctl: Do not account '.' and '..' for directory hash
+ generation
+
+The '.' and '..' directories are in different order depending on the
+filesystem, so the calculated hash for the directories differ aswell.
+This means an image generated from an ext4 host filesystem won't be
+usable on the target if it uses another order for the special directories.
+Ignore the entries since they do not add to the security anyway.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ src/libimaevm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/libimaevm.c b/src/libimaevm.c
+index ea8e4f41488c..29d50c99c733 100644
+--- a/src/libimaevm.c
++++ b/src/libimaevm.c
+@@ -225,6 +225,9 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
+ 	}
+ 
+ 	while ((de = readdir(dir))) {
++		if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
++			continue;
++
+ 		if (params.image_mode) {
+ 			char *name;
+ 			char buf[128] = { };

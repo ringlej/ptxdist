@@ -2,6 +2,7 @@
 
 config HOST_DFU_UTIL
 	tristate
+	default ALLYES
 	select HOST_LIBUSB
 	prompt "dfu-util"
 	help

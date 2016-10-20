@@ -4,7 +4,10 @@
 . /lib/init/rc-once.sh
 
 start() {
-	mount_root_rw || exit 1
+	if ! mount_root_rw; then
+		systemctl rescue
+		exit 1
+	fi
 	if run_rc_once; then
 		rm -f /system-update
 	fi

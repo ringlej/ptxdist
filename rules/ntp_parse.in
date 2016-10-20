@@ -32,6 +32,10 @@ config NTP_RCC8000
 	bool
 	prompt "RCC 8000 clock"
 
+config NTP_SEL240X
+	bool
+	prompt "SEL240X clock"
+
 config NTP_SCHMID
 	bool
 	prompt "Schmid DCF77 clock"

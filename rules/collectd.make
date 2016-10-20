@@ -34,6 +34,11 @@ COLLECTD_ENABLE-$(PTXCONF_COLLECTD_SYSLOG)	+= syslog
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_RRDTOOL)	+= rrdtool
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_CPU)		+= cpu
 
+# 'noyywrap' is set, so no lex library is needed
+COLLECTD_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_lex=''
+
 #
 # autoconf
 #

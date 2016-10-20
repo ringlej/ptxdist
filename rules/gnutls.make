@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.3.13
-GNUTLS_MD5	:= a7387fe8bf3e604bf518a6da9ab2a4e6
+GNUTLS_VERSION	:= 3.3.24
+GNUTLS_MD5	:= 4057aa38fcceda709b73f4179ca0a21a
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
 GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
@@ -74,7 +74,8 @@ GNUTLS_CONF_OPT		:= \
 	--without-librt-prefix \
 	--without-libregex \
 	--with-zlib \
-	--without-libz-prefix
+	--without-libz-prefix \
+	--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt
 
 # ----------------------------------------------------------------------------
 # Target-Install

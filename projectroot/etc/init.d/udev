@@ -69,7 +69,7 @@ start)
 
 	# Now traverse sys/ in order to "coldplug"
 	# devices that have already been discovered
-	udevadm trigger
+	udevadm trigger --action=add
 	# Now wait for udevd to process
 	# the uevents we triggered
 	echo -n "waiting for devices..."
