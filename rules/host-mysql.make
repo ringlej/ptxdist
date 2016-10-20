@@ -52,4 +52,6 @@ HOST_MYSQL_CONF_OPT	:= \
 	-DHAVE_FALLOC_PUNCH_HOLE_AND_KEEP_SIZE_EXITCODE=no \
 	-DWITH_ZLIB="bundled"
 
+HOST_MYSQL_CXXFLAGS := -std=c++98
+
 # vim: syntax=make
