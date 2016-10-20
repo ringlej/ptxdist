@@ -1,0 +1,13 @@
+## SECTION=multimedia_tools
+
+config INTEL_GPU_TOOLS
+	tristate
+	select LIBDRM
+	select LIBDRM_INTEL
+	select LIBPCIACCESS
+	select UDEV
+	select UDEV_LIBUDEV
+	select ZLIB
+	prompt "intel-gpu-tools"
+	help
+	  FIXME
