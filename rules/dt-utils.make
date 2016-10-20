@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_DT_UTILS) += dt-utils
 #
 # Paths and names
 #
-DT_UTILS_VERSION	:= 2016.02.0
-DT_UTILS_MD5		:= 488eaa76d41ffefdbfb099495d118077
+DT_UTILS_VERSION	:= 2016.08.0
+DT_UTILS_MD5		:= b10ec651cfb241544a2eb23b5a9f156d
 DT_UTILS		:= dt-utils-$(DT_UTILS_VERSION)
 DT_UTILS_SUFFIX		:= tar.xz
 DT_UTILS_URL		:= http://pengutronix.de/software/dt-utils/download/$(DT_UTILS).$(DT_UTILS_SUFFIX)
@@ -38,17 +38,17 @@ DT_UTILS_CONF_TOOL := autoconf
 $(STATEDIR)/dt-utils.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, dt)
-	@$(call install_fixup, dt,PRIORITY,optional)
-	@$(call install_fixup, dt,SECTION,base)
-	@$(call install_fixup, dt,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
-	@$(call install_fixup, dt,DESCRIPTION,missing)
+	@$(call install_init, dt-utils)
+	@$(call install_fixup, dt-utils,PRIORITY,optional)
+	@$(call install_fixup, dt-utils,SECTION,base)
+	@$(call install_fixup, dt-utils,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
+	@$(call install_fixup, dt-utils,DESCRIPTION,missing)
 
-	@$(call install_lib, dt, 0, 0, 0644, libdt-utils)
-	@$(call install_copy, dt, 0, 0, 0755, -, /usr/bin/barebox-state)
-	@$(call install_copy, dt, 0, 0, 0755, -, /usr/bin/fdtdump)
+	@$(call install_lib, dt-utils, 0, 0, 0644, libdt-utils)
+	@$(call install_copy, dt-utils, 0, 0, 0755, -, /usr/bin/barebox-state)
+	@$(call install_copy, dt-utils, 0, 0, 0755, -, /usr/bin/fdtdump)
 
-	@$(call install_finish, dt)
+	@$(call install_finish, dt-utils)
 
 	@$(call touch)
 

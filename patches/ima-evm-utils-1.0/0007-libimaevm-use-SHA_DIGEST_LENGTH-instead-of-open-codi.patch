@@ -1,0 +1,31 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 26 Mar 2016 22:58:53 +0100
+Subject: [PATCH] libimaevm: use SHA_DIGEST_LENGTH instead of open coding it
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/libimaevm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/libimaevm.c b/src/libimaevm.c
+index 32638e79ffdc..1c5da965468c 100644
+--- a/src/libimaevm.c
++++ b/src/libimaevm.c
+@@ -370,7 +370,7 @@ int verify_hash_v1(const unsigned char *hash, int size, unsigned char *sig, int
+ 	SHA_CTX ctx;
+ 	unsigned char out[1024];
+ 	RSA *key;
+-	unsigned char sighash[20];
++	unsigned char sighash[SHA_DIGEST_LENGTH];
+ 	struct signature_hdr *hdr = (struct signature_hdr *)sig;
+ 
+ 	log_info("hash: ");
+@@ -652,7 +652,7 @@ int sign_hash_v1(const char *hashalgo, const unsigned char *hash, int size, cons
+ 	unsigned char pub[1024];
+ 	RSA *key;
+ 	char name[20];
+-	unsigned char sighash[20];
++	unsigned char sighash[SHA_DIGEST_LENGTH];
+ 	struct signature_hdr *hdr;
+ 	uint16_t *blen;
+ 

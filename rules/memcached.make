@@ -49,7 +49,6 @@ $(STATEDIR)/memcached.targetinstall:
 	@$(call install_fixup, memcached, DESCRIPTION, missing)
 
 	@$(call install_copy, memcached, 0, 0, 0755, -, /usr/bin/memcached)
-	@$(call install_copy, memcached, 0, 0, 0700, /var/run/memcached)
 
 	@$(call install_finish, memcached)
 

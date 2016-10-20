@@ -3,3 +3,4 @@
 
 config HOST_LIBKMOD
 	tristate
+	default ALLYES

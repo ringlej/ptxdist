@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_PROCPS) += procps
 #
 # Paths and names
 #
-PROCPS_VERSION	:= 3.3.11
-PROCPS_MD5	:= 6cc5b94c1c5b8cbc89ad345a7b522f74
+PROCPS_VERSION	:= 3.3.12
+PROCPS_MD5	:= 957e42e8b193490b2111252e4a2b443c
 PROCPS		:= procps-ng-$(PROCPS_VERSION)
 PROCPS_SUFFIX	:= tar.xz
 PROCPS_URL	:= $(call ptx/mirror, SF, procps-ng/Production/$(PROCPS).$(PROCPS_SUFFIX))

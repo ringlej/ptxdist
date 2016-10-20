@@ -1,0 +1,7 @@
+## SECTION=python3
+
+config PYTHON3_AIOHTTP_JSON_RPC
+	tristate
+	select PYTHON3
+	select PYTHON3_AIOHTTP	if RUNTIME
+	prompt "aiohttp-json-rpc"

@@ -56,6 +56,18 @@ world/check_src = \
 	$(call world/env, $(1)) \
 	ptxd_make_world_check_src
 
+$(STATEDIR)/%.urlcheck:
+	@$(call targetinfo)
+	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
+		$(call world/urlcheck, $($(src)));)
+	@$(call touch)
+
+world/urlcheck = \
+	$(call world/env, $(1)) \
+	ptxd_make_get_dryrun=y \
+	ptxd_make_get_mirror=$(PTXCONF_SETUP_PTXMIRROR) \
+	ptxd_make_world_get
+
 #
 # get
 #

@@ -15,7 +15,6 @@ ptx/env = \
 	PTXDIST_SYSROOT_CROSS="$(call ptx/escape,$(PTXDIST_SYSROOT_CROSS))"	\
 										\
 	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"				\
-	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"			\
 										\
 	ptx_extract_dir_target="$(call ptx/escape,$(BUILDDIR))"			\
 	ptx_extract_dir_host="$(call ptx/escape,$(HOST_BUILDDIR))"		\
@@ -103,6 +102,8 @@ world/env/impl = \
 										\
 	pkg_install_opt="$(call ptx/escape,$($(1)_INSTALL_OPT))"		\
 	pkg_binconfig_glob="$(call ptx/escape,$($(1)_BINCONFIG_GLOB))"		\
+										\
+	pkg_nfsroot_dirs="$(call ptx/escape,$($(1)_NFSROOT_DIRS))"		\
 										\
 	pkg_deprecated_builddir="$(call ptx/escape,$($(1)_BUILDDIR))"		\
 	pkg_deprecated_env="$(call ptx/escape,$($(1)_ENV))"			\

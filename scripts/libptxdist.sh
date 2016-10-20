@@ -827,7 +827,6 @@ ptxd_lib_sysroot() {
 }
 export -f ptxd_lib_sysroot
 
-
 #
 # split ipkg filename into it's parts
 #

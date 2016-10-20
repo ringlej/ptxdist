@@ -251,14 +251,17 @@ the QEMU in the first console as:
 
 ::
 
-    $ cd ptxdistPlatformDir/root-debug
-    ptxdistPlatformDir/root-debug$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
+    $ cd ptxdistPlatformDir/root
+    ptxdistPlatformDir/root$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
 
-.. note:: PTXdist always builds two root filesystems. ``root/`` and
-  ``root-debug/``. ``root/`` contains all components without debug
+.. note:: PTXdist always builds a root filesystems ``root/``.
+  It contains all components without debug 
   information (all binaries are in the same size as used later on on the
-  real target), while all components in ``root-debug/`` still containing
-  the debug symbols and are much bigger in size.
+  real target). In addition, each directory that contains binaries also
+  contains a ``.debug/`` directory. It contains a file with only the debug
+  symbols for each binary. These files are ignored while running
+  applications but GDB knows about it and will automatically load the debug
+  files.
 
 The added *-g 1234* parameter lets QEMU wait for a GDB connection to run
 the application.
@@ -269,18 +272,18 @@ used to build the project:
 
 ::
 
-    $ ./selected_toolchain/<target>-gdbtui platform-<platformname>/root-debug/usr/bin/myapp
+    $ ./selected_toolchain/<target>-gdbtui platform-<platformname>/root/usr/bin/myapp
 
 This will run a *curses* based GDB. Not so easy to handle (we must enter
 all the commands and cannot click with a mouse!), but very fast to take
 a quick look at our application.
 
 At first we tell GDB where to look for debug symbols. The correct
-directory here is ``root-debug/``.
+directory here is ``root/``.
 
 ::
 
-    (gdb) set solib-absolute-prefix platform-<platformname>/root-debug
+    (gdb) set solib-absolute-prefix platform-<platformname>/root
 
 Next we connect this GDB to the waiting QEMU:
 
@@ -289,7 +292,7 @@ Next we connect this GDB to the waiting QEMU:
     (gdb) target remote localhost:1234
     Remote debugging using localhost:1234
     [New Thread 1]
-    0x40096a7c in _start () from root-debug/lib/ld.so.1
+    0x40096a7c in _start () from root/lib/ld.so.1
 
 As our application is already started, we can’t use the GDB command
 ``start`` to run it until it reaches ``main()``. We set a breakpoint
@@ -304,7 +307,7 @@ instead at ``main()`` and *continue* the application:
     Breakpoint 1, main (argc=1, argv=0x4007f03c) at myapp.c:644
 
 The top part of the running gdbtui console will always show us the
-current source line. Due to the ``root-debug/`` directory usage all
+current source line. Due to the ``root/`` directory usage all
 debug information for GDB is available.
 
 Now we can step through our application by using the commands *step*,

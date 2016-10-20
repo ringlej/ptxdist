@@ -111,8 +111,6 @@ else
 	@$(call install_copy, udisks, 0, 0, 0755, \
 		/var/lib/udisks)
 endif
-	@$(call install_copy, udisks, 0, 0, 0755, \
-		/var/run/udisks)
 
 	@$(call install_finish, udisks)
 

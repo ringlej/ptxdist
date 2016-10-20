@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config LIBFASTJSON
+	bool
+	prompt "libfastjson"
+	help
+	  libfastjson is a small and fast C library with most essential
+	  JSON handling functions.

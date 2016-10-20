@@ -1,0 +1,8 @@
+## SECTION=shell_and_console
+
+config SYSTEMD_BOOTCHART
+	tristate
+	select SYSTEMD
+	prompt "systemd-bootchart"
+	help
+	  boot performance graphing tool

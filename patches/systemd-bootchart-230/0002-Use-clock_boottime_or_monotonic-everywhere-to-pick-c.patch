@@ -1,0 +1,24 @@
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 30 Aug 2016 12:41:45 -0700
+Subject: [PATCH] Use `clock_boottime_or_monotonic()` everywhere to pick
+ clocksrc.
+
+This clocksrc is used every measurement and should be used
+everywhere, not just in one location.
+---
+ src/store.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/store.c b/src/store.c
+index 42cb8043ced0..e34b6ae1fcb8 100644
+--- a/src/store.c
++++ b/src/store.c
+@@ -53,7 +53,7 @@ static int skip = 0;
+ double gettime_ns(void) {
+         struct timespec n;
+ 
+-        clock_gettime(CLOCK_MONOTONIC, &n);
++        clock_gettime(clock_boottime_or_monotonic(), &n);
+ 
+         return (n.tv_sec + (n.tv_nsec / (double) NSEC_PER_SEC));
+ }

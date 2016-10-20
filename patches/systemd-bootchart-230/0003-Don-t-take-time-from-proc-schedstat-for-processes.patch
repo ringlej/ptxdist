@@ -1,0 +1,26 @@
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 30 Aug 2016 13:28:22 -0700
+Subject: [PATCH] Don't take time from /proc/schedstat for processes.
+
+I assume this is a copy-paste error. We shouldn't take the rt and wt
+values here from /proc/schedstat, as they're resulting in entirely
+incorrect values. Instead, the loop code fills them properly with
+the per-process value already, and they can be left blank here
+intentionally. This was the case before in the pre-systemd code tree.
+---
+ src/store.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/store.c b/src/store.c
+index e34b6ae1fcb8..c9aa235aeb50 100644
+--- a/src/store.c
++++ b/src/store.c
+@@ -249,8 +249,6 @@ schedstat_next:
+ 
+                         /* mark our first sample */
+                         ps->first = ps->last = ps->sample;
+-                        ps->sample->runtime = atoll(rt);
+-                        ps->sample->waittime = atoll(wt);
+ 
+                         /* get name, start time */
+                         if (ps->sched < 0) {

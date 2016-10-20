@@ -25,7 +25,6 @@ menuconfig UDISKS
 	select UTIL_LINUX_NG_UMOUNT
 	select FAKE_OVERLAYFS		if UDISKS_FAKE_OVERLAYFS
 	select FAKE_OVERLAYFS_VAR_TMP	if UDISKS_FAKE_OVERLAYFS && !FAKE_OVERLAYFS_VAR
-	select FAKE_OVERLAYFS_VAR_RUN	if UDISKS_FAKE_OVERLAYFS && !FAKE_OVERLAYFS_VAR
 	prompt "udisks                        "
 	help
 	  abstraction for enumerating block devices

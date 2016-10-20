@@ -324,7 +324,7 @@ The rule file skeleton still lacks some important information. Let’s
 take a look into some of the top lines of the generated rule file
 ``./rules/foo.make``:
 
-::
+.. code-block:: make
 
     FOO_VERSION	:= 1.1.0
     FOO_MD5	:=
@@ -568,7 +568,7 @@ rule file ``./rules/foo.make``.
 
 The skeleton for the *targetinstall* stage looks like this:
 
-::
+.. code-block:: make
 
     # ----------------------------------------------------------------------------
     # Target-Install
@@ -586,7 +586,7 @@ The skeleton for the *targetinstall* stage looks like this:
     	@$(call install_fixup, foo,DEPENDS,)
     	@$(call install_fixup, foo,DESCRIPTION,missing)
 
-    	@$call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foobar, /dev/null)
+    	@$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foobar, /dev/null)
 
     	@$(call install_finish, foo)
     	@$(call touch)
@@ -745,14 +745,14 @@ We now want to forward these options to the ``configure`` script when it
 runs in the *prepare* stage. To do so, we must again open the rule file
 with our favourite editor and navigate to the *prepare* stage entry.
 
-PTXdist uses the variable ``FOO_AUTOCONF`` as the list of parameters to
+PTXdist uses the variable ``FOO_CONF_OPT`` as the list of parameters to
 be given to ``configure``.
 
 Currently this variable is commented out and defined to:
 
 ::
 
-    # FOO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+    # FOO_CONF_OPT := $(CROSS_AUTOCONF_USR)
 
 The variable ``CROSS_AUTOCONF_USR`` is predefined by PTXdist and
 contains all basic parameters to instruct ``configure`` to prepare for a
@@ -763,7 +763,7 @@ in this line and supplement this expression as follows:
 
 ::
 
-    FOO_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
     	--enable-debug \
     	--with-bar
 
@@ -775,7 +775,7 @@ To do a fast check if this addition was successful, we run:
 
 ::
 
-    $ ptxdist print FOO_AUTOCONF
+    $ ptxdist print FOO_CONF_OPT
     --prefix=/usr --sysconfdir=/etc --host=|ptxdistCompilerName| --build=i686-host-linux-gnu --enable-debug --with-bar
 
 .. note:: It depends on the currently selected platform and its architecture
@@ -797,7 +797,7 @@ especially a parameter like ``--enable-debug``. To let the user decide
 if this parameter is to be used or not, we must add a menu entry. So,
 let’s expand our menu. Here is its current content:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -810,7 +810,7 @@ let’s expand our menu. Here is its current content:
 We’ll add two menu entries, one for each optional parameter we want to
 add on demand to the ``configure`` parameters:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -838,23 +838,23 @@ add on demand to the ``configure`` parameters:
 To make usage of the new menu entries, we must check them in the rule
 file and add the correct parameters:
 
-::
+.. code-block:: make
 
     #
     # autoconf
     #
-    FOO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR)
 
     ifdef PTXCONF_FOO_DEBUG
-    FOO_AUTOCONF += --enable-debug
+    FOO_CONF_OPT += --enable-debug
     else
-    FOO_AUTOCONF += --disable-debug
+    FOO_CONF_OPT += --disable-debug
     endif
 
     ifdef PTXCONF_FOO_BAR
-    FOO_AUTOCONF += --with-bar
+    FOO_CONF_OPT += --with-bar
     else
-    FOO_AUTOCONF += --without-bar
+    FOO_CONF_OPT += --without-bar
     endif
 
 .. important:: Please note the trailing ``PTXCONF_`` for each define. While Kconfig is
@@ -876,12 +876,12 @@ files, PTXdist provides some shortcuts to handle it. Refer to section
 With these special macros in use, the file content shown above looks
 much simpler:
 
-::
+.. code-block:: make
 
     #
     # autoconf
     #
-    FOO_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
     	$(call ptx/endis, PTXCONF_FOO_DEBUG)-debug \
     	$(call ptx/wwo, PTXCONF_FOO_BAR)-bar
 
@@ -889,8 +889,7 @@ If some parts of a package are built on demand only, they must also be
 installed on demand only. Besides the *prepare* stage, we also must
 modify our *targetinstall* stage:
 
-::
-
+.. code-block:: make
 
     	@$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/foo)
 
@@ -900,8 +899,6 @@ modify our *targetinstall* stage:
 
     	@$(call install_finish, foo)
     	@$(call touch)
-
-    [...]
 
 Now we can play with our new menu entries and check if they are working
 as expected:
@@ -933,7 +930,7 @@ kind of dependency is managed in the menu file of our new package by
 simply adding the ``select ZLIB`` line. After this addition our menu
 file looks like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -969,7 +966,7 @@ library *libz* and *bar* needs the XML2 library *libxml2*. These
 libraries are only required at run-time if the correspondig feature is
 enabled. To add these dependencies on demand, the menu file looks like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -1022,7 +1019,7 @@ not** help to select the ``GLIBC`` symbol, to get a ``libm`` at run-time.
 The correct solution here is to add a ``select LIBC_M`` to our menu
 file. With all the additions above it now looks like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=project_specific
 
@@ -1057,43 +1054,97 @@ file. With all the additions above it now looks like:
   file. In this case it does not help to enable the required parts in our
   project configuration, because this has no effect on the build order!
 
-Managing Non Autotool Packages
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Managing Plain Makefile Packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Many packages are still coming with a plain ``Makefile``. The user has
 to adapt it to make it work in a cross compile environment as well.
 PTXdist can also handle this kind of packages. We only have to specifiy
 a special *prepare* and *compile* stage.
 
-Such packages often have no special need for any kind of preparation. We
-can omit this stage by defining this empty rule:
+Such packages often have no special need for any kind of preparation. In
+this we must instruct PTXdist to do nothing in the *prepare* stage:
 
-::
+.. code-block:: make
 
-    $(STATEDIR)/foo.prepare:
-          @$(call targetinfo)
-          @$(call touch)
+    FOO_CONF_TOOL := NO
 
 To compile the package, we can use ``make``\ ’s feature to overwrite
 variables used in the ``Makefile``. With this feature we can still use
 the original ``Makefile`` but with our own (cross compile) settings.
 
 Most of the time the generic compile rule can be used, only a few
-settings are required. To use only ``make`` instead of the autotools, we
-must instruct PTXdist to not use them by defining:
+settings are required. For a well defined ``Makefile`` it is sufficient to
+set up the correct cross compile environment for the *compile* stage:
 
-::
+.. code-block:: make
 
-    FOO_CONF_TOOL := NO
+    FOO_MAKE_ENV := $(CROSS_ENV)
 
 ``make`` will be called in this case with:
 
-``cd $(FOO_DIR) && $(FOO_MAKE_ENV) $(MAKE) $(FOO_MAKE_OPT)``
+``$(FOO_MAKE_ENV) $(MAKE) -C $(FOO_DIR) $(FOO_MAKE_OPT)``
 
 So, in the rule file only the two variables ``FOO_MAKE_ENV`` and
 ``FOO_MAKE_OPT`` must be set, to forward the required settings to the
 package’s buildsystem. If the package cannot be built in parallel, we
 can also add the ``FOO_MAKE_PAR := NO``. ``YES`` is the default.
+
+Managing CMake / QMake Packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Building packages that use ``cmake`` or ``qmake`` is much like building
+packages with an autotools based buildsystem. We need to specify the
+configuration tool:
+
+.. code-block:: make
+
+    FOO_CONF_TOOL := cmake
+
+or
+
+.. code-block:: make
+
+    FOO_CONF_TOOL := qmake
+
+And provide the correct configuration options. The syntax is different so
+PTXdist provides additional macros to simplify configurable features.
+For ``cmake`` the configuration options typically look like this:
+
+.. code-block:: make
+
+    FOO_CONF_OPT := \
+    	$(CROSS_CMAKE_USR) \
+    	-DBUILD_TESTS:BOOL=OFF \
+    	-DENABLE_BAR:BOOL=$(call ptx/onoff, PTXCONF_FOO_BAR)
+
+For ``qmake`` the configuration options typically look like this:
+
+.. code-block:: make
+
+    FOO_CONF_OPT := \
+    	$(CROSS_QMAKE_OPT) \
+    	PREFIX=/usr
+
+Please note that currently only host and target ``cmake`` packages and only
+target ``qmake`` packages are supported.
+
+Managing Python Packages
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+As with any other package, the correct configuration tool must be selected
+for Python packages:
+
+.. code-block:: make
+
+    FOO_CONF_TOOL := python
+
+.. note:: For Python3 packages the value must be ``python3``.
+
+No Makefiles are used when building Python packages so the usual ``make``
+and ``make install`` for the *compile* and *install* stages cannot be used.
+PTXdist will call ``python setup.py build`` and ``python setup.py install``
+instead.
 
 .. note:: *FOO* is still the name of our example package. It must be
   replaced by the real package name.

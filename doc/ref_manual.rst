@@ -390,7 +390,7 @@ should always be the first call for each *stage*. For the package
  --------------------
 
 touch
-------
+~~~~~~
 
 Usage:
 
@@ -431,7 +431,6 @@ Usage:
 Installs given file or directory into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
@@ -532,7 +531,6 @@ Usage:
 Installs the whole directory tree with all files from the given directory into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
@@ -589,7 +587,6 @@ Usage:
 Installs the whole source directory tree with all files from the given directory into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg packet in the project's ``<platform-dir>/packages/``
 
 The ``<destination dir>`` is used like in the ``install_alternative`` to let
@@ -624,6 +621,9 @@ to the root filesystem at location ``/usr/share/bar``.
 
  $(call install_alternative_tree, foo, 0, 0, /usr/share/bar)
 
+To install nothing, use a symlink to ``/dev/null`` instead of the base
+directory. See :ref:`install_alternative` for more details.
+
 .. _install_alternative:
 
 install_alternative
@@ -638,7 +638,6 @@ Usage:
 Installs given files or directories into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 The base parameters and their meanings:
@@ -690,6 +689,13 @@ PTXdist with the ``print`` parameter:
 
  $ ptxdist print PTXDIST_PLATFORMSUFFIX
 
+``install_alternative`` is used by upstream PTXdist packages to install
+config files. In some rare use-cases the file should not be installed at
+all. For example if the config file is generated at runtime or provided by
+a special configuration package. This is possibly by creating a symlink to
+``/dev/null`` instead of a file at one of the locations described above.
+PTXdist skip installing the file if it detects such a symlink.
+
 install_link
 ~~~~~~~~~~~~
 
@@ -702,7 +708,6 @@ Usage:
 Installs a symbolic link into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 The parameters and their meanings:
@@ -744,7 +749,6 @@ Usage:
 Installs archives content into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 All parameters have fixed meanings:
@@ -777,7 +781,6 @@ Installs parts of a directory tree with all files from the given directory
 into:
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg packet in the project's ``<platform-dir>/packages/``
 
 Some of the parameters have fixed meanings:
@@ -830,7 +833,6 @@ Usage:
 Installs the shared library <libname> into the root filesystem.
 
 * the project's ``<platform-dir>/root/``
-* the project's ``<platform-dir>/root-debug/``
 * an ipkg/opkg packet in the project's ``<platform-dir>/packages/``
 
 The parameters and their meanings:
@@ -1138,10 +1140,9 @@ If the *compile* stage is omitted, PTXdist runs instead:
 			$(MAKE) $(@package@_MAKE_OPT) $(@package@_MAKE_PAR)
     		@$(call touch)
 
-If the ``@package@_MAKE_ENV`` is not defined, it defaults to
-``$(CROSS_ENV)``. If some additional variables should be added to the
-``@package@_MAKE_ENV``, always begin with the ``$(CROSS_ENV)`` and then
-add the additional variables.
+If some additional variables should be added to the ``@package@_MAKE_ENV``,
+always begin with the ``$(CROSS_ENV)`` and then add the additional
+variables.
 
 If the ``@package@_MAKE_OPT`` is intended for additional parameters to
 be forwarded to ``make`` or to overwrite some settings from the

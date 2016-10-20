@@ -1,0 +1,27 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 11 Mar 2016 09:49:44 +0100
+Subject: [PATCH] evmctl: add fallback definitions for XATTR_NAME_IMA
+
+This fixes compilation on old distributions.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/evmctl.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/evmctl.c b/src/evmctl.c
+index a5355f6c0ee1..f120bf96b69d 100644
+--- a/src/evmctl.c
++++ b/src/evmctl.c
+@@ -62,6 +62,11 @@
+ #include <openssl/err.h>
+ #include <openssl/rsa.h>
+ 
++#ifndef XATTR_NAME_IMA
++#define XATTR_IMA_SUFFIX "ima"
++#define XATTR_NAME_IMA XATTR_SECURITY_PREFIX XATTR_IMA_SUFFIX
++#endif
++
+ #define USE_FPRINTF
+ 
+ #include "imaevm.h"

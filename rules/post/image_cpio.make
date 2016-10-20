@@ -15,7 +15,7 @@ $(IMAGEDIR)/root.cpio: $(STATEDIR)/image_working_dir
 	@echo -n "Creating '$(notdir $(@))' from working dir..."
 	@cd $(image/work_dir) && \
 	( \
-		awk -F: $(DOPERMISSIONS) $(image/permissions) && \
+		awk $(DOPERMISSIONS) $(image/permissions) && \
 		echo "find . | cpio --quiet -H newc -o > '$(@)'" \
 	) | $(FAKEROOT) --
 	@echo "done."

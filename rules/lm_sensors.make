@@ -21,7 +21,9 @@ LM_SENSORS_VERSION	:= 3.3.3
 LM_SENSORS_MD5		:= 73c2fcccdab6049d289c5e0c596192a1
 LM_SENSORS		:= lm_sensors-$(LM_SENSORS_VERSION)
 LM_SENSORS_SUFFIX	:= tar.bz2
-LM_SENSORS_URL		:= http://dl.lm-sensors.org/lm-sensors/releases/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
+LM_SENSORS_URL		:= \
+	http://dl.lm-sensors.org/lm-sensors/releases/$(LM_SENSORS).$(LM_SENSORS_SUFFIX) \
+	http://ftp.osuosl.org/pub/blfs/conglomeration/lmsensors/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_SOURCE	:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_DIR		:= $(BUILDDIR)/$(LM_SENSORS)
 LM_SENSORS_LICENSE	:= GPL-2.0+, LGPL-2.1+

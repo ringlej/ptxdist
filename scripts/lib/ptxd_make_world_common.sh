@@ -314,7 +314,6 @@ ptxd_make_world_init() {
 	    ptx_build_python="${!build_python_ptr}"
 	    pkg_make_env="${pkg_conf_env:-${!env_ptr}}"
 	    pkg_make_opt="${pkg_make_opt:-build}"
-	    pkg_install_env="${pkg_conf_env:-${!env_ptr}}"
 	    ;;
 	*) ;;
     esac

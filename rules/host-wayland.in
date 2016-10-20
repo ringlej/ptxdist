@@ -2,5 +2,6 @@
 
 config HOST_WAYLAND
 	tristate
+	default ALLYES
 	select HOST_EXPAT
 	select HOST_LIBFFI

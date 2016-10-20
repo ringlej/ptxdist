@@ -35,7 +35,7 @@ $(REPORTDIR)/license-report-tools.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .rep
 	ptxd_make_license_report $(sort $(PTX_PACKAGES_TOOLS))
 	@$(call finish)
 
-PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE := $(RELEASEDIR)/OSS-$(call remove_quotes,$(PTXCONF_PROJECT_VENDOR)-$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)).tar.gz
+PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE := $(RELEASEDIR)/OSS-$(subst $(ptx/def/space),-,$(call remove_quotes,$(PTXCONF_PROJECT_VENDOR)-$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))).tar.gz
 
 PHONY += license-compliance-distribution
 
@@ -47,7 +47,7 @@ $(PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE): $(addprefix $(STATEDIR)/,$(addsuffix 
 	@$(call targetinfo)
 	@tar -C "$(RELEASEDIR)" \
 		--exclude=license-compliance.pdf --exclude $(notdir $@) \
-		 --transform 's;^./;$(notdir $(basename $(basename $@)))/;' -cf "$@" .
+		 --transform 's;^./;$(notdir $(basename $(basename $@)))/;' -cf '$@' .
 	@$(call finish)
 
 

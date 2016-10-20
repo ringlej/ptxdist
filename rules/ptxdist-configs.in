@@ -1,0 +1,9 @@
+## SECTION=debug_tools
+
+config PTXDIST_CONFIGS
+	tristate
+	prompt "ptxdist configs"
+	help
+	  This package install the ptxconfig, platformconfig and other
+	  configuration files into the rootfs. This is useful for
+	  debugging, auto testing etc.

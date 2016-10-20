@@ -32,10 +32,12 @@ export -f ptxd_make_image_fix_permissions_generate
 ptxd_make_image_fix_permissions_check() {
     local workdir="${1}"
     local ifs_orig="${IFS}"
-    IFS=":"
+    IFS="$(echo -e "\x1F")"
+
+    ptxd_check_obsolete_perm "${ptxd_reply_perm_files[@]}"
 
     # just care about dev-nodes, for now
-    egrep -h "^[n]:" "${ptxd_reply_perm_files[@]}" |
+    egrep -h "^[n]${IFS}" "${ptxd_reply_perm_files[@]}" |
     while read kind file uid_should gid_should prm_should type major_should minor_should; do
 	local fixup=false
 	file="${workdir}/${file#/}"
@@ -103,7 +105,7 @@ ptxd_make_image_fix_permissions() {
     local -a ptxd_reply_ipkg_file ptxd_reply_perm_files &&
     ptxd_get_ipkg_files ${image_pkgs_selected_target} || return
 
-    set -- "${ptx_nfsroot}" "${ptx_nfsroot_dbg}"
+    set -- "${ptx_nfsroot}"
 
     exec 3> "${fixscript}"
     while [ ${#} -ne 0 ]; do

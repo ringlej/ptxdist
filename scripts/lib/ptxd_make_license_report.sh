@@ -47,7 +47,7 @@ ptxd_make_license_report_header() {
 	\begin{center}
 
 	{\Huge \textbf{License Report}}
-	{\huge \vfill for project \vfill ${project_desc}}
+	{\huge \vfill for project \vfill $(ptxd_make_latex_escape "${project_desc}")}
 	{\LARGE \vfill created \today, \thistime}
 
 	\vskip 5cm
@@ -232,7 +232,7 @@ ptxd_make_license_compliance_header() {
 	\begin{center}
 
 	{\Huge \textbf{Open Source Software Licenses}}
-	{\huge \vfill for project \vfill ${project_desc}}
+	{\huge \vfill for project \vfill $(ptxd_make_latex_escape "${project_desc}")}
 	{\LARGE \vfill created \today, \thistime}
 
 	\vskip 5cm

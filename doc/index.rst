@@ -8,8 +8,8 @@ Welcome to the PTXdist Universe
 
 .. toctree::
    :glob:
-   :numbered:
-   :maxdepth: 1
+   :numbered: 2
+   :maxdepth: 3
 
    welcome
    environment

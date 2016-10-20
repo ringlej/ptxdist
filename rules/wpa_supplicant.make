@@ -64,8 +64,6 @@ endif
 # Install
 # ----------------------------------------------------------------------------
 
-WPA_SUPPLICANT_INSTALL_ENV := $(WPA_SUPPLICANT_MAKE_ENV)
-
 $(STATEDIR)/wpa_supplicant.install:
 	@$(call targetinfo)
 	@$(call world/install, WPA_SUPPLICANT)

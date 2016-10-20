@@ -17,7 +17,7 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 	@echo -n "(--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "
 	@echo "$(call remove_quotes,$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)))"
 	@cd $(image/work_dir);						\
-	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
+	(awk $(DOPERMISSIONS) $(image/permissions) &&			\
 	(								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mkfs.jffs2 ";	\
 		echo -n "-d $(image/work_dir) ";			\

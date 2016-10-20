@@ -50,8 +50,6 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-omx \
 	--disable-opencl \
 	--disable-opencl-icd \
-	--disable-xlib-glx \
-	--disable-r600-llvm-compiler \
 	--disable-gallium-tests \
 	--disable-shader-cache \
 	--disable-shared-glapi \
@@ -61,13 +59,15 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-glx-tls \
 	--disable-llvm-shared-libs \
 	--disable-gallium-llvm \
+	--disable-libglvnd \
 	--with-sha1= \
 	--with-gallium-drivers= \
-	--with-dri-drivers=
+	--with-dri-drivers= \
+	--without-vulkan-drivers
 
 $(STATEDIR)/host-mesalib.install:
 	@$(call targetinfo)
-	install -D -m755 $(HOST_MESALIB_DIR)-build/src/glsl/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
+	install -D -m755 $(HOST_MESALIB_DIR)-build/src/compiler/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
 	@$(call touch)
 
 # vim: syntax=make

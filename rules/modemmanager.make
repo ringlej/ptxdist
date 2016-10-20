@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MODEMMANAGER) += modemmanager
 #
 # Paths and names
 #
-MODEMMANAGER_VERSION	:= 1.4.14
-MODEMMANAGER_MD5	:= cabb72e7c2ddf6af96eca2c9f3d168a3
+MODEMMANAGER_VERSION	:= 1.6.0
+MODEMMANAGER_MD5	:= d9d93d2961ee35b4cd8a75a6a8631cb4
 MODEMMANAGER		:= ModemManager-$(MODEMMANAGER_VERSION)
 MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= http://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
@@ -51,8 +51,7 @@ MODEMMANAGER_CONF_OPT	:= \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--without-polkit \
 	--with-mbim \
-	--with-qmi \
-	--with-newest-qmi-commands
+	--with-qmi
 
 # ----------------------------------------------------------------------------
 # Target-Install

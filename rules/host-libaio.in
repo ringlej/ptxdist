@@ -2,5 +2,6 @@
 
 config HOST_LIBAIO
 	tristate
+	default ALLYES
 	help
 	  Requiered host part of some buildsystems

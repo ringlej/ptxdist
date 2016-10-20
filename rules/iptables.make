@@ -112,8 +112,9 @@ endif
 ifdef PTXCONF_IPTABLES_INSTALL_TOOLS
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/xtables-multi)
 	@$(call install_link, iptables, ../sbin/xtables-multi, /usr/bin/iptables-xml)
+ifdef PTXCONF_IPTABLES_LIBNFNETLINK
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/nfnl_osf)
-
+endif
 ifdef PTXCONF_IPTABLES_IPV6
 # 	# IPv6 part
 	@$(call install_link, iptables, xtables-multi, /usr/sbin/ip6tables)
