@@ -102,7 +102,11 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 
 	PKG_to_pkg[this_PKG] = this_pkg;
 	pkg_to_PKG[this_pkg] = this_PKG;
-	PKG_to_filename[this_PKG] = FILENAME;
+	# make sure each file is only included once
+	if (FILENAME) {
+		PKG_to_filename[this_PKG] = FILENAME;
+		FILENAME = "";
+	}
 
 	print "PTX_MAP_TO_package_" this_PKG "=\"" this_pkg "\""	> MAP_ALL;
 	print "PTX_MAP_TO_package_" this_PKG "="   this_pkg 		> MAP_ALL_MAKE;
@@ -201,7 +205,8 @@ function write_include(this_PKG) {
 	#
 	# include this rules file
 	#
-	print "include " PKG_to_filename[this_PKG]			> DGEN_RULESFILES_MAKE;
+	if (this_PKG in PKG_to_filename)
+		print "include " PKG_to_filename[this_PKG]		> DGEN_RULESFILES_MAKE;
 }
 
 function write_maps(this_PKG, dep_type) {
@@ -377,6 +382,8 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 # add deps to virtual pkgs
 #
 function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
+	if (this_pkg ~ /^host-dummy-install-info$/)
+		return;
 	if (this_pkg ~ /^host-pkg-config$/)
 		return;
 	if (this_pkg ~ /^host-chrpath$/)
@@ -421,6 +428,10 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 	print "ifneq ($(strip $(" this_PKG "_PKGS)),)"									> DGEN_DEPS_POST
 	print "$(" this_PKG "_IMAGE):" " \
 		$(STATEDIR)/host-$(call remove_quotes,$(PTXCONF_HOST_PACKAGE_MANAGEMENT)).install.post"		> DGEN_DEPS_POST
+	print "ifeq ($(strip $(" this_PKG "_NFSROOT)),YES)"							> DGEN_DEPS_POST
+	print "$(foreach pkg,$(" this_PKG "_PKGS),$(eval $(PTX_MAP_TO_PACKAGE_$(pkg))_NFSROOT_DIRS += " \
+		"$(PTXDIST_PLATFORMDIR)/nfsroot/" this_pkg "))"							> DGEN_DEPS_POST
+	print "endif"												> DGEN_DEPS_POST
 	print "endif"												> DGEN_DEPS_POST
 }
 

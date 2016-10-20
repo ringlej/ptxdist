@@ -40,8 +40,6 @@ HOSTAPD_LICENSE_FILES := \
 HOSTAPD_MAKE_ENV := \
 	$(CROSS_ENV) \
 	BINDIR=/usr/sbin
-HOSTAPD_INSTALL_ENV := \
-	$(HOSTAPD_MAKE_ENV)
 
 $(STATEDIR)/hostapd.prepare:
 	@$(call targetinfo)

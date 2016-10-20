@@ -16,11 +16,12 @@ PACKAGES-$(PTXCONF_RTMPDUMP) += rtmpdump
 #
 # Paths and names
 #
-RTMPDUMP_VERSION	:= 2.3
-RTMPDUMP_MD5		:= eb961f31cd55f0acf5aad1a7b900ef59
+# No tags: use a fake descriptive commit-ish to include the date
+RTMPDUMP_VERSION	:= 2015-12-23-0-gfa8646daeb19
+RTMPDUMP_MD5		:= 0f44c17bba8d601395b041a51d951488
 RTMPDUMP		:= rtmpdump-$(RTMPDUMP_VERSION)
-RTMPDUMP_SUFFIX		:= tgz
-RTMPDUMP_URL		:= http://rtmpdump.mplayerhq.hu/download/$(RTMPDUMP).$(RTMPDUMP_SUFFIX)
+RTMPDUMP_SUFFIX		:= tar.xz
+RTMPDUMP_URL		:= git://git.ffmpeg.org/rtmpdump.git;tag=$(RTMPDUMP_VERSION)
 RTMPDUMP_SOURCE		:= $(SRCDIR)/$(RTMPDUMP).$(RTMPDUMP_SUFFIX)
 RTMPDUMP_DIR		:= $(BUILDDIR)/$(RTMPDUMP)
 RTMPDUMP_LICENSE	:= LGPL-2.1+,GPL-2.0+

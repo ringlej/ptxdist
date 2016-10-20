@@ -1,7 +1,8 @@
 ## SECTION=hosttools_noprompt
 
 config HOST_GOBJECT_INTROSPECTION
+	tristate
+	default ALLYES
 	select HOST_GLIB
 	select HOST_QEMU
 	select HOST_QEMU_USR
-	bool

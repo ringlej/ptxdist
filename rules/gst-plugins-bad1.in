@@ -640,6 +640,7 @@ config GST_PLUGINS_BAD1_OPENGL
 
 config GST_PLUGINS_BAD1_GLES2
 	bool
+	depends on !GST_PLUGINS_BAD1_OPENGL
 	prompt "gles2"
 
 config GST_PLUGINS_BAD1_EGL

@@ -19,6 +19,7 @@ comment "BusyBox' mkdosfs is selected!"
 config DOSFSTOOLS_MKDOSFS_MSDOS
 	bool
 	depends on !BUSYBOX_MKFS_VFAT || ALLYES
+	select DOSFSTOOLS_MKDOSFS
 	prompt "create mkfs.msdos link"
 	help
 	  FAT 12 / MSDOS Format
@@ -26,6 +27,7 @@ config DOSFSTOOLS_MKDOSFS_MSDOS
 config DOSFSTOOLS_MKDOSFS_VFAT
 	bool
 	depends on !BUSYBOX_MKFS_VFAT || ALLYES
+	select DOSFSTOOLS_MKDOSFS
 	prompt "create mkfs.vfat link"
 	help
 	  VFAT Format - Long Filenames, big files, etc.
@@ -41,12 +43,14 @@ config DOSFSTOOLS_DOSFSCK
 
 config DOSFSTOOLS_DOSFSCK_MSDOS
 	bool
+	select DOSFSTOOLS_DOSFSCK
 	prompt "create fsck.msdos link"
 	help
 	  FAT 12 / MSDOS Format
 
 config DOSFSTOOLS_DOSFSCK_VFAT
 	bool
+	select DOSFSTOOLS_DOSFSCK
 	prompt "create fsck.vfat link"
 	help
 	  VFAT Format - Long Filenames, big files, etc.

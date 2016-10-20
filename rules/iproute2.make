@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 4.4.0
-IPROUTE2_MD5		:= d762653ec3e1ab0d4a9689e169ca184f
+IPROUTE2_VERSION	:= 4.8.0
+IPROUTE2_MD5		:= 54c6411863cb16a4375aa5f788dca767
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.xz
 IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
@@ -53,7 +53,8 @@ endif
 IPROUTE2_MAKE_OPT := \
 	DESTDIR=$(SYSROOT) \
 	LDFLAGS='-rdynamic' \
-	WFLAGS="-Wall"
+	WFLAGS="-Wall" \
+	KERNEL_INCLUDE="$(KERNEL_HEADERS_INCLUDE_DIR)"
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -93,18 +94,20 @@ $(STATEDIR)/iproute2.targetinstall:
 	done
 
 ifdef PTXCONF_IPROUTE2_TC
+	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/normal.dist)
 	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/pareto.dist)
 	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/paretonormal.dist)
 	@$(call install_copy, iproute2, 0, 0, 0644, -, /usr/lib/tc/experimental.dist)
 endif
 
 	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/ematch_map)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/group)
+	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/nl_protos)
 	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_dsfield)
 	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_protos)
 	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_realms)
 	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_scopes)
 	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/rt_tables)
-	@$(call install_alternative, iproute2, 0, 0, 0644, /etc/iproute2/group)
 
 	@$(call install_finish, iproute2)
 

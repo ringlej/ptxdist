@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QT5) += qt5
 #
 # Paths and names
 #
-QT5_VERSION	:= 5.6.1
-QT5_MD5		:= d647574345c45b5ab8b41b2d46efffb9
+QT5_VERSION	:= 5.6.1-1
+QT5_MD5		:= f44fd4fcae71087f90d9c68e9d8be449
 QT5		:= qt-everywhere-opensource-src-$(QT5_VERSION)
 QT5_SUFFIX	:= tar.xz
 QT5_URL		:= \
@@ -282,12 +282,15 @@ $(STATEDIR)/qt5.install.post:
 # Target-Install
 # ----------------------------------------------------------------------------
 
+QT5_LIBS-y							:=
+QT5_QML-y							:=
+
 ### Qt3d ###
-QT5_LIBS_$(PTXCONF_QT5_MODULE_QT3D)				+= Qt3d
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QT3D)				+= Qt53DCore Qt53DInput Qt53DLogic Qt53DQuick Qt53DQuickInput Qt53DQuickRender Qt53DRender
 QT5_QML-$(PTXCONF_QT5_MODULE_QT3D_QUICK)			+= Qt3D
 
 ### QtBase ###
-QT5_LIBS-y							:= Qt5Core
+QT5_LIBS-y							+= Qt5Core
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE)				+= Qt5Concurrent
 QT5_LIBS-$(PTXCONF_QT5_DBUS)					+= Qt5DBus
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTBASE_GUI)			+= Qt5Gui
@@ -371,7 +374,7 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqwebp
 
 
 ### QtLocation ###
-QT5_LIBS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= Qt5Positioning
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= Qt5Positioning Qt5Location
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= position/libqtposition_positionpoll
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTLOCATION)			+= geoservices/libqtgeoservices_osm
 QT5_QML-$(PTXCONF_QT5_MODULE_QTLOCATION_QUICK)			+= QtLocation
@@ -395,6 +398,9 @@ QT5_QML-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= QtMultimedia
 
 ### QtQuickControls ###
 # all in QT5_QML- added by QtDeclarative
+
+### QtQuickControls2 ###
+QT5_LIBS-$(PTXCONF_QT5_MODULE_QTQUICKCONTROLS2)			+= Qt5LabsTemplates
 
 ### QtScript ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTSCRIPT)				+= Qt5Script

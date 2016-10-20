@@ -103,7 +103,7 @@ ifdef PTXCONF_ROOTFS_VAR_LOG
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/log)
 endif
 ifdef PTXCONF_ROOTFS_VAR_RUN
-	@$(call install_copy, rootfs, 0, 0, 0755, /var/run)
+	@$(call install_link, rootfs, ../run, /var/run)
 endif
 ifdef PTXCONF_ROOTFS_VAR_LOCK
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/lock)

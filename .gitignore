@@ -30,3 +30,8 @@ scripts/kconfig/lxdialog/*.o
 /bin/*
 !/bin/ptxdist
 !/bin/ptxdist-auto-version
+
+/Documentation/
+/doc/.tox/
+/doc/testbuilds/
+/env/

@@ -506,7 +506,6 @@ check_dirs() {
 		"${STATEDIR}" \
 		"${IMAGEDIR}" \
 		"${ROOTDIR}" \
-		"${ROOTDIR_DEBUG}" \
 		"${PTXDIST_SRCDIR}" \
 	        "${PTXDIST_GEN_CONFIG_DIR}" \
 		; do
@@ -970,6 +969,8 @@ Setup and Project Actions:
 Build Actions:
 
   go				start building the current project
+  get				get all package sources
+  urlcheck			check package URL for all packages
 
   get <package>			get package sources
   extract <package>		extract package
@@ -981,6 +982,7 @@ Build Actions:
   autobuild			search for "autobuild" scripts and run them
   drop <package>.<stage>	mark a stage of a package as unbuilt
   tags <package>		try to build tags for the package
+  urlcheck <package>		check if the package URL still works
 
   images			build images for target system
   image <image>			build the specified image
@@ -1057,7 +1059,8 @@ clean() {
 		rm -fr -- "${IMAGEDIR}"
 		echo "${PTXDIST_LOG_PROMPT}cleaning root directory..."
 		rm -fr -- "${ROOTDIR}"
-		rm -fr -- "${ROOTDIR_DEBUG}"
+		rm -fr -- "${PTXDIST_PLATFORMDIR}/root-debug"
+		rm -fr -- "${PTXDIST_PLATFORMDIR}/nfsroot"
 		echo "${PTXDIST_LOG_PROMPT}cleaning packages..."
 		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PTXDIST_LOG_PROMPT}cleaning targetinstall stages..."
@@ -1153,7 +1156,8 @@ clean() {
 	rm -fr -- "${IMAGEDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing root..."
 	rm -fr -- "${ROOTDIR}"
-	rm -fr -- "${ROOTDIR_DEBUG}"
+	rm -fr -- "${PTXDIST_PLATFORMDIR}/root-debug"
+	rm -fr -- "${PTXDIST_PLATFORMDIR}/nfsroot"
 	echo "${PTXDIST_LOG_PROMPT}removing state..."
 	rm -fr -- "${STATEDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing logfile..."
@@ -1936,16 +1940,16 @@ EOF
 			ptxd_make_log export_src EXPORTDIR="${1}"
 			exit
 			;;
-		get)
+		get|urlcheck)
 			declare -a pkgs
 			check_premake_compiler &&
 
 			if [ ${#} -eq 0 ]; then
-				ptxd_make_log get
+				ptxd_make_log "${cmd}"
 			else
 				check_if_selected "${@}" &&
 				pkgs=( "${@/#/${STATEDIR}/}" ) &&
-				ptxd_make_log "${pkgs[@]/%/.get}"
+				ptxd_make_log "${pkgs[@]/%/.${cmd}}"
 			fi
 			exit
 			;;

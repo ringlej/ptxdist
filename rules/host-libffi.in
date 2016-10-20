@@ -1,4 +1,6 @@
 ## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
 
 config HOST_LIBFFI
 	tristate
+	default ALLYES

@@ -29,13 +29,14 @@ FLEX_LICENSE	:= BSD-2-Clause
 # Prepare
 # ----------------------------------------------------------------------------
 
-FLEX_PATH	:= PATH=$(CROSS_PATH)
-FLEX_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-FLEX_AUTOCONF := $(CROSS_AUTOCONF_USR)
+FLEX_CONF_TOOL	:= autoconf
+FLEX_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-nls \
+	--disable-rpath
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -50,16 +51,7 @@ $(STATEDIR)/flex.targetinstall:
 	@$(call install_fixup, flex,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, flex,DESCRIPTION,missing)
 
-#
-# HACK:
-#
-# we need a ipkg, because some packages may depend on us, e.g.:
-# "at"
-#
-# because we don't provide any shared libraries,
-# we just put an existing dir into the package
-#
-	@$(call install_copy, flex, 0, 0, 0755, /usr/sbin)
+	@$(call install_lib, flex, 0, 0, 644, libfl)
 
 	@$(call install_finish, flex)
 

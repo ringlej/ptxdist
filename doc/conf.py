@@ -164,22 +164,18 @@ if os.getenv("PTXDIST_VERBOSE","0") == "1":
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'ptx-theme'
-html_theme_path = ["."]
+html_theme = 'sphinx_rtd_theme'
 
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-html_theme_options = {
-        "sidebarbgcolor" : "#F2F2F2",
-        "sidebartextcolor" : "#555555",
-        "sidebarlinkcolor" : "#555555",
-        "relbarbgcolor" : "#0078B8",
-        "relbartextcolor" : "#111",
-        "footerbgcolor" : "#FFF",
-        "footertextcolor" : "#555555",
-        "codebgcolor" : "#DFEDFF",
-        "codetextcolor" : "#555555"
+html_static_path = ['_static']
+
+html_context = {
+    'css_files': ['_static/css/custom.css'],
+    'script_files': [
+        '_static/js/jquery-3.1.0.min.js',
+        '_static/underscore.js',
+        '_static/doctools.js',
+        '_static/js/main.js',
+    ],
 }
 
 # The name for this set of Sphinx documents.  If None, it defaults to
@@ -349,4 +345,4 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-highlight_language = 'sh'
+highlight_language = 'console'

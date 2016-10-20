@@ -18,10 +18,10 @@ endif
 
 $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 	@echo -n 'Creating root.tgz from working dir$(if $(IMAGE_TGZ_LABEL), with label "$(IMAGE_TGZ_LABEL)",)... '
-	@cd $(image/work_dir);							\
-	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
+	@cd $(image/work_dir);					\
+	(awk $(DOPERMISSIONS) $(image/permissions) &&		\
 	(	echo -n "tar ${IMAGE_TGZ_LABEL_ARGS} -zcf ";	\
-		echo -n "$@ ." )					\
+		echo -n "$@ ." )				\
 	) | $(FAKEROOT) --
 	@echo "done."
 endif

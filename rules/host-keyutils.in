@@ -3,6 +3,7 @@
 
 config HOST_KEYUTILS
 	tristate
+	default ALLYES
 	help
 	  Tools to control the key management system build into the
           Linux kernel.

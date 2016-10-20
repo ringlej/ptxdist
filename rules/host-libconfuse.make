@@ -23,6 +23,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBCONFUSE) += host-libconfuse
 HOST_LIBCONFUSE_CONF_TOOL	:= autoconf
 HOST_LIBCONFUSE_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--disable-examples \
 	--disable-nls \
 	--enable-shared
 

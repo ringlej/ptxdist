@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_VO_AACENC) += vo-aacenc
 #
 # Paths and names
 #
-VO_AACENC_VERSION	:= 0.1.2
-VO_AACENC_MD5		:= cc862dce14ea5d688506904160c65a02
+VO_AACENC_VERSION	:= 0.1.3
+VO_AACENC_MD5		:= b574da1d92d75fc40b0b75aa16f24ac4
 VO_AACENC		:= vo-aacenc-$(VO_AACENC_VERSION)
 VO_AACENC_SUFFIX	:= tar.gz
 VO_AACENC_URL		:= $(call ptx/mirror, SF, opencore-amr/$(VO_AACENC).$(VO_AACENC_SUFFIX))

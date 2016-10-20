@@ -16,6 +16,8 @@
 # ${opts[]}	: an array of options
 #
 ptxd_make_get_http() {
+	local -a curl_opts
+	local temp_file temp_header
 	set -- "${opts[@]}"
 	unset opts
 
@@ -27,13 +29,21 @@ ptxd_make_get_http() {
 		shift
 
 		case "${opt}" in
-			no-check-certificate|no-proxy)
+			no-check-certificate)
 				opts[${#opts[@]}]="--${opt}"
+				curl_opts[${#curl_opts[@]}]="--insecure"
+				;;
+			no-proxy)
+				opts[${#opts[@]}]="--${opt}"
+				curl_opts[${#curl_opts[@]}]="--noproxy"
+				curl_opts[${#curl_opts[@]}]="*"
 				;;
 			cookie:*)
 				opts[${#opts[@]}]="--no-cookies"
 				opts[${#opts[@]}]="--header"
 				opts[${#opts[@]}]="Cookie: ${opt#cookie:}"
+				curl_opts[${#curl_opts[@]}]="--cookie"
+				curl_opts[${#curl_opts[@]}]="${opt#cookie:}"
 				;;
 			*)
 				ptxd_bailout "invalid option '${opt}' to ${FUNCNAME}"
@@ -51,25 +61,49 @@ ptxd_make_get_http() {
 	# remove any pending or half downloaded files
 	rm -f -- "${path}."*
 
-	local temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
+	temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 	ptxd_make_serialize_take
-	wget \
-	    --passive-ftp \
-	    --progress=bar:force \
-	    --timeout=30 \
-	    --tries=5 \
-	    --user-agent="PTXdist ${PTXDIST_VERSION_FULL}" \
-	    ${PTXDIST_QUIET:+--quiet} \
-	    "${opts[@]}" \
-	    -O "${temp_file}" \
-	    "${url}" && {
-		chmod 644 -- "${temp_file}" &&
-		file "${temp_file}" | grep -vq " HTML " &&
-		touch -- "${temp_file}" &&
-		mv -- "${temp_file}" "${path}"
+	if [ "${ptxd_make_get_dryrun}" != "y" ]; then
+	    wget \
+		--passive-ftp \
+		--progress=bar:force \
+		--timeout=30 \
+		--tries=5 \
+		--user-agent="PTXdist ${PTXDIST_VERSION_FULL}" \
+		${PTXDIST_QUIET:+--quiet} \
+		"${opts[@]}" \
+		-O "${temp_file}" \
+		"${url}" && {
+		    chmod 644 -- "${temp_file}" &&
+		    file "${temp_file}" | grep -vq " HTML " &&
+		    touch -- "${temp_file}" &&
+		    mv -- "${temp_file}" "${path}"
+		    ptxd_make_serialize_put
+		    return
+	    }
+	else
+	    echo "Checking URL '${url}'..."
+	    temp_header="$(mktemp "${PTXDIST_TEMPDIR}/urlcheck.XXXXXX")" || ptxd_bailout "failed to create tempfile"
+	    curl \
+		--ftp-pasv \
+		--connect-timeout 30 \
+		--retry 5 \
+		--user-agent "PTXdist ${PTXDIST_VERSION_FULL}" \
+		${PTXDIST_QUIET:+--silent} \
+		"${curl_opts[@]}" \
+		-o /dev/null \
+		--dump-header "${temp_header}" \
+		--fail \
+		--location \
+		--head \
+		--request GET \
+		"${url}" &&
+		if grep -q "content-type:text/html" "${temp_header}"; then
+		    ptxd_bailout "Got HTML file"
+		fi
 		ptxd_make_serialize_put
 		return
-	}
+	fi &&
 	ptxd_make_serialize_put
 
 	rm -f -- "${temp_file}"
@@ -127,6 +161,12 @@ ptxd_make_get_git() {
 	fi
 
 	ptxd_make_serialize_take
+	if [ "${ptxd_make_get_dryrun}" = "y" ]; then
+	    echo "Checking URL '${url}'..."
+	    git ls-remote --quiet "${url}" HEAD > /dev/null
+	    ptxd_make_serialize_put
+	    return
+	fi
 	echo "${PROMPT}git: fetching '${url} into '${mirror}'..."
 	if [ ! -d "${mirror}" ]; then
 		git init --bare --shared "${mirror}"
@@ -140,7 +180,9 @@ ptxd_make_get_git() {
 	git --git-dir="${mirror}" remote add origin "${url}" &&
 	git --git-dir="${mirror}" fetch --progress -pf origin "+refs/*:refs/*"  &&
 	# at least for some git versions this is not group writeable for shared repos
-	chmod g+w "${mirror}/FETCH_HEAD" &&
+	if [ "$(stat -c '%A' "${mirror}/FETCH_HEAD" | cut -c 6)" != "w" ]; then
+		chmod g+w "${mirror}/FETCH_HEAD"
+	fi &&
 
 	if ! git --git-dir="${mirror}" rev-parse --verify -q "${tag}" > /dev/null; then
 		ptxd_make_serialize_put
@@ -208,6 +250,12 @@ ptxd_make_get_svn() {
 	fi
 
 	ptxd_make_serialize_take
+	if [ "${ptxd_make_get_dryrun}" = "y" ]; then
+	    echo "Checking URL '${url}'..."
+	    svn ls "${url}" > /dev/null
+	    ptxd_make_serialize_put
+	    return
+	fi
 	echo "${PROMPT}svn: fetching '${url} into '${mirror}'..."
 	if [ ! -d "${mirror}" ]; then
 		svn checkout -r ${rev} "${url}" "${mirror}"

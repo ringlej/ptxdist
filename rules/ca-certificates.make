@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_CA_CERTIFICATES) += ca-certificates
 #
 # Paths and names
 #
-CA_CERTIFICATES_VERSION		:= 2015.04.22-1
+CA_CERTIFICATES_VERSION		:= 2016.02.26
 # The commit hash of the default branch. Update this in sync with the date above.
-CA_CERTIFICATES_HASH		:= d7ca3b75c842
-CA_CERTIFICATES_MD5		:= da5ff774b32aecbebb18d6fa974ef12a
+CA_CERTIFICATES_HASH		:= 07594dabc757
+CA_CERTIFICATES_MD5		:= 6dc99591db944198254c6e6ad8f0eaa4
 CA_CERTIFICATES			:= ca-certificates-$(CA_CERTIFICATES_VERSION)
 CA_CERTIFICATES_SUFFIX		:= txt
 CA_CERTIFICATES_URL		:= https://hg.mozilla.org/releases/mozilla-release/raw-file/$(CA_CERTIFICATES_HASH)/security/nss/lib/ckfw/builtins/certdata.$(CA_CERTIFICATES_SUFFIX)

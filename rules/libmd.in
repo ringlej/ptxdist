@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 menuconfig LIBMD
 	tristate
 	prompt "libmd                         "
@@ -14,6 +16,9 @@ menuconfig LIBMD
 	  the openssl package on your target. If there is already openssl
 	  present, the Xorg server can use the SHA-1 from the openssl library
 	  instead.
+
+	  STAGING: remove in ptxdist-2017.10.0
+	  Upstream long dead and no longer needed.
 
 if LIBMD
 

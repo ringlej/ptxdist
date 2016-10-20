@@ -8,18 +8,18 @@ function, so that evmctl properly fails on errors.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- src/evmctl.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ src/evmctl.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/src/evmctl.c b/src/evmctl.c
-index 19f5f3bc87b0..6606e4958080 100644
+index 19f5f3bc87b0..a5355f6c0ee1 100644
 --- a/src/evmctl.c
 +++ b/src/evmctl.c
 @@ -1097,13 +1097,20 @@ static int find(const char *path, int dts, find_cb_t func)
  	}
  
  	while ((de = readdir(dir))) {
-+		int err;
++		int err = 0;
 +
  		if (!strcmp(de->d_name, "..") || !strcmp(de->d_name, "."))
  			continue;
@@ -38,3 +38,19 @@ index 19f5f3bc87b0..6606e4958080 100644
  	}
  
  	if (chdir("..")) {
+@@ -1112,8 +1119,13 @@ static int find(const char *path, int dts, find_cb_t func)
+ 		return -1;
+ 	}
+ 
+-	if (dts & DIR_MASK)
+-		func(path);
++	if (dts & DIR_MASK) {
++		int err;
++
++		err = func(path);
++		if (err)
++			return -1;
++	}
+ 
+ 	closedir(dir);
+ 

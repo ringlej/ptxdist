@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # vim:set et sw=4:
 #
 # certdata2pem.py - splits certdata.txt into multiple files

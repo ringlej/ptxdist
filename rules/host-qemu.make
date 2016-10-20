@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.6.0
-HOST_QEMU_MD5		:= ca3f70b43f093e33e9e014f144067f13
+HOST_QEMU_VERSION	:= 2.7.0
+HOST_QEMU_MD5		:= 08d4d06d1cb598efecd796137f4844ab
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -82,7 +82,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-vnc-jpeg \
 	--disable-vnc-png \
 	--disable-cocoa \
-	--disable-virtfs \
+	--enable-virtfs \
 	--disable-xen \
 	--disable-xen-pci-passthrough \
 	--disable-xen-pv-domain-build \
@@ -104,7 +104,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-libiscsi \
 	--disable-libnfs \
 	--disable-smartcard \
-	--disable-libusb \
+	--enable-libusb \
 	--disable-usb-redir \
 	--disable-lzo \
 	--disable-snappy \

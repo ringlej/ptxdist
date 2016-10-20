@@ -36,9 +36,6 @@ TRACE_CMD_MAKE_ENV	:= \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	prefix=/usr
 
-TRACE_CMD_INSTALL_ENV	:= \
-	$(TRACE_CMD_MAKE_ENV)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
