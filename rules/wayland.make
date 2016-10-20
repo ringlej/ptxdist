@@ -47,6 +47,8 @@ WAYLAND_CONF_OPT	:= \
 
 $(STATEDIR)/wayland.install.post:
 	@$(call targetinfo)
+#	# target wayland-scanner is not needed. Make sure nobody tries to use it
+	@rm -f $(WAYLAND_PKGDIR)/usr/bin/wayland-scanner
 	@$(call world/install.post, WAYLAND)
 	@sed 's;^prefix=.*;prefix=$(PTXDIST_SYSROOT_HOST);' \
 		$(PTXDIST_SYSROOT_HOST)/lib/pkgconfig/wayland-scanner.pc \
