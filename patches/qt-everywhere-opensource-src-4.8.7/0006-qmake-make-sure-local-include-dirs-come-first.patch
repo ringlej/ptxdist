@@ -7,12 +7,12 @@ CXXFLAGS is used instead of the one in webkit.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- qmake/generators/unix/unixmake.cpp  |    2 +-
- qmake/generators/unix/unixmake2.cpp |    2 +-
+ qmake/generators/unix/unixmake.cpp  | 2 +-
+ qmake/generators/unix/unixmake2.cpp | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/qmake/generators/unix/unixmake.cpp b/qmake/generators/unix/unixmake.cpp
-index fdcc68a..74f7974 100644
+index 0f06b814e4d6..5f7556832c4e 100644
 --- a/qmake/generators/unix/unixmake.cpp
 +++ b/qmake/generators/unix/unixmake.cpp
 @@ -246,7 +246,7 @@ UnixMakefileGenerator::init()
@@ -25,7 +25,7 @@ index fdcc68a..74f7974 100644
          QString compiler = comps[i];
          if (compiler == "C")
 diff --git a/qmake/generators/unix/unixmake2.cpp b/qmake/generators/unix/unixmake2.cpp
-index 336906d..cec7362 100644
+index 50af9d23e1d7..aecd61d0ed18 100644
 --- a/qmake/generators/unix/unixmake2.cpp
 +++ b/qmake/generators/unix/unixmake2.cpp
 @@ -999,7 +999,7 @@ UnixMakefileGenerator::writeMakeParts(QTextStream &t)
