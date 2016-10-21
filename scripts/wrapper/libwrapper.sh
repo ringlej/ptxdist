@@ -196,7 +196,7 @@ cc_add_arch() {
 
 cpp_add_target_extra() {
 	add_opt_arg TARGET_COMPILER_RECORD_SWITCHES "-frecord-gcc-switches"
-	add_arg ${PTXDIST_CROSS_CPPFLAGS}
+	add_late_arg ${PTXDIST_CROSS_CPPFLAGS}
 	add_arg ${pkg_cppflags}
 	add_opt_arg TARGET_EXTRA_CPPFLAGS ${PTXCONF_TARGET_EXTRA_CPPFLAGS}
 }
