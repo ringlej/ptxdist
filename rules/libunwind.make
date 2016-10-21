@@ -35,7 +35,7 @@ LIBUNWIND_LICENSE	:= unknown
 LIBUNWIND_CONF_TOOL	:= autoconf
 LIBUNWIND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-coredump \
+	--$(call ptx/disen, PTXCONF_ARCH_PPC)-coredump \
 	--disable-debug \
 	--enable-debug-frame \
 	--enable-block-signals \
@@ -53,6 +53,9 @@ ifndef PTXCONF_ARCH_X86_64
 LIBUNWIND_ARCH := x86
 endif
 endif
+ifdef PTXCONF_ARCH_PPC
+LIBUNWIND_ARCH := ppc32
+endif
 
 $(STATEDIR)/libunwind.targetinstall:
 	@$(call targetinfo)
@@ -64,7 +67,9 @@ $(STATEDIR)/libunwind.targetinstall:
 	@$(call install_fixup, libunwind,DESCRIPTION,missing)
 
 	@$(call install_lib, libunwind, 0, 0, 0644, libunwind)
+ifndef PTXCONF_ARCH_PPC
 	@$(call install_lib, libunwind, 0, 0, 0644, libunwind-coredump)
+endif
 	@$(call install_lib, libunwind, 0, 0, 0644, libunwind-ptrace)
 	@$(call install_lib, libunwind, 0, 0, 0644, libunwind-setjmp)
 	@$(call install_lib, libunwind, 0, 0, 0644, libunwind-$(LIBUNWIND_ARCH))
