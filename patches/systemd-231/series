@@ -12,5 +12,8 @@
 0009-HACK-add-local-copy-of-uchar.h.patch
 0010-HACK-fix-building-without-linux-sctp.h.patch
 0011-missing-add-SMACK_MAGIC-EFIVARFS_MAGIC-BINFMTFS_MAGI.patch
+#tag:gridpoint --start-number 50
+0050-TTY_MODE-0660.patch
+0051-Make-CalendarSpec-public.patch
 #tag:upstream --start-number 100
-# 7f7dfeb35e2a532321c19ec07f30f1fb  - git-ptx-patches magic
+# a296f8ec65be69a6d40cd81368f3e90a  - git-ptx-patches magic

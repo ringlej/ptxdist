@@ -1,0 +1,77 @@
+From: Jon Ringle <jringle@gridpoint.com>
+Date: Mon, 28 Sep 2015 13:12:41 -0400
+Subject: [PATCH] Make CalendarSpec public
+
+Signed-off-by: Jon Ringle <jringle@gridpoint.com>
+---
+ src/basic/calendarspec.c      | 10 +++++-----
+ src/libsystemd/libsystemd.sym |  7 +++++++
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/src/basic/calendarspec.c b/src/basic/calendarspec.c
+index 2dcc9c55751a..e1475095f7b5 100644
+--- a/src/basic/calendarspec.c
++++ b/src/basic/calendarspec.c
+@@ -36,7 +36,7 @@ static void free_chain(CalendarComponent *c) {
+         }
+ }
+ 
+-void calendar_spec_free(CalendarSpec *c) {
++_public_ void calendar_spec_free(CalendarSpec *c) {
+ 
+         if (!c)
+                 return;
+@@ -119,7 +119,7 @@ static void fix_year(CalendarComponent *c) {
+         }
+ }
+ 
+-int calendar_spec_normalize(CalendarSpec *c) {
++_public_ int calendar_spec_normalize(CalendarSpec *c) {
+         assert(c);
+ 
+         if (c->weekdays_bits <= 0 || c->weekdays_bits >= BITS_WEEKDAYS)
+@@ -249,7 +249,7 @@ static void format_chain(FILE *f, int space, const CalendarComponent *c) {
+         }
+ }
+ 
+-int calendar_spec_to_string(const CalendarSpec *c, char **p) {
++_public_ int calendar_spec_to_string(const CalendarSpec *c, char **p) {
+         char *buf = NULL;
+         size_t sz = 0;
+         FILE *f;
+@@ -643,7 +643,7 @@ fail:
+         return r;
+ }
+ 
+-int calendar_spec_from_string(const char *p, CalendarSpec **spec) {
++_public_ int calendar_spec_from_string(const char *p, CalendarSpec **spec) {
+         CalendarSpec *c;
+         int r;
+ 
+@@ -982,7 +982,7 @@ static int find_next(const CalendarSpec *spec, struct tm *tm) {
+         }
+ }
+ 
+-int calendar_spec_next_usec(const CalendarSpec *spec, usec_t usec, usec_t *next) {
++_public_ int calendar_spec_next_usec(const CalendarSpec *spec, usec_t usec, usec_t *next) {
+         struct tm tm;
+         time_t t;
+         int r;
+diff --git a/src/libsystemd/libsystemd.sym b/src/libsystemd/libsystemd.sym
+index 7bf1d66dde16..c38be9906b6f 100644
+--- a/src/libsystemd/libsystemd.sym
++++ b/src/libsystemd/libsystemd.sym
+@@ -462,6 +462,13 @@ global:
+ 
+ LIBSYSTEMD_222 {
+ global:
++	calendar_spec_free;
++	calendar_spec_normalize;
++	calendar_spec_valid;
++	calendar_spec_to_string;
++	calendar_spec_from_string;
++	calendar_spec_next_usec;
++
+         /* sd-bus */
+         sd_bus_emit_object_added;
+         sd_bus_emit_object_removed;
