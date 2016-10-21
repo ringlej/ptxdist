@@ -96,24 +96,29 @@ ifdef PTXCONF_WESTON_WCAP_TOOLS
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/wcap-decode)
 endif
 
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-1)
 ifdef PTXCONF_WESTON_XWAYLAND
-	@$(call install_lib, weston, 0, 0, 0644, weston/xwayland)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1/xwayland)
 endif
 ifdef PTXCONF_WESTON_DRM_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, weston/drm-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1/drm-backend)
 endif
 ifdef PTXCONF_WESTON_HEADLESS_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, weston/headless-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1/headless-backend)
 endif
 ifdef PTXCONF_WESTON_FBDEV_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, weston/fbdev-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1/fbdev-backend)
 endif
 ifdef PTXCONF_WESTON_GL
-	@$(call install_lib, weston, 0, 0, 0644, weston/wayland-backend)
-	@$(call install_lib, weston, 0, 0, 0644, weston/gl-renderer)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1/wayland-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-1/gl-renderer)
 endif
 	@$(call install_lib, weston, 0, 0, 0644, weston/desktop-shell)
 	@$(call install_lib, weston, 0, 0, 0644, weston/fullscreen-shell)
+ifdef PTXCONF_WESTON_SYSTEMD
+	@$(call install_lib, weston, 0, 0, 0644, weston/systemd-notify)
+endif
 
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-simple-im)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-screenshooter)
