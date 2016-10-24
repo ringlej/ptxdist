@@ -60,7 +60,7 @@ $(STATEDIR)/lm_sensors.targetinstall:
 
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors)
 
-	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /etc/sensors3.conf)
+	@$(call install_alternative, lm_sensors, 0, 0, 0644, /etc/sensors3.conf)
 
 ifdef PTXCONF_LM_SENSORS_FANCONTROL
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/fancontrol)
