@@ -40,7 +40,6 @@ ifdef KERNEL_HEADER_VERSION
 VALGRIND_KERNEL_VERSION := $(KERNEL_HEADER_VERSION)
 endif
 
-VALGRIND_PATH	:= PATH=$(CROSS_PATH)
 VALGRIND_ENV	:= \
 	$(CROSS_ENV) \
 	valgrind_cv_sys_kernel_version=$(VALGRIND_KERNEL_VERSION)
@@ -58,7 +57,8 @@ endif
 #
 # autoconf
 #
-VALGRIND_AUTOCONF := \
+VALGRIND_CONF_TOOL	:= autoconf
+VALGRIND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-tls
 
@@ -77,16 +77,7 @@ $(STATEDIR)/valgrind.targetinstall:
 
 	@$(call install_copy, valgrind, 0, 0, 0755, -, /usr/bin/valgrind)
 
-	@cd $(VALGRIND_PKGDIR) && \
-		find usr/lib/valgrind -name "*.supp" -o -name "*.so" | while read file; do \
-		$(call install_copy, valgrind, 0, 0, 0644, -, /$$file, n) \
-	done
-
-	@cd $(VALGRIND_PKGDIR) && \
-		find usr/lib/valgrind -type f \
-			\! -wholename "*.a" \! -wholename "*.supp" \! -wholename "*.so" | while read file; do \
-		$(call install_copy, valgrind, 0, 0, 0755, -, /$$file) \
-	done
+	@$(call install_glob, valgrind, 0, 0, -, /usr/lib/valgrind,,*.a)
 
 	@$(call install_finish, valgrind)
 
