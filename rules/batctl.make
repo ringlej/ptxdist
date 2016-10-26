@@ -23,7 +23,7 @@ BATCTL_SUFFIX	:= tar.gz
 BATCTL_URL		:= http://downloads.open-mesh.org/batman/stable/sources/batctl/$(BATCTL).$(BATCTL_SUFFIX)
 BATCTL_SOURCE	:= $(SRCDIR)/$(BATCTL).$(BATCTL_SUFFIX)
 BATCTL_DIR		:= $(BUILDDIR)/$(BATCTL)
-BATCTL_LICENSE	:= unknown
+BATCTL_LICENSE	:= GPL-2.0
 
 
 BATCTL_CONF_TOOL	:= NO
