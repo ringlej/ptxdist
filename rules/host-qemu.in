@@ -4,7 +4,9 @@ menuconfig HOST_QEMU
 	tristate
 	default ALLYES
 	prompt "host-side qemu                "
+	select HOST_ATTR
 	select HOST_GLIB
+	select HOST_LIBCAP
 	select HOST_ZLIB
 	select HOST_LIBUSB	if HOST_QEMU_SYS
 	select HOST_PIXMAN	if HOST_QEMU_SYS
