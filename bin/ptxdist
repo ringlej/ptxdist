@@ -1222,7 +1222,7 @@ create_docs() {
 		ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}"
 	fi &&
 
-	mkdir "${srcdir}" &&
+	mkdir -p "${srcdir}" &&
 	ptxd_in_path PTXDIST_PATH doc &&
 	for dir in "${ptxd_reply[@]}"; do
 		for entry in $(cd "${dir}"; ls); do
