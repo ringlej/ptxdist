@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	:= 4.2.8p7
-NTP_MD5		:= 46dfba933c3e4bc924d8e55068797578
+NTP_VERSION	:= 4.2.8p8
+NTP_MD5		:= 4a8636260435b230636f053ffd070e34
 NTP		:= ntp-$(NTP_VERSION)
 NTP_SUFFIX	:= tar.gz
 NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
