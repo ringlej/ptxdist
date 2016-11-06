@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SED) += sed
 #
 # Paths and names
 #
-SED_VERSION	:= 4.2.1
-SED_MD5		:= 7d310fbd76e01a01115075c1fd3f455a
+SED_VERSION	:= 4.2.2
+SED_MD5		:= 7ffe1c7cdc3233e1e0c4b502df253974
 SED		:= sed-$(SED_VERSION)
 SED_SUFFIX	:= tar.bz2
 SED_URL		:= $(call ptx/mirror, GNU, sed/$(SED).$(SED_SUFFIX))
@@ -39,7 +39,13 @@ SED_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SED_AUTOCONF := $(CROSS_AUTOCONF_USR)
+SED_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-acl \
+	--disable-nls \
+	--disable-rpath \
+	--without-selinux
 
 # ----------------------------------------------------------------------------
 # Target-Install
