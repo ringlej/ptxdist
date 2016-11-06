@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_FINDUTILS) += findutils
 #
 # Paths and names
 #
-FINDUTILS_VERSION	:= 4.2.23
-FINDUTILS_MD5		:= ecaff8b060e8d69c10eb2391a8032e26
+FINDUTILS_VERSION	:= 4.6.0
+FINDUTILS_MD5		:= 9936aa8009438ce185bea2694a997fc1
 FINDUTILS		:= findutils-$(FINDUTILS_VERSION)
 FINDUTILS_SUFFIX	:= tar.gz
 FINDUTILS_URL		:= $(call ptx/mirror, GNU, findutils/$(FINDUTILS).$(FINDUTILS_SUFFIX))
@@ -44,7 +44,12 @@ FINDUTILS_AUTOCONF := \
 	--libexecdir=/usr/bin \
 	--localstatedir=$(FINDUTILS_DBASE_PATH) \
 	--disable-debug \
-	--disable-nls
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-threads=posix \
+	--disable-assert \
+	--disable-rpath \
+	--disable-nls \
+	--without-selinux
 
 # ----------------------------------------------------------------------------
 # Target-Install
