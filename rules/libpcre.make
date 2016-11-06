@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_LIBPCRE) += libpcre
 #
 # Paths and names
 #
-LIBPCRE_VERSION	:= 8.38
-LIBPCRE_MD5	:= 00aabbfe56d5a48b270f999b508c5ad2
+LIBPCRE_VERSION	:= 8.39
+LIBPCRE_MD5	:= e3fca7650a0556a2647821679d81f585
 LIBPCRE		:= pcre-$(LIBPCRE_VERSION)
 LIBPCRE_SUFFIX	:= tar.bz2
 LIBPCRE_URL	:= $(call ptx/mirror, SF, pcre/$(LIBPCRE).$(LIBPCRE_SUFFIX))
 LIBPCRE_SOURCE	:= $(SRCDIR)/$(LIBPCRE).$(LIBPCRE_SUFFIX)
 LIBPCRE_DIR	:= $(BUILDDIR)/$(LIBPCRE)
 LIBPCRE_LICENSE	:= BSD-3-Clause
-LIBPCRE_LICENSE_FILES := file://LICENCE;md5=7e4937814aee14758c1c95b59c80c44d
+LIBPCRE_LICENSE_FILES := file://LICENCE;md5=b8221cbf43c5587f90ccf228f1185cc2
 
 # ----------------------------------------------------------------------------
 # Prepare
