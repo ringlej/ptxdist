@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names
 #
-COREUTILS_VERSION	:= 8.22
-COREUTILS_MD5		:= 8fb0ae2267aa6e728958adc38f8163a2
+COREUTILS_VERSION	:= 8.25
+COREUTILS_MD5		:= 070e43ba7f618d747414ef56ab248a48
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
 COREUTILS_SUFFIX	:= tar.xz
 COREUTILS_URL		:= $(call ptx/mirror, GNU, coreutils/$(COREUTILS).$(COREUTILS_SUFFIX))
@@ -165,6 +165,7 @@ COREUTILS_CONF_OPT	:= \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-silent-rules \
 	--enable-threads=posix \
+	--disable-acl \
 	--disable-assert \
 	--disable-rpath \
 	--disable-libsmack \
