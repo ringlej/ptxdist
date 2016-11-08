@@ -184,6 +184,9 @@ $1 ~ /^PTXCONF_/ {
 	if ($2 ~ /^[ym]$/ && this_PKG in PKG_to_pkg)
 		active_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
+	if (this_PKG == "PROJECT_CHECK_LICENSES")
+		CHECK_LICENSES = 1;
+
 	do {
 		if (this_PKG in PKG_to_pkg) {
 			next_PKG_HASHFILE = PTXDIST_TEMPDIR "/pkghash-" this_PKG;
@@ -196,8 +199,6 @@ $1 ~ /^PTXCONF_/ {
 		}
 	} while (sub(/_+[^_]+$/, "", this_PKG));
 
-	if (this_PKG = "PROJECT_CHECK_LICENSES")
-		CHECK_LICENSES = 1;
 	next;
 }
 
