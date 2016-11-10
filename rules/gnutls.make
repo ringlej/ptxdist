@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.3.24
+GNUTLS_VERSION	:= 3.3.25
 GNUTLS_MD5	:= 4057aa38fcceda709b73f4179ca0a21a
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
