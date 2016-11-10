@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 10 Nov 2016 15:42:19 +0100
+Subject: [PATCH] configure: fix target_os when cross-compiling for arm
+
+For arm 'host_os' is '*-gnueabi' or '*-gnueabihf' so sed needs to cut of
+more. Otherwise configuring ffmpeg will fail with "Unknown OS 'linuxeabi'."
+or something like that.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 013217c80a64..e9cda6a840a3 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -384,7 +384,7 @@ else
+         target_os=darwin
+       ;;
+       *)
+-        target_os=`echo $host_os | sed 's/-gnu//'`
++        target_os=`echo $host_os | sed 's/-gnu.*//'`
+       ;;
+   esac
+ 
