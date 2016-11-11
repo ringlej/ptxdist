@@ -6,6 +6,64 @@
 
 menu "System Logging Utilities"
 
+config BUSYBOX_KLOGD
+	bool "klogd"
+	default y
+	help
+	  klogd is a utility which intercepts and logs all
+	  messages from the Linux kernel and sends the messages
+	  out to the 'syslogd' utility so they can be logged. If
+	  you wish to record the messages produced by the kernel,
+	  you should enable this option.
+
+comment "klogd should not be used together with syslog to kernel printk buffer"
+	depends on BUSYBOX_KLOGD && BUSYBOX_FEATURE_KMSG_SYSLOG
+
+config BUSYBOX_FEATURE_KLOGD_KLOGCTL
+	bool "Use the klogctl() interface"
+	default y
+	depends on BUSYBOX_KLOGD
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  The klogd applet supports two interfaces for reading
+	  kernel messages. Linux provides the klogctl() interface
+	  which allows reading messages from the kernel ring buffer
+	  independently from the file system.
+
+	  If you answer 'N' here, klogd will use the more portable
+	  approach of reading them from /proc or a device node.
+	  However, this method requires the file to be available.
+
+	  If in doubt, say 'Y'.
+config BUSYBOX_LOGGER
+	bool "logger"
+	default y
+	select BUSYBOX_FEATURE_SYSLOG
+	help
+	    The logger utility allows you to send arbitrary text
+	    messages to the system log (i.e. the 'syslogd' utility) so
+	    they can be logged. This is generally used to help locate
+	    problems that occur within programs and scripts.
+config BUSYBOX_LOGREAD
+	bool "logread"
+	default y
+	depends on BUSYBOX_FEATURE_IPC_SYSLOG
+	help
+	  If you enabled Circular Buffer support, you almost
+	  certainly want to enable this feature as well. This
+	  utility will allow you to read the messages that are
+	  stored in the syslogd circular buffer.
+
+config BUSYBOX_FEATURE_LOGREAD_REDUCED_LOCKING
+	bool "Double buffering"
+	default y
+	depends on BUSYBOX_LOGREAD
+	help
+	  'logread' ouput to slow serial terminals can have
+	  side effects on syslog because of the semaphore.
+	  This option make logread to double buffer copy
+	  from circular buffer, minimizing semaphore
+	  contention at some minor memory expense.
 
 config BUSYBOX_SYSLOGD
 	bool "syslogd"
@@ -28,7 +86,7 @@ config BUSYBOX_FEATURE_ROTATE_LOGFILE
 	depends on BUSYBOX_SYSLOGD
 	help
 	  This enables syslogd to rotate the message files
-	  on his own. No need to use an external rotatescript.
+	  on his own. No need to use an external rotate script.
 
 config BUSYBOX_FEATURE_REMOTE_LOG
 	bool "Remote Log support"
@@ -92,27 +150,6 @@ config BUSYBOX_FEATURE_IPC_SYSLOG_BUFFER_SIZE
 	  This option sets the size of the circular buffer
 	  used to record system log messages.
 
-config BUSYBOX_LOGREAD
-	bool "logread"
-	default y
-	depends on BUSYBOX_FEATURE_IPC_SYSLOG
-	help
-	  If you enabled Circular Buffer support, you almost
-	  certainly want to enable this feature as well. This
-	  utility will allow you to read the messages that are
-	  stored in the syslogd circular buffer.
-
-config BUSYBOX_FEATURE_LOGREAD_REDUCED_LOCKING
-	bool "Double buffering"
-	default y
-	depends on BUSYBOX_LOGREAD
-	help
-	  'logread' ouput to slow serial terminals can have
-	  side effects on syslog because of the semaphore.
-	  This option make logread to double buffer copy
-	  from circular buffer, minimizing semaphore
-	  contention at some minor memory expense.
-
 config BUSYBOX_FEATURE_KMSG_SYSLOG
 	bool "Linux kernel printk buffer support"
 	default y
@@ -125,45 +162,5 @@ config BUSYBOX_FEATURE_KMSG_SYSLOG
 	  support, as klogd and logread aren't needed.
 
 	  NOTICE: Syslog facilities in log entries needs kernel 3.5+.
-
-config BUSYBOX_KLOGD
-	bool "klogd"
-	default y
-	help
-	  klogd is a utility which intercepts and logs all
-	  messages from the Linux kernel and sends the messages
-	  out to the 'syslogd' utility so they can be logged. If
-	  you wish to record the messages produced by the kernel,
-	  you should enable this option.
-
-comment "klogd should not be used together with syslog to kernel printk buffer"
-	depends on BUSYBOX_KLOGD && BUSYBOX_FEATURE_KMSG_SYSLOG
-
-config BUSYBOX_FEATURE_KLOGD_KLOGCTL
-	bool "Use the klogctl() interface"
-	default y
-	depends on BUSYBOX_KLOGD
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  The klogd applet supports two interfaces for reading
-	  kernel messages. Linux provides the klogctl() interface
-	  which allows reading messages from the kernel ring buffer
-	  independently from the file system.
-
-	  If you answer 'N' here, klogd will use the more portable
-	  approach of reading them from /proc or a device node.
-	  However, this method requires the file to be available.
-
-	  If in doubt, say 'Y'.
-
-config BUSYBOX_LOGGER
-	bool "logger"
-	default y
-	select BUSYBOX_FEATURE_SYSLOG
-	help
-	    The logger utility allows you to send arbitrary text
-	    messages to the system log (i.e. the 'syslogd' utility) so
-	    they can be logged. This is generally used to help locate
-	    problems that occur within programs and scripts.
 
 endmenu

@@ -6,6 +6,11 @@
 
 menu "Linux System Utilities"
 
+config BUSYBOX_BLKDISCARD
+	bool "blkdiscard"
+	default y
+	help
+	  blkdiscard discards sectors on a given device.
 config BUSYBOX_BLOCKDEV
 	bool "blockdev"
 	default y
@@ -174,11 +179,34 @@ config BUSYBOX_FEATURE_MOUNT_OTHERTAB
 	default y
 	help
 	  Support mount -T (specifying an alternate fstab)
+config BUSYBOX_NSENTER
+	bool "nsenter"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Run program with namespaces of other processes.
+
+config BUSYBOX_FEATURE_NSENTER_LONG_OPTS
+	bool "Enable long options"
+	default y
+	depends on BUSYBOX_NSENTER && BUSYBOX_LONG_OPTS
+	help
+	  Support long options for the nsenter applet. This makes
+	  the busybox implementation more compatible with upstream.
 config BUSYBOX_REV
 	bool "rev"
 	default y
 	help
 	  Reverse lines of a file or files.
+config BUSYBOX_SETARCH
+	bool "setarch"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  The linux32 utility is used to create a 32bit environment for the
+	  specified program (usually a shell). It only makes sense to have
+	  this util on a system that supports both 64bit and 32bit userland
+	  (like amd64/x86, ppc64/ppc, sparc64/sparc, etc...).
 config BUSYBOX_UEVENT
 	bool "uevent"
 	default y
@@ -186,6 +214,13 @@ config BUSYBOX_UEVENT
 	help
 	  uevent is a netlink listener for kernel uevent notifications
 	  sent via netlink. It is usually used for dynamic device creation.
+config BUSYBOX_UNSHARE
+	bool "unshare"
+	default y
+	depends on BUSYBOX_LONG_OPTS && !BUSYBOX_NOMMU
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Run program with some namespaces unshared from parent.
 
 config BUSYBOX_ACPID
 	bool "acpid"
@@ -668,16 +703,6 @@ config BUSYBOX_SCRIPTREPLAY
 	help
 	  This program replays a typescript, using timing information
 	  given by script -t.
-
-config BUSYBOX_SETARCH
-	bool "setarch"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  The linux32 utility is used to create a 32bit environment for the
-	  specified program (usually a shell). It only makes sense to have
-	  this util on a system that supports both 64bit and 32bit userland
-	  (like amd64/x86, ppc64/ppc, sparc64/sparc, etc...).
 
 config BUSYBOX_SWAPONOFF
 	bool "swaponoff"

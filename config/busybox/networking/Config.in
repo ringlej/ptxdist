@@ -673,7 +673,7 @@ config BUSYBOX_FEATURE_INETD_SUPPORT_BUILTIN_CHARGEN
 
 config BUSYBOX_FEATURE_INETD_RPC
 	bool "Support RPC services"
-	default y
+	default n  # very rarely used, and needs Sun RPC support in libc
 	depends on BUSYBOX_INETD
 	select BUSYBOX_FEATURE_HAVE_RPC
 	help
@@ -730,6 +730,13 @@ config BUSYBOX_FEATURE_IP_RULE
 	help
 	  Add support for rule commands to "ip".
 
+config BUSYBOX_FEATURE_IP_NEIGH
+	bool "ip neighbor"
+	default y
+	depends on BUSYBOX_IP
+	help
+	  Add support for neighbor commands to "ip".
+
 config BUSYBOX_FEATURE_IP_SHORT_FORMS
 	bool "Support short forms of ip commands"
 	default y
@@ -741,6 +748,7 @@ config BUSYBOX_FEATURE_IP_SHORT_FORMS
 	  ip route  -> iproute
 	  ip tunnel -> iptunnel
 	  ip rule   -> iprule
+	  ip neigh  -> ipneigh
 
 	  Say N unless you desparately need the short form of the ip
 	  object commands.
@@ -779,6 +787,11 @@ config BUSYBOX_IPRULE
 	bool
 	default y
 	depends on BUSYBOX_FEATURE_IP_SHORT_FORMS && BUSYBOX_FEATURE_IP_RULE
+
+config BUSYBOX_IPNEIGH
+	bool
+	default y
+	depends on BUSYBOX_FEATURE_IP_SHORT_FORMS && BUSYBOX_FEATURE_IP_NEIGH
 
 config BUSYBOX_IPCALC
 	bool "ipcalc"
