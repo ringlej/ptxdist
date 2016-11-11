@@ -553,8 +553,13 @@ check_compiler_icecc() {
 	if [ -n "${toolchain}" -a "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
 		rm -rf "${icecc_dir}"
 	fi
-	if [ "$(readlink -f "${wrapper_dir}/real/gcc")" != "$(readlink -f "${icecc_dir}/gcc")" ]; then
-		rm -rf "${icecc_dir}"
+	"${wrapper_dir}/real/gcc" --version > "${PTXDIST_TEMPDIR}/host-gcc-version" 2>&1
+	"${wrapper_dir}/real/${compiler_prefix}gcc"  --version > "${PTXDIST_TEMPDIR}/target-gcc-version" 2>&1
+	if [ -d "${icecc_dir}" ]; then
+		if ! diff -q "${PTXDIST_TEMPDIR}/host-gcc-version" "${icecc_dir}/host-gcc-version" >& /dev/null || \
+			! diff -q "${PTXDIST_TEMPDIR}/target-gcc-version"  "${icecc_dir}/target-gcc-version" >& /dev/null; then
+			rm -rf "${icecc_dir}"
+		fi
 	fi
 	if [ ! -d "${icecc_dir}" ]; then
 		if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
@@ -582,7 +587,8 @@ check_compiler_icecc() {
 				ptxd_bailout "Failed!"
 				ln -s "${toolchain}" "${icecc_dir}/toolchain"
 			fi
-		)
+		) &&
+		mv "${PTXDIST_TEMPDIR}/host-gcc-version" "${PTXDIST_TEMPDIR}/target-gcc-version" "${icecc_dir}/"
 	fi &&
 
 	ptxd_get_path "${icecc_dir}/host"/*.tar.gz &&
