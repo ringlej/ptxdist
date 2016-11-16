@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.70
-LIBDRM_MD5	:= a8c275bce5f3d71a5ca25e8fb60df084
+LIBDRM_VERSION	:= 2.4.71
+LIBDRM_MD5	:= a9e5bf225873165fd38cad275e7b6a86
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
@@ -48,6 +48,8 @@ LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_TEGRA) += tegra-experimental-api
 LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_TEGRA) += tegra
 LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_VC4) += vc4
 # vc4 is a headers only backend
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_ETNAVIV) += etnaviv-experimental-api
+LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_ETNAVIV) += etnaviv
 
 LIBDRM_BACKENDSC-y += $(LIBDRM_BACKENDS-y)
 LIBDRM_BACKENDSC- += $(LIBDRM_BACKENDS-)
@@ -98,6 +100,11 @@ ifdef PTXCONF_LIBDRM_LIBKMS
 endif
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modeprint)
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/vbltest)
+ifdef PTXCONF_LIBDRM_ETNAVIV
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/etnaviv_2d_test)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/etnaviv_cmd_stream_test)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/etnaviv_bo_cache_test)
+endif
 endif
 	@$(call install_finish, libdrm)
 
