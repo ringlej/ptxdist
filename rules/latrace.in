@@ -1,0 +1,8 @@
+## SECTION=debug_tools
+
+config LATRACE
+	tristate
+	prompt "latrace"
+	help
+	  A tool to trace library calls and get their statistics in a
+	  manner similar to the strace utility

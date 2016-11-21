@@ -1,0 +1,25 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Fri, 11 Nov 2016 10:47:48 +0100
+Subject: [PATCH] Buildsystem: fix configure creation
+
+According to the AC_DEFINE documentation no parameter is possible, but it
+fails to create the configure script
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 2c287d128f28..42bb7ec78e0f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -88,7 +88,7 @@ AC_DEFINE(CONFIG_VERSION, "AC_PACKAGE_VERSION", [Version of latrace.])
+ if test "$unamem" = "x86_64" -o\
+ 	"$unamem" = "i686" -o\
+ 	"$unamem" = "arm"; then
+-	AC_DEFINE(CONFIG_ARCH_HAVE_ARGS)
++	AC_DEFINE(CONFIG_ARCH_HAVE_ARGS, [], [argument display support])
+ 	AC_SUBST(CONFIG_ARCH_HAVE_ARGS, "y")
+ else
+ 	AC_MSG_WARN([Arguments display support disabled])
