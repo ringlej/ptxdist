@@ -36,6 +36,8 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-gles1 \
 	--disable-gles2 \
 	--disable-dri \
+	--disable-gallium-extra-hud \
+	--disable-lmsensors \
 	--disable-dri3 \
 	--disable-glx \
 	--disable-osmesa \
@@ -52,8 +54,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
 	--disable-shader-cache \
-	--disable-shared-glapi \
-	--disable-sysfs \
+	--enable-shared-glapi \
 	--disable-glx-read-only-text \
 	--disable-driglx-direct \
 	--disable-glx-tls \

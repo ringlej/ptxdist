@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 12.0.3
-MESALIB_MD5	:= 1113699c714042d8c4df4766be8c57d8
+MESALIB_VERSION	:= 13.0.1
+MESALIB_MD5	:= 72b7f4d0c2407f367484abd201cb8276
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
@@ -94,6 +94,8 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES1)-gles1 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES2)-gles2 \
 	--enable-dri \
+	--disable-gallium-extra-hud \
+	--disable-lmsensors \
 	--disable-dri3 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLX)-glx \
 	--disable-osmesa \
@@ -111,7 +113,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-gallium-tests \
 	--disable-shader-cache \
 	--enable-shared-glapi \
-	--disable-sysfs \
 	--disable-glx-read-only-text \
 	--enable-driglx-direct \
 	--enable-glx-tls \
