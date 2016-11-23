@@ -2571,7 +2571,7 @@ setup_libs() {
 	done
 	ptxd_in_path PTXDIST_PATH_SCRIPTS || return
 	dir=( "${ptxd_reply[@]}" )
-	for ((i=$((${#dir[@]}-1)); i>=0; i--)) do
+	for ((i=$((${#dir[@]}-1)); i>=0; i--)); do
 		if [ "${dir[${i}]}" = "${SCRIPTSDIR}" ]; then
 			continue
 		fi
