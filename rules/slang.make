@@ -22,7 +22,9 @@ SLANG_VERSION	:= 2.3.0
 SLANG_MD5	:= 3bcc790460d52db1316c20395b7ac2f1
 SLANG		:= slang-$(SLANG_VERSION)
 SLANG_SUFFIX	:= tar.bz2
-SLANG_URL	:= http://www.jedsoft.org/releases/slang/$(SLANG).$(SLANG_SUFFIX)
+SLANG_URL	:= \
+    http://www.jedsoft.org/releases/slang/$(SLANG).$(SLANG_SUFFIX) \
+    http://www.jedsoft.org/releases/slang/old/$(SLANG).$(SLANG_SUFFIX)
 SLANG_SOURCE	:= $(SRCDIR)/$(SLANG).$(SLANG_SUFFIX)
 SLANG_DIR	:= $(BUILDDIR)/$(SLANG)
 
