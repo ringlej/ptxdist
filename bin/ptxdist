@@ -2028,7 +2028,7 @@ EOF
 				exit 1
 			fi
 			while [ ${#} -gt 0 ]; do
-				if [ -n "${!1}" ]; then
+				if [[ ! ( "${1}" =~ "/" ) ]] && [ -n "${!1}" ]; then
 					if [ "${PTXDIST_VERBOSE}" = "1" ]; then
 						echo -n "${1}="
 					fi
@@ -2040,7 +2040,7 @@ EOF
 						check_deps || exit 1
 						check=1
 					fi
-					ptxd_make_log "print-${1}" 2>/dev/null || {
+					ptxd_make_log "/print-${1}" 2>/dev/null || {
 						echo "${1} undefined" >&2
 						exit 1
 					}
