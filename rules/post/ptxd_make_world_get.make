@@ -10,15 +10,6 @@
 #
 
 #
-# generate for all packages:
-# $(<PKG>_SOURCE) := <PKG>
-#
-define pkg_source
-$(if $($(1)_SOURCE),$(eval $($(1)_SOURCE) := $(1)),)
-endef
-$(foreach pkg, $(PTX_PACKAGES_SELECTED), $(call pkg_source,$(PTX_MAP_TO_PACKAGE_$(pkg))))
-
-#
 # generic source rule. It uses the variables defined above
 # to find the package for the source archive.
 #
