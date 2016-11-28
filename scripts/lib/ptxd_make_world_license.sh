@@ -127,17 +127,18 @@ export -f ptxd_make_latex_escape
 #
 ptxd_make_world_license_write() {
     local guess
+    local brl='{' brr='}'
     local pkg_chapter="$(ptxd_make_latex_escape ${pkg_label})"
     local packages_url="${pkg_url}"
     local packages_md5="${pkg_md5}"
     local -a flags=( "${!pkg_license_flags[@]}" )
     local -a index=( "${!pkg_license_flags[@]}" )
-    flags=( "${flags[@]/#/\\nameref\{}" )
-    flags=( "${flags[@]/%/\}}" )
+    flags=( "${flags[@]/#/\\nameref${brl}}" )
+    flags=( "${flags[@]/%/${brr}}" )
     pkg_chapter="${pkg_chapter#host-}"
     pkg_chapter="${pkg_chapter#cross-}"
     index=( "${index[@]/#/\\index[}" )
-    index=( "${index[@]/%/]\{${pkg_chapter}\}}" )
+    index=( "${index[@]/%/]${brl}${pkg_chapter}${brr}}" )
 
     case "${pkg_license}" in
 	*proprietary*)
