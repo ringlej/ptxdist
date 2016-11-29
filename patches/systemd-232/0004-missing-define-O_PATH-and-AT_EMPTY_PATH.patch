@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 8 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 5f7d9c65d816..187b16757887 100644
+index 963a5b89a6e6..568676b7bb6e 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -842,6 +842,13 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -903,6 +903,13 @@ struct btrfs_ioctl_quota_ctl_args {
  #define CLOCK_BOOTTIME_ALARM 9
  #endif
  

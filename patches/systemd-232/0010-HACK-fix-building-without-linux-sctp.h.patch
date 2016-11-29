@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 8 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 650a5be1edf2..2edcd7f28f0e 100644
+index 47f8a4a9a984..e82236e6027b 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -292,6 +292,10 @@ AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers n
+@@ -296,6 +296,10 @@ AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers n
  AC_CHECK_HEADERS([linux/btrfs.h], [], [])
  AC_CHECK_HEADERS([linux/memfd.h], [], [])
  AC_CHECK_HEADERS([uchar.h], [], [])
@@ -28,7 +28,7 @@ index 650a5be1edf2..2edcd7f28f0e 100644
  # unconditionally pull-in librt with old glibc versions
  AC_SEARCH_LIBS([clock_gettime], [rt], [], [])
 diff --git a/src/core/socket.c b/src/core/socket.c
-index f6204d04bfd8..212ff2dd913d 100644
+index 0b1c4acfecd0..fc61bbd49b7b 100644
 --- a/src/core/socket.c
 +++ b/src/core/socket.c
 @@ -26,7 +26,11 @@

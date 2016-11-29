@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 37 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index e67763c9b8ca..bb97544f750e 100644
+index 0b5ce1fde036..d1e10345a36f 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
 @@ -310,6 +310,23 @@ struct btrfs_ioctl_quota_ctl_args {

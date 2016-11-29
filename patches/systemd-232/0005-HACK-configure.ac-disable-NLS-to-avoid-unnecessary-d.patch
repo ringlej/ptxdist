@@ -9,7 +9,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 7 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 329861a291d2..35f96228f06a 100644
+index 0b10fc7de771..d70b89893844 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -59,6 +59,7 @@ SET_ARCH(IA32, i*86*)

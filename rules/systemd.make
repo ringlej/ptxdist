@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 231
-SYSTEMD_MD5	:= e6fa7f4a9c06f0427ff0539a90c69390
+SYSTEMD_VERSION	:= 232
+SYSTEMD_MD5	:= 3e3a0b14050eff62e68be72142181730
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -49,8 +49,6 @@ SYSTEMD_CONF_ENV	:= \
 	ac_cv_path_QUOTACHECK=/usr/sbin/quotacheck \
 	ac_cv_path_QUOTAON=/usr/sbin/quotaon
 
-SYSTEMD_CONF_ENV += cc_cv_CFLAGS__flto=no
-
 SYSTEMD_CPPFLAGS	:= \
 	-I$(KERNEL_HEADERS_INCLUDE_DIR)
 
@@ -66,6 +64,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-static \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
+	--disable-lto \
 	--disable-dbus \
 	--disable-utmp \
 	--disable-coverage \
@@ -126,6 +125,8 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-tests \
 	--disable-debug \
 	--without-python \
+	--with-nobody-user=nobody \
+	--with-nobody-group=nogroup \
 	--with-ntp-servers= \
 	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01 UTC" +%s` \
 	--with-system-uid-max=999 \
@@ -169,7 +170,7 @@ endif
 #	# the upstream default (graphical.target) wants display-manager.service
 	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/lib/systemd/system/default.target
 #	# rpath is only needed for the executables
-	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/lib*.so*
+	@chrpath --delete $(SYSTEMD_PKGDIR)/lib/lib*.so*
 	@chrpath --delete $(SYSTEMD_PKGDIR)/lib/systemd/libsystemd-shared-$(SYSTEMD_VERSION).so
 	@$(call touch)
 
@@ -224,6 +225,7 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_lib, systemd, 0, 0, 0644, systemd/libsystemd-shared-$(SYSTEMD_VERSION))
 
 	@$(call install_lib, systemd, 0, 0, 0644, libnss_myhostname)
+	@$(call install_lib, systemd, 0, 0, 0644, libnss_systemd)
 ifdef PTXCONF_SYSTEMD_NETWORK
 	@$(call install_lib, systemd, 0, 0, 0644, libnss_resolve)
 endif
@@ -252,6 +254,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgtop)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-mount)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-path)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-socket-activate)

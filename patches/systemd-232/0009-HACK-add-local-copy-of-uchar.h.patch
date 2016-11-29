@@ -15,10 +15,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  create mode 100644 src/basic/_uchar.h
 
 diff --git a/configure.ac b/configure.ac
-index 00a68a7ea867..650a5be1edf2 100644
+index 95bd19c7927e..47f8a4a9a984 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -291,6 +291,7 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "x$have_python" = "xyes"])
+@@ -295,6 +295,7 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "x$have_python" = "xyes"])
  AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers not found])])
  AC_CHECK_HEADERS([linux/btrfs.h], [], [])
  AC_CHECK_HEADERS([linux/memfd.h], [], [])
@@ -123,7 +123,7 @@ index deaa4def2828..36d437cfaa2f 100644
  #include "string-util.h"
  #include "missing.h"
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index bb97544f750e..0d28c1a4c22a 100644
+index d1e10345a36f..fbe2e26e0132 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
 @@ -35,7 +35,11 @@
