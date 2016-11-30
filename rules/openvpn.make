@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_OPENVPN) += openvpn
 #
 # Paths and names
 #
-OPENVPN_VERSION		:= 2.3.11
-OPENVPN_MD5		:= fe17a25235d65e60af8986c6c78c4650
+OPENVPN_VERSION		:= 2.3.13
+OPENVPN_MD5		:= 4955e1d35bf5dc2c3ed9b98c280ee661
 OPENVPN			:= openvpn-$(OPENVPN_VERSION)
 OPENVPN_SUFFIX		:= tar.xz
 OPENVPN_URL		:= http://swupdate.openvpn.org/community/releases/$(OPENVPN).$(OPENVPN_SUFFIX)
