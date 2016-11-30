@@ -29,15 +29,16 @@ LATRACE_LICENSE	:= GPL-3.0
 # Prepare
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_ARCH_X86
-LATRACE_ARCH	:= i686
-endif
-ifdef PTXCONF_ARCH_ARM
-LATRACE_ARCH	:= arm
+LATRACE_ARCH	:= $(PTXCONF_ARCH_STRING)
+ifeq ($(PTXCONF_ARCH_X86)-$(PTXCONF_ARCH_X86_64),y-)
+LATRACE_ARCH	:= "i686"
 endif
 
-LATRACE_ENV	:=  $(CROSS_ENV) \
-	latrace_arch=$(LATRACE_ARCH)
+LATRACE_CONF_ENV := \
+	$(CROSS_ENV) \
+	latrace_arch=$(LATRACE_ARCH) \
+	ac_cv_path_ASCIIDOC=: \
+	ac_cv_path_XMLTO=:
 #
 # autoconf
 #
@@ -59,8 +60,6 @@ $(STATEDIR)/latrace.targetinstall:
 	@$(call install_fixup, latrace,AUTHOR,"Juergen Borleis <jbe@pengutronix.de>")
 	@$(call install_fixup, latrace,DESCRIPTION,"library call tracer")
 
-	@$(call install_copy, latrace, 0, 0, 0755, /etc/latrace.d)
-	@$(call install_copy, latrace, 0, 0, 0755, /etc/latrace.d/headers)
 	@$(call install_alternative, latrace, 0, 0, 0644, /etc/latrace.d/latrace.conf)
 	@$(call install_tree, latrace, 0, 0, -, /etc/latrace.d/headers/)
 
