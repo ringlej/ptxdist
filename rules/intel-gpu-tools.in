@@ -1,0 +1,18 @@
+## SECTION=multimedia_tools
+
+config INTEL_GPU_TOOLS
+	tristate
+	select GLIB
+	select CAIRO
+	select LIBDRM
+	select LIBDRM_INTEL
+	select LIBPCIACCESS
+	select UDEV
+	select UDEV_LIBUDEV
+	select ZLIB
+	prompt "intel-gpu-tools"
+	help
+	  intel-gpu-tools is a package of tools for debugging the Intel
+	  graphics driver, including a GPU hang dumping program,
+	  performance monitor, and performance microbenchmarks for
+	  regression testing the DRM.

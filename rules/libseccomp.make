@@ -11,14 +11,13 @@
 #
 # We provide this package
 #
-ifndef PTXCONF_ARCH_PPC
 PACKAGES-$(PTXCONF_LIBSECCOMP) += libseccomp
 
 #
 # Paths and names
 #
-LIBSECCOMP_VERSION	:= 2.2.3
-LIBSECCOMP_MD5		:= 7db418d35d7a6168400bf6b05502f8bf
+LIBSECCOMP_VERSION	:= 2.3.1
+LIBSECCOMP_MD5		:= e6f3e84921ef9c2e9188681963f0943f
 LIBSECCOMP		:= libseccomp-$(LIBSECCOMP_VERSION)
 LIBSECCOMP_SUFFIX	:= tar.gz
 LIBSECCOMP_URL		:= https://github.com/seccomp/libseccomp/releases/download/v$(LIBSECCOMP_VERSION)/$(LIBSECCOMP).$(LIBSECCOMP_SUFFIX)
@@ -53,7 +52,5 @@ $(STATEDIR)/libseccomp.targetinstall:
 	@$(call install_finish, libseccomp)
 
 	@$(call touch)
-
-endif
 
 # vim: syntax=make

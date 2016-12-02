@@ -2408,7 +2408,7 @@ setup_parallel() {
 
 	PTXDIST_OUTPUT_SYNC="${PTXDIST_OUTPUT_SYNC:-${PTXDIST_QUIET}}"
 	if [ "${PTXDIST_OUTPUT_SYNC}" == "1" ]; then
-		if make -h | grep -q -- --output-sync; then
+		if "${PTXCONF_SETUP_HOST_MAKE}" -h | grep -q -- --output-sync; then
 			PTXDIST_OUTPUT_SYNC="--output-sync="
 		fi
 	fi

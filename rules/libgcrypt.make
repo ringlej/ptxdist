@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.5.3
-LIBGCRYPT_MD5		:= 993159b2924ae7b0e4eaff0743c2db35
+LIBGCRYPT_VERSION	:= 1.7.3
+LIBGCRYPT_MD5		:= c869e542cc13a1c28d8055487bf7f5c4
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
@@ -38,9 +38,12 @@ LIBGCRYPT_LICENSE_FILES	:= \
 #
 LIBGCRYPT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
 	--enable-optimization \
 	--disable-random-daemon \
-	--disable-asm
+	--disable-asm \
+	--disable-large-data-tests \
+	--disable-doc
 #
 # ASM needs MPI, which we don't have
 #

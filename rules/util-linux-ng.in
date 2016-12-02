@@ -366,6 +366,14 @@ config UTIL_LINUX_NG_FINDFS
 comment "BusyBox' findfs is selected!"
 	depends on BUSYBOX_FINDFS
 
+config UTIL_LINUX_NG_WIPEFS
+	bool
+	select UTIL_LINUX_NG_LIBBLKID
+	prompt "wipefs"
+	help
+	  The wipefs program can erase filesystem, raid or partition-table
+	  signatures.
+
 config UTIL_LINUX_NG_ZRAMCTL
 	bool
 	prompt "zramctl"

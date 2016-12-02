@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WAYLAND) += wayland
 #
 # Paths and names
 #
-WAYLAND_VERSION	:= 1.7.0
-WAYLAND_MD5	:= 6f46ac47c3a18c6503a40b5fa58a1066
+WAYLAND_VERSION	:= 1.12.0
+WAYLAND_MD5	:= ee615e2d1e205eec48b02f069327eb96
 WAYLAND		:= wayland-$(WAYLAND_VERSION)
 WAYLAND_SUFFIX	:= tar.xz
 WAYLAND_URL	:= http://wayland.freedesktop.org/releases/$(WAYLAND).$(WAYLAND_SUFFIX)
@@ -36,8 +36,10 @@ WAYLAND_CONF_TOOL	:= autoconf
 WAYLAND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
-	--disable-scanner \
-	--disable-documentation
+	--enable-libraries \
+	--disable-documentation \
+	--disable-dtd-validation \
+	--with-host-scanner
 
 # ----------------------------------------------------------------------------
 # Install
@@ -45,6 +47,8 @@ WAYLAND_CONF_OPT	:= \
 
 $(STATEDIR)/wayland.install.post:
 	@$(call targetinfo)
+#	# target wayland-scanner is not needed. Make sure nobody tries to use it
+	@rm -f $(WAYLAND_PKGDIR)/usr/bin/wayland-scanner
 	@$(call world/install.post, WAYLAND)
 	@sed 's;^prefix=.*;prefix=$(PTXDIST_SYSROOT_HOST);' \
 		$(PTXDIST_SYSROOT_HOST)/lib/pkgconfig/wayland-scanner.pc \

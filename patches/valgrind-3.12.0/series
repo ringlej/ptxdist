@@ -2,6 +2,4 @@
 #tag:base --start-number 1
 0001-configure.ac-allow-all-arm-don-t-restrict-to-armv7.patch
 0002-make-kernel-version-a-autoconf-cache-variable.patch
-0003-Bug-357833-Setting-RLIMIT_DATA-to-zero-breaks-with-l.patch
-0004-add-compressed-debuginfo-support.patch
-# 9f65f517c4df33224259a3a17b3ed095  - git-ptx-patches magic
+# 740ad5fce41b58864cb7c18bfefd385a  - git-ptx-patches magic

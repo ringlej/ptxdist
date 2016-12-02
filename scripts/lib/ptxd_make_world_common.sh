@@ -303,7 +303,7 @@ ptxd_make_world_init() {
 	    local conf_env_ptr="ptx_conf_env_${pkg_type}"
 
 	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
-	    pkg_conf_env="${pkg_conf_env:-${!conf_env_ptr}}"
+	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env:-${!conf_env_ptr}}"
 
 	    unset conf_opt_ptr conf_env_ptr
 	    ;;
