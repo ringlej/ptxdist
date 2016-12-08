@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_DT_UTILS) += dt-utils
 #
 # Paths and names
 #
-DT_UTILS_VERSION	:= 2016.08.0
-DT_UTILS_MD5		:= b10ec651cfb241544a2eb23b5a9f156d
+DT_UTILS_VERSION	:= 2016.12.0
+DT_UTILS_MD5		:= 9901cfc6cf6482af1c41255ea8dd418e
 DT_UTILS		:= dt-utils-$(DT_UTILS_VERSION)
 DT_UTILS_SUFFIX		:= tar.xz
 DT_UTILS_URL		:= http://pengutronix.de/software/dt-utils/download/$(DT_UTILS).$(DT_UTILS_SUFFIX)
