@@ -23,7 +23,7 @@ INTEL_GPU_TOOLS_SUFFIX	:= tar.bz2
 INTEL_GPU_TOOLS_URL	:= $(call ptx/mirror, XORG, app/$(INTEL_GPU_TOOLS).$(INTEL_GPU_TOOLS_SUFFIX))
 INTEL_GPU_TOOLS_SOURCE	:= $(SRCDIR)/$(INTEL_GPU_TOOLS).$(INTEL_GPU_TOOLS_SUFFIX)
 INTEL_GPU_TOOLS_DIR	:= $(BUILDDIR)/$(INTEL_GPU_TOOLS)
-INTEL_GPU_TOOLS_LICENSE	:= MIT
+INTEL_GPU_TOOLS_LICENSE	:= MIT AND ISC
 
 # ----------------------------------------------------------------------------
 # Prepare
