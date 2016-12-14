@@ -61,6 +61,7 @@ $(STATEDIR)/gst-rtsp-server1.targetinstall:
 	@$(call install_fixup, gst-rtsp-server1,DESCRIPTION,missing)
 
 	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, libgstrtspserver-1.0)
+	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, gstreamer-1.0/libgstrtspclientsink)
 
 	@$(call install_finish, gst-rtsp-server1)
 
