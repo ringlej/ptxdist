@@ -27,14 +27,66 @@ NODEJS_SOURCE	:= $(SRCDIR)/$(NODEJS).$(NODEJS_SUFFIX)
 NODEJS_DIR	:= $(BUILDDIR)/$(NODEJS)
 NODEJS_LICENSE	:= unknown
 
-NODEJS_SOURCES += $(foreach module,$(call remove_quotes, $(PTXCONF_NODEJS_MODULE_LIST)),$(addprefix $(SRCDIR)/,$(addsuffix .npmbox,$(module))))
+NODEJS_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src
+NODEJS_MODULE_LIST	:= $(call remove_quotes, $(PTXCONF_NODEJS_MODULE_LIST))
+NODEJS_NPMBOXES		:= $(foreach module,$(NODEJS_MODULE_LIST), \
+	$(addprefix $(NODEJS_SRCDIR)/,$(addsuffix .npmbox,$(module))))
+
+node/env = \
+	$(CROSS_ENV) \
+	npm_config_arch=$(NODEJS_ARCH) \
+	npm_prefix=$(NODEJS_PKGDIR)/usr/lib \
+	npm_config_cache=$(HOST_NODEJS_PKGDIR)/npm \
+	npm_config_tmp=$(PTXDIST_TEMPDIR)/nodejs \
+	npm_config_nodedir=$(NODEJS_DIR) \
+	$(1)
+
+# remove version number from package string
+define rmversion
+$(shell echo $(1) | sed 's-\<\([^ @]*\)@[^ @]*\>-\1-g')
+endef
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+nodejs-get: $(NODEJS_NPMBOXES)
+PHONY += nodejs-get
+
+$(NODEJS_SRCDIR)/%.npmbox:| $(STATEDIR)/host-nodejs.install.post
+	@$(call targetinfo)
+	cd $(NODEJS_SRCDIR) && \
+		$(call node/env, npmbox $(*) --verbose)
+
+# Map package sources and md5sums for world/check_src
+NODEJS_MODULE_MD5	:= $(call remove_quotes, $(PTXCONF_NODEJS_MODULE_MD5))
+define def_mod
+$(call rmversion,$(1))_SOURCE	:= $(addprefix $(NODEJS_SRCDIR)/,$(addsuffix .npmbox,$(1)))
+$(call rmversion,$(1))_MD5	:= $(firstword $(NODEJS_MODULE_MD5))
+NODEJS_MODULE_MD5 := $(filter-out $(firstword $(NODEJS_MODULE_MD5)),$(NODEJS_MODULE_MD5))
+endef
+$(foreach module,$(NODEJS_MODULE_LIST),$(eval $(call def_mod,$(module))))
+
+$(STATEDIR)/nodejs.get:
+	@$(call targetinfo)
+	@$(call world/get, NODEJS)
+	@$(call world/check_src, NODEJS)
+	@$(foreach npmbox,$(NODEJS_NPMBOXES), \
+		if [ ! -e $(npmbox) ]; then \
+			echo "NodeJS modules must be downloaded with 'ptxdist make nodejs-get'"; \
+			echo ; \
+			exit 1; \
+		fi;)
+	@$(foreach module,$(NODEJS_MODULE_LIST), \
+		$(call world/check_src, $(call rmversion,$(module)));)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ifeq ($(PTXCONF_ARCH_STRING),i386)
-NODEJS_ARCH := ia32
+ifeq ($(PTXCONF_ARCH_X86)-$(PTXCONF_ARCH_X86_64),y-)
+NODEJS_ARCH := "ia32"
 else
 NODEJS_ARCH := $(PTXCONF_ARCH_STRING)
 endif
@@ -52,31 +104,12 @@ NODEJS_CONF_OPT := \
 # Install
 # ----------------------------------------------------------------------------
 
-# remove version number from package string
-define rmversion
-$(shell echo $(call remove_quotes, $(1)) | sed 's-\<\([^ @]*\)@[^ @]*\>-\1-g')
-endef
-
-node/env = \
-	$(CROSS_ENV) \
-	npm_config_arch=$(NODEJS_ARCH) \
-	npm_prefix=$(NODEJS_PKGDIR)/usr/lib \
-	npm_config_cache=$(HOST_NODEJS_PKGDIR)/npm \
-	npm_config_tmp=$(PTXDIST_TEMPDIR)/nodejs \
-	npm_config_nodedir=$(NODEJS_DIR) \
-	$(1)
-
-$(SRCDIR)/%.npmbox:| $(STATEDIR)/host-nodejs.install.post
-	@$(call targetinfo)
-	@cd $(SRCDIR) && \
-		$(call node/env, npmbox $(*) --verbose)
-
 $(STATEDIR)/nodejs.install:
 	@$(call targetinfo)
 	@$(call install, NODEJS)
-	@$(foreach module, $(call remove_quotes, $(PTXCONF_NODEJS_MODULE_LIST)), \
+	@$(foreach npmbox, $(NODEJS_NPMBOXES), \
 		cd $(NODEJS_PKGDIR)/usr/lib/ && \
-		$(call node/env, npmunbox -build-from-source $(SRCDIR)/$(module).npmbox);)
+		$(call node/env, npmunbox -build-from-source $(npmbox));)
 	@$(call touch)
 
 
@@ -107,8 +140,8 @@ ifdef PTXCONF_NODEJS_NPM
 	@$(call install_copy, nodejs, 0, 0, 0644, -, /usr/lib/node_modules/npm/package.json)
 endif
 
-ifneq ($(call remove_quotes, $(PTXCONF_NODEJS_MODULE_LIST)),)
-	@$(foreach module, $(call rmversion, $(PTXCONF_NODEJS_MODULE_LIST)), \
+ifneq ($(NODEJS_MODULE_LIST),)
+	@$(foreach module, $(call rmversion, $(NODEJS_MODULE_LIST)), \
 		$(call install_tree, nodejs, 0, 0, -, /usr/lib/node_modules/$(module));)
 endif
 	@$(call install_finish, nodejs)
