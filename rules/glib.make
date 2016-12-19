@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-GLIB_VERSION	:= 2.50.1
-GLIB_MD5	:= 6baee4d7e3b1ec791b4ced93976365ee
+GLIB_VERSION	:= 2.50.2
+GLIB_MD5	:= 5eeb2bfaf78a07be59585e8b6e80b1d6
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.xz
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
