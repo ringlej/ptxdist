@@ -8,9 +8,10 @@ menuconfig RRDTOOL
 	select CAIRO_PDF	if RRDTOOL_RRD_GRAPH
 	select CAIRO_PS		if RRDTOOL_RRD_GRAPH
 	select PANGO		if RRDTOOL_RRD_GRAPH
-	select LIBXML2
-	select LIBXML2_SAX1
-	select LIBXML2_READER
+	select LIBXML2		if RRDTOOL_RRD_RESTORE
+	select LIBXML2_SAX1	if RRDTOOL_RRD_RESTORE
+	select LIBXML2_READER	if RRDTOOL_RRD_RESTORE
+
 # for autotools only
 	select HOST_GETTEXT
 	prompt "rrdtool                       "
@@ -60,6 +61,13 @@ config RRDTOOL_RRDUPDATE
 	prompt "install rrdupdate"
 	help
 	  Store a new set of values into the RRD
+
+config RRDTOOL_RRD_RESTORE
+	bool
+	prompt "enable rrd restore"
+	help
+	  rrd restore reads the XML representation of an RRD via libxml2
+	  and converts it to the native RRD format.
 
 config RRDTOOL_WRAP
 	bool
