@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.10.10
-DBUS_MD5	:= 495676d240eb982921b3ad1343526849
+DBUS_VERSION	:= 1.10.14
+DBUS_MD5	:= 3f7b013ce8f641cd4c897acda0ef3467
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
