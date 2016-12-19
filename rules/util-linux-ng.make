@@ -17,11 +17,12 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.28.2
-UTIL_LINUX_NG_MD5	:= 46a232a37bce45371a86d19300edc47a
+UTIL_LINUX_NG_VERSION	:= 2.29
+UTIL_LINUX_NG_MD5	:= 07b6845f48a421ad5844aa9d58edb837
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/v$(basename $(UTIL_LINUX_NG_VERSION))/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
+UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[\.[0-9]*]\?/\1/g')
+UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/$(UTIL_LINUX_NG_BASENAME)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPL-2.0, GPL-2.0+, GPL-3.0+, LGPL-2.0+, BSD-3-Clause, BSD-4-Clause, public_domain
@@ -59,15 +60,16 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-static-programs \
 	--enable-all-programs=undefined \
 	--enable-tls \
+	--disable-widechar \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
-	--enable-libmount-force-mountinfo \
+	--disable-libmount-support-mtab \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBSMARTCOLS)-libsmartcols \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBFDISK)-libfdisk \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNT)-mount \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LOSETUP)-losetup \
-	--disable-zramctl \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_ZRAMCTL)-zramctl \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_FSCK)-fsck \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_PARTX_TOOLS)-partx \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_UUIDD)-uuidd \
@@ -78,15 +80,20 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-setpriv \
 	--disable-eject \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
+	--disable-plymouth_support \
 	--disable-cramfs \
 	--disable-bfs \
 	--disable-minix \
 	--disable-fdformat \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_HWCLOCK)-hwclock \
+	--disable-lslogins \
 	--disable-wdctl \
 	--disable-cal \
+	--disable-logger \
 	--disable-switch_root \
 	--disable-pivot_root \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCRM)-ipcrm \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCS)-ipcs \
 	--disable-tunelp \
 	--disable-kill \
 	--disable-last \
@@ -110,12 +117,11 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-runuser \
 	--disable-ul \
 	--disable-more \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SETTERM)-setterm \
 	--disable-pg \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SETTERM)-setterm \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_SCHEDUTILS)-schedutils \
 	--disable-wall \
 	--disable-write \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_ZRAMCTL)-zramctl \
 	--disable-bash-completion \
 	--disable-pylibmount \
 	--disable-pg-bell \
@@ -131,13 +137,16 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--without-selinux \
 	--without-audit \
 	--without-udev \
+	--without-ncursesw \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--without-slang \
 	--without-tinfo \
 	--without-readline \
 	--without-utempter \
+	--without-cap-ng \
 	--without-libz \
 	--without-user \
+	--without-btrfs \
 	--without-systemd \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--without-smack \
