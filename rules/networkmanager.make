@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.2.2
-NETWORKMANAGER_MD5	:= a922bf20c2243c9014fb14c4427ad035
+NETWORKMANAGER_VERSION	:= 1.4.2
+NETWORKMANAGER_MD5	:= 59b5b5585467756787c6cb535cbd306e
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.2/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.4/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 
@@ -47,15 +47,19 @@ NETWORKMANAGER_CONF_OPT := \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
 	--disable-introspection \
 	--disable-qt \
-	--disable-wimax \
+	--disable-teamdctl \
+	--disable-json-validation \
 	--disable-polkit \
 	--disable-modify-system \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
 	--disable-bluez5-dun \
-	--disable-concheck \
+	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_CONCHECK)-concheck \
 	--enable-more-warnings \
 	--disable-more-asserts \
 	--disable-more-logging \
+	--disable-lto \
+	--disable-address-sanitizer \
+	--disable-undefined-sanitizer \
 	--disable-vala \
 	--disable-tests \
 	--disable-gtk-doc \
@@ -76,16 +80,18 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-crypto=gnutls \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
+	--without-ofono \
 	--with-dhclient=/sbin/dhclient \
 	--without-dhcpcd \
 	--without-resolvconf \
 	--without-netconfig \
+	--with-config-dns-rc-manager-default=file \
 	--with-iptables=/usr/sbin/iptables \
 	--with-dnsmasq=/usr/sbin/dnsmasq \
 	--with-dnssec-trigger=/bin/true \
 	--with-system-ca-path=/etc/ssl/certs \
 	--with-kernel-firmware-dir=/lib/firmware \
-	--without-libsoup \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_CONCHECK)-libsoup \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMCLI)-nmcli \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
 	--without-valgrind \
