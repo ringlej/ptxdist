@@ -1,0 +1,46 @@
+From 68cfbafb9f239950065e6a0ed7ca60c12668740f Mon Sep 17 00:00:00 2001
+From: Clemens Gruber <clemens.gruber@pqgruber.com>
+Date: Thu, 15 Dec 2016 16:14:01 +0100
+Subject: [PATCH] fix inlining
+
+Signed-off-by: Clemens Gruber <clemens.gruber@pqgruber.com>
+---
+ src/netlib.c | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
+
+diff --git a/src/netlib.c b/src/netlib.c
+index f3a3fe5e00ab..4465d0f1b5f3 100644
+--- a/src/netlib.c
++++ b/src/netlib.c
+@@ -3997,11 +3997,7 @@ void demo_stream_setup(uint32_t a, uint32_t b) {
+   }
+ }
+ 
+-#ifdef WIN32
+-__forceinline void demo_interval_display(double actual_interval)
+-#else
+-  inline void demo_interval_display(double actual_interval)
+-#endif
++void demo_interval_display(double actual_interval)
+ {
+   static int count = 0;
+   struct timeval now;
+@@ -4060,15 +4056,7 @@ __forceinline void demo_interval_display(double actual_interval)
+    important compilers have supported such a construct so it should
+    not be a big deal. raj 2012-01-23 */
+ 
+-#ifdef WIN32
+-/* It would seem that the Microsoft compiler will not inline across
+-   source files. So there is little point in having an inline
+-   directive in that situation.  Of course that makes me wonder if an
+-   inline directive has to appear in netlib.h... */
+ void demo_interval_tick(uint32_t units)
+-#else
+-  inline void demo_interval_tick(uint32_t units)
+-#endif
+ {
+   double actual_interval = 0.0;
+ 
+-- 
+2.10.2
+

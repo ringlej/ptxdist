@@ -1,0 +1,9 @@
+## SECTION=networking
+
+config NETPERF
+	bool
+	prompt "netperf"
+	select LIBC_M
+	help
+	  netperf is a benchmark that can be used to measure the
+	  performance of many different types of networking.
