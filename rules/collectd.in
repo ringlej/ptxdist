@@ -2,7 +2,8 @@
 
 menuconfig COLLECTD
 	tristate
-	select RRDTOOL if COLLECTD_RRDTOOL
+	select RRDTOOL		if COLLECTD_RRDTOOL
+	select LM_SENSORS	if COLLECTD_SENSORS
 	prompt "collectd                      "
 	help
 	  collectd is a daemon which collects system performance statistics
@@ -42,5 +43,11 @@ config COLLECTD_CPU
 	help
 	  The CPU plugin collects data about what your CPU is actually doing,
 	  and if it is being idle or in the various states.
+
+config COLLECTD_SENSORS
+	bool
+	prompt "sensors"
+	help
+	  The Sensors plugin uses lm-sensors to read hardware sensors.
 
 endif
