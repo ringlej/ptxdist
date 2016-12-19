@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 4.8.0
-IPROUTE2_MD5		:= 54c6411863cb16a4375aa5f788dca767
+IPROUTE2_VERSION	:= 4.9.0
+IPROUTE2_MD5		:= 44a8371a4b2c40e48e4c9f98cbd41391
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.xz
 IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
@@ -38,8 +38,7 @@ $(STATEDIR)/iproute2.prepare:
 	@$(call world/prepare, IPROUTE2)
 # overwrite options we don't want, or may be misdetected
 	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/Config
-	@echo 'TC_CONFIG_XT:=n'		>> $(IPROUTE2_DIR)/Config
-	@echo 'IPT_LIB_DIR:=/usr/lib'	>> $(IPROUTE2_DIR)/Config
+	@echo 'TC_CONFIG_NO_XT:=y'	>> $(IPROUTE2_DIR)/Config
 	@echo 'TC_CONFIG_ELF:=n'	>> $(IPROUTE2_DIR)/Config
 ifndef PTXCONF_GLOBAL_SELINUX
 	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/Config
