@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	:= 3140100
-SQLITE_MD5	:= 3634a90a3f49541462bcaed3474b2684
+SQLITE_VERSION	:= 3150200
+SQLITE_MD5	:= 6b4fc0d8f7f02dd56bbde10a7c497a05
 SQLITE		:= sqlite-autoconf-$(SQLITE_VERSION)
 SQLITE_SUFFIX	:= tar.gz
 SQLITE_URL	:= https://www.sqlite.org/2016/$(SQLITE).$(SQLITE_SUFFIX)
@@ -37,11 +37,12 @@ SQLITE_LICENSE	:= public_domain
 SQLITE_CONF_ENV := \
 	$(CROSS_ENV) \
 	CPPFLAGS=" \
-	-DSQLITE_ENABLE_COLUMN_METADATA \
-	-DSQLITE_ENABLE_FTS4 \
-	-DSQLITE_ENABLE_JSON1 \
+	-DSQLITE_ENABLE_COLUMN_METADATA=1 \
+	-DSQLITE_ENABLE_FTS3_PARENTHESIS=1 \
+	-DSQLITE_ENABLE_FTS4=1 \
+	-DSQLITE_ENABLE_JSON1=1 \
 	-DSQLITE_ENABLE_RTREE=1 \
-	-DSQLITE_ENABLE_UNLOCK_NOTIFY \
+	-DSQLITE_ENABLE_UNLOCK_NOTIFY=1 \
 	-DSQLITE_SOUNDEX=1 \
 	"
 
@@ -50,9 +51,14 @@ SQLITE_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
+	--disable-editline \
 	--$(call ptx/endis,PTXCONF_SQLITE_READLINE)-readline \
 	--$(call ptx/endis,PTXCONF_SQLITE_THREADSAFE)-threadsafe \
-	--$(call ptx/endis,PTXCONF_SQLITE_LOAD_EXTENTION)-dynamic-extensions
+	--$(call ptx/endis,PTXCONF_SQLITE_LOAD_EXTENTION)-dynamic-extensions \
+	--disable-fts5 \
+	--enable-json1 \
+	--disable-session \
+	--disable-static-shell
 
 # ----------------------------------------------------------------------------
 # Target-Install
