@@ -2,7 +2,6 @@
 
 config NETTLE
 	tristate
-	select LIBGMP
 	prompt "nettle"
 	help
 	  Nettle is a cryptographic library.
