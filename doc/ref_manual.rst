@@ -873,6 +873,44 @@ Note: The package's install stage must be 'DESTDIR' aware to be able to make
 it install its content into the corresponding packages directory (in our example
 ``<platform-dir>/packages/foo-1.0.0/`` here).
 
+install_replace
+~~~~~~~~~~~~~~~
+
+Usage:
+
+.. code-block:: make
+
+ $(call install_replace, <package>, <filename>, <placeholder>, <value>)
+
+Replace placeholder with value in a previously installed file.
+
+The parameters and their meanings:
+
+**<package>**
+  Name of the IPKG/OPKG the macro should work on
+**<filename>**
+  Absolute filepath in target root filesystem
+**<placeholder>**
+  A string in the file which should be replaced. Usually some uppercase word
+  surrounded by @ signs
+**<value>**
+  The value which should appear in the root filesystem instead of the
+  placeholder, could be some PTXCONF variable
+
+The ``install_replace`` macro can be used in targetinstall stage to adapt
+some template and replace strings with content from menu variables or other
+sources. For example look at the timezone you set in the ptxdist menu. An
+``install_replace`` call in ``rules/timezone.make`` replaces the string
+``@TIMEZONE@`` in the file ``/etc/timezone`` in root filesystem with the
+content of the menu variable ``PTXCONF_TIMEZONE_LOCALTIME``. The file must
+be installed with some other ``install_*`` command before
+``install_replace`` can be used. A typical call would look like this:
+
+.. code-block:: make
+
+ @$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
+        $(PTXCONF_TIMEZONE_LOCALTIME))
+
 
 .. _param_macros:
 
