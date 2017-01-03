@@ -1232,7 +1232,7 @@ create_docs() {
 	ptxd_in_path PTXDIST_PATH doc &&
 	for dir in "${ptxd_reply[@]}"; do
 		for entry in $(cd "${dir}"; ls); do
-			cp -an "${dir}/${entry}" "${srcdir}/${entry}" || return
+			cp -an "${dir}/${entry}" "${srcdir}/" || return
 		done
 	done &&
 	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
