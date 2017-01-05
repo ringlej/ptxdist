@@ -203,13 +203,9 @@ COLLECTD_ENABLE-				+= zfs_arc
 COLLECTD_ENABLE-				+= zone
 COLLECTD_ENABLE-				+= zookeeper
 
-ifneq ($(call remove_quotes,$(COLLECTD_ENABLE-y)),)
-COLLECTD_CONF_OPT += --enable-$(subst $(space),$(space)--enable-,$(strip $(COLLECTD_ENABLE-y)))
-endif
-
-ifneq ($(call remove_quotes,$(COLLECTD_ENABLE-)),)
-COLLECTD_CONF_OPT += --disable-$(subst $(space),$(space)--disable-,$(strip $(COLLECTD_ENABLE-)))
-endif
+COLLECTD_CONF_OPT += \
+	$(addprefix --enable-,$(COLLECTD_ENABLE-y)) \
+	$(addprefix --disable-,$(COLLECTD_ENABLE-))
 
 # ----------------------------------------------------------------------------
 # Target-Install
