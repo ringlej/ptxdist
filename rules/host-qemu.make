@@ -111,7 +111,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-libiscsi \
 	--disable-libnfs \
 	--disable-smartcard \
-	--enable-libusb \
+	--$(call ptx/endis, PTXCONF_HOST_QEMU_SYS)-libusb \
 	--disable-usb-redir \
 	--disable-lzo \
 	--disable-snappy \
@@ -128,7 +128,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-jemalloc \
 	--disable-tools \
 	\
-	--with-system-pixman
+	$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,--with-system-pixman,--without-pixman)
 
 QEMU_CROSS_DL = $(shell ptxd_cross_cc_v |sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
 QEMU_CROSS_LD_LIBRARY_PATH := $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
