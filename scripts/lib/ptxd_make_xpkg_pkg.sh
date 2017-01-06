@@ -97,6 +97,7 @@ ptxd_install_setup() {
     local -a nfsroot_dirs
 
     case "${dst}" in
+	/bin/*|/sbin/*|/lib/*) dst="/usr${dst}" ;;
 	/*|"") ;;
 	*) ptxd_bailout "'dst' must be an absolute path!" ;;
     esac
@@ -156,13 +157,13 @@ ptxd_install_setup_src_list() {
 export -f ptxd_install_setup_src_list
 
 ptxd_install_setup_src() {
-    ptxd_install_setup || return
+    local -a list
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}${dst}"
     fi
 
-    local -a list
+    ptxd_install_setup || return
 
     ptxd_install_setup_src_list "${src}"
 

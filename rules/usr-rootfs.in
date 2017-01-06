@@ -1,0 +1,5 @@
+## SECTION=rootfs
+
+config USR_ROOTFS
+	tristate
+	select BASE

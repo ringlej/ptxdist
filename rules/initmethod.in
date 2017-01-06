@@ -2,6 +2,7 @@
 
 menuconfig INITMETHOD
 	bool  "init                          "
+	select USR_ROOTFS
 	default y
 	help
 	  Choose the system startup init method here
