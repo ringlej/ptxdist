@@ -1,0 +1,22 @@
+From: Zoltan Varga <vargaz@gmail.com>
+Date: Tue, 3 Jun 2014 16:07:40 +0200
+Subject: [PATCH] Applied patch from Kyle Edwards <kyleedwardsny@gmail.com>.
+ Fix isinf () check with clang. Fixes #20244.
+
+---
+ configure.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.in b/configure.in
+index 493f671c2a7d..0a390788d125 100644
+--- a/configure.in
++++ b/configure.in
+@@ -475,7 +475,7 @@ AC_CHECK_HEADERS(wchar.h)
+ AC_CHECK_HEADERS(ieeefp.h)
+ AC_MSG_CHECKING(for isinf)
+ AC_TRY_LINK([#include <math.h>], [
+-	int f = isinf (1);
++	int f = isinf (1.0);
+ ], [
+ 	AC_MSG_RESULT(yes)
+ 	AC_DEFINE(HAVE_ISINF, 1, [isinf available])
