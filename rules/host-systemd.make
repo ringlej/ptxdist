@@ -100,7 +100,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--with-dns-servers= \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
-	--with-rootprefix= \
+	--with-rootprefix=/usr \
 	--with-rootlibdir=/lib
 
 # vim: syntax=make

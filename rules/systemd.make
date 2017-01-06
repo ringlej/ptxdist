@@ -122,7 +122,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-manpages \
 	--disable-hibernate \
 	--disable-ldconfig \
-	--enable-split-usr \
+	--disable-split-usr \
 	--disable-tests \
 	--disable-debug \
 	--without-python \
@@ -140,12 +140,10 @@ SYSTEMD_CONF_OPT	:= \
 	--with-tty-gid=112 \
 	--with-dbuspolicydir=/usr/share/dbus-1/system.d \
 	--with-dbussessionservicedir=/usr/share/dbus-1/services \
-	--with-dbussystemservicedir=/usr/share/dbus-1/system-services \
-	--with-rootprefix= \
-	--with-rootlibdir=/lib
+	--with-dbussystemservicedir=/usr/share/dbus-1/system-services
 
 # needed for private libsystemd-shared
-SYSTEMD_LDFLAGS	:= -Wl,-rpath,/lib/systemd
+SYSTEMD_LDFLAGS	:= -Wl,-rpath,/usr/lib/systemd
 
 # FIXME kernel from systemd README:
 # - devtmpfs, cgroups are mandatory.
@@ -162,7 +160,7 @@ $(STATEDIR)/systemd.install:
 	@$(call targetinfo)
 	@$(call world/install, SYSTEMD)
 ifdef PTXCONF_SYSTEMD_UDEV_HWDB
-	@systemd-hwdb update --usr --root $(SYSTEMD_PKGDIR)
+	@$(PTXDIST_SYSROOT_HOST)/usr/bin/systemd-hwdb update --usr --root $(SYSTEMD_PKGDIR)
 endif
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@rm -v $(SYSTEMD_PKGDIR)/etc/systemd/system/getty.target.wants/getty@tty1.service
@@ -171,10 +169,10 @@ endif
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/etc.conf
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/home.conf
 #	# the upstream default (graphical.target) wants display-manager.service
-	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/lib/systemd/system/default.target
+	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/usr/lib/systemd/system/default.target
 #	# rpath is only needed for the executables
-	@chrpath --delete $(SYSTEMD_PKGDIR)/lib/lib*.so*
-	@chrpath --delete $(SYSTEMD_PKGDIR)/lib/systemd/libsystemd-shared-$(SYSTEMD_VERSION).so
+	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/lib*.so*
+	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/systemd/libsystemd-shared-$(SYSTEMD_VERSION).so
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -274,19 +272,19 @@ ifdef PTXCONF_SYSTEMD_NETWORK
 endif
 
 #	# daemon + tools
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemctl)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/journalctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/journalctl)
 ifdef PTXCONF_SYSTEMD_LOGIND
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/loginctl)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-inhibit)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/loginctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-inhibit)
 endif
 ifdef PTXCONF_SYSTEMD_NETWORK
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/networkctl)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/networkctl)
 endif
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-escape)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-machine-id-setup)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-notify)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-tmpfiles)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-escape)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-machine-id-setup)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-notify)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-tmpfiles)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/busctl)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/hostnamectl)
 ifdef PTXCONF_SYSTEMD_LOCALES
@@ -308,17 +306,17 @@ ifdef PTXCONF_SYSTEMD_TIMEDATE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/timedatectl)
 endif
 
-	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system-generators/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/system-generators/)
 	@$(foreach helper, $(SYSTEMD_HELPER), \
 		$(call install_copy, systemd, 0, 0, 755, -, \
-			/lib/systemd/$(helper));)
+			/usr/lib/systemd/$(helper));)
 
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
-	@$(call install_link, systemd, ../lib/systemd/systemd, /sbin/init)
-	@$(call install_link, systemd, ../bin/systemctl, /sbin/halt)
-	@$(call install_link, systemd, ../bin/systemctl, /sbin/poweroff)
-	@$(call install_link, systemd, ../bin/systemctl, /sbin/reboot)
+	@$(call install_link, systemd, ../lib/systemd/systemd, /usr/sbin/init)
+	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/halt)
+	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/poweroff)
+	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/reboot)
 endif
 
 #	# configuration
@@ -336,7 +334,7 @@ ifdef PTXCONF_SYSTEMD_TIMEDATE
 endif
 ifdef PTXCONF_SYSTEMD_NETWORK
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-resolve)
-	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/systemd/resolv.conf)
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/systemd/resolv.conf)
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/etc/systemd/resolved.conf)
 endif
@@ -358,16 +356,16 @@ ifdef PTXCONF_SYSTEMD_LOCALES
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/share/systemd/kbd-model-map)
 endif
 
-	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/rules.d/99-systemd.rules)
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/udev/rules.d/99-systemd.rules)
 ifdef PTXCONF_SYSTEMD_NETWORK
-	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/network)
-	@$(call install_alternative_tree, systemd, 0, 0, /lib/systemd/network)
+	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/network)
+	@$(call install_alternative_tree, systemd, 0, 0, /usr/lib/systemd/network)
 endif
 	@$(call install_alternative, systemd, 0, 0, 0644, \
-		/lib/systemd/network/99-default.link)
+		/usr/lib/systemd/network/99-default.link)
 
 #	# units
-	@$(call install_tree, systemd, 0, 0, -, /lib/systemd/system/)
+	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/system/)
 
 ifndef PTXCONF_SYSTEMD_VCONSOLE
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
@@ -381,24 +379,24 @@ endif
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/profile.d/systemd.sh)
 
-	@$(call install_copy, systemd, 0, 0, 0755, -, /lib/systemd/systemd-udevd)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/udevadm)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/lib/systemd/systemd-udevd)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/udevadm)
 	@$(call install_lib, systemd, 0, 0, 0644, libudev)
 
 	@$(foreach helper, $(SYSTEMD_UDEV_HELPER-y), \
 		$(call install_copy, systemd, 0, 0, 0755, -, \
-			/lib/udev//$(helper));)
+			/usr/lib/udev/$(helper));)
 
 	@$(foreach rule, $(SYSTEMD_UDEV_RULES-y), \
 		$(call install_copy, systemd, 0, 0, 0644, -, \
-			/lib/udev/rules.d/$(rule));)
+			/usr/lib/udev/rules.d/$(rule));)
 
 ifdef PTXCONF_SYSTEMD_UDEV_HWDB
-	@$(call install_copy, systemd, 0, 0, 0644, -, /lib/udev/hwdb.bin)
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/udev/hwdb.bin)
 endif
 
 ifdef PTXCONF_SYSTEMD_UDEV_CUST_RULES
-	@$(call install_alternative_tree, systemd, 0, 0, /lib/udev/rules.d)
+	@$(call install_alternative_tree, systemd, 0, 0, /usr/lib/udev/rules.d)
 endif
 
 	@$(call install_finish, systemd)

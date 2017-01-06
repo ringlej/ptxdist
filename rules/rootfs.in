@@ -429,10 +429,10 @@ choice
 	config ROOTFS_RESOLV_STATIC
 		bool
 		depends on SYSTEMD_NETWORK
-		prompt "link to /lib/systemd/resolv.conf"
+		prompt "link to /usr/lib/systemd/resolv.conf"
 		help
 		  If enabled, it installs /etc/resolv.conf as a link to
-		  /lib/systemd/resolv.conf.
+		  /usr/lib/systemd/resolv.conf.
 		  This static file is provided by systemd that lists
 		  the 127.0.0.53 DNS stub as only DNS server.
 		  This mode of operation is recommended by systemd.
