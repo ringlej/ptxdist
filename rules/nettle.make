@@ -20,11 +20,14 @@ NETTLE_VERSION	:= 3.3
 NETTLE_MD5	:= 10f969f78a463704ae73529978148dbe
 NETTLE		:= nettle-$(NETTLE_VERSION)
 NETTLE_SUFFIX	:= tar.gz
-NETTLE_URL	:= http://www.lysator.liu.se/~nisse/archive/$(NETTLE).$(NETTLE_SUFFIX)
 NETTLE_SOURCE	:= $(SRCDIR)/$(NETTLE).$(NETTLE_SUFFIX)
 NETTLE_DIR	:= $(BUILDDIR)/$(NETTLE)
 NETTLE_LICENSE	:= GPL-2.0+
 NETTLE_MAKE_PAR := NO
+
+NETTLE_URL	:= \
+	http://www.lysator.liu.se/~nisse/archive/$(NETTLE).$(NETTLE_SUFFIX) \
+	$(call ptx/mirror, GNU, nettle/$(NETTLE).$(NETTLE_SUFFIX))
 
 # ----------------------------------------------------------------------------
 # Prepare
