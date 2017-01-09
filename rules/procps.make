@@ -51,7 +51,6 @@ PROCPS_CONF_OPT	:= \
 	--disable-rpath \
 	--disable-kill \
 	--$(call ptx/endis, PROCPS_TOP_MODERN)-modern-top \
-	--prefix=/ \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--$(call ptx/wwo, PTXCONF_PROCPS_USES_NCURSES)-ncurses \
@@ -74,61 +73,47 @@ $(STATEDIR)/procps.targetinstall:
 	@$(call install_lib, procps, 0, 0, 0644, libprocps)
 
 ifdef PTXCONF_PROCPS_FREE
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/free, \
-		/usr/bin/free)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/free)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pgrep, \
-		/usr/bin/pgrep)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/pgrep)
 endif
 ifdef PTXCONF_PROCPS_PIDOF
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pidof, \
-		/usr/bin/pidof)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/pidof)
 endif
 ifdef PTXCONF_PROCPS_PKILL
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pkill, \
-		/usr/bin/pkill)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/pkill)
 endif
 ifdef PTXCONF_PROCPS_PMAP
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pmap, \
-		/usr/bin/pmap)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/pmap)
 endif
 ifdef PTXCONF_PROCPS_PS
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/ps, \
-		/bin/ps)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/ps)
 endif
 ifdef PTXCONF_PROCPS_PWDX
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/pwdx, \
-		/usr/bin/pwdx)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/pwdx)
 endif
 ifdef PTXCONF_PROCPS_SLABTOP
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/slabtop, \
-		/usr/bin/slabtop)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/slabtop)
 endif
 ifdef PTXCONF_PROCPS_SYSCTL
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/sbin/sysctl, \
-		/sbin/sysctl)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/sbin/sysctl)
 	@$(call install_alternative, procps, 0, 0, 0644, /etc/sysctl.conf, n)
 endif
 ifdef PTXCONF_PROCPS_TOP
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/top, \
-		/usr/bin/top)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/top)
 endif
 ifdef PTXCONF_PROCPS_UPTIME
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/uptime, \
-		/usr/bin/uptime)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/uptime)
 endif
 ifdef PTXCONF_PROCPS_VMSTAT
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/vmstat, \
-		/usr/bin/vmstat)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/vmstat)
 endif
 ifdef PTXCONF_PROCPS_W
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/w, \
-		/usr/bin/w)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/w)
 endif
 ifdef PTXCONF_PROCPS_WATCH
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_PKGDIR)/bin/watch, \
-		/usr/bin/watch)
+	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/watch)
 endif
 
 	@$(call install_finish, procps)
