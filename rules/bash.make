@@ -34,7 +34,7 @@ BASH_ENV	:= $(CROSS_ENV)
 
 
 BASH_AUTOCONF	:= \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--without-bash-malloc \
 	--$(call ptx/endis, PTXCONF_BASH_SHLIKE)-minimal-config \
@@ -94,9 +94,9 @@ $(STATEDIR)/bash.targetinstall:
 	@$(call install_fixup, bash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bash,DESCRIPTION,missing)
 
-	@$(call install_copy, bash, 0, 0, 0755, -, /bin/bash)
+	@$(call install_copy, bash, 0, 0, 0755, -, /usr/bin/bash)
 ifdef PTXCONF_BUSYBOX_FEATURE_SH_IS_NONE
-	@$(call install_link, bash, bash, /bin/sh)
+	@$(call install_link, bash, bash, /usr/bin/sh)
 endif
 
 	@$(call install_finish, bash)
