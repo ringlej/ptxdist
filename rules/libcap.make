@@ -33,7 +33,7 @@ LIBCAP_LICENSE_FILES := file://License;md5=3f84fd6f29d453a56514cb7e4ead25f1
 # ----------------------------------------------------------------------------
 
 LIBCAP_MAKE_OPT	:= \
-	prefix= PAM_CAP=no DYNAMIC=yes \
+	prefix=/usr PAM_CAP=no DYNAMIC=yes \
 	LIBATTR=$(call ptx/ifdef, PTXCONF_LIBCAP_SETCAP,yes,no) \
 	lib=lib \
 	CC=$(CROSS_CC) \
@@ -57,12 +57,12 @@ $(STATEDIR)/libcap.targetinstall:
 	@$(call install_fixup, libcap,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libcap,DESCRIPTION,missing)
 
-	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/getpcaps)
-	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/capsh)
+	@$(call install_copy, libcap, 0, 0, 0755, -, /usr/sbin/getpcaps)
+	@$(call install_copy, libcap, 0, 0, 0755, -, /usr/sbin/capsh)
 	@$(call install_lib,  libcap, 0, 0, 0644, libcap)
 ifdef PTXCONF_LIBCAP_SETCAP
-	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/setcap)
-	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/getcap)
+	@$(call install_copy, libcap, 0, 0, 0755, -, /usr/sbin/setcap)
+	@$(call install_copy, libcap, 0, 0, 0755, -, /usr/sbin/getcap)
 endif
 	@$(call install_finish, libcap)
 
