@@ -50,8 +50,8 @@ UDEV_LEGACY_CONF_ENV := \
 
 UDEV_LEGACY_CONF_TOOL	:= autoconf
 UDEV_LEGACY_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_ROOT) \
-	--libexecdir=/lib \
+	$(CROSS_AUTOCONF_USR) \
+	--libexecdir=/usr/lib \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
 	--enable-shared \
@@ -67,8 +67,6 @@ UDEV_LEGACY_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_UDEV_LEGACY_MTD_PROBE)-mtd_probe \
 	--$(call ptx/endis,PTXCONF_UDEV_LEGACY_PERSISTENT_GENERATOR)-rule_generator \
 	--disable-floppy \
-	--with-rootprefix= \
-	--with-rootlibdir=/lib \
 	--without-selinux \
 	--with-usb-ids-path=/usr/share/usb.ids \
 	--with-pci-ids-path=/usr/share/pci.ids$(call ptx/ifdef, PTXCONF_PCIUTILS_COMPRESS,.gz,)
@@ -128,27 +126,27 @@ ifdef PTXCONF_UDEV_LEGACY_ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
 endif
 
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udevd)
-	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
+	@$(call install_copy, udev, 0, 0, 0755, -, /usr/lib/udev/udevd)
+	@$(call install_copy, udev, 0, 0, 0755, -, /usr/bin/udevadm)
 
 	@$(foreach rule, $(UDEV_LEGACY_RULES-y), \
 		$(call install_copy, udev, 0, 0, 0644, -, \
-			/lib/udev/rules.d/$(rule));)
+			/usr/lib/udev/rules.d/$(rule));)
 
 ifdef PTXCONF_UDEV_LEGACY_KEYMAPS
 	@cd $(UDEV_LEGACY_PKGDIR) && \
-	for keymap in `find lib/udev/keymaps/ -type f`; do \
+	for keymap in `find usr/lib/udev/keymaps/ -type f`; do \
 		$(call install_copy, udev, 0, 0, 0644, -, /$$keymap); \
 	done
 endif
 
 ifdef PTXCONF_UDEV_LEGACY_CUST_RULES
-	@$(call install_alternative_tree, udev, 0, 0, /lib/udev/rules.d)
+	@$(call install_alternative_tree, udev, 0, 0, /usr/lib/udev/rules.d)
 endif
 
 	@$(foreach helper, $(UDEV_LEGACY_HELPER-y), \
 		$(call install_copy, udev, 0, 0, 0755, -, \
-			/lib/udev//$(helper));)
+			/usr/lib/udev/$(helper));)
 
 ifdef PTXCONF_UDEV_LEGACY_LIBUDEV
 	@$(call install_lib, udev, 0, 0, 0644, libudev)
