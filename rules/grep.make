@@ -40,7 +40,7 @@ GREP_CONF_ENV := \
 #
 GREP_CONF_TOOL	:= autoconf
 GREP_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-threads=posix \
 	--disable-assert \
@@ -61,7 +61,7 @@ $(STATEDIR)/grep.targetinstall:
 	@$(call install_fixup, grep,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
 	@$(call install_fixup, grep,DESCRIPTION,missing)
 
-	@$(call install_copy, grep, 0, 0, 0755, -, /bin/grep)
+	@$(call install_copy, grep, 0, 0, 0755, -, /usr/bin/grep)
 
 	@$(call install_finish, grep)
 
