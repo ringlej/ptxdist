@@ -55,6 +55,7 @@ PHONY += nodejs-get
 
 $(NODEJS_SRCDIR)/%.npmbox:| $(STATEDIR)/host-nodejs.install.post
 	@$(call targetinfo)
+	mkdir -p $(NODEJS_SRCDIR)
 	cd $(NODEJS_SRCDIR) && \
 		$(call node/env, npmbox $(*) --verbose)
 
