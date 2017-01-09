@@ -50,6 +50,8 @@ UTIL_LINUX_NG_CONF_ENV	:= \
 UTIL_LINUX_NG_CONF_TOOL	:= autoconf
 UTIL_LINUX_NG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--bindir=/usr/bin \
+	--sbindir=/usr/sbin \
 	--enable-shared \
 	--disable-static \
 	--disable-gtk-doc \
@@ -148,7 +150,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--without-user \
 	--without-btrfs \
 	--without-systemd \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--without-smack \
 	--without-python
 
@@ -188,10 +190,10 @@ ifdef PTXCONF_UTIL_LINUX_NG_LINE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/line)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_DMESG
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/dmesg)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/dmesg)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mountpoint)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/mountpoint)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_NSENTER
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/nsenter)
@@ -206,29 +208,29 @@ ifdef PTXCONF_UTIL_LINUX_NG_PARTX
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/partx)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_AGETTY
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/agetty)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/agetty)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MKSWAP
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/mkswap)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/mkswap)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SWAPON
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/swapon)
-	@$(call install_link, util-linux-ng, swapon, /sbin/swapoff)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/swapon)
+	@$(call install_link, util-linux-ng, swapon, /usr/sbin/swapoff)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_LOSETUP
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/losetup)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/losetup)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNT
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mount)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/mount)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_UMOUNT
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/umount)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/umount)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSCK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fsck)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fsck)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSTRIM
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fstrim)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fstrim)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_IPCS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcs)
@@ -240,13 +242,13 @@ ifdef PTXCONF_UTIL_LINUX_NG_READPROFILE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/readprofile)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FDISK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fdisk)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fdisk)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SFDISK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/sfdisk)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/sfdisk)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_CFDISK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/cfdisk)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/cfdisk)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SETTERM
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/setterm)
@@ -255,7 +257,7 @@ ifdef PTXCONF_UTIL_LINUX_NG_CHRT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/chrt)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_HWCLOCK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/hwclock)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/hwclock)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_IONICE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ionice)
@@ -270,7 +272,7 @@ ifdef PTXCONF_UTIL_LINUX_NG_LDATTACH
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/ldattach)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_BLKID
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/blkid)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/blkid)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDD
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/uuidd)
@@ -279,13 +281,13 @@ ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/uuidgen)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FINDFS
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/findfs)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/findfs)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_WIPEFS
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/wipefs)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/wipefs)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_ZRAMCTL
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/zramctl)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/zramctl)
 endif
 
 	@$(call install_finish, util-linux-ng)
