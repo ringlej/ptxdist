@@ -41,7 +41,7 @@ endif
 # autoconf
 #
 KEXEC_TOOLS_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_ZLIB)-zlib \
 	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_XEN)-xen
 	
@@ -59,11 +59,11 @@ $(STATEDIR)/kexec-tools.targetinstall:
 	@$(call install_fixup, kexec-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_KEXEC_TOOLS_KEXEC
-	@$(call install_copy, kexec-tools, 0, 0, 0755, -, /sbin/kexec)
+	@$(call install_copy, kexec-tools, 0, 0, 0755, -, /usr/sbin/kexec)
 endif
 
 ifdef PTXCONF_KEXEC_TOOLS_KDUMP
-	@$(call install_copy, kexec-tools, 0, 0, 0755, -, /sbin/kdump)
+	@$(call install_copy, kexec-tools, 0, 0, 0755, -, /usr/sbin/kdump)
 endif
 
 	@$(call install_finish, kexec-tools)
