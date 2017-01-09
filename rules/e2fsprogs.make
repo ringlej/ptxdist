@@ -68,8 +68,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-nls \
 	--enable-threads=posix \
 	--disable-rpath \
-	--disable-fuse2fs \
-	--with-root-prefix=
+	--disable-fuse2fs
 
 E2FSPROGS_MAKE_OPT	:= $(if $(filter 1,$(strip $(PTXDIST_VERBOSE))),V=1)
 E2FSPROGS_INSTALL_OPT	:= install
@@ -119,46 +118,46 @@ endif
 #	# binaries in /usr/sbin
 #	#
 ifdef PTXCONF_E2FSPROGS_INSTALL_BADBLOCKS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/badblocks)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/badblocks)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_DUMPE2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/dumpe2fs)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/dumpe2fs)
 endif
 
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2FSCK
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/e2fsck)
-	@$(call install_link, e2fsprogs, e2fsck, /sbin/fsck.auto)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e2fsck)
+	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.auto)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT2
-	@$(call install_link, e2fsprogs, e2fsck, /sbin/fsck.ext2)
+	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext2)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT3
-	@$(call install_link, e2fsprogs, e2fsck, /sbin/fsck.ext3)
+	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext3)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4
-	@$(call install_link, e2fsprogs, e2fsck, /sbin/fsck.ext4)
+	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext4)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4DEV
-	@$(call install_link, e2fsprogs, e2fsck, /sbin/fsck.ext4dev)
+	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext4dev)
 endif
 
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_DEBUGFS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/debugfs)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/debugfs)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2IMAGE
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/e2image)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e2image)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2LABEL
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/e2label)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e2label)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2UNDO
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/e2undo)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e2undo)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_FILEFRAG
@@ -166,24 +165,24 @@ ifdef PTXCONF_E2FSPROGS_INSTALL_FILEFRAG
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_LOGSAVE
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/logsave)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/logsave)
 endif
 
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKE2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/mke2fs)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/mke2fs)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT2
-	@$(call install_link, e2fsprogs, mke2fs, /sbin/mkfs.ext2)
+	@$(call install_link, e2fsprogs, mke2fs, /usr/sbin/mkfs.ext2)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT3
-	@$(call install_link, e2fsprogs, mke2fs, /sbin/mkfs.ext3)
+	@$(call install_link, e2fsprogs, mke2fs, /usr/sbin/mkfs.ext3)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4
-	@$(call install_link, e2fsprogs, mke2fs, /sbin/mkfs.ext4)
+	@$(call install_link, e2fsprogs, mke2fs, /usr/sbin/mkfs.ext4)
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4DEV
-	@$(call install_link, e2fsprogs, mke2fs, /sbin/mkfs.ext4dev)
+	@$(call install_link, e2fsprogs, mke2fs, /usr/sbin/mkfs.ext4dev)
 endif
 
 
@@ -192,11 +191,11 @@ ifdef PTXCONF_E2FSPROGS_INSTALL_MKLOSTANDFOUND
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_RESIZE2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/resize2fs)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/resize2fs)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_TUNE2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /sbin/tune2fs)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/tune2fs)
 endif
 
 	@$(call install_alternative, e2fsprogs, 0, 0, 0644, /etc/mke2fs.conf, n)
