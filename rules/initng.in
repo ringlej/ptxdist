@@ -1,4 +1,6 @@
-## SECTION=shell_and_console
+## SECTION=staging
+## old section:
+### SECTION=shell_and_console
 
 menuconfig INITNG
 	tristate
@@ -13,6 +15,9 @@ menuconfig INITNG
 	  as much as possible asynchronously. In other words: It will boot
 	  your system faster, give you more control over the boot process,
 	  and provide you with additional statistics.
+
+	  STAGING: remove in ptxdist-2017.01.0
+	  Nobody cared about it for a long time.
 
 if INITNG
 
