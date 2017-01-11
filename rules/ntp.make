@@ -332,9 +332,9 @@ endif
 endif
 ifdef PTXCONF_NTP_NTPD_SYSTEMD_UNIT
 	@$(call install_alternative, ntp, 0, 0, 0644, \
-		/lib/systemd/system/ntpd.service)
+		/usr/lib/systemd/system/ntpd.service)
 	@$(call install_link, ntp, ../ntpd.service, \
-		/lib/systemd/system/multi-user.target.wants/ntpd.service)
+		/usr/lib/systemd/system/multi-user.target.wants/ntpd.service)
 endif
 
 #	#
