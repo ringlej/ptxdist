@@ -31,10 +31,10 @@ OPENVPN_DIR		:= $(BUILDDIR)/$(OPENVPN)
 OPENVPN_PATH	:= PATH=$(CROSS_PATH)
 OPENVPN_ENV	:= \
 	$(CROSS_ENV) \
-	IFCONFIG=/sbin/ifconfig \
-	ROUTE=/sbin/route \
-	IPROUTE=/sbin/ip \
-	NETSTAT=/bin/netstat
+	IFCONFIG=/usr/sbin/ifconfig \
+	ROUTE=/usr/sbin/route \
+	IPROUTE=/usr/sbin/ip \
+	NETSTAT=/usr/bin/netstat
 
 #
 # autoconf
