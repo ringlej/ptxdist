@@ -40,8 +40,7 @@ DOSFSTOOLS_CONF_TOOL := NO
 DOSFSTOOLS_MAKE_ENV := $(CROSS_ENV)
 DOSFSTOOLS_MAKE_OPT := \
 	OPTFLAGS='-O2 -fomit-frame-pointer $(call ptx/ifdef, PTXCONF_GLOBAL_LARGE_FILE,-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)' \
-	PREFIX=/usr \
-	SBINDIR=/sbin
+	PREFIX=/usr
 
 # ----------------------------------------------------------------------------
 # Install
@@ -66,30 +65,30 @@ $(STATEDIR)/dosfstools.targetinstall:
 
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
-		/sbin/mkdosfs)
+		/usr/sbin/mkdosfs)
 endif
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
-	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.msdos)
+	@$(call install_link, dosfstools, mkdosfs, /usr/sbin/mkfs.msdos)
 endif
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
-	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.vfat)
+	@$(call install_link, dosfstools, mkdosfs, /usr/sbin/mkfs.vfat)
 endif
 
 
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
-		/sbin/dosfsck)
+		/usr/sbin/dosfsck)
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_MSDOS
-	@$(call install_link, dosfstools, dosfsck, /sbin/fsck.msdos)
+	@$(call install_link, dosfstools, dosfsck, /usr/sbin/fsck.msdos)
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_VFAT
-	@$(call install_link, dosfstools, dosfsck, /sbin/fsck.vfat)
+	@$(call install_link, dosfstools, dosfsck, /usr/sbin/fsck.vfat)
 endif
 
 ifdef PTXCONF_DOSFSTOOLS_DOSFSLABEL
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
-		/sbin/dosfslabel)
+		/usr/sbin/dosfslabel)
 endif
 
 	@$(call install_finish, dosfstools)
