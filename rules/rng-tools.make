@@ -51,9 +51,9 @@ endif
 endif
 ifdef PTXCONF_RNG_TOOLS_SYSTEMD_UNIT
 	@$(call install_alternative, rng-tools, 0, 0, 0644, \
-		/lib/systemd/system/rngd.service)
+		/usr/lib/systemd/system/rngd.service)
 	@$(call install_link, rng-tools, ../rngd.service, \
-		/lib/systemd/system/basic.target.wants/rngd.service)
+		/usr/lib/systemd/system/basic.target.wants/rngd.service)
 endif
 ifdef PTXCONF_RNG_TOOLS_RNGTEST
 	@$(call install_copy, rng-tools, 0, 0, 0755, -, /usr/bin/rngtest)
