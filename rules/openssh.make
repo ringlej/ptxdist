@@ -125,11 +125,11 @@ endif
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 ifdef PTXCONF_OPENSSH_SSHD_SYSTEMD_UNIT
 	@$(call install_alternative, openssh, 0, 0, 0644, \
-		/lib/systemd/system/sshd.socket)
+		/usr/lib/systemd/system/sshd.socket)
 	@$(call install_alternative, openssh, 0, 0, 0644, \
-		/lib/systemd/system/sshd@.service)
+		/usr/lib/systemd/system/sshd@.service)
 	@$(call install_link, openssh, ../sshd.socket, \
-		/lib/systemd/system/sockets.target.wants/sshd.socket)
+		/usr/lib/systemd/system/sockets.target.wants/sshd.socket)
 	@$(call install_alternative, openssh, 0, 0, 0644, \
 		/usr/lib/tmpfiles.d/ssh.conf)
 endif
