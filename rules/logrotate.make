@@ -55,11 +55,11 @@ $(STATEDIR)/logrotate.targetinstall:
 
 ifdef PTXCONF_LOGROTATE_SYSTEMD_UNIT
 	@$(call install_alternative, logrotate, 0, 0, 0644, \
-		/lib/systemd/system/logrotate.timer)
+		/usr/lib/systemd/system/logrotate.timer)
 	@$(call install_alternative, logrotate, 0, 0, 0644, \
-		/lib/systemd/system/logrotate.service)
+		/usr/lib/systemd/system/logrotate.service)
 	@$(call install_link, logrotate, ../logrotate.timer, \
-		/lib/systemd/system/multi-user.target.wants/logrotate.timer)
+		/usr/lib/systemd/system/multi-user.target.wants/logrotate.timer)
 endif
 
 	@$(call install_finish, logrotate)
