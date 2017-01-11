@@ -229,10 +229,10 @@ $(STATEDIR)/collectd.targetinstall:
 
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
-	@$(call install_alternative, collectd, 0, 0, 0644, /lib/systemd/system/collectd.service)
+	@$(call install_alternative, collectd, 0, 0, 0644, /usr/lib/systemd/system/collectd.service)
 	@$(call install_link, collectd, \
 		../collectd.service, \
-		/lib/systemd/system/multi-user.target.wants/collectd.service \
+		/usr/lib/systemd/system/multi-user.target.wants/collectd.service \
 	)
 endif
 	# Plugins
