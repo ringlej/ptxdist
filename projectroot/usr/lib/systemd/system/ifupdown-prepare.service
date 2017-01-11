@@ -7,5 +7,5 @@ ConditionPathExists=!/var/run/ifstate
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/lib/systemd/ifupdown-prepare
+ExecStart=/usr/lib/systemd/ifupdown-prepare
 
