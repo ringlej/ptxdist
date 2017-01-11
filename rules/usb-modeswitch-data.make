@@ -32,7 +32,9 @@ USB_MODESWITCH_DATA_LICENSE	:= GPL-2.0
 
 USB_MODESWITCH_DATA_CONF_TOOL	:= NO
 USB_MODESWITCH_DATA_MAKE_ENV	:= $(CROSS_ENV)
-USB_MODESWITCH_DATA_INSTALL_OPT	:= db-install
+USB_MODESWITCH_DATA_INSTALL_OPT	:= \
+	RULESDIR=$(USB_MODESWITCH_DATA_PKGDIR)/usr/lib/udev/rules.d \
+	db-install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -47,7 +49,7 @@ $(STATEDIR)/usb-modeswitch-data.targetinstall:
 	@$(call install_fixup, usb-modeswitch-data,DESCRIPTION,missing)
 
 	@$(call install_copy, usb-modeswitch-data, 0, 0, 0644, -, \
-		 /lib/udev/rules.d/40-usb_modeswitch.rules)
+		 /usr/lib/udev/rules.d/40-usb_modeswitch.rules)
 
 	@$(call install_tree, usb-modeswitch-data, 0, 0, -, \
 		/usr/share/usb_modeswitch)
