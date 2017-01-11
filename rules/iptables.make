@@ -134,9 +134,9 @@ ifdef PTXCONF_IPTABLES_IPV6_SYSTEMD_UNIT
 	@$(call install_alternative, iptables, 0, 0, 0644, /etc/iptables/rules.v6)
 	@$(call install_alternative, iptables, 0, 0, 0755, /usr/sbin/ip6tables-flush)
 	@$(call install_alternative, iptables, 0, 0, 0644, \
-		/lib/systemd/system/ip6tables.service)
+		/usr/lib/systemd/system/ip6tables.service)
 	@$(call install_link, iptables, ../ip6tables.service, \
-		/lib/systemd/system/multi-user.target.wants/ip6tables.service)
+		/usr/lib/systemd/system/multi-user.target.wants/ip6tables.service)
 endif
 
 ifdef PTXCONF_IPTABLES_IPV4_SYSTEMD_UNIT
@@ -144,9 +144,9 @@ ifdef PTXCONF_IPTABLES_IPV4_SYSTEMD_UNIT
 	@$(call install_alternative, iptables, 0, 0, 0644, /etc/iptables/rules.v4)
 	@$(call install_alternative, iptables, 0, 0, 0755, /usr/sbin/iptables-flush)
 	@$(call install_alternative, iptables, 0, 0, 0644, \
-		/lib/systemd/system/iptables.service)
+		/usr/lib/systemd/system/iptables.service)
 	@$(call install_link, iptables, ../iptables.service, \
-		/lib/systemd/system/multi-user.target.wants/iptables.service)
+		/usr/lib/systemd/system/multi-user.target.wants/iptables.service)
 endif
 
 endif
