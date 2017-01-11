@@ -39,7 +39,7 @@ LIBQMI_CONF_OPT		:= \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
-	--with-udev-base-dir=/lib/udev
+	--with-udev-base-dir=/usr/lib/udev
 
 # ----------------------------------------------------------------------------
 # Target-Install
