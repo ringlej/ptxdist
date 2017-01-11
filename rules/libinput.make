@@ -45,7 +45,7 @@ LIBINPUT_CONF_OPT	:= \
 	--disable-tests \
 	--disable-libwacom \
 	--without-libunwind \
-	--with-udev-dir=/lib/udev
+	--with-udev-dir=/usr/lib/udev
 
 # ----------------------------------------------------------------------------
 # Target-Install
