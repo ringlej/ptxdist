@@ -148,9 +148,9 @@ ifdef PTXCONF_NGINX_POPULATE_TEST_WEBSITE
 endif
 
 ifdef PTXCONF_NGINX_SYSTEMD_UNIT
-	@$(call install_alternative, nginx, 0, 0, 0644, /lib/systemd/system/nginx.service)
+	@$(call install_alternative, nginx, 0, 0, 0644, /usr/lib/systemd/system/nginx.service)
 	@$(call install_link, nginx, ../nginx.service, \
-		/lib/systemd/system/multi-user.target.wants/nginx.service)
+		/usr/lib/systemd/system/multi-user.target.wants/nginx.service)
 endif
 	@$(call install_alternative, nginx, 0, 0, 0644, /usr/lib/tmpfiles.d/nginx.conf)
 
