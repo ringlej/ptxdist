@@ -125,14 +125,14 @@ $(STATEDIR)/mysql.targetinstall:
 #	# server stuff
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqld)
 
-	@$(call install_alternative, mysql, 0, 0, 0755, /sbin/mysqlinit)
+	@$(call install_alternative, mysql, 0, 0, 0755, /usr/sbin/mysqlinit)
 ifdef PTXCONF_MYSQL_SYSTEMD
-	@$(call install_alternative, mysql, 0, 0, 0644, /lib/systemd/system/mysqldinit.service)
+	@$(call install_alternative, mysql, 0, 0, 0644, /usr/lib/systemd/system/mysqldinit.service)
 	@$(call install_link, mysql, ../mysqldinit.service, \
-		/lib/systemd/system/multi-user.target.wants/mysqldinit.service)
-	@$(call install_alternative, mysql, 0, 0, 0644, /lib/systemd/system/mysqld.service)
+		/usr/lib/systemd/system/multi-user.target.wants/mysqldinit.service)
+	@$(call install_alternative, mysql, 0, 0, 0644, /usr/lib/systemd/system/mysqld.service)
 	@$(call install_link, mysql, ../mysqld.service, \
-		/lib/systemd/system/multi-user.target.wants/mysqld.service)
+		/usr/lib/systemd/system/multi-user.target.wants/mysqld.service)
 endif
 	@$(call install_alternative, mysql, 0, 0, 0644, /etc/mysql/my.cnf)
 	@$(call install_copy, mysql, 0, 0, 0644, -, /usr/lib/plugin/keyring_file.so)
