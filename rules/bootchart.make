@@ -41,9 +41,9 @@ BOOTCHART_MAKE_OPT	:= \
 $(STATEDIR)/bootchart.install:
 	@$(call targetinfo)
 	@install -vD -m755 $(BOOTCHART_DIR)/bootchart-collector \
-		$(BOOTCHART_PKGDIR)/lib/bootchart/collector
+		$(BOOTCHART_PKGDIR)/usr/lib/bootchart/collector
 	@install -vD -m755 $(BOOTCHART_DIR)/bootchart-gather.sh \
-		$(BOOTCHART_PKGDIR)/lib/bootchart/gather
+		$(BOOTCHART_PKGDIR)/usr/lib/bootchart/gather
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,12 +62,12 @@ $(STATEDIR)/bootchart.targetinstall:
 #	# we mount a tmpfs into this dir
 	@$(call install_copy, bootchart, 0, 0, 0755, /bc)
 
-	@$(call install_alternative, bootchart, 0, 0, 0755, /sbin/bootchartd)
+	@$(call install_alternative, bootchart, 0, 0, 0755, /usr/sbin/bootchartd)
 
 	@$(call install_copy, bootchart, 0, 0, 0755, -, \
-		/lib/bootchart/collector)
+		/usr/lib/bootchart/collector)
 	@$(call install_copy, bootchart, 0, 0, 0755, -, \
-		/lib/bootchart/gather)
+		/usr/lib/bootchart/gather)
 
 	@$(call install_finish, bootchart)
 
