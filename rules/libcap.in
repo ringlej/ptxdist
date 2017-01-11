@@ -3,7 +3,6 @@
 menuconfig LIBCAP
 	tristate
 	prompt "libcap                        "
-	select ATTR		if LIBCAP_SETCAP
 	help
 	  A library for getting and setting POSIX.1e capabilities.
 
