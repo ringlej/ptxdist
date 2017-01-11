@@ -35,6 +35,9 @@ USB_MODESWITCH_LICENSE	:= GPL-2.0
 USB_MODESWITCH_CONF_TOOL	:= NO
 USB_MODESWITCH_MAKE_ENV		:= $(CROSS_ENV)
 USB_MODESWITCH_MAKE_OPT		:= $(CROSS_ENV_PROGS)
+USB_MODESWITCH_INSTALL_OPT	:= \
+	UDEVDIR=$(USB_MODESWITCH_PKGDIR)/usr/lib/udev \
+	install
 
 # ----------------------------------------------------------------------------
 # Install
@@ -43,9 +46,8 @@ USB_MODESWITCH_MAKE_OPT		:= $(CROSS_ENV_PROGS)
 $(STATEDIR)/usb-modeswitch.install:
 	@$(call targetinfo)
 	@$(call world/install, USB_MODESWITCH)
-	@mkdir -p $(USB_MODESWITCH_PKGDIR)/lib/systemd/system
-	@install -m 0644 $(USB_MODESWITCH_DIR)/usb_modeswitch@.service \
-		$(USB_MODESWITCH_PKGDIR)/lib/systemd/system/usb_modeswitch@.service
+	@install -vD -m 0644 $(USB_MODESWITCH_DIR)/usb_modeswitch@.service \
+		$(USB_MODESWITCH_PKGDIR)/usr/lib/systemd/system/usb_modeswitch@.service
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -69,11 +71,11 @@ ifneq ($(PTXCONF_USB_MODESWITCH_UDEV_HELPER)$(PTXCONF_USB_MODESWITCH_SYSTEMD_UNI
 endif
 ifdef PTXCONF_USB_MODESWITCH_UDEV_HELPER
 	@$(call install_copy, usb-modeswitch, 0, 0, 0755, -, \
-		/lib/udev/usb_modeswitch)
+		/usr/lib/udev/usb_modeswitch)
 endif
 ifdef PTXCONF_USB_MODESWITCH_SYSTEMD_UNIT
 	@$(call install_copy, usb-modeswitch, 0, 0, 0644, -, \
-		/lib/systemd/system/usb_modeswitch@.service)
+		/usr/lib/systemd/system/usb_modeswitch@.service)
 endif
 
 	@$(call install_finish, usb-modeswitch)
