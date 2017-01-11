@@ -120,7 +120,7 @@ $(STATEDIR)/pdksh.targetinstall:
 	@$(call install_fixup, pdksh,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, pdksh,DESCRIPTION,missing)
 
-	@$(call install_copy, pdksh, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
+	@$(call install_copy, pdksh, 0, 0, 0755, $(PDKSH_DIR)/ksh, /usr/bin/ksh)
 
 	@$(call install_finish, pdksh)
 	@$(call touch)
