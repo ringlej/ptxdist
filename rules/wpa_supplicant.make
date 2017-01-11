@@ -36,8 +36,8 @@ WPA_SUPPLICANT_LICENSE	:= GPL-2.0
 WPA_SUPPLICANT_PATH	:= PATH=$(CROSS_PATH)
 WPA_SUPPLICANT_MAKE_ENV	:= \
 	$(CROSS_ENV) \
-	LIBDIR=/lib \
-	BINDIR=/sbin
+	LIBDIR=/usr/lib \
+	BINDIR=/usr/sbin
 
 #
 # autoconf
@@ -76,7 +76,7 @@ $(STATEDIR)/wpa_supplicant.install:
 		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service"
 
 	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/systemd/wpa_supplicant.service" \
-		"$(WPA_SUPPLICANT_PKGDIR)/lib/systemd/system/wpa_supplicant.service"
+		"$(WPA_SUPPLICANT_PKGDIR)/usr/lib/systemd/system/wpa_supplicant.service"
 
 	@$(call touch)
 
@@ -94,15 +94,15 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 	@$(call install_fixup, wpa_supplicant,DESCRIPTION,missing)
 
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
-		/sbin/wpa_supplicant)
+		/usr/sbin/wpa_supplicant)
 
 ifdef PTXCONF_WPA_SUPPLICANT_PASSPHRASE
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
-		/sbin/wpa_passphrase)
+		/usr/sbin/wpa_passphrase)
 endif
 
 ifdef PTXCONF_WPA_SUPPLICANT_INSTALL_CLI
-	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, /sbin/wpa_cli)
+	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, /usr/sbin/wpa_cli)
 endif
 
 ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
@@ -115,7 +115,7 @@ ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
 endif
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
-		/lib/systemd/system/wpa_supplicant.service)
+		/usr/lib/systemd/system/wpa_supplicant.service)
 endif
 
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
