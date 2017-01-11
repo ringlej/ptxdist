@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_PPC
 PACKAGES-$(PTXCONF_MYSQL) += mysql
+endif
 
 #
 # Paths and names
