@@ -29,7 +29,7 @@ $(STATEDIR)/initmethod-systemd.targetinstall:
 	@$(call install_fixup,initmethod-systemd,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup,initmethod-systemd,DESCRIPTION,missing)
 
-	@$(call install_alternative, initmethod-systemd, 0, 0, 0755, /lib/init/initmethod-bbinit-functions.sh)
+	@$(call install_alternative, initmethod-systemd, 0, 0, 0755, /usr/lib/init/initmethod-bbinit-functions.sh)
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD_IFUPDOWN
 	@$(call install_alternative, initmethod-systemd, 0, 0, 0755, \
