@@ -37,6 +37,10 @@ CIFS_UTILS_CONF_OPT	:= \
 	--disable-cifsacl \
 	--without-libcap
 
+CIFS_UTILS_INSTALL_OPT := \
+	root_sbindir=/usr/sbin \
+	install
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -50,7 +54,7 @@ $(STATEDIR)/cifs-utils.targetinstall:
 	@$(call install_fixup, cifs-utils,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, cifs-utils,DESCRIPTION,missing)
 
-	@$(call install_copy, cifs-utils, 0, 0, 0755, -, /sbin/mount.cifs)
+	@$(call install_copy, cifs-utils, 0, 0, 0755, -, /usr/sbin/mount.cifs)
 
 	@$(call install_finish, cifs-utils)
 
