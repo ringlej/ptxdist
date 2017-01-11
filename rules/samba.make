@@ -84,7 +84,6 @@ SAMBA_AUTOCONF := \
 	--with-piddir=/var/run \
 	--with-privatedir=/etc/samba \
 	--with-readline \
-	--with-rootsbindir=/sbin \
 	--with-syslog \
 	--without-ads \
 	--without-automount \
