@@ -55,8 +55,8 @@ $(STATEDIR)/radvd.targetinstall:
 	@$(call install_alternative, radvd, 0, 0, 0644, /etc/radvd.conf)
 
 ifdef PTXCONF_RADVD_SYSTEMD_SERVICE
-	@$(call install_alternative, radvd, 0, 0, 0644, /lib/systemd/system/radvd.service)
-	@$(call install_link, radvd, ../radvd.service, /lib/systemd/system/network.target.wants/radvd.service)
+	@$(call install_alternative, radvd, 0, 0, 0644, /usr/lib/systemd/system/radvd.service)
+	@$(call install_link, radvd, ../radvd.service, /usr/lib/systemd/system/network.target.wants/radvd.service)
 endif
 
 	@$(call install_finish, radvd)
