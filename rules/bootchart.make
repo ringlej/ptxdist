@@ -30,13 +30,9 @@ BOOTCHART_LICENSE	:= GPL-3.0
 # Prepare
 # ----------------------------------------------------------------------------
 
-BOOTCHART_PATH	:= PATH=$(CROSS_PATH)
-BOOTCHART_ENV	:= $(CROSS_ENV)
-
-BOOTCHART_MAKEVARS := $(CROSS_ENV_CC)
-
-$(STATEDIR)/bootchart.prepare:
-	@$(call touch)
+BOOTCHART_CONF_TOOL	:= NO
+BOOTCHART_MAKE_OPT	:= \
+	$(CROSS_ENV_CC)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -44,6 +40,10 @@ $(STATEDIR)/bootchart.prepare:
 
 $(STATEDIR)/bootchart.install:
 	@$(call targetinfo)
+	@install -vD -m755 $(BOOTCHART_DIR)/bootchart-collector \
+		$(BOOTCHART_PKGDIR)/lib/bootchart/collector
+	@install -vD -m755 $(BOOTCHART_DIR)/bootchart-gather.sh \
+		$(BOOTCHART_PKGDIR)/lib/bootchart/gather
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,15 +62,12 @@ $(STATEDIR)/bootchart.targetinstall:
 #	# we mount a tmpfs into this dir
 	@$(call install_copy, bootchart, 0, 0, 0755, /bc)
 
-#	# create dir
-	@$(call install_copy, bootchart, 0, 0, 0755, /lib/bootchart)
-
 	@$(call install_alternative, bootchart, 0, 0, 0755, /sbin/bootchartd)
 
-	@$(call install_copy, bootchart, 0, 0, 0755, \
-		$(BOOTCHART_DIR)/bootchart-collector, /lib/bootchart/collector)
-	@$(call install_copy, bootchart, 0, 0, 0755, \
-		$(BOOTCHART_DIR)/bootchart-gather.sh, /lib/bootchart/gather)
+	@$(call install_copy, bootchart, 0, 0, 0755, -, \
+		/lib/bootchart/collector)
+	@$(call install_copy, bootchart, 0, 0, 0755, -, \
+		/lib/bootchart/gather)
 
 	@$(call install_finish, bootchart)
 
