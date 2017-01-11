@@ -39,8 +39,6 @@ F2FS_TOOLS_CONF_ENV	:= \
 # autoconf
 #
 F2FS_TOOLS_CONF_TOOL	:= autoconf
-F2FS_TOOLS_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_ROOT)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,8 +53,8 @@ $(STATEDIR)/f2fs-tools.targetinstall:
 	@$(call install_fixup, f2fs-tools,AUTHOR,"Jon Ringle")
 	@$(call install_fixup, f2fs-tools,DESCRIPTION,missing)
 
-	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /sbin/mkfs.f2fs)
-	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /sbin/fsck.f2fs)
+	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /usr/sbin/mkfs.f2fs)
+	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /usr/sbin/fsck.f2fs)
 
 	@$(call install_lib, f2fs-tools, 0, 0, 0644, libf2fs)
 
