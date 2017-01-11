@@ -40,7 +40,7 @@ NETCAT_MAKEVARS		:= \
 
 $(STATEDIR)/netcat.install:
 	@$(call targetinfo)
-	install -D -m 755 "$(NETCAT_DIR)/nc" "$(NETCAT_PKGDIR)/bin/nc"
+	install -D -m 755 "$(NETCAT_DIR)/nc" "$(NETCAT_PKGDIR)/usr/bin/nc"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -56,8 +56,8 @@ $(STATEDIR)/netcat.targetinstall:
 	@$(call install_fixup, netcat,AUTHOR,"Alexander Aring <aar@pengutronix.de>")
 	@$(call install_fixup, netcat,DESCRIPTION,missing)
 
-	@$(call install_copy, netcat, 0, 0, 0755, -, /bin/nc)
-	@$(call install_link, netcat, nc, /bin/netcat)
+	@$(call install_copy, netcat, 0, 0, 0755, -, /usr/bin/nc)
+	@$(call install_link, netcat, nc, /usr/bin/netcat)
 
 	@$(call install_finish, netcat)
 
