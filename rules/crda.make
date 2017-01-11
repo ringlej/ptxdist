@@ -47,6 +47,9 @@ endif
 
 CRDA_MAKE_ENV	:= \
 	$(CROSS_ENV) \
+	LIBDIR=/usr/lib \
+	SBINDIR=/usr/sbin \
+	UDEV_RULE_DIR=/usr/lib/udev/rules.d \
 	USE_OPENSSL=1
 
 CRDA_MAKE_OPT	:= all_noverify
@@ -64,10 +67,10 @@ $(STATEDIR)/crda.targetinstall:
 	@$(call install_fixup, crda,AUTHOR,"Jan Luebbe <jlu@pengutronix.de>")
 	@$(call install_fixup, crda,DESCRIPTION,missing)
 
-	@$(call install_copy, crda, 0, 0, 0755, -, /sbin/crda)
-	@$(call install_copy, crda, 0, 0, 0755, -, /sbin/regdbdump)
+	@$(call install_copy, crda, 0, 0, 0755, -, /usr/sbin/crda)
+	@$(call install_copy, crda, 0, 0, 0755, -, /usr/sbin/regdbdump)
 	@$(call install_copy, crda, 0, 0, 0644, -, \
-		/lib/udev/rules.d/85-regulatory.rules)
+		/usr/lib/udev/rules.d/85-regulatory.rules)
 	@$(call install_lib, crda, 0, 0, 0644, libreg)
 
 	# regulatory.bin was downloaded from:
