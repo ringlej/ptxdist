@@ -75,9 +75,9 @@ endif
 	@$(call install_alternative, openct, 0, 0, 0644, /etc/openct.conf)
 
 ifdef PTXCONF_OPENCT_SYSTEMD_UNIT
-	@$(call install_alternative, openct, 0, 0, 0644, /lib/systemd/system/openct.service)
+	@$(call install_alternative, openct, 0, 0, 0644, /usr/lib/systemd/system/openct.service)
 	@$(call install_link, openct, ../openct.service, \
-		/lib/systemd/system/multi-user.target.wants/openct.service)
+		/usr/lib/systemd/system/multi-user.target.wants/openct.service)
 	@$(call install_alternative, openct, 0, 0, 0644, /usr/lib/tmpfiles.d/openct.conf)
 endif
 
