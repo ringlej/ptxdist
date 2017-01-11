@@ -19,6 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBCAP) += host-libcap
 # ----------------------------------------------------------------------------
 
 HOST_LIBCAP_MAKE_OPT := prefix= PAM_CAP=no LIBATTR=no lib=lib
-HOST_LIBCAP_INSTALL_OPT := $(HOST_LIBCAP_MAKE_OPT) install
+HOST_LIBCAP_INSTALL_OPT := $(HOST_LIBCAP_MAKE_OPT) RAISE_SETFCAP=no install
 
 # vim: syntax=make
