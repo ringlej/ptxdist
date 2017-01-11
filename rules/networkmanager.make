@@ -67,7 +67,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
 	--without-libnm-glib \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-hostname-persist=default \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
 	--with-config-logging-backend-default="" \
@@ -81,7 +81,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
 	--without-ofono \
-	--with-dhclient=/sbin/dhclient \
+	--with-dhclient=/usr/sbin/dhclient \
 	--without-dhcpcd \
 	--without-dhcpcd-supports-ipv6 \
 	--with-config-dhcp-default=internal \
@@ -152,7 +152,7 @@ $(STATEDIR)/networkmanager.targetinstall:
 	@$(call install_copy, networkmanager, 0, 0, 0755, /etc/NetworkManager/system-connections/)
 
 #	# unmanage NFS root devices
-	@$(call install_alternative, networkmanager, 0, 0, 0755, /lib/init/nm-unmanage.sh)
+	@$(call install_alternative, networkmanager, 0, 0, 0755, /usr/lib/init/nm-unmanage.sh)
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, /var/lib/NetworkManager)
 
@@ -169,23 +169,23 @@ endif
 endif
 ifdef PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager.service)
+		/usr/lib/systemd/system/NetworkManager.service)
 	@$(call install_link, networkmanager, ../NetworkManager.service, \
-		/lib/systemd/system/multi-user.target.wants/NetworkManager.service)
+		/usr/lib/systemd/system/multi-user.target.wants/NetworkManager.service)
 	@$(call install_link, networkmanager, NetworkManager.service, \
-		/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service)
+		/usr/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service)
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager-unmanage.service)
+		/usr/lib/systemd/system/NetworkManager-unmanage.service)
 	@$(call install_link, networkmanager, ../NetworkManager-unmanage.service, \
-		/lib/systemd/system/NetworkManager.service.wants/NetworkManager-unmanage.service)
+		/usr/lib/systemd/system/NetworkManager.service.wants/NetworkManager-unmanage.service)
 ifdef PTXCONF_NETWORKMANAGER_NM_ONLINE
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager-wait-online.service)
+		/usr/lib/systemd/system/NetworkManager-wait-online.service)
 endif
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager-dispatcher.service)
+		/usr/lib/systemd/system/NetworkManager-dispatcher.service)
 	@$(call install_link, networkmanager, NetworkManager-dispatcher.service, \
-		/lib/systemd/system/dbus-org.freedesktop.nm-dispatcher.service)
+		/usr/lib/systemd/system/dbus-org.freedesktop.nm-dispatcher.service)
 endif
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/sbin/NetworkManager)
