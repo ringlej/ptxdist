@@ -6,7 +6,7 @@ ConditionPathExists=!/run/connman-ignore
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/lib/systemd/connman-ignore
+ExecStart=/usr/lib/systemd/connman-ignore
 
 [Install]
 WantedBy=connman.service
