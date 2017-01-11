@@ -31,6 +31,9 @@ DHEX_LICENSE	:= GPL-2.0
 
 DHEX_CONF_TOOL		:= NO
 DHEX_MAKE_OPT		:= $(CROSS_ENV_PROGS) LDFLAGS="" CPPFLAGS=""
+DHEX_INSTALL_OPT	:= \
+	DESTDIR=$(DHEX_PKGDIR)/usr \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -48,7 +51,7 @@ $(STATEDIR)/dhex.targetinstall:
 	@$(call install_fixup, dhex,DEPENDS,)
 	@$(call install_fixup, dhex,DESCRIPTION,missing)
 
-	@$(call install_copy, dhex, 0, 0, 0755, -, /bin/dhex)
+	@$(call install_copy, dhex, 0, 0, 0755, -, /usr/bin/dhex)
 
 	@$(call install_finish, dhex)
 
