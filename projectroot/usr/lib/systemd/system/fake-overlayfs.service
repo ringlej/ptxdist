@@ -7,5 +7,5 @@ Requires=local-fs.target
 [Service]
 Type=oneshot
 RemainAfterExit=no
-ExecStart=/sbin/fake-overlayfs
+ExecStart=/usr/sbin/fake-overlayfs
 MountFlags=private
