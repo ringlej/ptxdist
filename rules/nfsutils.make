@@ -39,6 +39,7 @@ NFSUTILS_CONF_ENV	:= \
 NFSUTILS_CONF_TOOL	:= autoconf
 NFSUTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--exec-prefix=/usr \
 	--disable-nfsv4 \
 	--disable-nfsv41 \
 	--disable-gss \
@@ -57,7 +58,7 @@ NFSUTILS_CONF_OPT	:= \
 	--with-statedir=/var/lib/nfs \
 	--with-statdpath=/var/lib/nfs \
 	--with-statduser=rpcuser \
-	--with-systemd=/lib/systemd/system \
+	--with-systemd=/usr/lib/systemd/system \
 	--with-rpcgen=internal \
 	--without-mountfile \
 	--without-tcp-wrappers \
@@ -107,8 +108,8 @@ else
 endif
 
 ifdef PTXCONF_NFSUTILS_CLIENT
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /sbin/mount.nfs)
-	@$(call install_link, nfsutils, mount.nfs, /sbin/umount.nfs)
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/mount.nfs)
+	@$(call install_link, nfsutils, mount.nfs, /usr/sbin/umount.nfs)
 endif
 
 ifdef PTXCONF_NFSUTILS_SERVER
@@ -137,31 +138,31 @@ endif
 
 ifdef PTXCONF_NFSUTILS_SYSTEMD_UNIT
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/rpc-statd.service)
+		/usr/lib/systemd/system/rpc-statd.service)
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/rpc-statd-notify.service)
+		/usr/lib/systemd/system/rpc-statd-notify.service)
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/var-lib-nfs.mount)
+		/usr/lib/systemd/system/var-lib-nfs.mount)
 	@$(call install_link, nfsutils, ../var-lib-nfs.mount, \
-		/lib/systemd/system/local-fs.target.requires/var-lib-nfs.mount)
+		/usr/lib/systemd/system/local-fs.target.requires/var-lib-nfs.mount)
 
 ifdef PTXCONF_NFSUTILS_CLIENT
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/nfs-client.target)
+		/usr/lib/systemd/system/nfs-client.target)
 	@$(call install_link, nfsutils, ../nfs-client.target, \
-		/lib/systemd/system/multi-user.target.wants/nfs-client.target)
+		/usr/lib/systemd/system/multi-user.target.wants/nfs-client.target)
 	@$(call install_link, nfsutils, ../nfs-client.target, \
-		/lib/systemd/system/remote-fs.target.wants/nfs-client.target)
+		/usr/lib/systemd/system/remote-fs.target.wants/nfs-client.target)
 endif
 ifdef PTXCONF_NFSUTILS_SERVER
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/proc-fs-nfsd.mount)
+		/usr/lib/systemd/system/proc-fs-nfsd.mount)
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/nfs-mountd.service)
+		/usr/lib/systemd/system/nfs-mountd.service)
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
-		/lib/systemd/system/nfs-server.service)
+		/usr/lib/systemd/system/nfs-server.service)
 	@$(call install_link, nfsutils, ../nfs-server.service, \
-		/lib/systemd/system/multi-user.target.wants/nfs-server.service)
+		/usr/lib/systemd/system/multi-user.target.wants/nfs-server.service)
 endif
 endif
 	@$(call install_finish, nfsutils)

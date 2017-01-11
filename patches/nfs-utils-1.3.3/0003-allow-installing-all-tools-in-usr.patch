@@ -1,0 +1,53 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 11 Jan 2017 11:57:05 +0100
+Subject: [PATCH] allow installing all tools in /usr
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ utils/mount/Makefile.am       | 4 ----
+ utils/nfsdcltrack/Makefile.am | 4 ----
+ utils/osd_login/Makefile.am   | 4 ----
+ 3 files changed, 12 deletions(-)
+
+diff --git a/utils/mount/Makefile.am b/utils/mount/Makefile.am
+index e24f3bd24b1b..be14484d4b0d 100644
+--- a/utils/mount/Makefile.am
++++ b/utils/mount/Makefile.am
+@@ -1,9 +1,5 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-# These binaries go in /sbin (not /usr/sbin), and that cannot be
+-# overridden at config time.
+-sbindir = /sbin
+-
+ man8_MANS	= mount.nfs.man umount.nfs.man
+ man5_MANS	= nfs.man
+ 
+diff --git a/utils/nfsdcltrack/Makefile.am b/utils/nfsdcltrack/Makefile.am
+index 0a2858f1e0f3..d603f925ed3a 100644
+--- a/utils/nfsdcltrack/Makefile.am
++++ b/utils/nfsdcltrack/Makefile.am
+@@ -1,9 +1,5 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-# These binaries go in /sbin (not /usr/sbin), and that cannot be
+-# overridden at config time. The kernel "knows" the /sbin name.
+-sbindir = /sbin
+-
+ man8_MANS	= nfsdcltrack.man
+ EXTRA_DIST	= $(man8_MANS)
+ 
+diff --git a/utils/osd_login/Makefile.am b/utils/osd_login/Makefile.am
+index ded1fd308608..612b8fe1858c 100644
+--- a/utils/osd_login/Makefile.am
++++ b/utils/osd_login/Makefile.am
+@@ -1,9 +1,5 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-# These binaries go in /sbin (not /usr/sbin), and that cannot be
+-# overridden at config time.
+-sbindir = /sbin
+-
+ dist_sbin_SCRIPTS = osd_login
+ 
+ MAINTAINERCLEANFILES = Makefile.in
