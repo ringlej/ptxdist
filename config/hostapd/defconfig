@@ -1,4 +1,4 @@
-# Example hostapd build time configuration
+# PTXdist hostapd build time configuration
 #
 # This file lists the configuration options that are used when building the
 # hostapd binary. All lines starting with # are ignored. Configuration option
@@ -17,6 +17,9 @@ CONFIG_DRIVER_HOSTAP=y
 
 # Driver interface for drivers using the nl80211 kernel interface
 CONFIG_DRIVER_NL80211=y
+
+# QCA vendor extensions to nl80211
+#CONFIG_DRIVER_NL80211_QCA=y
 
 # driver_nl80211.c requires libnl. If you are compiling it yourself
 # you may need to point hostapd to your version of libnl.
@@ -246,6 +249,9 @@ CONFIG_VLAN_NETLINK=y
 # Should we use epoll instead of select? Select is used by default.
 #CONFIG_ELOOP_EPOLL=y
 
+# Should we use kqueue instead of select? Select is used by default.
+#CONFIG_ELOOP_KQUEUE=y
+
 # Select TLS implementation
 # openssl = OpenSSL (default)
 # gnutls = GnuTLS
@@ -290,7 +296,7 @@ CONFIG_TLSV12=y
 #CONFIG_SQLITE=y
 
 # Enable Fast Session Transfer (FST)
-#CONFIG_FST=y
+CONFIG_FST=y
 
 # Enable CLI commands for FST testing
 #CONFIG_FST_TEST=y
@@ -326,3 +332,14 @@ CONFIG_TLSV12=y
 # http://wireless.kernel.org/en/users/Documentation/acs
 #
 CONFIG_ACS=y
+
+# Multiband Operation support
+# These extentions facilitate efficient use of multiple frequency bands
+# available to the AP and the devices that may associate with it.
+#CONFIG_MBO=y
+
+# Client Taxonomy
+# Has the AP retain the Probe Request and (Re)Association Request frames from
+# a client, from which a signature can be produced which can identify the model
+# of client device like "Nexus 6P" or "iPhone 5s".
+#CONFIG_TAXONOMY=y
