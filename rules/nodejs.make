@@ -79,7 +79,7 @@ $(STATEDIR)/nodejs.get:
 			exit 1; \
 		fi;)
 	@$(foreach module,$(NODEJS_MODULE_LIST), \
-		$(call world/check_src, $(call rmversion,$(module)));)
+		$(call world/check_src, $(call rmversion,$(module)))$(ptx/nl))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -110,7 +110,7 @@ $(STATEDIR)/nodejs.install:
 	@$(call install, NODEJS)
 	@$(foreach npmbox, $(NODEJS_NPMBOXES), \
 		cd $(NODEJS_PKGDIR)/usr/lib/ && \
-		$(call node/env, npmunbox -build-from-source $(npmbox));)
+		$(call node/env, npmunbox -build-from-source $(npmbox))$(ptx/nl))
 	@$(call touch)
 
 
@@ -143,7 +143,7 @@ endif
 
 ifneq ($(NODEJS_MODULE_LIST),)
 	@$(foreach module, $(call rmversion, $(NODEJS_MODULE_LIST)), \
-		$(call install_tree, nodejs, 0, 0, -, /usr/lib/node_modules/$(module));)
+		$(call install_tree, nodejs, 0, 0, -, /usr/lib/node_modules/$(module))$(ptx/nl))
 endif
 	@$(call install_finish, nodejs)
 
