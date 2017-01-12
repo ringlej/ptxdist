@@ -33,9 +33,9 @@ $(STATEDIR)/%.stamp:
 $(STATEDIR)/%.get:
 	@$(call targetinfo)
 	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
-		$(call world/get, $($(src)));)
+		$(call world/get, $($(src)))$(ptx/nl))
 	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
-		$(call world/check_src, $($(src)));)
+		$(call world/check_src, $($(src)))$(ptx/nl))
 	@$(call touch)
 
 world/get = \
