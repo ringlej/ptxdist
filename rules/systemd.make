@@ -254,6 +254,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgtop)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-delta)
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-detect-virt)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-mount)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-path)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
