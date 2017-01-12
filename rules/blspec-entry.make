@@ -42,17 +42,17 @@ $(STATEDIR)/blspec-entry.targetinstall:
 
 	@$(foreach name, $(BLSPEC_ENTRY_NAMES), \
 		$(call install_alternative, blspec-entry, 0, 0, 0644, \
-			/loader/entries/default.conf,n,/loader/entries/$(name).conf); \
+			/loader/entries/default.conf,n,/loader/entries/$(name).conf)$(ptx/nl) \
 		$(call install_replace, blspec-entry, /loader/entries/$(name).conf, \
-			@TITLE@,'$(call blspec/title,$(name))'); \
+			@TITLE@,'$(call blspec/title,$(name))')$(ptx/nl) \
 		$(call install_replace, blspec-entry, /loader/entries/$(name).conf, \
-			@VERSION@,'$(BLSPEC_ENTRY_VERSION)'); \
+			@VERSION@,'$(BLSPEC_ENTRY_VERSION)')$(ptx/nl) \
 		$(call install_replace, blspec-entry, /loader/entries/$(name).conf, \
-			@CMDLINE@,$(PTXCONF_BLSPEC_ENTRY_CMDLINE)); \
+			@CMDLINE@,$(PTXCONF_BLSPEC_ENTRY_CMDLINE))$(ptx/nl) \
 		$(call install_replace, blspec-entry, /loader/entries/$(name).conf, \
-			@KERNEL@,'/boot/$(KERNEL_IMAGE)'); \
+			@KERNEL@,'/boot/$(KERNEL_IMAGE)')$(ptx/nl) \
 		$(call install_replace, blspec-entry, /loader/entries/$(name).conf, \
-			@DEVICETREE@,'$(call blspec/devicetree,$(name))');)
+			@DEVICETREE@,'$(call blspec/devicetree,$(name))')$(ptx/nl))
 
 	@$(call install_finish,blspec-entry)
 
