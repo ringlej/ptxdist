@@ -39,6 +39,8 @@ F2FS_TOOLS_CONF_ENV	:= \
 # autoconf
 #
 F2FS_TOOLS_CONF_TOOL	:= autoconf
+F2FS_TOOLS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_ROOT)
 
 # ----------------------------------------------------------------------------
 # Target-Install
