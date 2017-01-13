@@ -33,6 +33,16 @@ LIBGCRYPT_LICENSE_FILES	:= \
 # Prepare
 # ----------------------------------------------------------------------------
 
+LIBGCRYPT_ASM := y
+ifneq ($(PTXCONF_ARCH_M68K)$(PTXCONF_ARCH_PPC),)
+LIBGCRYPT_ASM :=
+endif
+ifdef PTXCONF_ARCH_X86
+ifndef PTXCONF_ARCH_X86_64
+LIBGCRYPT_ASM :=
+endif
+endif
+
 #
 # autoconf
 #
@@ -43,7 +53,7 @@ LIBGCRYPT_AUTOCONF := \
 	--enable-random=linux \
 	--enable-dev-random \
 	--disable-random-daemon \
-	--$(call ptx/disen,PTXCONF_ARCH_M68K)-asm \
+	--$(call ptx/endis,LIBGCRYPT_ASM)-asm \
 	--disable-m-guard \
 	--disable-large-data-tests \
 	--disable-hmac-binary-check \
