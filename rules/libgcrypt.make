@@ -37,10 +37,12 @@ LIBGCRYPT_ASM := y
 ifneq ($(PTXCONF_ARCH_M68K)$(PTXCONF_ARCH_PPC),)
 LIBGCRYPT_ASM :=
 endif
+
+LIBGCRYPT_ENV := \
+	$(CROSS_ENV)
+
 ifdef PTXCONF_ARCH_X86
-ifndef PTXCONF_ARCH_X86_64
-LIBGCRYPT_ASM :=
-endif
+LIBGCRYPT_ENV += ac_cv_sys_symbol_underscore=no
 endif
 
 #
