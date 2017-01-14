@@ -30,8 +30,8 @@ HOSTAPD_DEFCONF	:= $(shell ptxd_get_alternative config/hostapd defconfig && echo
 HOSTAPD_CONFIG	:= $(BUILDDIR)/$(HOSTAPD)/$(HOSTAPD_SUBDIR)/.config
 HOSTAPD_LICENSE	:= BSD-3-Clause
 HOSTAPD_LICENSE_FILES := \
-	file://COPYING;md5=36b27801447e0662ee0138d17fe93880 \
-	file://README;md5=7f393579f8b109fe91f3b9765d26c7d3
+	file://COPYING;md5=292eece3f2ebbaa25608eed8464018a3 \
+	file://README;md5=3f01d778be8f953962388307ee38ed2b
 
 # ----------------------------------------------------------------------------
 # Prepare
