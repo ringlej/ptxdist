@@ -45,8 +45,9 @@ BINUTILS_AUTOCONF := \
 	--enable-install-libiberty \
 	--disable-multilib \
 	--disable-werror
-BINUTILS_MAKE_ENV := \
-	PTXCONF_TARGET_HARDEN_PIE=y
+
+BINUTILS_CFLAGS := \
+	-fPIC
 
 # ----------------------------------------------------------------------------
 # Target-Install
