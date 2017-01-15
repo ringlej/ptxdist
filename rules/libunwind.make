@@ -59,6 +59,9 @@ endif
 ifdef PTXCONF_ARCH_PPC
 LIBUNWIND_ARCH := ppc32
 endif
+ifdef PTXCONF_ARCH_ARM64
+LIBUNWIND_ARCH := aarch64
+endif
 
 $(STATEDIR)/libunwind.targetinstall:
 	@$(call targetinfo)
