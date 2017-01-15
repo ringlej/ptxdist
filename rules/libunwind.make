@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBUNWIND) += libunwind
 #
 # Paths and names
 #
-LIBUNWIND_VERSION	:= 1.1
-LIBUNWIND_MD5		:= fb4ea2f6fbbe45bf032cd36e586883ce
+LIBUNWIND_VERSION	:= 1.2
+LIBUNWIND_MD5		:= eefcb5d7f78fdc8f1ed172a26ea4202f
 LIBUNWIND		:= libunwind-$(LIBUNWIND_VERSION)
 LIBUNWIND_SUFFIX	:= tar.gz
 LIBUNWIND_URL		:= http://download.savannah.gnu.org/releases/libunwind/$(LIBUNWIND).$(LIBUNWIND_SUFFIX)
@@ -36,6 +36,9 @@ LIBUNWIND_CONF_TOOL	:= autoconf
 LIBUNWIND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/disen, PTXCONF_ARCH_PPC)-coredump \
+	--enable-ptrace \
+	--enable-setjmp \
+	--disable-documentation \
 	--disable-debug \
 	--enable-debug-frame \
 	--enable-block-signals \
