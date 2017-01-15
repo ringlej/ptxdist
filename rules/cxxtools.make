@@ -42,6 +42,11 @@ CXXTOOLS_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-demos \
 	--disable-dependency-tracking
 
+ifdef PTXCONF_ARCH_ARM64
+CXXTOOLS_CONF_OPT	+= \
+	--with-atomictype=pthread
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
