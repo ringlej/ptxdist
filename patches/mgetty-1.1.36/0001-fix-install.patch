@@ -1,21 +1,21 @@
-Subject: [PATCH] fix install
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 15 Jan 2017 12:02:05 +0100
+Subject: [PATCH] fix install
 
 prefix all paths with DESTDIR when installing.
 install all necessary stuff
 don't chown dirs
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
- Makefile          |   77 ++++++++++++++++++++++++++++--------------------------
- callback/Makefile |    4 +-
- fax/Makefile      |   25 ++++++++---------
- g3/Makefile       |    4 +-
+ Makefile          | 77 +++++++++++++++++++++++++++++--------------------------
+ callback/Makefile |  4 +--
+ fax/Makefile      | 25 +++++++++---------
+ g3/Makefile       |  4 +--
  4 files changed, 57 insertions(+), 53 deletions(-)
 
-Index: b/Makefile
-===================================================================
+diff --git a/Makefile b/Makefile
+index 97ea1986dce9..401ae6e4b37b 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -580,56 +580,54 @@ install.bin: mgetty sendfax newslock \
@@ -123,27 +123,22 @@ Index: b/Makefile
  # compatibility
  #
  	if [ ! -z "$(INSTALL_MECHO)" ] ; then \
-Index: b/g3/Makefile
-===================================================================
---- a/g3/Makefile
-+++ b/g3/Makefile
-@@ -37,12 +37,12 @@ install: all
+diff --git a/callback/Makefile b/callback/Makefile
+index 061e63a9f966..577e0dfa6fe2 100644
+--- a/callback/Makefile
++++ b/callback/Makefile
+@@ -37,7 +37,7 @@ clean:
  # install programs
  #
- 	for f in $(G3_PROGRAMS) ; do \
--		$(INSTALL) -s -m 755 $$f $(BINDIR) ; \
-+		$(INSTALL) -s -m 755 $$f $(DESTDIR)$(BINDIR) ; \
- 	done
- #
- # make symlink for "g3topbm" (so third-party fax viewers won't fail)
- #
--	-cd $(BINDIR) ; \
-+	-cd $(DESTDIR)$(BINDIR) ; \
- 	test -x g3topbm || ln -s g32pbm g3topbm
+ install: all
+-	$(INSTALL) -s -m 700 -o root callback $(SBINDIR)
+-	$(INSTALL) -s -m 4711 -o root ct $(BINDIR)
++	$(INSTALL) -s -m 700 -o root callback $(DESTDIR)$(SBINDIR)
++	$(INSTALL) -s -m 4711 -o root ct $(DESTDIR)$(BINDIR)
  
- 
-Index: b/fax/Makefile
-===================================================================
+ # source modules
+diff --git a/fax/Makefile b/fax/Makefile
+index 89ceccb611f8..6438c0f8461c 100644
 --- a/fax/Makefile
 +++ b/fax/Makefile
 @@ -53,25 +53,24 @@ install: all
@@ -189,17 +184,22 @@ Index: b/fax/Makefile
  #
 -	$(INSTALL) -m 644 faxspool.rules $(CONFDIR)/faxspool.rules.sample
 +	$(INSTALL) -m 644 faxspool.rules $(DESTDIR)$(CONFDIR)/faxspool.rules.sample
-Index: b/callback/Makefile
-===================================================================
---- a/callback/Makefile
-+++ b/callback/Makefile
-@@ -37,7 +37,7 @@ clean:
+diff --git a/g3/Makefile b/g3/Makefile
+index 33082e1e9692..70e2f57cd534 100644
+--- a/g3/Makefile
++++ b/g3/Makefile
+@@ -37,12 +37,12 @@ install: all
  # install programs
  #
- install: all
--	$(INSTALL) -s -m 700 -o root callback $(SBINDIR)
--	$(INSTALL) -s -m 4711 -o root ct $(BINDIR)
-+	$(INSTALL) -s -m 700 -o root callback $(DESTDIR)$(SBINDIR)
-+	$(INSTALL) -s -m 4711 -o root ct $(DESTDIR)$(BINDIR)
+ 	for f in $(G3_PROGRAMS) ; do \
+-		$(INSTALL) -s -m 755 $$f $(BINDIR) ; \
++		$(INSTALL) -s -m 755 $$f $(DESTDIR)$(BINDIR) ; \
+ 	done
+ #
+ # make symlink for "g3topbm" (so third-party fax viewers won't fail)
+ #
+-	-cd $(BINDIR) ; \
++	-cd $(DESTDIR)$(BINDIR) ; \
+ 	test -x g3topbm || ln -s g32pbm g3topbm
  
- # source modules
+ 

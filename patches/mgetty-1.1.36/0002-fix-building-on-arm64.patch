@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 15 Jan 2017 12:06:11 +0100
+Subject: [PATCH] fix building on arm64
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ mgetty.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mgetty.h b/mgetty.h
+index 14845207421a..811e5519d1b4 100644
+--- a/mgetty.h
++++ b/mgetty.h
+@@ -198,7 +198,7 @@ typedef unsigned char uch;
+  */
+ #if defined(__alpha__) || defined(__sparc64__) || \
+ 	    defined(__ia64__) || defined(__s390x__) || defined(__x86_64__) || \
+-	    defined(__powerpc64__)
++	    defined(__powerpc64__) || defined(__aarch64__)
+ # define PTR_IS_LONG
+ #endif
+ 
