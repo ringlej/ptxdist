@@ -86,8 +86,12 @@ $(STATEDIR)/nodejs.get:
 # Prepare
 # ----------------------------------------------------------------------------
 
-ifeq ($(PTXCONF_ARCH_X86)-$(PTXCONF_ARCH_X86_64),y-)
+ifdef PTXCONF_ARCH_X86
+ifdef PTXCONF_ARCH_X86_64
+NODEJS_ARCH := "x64"
+else
 NODEJS_ARCH := "ia32"
+endif
 else
 NODEJS_ARCH := $(PTXCONF_ARCH_STRING)
 endif
