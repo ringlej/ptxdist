@@ -27,6 +27,7 @@ HOST_U_BOOT_TOOLS_MAKE_OPT	:= sandbox_config tools-only
 
 HOST_U_BOOT_TOOLS_PROGS := \
 	fit_check_sign \
+	mkenvimage \
 	mkimage
 
 $(STATEDIR)/host-u-boot-tools.install:
