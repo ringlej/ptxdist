@@ -42,7 +42,7 @@ $(STATEDIR)/host-gobject-introspection.install.post:
 	@$(call world/install.post, HOST_GOBJECT_INTROSPECTION)
 	@echo '#!/bin/sh'				>  $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
 	@echo 'export GI_SCANNER_DISABLE_CACHE=1'	>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
-	@echo 'export pkg_ldflags="$$(find $${pkg_dir} -name .libs -printf "-Wl,-rpath,%p ")$${pkg_ldflags}"' \
+	@echo 'export pkg_ldflags="$$(find -H $${pkg_dir} -name .libs -printf "-Wl,-rpath,%p ")$${pkg_ldflags}"' \
 							>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
 	@echo 'export CC=$(CROSS_CC)'			>> $(PTXDIST_SYSROOT_CROSS)/bin/g-ir-scanner
 	@echo 'export GI_CROSS_LAUNCHER="$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross"' \
