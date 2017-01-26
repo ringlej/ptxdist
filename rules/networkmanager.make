@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.4.2
-NETWORKMANAGER_MD5	:= 59b5b5585467756787c6cb535cbd306e
+NETWORKMANAGER_VERSION	:= 1.6.0
+NETWORKMANAGER_MD5	:= ccdac1d03133a59065cbb93a09fa54b0
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.4/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.6/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 
@@ -44,7 +44,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--enable-ifupdown \
 	--disable-ifnet \
 	--disable-code-coverage \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
+	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
 	--disable-introspection \
 	--disable-qt \
 	--disable-teamdctl \
@@ -70,7 +70,7 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--with-hostname-persist=default \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
-	--with-logging-backend-default="" \
+	--with-config-logging-backend-default="" \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-logind \
 	--without-consolekit \
 	--with-session-tracking=no \
@@ -83,6 +83,8 @@ NETWORKMANAGER_CONF_OPT := \
 	--without-ofono \
 	--with-dhclient=/sbin/dhclient \
 	--without-dhcpcd \
+	--without-dhcpcd-supports-ipv6 \
+	--with-config-dhcp-default=internal \
 	--without-resolvconf \
 	--without-netconfig \
 	--with-config-dns-rc-manager-default=file \
