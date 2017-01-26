@@ -274,16 +274,16 @@ NTP_AUTOCONF += --enable-nist
 endif
 ifdef PTXCONF_NTP_CRYPTO
 NTP_AUTOCONF += \
-	--enable-crypto \
+	--with-crypto \
 	--with-openssl-libdir=$(PTXDIST_SYSROOT_TARGET)/usr/lib \
 	--with-openssl-incdir=$(PTXDIST_SYSROOT_TARGET)/usr/include
 else
-NTP_AUTOCONF += --disable-crypto \
+NTP_AUTOCONF += --without-crypto \
 	--without-openssl-libdir \
 	--without-openssl-incdir
 endif
 ifdef PTXCONF_NTP_SNTP
-NTP_AUTOCONF += --enable-sntp
+NTP_AUTOCONF += --with-sntp
 endif
 ifdef PTXCONF_NTP_ARLIB
 NTP_AUTOCONF += --enable-arlib
