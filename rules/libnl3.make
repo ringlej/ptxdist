@@ -32,11 +32,11 @@ LIBNL3_LICENSE	:= GPL-2.0
 LIBNL3_CONF_TOOL    := autoconf
 LIBNL3_CONF_OPT	    := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-manpages \
 	--enable-shared \
 	--disable-static \
 	--$(call ptx/endis, PTXCONF_LIBNL3_ENABLE_CLI)-cli \
-	--enable-pthreads
+	--enable-pthreads \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
