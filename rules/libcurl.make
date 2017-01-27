@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.51.0
-LIBCURL_MD5	:= 09a7c5769a7eae676d5e2c86d51f167e
+LIBCURL_VERSION	:= 7.52.1
+LIBCURL_MD5	:= dd014df06ff1d12e173de86873f9f77a
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.bz2
 LIBCURL_URL	:= https://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -29,9 +29,6 @@ LIBCURL_LICENSE	:= MIT
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBCURL_PATH	:= PATH=$(CROSS_PATH)
-LIBCURL_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
