@@ -456,8 +456,8 @@ file and we can simply run:
     checking for a thread-safe mkdir -p... /bin/mkdir -p
     checking for gawk... gawk
     checking whether make sets $(MAKE)... yes
-    checking for <ptxdistCompilerName>-strip... |ptxdistCompilerName|-strip
-    checking for <ptxdistCompilerName>-gcc... |ptxdistCompilerName|-gcc
+    checking for |ptxdistCompilerName|-strip... |ptxdistCompilerName|-strip
+    checking for |ptxdistCompilerName|-gcc... |ptxdistCompilerName|-gcc
     checking for C compiler default output file name... a.out
 
     [...]
