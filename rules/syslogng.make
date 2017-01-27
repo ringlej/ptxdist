@@ -44,7 +44,6 @@ SYSLOGNG_AUTOCONF := \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
-	--disable-sun-door \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_AMQP_DESTINATION)-amqp \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_MONGODB_DESTINATION)-mongodb \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_PYTHON_DESTINATION)-python \
