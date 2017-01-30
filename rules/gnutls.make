@@ -69,6 +69,7 @@ GNUTLS_CONF_OPT		:= \
 	--disable-libopts-install \
 	--disable-guile \
 	--disable-crywrap \
+	--with-nettle-mini \
 	--without-p11-kit \
 	--without-tpm \
 	--without-librt-prefix \
