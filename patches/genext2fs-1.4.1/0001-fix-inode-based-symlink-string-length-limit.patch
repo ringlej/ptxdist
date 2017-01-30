@@ -1,0 +1,39 @@
+From: Alexander Stohr <Alexander.Stohr@gmx.de>
+Date: Sat, 31 Mar 2012 14:33:02 +0000
+Subject: [PATCH] fix inode based symlink string length limit
+
+Origin: http://genext2fs.cvs.sourceforge.net/viewvc/genext2fs/genext2fs/genext2fs.c?r1=1.95&r2=1.96
+[ukl: I'm annoyed because this patch is more complicated than necessary.
+Just doing s/>/>=/ in the 2nd line after the 2nd hunk has the same
+effect as the 2nd hunk without code duplication and dead code]
+---
+ genext2fs.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/genext2fs.c b/genext2fs.c
+index 3087479511c4..bdc8aefc1fac 100644
+--- a/genext2fs.c
++++ b/genext2fs.c
+@@ -1415,9 +1415,10 @@ mklink_fs(filesystem *fs, uint32 parent_nod, const char *name, size_t size, uint
+ 	uint32 nod = mknod_fs(fs, parent_nod, name, FM_IFLNK | FM_IRWXU | FM_IRWXG | FM_IRWXO, uid, gid, 0, 0, ctime, mtime);
+ 	extend_blk(fs, nod, 0, - (int)get_nod(fs, nod)->i_blocks / INOBLK);
+ 	get_nod(fs, nod)->i_size = size;
+-	if(size <= 4 * (EXT2_TIND_BLOCK+1))
++	if(size < 4 * (EXT2_TIND_BLOCK+1))
+ 	{
+ 		strncpy((char*)get_nod(fs, nod)->i_block, (char*)b, size);
++		((char*)get_nod(fs, nod)->i_block)[size+1] = '\0';
+ 		return nod;
+ 	}
+ 	extend_blk(fs, nod, b, rndup(size, BLOCKSIZE) / BLOCKSIZE);
+@@ -1643,6 +1644,10 @@ add2fs_from_dir(filesystem *fs, uint32 this_nod, int squash_uids, int squash_per
+ 			switch(st.st_mode & S_IFMT)
+ 			{
+ 				case S_IFLNK:
++					if((st.st_mode & S_IFMT) == S_IFREG || st.st_size >= 4 * (EXT2_TIND_BLOCK+1))
++						stats->nblocks += (st.st_size + BLOCKSIZE - 1) / BLOCKSIZE;
++					stats->ninodes++;
++					break;
+ 				case S_IFREG:
+ 					if((st.st_mode & S_IFMT) == S_IFREG || st.st_size > 4 * (EXT2_TIND_BLOCK+1))
+ 						stats->nblocks += (st.st_size + BLOCKSIZE - 1) / BLOCKSIZE;
