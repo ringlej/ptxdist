@@ -45,15 +45,27 @@ config BUSYBOX_FEATURE_BOOTCHARTD_CONFIG_FILE
 	  Enable reading and parsing of $PWD/bootchartd.conf
 	  and /etc/bootchartd.conf files.
 config BUSYBOX_HALT
-	bool "poweroff, halt, and reboot"
+	bool "halt"
 	default y
 	help
-	  Stop all processes and either halt, reboot, or power off the system.
+	  Stop all processes and halt the system.
+
+config BUSYBOX_POWEROFF
+	bool "poweroff"
+	default y
+	help
+	  Stop all processes and power off the system.
+
+config BUSYBOX_REBOOT
+	bool "reboot"
+	default y
+	help
+	  Stop all processes and reboot the system.
 
 config BUSYBOX_FEATURE_CALL_TELINIT
 	bool "Call telinit on shutdown and reboot"
 	default y
-	depends on BUSYBOX_HALT && !BUSYBOX_INIT
+	depends on (BUSYBOX_HALT || BUSYBOX_POWEROFF || BUSYBOX_REBOOT) && !BUSYBOX_INIT
 	help
 	  Call an external program (normally telinit) to facilitate
 	  a switch to a proper runlevel.
@@ -143,7 +155,7 @@ config BUSYBOX_FEATURE_EXTRA_QUIET
 
 config BUSYBOX_FEATURE_INIT_COREDUMPS
 	bool "Support dumping core for child processes (debugging only)"
-	default y
+	default n	# not Y because this is a debug option
 	depends on BUSYBOX_INIT || BUSYBOX_LINUXRC
 	help
 	  If this option is enabled and the file /.init_enable_core

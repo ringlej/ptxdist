@@ -31,7 +31,7 @@ config BUSYBOX_FEATURE_SEAMLESS_GZ
 	  Make tar, rpm, modprobe etc understand .gz data.
 
 config BUSYBOX_FEATURE_SEAMLESS_Z
-	bool "tar, rpm, modprobe etc understand .Z data"
+	bool "Make tar, rpm, modprobe etc understand .Z data"
 	default n  # it is ancient
 	help
 	  Make tar, rpm, modprobe etc understand .Z data.
@@ -79,10 +79,16 @@ config BUSYBOX_GUNZIP
 	  You can use the `-t' option to test the integrity of
 	  an archive, without decompressing it.
 
+config BUSYBOX_ZCAT
+	bool "zcat"
+	default y
+	help
+	  Alias to "gunzip -c".
+
 config BUSYBOX_FEATURE_GUNZIP_LONG_OPTIONS
 	bool "Enable long options"
 	default y
-	depends on BUSYBOX_GUNZIP && BUSYBOX_LONG_OPTS
+	depends on (BUSYBOX_GUNZIP || BUSYBOX_ZCAT) && BUSYBOX_LONG_OPTS
 	help
 	  Enable use of long options.
 config BUSYBOX_BUNZIP2
@@ -97,6 +103,12 @@ config BUSYBOX_BUNZIP2
 
 	  Unless you have a specific application which requires bunzip2, you
 	  should probably say N here.
+
+config BUSYBOX_BZCAT
+	bool "bzcat"
+	default y
+	help
+	  Alias to "bunzip2 -c".
 config BUSYBOX_UNLZMA
 	bool "unlzma"
 	default y
@@ -109,31 +121,47 @@ config BUSYBOX_UNLZMA
 	  The BusyBox unlzma applet is limited to decompression only.
 	  On an x86 system, this applet adds about 4K.
 
-config BUSYBOX_FEATURE_LZMA_FAST
-	bool "Optimize unlzma for speed"
-	default n
-	depends on BUSYBOX_UNLZMA
+config BUSYBOX_LZCAT
+	bool "lzcat"
+	default y
 	help
-	  This option reduces decompression time by about 25% at the cost of
-	  a 1K bigger binary.
+	  unlzma is a compression utility using the Lempel-Ziv-Markov chain
+	  compression algorithm, and range coding. Compression
+	  is generally considerably better than that achieved by the bzip2
+	  compressors.
+
+	  The BusyBox unlzma applet is limited to decompression only.
+	  On an x86 system, this applet adds about 4K.
 
 config BUSYBOX_LZMA
-	bool "Provide lzma alias which supports only unpacking"
+	bool "lzma -d"
 	default y
-	depends on BUSYBOX_UNLZMA
 	help
 	  Enable this option if you want commands like "lzma -d" to work.
 	  IOW: you'll get lzma applet, but it will always require -d option.
+
+config BUSYBOX_FEATURE_LZMA_FAST
+	bool "Optimize unlzma for speed"
+	default n
+	depends on BUSYBOX_UNLZMA || BUSYBOX_LZCAT || BUSYBOX_LZMA
+	help
+	  This option reduces decompression time by about 25% at the cost of
+	  a 1K bigger binary.
 config BUSYBOX_UNXZ
 	bool "unxz"
 	default y
 	help
 	  unxz is a unlzma successor.
 
-config BUSYBOX_XZ
-	bool "Provide xz alias which supports only unpacking"
+config BUSYBOX_XZCAT
+	bool "xzcat"
 	default y
-	depends on BUSYBOX_UNXZ
+	help
+	  Alias to "unxz -c".
+
+config BUSYBOX_XZ
+	bool "xz -d"
+	default y
 	help
 	  Enable this option if you want commands like "xz -d" to work.
 	  IOW: you'll get xz applet, but it will always require -d option.
@@ -158,7 +186,7 @@ config BUSYBOX_CPIO
 	  cpio has 110 bytes of overheads for every stored file.
 
 	  This implementation of cpio can extract cpio archives created in the
-	  "newc" or "crc" format, it cannot create or modify them.
+	  "newc" or "crc" format.
 
 	  Unless you have a specific application which requires cpio, you
 	  should probably say N here.
@@ -179,7 +207,7 @@ config BUSYBOX_FEATURE_CPIO_P
 	  Passthrough mode. Rarely used.
 config BUSYBOX_DPKG
 	bool "dpkg"
-	default n
+	default y
 	select BUSYBOX_FEATURE_SEAMLESS_GZ
 	help
 	  dpkg is a medium-level tool to install, build, remove and manage
@@ -189,7 +217,7 @@ config BUSYBOX_DPKG
 	  you should use the official dpkg if possible.
 config BUSYBOX_DPKG_DEB
 	bool "dpkg_deb"
-	default n
+	default y
 	select BUSYBOX_FEATURE_SEAMLESS_GZ
 	help
 	  dpkg-deb unpacks and provides information about Debian archives.
@@ -198,16 +226,6 @@ config BUSYBOX_DPKG_DEB
 
 	  Unless you have a specific application which requires dpkg-deb,
 	  say N here.
-
-config BUSYBOX_FEATURE_DPKG_DEB_EXTRACT_ONLY
-	bool "Extract only (-x)"
-	default n
-	depends on BUSYBOX_DPKG_DEB
-	help
-	  This reduces dpkg-deb to the equivalent of
-	  "ar -p <deb> data.tar.gz | tar -zx". However it saves space as none
-	  of the extra dpkg-deb, ar or tar options are needed, they are linked
-	  to internally.
 config BUSYBOX_GZIP
 	bool "gzip"
 	default y
@@ -249,10 +267,22 @@ config BUSYBOX_LZOP
 	help
 	  Lzop compression/decompresion.
 
+config BUSYBOX_UNLZOP
+	bool "unlzop"
+	default y
+	help
+	  Lzop decompresion.
+
+config BUSYBOX_LZOPCAT
+	bool "lzopcat"
+	default y
+	help
+	  Alias to "unlzop -c".
+
 config BUSYBOX_LZOP_COMPR_HIGH
 	bool "lzop compression levels 7,8,9 (not very useful)"
 	default n
-	depends on BUSYBOX_LZOP
+	depends on BUSYBOX_LZOP || BUSYBOX_UNLZOP || BUSYBOX_LZOPCAT
 	help
 	  High levels (7,8,9) of lzop compression. These levels
 	  are actually slower than gzip at equivalent compression ratios

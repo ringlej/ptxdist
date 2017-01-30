@@ -47,7 +47,6 @@ config BUSYBOX_LOGGER
 config BUSYBOX_LOGREAD
 	bool "logread"
 	default y
-	depends on BUSYBOX_FEATURE_IPC_SYSLOG
 	help
 	  If you enabled Circular Buffer support, you almost
 	  certainly want to enable this feature as well. This

@@ -150,12 +150,12 @@ config UTIL_LINUX_NG_SWAPON
 	select UTIL_LINUX_NG_LIBBLKID
 	select UTIL_LINUX_NG_LIBMOUNT
 	select UTIL_LINUX_NG_LIBSMARTCOLS
-	depends on !BUSYBOX_SWAPONOFF || ALLYES
+	depends on !BUSYBOX_SWAPON || ALLYES
 	help
 	  Swapon is used to specify devices on which paging and swapping are to take place.
 
 comment "BusyBox' swapon is selected!"
-	depends on BUSYBOX_SWAPONOFF
+	depends on BUSYBOX_SWAPON
 
 config UTIL_LINUX_NG_LOSETUP
 	bool
