@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 1.10.0
-V4L_UTILS_MD5		:= 945a38979138997e805828a4a53e53ec
+V4L_UTILS_VERSION	:= 1.12.2
+V4L_UTILS_MD5		:= 13a3fde0f30bca32bc4e55fb371174ba
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
@@ -38,8 +38,7 @@ V4L_UTILS_CONF_OPT	:= \
 	--enable-libv4l \
 	--enable-v4l-utils \
 	--disable-qv4l2 \
-	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg \
-	--$(call ptx/wwo, PTXCONF_V4L_UTILS_MEDIACTL)-libudev
+	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,6 +79,18 @@ endif
 
 ifdef PTXCONF_V4L_UTILS_V4L2CTL
 	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/v4l2-ctl)
+endif
+
+ifdef PTXCONF_V4L_UTILS_CECCTL
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/cec-ctl)
+endif
+
+ifdef PTXCONF_V4L_UTILS_CECCOMPLIANCE
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/cec-compliance)
+endif
+
+ifdef PTXCONF_V4L_UTILS_CECFOLLOWER
+	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/cec-follower)
 endif
 
 	@$(call install_finish, v4l-utils)

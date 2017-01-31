@@ -49,6 +49,16 @@ config V4L_UTILS_V4L2CTL
 	select V4L_UTILS_LIBV4L2
 	prompt "install v4l-ctl"
 
+config V4L_UTILS_CECCTL
+	bool
+	prompt "install cec-ctl"
+
+config V4L_UTILS_CECCOMPLIANCE
+	bool
+	prompt "install cec-compliance"
+
+config V4L_UTILS_CECFOLLOWER"
+	bool
+	prompt "install cec-follower"
+
 endif
-
-
