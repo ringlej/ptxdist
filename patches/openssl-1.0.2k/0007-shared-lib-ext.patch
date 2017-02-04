@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index fe3c3c70181c..bf0da9cd950b 100755
+index 92e1ce9d74b9..d859e12733ad 100755
 --- a/Configure
 +++ b/Configure
-@@ -1835,7 +1835,8 @@ while (<IN>)
+@@ -1837,7 +1837,8 @@ while (<IN>)
  	elsif ($shared_extension ne "" && $shared_extension =~ /^\.s([ol])\.[^\.]*\.[^\.]*$/)
  		{
  		my $sotmp = $1;

@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/crypto/opensslv.h b/crypto/opensslv.h
-index 88faad652259..2ceb66313cc6 100644
+index 645dd0793f32..976423292855 100644
 --- a/crypto/opensslv.h
 +++ b/crypto/opensslv.h
 @@ -88,7 +88,7 @@ extern "C" {

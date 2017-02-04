@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  4 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Configure b/Configure
-index 738cee34030f..fe3c3c70181c 100755
+index 300a314fbd39..92e1ce9d74b9 100755
 --- a/Configure
 +++ b/Configure
-@@ -1969,7 +1969,7 @@ while (<IN>)
+@@ -1979,7 +1979,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{
@@ -26,10 +26,10 @@ index 738cee34030f..fe3c3c70181c 100755
  		print OUT "#define ENGINESDIR \"$foo\"\n";
  		}
 diff --git a/Makefile.org b/Makefile.org
-index 2377f5029187..4c92e2167ecd 100644
+index 61a329b4f20f..910692d4a4c2 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -368,7 +368,7 @@ libcrypto.pc: Makefile
+@@ -369,7 +369,7 @@ libcrypto.pc: Makefile
  	    echo 'exec_prefix=$${prefix}'; \
  	    echo 'libdir=$${exec_prefix}/$(LIBDIR)'; \
  	    echo 'includedir=$${prefix}/include'; \
@@ -38,7 +38,7 @@ index 2377f5029187..4c92e2167ecd 100644
  	    echo ''; \
  	    echo 'Name: OpenSSL-libcrypto'; \
  	    echo 'Description: OpenSSL cryptography library'; \
-@@ -536,7 +536,7 @@ install: all install_docs install_sw
+@@ -537,7 +537,7 @@ install: all install_docs install_sw
  install_sw:
  	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
  		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \
@@ -82,7 +82,7 @@ index 2058ff405afe..df7def6174fd 100644
  	fi
  	@target=install; $(RECURSIVE_MAKE)
 diff --git a/engines/ccgost/Makefile b/engines/ccgost/Makefile
-index 17e1efbdff30..d59a350fd50f 100644
+index f378530c8642..b42a64162730 100644
 --- a/engines/ccgost/Makefile
 +++ b/engines/ccgost/Makefile
 @@ -47,7 +47,7 @@ install:
