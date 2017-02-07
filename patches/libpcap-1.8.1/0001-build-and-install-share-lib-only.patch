@@ -12,19 +12,19 @@ Signed-off-by: Alexander Aring <alex.aring@gmail.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index 4c35bde7caab..d472dd487d71 100644
+index e71d973ca448..e0debadeb837 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -358,7 +358,7 @@ EXTRA_DIST = \
- 	Win32/Src/inet_net.c \
- 	Win32/Src/inet_pton.c
+ 	Win32/Prj/wpcap.vcxproj \
+ 	Win32/Prj/wpcap.vcxproj.filters
  
 -all: libpcap.a shared pcap-config
 +all: shared pcap-config
  
  libpcap.a: $(OBJ)
  	@rm -f $@
-@@ -549,7 +549,7 @@ selpolltest: tests/selpolltest.c libpcap.a
+@@ -550,7 +550,7 @@ selpolltest: tests/selpolltest.c libpcap.a
  valgrindtest: tests/valgrindtest.c libpcap.a
  	$(CC) $(FULL_CFLAGS) -I. -L. -o valgrindtest $(srcdir)/tests/valgrindtest.c libpcap.a $(LIBS)
  
