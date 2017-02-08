@@ -42,7 +42,6 @@ endif
 #
 KEXEC_TOOLS_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
-	$(call ptx/ifdef, PTXCONF_KEXEC_TOOLS_GAMECUBE,--with-gamecube) \
 	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_ZLIB)-zlib \
 	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_XEN)-xen
 	

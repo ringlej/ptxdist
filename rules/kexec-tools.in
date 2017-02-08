@@ -10,13 +10,6 @@ menuconfig KEXEC_TOOLS
 
 if KEXEC_TOOLS
 
-config KEXEC_TOOLS_GAMECUBE
-	bool
-	depends on BROKEN
-	prompt "Support for Gamecube"
-	help
-	  kexec has been ported to the GameCube/PPC32 platform.
-
 config KEXEC_TOOLS_ZLIB
 	bool
 	prompt "Use zlib"
