@@ -4,9 +4,11 @@ Subject: [PATCH] Mark 3DES and RC4 ciphers as weak
 
 This disables RC4 and 3DES in our build
 
+Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+
 Imported from openssl_1.0.2k-1~bpo8+1.debian.tar.xz
 
-Signed-off-by: Clemens Gruber <clemens.gruber@pqgruber.com>
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  ssl/s3_lib.c | 59 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
  1 file changed, 58 insertions(+), 1 deletion(-)
