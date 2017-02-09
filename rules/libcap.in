@@ -2,6 +2,7 @@
 
 menuconfig LIBCAP
 	tristate
+	select HOST_GPERF
 	prompt "libcap                        "
 	help
 	  A library for getting and setting POSIX.1e capabilities.
