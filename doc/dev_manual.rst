@@ -222,6 +222,9 @@ handle:
    platform. This type of package enables us to handle more than one bootloader
    in the project.
 
+-  **image-tgz**: This kind of package creates a tar ball from a list of
+   packages. It is often uses as an input for other image packages.
+
 -  **image-genimage**: This kind of package can handle all kind of image
    generation for almost every target independent of its complexity.
 
