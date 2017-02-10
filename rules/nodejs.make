@@ -18,8 +18,8 @@ endif
 #
 # Paths and names
 #
-NODEJS_VERSION	:= v0.12.17
-NODEJS_MD5	:= b78430ef07c09381f5f4b38359156cc8
+NODEJS_VERSION	:= v6.9.5
+NODEJS_MD5	:= a2a820b797fb69ffb259b479c7f5df32
 NODEJS		:= node-$(NODEJS_VERSION)
 NODEJS_SUFFIX	:= tar.gz
 NODEJS_URL	:= http://nodejs.org/dist/$(NODEJS_VERSION)/$(NODEJS).$(NODEJS_SUFFIX)
@@ -96,14 +96,24 @@ else
 NODEJS_ARCH := $(PTXCONF_ARCH_STRING)
 endif
 
+ifdef PTXCONF_ARCH_ARM
+NODEJS_ARM_FLOAT_ABI = $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mfloat-abi=\([^']*\)'.*/\1/p" | tail -n1)
+NODEJS_ARM_FPU = $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mfpu=\([^']*\)'.*/\1/p" | tail -n1)
+endif
+
 NODEJS_CONF_TOOL := autoconf
 NODEJS_CONF_OPT := \
 	--prefix=/usr \
 	--dest-cpu=$(NODEJS_ARCH) \
-	--without-snapshot \
+	--dest-os=linux \
+	$(call ptx/ifdef,PTXCONF_ARCH_ARM,--with-arm-float-abi=$(NODEJS_ARM_FLOAT_ABI)) \
+	$(call ptx/ifdef,PTXCONF_ARCH_ARM,--with-arm-fpu=$(NODEJS_ARM_FPU)) \
+	--without-dtrace \
+	$(call ptx/ifdef,PTXCONF_NODEJS_NPM,,--without-npm) \
 	--shared-openssl \
 	--shared-zlib \
-	--dest-os=linux
+	--with-intl=none \
+	--without-snapshot
 
 # ----------------------------------------------------------------------------
 # Install

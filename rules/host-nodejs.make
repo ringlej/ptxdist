@@ -26,7 +26,7 @@ $(HOST_NODEJS_NPMBOX_SOURCE)	:= HOST_NODEJS_NPMBOX
 HOST_NODEJS_NPMBOX_DIR		= $(HOST_NODEJS_PKGDIR)
 HOST_NODEJS_NPMBOX_STRIP_LEVEL	:= 0
 
-HOST_NODEJS_SOURCES		= $(HOST_NODEJS_SOURCE) $(HOST_NODEJS_NPMBOX_SOURCE)
+HOST_NODEJS_SOURCES		+= $(HOST_NODEJS_NPMBOX_SOURCE)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,10 +36,11 @@ HOST_NODEJS_CONF_TOOL := autoconf
 HOST_NODEJS_CONF_OPT := \
 	$(HOST_AUTOCONF) \
 	--prefix=/ \
-	--without-snapshot \
+	--dest-os=linux \
 	--shared-openssl \
 	--shared-zlib \
-	--dest-os=linux
+	--with-intl=none \
+	--without-snapshot
 
 # ----------------------------------------------------------------------------
 # Install
