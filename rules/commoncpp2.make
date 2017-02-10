@@ -44,15 +44,15 @@ COMMONCPP2_AUTOCONF := \
 	--disable-profiling \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_IPV6)-ipv6 \
 	--without-nat \
-	--without-gnutls \
-	--without-openssl \
 	--without-memaudit \
 	--without-cppunit
 
-# the logic for these switches is broken in 1.8.0:
+# the logic for these switches is broken in 1.8.1:
 #	--with-exceptions
 #	--with-monotonic
 #	--with-extras
+#	--with-gnutls
+#	--with-openssl
 
 ifndef PTXCONF_COMMONCPP2_LIBZ
 COMMONCPP2_AUTOCONF += --without-compression
