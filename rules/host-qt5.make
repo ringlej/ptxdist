@@ -134,7 +134,7 @@ HOST_QT5_CONF_OPT	:= \
 	--disable-system-proxies
 
 # Note: these options are not listed in '--help' but they exist
-QT5_CONF_OPT += \
+HOST_QT5_CONF_OPT += \
 	--disable-sm \
 	--disable-openvg \
 	--disable-libudev \
