@@ -86,6 +86,12 @@ config UTIL_LINUX_NG_DMESG
 comment "BusyBox' dmesg is selected!"
 	depends on BUSYBOX_DMESG
 
+config UTIL_LINUX_NG_NSENTER
+	bool
+	prompt "nsenter"
+	help
+	  The nsenter utility
+
 config UTIL_LINUX_NG_MOUNTPOINT
 	bool
 	select UTIL_LINUX_NG_LIBMOUNT

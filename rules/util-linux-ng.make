@@ -76,7 +76,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_MOUNTPOINT)-mountpoint \
 	--disable-fallocate \
 	--disable-unshare \
-	--disable-nsenter \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_NSENTER)-nsenter \
 	--disable-setpriv \
 	--disable-eject \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_AGETTY)-agetty \
@@ -192,6 +192,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_DMESG
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNTPOINT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mountpoint)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_NSENTER
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/nsenter)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_ADDPART
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/addpart)
