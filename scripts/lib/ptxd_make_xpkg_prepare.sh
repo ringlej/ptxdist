@@ -58,7 +58,7 @@ ptxd_make_xpkg_prepare() {
 	"${pkg_xpkg_cmds}" \
 	"${pkg_xpkg_perms}" \
 	"${pkg_xpkg_install_deps}" &&
-    mkdir -p -- "${pkg_xpkg_control_dir}" &&
+    install -m 755 -d -- "${pkg_xpkg_control_dir}" &&
     touch "${pkg_xpkg_perms}" &&
     touch "${pkg_xpkg_cmds}" || return
 
@@ -82,7 +82,8 @@ install_init:	@DEPENDS@ -> ${dep}"
 	VERSION="${pkg_xpkg_version}" \
 	DEPENDS="${dep}" \
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
-	"${pkg_xpkg_control}" || return
+	"${pkg_xpkg_control}" &&
+	chmod 644 "${pkg_xpkg_control}" || return
 
     local script
     for script in preinst postinst prerm postrm; do
