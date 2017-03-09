@@ -19,11 +19,13 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 13.0.2
-MESALIB_MD5	:= 9442c2dee914cde3d1f090371ab04113
+MESALIB_VERSION	:= 17.0.1
+MESALIB_MD5	:= 6a7e768241846c8c69bbadbf904dcc58
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= \
+	ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX) \
+	ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 MESALIB_LICENSE	:= MIT
@@ -55,6 +57,8 @@ endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_NOUVEAU)	+= nouveau
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_ETNAVIV)	+= etnaviv
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IMX)	+= imx
 ifdef PTXCONF_ARCH_ARM
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
 endif
@@ -63,7 +67,7 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
 
 MESALIB_DRI_LIBS-y += \
 	$(subst nouveau,nouveau_vieux,$(MESALIB_DRI_DRIVERS-y)) \
-	$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y))
+	$(subst imx,imx-drm,$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y)))
 
 MESALIB_LIBS-y				:= libglapi
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLX)	+= libGL
@@ -111,7 +115,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
-	--disable-shader-cache \
 	--enable-shared-glapi \
 	--disable-glx-read-only-text \
 	--enable-driglx-direct \
@@ -119,7 +122,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-gallium-llvm \
 	--enable-llvm-shared-libs \
 	--disable-libglvnd \
-	--with-sha1= \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \

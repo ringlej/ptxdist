@@ -53,7 +53,6 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
-	--disable-shader-cache \
 	--enable-shared-glapi \
 	--disable-glx-read-only-text \
 	--disable-driglx-direct \
@@ -61,7 +60,6 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-llvm-shared-libs \
 	--disable-gallium-llvm \
 	--disable-libglvnd \
-	--with-sha1= \
 	--with-gallium-drivers= \
 	--with-dri-drivers= \
 	--without-vulkan-drivers
