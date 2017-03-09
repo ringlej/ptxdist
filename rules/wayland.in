@@ -6,6 +6,7 @@ config WAYLAND
 	select LIBC_M
 	select LIBC_RT
 	select LIBFFI
+	select EXPAT
 	prompt "wayland"
 	help
 	  Wayland compositor infrastructure client and server libraries.
