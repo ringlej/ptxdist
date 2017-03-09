@@ -8,6 +8,7 @@ menuconfig KERNEL
 	select HOST_XZ			if KERNEL_XZ
 	select HOST_LZOP		if KERNEL_LZOP
 	select HOST_LIBKMOD		if KERNEL_MODULES
+	select HOST_SYSTEM_BC
 	prompt "Linux kernel                  "
 
 if KERNEL
