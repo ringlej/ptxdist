@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 37 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 0b5ce1fde036..d1e10345a36f 100644
+index d32f9ca0c333..4581408effe4 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -310,6 +310,23 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -332,6 +332,23 @@ struct btrfs_ioctl_quota_ctl_args {
          __u64 cmd;
          __u64 status;
  };
@@ -35,7 +35,7 @@ index 0b5ce1fde036..d1e10345a36f 100644
  #endif
  
  #ifndef BTRFS_IOC_DEFRAG
-@@ -384,11 +401,31 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -406,11 +423,31 @@ struct btrfs_ioctl_quota_ctl_args {
                                 struct btrfs_ioctl_quota_ctl_args)
  #endif
  

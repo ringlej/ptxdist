@@ -107,6 +107,7 @@ endif
 UDEV_RULES-$(PTXCONF_SYSTEMD) += \
 	60-block.rules \
 	60-drm.rules \
+	60-sensor.rules \
 	60-serial.rules \
 	64-btrfs.rules \
 	70-mouse.rules \

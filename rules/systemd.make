@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 232
-SYSTEMD_MD5	:= 3e3a0b14050eff62e68be72142181730
+SYSTEMD_VERSION	:= 233
+SYSTEMD_MD5	:= 11d3ff48f3361b8bdcfcdc076a31b537
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -97,6 +97,7 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
 	--enable-quotacheck \
 	--enable-tmpfiles \
+	--disable-environment-d \
 	--disable-sysusers \
 	--disable-firstboot \
 	--$(call ptx/disen,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED)-randomseed \
@@ -127,6 +128,8 @@ SYSTEMD_CONF_OPT	:= \
 	--without-python \
 	--with-nobody-user=nobody \
 	--with-nobody-group=nogroup \
+	--with-fallback-hostname=$(call ptx/ifdef,PTXCONF_ROOTFS_ETC_HOSTNAME,$(PTXCONF_ROOTFS_ETC_HOSTNAME),ptxdist) \
+	--with-default-hierarchy=hybrid \
 	--with-ntp-servers= \
 	--with-time-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01 UTC" +%s` \
 	--with-system-uid-max=999 \
@@ -260,6 +263,7 @@ endif
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-run)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-socket-activate)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-stdio-bridge)
+	@$(call install_link, systemd, systemd-mount, /usr/bin/systemd-umount)
 ifdef PTXCONF_SYSTEMD_TIMEDATE
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/timedatectl)
 endif

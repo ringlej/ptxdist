@@ -4,6 +4,7 @@ DefaultDependencies=no
 IgnoreOnIsolate=true
 After=local-fs.target
 Requires=local-fs.target
+Before=system-update-cleanup.service
 After=system-update.target
 
 [Service]

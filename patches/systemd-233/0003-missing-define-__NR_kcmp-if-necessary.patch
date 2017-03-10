@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/basic/missing_syscall.h b/src/basic/missing_syscall.h
-index e6fd67cb9d2e..a471af08d311 100644
+index 9fc415656456..01cae2610cae 100644
 --- a/src/basic/missing_syscall.h
 +++ b/src/basic/missing_syscall.h
-@@ -223,6 +223,10 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
+@@ -225,6 +225,10 @@ static inline int renameat2(int oldfd, const char *oldname, int newfd, const cha
  
  /* ======================================================================= */
  

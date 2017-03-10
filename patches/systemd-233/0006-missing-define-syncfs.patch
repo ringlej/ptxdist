@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 9 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index d70b89893844..95bd19c7927e 100644
+index 0870c1cd2cd8..3b6e8959bdcd 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -313,6 +313,7 @@ AC_CHECK_DECLS([
+@@ -334,6 +334,7 @@ AC_CHECK_DECLS([
          pivot_root,
          name_to_handle_at,
          setns,
@@ -25,10 +25,10 @@ index d70b89893844..95bd19c7927e 100644
          renameat2,
          kcmp,
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 568676b7bb6e..0b5ce1fde036 100644
+index f4dcf3056e90..d32f9ca0c333 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -910,6 +910,14 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -932,6 +932,14 @@ struct btrfs_ioctl_quota_ctl_args {
  #define AT_EMPTY_PATH	0x1000	/* Allow empty relative pathname */
  #endif
  
