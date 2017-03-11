@@ -200,8 +200,12 @@ config E2FSPROGS_INSTALL_LOGSAVE
 
 
 
+comment "BusyBox' mke2fs is selected!"
+	depends on BUSYBOX_MKE2FS
+
 config E2FSPROGS_INSTALL_MKE2FS
 	bool
+	depends on !BUSYBOX_MKE2FS || ALLYES
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
