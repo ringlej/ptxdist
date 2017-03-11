@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.166
-LIBELF_MD5	:= d4e462b7891915dc5326bccefa2024ff
+LIBELF_VERSION	:= 0.168
+LIBELF_MD5	:= 52adfa40758d0d39e5d5c57689bf38d6
 LIBELF		:= elfutils-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.bz2
 LIBELF_URL	:= https://fedorahosted.org/releases/e/l/elfutils/$(LIBELF_VERSION)/$(LIBELF).$(LIBELF_SUFFIX)
@@ -68,7 +68,7 @@ ifdef PTXCONF_LIBELF_LIBASM
 endif
 
 ifdef PTXCONF_LIBELF_ELFSUTILS
-	@$(foreach bin, addr2line ar elfcmp elfcompress elflint findtextrel ld \
+	@$(foreach bin, addr2line ar elfcmp elfcompress elflint findtextrel \
 		make-debug-archive nm objdump ranlib readelf size stack strings \
 		strip unstrip, \
 		$(call install_copy, libelf, 0, 0, 0755, -, \
