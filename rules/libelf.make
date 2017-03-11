@@ -40,6 +40,11 @@ LIBELF_CONF_OPT	:= \
 	--without-bzlib \
 	--without-lzma
 
+LIBELF_ARCH := $(call remove_quotes,$(PTXCONF_ARCH_STRING))
+ifdef PTXCONF_ARCH_ARM64
+LIBELF_ARCH := aarch64
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -57,10 +62,8 @@ $(STATEDIR)/libelf.targetinstall:
 
 ifdef PTXCONF_LIBELF_LIBDW
 	@$(call install_lib, libelf, 0, 0, 0644, libdw-$(LIBELF_VERSION))
-	@$(foreach arch, i386 sh x86_64 ia64 alpha arm aarch64 sparc ppc ppc64 \
-		s390 tilegx, \
-		$(call install_lib, libelf, 0, 0, 0644, \
-		elfutils/libebl_$(arch)-$(LIBELF_VERSION));)
+	@$(call install_lib, libelf, 0, 0, 0644, \
+		elfutils/libebl_$(LIBELF_ARCH)-$(LIBELF_VERSION))
 endif
 
 ifdef PTXCONF_LIBELF_LIBASM
