@@ -283,8 +283,12 @@ comment "busybox' ubimkvol is selected!"
 config MTD_UTILS_UBIRENAME
 	bool
 	prompt "ubirename"
+	depends on !BUSYBOX_UBIRENAME || ALLYES
 	help
 	  Rename a volume on a UBI device
+
+comment "busybox' ubirename is selected!"
+	depends on BUSYBOX_UBIRENAME
 
 config MTD_UTILS_UBIRSVOL
 	bool
