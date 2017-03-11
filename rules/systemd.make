@@ -85,7 +85,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-acl \
 	--disable-smack \
 	--disable-audit \
-	--disable-elfutils \
+	--$(call ptx/endis,PTXCONF_SYSTEMD_COREDUMP)-elfutils \
 	--disable-libcryptsetup \
 	--disable-qrencode \
 	--disable-gnutls \
