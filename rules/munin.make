@@ -60,7 +60,7 @@ $(STATEDIR)/munin.prepare:
 	@$(call touch)
 
 MUNIN_MAKE_ENV		:= $(CROSS_ENV)
-MUNIN_MAKE_OPT		:= CONFIG=$(MUNIN_CONFIG)
+MUNIN_MAKE_OPT		:= CONFIG=$(MUNIN_CONFIG) PERL="perl -I."
 MUNIN_INSTALL_OPT	:= CONFIG=$(MUNIN_CONFIG) install
 
 # ----------------------------------------------------------------------------

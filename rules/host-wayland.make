@@ -23,8 +23,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_WAYLAND) += host-wayland
 HOST_WAYLAND_CONF_TOOL	:= autoconf
 HOST_WAYLAND_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-static \
-	--enable-scanner \
-	--disable-documentation
+	--disable-libraries \
+	--disable-documentation \
+	--disable-dtd-validation \
+	--without-host-scanner
 
 # vim: syntax=make

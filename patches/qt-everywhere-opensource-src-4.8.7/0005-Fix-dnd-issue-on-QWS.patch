@@ -8,11 +8,11 @@ This patch seems to fix it, but I'm not sure if it breaks anything.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/gui/kernel/qdnd_qws.cpp |    9 +++------
+ src/gui/kernel/qdnd_qws.cpp | 9 +++------
  1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/src/gui/kernel/qdnd_qws.cpp b/src/gui/kernel/qdnd_qws.cpp
-index 72488e8..11b2231 100644
+index a925fdfe1b65..22dd43d31e80 100644
 --- a/src/gui/kernel/qdnd_qws.cpp
 +++ b/src/gui/kernel/qdnd_qws.cpp
 @@ -162,10 +162,10 @@ void QDragManager::updateCursor()

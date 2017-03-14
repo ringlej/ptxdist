@@ -47,12 +47,16 @@ export -f ptxd_make_serialize_setup
 
 ptxd_make_serialize_init() {
     local num="${PTXDIST_PARALLELMFLAGS#-j}"
-    local sync mflags
+    local sync mflags jobserver
 
     if [ -n "${num}" ]; then
 	ptxd_make_serialize_setup global "${num}" || return
 	sync="${PTXDIST_OUTPUT_SYNC:+${PTXDIST_OUTPUT_SYNC}recurse}"
-	mflags="${sync} -j --jobserver-fds=${ptxd_make_serialize_global_readfd},${ptxd_make_serialize_global_writefd}"
+	jobserver="--jobserver-auth"
+	if ! "${PTXCONF_SETUP_HOST_MAKE}" ${jobserver}=42,43 --help >& /dev/null; then
+	    jobserver="-j --jobserver-fds"
+	fi
+	mflags="${sync} ${jobserver}=${ptxd_make_serialize_global_readfd},${ptxd_make_serialize_global_writefd}"
 	PTXDIST_PARALLELMFLAGS_INTERN="${mflags}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${mflags}"
     else

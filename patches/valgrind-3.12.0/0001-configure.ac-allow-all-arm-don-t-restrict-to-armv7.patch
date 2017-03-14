@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 8ab7f9b68cd5..cc70ed280192 100644
+index 372871b87dc4..66375adccc2c 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -234,7 +234,7 @@ case "${host_cpu}" in

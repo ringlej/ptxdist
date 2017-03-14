@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-GLIB_VERSION	:= 2.48.2
-GLIB_MD5	:= f4ac1aa2efd4f5798c37625ea697ac57
+GLIB_VERSION	:= 2.50.1
+GLIB_MD5	:= 6baee4d7e3b1ec791b4ced93976365ee
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.xz
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
@@ -65,6 +65,7 @@ GLIB_CONF_OPT	:= \
 	--disable-fam \
 	--disable-xattr \
 	--disable-libelf \
+	--disable-libmount \
 	--disable-gtk-doc \
 	--disable-man \
 	--disable-dtrace \

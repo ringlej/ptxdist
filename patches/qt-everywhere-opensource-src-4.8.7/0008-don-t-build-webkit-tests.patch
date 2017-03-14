@@ -4,11 +4,11 @@ Subject: [PATCH] don't build webkit tests
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/3rdparty/webkit/Source/WebKit.pro |    4 ----
+ src/3rdparty/webkit/Source/WebKit.pro | 4 ----
  1 file changed, 4 deletions(-)
 
 diff --git a/src/3rdparty/webkit/Source/WebKit.pro b/src/3rdparty/webkit/Source/WebKit.pro
-index 9be0f4a..eee88fe 100644
+index 9be0f4aff9c9..eee88fea1f1e 100644
 --- a/src/3rdparty/webkit/Source/WebKit.pro
 +++ b/src/3rdparty/webkit/Source/WebKit.pro
 @@ -15,19 +15,15 @@ SUBDIRS += WebKit/qt/QtWebKit.pro

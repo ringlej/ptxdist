@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ALFRED) += alfred
 #
 # Paths and names
 #
-ALFRED_VERSION	:= 2015.1
-ALFRED_MD5	:= fcce70cd8da764ee91c8cd2cbfa14362
+ALFRED_VERSION	:= 2016.2
+ALFRED_MD5	:= cc7d5b352942477033a4cafbed84152d
 ALFRED		:= alfred-$(ALFRED_VERSION)
 ALFRED_SUFFIX	:= tar.gz
 ALFRED_URL	:= http://downloads.open-mesh.org/batman/stable/sources/alfred/$(ALFRED).$(ALFRED_SUFFIX)

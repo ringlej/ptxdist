@@ -34,6 +34,13 @@ HOST_QEMU_DIR		:= $(HOST_BUILDDIR)/$(HOST_QEMU)
 # autoconf
 #
 
+HOST_QEMU_BROKEN_ICECC	:= \
+	$(shell gcc -dumpversion | awk -F . '{ if ($$1*100 + $$2 < 409) print "y" }')
+
+ifeq ($(HOST_QEMU_BROKEN_ICECC),y)
+HOST_QEMU_MAKE_ENV	:= PTXDIST_ICECC=
+endif
+
 HOST_QEMU_TARGETS	:= $(PTXCONF_ARCH_STRING)
 ifndef PTXCONF_ARCH_X86_64
 ifdef PTXCONF_ARCH_X86

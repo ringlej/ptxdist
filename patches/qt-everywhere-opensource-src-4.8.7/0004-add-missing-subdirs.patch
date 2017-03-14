@@ -7,14 +7,14 @@ This patch fixes it.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- examples/declarative/modelviews/modelviews.pro |    1 +
- examples/examples.pro                          |    2 +-
- examples/itemviews/itemviews.pro               |    4 +++-
- examples/tutorials/tutorials.pro               |    1 +
+ examples/declarative/modelviews/modelviews.pro | 1 +
+ examples/examples.pro                          | 2 +-
+ examples/itemviews/itemviews.pro               | 4 +++-
+ examples/tutorials/tutorials.pro               | 1 +
  4 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/examples/declarative/modelviews/modelviews.pro b/examples/declarative/modelviews/modelviews.pro
-index 00e07fe..7f7d673 100644
+index 00e07fec030e..7f7d673346f9 100644
 --- a/examples/declarative/modelviews/modelviews.pro
 +++ b/examples/declarative/modelviews/modelviews.pro
 @@ -1,6 +1,7 @@
@@ -26,7 +26,7 @@ index 00e07fe..7f7d673 100644
      stringlistmodel \
      abstractitemmodel \
 diff --git a/examples/examples.pro b/examples/examples.pro
-index 67b4cf8..e67030a 100644
+index 67b4cf826a7c..e67030a17357 100644
 --- a/examples/examples.pro
 +++ b/examples/examples.pro
 @@ -72,7 +72,7 @@ contains(QT_CONFIG, declarative): SUBDIRS += declarative helper
@@ -39,7 +39,7 @@ index 67b4cf8..e67030a 100644
  # install
  sources.files = README *.pro
 diff --git a/examples/itemviews/itemviews.pro b/examples/itemviews/itemviews.pro
-index 137599c..547694d 100644
+index 137599ca6553..547694d9f50a 100644
 --- a/examples/itemviews/itemviews.pro
 +++ b/examples/itemviews/itemviews.pro
 @@ -2,6 +2,7 @@ TEMPLATE      = subdirs
@@ -61,7 +61,7 @@ index 137599c..547694d 100644
  # install
  sources.files = README *.pro
 diff --git a/examples/tutorials/tutorials.pro b/examples/tutorials/tutorials.pro
-index ba1769d..cb1ca6e 100644
+index ba1769deb459..cb1ca6ea382b 100644
 --- a/examples/tutorials/tutorials.pro
 +++ b/examples/tutorials/tutorials.pro
 @@ -1,5 +1,6 @@

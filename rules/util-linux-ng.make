@@ -269,6 +269,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_FINDFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/findfs)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_WIPEFS
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/wipefs)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_ZRAMCTL
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/zramctl)
 endif
