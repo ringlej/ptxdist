@@ -29,7 +29,6 @@ menuconfig SYSTEMD
 	# for udev:
 	select ROOTFS_DEV
 	select LIBBLKID
-	select GLIB		if UDEV_LIBGUDEV
 	select HOST_SYSTEMD	if UDEV_HWDB
 	prompt "systemd                       "
 	help
