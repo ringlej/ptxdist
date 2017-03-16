@@ -2273,7 +2273,7 @@ config QT4_EXAMPLES_OPENGL_HELLOGL
 config QT4_EXAMPLES_OPENGL_HELLOGL_ES
 	bool
 	prompt "hellogl_es"
-	depends on QT4_OPENGL_ES1 || QT4_OPENGL_ES1CL
+	depends on QT4_OPENGL_ES1
 	depends on !QT4_OPENGL_NONE
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
