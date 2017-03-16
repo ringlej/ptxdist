@@ -2437,10 +2437,10 @@ if QT5_EXAMPLES_SERIALBUS
 config QT5_EXAMPLES_SERIALBUS_CAN
 	bool
 	prompt "can"
-	depends on QT5_MODULE_
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALBUS
 
 
 menuconfig QT5_EXAMPLES_SERIALBUS_MODBUS
@@ -2452,26 +2452,26 @@ if QT5_EXAMPLES_SERIALBUS_MODBUS
 config QT5_EXAMPLES_SERIALBUS_MODBUS_ADUEDITOR
 	bool
 	prompt "adueditor"
-	depends on QT5_MODULE_
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALBUS
 
 config QT5_EXAMPLES_SERIALBUS_MODBUS_MODBUSMASTER
 	bool
 	prompt "modbusmaster"
-	depends on QT5_MODULE_
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALBUS
 
 config QT5_EXAMPLES_SERIALBUS_MODBUS_MODBUSSLAVE
 	bool
 	prompt "modbusslave"
-	depends on QT5_MODULE_
 	depends on QT5_MODULE_QTBASE
 	depends on QT5_MODULE_QTBASE_GUI
 	depends on QT5_MODULE_QTBASE_WIDGETS
+	depends on QT5_MODULE_QTSERIALBUS
 
 endif
 endif
