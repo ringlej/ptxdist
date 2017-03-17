@@ -21,7 +21,8 @@ config PROCPS_USES_NCURSES
 config PROCPS_WITH_SYSTEMD
 	bool
 	prompt "Enable systemd support"
-	default INITMETHOD_SYSTEMD
+	depends on INITMETHOD_SYSTEMD
+	default y
 	select SYSTEMD
 	help
 	  Enable systemd support to show information about systemd units, slices
