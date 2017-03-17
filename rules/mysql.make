@@ -81,7 +81,7 @@ MYSQL_CONF_OPT	:= \
 	-DWITH_EXTRA_CHARSETS=all \
 	-DWITH_UNIT_TESTS=OFF \
 	-DWITH_VALGRIND=OFF \
-	-DWITH_SYSTEMD=ON \
+	-DWITH_SYSTEMD=$(call ptx/onoff, PTXCONF_MYSQL_SYSTEMD) \
 	-DCOMPILATION_COMMENT=PTXdist \
 	-DDEFAULT_CHARSET=latin1
 
@@ -126,12 +126,14 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqld)
 
 	@$(call install_alternative, mysql, 0, 0, 0755, /sbin/mysqlinit)
+ifdef PTXCONF_MYSQL_SYSTEMD
 	@$(call install_alternative, mysql, 0, 0, 0644, /lib/systemd/system/mysqldinit.service)
 	@$(call install_link, mysql, ../mysqldinit.service, \
 		/lib/systemd/system/multi-user.target.wants/mysqldinit.service)
 	@$(call install_alternative, mysql, 0, 0, 0644, /lib/systemd/system/mysqld.service)
 	@$(call install_link, mysql, ../mysqld.service, \
 		/lib/systemd/system/multi-user.target.wants/mysqld.service)
+endif
 	@$(call install_alternative, mysql, 0, 0, 0644, /etc/mysql/my.cnf)
 	@$(call install_copy, mysql, 0, 0, 0644, -, /usr/lib/plugin/keyring_file.so)
 

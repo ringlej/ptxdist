@@ -1,6 +1,6 @@
 ## SECTION=applications
 
-config MYSQL
+menuconfig MYSQL
 	tristate
 	select HOST_CMAKE
 	select HOST_MYSQL
@@ -14,7 +14,17 @@ config MYSQL
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	select NCURSES
-	select SYSTEMD
-	prompt "mysql"
+	select SYSTEMD		if MYSQL_SYSTEMD
+	prompt "mysql                         "
 	help
 	  mySQL, an SQL database engine
+
+if MYSQL
+
+config MYSQL_SYSTEMD
+	bool
+	depends on INITMETHOD_SYSTEMD
+	default y
+	prompt "systemd support"
+
+endif
