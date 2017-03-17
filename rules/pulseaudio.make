@@ -81,9 +81,9 @@ PULSEAUDIO_CONF_OPT	:= \
 	--disable-xen \
 	--disable-gcov \
 	--enable-orc \
-	--enable-systemd-daemon \
+	--$(call ptx/endis, PTXCONF_PULSEAUDIO_SYSTEMD)-systemd-daemon \
 	--disable-systemd-login \
-	--enable-systemd-journal \
+	--$(call ptx/endis, PTXCONF_PULSEAUDIO_SYSTEMD)-systemd-journal \
 	--disable-manpages \
 	--disable-per-user-esound-socket \
 	--disable-mac-universal \
@@ -129,12 +129,14 @@ $(STATEDIR)/pulseaudio.targetinstall:
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, /etc/pulse/system.pa)
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, /etc/pulse/default.pa)
 
+ifdef PTXCONF_PULSEAUDIO_SYSTEMD
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, \
 		/lib/systemd/system/pulseaudio.service)
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, \
 		/lib/systemd/system/pulseaudio.socket)
 	@$(call install_link, pulseaudio, ../pulseaudio.socket, \
 		/lib/systemd/system/sockets.target.wants/pulseaudio.socket)
+endif
 
 	@$(call install_copy, pulseaudio, 0, 0, 0755, -, /usr/bin/pulseaudio)
 	@$(call install_copy, pulseaudio, 0, 0, 0755, -, /usr/bin/pactl)
