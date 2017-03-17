@@ -59,6 +59,8 @@ config WESTON_FBDEV_COMPOSITOR
 
 config WESTON_SYSTEMD
 	bool
+	depends on INITMETHOD_SYSTEMD
+	default y
 	prompt "systemd support"
 
 config WESTON_SYSTEMD_LOGIND
