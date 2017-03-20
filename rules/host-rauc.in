@@ -1,0 +1,9 @@
+## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
+
+config HOST_RAUC
+	tristate
+	default ALLYES
+	select HOST_GLIB
+	select HOST_OPENSSL
+	select HOST_SQUASHFS_TOOLS

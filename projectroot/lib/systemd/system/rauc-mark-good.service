@@ -1,0 +1,10 @@
+[Unit]
+Description=RAUC Good-marking Service
+ConditionKernelCommandLine=|bootchooser.active
+ConditionKernelCommandLine=|rauc.slot
+
+[Service]
+ExecStart=/usr/bin/rauc status mark-good
+
+[Install]
+WantedBy=multi-user.target
