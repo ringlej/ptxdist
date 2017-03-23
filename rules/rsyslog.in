@@ -9,6 +9,7 @@ menuconfig RSYSLOG
 	select ZLIB
 	select LIBESTR
 	select JSON_C
+	select LIBFASTJSON
 	select LIBNET		if RSYSLOG_OMUDPSPOOF
 	select SYSTEMD		if RSYSLOG_SYSTEMD
 	prompt "rsyslog                       "

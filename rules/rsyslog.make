@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_RSYSLOG) += rsyslog
 #
 # Paths and names
 #
-RSYSLOG_VERSION	:= 8.8.0
-RSYSLOG_MD5	:= 188088dc496fb0a121edb8816d1fac83
+RSYSLOG_VERSION	:= 8.25.0
+RSYSLOG_MD5	:= 3181df494402b4c2adf5b02a7925c8f6
 RSYSLOG		:= rsyslog-$(RSYSLOG_VERSION)
 RSYSLOG_SUFFIX	:= tar.gz
 RSYSLOG_URL	:= http://www.rsyslog.com/files/download/rsyslog/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_SOURCE	:= $(SRCDIR)/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_DIR	:= $(BUILDDIR)/$(RSYSLOG)
-RSYSLOG_LICENSE	:= GPL-3.0, LGPL-3.0, Apache
+RSYSLOG_LICENSE	:= GPL-3.0+ AND LGPL-3.0+ AND Apache-2.0
 RSYSLOG_LICENSE_FILES := \
 	file://COPYING;md5=51d9635e646fb75e1b74c074f788e973 \
 	file://COPYING.LESSER;md5=cb7903f1e5c39ae838209e130dca270a \
@@ -49,6 +49,7 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-jemalloc \
 	--enable-unlimited-select \
 	--disable-debug \
+	--disable-debug-symbols \
 	--disable-rtinst \
 	--disable-debugless \
 	--disable-valgrind \
@@ -65,21 +66,27 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-libgcrypt \
 	--enable-rsyslogrt \
 	--enable-rsyslogd \
+	--disable-extended-tests \
 	--disable-mysql-tests \
+	--disable-pgsql-tests \
 	--disable-mail \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_IMDIAG)-imdiag \
 	--disable-mmnormalize \
 	--disable-mmjsonparse \
+	--disable-mmgrok \
 	--disable-mmaudit \
 	--disable-mmanon \
+	--disable-mmrm1stspace \
 	--disable-mmutf8fix \
 	--disable-mmcount \
 	--disable-mmsequence \
+	--disable-mmdblookup \
 	--disable-mmfields \
 	--disable-mmpstrucdata \
 	--disable-mmrfc5424addhmac \
 	--disable-relp \
 	--disable-guardtime \
+	--disable-gt-ksi \
 	--disable-liblogging-stdlog \
 	--disable-rfc3195 \
 	--disable-testbench \
@@ -94,13 +101,16 @@ RSYSLOG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_PMLASTMSG)-pmlastmsg \
 	--disable-pmcisconames \
 	--disable-pmciscoios \
+	--disable-pmnull \
 	--disable-pmaixforwardedfrom \
 	--disable-pmsnare \
+	--disable-pmpanngfw \
 	--disable-omruleset \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_OMUXSOCK)-omuxsock \
 	--disable-mmsnmptrapd \
 	--disable-omhdfs \
 	--disable-omkafka \
+	--disable-kafka-tests \
 	--disable-ommongodb \
 	--disable-imzmq3 \
 	--disable-imczmq \
@@ -108,7 +118,11 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-omczmq \
 	--disable-omrabbitmq \
 	--disable-omhiredis \
-	--disable-generate-man-pages
+	--disable-omhttpfs \
+	--disable-omamqp1 \
+	--disable-omtcl \
+	--disable-generate-man-pages \
+	--disable-distcheck-workaround
 
 ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
 RSYSLOG_CONF_OPT += --with-systemdsystemunitdir=/lib/systemd/system
