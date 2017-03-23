@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBINPUT) += libinput
 #
 # Paths and names
 #
-LIBINPUT_VERSION	:= 1.5.0
-LIBINPUT_MD5		:= 26030dae25f1ac584b0e428c90473339
+LIBINPUT_VERSION	:= 1.7.0
+LIBINPUT_MD5		:= b6689bfacc1239082afd453216fc3d0e
 LIBINPUT		:= libinput-$(LIBINPUT_VERSION)
 LIBINPUT_SUFFIX		:= tar.xz
 LIBINPUT_URL		:= http://www.freedesktop.org/software/libinput/$(LIBINPUT).$(LIBINPUT_SUFFIX)
@@ -40,6 +40,8 @@ LIBINPUT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-documentation \
 	--disable-event-gui \
+	--disable-gcov \
+	--disable-test-run \
 	--disable-tests \
 	--disable-libwacom \
 	--without-libunwind \
