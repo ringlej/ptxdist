@@ -36,8 +36,17 @@ HOST_CMAKE_LICENSE_FILES := \
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_CMAKE_BUILD_OOT := YES
-HOST_CMAKE_CONF_TOOL := autoconf
+HOST_CMAKE_CONF_ENV	:= \
+	$(HOST_ENV) \
+	MAKEFLAGS="$(PARALLELMFLAGS)"
+
+HOST_CMAKE_BUILD_OOT	:= YES
+HOST_CMAKE_CONF_TOOL	:= autoconf
+HOST_CMAKE_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	-- \
+	-DBUILD_TESTING=NO
+
 
 $(STATEDIR)/host-cmake.install.post: \
 	$(PTXDIST_CMAKE_TOOLCHAIN_TARGET) \
