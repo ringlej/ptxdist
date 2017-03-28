@@ -17,13 +17,14 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 7.3p1
-OPENSSH_MD5	:= dfadd9f035d38ce5d58a3bf130b86d08
+OPENSSH_VERSION	:= 7.5p1
+OPENSSH_MD5	:= 652fdc7d8392f112bef11cacf7e69e23
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
-	http://openbsd.cs.fau.de/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX) \
-	http://ftp.halifax.rwth-aachen.de/openbsd/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
+	https://ftp.halifax.rwth-aachen.de/openbsd/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX) \
+	https://mirror.hs-esslingen.de/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
+
 OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
 OPENSSH_LICENSE	:= BSD, 2-term BSD, 3-term BSD, MIT, THE BEER-WARE LICENSE
@@ -46,6 +47,7 @@ OPENSSH_CONF_OPT	:= \
 	--libexecdir=/usr/sbin \
 	--sysconfdir=/etc/ssh \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-pkcs11 \
 	--disable-strip \
 	--disable-etc-default-login \
 	--disable-lastlog \
@@ -57,9 +59,11 @@ OPENSSH_CONF_OPT	:= \
 	--disable-pututline \
 	--disable-pututxline \
 	--with-openssl \
+	--without-ssh1 \
 	--with-stackprotect \
 	--with-hardening \
 	--without-rpath \
+	--without-Werror \
 	--with-zlib=$(SYSROOT) \
 	--without-skey \
 	--without-ldns \
@@ -68,8 +72,11 @@ OPENSSH_CONF_OPT	:= \
 	--with-pie \
 	--without-ssl-engine \
 	--without-pam \
+	--with-privsep-user=sshd \
+	--with-sandbox=seccomp_filter \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
-	--with-privsep-path=/var/run/sshd
+	--with-privsep-path=/var/run/sshd \
+	--without-md5-passwords
 
 # ----------------------------------------------------------------------------
 # Target-Install
