@@ -43,11 +43,11 @@ RSYSLOG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_REGEXP)-regexp \
 	--disable-gssapi-krb5 \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_IMKLOG)-klog \
-	--enable-kmsg \
+	--$(call ptx/endis, PTXCONF_RSYSLOG_IMKMSG)-kmsg \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_SYSTEMD)-imjournal \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_INET)-inet \
 	--disable-jemalloc \
-	--enable-unlimited-select \
+	--disable-unlimited-select \
 	--disable-debug \
 	--disable-debug-symbols \
 	--disable-rtinst \
@@ -62,6 +62,7 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-snmp \
 	--disable-uuid \
 	--disable-elasticsearch \
+	--disable-elasticsearch-tests \
 	--disable-gnutls \
 	--disable-libgcrypt \
 	--enable-rsyslogrt \
@@ -72,7 +73,7 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-mail \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_IMDIAG)-imdiag \
 	--disable-mmnormalize \
-	--disable-mmjsonparse \
+	--$(call ptx/endis, PTXCONF_RSYSLOG_MMJSONPARSE)-mmjsonparse \
 	--disable-mmgrok \
 	--disable-mmaudit \
 	--disable-mmanon \
@@ -100,7 +101,7 @@ RSYSLOG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_SYSTEMD)-omjournal \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_PMLASTMSG)-pmlastmsg \
 	--disable-pmcisconames \
-	--disable-pmciscoios \
+	--$(call ptx/endis, PTXCONF_RSYSLOG_PMCISCOIOS)-pmciscoios \
 	--disable-pmnull \
 	--disable-pmaixforwardedfrom \
 	--disable-pmsnare \
@@ -133,6 +134,7 @@ endif
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMDIAG)	+= imdiag
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMFILE)	+= imfile
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMKLOG)	+= imklog
+RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMKMSG)	+= imkmsg
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_SYSTEMD)	+= imjournal
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMMARK)	+= immark
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMPSTATS)	+= impstats
@@ -148,11 +150,13 @@ RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_INET)		+= lmstrmsrv
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_INET)		+= lmtcpclt
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_INET)		+= lmtcpsrv
 RSYSLOG_PLUGINS-y				+= lmzlibw
+RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_MMJSONPARSE)	+= mmjsonparse
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMPROG)	+= omprog
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMSTDOUT)	+= omstdout
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_SYSTEMD)	+= omjournal
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMUDPSPOOF)	+= omudpspoof
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMUXSOCK)	+= omuxsock
+RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_PMCISCOIOS)	+= pmciscoios
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_PMLASTMSG)	+= pmlastmsg
 
 # ----------------------------------------------------------------------------
