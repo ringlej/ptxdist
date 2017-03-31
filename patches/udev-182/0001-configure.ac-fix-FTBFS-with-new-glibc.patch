@@ -10,11 +10,11 @@ http://www.sourceware.org/git/gitweb.cgi?p=glibc.git&h=6e6249d0b461b952d0f544792
 
 Fixes a FTBFS in Fedora Rawhide.
 ---
- configure.ac |    2 +-
+ configure.ac | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index b31b62f..b9a36e6 100644
+index b31b62f28915..b9a36e69cc29 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -21,7 +21,7 @@ AC_PREFIX_DEFAULT([/usr])
