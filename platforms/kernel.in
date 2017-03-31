@@ -9,6 +9,7 @@ menuconfig KERNEL
 	select HOST_LZOP		if KERNEL_LZOP
 	select HOST_LIBKMOD		if KERNEL_MODULES
 	select HOST_SYSTEM_BC
+	select HOST_OPENSSL		if KERNEL_OPENSSL
 	prompt "Linux kernel                  "
 
 if KERNEL
@@ -236,6 +237,15 @@ config KERNEL_LZOP
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
 
+config KERNEL_OPENSSL
+	prompt "build openssl hosttool"
+	bool
+	help
+	  Select this if you're going to build your kernel with support for
+	  module signing, IMA etc. where openssl is need as hosttool
+
+	  Select this if you're unsure, as it won't hurt. It just
+	  increases the build time.
 
 menu "patching & configuration      "
 
