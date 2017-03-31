@@ -63,7 +63,7 @@ DBUS_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
 	--disable-stats \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
-	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
+	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef,PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
 	--without-valgrind \
 	--with-systemdsystemunitdir=/lib/systemd/system \
 	--with-systemduserunitdir=/usr/lib/systemd/user
