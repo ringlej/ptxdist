@@ -3,6 +3,7 @@
 menuconfig LATRACE
 	tristate
 	prompt "latrace                       "
+	select HOST_FLEX
 	select BINUTILS if LATRACE_DEMANGLE
 	help
 	  A tool to trace library calls and get their statistics in a
