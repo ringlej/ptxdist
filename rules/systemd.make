@@ -398,7 +398,7 @@ ifdef PTXCONF_SYSTEMD_UDEV_HWDB
 endif
 
 ifdef PTXCONF_SYSTEMD_UDEV_CUST_RULES
-	@$(call install_tree_alternative, v, 0, 0, -, /lib/udev/rules.d)
+	@$(call install_alternative_tree, systemd, 0, 0, /lib/udev/rules.d)
 endif
 
 	@$(call install_finish, systemd)
