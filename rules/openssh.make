@@ -36,7 +36,12 @@ OPENSSH_LICENSE_FILES := file://LICENCE;md5=e326045657e842541d3f35aada442507
 
 OPENSSH_CONF_ENV	:= \
 	$(CROSS_ENV) \
+	select_works_with_rlimit=yes \
 	LD=$(COMPILER_PREFIX)gcc
+
+OPENSSH_SANDBOX-y			:= seccomp_filter
+# seccomp_filter sandbox is not supported for ppc
+OPENSSH_SANDBOX-$(PTXCONF_ARCH_PPC)	:= rlimit
 
 #
 # autoconf
@@ -73,7 +78,7 @@ OPENSSH_CONF_OPT	:= \
 	--without-ssl-engine \
 	--without-pam \
 	--with-privsep-user=sshd \
-	--with-sandbox=seccomp_filter \
+	--with-sandbox=$(OPENSSH_SANDBOX-y) \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
 	--with-privsep-path=/var/run/sshd \
 	--without-md5-passwords
