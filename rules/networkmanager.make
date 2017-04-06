@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.6.0
-NETWORKMANAGER_MD5	:= ccdac1d03133a59065cbb93a09fa54b0
+NETWORKMANAGER_VERSION	:= 1.6.2
+NETWORKMANAGER_MD5	:= 89c975afe19fbac854191edb6e9bcd3b
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
 NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.6/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
@@ -33,7 +33,7 @@ NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 # autoconf
 #
 NETWORKMANAGER_CONF_TOOL := autoconf
-NETWORKMANAGER_CONF_OPT := \
+NETWORKMANAGER_CONF_OPT = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--enable-shared \
@@ -210,6 +210,7 @@ ifdef PTXCONF_NETWORKMANAGER_WWAN
 	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-wwan)
 endif
 ifdef PTXCONF_NETWORKMANAGER_PPP
+	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-ppp-plugin)
 	@$(call install_copy, networkmanager, 0, 0, 0644, -, $(PPP_SHARED_INST_PATH)/nm-pppd-plugin.so)
 endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm)
