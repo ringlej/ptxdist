@@ -126,7 +126,7 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-distcheck-workaround
 
 ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
-RSYSLOG_CONF_OPT += --with-systemdsystemunitdir=/lib/systemd/system
+RSYSLOG_CONF_OPT += --with-systemdsystemunitdir=/usr/lib/systemd/system
 else
 RSYSLOG_CONF_OPT += --without-systemdsystemunitdir
 endif
@@ -178,11 +178,11 @@ $(STATEDIR)/rsyslog.targetinstall:
 
 ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
 	@$(call install_copy, rsyslog, 0, 0, 0644, -, \
-		/lib/systemd/system/rsyslog.service)
+		/usr/lib/systemd/system/rsyslog.service)
 	@$(call install_link, rsyslog, ../rsyslog.service, \
-		/lib/systemd/system/multi-user.target.wants/rsyslog.service)
+		/usr/lib/systemd/system/multi-user.target.wants/rsyslog.service)
 	@$(call install_link, rsyslog, rsyslog.service, \
-		/lib/systemd/system/syslog.service)
+		/usr/lib/systemd/system/syslog.service)
 endif
 
 	@for plugin in $(RSYSLOG_PLUGINS-y); do \
