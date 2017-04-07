@@ -158,12 +158,27 @@ export -f ptxd_install_setup_src_list
 
 ptxd_install_setup_src() {
     local -a list
+    local legacy_src
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}${dst}"
     fi
 
     ptxd_install_setup || return
+
+    legacy_src="${src#/usr}"
+    if [ "${legacy_src}" != "${src}" ]; then
+	ptxd_install_setup_src_list "${legacy_src}"
+	if ptxd_get_path "${list[@]}"; then
+	    local tmp
+	    echo -e "\nFound file for '${dst}' in these legacy locations:\n"
+	    for tmp in "${ptxd_reply[@]}"; do
+		echo "$(ptxd_print_path "${tmp}")"
+	    done
+	    echo
+	    ptxd_bailout "They must be moved to the corresponding locations in '/usr'"
+	fi
+    fi
 
     ptxd_install_setup_src_list "${src}"
 
