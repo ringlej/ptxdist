@@ -210,7 +210,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--enable-fast-install \
 	--enable-libtool-lock \
 	--with-ipseclibdir=/usr/lib \
-	--with-systemdsystemunitdir=/lib/systemd/system
+	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -281,9 +281,9 @@ $(STATEDIR)/strongswan.targetinstall:
 
 ifdef PTXCONF_STRONGSWAN_SYSTEMD_UNIT
 	@$(call install_alternative, strongswan, 0, 0, 0644, \
-		/lib/systemd/system/strongswan.service)
+		/usr/lib/systemd/system/strongswan.service)
 	@$(call install_link, strongswan, ../strongswan.service, \
-		/lib/systemd/system/multi-user.target.wants/strongswan.service)
+		/usr/lib/systemd/system/multi-user.target.wants/strongswan.service)
 endif
 
 	@$(call install_copy, strongswan, 0, 0, 0644, /etc/ipsec.d/aacerts)
