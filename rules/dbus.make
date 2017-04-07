@@ -65,7 +65,7 @@ DBUS_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
 	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef,PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
 	--without-valgrind \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-systemduserunitdir=/usr/lib/systemd/user
 
 # ----------------------------------------------------------------------------
@@ -123,16 +123,16 @@ endif
 endif
 ifdef PTXCONF_DBUS_SYSTEMD_UNIT
 	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/lib/systemd/system/dbus.socket)
+		/usr/lib/systemd/system/dbus.socket)
 	@$(call install_link, dbus, ../dbus.socket, \
-		/lib/systemd/system/sockets.target.wants/dbus.socket)
+		/usr/lib/systemd/system/sockets.target.wants/dbus.socket)
 	@$(call install_link, dbus, ../dbus.socket, \
-		/lib/systemd/system/dbus.target.wants/dbus.socket)
+		/usr/lib/systemd/system/dbus.target.wants/dbus.socket)
 
 	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/lib/systemd/system/dbus.service)
+		/usr/lib/systemd/system/dbus.service)
 	@$(call install_link, dbus, ../dbus.service, \
-		/lib/systemd/system/multi-user.target.wants/dbus.service)
+		/usr/lib/systemd/system/multi-user.target.wants/dbus.service)
 endif
 	@$(call install_finish, dbus)
 
