@@ -44,7 +44,7 @@ RAUC_CONF_OPT	:= \
 	--enable-service \
 	--$(call ptx/endis,PTXCONF_RAUC_NETWORK)-network \
 	--$(call ptx/endis,PTXCONF_RAUC_JSON)-json \
-	--with-systemdunitdir=/lib/systemd/system \
+	--with-systemdunitdir=/usr/lib/systemd/system \
 	--with-dbuspolicydir=/usr/share/dbus-1/system.d \
 	--with-dbussystemservicedir=/usr/share/dbus-1/system-services
 
@@ -75,12 +75,12 @@ $(STATEDIR)/rauc.targetinstall:
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_alternative, rauc, 0, 0, 0644, \
-		/lib/systemd/system/rauc.service)
+		/usr/lib/systemd/system/rauc.service)
 
 	@$(call install_alternative, rauc, 0, 0, 0644, \
-		/lib/systemd/system/rauc-mark-good.service)
+		/usr/lib/systemd/system/rauc-mark-good.service)
 	@$(call install_link, rauc, ../rauc-mark-good.service, \
-		/lib/systemd/system/multi-user.target.wants/rauc-mark-good.service)
+		/usr/lib/systemd/system/multi-user.target.wants/rauc-mark-good.service)
 endif
 
 	@$(call install_finish, rauc)
