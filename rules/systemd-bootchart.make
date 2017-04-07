@@ -38,9 +38,7 @@ SYSTEMD_BOOTCHART_LICENSE_FILES := \
 SYSTEMD_BOOTCHART_CONF_TOOL	:= autoconf
 SYSTEMD_BOOTCHART_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-man \
-	--with-rootprefix=/ \
-	--with-rootlibdir=/lib
+	--disable-man
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -56,12 +54,12 @@ $(STATEDIR)/systemd-bootchart.targetinstall:
 	@$(call install_fixup, systemd-bootchart,DESCRIPTION,missing)
 
 	@$(call install_copy, systemd-bootchart, 0, 0, 0755, -, \
-		/lib/systemd/systemd-bootchart)
+		/usr/lib/systemd/systemd-bootchart)
 	@$(call install_alternative, systemd-bootchart, 0, 0, 0644, \
 		/etc/systemd/bootchart.conf)
 
 	@$(call install_copy, systemd-bootchart, 0, 0, 0644, -, \
-		/lib/systemd/system/systemd-bootchart.service)
+		/usr/lib/systemd/system/systemd-bootchart.service)
 
 	@$(call install_finish, systemd-bootchart)
 
