@@ -81,7 +81,7 @@ AVAHI_CONF_OPT	:= \
 	--with-avahi-priv-access-group=netdev \
 	--with-autoipd-user=$(PTXCONF_AVAHI_AUTOIP_USER) \
 	--with-autoipd-group=$(PTXCONF_AVAHI_AUTOIP_GROUP) \
-	--with-systemdsystemunitdir=/lib/systemd/system
+	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,11 +139,11 @@ endif
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 ifdef PTXCONF_AVAHI_SYSTEMD_UNIT
 	@$(call install_alternative, avahi, 0, 0, 0644, \
-		/lib/systemd/system/avahi-daemon.socket)
+		/usr/lib/systemd/system/avahi-daemon.socket)
 	@$(call install_alternative, avahi, 0, 0, 0644, \
-		/lib/systemd/system/avahi-daemon.service)
+		/usr/lib/systemd/system/avahi-daemon.service)
 	@$(call install_link, avahi, ../avahi-daemon.service, \
-		/lib/systemd/system/multi-user.target.wants/avahi-daemon.service)
+		/usr/lib/systemd/system/multi-user.target.wants/avahi-daemon.service)
 endif
 endif
 endif
@@ -166,9 +166,9 @@ ifdef PTXCONF_AVAHI_DNSCONFD
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 ifdef PTXCONF_AVAHI_SYSTEMD_UNIT
 	@$(call install_alternative, avahi, 0, 0, 0644, \
-		/lib/systemd/system/avahi-dnsconfd.service)
+		/usr/lib/systemd/system/avahi-dnsconfd.service)
 	@$(call install_link, avahi, ../avahi-dnsconfd.service, \
-		/lib/systemd/system/multi-user.target.wants/avahi-dnsconfd.service)
+		/usr/lib/systemd/system/multi-user.target.wants/avahi-dnsconfd.service)
 endif
 endif
 endif
