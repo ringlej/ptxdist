@@ -24,11 +24,6 @@ choice
 		select SYSTEMD
 		prompt "systemd         "
 
-	config INITMETHOD_INITNG
-		bool
-		depends on BROKEN
-		prompt "init ng         "
-
 	config INITMETHOD_INITRAMFS
 		bool
 		prompt "initramfs init  "
