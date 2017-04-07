@@ -99,7 +99,7 @@ ifdef PTXCONF_SYSLOGNG_SYSTEMD
 		/usr/lib/systemd/system/syslog-ng.service)
 	@$(call install_link, syslogng, ../syslog-ng.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/syslog-ng.service)
-	@$(call install_link, syslogng, syslog.service, \
+	@$(call install_link, syslogng, syslog-ng.service, \
 		/usr/lib/systemd/system/syslog.service)
 endif
 endif
