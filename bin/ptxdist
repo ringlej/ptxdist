@@ -1164,6 +1164,8 @@ clean() {
 	rm -fr -- "${ROOTDIR}"
 	rm -fr -- "${PTXDIST_PLATFORMDIR}/root-debug"
 	rm -fr -- "${PTXDIST_PLATFORMDIR}/nfsroot"
+	echo "${PTXDIST_LOG_PROMPT}removing report..."
+	rm -fr -- "${REPORTDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing state..."
 	rm -fr -- "${STATEDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing logfile..."
