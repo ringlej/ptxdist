@@ -130,6 +130,31 @@ ptxd_install_setup() {
 }
 export -f ptxd_install_setup
 
+ptxd_install_setup_src_list() {
+    if [ "${cmd}" = "alternative" -o "${cmd}" = "config" ]; then
+	#
+	# if pkg_dir is empty we'll have some some empty entries in
+	# the array, but that's no problem for the "-e" below.
+	#
+	list=( \
+	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${1}" \
+	    "${PTXDIST_WORKSPACE}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${PTXDIST_WORKSPACE}/projectroot${1}" \
+	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}" \
+	    "${PTXDIST_TOPDIR}/projectroot${1}" \
+	    "${pkg_pkg_dir:+${pkg_pkg_dir}${1}}" \
+	    "${pkg_dir:+${pkg_dir}${1}}" \
+	    )
+    else
+	list=( \
+	    "${1}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${1}" \
+	    )
+    fi
+}
+export -f ptxd_install_setup_src_list
+
 ptxd_install_setup_src() {
     ptxd_install_setup || return
 
@@ -139,27 +164,8 @@ ptxd_install_setup_src() {
 
     local -a list
 
-    if [ "${cmd}" = "alternative" -o "${cmd}" = "config" ]; then
-	#
-	# if pkg_dir is empty we'll have some some empty entries in
-	# the array, but that's no problem for the "-e" below.
-	#
-	list=( \
-	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${src}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${src}" \
-	    "${PTXDIST_TOPDIR}/projectroot${src}" \
-	    "${pkg_pkg_dir:+${pkg_pkg_dir}${src}}" \
-	    "${pkg_dir:+${pkg_dir}${src}}" \
-	    )
-    else
-	list=( \
-	    "${src}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${src}" \
-	    )
-    fi
+    ptxd_install_setup_src_list "${src}"
+
     # Since the dependency to the source files is dynamic we store
     # the dependency information in a dependency file that can be
     # included in the make files itself.
