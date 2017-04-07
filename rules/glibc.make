@@ -127,7 +127,7 @@ endif
 
 ifdef PTXCONF_GLIBC_LDCONFIG
 	@$(call install_copy, glibc, 0, 0, 0755, \
-	    $(PTXDIST_SYSROOT_TOOLCHAIN)/sbin/ldconfig, /sbin/ldconfig)
+	    $(PTXDIST_SYSROOT_TOOLCHAIN)/sbin/ldconfig, /usr/sbin/ldconfig)
 	@$(call install_alternative, glibc, 0, 0, 0644, /etc/ld.so.conf)
 	@$(call install_copy, glibc, 0, 0, 0755, /etc/ld.so.conf.d)
 endif
