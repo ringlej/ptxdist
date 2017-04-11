@@ -257,6 +257,13 @@ CROSS_QMAKE_OPT := \
 CROSS_PYTHON_INSTALL := install --prefix=/usr
 HOST_PYTHON_INSTALL := install --prefix=
 
+CROSS_MESON_USR := \
+	--prefix /usr \
+	--libdir $(CROSS_LIB_DIR) \
+	--backend ninja \
+	--buildtype debugoptimized \
+	--cross-file '${PTXDIST_MESON_CROSS_FILE}'
+
 ifdef PTXCONF_GLOBAL_IPV6
 GLOBAL_IPV6_OPTION := --enable-ipv6
 else

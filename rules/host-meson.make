@@ -61,4 +61,6 @@ $(STATEDIR)/host-meson.install:
 	@ln -svf ../share/meson/meson $(HOST_MESON_PKGDIR)/bin/meson
 	@$(call touch)
 
+$(STATEDIR)/host-meson.install.post: $(PTXDIST_MESON_CROSS_FILE)
+
 # vim: syntax=make

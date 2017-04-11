@@ -1,0 +1,12 @@
+[binaries]
+c = '@CC@'
+cpp = '@CXX@'
+ar = '@AR@'
+strip = '@STRIP@'
+pkgconfig = '@PKG_CONFIG@'
+
+[host_machine]
+system = 'linux'
+cpu_family = '@PTXCONF_ARCH_STRING@'
+cpu = '@CPU@'
+endian = '@ENDIAN@'
