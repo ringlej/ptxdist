@@ -30,13 +30,13 @@ config RSYSLOG_SYSTEMD_UNIT
 
 config RSYSLOG_REGEXP
 	bool
-	# 8.25.0 fails to build without regex support
+	# 8.26.0 fails to build without regex support
 	default y
 	prompt "regular expression support" if BROKEN
 
 config RSYSLOG_INET
 	bool
-	# 8.25.0 fails to run without inet support
+	# 8.26.0 fails to run without inet support
 	default y
 	prompt "networking support" if BROKEN
 
