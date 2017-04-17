@@ -16,9 +16,9 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_LIBVA_INTEL_DRIVER) += libva-intel-driver
 #
 # Paths and names
 #
-LIBVA_INTEL_DRIVER_VERSION	:= 1.7.3
-LIBVA_INTEL_DRIVER_MD5		:= 5b266e605905a3676b63b8bc93a2ffc8
-LIBVA_INTEL_DRIVER		:= libva-intel-driver-$(LIBVA_INTEL_DRIVER_VERSION)
+LIBVA_INTEL_DRIVER_VERSION	:= 1.8.1
+LIBVA_INTEL_DRIVER_MD5		:= 1c655c62cecea4bd076fef3a393925ec
+LIBVA_INTEL_DRIVER		:= intel-vaapi-driver-$(LIBVA_INTEL_DRIVER_VERSION)
 LIBVA_INTEL_DRIVER_SUFFIX	:= tar.bz2
 LIBVA_INTEL_DRIVER_URL		:= http://www.freedesktop.org/software/vaapi/releases/libva-intel-driver/$(LIBVA_INTEL_DRIVER).$(LIBVA_INTEL_DRIVER_SUFFIX)
 LIBVA_INTEL_DRIVER_SOURCE	:= $(SRCDIR)/$(LIBVA_INTEL_DRIVER).$(LIBVA_INTEL_DRIVER_SUFFIX)
@@ -38,6 +38,8 @@ LIBVA_INTEL_DRIVER_CONF_OPT	:= \
 	--enable-drm \
 	--$(call ptx/endis, PTXCONF_LIBVA_INTEL_DRIVER_X11)-x11 \
 	--$(call ptx/endis, PTXCONF_LIBVA_INTEL_DRIVER_WAYLAND)-wayland \
+	--disable-hybrid-codec \
+	--disable-tests \
 	$(GLOBAL_LARGE_FILE_OPTION)
 
 # ----------------------------------------------------------------------------
