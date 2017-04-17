@@ -16,10 +16,6 @@ menuconfig LIBVA
 
 if LIBVA
 
-config LIBVA_TOOLS
-	bool
-	prompt "install tools"
-
 config LIBVA_X11
 	bool
 	prompt "X11 API support"
