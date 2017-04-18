@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_USB_MODESWITCH) += usb-modeswitch
 #
 # Paths and names
 #
-USB_MODESWITCH_VERSION	:= 2.4.0
-USB_MODESWITCH_MD5	:= 6e1640db47768bb9012f91b7593116ef
+USB_MODESWITCH_VERSION	:= 2.5.0
+USB_MODESWITCH_MD5	:= 38ad5c9d70e06227a00361bdc2b1e568
 USB_MODESWITCH		:= usb-modeswitch-$(USB_MODESWITCH_VERSION)
 USB_MODESWITCH_SUFFIX	:= tar.bz2
 USB_MODESWITCH_URL	:= http://www.draisberghof.de/usb_modeswitch/$(USB_MODESWITCH).$(USB_MODESWITCH_SUFFIX)
@@ -68,6 +68,8 @@ $(STATEDIR)/usb-modeswitch.targetinstall:
 ifneq ($(PTXCONF_USB_MODESWITCH_UDEV_HELPER)$(PTXCONF_USB_MODESWITCH_SYSTEMD_UNIT),)
 	@$(call install_copy, usb-modeswitch, 0, 0, 0755, -, \
 		/usr/sbin/usb_modeswitch_dispatcher)
+	@$(call install_alternative, usb-modeswitch, 0, 0, 0644, \
+		/etc/usb_modeswitch.conf)
 endif
 ifdef PTXCONF_USB_MODESWITCH_UDEV_HELPER
 	@$(call install_copy, usb-modeswitch, 0, 0, 0755, -, \
