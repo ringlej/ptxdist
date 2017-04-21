@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GSTREAMER_VAAPI1) += gstreamer-vaapi1
 #
 # Paths and names
 #
-GSTREAMER_VAAPI1_VERSION	:= 1.10.2
-GSTREAMER_VAAPI1_MD5		:= cd8771280c8c00929cf7251c38a509dc
+GSTREAMER_VAAPI1_VERSION	:= 1.10.4
+GSTREAMER_VAAPI1_MD5		:= 318af17f906637570b61dd7be9b5581d
 GSTREAMER_VAAPI1		:= gstreamer-vaapi-$(GSTREAMER_VAAPI1_VERSION)
 GSTREAMER_VAAPI1_SUFFIX		:= tar.xz
 GSTREAMER_VAAPI1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer-vaapi/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
@@ -43,6 +43,7 @@ GSTREAMER_VAAPI1_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GSTREAMER1_BASIC_CONF_OPT) \
 	\
+	--disable-examples \
 	--enable-encoders \
 	$(addprefix --enable-,$(GSTREAMER_VAAPI1_ENABLE-y)) \
 	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-))
