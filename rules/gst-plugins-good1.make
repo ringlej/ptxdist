@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_GOOD1) += gst-plugins-good1
 #
 # Paths and names
 #
-GST_PLUGINS_GOOD1_VERSION	:= 1.10.2
-GST_PLUGINS_GOOD1_MD5		:= 65c4ff9d406c3ea9383b4d38a6504349
+GST_PLUGINS_GOOD1_VERSION	:= 1.10.4
+GST_PLUGINS_GOOD1_MD5		:= cc0cc13cdb07d4237600b6886b81f31d
 GST_PLUGINS_GOOD1		:= gst-plugins-good-$(GST_PLUGINS_GOOD1_VERSION)
 GST_PLUGINS_GOOD1_SUFFIX	:= tar.xz
 GST_PLUGINS_GOOD1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD1).$(GST_PLUGINS_GOOD1_SUFFIX)
@@ -137,6 +137,7 @@ GST_PLUGINS_GOOD1_CONF_OPT	= \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_GOOD1_ZLIB)-zlib \
 	--$(call ptx/endis,PTXCONF_GST_PLUGINS_GOOD1_BZ2)-bz2 \
 	--$(call ptx/wwo,PTXCONF_GST_PLUGINS_GOOD1_GST_V4L2)-gudev \
+	--without-jpeg-mmx \
 	--$(call ptx/wwo,PTXCONF_GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2)-libv4l2
 
 #
