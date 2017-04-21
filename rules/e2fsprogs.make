@@ -56,7 +56,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_DEBUGFS)-debugfs \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_IMAGER)-imager \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_RESIZER)-resizer \
-	--disable-defrag \
+	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_E4DEFRAG)-defrag \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_E2FSCK)-fsck \
 	--disable-e2initrd-helper \
 	--disable-tls \
@@ -158,6 +158,14 @@ endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2UNDO
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e2undo)
+endif
+
+ifdef PTXCONF_E2FSPROGS_INSTALL_E4CRYPT
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e4crypt)
+endif
+
+ifdef PTXCONF_E2FSPROGS_INSTALL_E4DEFRAG
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/e4defrag)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_FILEFRAG

@@ -9,8 +9,8 @@ menuconfig E2FSPROGS
 	select LIBUUID
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
-	 with the ext2 filesystem. It also supports the ext3 filesystem
-	 with journaling support.
+	 with the ext2 filesystem. It also supports the ext3 and ext4
+	 filesystems.
 
 if E2FSPROGS
 
@@ -185,6 +185,22 @@ config E2FSPROGS_INSTALL_E2UNDO
 	prompt "e2undo"
 	help
 	  Enable support for e2undo program.
+
+config E2FSPROGS_INSTALL_E4CRYPT
+	bool
+	select E2FSPROGS_LIBCOM_ERR
+	prompt "e4crypt"
+	help
+	  Enable support for e4crypt, an ext4 filesystem encryption
+	  utility.
+
+config E2FSPROGS_INSTALL_E4DEFRAG
+	bool
+	select E2FSPROGS_LIBCOM_ERR
+	prompt "e4defrag"
+	help
+	  Enable support for e4defrag, an online defragmenter for the
+	  ext4 filesystem.
 
 config E2FSPROGS_INSTALL_FILEFRAG
 	bool
