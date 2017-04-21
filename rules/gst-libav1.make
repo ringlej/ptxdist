@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_LIBAV1) += gst-libav1
 #
 # Paths and names
 #
-GST_LIBAV1_VERSION	:= 1.10.2
-GST_LIBAV1_MD5		:= 420d0a32f47ef02cc615f8cf6da1e94d
+GST_LIBAV1_VERSION	:= 1.10.4
+GST_LIBAV1_MD5		:= e2bdd9fde6ca3ff7efffb93df121f4fd
 GST_LIBAV1		:= gst-libav-$(GST_LIBAV1_VERSION)
 GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
@@ -42,7 +42,9 @@ GST_LIBAV1_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-static-plugins \
-	--disable-gpl
+	--disable-gpl \
+	--with-package-origin="PTXdist" \
+	--without-system-libav
 
 # ----------------------------------------------------------------------------
 # Target-Install
