@@ -49,8 +49,10 @@ SYSTEMD_CONF_ENV	:= \
 	ac_cv_path_QUOTACHECK=/usr/sbin/quotacheck \
 	ac_cv_path_QUOTAON=/usr/sbin/quotaon
 
+ifdef PTXCONF_KERNEL_HEADER
 SYSTEMD_CPPFLAGS	:= \
 	-I$(KERNEL_HEADERS_INCLUDE_DIR)
+endif
 
 #
 # autoconf
