@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_VALIDATE1) += gst-validate1
 #
 # Paths and names
 #
-GST_VALIDATE1_VERSION	:= 1.10.2
-GST_VALIDATE1_MD5	:= 077e80eebffd7627ed2b59f8e3c07ce2
+GST_VALIDATE1_VERSION	:= 1.10.4
+GST_VALIDATE1_MD5	:= 090a458a54508da957e890ae54aa7ad0
 GST_VALIDATE1		:= gst-validate-$(GST_VALIDATE1_VERSION)
 GST_VALIDATE1_SUFFIX	:= tar.xz
 GST_VALIDATE1_URL	:= http://gstreamer.freedesktop.org/data/src/gst-validate/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
@@ -52,7 +52,8 @@ GST_VALIDATE1_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-gobject-cast-checks \
-	--disable-glib-asserts
+	--disable-glib-asserts \
+	--with-package-origin="PTXdist"
 
 # ----------------------------------------------------------------------------
 # Target-Install
