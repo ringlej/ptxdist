@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 2.0.1
-HTOP_MD5	:= f75fe92b4defaa80d99109830f34b5e2
+HTOP_VERSION	:= 2.0.2
+HTOP_MD5	:= 7d354d904bad591a931ad57e99fea84a
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
