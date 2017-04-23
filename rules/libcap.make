@@ -21,8 +21,7 @@ LIBCAP_MD5	:= 6666b839e5d46c2ad33fc8aa2ceb5f77
 LIBCAP		:= libcap-$(LIBCAP_VERSION)
 LIBCAP_SUFFIX	:= tar.xz
 LIBCAP_URL	:= \
-	$(call ptx/mirror, KERNEL, libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)) \
-	http://mirror.linux.org.au/linux/libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)
+	$(call ptx/mirror, KERNEL, libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX))
 LIBCAP_SOURCE	:= $(SRCDIR)/$(LIBCAP).$(LIBCAP_SUFFIX)
 LIBCAP_DIR	:= $(BUILDDIR)/$(LIBCAP)
 LIBCAP_LICENSE	:= BSD-3-Clause, GPL-2.0
