@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XZ) += xz
 #
 # Paths and names
 #
-XZ_VERSION	:= 5.2.2
-XZ_MD5		:= f90c9a0c8b259aee2234c4e0d7fd70af
+XZ_VERSION	:= 5.2.3
+XZ_MD5		:= 1592e7ca3eece099b03b35f4d9179e7c
 XZ		:= xz-$(XZ_VERSION)
 XZ_SUFFIX	:= tar.bz2
 XZ_URL		:= http://tukaani.org/xz/$(XZ).$(XZ_SUFFIX)
@@ -53,6 +53,10 @@ XZ_CONF_OPT	:= \
 	--disable-nls \
 	--disable-rpath \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-external-sha256 \
+	--disable-sandbox \
+	--enable-encoders="lzma1 lzma2 delta x86 powerpc ia64 arm armthumb sparc" \
+	--enable-decoders="lzma1 lzma2 delta x86 powerpc ia64 arm armthumb sparc" \
 	--disable-werror
 
 # ----------------------------------------------------------------------------
