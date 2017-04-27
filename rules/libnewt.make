@@ -32,10 +32,12 @@ LIBNEWT_LICENSE	:= GPL-2.0
 LIBNEWT_CONF_TOOL	:= autoconf
 LIBNEWT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--without-python \
 	--without-tcl \
-	--without-gpm-support
+	--without-gpm-support \
+	--without-colorsfile
 
 # ----------------------------------------------------------------------------
 # Target-Install
