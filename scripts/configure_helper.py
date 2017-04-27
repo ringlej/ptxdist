@@ -14,6 +14,7 @@ import sys
 import re
 import difflib
 import argparse
+import shlex
 
 configure_blacklist = [
 	"help",
@@ -83,6 +84,15 @@ configure_blacklist = [
 	"autoheader",
 	"automake",
 	"aclocal",
+
+	"pkgconfigdir",
+
+	"x-includes",
+	"x-libraries",
+	"ld-version-script",
+
+	"shared",
+	"static",
 ]
 
 def abort(message):
@@ -94,12 +104,18 @@ def ask_ptxdist(pkg):
 	p = subprocess.Popen([ ptxdist, "-k", "make",
 		"/print-%s_DIR" % pkg,
 		"/print-%s_CONF_OPT" % pkg,
-		"/print-%s_AUTOCONF" % pkg],
+		"/print-%s_AUTOCONF" % pkg,
+		"/print-%s_CONF_TOOL" %pkg,
+		"/print-CROSS_AUTOCONF_USR"],
 		stdout=subprocess.PIPE,
 		universal_newlines=True)
 
 	d = p.stdout.readline().strip()
-	opt = p.stdout.readline().strip().split() + p.stdout.readline().strip().split()
+	opt = shlex.split(p.stdout.readline().strip()) + shlex.split(p.stdout.readline().strip())
+	tool = p.stdout.readline().strip()
+	default = shlex.split(p.stdout.readline().strip())
+	if tool == "autoconf" and not opt:
+		opt = default
 	if not d:
 		abort("'%s' is not a valid package: %s_DIR is undefined" % (pkg, pkg))
 	if not opt:
@@ -153,7 +169,9 @@ def build_args(parsed):
 
 def handle_dir(d):
 	if not d:
-		return (None, None)
+		return (None, None, None)
+
+	d = os.path.normpath(d)
 	if not os.path.exists(d):
 		abort("'%s' does not exist" % d)
 
@@ -171,15 +189,18 @@ def handle_dir(d):
 
 	parsed = parse_configure_args(configure_args, configure_blacklist)
 	args = build_args(parsed)
-	return (parsed, args)
+	label = os.path.basename(d)
+	return (parsed, args, label)
 
-def show_diff(old_opt, new_opt):
+def show_diff(old_opt, old_label, new_opt, new_label):
 	if args.sort:
 		sys.stdout.writelines(difflib.unified_diff(
-			sorted(old_opt), sorted(new_opt)))
+			sorted(old_opt), sorted(new_opt),
+			fromfile=old_label, tofile=new_label))
 	else:
 		sys.stdout.writelines(difflib.unified_diff(
-			old_opt, new_opt))
+			old_opt, new_opt,
+			fromfile=old_label, tofile=new_label))
 
 cmd = os.path.basename(sys.argv[0])
 epilog = """
@@ -237,6 +258,7 @@ if args.only:
 ptx_pkg_conf_opt = []
 if args.pkg:
 	(d, pkg_conf_opt) = ask_ptxdist(args.pkg.upper().replace('-', "_"))
+	ptx_pkg_label = "rules/%s.make" % args.pkg.lower().replace('_', "-")
 	parsed_pkg_conf_opt = parse_configure_args(pkg_conf_opt, [])
 
 	if args.only:
@@ -254,12 +276,12 @@ else:
 	if not old_dir or not new_dir:
 		abort("If no package is given, then both '--old-src' and '--new-src' must be specified")
 
-(old_parsed_configure_args, old_pkg_conf_opt) = handle_dir(old_dir)
-(new_parsed_configure_args, new_pkg_conf_opt) = handle_dir(new_dir)
+(old_parsed_configure_args, old_pkg_conf_opt, old_pkg_label) = handle_dir(old_dir)
+(new_parsed_configure_args, new_pkg_conf_opt, new_pkg_label) = handle_dir(new_dir)
 
 if not old_pkg_conf_opt:
-	show_diff(ptx_pkg_conf_opt, new_pkg_conf_opt)
+	show_diff(ptx_pkg_conf_opt, ptx_pkg_label, new_pkg_conf_opt, new_pkg_label)
 elif not new_pkg_conf_opt:
-	show_diff(old_pkg_conf_opt, ptx_pkg_conf_opt)
+	show_diff(old_pkg_conf_opt, old_pkg_label, ptx_pkg_conf_opt, ptx_pkg_label)
 else:
-	show_diff(old_pkg_conf_opt, new_pkg_conf_opt)
+	show_diff(old_pkg_conf_opt, old_pkg_label, new_pkg_conf_opt, new_pkg_label)
