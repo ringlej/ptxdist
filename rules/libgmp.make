@@ -36,8 +36,20 @@ LIBGMP_LICENSE	:= GPL-3.0, LGPL-3.0
 LIBGMP_CONF_TOOL	:= autoconf
 LIBGMP_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-assert \
+	--enable-alloca \
+	--disable-cxx \
+	--enable-assembly \
+	--enable-fft \
+	--disable-old-fft-full \
+	--disable-nails \
+	--disable-profiling \
+	--disable-fat \
+	--disable-minithres \
+	--disable-fake-cpuid \
 	--enable-shared \
-	--disable-static
+	--disable-static \
+	--without-readline
 
 # ----------------------------------------------------------------------------
 # Target-Install
