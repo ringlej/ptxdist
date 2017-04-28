@@ -30,14 +30,15 @@ LIBUSB_LICENSE	:= LGPL-2.1
 #
 LIBUSB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-static \
 	--enable-shared \
+	--disable-static \
 	--disable-udev \
+	--disable-usbdk \
+	--enable-timerfd \
 	--$(call ptx/endis, PTXCONF_LIBUSB_LOG)-log \
 	--$(call ptx/endis, PTXCONF_LIBUSB_DEBUG_LOG)-debug-log \
 	--$(call ptx/endis, PTXCONF_LIBUSB_SYSTEM_LOG)-system-log \
 	--disable-examples-build \
-	--disable-usbdk \
 	--disable-tests-build
 
 # ----------------------------------------------------------------------------
