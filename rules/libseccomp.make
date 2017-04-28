@@ -33,6 +33,10 @@ LIBSECCOMP_LICENSE	:= LGPL-2.1
 # autoconf
 #
 LIBSECCOMP_CONF_TOOL	:= autoconf
+LIBSECCOMP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-python \
+	--disable-code-coverage
 
 # ----------------------------------------------------------------------------
 # Target-Install
