@@ -49,30 +49,38 @@ GNUTLS_CONF_OPT		:= \
 	--enable-dhe \
 	--enable-ecdhe \
 	--enable-openpgp-authentication \
+	--disable-cryptodev \
 	--enable-ocsp \
 	--enable-session-tickets \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
 	--disable-doc \
 	--disable-tests \
 	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
 	--disable-nls \
 	--disable-rpath \
 	--disable-valgrind-tests \
 	--disable-gcc-warnings \
-	--enable-shared \
 	--disable-static \
+	--enable-shared \
 	--disable-self-checks \
 	--disable-fips140-mode \
 	--enable-non-suiteb-curves \
 	--disable-libdane \
 	--enable-local-libopts \
 	--disable-libopts-install \
+	--enable-optional-args \
 	--disable-guile \
 	--disable-crywrap \
 	--with-nettle-mini \
+	--without-included-libtasn1 \
+	--without-librt-prefix \
+	--without-arcfour128 \
+	--without-ssl3 \
 	--without-p11-kit \
 	--without-tpm \
-	--without-librt-prefix \
+	--without-trousers-lib \
 	--without-libregex \
 	--with-zlib \
 	--without-libz-prefix \
