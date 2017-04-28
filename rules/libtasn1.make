@@ -35,8 +35,11 @@ LIBTASN1_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-doc \
+	--disable-gtk-doc \
 	--disable-gtk-doc-html \
-	--disable-valgrind-tests
+	--disable-gtk-doc-pdf \
+	--disable-valgrind-tests \
+	--disable-gcc-warnings
 
 # ----------------------------------------------------------------------------
 # Target-Install
