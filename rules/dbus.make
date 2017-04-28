@@ -38,8 +38,11 @@ DBUS_CONF_TOOL	:= autoconf
 DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
 	--disable-compiler-coverage \
+	--enable-compiler-optimisations \
+	--disable-developer \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
@@ -54,17 +57,20 @@ DBUS_CONF_OPT	:= \
 	--enable-inotify \
 	--disable-kqueue \
 	--disable-console-owner-file \
+	--disable-launchd \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-systemd \
-	--with-dbus-user=messagebus \
 	--disable-embedded-tests \
 	--disable-modular-tests \
 	--disable-tests \
+	--disable-installed-tests \
 	--enable-epoll \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
+	--disable-Werror \
 	--disable-stats \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
-	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef,PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
+	--with-dbus-user=messagebus \
 	--without-valgrind \
+	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef,PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-systemduserunitdir=/usr/lib/systemd/user
 
