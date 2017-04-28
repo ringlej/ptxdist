@@ -34,6 +34,18 @@ config RRDTOOL_RRDCACHED
 	  accumulates them and, if enough have been received or a defined
 	  time has passed, writes the updates to the RRD file.
 
+if RRDTOOL_RRDCACHED
+
+config RRDTOOL_RRDCACHED_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install rrdcached systemd unit"
+	help
+	  Install and enable a systemd socket-activated service
+
+endif
+
 config RRDTOOL_RRDCGI
 	bool
 	depends on RRDTOOL_RRD_GRAPH

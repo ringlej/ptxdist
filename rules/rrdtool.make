@@ -61,7 +61,8 @@ RRDTOOL_CONF_OPT	:= \
 	--disable-tcl \
 	--disable-python \
 	--without-libiconv-prefix \
-	--without-libintl-prefix
+	--without-libintl-prefix \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 ifneq ($(call remove_quotes,$(PTXCONF_RRDTOOL_DEFAULT_FONT)),)
 RRDTOOL_CONF_OPT += --with-rrd-default-font=$(PTXCONF_RRDTOOL_DEFAULT_FONT)
@@ -82,6 +83,14 @@ $(STATEDIR)/rrdtool.targetinstall:
 
 ifdef PTXCONF_RRDTOOL_RRDCACHED
 	@$(call install_copy, rrdtool, 0, 0, 0755, -, /usr/bin/rrdcached)
+ifdef PTXCONF_RRDTOOL_RRDCACHED_SYSTEMD_UNIT
+	@$(call install_alternative, rrdtool, 0, 0, 0644, \
+		/usr/lib/systemd/system/rrdcached.service)
+	@$(call install_alternative, rrdtool, 0, 0, 0644, \
+		/usr/lib/systemd/system/rrdcached.socket)
+	@$(call install_link, rrdtool, ../rrdcached.socket, \
+		/usr/lib/systemd/system/sockets.target.wants/rrdcached.socket)
+endif
 endif
 ifdef PTXCONF_RRDTOOL_RRDCGI
 	@$(call install_copy, rrdtool, 0, 0, 0755, -, /usr/bin/rrdcgi)
