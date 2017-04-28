@@ -89,11 +89,15 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-largefile \
 	--disable-static \
 	--enable-shared \
+	--disable-pwr8 \
 	--disable-debug \
+	--disable-profile \
+	--disable-libglvnd \
 	--disable-mangling \
 	--disable-texture-float \
 	--disable-asm \
 	--disable-selinux \
+	--disable-llvm-shared-libs \
 	--$(call ptx/endis, PTXCONF_MESALIB_OPENGL)-opengl \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES1)-gles1 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES2)-gles2 \
@@ -110,18 +114,17 @@ MESALIB_CONF_OPT	:= \
 	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
-	--disable-va \
 	--disable-omx \
+	--disable-va \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
 	--enable-shared-glapi \
-	--disable-glx-read-only-text \
 	--enable-driglx-direct \
 	--enable-glx-tls \
+	--disable-glx-read-only-text \
 	--disable-gallium-llvm \
-	--enable-llvm-shared-libs \
-	--disable-libglvnd \
+	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
