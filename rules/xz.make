@@ -40,6 +40,8 @@ XZ_LICENSE_FILES := \
 XZ_CONF_TOOL	:= autoconf
 XZ_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--disable-external-sha256 \
 	--enable-assembler \
 	--disable-small \
 	--enable-threads \
@@ -49,14 +51,14 @@ XZ_CONF_OPT	:= \
 	--disable-lzmainfo \
 	--disable-lzma-links \
 	--$(call ptx/endis,PTXCONF_XZ_TOOLS)-scripts \
+	--disable-doc \
+	--enable-symbol-versions \
+	--disable-sandbox \
 	--disable-static \
 	--disable-nls \
 	--disable-rpath \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-external-sha256 \
-	--disable-sandbox \
-	--enable-encoders="lzma1 lzma2 delta x86 powerpc ia64 arm armthumb sparc" \
-	--enable-decoders="lzma1 lzma2 delta x86 powerpc ia64 arm armthumb sparc" \
+	--enable-unaligned-access=auto \
 	--disable-werror
 
 # ----------------------------------------------------------------------------
