@@ -37,10 +37,14 @@ HTOP_CONF_TOOL	:= autoconf
 HTOP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-proc \
+	--disable-openvz \
 	--enable-cgroup \
+	--disable-vserver \
+	--disable-ancient-vserver \
 	--enable-taskstats \
+	--disable-unicode \
 	--enable-linux-affinity \
-	--disable-unicode
+	--disable-hwloc
 
 # ----------------------------------------------------------------------------
 # Target-Install
