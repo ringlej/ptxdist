@@ -109,7 +109,7 @@ include $(PTX_DGEN_DEPS_POST)
 
 /print-%: FORCE
 	$(if $(filter k,$(MAKEFLAGS)),,$($(if $(filter undefined,$(origin $(*))),$(error $(*) undefined))))
-	@echo "$(if $(filter 1,$(PTXDIST_VERBOSE)),$(*)=)$($(*))"
+	@echo "$(if $(filter 1,$(PTXDIST_VERBOSE)),$(*)=)$(call add_quote,$($(*)))"
 
 # for backwards compatibility
 print-%: /print-%
