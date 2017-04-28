@@ -30,16 +30,17 @@ LIBPOPT_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPOPT_PATH	:= PATH=$(CROSS_PATH)
-LIBPOPT_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIBPOPT_AUTOCONF := \
+LIBPOPT_CONF_TOOL	:= autoconf
+LIBPOPT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_LIBPOPT_NLS)-nls
-	
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-build-gcov \
+	--$(call ptx/endis, PTXCONF_LIBPOPT_NLS)-nls \
+	--disable-rpath
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
