@@ -31,7 +31,7 @@ XORG_LIB_X11_LICENSE	:= MIT
 
 XORG_LIB_X11_CONF_ENV := \
 	$(CROSS_ENV) \
-	ac_cv_path_RAWCPP=$(CROSS_CPP)
+	ac_cv_path_RAWCPP=$(PTXCONF_COMPILER_PREFIX)cpp
 
 # configure states: "checking for working mmap...no"
 # is this a correct fix?
