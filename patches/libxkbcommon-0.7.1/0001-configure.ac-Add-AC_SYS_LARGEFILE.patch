@@ -1,0 +1,28 @@
+From 2ca0fd94f90298c0c5d1a4355d524c6a4eeb090f Mon Sep 17 00:00:00 2001
+From: Philipp Zabel <p.zabel@pengutronix.de>
+Date: Tue, 2 May 2017 15:04:14 +0200
+Subject: [PATCH] configure.ac: Add AC_SYS_LARGEFILE
+
+Allow to enable large file support on 32-bit systems.
+
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ configure.ac | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 725915b..0724d20 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -37,6 +37,8 @@ AM_MAINTAINER_MODE([enable])
+ # Get _GNU_SOURCE and friends
+ AC_USE_SYSTEM_EXTENSIONS
+ 
++AC_SYS_LARGEFILE
++
+ # Initialize libtool
+ LT_INIT
+ 
+-- 
+2.11.0
+
