@@ -8,7 +8,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index d32d7843659e..501631acadbf 100644
+index be203e44e691..22e24fe92b3d 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -133,7 +133,7 @@ $(LIBNEWTSH): $(SHAREDDIR) $(SHAREDOBJS)
