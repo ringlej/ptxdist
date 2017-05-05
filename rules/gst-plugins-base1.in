@@ -160,6 +160,10 @@ config GST_PLUGINS_BASE1_PANGO
 	bool
 	prompt "pango"
 
+config GST_PLUGINS_BASE1_RAWPARSE
+	bool
+	prompt "rawparse"
+
 config GST_PLUGINS_BASE1_THEORA
 	bool
 	prompt "theora"
