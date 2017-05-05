@@ -182,7 +182,7 @@ def handle_dir(d):
 
 	configure_args = []
 	p = subprocess.Popen([ configure, "--help" ], stdout=subprocess.PIPE, universal_newlines=True)
-	for word in p.stdout.read().strip().split():
+	for word in re.split("[\s,]", p.stdout.read().strip()):
 		if word[:2] != "--":
 			continue
 		configure_args.append(word)
