@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GSTREAMER_VAAPI1) += gstreamer-vaapi1
 #
 # Paths and names
 #
-GSTREAMER_VAAPI1_VERSION	:= 1.10.4
-GSTREAMER_VAAPI1_MD5		:= 318af17f906637570b61dd7be9b5581d
+GSTREAMER_VAAPI1_VERSION	:= 1.12.0
+GSTREAMER_VAAPI1_MD5		:= 7548a48eece6c76298561f2ec890a240
 GSTREAMER_VAAPI1		:= gstreamer-vaapi-$(GSTREAMER_VAAPI1_VERSION)
 GSTREAMER_VAAPI1_SUFFIX		:= tar.xz
 GSTREAMER_VAAPI1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer-vaapi/$(GSTREAMER_VAAPI1).$(GSTREAMER_VAAPI1_SUFFIX)
@@ -46,7 +46,8 @@ GSTREAMER_VAAPI1_CONF_OPT	= \
 	--disable-examples \
 	--enable-encoders \
 	$(addprefix --enable-,$(GSTREAMER_VAAPI1_ENABLE-y)) \
-	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-))
+	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-)) \
+	--with-glapi=any
 
 # ----------------------------------------------------------------------------
 # Target-Install
