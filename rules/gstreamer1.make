@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.10.4
-GSTREAMER1_MD5		:= 7c91a97e4a2dc81eafd59d0a2f8b0d6e
+GSTREAMER1_VERSION	:= 1.12.0
+GSTREAMER1_MD5		:= 8f76b6b5e4b3307e505bd6ab9304dd03
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -82,8 +82,6 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-poisoning \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
-	\
-	--disable-docbook \
 	\
 	--disable-check \
 	--with-ptp-helper-setuid-user=nobody \
