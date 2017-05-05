@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_LIBAV1) += gst-libav1
 #
 # Paths and names
 #
-GST_LIBAV1_VERSION	:= 1.10.4
-GST_LIBAV1_MD5		:= e2bdd9fde6ca3ff7efffb93df121f4fd
+GST_LIBAV1_VERSION	:= 1.12.0
+GST_LIBAV1_MD5		:= f9c4593947f8484b237c5d9782939ec3
 GST_LIBAV1		:= gst-libav-$(GST_LIBAV1_VERSION)
 GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
@@ -29,6 +29,10 @@ GST_LIBAV1_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
+GST_LIBAV1_ENV		:= \
+	$(CROSS_ENV) \
+	AS=$(CROSS_CC)
+
 #
 # autoconf
 #
@@ -36,11 +40,15 @@ GST_LIBAV1_CONF_TOOL	:= autoconf
 GST_LIBAV1_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-orc \
+	--disable-fatal-warnings \
+	--enable-extra-check \
 	--disable-valgrind \
 	--disable-gcov \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
+	--disable-gobject-cast-checks \
+	--disable-glib-asserts \
 	--disable-static-plugins \
 	--disable-gpl \
 	--with-package-origin="PTXdist" \
