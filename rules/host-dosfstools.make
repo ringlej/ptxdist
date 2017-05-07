@@ -17,7 +17,10 @@ HOST_PACKAGES-$(PTXCONF_HOST_DOSFSTOOLS) += host-dosfstools
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_DOSFSTOOLS_CONF_TOOL	:= NO
-HOST_DOSFSTOOLS_INSTALL_OPT	:= PREFIX= install
+HOST_DOSFSTOOLS_CONF_TOOL	:= autoconf
+HOST_DOSFSTOOLS_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--enable-compat-symlinks \
+	--without-udev
 
 # vim: syntax=make
