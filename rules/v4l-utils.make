@@ -92,6 +92,7 @@ ifdef PTXCONF_V4L_UTILS_MEDIACTL
 	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/media-ctl)
 endif
 ifdef PTXCONF_V4L_UTILS_RDSCTL
+	@$(call install_lib, v4l-utils, 0, 0, 0644, libv4l2rds)
 	@$(call install_copy, v4l-utils, 0, 0, 0755, -, /usr/bin/rds-ctl)
 endif
 ifdef PTXCONF_V4L_UTILS_V4L2COMPLIANCE
