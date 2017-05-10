@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.7.0
-HOST_QEMU_MD5		:= 08d4d06d1cb598efecd796137f4844ab
+HOST_QEMU_VERSION	:= 2.9.0
+HOST_QEMU_MD5		:= 02781eb15b364aedef79da7a5113f5b7
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -64,7 +64,13 @@ HOST_QEMU_CONF_OPT	:= \
 	" \
 	--disable-werror \
 	--audio-drv-list= \
+	--block-drv-rw-whitelist= \
+	--block-drv-ro-whitelist= \
 	--enable-trace-backends=nop \
+	--enable-tcg-interpreter \
+	--with-coroutine= \
+	--tls-priority=NORMAL \
+	--disable-xen-pv-domain-build \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_SYS)-system \
 	--disable-user \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_USR)-linux-user \
@@ -73,6 +79,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-guest-agent \
 	--disable-guest-agent-msi \
 	--enable-pie \
+	--disable-modules \
 	--disable-debug-tcg \
 	--disable-debug-info \
 	--disable-sparse \
@@ -80,8 +87,9 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-nettle \
 	--disable-gcrypt \
 	--disable-sdl \
-	--disable-qom-cast-debug \
+	--with-sdlabi= \
 	--disable-gtk \
+	--with-gtkabi= \
 	--disable-vte \
 	--disable-curses \
 	--disable-vnc \
@@ -92,20 +100,18 @@ HOST_QEMU_CONF_OPT	:= \
 	--enable-virtfs \
 	--disable-xen \
 	--disable-xen-pci-passthrough \
-	--disable-xen-pv-domain-build \
 	--disable-brlapi \
 	--disable-curl \
 	--enable-fdt \
 	--disable-bluez \
 	--disable-kvm \
+	--disable-hax \
 	--disable-rdma \
-	--disable-uuid \
 	--disable-netmap \
 	--disable-linux-aio \
 	--disable-cap-ng \
 	--enable-attr \
-	--disable-vhost-net \
-	--disable-vhost-scsi \
+	--enable-vhost-net \
 	--disable-spice \
 	--disable-rbd \
 	--disable-libiscsi \
@@ -119,16 +125,21 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-seccomp \
 	--disable-coroutine-pool \
 	--disable-glusterfs \
-	--disable-archipelago \
 	--disable-tpm \
 	--disable-libssh2 \
-	--disable-vhdx \
 	--disable-numa \
 	--disable-tcmalloc \
 	--disable-jemalloc \
+	--enable-replication \
+	--enable-vhost-vsock \
+	--disable-opengl \
+	--disable-virglrenderer \
+	--disable-xfsctl \
+	--disable-qom-cast-debug \
 	--disable-tools \
 	\
-	$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,--with-system-pixman,--without-pixman)
+	$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,--with-system-pixman,--without-pixman) \
+	--enable-vhost-scsi
 
 QEMU_CROSS_DL = $(shell ptxd_cross_cc_v |sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
 QEMU_CROSS_LD_LIBRARY_PATH := $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
