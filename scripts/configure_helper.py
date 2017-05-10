@@ -20,7 +20,6 @@ configure_blacklist = [
 	"help",
 	"version",
 	"quiet",
-	"quiet,",
 	"silent",
 	"cache-file",
 	"config-cache",
@@ -54,7 +53,6 @@ configure_blacklist = [
 	"host",
 	"target",
 	"option-checking",
-	"enable/--with", # parser workaround
 	"FEATURE",
 	"silent-rules",
 	"maintainer-mode",
@@ -128,7 +126,7 @@ def blacklist_hit(name, blacklist):
 			return True
 	return False
 
-parse_args_re = re.compile("--((enable|disable|with|without)-)?\[?([^\[=]*)([\[=]*([^]]*)]?)?")
+parse_args_re = re.compile("--((enable|disable|with|without)-)?\[?([^\[=]*)(([\[=]*)([^]]*)]?)?")
 def parse_configure_args(args, blacklist):
 	ret = []
 	for arg in args:
@@ -143,7 +141,8 @@ def parse_configure_args(args, blacklist):
 		if found:
 			continue
 		ret.append({"name": groups[2], "value": groups[1],
-				"arg": groups[4], "blacklist": blacklist_hit(groups[2], blacklist)})
+				"arg": None if not groups[4] else groups[5],
+				"blacklist": blacklist_hit(groups[2], blacklist)})
 	return ret
 
 def build_args(parsed):
@@ -162,7 +161,7 @@ def build_args(parsed):
 		if arg["value"]:
 			arg_str += arg["value"] + "-"
 		arg_str += arg["name"]
-		if arg["arg"]:
+		if arg["arg"] != None:
 			arg_str += "=" + arg["arg"]
 		build.append("\t" + arg_str + "\n")
 	return build
@@ -182,10 +181,16 @@ def handle_dir(d):
 
 	configure_args = []
 	p = subprocess.Popen([ configure, "--help" ], stdout=subprocess.PIPE, universal_newlines=True)
-	for word in re.split("[\s,]", p.stdout.read().strip()):
-		if word[:2] != "--":
+	lines = p.stdout.read().splitlines()
+	for line in lines:
+		if not re.match("^\s.*", line):
 			continue
-		configure_args.append(word)
+		try:
+			word = re.split("[\s,]", line.strip())[0]
+		except:
+			continue
+		if word[:2] == "--":
+			configure_args.append(word)
 
 	parsed = parse_configure_args(configure_args, configure_blacklist)
 	args = build_args(parsed)
@@ -255,10 +260,13 @@ if (old_dir or new_dir) and args.only:
 if args.only:
 	new_dir = args.only
 
+ptx_pkg = args.pkg.lower().replace('_', "-")
+ptx_PKG = args.pkg.upper().replace('-', "_")
+
 ptx_pkg_conf_opt = []
 if args.pkg:
-	(d, pkg_conf_opt) = ask_ptxdist(args.pkg.upper().replace('-', "_"))
-	ptx_pkg_label = "rules/%s.make" % args.pkg.lower().replace('_', "-")
+	(d, pkg_conf_opt) = ask_ptxdist(ptx_PKG)
+	ptx_pkg_label = "rules/%s.make" % ptx_pkg
 	parsed_pkg_conf_opt = parse_configure_args(pkg_conf_opt, [])
 
 	if args.only:
