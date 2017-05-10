@@ -191,6 +191,8 @@ def handle_dir(d):
 			continue
 		if word[:2] == "--":
 			configure_args.append(word)
+		elif ptx_pkg == "host-qemu" and re.match("  [a-z].*", line):
+			configure_args.append("--enable-" + word)
 
 	parsed = parse_configure_args(configure_args, configure_blacklist)
 	args = build_args(parsed)
