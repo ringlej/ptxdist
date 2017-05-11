@@ -14,7 +14,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  5 files changed, 23 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile-gir.am b/Makefile-gir.am
-index a09260a9767c..591ab61e0104 100644
+index 86ab5bf1eda4..61a540df922e 100644
 --- a/Makefile-gir.am
 +++ b/Makefile-gir.am
 @@ -87,7 +87,10 @@ endif
@@ -30,11 +30,11 @@ index a09260a9767c..591ab61e0104 100644
  gir/DBusGLib-1.0.typelib: GObject-2.0.gir
  
 diff --git a/Makefile-tools.am b/Makefile-tools.am
-index dbd264c31df4..840530ee8db1 100644
+index 952937354e43..54135bffb84b 100644
 --- a/Makefile-tools.am
 +++ b/Makefile-tools.am
 @@ -1,15 +1,18 @@
- bin_PROGRAMS += g-ir-compiler g-ir-generate
+ bin_PROGRAMS += g-ir-compiler g-ir-generate g-ir-inspect
 +if !USE_HOST_GI
  bin_SCRIPTS += g-ir-scanner g-ir-annotation-tool
  
@@ -61,7 +61,7 @@ index dbd264c31df4..840530ee8db1 100644
  g_ir_compiler_SOURCES = tools/compiler.c
  g_ir_compiler_CPPFLAGS = -DGIREPO_DEFAULT_SEARCH_PATH="\"$(libdir)\"" \
 diff --git a/Makefile.am b/Makefile.am
-index b080a891bc5c..3d08b7f2bdd5 100644
+index dafea3846a30..0fcea1988378 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -19,7 +19,9 @@ include Makefile.introspection
@@ -103,7 +103,7 @@ index b778f7aaf955..70872cd3d53d 100644
  INTROSPECTION_SCANNER_ARGS = \
      --verbose \
 diff --git a/configure.ac b/configure.ac
-index 6c91fa555b5e..8a9215023148 100644
+index 0dad4a07ac28..db92e0551cbb 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -250,6 +250,8 @@ AC_FUNC_STRTOD
