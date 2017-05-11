@@ -148,7 +148,7 @@ $(STATEDIR)/host-qemu.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_QEMU)
 ifdef PTXCONF_HOST_QEMU_USR
-	@echo -e '#!/bin/sh\nexec $(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS) -L $(PTXDIST_SYSROOT_TOOLCHAIN) -E LD_LIBRARY_PATH=$(QEMU_CROSS_LD_LIBRARY_PATH) "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+	@echo -e '#!/bin/sh\nexec $(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS) -r "$(KERNEL_VERSION)" -L $(PTXDIST_SYSROOT_TOOLCHAIN) -E LD_LIBRARY_PATH=$(QEMU_CROSS_LD_LIBRARY_PATH) "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@install -d -m 755 $(PTXDIST_SYSROOT_CROSS)/bin/qemu/
 	@sed \
