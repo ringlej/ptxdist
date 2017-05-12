@@ -67,7 +67,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--block-drv-rw-whitelist= \
 	--block-drv-ro-whitelist= \
 	--enable-trace-backends=nop \
-	--enable-tcg-interpreter \
+	--disable-tcg-interpreter \
 	--with-coroutine= \
 	--tls-priority=NORMAL \
 	--disable-xen-pv-domain-build \
