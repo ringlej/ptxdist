@@ -2,7 +2,7 @@
 
 menuconfig IMAGE_RAUC
 	tristate
-	prompt "Generate RAUC Update Bundle"
+	prompt "Generate RAUC Update Bundle   "
 	select HOST_GENIMAGE
 	select HOST_RAUC
 	select IMAGE_ROOT_TGZ
