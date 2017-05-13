@@ -50,6 +50,7 @@ endif
 
 MEMTEST86P_PATH	:= PATH=$(CROSS_PATH)
 MEMTEST86P_MAKE_OPT	:= $(CROSS_ENV_PROGS)
+MEMTEST86P_CFLAGS	:= -fgnu89-inline
 
 # ----------------------------------------------------------------------------
 # Install
