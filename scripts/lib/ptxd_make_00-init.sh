@@ -82,6 +82,19 @@ ptxd_cross_cc_v() {
 export -f ptxd_cross_cc_v
 
 #
+# out: dynamic linker name
+#
+ptxd_get_dl() {
+    local dl
+
+    dl="$(ptxd_cross_cc_v | \
+	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
+
+    echo "${dl##*/}"
+}
+export -f ptxd_get_dl
+
+#
 # figure out the toolchain's sysroot
 #
 # out:	PTXDIST_SYSROOT_TOOLCHAIN
