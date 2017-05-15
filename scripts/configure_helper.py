@@ -95,6 +95,7 @@ configure_blacklist = [
 
 def abort(message):
 	print(message)
+	print("\nSee '%s --help' for more details." % cmd)
 	exit(1)
 
 def ask_ptxdist(pkg):
@@ -252,6 +253,10 @@ parser.add_argument("--sort", help="sort the options before comparing",
 	dest="sort", action="store_true")
 
 args = parser.parse_args()
+
+if len(sys.argv) == 1:
+	parser.print_help()
+	exit(1)
 
 old_dir = args.old if args.old else None
 new_dir = args.new if args.new else None
