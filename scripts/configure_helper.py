@@ -262,8 +262,12 @@ if (old_dir or new_dir) and args.only:
 if args.only:
 	new_dir = args.only
 
-ptx_pkg = args.pkg.lower().replace('_', "-")
-ptx_PKG = args.pkg.upper().replace('-', "_")
+if args.pkg:
+	ptx_pkg = args.pkg.lower().replace('_', "-")
+	ptx_PKG = args.pkg.upper().replace('-', "_")
+else:
+	ptx_pkg = None
+	ptx_PKG = None
 
 ptx_pkg_conf_opt = []
 if args.pkg:
