@@ -41,6 +41,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--enable-shared \
 	--disable-nls \
 	--disable-rpath \
+	--disable-config-plugin-ibft \
 	--disable-ifcfg-rh \
 	--disable-ifcfg-suse \
 	--enable-ifupdown \
@@ -52,6 +53,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-teamdctl \
 	--disable-json-validation \
 	--disable-polkit \
+	--disable-polkit-agent \
 	--disable-modify-system \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
 	--disable-bluez5-dun \
@@ -60,6 +62,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-more-asserts \
 	--disable-more-logging \
 	--disable-lto \
+	--enable-ld-gc=auto \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-vala \
@@ -81,6 +84,8 @@ NETWORKMANAGER_CONF_OPT = \
 	--without-libaudit \
 	--with-crypto=gnutls \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
+	--with-pppd-plugin-dir=$(PPP_SHARED_INST_PATH) \
+	--with-pppd=/usr/sbin/pppd \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
 	--without-ofono \
 	--with-dhclient=/usr/sbin/dhclient \
@@ -100,11 +105,6 @@ NETWORKMANAGER_CONF_OPT = \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
 	--without-valgrind \
 	--without-tests
-
-ifdef PTXCONF_NETWORKMANAGER_PPP
-NETWORKMANAGER_CONF_OPT += \
-	--with-pppd-plugin-dir=$(PPP_SHARED_INST_PATH)
-endif
 
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 NETWORKMANAGER_LDFLAGS	:= \
