@@ -19,6 +19,11 @@ HOST_QT5_BUILD_OOT	:= YES
 # Prepare
 # ----------------------------------------------------------------------------
 
+# to build qmake in parallel
+HOST_QT5_CONF_ENV := \
+	$(HOST_ENV) \
+	MAKEFLAGS="$(PARALLELMFLAGS)"
+
 #
 # autoconf
 #
