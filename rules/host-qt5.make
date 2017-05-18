@@ -109,7 +109,6 @@ HOST_QT5_CONF_OPT	:= \
 	--disable-gui \
 	--disable-widgets \
 	--disable-rpath \
-	--disable-nis \
 	--disable-cups \
 	--disable-iconv \
 	--disable-evdev \
@@ -129,6 +128,7 @@ HOST_QT5_CONF_OPT	:= \
 	--disable-linuxfb \
 	--disable-mirclient \
 	--opengl=no \
+	--opengles3=no \
 	--disable-libinput \
 	-no-gstreamer \
 	--disable-system-proxies
