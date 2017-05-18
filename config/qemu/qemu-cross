@@ -35,10 +35,14 @@ done
 
 args[${#args[@]}]="${linker}"
 args[${#args[@]}]="--inhibit-cache"
-if [ "$(realpath "${1}")" != "${linker}" ]; then
-	args[${#args[@]}]="$(realpath "${1}")"
+case "${1}" in
+	/*) cmd="$(readlink -f "${1}")" ;;
+	*) cmd="$(readlink -f "${PWD}/${1}")" ;;
+esac
+if [ "${cmd}" != "${linker}" ]; then
+	args[${#args[@]}]="${cmd}"
 fi
-	shift
+shift
 if [ "${PTXDIST_VERBOSE}" = 1 -a -n "${PTXDIST_FD_LOGFILE}" ]; then
 	echo "qemu: ${args[@]} ${@}" >&${PTXDIST_FD_LOGFILE}
 fi

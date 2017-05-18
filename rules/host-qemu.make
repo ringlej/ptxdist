@@ -150,7 +150,7 @@ QEMU_CROSS_QEMU_ENV := \
 	KERNEL_VERSION="$(KERNEL_VERSION)" \
 	QEMU_LD_PREFIX="$(PTXDIST_SYSROOT_TOOLCHAIN)" \
 	QEMU_LD_LIBRARY_PATH="$(QEMU_CROSS_LD_LIBRARY_PATH)" \
-	LINKER="$(shell realpath "$$(ptxd_cross_cc -print-file-name=$$(ptxd_get_dl))")"
+	LINKER="$(shell readlink -f "$$(ptxd_cross_cc -print-file-name=$$(ptxd_get_dl))")"
 
 $(STATEDIR)/host-qemu.install.post:
 	@$(call targetinfo)
