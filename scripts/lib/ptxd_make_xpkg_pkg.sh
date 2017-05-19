@@ -219,7 +219,7 @@ export -f ptxd_install_setup_src
 
 ptxd_install_dir() {
     local sep="$(echo -e "\x1F")"
-    local dir="$1"
+    local dst="$1"
     local usr="$2"
     local grp="$3"
     local mod="$4"
@@ -229,16 +229,16 @@ ptxd_install_dir() {
     ptxd_install_setup &&
     echo "\
 install directory:
-  dir=${dir}
+  dir=${dst}
   owner=${usr} ${usr_name}
   group=${grp} ${grp_name}
   permissions=${mod}
 " &&
 
-    install -m "${mod_nfs}" -d "${ndirs[@]/%/${dir}}" &&
-    install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
+    install -m "${mod_nfs}" -d "${ndirs[@]/%/${dst}}" &&
+    install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dst}}" &&
 
-    echo "f${sep}${dir}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}" ||
+    echo "f${sep}${dst}${sep}${usr}${sep}${grp}${sep}${mod}" >> "${pkg_xpkg_perms}" ||
     ptxd_install_error "install_dir failed!"
 }
 export -f ptxd_install_dir
