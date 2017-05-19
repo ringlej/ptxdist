@@ -29,6 +29,7 @@ config LIBELF_ELFSUTILS
 	bool
 	prompt "elfutils"
 	select LIBELF_LIBDW
+	select LIBELF_LIBASM
 	help
 	  Elfutils is a collection of utilities to handle ELF objects.
 
