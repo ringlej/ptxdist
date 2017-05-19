@@ -47,7 +47,7 @@ ALSA_UTILS_AUTOCONF := \
 	--with-asound-state-dir=/etc
 
 ifdef PTXCONF_ALSA_UTILS_SYSTEMD_UNIT
-ALSA_UTILS_AUTOCONF += --with-systemdsystemunitdir=/lib/systemd/system
+ALSA_UTILS_AUTOCONF += --with-systemdsystemunitdir=/usr/lib/systemd/system
 else
 ALSA_UTILS_AUTOCONF += --without-systemdsystemunitdir
 endif
@@ -108,9 +108,9 @@ endif
 endif
 ifdef PTXCONF_ALSA_UTILS_SYSTEMD_UNIT
 	@$(call install_alternative, alsa-utils, 0, 0, 0644, \
-		/lib/systemd/system/alsa-restore.service)
+		/usr/lib/systemd/system/alsa-restore.service)
 	@$(call install_link, alsa-utils, ../alsa-restore.service, \
-		/lib/systemd/system/basic.target.wants/alsa-restore.service)
+		/usr/lib/systemd/system/basic.target.wants/alsa-restore.service)
 endif
 
 ifdef PTXCONF_ALSA_UTILS_ASOUND_STATE

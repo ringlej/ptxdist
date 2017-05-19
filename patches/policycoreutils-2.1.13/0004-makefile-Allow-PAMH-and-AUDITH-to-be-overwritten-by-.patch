@@ -4,13 +4,13 @@ Subject: [PATCH] makefile: Allow PAMH and AUDITH to be overwritten by ENV
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- newrole/Makefile  |    4 ++--
- run_init/Makefile |    4 ++--
- setfiles/Makefile |    2 +-
+ newrole/Makefile  | 4 ++--
+ run_init/Makefile | 4 ++--
+ setfiles/Makefile | 2 +-
  3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/newrole/Makefile b/newrole/Makefile
-index e9834a3..96bf978 100644
+index e9834a3c9310..96bf978af16d 100644
 --- a/newrole/Makefile
 +++ b/newrole/Makefile
 @@ -4,8 +4,8 @@ BINDIR ?= $(PREFIX)/bin
@@ -25,7 +25,7 @@ index e9834a3..96bf978 100644
  # This will make newrole a setuid root program.
  # The capabilities used are: CAP_AUDIT_WRITE.
 diff --git a/run_init/Makefile b/run_init/Makefile
-index da45cc2..43bd935 100644
+index da45cc2ffff4..43bd9350d3dd 100644
 --- a/run_init/Makefile
 +++ b/run_init/Makefile
 @@ -5,8 +5,8 @@ SBINDIR ?= $(PREFIX)/sbin
@@ -40,7 +40,7 @@ index da45cc2..43bd935 100644
  CFLAGS ?= -Werror -Wall -W
  override CFLAGS += -DUSE_NLS -DLOCALEDIR="\"$(LOCALEDIR)\"" -DPACKAGE="\"policycoreutils\""
 diff --git a/setfiles/Makefile b/setfiles/Makefile
-index 33f1c11..4b3aaa0 100644
+index 33f1c1100190..4b3aaa0619c6 100644
 --- a/setfiles/Makefile
 +++ b/setfiles/Makefile
 @@ -3,7 +3,7 @@ PREFIX ?= $(DESTDIR)/usr

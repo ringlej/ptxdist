@@ -34,6 +34,7 @@ TCPWRAPPER_LICENSE_FILES	:= file://DISCLAIMER;md5=071bd69cb78b18888ea5e3da5c3127
 TCPWRAPPER_PATH		:= PATH=$(CROSS_PATH)
 TCPWRAPPER_MAKE_ENV	:= $(CROSS_ENV)
 TCPWRAPPER_MAKE_OPT	:= linux
+TCPWRAPPER_CFLAGS	:= -fPIC
 
 # ----------------------------------------------------------------------------
 # Install

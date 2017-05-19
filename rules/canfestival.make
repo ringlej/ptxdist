@@ -12,7 +12,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_ARM64
 PACKAGES-$(PTXCONF_CANFESTIVAL) += canfestival
+endif
 
 #
 # Paths and names

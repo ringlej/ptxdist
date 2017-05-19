@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.51.0
-LIBCURL_MD5	:= 09a7c5769a7eae676d5e2c86d51f167e
+LIBCURL_VERSION	:= 7.52.1
+LIBCURL_MD5	:= dd014df06ff1d12e173de86873f9f77a
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.bz2
 LIBCURL_URL	:= https://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -30,66 +30,67 @@ LIBCURL_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBCURL_PATH	:= PATH=$(CROSS_PATH)
-LIBCURL_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
 LIBCURL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
-	--with-random=/dev/urandom \
-	--with-zlib=$(SYSROOT) \
-	\
+	--disable-debug \
+	--enable-optimize \
+	--disable-warnings \
+	--disable-werror \
+	--disable-curldebug \
+	--enable-symbol-hiding \
+	--disable-ares \
+	--enable-rt \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
+	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
+	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
 	--disable-ldap \
 	--disable-ldaps \
 	--disable-rtsp \
+	--enable-proxy \
 	--disable-dict \
 	--disable-telnet \
+	--$(call ptx/endis, PTXCONF_LIBCURL_TFTP)-tftp \
 	--disable-pop3 \
 	--disable-imap \
 	--disable-smb \
 	--disable-smtp \
 	--disable-gopher \
 	--disable-manual \
-	\
-	--disable-ares \
-	--disable-sspi \
-	--disable-ntlm-wb \
-	--disable-debug \
+	--enable-libcurl-option \
+	--disable-libgcc \
+	$(GLOBAL_IPV6_OPTION) \
+	--disable-versioned-symbols \
+	--enable-threaded-resolver \
 	--disable-verbose \
-	\
-	--enable-thread \
-	--enable-nonblocking\
-	--enable-hidden-symbols \
-	--enable-proxy \
-	\
-	--without-krb4 \
-	--without-spnego \
-	--without-gssapi \
-	--without-winssl \
-	--without-darwinssl \
-	--without-gnutls \
-	--without-nss \
-	--without-winidn \
-	--without-libidn \
-	--without-axtls \
-	--without-polarssl \
-	--without-cyassl \
-	--without-librtmp \
-	\
-	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
-	--disable-nghttp2 \
-	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
-	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
-	--$(call ptx/endis, PTXCONF_LIBCURL_TFTP)-tftp \
-	--$(call ptx/endis, PTXCONF_LIBCURL_FILE)-file \
+	--disable-sspi \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
-	--$(call ptx/endis, PTXCONF_LIBCURL_LIBSSH2)-libssh2 \
+	--disable-ntlm-wb \
+	--enable-tls-srp \
+	--enable-unix-sockets \
+	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
+	--disable-soname-bump \
+	--with-zlib=$(SYSROOT) \
+	--without-gssapi \
 	--with-ssl=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,$(SYSROOT),no) \
+	--with-random=/dev/urandom \
+	--without-gnutls \
+	--without-polarssl \
+	--without-mbedtls \
+	--without-cyassl \
+	--without-nss \
+	--without-axtls \
 	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
-	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH)
+	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH) \
+	--without-libpsl \
+	--without-libmetalink \
+	--$(call ptx/wwo, PTXCONF_LIBCURL_LIBSSH2)-libssh2 \
+	--without-librtmp \
+	--without-libidn \
+	--without-nghttp2
 
 # ----------------------------------------------------------------------------
 # Target-Install

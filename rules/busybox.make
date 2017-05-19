@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.24.2
-BUSYBOX_MD5	:= 2eaae519cac1143bcf583636a745381f
+BUSYBOX_VERSION	:= 1.26.2
+BUSYBOX_MD5	:= bb59d25ee2643db20f212eec539429f1
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
-BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
+BUSYBOX_URL	:= https://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_KCONFIG	:= $(BUSYBOX_DIR)/Config.in
@@ -60,7 +60,7 @@ BUSYBOX_MAKE_ENV := \
 
 BUSYBOX_INSTALL_OPT := \
 	$(BUSYBOX_MAKE_OPT) \
-	CONFIG_PREFIX=$(BUSYBOX_PKGDIR) \
+	CONFIG_PREFIX=$(BUSYBOX_PKGDIR)/usr \
 	install
 
 # ----------------------------------------------------------------------------
@@ -74,7 +74,7 @@ $(STATEDIR)/busybox.install:
 		$(BUSYBOX_PKGDIR)/etc/busybox.links
 ifdef PTXCONF_BUSYBOX_FEATURE_INDIVIDUAL
 	@install -D -m644 $(BUSYBOX_DIR)/0_lib/libbusybox.so.$(BUSYBOX_VERSION) \
-		$(BUSYBOX_PKGDIR)/lib/libbusybox.so.$(BUSYBOX_VERSION)
+		$(BUSYBOX_PKGDIR)/usr/lib/libbusybox.so.$(BUSYBOX_VERSION)
 	@mkdir -p $(BUSYBOX_PKGDIR)/usr/lib/busybox
 	@cp -r $(BUSYBOX_DIR)/0_lib/* \
 		$(BUSYBOX_PKGDIR)/usr/lib/busybox
@@ -102,28 +102,28 @@ ifdef PTXCONF_BUSYBOX_FEATURE_INDIVIDUAL
 
 	@cat $(BUSYBOX_PKGDIR)/etc/busybox.links | while read link; do \
 		$(call install_copy, busybox, 0, 0, 755, \
-		"$(BUSYBOX_PKGDIR)/usr/lib/busybox/$${link##*/}", "$${link}"); \
+		"$(BUSYBOX_PKGDIR)/usr/lib/busybox/$${link##*/}", "/usr$${link}"); \
 	done
 else
 #
 # traditionally busybox with links
 #
 ifdef PTXCONF_BUSYBOX_FEATURE_SUID
-	@$(call install_copy, busybox, 0, 0, 4755, -, /bin/busybox)
+	@$(call install_copy, busybox, 0, 0, 4755, -, /usr/bin/busybox)
 ifdef PTXCONF_BUSYBOX_FEATURE_SUID_CONFIG
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/busybox.conf)
 endif
 else
-	@$(call install_copy, busybox, 0, 0, 755, -, /bin/busybox)
+	@$(call install_copy, busybox, 0, 0, 755, -, /usr/bin/busybox)
 endif
-	@cat $(BUSYBOX_PKGDIR)/etc/busybox.links | while read link; do	\
-		case "$${link}" in					\
-		(/*/*/*) to="../../bin/busybox" ;;			\
-		(/bin/*) to="busybox" ;;				\
-		(/*/*)	 to="../bin/busybox" ;;				\
-		(/*)     to="bin/busybox" ;;				\
-		esac;							\
-		$(call install_link, busybox, "$${to}", "$${link}");	\
+	@cat $(BUSYBOX_PKGDIR)/etc/busybox.links | while read link; do		\
+		case "$${link}" in						\
+		/bin/*) to="busybox" ;;						\
+		/*/*)	 to="../bin/busybox" ;;					\
+		/*)     to="bin/busybox" ;;					\
+		*) exit 1;;							\
+		esac;								\
+		$(call install_link, busybox, "$${to}", "/usr$${link}");	\
 	done
 endif
 
@@ -214,18 +214,18 @@ endif # PTXCONF_INITMETHOD_BBINIT
 
 ifdef PTXCONF_BUSYBOX_TELNETD_SYSTEMD_UNIT
 	@$(call install_alternative, busybox, 0, 0, 0644, \
-		/lib/systemd/system/telnetd.socket)
+		/usr/lib/systemd/system/telnetd.socket)
 	@$(call install_alternative, busybox, 0, 0, 0644, \
-		/lib/systemd/system/telnetd@.service)
+		/usr/lib/systemd/system/telnetd@.service)
 	@$(call install_link, busybox, ../telnetd.socket, \
-		/lib/systemd/system/sockets.target.wants/telnetd.socket)
+		/usr/lib/systemd/system/sockets.target.wants/telnetd.socket)
 endif
 
 ifdef PTXCONF_BUSYBOX_CROND_SYSTEMD_UNIT
 	@$(call install_alternative, busybox, 0, 0, 0644, \
-		/lib/systemd/system/crond.service)
+		/usr/lib/systemd/system/crond.service)
 	@$(call install_link, busybox, ../crond.service, \
-		/lib/systemd/system/multi-user.target.wants/crond.service)
+		/usr/lib/systemd/system/multi-user.target.wants/crond.service)
 endif
 
 #	#

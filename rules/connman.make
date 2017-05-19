@@ -63,7 +63,7 @@ CONNMAN_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_CONNMAN_CLIENT)-client \
 	--enable-datafiles \
 	--with-dbusconfdir=/usr/share \
-	--with-systemdunitdir=/lib/systemd/system
+	--with-systemdunitdir=/usr/lib/systemd/system
 
 CONNMAN_TESTS := \
 	backtrace \
@@ -150,15 +150,15 @@ endif
 endif
 ifdef PTXCONF_CONNMAN_SYSTEMD_UNIT
 	@$(call install_alternative, connman, 0, 0, 0644, \
-		/lib/systemd/system/connman.service)
+		/usr/lib/systemd/system/connman.service)
 	@$(call install_link, connman, ../connman.service, \
-		/lib/systemd/system/multi-user.target.wants/connman.service)
+		/usr/lib/systemd/system/multi-user.target.wants/connman.service)
 	@$(call install_alternative, connman, 0, 0, 0644, \
-		/lib/systemd/system/connman-ignore.service)
+		/usr/lib/systemd/system/connman-ignore.service)
 	@$(call install_link, connman, ../connman-ignore.service, \
-		/lib/systemd/system/connman.service.wants/connman-ignore.service)
+		/usr/lib/systemd/system/connman.service.wants/connman-ignore.service)
 	@$(call install_alternative, connman, 0, 0, 0755, \
-		/lib/systemd/connman-ignore)
+		/usr/lib/systemd/connman-ignore)
 endif
 ifdef PTXCONF_CONNMAN_POLKIT
 	@$(call install_alternative, connman, 0, 0, 0644, \

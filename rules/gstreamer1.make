@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.8.3
-GSTREAMER1_MD5		:= e88dad542df9d986822e982105d2b530
+GSTREAMER1_VERSION	:= 1.12.0
+GSTREAMER1_MD5		:= 8f76b6b5e4b3307e505bd6ab9304dd03
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -34,7 +34,6 @@ GSTREAMER1_LICENSE	:= LGPL-2.1+
 # autoconf
 #
 GSTREAMER1_BASIC_CONF_OPT = \
-	--runstatedir=/run \
 	\
 	--disable-fatal-warnings \
 	--disable-extra-check \
@@ -73,8 +72,6 @@ GSTREAMER1_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_DEBUG)-gst-tracer-hooks \
 	--enable-parse \
 	--enable-option-parsing \
-	--disable-trace \
-	--disable-alloc-trace \
 	--enable-registry \
 	--enable-plugin \
 	\
@@ -85,8 +82,6 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-poisoning \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
-	\
-	--disable-docbook \
 	\
 	--disable-check \
 	--with-ptp-helper-setuid-user=nobody \

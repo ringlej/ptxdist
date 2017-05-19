@@ -18,8 +18,8 @@ endif
 #
 # Paths and names
 #
-MONO_VERSION	:= 3.2.6
-MONO_MD5	:= 076e815090f9807f273b06a98e76e274
+MONO_VERSION	:= 3.2.8
+MONO_MD5	:= 1075f99bd8a69890af9e30309728e684
 MONO		:= mono-$(MONO_VERSION)
 MONO_SUFFIX	:= tar.bz2
 MONO_URL	:= http://download.mono-project.com/sources/mono/$(MONO).$(MONO_SUFFIX)
@@ -47,7 +47,7 @@ $(STATEDIR)/mono.extract:
 
 MONO_CONF_ENV	:= \
 	$(CROSS_ENV) \
-	CPPFLAGS="$(CROSS_CPPFLAGS) -DARM_FPU_NONE=$(call ptx/ifdef, PTXCONF_HAS_HARDFLOAT, 0, 1)" \
+	CPPFLAGS="$(CROSS_CPPFLAGS) $(call ptx/ifdef, PTXCONF_HAS_HARDFLOAT,,-DARM_FPU_NONE)" \
 	mono_cv_uscore=yes
 #
 # autoconf
@@ -67,7 +67,7 @@ MONO_CONF_OPT	:= \
 	--disable-dtrace \
 	--disable-llvm \
 	--disable-loadedllvm \
-	--disable-mono-debugger \
+	--disable-llvm-version-check \
 	--with-libgdiplus=installed \
 	--with-gc=included \
 	--with-tls=pthread \
@@ -99,7 +99,7 @@ MONO_CONF_OPT	:= \
 	--enable-icall-export \
 	--disable-icall-tables \
 	--with-jumptables=no \
-	--with-sgen=no
+	--with-sgen=yes
 
 # --enable-minimal=LIST      drop support for LIST subsystems.
 # --with-crosspkgdir=/path/to/pkg-config/dir      Change pkg-config dir to custom dir

@@ -2013,25 +2013,25 @@ ifdef PTXCONF_QT5_EXAMPLES_SENSORS_SHAKEIT
 		/usr/lib/qt5/examples/sensors/shakeit/shakeit)
 endif
 endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_)),)
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSERIALBUS)),)
 ifdef PTXCONF_QT5_EXAMPLES_SERIALBUS_CAN
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/serialbus/can/can)
 endif
 endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_)),)
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSERIALBUS)),)
 ifdef PTXCONF_QT5_EXAMPLES_SERIALBUS_MODBUS_ADUEDITOR
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/serialbus/modbus/adueditor/adueditor)
 endif
 endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_)),)
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSERIALBUS)),)
 ifdef PTXCONF_QT5_EXAMPLES_SERIALBUS_MODBUS_MODBUSMASTER
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/serialbus/modbus/master/modbusmaster)
 endif
 endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_)),)
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTSERIALBUS)),)
 ifdef PTXCONF_QT5_EXAMPLES_SERIALBUS_MODBUS_MODBUSSLAVE
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/serialbus/modbus/slave/modbusslave)

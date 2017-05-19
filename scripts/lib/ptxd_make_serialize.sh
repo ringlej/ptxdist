@@ -56,10 +56,14 @@ ptxd_make_serialize_init() {
 	if ! "${PTXCONF_SETUP_HOST_MAKE}" ${jobserver}=42,43 --help >& /dev/null; then
 	    jobserver="-j --jobserver-fds"
 	fi
-	mflags="${sync} ${jobserver}=${ptxd_make_serialize_global_readfd},${ptxd_make_serialize_global_writefd}"
-	PTXDIST_PARALLELMFLAGS_INTERN="${mflags}"
-	PTXDIST_PARALLELMFLAGS_EXTERN="${mflags}"
+	mflags="${jobserver}=${ptxd_make_serialize_global_readfd},${ptxd_make_serialize_global_writefd}"
+	PTXDIST_PARALLELMFLAGS_INTERN="${sync} ${mflags}"
+	PTXDIST_PARALLELMFLAGS_EXTERN="${sync} ${mflags}"
+	PTXDIST_JOBSERVER_FLAGS="${mflags}"
+	PTXDIST_PARALLEL_FLAGS="${PTXDIST_PARALLELMFLAGS}"
     else
+	PTXDIST_JOBSERVER_FLAGS=
+	PTXDIST_PARALLEL_FLAGS="${PTXDIST_PARALLELMFLAGS_INTERN}"
 	case "${PTXDIST_PARALLELMFLAGS_INTERN}" in
 	-j1) ;;
 	*)
@@ -67,6 +71,7 @@ ptxd_make_serialize_init() {
 	    PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN} ${sync}" ;;
 	esac
     fi
+    export PTXDIST_JOBSERVER_FLAGS PTXDIST_PARALLEL_FLAGS
 
     ptxd_make_serialize_setup get 4 &&
     ptxd_make_serialize_setup extract 2

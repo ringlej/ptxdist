@@ -59,11 +59,11 @@ $(STATEDIR)/rpcbind.targetinstall:
 
 ifdef PTXCONF_RPCBIND_SYSTEMD_UNIT
 	@$(call install_alternative, rpcbind, 0, 0, 0644, \
-		/lib/systemd/system/rpcbind.service)
+		/usr/lib/systemd/system/rpcbind.service)
 	@$(call install_alternative, rpcbind, 0, 0, 0644, \
-		/lib/systemd/system/rpcbind.socket)
+		/usr/lib/systemd/system/rpcbind.socket)
 	@$(call install_link, rpcbind, ../rpcbind.socket, \
-		/lib/systemd/system/sockets.target.wants/rpcbind.socket)
+		/usr/lib/systemd/system/sockets.target.wants/rpcbind.socket)
 endif
 
 	@$(call install_finish, rpcbind)

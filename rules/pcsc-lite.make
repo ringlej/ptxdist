@@ -42,7 +42,7 @@ PCSC_LITE_CONF_OPT := \
 	--disable-libusb \
 	--enable-usbdropdir=/usr/lib/pcsc \
 	--$(call ptx/endis, PTXCONF_PCSC_LITE_DEBUGATR)-debugatr \
-	--with-systemdsystemunitdir=/lib/systemd/system
+	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -63,10 +63,10 @@ $(STATEDIR)/pcsc-lite.targetinstall:
 	@$(call install_copy, pcsc-lite, 0, 0, 0755, -, /usr/sbin/pcscd)
 
 ifdef PTXCONF_PCSC_LITE_SYSTEMD_UNIT
-	@$(call install_alternative, pcsc-lite, 0, 0, 0644, /lib/systemd/system/pcscd.service)
-	@$(call install_alternative, pcsc-lite, 0, 0, 0644, /lib/systemd/system/pcscd.socket)
+	@$(call install_alternative, pcsc-lite, 0, 0, 0644, /usr/lib/systemd/system/pcscd.service)
+	@$(call install_alternative, pcsc-lite, 0, 0, 0644, /usr/lib/systemd/system/pcscd.socket)
 	@$(call install_link, pcsc-lite, ../pcscd.socket, \
-		/lib/systemd/system/sockets.target.wants/pcscd.socket)
+		/usr/lib/systemd/system/sockets.target.wants/pcscd.socket)
 endif
 
 	@$(call install_finish, pcsc-lite)

@@ -47,7 +47,9 @@ ECRYPTFS_UTILS_CONF_OPT := \
 	--disable-docs \
 	--disable-docs-gen \
 	--disable-tests \
-	--disable-mudflap
+	--disable-mudflap \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls
 
 ECRYPTFS_UTILS_PROGS_y :=
 

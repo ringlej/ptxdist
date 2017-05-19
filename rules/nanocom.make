@@ -39,7 +39,7 @@ NANOCOM_MAKE_OPT	:= \
 $(STATEDIR)/nanocom.install:
 	@$(call targetinfo)
 	@install -v -m 0755 -D $(NANOCOM_DIR)/nanocom \
-		$(NANOCOM_PKGDIR)/bin/nanocom
+		$(NANOCOM_PKGDIR)/usr/bin/nanocom
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ $(STATEDIR)/nanocom.targetinstall:
 	@$(call install_fixup, nanocom,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, nanocom,DESCRIPTION,missing)
 
-	@$(call install_copy, nanocom, 0, 0, 0755, -, /bin/nanocom)
+	@$(call install_copy, nanocom, 0, 0, 0755, -, /usr/bin/nanocom)
 
 	@$(call install_finish, nanocom)
 

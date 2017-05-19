@@ -1,0 +1,53 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Fri, 11 Nov 2016 10:48:21 +0100
+Subject: [PATCH] Buildsystem: fix cross compilation
+
+Its a really bad idea to use build host's 'uname'...
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ configure.ac | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 42bb7ec78e0f..4671c2e0c9a5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -75,19 +75,19 @@ AC_TYPE_UINT8_T
+ AC_SYS_LARGEFILE
+ 
+ date=`date "+%B %G"`
+-unamem=`uname -m | sed -e 's/i.86/i686/' -e 's/^armv.*/arm/'`
++AC_CACHE_VAL([latrace_arch], [latrace_arch=`uname -m | sed -e 's/i.86/i686/' -e 's/^armv.*/arm/'`])
+ 
+ AC_SUBST(CONFIG_DATE, "$date")
+-AC_SUBST(CONFIG_SYSDEP_DIR, "$unamem")
++AC_SUBST(CONFIG_SYSDEP_DIR, "$latrace_arch")
+ AC_SUBST(CONFIG_VERSION, "AC_PACKAGE_VERSION")
+ 
+ AC_DEFINE(CONFIG_LT_CONFIG, "/tmp/lt-config", [Temporary directory prefix.])
+ AC_DEFINE(CONFIG_VERSION, "AC_PACKAGE_VERSION", [Version of latrace.])
+ 
+ # for following architectures we have argument display support
+-if test "$unamem" = "x86_64" -o\
+-	"$unamem" = "i686" -o\
+-	"$unamem" = "arm"; then
++if test "$latrace_arch" = "x86_64" -o\
++	"$latrace_arch" = "i686" -o\
++	"$latrace_arch" = "arm"; then
+ 	AC_DEFINE(CONFIG_ARCH_HAVE_ARGS, [], [argument display support])
+ 	AC_SUBST(CONFIG_ARCH_HAVE_ARGS, "y")
+ else
+@@ -95,9 +95,9 @@ else
+ fi
+ 
+ # for following architectures we have automated tests support
+-if test "$unamem" = "x86_64" -o\
+-	"$unamem" = "i686" -o\
+-	"$unamem" = "arm" ; then
++if test "$latrace_arch" = "x86_64" -o\
++	"$latrace_arch" = "i686" -o\
++	"$latrace_arch" = "arm" ; then
+ 	AC_SUBST(CONFIG_ARCH_HAVE_TEST, "y")
+ else
+ 	AC_MSG_WARN([No automated test support])

@@ -21,7 +21,7 @@ LOGROTATE_VERSION	:= 3.9.1
 LOGROTATE_MD5		:= 4492b145b6d542e4a2f41e77fa199ab0
 LOGROTATE		:= logrotate-$(LOGROTATE_VERSION)
 LOGROTATE_SUFFIX	:= tar.gz
-LOGROTATE_URL		:= https://fedorahosted.org/releases/l/o/logrotate/$(LOGROTATE).$(LOGROTATE_SUFFIX)
+LOGROTATE_URL		:= http://downloads.yoctoproject.org/mirror/sources/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_SOURCE	:= $(SRCDIR)/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_DIR		:= $(BUILDDIR)/$(LOGROTATE)
 LOGROTATE_LICENSE	:= GPL-2.0
@@ -55,11 +55,11 @@ $(STATEDIR)/logrotate.targetinstall:
 
 ifdef PTXCONF_LOGROTATE_SYSTEMD_UNIT
 	@$(call install_alternative, logrotate, 0, 0, 0644, \
-		/lib/systemd/system/logrotate.timer)
+		/usr/lib/systemd/system/logrotate.timer)
 	@$(call install_alternative, logrotate, 0, 0, 0644, \
-		/lib/systemd/system/logrotate.service)
+		/usr/lib/systemd/system/logrotate.service)
 	@$(call install_link, logrotate, ../logrotate.timer, \
-		/lib/systemd/system/multi-user.target.wants/logrotate.timer)
+		/usr/lib/systemd/system/multi-user.target.wants/logrotate.timer)
 endif
 
 	@$(call install_finish, logrotate)

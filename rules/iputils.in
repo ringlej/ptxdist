@@ -3,10 +3,11 @@
 menuconfig IPUTILS
 	tristate
 	prompt "iputils                       "
-	select LIBC_RESOLV	if IPUTILS_PING6
-	select LIBCAP		if IPUTILS_ARPING || IPUTILS_PING || IPUTILS_PING6 || IPUTILS_TRACEROUTE6 || IPUTILS_CLOCKDIFF
-	select GNUTLS		if IPUTILS_PING6
-	select GNUTLS_OPENSSL	if IPUTILS_PING6
+	select LIBC_RESOLV	if IPUTILS_PING
+	select LIBCAP		if IPUTILS_ARPING || IPUTILS_PING || IPUTILS_TRACEROUTE6 || IPUTILS_CLOCKDIFF
+	select LIBGCRYPT	if IPUTILS_GCRYPT
+	select NETTLE		if IPUTILS_NETTLE
+	select OPENSSL		if IPUTILS_OPENSSL
 	help
 	  The iputils package is set of small useful utilities for Linux
 	  networking.
@@ -36,11 +37,10 @@ config IPUTILS_PING
 	depends on (!BUSYBOX_PING && !INETUTILS_PING) || ALLYES
 	prompt "ping"
 	help
-	  The ping command uses the ICMP protocol's mandatory ECHO_REQUEST datagram
-	  to elicit an ICMP ECHO_RESPONSE from a host or gateway. ECHO_REQUEST
-	  datagrams pings have an IP and ICMP header, followed by a struct
-	  timeval and then an arbitrary number of pad bytes used to fill out
-	  the packet.
+	  ping uses the ICMP protocols mandatory ECHO_REQUEST datagram to elicit
+	  an ICMP ECHO_RESPONSE from a host or gateway.
+	  It works with both IPv4 and IPv6. Using only one of them explicitly can
+	  be enforced by specifying -4 or -6.
 
 comment "inetutils' ping is selected!"
         depends on INETUTILS_PING
@@ -48,21 +48,38 @@ comment "inetutils' ping is selected!"
 comment "BusyBox' ping is selected!"
         depends on BUSYBOX_PING
 
-config IPUTILS_PING6
-	bool
-	depends on (!BUSYBOX_PING6 && !INETUTILS_PING6) || ALLYES
-	prompt "ping6"
-	depends on GLOBAL_IPV6
+if GLOBAL_IPV6
+
+choice
+	prompt "crypto library to be used for ping -N"
+	default IPUTILS_NOCRYPTO
+	depends on IPUTILS_PING
 	help
-	  The ping6 command is IPv6 version of ping, and can also send Node
-	  Information Queries (RFC4620). Intermediate hops may not be allowed,
-	  because IPv6 source routing was deprecated (RFC5095).
+	  Selecting a crypto library is necessary for ping to support
+	  sending IPv6 Node Information Queries (RFC 4620).
 
-comment "inetutils' ping6 is selected!"
-        depends on INETUTILS_PING6
+	config IPUTILS_NOCRYPTO
+		bool
+		prompt "none"
+		help
+		  No crypto library is used. This means that ping -N
+		  won't work.
 
-comment "BusyBox' ping6 is selected!"
-        depends on BUSYBOX_PING6
+	config IPUTILS_GCRYPT
+		bool
+		prompt "libgcrypt"
+
+	config IPUTILS_NETTLE
+		bool
+		prompt "nettle"
+
+	config IPUTILS_OPENSSL
+		bool
+		prompt "openssl"
+
+endchoice
+
+endif
 
 config IPUTILS_RARPD
 	bool
@@ -98,12 +115,9 @@ config IPUTILS_TRACEPATH
 	bool
 	prompt "tracepath"
 	help
-
-config IPUTILS_TRACEPATH6
-	bool
-	prompt "tracepath6"
-	depends on GLOBAL_IPV6
-	help
+	  tracepath traces the path to a network host discovering the MTU along
+	  this path. Because it uses UDP for tracing, it does not need superuser
+	  privileges like traceroute6. tracepath works for both IPv4 and IPv6.
 
 config IPUTILS_TRACEROUTE6
 	bool
@@ -111,6 +125,9 @@ config IPUTILS_TRACEROUTE6
 	prompt "traceroute6"
 	depends on GLOBAL_IPV6
 	help
+	  traceroute6 tracks the route packets take from an IP network on their
+	  way to a given host. Supports UDP, ICMP and TCP for tracing and works
+	  for IPv6 only.
 
 comment "BusyBox' traceroute6 is selected!"
         depends on BUSYBOX_TRACEROUTE6

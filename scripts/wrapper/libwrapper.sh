@@ -25,6 +25,9 @@ wrapper_exec() {
 	if [ "${PTXDIST_VERBOSE}" = 1 -a -n "${PTXDIST_FD_LOGFILE}" ]; then
 		echo "wrapper: ${PTXDIST_ICECC}${PTXDIST_CCACHE} ${0##*/} ${ARG_LIST} $* ${LATE_ARG_LIST}" >&${PTXDIST_FD_LOGFILE}
 	fi
+	if [ -n "${FAKEROOTKEY}" ]; then
+		unset PTXDIST_ICECC
+	fi
 	exec ${PTXDIST_ICECC}${PTXDIST_CCACHE} "${0%/*}/real/${0##*/}" ${ARG_LIST} "$@" ${LATE_ARG_LIST}
 }
 

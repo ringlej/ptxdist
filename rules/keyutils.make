@@ -26,7 +26,9 @@ KEYUTILS_MAKE_OPT := \
 	$(CROSS_ENV_CC) \
 	CFLAGS="-O2 -g3 -Wall" \
 	BUILDFOR="" \
-	LIBDIR=/lib \
+	BINDIR=/usr/bin \
+	SBINDIR=/usr/sbin \
+	LIBDIR=/usr/lib \
 	USRLIBDIR=/usr/lib
 
 KEYUTILS_INSTALL_OPT := \
@@ -49,9 +51,9 @@ $(STATEDIR)/keyutils.targetinstall:
 	@$(call install_lib, keyutils, 0, 0, 0644, libkeyutils)
 
 	@$(call install_alternative, keyutils, 0, 0, 0644, /etc/request-key.conf)
-	@$(call install_copy, keyutils, 0, 0, 0755, -, /sbin/key.dns_resolver)
-	@$(call install_copy, keyutils, 0, 0, 0755, -, /sbin/request-key)
-	@$(call install_copy, keyutils, 0, 0, 0755, -, /bin/keyctl)
+	@$(call install_copy, keyutils, 0, 0, 0755, -, /usr/sbin/key.dns_resolver)
+	@$(call install_copy, keyutils, 0, 0, 0755, -, /usr/sbin/request-key)
+	@$(call install_copy, keyutils, 0, 0, 0755, -, /usr/bin/keyctl)
 
 	@$(call install_finish, keyutils)
 

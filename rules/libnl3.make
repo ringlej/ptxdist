@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBNL3) += libnl3
 #
 # Paths and names
 #
-LIBNL3_VERSION	:= 3.2.28
-LIBNL3_MD5	:= bab12db1eb94a42129f712a44be91a67
+LIBNL3_VERSION	:= 3.2.29
+LIBNL3_MD5	:= a8ba62a5c4f883f4e493a46d1f3733fe
 LIBNL3		:= libnl-$(LIBNL3_VERSION)
 LIBNL3_RELEASE	:= libnl$(subst .,_,$(LIBNL3_VERSION))
 LIBNL3_SUFFIX	:= tar.gz
@@ -32,11 +32,11 @@ LIBNL3_LICENSE	:= GPL-2.0
 LIBNL3_CONF_TOOL    := autoconf
 LIBNL3_CONF_OPT	    := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-manpages \
 	--enable-shared \
 	--disable-static \
 	--$(call ptx/endis, PTXCONF_LIBNL3_ENABLE_CLI)-cli \
-	--enable-pthreads
+	--enable-pthreads \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install

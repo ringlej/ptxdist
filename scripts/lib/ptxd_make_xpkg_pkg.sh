@@ -97,6 +97,7 @@ ptxd_install_setup() {
     local -a nfsroot_dirs
 
     case "${dst}" in
+	/bin/*|/sbin/*|/lib/*) dst="/usr${dst}" ;;
 	/*|"") ;;
 	*) ptxd_bailout "'dst' must be an absolute path!" ;;
     esac
@@ -130,36 +131,57 @@ ptxd_install_setup() {
 }
 export -f ptxd_install_setup
 
-ptxd_install_setup_src() {
-    ptxd_install_setup || return
-
-    if [ "${src}" = "-" -a -n "${dst}" ]; then
-	src="${pkg_pkg_dir}${dst}"
-    fi
-
-    local -a list
-
+ptxd_install_setup_src_list() {
     if [ "${cmd}" = "alternative" -o "${cmd}" = "config" ]; then
 	#
 	# if pkg_dir is empty we'll have some some empty entries in
 	# the array, but that's no problem for the "-e" below.
 	#
 	list=( \
-	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${src}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${src}" \
-	    "${PTXDIST_TOPDIR}/projectroot${src}" \
-	    "${pkg_pkg_dir:+${pkg_pkg_dir}${src}}" \
-	    "${pkg_dir:+${pkg_dir}${src}}" \
+	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${1}" \
+	    "${PTXDIST_WORKSPACE}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${PTXDIST_WORKSPACE}/projectroot${1}" \
+	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}" \
+	    "${PTXDIST_TOPDIR}/projectroot${1}" \
+	    "${pkg_pkg_dir:+${pkg_pkg_dir}${1}}" \
+	    "${pkg_dir:+${pkg_dir}${1}}" \
 	    )
     else
 	list=( \
-	    "${src}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${src}" \
+	    "${1}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${1}" \
 	    )
     fi
+}
+export -f ptxd_install_setup_src_list
+
+ptxd_install_setup_src() {
+    local -a list
+    local legacy_src
+
+    if [ "${src}" = "-" -a -n "${dst}" ]; then
+	src="${pkg_pkg_dir}${dst}"
+    fi
+
+    ptxd_install_setup || return
+
+    legacy_src="${src#/usr}"
+    if [ "${legacy_src}" != "${src}" ]; then
+	ptxd_install_setup_src_list "${legacy_src}"
+	if ptxd_get_path "${list[@]}"; then
+	    local tmp
+	    echo -e "\nFound file for '${dst}' in these legacy locations:\n"
+	    for tmp in "${ptxd_reply[@]}"; do
+		echo "$(ptxd_print_path "${tmp}")"
+	    done
+	    echo
+	    ptxd_bailout "They must be moved to the corresponding locations in '/usr'"
+	fi
+    fi
+
+    ptxd_install_setup_src_list "${src}"
+
     # Since the dependency to the source files is dynamic we store
     # the dependency information in a dependency file that can be
     # included in the make files itself.
@@ -824,7 +846,7 @@ ptxd_install_lib() {
     fi
 
     local file="$(for dir in "${pkg_pkg_dir}"${root_dir}{/,/usr/}${lib_dir}; do
-	    find "${dir}" -type f -path "${dir}/${lib}.so*"; done 2>/dev/null)"
+	    find "${dir}" -type f -path "${dir}/${lib}.so*" ! -name "*.debug"; done 2>/dev/null)"
 
     if [ ! -f "${file}" ]; then
 	ptxd_install_error "ptxd_lib_install: cannot find library '${lib}'!"

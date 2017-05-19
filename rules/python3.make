@@ -49,9 +49,7 @@ PYTHON3_ENV	:= \
 	ac_cv_file__dev_ptmx=no \
 	ac_cv_file__dev_ptc=no \
 	ac_cv_working_tzset=yes \
-	LDFLAGS="-L $(PTXDIST_SYSROOT_TARGET)/lib/ \
-		 -L $(PTXDIST_SYSROOT_TARGET)/usr/lib/"
-
+	LDFLAGS="-L $(PTXDIST_SYSROOT_TARGET)/usr/lib/"
 
 PYTHON3_BINCONFIG_GLOB := ""
 

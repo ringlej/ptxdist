@@ -37,7 +37,7 @@ USPLASH_DIR	:= $(BUILDDIR)/$(USPLASH)
 #
 USPLASH_CONF_TOOL	:= autoconf
 USPLASH_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-static \
 	--enable-svga-backend \
 	--disable-convert-tools
@@ -63,12 +63,11 @@ $(STATEDIR)/usplash.targetinstall:
 	@$(call install_fixup, usplash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, usplash,DESCRIPTION,missing)
 
-	@$(call install_copy, usplash, 0, 0, 0755, -, /sbin/usplash)
-	@$(call install_copy, usplash, 0, 0, 0755, -, /sbin/usplash_write)
-	@$(call install_copy, usplash, 0, 0, 0755, -, /sbin/usplash_down)
-	@$(call install_copy, usplash, 0, 0, 0755, -, /sbin/update-usplash-theme)
-	@$(call install_copy, usplash, 0, 0, 0644, -, /lib/libusplash.so.0)
-	@$(call install_link, usplash, libusplash.so.0, /lib/libusplash.so)
+	@$(call install_copy, usplash, 0, 0, 0755, -, /usr/sbin/usplash)
+	@$(call install_copy, usplash, 0, 0, 0755, -, /usr/sbin/usplash_write)
+	@$(call install_copy, usplash, 0, 0, 0755, -, /usr/sbin/usplash_down)
+	@$(call install_copy, usplash, 0, 0, 0755, -, /usr/sbin/update-usplash-theme)
+	@$(call install_lib, usplash, 0, 0, 0644, libusplash)
 
 	@$(call install_finish, usplash)
 

@@ -13,7 +13,9 @@
 #
 # We provide this package
 #
+ifndef PTXCONF_ARCH_PPC
 PACKAGES-$(PTXCONF_JS) += js
+endif
 
 #
 # Paths and names

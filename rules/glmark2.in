@@ -1,0 +1,45 @@
+## SECTION=multimedia_libs
+
+menuconfig GLMARK2
+	tristate
+	prompt "glmark2"
+	select MESALIB
+	select HOST_SYSTEM_PYTHON
+	select LIBPNG
+	select LIBJPEG
+	help
+	  glmark2 is an OpenGL 2.0 and ES 2.0 benchmark.
+
+if GLMARK2
+
+config GLMARK2_FLAVOR_X11_GL
+	bool
+	prompt "x11-gl"
+	depends on MESALIB_GLX && MESALIB_OPENGL
+
+config GLMARK2_FLAVOR_X11_GLES2
+	bool
+	prompt "x11-gles2"
+	depends on MESALIB_GLX && MESALIB_GLES2
+
+config GLMARK2_FLAVOR_DRM_GL
+	bool
+	prompt "drm-gl"
+	depends on MESALIB_EGL_DRM && MESALIB_OPENGL
+
+config GLMARK2_FLAVOR_DRM_GLES2
+	bool
+	prompt "drm-gles2"
+	depends on MESALIB_EGL_DRM && MESALIB_GLES2
+
+config GLMARK2_FLAVOR_WAYLAND_GL
+	bool
+	prompt "wayland-gl"
+	depends on MESALIB_EGL_WAYLAND && MESALIB_OPENGL
+
+config GLMARK2_FLAVOR_WAYLAND_GLES2
+	bool
+	prompt "wayland-gles2"
+	depends on MESALIB_EGL_WAYLAND && MESALIB_GLES2
+
+endif

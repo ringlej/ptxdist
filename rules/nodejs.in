@@ -26,5 +26,18 @@ config NODEJS_NPM
 config NODEJS_MODULE_LIST
 	string
 	prompt "install nodejs packages"
-	default "express@4.13.0"
+	help
+	  A list of Node.js packages including version (e.g. express@4.13.0).
+	  'ptxdist make nodejs-get' will download the packages and create a
+	  npmbox file for each package. Note: The packages are stored in
+	  local_src/ and should be part of the BSP. Downloading a package
+	  again may result in different content.
+
+config NODEJS_MODULE_MD5
+	string
+	prompt "nodejs packages md5 sums"
+	help
+	  A md5 sum for each npmbox file of the packages listed in
+	  NODEJS_MODULE_LIST.
+
 endif

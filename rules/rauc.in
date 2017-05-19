@@ -1,0 +1,36 @@
+## SECTION=applications
+
+menuconfig RAUC
+	tristate
+	prompt "Rauc Update Tool              "
+	select OPENSSL
+	select GLIB
+	select LIBCURL		if RAUC_NETWORK
+	select JSON_GLIB	if RAUC_JSON
+	select SQUASHFS_TOOLS			if RUNTIME
+	select SQUASHFS_TOOLS_UNSQUASHFS	if RUNTIME
+	help
+	  Robust Auto-Update Controller. RAUC controls the update process on embedded linux systems.
+
+if RAUC
+
+config RAUC_NETWORK
+	bool
+	prompt "network support"
+
+config RAUC_JSON
+	bool
+	prompt "JSON support"
+
+config RAUC_COMPATIBLE
+	prompt "RAUC Compatible"
+	string
+	default "${PTXCONF_PROJECT_VENDOR}\ ${PTXCONF_PROJECT}"
+	help
+	  An explicit identification string that RAUC uses to assure an update
+	  bundle matches with the correct root filesystem on the target.
+
+	  Only if the compatible in the targets RAUC system.conf file and those
+	  in the Bundle's manifest match exactly, an update will be performed
+
+endif

@@ -6,13 +6,11 @@
 
 menu "Print Utilities"
 
-
 config BUSYBOX_LPD
 	bool "lpd"
 	default y
 	help
 	  lpd is a print spooling daemon.
-
 config BUSYBOX_LPR
 	bool "lpr"
 	default y

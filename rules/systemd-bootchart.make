@@ -16,14 +16,17 @@ PACKAGES-$(PTXCONF_SYSTEMD_BOOTCHART) += systemd-bootchart
 #
 # Paths and names
 #
-SYSTEMD_BOOTCHART_VERSION	:= 230
-SYSTEMD_BOOTCHART_MD5		:= ff19741e25987add1fc547e2e4ddf87c
+SYSTEMD_BOOTCHART_VERSION	:= 231
+SYSTEMD_BOOTCHART_MD5		:= 809c148769a937746b667ba478134bcf
 SYSTEMD_BOOTCHART		:= systemd-bootchart-$(SYSTEMD_BOOTCHART_VERSION)
 SYSTEMD_BOOTCHART_SUFFIX	:= tar.xz
-SYSTEMD_BOOTCHART_URL		:= https://github.com/systemd/systemd-bootchart/releases/download/v230/$(SYSTEMD_BOOTCHART).$(SYSTEMD_BOOTCHART_SUFFIX)
+SYSTEMD_BOOTCHART_URL		:= https://github.com/systemd/systemd-bootchart/releases/download/v$(SYSTEMD_BOOTCHART_VERSION)/$(SYSTEMD_BOOTCHART).$(SYSTEMD_BOOTCHART_SUFFIX)
 SYSTEMD_BOOTCHART_SOURCE	:= $(SRCDIR)/$(SYSTEMD_BOOTCHART).$(SYSTEMD_BOOTCHART_SUFFIX)
 SYSTEMD_BOOTCHART_DIR		:= $(BUILDDIR)/$(SYSTEMD_BOOTCHART)
-SYSTEMD_BOOTCHART_LICENSE	:= unknown
+SYSTEMD_BOOTCHART_LICENSE	:= GPL-2.0+, LGPL-2.1
+SYSTEMD_BOOTCHART_LICENSE_FILES := \
+	file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
+	file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,9 +38,7 @@ SYSTEMD_BOOTCHART_LICENSE	:= unknown
 SYSTEMD_BOOTCHART_CONF_TOOL	:= autoconf
 SYSTEMD_BOOTCHART_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-man \
-	--with-rootprefix=/ \
-	--with-rootlibdir=/lib
+	--disable-man
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -53,12 +54,12 @@ $(STATEDIR)/systemd-bootchart.targetinstall:
 	@$(call install_fixup, systemd-bootchart,DESCRIPTION,missing)
 
 	@$(call install_copy, systemd-bootchart, 0, 0, 0755, -, \
-		/lib/systemd/systemd-bootchart)
+		/usr/lib/systemd/systemd-bootchart)
 	@$(call install_alternative, systemd-bootchart, 0, 0, 0644, \
 		/etc/systemd/bootchart.conf)
 
 	@$(call install_copy, systemd-bootchart, 0, 0, 0644, -, \
-		/lib/systemd/system/systemd-bootchart.service)
+		/usr/lib/systemd/system/systemd-bootchart.service)
 
 	@$(call install_finish, systemd-bootchart)
 

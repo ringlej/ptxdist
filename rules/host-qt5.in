@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_QT5
+	tristate
+	select HOST_ZLIB
+	default ALLYES

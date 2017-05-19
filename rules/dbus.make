@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.10.10
-DBUS_MD5	:= 495676d240eb982921b3ad1343526849
+DBUS_VERSION	:= 1.10.18
+DBUS_MD5	:= 1209c455598165a0c5263d4201894179
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -38,8 +38,11 @@ DBUS_CONF_TOOL	:= autoconf
 DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
 	--disable-compiler-coverage \
+	--enable-compiler-optimisations \
+	--disable-developer \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
@@ -54,18 +57,21 @@ DBUS_CONF_OPT	:= \
 	--enable-inotify \
 	--disable-kqueue \
 	--disable-console-owner-file \
+	--disable-launchd \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-systemd \
-	--with-dbus-user=messagebus \
 	--disable-embedded-tests \
 	--disable-modular-tests \
 	--disable-tests \
+	--disable-installed-tests \
 	--enable-epoll \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
+	--disable-Werror \
 	--disable-stats \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
-	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
+	--with-dbus-user=messagebus \
 	--without-valgrind \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef,PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-systemduserunitdir=/usr/lib/systemd/user
 
 # ----------------------------------------------------------------------------
@@ -123,16 +129,16 @@ endif
 endif
 ifdef PTXCONF_DBUS_SYSTEMD_UNIT
 	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/lib/systemd/system/dbus.socket)
+		/usr/lib/systemd/system/dbus.socket)
 	@$(call install_link, dbus, ../dbus.socket, \
-		/lib/systemd/system/sockets.target.wants/dbus.socket)
+		/usr/lib/systemd/system/sockets.target.wants/dbus.socket)
 	@$(call install_link, dbus, ../dbus.socket, \
-		/lib/systemd/system/dbus.target.wants/dbus.socket)
+		/usr/lib/systemd/system/dbus.target.wants/dbus.socket)
 
 	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/lib/systemd/system/dbus.service)
+		/usr/lib/systemd/system/dbus.service)
 	@$(call install_link, dbus, ../dbus.service, \
-		/lib/systemd/system/multi-user.target.wants/dbus.service)
+		/usr/lib/systemd/system/multi-user.target.wants/dbus.service)
 endif
 	@$(call install_finish, dbus)
 

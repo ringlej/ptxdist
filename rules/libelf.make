@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.166
-LIBELF_MD5	:= d4e462b7891915dc5326bccefa2024ff
+LIBELF_VERSION	:= 0.168
+LIBELF_MD5	:= 52adfa40758d0d39e5d5c57689bf38d6
 LIBELF		:= elfutils-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.bz2
 LIBELF_URL	:= https://fedorahosted.org/releases/e/l/elfutils/$(LIBELF_VERSION)/$(LIBELF).$(LIBELF_SUFFIX)
@@ -40,6 +40,11 @@ LIBELF_CONF_OPT	:= \
 	--without-bzlib \
 	--without-lzma
 
+LIBELF_ARCH := $(call remove_quotes,$(PTXCONF_ARCH_STRING))
+ifdef PTXCONF_ARCH_ARM64
+LIBELF_ARCH := aarch64
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -57,10 +62,8 @@ $(STATEDIR)/libelf.targetinstall:
 
 ifdef PTXCONF_LIBELF_LIBDW
 	@$(call install_lib, libelf, 0, 0, 0644, libdw-$(LIBELF_VERSION))
-	@$(foreach arch, i386 sh x86_64 ia64 alpha arm aarch64 sparc ppc ppc64 \
-		s390 tilegx, \
-		$(call install_lib, libelf, 0, 0, 0644, \
-		elfutils/libebl_$(arch)-$(LIBELF_VERSION));)
+	@$(call install_lib, libelf, 0, 0, 0644, \
+		elfutils/libebl_$(LIBELF_ARCH)-$(LIBELF_VERSION))
 endif
 
 ifdef PTXCONF_LIBELF_LIBASM
@@ -68,7 +71,7 @@ ifdef PTXCONF_LIBELF_LIBASM
 endif
 
 ifdef PTXCONF_LIBELF_ELFSUTILS
-	@$(foreach bin, addr2line ar elfcmp elfcompress elflint findtextrel ld \
+	@$(foreach bin, addr2line ar elfcmp elfcompress elflint findtextrel \
 		make-debug-archive nm objdump ranlib readelf size stack strings \
 		strip unstrip, \
 		$(call install_copy, libelf, 0, 0, 0755, -, \

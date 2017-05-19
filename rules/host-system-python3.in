@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SYSTEM_PYTHON3
+	tristate
+
+if HOST_SYSTEM_PYTHON
+
+endif

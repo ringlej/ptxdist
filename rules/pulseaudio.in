@@ -13,7 +13,7 @@ config PULSEAUDIO
 	select LIBLTDL
 	select LIBSNDFILE
 	select ORC
-	select SYSTEMD
+	select SYSTEMD		if PULSEAUDIO_SYSTEMD
 	select UDEV
 	select UDEV_LIBUDEV
 	prompt "pulseaudio"
@@ -22,3 +22,11 @@ config PULSEAUDIO
 	  proxy for your sound applications. It allows you to do advanced
 	  operations on your sound data as it passes between your
 	  application and your hardware.
+
+if PULSEAUDIO
+
+config PULSEAUDIO_SYSTEMD
+	bool
+	default INITMETHOD_SYSTEMD
+
+endif

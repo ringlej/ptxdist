@@ -29,7 +29,7 @@ $(STATEDIR)/rtps.targetinstall:
 	@$(call install_fixup, rtps,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, rtps,DESCRIPTION,missing)
 
-	@$(call install_alternative, rtps, 0, 0, 0755, /bin/rtps)
+	@$(call install_alternative, rtps, 0, 0, 0755, /usr/bin/rtps)
 
 	@$(call install_finish, rtps)
 

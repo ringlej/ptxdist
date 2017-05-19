@@ -1,0 +1,14 @@
+## SECTION=multimedia_gstreamer1
+
+config GST_LIBAV1
+	tristate
+	select CROSS_NASM
+	select GLIB
+	select GSTREAMER1
+	select GST_PLUGINS_BASE1
+	select BZIP2
+	select BZIP2_LIBBZ2
+	select ORC
+	prompt "gst-libav"
+	help
+	  Libav plugin for GStreamer

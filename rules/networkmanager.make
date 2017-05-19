@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.2.2
-NETWORKMANAGER_MD5	:= a922bf20c2243c9014fb14c4427ad035
+NETWORKMANAGER_VERSION	:= 1.6.2
+NETWORKMANAGER_MD5	:= 89c975afe19fbac854191edb6e9bcd3b
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.2/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.6/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 
@@ -33,7 +33,7 @@ NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 # autoconf
 #
 NETWORKMANAGER_CONF_TOOL := autoconf
-NETWORKMANAGER_CONF_OPT := \
+NETWORKMANAGER_CONF_OPT = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--enable-shared \
@@ -44,18 +44,22 @@ NETWORKMANAGER_CONF_OPT := \
 	--enable-ifupdown \
 	--disable-ifnet \
 	--disable-code-coverage \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
+	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
 	--disable-introspection \
 	--disable-qt \
-	--disable-wimax \
+	--disable-teamdctl \
+	--disable-json-validation \
 	--disable-polkit \
 	--disable-modify-system \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
 	--disable-bluez5-dun \
-	--disable-concheck \
+	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_CONCHECK)-concheck \
 	--enable-more-warnings \
 	--disable-more-asserts \
 	--disable-more-logging \
+	--disable-lto \
+	--disable-address-sanitizer \
+	--disable-undefined-sanitizer \
 	--disable-vala \
 	--disable-tests \
 	--disable-gtk-doc \
@@ -63,10 +67,10 @@ NETWORKMANAGER_CONF_OPT := \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
 	--without-libnm-glib \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-hostname-persist=default \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
-	--with-logging-backend-default="" \
+	--with-config-logging-backend-default="" \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-logind \
 	--without-consolekit \
 	--with-session-tracking=no \
@@ -76,16 +80,20 @@ NETWORKMANAGER_CONF_OPT := \
 	--with-crypto=gnutls \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
-	--with-dhclient=/sbin/dhclient \
+	--without-ofono \
+	--with-dhclient=/usr/sbin/dhclient \
 	--without-dhcpcd \
+	--without-dhcpcd-supports-ipv6 \
+	--with-config-dhcp-default=internal \
 	--without-resolvconf \
 	--without-netconfig \
+	--with-config-dns-rc-manager-default=file \
 	--with-iptables=/usr/sbin/iptables \
 	--with-dnsmasq=/usr/sbin/dnsmasq \
 	--with-dnssec-trigger=/bin/true \
 	--with-system-ca-path=/etc/ssl/certs \
 	--with-kernel-firmware-dir=/lib/firmware \
-	--without-libsoup \
+	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_CONCHECK)-libsoup \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMCLI)-nmcli \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
 	--without-valgrind \
@@ -144,7 +152,7 @@ $(STATEDIR)/networkmanager.targetinstall:
 	@$(call install_copy, networkmanager, 0, 0, 0755, /etc/NetworkManager/system-connections/)
 
 #	# unmanage NFS root devices
-	@$(call install_alternative, networkmanager, 0, 0, 0755, /lib/init/nm-unmanage.sh)
+	@$(call install_alternative, networkmanager, 0, 0, 0755, /usr/lib/init/nm-unmanage.sh)
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, /var/lib/NetworkManager)
 
@@ -161,23 +169,23 @@ endif
 endif
 ifdef PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager.service)
+		/usr/lib/systemd/system/NetworkManager.service)
 	@$(call install_link, networkmanager, ../NetworkManager.service, \
-		/lib/systemd/system/multi-user.target.wants/NetworkManager.service)
+		/usr/lib/systemd/system/multi-user.target.wants/NetworkManager.service)
 	@$(call install_link, networkmanager, NetworkManager.service, \
-		/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service)
+		/usr/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service)
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager-unmanage.service)
+		/usr/lib/systemd/system/NetworkManager-unmanage.service)
 	@$(call install_link, networkmanager, ../NetworkManager-unmanage.service, \
-		/lib/systemd/system/NetworkManager.service.wants/NetworkManager-unmanage.service)
+		/usr/lib/systemd/system/NetworkManager.service.wants/NetworkManager-unmanage.service)
 ifdef PTXCONF_NETWORKMANAGER_NM_ONLINE
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager-wait-online.service)
+		/usr/lib/systemd/system/NetworkManager-wait-online.service)
 endif
 	@$(call install_alternative, networkmanager, 0, 0, 0644, \
-		/lib/systemd/system/NetworkManager-dispatcher.service)
+		/usr/lib/systemd/system/NetworkManager-dispatcher.service)
 	@$(call install_link, networkmanager, NetworkManager-dispatcher.service, \
-		/lib/systemd/system/dbus-org.freedesktop.nm-dispatcher.service)
+		/usr/lib/systemd/system/dbus-org.freedesktop.nm-dispatcher.service)
 endif
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/sbin/NetworkManager)
@@ -202,6 +210,7 @@ ifdef PTXCONF_NETWORKMANAGER_WWAN
 	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-wwan)
 endif
 ifdef PTXCONF_NETWORKMANAGER_PPP
+	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-ppp-plugin)
 	@$(call install_copy, networkmanager, 0, 0, 0644, -, $(PPP_SHARED_INST_PATH)/nm-pppd-plugin.so)
 endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm)

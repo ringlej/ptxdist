@@ -33,18 +33,24 @@ BINUTILS_DIR		:= $(BUILDDIR)/$(BINUTILS)
 # Prepare
 # ----------------------------------------------------------------------------
 
+BINUTILS_CONF_ENV := \
+	$(CROSS_ENV) \
+	host_configargs='$(strip \
+		--enable-targets=$(PTXCONF_GNU_TARGET) \
+		--disable-nls \
+		--enable-commonbfdlib \
+		--enable-install-libiberty \
+		--disable-multilib)'
 #
 # autoconf
 #
 BINUTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--enable-targets=$(PTXCONF_GNU_TARGET) \
-	--disable-nls \
-	--enable-commonbfdlib \
-	--enable-install-libiberty \
-	--disable-multilib \
 	--disable-werror
+
+BINUTILS_CFLAGS := \
+	-fPIC
 
 # ----------------------------------------------------------------------------
 # Target-Install

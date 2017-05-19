@@ -102,12 +102,10 @@ ifdef PTXCONF_INETUTILS_INETD
 	@$(call install_copy, inetutils, 0, 0, 0755, -, /usr/sbin/inetd)
 endif
 ifdef PTXCONF_INETUTILS_PING
-	@$(call install_copy, inetutils, 0, 0, 4755, \
-		$(INETUTILS_PKGDIR)/usr/bin/ping, /bin/ping)
+	@$(call install_copy, inetutils, 0, 0, 4755, -, /usr/bin/ping)
 endif
 ifdef PTXCONF_INETUTILS_PING6
-	@$(call install_copy, inetutils, 0, 0, 4755, \
-		$(INETUTILS_PKGDIR)/usr/bin/ping6, /bin/ping6)
+	@$(call install_copy, inetutils, 0, 0, 4755, -, /usr/bin/ping6)
 endif
 ifdef PTXCONF_INETUTILS_RCP
 	@$(call install_copy, inetutils, 0, 0, 0755, -, /usr/bin/rcp)
@@ -124,8 +122,7 @@ ifdef PTXCONF_INETUTILS_RSHD
 		/etc/inetd.conf.d/inetutils-rshd, n)
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
-	@$(call install_copy, inetutils, 0, 0, 0755, \
-		$(INETUTILS_PKGDIR)/usr/sbin/syslogd, /sbin/syslogd)
+	@$(call install_copy, inetutils, 0, 0, 0755, -, /usr/sbin/syslogd)
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD_STARTSCRIPT
 	@$(call install_alternative, inetutils, 0, 0, 0755, \
@@ -142,8 +139,7 @@ ifdef PTXCONF_INETUTILS_SYSLOGD_CONFIG
 		/etc/syslog.conf, n)
 endif
 ifdef PTXCONF_INETUTILS_TFTPD
-	@$(call install_copy, inetutils, 0, 0, 0755, \
-		$(INETUTILS_PKGDIR)/usr/sbin/tftpd, /sbin/tftpd)
+	@$(call install_copy, inetutils, 0, 0, 0755, -, /usr/sbin/tftpd)
 ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
 #	# create the base dir
 	@$(call install_copy, inetutils, 99, 0, 0755, \

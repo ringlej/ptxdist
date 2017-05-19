@@ -1,0 +1,151 @@
+## SECTION=networking
+menuconfig NGINX
+	tristate
+	prompt "nginx                         "
+	select GCCLIBS_GCC_S
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select LIBC_CRYPT
+	select LIBPCRE			if NGINX_PCRE
+	select OPENSSL			if NGINX_HTTP_SSL_MODULE || NGINX_HTTP_V2_MODULE
+	select ZLIB			if NGINX_HTTP_GZIP_MODULE || NGINX_HTTP_GZIP_STATIC_MODULE
+	help
+	  nginx ("engine X") is a high-performance web and reverse
+	  proxy server created by Igor Sysoev. It can be used both as
+	  a standalone web server and as a proxy to reduce the load on
+	  backend servers.
+
+if NGINX
+
+menu "Modules                       "
+
+config NGINX_HTTP_ACCESS_MODULE
+	bool
+	prompt "ngx_http_access_module"
+	help
+	  ngx_http_access_module allows limiting access to certain
+	  client addresses.
+
+config NGINX_HTTP_AUTH_BASIC_MODULE
+	bool
+	prompt "ngx_http_auth_basic_module"
+	help
+	  ngx_http_auth_basic_module allows limiting access to
+	  resources by validating the user name and password using the
+	  HTTP Basic Authentication protocol.
+
+config NGINX_HTTP_AUTOINDEX_MODULE
+	bool
+	prompt "ngx_http_autoindex_module"
+	help
+	  ngx_http_autoindex_module processes requests ending with the
+	  slash character and produces a directory listing.
+
+config NGINX_HTTP_FASTCGI_MODULE
+	bool
+	prompt "ngx_http_fastcgi_module"
+	help
+	  ngx_http_fastcgi_module allows passing requests to a FastCGI
+	  server.
+
+config NGINX_HTTP_GZIP_MODULE
+	bool
+	prompt "ngx_http_gzip_module"
+	help
+	  ngx_http_gzip_module is a filter that compresses responses
+	  using gzip.
+
+config NGINX_HTTP_GZIP_STATIC_MODULE
+	bool
+	prompt "ngx_http_gzip_static_module"
+	help
+	  ngx_http_gzip_static_module allows sending precompressed files
+	  with the .gz filename extension instead of regular files.
+
+config NGINX_HTTP_PROXY_MODULE
+	bool
+	prompt "ngx_http_proxy_module"
+	help
+	  ngx_http_proxy_module allows passing requests to another
+	  server.
+
+config NGINX_HTTP_REWRITE_MODULE
+	bool
+	select NGINX_PCRE
+	prompt "ngx_http_rewrite_module"
+	help
+	  ngx_http_rewrite_module module is used to change request URI
+	  using PCRE regular expressions, return redirects, and
+	  conditionally select configurations.
+
+config NGINX_HTTP_SCGI_MODULE
+	bool
+	prompt "ngx_http_scgi_module"
+	help
+	  ngx_http_scgi_module allows passing requests to a SCGI
+	  server.
+
+config NGINX_HTTP_SSL_MODULE
+	bool
+	prompt "ngx_http_ssl_module"
+	help
+	  ngx_http_ssl_module provides the necessary support for HTTPS.
+
+config NGINX_HTTP_UWSGI_MODULE
+	bool
+	prompt "ngx_http_uwsgi_module"
+	help
+	  ngx_http_uwsgi_module allows passing requests to a uWSGI
+	  server.
+
+config NGINX_HTTP_V2_MODULE
+	bool
+	prompt "ngx_http_v2_module"
+	help
+	  ngx_http_v2_module provides support for HTTP/2.
+
+endmenu
+
+config NGINX_PCRE
+	bool
+	prompt "PCRE support"
+	help
+	  Include pcre support, which is required for regular
+	  expressions support in the location directive and for the
+	  ngx_http_rewrite_module module.
+
+if NGINX_PCRE
+
+config NGINX_PCRE_JIT
+	bool
+	prompt "Enable PCRE JIT"
+	help
+	  Enables the use of just-in-time compilation for regular
+	  expressions known by the time of configuration parsing.
+	  PCRE JIT can significantly speed up processing of regular
+	  expressions.
+
+endif
+
+config NGINX_THREADS
+	bool
+	prompt "Threads support"
+	help
+	  Enable multi-threading. Files can be read and sent without
+	  blocking a worker process. Requires epoll as connection
+	  processing method.
+
+config NGINX_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "Unit file for systemd"
+
+config NGINX_POPULATE_TEST_WEBSITE
+	bool
+	default y
+	prompt "Populate generic test website"
+	help
+	  Install a generic test website into /var/www/index.html
+
+endif

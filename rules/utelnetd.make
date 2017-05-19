@@ -31,7 +31,7 @@ UTELNETD_COMPILE_ENV := \
 	$(CROSS_ENV_FLAGS)
 
 UTELNETD_INSTALL_OPT := \
-	INSTDIR=/sbin \
+	INSTDIR=/usr/sbin \
 	install
 
 # ----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ $(STATEDIR)/utelnetd.targetinstall:
 	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 
-	@$(call install_copy, utelnetd, 0, 0, 0755, -, /sbin/utelnetd)
+	@$(call install_copy, utelnetd, 0, 0, 0755, -, /usr/sbin/utelnetd)
 
 	#
 	# busybox init
@@ -66,9 +66,9 @@ endif
 endif
 ifdef PTXCONF_UTELNETD_SYSTEMD_UNIT
 	@$(call install_alternative, utelnetd, 0, 0, 0644, \
-		/lib/systemd/system/utelnetd.service)
+		/usr/lib/systemd/system/utelnetd.service)
 	@$(call install_link, utelnetd, ../utelnetd.service, \
-		/lib/systemd/system/multi-user.target.wants/utelnetd.service)
+		/usr/lib/systemd/system/multi-user.target.wants/utelnetd.service)
 endif
 
 	@$(call install_finish, utelnetd)

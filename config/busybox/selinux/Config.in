@@ -7,7 +7,6 @@
 menu "SELinux Utilities"
 	depends on BUSYBOX_SELINUX
 
-
 config BUSYBOX_CHCON
 	bool "chcon"
 	default n
@@ -21,28 +20,24 @@ config BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
 	depends on BUSYBOX_CHCON && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the chcon applet.
-
 config BUSYBOX_GETENFORCE
 	bool "getenforce"
 	default n
 	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to get the current mode of SELinux.
-
 config BUSYBOX_GETSEBOOL
 	bool "getsebool"
 	default n
 	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to get SELinux boolean values.
-
 config BUSYBOX_LOAD_POLICY
 	bool "load_policy"
 	default n
 	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to load SELinux policy.
-
 config BUSYBOX_MATCHPATHCON
 	bool "matchpathcon"
 	default n
@@ -50,15 +45,6 @@ config BUSYBOX_MATCHPATHCON
 	help
 	  Enable support to get default security context of the
 	  specified path from the file contexts configuration.
-
-config BUSYBOX_RESTORECON
-	bool "restorecon"
-	default n
-	depends on BUSYBOX_SELINUX
-	help
-	  Enable support to relabel files. The feature is almost
-	  the same as setfiles, but usage is a little different.
-
 config BUSYBOX_RUNCON
 	bool "runcon"
 	default n
@@ -72,7 +58,6 @@ config BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
 	depends on BUSYBOX_RUNCON && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the runcon applet.
-
 config BUSYBOX_SELINUXENABLED
 	bool "selinuxenabled"
 	default n
@@ -80,14 +65,18 @@ config BUSYBOX_SELINUXENABLED
 	help
 	  Enable support for this command to be used within shell scripts
 	  to determine if selinux is enabled.
-
+config BUSYBOX_SESTATUS
+	bool "sestatus"
+	default n
+	depends on BUSYBOX_SELINUX
+	help
+	  Displays the status of SELinux.
 config BUSYBOX_SETENFORCE
 	bool "setenforce"
 	default n
 	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to modify the mode SELinux is running in.
-
 config BUSYBOX_SETFILES
 	bool "setfiles"
 	default n
@@ -106,6 +95,13 @@ config BUSYBOX_FEATURE_SETFILES_CHECK_OPTION
 	  Support "-c" option (check the validity of the contexts against
 	  the specified binary policy) for setfiles. Requires libsepol.
 
+config BUSYBOX_RESTORECON
+	bool "restorecon"
+	default n
+	depends on BUSYBOX_SELINUX
+	help
+	  Enable support to relabel files. The feature is almost
+	  the same as setfiles, but usage is a little different.
 config BUSYBOX_SETSEBOOL
 	bool "setsebool"
 	default n
@@ -113,12 +109,5 @@ config BUSYBOX_SETSEBOOL
 	help
 	  Enable support for change boolean.
 	  semanage and -P option is not supported yet.
-
-config BUSYBOX_SESTATUS
-	bool "sestatus"
-	default n
-	depends on BUSYBOX_SELINUX
-	help
-	  Displays the status of SELinux.
 
 endmenu

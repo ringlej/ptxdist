@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FILE) += file
 #
 # Paths and names
 #
-FILE_VERSION	:= 5.24
-FILE_MD5	:= ec161b5a0d2aef147fb046e5630b1408
+FILE_VERSION	:= 5.30
+FILE_MD5	:= f35eaf05489ae566eafc4d26bb1dcd90
 FILE		:= file-$(FILE_VERSION)
 FILE_SUFFIX	:= tar.gz
 FILE_URL	:= ftp://ftp.astron.com/pub/file/$(FILE).$(FILE_SUFFIX)
@@ -30,7 +30,15 @@ FILE_LICENSE	:= BSD, 2-term BSD
 # ----------------------------------------------------------------------------
 
 FILE_PATH	:= PATH=$(PTXDIST_SYSROOT_HOST)/bin/file:$(CROSS_PATH)
+
 FILE_CONF_TOOL	:= autoconf
+FILE_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-elf \
+	--enable-elf-core \
+	--enable-zlib \
+	--disable-fsect-man5 \
+	$(GLOBAL_LARGE_FILE_OPTION)
 
 # ----------------------------------------------------------------------------
 # Target-Install

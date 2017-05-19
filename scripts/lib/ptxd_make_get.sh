@@ -265,7 +265,7 @@ ptxd_make_get_svn() {
 	lmtime=$(svn info -r ${rev} "${mirror}" | \
 		awk '/^Last Changed Date:/ {print $4 " " $5 " " $6}') &&
 	echo "${PROMPT}svn: last modification time '${lmtime}'" &&
-	tar --exclude-vcs --show-stored-names ${tarcomp} \
+	GZIP=-n tar --exclude-vcs --show-stored-names ${tarcomp} \
 		--mtime="${lmtime}" --transform "s|^\.|${prefix}|g" \
 		--create --file "${path}" -C "${mirror}" .
 	ptxd_make_serialize_put

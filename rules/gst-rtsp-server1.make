@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.8.3
-GST_RTSP_SERVER1_MD5		:= e4b07b10dd65b6c26c9ca5f72e59297b
+GST_RTSP_SERVER1_VERSION	:= 1.12.0
+GST_RTSP_SERVER1_MD5		:= 70815a2ca055e1d8505965b17ac79aeb
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
@@ -33,7 +33,7 @@ GST_RTSP_SERVER1_LICENSE	:= LGPL-2.0+
 # autoconf
 #
 GST_RTSP_SERVER1_CONF_TOOL	:= autoconf
-GST_RTSP_SERVER1_CONF_OPT	:= \
+GST_RTSP_SERVER1_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GSTREAMER1_BASIC_CONF_OPT) \
 	\
@@ -45,7 +45,8 @@ GST_RTSP_SERVER1_CONF_OPT	:= \
 	--disable-docbook \
 	\
 	--enable-Bsymbolic \
-	--disable-static-plugins
+	--disable-static-plugins \
+	--with-package-origin="PTXdist"
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -61,6 +62,7 @@ $(STATEDIR)/gst-rtsp-server1.targetinstall:
 	@$(call install_fixup, gst-rtsp-server1,DESCRIPTION,missing)
 
 	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, libgstrtspserver-1.0)
+	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, gstreamer-1.0/libgstrtspclientsink)
 
 	@$(call install_finish, gst-rtsp-server1)
 

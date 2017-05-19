@@ -74,6 +74,10 @@ config TARGET_COMPILER_RECORD_SWITCHES
 	bool
 	prompt "store compiler flags (-frecord-gcc-switches)"
 	default y
+	help
+	  Can be read with the 'readelf' tool from the used toolchain and the
+	  command line option '-p .GCC.command.line' on any object file or
+	  the corresponding .debug/.<whatever>.dbg file.
 
 config TARGET_EXTRA_CPPFLAGS
 	string

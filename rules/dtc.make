@@ -62,7 +62,7 @@ ifdef PTXCONF_DTC_INSTALL_OFTREE
 	@$(call install_copy, dtc, 0, 0, 0755, /boot);
 	@$(foreach dtb, $(DTC_DTB), \
 		$(call install_copy, dtc, 0, 0, 0644, \
-		"$(dtb)", "/boot/$(notdir $(dtb))");)
+		"$(dtb)", "/boot/$(notdir $(dtb))")$(ptx/nl))
 
 	@$(call install_finish, dtc)
 endif

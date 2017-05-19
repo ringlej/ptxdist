@@ -14,4 +14,7 @@ config HOST_SYSTEM_PYTHON_ARGPARSE
 config HOST_SYSTEM_PYTHON_BZ2
 	bool
 
+config HOST_SYSTEM_PYTHON_MAKO
+	bool
+
 endif

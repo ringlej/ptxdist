@@ -7,11 +7,11 @@ Subject: [PATCH] restorecond: use pkg-config
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- restorecond/Makefile |    8 ++++----
+ restorecond/Makefile | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/restorecond/Makefile b/restorecond/Makefile
-index 3074542..16e60e8 100644
+index 30745426db39..16e60e86ff39 100644
 --- a/restorecond/Makefile
 +++ b/restorecond/Makefile
 @@ -10,13 +10,13 @@ autostart_DATA = sealertauto.desktop

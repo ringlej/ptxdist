@@ -27,7 +27,7 @@ menuconfig QT4
 # libsvga is currently not in ptxdist
 #	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
 
-	select XORG_LIB_X11		if QT4_X11
+	select XORG_LIB_X11		if QT4_PLATFORM_X11
 	select XORG_LIB_SM		if QT4_X11_SM
 	select XORG_PROTO_XEXT		if QT4_X11_XSHAPE
 	select XORG_PROTO_XEXT		if QT4_X11_XSYNC

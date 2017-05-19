@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_RSYSLOG) += rsyslog
 #
 # Paths and names
 #
-RSYSLOG_VERSION	:= 8.8.0
-RSYSLOG_MD5	:= 188088dc496fb0a121edb8816d1fac83
+RSYSLOG_VERSION	:= 8.26.0
+RSYSLOG_MD5	:= abe20d1621d1e73326c08b964a556ed7
 RSYSLOG		:= rsyslog-$(RSYSLOG_VERSION)
 RSYSLOG_SUFFIX	:= tar.gz
 RSYSLOG_URL	:= http://www.rsyslog.com/files/download/rsyslog/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_SOURCE	:= $(SRCDIR)/$(RSYSLOG).$(RSYSLOG_SUFFIX)
 RSYSLOG_DIR	:= $(BUILDDIR)/$(RSYSLOG)
-RSYSLOG_LICENSE	:= GPL-3.0, LGPL-3.0, Apache
+RSYSLOG_LICENSE	:= GPL-3.0+ AND LGPL-3.0+ AND Apache-2.0
 RSYSLOG_LICENSE_FILES := \
 	file://COPYING;md5=51d9635e646fb75e1b74c074f788e973 \
 	file://COPYING.LESSER;md5=cb7903f1e5c39ae838209e130dca270a \
@@ -43,12 +43,13 @@ RSYSLOG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_REGEXP)-regexp \
 	--disable-gssapi-krb5 \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_IMKLOG)-klog \
-	--enable-kmsg \
+	--$(call ptx/endis, PTXCONF_RSYSLOG_IMKMSG)-kmsg \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_SYSTEMD)-imjournal \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_INET)-inet \
 	--disable-jemalloc \
-	--enable-unlimited-select \
+	--disable-unlimited-select \
 	--disable-debug \
+	--disable-debug-symbols \
 	--disable-rtinst \
 	--disable-debugless \
 	--disable-valgrind \
@@ -61,25 +62,32 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-snmp \
 	--disable-uuid \
 	--disable-elasticsearch \
+	--disable-elasticsearch-tests \
 	--disable-gnutls \
 	--disable-libgcrypt \
 	--enable-rsyslogrt \
 	--enable-rsyslogd \
+	--disable-extended-tests \
 	--disable-mysql-tests \
+	--disable-pgsql-tests \
 	--disable-mail \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_IMDIAG)-imdiag \
 	--disable-mmnormalize \
-	--disable-mmjsonparse \
+	--$(call ptx/endis, PTXCONF_RSYSLOG_MMJSONPARSE)-mmjsonparse \
+	--disable-mmgrok \
 	--disable-mmaudit \
 	--disable-mmanon \
+	--disable-mmrm1stspace \
 	--disable-mmutf8fix \
 	--disable-mmcount \
 	--disable-mmsequence \
+	--disable-mmdblookup \
 	--disable-mmfields \
 	--disable-mmpstrucdata \
 	--disable-mmrfc5424addhmac \
 	--disable-relp \
 	--disable-guardtime \
+	--disable-gt-ksi \
 	--disable-liblogging-stdlog \
 	--disable-rfc3195 \
 	--disable-testbench \
@@ -93,14 +101,17 @@ RSYSLOG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_SYSTEMD)-omjournal \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_PMLASTMSG)-pmlastmsg \
 	--disable-pmcisconames \
-	--disable-pmciscoios \
+	--$(call ptx/endis, PTXCONF_RSYSLOG_PMCISCOIOS)-pmciscoios \
+	--disable-pmnull \
 	--disable-pmaixforwardedfrom \
 	--disable-pmsnare \
+	--disable-pmpanngfw \
 	--disable-omruleset \
 	--$(call ptx/endis, PTXCONF_RSYSLOG_OMUXSOCK)-omuxsock \
 	--disable-mmsnmptrapd \
 	--disable-omhdfs \
 	--disable-omkafka \
+	--disable-kafka-tests \
 	--disable-ommongodb \
 	--disable-imzmq3 \
 	--disable-imczmq \
@@ -108,10 +119,14 @@ RSYSLOG_CONF_OPT	:= \
 	--disable-omczmq \
 	--disable-omrabbitmq \
 	--disable-omhiredis \
-	--disable-generate-man-pages
+	--disable-omhttpfs \
+	--disable-omamqp1 \
+	--disable-omtcl \
+	--disable-generate-man-pages \
+	--disable-distcheck-workaround
 
 ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
-RSYSLOG_CONF_OPT += --with-systemdsystemunitdir=/lib/systemd/system
+RSYSLOG_CONF_OPT += --with-systemdsystemunitdir=/usr/lib/systemd/system
 else
 RSYSLOG_CONF_OPT += --without-systemdsystemunitdir
 endif
@@ -119,6 +134,7 @@ endif
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMDIAG)	+= imdiag
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMFILE)	+= imfile
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMKLOG)	+= imklog
+RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMKMSG)	+= imkmsg
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_SYSTEMD)	+= imjournal
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMMARK)	+= immark
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_IMPSTATS)	+= impstats
@@ -134,11 +150,13 @@ RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_INET)		+= lmstrmsrv
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_INET)		+= lmtcpclt
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_INET)		+= lmtcpsrv
 RSYSLOG_PLUGINS-y				+= lmzlibw
+RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_MMJSONPARSE)	+= mmjsonparse
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMPROG)	+= omprog
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMSTDOUT)	+= omstdout
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_SYSTEMD)	+= omjournal
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMUDPSPOOF)	+= omudpspoof
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_OMUXSOCK)	+= omuxsock
+RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_PMCISCOIOS)	+= pmciscoios
 RSYSLOG_PLUGINS-$(PTXCONF_RSYSLOG_PMLASTMSG)	+= pmlastmsg
 
 # ----------------------------------------------------------------------------
@@ -160,11 +178,11 @@ $(STATEDIR)/rsyslog.targetinstall:
 
 ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
 	@$(call install_copy, rsyslog, 0, 0, 0644, -, \
-		/lib/systemd/system/rsyslog.service)
+		/usr/lib/systemd/system/rsyslog.service)
 	@$(call install_link, rsyslog, ../rsyslog.service, \
-		/lib/systemd/system/multi-user.target.wants/rsyslog.service)
+		/usr/lib/systemd/system/multi-user.target.wants/rsyslog.service)
 	@$(call install_link, rsyslog, rsyslog.service, \
-		/lib/systemd/system/syslog.service)
+		/usr/lib/systemd/system/syslog.service)
 endif
 
 	@for plugin in $(RSYSLOG_PLUGINS-y); do \

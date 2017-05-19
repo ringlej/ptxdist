@@ -38,25 +38,17 @@ NMAP_ENV  := \
 #
 # autoconf
 #
-NMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
-	--with-libpcre \
-	--with-libpcap \
-	--without-liblua \
+NMAP_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--without-ndiff \
 	--without-zenmap \
 	--without-nping \
-	--without-ncat \
-	\
-	--enable-protochain \
-	--disable-optimizer-dbg \
-	--disable-yydebug
+	--with-openssl=$(call ptx/ifdef,PTXCONF_NMAP_OPENSSL,$(SYSROOT),no) \
+	--with-libpcap \
+	--with-libpcre \
+	--without-liblua \
+	--without-ncat
 
-ifdef PTXCONF_NMAP_OPENSSL
-NMAP_AUTOCONF += --with-openssl=$(SYSROOT)
-else
-NMAP_AUTOCONF += --without-openssl
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

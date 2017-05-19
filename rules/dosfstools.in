@@ -3,31 +3,39 @@ menuconfig DOSFSTOOLS
 	tristate
 	prompt "dosfstools                    "
 	select GCCLIBS_GCC_S
+	select UDEV			if DOSFSTOOLS_UDEV
+	select UDEV_LIBUDEV		if DOSFSTOOLS_UDEV
 
 if DOSFSTOOLS
 
-config DOSFSTOOLS_MKDOSFS
+config DOSFSTOOLS_UDEV
+	bool
+	prompt "make use of udev"
+	help
+	  make use of udev
+
+config DOSFSTOOLS_MKFS_FAT
 	bool
 	depends on !BUSYBOX_MKFS_VFAT || ALLYES
-	prompt "mkdosfs"
+	prompt "mkfs.fat"
 	help
-	  mkdosfs - create an MS-DOS file system under Linux
+	  mkfs.fat - create an MS-DOS file system under Linux
 
 comment "BusyBox' mkdosfs is selected!"
 	depends on BUSYBOX_MKFS_VFAT
 
-config DOSFSTOOLS_MKDOSFS_MSDOS
+config DOSFSTOOLS_MKFS_FAT_MSDOS
 	bool
 	depends on !BUSYBOX_MKFS_VFAT || ALLYES
-	select DOSFSTOOLS_MKDOSFS
+	select DOSFSTOOLS_MKFS_FAT
 	prompt "create mkfs.msdos link"
 	help
 	  FAT 12 / MSDOS Format
 
-config DOSFSTOOLS_MKDOSFS_VFAT
+config DOSFSTOOLS_MKFS_FAT_VFAT
 	bool
 	depends on !BUSYBOX_MKFS_VFAT || ALLYES
-	select DOSFSTOOLS_MKDOSFS
+	select DOSFSTOOLS_MKFS_FAT
 	prompt "create mkfs.vfat link"
 	help
 	  VFAT Format - Long Filenames, big files, etc.
@@ -35,29 +43,29 @@ config DOSFSTOOLS_MKDOSFS_VFAT
 comment "BusyBox' mkfs.vfat is selected!"
 	depends on BUSYBOX_MKFS_VFAT
 
-config DOSFSTOOLS_DOSFSCK
+config DOSFSTOOLS_FSCK_FAT
 	bool
-	prompt "dosfsck"
+	prompt "fsck.fat"
 	help
 	  This is the DOSFS / VFAT Filesystem Checker
 
-config DOSFSTOOLS_DOSFSCK_MSDOS
+config DOSFSTOOLS_FSCK_FAT_MSDOS
 	bool
-	select DOSFSTOOLS_DOSFSCK
+	select DOSFSTOOLS_FSCK_FAT
 	prompt "create fsck.msdos link"
 	help
 	  FAT 12 / MSDOS Format
 
-config DOSFSTOOLS_DOSFSCK_VFAT
+config DOSFSTOOLS_FSCK_FAT_VFAT
 	bool
-	select DOSFSTOOLS_DOSFSCK
+	select DOSFSTOOLS_FSCK_FAT
 	prompt "create fsck.vfat link"
 	help
 	  VFAT Format - Long Filenames, big files, etc.
 
-config DOSFSTOOLS_DOSFSLABEL
+config DOSFSTOOLS_FATLABEL
 	bool
-	prompt "dosfslabel"
+	prompt "fatlabel"
 	help
 	  set or get a MS-DOS filesystem label
 

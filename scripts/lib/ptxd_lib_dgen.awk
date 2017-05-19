@@ -309,6 +309,7 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	#
 	# default deps
 	#
+	print "$(if $(" this_PKG "_SOURCE),$(eval $(" this_PKG "_SOURCE) := " this_PKG "))"			> DGEN_DEPS_POST;
 	print "$(foreach src,$(" this_PKG "_SOURCES)," \
 		"$(eval $(STATEDIR)/" this_pkg ".get:"      "$(STATEDIR)/" this_pkg ".$(notdir $(src)).stamp))"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;

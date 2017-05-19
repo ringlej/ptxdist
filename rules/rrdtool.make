@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_RRDTOOL) += rrdtool
 #
 # Paths and names
 #
-RRDTOOL_VERSION	:= 1.4.9
-RRDTOOL_MD5	:= 1cea5a9efd6a48ac4035b0f9c7e336cf
+RRDTOOL_VERSION	:= 1.6.0
+RRDTOOL_MD5	:= 4ff52cc44b935b02d2742e6875094da5
 RRDTOOL		:= rrdtool-$(RRDTOOL_VERSION)
 RRDTOOL_SUFFIX	:= tar.gz
 RRDTOOL_URL	:= http://oss.oetiker.ch/rrdtool/pub/$(RRDTOOL).$(RRDTOOL_SUFFIX)
@@ -40,14 +40,20 @@ RRDTOOL_CONF_ENV	:= \
 RRDTOOL_CONF_TOOL	:= autoconf
 RRDTOOL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-docs \
+	--disable-examples \
+	--$(call ptx/endis, PTXCONF_RRDTOOL_RRDCACHED)-rrdcached \
 	--$(call ptx/endis, PTXCONF_RRDTOOL_RRDCGI)-rrdcgi \
 	--$(call ptx/endis, PTXCONF_RRDTOOL_RRD_GRAPH)-rrd_graph \
+	--$(call ptx/endis, PTXCONF_RRDTOOL_RRD_RESTORE)-rrd_restore \
 	--enable-mmap \
 	--enable-pthread \
+	--enable-flock \
 	--disable-static-programs \
 	--disable-nls \
 	--disable-rpath \
 	--disable-libdbi \
+	--disable-librados \
 	--$(call ptx/endis, PTXCONF_RRDTOOL_WRAP)-libwrap \
 	--disable-perl \
 	--disable-ruby \
@@ -55,7 +61,8 @@ RRDTOOL_CONF_OPT	:= \
 	--disable-tcl \
 	--disable-python \
 	--without-libiconv-prefix \
-	--without-libintl-prefix
+	--without-libintl-prefix \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 ifneq ($(call remove_quotes,$(PTXCONF_RRDTOOL_DEFAULT_FONT)),)
 RRDTOOL_CONF_OPT += --with-rrd-default-font=$(PTXCONF_RRDTOOL_DEFAULT_FONT)
@@ -76,6 +83,14 @@ $(STATEDIR)/rrdtool.targetinstall:
 
 ifdef PTXCONF_RRDTOOL_RRDCACHED
 	@$(call install_copy, rrdtool, 0, 0, 0755, -, /usr/bin/rrdcached)
+ifdef PTXCONF_RRDTOOL_RRDCACHED_SYSTEMD_UNIT
+	@$(call install_alternative, rrdtool, 0, 0, 0644, \
+		/usr/lib/systemd/system/rrdcached.service)
+	@$(call install_alternative, rrdtool, 0, 0, 0644, \
+		/usr/lib/systemd/system/rrdcached.socket)
+	@$(call install_link, rrdtool, ../rrdcached.socket, \
+		/usr/lib/systemd/system/sockets.target.wants/rrdcached.socket)
+endif
 endif
 ifdef PTXCONF_RRDTOOL_RRDCGI
 	@$(call install_copy, rrdtool, 0, 0, 0755, -, /usr/bin/rrdcgi)
@@ -88,7 +103,6 @@ ifdef PTXCONF_RRDTOOL_RRDUPDATE
 endif
 
 	@$(call install_lib, rrdtool, 0, 0, 0644, librrd)
-	@$(call install_lib, rrdtool, 0, 0, 0644, librrd_th)
 
 	@$(call install_finish, rrdtool)
 

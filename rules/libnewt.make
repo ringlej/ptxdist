@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBNEWT) += libnewt
 #
 # Paths and names
 #
-LIBNEWT_VERSION	:= 0.52.18
-LIBNEWT_MD5	:= 685721bee1a318570704b19dcf31d268
+LIBNEWT_VERSION	:= 0.52.20
+LIBNEWT_MD5	:= 70b288f821234593a8e7920e435b259b
 LIBNEWT		:= newt-$(LIBNEWT_VERSION)
 LIBNEWT_SUFFIX	:= tar.gz
 LIBNEWT_URL	:= https://fedorahosted.org/releases/n/e/newt/$(LIBNEWT).$(LIBNEWT_SUFFIX)
@@ -32,10 +32,12 @@ LIBNEWT_LICENSE	:= GPL-2.0
 LIBNEWT_CONF_TOOL	:= autoconf
 LIBNEWT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--without-python \
 	--without-tcl \
-	--without-gpm-support
+	--without-gpm-support \
+	--without-colorsfile
 
 # ----------------------------------------------------------------------------
 # Target-Install

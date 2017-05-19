@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_IPERF) += iperf
 #
 # Paths and names
 #
-IPERF_VERSION	:= 2.0.5
-IPERF_MD5	:= 44b5536b67719f4250faed632a3cd016
+IPERF_VERSION	:= 2.0.9
+IPERF_MD5	:= 351b018b71176b8cb25f20eef6a9e37c
 IPERF		:= iperf-$(IPERF_VERSION)
 IPERF_SUFFIX	:= tar.gz
-IPERF_URL	:= $(call ptx/mirror, SF, iperf/$(IPERF).$(IPERF_SUFFIX))
+IPERF_URL	:= $(call ptx/mirror, SF, iperf2/$(IPERF).$(IPERF_SUFFIX))
 IPERF_SOURCE	:= $(SRCDIR)/$(IPERF).$(IPERF_SUFFIX)
 IPERF_DIR	:= $(BUILDDIR)/$(IPERF)
 IPERF_LICENSE	:= BSD
@@ -37,7 +37,12 @@ IPERF_ENV 	:= $(CROSS_ENV)
 #
 IPERF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION)
+	$(GLOBAL_IPV6_OPTION) \
+	--disable-multicast \
+	--enable-threads \
+	--disable-debuginfo \
+	--disable-web100 \
+	--enable-kalman
 
 # ----------------------------------------------------------------------------
 # Target-Install

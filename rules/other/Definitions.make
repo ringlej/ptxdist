@@ -38,6 +38,11 @@ $(strip $(call ptx/escape/2,$(ptx/def/dollar),$(call ptx/escape/1,$(ptx/def/dquo
 endef
 
 
+define ptx/nl
+
+
+endef
+
 # backwards compat
 comma		:=,
 nullstring	:=

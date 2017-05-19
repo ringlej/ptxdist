@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_HOSTAPD) += hostapd
 # Paths and names
 #
 HOSTAPD_NAME	:= hostapd
-HOSTAPD_VERSION	:= 2.5
-HOSTAPD_MD5	:= 69f9cec3f76d74f402864a43e4f8624f
+HOSTAPD_VERSION	:= 2.6
+HOSTAPD_MD5	:= eaa56dce9bd8f1d195eb62596eab34c7
 HOSTAPD		:= $(HOSTAPD_NAME)-$(HOSTAPD_VERSION)
 HOSTAPD_SUFFIX	:= tar.gz
 HOSTAPD_URL	:= http://w1.fi/releases/$(HOSTAPD).$(HOSTAPD_SUFFIX)
@@ -30,8 +30,8 @@ HOSTAPD_DEFCONF	:= $(shell ptxd_get_alternative config/hostapd defconfig && echo
 HOSTAPD_CONFIG	:= $(BUILDDIR)/$(HOSTAPD)/$(HOSTAPD_SUBDIR)/.config
 HOSTAPD_LICENSE	:= BSD-3-Clause
 HOSTAPD_LICENSE_FILES := \
-	file://COPYING;md5=36b27801447e0662ee0138d17fe93880 \
-	file://README;md5=7f393579f8b109fe91f3b9765d26c7d3
+	file://COPYING;md5=292eece3f2ebbaa25608eed8464018a3 \
+	file://README;md5=3f01d778be8f953962388307ee38ed2b
 
 # ----------------------------------------------------------------------------
 # Prepare

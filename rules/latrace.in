@@ -1,0 +1,22 @@
+## SECTION=debug_tools
+
+menuconfig LATRACE
+	tristate
+	prompt "latrace                       "
+	select HOST_FLEX
+	select BINUTILS if LATRACE_DEMANGLE
+	help
+	  A tool to trace library calls and get their statistics in a
+	  manner similar to the strace utility
+
+if LATRACE
+
+config LATRACE_DEMANGLE
+	bool
+	prompt "demangle supprt"
+	default y
+	help
+	  Enable support for the demangle feature, required to trace C++ libraries
+	  for example.
+
+endif

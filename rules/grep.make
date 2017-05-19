@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GREP) += grep
 #
 # Paths and names
 #
-GREP_VERSION	:= 2.16
-GREP_MD5	:= 502350a6c8f7c2b12ee58829e760b44d
+GREP_VERSION	:= 2.26
+GREP_MD5	:= afdd61c7221434722671baf002ac9267
 GREP		:= grep-$(GREP_VERSION)
 GREP_SUFFIX	:= tar.xz
 GREP_URL	:= $(call ptx/mirror, GNU, grep/$(GREP).$(GREP_SUFFIX))
@@ -40,10 +40,13 @@ GREP_CONF_ENV := \
 #
 GREP_CONF_TOOL	:= autoconf
 GREP_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_ROOT) \
-	--$(call ptx/endis, PTXCONF_GREP_PCRE)-perl-regexp \
+	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-nls
+	--enable-threads=posix \
+	--disable-assert \
+	--disable-rpath \
+	--disable-nls \
+	--$(call ptx/endis, PTXCONF_GREP_PCRE)-perl-regexp
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -58,7 +61,7 @@ $(STATEDIR)/grep.targetinstall:
 	@$(call install_fixup, grep,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
 	@$(call install_fixup, grep,DESCRIPTION,missing)
 
-	@$(call install_copy, grep, 0, 0, 0755, -, /bin/grep)
+	@$(call install_copy, grep, 0, 0, 0755, -, /usr/bin/grep)
 
 	@$(call install_finish, grep)
 

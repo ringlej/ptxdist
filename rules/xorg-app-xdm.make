@@ -44,7 +44,7 @@ XORG_APP_XDM_CONF_OPT	:= \
 	--disable-xdm-auth \
 	--without-pam \
 	--without-selinux \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-random-device=$(XORG_APP_XDM_DEV_RANDOM) \
 	--with-utmp-file=/var/run/utmp \
 	--with-wtmp-file=/var/log/wtmp
@@ -66,9 +66,9 @@ $(STATEDIR)/xorg-app-xdm.targetinstall:
 
 ifdef PTXCONF_XORG_APP_XDM_SYSTEMD_UNIT
 	@$(call install_alternative, xorg-app-xdm, 0, 0, 0644, \
-		/lib/systemd/system/xdm.service)
+		/usr/lib/systemd/system/xdm.service)
 	@$(call install_link, xorg-app-xdm, ../xdm.service, \
-		/lib/systemd/system/graphical.target.wants/xdm.service)
+		/usr/lib/systemd/system/graphical.target.wants/xdm.service)
 endif
 
 	@$(call install_finish, xorg-app-xdm)

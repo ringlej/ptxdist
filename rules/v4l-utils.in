@@ -30,25 +30,63 @@ config V4L_UTILS_LIBV4LCONVERT
 	bool
 	prompt "install libv4lconvert"
 
+config V4L_UTILS_CECCOMPLIANCE
+	bool
+	prompt "install cec-compliance"
+
+config V4L_UTILS_CECCTL
+	bool
+	prompt "install cec-ctl"
+
+config V4L_UTILS_CECFOLLOWER
+	bool
+	prompt "install cec-follower"
+
+config V4L_UTILS_CECFOLLOWER
+	bool
+	prompt "install cx18-ctl"
+
+config V4L_UTILS_DECODETM6000
+	bool
+	prompt "install decode_tm6000"
+
+config V4L_UTILS_IRCTL
+	bool
+	prompt "install ir-ctl"
+
+config V4L_UTILS_IRKEYTABLE
+	bool
+	prompt "install ir-keytable"
+
+config V4L_UTILS_IVTVCTL
+	bool
+	prompt "install ivtv-ctl"
+
 config V4L_UTILS_MEDIACTL
 	bool
 	prompt "install media-ctl"
 
+config V4L_UTILS_RDSCTL
+	bool
+	prompt "install rds-ctl"
+
 config V4L_UTILS_V4L2COMPLIANCE
 	bool
 	select V4L_UTILS_LIBV4L2
-	prompt "install v4l2compliance"
+	prompt "install v4l2-compliance"
 
 config V4L_UTILS_V4L2DBG
 	bool
 	select V4L_UTILS_LIBV4L2
-	prompt "install v4l-dbg"
+	prompt "install v4l2-dbg"
 
 config V4L_UTILS_V4L2CTL
 	bool
 	select V4L_UTILS_LIBV4L2
-	prompt "install v4l-ctl"
+	prompt "install v4l2-ctl"
+
+config V4L_UTILS_V4L2SYSFSPATH
+	bool
+	prompt "install v4l2-sysfs-path"
 
 endif
-
-

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_VALIDATE1) += gst-validate1
 #
 # Paths and names
 #
-GST_VALIDATE1_VERSION	:= 1.8.3
-GST_VALIDATE1_MD5	:= caaab84b90024a40c1052ea3048ee6d0
+GST_VALIDATE1_VERSION	:= 1.12.0
+GST_VALIDATE1_MD5	:= eb1a0256dff768103de2899dac4a8860
 GST_VALIDATE1		:= gst-validate-$(GST_VALIDATE1_VERSION)
 GST_VALIDATE1_SUFFIX	:= tar.xz
 GST_VALIDATE1_URL	:= http://gstreamer.freedesktop.org/data/src/gst-validate/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
@@ -52,7 +52,8 @@ GST_VALIDATE1_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-gobject-cast-checks \
-	--disable-glib-asserts
+	--disable-glib-asserts \
+	--with-package-origin="PTXdist"
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -72,7 +73,7 @@ $(STATEDIR)/gst-validate1.targetinstall:
 		libgstvalidate-default-overrides-1.0)
 
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
-		gstreamer-1.0/libgstvalidateplugin-1.0)
+		gstreamer-1.0/libgstvalidatetracer)
 
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
 		gstreamer-1.0/validate/libgstvalidatefaultinjection)

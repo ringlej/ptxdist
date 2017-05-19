@@ -36,7 +36,7 @@ LSH_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LSH_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--sysconfdir=/etc/lsh \
 	--includedir=/usr/include/lsh \
@@ -67,27 +67,27 @@ $(STATEDIR)/lsh.targetinstall:
 	@$(call install_fixup, lsh,DESCRIPTION,missing)
 
 ifdef PTXCONF_LSH_EXECUV
-	@$(call install_copy, lsh, 0, 0, 0755, -, /sbin/lsh-execuv)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /usr/sbin/lsh-execuv)
 endif
 
 ifdef PTXCONF_LSH_LSHD
-	@$(call install_copy, lsh, 0, 0, 0755, -, /sbin/lshd)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /usr/sbin/lshd)
 endif
 
 ifdef PTXCONF_LSH_SFTPD
-	@$(call install_copy, lsh, 0, 0, 0755, -, /sbin/sftp-server)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /usr/sbin/sftp-server)
 endif
 
 ifdef PTXCONF_LSH_MAKESEED
-	@$(call install_copy, lsh, 0, 0, 0755, -, /bin/lsh-make-seed)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /usr/bin/lsh-make-seed)
 endif
 
 ifdef PTXCONF_LSH_WRITEKEY
-	@$(call install_copy, lsh, 0, 0, 0755, -, /bin/lsh-writekey)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /usr/bin/lsh-writekey)
 endif
 
 ifdef PTXCONF_LSH_KEYGEN
-	@$(call install_copy, lsh, 0, 0, 0755, -, /bin/lsh-keygen)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /usr/bin/lsh-keygen)
 endif
 	@$(call install_finish, lsh)
 	@$(call touch)

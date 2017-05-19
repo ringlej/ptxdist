@@ -20,7 +20,8 @@ config INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 	bool
 	default y
 	prompt "install /etc/init.d/networking"
-	select BUSYBOX_IFUPDOWN			if BUSYBOX
+	select BUSYBOX_IFUP			if BUSYBOX
+	select BUSYBOX_IFDOWN			if BUSYBOX
 	select BUSYBOX_IFCONFIG			if BUSYBOX
 	select BUSYBOX_FEATURE_IFUPDOWN_IP	if BUSYBOX
 	help

@@ -16,7 +16,6 @@ PACKAGES-$(PTXCONF_LIBGUDEV) += libgudev
 #
 # Paths and names
 #
-ifdef PTXCONF_SYSTEMD
 LIBGUDEV_VERSION	:= 230
 LIBGUDEV_MD5		:= e4dee8f3f349e9372213d33887819a4d
 LIBGUDEV		:= libgudev-$(LIBGUDEV_VERSION)
@@ -44,7 +43,6 @@ LIBGUDEV_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/endis, PTXCONF_LIBGUDEV_INTROSPECTION)-introspection
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -53,7 +51,6 @@ endif
 $(STATEDIR)/libgudev.targetinstall:
 	@$(call targetinfo)
 
-ifdef PTXCONF_SYSTEMD
 	@$(call install_init, libgudev)
 	@$(call install_fixup, libgudev,PRIORITY,optional)
 	@$(call install_fixup, libgudev,SECTION,base)
@@ -67,7 +64,6 @@ ifdef PTXCONF_LIBGUDEV_INTROSPECTION
 endif
 
 	@$(call install_finish, libgudev)
-endif
 
 	@$(call touch)
 

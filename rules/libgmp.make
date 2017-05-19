@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGMP) += libgmp
 #
 # Paths and names
 #
-LIBGMP_VERSION	:= 6.0.0a
-LIBGMP_MD5	:= b7ff2d88cae7f8085bd5006096eed470
+LIBGMP_VERSION	:= 6.1.2
+LIBGMP_MD5	:= 8ddbb26dc3bd4e2302984debba1406a5
 LIBGMP		:= gmp-$(LIBGMP_VERSION)
 LIBGMP_SUFFIX	:= tar.bz2
 LIBGMP_URL	:= $(call ptx/mirror, GNU, gmp/$(LIBGMP).$(LIBGMP_SUFFIX))
@@ -36,8 +36,20 @@ LIBGMP_LICENSE	:= GPL-3.0, LGPL-3.0
 LIBGMP_CONF_TOOL	:= autoconf
 LIBGMP_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-assert \
+	--enable-alloca \
+	--disable-cxx \
+	--enable-assembly \
+	--enable-fft \
+	--disable-old-fft-full \
+	--disable-nails \
+	--disable-profiling \
+	--disable-fat \
+	--disable-minithres \
+	--disable-fake-cpuid \
 	--enable-shared \
-	--disable-static
+	--disable-static \
+	--without-readline
 
 # ----------------------------------------------------------------------------
 # Target-Install

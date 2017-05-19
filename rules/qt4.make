@@ -47,7 +47,7 @@ $(STATEDIR)/qt4.extract:
 		    -e "s,@CFLAGS@,$(CROSS_CFLAGS),g" \
 		    -e "s,@CXXFLAGS@,$(CROSS_CXXFLAGS),g" \
 		    -e "s,@INCDIR@,$(SYSROOT)/include $(SYSROOT)/usr/include,g" \
-		    -e "s,@LIBDIR@,$(SYSROOT)/lib $(SYSROOT)/usr/lib,g" \
+		    -e "s,@LIBDIR@,$(SYSROOT)/usr/lib,g" \
 		    -e "s#@LDFLAGS@#$(strip $(CROSS_LDFLAGS))#g" \
 		    -e "s#@QMAKE_LIBS_OPENGL_ES1@#$(strip $(QT4_QMAKE_LIBS_OPENGL_ES1))#g" \
 		    -e "s#@QMAKE_LIBS_OPENGL_ES1CL@#$(strip $(QT4_QMAKE_LIBS_OPENGL_ES1CL))#g" \

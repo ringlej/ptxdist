@@ -6,7 +6,6 @@
 
 menu "Console Utilities"
 
-
 config BUSYBOX_CHVT
 	bool "chvt"
 	default y
@@ -14,27 +13,17 @@ config BUSYBOX_CHVT
 	help
 	  This program is used to change to another terminal.
 	  Example: chvt 4 (change to terminal /dev/tty4)
-
-config BUSYBOX_FGCONSOLE
-	bool "fgconsole"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  This program prints active (foreground) console number.
-
 config BUSYBOX_CLEAR
 	bool "clear"
 	default y
 	help
 	  This program clears the terminal screen.
-
 config BUSYBOX_DEALLOCVT
 	bool "deallocvt"
 	default y
 	select BUSYBOX_PLATFORM_LINUX
 	help
 	  This program deallocates unused virtual consoles.
-
 config BUSYBOX_DUMPKMAP
 	bool "dumpkmap"
 	default y
@@ -42,75 +31,24 @@ config BUSYBOX_DUMPKMAP
 	help
 	  This program dumps the kernel's keyboard translation table to
 	  stdout, in binary format. You can then use loadkmap to load it.
-
+config BUSYBOX_FGCONSOLE
+	bool "fgconsole"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  This program prints active (foreground) console number.
 config BUSYBOX_KBD_MODE
 	bool "kbd_mode"
 	default y
 	select BUSYBOX_PLATFORM_LINUX
 	help
 	  This program reports and sets keyboard mode.
-
 config BUSYBOX_LOADFONT
 	bool "loadfont"
 	default y
 	select BUSYBOX_PLATFORM_LINUX
 	help
 	  This program loads a console font from standard input.
-
-config BUSYBOX_LOADKMAP
-	bool "loadkmap"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  This program loads a keyboard translation table from
-	  standard input.
-
-config BUSYBOX_OPENVT
-	bool "openvt"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  This program is used to start a command on an unused
-	  virtual terminal.
-
-config BUSYBOX_RESET
-	bool "reset"
-	default y
-	help
-	  This program is used to reset the terminal screen, if it
-	  gets messed up.
-
-config BUSYBOX_RESIZE
-	bool "resize"
-	default y
-	help
-	  This program is used to (re)set the width and height of your current
-	  terminal.
-
-config BUSYBOX_FEATURE_RESIZE_PRINT
-	bool "Print environment variables"
-	default y
-	depends on BUSYBOX_RESIZE
-	help
-	  Prints the newly set size (number of columns and rows) of
-	  the terminal.
-	  E.g.:
-	  COLUMNS=80;LINES=44;export COLUMNS LINES;
-
-config BUSYBOX_SETCONSOLE
-	bool "setconsole"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  This program redirects the system console to another device,
-	  like the current tty while logged in via telnet.
-
-config BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS
-	bool "Enable long options"
-	default y
-	depends on BUSYBOX_SETCONSOLE && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the setconsole applet.
 
 config BUSYBOX_SETFONT
 	bool "setfont"
@@ -134,28 +72,6 @@ config BUSYBOX_DEFAULT_SETFONT_DIR
 	  Directory to use if setfont's params are simple filenames
 	  (not /path/to/file or ./file). Default is "" (no default directory).
 
-config BUSYBOX_SETKEYCODES
-	bool "setkeycodes"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  This program loads entries into the kernel's scancode-to-keycode
-	  map, allowing unusual keyboards to generate usable keycodes.
-
-config BUSYBOX_SETLOGCONS
-	bool "setlogcons"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  This program redirects the output console of kernel messages.
-
-config BUSYBOX_SHOWKEY
-	bool "showkey"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  Shows keys pressed.
-
 comment "Common options for loadfont and setfont"
 	depends on BUSYBOX_LOADFONT || BUSYBOX_SETFONT
 
@@ -172,5 +88,74 @@ config BUSYBOX_FEATURE_LOADFONT_RAW
 	depends on BUSYBOX_LOADFONT || BUSYBOX_SETFONT
 	help
 	  Support old (raw) console fonts.
+config BUSYBOX_LOADKMAP
+	bool "loadkmap"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  This program loads a keyboard translation table from
+	  standard input.
+config BUSYBOX_OPENVT
+	bool "openvt"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  This program is used to start a command on an unused
+	  virtual terminal.
+config BUSYBOX_RESET
+	bool "reset"
+	default y
+	help
+	  This program is used to reset the terminal screen, if it
+	  gets messed up.
+config BUSYBOX_RESIZE
+	bool "resize"
+	default y
+	help
+	  This program is used to (re)set the width and height of your current
+	  terminal.
+
+config BUSYBOX_FEATURE_RESIZE_PRINT
+	bool "Print environment variables"
+	default y
+	depends on BUSYBOX_RESIZE
+	help
+	  Prints the newly set size (number of columns and rows) of
+	  the terminal.
+	  E.g.:
+	  COLUMNS=80;LINES=44;export COLUMNS LINES;
+config BUSYBOX_SETCONSOLE
+	bool "setconsole"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  This program redirects the system console to another device,
+	  like the current tty while logged in via telnet.
+
+config BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS
+	bool "Enable long options"
+	default y
+	depends on BUSYBOX_SETCONSOLE && BUSYBOX_LONG_OPTS
+	help
+	  Support long options for the setconsole applet.
+config BUSYBOX_SETKEYCODES
+	bool "setkeycodes"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  This program loads entries into the kernel's scancode-to-keycode
+	  map, allowing unusual keyboards to generate usable keycodes.
+config BUSYBOX_SETLOGCONS
+	bool "setlogcons"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  This program redirects the output console of kernel messages.
+config BUSYBOX_SHOWKEY
+	bool "showkey"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Shows keys pressed.
 
 endmenu

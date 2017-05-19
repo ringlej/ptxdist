@@ -56,7 +56,7 @@ ptxd_make_image_genimage_impl() {
     ptxd_make_image_genimage_config "${1}" &&
 
     rm -rf "${pkg_dir}" &&
-    mkdir -p "${pkg_dir}" &&
+    install -m 755 -d "${pkg_dir}" &&
     for file in ${image_files}; do
 	ptxd_make_extract_archive "${file}" "${pkg_dir}"
     done &&

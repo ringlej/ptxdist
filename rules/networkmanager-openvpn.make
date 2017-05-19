@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER_OPENVPN) += networkmanager-openvpn
 #
 # Paths and names
 #
-NETWORKMANAGER_OPENVPN_VERSION	:= 1.2.2
-NETWORKMANAGER_OPENVPN_MD5	:= f7889d7530f226afd3ef110501a68af4
+NETWORKMANAGER_OPENVPN_VERSION	:= 1.2.6
+NETWORKMANAGER_OPENVPN_MD5	:= 47ed9b6c43ca364976a15e84207687df
 NETWORKMANAGER_OPENVPN		:= NetworkManager-openvpn-$(NETWORKMANAGER_OPENVPN_VERSION)
 NETWORKMANAGER_OPENVPN_SUFFIX	:= tar.xz
 NETWORKMANAGER_OPENVPN_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager-openvpn/1.2/$(NETWORKMANAGER_OPENVPN).$(NETWORKMANAGER_OPENVPN_SUFFIX)
@@ -39,8 +39,7 @@ NETWORKMANAGER_OPENVPN_CONF_OPT := \
 	--disable-nls \
 	--enable-more-warnings \
 	--without-libnm-glib \
-	--without-gnome \
-	--without-tests
+	--without-gnome
 
 # ----------------------------------------------------------------------------
 # Target-Install

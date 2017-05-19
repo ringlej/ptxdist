@@ -16,15 +16,18 @@ PACKAGES-$(PTXCONF_NETTLE) += nettle
 #
 # Paths and names
 #
-NETTLE_VERSION	:= 2.7.1
-NETTLE_MD5	:= 003d5147911317931dd453520eb234a5
+NETTLE_VERSION	:= 3.3
+NETTLE_MD5	:= 10f969f78a463704ae73529978148dbe
 NETTLE		:= nettle-$(NETTLE_VERSION)
 NETTLE_SUFFIX	:= tar.gz
-NETTLE_URL	:= http://www.lysator.liu.se/~nisse/archive/$(NETTLE).$(NETTLE_SUFFIX)
 NETTLE_SOURCE	:= $(SRCDIR)/$(NETTLE).$(NETTLE_SUFFIX)
 NETTLE_DIR	:= $(BUILDDIR)/$(NETTLE)
 NETTLE_LICENSE	:= GPL-2.0+
 NETTLE_MAKE_PAR := NO
+
+NETTLE_URL	:= \
+	http://www.lysator.liu.se/~nisse/archive/$(NETTLE).$(NETTLE_SUFFIX) \
+	$(call ptx/mirror, GNU, nettle/$(NETTLE).$(NETTLE_SUFFIX))
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,13 +39,17 @@ NETTLE_MAKE_PAR := NO
 NETTLE_CONF_TOOL	:= autoconf
 NETTLE_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-static \
 	--enable-public-key \
 	--enable-assembler \
+	--disable-static \
+	--enable-shared \
 	--disable-openssl \
 	--disable-gcov \
 	--disable-documentation \
-	--$(call ptx/endis,PTXCONF_ARCH_ARM_NEON)-arm-neon
+	--disable-fat \
+	--$(call ptx/endis,PTXCONF_ARCH_ARM_NEON)-arm-neon \
+	--disable-x86-aesni \
+	--enable-mini-gmp
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -41,6 +41,12 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON_BZ2
 		ptxd_bailout "Python bz2 module not found! \
 	Please install python-bz2";
 endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON_MAKO
+	@echo "Checking for Python Mako ..."
+	@python -c 'import mako' 2>/dev/null || \
+		ptxd_bailout "Python mako module not found! \
+	Please install python-mako (debian)";
+endif
 	@echo
 	@$(call touch)
 

@@ -51,7 +51,7 @@ ${list[*]}
     fi
 
     rm -rf "${work_dir}" &&
-    mkdir -p "${work_dir}" &&
+    install -m 755 -d "${work_dir}" &&
 
     ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
     SRC="" \

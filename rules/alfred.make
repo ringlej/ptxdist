@@ -59,15 +59,15 @@ $(STATEDIR)/alfred.targetinstall:
 	@$(call install_copy, alfred, 0, 0, 0755, $(ALFRED_DIR)/vis/batadv-vis, /usr/bin/batadv-vis)
 
 ifdef PTXCONF_ALFRED_SYSTEMD_SERVICE
-	@$(call install_alternative, alfred, 0, 0, 0644, /lib/systemd/system/alfred@.service)
-	@$(call install_alternative, alfred, 0, 0, 0644, /lib/systemd/system/batadv-vis@.service)
+	@$(call install_alternative, alfred, 0, 0, 0644, /usr/lib/systemd/system/alfred@.service)
+	@$(call install_alternative, alfred, 0, 0, 0644, /usr/lib/systemd/system/batadv-vis@.service)
 ifneq ($(PTXCONF_ALFRED_SYSTEMD_SERVICE_ALFRED_INTF),"")
 	@$(call install_link, alfred, ../alfred@.service, \
-	/lib/systemd/system/multi-user.target.wants/alfred@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_ALFRED_INTF).service)
+	/usr/lib/systemd/system/multi-user.target.wants/alfred@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_ALFRED_INTF).service)
 endif
 ifneq ($(PTXCONF_ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF),"")
 	@$(call install_link, alfred, ../batadv-vis@.service, \
-	/lib/systemd/system/multi-user.target.wants/batadv-vis@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF).service)
+	/usr/lib/systemd/system/multi-user.target.wants/batadv-vis@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF).service)
 endif
 endif
 
