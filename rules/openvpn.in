@@ -52,6 +52,7 @@ config OPENVPN_LZO
 
 config OPENVPN_SYSTEMD
 	bool
+	depends on INITMETHOD_SYSTEMD
 	prompt "Enable systemd support"
 	help
 	  This enables systemd support for openvpn.

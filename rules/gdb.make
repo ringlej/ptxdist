@@ -41,7 +41,8 @@ endif
 
 GDB_ENV := \
 	$(CROSS_ENV) \
-	$(CROSS_ENV_FLAGS_FOR_TARGET)
+	$(CROSS_ENV_FLAGS_FOR_TARGET) \
+	host_configargs='--disable-tui --disable-rpath --without-expat'
 
 ifndef PTXCONF_GDB_SHARED
 GDB_MAKEVARS := LDFLAGS=-static
@@ -54,10 +55,8 @@ GDB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT) \
-	--disable-tui \
-	--disable-rpath \
-	--disable-werror \
-	--without-expat
+	--disable-werror
+
 
 GDB_BUILD_OOT := YES
 

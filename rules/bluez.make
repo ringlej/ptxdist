@@ -58,8 +58,8 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--with-dbusconfdir=/usr/share \
 	--with-dbussystembusdir=/usr/share/dbus-1/system-services \
 	--with-dbussessionbusdir=/usr/share/dbus-1/services \
-	--with-udevdir=/lib/udev \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-udevdir=/usr/lib/udev \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-systemduserunitdir=/usr/lib/systemd/user
 
 # ----------------------------------------------------------------------------
@@ -116,13 +116,13 @@ endif
 
 	@$(call install_copy, bluez, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system.d/bluetooth.conf)
-	@$(call install_tree, bluez, 0, 0, -, /lib/udev/rules.d/)
+	@$(call install_tree, bluez, 0, 0, -, /usr/lib/udev/rules.d/)
 
 ifdef PTXCONF_BLUEZ_SYSTEMD_UNIT
 	@$(call install_copy, bluez, 0, 0, 0644, -, \
-		/lib/systemd/system/bluetooth.service)
+		/usr/lib/systemd/system/bluetooth.service)
 	@$(call install_link, bluez, ../bluetooth.service, \
-		/lib/systemd/system/multi-user.target.wants/bluetooth.service)
+		/usr/lib/systemd/system/multi-user.target.wants/bluetooth.service)
 	@$(call install_copy, bluez, 0, 0, 0644, -, \
 		/usr/lib/systemd/user/obex.service)
 endif

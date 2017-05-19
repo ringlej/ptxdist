@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_TMUX) += tmux
 #
 # Paths and names
 #
-TMUX_VERSION	:= 1.9a
-TMUX_MD5	:= b07601711f96f1d260b390513b509a2d
+TMUX_VERSION	:= 2.3
+TMUX_MD5	:= fcfd1611d705d8b31df3c26ebc93bd3e
 TMUX		:= tmux-$(TMUX_VERSION)
 TMUX_SUFFIX	:= tar.gz
 TMUX_URL	:= https://github.com/tmux/tmux/releases/download/$(TMUX_VERSION)/$(TMUX).$(TMUX_SUFFIX)
@@ -33,6 +33,14 @@ TMUX_LICENSE	:= BSD
 # autoconf
 #
 TMUX_CONF_TOOL	:= autoconf
+TMUX_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--disable-coverage \
+	--disable-profile \
+	--disable-static \
+	--disable-utempter \
+	--disable-utf8proc
 
 # ----------------------------------------------------------------------------
 # Target-Install

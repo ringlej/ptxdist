@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_M4) += host-m4
 #
 # Paths and names
 #
-HOST_M4_VERSION	:= 1.4.17
-HOST_M4_MD5	:= 12a3c829301a4fd6586a57d3fcf196dc
+HOST_M4_VERSION	:= 1.4.18
+HOST_M4_MD5	:= 730bb15d96fffe47e148d1e09235af82
 HOST_M4		:= m4-$(HOST_M4_VERSION)
 HOST_M4_SUFFIX	:= tar.xz
 HOST_M4_URL	:= http://ftp.gnu.org/gnu/m4/$(HOST_M4).$(HOST_M4_SUFFIX)

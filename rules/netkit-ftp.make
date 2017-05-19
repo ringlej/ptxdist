@@ -38,16 +38,16 @@ NETKIT_FTP_PATH	:= PATH=$(CROSS_PATH)
 #
 # autoconf
 #
-NETKIT_FTP_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
+NETKIT_FTP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/netkit-ftp.prepare:
 	@$(call targetinfo)
-	echo "BINDIR=/bin"			>  $(NETKIT_FTP_DIR)/MCONFIG
-	echo "MANDIR=/man"			>> $(NETKIT_FTP_DIR)/MCONFIG
+	echo "BINDIR=/usr/bin"			>  $(NETKIT_FTP_DIR)/MCONFIG
+	echo "MANDIR=/usr/man"			>> $(NETKIT_FTP_DIR)/MCONFIG
 	echo "BINMODE=755"			>> $(NETKIT_FTP_DIR)/MCONFIG
 	echo "MANMODE=644"			>> $(NETKIT_FTP_DIR)/MCONFIG
-	echo "PREFIX=/"				>> $(NETKIT_FTP_DIR)/MCONFIG
-	echo "EXECPREFIX=/"			>> $(NETKIT_FTP_DIR)/MCONFIG
+	echo "PREFIX=/usr"			>> $(NETKIT_FTP_DIR)/MCONFIG
+	echo "EXECPREFIX=/usr"			>> $(NETKIT_FTP_DIR)/MCONFIG
 	echo "INSTALLROOT=$(NETKIT_FTP_PKGDIR)"	>> $(NETKIT_FTP_DIR)/MCONFIG
 	echo $(CROSS_ENV)			>> $(NETKIT_FTP_DIR)/MCONFIG
 	echo "LIBTERMCAP=-lncurses"		>> $(NETKIT_FTP_DIR)/MCONFIG
@@ -70,7 +70,7 @@ $(STATEDIR)/netkit-ftp.targetinstall:
 	@$(call install_fixup, netkit-ftp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, netkit-ftp,DESCRIPTION,missing)
 
-	@$(call install_copy, netkit-ftp, 0, 0, 0755, -, /bin/ftp)
+	@$(call install_copy, netkit-ftp, 0, 0, 0755, -, /usr/bin/ftp)
 
 	@$(call install_finish, netkit-ftp)
 

@@ -5,4 +5,5 @@
 0003-makefile-remove-host-path-from-list-of-linker-search.patch
 0004-makefile-Allow-PAMH-and-AUDITH-to-be-overwritten-by-.patch
 0005-fixfiles-tweaks-to-make-it-work-better-with-busybox.patch
-# b68072807b5c8140404f88de335c127e  - git-ptx-patches magic
+0006-don-t-overwrite-load_policy-with-a-link.patch
+# 4e764c33fa11d2732339b4d354a927e7  - git-ptx-patches magic

@@ -24,13 +24,13 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index aed678e8a777..94f95a2456cc 100644
+index e9357931b47d..6fdc8c602ead 100644
 --- a/scripts/kconfig/menu.c
 +++ b/scripts/kconfig/menu.c
-@@ -257,9 +257,12 @@ static void sym_check_prop(struct symbol *sym)
+@@ -261,9 +261,12 @@ static void sym_check_prop(struct symbol *sym)
  				prop_warn(prop,
- 				    "config symbol '%s' uses select, but is "
- 				    "not boolean or tristate", sym->name);
+ 				    "config symbol '%s' uses %s, but is "
+ 				    "not boolean or tristate", sym->name, use);
 -			else if (sym2->type != S_UNKNOWN &&
 -				 sym2->type != S_BOOLEAN &&
 -				 sym2->type != S_TRISTATE)
@@ -41,5 +41,5 @@ index aed678e8a777..94f95a2456cc 100644
 +				    sym->name, sym2->name);
 +			else if (sym2->type != S_BOOLEAN && sym2->type != S_TRISTATE)
  				prop_warn(prop,
- 				    "'%s' has wrong type. 'select' only "
+ 				    "'%s' has wrong type. '%s' only "
  				    "accept arguments of boolean and "

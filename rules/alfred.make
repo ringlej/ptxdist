@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ALFRED) += alfred
 #
 # Paths and names
 #
-ALFRED_VERSION	:= 2015.1
-ALFRED_MD5	:= fcce70cd8da764ee91c8cd2cbfa14362
+ALFRED_VERSION	:= 2016.2
+ALFRED_MD5	:= cc7d5b352942477033a4cafbed84152d
 ALFRED		:= alfred-$(ALFRED_VERSION)
 ALFRED_SUFFIX	:= tar.gz
 ALFRED_URL	:= http://downloads.open-mesh.org/batman/stable/sources/alfred/$(ALFRED).$(ALFRED_SUFFIX)
@@ -59,15 +59,15 @@ $(STATEDIR)/alfred.targetinstall:
 	@$(call install_copy, alfred, 0, 0, 0755, $(ALFRED_DIR)/vis/batadv-vis, /usr/bin/batadv-vis)
 
 ifdef PTXCONF_ALFRED_SYSTEMD_SERVICE
-	@$(call install_alternative, alfred, 0, 0, 0644, /lib/systemd/system/alfred@.service)
-	@$(call install_alternative, alfred, 0, 0, 0644, /lib/systemd/system/batadv-vis@.service)
+	@$(call install_alternative, alfred, 0, 0, 0644, /usr/lib/systemd/system/alfred@.service)
+	@$(call install_alternative, alfred, 0, 0, 0644, /usr/lib/systemd/system/batadv-vis@.service)
 ifneq ($(PTXCONF_ALFRED_SYSTEMD_SERVICE_ALFRED_INTF),"")
 	@$(call install_link, alfred, ../alfred@.service, \
-	/lib/systemd/system/multi-user.target.wants/alfred@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_ALFRED_INTF).service)
+	/usr/lib/systemd/system/multi-user.target.wants/alfred@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_ALFRED_INTF).service)
 endif
 ifneq ($(PTXCONF_ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF),"")
 	@$(call install_link, alfred, ../batadv-vis@.service, \
-	/lib/systemd/system/multi-user.target.wants/batadv-vis@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF).service)
+	/usr/lib/systemd/system/multi-user.target.wants/batadv-vis@$(PTXCONF_ALFRED_SYSTEMD_SERVICE_BATADVVIS_INTF).service)
 endif
 endif
 

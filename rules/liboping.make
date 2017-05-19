@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBOPING) += liboping
 #
 # Paths and names
 #
-LIBOPING_VERSION	:= 1.6.2
-LIBOPING_MD5		:= 6f3e0d38ea03362476ac3be8b3fd961e
+LIBOPING_VERSION	:= 1.9.0
+LIBOPING_MD5		:= 28d085b95d1ca1acd541fc2606d5e02d
 LIBOPING		:= liboping-$(LIBOPING_VERSION)
 LIBOPING_SUFFIX		:= tar.gz
 LIBOPING_URL		:= http://verplant.org/liboping/files/$(LIBOPING).$(LIBOPING_SUFFIX)
@@ -35,7 +35,9 @@ LIBOPING_LICENSE	:= LGPL-2.1+
 LIBOPING_CONF_TOOL	:= autoconf
 LIBOPING_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-shared \
 	--disable-static \
+	--disable-debug \
 	--without-perl-bindings
 
 # ----------------------------------------------------------------------------

@@ -36,7 +36,7 @@ DASH_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 DASH_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	--with-libedit=no
 
 # ----------------------------------------------------------------------------
@@ -52,10 +52,10 @@ $(STATEDIR)/dash.targetinstall:
 	@$(call install_fixup, dash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dash,DESCRIPTION,missing)
 
-	@$(call install_copy, dash, 0, 0, 0755, -, /bin/dash)
+	@$(call install_copy, dash, 0, 0, 0755, -, /usr/bin/dash)
 
 ifdef PTXCONF_DASH_LINK_SH
-	@$(call install_link, dash, dash, /bin/sh)
+	@$(call install_link, dash, dash, /usr/bin/sh)
 endif
 
 	@$(call install_finish, dash)

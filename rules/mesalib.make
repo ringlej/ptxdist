@@ -19,11 +19,13 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 12.0.3
-MESALIB_MD5	:= 1113699c714042d8c4df4766be8c57d8
+MESALIB_VERSION	:= 17.0.4
+MESALIB_MD5	:= 4a16cfc1c6d034cc17314b866eada628
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
-MESALIB_URL	:= ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX)
+MESALIB_URL	:= \
+	ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB_VERSION)/$(MESALIB).$(MESALIB_SUFFIX) \
+	ftp://ftp.freedesktop.org/pub/mesa/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 MESALIB_LICENSE	:= MIT
@@ -55,6 +57,8 @@ endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_NOUVEAU)	+= nouveau
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_ETNAVIV)	+= etnaviv
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IMX)	+= imx
 ifdef PTXCONF_ARCH_ARM
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
 endif
@@ -63,7 +67,7 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
 
 MESALIB_DRI_LIBS-y += \
 	$(subst nouveau,nouveau_vieux,$(MESALIB_DRI_DRIVERS-y)) \
-	$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y))
+	$(subst imx,imx-drm,$(subst freedreno,kgsl,$(MESALIB_GALLIUM_DRIVERS-y)))
 
 MESALIB_LIBS-y				:= libglapi
 MESALIB_LIBS-$(PTXCONF_MESALIB_GLX)	+= libGL
@@ -85,15 +89,21 @@ MESALIB_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-largefile \
 	--disable-static \
 	--enable-shared \
+	--disable-pwr8 \
 	--disable-debug \
+	--disable-profile \
+	--disable-libglvnd \
 	--disable-mangling \
 	--disable-texture-float \
 	--disable-asm \
 	--disable-selinux \
+	--disable-llvm-shared-libs \
 	--$(call ptx/endis, PTXCONF_MESALIB_OPENGL)-opengl \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES1)-gles1 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES2)-gles2 \
 	--enable-dri \
+	--disable-gallium-extra-hud \
+	--disable-lmsensors \
 	--disable-dri3 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLX)-glx \
 	--disable-osmesa \
@@ -104,21 +114,17 @@ MESALIB_CONF_OPT	:= \
 	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
-	--disable-va \
 	--disable-omx \
+	--disable-va \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
-	--disable-shader-cache \
 	--enable-shared-glapi \
-	--disable-sysfs \
-	--disable-glx-read-only-text \
 	--enable-driglx-direct \
 	--enable-glx-tls \
+	--disable-glx-read-only-text \
 	--disable-gallium-llvm \
-	--enable-llvm-shared-libs \
-	--disable-libglvnd \
-	--with-sha1= \
+	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \

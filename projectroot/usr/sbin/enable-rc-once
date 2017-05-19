@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ -n "$1" ]; then
+	rm -f "$DESTDIR/etc/rc.once.d/.done/$1"
+fi
+rm -f "$DESTDIR/etc/rc.once.d/.done/rc-once"
+
+if [ -f "$DESTDIR/usr/lib/systemd/system/rc-once.service" ]; then
+	if [ ! -e $DESTDIR/system-update ]; then
+		ln -sf etc/rc.once.d $DESTDIR/system-update
+	fi
+fi

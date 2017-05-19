@@ -5,6 +5,7 @@ menuconfig GST_PLUGINS_GOOD1
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
+	select ORC
 	select LIBPNG			if GST_PLUGINS_GOOD1_LIBPNG
 	select LIBJPEG			if GST_PLUGINS_GOOD1_JPEG
 	select ZLIB			if GST_PLUGINS_GOOD1_ZLIB
@@ -21,7 +22,6 @@ menuconfig GST_PLUGINS_GOOD1
 	select LIBGUDEV			if GST_PLUGINS_GOOD1_GST_V4L2
 	select V4L_UTILS		if GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
 	select V4L_UTILS_LIBV4L2	if GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
-	select ORC			if GST_PLUGINS_GOOD1_ORC
 	select LIBSHOUT			if GST_PLUGINS_GOOD1_SHOUT2
 	select PULSEAUDIO		if GST_PLUGINS_GOOD1_PULSE
 
@@ -34,9 +34,6 @@ menuconfig GST_PLUGINS_GOOD1
 	  supporting library).
 
 if GST_PLUGINS_GOOD1
-
-config GST_PLUGINS_GOOD1_ORC
-	bool
 
 # ------------------------------
 comment "dependency-less plugins"
@@ -80,12 +77,10 @@ config GST_PLUGINS_GOOD1_DEBUGUTILS
 
 config GST_PLUGINS_GOOD1_DEINTERLACE
 	bool
-	select GST_PLUGINS_GOOD1_ORC
 	prompt "deinterlace"
 
 config GST_PLUGINS_GOOD1_DTMF
 	bool
-	select GST_PLUGINS_GOOD1_ORC
 	prompt "dtmf"
 
 config GST_PLUGINS_GOOD1_EFFECTV
@@ -106,7 +101,6 @@ config GST_PLUGINS_GOOD1_FLX
 
 config GST_PLUGINS_GOOD1_GOOM
 	bool
-	select GST_PLUGINS_GOOD1_ORC
 	prompt "goom"
 
 config GST_PLUGINS_GOOD1_GOOM2K1
@@ -191,7 +185,6 @@ config GST_PLUGINS_GOOD1_UDP
 
 config GST_PLUGINS_GOOD1_VIDEOBOX
 	bool
-	select GST_PLUGINS_GOOD1_ORC
 	prompt "videobox"
 
 config GST_PLUGINS_GOOD1_VIDEOCROP
@@ -204,7 +197,6 @@ config GST_PLUGINS_GOOD1_VIDEOFILTER
 
 config GST_PLUGINS_GOOD1_VIDEOMIXER
 	bool
-	select GST_PLUGINS_GOOD1_ORC
 	prompt "videomixer"
 
 config GST_PLUGINS_GOOD1_WAVENC

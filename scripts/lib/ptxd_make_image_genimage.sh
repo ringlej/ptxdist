@@ -23,7 +23,7 @@ ptxd_make_image_genimage_config() {
     local -a includes
     ptxd_get_alternative config/images "${1}" || ptxd_bailout "could not find config file ${1}"
     cfg="${ptxd_reply}"
-    tmp="${PTXDIST_TEMPDIR}/$(basename "${1}")"
+    tmp="${configdir}/$(basename "${1}")"
 
     eval \
 	"${image_env}" \
@@ -34,7 +34,7 @@ ptxd_make_image_genimage_config() {
     echo "${image_image}: \$(call genimage/config, ${1})" >> "${pkg_genimage_deps}"
 
     includes=( $(sed -n "s/.*\<include(['\"]\(.*\)['\"]).*/\1/p" "${tmp}") ) &&
-    sed  -i "s:\(.*\<include(['\"]\)\(.*\)\(['\"]).*\):\1${PTXDIST_TEMPDIR}/\2\3:" "${tmp}" &&
+    sed  -i "s:\(.*\<include(['\"]\)\(.*\)\(['\"]).*\):\1${configdir}/\2\3:" "${tmp}" &&
     for inc in "${includes[@]}"; do
         ptxd_make_image_genimage_config "${inc}"
     done
@@ -45,9 +45,10 @@ export -f ptxd_make_image_genimage_config
 # extract ipkg an generate a tgz image
 #
 ptxd_make_image_genimage_impl() {
-    local tmpdir config file
+    local tmpdir configdir file
     local -a genimage_configs
     tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/genimage.XXXXXX")"
+    configdir="$(mktemp -d "${PTXDIST_TEMPDIR}/genimage-config.XXXXXX")"
 
     ptxd_make_image_init &&
     pkg_genimage_deps="${ptx_state_dir}/${pkg_pkg}.deps" &&
@@ -55,7 +56,7 @@ ptxd_make_image_genimage_impl() {
     ptxd_make_image_genimage_config "${1}" &&
 
     rm -rf "${pkg_dir}" &&
-    mkdir -p "${pkg_dir}" &&
+    install -m 755 -d "${pkg_dir}" &&
     for file in ${image_files}; do
 	ptxd_make_extract_archive "${file}" "${pkg_dir}"
     done &&

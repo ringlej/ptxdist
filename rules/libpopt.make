@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBPOPT) += libpopt
 #
 # Paths and names
 #
-LIBPOPT_VERSION	:= 1.15
-LIBPOPT_MD5	:= c61ef795fa450eb692602a661ec8d7f1
+LIBPOPT_VERSION	:= 1.16
+LIBPOPT_MD5	:= 3743beefa3dd6247a73f8f7a32c14c33
 LIBPOPT		:= popt-$(LIBPOPT_VERSION)
 LIBPOPT_SUFFIX	:= tar.gz
 LIBPOPT_URL	:= http://rpm5.org/files/popt/$(LIBPOPT).$(LIBPOPT_SUFFIX)
@@ -30,16 +30,17 @@ LIBPOPT_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPOPT_PATH	:= PATH=$(CROSS_PATH)
-LIBPOPT_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIBPOPT_AUTOCONF := \
+LIBPOPT_CONF_TOOL	:= autoconf
+LIBPOPT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_LIBPOPT_NLS)-nls
-	
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-build-gcov \
+	--$(call ptx/endis, PTXCONF_LIBPOPT_NLS)-nls \
+	--disable-rpath
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------

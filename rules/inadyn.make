@@ -40,7 +40,7 @@ INADYN_MAKE_OPT	:= TARGET_ARCH=linux
 $(STATEDIR)/inadyn.install:
 	@$(call targetinfo)
 	install -D -m755 $(INADYN_DIR)/bin/linux/inadyn \
-		$(INADYN_PKGDIR)/sbin/inadyn
+		$(INADYN_PKGDIR)/usr/sbin/inadyn
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ $(STATEDIR)/inadyn.targetinstall:
 	@$(call install_fixup, inadyn,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, inadyn,DESCRIPTION,missing)
 
-	@$(call install_copy, inadyn, 0, 0, 0755, -, /sbin/inadyn)
+	@$(call install_copy, inadyn, 0, 0, 0755, -, /usr/sbin/inadyn)
 	@$(call install_alternative, inadyn, 0, 0, 0600, /etc/inadyn.conf)
 
 	@$(call install_finish, inadyn)

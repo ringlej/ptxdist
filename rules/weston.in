@@ -5,6 +5,7 @@ config WESTON
 	select LIBC_UTIL
 	select PIXMAN
 	select WAYLAND
+	select WAYLAND_PROTOCOLS
 	select LIBXKBCOMMON
 	select LIBJPEG
 	select LIBPNG
@@ -27,6 +28,8 @@ config WESTON
 	select XORG_LIB_XCURSOR		if WESTON_XWAYLAND
 	select XORG_SERVER		if WESTON_XWAYLAND && RUNTIME
 	select XORG_SERVER_XWAYLAND	if WESTON_XWAYLAND && RUNTIME
+	select SYSTEMD			if WESTON_SYSTEMD
+	select SYSTEMD_LOGIND		if WESTON_SYSTEMD_LOGIND
 	prompt "weston"
 	help
 	  Wayland compositor reference implementation
@@ -53,6 +56,17 @@ config WESTON_HEADLESS_COMPOSITOR
 config WESTON_FBDEV_COMPOSITOR
 	bool
 	prompt "fbdev compositor"
+
+config WESTON_SYSTEMD
+	bool
+	depends on INITMETHOD_SYSTEMD
+	default y
+	prompt "systemd support"
+
+config WESTON_SYSTEMD_LOGIND
+	bool
+	depends on WESTON_SYSTEMD
+	prompt "logind support"
 
 config WESTON_WCAP_TOOLS
 	bool

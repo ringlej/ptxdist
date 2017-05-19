@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-systemd-Decouple-the-starting-and-stopping-of-rpcbin.patch
 0002-rpcgen-don-t-link-to-libtirpc.patch
-# 5b8eb83230f35a110507daeddd563ff0  - git-ptx-patches magic
+0003-allow-installing-all-tools-in-usr.patch
+# 6b8cb3c12a86cacc5d50dda0a41a1544  - git-ptx-patches magic

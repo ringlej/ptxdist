@@ -50,7 +50,7 @@ ptxd_get_dl() {
 # out: eval sysroot= prefix=
 #
 ptxd_split_lib_prefix_sysroot_eval() {
-    local lib_path lib lib_dir prefix tmp pre
+    local lib_path lib lib_dir prefix tmp pre sysroot
 
     lib_path="${1}"
     pre="${2:+${2}_}"
@@ -65,8 +65,13 @@ ptxd_split_lib_prefix_sysroot_eval() {
 	    break
 	fi
     done
+    sysroot="${lib_dir%${prefix}}"
+    tmp="${prefix#/usr}"
+    if [ "${tmp}" == "${prefix}" ]; then
+	prefix="/usr${prefix}"
+    fi
 
-    echo "${pre}sysroot=\"${lib_dir%${prefix}}\" ${pre}prefix=\"${prefix}\""
+    echo "${pre}sysroot=\"${sysroot}\" ${pre}prefix=\"${prefix}\""
 }
 
 

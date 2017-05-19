@@ -29,23 +29,23 @@ $(STATEDIR)/initmethod-systemd.targetinstall:
 	@$(call install_fixup,initmethod-systemd,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup,initmethod-systemd,DESCRIPTION,missing)
 
-	@$(call install_alternative, initmethod-systemd, 0, 0, 0755, /lib/init/initmethod-bbinit-functions.sh)
+	@$(call install_alternative, initmethod-systemd, 0, 0, 0755, /usr/lib/init/initmethod-bbinit-functions.sh)
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD_IFUPDOWN
 	@$(call install_alternative, initmethod-systemd, 0, 0, 0755, \
-		/lib/systemd/ifupdown-prepare)
+		/usr/lib/systemd/ifupdown-prepare)
 	@$(call install_alternative, initmethod-systemd, 0, 0, 0644, \
-		/lib/systemd/system/ifupdown-prepare.service)
+		/usr/lib/systemd/system/ifupdown-prepare.service)
 	@$(call install_link, initmethod-systemd, ../ifupdown-prepare.service, \
-		/lib/systemd/system/ifupdown.service.wants/ifupdown-prepare.service)
+		/usr/lib/systemd/system/ifupdown.service.wants/ifupdown-prepare.service)
 
 	@$(call install_alternative, initmethod-systemd, 0, 0, 0644, \
-		/lib/systemd/system/ifupdown.service)
+		/usr/lib/systemd/system/ifupdown.service)
 	@$(call install_link, initmethod-systemd, ../ifupdown.service, \
-		/lib/systemd/system/network.target.wants/ifupdown.service)
+		/usr/lib/systemd/system/network.target.wants/ifupdown.service)
 
 	@$(call install_link, initmethod-systemd, ../network.target, \
-		/lib/systemd/system/multi-user.target.wants/network.target)
+		/usr/lib/systemd/system/multi-user.target.wants/network.target)
 
 	@$(call install_alternative, initmethod-systemd, 0, 0, 0644, /etc/network/interfaces)
 	@$(call install_copy, initmethod-systemd, 0, 0, 0755, /etc/network/if-down.d)

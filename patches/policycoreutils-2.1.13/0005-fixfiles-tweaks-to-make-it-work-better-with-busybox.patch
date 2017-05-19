@@ -4,11 +4,11 @@ Subject: [PATCH] fixfiles: tweaks to make it work better with busybox
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- scripts/fixfiles |   21 ++++++++++++---------
+ scripts/fixfiles | 21 ++++++++++++---------
  1 file changed, 12 insertions(+), 9 deletions(-)
 
 diff --git a/scripts/fixfiles b/scripts/fixfiles
-index 989b1ae..dc7d262 100755
+index 989b1ae618f5..dc7d26271966 100755
 --- a/scripts/fixfiles
 +++ b/scripts/fixfiles
 @@ -1,4 +1,4 @@

@@ -4,6 +4,7 @@ config PYTHON3_SYSTEMD
 	tristate
 	select PYTHON3
 	select SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	prompt "python3-systemd"
 	help
 	  Python module for native access to the systemd facilities.

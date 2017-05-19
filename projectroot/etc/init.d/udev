@@ -5,7 +5,7 @@ udev_rules="/lib/udev/rules.d"
 udev_log="err"
 
 # for new udevd
-PATH=/lib/udev:$PATH
+PATH=/usr/lib/udev:$PATH
 
 make_extra_nodes () {
 	# there are a few things that sysfs does not export for us.

@@ -17,13 +17,14 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 7.3p1
-OPENSSH_MD5	:= dfadd9f035d38ce5d58a3bf130b86d08
+OPENSSH_VERSION	:= 7.5p1
+OPENSSH_MD5	:= 652fdc7d8392f112bef11cacf7e69e23
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
-	http://openbsd.cs.fau.de/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX) \
-	http://ftp.halifax.rwth-aachen.de/openbsd/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
+	https://ftp.halifax.rwth-aachen.de/openbsd/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX) \
+	https://mirror.hs-esslingen.de/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
+
 OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
 OPENSSH_LICENSE	:= BSD, 2-term BSD, 3-term BSD, MIT, THE BEER-WARE LICENSE
@@ -35,7 +36,12 @@ OPENSSH_LICENSE_FILES := file://LICENCE;md5=e326045657e842541d3f35aada442507
 
 OPENSSH_CONF_ENV	:= \
 	$(CROSS_ENV) \
+	select_works_with_rlimit=yes \
 	LD=$(COMPILER_PREFIX)gcc
+
+OPENSSH_SANDBOX-y			:= seccomp_filter
+# seccomp_filter sandbox is not supported for ppc
+OPENSSH_SANDBOX-$(PTXCONF_ARCH_PPC)	:= rlimit
 
 #
 # autoconf
@@ -46,6 +52,7 @@ OPENSSH_CONF_OPT	:= \
 	--libexecdir=/usr/sbin \
 	--sysconfdir=/etc/ssh \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-pkcs11 \
 	--disable-strip \
 	--disable-etc-default-login \
 	--disable-lastlog \
@@ -57,9 +64,11 @@ OPENSSH_CONF_OPT	:= \
 	--disable-pututline \
 	--disable-pututxline \
 	--with-openssl \
+	--without-ssh1 \
 	--with-stackprotect \
 	--with-hardening \
 	--without-rpath \
+	--without-Werror \
 	--with-zlib=$(SYSROOT) \
 	--without-skey \
 	--without-ldns \
@@ -68,8 +77,11 @@ OPENSSH_CONF_OPT	:= \
 	--with-pie \
 	--without-ssl-engine \
 	--without-pam \
+	--with-privsep-user=sshd \
+	--with-sandbox=$(OPENSSH_SANDBOX-y) \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
-	--with-privsep-path=/var/run/sshd
+	--with-privsep-path=/var/run/sshd \
+	--without-md5-passwords
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -113,11 +125,11 @@ endif
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 ifdef PTXCONF_OPENSSH_SSHD_SYSTEMD_UNIT
 	@$(call install_alternative, openssh, 0, 0, 0644, \
-		/lib/systemd/system/sshd.socket)
+		/usr/lib/systemd/system/sshd.socket)
 	@$(call install_alternative, openssh, 0, 0, 0644, \
-		/lib/systemd/system/sshd@.service)
+		/usr/lib/systemd/system/sshd@.service)
 	@$(call install_link, openssh, ../sshd.socket, \
-		/lib/systemd/system/sockets.target.wants/sshd.socket)
+		/usr/lib/systemd/system/sockets.target.wants/sshd.socket)
 	@$(call install_alternative, openssh, 0, 0, 0644, \
 		/usr/lib/tmpfiles.d/ssh.conf)
 endif

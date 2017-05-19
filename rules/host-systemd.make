@@ -20,7 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 HOST_SYSTEMD_CONF_ENV	:= \
 	$(HOST_ENV) \
 	AR=ar NM=nm RANLIB=ranlib \
-	cc_cv_CFLAGS__flto=no \
 	cc_cv_LDFLAGS__Wl___gc_sections=no \
 	cc_cv_CFLAGS__Werror_shadow=no \
 	ac_cv_path_INTLTOOL_MERGE=:
@@ -36,6 +35,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-static \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
+	--disable-lto \
 	--disable-dbus \
 	--disable-utmp \
 	--disable-coverage \
@@ -100,7 +100,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--with-dns-servers= \
 	--with-sysvinit-path="" \
 	--with-sysvrcnd-path="" \
-	--with-rootprefix= \
+	--with-rootprefix=/usr \
 	--with-rootlibdir=/lib
 
 # vim: syntax=make

@@ -129,6 +129,8 @@ config QT5_GLIB
 
 config QT5_JOURNALD
 	bool
+	depends on INITMETHOD_SYSTEMD
+	default y
 	prompt "journald support"
 
 config QT5_OPENSSL

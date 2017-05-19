@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.13
-STRACE_MD5	:= 4b78c7febdd24c79d5147824d1a080a3
+STRACE_VERSION	:= 4.16
+STRACE_MD5	:= 2873366cac98770efcbed6e748d5ef23
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
@@ -31,7 +31,15 @@ STRACE_LICENSE	:= BSD-3-Clause
 # Prepare
 # ----------------------------------------------------------------------------
 
-STRACE_CONF_TOOL := autoconf
+STRACE_CONF_TOOL	:= autoconf
+STRACE_CONF_OPT		:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-gcc-Werror \
+	--disable-code-coverage \
+	--disable-arm-oabi \
+	--disable-valgrind \
+	--without-libunwind
+
 
 # ----------------------------------------------------------------------------
 # Target-Install

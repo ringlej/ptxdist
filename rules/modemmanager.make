@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MODEMMANAGER) += modemmanager
 #
 # Paths and names
 #
-MODEMMANAGER_VERSION	:= 1.6.0
-MODEMMANAGER_MD5	:= d9d93d2961ee35b4cd8a75a6a8631cb4
+MODEMMANAGER_VERSION	:= 1.6.4
+MODEMMANAGER_MD5	:= 06488186c7dd53f8104183b86f7a1568
 MODEMMANAGER		:= ModemManager-$(MODEMMANAGER_VERSION)
 MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= http://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
@@ -47,8 +47,8 @@ MODEMMANAGER_CONF_OPT	:= \
 	--disable-more-warnings \
 	--with-gnu-ld \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
-	--with-udev-base-dir=/lib/udev \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-udev-base-dir=/usr/lib/udev \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--without-polkit \
 	--with-mbim \
 	--with-qmi
@@ -78,15 +78,15 @@ $(STATEDIR)/modemmanager.targetinstall:
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
 		/usr/share/dbus-1/system-services/org.freedesktop.ModemManager1.service)
 
-	@$(call install_tree, modemmanager, 0, 0, -, /lib/udev/rules.d/)
+	@$(call install_tree, modemmanager, 0, 0, -, /usr/lib/udev/rules.d/)
 
 ifdef PTXCONF_MODEMMANAGER_SYSTEMD_UNIT
 	@$(call install_alternative, modemmanager, 0, 0, 0644, \
-		/lib/systemd/system/ModemManager.service)
+		/usr/lib/systemd/system/ModemManager.service)
 	@$(call install_link, modemmanager, ModemManager.service, \
-		/lib/systemd/system/dbus-org.freedesktop.ModemManager1.service)
+		/usr/lib/systemd/system/dbus-org.freedesktop.ModemManager1.service)
 	@$(call install_link, modemmanager, ../ModemManager.service, \
-		/lib/systemd/system/multi-user.target.wants/ModemManager.service)
+		/usr/lib/systemd/system/multi-user.target.wants/ModemManager.service)
 endif
 
 	@$(call install_finish, modemmanager)

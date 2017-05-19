@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GZIP) += gzip
 #
 # Paths and names
 #
-GZIP_VERSION	:= 1.5
-GZIP_MD5	:= 2a431e169b6f62f7332ef6d47cc53bae
+GZIP_VERSION	:= 1.8
+GZIP_MD5	:= f7caabb65cddc1a4165b398009bd05b9
 GZIP		:= gzip-$(GZIP_VERSION)
 GZIP_SUFFIX	:= tar.xz
 GZIP_URL	:= $(call ptx/mirror, GNU, gzip/$(GZIP).$(GZIP_SUFFIX))
@@ -35,6 +35,7 @@ GZIP_LICENSE	:= GPL-3.0
 GZIP_CONF_TOOL	:= autoconf
 GZIP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--runstatedir=/run \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-threads=posix \
 	--disable-rpath

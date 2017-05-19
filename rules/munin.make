@@ -60,7 +60,7 @@ $(STATEDIR)/munin.prepare:
 	@$(call touch)
 
 MUNIN_MAKE_ENV		:= $(CROSS_ENV)
-MUNIN_MAKE_OPT		:= CONFIG=$(MUNIN_CONFIG)
+MUNIN_MAKE_OPT		:= CONFIG=$(MUNIN_CONFIG) PERL="perl -I."
 MUNIN_INSTALL_OPT	:= CONFIG=$(MUNIN_CONFIG) install
 
 # ----------------------------------------------------------------------------
@@ -119,9 +119,9 @@ ifdef PTXCONF_MUNIN_NODE
 	@$(call install_tree, munin, 0, 0, -, $(PERL_SITELIB)/Munin/Node)
 ifdef PTXCONF_MUNIN_NODE_SYSTEMD_UNIT
 	@$(call install_alternative, munin, 0, 0, 0644, \
-		/lib/systemd/system/munin-node.service)
+		/usr/lib/systemd/system/munin-node.service)
 	@$(call install_link, munin, ../munin-node.service, \
-		/lib/systemd/system/multi-user.target.wants/munin-node.service)
+		/usr/lib/systemd/system/multi-user.target.wants/munin-node.service)
 endif
 endif
 	@$(call install_finish, munin)

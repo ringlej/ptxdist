@@ -46,6 +46,7 @@ HOST_GLIB_CONF_OPT	:= \
 	--disable-fam \
 	--disable-xattr \
 	--disable-libelf \
+	--disable-libmount \
 	--disable-gtk-doc \
 	--disable-man \
 	--disable-dtrace \
@@ -59,6 +60,7 @@ $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_GLIB)
 	@sed -i "s:'/share':'$(PTXCONF_SYSROOT_HOST)/share':" "$(PTXCONF_SYSROOT_HOST)/bin/gdbus-codegen"
+	@sed -i "s:^prefix=.*:prefix=$(PTXCONF_SYSROOT_HOST):" "$(PTXCONF_SYSROOT_HOST)/bin/glib-gettextize"
 	@$(call touch)
 
 # vim: syntax=make

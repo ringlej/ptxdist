@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 11 Jan 2017 14:07:32 +0100
+Subject: [PATCH] don't overwrite load_policy with a link
+
+This may happen if SBINDIR is set to USRSBINDIR externaly.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ load_policy/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/load_policy/Makefile b/load_policy/Makefile
+index 9478c0dc220b..8510bb3f3866 100644
+--- a/load_policy/Makefile
++++ b/load_policy/Makefile
+@@ -19,7 +19,7 @@ install: all
+ 	test -d $(MANDIR)/man8 || install -m 755 -d $(MANDIR)/man8
+ 	install -m 644 load_policy.8 $(MANDIR)/man8/
+ 	-mkdir -p $(USRSBINDIR)
+-	-ln -sf /sbin/load_policy $(USRSBINDIR)/load_policy
++	-test $(SBINDIR)!= $(USRSBINDIR) && ln -sf /sbin/load_policy $(USRSBINDIR)/load_policy
+ 
+ clean:
+ 	-rm -f $(TARGETS) *.o 

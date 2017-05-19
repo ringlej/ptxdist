@@ -57,7 +57,9 @@ $(STATEDIR)/psmisc.targetinstall:
 
 	@$(call install_copy, psmisc, 0, 0, 0755, -, /usr/bin/fuser)
 	@$(call install_copy, psmisc, 0, 0, 0755, -, /usr/bin/killall)
+ifndef PTXCONF_ARCH_ARM64
 	@$(call install_copy, psmisc, 0, 0, 0755, -, /usr/bin/peekfd)
+endif
 	@$(call install_copy, psmisc, 0, 0, 0755, -, /usr/bin/prtstat)
 	@$(call install_copy, psmisc, 0, 0, 0755, -, /usr/bin/pstree)
 

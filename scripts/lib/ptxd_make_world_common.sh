@@ -130,13 +130,6 @@ ptxd_make_world_init_compat() {
 	fi
     fi
 
-    # DESTDIR
-    if [[ "${pkg_conf_tool}" =~ "python" ]]; then
-	pkg_install_opt="${pkg_install_opt} --root=${pkg_pkg_dir}"
-    else
-	pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" INSTALL_ROOT=\"${pkg_pkg_dir}\" ${pkg_install_opt}"
-    fi
-
     #
     # pkg_binconfig_glob
     #
@@ -295,6 +288,9 @@ ptxd_make_world_init() {
 	if [ -e "${pkg_conf_dir}/Makefile.PL" ]; then
 	    pkg_conf_tool=${pkg_conf_tool}perl
 	fi
+	if [ -e "${pkg_conf_dir}/meson.build" ]; then
+	    pkg_conf_tool=${pkg_conf_tool}meson
+	fi
     fi
 
     case "${pkg_conf_tool}" in
@@ -303,7 +299,7 @@ ptxd_make_world_init() {
 	    local conf_env_ptr="ptx_conf_env_${pkg_type}"
 
 	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
-	    pkg_conf_env="${pkg_conf_env:-${!conf_env_ptr}}"
+	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env:-${!conf_env_ptr}}"
 
 	    unset conf_opt_ptr conf_env_ptr
 	    ;;
@@ -315,8 +311,34 @@ ptxd_make_world_init() {
 	    pkg_make_env="${pkg_conf_env:-${!env_ptr}}"
 	    pkg_make_opt="${pkg_make_opt:-build}"
 	    ;;
+	meson)
+	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}${conf_opt_ext}"
+
+	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
+	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env}"
+	    pkg_env="${pkg_env} LC_ALL='C.UTF-8'"
+	    if [ "${PTXDIST_VERBOSE}" = "1" ]; then
+		pkg_make_opt="-v ${pkg_make_opt}"
+		pkg_install_opt="-v ${pkg_install_opt}"
+	    fi
+	    # both jobserver and argument limit parallelism so both are needed
+	    pkg_env="${pkg_env} MAKEFLAGS='${PTXDIST_JOBSERVER_FLAGS}'"
+	    PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLEL_FLAGS}"
+
+	    unset conf_opt_ptr
+	    ;;
 	*) ;;
     esac
+
+    # DESTDIR
+    if [[ "${pkg_conf_tool}" =~ "python" ]]; then
+	pkg_install_opt="${pkg_install_opt} --root=${pkg_pkg_dir}"
+    elif [ "${pkg_conf_tool}" = "meson" ]; then
+	    pkg_env="${pkg_env} DESTDIR=\"${pkg_pkg_dir}\""
+    else
+	pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" INSTALL_ROOT=\"${pkg_pkg_dir}\" ${pkg_install_opt}"
+    fi
+
 
     #
     # build dir
@@ -325,6 +347,7 @@ ptxd_make_world_init() {
 	if [ -z "${pkg_build_oot}" ]; then
 	    case "${pkg_conf_tool}" in
 		cmake) pkg_build_oot=YES ;;
+		meson) pkg_build_oot=YES ;;
 		*)     pkg_build_oot=NO ;;
 	    esac
 	fi

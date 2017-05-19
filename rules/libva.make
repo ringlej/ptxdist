@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBVA) += libva
 #
 # Paths and names
 #
-LIBVA_VERSION	:= 1.7.0
-LIBVA_MD5	:= 7309097b790de8dbc9641ed6393eab9f
+LIBVA_VERSION	:= 1.8.1
+LIBVA_MD5	:= a881c7f9c67bfd0f8bffac3bb535aaf2
 LIBVA		:= libva-$(LIBVA_VERSION)
 LIBVA_SUFFIX	:= tar.bz2
 LIBVA_URL	:= http://www.freedesktop.org/software/vaapi/releases/libva/$(LIBVA).$(LIBVA_SUFFIX)
@@ -44,16 +44,9 @@ LIBVA_CONF_OPT	:= \
 	--disable-docs \
 	$(addprefix --enable-,$(LIBVA_ENABLE-y)) \
 	$(addprefix --disable-,$(LIBVA_ENABLE-)) \
+	--enable-va-messaging \
 	--disable-dummy-driver \
 	$(GLOBAL_LARGE_FILE_OPTION)
-
-LIBVA_TOOLS := \
-	avcenc \
-	h264encode \
-	loadjpeg \
-	mpeg2vaenc \
-	mpeg2vldemo \
-	vainfo
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -73,11 +66,6 @@ $(STATEDIR)/libva.targetinstall:
 
 	@$(foreach api, $(LIBVA_ENABLE-y), \
 		$(call install_lib, libva, 0, 0, 0644, libva-$(api));)
-
-ifdef PTXCONF_LIBVA_TOOLS
-	@$(foreach tool, $(LIBVA_TOOLS), \
-		$(call install_copy, libva, 0, 0, 0755, -, /usr/bin/$(tool));)
-endif
 
 	@$(call install_finish, libva)
 

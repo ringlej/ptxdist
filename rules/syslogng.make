@@ -44,7 +44,6 @@ SYSLOGNG_AUTOCONF := \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
-	--disable-sun-door \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_AMQP_DESTINATION)-amqp \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_MONGODB_DESTINATION)-mongodb \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_PYTHON_DESTINATION)-python \
@@ -53,7 +52,7 @@ SYSLOGNG_AUTOCONF := \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_STOMP_DESTINATION)-stomp \
 	--$(call ptx/endis, PTXCONF_SYSLOGNG_TCP_WRAPPER)-tcp-wrapper \
 	--with-systemd-journal=$(call ptx/ifdef, PTXCONF_SYSLOGNG_SYSTEMD,system,no) \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--localstatedir=/var/run \
 	--with-libnet=$(SYSROOT)/usr/bin
 
@@ -97,11 +96,11 @@ endif
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 ifdef PTXCONF_SYSLOGNG_SYSTEMD
 	@$(call install_alternative, syslogng, 0, 0, 0644, \
-		/lib/systemd/system/syslog-ng.service)
+		/usr/lib/systemd/system/syslog-ng.service)
 	@$(call install_link, syslogng, ../syslog-ng.service, \
-		/lib/systemd/system/multi-user.target.wants/syslog-ng.service)
-	@$(call install_link, syslogng, syslog.service, \
-		/lib/systemd/system/syslog.service)
+		/usr/lib/systemd/system/multi-user.target.wants/syslog-ng.service)
+	@$(call install_link, syslogng, syslog-ng.service, \
+		/usr/lib/systemd/system/syslog.service)
 endif
 endif
 	@$(call install_finish, syslogng)

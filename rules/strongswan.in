@@ -49,6 +49,8 @@ config STRONGSWAN_AFALG
 config STRONGSWAN_SYSTEMD_UNIT
 	bool
 	default y
+	# uses old systemd-daemon / libsystemd-journal libs
+	depends on BROKEN
 	depends on INITMETHOD_SYSTEMD
 	prompt "install systemd service file"
 

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.3.24
-GNUTLS_MD5	:= 4057aa38fcceda709b73f4179ca0a21a
+GNUTLS_VERSION	:= 3.3.27
+GNUTLS_MD5	:= 8ee8cebd7f7575b11f232766a21c31d3
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
 GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
@@ -49,29 +49,38 @@ GNUTLS_CONF_OPT		:= \
 	--enable-dhe \
 	--enable-ecdhe \
 	--enable-openpgp-authentication \
+	--disable-cryptodev \
 	--enable-ocsp \
 	--enable-session-tickets \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
 	--disable-doc \
 	--disable-tests \
 	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
 	--disable-nls \
 	--disable-rpath \
 	--disable-valgrind-tests \
 	--disable-gcc-warnings \
-	--enable-shared \
 	--disable-static \
+	--enable-shared \
 	--disable-self-checks \
 	--disable-fips140-mode \
 	--enable-non-suiteb-curves \
 	--disable-libdane \
 	--enable-local-libopts \
 	--disable-libopts-install \
+	--enable-optional-args \
 	--disable-guile \
 	--disable-crywrap \
+	--with-nettle-mini \
+	--without-included-libtasn1 \
+	--without-librt-prefix \
+	--without-arcfour128 \
+	--without-ssl3 \
 	--without-p11-kit \
 	--without-tpm \
-	--without-librt-prefix \
+	--without-trousers-lib \
 	--without-libregex \
 	--with-zlib \
 	--without-libz-prefix \

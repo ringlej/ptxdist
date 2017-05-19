@@ -1,0 +1,13 @@
+[Unit]
+Description=Statistics collection and monitoring daemon
+After=network.target
+Requires=network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/sbin/collectd
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBURCU) += liburcu
 #
 # Paths and names
 #
-LIBURCU_VERSION	:= 0.6.7
-LIBURCU_MD5	:= 2705dadd65beda8e8960472c082e44b3
+LIBURCU_VERSION	:= 0.9.3
+LIBURCU_MD5	:= 920970e35a1a2066c8353eabfeab8730
 LIBURCU		:= userspace-rcu-$(LIBURCU_VERSION)
 LIBURCU_SUFFIX	:= tar.bz2
 LIBURCU_URL	:= http://lttng.org/files/urcu/$(LIBURCU).$(LIBURCU_SUFFIX)

@@ -139,28 +139,28 @@ endif
 
 ifdef PTXCONF_PUREFTPD_SYSTEMD_UNIT
 	@$(call install_alternative, pureftpd, 0, 0, 0644, \
-		/lib/systemd/system/pure-ftpd.socket)
+		/usr/lib/systemd/system/pure-ftpd.socket)
 	@$(call install_link, pureftpd, ../pure-ftpd.socket, \
-		/lib/systemd/system/sockets.target.wants/pure-ftpd.socket)
+		/usr/lib/systemd/system/sockets.target.wants/pure-ftpd.socket)
 
 	@$(call install_alternative, pureftpd, 0, 0, 0644, \
-		/lib/systemd/system/pure-ftpd@.service)
+		/usr/lib/systemd/system/pure-ftpd@.service)
 	@$(call install_replace, pureftpd, \
-		/lib/systemd/system/pure-ftpd@.service, \
+		/usr/lib/systemd/system/pure-ftpd@.service, \
 		@ARGS@, "$(PUREFTPD_ARGS)")
 ifndef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_replace, pureftpd, \
-		/lib/systemd/system/pure-ftpd@.service, \
+		/usr/lib/systemd/system/pure-ftpd@.service, \
 		@SCRIPT_DEPS@, "")
 else
 	@$(call install_replace, pureftpd, \
-		/lib/systemd/system/pure-ftpd@.service, \
+		/usr/lib/systemd/system/pure-ftpd@.service, \
 		@SCRIPT_DEPS@, "Requires=pure-uploadscript.service\nAfter=pure-uploadscript.service\n")
 
 	@$(call install_alternative, pureftpd, 0, 0, 0644, \
-		/lib/systemd/system/pure-uploadscript.service)
+		/usr/lib/systemd/system/pure-uploadscript.service)
 	@$(call install_replace, pureftpd, \
-		/lib/systemd/system/pure-uploadscript.service, \
+		/usr/lib/systemd/system/pure-uploadscript.service, \
 		@ARGS@, $(PTXCONF_PUREFTPD_UPLOADSCRIPT_ARGS))
 endif
 endif

@@ -1,0 +1,25 @@
+From: Markus Niebel <Markus.Niebel@tq-group.com>
+Date: Thu, 2 Mar 2017 17:17:20 +0100
+Subject: [PATCH] force autogen to look for stdc
+
+needed since sources using constructs needing stdc99
+
+Signed-off-by: Markus Niebel <Markus.Niebel@tq-group.com>
+---
+ configure.ac | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 615488a79cde..9760f3763d0d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -35,6 +35,9 @@ AM_INIT_AUTOMAKE([foreign dist-bzip2])
+ # Enable quiet compiles on automake 1.11.
+ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+ 
++AC_PROG_CC
++AC_PROG_CC_STDC
++
+ # Initialize libtool
+ AC_PROG_LIBTOOL
+ 

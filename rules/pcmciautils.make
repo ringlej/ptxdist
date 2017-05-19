@@ -38,6 +38,7 @@ PCMCIAUTILS_COMPILE_ENV := \
 	$(CROSS_ENV_LDFLAGS)
 
 PCMCIAUTILS_MAKEVARS := \
+	prefix=/usr \
 	CROSS=$(COMPILER_PREFIX) \
 	V=1 \
 	STRIP=echo \
@@ -64,16 +65,16 @@ $(STATEDIR)/pcmciautils.targetinstall:
 
 #	# install-tools
 	@$(call install_copy, pcmciautils, 0, 0, 0755, -, \
-		/sbin/pccardctl);
-	@$(call install_link, pcmciautils, pccardctl, /sbin/lspcmcia)
+		/usr/sbin/pccardctl);
+	@$(call install_link, pcmciautils, pccardctl, /usr/sbin/lspcmcia)
 
 	@$(call install_copy, pcmciautils, 0, 0, 0755, -, \
-		/lib/udev/pcmcia-check-broken-cis);
+		/usr/lib/udev/pcmcia-check-broken-cis);
 
 ifdef PTXCONF_PCMCIAUTILS_STARTUP
 #	# install-socket-tools
 	@$(call install_copy, pcmciautils, 0, 0, 0755, -, \
-		/lib/udev/pcmcia-socket-startup);
+		/usr/lib/udev/pcmcia-socket-startup);
 endif
 	@$(call install_finish, pcmciautils)
 	@$(call touch)

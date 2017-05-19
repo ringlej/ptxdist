@@ -10,7 +10,7 @@
 
 #
 # WARNING: This file is generated with 'update_spdx.sh' from
-# 'spdx_licenselist_v2.2.csv' and 'spdx_licenselist_v2.2_exceptions.csv'.
+# 'spdx_licenselist_v2.5.csv' and 'spdx_licenselist_v2.5_exceptions.csv'.
 #
 # To regenerate this file export the license and exception sheets from the
 # original SPDX license list using '|' as field delimiter and run
@@ -63,10 +63,14 @@ ptxd_make_spdx() {
 	BSD-2-Clause-NetBSD) ;;
 	BSD-3-Clause) osi="true" ;;
 	BSD-3-Clause-Clear) ;;
+	BSD-3-Clause-No-Nuclear-License) ;;
+	BSD-3-Clause-No-Nuclear-License-2014) ;;
+	BSD-3-Clause-No-Nuclear-Warranty) ;;
 	BSD-4-Clause) ;;
 	BSD-Protection) ;;
+	BSD-Source-Code) ;;
 	BSD-3-Clause-Attribution) ;;
-	0BSD) ;;
+	0BSD) osi="true" ;;
 	BSD-4-Clause-UC) ;;
 	bzip2-1.0.5) ;;
 	bzip2-1.0.6) ;;
@@ -124,6 +128,7 @@ ptxd_make_spdx() {
 	CrystalStacker) ;;
 	CUA-OPL-1.0) osi="true" ;;
 	Cube) ;;
+	curl) ;;
 	D-FSL-1.0) ;;
 	diffmark) ;;
 	WTFPL) ;;
@@ -150,6 +155,7 @@ ptxd_make_spdx() {
 	Frameworx-1.0) osi="true" ;;
 	FreeImage) ;;
 	FTL) ;;
+	FSFAP) ;;
 	FSFUL) ;;
 	FSFULLR) ;;
 	Giftware) ;;
@@ -176,6 +182,7 @@ ptxd_make_spdx() {
 	iMatix) ;;
 	Imlib2) ;;
 	IJG) ;;
+	Info-ZIP) ;;
 	Intel-ACPI) ;;
 	Intel) osi="true" ;;
 	Interbase-1.0) ;;
@@ -183,10 +190,10 @@ ptxd_make_spdx() {
 	ISC) osi="true" ;;
 	JasPer-2.0) ;;
 	JSON) ;;
-	LPPL-1.3a) ;;
 	LPPL-1.0) ;;
 	LPPL-1.1) ;;
 	LPPL-1.2) ;;
+	LPPL-1.3a) ;;
 	LPPL-1.3c) osi="true" ;;
 	Latex2e) ;;
 	BSD-3-Clause-LBNL) ;;
@@ -194,6 +201,11 @@ ptxd_make_spdx() {
 	LGPLLR) ;;
 	Libpng) ;;
 	libtiff) ;;
+	LAL-1.2) ;;
+	LAL-1.3) ;;
+	LiLiQ-P-1.1) osi="true" ;;
+	LiLiQ-Rplus-1.1) osi="true" ;;
+	LiLiQ-R-1.1) osi="true" ;;
 	LPL-1.02) osi="true" ;;
 	LPL-1.0) osi="true" ;;
 	MakeIndex) ;;
@@ -223,6 +235,7 @@ ptxd_make_spdx() {
 	NLPL) ;;
 	Nokia) osi="true" ;;
 	NPOSL-3.0) osi="true" ;;
+	NLOD-1.0) ;;
 	Noweb) ;;
 	NRL) ;;
 	NTP) osi="true" ;;
@@ -230,6 +243,7 @@ ptxd_make_spdx() {
 	OCLC-2.0) osi="true" ;;
 	ODbL-1.0) ;;
 	PDDL-1.0) ;;
+	OCCT-PL) ;;
 	OGTSL) osi="true" ;;
 	OLDAP-2.2.2) ;;
 	OLDAP-1.1) ;;
@@ -255,6 +269,7 @@ ptxd_make_spdx() {
 	OSL-2.1) osi="true" ;;
 	OSL-3.0) osi="true" ;;
 	OpenSSL) ;;
+	OSET-PL-2.1) osi="true" ;;
 	PHP-3.0) osi="true" ;;
 	PHP-3.01) ;;
 	Plexus) ;;
@@ -276,6 +291,7 @@ ptxd_make_spdx() {
 	Saxpath) ;;
 	SCEA) ;;
 	SWL) ;;
+	SMPPL) ;;
 	Sendmail) ;;
 	SGI-B-1.0) ;;
 	SGI-B-1.1) ;;
@@ -346,6 +362,7 @@ ptxd_make_spdx() {
 	LZMA-exception) exception="true" ;;
 	mif-exception) exception="true" ;;
 	Nokia-Qt-exception-1.1) exception="true" ;;
+	OCCT-exception-1.0) exception="true" ;;
 	openvpn-openssl-exception) exception="true" ;;
 	Qwt-exception-1.0) exception="true" ;;
 	u-boot-exception-2.0) exception="true" ;;

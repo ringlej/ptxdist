@@ -1,7 +1,0 @@
-## SECTION=scripting_languages
-config PHP_APC
-	tristate
-	depends on BROKEN
-	prompt "php apc [BROKEN]"
-	depends on PHP
-

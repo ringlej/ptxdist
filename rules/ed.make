@@ -48,8 +48,8 @@ $(STATEDIR)/ed.targetinstall:
 	@$(call install_fixup, ed,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, ed,DESCRIPTION,missing)
 
-	@$(call install_copy, ed, 0, 0, 0755, $(ED_PKGDIR)/usr/bin/ed, /bin/ed)
-	@$(call install_link, ed, ../../bin/ed, /usr/bin/red)
+	@$(call install_copy, ed, 0, 0, 0755, -, /usr/bin/ed)
+	@$(call install_link, ed, ed, /usr/bin/red)
 
 	@$(call install_finish, ed)
 

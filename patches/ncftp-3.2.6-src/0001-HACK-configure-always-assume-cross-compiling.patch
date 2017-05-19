@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 10 Apr 2017 11:04:41 +0200
+Subject: [PATCH] HACK: configure: always assume cross-compiling
+
+Running a simple test program is not a good check for cross-compiling. It
+succeed e.g. for x86 on x86_64 even if more complex programs fail to run.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index da04298783a7..b3095d8d3c34 100755
+--- a/configure
++++ b/configure
+@@ -847,7 +847,7 @@ if { (eval echo configure:847: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && te
+   ac_cv_prog_cc_works=yes
+   # If we can't run a trivial program, we are probably using a cross compiler.
+   if (./conftest; exit) 2>/dev/null; then
+-    ac_cv_prog_cc_cross=no
++    ac_cv_prog_cc_cross=yes
+   else
+     ac_cv_prog_cc_cross=yes
+   fi

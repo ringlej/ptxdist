@@ -553,8 +553,13 @@ check_compiler_icecc() {
 	if [ -n "${toolchain}" -a "$(readlink -f "${icecc_dir}/toolchain")" != "${toolchain}"  ]; then
 		rm -rf "${icecc_dir}"
 	fi
-	if [ "$(readlink -f "${wrapper_dir}/real/gcc")" != "$(readlink -f "${icecc_dir}/gcc")" ]; then
-		rm -rf "${icecc_dir}"
+	"${wrapper_dir}/real/gcc" --version > "${PTXDIST_TEMPDIR}/host-gcc-version" 2>&1
+	"${wrapper_dir}/real/${compiler_prefix}gcc"  --version > "${PTXDIST_TEMPDIR}/target-gcc-version" 2>&1
+	if [ -d "${icecc_dir}" ]; then
+		if ! diff -q "${PTXDIST_TEMPDIR}/host-gcc-version" "${icecc_dir}/host-gcc-version" >& /dev/null || \
+			! diff -q "${PTXDIST_TEMPDIR}/target-gcc-version"  "${icecc_dir}/target-gcc-version" >& /dev/null; then
+			rm -rf "${icecc_dir}"
+		fi
 	fi
 	if [ ! -d "${icecc_dir}" ]; then
 		if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
@@ -582,7 +587,8 @@ check_compiler_icecc() {
 				ptxd_bailout "Failed!"
 				ln -s "${toolchain}" "${icecc_dir}/toolchain"
 			fi
-		)
+		) &&
+		mv "${PTXDIST_TEMPDIR}/host-gcc-version" "${PTXDIST_TEMPDIR}/target-gcc-version" "${icecc_dir}/"
 	fi &&
 
 	ptxd_get_path "${icecc_dir}/host"/*.tar.gz &&
@@ -1158,6 +1164,8 @@ clean() {
 	rm -fr -- "${ROOTDIR}"
 	rm -fr -- "${PTXDIST_PLATFORMDIR}/root-debug"
 	rm -fr -- "${PTXDIST_PLATFORMDIR}/nfsroot"
+	echo "${PTXDIST_LOG_PROMPT}removing report..."
+	rm -fr -- "${REPORTDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing state..."
 	rm -fr -- "${STATEDIR}"
 	echo "${PTXDIST_LOG_PROMPT}removing logfile..."
@@ -1222,11 +1230,11 @@ create_docs() {
 		ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}"
 	fi &&
 
-	mkdir "${srcdir}" &&
+	mkdir -p "${srcdir}" &&
 	ptxd_in_path PTXDIST_PATH doc &&
 	for dir in "${ptxd_reply[@]}"; do
 		for entry in $(cd "${dir}"; ls); do
-			cp -an "${dir}/${entry}" "${srcdir}/${entry}" || return
+			cp -an "${dir}/${entry}" "${srcdir}/" || return
 		done
 	done &&
 	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
@@ -2022,7 +2030,7 @@ EOF
 				exit 1
 			fi
 			while [ ${#} -gt 0 ]; do
-				if [ -n "${!1}" ]; then
+				if [[ ! ( "${1}" =~ "/" ) ]] && [ -n "${!1}" ]; then
 					if [ "${PTXDIST_VERBOSE}" = "1" ]; then
 						echo -n "${1}="
 					fi
@@ -2034,7 +2042,7 @@ EOF
 						check_deps || exit 1
 						check=1
 					fi
-					ptxd_make_log "print-${1}" 2>/dev/null || {
+					ptxd_make_log "/print-${1}" 2>/dev/null || {
 						echo "${1} undefined" >&2
 						exit 1
 					}
@@ -2408,7 +2416,7 @@ setup_parallel() {
 
 	PTXDIST_OUTPUT_SYNC="${PTXDIST_OUTPUT_SYNC:-${PTXDIST_QUIET}}"
 	if [ "${PTXDIST_OUTPUT_SYNC}" == "1" ]; then
-		if make -h | grep -q -- --output-sync; then
+		if "${PTXCONF_SETUP_HOST_MAKE}" -h | grep -q -- --output-sync; then
 			PTXDIST_OUTPUT_SYNC="--output-sync="
 		fi
 	fi
@@ -2565,7 +2573,7 @@ setup_libs() {
 	done
 	ptxd_in_path PTXDIST_PATH_SCRIPTS || return
 	dir=( "${ptxd_reply[@]}" )
-	for ((i=$((${#dir[@]}-1)); i>=0; i--)) do
+	for ((i=$((${#dir[@]}-1)); i>=0; i--)); do
 		if [ "${dir[${i}]}" = "${SCRIPTSDIR}" ]; then
 			continue
 		fi

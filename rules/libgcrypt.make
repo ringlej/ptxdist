@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.5.3
-LIBGCRYPT_MD5		:= 993159b2924ae7b0e4eaff0743c2db35
+LIBGCRYPT_VERSION	:= 1.7.6
+LIBGCRYPT_MD5		:= 54e180679a7ae4d090f8689ca32b654c
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
@@ -33,21 +33,48 @@ LIBGCRYPT_LICENSE_FILES	:= \
 # Prepare
 # ----------------------------------------------------------------------------
 
+LIBGCRYPT_ASM := y
+ifneq ($(PTXCONF_ARCH_M68K)$(PTXCONF_ARCH_PPC),)
+LIBGCRYPT_ASM :=
+endif
+
+LIBGCRYPT_ENV := \
+	$(CROSS_ENV)
+
+ifdef PTXCONF_ARCH_X86
+LIBGCRYPT_ENV += ac_cv_sys_symbol_underscore=no
+endif
+
 #
 # autoconf
 #
 LIBGCRYPT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-optimization \
+	--disable-static \
+	--enable-shared \
+	--enable-random=linux \
+	--enable-dev-random \
 	--disable-random-daemon \
-	--disable-asm
-#
-# ASM needs MPI, which we don't have
-#
-# using --enable-asm will result in lost of;
-# ../src/.libs/libgcrypt.so: undefined reference to `_gcry_mpih_add_n'
-# ../src/.libs/libgcrypt.so: undefined reference to `_gcry_mpih_submul_1'
-#
+	--$(call ptx/endis,LIBGCRYPT_ASM)-asm \
+	--disable-m-guard \
+	--disable-large-data-tests \
+	--disable-hmac-binary-check \
+	--enable-padlock-support \
+	--enable-aesni-support \
+	--enable-pclmul-support \
+	--enable-sse41-support \
+	--enable-drng-support \
+	--enable-avx-support \
+	--enable-avx2-support \
+	--$(call ptx/endis,PTXCONF_ARCH_ARM_NEON)-neon-support \
+	--enable-arm-crypto-support \
+	--enable-O-flag-munging \
+	--disable-amd64-as-feature-detection \
+	--enable-optimization \
+	--enable-noexecstack \
+	--disable-doc \
+	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
+	--with-capabilities
 
 # ----------------------------------------------------------------------------
 # Target-Install

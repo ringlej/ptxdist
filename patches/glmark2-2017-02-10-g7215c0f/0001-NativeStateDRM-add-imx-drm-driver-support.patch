@@ -1,0 +1,28 @@
+From: Markus Niebel <Markus.Niebel@tq-group.com>
+Date: Tue, 7 Mar 2017 13:53:33 +0100
+Subject: [PATCH] NativeStateDRM: add imx-drm driver support
+
+originated from buildroot commit a10b15ebeb5fd82fdb0530d485095f5800103a49
+
+glmark2: add imx-drm driver support
+Upstream status: pending
+https://github.com/glmark2/glmark2/pull/29
+
+Signed-off-by: Markus Niebel <Markus.Niebel@tq-group.com>
+Signed-off-by: Gary Bisson <gary.bisson@boundarydevices.com>
+---
+ src/native-state-drm.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/native-state-drm.cpp b/src/native-state-drm.cpp
+index 4df75ec7d083..454a24d898ff 100644
+--- a/src/native-state-drm.cpp
++++ b/src/native-state-drm.cpp
+@@ -201,6 +201,7 @@ NativeStateDRM::init()
+     // driver (udev?).
+     static const char* drm_modules[] = {
+         "i915",
++        "imx-drm",
+         "nouveau",
+         "radeon",
+         "vmgfx",

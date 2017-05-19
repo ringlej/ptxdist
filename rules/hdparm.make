@@ -33,6 +33,10 @@ HDPARM_DIR	:= $(BUILDDIR)/$(HDPARM)
 HDPARM_CONF_TOOL := NO
 HDPARM_MAKE_ENV := $(CROSS_ENV)
 
+HDPARM_INSTALL_OPT := \
+	binprefix=/usr \
+	install
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -46,7 +50,7 @@ $(STATEDIR)/hdparm.targetinstall:
 	@$(call install_fixup, hdparm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, hdparm,DESCRIPTION,missing)
 
-	@$(call install_copy, hdparm, 0, 0, 0755, -, /sbin/hdparm)
+	@$(call install_copy, hdparm, 0, 0, 0755, -, /usr/sbin/hdparm)
 
 	@$(call install_finish, hdparm)
 

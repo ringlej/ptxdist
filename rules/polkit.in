@@ -20,7 +20,8 @@ if POLKIT
 
 config POLKIT_SYSTEMD
 	bool "systemd based session tracking"
-	default y if INITMETHOD_SYSTEMD
+	depends on INITMETHOD_SYSTEMD
+	default y
 	help
 	  Use systemd for session tracking, else ConsoleKit is used
 

@@ -38,7 +38,7 @@ CANUTILS_CONF_ENV := \
 # autoconf
 #
 CANUTILS_CONF_TOOL	:= autoconf
-CANUTILS_CONF_OPT	:= $(CROSS_AUTOCONF_ROOT)
+CANUTILS_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,23 +55,23 @@ $(STATEDIR)/canutils.targetinstall:
 
 ifdef PTXCONF_CANUTILS_CANCONFIG
 	@$(call install_copy, canutils, 0, 0, 0755, -, \
-		/sbin/canconfig)
+		/usr/sbin/canconfig)
 endif
 ifdef PTXCONF_CANUTILS_CANECHO
 	@$(call install_copy, canutils, 0, 0, 0755, -, \
-		/bin/canecho)
+		/usr/bin/canecho)
 endif
 ifdef PTXCONF_CANUTILS_CANDUMP
 	@$(call install_copy, canutils, 0, 0, 0755, -, \
-		/bin/candump)
+		/usr/bin/candump)
 endif
 ifdef PTXCONF_CANUTILS_CANSEND
 	@$(call install_copy, canutils, 0, 0, 0755, -, \
-		/bin/cansend)
+		/usr/bin/cansend)
 endif
 ifdef PTXCONF_CANUTILS_CANSEQUENCE
 	@$(call install_copy, canutils, 0, 0, 0755, -, \
-		/bin/cansequence)
+		/usr/bin/cansequence)
 endif
 	@$(call install_finish, canutils)
 	@$(call touch)

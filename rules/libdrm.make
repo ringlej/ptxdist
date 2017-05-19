@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.70
-LIBDRM_MD5	:= a8c275bce5f3d71a5ca25e8fb60df084
+LIBDRM_VERSION	:= 2.4.80
+LIBDRM_MD5	:= c87ff78d935e35d41a473d9e041a5c56
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
@@ -34,11 +34,14 @@ LIBDRM_LICENSE_FILES	:= \
 
 ifdef PTXCONF_ARCH_X86
 LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_INTEL) += intel
+else
+LIBDRM_BACKENDS- += intel
 endif
 LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_RADEON) += radeon
 LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_AMDGPU) += amdgpu
 LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_NOUVEAU) += nouveau
 LIBDRM_BACKENDS-$(PTXCONF_LIBDRM_FREEDRENO) += freedreno
+LIBDRM_BACKENDS- += freedreno-kgsl
 LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_VMWGFX) += vmwgfx
 LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_OMAP) += omap-experimental-api
 LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_OMAP) += omap
@@ -48,6 +51,8 @@ LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_TEGRA) += tegra-experimental-api
 LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_TEGRA) += tegra
 LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_VC4) += vc4
 # vc4 is a headers only backend
+LIBDRM_BACKENDSC-$(PTXCONF_LIBDRM_ETNAVIV) += etnaviv-experimental-api
+LIBDRM_BACKENDSL-$(PTXCONF_LIBDRM_ETNAVIV) += etnaviv
 
 LIBDRM_BACKENDSC-y += $(LIBDRM_BACKENDS-y)
 LIBDRM_BACKENDSC- += $(LIBDRM_BACKENDS-)
@@ -59,6 +64,7 @@ LIBDRM_BACKENDSL-y += $(LIBDRM_BACKENDS-y)
 LIBDRM_CONF_TOOL := autoconf
 LIBDRM_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-udev \
 	--$(call ptx/endis, PTXCONF_LIBDRM_LIBKMS)-libkms \
 	$(addprefix --enable-,$(LIBDRM_BACKENDSC-y)) \
@@ -98,6 +104,11 @@ ifdef PTXCONF_LIBDRM_LIBKMS
 endif
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/modeprint)
 	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/vbltest)
+ifdef PTXCONF_LIBDRM_ETNAVIV
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/etnaviv_2d_test)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/etnaviv_cmd_stream_test)
+	@$(call install_copy, libdrm, 0, 0, 0755, -, /usr/bin/etnaviv_bo_cache_test)
+endif
 endif
 	@$(call install_finish, libdrm)
 

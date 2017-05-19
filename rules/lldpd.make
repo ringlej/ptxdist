@@ -46,7 +46,7 @@ LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/wwo, PTXCONF_LLDPD_SNMP)-snmp \
 	--$(call ptx/wwo, PTXCONF_LLDPD_JSON)-json \
 	--$(call ptx/wwo, PTXCONF_LLDPD_XML)-xml \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-privsep-user="$(PTXCONF_LLDPD_PRIVSEP_USER)" \
 	--with-privsep-group="$(PTXCONF_LLDPD_PRIVSEP_GROUP)" \
 	--with-privsep-chroot="$(PTXCONF_LLDPD_PRIVSEP_CHROOT)"
@@ -87,14 +87,14 @@ endif
 endif
 
 ifdef PTXCONF_LLDPD_SYSTEMD_UNIT
-	@$(call install_alternative, lldpd, 0, 0, 0644, /lib/systemd/system/lldpd.service)
-	@$(call install_replace, lldpd, /lib/systemd/system/lldpd.service, \
+	@$(call install_alternative, lldpd, 0, 0, 0644, /usr/lib/systemd/system/lldpd.service)
+	@$(call install_replace, lldpd, /usr/lib/systemd/system/lldpd.service, \
 		@DAEMON_ARGS@, $(PTXCONF_LLDPD_DAEMON_ARGS))
-	@$(call install_replace, lldpd, /lib/systemd/system/lldpd.service, \
+	@$(call install_replace, lldpd, /usr/lib/systemd/system/lldpd.service, \
 		@PRIVSEP_CHROOT@, $(PTXCONF_LLDPD_PRIVSEP_CHROOT))
 	@$(call install_link, lldpd, \
 		../lldpd.service, \
-		/lib/systemd/system/multi-user.target.wants/lldpd.service \
+		/usr/lib/systemd/system/multi-user.target.wants/lldpd.service \
 	)
 endif
 

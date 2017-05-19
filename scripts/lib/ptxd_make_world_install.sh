@@ -84,6 +84,18 @@ ptxd_make_world_install() {
 	    cmd[${#cmd[@]}]=ptxd_make_world_install_python_cleanup
 	fi
 	;;
+	meson)
+	cmd=( \
+	    "${pkg_path}" \
+	    "${pkg_env}" \
+	    "${pkg_make_env}" \
+	    "${pkg_install_env}" \
+	    ninja \
+	    -C "${pkg_build_dir}" \
+	    "${pkg_install_opt}" \
+	    -j1 \
+	)
+	;;
 	*)
 	cmd=( \
 	    "${pkg_path}" \

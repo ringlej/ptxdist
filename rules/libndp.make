@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBNDP) += libndp
 #
 # Paths and names
 #
-LIBNDP_VERSION	:= 1.4
-LIBNDP_MD5	:= 52c708d4b8729ae6e3781b3737a85e16
+LIBNDP_VERSION	:= 1.6
+LIBNDP_MD5	:= 1e54d26bcb4a4110bc3f90c5dd04f1a7
 LIBNDP		:= libndp-$(LIBNDP_VERSION)
 LIBNDP_SUFFIX	:= tar.gz
 LIBNDP_URL	:= http://libndp.org/files/$(LIBNDP).$(LIBNDP_SUFFIX)

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LM_SENSORS) += lm_sensors
 #
 # Paths and names
 #
-LM_SENSORS_VERSION	:= 3.3.3
-LM_SENSORS_MD5		:= 73c2fcccdab6049d289c5e0c596192a1
+LM_SENSORS_VERSION	:= 3.4.0
+LM_SENSORS_MD5		:= c03675ae9d43d60322110c679416901a
 LM_SENSORS		:= lm_sensors-$(LM_SENSORS_VERSION)
 LM_SENSORS_SUFFIX	:= tar.bz2
 LM_SENSORS_URL		:= \
@@ -60,7 +60,7 @@ $(STATEDIR)/lm_sensors.targetinstall:
 
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors)
 
-	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /etc/sensors3.conf)
+	@$(call install_alternative, lm_sensors, 0, 0, 0644, /etc/sensors3.conf)
 
 ifdef PTXCONF_LM_SENSORS_FANCONTROL
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/fancontrol)

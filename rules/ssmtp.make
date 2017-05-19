@@ -38,7 +38,7 @@ SSMTP_CONF_ENV := $(CROSS_ENV)
 # autoconf
 #
 SSMTP_CONF_TOOL := autoconf
-SSMTP_CONF_OPT  := $(CROSS_AUTOCONF_ROOT) \
+SSMTP_CONF_OPT  := $(CROSS_AUTOCONF_USR) \
     --$(call ptx/endis, PTXCONF_SSMTP_REWRITE_DOMAIN)-rewrite-domain \
     --$(call ptx/endis, PTXCONF_SSMTP_SSL)-ssl \
     --$(call ptx/endis, PTXCONF_GLOBAL_IPV6)-inet6 \
@@ -60,14 +60,14 @@ $(STATEDIR)/ssmtp.targetinstall:
 	@$(call install_fixup, ssmtp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ssmtp,DESCRIPTION,missing)
 
-	@$(call install_copy, ssmtp, 0, 0, 0755, -, /sbin/ssmtp)
+	@$(call install_copy, ssmtp, 0, 0, 0755, -, /usr/sbin/ssmtp)
 
 	@$(call install_alternative, ssmtp, 0, 0, 0644, /etc/ssmtp/ssmtp.conf)
 	@$(call install_replace, ssmtp, /etc/ssmtp/ssmtp.conf, @HOSTNAME@, \
 		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
 
 ifdef PTXCONF_SSMTP_SENDMAIL
-	@$(call install_link, ssmtp, /sbin/ssmtp, /usr/sbin/sendmail)
+	@$(call install_link, ssmtp, /usr/sbin/ssmtp, /usr/sbin/sendmail)
 	@$(call install_link, ssmtp, /usr/sbin/sendmail, /usr/lib/sendmail)
 endif
 

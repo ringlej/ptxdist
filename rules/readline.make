@@ -31,7 +31,7 @@ READLINE_LICENSE	:= GPL-3.0+
 # ----------------------------------------------------------------------------
 
 READLINE_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--disable-static\
 	--disable-multibyte

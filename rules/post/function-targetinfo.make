@@ -19,14 +19,15 @@ ifdef PTXDIST_FD_STDOUT
 _targetinfo_opt_output := echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
 endif
 endif
+ifdef PTXCONF_SETUP_GEN_DEP_TREE
+_targetinfo_dep_output = echo "$${target} : $(strip $(notdir $^))" >> $(DEP_OUTPUT);
+endif
 
 targetinfo = 								\
-	target="$(strip $(@))";						\
-	target="$${target\#\#*/}";					\
-	dep="$(strip $(notdir $^))";				\
-	echo "$${target} : $${dep}" >> $(DEP_OUTPUT);			\
+	target="$(strip $(notdir $(@)))";				\
+	$(_targetinfo_dep_output)					\
 	$(_targetinfo_opt_output)					\
-	target="target: $${target\#\#*/}";				\
+	target="target: $${target}";					\
 	echo -e "\n$${target//?/-}\n$${target}\n$${target//?/-}\n";	\
 
 # vim: syntax=make

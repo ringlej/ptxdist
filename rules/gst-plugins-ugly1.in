@@ -5,13 +5,11 @@ menuconfig GST_PLUGINS_UGLY1
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
-	select LIBMAD		if GST_PLUGINS_UGLY1_MAD
-	select LIBID3TAG	if GST_PLUGINS_UGLY1_MAD
+	select ORC
 	select LIBMPEG2		if GST_PLUGINS_UGLY1_MPEG2DEC
 	select MPG123		if GST_PLUGINS_UGLY1_MPG123
 	select LAME		if GST_PLUGINS_UGLY1_LAME
 	select TWOLAME		if GST_PLUGINS_UGLY1_TWOLAME
-	select ORC		if GST_PLUGINS_UGLY1_ORC
 	prompt "gst-plugins-ugly              "
 	help
 	  GStreamer Ugly Plug-ins is a set of plug-ins that
@@ -22,9 +20,6 @@ menuconfig GST_PLUGINS_UGLY1
 	  known to present patent problems.
 
 if GST_PLUGINS_UGLY1
-
-config GST_PLUGINS_UGLY1_ORC
-	bool
 
 config GST_PLUGINS_UGLY1_ASFDEMUX
 	bool
@@ -49,7 +44,6 @@ config GST_PLUGINS_UGLY1_REALMEDIA
 config GST_PLUGINS_UGLY1_A52DEC
 	bool
 	depends on BROKEN
-	select GST_PLUGINS_UGLY1_ORC
 	prompt "a52dec"
 
 config GST_PLUGINS_UGLY1_AMRNB
@@ -75,10 +69,6 @@ config GST_PLUGINS_UGLY1_DVDREADSRC
 config GST_PLUGINS_UGLY1_LAME
 	bool
 	prompt "lame"
-
-config GST_PLUGINS_UGLY1_MAD
-	bool
-	prompt "mad"
 
 config GST_PLUGINS_UGLY1_MPEG2DEC
 	bool

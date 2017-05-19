@@ -2,6 +2,7 @@
 
 menuconfig INITMETHOD
 	bool  "init                          "
+	select USR_ROOTFS
 	default y
 	help
 	  Choose the system startup init method here
@@ -23,11 +24,6 @@ choice
 		bool
 		select SYSTEMD
 		prompt "systemd         "
-
-	config INITMETHOD_INITNG
-		bool
-		depends on BROKEN
-		prompt "init ng         "
 
 	config INITMETHOD_INITRAMFS
 		bool

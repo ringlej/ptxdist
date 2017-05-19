@@ -8,12 +8,13 @@ menuconfig RSYSLOG
 	select GCCLIBS_GCC_S
 	select ZLIB
 	select LIBESTR
-	select JSON_C
+	select LIBFASTJSON
 	select LIBNET		if RSYSLOG_OMUDPSPOOF
 	select SYSTEMD		if RSYSLOG_SYSTEMD
 	prompt "rsyslog                       "
 	help
-	  FIXME
+	  rsyslog is a reliable system and kernel logging daemon with
+	  modular design and high speed message processing.
 
 if RSYSLOG
 
@@ -29,13 +30,13 @@ config RSYSLOG_SYSTEMD_UNIT
 
 config RSYSLOG_REGEXP
 	bool
-	# 8.8.0 fail to build without regex support
+	# 8.26.0 fails to build without regex support
 	default y
 	prompt "regular expression support" if BROKEN
 
 config RSYSLOG_INET
 	bool
-	# 8.8.0 fail to run without inet support
+	# 8.26.0 fails to run without inet support
 	default y
 	prompt "networking support" if BROKEN
 
@@ -51,6 +52,11 @@ config RSYSLOG_IMKLOG
 	bool
 	default y
 	prompt "klog input module"
+
+config RSYSLOG_IMKMSG
+	bool
+	default y
+	prompt "kmsg input module (contrib)"
 
 config RSYSLOG_IMMARK
 	bool
@@ -80,6 +86,10 @@ config RSYSLOG_IMUXSOCK
 	default y
 	prompt "unix domain socket input module"
 
+config RSYSLOG_MMJSONPARSE
+	bool
+	prompt "jsonparse message modification module"
+
 config RSYSLOG_OMPROG
 	bool
 	prompt "program output module"
@@ -95,6 +105,10 @@ config RSYSLOG_OMSTDOUT
 config RSYSLOG_OMUXSOCK
 	bool
 	prompt "unix domain socket output module"
+
+config RSYSLOG_PMCISCOIOS
+	bool
+	prompt "cisco ios parser module"
 
 config RSYSLOG_PMLASTMSG
 	bool

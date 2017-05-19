@@ -33,7 +33,7 @@ SMARTMONTOOLS_CONF_TOOL	:= autoconf
 SMARTMONTOOLS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-sample \
-	--with-systemdsystemunitdir=/lib/systemd/system \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--without-selinux \
 	--without-libcap-ng
 
@@ -70,9 +70,9 @@ endif
 endif
 ifdef PTXCONF_SMARTMONTOOLS_SYSTEMD_UNIT
 	@$(call install_copy, smartmontools, 0, 0, 0644, -, \
-		/lib/systemd/system/smartd.service)
+		/usr/lib/systemd/system/smartd.service)
 	@$(call install_link, smartmontools, ../smartd.service, \
-		/lib/systemd/system/multi-user.target.wants/smartd.service)
+		/usr/lib/systemd/system/multi-user.target.wants/smartd.service)
 endif
 
 	@$(call install_finish, smartmontools)

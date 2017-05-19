@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_DOSFSTOOLS) += dosfstools
 #
 # Paths and names
 #
-DOSFSTOOLS_VERSION	:= 3.0.28
-DOSFSTOOLS_MD5		:= 6a047a6c65186b9ebb1853709adb36db
+DOSFSTOOLS_VERSION	:= 4.1
+DOSFSTOOLS_MD5		:= 07a1050db1a898e9a2e03b0c4569c4bd
 DOSFSTOOLS		:= dosfstools-$(DOSFSTOOLS_VERSION)
 DOSFSTOOLS_SUFFIX	:= tar.xz
 DOSFSTOOLS_SRC		:= $(DOSFSTOOLS).$(DOSFSTOOLS_SUFFIX)
@@ -31,25 +31,12 @@ DOSFSTOOLS_LICENSE	:= GPL-3.0
 # Prepare (nothing to be done here)
 # ----------------------------------------------------------------------------
 
-DOSFSTOOLS_CONF_TOOL := NO
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-DOSFSTOOLS_MAKE_ENV := $(CROSS_ENV)
-DOSFSTOOLS_MAKE_OPT := \
-	OPTFLAGS='-O2 -fomit-frame-pointer $(call ptx/ifdef, PTXCONF_GLOBAL_LARGE_FILE,-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64)' \
-	PREFIX=/usr \
-	SBINDIR=/sbin
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-DOSFSTOOLS_INSTALL_OPT := \
-	$(DOSFSTOOLS_MAKE_OPT) \
-	install
+DOSFSTOOLS_CONF_TOOL	:= autoconf
+DOSFSTOOLS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-compat-symlinks \
+	--$(call ptx/wwo, PTXCONF_DOSFSTOOLS_UDEV)-udev \
+	$(GLOBAL_LARGE_FILE_OPTION)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -64,32 +51,32 @@ $(STATEDIR)/dosfstools.targetinstall:
 	@$(call install_fixup, dosfstools,AUTHOR,"Steven Scholz <steven.scholz@imc-berlin.de>")
 	@$(call install_fixup, dosfstools,DESCRIPTION,missing)
 
-ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
+ifdef PTXCONF_DOSFSTOOLS_MKFS_FAT
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
-		/sbin/mkdosfs)
+		/usr/sbin/mkfs.fat)
 endif
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
-	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.msdos)
+	@$(call install_link, dosfstools, mkfs.fat, /usr/sbin/mkfs.msdos)
 endif
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
-	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.vfat)
+	@$(call install_link, dosfstools, mkfs.fat, /usr/sbin/mkfs.vfat)
 endif
 
 
-ifdef PTXCONF_DOSFSTOOLS_DOSFSCK
+ifdef PTXCONF_DOSFSTOOLS_FSCK_FAT
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
-		/sbin/dosfsck)
+		/usr/sbin/fsck.fat)
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_MSDOS
-	@$(call install_link, dosfstools, dosfsck, /sbin/fsck.msdos)
+	@$(call install_link, dosfstools, fsck.fat, /usr/sbin/fsck.msdos)
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_VFAT
-	@$(call install_link, dosfstools, dosfsck, /sbin/fsck.vfat)
+	@$(call install_link, dosfstools, fsck.fat, /usr/sbin/fsck.vfat)
 endif
 
-ifdef PTXCONF_DOSFSTOOLS_DOSFSLABEL
+ifdef PTXCONF_DOSFSTOOLS_FATLABEL
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
-		/sbin/dosfslabel)
+		/usr/sbin/fatlabel)
 endif
 
 	@$(call install_finish, dosfstools)

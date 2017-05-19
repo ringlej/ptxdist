@@ -1,0 +1,51 @@
+From: Than Ngo <than@redhat.com>
+Date: Thu, 20 Oct 2016 11:15:33 +0200
+Subject: [PATCH] fix build issues with gcc6
+
+This patch solves two issues:
+ - Use the correct key for the compiler.
+ - Avoid a shift overflow.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure                            | 4 ++--
+ src/xmlpatterns/api/qcoloroutput_p.h | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/configure b/configure
+index 10ad7ca0b0b7..a8e6dc141eda 100755
+--- a/configure
++++ b/configure
+@@ -7734,7 +7734,7 @@ case "$XPLATFORM" in
+     *-g++*)
+ 	# Check gcc's version
+ 	case "$(${QMAKE_CONF_COMPILER} -dumpversion)" in
+-	    5*|4*|3.4*)
++	    8*|7*|6*|5*|4*|3.4*)
+ 		;;
+             3.3*)
+                 canBuildWebKit="no"
+@@ -8050,7 +8050,7 @@ g++*)
+     3.*)
+         COMPILER_VERSION="3.*"
+         ;;
+-    5*|4.*)
++    8*|7*|6*|5*|4.*)
+         COMPILER_VERSION="4"
+         ;;
+     *)
+diff --git a/src/xmlpatterns/api/qcoloroutput_p.h b/src/xmlpatterns/api/qcoloroutput_p.h
+index 7911e8962501..be284d14096e 100644
+--- a/src/xmlpatterns/api/qcoloroutput_p.h
++++ b/src/xmlpatterns/api/qcoloroutput_p.h
+@@ -70,8 +70,8 @@ namespace QPatternist
+             ForegroundShift = 10,
+             BackgroundShift = 20,
+             SpecialShift    = 20,
+-            ForegroundMask  = ((1 << ForegroundShift) - 1) << ForegroundShift,
+-            BackgroundMask  = ((1 << BackgroundShift) - 1) << BackgroundShift
++            ForegroundMask  = 0x1f << ForegroundShift,
++            BackgroundMask  = 0x7 << BackgroundShift
+         };
+ 
+     public:

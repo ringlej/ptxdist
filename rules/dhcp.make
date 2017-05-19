@@ -38,7 +38,7 @@ DHCP_LICENSE	:= ISC
 # autoconf
 #
 DHCP_AUTOCONF := \
-	$(CROSS_AUTOCONF_ROOT) \
+	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_GLOBAL_IPV6)-dhcpv6
 
 # overwrite CFLAGS to remove -Werror
@@ -60,7 +60,7 @@ $(STATEDIR)/dhcp.targetinstall:
 
 ifdef PTXCONF_DHCP_SERVER
 	@$(call install_copy, dhcp, 0, 0, 0755, -, \
-		/sbin/dhcpd)
+		/usr/sbin/dhcpd)
 endif
 
 ifdef PTXCONF_DHCP_DHCPD_CONF
@@ -72,7 +72,7 @@ ifdef PTXCONF_DHCP_CLIENT
 	@$(call install_copy, dhcp, 0, 0, 0755, /var/state/dhcp )
 
 	@$(call install_copy, dhcp, 0, 0, 0755, -, \
-		/sbin/dhclient)
+		/usr/sbin/dhclient)
 
 endif
 
@@ -86,7 +86,7 @@ endif
 
 ifdef PTXCONF_DHCP_RELAY
 	@$(call install_copy, dhcp, 0, 0, 0755, -, \
-		/sbin/dhcrelay)
+		/usr/sbin/dhcrelay)
 endif
 
 	@$(call install_finish, dhcp)

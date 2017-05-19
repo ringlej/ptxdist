@@ -3,6 +3,7 @@
 config SYSTEMD_BOOTCHART
 	tristate
 	select SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	prompt "systemd-bootchart"
 	help
 	  boot performance graphing tool

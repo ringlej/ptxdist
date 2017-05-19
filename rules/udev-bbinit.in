@@ -2,7 +2,7 @@
 
 config UDEV_BBINIT_LINK
 	string
-	depends on UDEV_STARTSCRIPT
+	depends on UDEV_LEGACY_STARTSCRIPT
 	prompt "udev"
 	default "S00udev"
 

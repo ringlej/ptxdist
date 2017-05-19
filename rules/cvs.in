@@ -1,4 +1,6 @@
-## SECTION=applications
+## SECTION=staging
+## old section:
+### SECTION=applications
 # CVS client/server
 
 menuconfig CVS
@@ -15,6 +17,9 @@ menuconfig CVS
 	  CVS is the Concurrent Versions System. This is a version control system
 	  useful for projects using a central repository to hold files and then
 	  track all changes made to those files.
+
+	  STAGING: remove in ptxdist-2018.05.0
+	  Upstream long dead, obsolete and no longer needed.
 
 if CVS
 

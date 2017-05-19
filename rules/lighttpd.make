@@ -137,9 +137,9 @@ endif
 
 ifdef PTXCONF_LIGHTTPD_SYSTEMD_UNIT
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \
-		/lib/systemd/system/lighttpd.service)
+		/usr/lib/systemd/system/lighttpd.service)
 	@$(call install_link, lighttpd, ../lighttpd.service, \
-		/lib/systemd/system/multi-user.target.wants/lighttpd.service)
+		/usr/lib/systemd/system/multi-user.target.wants/lighttpd.service)
 endif
 
 ifdef PTXCONF_LIGHTTPD_GENERIC_SITE

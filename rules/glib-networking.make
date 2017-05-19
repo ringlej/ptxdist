@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GLIB_NETWORKING) += glib-networking
 #
 # Paths and names
 #
-GLIB_NETWORKING_VERSION	:= 2.48.2
-GLIB_NETWORKING_MD5	:= d7cf81d52c856b0c66f7821021f40e08
+GLIB_NETWORKING_VERSION	:= 2.50.0
+GLIB_NETWORKING_MD5	:= 4d06d0224646f274918b1cb6da9a07f6
 GLIB_NETWORKING		:= glib-networking-$(GLIB_NETWORKING_VERSION)
 GLIB_NETWORKING_SUFFIX	:= tar.xz
 GLIB_NETWORKING_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glib-networking/$(basename $(GLIB_NETWORKING_VERSION))/$(GLIB_NETWORKING).$(GLIB_NETWORKING_SUFFIX)
@@ -39,6 +39,12 @@ GLIB_NETWORKING_CONF_ENV	:= \
 GLIB_NETWORKING_CONF_TOOL	:= autoconf
 GLIB_NETWORKING_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-nls \
+	--disable-rpath \
+	--disable-glibtest \
+	--disable-installed-tests \
+	--disable-always-build-tests \
+	--disable-gcov \
 	--without-libproxy \
 	--without-gnome-proxy \
 	--with-gnutls \

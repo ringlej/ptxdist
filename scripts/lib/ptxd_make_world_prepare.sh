@@ -120,6 +120,21 @@ export -f ptxd_make_world_prepare_perl
 
 
 #
+# prepare for meson based pkgs
+#
+ptxd_make_world_prepare_meson() {
+    ptxd_eval \
+	"${pkg_path}" \
+	"${pkg_env}" \
+	"${pkg_conf_env}" \
+	meson \
+	"${pkg_conf_opt}" \
+	"${pkg_conf_dir}"
+}
+export -f ptxd_make_world_prepare_meson
+
+
+#
 # generic prepare
 #
 ptxd_make_world_prepare() {
@@ -138,7 +153,7 @@ ptxd_make_world_prepare() {
     fi
 
     case "${pkg_conf_tool}" in
-	autoconf|cmake|qmake|kconfig|perl)
+	autoconf|cmake|qmake|kconfig|perl|meson)
 	    cd -- "${pkg_build_dir}" &&
 	    ptxd_make_world_prepare_"${pkg_conf_tool}" 2>&1 ;;
 	python|python3)

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_ETHTOOL) += ethtool
 #
 # Paths and names
 #
-ETHTOOL_VERSION	:= 4.5
-ETHTOOL_MD5	:= f50d25177d10f0cb74da3edc66c3143a
+ETHTOOL_VERSION	:= 4.10
+ETHTOOL_MD5	:= e462579c12bcf306730600d571b0458c
 ETHTOOL_SUFFIX	:= tar.xz
 ETHTOOL		:= ethtool-$(ETHTOOL_VERSION)
 ETHTOOL_URL	:= $(call ptx/mirror, KERNEL, ../software/network/ethtool/$(ETHTOOL).$(ETHTOOL_SUFFIX))

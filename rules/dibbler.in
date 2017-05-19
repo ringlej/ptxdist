@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 menuconfig DIBBLER
 	tristate
@@ -10,6 +12,9 @@ menuconfig DIBBLER
 	  Dibbler is a portable DHCPv6 implementation.
 	  It supports stateful (i.e. IPv6 address granting) as well as
 	  stateless (i.e. option granting) autoconfiguration for IPv6.
+
+	  STAGING: remove in ptxdist-2018.05.0
+	  Not updated for a long time and fails to build on 64 bit architectures.
 
 if DIBBLER
 

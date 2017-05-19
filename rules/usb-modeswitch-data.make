@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_USB_MODESWITCH_DATA) += usb-modeswitch-data
 #
 # Paths and names
 #
-USB_MODESWITCH_DATA_VERSION	:= 20160112
-USB_MODESWITCH_DATA_MD5		:= 040d11138fc0a61b980d704ac3b4547f
+USB_MODESWITCH_DATA_VERSION	:= 20170205
+USB_MODESWITCH_DATA_MD5		:= 0cc107cd0c4c83df0d9400c999e21dfd
 USB_MODESWITCH_DATA		:= usb-modeswitch-data-$(USB_MODESWITCH_DATA_VERSION)
 USB_MODESWITCH_DATA_SUFFIX	:= tar.bz2
 USB_MODESWITCH_DATA_URL		:= http://www.draisberghof.de/usb_modeswitch/$(USB_MODESWITCH_DATA).$(USB_MODESWITCH_DATA_SUFFIX)
@@ -32,7 +32,9 @@ USB_MODESWITCH_DATA_LICENSE	:= GPL-2.0
 
 USB_MODESWITCH_DATA_CONF_TOOL	:= NO
 USB_MODESWITCH_DATA_MAKE_ENV	:= $(CROSS_ENV)
-USB_MODESWITCH_DATA_INSTALL_OPT	:= db-install
+USB_MODESWITCH_DATA_INSTALL_OPT	:= \
+	RULESDIR=$(USB_MODESWITCH_DATA_PKGDIR)/usr/lib/udev/rules.d \
+	db-install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -47,7 +49,7 @@ $(STATEDIR)/usb-modeswitch-data.targetinstall:
 	@$(call install_fixup, usb-modeswitch-data,DESCRIPTION,missing)
 
 	@$(call install_copy, usb-modeswitch-data, 0, 0, 0644, -, \
-		 /lib/udev/rules.d/40-usb_modeswitch.rules)
+		 /usr/lib/udev/rules.d/40-usb_modeswitch.rules)
 
 	@$(call install_tree, usb-modeswitch-data, 0, 0, -, \
 		/usr/share/usb_modeswitch)

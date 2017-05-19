@@ -367,6 +367,7 @@ ptxd_make_world_patchin_fixup()
 	    -e "s:^\(hardcode_into_libs\)=.*:\1=\"no\":" \
 	    -e "s:^\(hardcode_libdir_flag_spec\)=.*:\1=\"\":" \
 	    -e "s:^\(hardcode_libdir_flag_spec_ld\)=.*:\1=\"\":" \
+	    -e "s:^\(enable_option_checking\)=.*:\1=fatal:" \
 	    "${file}" || return
     done &&
 

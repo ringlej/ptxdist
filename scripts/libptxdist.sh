@@ -774,7 +774,7 @@ export -f ptxd_warning
 #
 ptxd_verbose() {
 	if [ "${PTXDIST_VERBOSE}" == "1" ]; then
-		echo "${PTXDIST_LOG_PROMPT}""${@}" >&2
+		echo "${PTXDIST_LOG_PROMPT}""${@}"
 	elif [ -n "${PTXDIST_FD_LOGFILE}" ]; then
 		echo "${PTXDIST_LOG_PROMPT}""${@}" >&9
 	fi

@@ -18,8 +18,8 @@ endif
 #
 # Paths and names
 #
-F2FS_TOOLS_VERSION	:= 1.4.0
-F2FS_TOOLS_MD5		:= 0c3e7f46c781449a5a9523d633b19740
+F2FS_TOOLS_VERSION	:= 1.6.1
+F2FS_TOOLS_MD5		:= f4fe0b59ffef1eef71c20d12381a3054
 F2FS_TOOLS		:= f2fs-tools-$(F2FS_TOOLS_VERSION)
 F2FS_TOOLS_SUFFIX	:= tar.xz
 F2FS_TOOLS_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git;tag=v$(F2FS_TOOLS_VERSION)
@@ -53,8 +53,8 @@ $(STATEDIR)/f2fs-tools.targetinstall:
 	@$(call install_fixup, f2fs-tools,AUTHOR,"Jon Ringle")
 	@$(call install_fixup, f2fs-tools,DESCRIPTION,missing)
 
-	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /sbin/mkfs.f2fs)
-	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /sbin/fsck.f2fs)
+	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /usr/sbin/mkfs.f2fs)
+	@$(call install_copy, f2fs-tools, 0, 0, 0755, -, /usr/sbin/fsck.f2fs)
 
 	@$(call install_lib, f2fs-tools, 0, 0, 0644, libf2fs)
 

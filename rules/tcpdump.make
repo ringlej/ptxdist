@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 #
 # Paths and names
 #
-TCPDUMP_VERSION	:= 4.7.4
-TCPDUMP_MD5	:= 58af728de36f499341918fc4b8e827c3
+TCPDUMP_VERSION	:= 4.9.0
+TCPDUMP_MD5	:= 2b83364eef53b63ca3181b4eb56dab0c
 TCPDUMP		:= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX	:= tar.gz
 TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
@@ -42,7 +42,6 @@ TCPDUMP_CONF_TOOL	:= autoconf
 TCPDUMP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis,PTXCONF_TCPDUMP_SMB)-smb \
-	$(GLOBAL_IPV6_OPTION) \
 	--without-smi \
 	--with-system-libpcap \
 	--$(call ptx/wwo,PTXCONF_TCPDUMP_ENABLE_CRYPTO)-crypto \
