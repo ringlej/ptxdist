@@ -2,6 +2,7 @@
 
 config HOST_QT4
 	tristate
+	select HOST_OPENSSL
 	select HOST_DBUS	if HOST_QT4_DBUS
 	default ALLYES
 

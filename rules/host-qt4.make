@@ -69,7 +69,6 @@ HOST_QT4_AUTOCONF := \
 	-no-libtiff \
 	-no-gif \
 	-no-libjpeg \
-	-no-openssl \
 	-qt-zlib \
 	-no-freetype \
 	-stl \
