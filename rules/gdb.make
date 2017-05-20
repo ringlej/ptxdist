@@ -53,6 +53,7 @@ endif
 #
 GDB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--libdir=/usr/lib/gdb \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT) \
 	--disable-werror
