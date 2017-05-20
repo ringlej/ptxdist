@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 20 May 2017 19:05:18 +0200
+Subject: [PATCH] HACK: setup.py: avoid rpath with sysroot
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ setup.py | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 6cb58a3fedd9..ca348f89fd50 100755
+--- a/setup.py
++++ b/setup.py
+@@ -217,10 +217,6 @@ def settings_from_prefix(prefix=None, bundle_libzmq_dylib=False):
+                 # settings['extra_link_args'] = ['-Wl,-rpath','-Wl,$ORIGIN/..']
+             else:
+                 settings['runtime_library_dirs'] += ['$ORIGIN/..']
+-        elif sys.platform != 'darwin':
+-            settings['runtime_library_dirs'] += [
+-                os.path.abspath(x) for x in settings['library_dirs']
+-            ]
+     
+     return settings
+ 
