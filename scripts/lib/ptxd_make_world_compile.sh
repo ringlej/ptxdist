@@ -11,6 +11,8 @@
 # call the compiler
 #
 ptxd_make_world_compile() {
+
+    ( exec 2>&${PTXDIST_STDERR_REDIRECT}
     ptxd_make_world_init &&
 
     if [ -z "${pkg_build_dir}" ]; then
@@ -28,7 +30,7 @@ ptxd_make_world_compile() {
 	    "${ptx_build_python}" \
 	    setup.py \
 	    "${pkg_make_opt}"
-	) 2>&1
+	)
 	;;
 	meson)
 	ptxd_eval \
@@ -37,7 +39,7 @@ ptxd_make_world_compile() {
 	    "${pkg_make_env}" \
 	    ninja -C "${pkg_build_dir}" \
 	    "${pkg_make_opt}" \
-	    "${pkg_make_par}" 2>&1
+	    "${pkg_make_par}"
 	;;
 	*)
 	ptxd_eval \
@@ -46,8 +48,8 @@ ptxd_make_world_compile() {
 	    "${pkg_make_env}" \
 	    "${MAKE}" -C "${pkg_build_dir}" \
 	    "${pkg_make_opt}" \
-	    "${pkg_make_par}" 2>&1
+	    "${pkg_make_par}"
 	;;
-    esac
+    esac )
 }
 export -f ptxd_make_world_compile
