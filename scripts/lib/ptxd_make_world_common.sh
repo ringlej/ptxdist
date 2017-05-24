@@ -381,5 +381,7 @@ ptxd_make_world_init() {
 	"NO")	  pkg_make_par=-j1 ;;
 	*)	  ptxd_bailout "<PKG>_MAKE_PAR: please set to YES or NO" ;;
     esac
+
+    exec 2>&${PTXDIST_FD_LOGERR}
 }
 export -f ptxd_make_world_init

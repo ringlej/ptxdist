@@ -2383,6 +2383,7 @@ setup_config() {
 #      PTXDIST_PARALLELMFLAGS_INTERN
 #      PTXDIST_PARALLELMFLAGS_EXTERN
 #      PTXDIST_OUTPUT_SYNC
+#      PTXDIST_FD_LOGERR
 #
 setup_parallel() {
 	# default no parallel for now
@@ -2415,10 +2416,12 @@ setup_parallel() {
 	fi
 
 	PTXDIST_OUTPUT_SYNC="${PTXDIST_OUTPUT_SYNC:-${PTXDIST_QUIET}}"
+	PTXDIST_FD_LOGERR=2
 	if [ "${PTXDIST_OUTPUT_SYNC}" == "1" ]; then
 		if "${PTXCONF_SETUP_HOST_MAKE}" -h | grep -q -- --output-sync; then
 			PTXDIST_OUTPUT_SYNC="--output-sync="
 		fi
+		PTXDIST_FD_LOGERR=1
 	fi
 	if [[ "${PTXDIST_OUTPUT_SYNC}" =~ [01] ]]; then
 		unset PTXDIST_OUTPUT_SYNC
@@ -2714,6 +2717,7 @@ setup_export() {
 		PTXDIST_LOADMFLAGS \
 		\
 		PTXDIST_CCACHE \
+		PTXDIST_FD_LOGERR \
 		PTXDIST_FORCE_DOWNLOAD \
 		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
