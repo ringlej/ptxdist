@@ -102,7 +102,8 @@ NODEJS_ARM_FPU = $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mfp
 endif
 
 NODEJS_CONF_TOOL := autoconf
-NODEJS_CONF_OPT := \
+# Use '=' to delay $(shell ...) calls until this is needed
+NODEJS_CONF_OPT = \
 	--prefix=/usr \
 	--dest-cpu=$(NODEJS_ARCH) \
 	--dest-os=linux \

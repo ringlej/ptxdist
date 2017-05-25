@@ -141,11 +141,12 @@ HOST_QEMU_CONF_OPT	:= \
 	$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,--with-system-pixman,--without-pixman) \
 	--enable-vhost-scsi
 
-QEMU_CROSS_QEMU := $(shell ptxd_get_alternative config/qemu qemu-cross && echo $$ptxd_reply)
+# Use '=' to delay $(shell ...) calls until this is needed
+QEMU_CROSS_QEMU = $(shell ptxd_get_alternative config/qemu qemu-cross && echo $$ptxd_reply)
 QEMU_CROSS_DL = $(shell ptxd_cross_cc_v | sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
 QEMU_CROSS_LD_LIBRARY_PATH := $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
 
-QEMU_CROSS_QEMU_ENV := \
+QEMU_CROSS_QEMU_ENV = \
 	QEMU="$(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS)" \
 	KERNEL_VERSION="$(KERNEL_VERSION)" \
 	QEMU_LD_PREFIX="$(PTXDIST_SYSROOT_TOOLCHAIN)" \
