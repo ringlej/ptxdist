@@ -22,7 +22,7 @@ QT5		:= qt-everywhere-opensource-src-$(QT5_VERSION)
 QT5_SUFFIX	:= tar.xz
 QT5_URL		:= \
 	http://download.qt-project.org/official_releases/qt/$(basename $(QT5_VERSION))/$(QT5_VERSION)/single/$(QT5).$(QT5_SUFFIX) \
-	http://download.qt-project.org/development_releases/qt/$(basename $(QT5_VERSION))/$(shell echo $(QT5_VERSION) | tr 'A-Z' 'a-z')/single/$(QT5).$(QT5_SUFFIX)
+	http://download.qt-project.org/development_releases/qt/$(basename $(QT5_VERSION))/$(QT5_VERSION)/single/$(QT5).$(QT5_SUFFIX)
 QT5_SOURCE	:= $(SRCDIR)/$(QT5).$(QT5_SUFFIX)
 QT5_DIR		:= $(BUILDDIR)/$(QT5)
 QT5_BUILD_OOT	:= YES
