@@ -736,7 +736,7 @@ ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 # ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_bailout() {
-	echo "${PTXDIST_LOG_PROMPT}error: $1" >&2
+	echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_STDERR}
 	exit ${2:-1}
 }
 export -f ptxd_bailout

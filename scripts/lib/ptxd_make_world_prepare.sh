@@ -155,7 +155,7 @@ ptxd_make_world_prepare() {
     case "${pkg_conf_tool}" in
 	autoconf|cmake|qmake|kconfig|perl|meson)
 	    cd -- "${pkg_build_dir}" &&
-	    ptxd_make_world_prepare_"${pkg_conf_tool}" 2>&1 ;;
+	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
 	python|python3)
 	    : ;; # nothing to do
 	"NO") echo "prepare stage disabled." ;;

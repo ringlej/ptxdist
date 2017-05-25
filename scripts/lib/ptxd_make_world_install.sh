@@ -114,7 +114,7 @@ ptxd_make_world_install() {
 
     "${echo:-echo}" \
 	"${cmd[@]}" \
-	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" -- 2>&1
+	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" --
     check_pipe_status
 }
 export -f ptxd_make_world_install
