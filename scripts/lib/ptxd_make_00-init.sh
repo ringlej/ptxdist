@@ -76,8 +76,15 @@ export -f ptxd_cross_cc
 # run cross-gcc with flags and -v
 #
 ptxd_cross_cc_v() {
-    echo 'int main(void){return 0;}' | \
-    ptxd_cross_cc -x c -o /dev/null -v - 2>&1
+    local cache="${PTXDIST_TEMPDIR}/ptxd_cross_cc_v"
+    if [ -e "${cache}" ]; then
+	cat "${cache}"
+    else
+	local tmp="$(mktemp "${cache}.XXXXXX")"
+	echo 'int main(void){return 0;}' | \
+	ptxd_cross_cc -x c -o /dev/null -v - 2>&1 | tee "${tmp}"
+	mv "${tmp}" "${cache}"
+    fi
 }
 export -f ptxd_cross_cc_v
 
