@@ -102,16 +102,19 @@ ifdef PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS
 		$(call install_copy, bluez, 0, 0, 0644, -, \
 			/usr/lib/bluez/test/$(testdata));)
 
-	@$(foreach testprog, bluezutils.py list-devices opp-client \
+	@$(foreach testprog, list-devices opp-client \
 			simple-endpoint test-alert test-discovery \
-			test-heartrate test-nap test-proximity dbusdef.py \
+			test-heartrate test-nap test-proximity \
 			map-client pbap-client simple-player test-cyclingspeed \
 			test-health test-hfp test-network test-sap-server \
-			ftp-client monitor-bluetooth sap_client.py simple-agent \
+			ftp-client monitor-bluetooth simple-agent \
 			test-adapter test-device test-health-sink test-manager \
 			test-profile test-thermometer, \
 		$(call install_copy, bluez, 0, 0, 0755, -, \
-			/usr/lib/bluez/test/$(testprog));)
+			/usr/lib/bluez/test/$(testprog))$(ptx/nl))
+	@$(foreach testprog, bluezutils.py dbusdef.py sap_client.py, \
+		$(call install_copy, bluez, 0, 0, 0644, -, \
+			/usr/lib/bluez/test/$(testprog))$(ptx/nl))
 endif
 
 	@$(call install_copy, bluez, 0, 0, 0644, -, \
