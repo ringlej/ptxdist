@@ -131,98 +131,44 @@ $(STATEDIR)/fluxbox.targetinstall:
 			/usr/share/fluxbox/styles/$$i); \
 	done
 
-ifdef PTXCONF_FLUXBOX_THEMES
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles)
-
 ifdef PTXCONF_FLUXBOX_THEMES_ARCH
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/arch)
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/arch/pixmaps)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/arch/theme.cfg)
-	@for i in `find $(FLUXBOX_PKGDIR)/usr/share/fluxbox/styles/arch/pixmaps -name *.xpm`; do \
-		file=`basename $$i`; \
-		$(call install_copy, fluxbox, 0, 0, 0644, -, \
-			/usr/share/fluxbox/styles/arch/pixmaps/$$file); \
-	done
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/arch)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_BLOE
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/bloe)
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/bloe/pixmaps)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/bloe/theme.cfg)
-	@for i in `find $(FLUXBOX_PKGDIR)/usr/share/fluxbox/styles/bloe/pixmaps -name *.xpm`; do \
-		file=`basename $$i`; \
-		$(call install_copy, fluxbox, 0, 0, 0644, -, \
-			/usr/share/fluxbox/styles/bloe/pixmaps/$$file); \
-	done
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/bloe)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_BLUEFLUX
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/BlueFlux)
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/BlueFlux/pixmaps)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/BlueFlux/theme.cfg)
-	@for i in `find $(FLUXBOX_PKGDIR)/usr/share/fluxbox/styles/BlueFlux/pixmaps -name *.xpm`; do \
-		file=`basename $$i`; \
-		$(call install_copy, fluxbox, 0, 0, 0644, -, \
-			/usr/share/fluxbox/styles/BlueFlux/pixmaps/$$file); \
-	done
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/BlueFlux)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_BORABLACK
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/bora_black)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/bora_black/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/bora_black)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_BORABLUE
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/bora_blue)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/bora_blue/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/bora_blue)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_BORAGREEN
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/bora_green)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/bora_green/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/bora_green)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_CARP
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/carp)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/carp/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/carp)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_EMERGE
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/Emerge)
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/Emerge/pixmaps)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/Emerge/theme.cfg)
-	@for i in `find $(FLUXBOX_PKGDIR)/usr/share/fluxbox/styles/Emerge/pixmaps -name *.xpm`; do \
-		file=`basename $$i`; \
-		$(call install_copy, fluxbox, 0, 0, 0644, -, \
-			/usr/share/fluxbox/styles/Emerge/pixmaps/$$file); \
-	done
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/Emerge)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_GREENTEA
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/green_tea)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/green_tea/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/green_tea)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_OSTRICH
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/ostrich)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/ostrich/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/ostrich)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_ZIMEKBISQUE
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/zimek_bisque)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/zimek_bisque/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/zimek_bisque)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_ZIMEKDARKBLUE
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/zimek_darkblue)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/zimek_darkblue/theme.cfg)
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/zimek_darkblue)
 endif
-
 ifdef PTXCONF_FLUXBOX_THEMES_ZIMEKGREEN
-	@$(call install_copy, fluxbox, 0, 0, 0755, /usr/share/fluxbox/styles/zimek_green)
-	@$(call install_copy, fluxbox, 0, 0, 0755, -, /usr/share/fluxbox/styles/zimek_green/theme.cfg)
-endif
-
+	@$(call install_tree, fluxbox, 0, 0, -, /usr/share/fluxbox/styles/zimek_green)
 endif
 	@$(call install_finish, fluxbox)
 
