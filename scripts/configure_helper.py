@@ -127,7 +127,7 @@ def blacklist_hit(name, blacklist):
 			return True
 	return False
 
-parse_args_re = re.compile("--((enable|disable|with|without)-)?\[?([^\[=]*)(([\[=]*)([^]]*)]?)?")
+parse_args_re = re.compile("--((enable|disable|with|without|with\(out\))-)?\[?([^\[=]*)(([\[=]*)([^]]*)]?)?")
 def parse_configure_args(args, blacklist):
 	ret = []
 	for arg in args:
