@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PYTHON3) += python3
 #
 # Paths and names
 #
-PYTHON3_VERSION		:= 3.5.0
-PYTHON3_MD5		:= d149d2812f10cbe04c042232e7964171
+PYTHON3_VERSION		:= 3.5.3
+PYTHON3_MD5		:= 57d1f8bfbabf4f2500273fb0706e6f21
 PYTHON3_MAJORMINOR	:= $(basename $(PYTHON3_VERSION))
 PYTHON3_SITEPACKAGES	:= /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages
 PYTHON3			:= Python-$(PYTHON3_VERSION)
@@ -59,16 +59,25 @@ PYTHON3_BINCONFIG_GLOB := ""
 PYTHON3_CONF_TOOL	:= autoconf
 PYTHON3_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
 	--enable-shared \
+	--disable-profiling \
+	--disable-optimizations \
+	--disable-loadable-sqlite-extensions \
+	$(GLOBAL_IPV6_OPTION) \
+	--without-pydebug \
+	--without-lto \
 	--with-system-expat \
 	--with-system-ffi \
+	--without-system-libmpdec \
+	--with-dbmliborder=bdb \
 	--with-signal-module \
 	--with-threads=pthread \
 	--without-doc-strings \
 	--without-tsc \
 	--with-pymalloc \
 	--without-valgrind \
+	--with-fpectl \
+	--with-computed-gotos \
 	--without-ensurepip
 
 # ----------------------------------------------------------------------------
