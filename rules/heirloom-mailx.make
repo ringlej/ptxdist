@@ -69,7 +69,7 @@ $(STATEDIR)/heirloom-mailx.targetinstall:
 	@$(call install_fixup, heirloom-mailx,DESCRIPTION,missing)
 
 	@$(call install_copy, heirloom-mailx, 0, 0, 0755, -, /usr/bin/mailx)
-	@$(call install_alternative, heirloom-mailx, 0, 0, 0755, /etc/nail.rc)
+	@$(call install_alternative, heirloom-mailx, 0, 0, 0644, /etc/nail.rc)
 
 	@$(call install_finish, heirloom-mailx)
 
