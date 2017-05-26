@@ -77,8 +77,8 @@ ifdef PTXCONF_PYSERIAL_TESTS
 		setup-rfc2217_server-py2exe.py wxSerialConfigDialog.py \
 		rfc2217_server.py scanwin32.py setup-wxTerminal-py2exe.py; \
 		do \
-			$(call install_copy, pyserial, 0, 0, 0755, \
-			$(PYSERIAL_DIR)/examples/$$file, /usr/bin/$$file); \
+			$(call install_copy, pyserial, 0, 0, 0644, \
+			$(PYSERIAL_DIR)/examples/$$file, /usr/share/pyserial/$$file); \
 		done
 endif
 	@$(call install_finish, pyserial)
