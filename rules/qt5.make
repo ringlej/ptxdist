@@ -490,11 +490,11 @@ $(STATEDIR)/qt5.targetinstall:
 ifdef PTXCONF_QT5_MODULE_QTWEBENGINE
 	@$(call install_copy, qt5, 0, 0, 0755, -, \
 		/usr/lib/qt5/libexec/QtWebEngineProcess)
-	@$(call install_copy, qt5, 0, 0, 0755, -, \
+	@$(call install_copy, qt5, 0, 0, 0644, -, \
 		/usr/share/qt5/resources/qtwebengine_resources.pak)
-	@$(call install_copy, qt5, 0, 0, 0755, -, \
+	@$(call install_copy, qt5, 0, 0, 0644, -, \
 		/usr/share/qt5/resources/qtwebengine_resources_100p.pak)
-	@$(call install_copy, qt5, 0, 0, 0755, -, \
+	@$(call install_copy, qt5, 0, 0, 0644, -, \
 		/usr/share/qt5/resources/qtwebengine_resources_200p.pak)
 	@$(call install_link, qt5, ../icu/$(ICU_VERSION)/icudt$(basename $(ICU_VERSION))$(call ptx/ifdef,PTXCONF_ENDIAN_LITTLE,l,b).dat, \
 		/usr/share/qt5/icudtl.dat)
