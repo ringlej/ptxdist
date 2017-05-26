@@ -73,7 +73,7 @@ $(STATEDIR)/syslogng.targetinstall:
 	@$(call install_copy, syslogng, 0, 0, 0755, -, \
 		/usr/sbin/syslog-ng)
 	@$(call install_lib, syslogng, 0, 0, 0644, libsyslog-ng-$(SYSLOG_LIBVERSION))
-	@$(call install_tree, syslogng, 0, 0, -, /usr/lib/syslog-ng)
+	@$(call install_glob, syslogng, 0, 0, -, /usr/lib/syslog-ng, *.so)
 
 #	# config
 ifdef PTXCONF_SYSLOGNG_CONFIG
