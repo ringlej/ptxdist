@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Wed, 8 Feb 2017 13:11:00 +0100
+Date: Fri, 26 May 2017 14:05:55 +0200
 Subject: [PATCH] no-rpath
 
-Imported from openssl_1.0.2k-1~bpo8+1.debian.tar.xz
+Imported from openssl1.0_1.0.2l-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

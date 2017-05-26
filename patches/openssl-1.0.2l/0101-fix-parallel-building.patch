@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  3 files changed, 16 insertions(+), 10 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index 4c92e2167ecd..f60f7f5a3109 100644
+index aec7e577e0bc..21235e04d7c6 100644
 --- a/Makefile.org
 +++ b/Makefile.org
-@@ -280,18 +280,24 @@ build_libs: build_libcrypto build_libssl openssl.pc
+@@ -281,18 +281,24 @@ build_libs: build_libcrypto build_libssl openssl.pc
  build_libcrypto: build_crypto build_engines libcrypto.pc
  build_libssl: build_ssl libssl.pc
  

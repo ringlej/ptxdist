@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index bf0da9cd950b..43d5f2f4f6b5 100755
+index 74b2d4c109ab..0d719cfce83c 100755
 --- a/Configure
 +++ b/Configure
-@@ -132,7 +132,7 @@ my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers
+@@ -134,7 +134,7 @@ my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers
  my $warn_make_depend = 0;
  
  # There are no separate CFLAGS/CPPFLAGS/LDFLAGS, set everything in CFLAGS
