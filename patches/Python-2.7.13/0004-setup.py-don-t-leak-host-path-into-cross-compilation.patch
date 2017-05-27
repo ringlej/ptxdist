@@ -12,10 +12,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 3 insertions(+)
 
 diff --git a/setup.py b/setup.py
-index 7868b7b241cc..542254496552 100644
+index 54054c208a76..b2b793cf5d29 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -1208,6 +1208,9 @@ class PyBuildExt(build_ext):
+@@ -1228,6 +1228,9 @@ class PyBuildExt(build_ext):
          # the more recent berkeleydb's db.h file first in the include path
          # when attempting to compile and it will fail.
          f = "/usr/include/db.h"
