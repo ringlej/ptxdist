@@ -162,8 +162,6 @@ COREUTILS_CONF_TOOL	:= autoconf
 COREUTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--disable-silent-rules \
 	--enable-threads=posix \
 	--disable-acl \
 	--disable-assert \
@@ -174,6 +172,7 @@ COREUTILS_CONF_OPT	:= \
 	--enable-no-install-program=$(subst $(space),$(comma),$(strip $(COREUTILS_INST-))) \
 	--disable-nls \
 	--without-openssl \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
 	--without-gmp
 
 COREUTILS_MAKE_OPT	:= \
