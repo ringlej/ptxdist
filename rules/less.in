@@ -8,8 +8,6 @@ menuconfig LESS
 	select GCCLIBS_GCC_S
 	depends on !BUSYBOX_LESS || ALLYES
 	select NCURSES if LESS_USE_NCURSES
-	select NCURSES if LESS_USE_NCURSESW
-	select NCURSES_WIDE_CHAR if LESS_USE_NCURSESW
 	select TERMCAP if LESS_USE_TERMCAP
 	help
 	  Less is a pager. A pager is a program
@@ -45,15 +43,23 @@ config LESS_USE_NCURSES
 	bool
 	prompt "ncurses "
 
-config LESS_USE_NCURSESW
-	bool
-	prompt "ncursesw"
-
 config LESS_USE_TERMCAP
 	bool
 	prompt "termcap "
 
 endchoice
+
+if LESS_USE_NCURSES
+
+config LESS_NCURSES
+	bool
+	default !NCURSES_WIDE_CHAR
+
+config LESS_NCURSESW
+	bool
+	default NCURSES_WIDE_CHAR
+
+endif
 
 endif
 
