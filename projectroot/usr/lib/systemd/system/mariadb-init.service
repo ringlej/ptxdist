@@ -1,0 +1,39 @@
+# Copyright (c) 2017, Pengutronix
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# MariaDB run-time preparation
+#
+# Preparation must be run once if the "data" (=working directory) does not
+# exist yet.
+# Since we expect a read-only root filesystem, we need one writeable filesystem
+# part at "/var/lib/mysql".
+#
+# Since we change some permissions, the script itself must run as user 'root'
+#
+
+[Unit]
+Description=MariaDB Server Initialization Service
+RequiresMountsFor=/var/lib/mysql
+ConditionPathExists=!/var/lib/mysql/data
+
+[Service]
+User=root
+Group=root
+Type=oneshot
+RemainAfterExit=yes
+
+ExecStart=/bin/chown -R mysql:mysql /var/lib/mysql
+ExecStart=/bin/chmod 0755 /var/lib/mysql
+
+ExecStart=/usr/scripts/mysql_install_db --basedir=/usr --datadir=/var/lib/mysql/data --user=mysql
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,27 @@
+[Unit]
+Description=MariaDB database server
+Requires=mariadb-init.service
+After=mariadb-init.service
+
+[Service]
+User=mysql
+Group=mysql
+PrivateDevices=true
+
+ExecStart=/usr/bin/mysqld
+
+KillMode=process
+KillSignal=SIGTERM
+SendSIGKILL=no
+
+Restart=on-abort
+RestartSec=5s
+
+UMask=007
+
+LimitNOFILE=5000
+
+[Install]
+WantedBy=multi-user.target
+Alias=mysql.service
+Alias=mysqld.service
