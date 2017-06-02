@@ -252,7 +252,7 @@ ifdef PTXCONF_KERNEL_TOOL_PERF
 endif
 
 ifdef PTXCONF_KERNEL_TOOL_IIO
-	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/generic_buffer, \
+	@$(call install_copy, kernel, 0, 0, 0755, $(wildcard $(KERNEL_DIR)/tools/iio/*generic_buffer), \
 		/usr/bin/iio_generic_buffer)
 	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/lsiio, \
 		/usr/bin/lsiio)
