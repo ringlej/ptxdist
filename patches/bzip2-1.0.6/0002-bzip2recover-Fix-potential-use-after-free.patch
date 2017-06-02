@@ -1,0 +1,23 @@
+From: Jakub Martisko <jamartis@redhat.com>
+Date: Wed, 30 Mar 2016 10:22:27 +0200
+Subject: [PATCH] bzip2recover: Fix potential use-after-free
+
+Origin: https://bugzilla.redhat.com/attachment.cgi?id=1169843&action=edit
+Bug-Debian-Security: https://security-tracker.debian.org/tracker/CVE-2016-3189
+Bug-Debian: https://bugs.debian.org/827744
+---
+ bzip2recover.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/bzip2recover.c b/bzip2recover.c
+index f9de0496abf1..252c1b79853d 100644
+--- a/bzip2recover.c
++++ b/bzip2recover.c
+@@ -457,6 +457,7 @@ Int32 main ( Int32 argc, Char** argv )
+             bsPutUChar ( bsWr, 0x50 ); bsPutUChar ( bsWr, 0x90 );
+             bsPutUInt32 ( bsWr, blockCRC );
+             bsClose ( bsWr );
++            outFile = NULL;
+          }
+          if (wrBlock >= rbCtr) break;
+          wrBlock++;
