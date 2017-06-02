@@ -1,7 +1,6 @@
-From a3f5ba4366bf698d987277656c51bb6f12d55cf2 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Sun, 24 Jan 2010 00:32:08 +0100
-Subject: [PATCH 6/6] always link against our $termcap libraries
+Subject: [PATCH] always link against our $termcap libraries
 
 This way our $user doesn't need to know wich $termcap library
 we linked against.
@@ -11,14 +10,14 @@ we linked against.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- shlib/Makefile.in |    4 ++--
+ shlib/Makefile.in | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: readline-6.2/shlib/Makefile.in
-===================================================================
---- readline-6.2.orig/shlib/Makefile.in
-+++ readline-6.2/shlib/Makefile.in
-@@ -166,11 +166,11 @@ unsupported:
+diff --git a/shlib/Makefile.in b/shlib/Makefile.in
+index f2ec3e46b7ba..3298008abec4 100644
+--- a/shlib/Makefile.in
++++ b/shlib/Makefile.in
+@@ -174,11 +174,11 @@ unsupported:
  
  $(SHARED_READLINE):	$(SHARED_OBJ)
  	$(RM) $@

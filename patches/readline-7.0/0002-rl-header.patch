@@ -1,7 +1,6 @@
-From 1667707d568e8c5b6380ea5a8ac5edfe03c2090d Mon Sep 17 00:00:00 2001
-From: doko@debian.org <doko@debian.org>
+From: "doko@debian.org" <doko@debian.org>
 Date: Sun, 24 Jan 2010 00:31:22 +0100
-Subject: [PATCH 2/6] rl-header.
+Subject: [PATCH] rl-header.
 
 rl-header.dpatch by  <doko@debian.org>
 
@@ -10,14 +9,14 @@ http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- history.h  |    1 +
- readline.h |    1 +
+ history.h  | 1 +
+ readline.h | 1 +
  2 files changed, 2 insertions(+)
 
-Index: readline-6.2/history.h
-===================================================================
---- readline-6.2.orig/history.h
-+++ readline-6.2/history.h
+diff --git a/history.h b/history.h
+index 8ce7c805d168..8d568a79fa29 100644
+--- a/history.h
++++ b/history.h
 @@ -32,6 +32,7 @@ extern "C" {
  #  include "rlstdc.h"
  #  include "rltypedefs.h"
@@ -26,10 +25,10 @@ Index: readline-6.2/history.h
  #  include <readline/rlstdc.h>
  #  include <readline/rltypedefs.h>
  #endif
-Index: readline-6.2/readline.h
-===================================================================
---- readline-6.2.orig/readline.h
-+++ readline-6.2/readline.h
+diff --git a/readline.h b/readline.h
+index b1a177a577d5..06c2abe61736 100644
+--- a/readline.h
++++ b/readline.h
 @@ -32,6 +32,7 @@ extern "C" {
  #  include "keymaps.h"
  #  include "tilde.h"
