@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.29.2
-UTIL_LINUX_NG_MD5	:= 63c40c2068fcbb7e1d5c1d281115d973
+UTIL_LINUX_NG_VERSION	:= 2.30
+UTIL_LINUX_NG_MD5	:= eaa3429150268027908a1b8ae6ee9a62
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
 UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[\.[0-9]*]\?/\1/g')
@@ -63,6 +63,8 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--enable-all-programs=undefined \
 	--enable-tls \
 	--disable-widechar \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LSMEM)-lsmem \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_CHMEM)-chmem \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
@@ -183,6 +185,12 @@ ifdef PTXCONF_UTIL_LINUX_NG_LIBFDISK
 	@$(call install_lib, util-linux-ng, 0, 0, 0644, libfdisk)
 endif
 
+ifdef PTXCONF_UTIL_LINUX_NG_LSMEM
+	@$(call install_copy, util-linux-ng, root, root, 0755, -, /usr/bin/lsmem)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_CHMEM
+	@$(call install_copy, util-linux-ng, root, root, 0755, -, /usr/bin/chmem)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_COLUMN
 	@$(call install_copy, util-linux-ng, root, root, 0755, -, /usr/bin/column)
 endif

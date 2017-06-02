@@ -386,4 +386,18 @@ config UTIL_LINUX_NG_ZRAMCTL
 	help
 	  The zramctl program is a tool to set up and control zram devices.
 
+config UTIL_LINUX_NG_LSMEM
+	bool
+	prompt "lsmem"
+	help
+	  The lsmem command lists the ranges of available memory and
+          it's online status.
+
+config UTIL_LINUX_NG_CHMEM
+	bool
+	prompt "chmem"
+	help
+	  The chmem command sets a particular size or range of
+          memory online or offline.
+
 endif
