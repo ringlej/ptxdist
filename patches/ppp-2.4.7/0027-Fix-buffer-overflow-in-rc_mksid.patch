@@ -1,0 +1,30 @@
+From: Emanuele Rocca <ema@debian.org>
+Date: Fri, 2 Jun 2017 11:30:48 +0200
+Subject: [PATCH] Fix buffer overflow in rc_mksid()
+
+rc_mksid converts the PID of pppd to hex to generate a pseudo-unique string.
+
+If the process id is bigger than 65535 (FFFF), its hex representation will be
+longer than 4 characters, resulting in a buffer overflow.
+
+The bug can be exploited to cause a remote DoS.
+
+Bug-Debian: https://bugs.debian.org/782450
+Last-Update: <2015-04-14>
+---
+ pppd/plugins/radius/util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pppd/plugins/radius/util.c b/pppd/plugins/radius/util.c
+index 6f976a712951..166bd5f31d7a 100644
+--- a/pppd/plugins/radius/util.c
++++ b/pppd/plugins/radius/util.c
+@@ -77,7 +77,7 @@ rc_mksid (void)
+   static unsigned short int cnt = 0;
+   sprintf (buf, "%08lX%04X%02hX",
+ 	   (unsigned long int) time (NULL),
+-	   (unsigned int) getpid (),
++	   (unsigned int) getpid () % 65535,
+ 	   cnt & 0xFF);
+   cnt++;
+   return buf;

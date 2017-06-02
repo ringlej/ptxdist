@@ -1,0 +1,26 @@
+From: Marco d'Itri <md@linux.it>
+Date: Fri, 2 Jun 2017 11:29:20 +0200
+Subject: [PATCH] secure-card-interpreter-fix
+
+This fixes the lintian warning:
+I: ppp: example-wrong-path-for-interpreter
+  usr/share/doc/ppp/examples/scripts/secure-card
+  (#!/usr/local/bin/expect != /usr/bin/expect)
+
+Author: Chris Boot <bootc@debian.org>
+Forwarded: not-needed
+Last-Update: 2013-09-09
+---
+ scripts/secure-card | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/secure-card b/scripts/secure-card
+index 0002365e4edb..ae3ae50c14f4 100755
+--- a/scripts/secure-card
++++ b/scripts/secure-card
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/expect -f
++#!/usr/bin/expect -f
+ #
+ # This  script was  written  by  Jim Isaacson  <jcisaac@crl.com>.  It is
+ # designed to work  as a script to use the  SecureCARD(tm) device.  This

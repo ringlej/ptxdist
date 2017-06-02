@@ -1,0 +1,22 @@
+From: Marco d'Itri <md@linux.it>
+Date: Fri, 2 Jun 2017 11:11:22 +0200
+Subject: [PATCH] pppoe_noads
+
+---
+ pppd/plugins/rp-pppoe/plugin.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/pppd/plugins/rp-pppoe/plugin.c b/pppd/plugins/rp-pppoe/plugin.c
+index a8c2bb4f4a6a..c4c85b462afd 100644
+--- a/pppd/plugins/rp-pppoe/plugin.c
++++ b/pppd/plugins/rp-pppoe/plugin.c
+@@ -376,9 +376,6 @@ plugin_init(void)
+     }
+ 
+     add_options(Options);
+-
+-    info("RP-PPPoE plugin version %s compiled against pppd %s",
+-	 RP_VERSION, VERSION);
+ }
+ 
+ void pppoe_check_options(void)

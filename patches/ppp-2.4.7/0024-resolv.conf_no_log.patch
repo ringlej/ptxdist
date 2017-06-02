@@ -1,0 +1,21 @@
+From: Marco d'Itri <md@linux.it>
+Date: Fri, 2 Jun 2017 11:27:40 +0200
+Subject: [PATCH] resolv.conf_no_log
+
+---
+ pppd/ipcp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pppd/ipcp.c b/pppd/ipcp.c
+index d6e0e2a699fe..b81b2fd0a29f 100644
+--- a/pppd/ipcp.c
++++ b/pppd/ipcp.c
+@@ -2152,7 +2152,7 @@ create_resolv(peerdns1, peerdns2)
+ 
+     f = fopen(_PATH_RESOLV, "w");
+     if (f == NULL) {
+-	error("Failed to create %s: %m", _PATH_RESOLV);
++	/* error("Failed to create %s: %m", _PATH_RESOLV); */
+ 	return;
+     }
+ 
