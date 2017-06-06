@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MPG123) += mpg123
 #
 # Paths and names
 #
-MPG123_VERSION	:= 1.23.8
-MPG123_MD5	:= 4dde045123a2ad1e385a0a82c0ef9268
+MPG123_VERSION	:= 1.25.0
+MPG123_MD5	:= 2ffbe29c99130215b0ee7d1b11c0ea4b
 MPG123		:= mpg123-$(MPG123_VERSION)
 MPG123_SUFFIX	:= tar.bz2
 MPG123_URL	:= http://www.mpg123.org/download/$(MPG123).$(MPG123_SUFFIX)
@@ -37,10 +37,41 @@ MPG123_LICENSE_FILES := \
 MPG123_CONF_TOOL	:= autoconf
 MPG123_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-modules \
+	--disable-debug \
+	--disable-nagging \
+	--enable-gapless \
+	--enable-fifo \
 	$(GLOBAL_IPV6_OPTION) \
-	--with-audio=alsa\
-	--with-default-audio=alsa\
-	--enable-modules=no
+	--enable-network \
+	--enable-id3v2 \
+	--enable-string \
+	--enable-icy \
+	--enable-ntom \
+	--enable-downsample \
+	--enable-feeder \
+	--enable-messages \
+	--enable-new-huffman \
+	--$(call ptx/endis, PTXCONF_MPG123_INT_QUALITY)-int-quality \
+	--enable-16bit \
+	--enable-8bit \
+	--enable-32bit \
+	--enable-real \
+	--disable-equalizer \
+	--disable-yasm \
+	--enable-ieeefloat \
+	--enable-buffer \
+	--disable-newoldwritesample \
+	--enable-layer1 \
+	--enable-layer2 \
+	--enable-layer3 \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-lfs-alias \
+	--disable-feature_report \
+	--with-audio=alsa \
+	--with-default-audio=alsa \
+	--with-optimization=2 \
+	--with-seektable=1000
 
 # needed when compiling without IPv6
 MPG123_CPPFLAGS := -D_GNU_SOURCE
