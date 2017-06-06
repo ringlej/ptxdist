@@ -17,4 +17,10 @@ config HOST_SYSTEM_PYTHON_BZ2
 config HOST_SYSTEM_PYTHON_MAKO
 	bool
 
+config HOST_SYSTEM_PYTHON_SIX
+	bool
+
+config HOST_SYSTEM_PYTHON_NUMPY
+	bool
+
 endif

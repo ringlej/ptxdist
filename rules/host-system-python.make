@@ -47,6 +47,18 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON_MAKO
 		ptxd_bailout "Python mako module not found! \
 	Please install python-mako (debian)";
 endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON_SIX
+	@echo "Checking for Python Six ..."
+	@python -c 'import six' 2>/dev/null || \
+		ptxd_bailout "Python six module not found! \
+	Please install python-six (debian)";
+endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON_NUMPY
+	@echo "Checking for Python Numpy ..."
+	@python -c 'import numpy' 2>/dev/null || \
+		ptxd_bailout "Python numpy module not found! \
+	Please install python-numpy (debian)";
+endif
 	@echo
 	@$(call touch)
 
