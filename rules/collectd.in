@@ -67,11 +67,19 @@ config COLLECTD_PING
 	  to the configured hosts periodically and measures the network
 	  latency.
 
-
 config COLLECTD_SENSORS
 	bool
 	prompt "sensors"
 	help
 	  The Sensors plugin uses lm-sensors to read hardware sensors.
+
+comment "Other Plugins"
+
+config COLLECTD_EXEC
+	bool
+	prompt "exec"
+	help
+	  The Exec plugin executes scripts and reads values back that are
+	  printed to stdout using the collectd plain text protocol.
 
 endif
