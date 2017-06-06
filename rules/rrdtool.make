@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_RRDTOOL) += rrdtool
 #
 # Paths and names
 #
-RRDTOOL_VERSION	:= 1.6.0
-RRDTOOL_MD5	:= 4ff52cc44b935b02d2742e6875094da5
+RRDTOOL_VERSION	:= 1.7.0
+RRDTOOL_MD5	:= 2f37eeb613bed11077470c9e2057010e
 RRDTOOL		:= rrdtool-$(RRDTOOL_VERSION)
 RRDTOOL_SUFFIX	:= tar.gz
 RRDTOOL_URL	:= http://oss.oetiker.ch/rrdtool/pub/$(RRDTOOL).$(RRDTOOL_SUFFIX)
@@ -40,6 +40,7 @@ RRDTOOL_CONF_ENV	:= \
 RRDTOOL_CONF_TOOL	:= autoconf
 RRDTOOL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--runstatedir=/run \
 	--disable-docs \
 	--disable-examples \
 	--$(call ptx/endis, PTXCONF_RRDTOOL_RRDCACHED)-rrdcached \
@@ -62,6 +63,9 @@ RRDTOOL_CONF_OPT	:= \
 	--disable-python \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
+	--without-perl-options \
+	--without-ruby-options \
+	--without-tcllib \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 ifneq ($(call remove_quotes,$(PTXCONF_RRDTOOL_DEFAULT_FONT)),)
