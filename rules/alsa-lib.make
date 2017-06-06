@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.0.29
-ALSA_LIB_MD5		:= de67e0eca72474d6b1121037dafe1024
+ALSA_LIB_VERSION	:= 1.1.4.1
+ALSA_LIB_MD5		:= 29fa3e69122d3cf3e8f0e01a0cb1d183
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -55,35 +55,31 @@ ALSA_LIB_AUTOCONF := \
 	--enable-fast-install \
 	--enable-libtool-lock \
 	--enable-symbolic-functions \
-	--disable-old-symbols \
-	--disable-python \
-	--with-tmpdir=/tmp \
 	--with-debug=no \
-	--with-libdl \
-	--with-pthread \
-	--with-librt \
-	--with-alsa-devdir=/dev/snd \
-	--with-aload-devdir=/dev \
-	--with-versioned \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_RESMGR)-resmgr \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_READ)-aload \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_MIXER)-mixer \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_PCM)-pcm \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_RAWMIDI)-rawmidi \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_HWDEP)-hwdep \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_SEQ)-seq \
 	--$(call ptx/endis, PTXCONF_ALSA_LIB_UCM)-ucm \
-	--$(call ptx/endis, PTXCONF_ALSA_LIB_ALISP)-alisp
+	--disable-topology \
+	--$(call ptx/endis, PTXCONF_ALSA_LIB_ALISP)-alisp \
+	--disable-old-symbols \
+	--disable-python \
+	--enable-thread-safety \
+	--with-versioned \
+	--with-tmpdir=/tmp \
+	--with-softfloat=$(call ptx/ifdef, PTXCONF_HAS_HARDFLOAT, no, yes) \
+	--with-libdl \
+	--with-pthread \
+	--with-librt \
+	--with-alsa-devdir=/dev/snd \
+	--with-aload-devdir=/dev
 
 ifdef PTXCONF_ALSA_LIB_PCM
-ALSA_LIB_AUTOCONF += \
-	--enable-pcm \
-	--with-pcm-plugins=all
-else
-ALSA_LIB_AUTOCONF += --disable-pcm
-endif
-
-ifndef PTXCONF_HAS_HARDFLOAT
-ALSA_LIB_AUTOCONF += --with-softfloat
+ALSA_LIB_AUTOCONF += --with-pcm-plugins=all
 endif
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
@@ -123,20 +119,6 @@ endif
 
 ifdef PTXCONF_ALSA_LIB_FULL
 	@$(call install_lib, alsa-lib, 0, 0, 0644, libasound)
-
-ifdef PTXCONF_ALSA_LIB_MIXER
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/lib/alsa-lib/smixer/smixer-ac97.so)
-
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/lib/alsa-lib/smixer/smixer-sbase.so)
-
-	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, -, \
-		/usr/lib/alsa-lib/smixer/smixer-hda.so)
-endif
 
 	@$(call install_tree, alsa-lib, \
 		0, 0, -, /usr/share/alsa/)
