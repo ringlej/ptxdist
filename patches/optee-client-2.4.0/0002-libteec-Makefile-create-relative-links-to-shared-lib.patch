@@ -1,0 +1,30 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 12 Jun 2017 17:55:32 +0200
+Subject: [PATCH] libteec/Makefile: create relative links to shared library
+ instead of absolute ones
+
+Absolute paths in link targets are ugly and there is always a risk that
+they may be packaged incorrectly. Further the *.so* files are always
+expected to reside in the same directory. This patch fixes this problem.
+
+Suggested-by: Jerome Forissier <jerome.forissier@linaro.org>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ libteec/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libteec/Makefile b/libteec/Makefile
+index 66055a723a2d..f40898569e9e 100644
+--- a/libteec/Makefile
++++ b/libteec/Makefile
+@@ -33,8 +33,8 @@ TEEC_LFLAGS    := -lpthread
+ TEEC_LIBRARY	:= $(OUT_DIR)/$(LIB_MAJ_MIN)
+ 
+ libteec: $(TEEC_LIBRARY)
+-	$(VPREFIX)ln -sf $(TEEC_LIBRARY) $(OUT_DIR)/$(LIB_MAJOR)
+-	$(VPREFIX)ln -sf $(OUT_DIR)/$(LIB_MAJOR) $(OUT_DIR)/$(LIB_NAME)
++	$(VPREFIX)ln -sf $(LIB_MAJ_MIN) $(OUT_DIR)/$(LIB_MAJOR)
++	$(VPREFIX)ln -sf $(LIB_MAJOR) $(OUT_DIR)/$(LIB_NAME)
+ 
+ $(TEEC_LIBRARY): $(TEEC_OBJS)
+ 	@echo "  LINK    $@"
