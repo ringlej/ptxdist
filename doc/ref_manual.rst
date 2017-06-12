@@ -977,7 +977,7 @@ the string ``enable``, if unset to ``disable`` instead.
 
 Usage:
 
-.. code-block:: make
+.. code-block:: none
 
  --$(call ptx/endis, <variable>)-<parameter>
 
@@ -1008,7 +1008,7 @@ the string ``disable``, if unset to ``enable`` instead.
 
 Usage:
 
-.. code-block:: make
+.. code-block:: none
 
  --$(call ptx/disen, <variable>)-<parameter>
 
@@ -1037,7 +1037,7 @@ the string ``with``, if unset to ``without`` instead.
 
 Usage:
 
-.. code-block:: make
+.. code-block:: none
 
  --$(call ptx/wwo, <variable>)-<parameter>
 
