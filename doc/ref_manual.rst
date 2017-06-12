@@ -958,9 +958,10 @@ be installed with some other ``install_*`` command before
 
 .. code-block:: make
 
- @$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
-        $(PTXCONF_TIMEZONE_LOCALTIME))
-
+   $(STATEDIR)/timezone.targetinstall:
+        ...
+   	@$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
+   		$(PTXCONF_TIMEZONE_LOCALTIME))
 
 .. _param_macros:
 
