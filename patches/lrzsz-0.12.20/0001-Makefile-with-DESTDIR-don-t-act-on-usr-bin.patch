@@ -1,0 +1,55 @@
+From: Roland Hieber <r.hieber@pengutronix.de>
+Date: Mon, 12 Jun 2017 19:32:52 +0200
+Subject: [PATCH] Makefile: with DESTDIR, don't act on /usr/bin
+
+Makefile.in was manually updated because I could not dig up old enough
+autotools that would regenerate it without errors.
+
+Signed-off-by: Roland Hieber <r.hieber@pengutronix.de>
+---
+ src/Makefile.am | 6 +++---
+ src/Makefile.in | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index dd0a56c6ad8b..287b09e39c36 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -18,13 +18,13 @@ install-exec-local:
+ 	rm -f $(DESTDIR)/$(bindir)/`echo lsb | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lsz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lsb |sed -e '$(transform)'` 
+-	rm -f $(bindir)/`echo lsx | sed -e '$(transform)'`
++	rm -f $(DESTDIR)/$(bindir)/`echo lsx | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lsz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lsx |sed -e '$(transform)'` 
+-	rm -f $(bindir)/`echo lrb | sed -e '$(transform)'`
++	rm -f $(DESTDIR)/$(bindir)/`echo lrb | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lrz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lrb |sed -e '$(transform)'` 
+-	rm -f $(bindir)/`echo lrx | sed -e '$(transform)'`
++	rm -f $(DESTDIR)/$(bindir)/`echo lrx | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lrz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lrx |sed -e '$(transform)'` 
+ #	rm -f $(bindir)/`echo lrzszbug | sed -e '$(transform)'`
+diff --git a/src/Makefile.in b/src/Makefile.in
+index d7846b6a2672..a410595d0730 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -372,13 +372,13 @@ install-exec-local:
+ 	rm -f $(DESTDIR)/$(bindir)/`echo lsb | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lsz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lsb |sed -e '$(transform)'` 
+-	rm -f $(bindir)/`echo lsx | sed -e '$(transform)'`
++	rm -f $(DESTDIR)/$(bindir)/`echo lsx | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lsz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lsx |sed -e '$(transform)'` 
+-	rm -f $(bindir)/`echo lrb | sed -e '$(transform)'`
++	rm -f $(DESTDIR)/$(bindir)/`echo lrb | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lrz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lrb |sed -e '$(transform)'` 
+-	rm -f $(bindir)/`echo lrx | sed -e '$(transform)'`
++	rm -f $(DESTDIR)/$(bindir)/`echo lrx | sed -e '$(transform)'`
+ 	ln $(DESTDIR)/$(bindir)/`echo lrz |sed -e '$(transform)'` \
+ 		$(DESTDIR)/$(bindir)/`echo lrx |sed -e '$(transform)'` 
+ #	rm -f $(bindir)/`echo lrzszbug | sed -e '$(transform)'`
