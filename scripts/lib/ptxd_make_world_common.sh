@@ -329,6 +329,12 @@ ptxd_make_world_init() {
 	    ;;
 	*) ;;
     esac
+    local pkgconfig_whitelist
+    pkgconfig_whitelist="$(echo $(
+	for dep in ${pkg_build_deps}; do
+	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
+	done))"
+    pkg_env="PKGCONFIG_WHITELIST='${pkgconfig_whitelist}' PKGCONFIG_WHITELIST_SRC='${pkg_label}' ${pkg_env}"
 
     # DESTDIR
     if [[ "${pkg_conf_tool}" =~ "python" ]]; then
