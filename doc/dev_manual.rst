@@ -872,6 +872,38 @@ order, if the X related tools are built or not. All the autocheck
 features are problematic here. So, if we do not want ``configure`` to
 guess its settings we **must disable everything we do not want**.
 
+To support this process, PTXdist supplies a helper script, located at
+``/path/to/ptxdist/scripts/configure-helper.py`` that compares the configure
+output with the settings from ``FOO_CONF_OPT``:
+
+::
+
+    $ /opt/ptxdist-2017.06.0/scripts/configure-helper.py -p libsigrok
+    --- rules/libsigrok.make
+    +++ libsigrok-0.5.0
+    @@ -4,3 +4,74 @@
+     	--libdir=/usr/lib
+     	--build=x86_64-host-linux-gnu
+     	--host=arm-v7a-linux-gnueabihf
+    +	--enable-warnings=min|max|fatal|no
+    +	--disable-largefile
+    +	--enable-all-drivers
+    +	--enable-agilent-dmm
+    [...]
+    +	--enable-ruby
+    +	--enable-java
+    +	--without-libserialport
+    +	--without-libftdi
+    +	--without-libusb
+    +	--without-librevisa
+    +	--without-libgpib
+    +	--without-libieee1284
+    +	--with-jni-include-path=DIR-LIST
+
+In this example, many configure options from libsigrok (marked with ``+``)
+are not yet present in ``LIBSIGROK_CONF_OPT`` and must be added, possibly also
+by providing more dynamic options in the package definition.
+
 Since every optional parameter adds four lines of code to the rule
 files, PTXdist provides some shortcuts to handle it. Refer to section
 :ref:`param_macros` for further details.
