@@ -390,6 +390,13 @@ ptxd_make_log() {(
 	# stderr and logfile
 	exec {logerr}> >(tee -a "${PTX_LOGFILE}" >&2)
 
+	export PTXDIST_FD_LOG_STDOUT=${logout}
+	export PTXDIST_FD_LOG_STDERR=${logerr}
+	if [ ${PTXDIST_FD_LOGERR} = 1 ]; then
+		PTXDIST_FD_LOGERR=${PTXDIST_FD_LOG_STDOUT}
+	else
+		PTXDIST_FD_LOGERR=${PTXDIST_FD_LOG_STDERR}
+	fi
 	ptxd_make "${@}" 1>&${logout} 2>&${logerr}
 )}
 
@@ -736,7 +743,7 @@ ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 # ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_bailout() {
-	echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_STDERR}
+	echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_LOG_STDERR}
 	exit ${2:-1}
 }
 export -f ptxd_bailout
