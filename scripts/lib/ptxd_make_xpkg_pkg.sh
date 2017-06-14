@@ -243,14 +243,27 @@ install directory:
 }
 export -f ptxd_install_dir
 
+ptxd_extract_build_id() {
+    # accept only the first build-id
+    ${CROSS_READELF} -n ${src} | awk 'BEGIN { FS=":\\s*" } /Build ID/{ print $2; exit }'
+}
+export -f ptxd_extract_build_id
 
 export ptxd_install_file_objcopy_args="--only-keep-debug --compress-debug-sections"
 
 ptxd_install_file_extract_debug() {
     local dir="${1}"
     local dst="${2}"
-    local dbg="$(dirname "${dir}${dst}")/.debug/.$(basename "${dst}").dbg"
+    local dbg
+    local bid=$(ptxd_extract_build_id)
 
+    if [ -z "${bid}" ]; then
+	dbg="$(dirname "${dir}${dst}")/.debug/.$(basename "${dst}").dbg"
+    else
+	local path_component=${bid::-38}
+	local name_component=${bid:2:38}
+	dbg="${dir}/usr/lib/debug/.build-id/${path_component}/${name_component}.debug"
+    fi
     install -d "$(dirname "${dbg}")" || return
 
     # this can fail if objcopy does not support compressing debug sections or
@@ -268,7 +281,9 @@ ptxd_install_file_extract_debug() {
 	fi
     fi &&
     chmod -x "${dbg}" &&
-    "${CROSS_OBJCOPY}" --add-gnu-debuglink "${dbg}" "${dir}${dst}"
+    if [ -z "${bid}" ]; then
+	"${CROSS_OBJCOPY}" --add-gnu-debuglink "${dbg}" "${dir}${dst}"
+    fi
 }
 export -f ptxd_install_file_extract_debug
 

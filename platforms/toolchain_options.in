@@ -79,6 +79,10 @@ config TARGET_COMPILER_RECORD_SWITCHES
 	  command line option '-p .GCC.command.line' on any object file or
 	  the corresponding .debug/.<whatever>.dbg file.
 
+config TARGET_BUILD_ID
+	bool
+	default y
+
 config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"
