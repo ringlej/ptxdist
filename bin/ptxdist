@@ -772,7 +772,7 @@ check_compiler() {
 	}
 
 	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
-	for cc in gcc g++ cpp ld; do
+	for cc in gcc g++ cpp ld gdb; do
 		ptxd_replace_link "${toolchain}/${compiler_prefix}${cc}" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
