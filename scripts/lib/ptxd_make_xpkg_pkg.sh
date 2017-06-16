@@ -120,6 +120,10 @@ ptxd_install_setup() {
 
     # dirs with separate debug files
     ddirs=("${nfsroot_dirs[@]}")
+    if [ "$(ptxd_get_ptxconf PTXCONF_DEBUG_PACKAGES)" = "y" -a \
+         "$(ptxd_get_ptxconf PTXCONF_TARGET_DEBUG_OFF)" != "y" ]; then
+	ddirs[${#ddirs[@]}]="${pkg_xpkg_dbg_tmp}"
+    fi
 
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))" &&
@@ -252,38 +256,42 @@ export -f ptxd_extract_build_id
 export ptxd_install_file_objcopy_args="--only-keep-debug --compress-debug-sections"
 
 ptxd_install_file_extract_debug() {
-    local dir="${1}"
-    local dst="${2}"
-    local dbg
+    local dst="${1}"
+    local tmp="$(mktemp -u "${PTXDIST_TEMPDIR}/debug.XXXXX")"
+    local dbg dir
     local bid=$(ptxd_extract_build_id)
 
     if [ -z "${bid}" ]; then
-	dbg="$(dirname "${dir}${dst}")/.debug/.$(basename "${dst}").dbg"
+	dbg="$(dirname "${dst}")/.debug/.$(basename "${dst}").dbg"
     else
 	local path_component=${bid::-38}
 	local name_component=${bid:2:38}
-	dbg="${dir}/usr/lib/debug/.build-id/${path_component}/${name_component}.debug"
+	dbg="/usr/lib/debug/.build-id/${path_component}/${name_component}.debug"
     fi
-    install -d "$(dirname "${dbg}")" || return
 
     # this can fail if objcopy does not support compressing debug sections or
     # is compiled without zlib support
-    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}" |&
+    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${tmp}" |&
 	grep -q "\(unrecognized option\|unable to initialize com*press status\)"
     local -a status=( "${PIPESTATUS[@]}" )
     if [ ${status[0]} -ne 0 ]; then
 	if [ ${status[1]} -eq 0 ]; then
 	    ptxd_install_file_objcopy_args="--only-keep-debug"
-	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${tmp}"
 	else
 	    # do it again to see the error message
-	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${dbg}"
+	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${tmp}"
 	fi
     fi &&
-    chmod -x "${dbg}" &&
-    if [ -z "${bid}" ]; then
-	"${CROSS_OBJCOPY}" --add-gnu-debuglink "${dbg}" "${dir}${dst}"
-    fi
+    for dir in "${ddirs[@]}"; do
+	if [ -n "${bid}" -o -e "${dir}${dst}" ]; then
+	    install -D -m 644 "${tmp}" "${dir}/${dbg}"
+	fi &&
+	if [ -z "${bid}" -a -e "${dir}${dst}" ]; then
+	    "${CROSS_OBJCOPY}" --add-gnu-debuglink "${dir}/${dbg}" "${dir}${dst}"
+	fi
+    done &&
+    rm "${tmp}"
 }
 export -f ptxd_install_file_extract_debug
 
@@ -319,9 +327,7 @@ ptxd_install_file_strip() {
     done &&
 
     if [ "${strip}" != "k" ]; then
-	for dir in "${ddirs[@]}"; do
-	    ptxd_install_file_extract_debug "${dir}" "${dst}" || return
-	done
+	ptxd_install_file_extract_debug "${dir}" "${dst}" || return
     fi
 }
 export -f ptxd_install_file_strip
@@ -905,8 +911,9 @@ export -f ptxd_install_fixup_timestamps
 
 ptxd_make_xpkg_pkg() {
     local pkg_xpkg_tmp="$1"
-    local pkg_xpkg_cmds="$2"
-    local pkg_xpkg_perms="$3"
+    local pkg_xpkg_dbg_tmp="$2"
+    local pkg_xpkg_cmds="$3"
+    local pkg_xpkg_perms="$4"
 
     . "${pkg_xpkg_cmds}" &&
 

@@ -113,5 +113,8 @@ ptxd_make_xpkg_init() {
     pkg_xpkg_control_dir="${pkg_xpkg_tmp}/CONTROL"
     pkg_xpkg_control="${pkg_xpkg_control_dir}/control"
     pkg_xpkg_conffiles="${pkg_xpkg_control_dir}/conffiles"
+    pkg_xpkg_dbg_tmp="${ptx_pkg_dir}/${pkg_xpkg}-dbgsym.tmp"
+    pkg_xpkg_dbg_control_dir="${pkg_xpkg_dbg_tmp}/CONTROL"
+    pkg_xpkg_dbg_control="${pkg_xpkg_dbg_control_dir}/control"
 }
 export -f ptxd_make_xpkg_init

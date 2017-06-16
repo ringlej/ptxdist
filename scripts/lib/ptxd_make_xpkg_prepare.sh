@@ -55,10 +55,12 @@ ptxd_make_xpkg_prepare() {
 
     rm -fr -- \
 	"${pkg_xpkg_tmp}" \
+	"${pkg_xpkg_dbg_tmp}" \
 	"${pkg_xpkg_cmds}" \
 	"${pkg_xpkg_perms}" \
 	"${pkg_xpkg_install_deps}" &&
     install -m 755 -d -- "${pkg_xpkg_control_dir}" &&
+    install -m 755 -d -- "${pkg_xpkg_dbg_control_dir}" &&
     touch "${pkg_xpkg_perms}" &&
     touch "${pkg_xpkg_cmds}" || return
 
@@ -84,6 +86,15 @@ install_init:	@DEPENDS@ -> ${dep}"
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
 	"${pkg_xpkg_control}" &&
 	chmod 644 "${pkg_xpkg_control}" || return
+
+    ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
+	PACKAGE="${pkg_xpkg}-dbgsym" \
+	VERSION="${pkg_xpkg_version}" \
+	DEPENDS="${pkg_xpkg}" \
+	DESCRIPTION="Debug files for ${pkg_xpkg}" \
+	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
+	"${pkg_xpkg_dbg_control}" &&
+	chmod 644 "${pkg_xpkg_dbg_control}" || return
 
     local script
     for script in preinst postinst prerm postrm; do
