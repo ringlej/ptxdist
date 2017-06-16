@@ -16,10 +16,6 @@ ifdef PTXCONF_HOST_FAKEROOT
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install.post
 endif
 
-ifdef PTXCONF_HOST_PACKAGE_MANAGEMENT_IPKG
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-ipkg-utils.install.post
-endif
-
 ifdef PTXCONF_HOST_PACKAGE_MANAGEMENT_OPKG
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-opkg-utils.install.post
 endif
