@@ -5,6 +5,7 @@ menuconfig LIBXKBCOMMON
 	prompt "libxkbcommon                  "
 	select XKEYBOARD_CONFIG	if RUNTIME
 	select LIBXCB		if LIBXKBCOMMON_X11
+	select HOST_XORG_UTIL_MACROS
 	help
 	  A library to handle keyboard descriptions, to be used by
 	  Wayland, kmscon, GTK+, Qt, Clutter, etc.
