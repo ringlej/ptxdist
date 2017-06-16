@@ -1006,6 +1006,7 @@ Misc:
   newpackage <type>		create a new package Makefile in a rules dir
 				use 'newpackage help' for a longer description
   nfsroot			run a userspace NFS server and export the nfsroot
+  gdb				run cross gdb with configured sysroot etc.
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   list-packages			print a list of all selected packages
@@ -1947,6 +1948,11 @@ EOF
 			check_premake &&
 			ptxd_make_log export_src EXPORTDIR="${1}"
 			exit
+			;;
+		gdb)
+			check_premake_compiler &&
+			compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)" &&
+			exec "${PTXDIST_PLATFORMDIR}/sysroot-host/lib/wrapper/${compiler_prefix}gdb" "${@}"
 			;;
 		get|urlcheck)
 			declare -a pkgs
