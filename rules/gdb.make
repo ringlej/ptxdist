@@ -53,13 +53,23 @@ endif
 #
 GDB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--libdir=/usr/lib/gdb \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT) \
 	--disable-werror
 
 
 GDB_BUILD_OOT := YES
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/gdb.install:
+	@$(call targetinfo)
+	@$(call world/install, GDB)
+#	# don't install static libraries to sysroot
+	@rm -rf $(GDB_PKGDIR)/usr/lib
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
