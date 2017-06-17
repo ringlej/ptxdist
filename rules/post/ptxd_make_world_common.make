@@ -57,8 +57,7 @@ ptx/env = \
 										\
 	ptx_conf_opt_meson_target="$(call ptx/escape,$(CROSS_MESON_USR))"	\
 										\
-	ptx_xpkg_extra_args=$(PTXCONF_IMAGE_XPKG_EXTRA_ARGS)			\
-	ptx_xpkg_type=$(PTXCONF_HOST_PACKAGE_MANAGEMENT)
+	ptx_xpkg_extra_args=$(PTXCONF_IMAGE_XPKG_EXTRA_ARGS)
 
 world/env/impl = \
 	pkg_stamp="$(notdir $(@))"						\

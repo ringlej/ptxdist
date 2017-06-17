@@ -22,16 +22,11 @@
 #
 ptxd_make_image_extract_xpkg_files() {
     # FIXME: consolidate "ptxd_install_setup_src"
-    local src="/etc/ipkg.conf"
+    local src="/etc/opkg/opkg.conf"
     local xpkg_conf="${PTXDIST_TEMPDIR}/${FUNCNAME}_xpkg.conf"
     local work_dir="$1"
     local -a list ptxd_reply
-    if ptxd_get_ptxconf "PTXCONF_HOST_PACKAGE_MANAGEMENT_OPKG" > /dev/null; then
-	echo "option force_postinstall 1" > "${xpkg_conf}"
-	src="/etc/opkg/opkg.conf"
-    else
-	src="/etc/ipkg.conf"
-    fi
+    echo "option force_postinstall 1" > "${xpkg_conf}"
     list=( \
 	"${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
 	"${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
@@ -61,7 +56,7 @@ ${list[*]}
 	ptxd_replace_magic "${ptxd_reply}" >> "${xpkg_conf}" &&
 
     DESTDIR="${work_dir}" \
-	${ptx_xpkg_type} -f "${xpkg_conf}" -o "${work_dir}" \
+	opkg -f "${xpkg_conf}" -o "${work_dir}" \
 	install "${ptxd_reply_ipkg_files[@]}" &&
 
     # fix directory permissions
