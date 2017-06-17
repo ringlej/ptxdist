@@ -82,4 +82,12 @@ config COLLECTD_EXEC
 	  The Exec plugin executes scripts and reads values back that are
 	  printed to stdout using the collectd plain text protocol.
 
+config COLLECTD_THRESHOLD
+	bool
+	prompt "threshold"
+	help
+	  The Threshold plugin checks values collected or received by collectd
+	  against a configurable threshold and issues notifications if values
+	  are out of bounds.
+
 endif
