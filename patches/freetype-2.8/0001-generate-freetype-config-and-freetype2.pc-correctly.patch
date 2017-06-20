@@ -5,16 +5,16 @@ Subject: [PATCH] generate freetype-config and freetype2.pc correctly
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  builds/unix/configure.ac       |  4 +++-
- builds/unix/freetype-config.in | 12 ++++++------
+ builds/unix/freetype-config.in | 19 ++++++-------------
  builds/unix/freetype2.in       | 14 +++++++-------
  builds/unix/unix-def.in        |  3 ---
- 4 files changed, 16 insertions(+), 17 deletions(-)
+ 4 files changed, 16 insertions(+), 24 deletions(-)
 
 diff --git a/builds/unix/configure.ac b/builds/unix/configure.ac
-index b568e51e04e2..cdb0df29d72f 100644
+index 7cdafccc1769..ef07c0578549 100644
 --- a/builds/unix/configure.ac
 +++ b/builds/unix/configure.ac
-@@ -1006,7 +1006,9 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
+@@ -1012,7 +1012,9 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
  # and `builds/unix/unix-cc.mk' that will be used by the build system
  #
  AC_CONFIG_FILES([unix-cc.mk:unix-cc.in
@@ -26,43 +26,47 @@ index b568e51e04e2..cdb0df29d72f 100644
  # re-generate the Jamfile to use libtool now
  #
 diff --git a/builds/unix/freetype-config.in b/builds/unix/freetype-config.in
-index f74707d5aea1..e18f5cd76e77 100644
+index 97de13449851..f624cc09e0cb 100644
 --- a/builds/unix/freetype-config.in
 +++ b/builds/unix/freetype-config.in
-@@ -12,11 +12,11 @@
- LC_ALL=C
- export LC_ALL
+@@ -16,13 +16,6 @@ export LC_ALL
+ # if `pkg-config' is available, use values from `freetype2.pc'
+ pkg-config --version >/dev/null 2>&1
+ if test $? -eq 0 ; then
+-  # note that option `--variable' is not affected by the
+-  # PKG_CONFIG_SYSROOT_DIR environment variable
+-  if test "x$SYSROOT" != "x" ; then
+-    PKG_CONFIG_SYSROOT_DIR="$SYSROOT"
+-    export PKG_CONFIG_SYSROOT_DIR
+-  fi
+-
+   prefix=`pkg-config --variable prefix freetype2`
+   exec_prefix=`pkg-config --variable exec_prefix freetype2`
  
--prefix="%prefix%"
--exec_prefix="%exec_prefix%"
-+prefix="@prefix@"
-+exec_prefix="@exec_prefix@"
- exec_prefix_set="no"
--includedir="%includedir%"
--libdir="%libdir%"
-+includedir="@includedir@"
-+libdir="@libdir@"
+@@ -35,17 +28,17 @@ if test $? -eq 0 ; then
+   dynamic_libs=`pkg-config --libs freetype2`
+   static_libs=`pkg-config --static --libs freetype2`
+ else
+-  prefix="%prefix%"
+-  exec_prefix="%exec_prefix%"
++  prefix="@prefix@"
++  exec_prefix="@exec_prefix@"
  
- usage()
- {
-@@ -74,7 +74,7 @@ while test $# -gt 0 ; do
-     echo_exec_prefix=yes
-     ;;
-   --version)
--    echo %ft_version%
-+    echo @ft_version@
-     exit 0
-     ;;
-   --ftversion)
-@@ -141,7 +141,7 @@ fi
+-  includedir="%includedir%"
+-  libdir="%libdir%"
++  includedir="@includedir@"
++  libdir="@libdir@"
  
- if test "$echo_libs" = "yes" ; then
-   libs="-lfreetype"
--  staticlibs="%LIBSSTATIC_CONFIG%"
-+  staticlibs="@LIBSSTATIC_CONFIG@"
-   if test "$show_static" = "yes" ; then
-     libs="$staticlibs"
-   fi
+-  version=%ft_version%
++  version=@ft_version@
+ 
+   cflags="-I${SYSROOT}$includedir/freetype2"
+   dynamic_libs="-lfreetype"
+-  static_libs="%LIBSSTATIC_CONFIG%"
++  static_libs="@LIBSSTATIC_CONFIG@"
+   if test "${SYSROOT}$libdir" != "/usr/lib"   &&
+      test "${SYSROOT}$libdir" != "/usr/lib64" ; then
+     libs_L="-L${SYSROOT}$libdir"
 diff --git a/builds/unix/freetype2.in b/builds/unix/freetype2.in
 index c4dfda4abcca..8c4d7e184293 100644
 --- a/builds/unix/freetype2.in
@@ -90,7 +94,7 @@ index c4dfda4abcca..8c4d7e184293 100644
 +Libs.private: @LIBS_PRIVATE@
  Cflags: -I${includedir}/freetype2
 diff --git a/builds/unix/unix-def.in b/builds/unix/unix-def.in
-index f7b557fb4094..71bb39cb3959 100644
+index feae99b6583b..74c87dec10a2 100644
 --- a/builds/unix/unix-def.in
 +++ b/builds/unix/unix-def.in
 @@ -142,7 +142,4 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
