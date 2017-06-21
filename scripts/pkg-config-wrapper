@@ -57,7 +57,7 @@ fi
 if [ -n "${PKGCONFIG_WHITELIST_SRC}" ]; then
     for pkg in $("${PKG_CONFIG}" --print-provides "${@}" 2>/dev/null | awk '{print $1}'); do
 	if [[ ! " ${PKGCONFIG_WHITELIST} " =~ " ${pkg} " && ! "${pkg}" =~ '-uninstalled' ]]; then
-	    echo "$(basename ${0}): warning: blocking '${pkg}': not selected by '${PKGCONFIG_WHITELIST_SRC}'" >&${PTXDIST_FD_LOGERR}
+	    echo "$(basename ${0}): warning: blocking '${pkg}': not selected by '${PKGCONFIG_WHITELIST_SRC}'" >&2
 	    exit 1
 	fi
     done
