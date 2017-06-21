@@ -13,13 +13,6 @@ choice
 	default READLINE_NCURSES
 	depends on READLINE
 
-	config READLINE_NOPREFERENCE
-		bool
-		prompt "no preference"
-		help
-		  Tries to autodetect what library is present. If ncurses
-		  and termcap will be found termcap has precedence over ncurses.
-
 	config READLINE_TERMCAP
 		bool
 		prompt "termcap"
