@@ -121,6 +121,7 @@ choice
 
 	config QT4_GFX_DIRECTFB_PLUGIN
 		bool
+		depends on STAGING
 		prompt "plugin "
 		help
 		  Load the driver at runtime

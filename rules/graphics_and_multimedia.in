@@ -1,9 +1,5 @@
 ## SECTION=graphics_and_multimedia
 
-menu "directfb & friends            "
-source "generated/multimedia_directfb.in"
-endmenu
-
 menuconfig MENU_XORG_FONTS
 	bool
 	prompt "fonts                         "

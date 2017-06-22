@@ -191,6 +191,7 @@ config SDL_FBCON
 
 config SDL_DIRECTFB
 	bool
+	depends on STAGING
 	prompt "DirectFB Support"
 	default y
 	help

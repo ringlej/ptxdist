@@ -393,6 +393,7 @@ config GST_PLUGINS_BAD1_DECKLINK
 
 config GST_PLUGINS_BAD1_DIRECTFB
 	bool
+	depends on STAGING
 	prompt "directfb"
 
 config GST_PLUGINS_BAD1_WAYLAND
