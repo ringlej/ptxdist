@@ -49,6 +49,7 @@ COLLECTD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-werror \
 	--disable-all-plugins \
 	--with-included-ltdl \
+	--without-libgcrypt \
 	--with-nan-emulation \
 	--with-fp-layout=nothing \
 	--without-libdpdk \
