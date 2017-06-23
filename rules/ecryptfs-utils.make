@@ -46,10 +46,11 @@ ECRYPTFS_UTILS_CONF_OPT := \
 	--disable-gui \
 	--disable-docs \
 	--disable-docs-gen \
-	--disable-tests \
+	--$(call ptx/endis,PTXCONF_ECRYPTFS_UTILS_TESTS)-tests \
 	--disable-mudflap \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls
+
 
 ECRYPTFS_UTILS_PROGS_y :=
 
@@ -81,6 +82,11 @@ $(STATEDIR)/ecryptfs-utils.targetinstall:
 
 	@$(call install_lib, ecryptfs-utils, 0, 0, 0644, ecryptfs/libecryptfs_key_mod_passphrase)
 	@$(call install_lib, ecryptfs-utils, 0, 0, 0644, libecryptfs)
+
+ifdef PTXCONF_ECRYPTFS_UTILS_TESTS
+	@$(call install_glob, ecryptfs-utils, 0, 0, $(ECRYPTFS_UTILS_DIR)/tests, /usr/lib/ecryptfs/tests,, \
+		*Makefile* */.deps* */.libs* */.dirstamp* *.o *.c, n)
+endif
 
 ifdef PTXCONF_ECRYPTFS_UTILS_MOUNT_ECRYPTFS
 	@$(call install_link, ecryptfs-utils, mount.ecryptfs_private, /sbin/umount.ecryptfs_private)
