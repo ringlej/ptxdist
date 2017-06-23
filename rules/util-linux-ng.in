@@ -400,4 +400,11 @@ config UTIL_LINUX_NG_CHMEM
 	  The chmem command sets a particular size or range of
           memory online or offline.
 
+config UTIL_LINUX_NG_MKFS
+	bool
+	prompt "mkfs"
+	help
+	  The mkfs command is a generic wrapper for fs specific
+          mkfs.* commands.
+
 endif
