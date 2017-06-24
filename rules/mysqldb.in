@@ -1,0 +1,26 @@
+## SECTION=applications
+
+menuconfig MYSQLDB
+	tristate
+	select VIRTUAL
+	select MYSQL	if MYSQLDB_MYSQL
+	select MARIADB	if MYSQLDB_MARIADB
+	prompt "mysql/mariadb                 "
+
+if MYSQLDB
+
+choice
+	prompt "db"
+
+config MYSQLDB_MYSQL
+	bool
+	prompt "mysql                  "
+
+config MYSQLDB_MARIADB
+	bool
+	prompt "mariadb                "
+endchoice
+
+source "generated/mysql.in"
+
+endif

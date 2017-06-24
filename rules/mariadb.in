@@ -1,8 +1,7 @@
-## SECTION=applications
-menuconfig MARIADB
+## SECTION=mysql
+
+config MARIADB
 	tristate
-	# make sure that MariaDB and MySQL will not be built parallel in ALLYES
-	depends on !MYSQL || ALLYES
 	select HOST_CMAKE
 	select HOST_MARIADB
 	select LIBC_CRYPT
@@ -18,7 +17,7 @@ menuconfig MARIADB
 	select OPENSSL
 	select SYSTEMD		if MARIADB_SYSTEMD
 	select ZLIB
-	prompt "mariadb                       "
+	prompt "mariadb" if ALLYES
 	help
 	  MariaDB, a SQL database engine
 
@@ -31,6 +30,3 @@ config MARIADB_SYSTEMD
 	prompt "systemd support"
 
 endif
-
-comment "MySQL is selected!"
-	depends on MYSQL
