@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBGPIOD) += libgpiod
 #
 # Paths and names
 #
-LIBGPIOD_VERSION	:= 0.2.1
-LIBGPIOD_MD5		:= b18be80ce5baed7ec0462d2f7903f9b9
+LIBGPIOD_VERSION	:= 0.3
+LIBGPIOD_MD5		:= 6e67b74e98dbb2be9a569e2c15951556
 LIBGPIOD		:= libgpiod-$(LIBGPIOD_VERSION)
 LIBGPIOD_SUFFIX		:= tar.gz
 LIBGPIOD_URL		:= https://github.com/brgl/libgpiod/archive/v$(LIBGPIOD_VERSION).$(LIBGPIOD_SUFFIX)
