@@ -16,15 +16,15 @@ Signed-off-by: Alexander Aring <alex.aring@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/getkeycodes.c b/src/getkeycodes.c
-index d1fccf90612f..500fc5f1089b 100644
+index 7baa0919cfdc..485b9096b3f4 100644
 --- a/src/getkeycodes.c
 +++ b/src/getkeycodes.c
-@@ -44,7 +44,7 @@ main(int argc, char **argv) {
+@@ -50,7 +50,7 @@ int main(int argc, char **argv)
  	if (ioctl(fd, KDGETKEYCODE, &a)) {
  		sc0 = 89;
  	} else
--	for (sc0 = 1; sc0 <= 88; sc0++) {
-+	for (sc0 = 0; sc0 <= 88; sc0++) {
- 		a.scancode = sc0;
- 		a.keycode = 0;
- 		if (ioctl(fd, KDGETKEYCODE, &a) || a.keycode != sc0)
+-		for (sc0 = 1; sc0 <= 88; sc0++) {
++		for (sc0 = 0; sc0 <= 88; sc0++) {
+ 			a.scancode = sc0;
+ 			a.keycode  = 0;
+ 			if (ioctl(fd, KDGETKEYCODE, &a) || a.keycode != sc0)

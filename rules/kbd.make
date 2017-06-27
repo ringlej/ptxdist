@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_KBD) += kbd
 #
 # Paths and names
 #
-KBD_VERSION	:= 2.0.1
-KBD_MD5		:= e9f2b7046312c11cec9e52e22f307b6a
+KBD_VERSION	:= 2.0.4
+KBD_MD5		:= c69fce737a5fd0fa686cbfc4f611a220
 KBD		:= kbd-$(KBD_VERSION)
 KBD_SUFFIX	:= tar.gz
 KBD_URL		:= $(call ptx/mirror, KERNEL, utils/kbd/$(KBD).$(KBD_SUFFIX))
@@ -34,6 +34,7 @@ KBD_LICENSE	:= GPL-2.0+
 #
 KBD_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-tests \
 	--disable-nls \
 	--disable-rpath \
 	--disable-optional-progs \
