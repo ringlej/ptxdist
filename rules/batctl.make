@@ -16,18 +16,17 @@ PACKAGES-$(PTXCONF_BATCTL) += batctl
 #
 # Paths and names
 #
-BATCTL_VERSION	:= 2016.2
+BATCTL_VERSION		:= 2016.2
 BATCTL_MD5		:= 50f42d06611afae58ccfcde502f94c1a
-BATCTL		:= batctl-$(BATCTL_VERSION)
-BATCTL_SUFFIX	:= tar.gz
+BATCTL			:= batctl-$(BATCTL_VERSION)
+BATCTL_SUFFIX		:= tar.gz
 BATCTL_URL		:= http://downloads.open-mesh.org/batman/stable/sources/batctl/$(BATCTL).$(BATCTL_SUFFIX)
-BATCTL_SOURCE	:= $(SRCDIR)/$(BATCTL).$(BATCTL_SUFFIX)
+BATCTL_SOURCE		:= $(SRCDIR)/$(BATCTL).$(BATCTL_SUFFIX)
 BATCTL_DIR		:= $(BUILDDIR)/$(BATCTL)
-BATCTL_LICENSE	:= GPL-2.0
-
+BATCTL_LICENSE		:= GPL-2.0
 
 BATCTL_CONF_TOOL	:= NO
-BATCTL_MAKE_ENV	:= $(CROSS_ENV)
+BATCTL_MAKE_ENV		:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
