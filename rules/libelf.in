@@ -2,7 +2,7 @@
 
 menuconfig LIBELF
 	tristate
-	prompt "libelf"
+	prompt "libelf                        "
 	select ZLIB
 	help
 	  The libelf1 package provides a shared library which allows reading

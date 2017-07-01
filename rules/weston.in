@@ -1,6 +1,6 @@
 ## SECTION=multimedia_wayland
 
-config WESTON
+menuconfig WESTON
 	tristate
 	select LIBC_UTIL
 	select PIXMAN
@@ -30,7 +30,7 @@ config WESTON
 	select XORG_SERVER_XWAYLAND	if WESTON_XWAYLAND && RUNTIME
 	select SYSTEMD			if WESTON_SYSTEMD
 	select SYSTEMD_LOGIND		if WESTON_SYSTEMD_LOGIND
-	prompt "weston"
+	prompt "weston                        "
 	help
 	  Wayland compositor reference implementation
 

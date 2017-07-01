@@ -2,7 +2,7 @@
 
 menuconfig GTK2
 	tristate
-	prompt "GTK+2"
+	prompt "GTK+2                         "
 	select GLIB
 	select ATK
 	select PANGO

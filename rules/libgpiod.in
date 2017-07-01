@@ -2,7 +2,7 @@
 
 menuconfig LIBGPIOD
 	tristate
-	prompt "libgpiod"
+	prompt "libgpiod                      "
 	help
 	  libgpiod is a library accompanied by a set of tools for
 	  interacting with the Linux GPIO character device.

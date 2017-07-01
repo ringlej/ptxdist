@@ -1,6 +1,6 @@
 ## SECTION=networking
 
-config RPCBIND
+menuconfig RPCBIND
 	tristate
 	select LIBTIRPC
 	select SYSTEMD		if RPCBIND_SYSTEMD_UNIT

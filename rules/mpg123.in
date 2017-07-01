@@ -2,7 +2,7 @@
 
 menuconfig MPG123
 	tristate
-	prompt "mpg123"
+	prompt "mpg123                        "
 	select ALSA_LIB
 	select ALSA_LIB_PCM
 	help

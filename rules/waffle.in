@@ -2,7 +2,7 @@
 
 menuconfig WAFFLE
 	tristate
-	prompt "waffle"
+	prompt "waffle                        "
 	select HOST_CMAKE
 	select MESALIB
 	select LIBXCB		if WAFFLE_GLX || WAFFLE_X11_EGL

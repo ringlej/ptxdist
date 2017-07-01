@@ -2,7 +2,7 @@
 
 menuconfig PIGLIT
 	tristate
-	prompt "piglit"
+	prompt "piglit                        "
 	select HOST_CMAKE
 	select HOST_SYSTEM_PYTHON
 	select HOST_SYSTEM_PYTHON_SIX
