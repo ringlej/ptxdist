@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config HAVEGED
+	tristate
+	prompt "haveged"
+	help
+	  haveged is a simple entropy daemon
