@@ -3,6 +3,8 @@
 menuconfig ALFRED
 	tristate
 	prompt "A.L.F.R.E.D.                  "
+	select LIBNL3
+	select LIBCAP
 	help
 	  Alfred is a distributed data distribution service which is used for
 	  batman mesh networks.
