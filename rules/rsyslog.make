@@ -177,7 +177,7 @@ $(STATEDIR)/rsyslog.targetinstall:
 	@$(call install_alternative, rsyslog, 0, 0, 0644, /etc/rsyslog.conf)
 
 ifdef PTXCONF_RSYSLOG_SYSTEMD_UNIT
-	@$(call install_copy, rsyslog, 0, 0, 0644, -, \
+	@$(call install_alternative, rsyslog, 0, 0, 0644, \
 		/usr/lib/systemd/system/rsyslog.service)
 	@$(call install_link, rsyslog, ../rsyslog.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/rsyslog.service)
