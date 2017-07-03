@@ -5,6 +5,7 @@ menuconfig QWT5
 	prompt "qwt5                          "
 	select QT5
 	select QT5_GUI
+	select QT5_OPENGL
 	select QT5_MODULE_QTBASE_WIDGETS
 	select QT5_MODULE_QTSVG if QWT_SVG
 	help
