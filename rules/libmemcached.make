@@ -40,12 +40,28 @@ LIBMEMCACHED_ENV += ac_cv_libevent=no
 #
 LIBMEMCACHED_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-memcached \
-	--without-docs \
+	--disable-fat-binaries \
+	--disable-64bit \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-assert \
+	--disable-profiling \
+	--disable-coverage \
+	--disable-dtrace \
+	--disable-umem \
+	--disable-tcmalloc \
+	--disable-mtmalloc \
+	--disable-libgtest \
+	--disable-rpath \
 	--disable-libevent \
+	--enable-utils \
+	--disable-hsieh_hash \
+	--disable-murmur_hash \
+	--disable-deprecated \
 	--disable-libinnodb \
 	--disable-sasl \
-	--disable-murmur_hash
+	--without-debug \
+	--without-memcached \
+	--without-docs
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
