@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_JSON_C) += json-c
 #
 # Paths and names
 #
-JSON_C_VERSION		:= 0.12
-JSON_C_MD5		:= 3ca4bbb881dfc4017e8021b5e0a8c491
+JSON_C_VERSION		:= 0.12.1-20160607
+JSON_C_MD5		:= 0a2a49a1e89044fdac414f984f3f81a6
 JSON_C			:= json-c-$(JSON_C_VERSION)
 JSON_C_SUFFIX		:= tar.gz
-JSON_C_URL		:= https://s3.amazonaws.com/json-c_releases/releases/$(JSON_C).$(JSON_C_SUFFIX)
+JSON_C_URL		:= https://github.com/json-c/json-c/archive/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_SOURCE		:= $(SRCDIR)/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_DIR		:= $(BUILDDIR)/$(JSON_C)
 JSON_C_LICENSE		:= MIT
