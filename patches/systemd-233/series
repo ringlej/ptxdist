@@ -15,4 +15,7 @@
 0012-missing-define-PR_SET_MM.patch
 #tag:upstream --start-number 100
 0100-nss-resolve-drop-the-internal-fallback.patch
-# aeeb8c856cfb6320185a980e3f2b37ec  - git-ptx-patches magic
+0101-resolved-nullptr-bugfix.patch
+0102-resolved-simplify-alloc-size-calc-CVE-2017-9445.patch
+0103-resolved-do-not-allocate-packets-with-minimum-size.patch
+# 0a64b15822c13fe6cb3238c014ea9934  - git-ptx-patches magic
