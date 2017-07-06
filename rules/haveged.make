@@ -63,6 +63,17 @@ $(STATEDIR)/haveged.targetinstall:
 	@$(call install_lib, haveged, 0, 0, 0644, libhavege)
 	@$(call install_copy, haveged, 0, 0, 0755, -, /usr/sbin/haveged)
 
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_HAVEGED_STARTSCRIPT
+	@$(call install_alternative, haveged, 0, 0, 0755, /etc/init.d/haveged)
+
+ifneq ($(call remove_quotes,$(PTXCONF_HAVEGED_BBINIT_LINK)),)
+	@$(call install_link, haveged, ../init.d/haveged, \
+		/etc/rc.d/$(PTXCONF_HAVEGED_BBINIT_LINK))
+endif
+endif
+endif
+
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_copy, haveged, 0, 0, 0644, -, /usr/lib/systemd/system/haveged.service)
 	@$(call install_link, haveged, ../haveged.service, \
