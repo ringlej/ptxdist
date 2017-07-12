@@ -137,7 +137,8 @@ MARIADB_CONF_OPT	:= \
 	-DWITH_SSL=system \
 	-DSYSCONFDIR=/etc/mariadb \
 	-DCOMPILATION_COMMENT=PTXdist \
-	-DDEFAULT_CHARSET=latin1
+	-DDEFAULT_CHARSET=latin1 \
+	-DENABLE_DTRACE=OFF
 
 ifneq ($(strip $(MARIADB_PLUGINS_ENABLES-y)),)
 MARIADB_CONF_OPT += $(foreach plugin,$(MARIADB_PLUGINS_ENABLES-y),$(addprefix -DPLUGIN_,$(addsuffix =STATIC, $(plugin))))
