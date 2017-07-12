@@ -83,7 +83,8 @@ MYSQL_CONF_OPT	:= \
 	-DWITH_VALGRIND=OFF \
 	-DWITH_SYSTEMD=$(call ptx/onoff, PTXCONF_MYSQL_SYSTEMD) \
 	-DCOMPILATION_COMMENT=PTXdist \
-	-DDEFAULT_CHARSET=latin1
+	-DDEFAULT_CHARSET=latin1 \
+	-DENABLE_DTRACE=OFF
 
 # ----------------------------------------------------------------------------
 # Compile
