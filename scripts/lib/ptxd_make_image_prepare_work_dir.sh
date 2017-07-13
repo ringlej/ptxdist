@@ -23,7 +23,7 @@
 ptxd_make_image_extract_xpkg_files() {
     # FIXME: consolidate "ptxd_install_setup_src"
     local src="/etc/opkg/opkg.conf"
-    local xpkg_conf="${PTXDIST_TEMPDIR}/${FUNCNAME}_xpkg.conf"
+    local xpkg_conf="$(mktemp ${PTXDIST_TEMPDIR}/XXXXXXXXXX_xpkg.conf)"
     local work_dir="$1"
     local -a list ptxd_reply
     echo "option force_postinstall 1" > "${xpkg_conf}"
