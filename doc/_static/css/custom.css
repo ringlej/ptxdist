@@ -95,3 +95,17 @@ nav.wy-nav-side #menu-resize .fa {
 nav.wy-nav-side #menu-resize .fa:not(:first-child) {
     margin-left: 0.25em;
 }
+
+.important {
+		background-color: #fff4dd !important;
+}
+.important .admonition-title {
+		background-color: #ff9b00 !important;
+}
+
+.note {
+		background-color: #f2f9e5 !important;
+}
+.note .admonition-title {
+		background-color: #83983e !important;
+}
