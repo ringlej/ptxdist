@@ -6,11 +6,14 @@ PTXdist does not support to generate some files in a way I need them. What can I
 Answer:
   Everything PTXdist builds is controlled by “package rule files”,
   which in fact are Makefiles (``rules/*.make``). If you modify such a
-  file you can change it’s behaviour in a way you need. It is generally
-  no good idea to modify the generic package rule files installed by
+  file you can change its behaviour in a way you need. It is generally
+  not a good idea to modify the generic package rule files installed by
   PTXdist, but it is always possible to copy one of them over into the
-  ``rules/`` directory of a project. Package rule files in the project
+  ``rules/`` directory of your project. Package rule files in the project
   will precede global rule files with the same name.
+
+  Read the section :ref:`ptx_dev_manual` in the Developer’s Manual to get
+  more information.
 
 How can I stop PTXdist to build in parallel?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,16 +39,16 @@ Question:
 Answer:
   Yes, this error message is confusing. But it usually only means
   that you should check the following (!) lines for missing backslashes
-  (line separators).
+  (line continuation).
 
 I got a message similar to “package <name> is empty. not generating.” What does it mean?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Answer:
-  The ’ipkg’ tool was advised to generate a new ipkg-packet, but the
-  folder was empty. Sometime it means a typo in the package name when
+  The ``ipkg`` tool was advised to generate a new ipkg archive, but the
+  folder was empty. Sometimes this is just a typo in the package name when
   the ``install_copy`` macro was called. Ensure all these macros are using
-  the same package name. Or did you disable a menuentry and now nothing
-  will be installed?
+  the same package name. Or did you disable a menu entry and now nothing
+  is installed?
 
 How do I download all required packages at once?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,8 +58,8 @@ Answer:
       $ ptxdist make get
 
   This starts to download all required packages in one run. It does
-  nothing if the archives are already present in the source path. (run
-  “PTXdist setup” first).
+  nothing if the archives are already present in the source path. Run
+  ``ptxdist setup`` first to set up the desired source folder.
 
 I want to backup all source archives for my BSP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +74,7 @@ Answer:
       $ ptxdist export_src <archive directory>
 
   It copies all archives from where are your source archives stored to
-  <archive directory> which can be your backup media.
+  the path ``<archive directory>`` which can be on your backup media.
 
 OSELAS toolchain fails to start due to missing libraries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,12 +85,14 @@ Question:
   failing to start due to missing libraries.
 
 Answer:
-  This happens when the toolchain was copied without regarding to
-  retain links. There are archive programs around that convert links
+  This happens when the toolchain was copied without regard to
+  retaining symlinks. There are archive programs around that convert links
   into real files. When you are using such programs to create a
   toolchain archive this toolchain will be broken after extracting it
-  again. Solution: Use archive programs that retain links as they are
-  (tar for example). Here an example for a broken toolchain::
+  again.
+  
+  Solution: Use archive programs that retain symlinks as they are
+  (tar for example). Here is an example of a broken toolchain::
 
       $ ll `find . -name "libcrypt*"`
       -rwxr-xr-x 1 mkl ptx 55K 2007-07-25 14:54 ./lib/libcrypt-2.5.so*
@@ -130,27 +135,27 @@ Using more than one kernel version per BSP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Question:
   I want to use more than one kernel revision in my BSP. How can I
-  avoid maintaining one ptxconfig per kernel?
+  avoid maintaining one platformconfig per kernel?
 
 Answer:
   One solution could be to include the kernel revision into the name
-  of the kernel config file. Instead of the default kernelconfig.target
-  name you should use ``kernelconfig-<revision>.target``. In the kernel
-  config file menu entry you should enter
-  ``kernelconfig-$PTXCONF_KERNEL_VERSION.target``. Whenever you change
-  the linux kernel Version menu entry now, this will ensure using a
-  different kernel config file, too.
+  of the kernel config file. Instead of the default ``kernelconfig``
+  name you could use ``kernelconfig-<revision>`` instead. In ``ptxdist
+  menuconfig platform`` under *Linux kernel → patching & configuration*,
+  change the entry *kernel config file* to something like
+  ``kernelconfig-$PTXCONF_KERNEL_VERSION``.
 
 Using Java packages
 ~~~~~~~~~~~~~~~~~~~
 Question:
-  I’m trying to use a JAVA based package in PTXdist. But compiling
+  I’m trying to use a Java based package in PTXdist. But compiling
   fails badly. Does it ever work at Pengutronix?
 
 Answer:
-  This kind of packages only build correctly when an original SUN VM
-  SDK is used. Run PTXdist setup and point the Java SDK menu entry to
-  the installation path of your SUN JAVA SDK.
+  Some Java packages only build correctly when an original Oracle Java
+  SDK is used on the host.
+  Run ``ptxdist setup`` and point the *Java SDK* menu entry to
+  the installation path of your Oracle Java SDK.
 
 I get the error “cannot run '/etc/init.d/rcS': No such file or directory”
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,22 +173,22 @@ Answer:
 I get the error “ptxdist: archives: command not found”
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Question:
-  I have created a path for my source archives and try to make PTXdist
-  use it. But whenever I run PTXdist now it fails with the following error
+  I have set a path for my source archives in ``ptxdist setup``.
+  But whenever I run PTXdist now it fails with the following error
   message::
 
       /usr/local/bin/ptxdist: archives: command not found
 
 Answer:
-  In this case the path was ``$HOME/source archives`` which includes a
-  whitespace in the name of the directory to store the source archives in.
+  This happens if your source download path contains whitespace, e.g
+  ``$HOME/source archives``.
   Handling directory or filenames with whitespaces in applications isn’t
   trivial and also PTXdist suffers all over the place from this issue. The
-  only solution is to avoid whitespaces in paths and filenames.
+  only solution is to avoid whitespace in paths and filenames.
 
 I have adapted my own rule file’s targetinstall stage, but PTXdist does not install the files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Answer:
   Check if the closing ``@$(call install_finish, [...])`` is present at
-  the end of the targetinsall stage.  If not, PTXdist will not complete
+  the end of the *targetinstall* stage. If not, PTXdist will not complete
   this stage.
