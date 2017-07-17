@@ -14,4 +14,10 @@ config HAVEGED_STARTSCRIPT
 	bool
 	prompt "install /etc/init.d/haveged"
 
+config HAVEGED_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files"
+
 endif
