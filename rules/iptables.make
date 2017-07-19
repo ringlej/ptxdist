@@ -51,6 +51,8 @@ IPTABLES_CONF_OPT	:= \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
 
+IPTABLES_CFLAGS:= -D_FILE_OFFSET_BITS=64
+
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
