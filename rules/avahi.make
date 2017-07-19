@@ -83,6 +83,8 @@ AVAHI_CONF_OPT	:= \
 	--with-autoipd-group=$(PTXCONF_AVAHI_AUTOIP_GROUP) \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
+AVAHI_CFLAGS:= -D_FILE_OFFSET_BITS=64
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
