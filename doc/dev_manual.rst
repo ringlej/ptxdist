@@ -50,7 +50,7 @@ Patch Series
 
 There are many packages in the wild that are not cross build aware. They
 fail compiling some files, use wrong include paths or try to link
-against host libraries. To be sucessful in the embedded world, these
+against host libraries. To be successful in the embedded world, these
 types of failures must be fixed. If required, PTXdist provides such
 fixes per package. They are organized in *patch series* and can be found
 in the ``patches/`` directory within a subdirectory using the same name
@@ -206,7 +206,7 @@ handle:
 
 -  **font**: This package is a helper to add X font files to the root
    filesystem. This package does not create an additional IPKG, instead
-   it adds the font to the existing font IPGK. This includes the
+   it adds the font to the existing font IPKG. This includes the
    generation of the directory index files, required by the Xorg
    framework to recognize the font file.
 
@@ -521,7 +521,7 @@ At this stage things can fail:
 -  The package depends on external components (libraries for example)
    not detected by ``configure``
 
--  Sources are ignoring the endianess of some architectures or using
+-  Sources are ignoring the endianness of some architectures or using
    header files from the build host system (from ``/usr/include`` for
    example)
 
@@ -717,7 +717,7 @@ to do (even if its boring and takes time):
     [...]
 
 This will re-start with a **clean** BSP and builds exactly the new package and
-its (known) dependecies. If this builds successfully as well we are really done
+its (known) dependencies. If this builds successfully as well we are really done
 with the new package.
 
 Advanced Rule Files
@@ -992,13 +992,13 @@ PTXdist now builds the *zlib* first and our new package thereafter.
 Managing External Compile Time Dependencies on Demand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is good practice to add only those dependecies that are really
+It is good practice to add only those dependencies that are really
 required for the current configuration of the package. If the package
 provides the features *foo* and *bar* and its ``configure`` provides
 switches to enable/disable them independently, we can also add
 dependencies on demand. Let’s assume feature *foo* needs the compression
 library *libz* and *bar* needs the XML2 library *libxml2*. These
-libraries are only required at run-time if the correspondig feature is
+libraries are only required at run-time if the corresponding feature is
 enabled. To add these dependencies on demand, the menu file looks like:
 
 .. code-block:: kconfig
@@ -1094,7 +1094,7 @@ Managing Plain Makefile Packages
 
 Many packages are still coming with a plain ``Makefile``. The user has
 to adapt it to make it work in a cross compile environment as well.
-PTXdist can also handle this kind of packages. We only have to specifiy
+PTXdist can also handle this kind of packages. We only have to specify
 a special *prepare* and *compile* stage.
 
 Such packages often have no special need for any kind of preparation. In
@@ -1350,7 +1350,7 @@ Modifying Autotoolized Packages
 
 Autotoolized packages are very picky when automatically generated files
 get patched. The patch order is very important in this case and
-sometimes it even fails and nowbody knows why.
+sometimes it even fails and nobody knows why.
 
 To improve a package’s autotools-based build system, PTXdist comes with
 its own project local autotools to regenerate the autotools template
@@ -1447,7 +1447,7 @@ correct manner:
 Refer :ref:`install_archive` for further information about using the
 ``install_archive`` macro.
 
-Using an archive can be usefull to install parts of the root filesystem
+Using an archive can be useful to install parts of the root filesystem
 that are not covered by any open source license. Its possible to ship
 the binaries within the regular BSP, without the need for their sources.
 However it is possible for the customer to re-create everything required
