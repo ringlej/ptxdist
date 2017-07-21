@@ -153,7 +153,7 @@ $(STATEDIR)/python3.targetinstall:
 		*.so *.pyc, */test */tests */__pycache__ $(PYTHON3_SKIP-y))
 
 	@$(call install_copy, python3, 0, 0, 755, -, /usr/bin/python$(PYTHON3_MAJORMINOR))
-	@$(call install_link, python3, python$(PYTHON_MAJORMINOR), /usr/bin/python3)
+	@$(call install_link, python3, python$(PYTHON3_MAJORMINOR), /usr/bin/python3)
 	@$(call install_lib, python3, 0, 0, 644, libpython$(PYTHON3_MAJORMINOR)m)
 
 ifdef PTXCONF_PYTHON3_SYMLINK
