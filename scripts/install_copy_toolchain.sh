@@ -31,19 +31,6 @@ ptxd_get_lib_path() {
 
 
 #
-# out: dynamic linker name
-#
-ptxd_get_dl() {
-    local dl
-
-    dl="$(ptxd_cross_cc_v | \
-	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
-
-    echo "${dl##*/}"
-}
-
-
-#
 # $1: lib_path	# cannolocilized path to lib or link
 # $2: var	# sysroot and prefix will be "prefixed" with this var if existing
 #

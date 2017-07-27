@@ -3,6 +3,7 @@
 config GLADE
 	tristate
 	select HOST_INTLTOOL
+	select LIBXML2
 	select GTK
 	prompt "glade"
 	help

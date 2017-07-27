@@ -43,6 +43,9 @@ LATRACE_CONF_ENV := \
 # autoconf
 #
 LATRACE_CONF_TOOL	:= autoconf
+LATRACE_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION)
 
 # autotools, but hand-made Makefile m(
 LATRACE_MAKE_PAR := NO

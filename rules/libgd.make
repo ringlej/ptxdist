@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_LIBGD) += libgd
 #
 # Paths and names
 #
-LIBGD_VERSION	:= 2.0.36RC1
-LIBGD_MD5	:= 39ac48e6d5e0012a3bd2248a0102f209
+LIBGD_VERSION	:= 2.2.4
+LIBGD_MD5	:= 0a3c307b5075edbe1883543dd1153c02
 LIBGD		:= gd-$(LIBGD_VERSION)
 LIBGD_SUFFIX	:= tar.gz
-LIBGD_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_URL	:= https://github.com/libgd/libgd/releases/download/$(LIBGD)/libgd-$(LIBGD_VERSION).$(LIBGD_SUFFIX)
 LIBGD_SOURCE	:= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_DIR	:= $(BUILDDIR)/$(LIBGD)
 
@@ -34,43 +34,20 @@ LIBGD_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBGD_AUTOCONF  := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LIBGD_X
-LIBGD_AUTOCONF += --with-x
-else
-LIBGD_AUTOCONF += --without-x
-endif
-
-ifdef PTXCONF_LIBGD_JPEG
-LIBGD_AUTOCONF += --with-jpeg=$(SYSROOT)/usr
-else
-LIBGD_AUTOCONF += --without-jpeg
-endif
-
-ifdef PTXCONF_LIBGD_PNG
-LIBGD_AUTOCONF += --with-png=$(SYSROOT)/usr
-else
-LIBGD_AUTOCONF += --without-png
-endif
-
-ifdef PTXCONF_LIBGD_XPM
-LIBGD_AUTOCONF += --with-xpm=$(SYSROOT)/usr --with-x
-else
-LIBGD_AUTOCONF += --without-xpm --without-x
-endif
-
-ifdef PTXCONF_LIBGD_FREETYPE
-LIBGD_AUTOCONF += --with-freetype=$(SYSROOT)/usr
-else
-LIBGD_AUTOCONF += --without-freetype
-endif
-
-ifdef PTXCONF_LIBGD_FONTCONFIG
-LIBGD_AUTOCONF += --with-fontconfig=$(SYSROOT)/usr
-else
-LIBGD_AUTOCONF += --without-fontconfig
-endif
+LIBGD_AUTOCONF  := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-rpath \
+	--disable-werror \
+	--$(call ptx/wwo, PTXCONF_LIBGD_X)-x \
+	--with-zlib \
+	--$(call ptx/wwo, PTXCONF_LIBGD_PNG)-png \
+	--$(call ptx/wwo, PTXCONF_LIBGD_FREETYPE)-freetype \
+	--$(call ptx/wwo, PTXCONF_LIBGD_FONTCONFIG)-fontconfig \
+	--$(call ptx/wwo, PTXCONF_LIBGD_JPEG)-jpeg \
+	--without-liq \
+	--$(call ptx/wwo, PTXCONF_LIBGD_XPM)-xpm \
+	--without-tiff \
+	--without-webp
 
 # ----------------------------------------------------------------------------
 # Target-Install

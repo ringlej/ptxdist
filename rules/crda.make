@@ -48,8 +48,8 @@ endif
 CRDA_MAKE_ENV	:= \
 	$(CROSS_ENV) \
 	LIBDIR=/usr/lib \
-	SBINDIR=/usr/sbin \
-	UDEV_RULE_DIR=/usr/lib/udev/rules.d \
+	SBINDIR=/usr/sbin/ \
+	UDEV_RULE_DIR=/usr/lib/udev/rules.d/ \
 	USE_OPENSSL=1
 
 CRDA_MAKE_OPT	:= all_noverify

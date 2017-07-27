@@ -76,10 +76,30 @@ export -f ptxd_cross_cc
 # run cross-gcc with flags and -v
 #
 ptxd_cross_cc_v() {
-    echo 'int main(void){return 0;}' | \
-    ptxd_cross_cc -x c -o /dev/null -v - 2>&1
+    local cache="${PTXDIST_TEMPDIR}/ptxd_cross_cc_v"
+    if [ -e "${cache}" ]; then
+	cat "${cache}"
+    else
+	local tmp="$(mktemp "${cache}.XXXXXX")"
+	echo 'int main(void){return 0;}' | \
+	ptxd_cross_cc -x c -o /dev/null -v - 2>&1 | tee "${tmp}"
+	mv "${tmp}" "${cache}"
+    fi
 }
 export -f ptxd_cross_cc_v
+
+#
+# out: dynamic linker name
+#
+ptxd_get_dl() {
+    local dl
+
+    dl="$(ptxd_cross_cc_v | \
+	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
+
+    echo "${dl##*/}"
+}
+export -f ptxd_get_dl
 
 #
 # figure out the toolchain's sysroot
@@ -396,6 +416,7 @@ ptxd_init_save_wrapper_env() {
 	PTXDIST_CROSS_LDFLAGS="${PTXDIST_CROSS_LDFLAGS}"
 	PTXDIST_HOST_CPPFLAGS="${PTXDIST_HOST_CPPFLAGS}"
 	PTXDIST_HOST_LDFLAGS="${PTXDIST_HOST_LDFLAGS}"
+	PTXDIST_PLATFORMDIR="${PTXDIST_PLATFORMDIR}"
 	EOF
 }
 

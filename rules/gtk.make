@@ -100,7 +100,7 @@ $(STATEDIR)/gtk.targetinstall:
 		/usr/lib/gtk-3.0/3.0.0/printbackends/libprintbackend-file.so)
 
 	@$(call install_copy, gtk, 0, 0, 0755, -, /usr/bin/gtk-query-immodules-3.0)
-	@$(call install_copy, gtk, 0, 0, 0755, -, /usr/share/glib-2.0/schemas/org.gtk.Settings.FileChooser.gschema.xml)
+	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/share/glib-2.0/schemas/org.gtk.Settings.FileChooser.gschema.xml)
 
 	#/usr/lib/gtk-3.0/3.0.0/immodules/im-ti-er.so
 	#/usr/lib/gtk-3.0/3.0.0/immodules/im-inuktitut.so

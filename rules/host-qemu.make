@@ -141,14 +141,23 @@ HOST_QEMU_CONF_OPT	:= \
 	$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,--with-system-pixman,--without-pixman) \
 	--enable-vhost-scsi
 
-QEMU_CROSS_DL = $(shell ptxd_cross_cc_v |sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
+# Use '=' to delay $(shell ...) calls until this is needed
+QEMU_CROSS_QEMU = $(shell ptxd_get_alternative config/qemu qemu-cross && echo $$ptxd_reply)
+QEMU_CROSS_DL = $(shell ptxd_cross_cc_v | sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
 QEMU_CROSS_LD_LIBRARY_PATH := $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
+
+QEMU_CROSS_QEMU_ENV = \
+	QEMU="$(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS)" \
+	KERNEL_VERSION="$(KERNEL_VERSION)" \
+	QEMU_LD_PREFIX="$(PTXDIST_SYSROOT_TOOLCHAIN)" \
+	QEMU_LD_LIBRARY_PATH="$(QEMU_CROSS_LD_LIBRARY_PATH)" \
+	LINKER="$(shell readlink -f "$$(ptxd_cross_cc -print-file-name=$$(ptxd_get_dl))")"
 
 $(STATEDIR)/host-qemu.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_QEMU)
 ifdef PTXCONF_HOST_QEMU_USR
-	@echo -e '#!/bin/sh\nexec $(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS) -r "$(KERNEL_VERSION)" -L $(PTXDIST_SYSROOT_TOOLCHAIN) -E LD_LIBRARY_PATH=$(QEMU_CROSS_LD_LIBRARY_PATH) "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+	@$(QEMU_CROSS_QEMU_ENV) ptxd_replace_magic $(QEMU_CROSS_QEMU) > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@install -d -m 755 $(PTXDIST_SYSROOT_CROSS)/bin/qemu/
 	@sed \

@@ -50,7 +50,8 @@ KERNEL_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \
-	TARGET_DEBUG
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
 
 KERNEL_PATH	:= PATH=$(CROSS_PATH)
 KERNEL_ENV 	:= \
@@ -161,25 +162,26 @@ $(STATEDIR)/kernel.tags:
 KERNEL_TOOL_PERF_OPTS := \
 	NO_LIBPERL=1 \
 	NO_LIBPYTHON=1 \
-	NO_NEWT=1 \
-	SLANG=1 \
+	NO_DWARF= \
+	NO_SLANG= \
 	NO_GTK2=1 \
-	DEMANGLE=1 \
-	LIBEL=1 \
+	NO_DEMANGLE= \
+	NO_LIBELF= \
 	NO_LIBUNWIND=1 \
-	BACKTRACE=1 \
+	NO_BACKTRACE= \
 	NO_LIBNUMA=1 \
 	NO_LIBAUDIT=1 \
 	NO_LIBBIONIC=1 \
 	NO_LIBCRYPTO=1 \
-	LIBDW_DWARF_UNWIND=1 \
+	NO_LIBDW_DWARF_UNWIND= \
 	NO_PERF_READ_VDSO32=1 \
 	NO_PERF_READ_VDSOX32=1 \
-	ZLIB=1 \
+	NO_ZLIB= \
 	NO_LIBBABELTRACE=1 \
 	NO_LZMA=1 \
-	AUXTRACE=1 \
-	NO_LIBBPF=1
+	NO_AUXTRACE= \
+	NO_LIBBPF=1 \
+	NO_SDT=1
 
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
@@ -190,7 +192,7 @@ $(STATEDIR)/kernel.compile:
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 ifdef PTXCONF_KERNEL_TOOL_PERF
 	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) -C tools/perf
+		$(KERNEL_MAKEVARS) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf
 endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
 	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
@@ -252,7 +254,7 @@ ifdef PTXCONF_KERNEL_TOOL_PERF
 endif
 
 ifdef PTXCONF_KERNEL_TOOL_IIO
-	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/generic_buffer, \
+	@$(call install_copy, kernel, 0, 0, 0755, $(wildcard $(KERNEL_DIR)/tools/iio/*generic_buffer), \
 		/usr/bin/iio_generic_buffer)
 	@$(call install_copy, kernel, 0, 0, 0755, $(KERNEL_DIR)/tools/iio/lsiio, \
 		/usr/bin/lsiio)

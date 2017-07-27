@@ -27,7 +27,7 @@ ptx/dts = $(shell p=$(PTXCONF_DTC_OFTREE_DTS_PATH) ptxd_in_path p "$(strip $(1))
 
 ifdef PTXCONF_DTC_OFTREE_DTS
 # Note: this must match the magic in ptxd_make_dts_dtb
-DTC_OFTREE_DTS = $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
+DTC_OFTREE_DTS := $(foreach dts, $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS)), \
 	$(if $(filter /%,$(dts)),$(dts),$(call ptx/dts,$(dts))))
 endif
 

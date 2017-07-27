@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBQMI) += libqmi
 #
 # Paths and names
 #
-LIBQMI_VERSION	:= 1.16.2
-LIBQMI_MD5	:= 052318439128e428b1a41e75a605d91f
+LIBQMI_VERSION	:= 1.18.0
+LIBQMI_MD5	:= 25bae4e383ad77f491ad49b49e04fdcf
 LIBQMI		:= libqmi-$(LIBQMI_VERSION)
 LIBQMI_SUFFIX	:= tar.xz
 LIBQMI_URL	:= http://www.freedesktop.org/software/libqmi/$(LIBQMI).$(LIBQMI_SUFFIX)
@@ -36,9 +36,12 @@ LIBQMI_CONF_TOOL	:= autoconf
 LIBQMI_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-more-warnings \
+	--disable-firmware-update \
+	--disable-mm-runtime-check \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
+	--without-udev \
 	--with-udev-base-dir=/usr/lib/udev
 
 # ----------------------------------------------------------------------------

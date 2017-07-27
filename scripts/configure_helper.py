@@ -95,6 +95,7 @@ configure_blacklist = [
 
 def abort(message):
 	print(message)
+	print("\nSee '%s --help' for more details." % cmd)
 	exit(1)
 
 def ask_ptxdist(pkg):
@@ -126,7 +127,7 @@ def blacklist_hit(name, blacklist):
 			return True
 	return False
 
-parse_args_re = re.compile("--((enable|disable|with|without)-)?\[?([^\[=]*)(([\[=]*)([^]]*)]?)?")
+parse_args_re = re.compile("--((enable|disable|with|without|with\(out\))-)?\[?([^\[=]*)(([\[=]*)([^]]*)]?)?")
 def parse_configure_args(args, blacklist):
 	ret = []
 	for arg in args:
@@ -253,6 +254,10 @@ parser.add_argument("--sort", help="sort the options before comparing",
 
 args = parser.parse_args()
 
+if len(sys.argv) == 1:
+	parser.print_help()
+	exit(1)
+
 old_dir = args.old if args.old else None
 new_dir = args.new if args.new else None
 
@@ -262,8 +267,12 @@ if (old_dir or new_dir) and args.only:
 if args.only:
 	new_dir = args.only
 
-ptx_pkg = args.pkg.lower().replace('_', "-")
-ptx_PKG = args.pkg.upper().replace('-', "_")
+if args.pkg:
+	ptx_pkg = args.pkg.lower().replace('_', "-")
+	ptx_PKG = args.pkg.upper().replace('-', "_")
+else:
+	ptx_pkg = None
+	ptx_PKG = None
 
 ptx_pkg_conf_opt = []
 if args.pkg:

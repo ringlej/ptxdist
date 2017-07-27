@@ -1,4 +1,6 @@
-## SECTION=multimedia_framebuffer
+## SECTION=staging
+## old section:
+### SECTION=multimedia_framebuffer
 
 config USPLASH
 	tristate
@@ -8,3 +10,6 @@ config USPLASH
 	help
 	  Usplash is a userspace application that uses the Linux
 	  framebuffer interface to draw a splash screen at boot.
+
+	  STAGING: remove in ptxdist-2018.07.0
+	  Upstream long dead, obsolete and fails to build.

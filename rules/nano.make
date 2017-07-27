@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		:= 2.3.1
-NANO_MD5		:= af09f8828744b0ea0808d6c19a2b4bfd
+NANO_VERSION		:= 2.8.4
+NANO_MD5		:= e2a6bfc054d1f535b723f93eb73e5f77
 NANO			:= nano-$(NANO_VERSION)
 NANO_SUFFIX		:= tar.gz
-NANO_URL		:= http://www.nano-editor.org/dist/v2.3/$(NANO).$(NANO_SUFFIX)
+NANO_URL		:= https://www.nano-editor.org/dist/v$(basename $(NANO_VERSION))/$(NANO).$(NANO_SUFFIX)
 NANO_SOURCE		:= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
 NANO_DIR		:= $(BUILDDIR)/$(NANO)
 NANO_LICENSE		:= GPL-3.0+
@@ -44,22 +44,30 @@ NANO_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-rpath \
 	--disable-nls \
-	--disable-debug \
-	--disable-tiny \
-	--disable-extra \
 	--disable-browser \
+	--enable-color \
+	--enable-comment \
+	--disable-extra \
 	--disable-help \
+	--enable-histories \
 	--enable-justify \
+	--disable-libmagic \
+	--enable-linenumbers \
 	--disable-mouse \
+	--enable-multibuffer \
+	--enable-nanorc \
 	--disable-operatingdir \
 	--disable-speller \
 	--enable-tabcomp \
+	--disable-wordcomp \
 	--enable-wrapping \
-	--enable-color \
-	--enable-multibuffer \
-	--disable-nanorc \
+	--disable-wrapping-as-root \
+	--disable-debug \
+	--disable-tiny \
 	--disable-utf8 \
-	--disable-glibtest
+	--disable-altrcname \
+	--without-slang \
+	--with-wordbounds
 
 # ----------------------------------------------------------------------------
 # Target-Install

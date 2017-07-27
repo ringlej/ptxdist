@@ -83,7 +83,8 @@ MYSQL_CONF_OPT	:= \
 	-DWITH_VALGRIND=OFF \
 	-DWITH_SYSTEMD=$(call ptx/onoff, PTXCONF_MYSQL_SYSTEMD) \
 	-DCOMPILATION_COMMENT=PTXdist \
-	-DDEFAULT_CHARSET=latin1
+	-DDEFAULT_CHARSET=latin1 \
+	-DENABLE_DTRACE=OFF
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -138,10 +139,10 @@ endif
 	@$(call install_copy, mysql, 0, 0, 0644, -, /usr/lib/plugin/keyring_file.so)
 
 #	# TODO: do we need more languages?
-	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/share/english/errmsg.sys)
+	@$(call install_copy, mysql, 0, 0, 0644, -, /usr/share/english/errmsg.sys)
 
 #	# TODO: do we need more charsets?
-	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/share/charsets/latin1.xml)
+	@$(call install_copy, mysql, 0, 0, 0644, -, /usr/share/charsets/latin1.xml)
 
 #	# client stuff
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysql)

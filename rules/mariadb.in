@@ -1,0 +1,32 @@
+## SECTION=mysql
+
+config MARIADB
+	tristate
+	select HOST_CMAKE
+	select HOST_MARIADB
+	select LIBC_CRYPT
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_PTHREAD
+	select LIBC_RT
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select LIBAIO
+	select LIBPCRE
+	select NCURSES
+	select OPENSSL
+	select SYSTEMD		if MARIADB_SYSTEMD
+	select ZLIB
+	prompt "mariadb" if ALLYES
+	help
+	  MariaDB, a SQL database engine
+
+if MARIADB
+
+config MARIADB_SYSTEMD
+	bool
+	depends on INITMETHOD_SYSTEMD
+	default y
+	prompt "systemd support"
+
+endif

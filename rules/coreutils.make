@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names
 #
-COREUTILS_VERSION	:= 8.25
-COREUTILS_MD5		:= 070e43ba7f618d747414ef56ab248a48
+COREUTILS_VERSION	:= 8.27
+COREUTILS_MD5		:= 502795792c212932365e077946d353ae
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
 COREUTILS_SUFFIX	:= tar.xz
 COREUTILS_URL		:= $(call ptx/mirror, GNU, coreutils/$(COREUTILS).$(COREUTILS_SUFFIX))
@@ -162,8 +162,6 @@ COREUTILS_CONF_TOOL	:= autoconf
 COREUTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--disable-silent-rules \
 	--enable-threads=posix \
 	--disable-acl \
 	--disable-assert \
@@ -174,6 +172,7 @@ COREUTILS_CONF_OPT	:= \
 	--enable-no-install-program=$(subst $(space),$(comma),$(strip $(COREUTILS_INST-))) \
 	--disable-nls \
 	--without-openssl \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
 	--without-gmp
 
 COREUTILS_MAKE_OPT	:= \

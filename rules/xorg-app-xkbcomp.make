@@ -29,10 +29,6 @@ XORG_APP_XKBCOMP_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XKBCOMP_CON_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_file_$(call tr_sh,./xkbparse.c)=yes
-
 #
 # autoconf
 #

@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_RAUC) += rauc
 #
 # Paths and names
 #
-RAUC_VERSION	:= v0.1
-RAUC_MD5	:= 33c6f45b71f9b9c082fa852c3d5915d9
+RAUC_VERSION	:= 0.1.1
+RAUC_MD5	:= 4457d4d98efb83399ff45d36b31b3e3f
 RAUC		:= rauc-$(RAUC_VERSION)
 RAUC_SUFFIX	:= tar.xz
-RAUC_URL	:= https://github.com/rauc/rauc/releases/download/v0.1/rauc-0.1.tar.xz
+RAUC_URL	:= https://github.com/rauc/rauc/releases/download/v$(RAUC_VERSION)/$(RAUC).$(RAUC_SUFFIX)
 RAUC_SOURCE	:= $(SRCDIR)/$(RAUC).$(RAUC_SUFFIX)
 RAUC_DIR	:= $(BUILDDIR)/$(RAUC)
 RAUC_LICENSE	:= LGPL-2.1

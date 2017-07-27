@@ -17,6 +17,7 @@ Welcome to the PTXdist Universe
    dev_manual
    ref_manual
    daily_work_section
+   faq
    getting_help
 
 * :ref:`search`

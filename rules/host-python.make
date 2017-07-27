@@ -37,11 +37,20 @@ HOST_PYTHON_ENV 	:= \
 HOST_PYTHON_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--enable-shared \
-	--with-pymalloc \
+	--disable-profiling \
+	--disable-optimizations \
+	--disable-toolbox-glue \
+	--without-pydebug \
+	--without-lto \
 	--with-signal-module \
 	--with-threads \
+	--without-doc-strings \
+	--with-pymalloc \
+	--without-valgrind \
 	--with-wctype-functions \
-	--without-doc-strings
+	--with-fpectl \
+	--with-computed-gotos \
+	--without-ensurepip
 
 # ----------------------------------------------------------------------------
 # Install

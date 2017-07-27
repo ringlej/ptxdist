@@ -412,7 +412,7 @@ ptxd_make_world_autogen() {
 
     # run autogen.sh if available
     if [ -n "${pkg_patch_autogen}" ]; then
-	"${pkg_patch_autogen}" 2>&1 || return
+	"${pkg_patch_autogen}" || return
 	echo -e "patchin: autogen: done\n"
     fi
 }

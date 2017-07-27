@@ -301,6 +301,7 @@ config GST_PLUGINS_BAD_DC1394
 
 config GST_PLUGINS_BAD_DIRECTFB
 	bool
+	depends on STAGING
 	prompt "directfb"
 
 config GST_PLUGINS_BAD_DIRAC

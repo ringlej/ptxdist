@@ -1,5 +1,5 @@
 Adapting the |ptxdistBSPName| Project
--------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Handling a fully prepared PTXdist project is easy. But everything is
 fixed to the settings the developer selected. We now want to adapt the

@@ -1,8 +1,8 @@
 ## SECTION=system_libraries
 
-config SERDISPLIB
+menuconfig SERDISPLIB
 	tristate
-	prompt "serdisplib"
+	prompt "serdisplib                    "
 	select LIBUSB_COMPAT
 	help
 	  Library to drive serial displays with built-in controllers.

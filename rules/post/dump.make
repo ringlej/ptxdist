@@ -1,5 +1,6 @@
 # -*-makefile-*-
 
+ifneq ($(filter dump,$(MAKECMDGOALS)),)
 # ----------------------------------------------------------------------------
 # environment export to plugins and shell scripts
 # ----------------------------------------------------------------------------
@@ -58,6 +59,8 @@ $(addprefix dump-,$(sort $(allsymbols))): $(M2B).symbols
 dump: $(addprefix dump-,$(allsymbols))
 	@mv $(M2B).bash.tmp $(M2B).bash
 	@mv $(M2B).tmp $(M2B)
+
+endif
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:

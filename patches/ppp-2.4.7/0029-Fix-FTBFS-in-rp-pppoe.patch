@@ -1,0 +1,36 @@
+From: Chris Boot <bootc@debian.org>
+Date: Fri, 2 Jun 2017 11:32:22 +0200
+Subject: [PATCH] Fix FTBFS in rp-pppoe
+
+ Include netinet/in.h earlier to avoid a conflict with linux/in.h. See Bug
+ #824442 (on src:glibc) for information related to this.
+
+Bug-Debian: https://bugs.debian.org/824442
+Forwarded: no
+Last-Update: 2016-11-11
+---
+ pppd/plugins/rp-pppoe/pppoe.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pppd/plugins/rp-pppoe/pppoe.h b/pppd/plugins/rp-pppoe/pppoe.h
+index 86d2b1e47a25..fee9ab62ee21 100644
+--- a/pppd/plugins/rp-pppoe/pppoe.h
++++ b/pppd/plugins/rp-pppoe/pppoe.h
+@@ -49,6 +49,8 @@
+ #include <sys/socket.h>
+ #endif
+ 
++#include <netinet/in.h>
++
+ /* Ugly header files on some Linux boxes... */
+ #if defined(HAVE_LINUX_IF_H)
+ #include <linux/if.h>
+@@ -86,8 +88,6 @@ typedef unsigned long UINT32_t;
+ #include <linux/if_ether.h>
+ #endif
+ 
+-#include <netinet/in.h>
+-
+ #ifdef HAVE_NETINET_IF_ETHER_H
+ #include <sys/types.h>
+ 

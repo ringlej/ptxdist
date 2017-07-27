@@ -4,6 +4,7 @@ config F2FS_TOOLS
 	tristate
 	prompt "f2fs-tools"
 	select LIBUUID
+	select LIBSELINUX if GLOBAL_SELINUX
 	help
 	  The f2fs-tools package provides the filesystem utilities for use
 	  with the f2fs filesystem (flash-friendly filesystem)

@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_LIBPNG) += libpng
 #
 # Paths and names
 #
-LIBPNG_VERSION	:= 1.2.54
-LIBPNG_MD5	:= bbb7a7264f1c7d9c444fd16bf6f89832
+LIBPNG_VERSION	:= 1.6.29
+LIBPNG_MD5	:= 3245dbd76ea91e1437507357b858ec97
 LIBPNG		:= libpng-$(LIBPNG_VERSION)
 LIBPNG_SUFFIX	:= tar.xz
 LIBPNG_URL	:= $(call ptx/mirror, SF, libpng/$(LIBPNG).$(LIBPNG_SUFFIX))
@@ -31,9 +31,17 @@ LIBPNG_LICENSE	:= Zlib
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPNG_AUTOCONF := \
+LIBPNG_CONF_TOOL:= autoconf
+LIBPNG_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-libpng-compat
+	--enable-unversioned-links \
+	--enable-unversioned-libpng-pc \
+	--enable-unversioned-libpng-config \
+	--enable-arm-neon=$(call ptx/ifdef, PTXCONF_ARCH_ARM_NEON, yes, no) \
+	--disable-mips-msa \
+	--$(call ptx/endis, PTXCONF_ARCH_X86)-intel-sse \
+	--disable-powerpc-vsx \
+	--with-binconfigs
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -48,7 +56,7 @@ $(STATEDIR)/libpng.targetinstall:
 	@$(call install_fixup, libpng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
-	@$(call install_lib, libpng, 0, 0, 0644, libpng12)
+	@$(call install_lib, libpng, 0, 0, 0644, libpng16)
 
 	@$(call install_finish, libpng)
 

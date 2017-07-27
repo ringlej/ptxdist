@@ -216,6 +216,10 @@ Misc Actions
 ``export_src <target-dir>``
   export all source archives needed for this project to ``<target-dir>``.
 
+``docs-html``
+  build html documentation for a BSP. The output is written to 
+  Documentation/html/index.html
+
 Overwrite defaults
 ~~~~~~~~~~~~~~~~~~
 

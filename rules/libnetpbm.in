@@ -34,6 +34,8 @@ config LIBNETPBM_PPM2LJ
 
 config LIBNETPBM_PNG2PNM
 	bool
+	# broken with current libpng
+	depends on BROKEN
 	prompt "pngtopnm"
 	help
 	  Convert png images to portable anymap.

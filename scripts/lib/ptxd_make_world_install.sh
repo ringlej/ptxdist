@@ -114,7 +114,7 @@ ptxd_make_world_install() {
 
     "${echo:-echo}" \
 	"${cmd[@]}" \
-	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" -- 2>&1
+	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" --
     check_pipe_status
 }
 export -f ptxd_make_world_install
@@ -213,6 +213,13 @@ export -f ptxd_make_world_install_pack
 #
 ptxd_make_world_install_post() {
     ptxd_make_world_init &&
+    (
+	find "${pkg_pkg_dir}"/usr/{lib,share}/pkgconfig -name *.pc \
+	    -printf "%f\n" 2>/dev/null | sed 's/\.pc$//'
+	for dep in ${pkg_build_deps}; do
+	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
+	done
+    ) | sort -u > "${ptx_state_dir}/${pkg_label}.pkgconfig"
     # do nothing if pkg_pkg_dir does not exist
     if [ \! -d "${pkg_pkg_dir}" ]; then
 	return

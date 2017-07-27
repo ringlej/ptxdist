@@ -1,0 +1,49 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 9 Jan 2010 22:48:48 +0100
+Subject: [PATCH] gdlib-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ config/gdlib-config.in | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/config/gdlib-config.in b/config/gdlib-config.in
+index 6e4e49447474..394f575e211b 100644
+--- a/config/gdlib-config.in
++++ b/config/gdlib-config.in
+@@ -53,10 +53,10 @@ while test $# -gt 0; do
+ 
+     case $1 in
+     --libdir)
+-	echo $libdir
++	echo ${SYSROOT}$libdir
+ 	;;
+     --includedir)
+-	echo $includedir
++	echo ${SYSROOT}$includedir
+ 	;;
+     --version)
+ 	echo @VERSION@
+@@ -77,18 +77,18 @@ while test $# -gt 0; do
+ 	echo -lgd @LIBS@ @LIBICONV@
+ 	;;
+     --cflags|--includes)
+-	echo -I@includedir@
++	echo -I${SYSROOT}@includedir@
+ 	;;
+     --features)
+ 	echo @FEATURES@
+ 	;;
+     --all)
+ 	echo "GD library  @VERSION@"
+-	echo "includedir: $includedir"
+-	echo "cflags:     -I@includedir@"
++	echo "includedir: ${SYSROOT}$includedir"
++	echo "cflags:     -I${SYSROOT}@includedir@"
+ 	echo "ldflags:    @LDFLAGS@"
+ 	echo "libs:       @LIBS@ @LIBICONV@"
+-	echo "libdir:     $libdir"
++	echo "libdir:     ${SYSROOT}$libdir"
+ 	echo "features:   @FEATURES@"
+ 	;;
+     *)

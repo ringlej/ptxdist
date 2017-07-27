@@ -29,7 +29,7 @@ SIMPLERPL_DIR		:= $(BUILDDIR)/$(SIMPLERPL)
 # ----------------------------------------------------------------------------
 
 SIMPLERPL_CONF_TOOL	:= python
-SIMPLERPL_MAKE_OPT	= build -e "/usr/bin/$(PYTHON_MAJORMINOR)"
+SIMPLERPL_MAKE_OPT	= build -e "/usr/bin/python$(PYTHON_MAJORMINOR)"
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,47 @@
+From 359902f8f043e7a7d782d1df3d5d74c3b2a3bd04 Mon Sep 17 00:00:00 2001
+From: Philipp Zabel <p.zabel@pengutronix.de>
+Date: Thu, 8 Jun 2017 13:52:02 +0200
+Subject: [PATCH] egl: use EGL CFLAGS reported by pkg-config
+
+Some platforms need -DMESA_EGL_NO_X11_HEADERS set, as indicated by the
+Cflags: field in egl.pc. pkg-config provides this information, pass it
+to the compiler.
+
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ src/waffle/CMakeLists.txt | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/waffle/CMakeLists.txt b/src/waffle/CMakeLists.txt
+index d76e029..954774c 100644
+--- a/src/waffle/CMakeLists.txt
++++ b/src/waffle/CMakeLists.txt
+@@ -94,6 +94,9 @@ if(waffle_on_mac)
+ endif()
+ 
+ if(waffle_has_egl)
++    list(APPEND waffle_cflags
++        ${egl_CFLAGS}
++        )
+     list(APPEND waffle_sources
+         egl/wegl_config.c
+         egl/wegl_context.c
+@@ -227,6 +230,7 @@ target_link_libraries(${waffle_libname} ${waffle_libdeps})
+ 
+ set_target_properties(${waffle_libname}
+     PROPERTIES
++    COMPILE_FLAGS ${waffle_cflags}
+     SOVERSION ${waffle_soversion}
+     VERSION ${waffle_soversion}.${waffle_minor_version}.${waffle_patch_version}
+     )
+@@ -266,6 +270,7 @@ target_link_libraries(waffle_static ${waffle_libdeps})
+ 
+ set_target_properties(waffle_static
+     PROPERTIES
++    COMPILE_FLAGS ${waffle_cflags}
+     OUTPUT_NAME "waffle-static-${waffle_major_version}"
+     )
+ 
+-- 
+2.11.0
+

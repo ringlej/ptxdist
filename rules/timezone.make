@@ -85,15 +85,9 @@ TIMEZONE-$(PTXCONF_TIMEZONE_UNIVERSAL) += "Universal"
 
 $(STATEDIR)/timezone.install:
 	@$(call targetinfo)
-ifdef PTXCONF_TIMEZONE_LOCAL_DATABASE
 	@for target in $(TIMEZONE-y); do \
 		$(call add_zoneinfo, $$target, $(TIMEZONE_PKGDIR)/usr/share, $(PTXDIST_SYSROOT_HOST)/usr); \
 	done
-else
-	@for target in $(TIMEZONE-y); do \
-		$(call add_zoneinfo, $$target, $(TIMEZONE_PKGDIR)/usr/share, ""); \
-	done
-endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

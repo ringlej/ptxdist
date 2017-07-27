@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 #
 # Paths and names
 #
-CAIRO_VERSION	:= 1.12.18
-CAIRO_MD5	:= 8e4ff32b82c3b39387eb6f5c59ef848e
+CAIRO_VERSION	:= 1.14.8
+CAIRO_MD5	:= 4ef0db2eacb271c74f8a3fd87822aa98
 CAIRO		:= cairo-$(CAIRO_VERSION)
 CAIRO_SUFFIX	:= tar.xz
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
@@ -37,10 +37,11 @@ CAIRO_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--disable-static \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-atomic \
 	--disable-gcov \
 	--disable-valgrind \
 	--$(call ptx/endis, PTXCONF_CAIRO_XLIB)-xlib \

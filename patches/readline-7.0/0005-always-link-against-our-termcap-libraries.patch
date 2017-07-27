@@ -1,0 +1,33 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 24 Jan 2010 00:32:08 +0100
+Subject: [PATCH] always link against our $termcap libraries
+
+This way our $user doesn't need to know wich $termcap library
+we linked against.
+
+(If this lib would be written in the mid 2000s pkg-config would
+ probably used for this :)
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ shlib/Makefile.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/shlib/Makefile.in b/shlib/Makefile.in
+index f2ec3e46b7ba..3298008abec4 100644
+--- a/shlib/Makefile.in
++++ b/shlib/Makefile.in
+@@ -174,11 +174,11 @@ unsupported:
+ 
+ $(SHARED_READLINE):	$(SHARED_OBJ)
+ 	$(RM) $@
+-	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_OBJ) $(SHLIB_LIBS)
++	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_OBJ) $(SHLIB_LIBS) $(TERMCAP_LIB)
+ 
+ $(SHARED_HISTORY):	$(SHARED_HISTOBJ) xmalloc.so xfree.so
+ 	$(RM) $@
+-	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_HISTOBJ) xmalloc.so xfree.so $(SHLIB_LIBS)
++	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_HISTOBJ) xmalloc.so xfree.so $(SHLIB_LIBS) $(TERMCAP_LIB)
+ 
+ # Since tilde.c is shared between readline and bash, make sure we compile 
+ # it with the right flags when it's built as part of readline

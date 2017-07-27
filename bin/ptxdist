@@ -772,7 +772,7 @@ check_compiler() {
 	}
 
 	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
-	for cc in gcc g++ cpp ld; do
+	for cc in gcc g++ cpp ld gdb; do
 		ptxd_replace_link "${toolchain}/${compiler_prefix}${cc}" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
 		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
@@ -1006,6 +1006,7 @@ Misc:
   newpackage <type>		create a new package Makefile in a rules dir
 				use 'newpackage help' for a longer description
   nfsroot			run a userspace NFS server and export the nfsroot
+  gdb				run cross gdb with configured sysroot etc.
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   list-packages			print a list of all selected packages
@@ -1221,7 +1222,7 @@ create_docs() {
 	builder="${1}"
 	outdir=${PTXDIST_WORKSPACE}/Documentation
 
-	if [ "${PTXDIST_TOPDIR}" = "${PTXDIST_WORKSPACE}" ]; then
+	if [ "${PTXDIST_TOPDIR}" -ef "${PTXDIST_WORKSPACE}" ]; then
 		srcdir="${PTXDIST_TEMPDIR}/docs"
 	else
 		srcdir="${STATEDIR}/docs"
@@ -1948,6 +1949,11 @@ EOF
 			ptxd_make_log export_src EXPORTDIR="${1}"
 			exit
 			;;
+		gdb)
+			check_premake_compiler &&
+			compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)" &&
+			exec "${PTXDIST_PLATFORMDIR}/sysroot-host/lib/wrapper/${compiler_prefix}gdb" "${@}"
+			;;
 		get|urlcheck)
 			declare -a pkgs
 			check_premake_compiler &&
@@ -2383,6 +2389,7 @@ setup_config() {
 #      PTXDIST_PARALLELMFLAGS_INTERN
 #      PTXDIST_PARALLELMFLAGS_EXTERN
 #      PTXDIST_OUTPUT_SYNC
+#      PTXDIST_FD_LOGERR
 #
 setup_parallel() {
 	# default no parallel for now
@@ -2415,10 +2422,12 @@ setup_parallel() {
 	fi
 
 	PTXDIST_OUTPUT_SYNC="${PTXDIST_OUTPUT_SYNC:-${PTXDIST_QUIET}}"
+	PTXDIST_FD_LOGERR=2
 	if [ "${PTXDIST_OUTPUT_SYNC}" == "1" ]; then
 		if "${PTXCONF_SETUP_HOST_MAKE}" -h | grep -q -- --output-sync; then
 			PTXDIST_OUTPUT_SYNC="--output-sync="
 		fi
+		PTXDIST_FD_LOGERR=1
 	fi
 	if [[ "${PTXDIST_OUTPUT_SYNC}" =~ [01] ]]; then
 		unset PTXDIST_OUTPUT_SYNC
@@ -2429,7 +2438,7 @@ setup_parallel() {
 	#
 	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
-	export PTXDIST_PARALLELMFLAGS_EXTERN PTXDIST_OUTPUT_SYNC
+	export PTXDIST_PARALLELMFLAGS_EXTERN PTXDIST_OUTPUT_SYNC PTXDIST_FD_LOGERR
 }
 
 
@@ -2714,6 +2723,7 @@ setup_export() {
 		PTXDIST_LOADMFLAGS \
 		\
 		PTXDIST_CCACHE \
+		PTXDIST_FD_LOGERR \
 		PTXDIST_FORCE_DOWNLOAD \
 		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \

@@ -1,4 +1,6 @@
-## SECTION=multimedia_directfb
+## SECTION=staging
+## old section:
+### SECTION=multimedia_directfb
 
 config DIRECTFB_EXAMPLES
 	tristate
@@ -9,3 +11,6 @@ config DIRECTFB_EXAMPLES
 	select DIRECTFB_FONT_FREETYPE
 	select DIRECTFB
 	select LIBC_PTHREAD
+	help
+	  STAGING: remove in ptxdist-2018.07.0
+	  DirectFB moved to staging.

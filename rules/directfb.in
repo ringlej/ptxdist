@@ -1,4 +1,6 @@
-## SECTION=multimedia_directfb
+## SECTION=staging
+## old section:
+### SECTION=multimedia_directfb
 
 menuconfig DIRECTFB
 	tristate
@@ -23,6 +25,9 @@ menuconfig DIRECTFB
 	  is not supported by the underlying hardware. DirectFB
 	  adds graphical power to embedded systems and sets a
 	  new standard for graphics under Linux.
+
+	  STAGING: remove in ptxdist-2018.07.0
+	  Really old version that needs updating and fails to build.
 
 if DIRECTFB
 

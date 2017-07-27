@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WAYLAND) += wayland
 #
 # Paths and names
 #
-WAYLAND_VERSION	:= 1.12.0
-WAYLAND_MD5	:= ee615e2d1e205eec48b02f069327eb96
+WAYLAND_VERSION	:= 1.13.0
+WAYLAND_MD5	:= cae152ed956da6de53f9727bc1c45039
 WAYLAND		:= wayland-$(WAYLAND_VERSION)
 WAYLAND_SUFFIX	:= tar.xz
 WAYLAND_URL	:= http://wayland.freedesktop.org/releases/$(WAYLAND).$(WAYLAND_SUFFIX)
@@ -36,6 +36,7 @@ WAYLAND_CONF_TOOL	:= autoconf
 WAYLAND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
+	--disable-fatal-warnings \
 	--enable-libraries \
 	--disable-documentation \
 	--disable-dtd-validation \

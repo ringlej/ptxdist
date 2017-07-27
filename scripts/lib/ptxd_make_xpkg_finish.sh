@@ -10,9 +10,23 @@
 #
 
 #
-# run the actual package creation in fakeroot
+# the actual opkg package creation, will run in fakeroot
 #
 ptxd_make_xpkg_finish_impl() {
+    chown -R 0:0 "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" &&
+    ptxd_make_xpkg_pkg "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" "${pkg_xpkg_cmds}" "${pkg_xpkg_perms}" &&
+    opkg-build ${ptx_xpkg_extra_args} "${pkg_xpkg_tmp}" "${ptx_pkg_dir}"
+    if [ "$(find "${pkg_xpkg_dbg_tmp}" -type f | wc -l)" -gt 1 ]; then
+	# more than just the control file
+	opkg-build ${ptx_xpkg_extra_args} "${pkg_xpkg_dbg_tmp}" "${ptx_pkg_dir}"
+    fi
+}
+export -f ptxd_make_xpkg_finish_impl
+
+#
+# run the actual package creation in fakeroot
+#
+ptxd_make_xpkg_finish_run() {
     local -a fake_args
     if [ -f "${pkg_fake_env}" ]; then
 	fake_args=( "-i" "${pkg_fake_env}" )
@@ -20,9 +34,9 @@ ptxd_make_xpkg_finish_impl() {
     fake_args[${#fake_args[@]}]="-u"
 
     export ${!pkg_*} ${!ptx_*}
-    fakeroot "${fake_args[@]}" -- "ptxd_make_${ptx_xpkg_type}_finish_impl"
+    fakeroot "${fake_args[@]}" -- "ptxd_make_xpkg_finish_impl"
 }
-export -f ptxd_make_xpkg_finish_impl
+export -f ptxd_make_xpkg_finish_run
 
 #
 # function to create a generic package
@@ -34,7 +48,7 @@ ptxd_make_xpkg_finish() {
     # no command file -> no files to package -> exit
     #
     if [ \! -s "${pkg_xpkg_cmds}" ]; then
-	rm -rf -- "${pkg_xpkg_tmp}" &&
+	rm -rf -- "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" &&
 	ptxd_pedantic "Packet '${pkg_xpkg}' is empty. not generating"
 	return
     fi &&
@@ -86,9 +100,9 @@ EOF
     #
     # create pkg
     #
-    echo -e "xpkg_finish:	creating ${ptx_xpkg_type} package ...\n" &&
-    ptxd_make_xpkg_finish_impl &&
-    rm -rf "${pkg_xpkg_tmp}" || {
+    echo -e "xpkg_finish:	creating opkg package ...\n" &&
+    ptxd_make_xpkg_finish_run &&
+    rm -rf -- "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" || {
 	local ret=$?
 	echo -e "\nxpkg_finish: failed.\n"
 	return ${ret}

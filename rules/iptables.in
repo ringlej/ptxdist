@@ -30,11 +30,13 @@ config IPTABLES_IPV6_SYSTEMD_UNIT
 	bool
 	prompt "Activate IPv6 systemd service unit"
 	select IPTABLES_IPV6
+	select IPTABLES_INSTALL_TOOLS
 
 config IPTABLES_IPV4_SYSTEMD_UNIT
 	bool
 	prompt "Activate IPv4 systemd service unit"
 	select IPTABLES_IPV4
+	select IPTABLES_INSTALL_TOOLS
 
 config IPTABLES_LIBIPQ
 	bool

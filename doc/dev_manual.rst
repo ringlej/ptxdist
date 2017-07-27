@@ -50,7 +50,7 @@ Patch Series
 
 There are many packages in the wild that are not cross build aware. They
 fail compiling some files, use wrong include paths or try to link
-against host libraries. To be sucessful in the embedded world, these
+against host libraries. To be successful in the embedded world, these
 types of failures must be fixed. If required, PTXdist provides such
 fixes per package. They are organized in *patch series* and can be found
 in the ``patches/`` directory within a subdirectory using the same name
@@ -206,7 +206,7 @@ handle:
 
 -  **font**: This package is a helper to add X font files to the root
    filesystem. This package does not create an additional IPKG, instead
-   it adds the font to the existing font IPGK. This includes the
+   it adds the font to the existing font IPKG. This includes the
    generation of the directory index files, required by the Xorg
    framework to recognize the font file.
 
@@ -521,7 +521,7 @@ At this stage things can fail:
 -  The package depends on external components (libraries for example)
    not detected by ``configure``
 
--  Sources are ignoring the endianess of some architectures or using
+-  Sources are ignoring the endianness of some architectures or using
    header files from the build host system (from ``/usr/include`` for
    example)
 
@@ -717,7 +717,7 @@ to do (even if its boring and takes time):
     [...]
 
 This will re-start with a **clean** BSP and builds exactly the new package and
-its (known) dependecies. If this builds successfully as well we are really done
+its (known) dependencies. If this builds successfully as well we are really done
 with the new package.
 
 Advanced Rule Files
@@ -872,6 +872,38 @@ order, if the X related tools are built or not. All the autocheck
 features are problematic here. So, if we do not want ``configure`` to
 guess its settings we **must disable everything we do not want**.
 
+To support this process, PTXdist supplies a helper script, located at
+``/path/to/ptxdist/scripts/configure-helper.py`` that compares the configure
+output with the settings from ``FOO_CONF_OPT``:
+
+::
+
+    $ /opt/ptxdist-2017.06.0/scripts/configure-helper.py -p libsigrok
+    --- rules/libsigrok.make
+    +++ libsigrok-0.5.0
+    @@ -4,3 +4,74 @@
+     	--libdir=/usr/lib
+     	--build=x86_64-host-linux-gnu
+     	--host=arm-v7a-linux-gnueabihf
+    +	--enable-warnings=min|max|fatal|no
+    +	--disable-largefile
+    +	--enable-all-drivers
+    +	--enable-agilent-dmm
+    [...]
+    +	--enable-ruby
+    +	--enable-java
+    +	--without-libserialport
+    +	--without-libftdi
+    +	--without-libusb
+    +	--without-librevisa
+    +	--without-libgpib
+    +	--without-libieee1284
+    +	--with-jni-include-path=DIR-LIST
+
+In this example, many configure options from libsigrok (marked with ``+``)
+are not yet present in ``LIBSIGROK_CONF_OPT`` and must be added, possibly also
+by providing more dynamic options in the package definition.
+
 Since every optional parameter adds four lines of code to the rule
 files, PTXdist provides some shortcuts to handle it. Refer to section
 :ref:`param_macros` for further details.
@@ -960,13 +992,13 @@ PTXdist now builds the *zlib* first and our new package thereafter.
 Managing External Compile Time Dependencies on Demand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is good practice to add only those dependecies that are really
+It is good practice to add only those dependencies that are really
 required for the current configuration of the package. If the package
 provides the features *foo* and *bar* and its ``configure`` provides
 switches to enable/disable them independently, we can also add
 dependencies on demand. Let’s assume feature *foo* needs the compression
 library *libz* and *bar* needs the XML2 library *libxml2*. These
-libraries are only required at run-time if the correspondig feature is
+libraries are only required at run-time if the corresponding feature is
 enabled. To add these dependencies on demand, the menu file looks like:
 
 .. code-block:: kconfig
@@ -1062,7 +1094,7 @@ Managing Plain Makefile Packages
 
 Many packages are still coming with a plain ``Makefile``. The user has
 to adapt it to make it work in a cross compile environment as well.
-PTXdist can also handle this kind of packages. We only have to specifiy
+PTXdist can also handle this kind of packages. We only have to specify
 a special *prepare* and *compile* stage.
 
 Such packages often have no special need for any kind of preparation. In
@@ -1191,13 +1223,15 @@ Creating Patches for a Package
 PTXdist uses the utilities *git*, *patch* or *quilt* to work with
 patches or patch series. We recommend *git*, as it can manage patch
 series in a very easy way.
-For this manual and the example we use *quilt* instead.
 
 Creating a Patch Series for a Package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To create a patch series for the first time, we can run the following
 steps. We are still using our *foo-1.1.0* example package here:
+
+Using quilt
+"""""""""""
 
 We create a special directory for the patch series in the local project
 directory:
@@ -1231,12 +1265,63 @@ present in ``patches/foo-1.1.0`` and can be used the next time we
 extract the package again.
 
 All we have to do now is to do the modification we need to make the
-package work. We change into the build directory and use *quilt* to
+package work. We change into the build directory and use quilt_ to
 create new patches, add files to respective patches, modify these files
 and refresh the patches to save our changes.
+See the *quilt* documentation (``man 1 quilt``) for more information.
 
-We recommend this way when modifying source files. But this way is
-improper when an autotools based buildsystem itself needs modifications.
+.. _quilt: http://savannah.nongnu.org/projects/quilt
+
+Using Git
+"""""""""
+
+Create the patch directory like above for *quilt*,
+but only add an empty series file::
+
+    $ mkdir -p patches/foo-1.1.0
+    $ touch patches/foo-1.1.0/series
+
+Then extract the package with an additional command line switch:
+
+::
+
+    $ ptxdist --git extract foo
+
+The empty series file makes PTXdist create a Git repository in the
+respective package build directory,
+and import the package source as the first commit.
+
+.. note:: Optionally, you can enable the setting *Developer Options →
+  use git to apply patches* in `ptxdist setup` to get this behaviour
+  as a default for every package.
+  However, note that this setting is still experimental and can lead to
+  failures for some packages.
+
+Then you can change into the package build directory
+(``platform-<name>/build-target/foo-1.1.0``),
+patch the required source files,
+and make Git commits on the way.
+The Git history should now look something like this:
+
+::
+
+    $ git log --oneline --decorate
+    * df343e821851 (HEAD -> master) Makefile: don't build the tests
+    * 65a360c2bd60 strfry.c: frobnicate the excusator
+    * fdc315f6844c (tag: foobar-1.1.0, tag: base) initial commit
+
+Finally, call ``git ptx-patches`` to regenerate the patch series in the
+``patches/foo-1.1.0`` folder.
+This way they don't get lost when cleaning the package.
+
+.. note:: PTXdist will only create a Git repository for packages with
+  patches.  To use Git to generate the first patch, create an empty series
+  file ``patches/foobar-1.1.0/series`` before extracting the packages. This
+  will tell PTXdist to use Git anyways and ``git ptx-patches`` will put the
+  patches there.
+
+Both approaches (Git and quilt) are not suitable for modifying files
+that are autogenerated in autotools-based buildsystems.
 Refer to section :ref:`configure_rebuild` on how PTXdist can
 handle this special task.
 
@@ -1265,7 +1350,7 @@ Modifying Autotoolized Packages
 
 Autotoolized packages are very picky when automatically generated files
 get patched. The patch order is very important in this case and
-sometimes it even fails and nowbody knows why.
+sometimes it even fails and nobody knows why.
 
 To improve a package’s autotools-based build system, PTXdist comes with
 its own project local autotools to regenerate the autotools template
@@ -1362,7 +1447,7 @@ correct manner:
 Refer :ref:`install_archive` for further information about using the
 ``install_archive`` macro.
 
-Using an archive can be usefull to install parts of the root filesystem
+Using an archive can be useful to install parts of the root filesystem
 that are not covered by any open source license. Its possible to ship
 the binaries within the regular BSP, without the need for their sources.
 However it is possible for the customer to re-create everything required

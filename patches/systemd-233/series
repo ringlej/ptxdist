@@ -17,4 +17,8 @@
 0050-TTY_MODE-0660.patch
 0051-Make-CalendarSpec-public.patch
 #tag:upstream --start-number 100
-# a296f8ec65be69a6d40cd81368f3e90a  - git-ptx-patches magic
+0100-nss-resolve-drop-the-internal-fallback.patch
+0101-resolved-nullptr-bugfix.patch
+0102-resolved-simplify-alloc-size-calc-CVE-2017-9445.patch
+0103-resolved-do-not-allocate-packets-with-minimum-size.patch
+# 0a64b15822c13fe6cb3238c014ea9934  - git-ptx-patches magic

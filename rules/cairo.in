@@ -54,6 +54,7 @@ config CAIRO_GLES2
 config CAIRO_DIRECTFB
 	bool
 	prompt "directfb"
+	depends on STAGING
 	select CAIRO_FREETYPE
 
 config CAIRO_PS

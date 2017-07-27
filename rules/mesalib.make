@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 17.0.4
-MESALIB_MD5	:= 4a16cfc1c6d034cc17314b866eada628
+MESALIB_VERSION	:= 17.1.3
+MESALIB_MD5	:= 1946a93d543bc219427e2bebe2ac4752
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -30,7 +30,7 @@ MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 MESALIB_LICENSE	:= MIT
 MESALIB_LICENSE_FILES := \
-	file://docs/license.html;md5=899fbe7e42d494c7c8c159c7001693d5
+	file://docs/license.html;md5=725f991a1cc322aa7a0cd3a2016621c4
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -92,18 +92,18 @@ MESALIB_CONF_OPT	:= \
 	--disable-pwr8 \
 	--disable-debug \
 	--disable-profile \
-	--disable-libglvnd \
-	--disable-mangling \
+	--disable-sanitize \
 	--disable-texture-float \
 	--disable-asm \
 	--disable-selinux \
 	--disable-llvm-shared-libs \
+	--disable-libunwind \
 	--$(call ptx/endis, PTXCONF_MESALIB_OPENGL)-opengl \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES1)-gles1 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLES2)-gles2 \
 	--enable-dri \
-	--disable-gallium-extra-hud \
-	--disable-lmsensors \
+	--$(call ptx/endis, PTXCONF_MESALIB_EXTENDED_HUD)-gallium-extra-hud \
+	--$(call ptx/endis, PTXCONF_MESALIB_LMSENSORS)-lmsensors \
 	--disable-dri3 \
 	--$(call ptx/endis, PTXCONF_MESALIB_GLX)-glx \
 	--disable-osmesa \
@@ -119,17 +119,20 @@ MESALIB_CONF_OPT	:= \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
+	--disable-libglvnd \
+	--disable-mangling \
 	--enable-shared-glapi \
 	--enable-driglx-direct \
 	--enable-glx-tls \
 	--disable-glx-read-only-text \
 	--disable-gallium-llvm \
+	--disable-llvm \
 	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
 	--without-vulkan-drivers \
-	--with-egl-platforms="$(MESALIBS_EGL_PLATFORMS-y)"
+	--with-platforms=$(subst $(space),$(comma),$(MESALIBS_EGL_PLATFORMS-y))
 
 # ----------------------------------------------------------------------------
 # Compile

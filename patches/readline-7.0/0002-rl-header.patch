@@ -1,0 +1,39 @@
+From: "doko@debian.org" <doko@debian.org>
+Date: Sun, 24 Jan 2010 00:31:22 +0100
+Subject: [PATCH] rl-header.
+
+rl-header.dpatch by  <doko@debian.org>
+
+from:
+http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ history.h  | 1 +
+ readline.h | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/history.h b/history.h
+index 8ce7c805d168..8d568a79fa29 100644
+--- a/history.h
++++ b/history.h
+@@ -32,6 +32,7 @@ extern "C" {
+ #  include "rlstdc.h"
+ #  include "rltypedefs.h"
+ #else
++#  include <stdio.h>
+ #  include <readline/rlstdc.h>
+ #  include <readline/rltypedefs.h>
+ #endif
+diff --git a/readline.h b/readline.h
+index b1a177a577d5..06c2abe61736 100644
+--- a/readline.h
++++ b/readline.h
+@@ -32,6 +32,7 @@ extern "C" {
+ #  include "keymaps.h"
+ #  include "tilde.h"
+ #else
++#  include <stdio.h>
+ #  include <readline/rlstdc.h>
+ #  include <readline/rltypedefs.h>
+ #  include <readline/keymaps.h>
