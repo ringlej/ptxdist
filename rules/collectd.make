@@ -17,14 +17,15 @@ PACKAGES-$(PTXCONF_COLLECTD) += collectd
 #
 # Paths and names
 #
-COLLECTD_VERSION	:= 5.7.1
+COLLECTD_VERSION	:= 5.7.2
 COLLECTD		:= collectd-$(COLLECTD_VERSION)
 COLLECTD_SUFFIX		:= tar.bz2
-COLLECTD_URL		:= http://collectd.org/files/${COLLECTD}.${COLLECTD_SUFFIX}
-COLLECTD_MD5		:= dc36141ed3058c4919bbd54b87c07873
+COLLECTD_URL		:= https://collectd.org/files/${COLLECTD}.${COLLECTD_SUFFIX}
+COLLECTD_MD5		:= 5da2b69c286a064db35c6cc1e758b039
 COLLECTD_DIR		:= $(BUILDDIR)/$(COLLECTD)
 COLLECTD_SOURCE		:= $(SRCDIR)/$(COLLECTD).$(COLLECTD_SUFFIX)
-COLLECTD_LICENSE	:= GPL2
+COLLECTD_LICENSE	:= MIT, GPL-2.0
+COLLECTD_LICENSE_FILES	:= file://COPYING;md5=1bd21f19f7f0c61a7be8ecacb0e28854
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -49,6 +50,7 @@ COLLECTD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-werror \
 	--disable-all-plugins \
 	--with-included-ltdl \
+	--without-libgcrypt \
 	--with-nan-emulation \
 	--with-fp-layout=nothing \
 	--without-libdpdk \
@@ -86,7 +88,7 @@ COLLECTD_ENABLE-				+= drbd
 COLLECTD_ENABLE-				+= email
 COLLECTD_ENABLE-				+= entropy
 COLLECTD_ENABLE-				+= ethstat
-COLLECTD_ENABLE-				+= exec
+COLLECTD_ENABLE-$(PTXCONF_COLLECTD_EXEC)	+= exec
 COLLECTD_ENABLE-				+= fhcount
 COLLECTD_ENABLE-				+= filecount
 COLLECTD_ENABLE-				+= fscache
@@ -175,7 +177,7 @@ COLLECTD_ENABLE-				+= tcpconns
 COLLECTD_ENABLE-				+= teamspeak2
 COLLECTD_ENABLE-				+= ted
 COLLECTD_ENABLE-				+= thermal
-COLLECTD_ENABLE-				+= threshold
+COLLECTD_ENABLE-$(PTXCONF_COLLECTD_THRESHOLD)	+= threshold
 COLLECTD_ENABLE-				+= tokyotyrant
 COLLECTD_ENABLE-				+= turbostat
 COLLECTD_ENABLE-				+= unixsock

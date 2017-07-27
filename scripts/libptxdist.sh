@@ -250,24 +250,28 @@ ptxd_kconfig() {
 		;;
 	esac
 
-	local tmpdir
-	tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")" || ptxd_bailout "unable to create tmpdir"
-	pushd "${tmpdir}" > /dev/null
+	local confdir="${PTXDIST_TEMPDIR}/kconfig"
+	if [ ! -d "${confdir}" ]; then
+		mkdir -p "${confdir}" || ptxd_bailout "unable to create tmpdir"
+		pushd "${confdir}" > /dev/null
 
-	ln -sf "${PTXDIST_TOPDIR}/rules" &&
-	mkdir config &&
-	ptxd_in_path PTXDIST_PATH config &&
-	for dir in "${ptxd_reply[@]}"; do
-		local tmp
-		for tmp in $(( cd "${dir}" && ls ) 2>/dev/null); do
-			if [ ! -e "config/${tmp}" ]; then
-				ln -sfT "${dir}/${tmp}" "config/${tmp}" || break
-			fi
-		done
-	done &&
-	ln -sf "${PTXDIST_TOPDIR}/platforms" &&
-	ln -sf "${PTXDIST_WORKSPACE}" workspace &&
-	ln -sf "${PTX_KGEN_DIR}/generated" || return
+		ln -sf "${PTXDIST_TOPDIR}/rules" &&
+		mkdir config &&
+		ptxd_in_path PTXDIST_PATH config &&
+		for dir in "${ptxd_reply[@]}"; do
+			local tmp
+			for tmp in $( ( cd "${dir}" && ls ) 2>/dev/null); do
+				if [ ! -e "config/${tmp}" ]; then
+					ln -sfT "${dir}/${tmp}" "config/${tmp}" || break
+				fi
+			done
+		done &&
+		ln -sf "${PTXDIST_TOPDIR}/platforms" &&
+		ln -sf "${PTXDIST_WORKSPACE}" workspace &&
+		ln -sf "${PTX_KGEN_DIR}/generated"
+	else
+		pushd "${confdir}" > /dev/null
+	fi &&
 
 	if [ -e "${file_dotconfig}" ]; then
 		cp -- "${file_dotconfig}" ".config" || return
@@ -309,7 +313,7 @@ ptxd_kconfig() {
 		copy_back="false"
 		KCONFIG_ALLCONFIG=".config" "${conf}" \
 			--writedepend --alldefconfig "${file_kconfig}" &&
-		cp -- ".config" "${PTXDIST_DGEN_DIR}/${part}config"
+		mv -- ".config" "${PTXDIST_DGEN_DIR}/${part}config"
 		;;
 	*)
 		echo
@@ -333,7 +337,6 @@ ptxd_kconfig() {
 	fi
 
 	popd > /dev/null
-	rm -fr "${tmpdir}"
 
 	return $retval
 }
@@ -734,6 +737,9 @@ ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 #
 ptxd_bailout() {
 	echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_LOGERR}
+	if [ -n "${PTXDIST_FD_STDERR}" -a -n "${PTXDIST_QUIET}" ]; then
+		echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_STDERR}
+	fi
 	exit ${2:-1}
 }
 export -f ptxd_bailout

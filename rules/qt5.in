@@ -26,7 +26,7 @@ menuconfig QT5
 	select MESALIB_EGL_WAYLAND	if QT5_MODULE_QTWAYLAND_MESA
 	select PLATFORM_OPENGL		if QT5_OPENGL_ES2
 	select SQLITE			if QT5_MODULE_QTBASE_SQL_SQLITE
-	select MYSQL			if QT5_MODULE_QTBASE_SQL_MYSQL
+	select MYSQLDB			if QT5_MODULE_QTBASE_SQL_MYSQL
 	select FONTCONFIG		if QT5_GUI
 	select FREETYPE			if QT5_GUI
 	select UDEV			if QT5_GUI || QT5_INPUT_LIBINPUT
@@ -201,6 +201,7 @@ config QT5_PLATFORM_DIRECTFB
 	bool
 	# fails to build for Qt 5.6.0
 	depends on BROKEN
+	depends on STAGING
 	prompt "DirectFB"
 
 config QT5_PLATFORM_LINUXFB

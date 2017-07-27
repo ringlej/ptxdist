@@ -25,7 +25,7 @@ endif
 		--revision $(call remove_quotes,$(PTXDIST_VERSION_FULL)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)) \
-		--type     $(PTXCONF_HOST_PACKAGE_MANAGEMENT)
+		--type     opkg
 	@echo "ipkg-repository updated"
 ifdef PTXCONF_IMAGE_IPKG_SIGN_OPENSSL
 	@echo "signing Packages..."
@@ -49,7 +49,7 @@ PHONY += $(PKGDIR)/Packages
 $(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post $(STATEDIR)/world.targetinstall
 	@echo "Creating ipkg index '$@'..."
 	@rm -f $(PKGDIR)/Packages*
-	@$(HOST_ENV) $(PTXCONF_HOST_PACKAGE_MANAGEMENT)-make-index \
+	@$(HOST_ENV) opkg-make-index \
 		-l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)"
 	@echo "done."
 

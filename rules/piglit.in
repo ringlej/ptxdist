@@ -1,0 +1,54 @@
+## SECTION=test_suites
+
+menuconfig PIGLIT
+	tristate
+	prompt "piglit                        "
+	select HOST_CMAKE
+	select HOST_SYSTEM_PYTHON
+	select HOST_SYSTEM_PYTHON_SIX
+	select HOST_SYSTEM_PYTHON_NUMPY
+	select LIBPNG
+	select PYTHON3
+	select PYTHON3_BZ2
+	select PYTHON3_ZLIB
+	select PYTHON3_LZMA
+	select PYTHON3_MAKO
+	select PYTHON3_SIX
+	select WAFFLE
+	select WAYLAND if PIGLIT_WAYLAND
+	select LIBXKBCOMMON if PIGLIT_WAYLAND
+	select FREEGLUT if PIGLIT_TESTS_OPENGL
+	select MESALIB_GLX if PIGLIT_TESTS_OPENGL
+	select MESALIB_OPENGL if PIGLIT_TESTS_OPENGL
+	select XORG if PIGLIT_TESTS_OPENGL
+	select MESALIB_GLES1 if PIGLIT_TESTS_OPENGLES1
+	select MESALIB_GLES2 if PIGLIT_TESTS_OPENGLES2 || PIGLIT_TESTS_OPENGLES3
+	help
+	  Piglit is the opensource OpenGL/OpenCL test suite.
+
+if PIGLIT
+
+config PIGLIT_WAYLAND
+	bool
+	default MESALIB_EGL_WAYLAND
+
+# OpenGL tests need some more dependencies sorted out
+
+config PIGLIT_TESTS_OPENGL
+	bool
+	prompt "build OpenGL tests"
+
+config PIGLIT_TESTS_OPENGLES1
+	bool
+	prompt "build OpenGL ES1 tests"
+
+config PIGLIT_TESTS_OPENGLES2
+	bool
+	prompt "build OpenGL ES2 tests"
+
+config PIGLIT_TESTS_OPENGLES3
+	bool
+	prompt "build OpenGL ES3 tests"
+	depends on BROKEN
+
+endif

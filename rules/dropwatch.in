@@ -1,0 +1,14 @@
+## SECTION=debug_tools
+
+config DROPWATCH
+	tristate
+	prompt "dropwatch"
+	select BINUTILS
+	select LIBNL3
+	select READLINE
+	help
+	  user space utility for use with dropwatch kernel protocol
+	  
+	  http://git.infradead.org/users/nhorman/dropwatch.git
+
+# vim: ft=kconfig noet tw=72

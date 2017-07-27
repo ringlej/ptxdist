@@ -7,6 +7,8 @@ menuconfig PYTHON
 	select LIBC_PTHREAD
 	select HOST_PYTHON
 	select GCCLIBS_CXX
+	select EXPAT
+	select LIBFFI
 	select NCURSES		if PYTHON_NCURSES
 	select SQLITE		if PYTHON_SQLITE
 	select BZIP2		if PYTHON_BZ2

@@ -15,9 +15,9 @@ ptxd_make_world_clean() {
 
     if [ -f "${pkg_xpkg_map}" ]; then
 	echo "Deleting ipks:"
-	for name in $(< "${pkg_xpkg_map}" 2>/dev/null); do
-	    ls "${ptx_pkg_dir}/${name}"_*.ipk
-	    rm -f "${ptx_pkg_dir}/${name}"_*.ipk
+	for name in $(< "${pkg_xpkg_map}"); do
+	    ls "${ptx_pkg_dir}/${name}"{,-dbgsym}_*.ipk
+	    rm -f "${ptx_pkg_dir}/${name}"{,-dbgsym}_*.ipk
 	done
 	echo
     fi

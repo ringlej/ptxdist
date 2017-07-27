@@ -496,7 +496,7 @@ use the *toolchain* parameter to define the toolchain to be used on a
 per project base.
 
 Building the OSELAS.Toolchain for |ptxdistBSPName|
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Do the following steps in your own home directory ($HOME). The final
 OSELAS.Toolchain gets installed to ``opt/``, but must **never** be

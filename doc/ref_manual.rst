@@ -336,7 +336,7 @@ Install Stage
 TBD
 
 Targetinstall Stage
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 TBD
 
@@ -958,9 +958,10 @@ be installed with some other ``install_*`` command before
 
 .. code-block:: make
 
- @$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
-        $(PTXCONF_TIMEZONE_LOCALTIME))
-
+   $(STATEDIR)/timezone.targetinstall:
+        ...
+   	@$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
+   		$(PTXCONF_TIMEZONE_LOCALTIME))
 
 .. _param_macros:
 
@@ -976,7 +977,7 @@ the string ``enable``, if unset to ``disable`` instead.
 
 Usage:
 
-.. code-block:: make
+.. code-block:: none
 
  --$(call ptx/endis, <variable>)-<parameter>
 
@@ -1007,7 +1008,7 @@ the string ``disable``, if unset to ``enable`` instead.
 
 Usage:
 
-.. code-block:: make
+.. code-block:: none
 
  --$(call ptx/disen, <variable>)-<parameter>
 
@@ -1036,7 +1037,7 @@ the string ``with``, if unset to ``without`` instead.
 
 Usage:
 
-.. code-block:: make
+.. code-block:: none
 
  --$(call ptx/wwo, <variable>)-<parameter>
 

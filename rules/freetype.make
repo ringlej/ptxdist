@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.6.3
-FREETYPE_MD5		:= 0037b25a8c090bc8a1218e867b32beb1
+FREETYPE_VERSION	:= 2.8
+FREETYPE_MD5		:= 2413ac3eaf508ada019c63959ea81a92
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
@@ -27,7 +27,7 @@ FREETYPE_LICENSE	:= BSD-2-Clause, FTL, GPL-2.0+
 FREETYPE_LICENSE_FILES	:= \
 	file://docs/LICENSE.TXT;md5=4af6221506f202774ef74f64932878a1 \
 	file://docs/GPLv2.TXT;md5=8ef380476f642c20ebf40fecb0add2ec \
-	file://docs/FTL.TXT;md5=d479e83797f699fe873b38dadd0fcd4c \
+	file://docs/FTL.TXT;md5=13b25413274c9b3b09b63e4028216ff4 \
 	file://src/bdf/README;startline=98;endline=140;md5=d0c2c2e2e102c393a12869bc34515be2 \
 	file://src/pcf/README;startline=69;endline=88;md5=e0f11f550450e58753f2d54ddaf17d34
 
@@ -46,10 +46,19 @@ FREETYPE_CONF_TOOL	:= autoconf
 FREETYPE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
+	--disable-biarch-config \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-mmap \
 	--with-zlib \
 	--without-bzip2 \
 	--without-png \
-	--without-harfbuzz
+	--without-harfbuzz \
+	--without-old-mac-fonts \
+	--without-fsspec \
+	--without-fsref \
+	--without-quickdraw-toolbox \
+	--without-quickdraw-carbon \
+	--without-ats
 
 
 # ----------------------------------------------------------------------------

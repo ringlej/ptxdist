@@ -22,7 +22,9 @@ menuconfig GST_PLUGINS_BAD1
 	select GLU		if GST_PLUGINS_BAD1_OPENGL
 	select MESALIB_GLES2	if GST_PLUGINS_BAD1_GLES2
 	select MESALIB_EGL	if GST_PLUGINS_BAD1_EGL
+	select MESALIB_EGL_WAYLAND if GST_PLUGINS_BAD1_EGL_WAYLAND
 	select MESALIB_GLX	if GST_PLUGINS_BAD1_GLX
+	select XORG_LIB_X11	if GST_PLUGINS_BAD1_EGL_X11
 	select LIBDRM		if GST_PLUGINS_BAD1_KMS
 	select LIBDRM_LIBKMS	if GST_PLUGINS_BAD1_KMS
 	select OPUS		if GST_PLUGINS_BAD1_OPUS
@@ -393,6 +395,7 @@ config GST_PLUGINS_BAD1_DECKLINK
 
 config GST_PLUGINS_BAD1_DIRECTFB
 	bool
+	depends on STAGING
 	prompt "directfb"
 
 config GST_PLUGINS_BAD1_WAYLAND
@@ -583,23 +586,40 @@ config GST_PLUGINS_BAD1_GL
 
 if GST_PLUGINS_BAD1_GL
 
-config GST_PLUGINS_BAD1_OPENGL
-	bool
-	prompt "opengl"
-
 config GST_PLUGINS_BAD1_GLES2
 	bool
 	depends on !GST_PLUGINS_BAD1_OPENGL
 	prompt "gles2"
 
+config GST_PLUGINS_BAD1_OPENGL
+	bool
+	prompt "opengl"
+
 config GST_PLUGINS_BAD1_EGL
 	bool
 	prompt "egl"
 
+if GST_PLUGINS_BAD1_EGL
+
+config GST_PLUGINS_BAD1_EGL_X11
+	bool
+	select GST_PLUGINS_BAD1_X11
+	prompt "x11 egl"
+
+config GST_PLUGINS_BAD1_EGL_WAYLAND
+	bool
+	prompt "wayland egl"
+
+endif
+
 config GST_PLUGINS_BAD1_GLX
 	bool
 	select GST_PLUGINS_BAD1_OPENGL
+	select GST_PLUGINS_BAD1_X11
 	prompt "glx"
+
+config GST_PLUGINS_BAD1_X11
+	bool
 
 endif
 

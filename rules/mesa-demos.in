@@ -30,9 +30,9 @@ config MESA_DEMOS_WAYLAND
 menuconfig MESA_DEMOS_X
 	bool
 	select MESA_DEMOS_X11
-	prompt "X demos"
+	prompt "X demos                     "
 
-if MESA_DEMOS_X11
+if MESA_DEMOS_X
 
 config MESA_DEMOS_GLSYNC
 	bool
@@ -142,7 +142,7 @@ endif
 menuconfig MESA_DEMOS_GLES2
 	bool
 	select MESA_DEMOS_EGL
-	prompt "OpenGL ES2 demos"
+	prompt "OpenGL ES2 demos            "
 
 if MESA_DEMOS_GLES2
 

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_READLINE) += readline
 #
 # Paths and names
 #
-READLINE_VERSION	:= 6.2
-READLINE_MD5		:= 67948acb2ca081f23359d0256e9a271c
+READLINE_VERSION	:= 7.0
+READLINE_MD5		:= 205b03a87fc83dab653b628c59b9fc91
 READLINE		:= readline-$(READLINE_VERSION)
 READLINE_SUFFIX		:= tar.gz
 READLINE_URL		:= $(call ptx/mirror, GNU, readline/$(READLINE).$(READLINE_SUFFIX))
@@ -32,16 +32,11 @@ READLINE_LICENSE	:= GPL-3.0+
 
 READLINE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-multibyte \
 	--enable-shared \
 	--disable-static\
-	--disable-multibyte
-
-ifdef PTXCONF_READLINE_TERMCAP
-READLINE_AUTOCONF += --without-curses
-endif
-ifdef PTXCONF_READLINE_NCURSES
-READLINE_AUTOCONF += --with-curses
-endif
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/wwo,PTXCONF_READLINE_NCURSES)-curses
 
 # ----------------------------------------------------------------------------
 # Target-Install

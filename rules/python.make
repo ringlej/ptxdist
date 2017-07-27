@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYTHON) += python
 #
 # Paths and names
 #
-PYTHON_VERSION		:= 2.7.9
-PYTHON_MD5		:= 38d530f7efc373d64a8fb1637e3baaa7
+PYTHON_VERSION		:= 2.7.13
+PYTHON_MD5		:= 53b43534153bb2a0363f08bae8b9d990
 PYTHON_MAJORMINOR	:= $(basename $(PYTHON_VERSION))
 PYTHON_SITEPACKAGES	:= /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages
 PYTHON			:= Python-$(PYTHON_VERSION)
@@ -59,13 +59,23 @@ PYTHON_BINCONFIG_GLOB := ""
 #
 PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
 	--enable-shared \
-	--with-pymalloc \
+	--disable-profiling \
+	--disable-optimizations \
+	--disable-toolbox-glue \
+	$(GLOBAL_IPV6_OPTION) \
+	--without-pydebug \
+	--without-lto \
+	--with-system-expat \
+	--with-system-ffi \
 	--with-signal-module \
 	--with-threads \
-	--with-wctype-functions \
 	--without-doc-strings \
+	--with-pymalloc \
+	--without-valgrind \
+	--with-wctype-functions \
+	--with-fpectl \
+	--with-computed-gotos \
 	--without-ensurepip
 
 PYTHON_BUILD_PYTHONPATH := \

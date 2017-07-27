@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.168
-LIBELF_MD5	:= 52adfa40758d0d39e5d5c57689bf38d6
+LIBELF_VERSION	:= 0.169
+LIBELF_MD5	:= 1ce77c5315d6bba7d883c3c4f0c2697e
 LIBELF		:= elfutils-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.bz2
 LIBELF_URL	:= https://fedorahosted.org/releases/e/l/elfutils/$(LIBELF_VERSION)/$(LIBELF).$(LIBELF_SUFFIX)
@@ -36,9 +36,23 @@ LIBELF_LICENSE	:= (LGPL-3.0+ OR GPL-2.0+) AND GPL-3.0+
 LIBELF_CONF_TOOL := autoconf
 LIBELF_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-deterministic-archives \
+	--disable-thread-safety \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-debugpred \
+	--disable-gprof \
+	--disable-gcov \
+	--disable-sanitize-undefined \
+	--disable-valgrind \
+	--disable-tests-rpath \
+	--enable-libebl-subdir=elfutils \
+	--enable-textrelcheck \
+	--enable-symbol-versioning \
+	--disable-nls \
 	--with-zlib \
 	--without-bzlib \
-	--without-lzma
+	--without-lzma \
+	--without-biarch
 
 LIBELF_ARCH := $(call remove_quotes,$(PTXCONF_ARCH_STRING))
 ifdef PTXCONF_ARCH_ARM64

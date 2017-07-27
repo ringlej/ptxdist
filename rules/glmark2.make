@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GLMARK2) += glmark2
 # Paths and names
 #
 # No tags: use a fake descriptive commit-ish to include the date
-GLMARK2_VERSION	:= 2017-02-10-g7215c0f
-GLMARK2_MD5	:= 215d7687a561fe356bc460765ab85ae1
+GLMARK2_VERSION	:= 2017-06-23-g9b1070fe
+GLMARK2_MD5	:= 108815396d54fbb97b78e639f59a0df0
 GLMARK2		:= glmark2-$(GLMARK2_VERSION)
 GLMARK2_SUFFIX	:= tar.xz
 GLMARK2_URL	:= https://github.com/glmark2/glmark2.git;tag=$(GLMARK2_VERSION)

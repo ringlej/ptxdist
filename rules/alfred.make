@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ALFRED) += alfred
 #
 # Paths and names
 #
-ALFRED_VERSION	:= 2016.2
-ALFRED_MD5	:= cc7d5b352942477033a4cafbed84152d
+ALFRED_VERSION	:= 2017.1
+ALFRED_MD5	:= 74e457ee49a6525ccdb3fa3bef58f685
 ALFRED		:= alfred-$(ALFRED_VERSION)
 ALFRED_SUFFIX	:= tar.gz
 ALFRED_URL	:= http://downloads.open-mesh.org/batman/stable/sources/alfred/$(ALFRED).$(ALFRED_SUFFIX)
@@ -34,9 +34,10 @@ ALFRED_CONF_TOOL	:= NO
 ALFRED_MAKE_ENV		:= \
 	$(CROSS_ENV)
 
+# let's build with libcap support and drop privileges
 ALFRED_MAKE_OPT		:= \
 	CONFIG_ALFRED_GPSD=n \
-	CONFIG_ALFRED_CAPABILITIES=n
+	CONFIG_ALFRED_CAPABILITIES=y
 
 ALFRED_INSTALL_OPT	:= \
 	$(ALFRED_MAKE_OPT) \

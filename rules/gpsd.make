@@ -91,7 +91,7 @@ $(STATEDIR)/gpsd.targetinstall:
 	@$(call install_init, gpsd)
 	@$(call install_fixup, gpsd,PRIORITY,optional)
 	@$(call install_fixup, gpsd,SECTION,base)
-	@$(call install_fixup, gpsd,AUTHOR,"Jürgen Kilb <j.kilb@phytec.de>")
+	@$(call install_fixup, gpsd,AUTHOR,"JÃ¼rgen Kilb <j.kilb@phytec.de>")
 	@$(call install_fixup, gpsd,DESCRIPTION,missing)
 
 	@$(call install_lib, gpsd, 0, 0, 0644, libgps)

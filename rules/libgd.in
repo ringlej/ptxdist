@@ -6,6 +6,7 @@ menuconfig LIBGD
 	select ZLIB
 	select LIBPNG		if LIBGD_PNG
 	select LIBJPEG		if LIBGD_JPEG
+	select LIBGD_X		if LIBGD_XPM
 	select XORG_LIB_XPM	if LIBGD_XPM
 	select FONTCONFIG	if LIBGD_FONTCONFIG
 	select FREETYPE		if LIBGD_FREETYPE

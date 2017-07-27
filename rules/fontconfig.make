@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.11.1
-FONTCONFIG_MD5		:= e75e303b4f7756c2b16203a57ac87eba
+FONTCONFIG_VERSION	:= 2.12.3
+FONTCONFIG_MD5		:= aca0c734c1a38eb3ba12b2447dd90ab0
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
@@ -44,9 +44,10 @@ FONTCONFIG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_ICONV)-iconv \
 	--disable-libxml2 \
 	--disable-docs \
-	--with-cache-dir=/var/cache/fontconfig \
+	--with-arch=$(PTXCONF_ARCH_STRING) \
+	--with-default-hinting=slight \
 	--with-default-fonts=$(XORG_FONTDIR) \
-	--with-arch=$(PTXCONF_ARCH_STRING)
+	--with-cache-dir=/var/cache/fontconfig
 
 # ----------------------------------------------------------------------------
 # Target-Install

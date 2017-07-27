@@ -67,6 +67,7 @@ config LINKS_X
 
 config LINKS_DIRECTFB
 	bool
+	depends on STAGING
 	select LINKS_PNG
 	prompt "support for DirectFB"
 

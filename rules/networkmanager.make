@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2009, 2017 by Robert Schwebel <r.schwebel@pengutronix.de>
 #           (C) 2012 by Jan Luebbe <j.luebbe@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -17,13 +17,15 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.6.2
-NETWORKMANAGER_MD5	:= 89c975afe19fbac854191edb6e9bcd3b
+NETWORKMANAGER_VERSION	:= 1.8.0
+NETWORKMANAGER_MD5	:= de0e70933a17ee6a682e8440015c9b1e
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.6/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.8/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
+NETWORKMANAGER_LICENSE	:= GPL-2.0+ AND LGPL-2.0+
+NETWORKMANAGER_LICENSE_FILES := file://COPYING;md5=cbbffd568227ada506640fe950a4823b
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -39,6 +41,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--enable-shared \
 	--disable-nls \
 	--disable-rpath \
+	--disable-config-plugin-ibft \
 	--disable-ifcfg-rh \
 	--disable-ifcfg-suse \
 	--enable-ifupdown \
@@ -50,6 +53,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-teamdctl \
 	--disable-json-validation \
 	--disable-polkit \
+	--disable-polkit-agent \
 	--disable-modify-system \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
 	--disable-bluez5-dun \
@@ -58,6 +62,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-more-asserts \
 	--disable-more-logging \
 	--disable-lto \
+	--enable-ld-gc=auto \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-vala \
@@ -79,6 +84,8 @@ NETWORKMANAGER_CONF_OPT = \
 	--without-libaudit \
 	--with-crypto=gnutls \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
+	--with-pppd-plugin-dir=$(PPP_SHARED_INST_PATH) \
+	--with-pppd=/usr/sbin/pppd \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
 	--without-ofono \
 	--with-dhclient=/usr/sbin/dhclient \
@@ -93,16 +100,11 @@ NETWORKMANAGER_CONF_OPT = \
 	--with-dnssec-trigger=/bin/true \
 	--with-system-ca-path=/etc/ssl/certs \
 	--with-kernel-firmware-dir=/lib/firmware \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_CONCHECK)-libsoup \
+	--without-libpsl \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMCLI)-nmcli \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
 	--without-valgrind \
 	--without-tests
-
-ifdef PTXCONF_NETWORKMANAGER_PPP
-NETWORKMANAGER_CONF_OPT += \
-	--with-pppd-plugin-dir=$(PPP_SHARED_INST_PATH)
-endif
 
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 NETWORKMANAGER_LDFLAGS	:= \

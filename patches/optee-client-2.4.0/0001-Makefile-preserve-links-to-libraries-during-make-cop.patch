@@ -1,0 +1,27 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 12 Jun 2017 17:13:30 +0200
+Subject: [PATCH] Makefile: preserve links to libraries during make copy_export
+
+During "make copy_export" and "make install" the shared library is
+copied into the LIBDIR. However "cp" is used, thus the links to the
+shared library are not preserved. This patch fixes the problem by using
+"cp -a" instead.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index c7462479e5fe..4c2d45851543 100644
+--- a/Makefile
++++ b/Makefile
+@@ -128,7 +128,7 @@ distclean: clean
+ 
+ copy_export: build
+ 	mkdir -p $(DESTDIR)$(BINDIR) $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)
+-	cp ${O}/libteec/libteec.so* $(DESTDIR)$(LIBDIR)
++	cp -a ${O}/libteec/libteec.so* $(DESTDIR)$(LIBDIR)
+ 	if [ "$(BUILD-LIBSQLFS)" ]; then cp ${O}/libsqlfs/libsqlfs.so* $(DESTDIR)$(LIBDIR); fi
+ 	cp ${O}/tee-supplicant/tee-supplicant $(DESTDIR)$(BINDIR)
+ 	cp public/*.h $(DESTDIR)$(INCLUDEDIR)

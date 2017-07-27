@@ -82,7 +82,7 @@ $(STATEDIR)/locales.targetinstall:
 	@$(call install_fixup, locales,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, locales,DESCRIPTION,missing)
 
-	@$(call install_copy, locales, 0, 0, 0755, -, \
+	@$(call install_copy, locales, 0, 0, 0644, -, \
 		/usr/lib/locale/locale-archive, n)
 
 	@$(call install_finish, locales)

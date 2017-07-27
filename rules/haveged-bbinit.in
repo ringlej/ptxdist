@@ -1,0 +1,9 @@
+## SECTION=initmethod_bbinit
+
+config HAVEGED_BBINIT_LINK
+	string
+	depends on HAVEGED_STARTSCRIPT
+	prompt "haveged"
+	default "S21haveged"
+
+# vim: ft=kconfig noet tw=72

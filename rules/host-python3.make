@@ -38,10 +38,19 @@ HOST_PYTHON3_CONF_TOOL	:= autoconf
 HOST_PYTHON3_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-shared \
-	--with-pymalloc \
+	--disable-profiling \
+	--disable-optimizations \
+	--disable-loadable-sqlite-extensions \
+	--without-pydebug \
+	--without-lto \
 	--with-signal-module \
-	--with-threads \
+	--with-threads=pthread \
 	--without-doc-strings \
+	--without-tsc \
+	--with-pymalloc \
+	--without-valgrind \
+	--with-fpectl \
+	--with-computed-gotos \
 	--without-ensurepip
 
 # ----------------------------------------------------------------------------

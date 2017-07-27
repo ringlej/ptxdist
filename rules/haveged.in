@@ -1,0 +1,23 @@
+## SECTION=networking
+
+menuconfig HAVEGED
+	tristate
+	prompt "haveged                       "
+	select BUSYBOX_START_STOP_DAEMON			if HAVEGED_STARTSCRIPT
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS	if HAVEGED_STARTSCRIPT
+	help
+	  haveged is a simple entropy daemon
+
+if HAVEGED
+
+config HAVEGED_STARTSCRIPT
+	bool
+	prompt "install /etc/init.d/haveged"
+
+config HAVEGED_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files"
+
+endif

@@ -1,6 +1,6 @@
-## SECTION=applications
+## SECTION=mysql
 
-menuconfig MYSQL
+config MYSQL
 	tristate
 	select HOST_CMAKE
 	select HOST_MYSQL
@@ -15,7 +15,7 @@ menuconfig MYSQL
 	select GCCLIBS_GCC_S
 	select NCURSES
 	select SYSTEMD		if MYSQL_SYSTEMD
-	prompt "mysql                         "
+	prompt "mysql" if ALLYES
 	help
 	  mySQL, an SQL database engine
 

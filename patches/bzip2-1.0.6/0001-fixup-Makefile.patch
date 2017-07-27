@@ -13,7 +13,7 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 files changed, 69 insertions(+), 65 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index eb09753..8b1bf77 100644
+index 9754ddf286b1..8e6a46b63904 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -12,6 +12,8 @@
@@ -203,5 +203,5 @@ index eb09753..8b1bf77 100644
 -	rm -f manual.ps manual.html manual.pdf
 +	#rm -f manual.ps manual.html manual.pdf
  
- DISTNAME=bzip2-1.0.5
+ DISTNAME=bzip2-1.0.6
  dist: check manual

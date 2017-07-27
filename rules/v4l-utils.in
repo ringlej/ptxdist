@@ -42,7 +42,7 @@ config V4L_UTILS_CECFOLLOWER
 	bool
 	prompt "install cec-follower"
 
-config V4L_UTILS_CECFOLLOWER
+config V4L_UTILS_CX18CTL
 	bool
 	prompt "install cx18-ctl"
 

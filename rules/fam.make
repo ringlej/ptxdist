@@ -51,7 +51,7 @@ $(STATEDIR)/fam.targetinstall:
 
 	@$(call install_copy, fam, 0, 0, 0755, -, /usr/sbin/famd)
 ifdef PTXCONF_FAM_DEFAULT_CONF
-	@$(call install_copy, fam, 0, 0, 0755, -, /etc/fam.conf, n)
+	@$(call install_copy, fam, 0, 0, 0644, -, /etc/fam.conf, n)
 endif
 ifdef PTXCONF_FAM_LIBRARY
 	@$(call install_lib, fam, 0, 0, 0644, libfam)

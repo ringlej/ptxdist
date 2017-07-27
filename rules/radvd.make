@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_RADVD) += radvd
 #
 # Paths and names
 #
-RADVD_VERSION	:= 2.13
+RADVD_VERSION	:= 2.16
 RADVD		:= radvd-$(RADVD_VERSION)
 RADVD_SUFFIX	:= tar.xz
-RADVD_MD5	:= 43bd31c0fbc680fbb43a85d694c15f73
+RADVD_MD5	:= d2de8237538b23574ba3a8e495bd9c20
 RADVD_URL	:= http://www.litech.org/radvd/dist/$(RADVD).$(RADVD_SUFFIX)
 RADVD_DIR	:= $(BUILDDIR)/$(RADVD)
 RADVD_SOURCE	:= $(SRCDIR)/$(RADVD).$(RADVD_SUFFIX)
@@ -35,7 +35,8 @@ RADVD_LICENSE	:= BSD
 RADVD_CONF_TOOL	:= autoconf
 RADVD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--without-check
+	--without-check \
+	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 # ----------------------------------------------------------------------------
 # Target-Install

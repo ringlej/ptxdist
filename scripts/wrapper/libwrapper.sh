@@ -10,6 +10,7 @@ LINKING=true
 OPTIMIZE=false
 PIE=true
 STDLIB=true
+BUILDID=true
 
 ARG_LIST=""
 LATE_ARG_LIST=""
@@ -40,6 +41,9 @@ cc_check_args() {
 				;;
 			-D_FORTIFY_SOURCE | -D_FORTIFY_SOURCE=*)
 				FORTIFY=false
+				;;
+			-r | -Wl,--build-id | -Wl,--build-id=*)
+				BUILDID=false
 				;;
 			-nostdlib | -ffreestanding)
 				STDLIB=false
@@ -133,6 +137,9 @@ add_ld_args() {
 	add_opt_arg TARGET_LINKER_HASH_SYSV "${1}--hash-style=sysv"
 	add_opt_arg TARGET_LINKER_HASH_BOTH "${1}--hash-style=both"
 	add_opt_arg TARGET_LINKER_AS_NEEDED "${1}--as-needed"
+	if ${BUILDID}; then
+		add_opt_arg TARGET_BUILD_ID "${1}--build-id=sha1"
+	fi
 }
 
 ld_add_ld_args() {

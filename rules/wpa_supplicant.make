@@ -25,7 +25,8 @@ WPA_SUPPLICANT_URL	:= http://hostap.epitest.fi/releases/$(WPA_SUPPLICANT).$(WPA_
 WPA_SUPPLICANT_SOURCE	:= $(SRCDIR)/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
 WPA_SUPPLICANT_DIR	:= $(BUILDDIR)/$(WPA_SUPPLICANT)
 WPA_SUPPLICANT_SUBDIR	:= $(WPA_SUPPLICANT_NAME)
-WPA_SUPPLICANT_DEFCONF	:= $(shell ptxd_get_alternative config/wpasupplicant defconfig && echo $$ptxd_reply)
+# Use '=' to delay $(shell ...) calls until this is needed
+WPA_SUPPLICANT_DEFCONF	 = $(shell ptxd_get_alternative config/wpasupplicant defconfig && echo $$ptxd_reply)
 WPA_SUPPLICANT_CONFIG	:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_SUBDIR)/.config
 WPA_SUPPLICANT_LICENSE	:= GPL-2.0
 

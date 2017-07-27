@@ -9,6 +9,16 @@ menuconfig ECRYPTFS_UTILS
 	select HOST_GETTEXT	# needed for autogen.sh
 	select HOST_GLIB	# needed for autogen.sh
 	select HOST_LIBGCRYPT	# needed for autogen.sh
+	select ATTR			if ECRYPTFS_UTILS_TESTS
+	select BASH			if ECRYPTFS_UTILS_TESTS
+	select COREUTILS		if ECRYPTFS_UTILS_TESTS
+	select COREUTILS_DF		if ECRYPTFS_UTILS_TESTS
+	select COREUTILS_MKDIR		if ECRYPTFS_UTILS_TESTS
+	select COREUTILS_SLEEP		if ECRYPTFS_UTILS_TESTS
+	select COREUTILS_STAT		if ECRYPTFS_UTILS_TESTS
+	select COREUTILS_TR		if ECRYPTFS_UTILS_TESTS
+	select COREUTILS_TRUNCATE	if ECRYPTFS_UTILS_TESTS
+	select UTIL_LINUX_NG_MKFS	if ECRYPTFS_UTILS_TESTS
 	help
 	  eCryptfs is a POSIX-compliant enterprise-class stacked
 	  cryptographic filesystem for Linux.
@@ -44,4 +54,6 @@ config ECRYPTFS_UTILS_ECRYPTFS_UNWRAP_PASSPHRASE
 config ECRYPTFS_UTILS_ECRYPTFS_WRAP_PASSPHRASE
 	bool "ecryptfs-wrap-passphrase"
 
+config ECRYPTFS_UTILS_TESTS
+	bool "ecryptfs-tests"
 endif

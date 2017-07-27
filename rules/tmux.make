@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_TMUX) += tmux
 #
 # Paths and names
 #
-TMUX_VERSION	:= 2.3
-TMUX_MD5	:= fcfd1611d705d8b31df3c26ebc93bd3e
+TMUX_VERSION	:= 2.5
+TMUX_MD5	:= 4a5d73d96d8f11b0bdf9b6f15ab76d15
 TMUX		:= tmux-$(TMUX_VERSION)
 TMUX_SUFFIX	:= tar.gz
 TMUX_URL	:= https://github.com/tmux/tmux/releases/download/$(TMUX_VERSION)/$(TMUX).$(TMUX_SUFFIX)
@@ -36,8 +36,6 @@ TMUX_CONF_TOOL	:= autoconf
 TMUX_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-debug \
-	--disable-coverage \
-	--disable-profile \
 	--disable-static \
 	--disable-utempter \
 	--disable-utf8proc

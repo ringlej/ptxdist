@@ -1,0 +1,37 @@
+## SECTION=multimedia_libs
+
+menuconfig WAFFLE
+	tristate
+	prompt "waffle                        "
+	select HOST_CMAKE
+	select MESALIB
+	select LIBXCB		if WAFFLE_GLX || WAFFLE_X11_EGL
+	select MESALIB_GLX	if WAFFLE_GLX
+	select WAYLAND		if WAFFLE_WAYLAND
+	select MESALIB_EGL	if WAFFLE_WAYLAND || WAFFLE_X11_EGL || WAFFLE_X11_EGL
+	select UDEV_LIBUDEV	if WAFFLE_GBM
+	select MESALIB_GBM	if WAFFLE_GBM
+	help
+	  Waffle is a cross-platform C library that allows one to defer
+	  selection of an OpenGL API and window system until runtime.
+
+if WAFFLE
+
+config WAFFLE_GLX
+	bool
+	prompt "GLX support"
+
+config WAFFLE_WAYLAND
+	bool
+	prompt "Wayland support"
+
+config WAFFLE_X11_EGL
+	bool
+	prompt "X11 EGL support"
+
+config WAFFLE_GBM
+	bool
+	prompt "GBM support"
+
+endif
+

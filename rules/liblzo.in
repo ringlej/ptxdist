@@ -2,9 +2,9 @@
 #
 # rules/liblzo.in
 #
-menuconfig LIBLZO
+config LIBLZO
 	tristate
-	prompt "liblzo                        "
+	prompt "liblzo"
 	help
 	  Compiles the LZO compression libraries on your target system.
 

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 1.12.0
-WESTON_MD5	:= 310af6d7f8ba03c3418cec8ad72ea748
+WESTON_VERSION	:= 2.0.0
+WESTON_MD5	:= 15f38945942bf2a91fe2687145fb4c7d
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -36,6 +36,7 @@ WESTON_LICENSE	:= MIT
 WESTON_CONF_TOOL	:= autoconf
 WESTON_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
 	--enable-shared \
 	--disable-devdocs \
@@ -96,23 +97,23 @@ ifdef PTXCONF_WESTON_WCAP_TOOLS
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/wcap-decode)
 endif
 
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1)
-	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-1)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-2)
 ifdef PTXCONF_WESTON_XWAYLAND
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1/xwayland)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2/xwayland)
 endif
 ifdef PTXCONF_WESTON_DRM_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1/drm-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2/drm-backend)
 endif
 ifdef PTXCONF_WESTON_HEADLESS_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1/headless-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2/headless-backend)
 endif
 ifdef PTXCONF_WESTON_FBDEV_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1/fbdev-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2/fbdev-backend)
 endif
 ifdef PTXCONF_WESTON_GL
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1/wayland-backend)
-	@$(call install_lib, weston, 0, 0, 0644, libweston-1/gl-renderer)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2/wayland-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-2/gl-renderer)
 endif
 	@$(call install_lib, weston, 0, 0, 0644, weston/desktop-shell)
 	@$(call install_lib, weston, 0, 0, 0644, weston/fullscreen-shell)

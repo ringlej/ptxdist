@@ -1,0 +1,13 @@
+## SECTION=security
+
+config OPTEE_CLIENT
+	tristate
+	prompt "optee-client"
+	help
+	  Open Portable Trusted Execution Environment Client API.
+
+	  This package contains libteec.so, which is the library that
+	  contains that API for communication with the Trusted OS. And
+	  a binary tee-supplicant which is a daemon serving the
+	  Trusted OS in secure world with miscellaneous features, such
+	  as file system access.

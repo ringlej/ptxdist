@@ -21,6 +21,7 @@ menuconfig MESALIB
 	select LIBDRM_NOUVEAU		if MESALIB_DRI_NOUVEAU || MESALIB_DRI_NOUVEAU_VIEUX
 	select LIBDRM_FREEDRENO		if MESALIB_DRI_FREEDRENO
 	select LIBDRM_ETNAVIV		if MESALIB_DRI_ETNAVIV
+	select LM_SENSORS		if MESALIB_LMSENSORS
 	select XORG_PROTO_DRI2		if MESALIB_GLX
 	select XORG_LIB_X11		if MESALIB_GLX
 	select XORG_LIB_XEXT		if MESALIB_GLX
@@ -29,6 +30,7 @@ menuconfig MESALIB
 	select XORG_LIB_XFIXES		if MESALIB_GLX
 	select XORG_PROTO_GL		if MESALIB_GLX
 	select EXPAT
+	select ZLIB
 	help
 	  Mesa is a 3-D graphics library with an API which is very
 	  similar to that of OpenGL. See the project homepage for
@@ -151,5 +153,17 @@ config MESALIB_EGL_WAYLAND
 	prompt "Wayland"
 
 endif
+
+comment "Gallium HUD options"
+
+config MESALIB_EXTENDED_HUD
+	prompt "Extended Gallium HUD options"
+	bool
+
+config MESALIB_LMSENSORS
+	prompt "LMsensors support"
+	depends on MESALIB_EXTENDED_HUD
+	bool
+
 endif
 

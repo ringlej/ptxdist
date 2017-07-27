@@ -51,7 +51,7 @@ ptxd_init_get_sysroot_base_platform() {
 ptxd_init_ptxdist_path() {
     if [ "${PTXDIST_WORKSPACE}" != "${PTXDIST_PLATFORMCONFIGDIR}" ]; then
 	PTXDIST_PATH="${PTXDIST_WORKSPACE}:${PTXDIST_PLATFORMCONFIGDIR}:${PTXDIST_TOPDIR}:"
-    elif [ "${PTXDIST_WORKSPACE}" != "${PTXDIST_TOPDIR}" ]; then
+    elif [ ! "${PTXDIST_WORKSPACE}" -ef "${PTXDIST_TOPDIR}" ]; then
 	PTXDIST_PATH="${PTXDIST_WORKSPACE}:${PTXDIST_TOPDIR}:"
     else
 	PTXDIST_PATH="${PTXDIST_WORKSPACE}:"

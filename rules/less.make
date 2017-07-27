@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LESS) += less
 #
 # Paths and names
 #
-LESS_VERSION	:= 443
-LESS_MD5	:= 47db098fb3cdaf847b3c4be05ee954fc
+LESS_VERSION	:= 487
+LESS_MD5	:= dcc8bf183a83b362d37fe9ef8df1fb60
 LESS		:= less-$(LESS_VERSION)
 LESS_SUFFIX	:= tar.gz
 LESS_URL	:= $(call ptx/mirror, GNU, less/$(LESS).$(LESS_SUFFIX))
@@ -29,67 +29,23 @@ LESS_LICENSE	:= GPL-3.0+, BSD-2-Clause
 # Prepare
 # ----------------------------------------------------------------------------
 
-LESS_PATH	:= PATH=$(CROSS_PATH)
-LESS_ENV 	:= $(CROSS_ENV)
+LESS_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_tinfo_tgoto=no \
+	ac_cv_lib_xcurses_initscr=no \
+	ac_cv_lib_ncursesw_initscr=$(call ptx/ifdef,PTXCONF_LESS_NCURSESW,yes,no) \
+	ac_cv_lib_ncurses_initscr=$(call ptx/ifdef,PTXCONF_LESS_NCURSES,yes,no) \
+	ac_cv_lib_curses_initscr=no \
+	ac_cv_lib_termcap_tgetent=$(call ptx/ifdef,PTXCONF_LESS_USE_TERMCAP,yes,no) \
+	ac_cv_lib_termlib_tgetent=no
 
 #
 # autoconf
 #
-LESS_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LESS_USE_PW
-LESS_ENV += ac_cv_lib_PW_regcmp=yes
-else
-LESS_ENV += ac_cv_lib_PW_regcmp=no
-endif
-
-ifdef PTXCONF_LESS_USE_CURSES
-LESS_ENV += ac_cv_lib_curses_initscr=yes
-else
-LESS_ENV += ac_cv_lib_curses_initscr=no
-endif
-
-ifdef PTXCONF_LESS_USE_TINFO
-LESS_ENV += ac_cv_lib_tinfo_tgoto=yes
-else
-LESS_ENV += ac_cv_lib_tinfo_tgoto=no
-endif
-
-ifdef PTXCONF_LESS_USE_XCURSES
-LESS_ENV += ac_cv_lib_xcurses_initscr=yes
-else
-LESS_ENV += ac_cv_lib_xcurses_initscr=no
-endif
-
-ifdef PTXCONF_LESS_USE_NCURSES
-LESS_ENV += ac_cv_lib_ncurses_initscr=yes
-else
-LESS_ENV += ac_cv_lib_ncurses_initscr=no
-endif
-
-ifdef PTXCONF_LESS_USE_TERMCAP
-LESS_ENV += ac_cv_lib_termcap_tgetent=yes
-else
-LESS_ENV += ac_cv_lib_termcap_tgetent=no
-endif
-
-ifdef PTXCONF_LESS_USE_TERMLIB
-LESS_ENV += ac_cv_lib_termlib_tgetent=yes
-else
-LESS_ENV += ac_cv_lib_termlib_tgetent=no
-endif
-
-ifdef PTXCONF_LESS_USE_GEN
-LESS_ENV += ac_cv_lib_gen_regcmp=yes
-else
-LESS_ENV += ac_cv_lib_gen_regcmp=no
-endif
-
-ifdef PTXCONF_LESS_USE_INTL
-LESS_ENV += ac_cv_lib_intl_regcmp=yes
-else
-LESS_ENV += ac_cv_lib_intl_regcmp=no
-endif
+LESS_CONF_TOOL	:= autoconf
+LESS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -219,9 +219,10 @@ config E2FSPROGS_INSTALL_LOGSAVE
 comment "BusyBox' mke2fs is selected!"
 	depends on BUSYBOX_MKE2FS
 
+if !BUSYBOX_MKE2FS || ALLYES
+
 config E2FSPROGS_INSTALL_MKE2FS
 	bool
-	depends on !BUSYBOX_MKE2FS || ALLYES
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
@@ -257,7 +258,7 @@ config E2FSPROGS_INSTALL_MKFS_EXT4DEV
 	help
 	  Create link to mkfs.ext4dev program.
 
-
+endif
 
 config E2FSPROGS_INSTALL_MKLOSTANDFOUND
 	bool

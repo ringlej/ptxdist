@@ -59,6 +59,8 @@ config POPPLER_SPLASH
 
 config POPPLER_PNG
 	bool
+	# fails to build with the current libpng
+	depends on BROKEN
 	prompt "enable poppler png support"
 	help
 	  compiles poppler with png support.

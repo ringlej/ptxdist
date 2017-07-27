@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Copyright (C) 2017 by Michael Olbrich <m.olbrich@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+args=(
+	"@QEMU@" \
+	-r "@KERNEL_VERSION@" \
+	-L "@QEMU_LD_PREFIX@" \
+	-E LD_LIBRARY_PATH="@QEMU_LD_LIBRARY_PATH@" \
+)
+linker="@LINKER@"
+
+while [ ${#} -gt 0 ]; do
+	case "${1}" in
+	-g|-L|-s|-cpu|-E|-U|-0|-r|-B|-R|-d|-D|-p)
+		args[${#args[@]}]="${1}"
+		args[${#args[@]}]="${2}"
+		shift 2
+		;;
+	-*)
+		args[${#args[@]}]="${1}"
+		shift
+		;;
+	*)
+		break
+		;;
+	esac
+done
+
+args[${#args[@]}]="${linker}"
+args[${#args[@]}]="--inhibit-cache"
+case "${1}" in
+	/*) cmd="$(readlink -f "${1}")" ;;
+	*) cmd="$(readlink -f "${PWD}/${1}")" ;;
+esac
+if [ "${cmd}" != "${linker}" ]; then
+	args[${#args[@]}]="${cmd}"
+fi
+shift
+if [ "${PTXDIST_VERBOSE}" = 1 -a -n "${PTXDIST_FD_LOGFILE}" ]; then
+	echo "qemu: ${args[@]} ${@}" >&${PTXDIST_FD_LOGFILE}
+fi
+exec "${args[@]}" "${@}"

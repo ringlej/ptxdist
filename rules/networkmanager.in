@@ -3,6 +3,7 @@
 menuconfig NETWORKMANAGER
 	tristate
 	# intltool is unconditionally requested by configure
+	select HOST_GLIB
 	select HOST_INTLTOOL
 	select LIBC_M
 	select LIBC_DL
@@ -12,18 +13,18 @@ menuconfig NETWORKMANAGER
 	select DBUS_PYTHON			if NETWORKMANAGER_EXAMPLES && RUNTIME
 	select GLIB
 	select GNUTLS
-	select LIBGUDEV
+	select LIBCURL				if NETWORKMANAGER_CONCHECK
 	select LIBNDP
 	select LIBNEWT				if NETWORKMANAGER_NMTUI
 	select LIBNL3
-	select LIBSOUP				if NETWORKMANAGER_CONCHECK
 	select LIBUUID
 	select MODEMMANAGER			if NETWORKMANAGER_WWAN
 	select PPP				if NETWORKMANAGER_PPP
 	select PPP_PLUGINS			if NETWORKMANAGER_PPP
 	select READLINE				if NETWORKMANAGER_NMCLI
 	select SYSTEMD				if NETWORKMANAGER_SYSTEMD_UNIT
-	select UDEV				if RUNTIME
+	select UDEV
+	select UDEV_LIBUDEV
 	select WPA_SUPPLICANT			if NETWORKMANAGER_WIRELESS && RUNTIME
 	select WPA_SUPPLICANT_CTRL_IFACE_DBUS	if NETWORKMANAGER_WIRELESS && RUNTIME
 	prompt "networkmanager                "

@@ -1,9 +1,8 @@
 ## SECTION=multimedia_sound
 
-config MPG123
+menuconfig MPG123
 	tristate
-	prompt "mpg123"
-	select LIBLTDL
+	prompt "mpg123                        "
 	select ALSA_LIB
 	select ALSA_LIB_PCM
 	help
@@ -14,3 +13,14 @@ config MPG123
 	  It is free software licensed under LGPL 2.1 (the officially released sources,
 	  some files in subversion repository may differ).
 
+if MPG123
+
+config MPG123_INT_QUALITY
+	bool
+	default n
+	prompt "integer quality mode"
+	help
+	  Use rounding instead of fast truncation for integer output.
+	  Enable this if you need ISO MPEG compliance.
+
+endif

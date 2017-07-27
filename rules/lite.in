@@ -1,4 +1,6 @@
-## SECTION=multimedia_directfb
+## SECTION=staging
+## old section:
+### SECTION=multimedia_directfb
 
 config LITE
 	tristate
@@ -8,3 +10,6 @@ config LITE
 	select DIRECTFB
 	help
 	  LiTE is a Toolkit Engine for DirectFB
+
+	  STAGING: remove in ptxdist-2018.07.0
+	  DirectFB moved to staging.
