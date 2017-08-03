@@ -16,7 +16,7 @@ Signed-off-by: Samuel Martin <s.martin49@gmail.com>
  1 file changed, 59 insertions(+), 21 deletions(-)
 
 diff --git a/auto/feature b/auto/feature
-index 1145f28684b1..a194b85651a5 100644
+index 3561f5941f24..8016d802e7a8 100644
 --- a/auto/feature
 +++ b/auto/feature
 @@ -52,50 +52,88 @@ if [ -x $NGX_AUTOTEST ]; then

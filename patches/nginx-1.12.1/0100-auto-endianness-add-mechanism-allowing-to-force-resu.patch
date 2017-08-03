@@ -8,7 +8,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/auto/endianness b/auto/endianness
-index 70b0a106cd64..ab9d69a0c265 100644
+index 1b552b6b37b8..0f2394cfb6a1 100644
 --- a/auto/endianness
 +++ b/auto/endianness
 @@ -32,7 +32,7 @@ ngx_test="$CC $CC_TEST_FLAGS $CC_AUX_FLAGS \

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NGINX) += nginx
 #
 # Paths and names
 #
-NGINX_VERSION	:= 1.10.3
-NGINX_MD5	:= 204a20cb4f0b0c9db746c630d89ff4ea
+NGINX_VERSION	:= 1.12.1
+NGINX_MD5	:= a307e74aca95403e5ee00f153807ce58
 NGINX		:= nginx-$(NGINX_VERSION)
 NGINX_SUFFIX	:= tar.gz
 NGINX_URL	:= https://nginx.org/download/$(NGINX).$(NGINX_SUFFIX)
@@ -44,7 +44,8 @@ NGINX_CONF_ENV := \
 	ngx_force_have_map_anon=yes \
 	ngx_force_have_map_devzero=yes \
 	ngx_force_have_sysvshm=yes \
-	ngx_force_have_posix_sem=yes
+	ngx_force_have_posix_sem=yes \
+	ngx_force_ipv6=$(call ptx/ifdef, PTXCONF_GLOBAL_IPV6, yes, no)
 
 ifdef PTXCONF_ENDIAN_LITTLE
 NGINX_CONF_ENV += ngx_force_have_little_endian=yes
@@ -102,8 +103,7 @@ NGINX_CONF_OPT := \
 #       If it is off by default, a with option exists.
 
 # Opt-in
-NGINX_CONF_OPTIN-$(PTXCONF_GLOBAL_IPV6)				:= ipv6
-NGINX_CONF_OPTIN-$(PTXCONF_NGINX_HTTP_GZIP_STATIC_MODULE)	+= http_gzip_static_module
+NGINX_CONF_OPTIN-$(PTXCONF_NGINX_HTTP_GZIP_STATIC_MODULE)	:= http_gzip_static_module
 NGINX_CONF_OPTIN-$(PTXCONF_NGINX_HTTP_SSL_MODULE)		+= http_ssl_module
 NGINX_CONF_OPTIN-$(PTXCONF_NGINX_HTTP_V2_MODULE)		+= http_v2_module
 NGINX_CONF_OPTIN-$(PTXCONF_NGINX_PCRE_JIT)			+= pcre-jit

@@ -1,0 +1,33 @@
+From: Clemens Gruber <clemens.gruber@pqgruber.com>
+Date: Thu, 3 Aug 2017 15:47:08 +0200
+Subject: [PATCH] auto/unix: allow overriding the IPv6 build tests
+
+Signed-off-by: Clemens Gruber <clemens.gruber@pqgruber.com>
+---
+ auto/unix | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/auto/unix b/auto/unix
+index ed821b5a5aaa..dba1be478b9d 100644
+--- a/auto/unix
++++ b/auto/unix
+@@ -412,7 +412,8 @@ ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_PKTINFO, NULL, 0)"
+ 
+ ngx_feature="IPV6_RECVPKTINFO"
+ ngx_feature_name="NGX_HAVE_IPV6_RECVPKTINFO"
+-ngx_feature_run=no
++ngx_feature_run_force_result="$ngx_force_ipv6"
++ngx_feature_run=value
+ ngx_feature_incs="#include <sys/socket.h>
+                   #include <netinet/in.h>"
+ ngx_feature_path=
+@@ -640,7 +640,8 @@ ngx_param=NGX_MAX_TIME_T_VALUE; ngx_value=$ngx_max_value; . auto/types/value
+ 
+ ngx_feature="AF_INET6"
+ ngx_feature_name="NGX_HAVE_INET6"
+-ngx_feature_run=no
++ngx_feature_run_force_result="$ngx_force_ipv6"
++ngx_feature_run=value
+ ngx_feature_incs="#include <sys/socket.h>
+                   #include <netinet/in.h>
+                   #include <arpa/inet.h>"
