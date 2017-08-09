@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 2.0.0
-WESTON_MD5	:= 15f38945942bf2a91fe2687145fb4c7d
+WESTON_VERSION	:= 3.0.0
+WESTON_MD5	:= 9c42a4c51a1b9f35d040fa9d45ada36d
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -41,7 +41,6 @@ WESTON_CONF_OPT		:= \
 	--enable-shared \
 	--disable-devdocs \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-egl \
-	--enable-xkbcommon \
 	--disable-setuid-install \
 	--$(call ptx/endis, PTXCONF_WESTON_XWAYLAND)-xwayland \
 	--disable-xwayland-test \
@@ -55,7 +54,7 @@ WESTON_CONF_OPT		:= \
 	--disable-vaapi-recorder \
 	--enable-simple-clients \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-simple-egl-clients \
-	--disable-simple-dmabuf-intel-client \
+	--disable-simple-dmabuf-drm-client \
 	--disable-simple-dmabuf-v4l-client \
 	--enable-clients \
 	--enable-resize-optimization \
@@ -97,23 +96,23 @@ ifdef PTXCONF_WESTON_WCAP_TOOLS
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/wcap-decode)
 endif
 
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2)
-	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-2)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-3)
 ifdef PTXCONF_WESTON_XWAYLAND
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/xwayland)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3/xwayland)
 endif
 ifdef PTXCONF_WESTON_DRM_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/drm-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3/drm-backend)
 endif
 ifdef PTXCONF_WESTON_HEADLESS_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/headless-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3/headless-backend)
 endif
 ifdef PTXCONF_WESTON_FBDEV_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/fbdev-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3/fbdev-backend)
 endif
 ifdef PTXCONF_WESTON_GL
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/wayland-backend)
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/gl-renderer)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3/wayland-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-3/gl-renderer)
 endif
 	@$(call install_lib, weston, 0, 0, 0644, weston/desktop-shell)
 	@$(call install_lib, weston, 0, 0, 0644, weston/fullscreen-shell)
