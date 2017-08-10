@@ -45,6 +45,7 @@ config UTIL_LINUX_NG_AGETTY
 
 config UTIL_LINUX_NG_COLUMN
 	bool
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	prompt "column"
 	help
 	  Columnate lists.
