@@ -52,4 +52,5 @@ end of the patch description.
 
 There are some more usual tags (like Acked-by or Reported-by) which only have
 informational character and so are not formally specified here. See the Linux
-kernel (file: Documentation/SubmittingPatches) for how they are used here, too.
+kernel (file: Documentation/process/submitting-patches.rst) for how they are
+used here, too.
