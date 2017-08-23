@@ -1,0 +1,25 @@
+## SECTION=multimedia_tools
+
+menuconfig QRENCODE
+	tristate
+	prompt "qrencode                      "
+	select LIBPNG		if QRENCODE_TOOLS
+	select LIBC_PTHREAD
+	help
+	  Libqrencode is a C library for encoding data in a QR Code symbol, a
+	  kind of 2D symbology that can be scanned by handy terminals such as a
+	  mobile phone with CCD.
+
+if QRENCODE
+
+config QRENCODE_TOOLS
+	bool
+	default y
+	prompt "build tools"
+	help
+	  Enable this option to build the qrencode tool to build QR codes from
+	  the command line.
+
+endif
+
+# vim: ft=kconfig ts=8 noet tw=80
