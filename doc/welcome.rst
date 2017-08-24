@@ -20,7 +20,7 @@ developed and our brave developer was able to do his project with the
 more and more well-known system. The controllers had legacy interfaces
 like RS232, i2c or SPI which connected them to the outside world and the
 main difference between the controllers available on the market was the
-number of GPIO pins, UARTS and memory ressources.
+number of GPIO pins, UARTS and memory resources.
 
 Things have changed. Hardware manufacturers have weakened the border
 between deeply embedded microcontrollers – headless devices with just a
@@ -107,7 +107,7 @@ Whereas the mainstream developers were always able to use normal Linux
 distributions like SuSE, RedHat, Mandrake or Debian as a base for their
 applications, things are different for embedded systems.
 
-Due to the restricted ressources these systems normally have,
+Due to the restricted resources these systems normally have,
 distributions have to be small and should only contain those things that
 are needed for the application. Today’s mainstream distributions cannot
 be installed in less than 100 MiB without major loss of functionality.
