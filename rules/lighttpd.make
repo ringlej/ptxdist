@@ -60,7 +60,7 @@ LIGHTTPD_CONF_OPT	:= \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_LOCKS)-uuid \
 	--without-gdbm \
 	--without-geoip \
-	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MEMCACHE)-memcached \
+	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MEMCACHED)-memcached \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_LUA)-lua
 
 # ----------------------------------------------------------------------------
