@@ -64,6 +64,16 @@ LIGHTTPD_CONF_OPT	:= \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_LUA)-lua
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+$(STATEDIR)/lighttpd.install:
+	@$(call targetinfo)
+	@$(call world/install, LIGHTTPD)
+	@install -vD -m 0644 "$(LIGHTTPD_DIR)/doc/config/conf.d/mime.conf" \
+		"$(LIGHTTPD_PKGDIR)/etc/lighttpd/conf.d/mime.conf"
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -118,6 +128,8 @@ endif
 	@$(call install_copy, lighttpd, 0, 0, 0755, /etc/lighttpd/conf.d)
 	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
 		@MODULES@, $(LIGHTTPD_MODULE_STRING))
+	@$(call install_alternative, lighttpd, 0, 0, 0644, \
+		/etc/lighttpd/conf.d/mime.conf)
 
 ifdef PTXCONF_LIGHTTPD_MOD_FASTCGI_PHP
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \
