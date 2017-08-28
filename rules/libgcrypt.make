@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.7.8
-LIBGCRYPT_MD5		:= 34fd2e6d230cbe56799cdf7df05f56c5
+LIBGCRYPT_VERSION	:= 1.8.0
+LIBGCRYPT_MD5		:= 530db74602b558209f9ad7356a680971
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
@@ -59,6 +59,7 @@ LIBGCRYPT_AUTOCONF := \
 	--disable-m-guard \
 	--disable-large-data-tests \
 	--disable-hmac-binary-check \
+	--enable-jent-support \
 	--enable-padlock-support \
 	--enable-aesni-support \
 	--enable-pclmul-support \
