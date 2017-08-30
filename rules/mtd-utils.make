@@ -118,6 +118,10 @@ ifdef PTXCONF_MTD_UTILS_NANDDUMP
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/nanddump)
 endif
+ifdef PTXCONF_MTD_UTILS_NANDMARKBAD
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/nandmarkbad)
+endif
 ifdef PTXCONF_MTD_UTILS_NANDTEST
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/nandtest)

@@ -161,6 +161,12 @@ config MTD_UTILS_NANDDUMP
 comment "busybox' nanddump is selected!"
 	depends on BUSYBOX_NANDDUMP
 
+config MTD_UTILS_NANDMARKBAD
+	bool
+	prompt "nandmarkbad"
+	help
+	  Mark block bad.
+
 config MTD_UTILS_NANDTEST
 	bool
 	prompt "nandtest"
