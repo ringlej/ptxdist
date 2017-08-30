@@ -1,4 +1,3 @@
-From 0c293e823cbe169ed09f1be263ff22e57b9d03ef Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Wed, 13 Jan 2010 09:29:27 +0100
 Subject: [PATCH] install-sh: disable stripping
@@ -8,14 +7,14 @@ This patch disables stripping because the install-sh would use
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- install-sh |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ install-sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/install-sh b/install-sh
-index 5a6d399..e9a70b5 100755
+index 79e7f408172c..9e78efae7a2e 100755
 --- a/install-sh
 +++ b/install-sh
-@@ -138,7 +138,7 @@ while ${MORETODO} ; do
+@@ -141,7 +141,7 @@ while ${MORETODO} ; do
  	fi
  	;;
      X-s)
@@ -24,6 +23,3 @@ index 5a6d399..e9a70b5 100755
  	;;
      X--)
  	shift
--- 
-1.6.6
-
