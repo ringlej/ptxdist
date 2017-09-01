@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_EXPAT) += expat
 #
 # Paths and names
 #
-EXPAT_VERSION	:= 2.2.0
-EXPAT_MD5	:= 2f47841c829facb346eb6e3fab5212e2
+EXPAT_VERSION	:= 2.2.4
+EXPAT_MD5	:= 6e3980aba29a224a9f478d88ac7ec207
 EXPAT		:= expat-$(EXPAT_VERSION)
 EXPAT_SUFFIX	:= tar.bz2
 EXPAT_URL	:= $(call ptx/mirror, SF, expat/$(EXPAT).$(EXPAT_SUFFIX))
@@ -37,7 +37,10 @@ EXPAT_LICENSE	:= MIT
 EXPAT_CONF_TOOL	:= autoconf
 EXPAT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-static
+	--disable-static \
+	--enable-xml-context \
+	--without-xmlwf \
+	--without-libbsd
 
 # ----------------------------------------------------------------------------
 # Target-Install
