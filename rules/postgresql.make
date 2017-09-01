@@ -23,7 +23,7 @@ POSTGRESQL_SUFFIX	:= tar.bz2
 POSTGRESQL_URL		:= https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)/$(POSTGRESQL).$(POSTGRESQL_SUFFIX)
 POSTGRESQL_SOURCE	:= $(SRCDIR)/$(POSTGRESQL).$(POSTGRESQL_SUFFIX)
 POSTGRESQL_DIR		:= $(BUILDDIR)/$(POSTGRESQL)
-POSTGRESQL_LICENSE	:= unknown
+POSTGRESQL_LICENSE	:= PostgreSQL
 
 # ----------------------------------------------------------------------------
 # Prepare
