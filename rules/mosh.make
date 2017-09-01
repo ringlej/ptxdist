@@ -41,7 +41,7 @@ MOSH_CONF_OPT	:= \
 	--without-utempter \
 	--with-ncurses \
 	--without-ncursesw \
-	--with-crypto-library=openssl
+	--with-crypto-library=$(call ptx/ifdef, PTXCONF_MOSH_NETTLE, nettle, openssl)
 
 
 # ----------------------------------------------------------------------------
