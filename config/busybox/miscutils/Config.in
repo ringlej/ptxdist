@@ -42,7 +42,7 @@ config BUSYBOX_BEEP
 
 config BUSYBOX_FEATURE_BEEP_FREQ
 	int "default frequency"
-	range 0 2147483647
+	range 20 50000	# allowing 0 here breaks the build
 	default 4000
 	depends on BUSYBOX_BEEP
 	help
@@ -121,12 +121,6 @@ config BUSYBOX_FEATURE_CHAT_CLR_ABORT
 	default y
 	help
 	  Support CLR_ABORT directive.
-config BUSYBOX_CHRT
-	bool "chrt"
-	default y
-	help
-	  manipulate real-time attributes of a process.
-	  This requires sched_{g,s}etparam support in your libc.
 config BUSYBOX_CONSPY
 	bool "conspy"
 	default y
@@ -220,7 +214,7 @@ config BUSYBOX_DEVFSD_MODLOAD
 	  the external modutils.
 
 config BUSYBOX_DEVFSD_FG_NP
-	bool "Enables the -fg and -np options"
+	bool "Enable the -fg and -np options"
 	default y
 	depends on BUSYBOX_DEVFSD
 	help
@@ -253,20 +247,6 @@ config BUSYBOX_DEVMEM
 	help
 	  devmem is a small program that reads and writes from physical
 	  memory using /dev/mem.
-config BUSYBOX_EJECT
-	bool "eject"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  Used to eject cdroms. (defaults to /dev/cdrom)
-
-config BUSYBOX_FEATURE_EJECT_SCSI
-	bool "SCSI support"
-	default y
-	depends on BUSYBOX_EJECT
-	help
-	  Add the -s option to eject, this allows to eject SCSI-Devices and
-	  usb-storage devices.
 config BUSYBOX_FBSPLASH
 	bool "fbsplash"
 	default y
@@ -327,7 +307,7 @@ config BUSYBOX_FEATURE_HDPARM_GET_IDENTITY
 	default y
 	depends on BUSYBOX_HDPARM
 	help
-	  Enables the -I and -i options to obtain detailed information
+	  Enable the -I and -i options to obtain detailed information
 	  directly from drives about their capabilities and supported ATA
 	  feature set. If no device name is specified, hdparm will read
 	  identify data from stdin. Enabling this option will add about 16k...
@@ -337,7 +317,7 @@ config BUSYBOX_FEATURE_HDPARM_HDIO_SCAN_HWIF
 	default y
 	depends on BUSYBOX_HDPARM
 	help
-	  Enables the 'hdparm -R' option to register an IDE interface.
+	  Enable the 'hdparm -R' option to register an IDE interface.
 	  This is dangerous stuff, so you should probably say N.
 
 config BUSYBOX_FEATURE_HDPARM_HDIO_UNREGISTER_HWIF
@@ -345,7 +325,7 @@ config BUSYBOX_FEATURE_HDPARM_HDIO_UNREGISTER_HWIF
 	default y
 	depends on BUSYBOX_HDPARM
 	help
-	  Enables the 'hdparm -U' option to un-register an IDE interface.
+	  Enable the 'hdparm -U' option to un-register an IDE interface.
 	  This is dangerous stuff, so you should probably say N.
 
 config BUSYBOX_FEATURE_HDPARM_HDIO_DRIVE_RESET
@@ -353,7 +333,7 @@ config BUSYBOX_FEATURE_HDPARM_HDIO_DRIVE_RESET
 	default y
 	depends on BUSYBOX_HDPARM
 	help
-	  Enables the 'hdparm -w' option to perform a device reset.
+	  Enable the 'hdparm -w' option to perform a device reset.
 	  This is dangerous stuff, so you should probably say N.
 
 config BUSYBOX_FEATURE_HDPARM_HDIO_TRISTATE_HWIF
@@ -361,7 +341,7 @@ config BUSYBOX_FEATURE_HDPARM_HDIO_TRISTATE_HWIF
 	default y
 	depends on BUSYBOX_HDPARM
 	help
-	  Enables the 'hdparm -x' option to tristate device for hotswap,
+	  Enable the 'hdparm -x' option to tristate device for hotswap,
 	  and the '-b' option to get/set bus state. This is dangerous
 	  stuff, so you should probably say N.
 
@@ -370,7 +350,7 @@ config BUSYBOX_FEATURE_HDPARM_HDIO_GETSET_DMA
 	default y
 	depends on BUSYBOX_HDPARM
 	help
-	  Enables the 'hdparm -d' option to get/set using_dma flag.
+	  Enable the 'hdparm -d' option to get/set using_dma flag.
 config BUSYBOX_I2CGET
 	bool "i2cget"
 	default y
@@ -405,27 +385,6 @@ config BUSYBOX_INOTIFYD
 	help
 	  Simple inotify daemon. Reports filesystem changes. Requires
 	  kernel >= 2.6.13
-config BUSYBOX_IONICE
-	bool "ionice"
-	default y
-	select BUSYBOX_PLATFORM_LINUX
-	help
-	  Set/set program io scheduling class and priority
-	  Requires kernel >= 2.6.13
-config BUSYBOX_LAST
-	bool "last"
-	default y
-	depends on BUSYBOX_FEATURE_WTMP
-	help
-	  'last' displays a list of the last users that logged into the system.
-
-config BUSYBOX_FEATURE_LAST_FANCY
-	bool "Turn on output of extra information"
-	default y
-	depends on BUSYBOX_LAST
-	help
-	  'last' displays detailed information about the last users that
-	  logged into the system (mimics sysvinit last). +900 bytes.
 config BUSYBOX_LESS
 	bool "less"
 	default y
@@ -492,7 +451,6 @@ config BUSYBOX_FEATURE_LESS_ASK_TERMINAL
 	  this option makes less perform a last-ditch effort to find it:
 	  position cursor to 999,999 and ask terminal to report real
 	  cursor position using "ESC [ 6 n" escape sequence, then read stdin.
-
 	  This is not clean but helps a lot on serial lines and such.
 
 config BUSYBOX_FEATURE_LESS_DASHCMD
@@ -504,11 +462,18 @@ config BUSYBOX_FEATURE_LESS_DASHCMD
 	  less itself ('-' keyboard command).
 
 config BUSYBOX_FEATURE_LESS_LINENUMS
-	bool "Enable dynamic switching of line numbers"
+	bool "Enable -N (dynamic switching of line numbers)"
 	default y
 	depends on BUSYBOX_FEATURE_LESS_DASHCMD
+config BUSYBOX_LSSCSI
+	bool "lsscsi"
+	default y
+	#select PLATFORM_LINUX
 	help
-	  Enables "-N" command.
+	  lsscsi is a utility for displaying information about SCSI buses in the
+	  system and devices connected to them.
+
+	  This version uses sysfs (/sys/bus/scsi/devices) only.
 config BUSYBOX_MAKEDEVS
 	bool "makedevs"
 	default y
@@ -550,11 +515,6 @@ config BUSYBOX_MICROCOM
 	default y
 	help
 	  The poor man's minicom utility for chatting with serial port devices.
-config BUSYBOX_MOUNTPOINT
-	bool "mountpoint"
-	default y
-	help
-	  mountpoint checks if the directory is a mountpoint.
 config BUSYBOX_MT
 	bool "mt"
 	default y
@@ -575,6 +535,12 @@ config BUSYBOX_NANDDUMP
 	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Dump the content of raw NAND chip
+config BUSYBOX_PARTPROBE
+	bool "partprobe"
+	default y
+	select BUSYBOX_PLATFORM_LINUX
+	help
+	  Ask kernel to rescan partition table.
 config BUSYBOX_RAIDAUTORUN
 	bool "raidautorun"
 	default y
@@ -632,32 +598,12 @@ config BUSYBOX_SETSERIAL
 	select BUSYBOX_PLATFORM_LINUX
 	help
 	  Retrieve or set Linux serial port.
-config BUSYBOX_SETSID
-	bool "setsid"
-	default y
-	help
-	  setsid runs a program in a new session
 config BUSYBOX_STRINGS
 	bool "strings"
 	default y
 	help
 	  strings prints the printable character sequences for each file
 	  specified.
-config BUSYBOX_TASKSET
-	bool "taskset"
-	default n  # doesn't build on some non-x86 targets (m68k)
-	help
-	  Retrieve or set a processes's CPU affinity.
-	  This requires sched_{g,s}etaffinity support in your libc.
-
-config BUSYBOX_FEATURE_TASKSET_FANCY
-	bool "Fancy output"
-	default y
-	depends on BUSYBOX_TASKSET
-	help
-	  Add code for fancy output. This merely silences a compiler-warning
-	  and adds about 135 Bytes. May be needed for machines with alot
-	  of CPUs.
 config BUSYBOX_TIME
 	bool "time"
 	default y
@@ -665,12 +611,6 @@ config BUSYBOX_TIME
 	  The time command runs the specified program with the given arguments.
 	  When the command finishes, time writes a message to standard output
 	  giving timing statistics about this program run.
-config BUSYBOX_TIMEOUT
-	bool "timeout"
-	default y
-	help
-	  Runs a program and watches it. If it does not terminate in
-	  specified number of seconds, it is sent a signal.
 config BUSYBOX_TTYSIZE
 	bool "ttysize"
 	default y
@@ -731,12 +671,6 @@ config BUSYBOX_VOLNAME
 	default y
 	help
 	  Prints a CD-ROM volume name.
-config BUSYBOX_WALL
-	bool "wall"
-	default y
-	depends on BUSYBOX_FEATURE_UTMP
-	help
-	  Write a message to all users that are logged in.
 config BUSYBOX_WATCHDOG
 	bool "watchdog"
 	default y

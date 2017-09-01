@@ -13,23 +13,19 @@ config BUSYBOX_BASENAME
 	  basename is used to strip the directory and suffix from filenames,
 	  leaving just the filename itself. Enable this option if you wish
 	  to enable the 'basename' utility.
-config BUSYBOX_CAL
-	bool "cal"
-	default y
-	help
-	  cal is used to display a monthly calendar.
 config BUSYBOX_CAT
 	bool "cat"
 	default y
 	help
 	  cat is used to concatenate files and print them to the standard
 	  output. Enable this option if you wish to enable the 'cat' utility.
-config BUSYBOX_CATV
-	bool "catv"
+
+config BUSYBOX_FEATURE_CATV
+	bool "cat -v[etA]"
 	default y
+	depends on BUSYBOX_CAT
 	help
-	  Display nonprinting characters as escape sequences (like some
-	  implementations' cat -v option).
+	  Display nonprinting characters as escape sequences
 config BUSYBOX_CHGRP
 	bool "chgrp"
 	default y
@@ -51,8 +47,6 @@ config BUSYBOX_FEATURE_CHOWN_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_CHOWN && BUSYBOX_LONG_OPTS
-	help
-	  Enable use of long options
 config BUSYBOX_CHROOT
 	bool "chroot"
 	default y
@@ -77,11 +71,11 @@ config BUSYBOX_CP
 	  cp is used to copy files and directories.
 
 config BUSYBOX_FEATURE_CP_LONG_OPTIONS
-	bool "Enable long options for cp"
+	bool "Enable long options"
 	default y
 	depends on BUSYBOX_CP && BUSYBOX_LONG_OPTS
 	help
-	  Enable long options for cp.
+	  Enable long options.
 	  Also add support for --parents option.
 config BUSYBOX_CUT
 	bool "cut"
@@ -163,7 +157,7 @@ config BUSYBOX_FEATURE_DD_IBS_OBS
 	default y
 	depends on BUSYBOX_DD
 	help
-	  Enables support for writing a certain number of bytes in and out,
+	  Enable support for writing a certain number of bytes in and out,
 	  at a time, and performing conversions on the data stream.
 
 config BUSYBOX_FEATURE_DD_STATUS
@@ -171,7 +165,7 @@ config BUSYBOX_FEATURE_DD_STATUS
 	default y
 	depends on BUSYBOX_DD
 	help
-	  Enables support for status=noxfer/none option.
+	  Enable support for status=noxfer/none option.
 config BUSYBOX_DF
 	bool "df"
 	default y
@@ -184,11 +178,9 @@ config BUSYBOX_FEATURE_DF_FANCY
 	default y
 	depends on BUSYBOX_DF
 	help
-	  This option enables -a, -i and -B.
-
-	    -a Show all filesystems
-	    -i Inodes
-	    -B <SIZE> Blocksize
+	  -a Show all filesystems
+	  -i Inodes
+	  -B <SIZE> Blocksize
 config BUSYBOX_DIRNAME
 	bool "dirname"
 	default y
@@ -229,11 +221,9 @@ config BUSYBOX_ECHO
 
 # this entry also appears in shell/Config.in, next to the echo builtin
 config BUSYBOX_FEATURE_FANCY_ECHO
-	bool "Enable echo options (-n and -e)"
+	bool "Enable -n and -e options"
 	default y
-	depends on BUSYBOX_ECHO || BUSYBOX_ASH_BUILTIN_ECHO || BUSYBOX_HUSH
-	help
-	  This adds options (-n and -e) to echo.
+	depends on BUSYBOX_ECHO || BUSYBOX_ASH_ECHO || BUSYBOX_HUSH_ECHO
 config BUSYBOX_ENV
 	bool "env"
 	default y
@@ -246,8 +236,6 @@ config BUSYBOX_FEATURE_ENV_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_ENV && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the env applet.
 config BUSYBOX_EXPAND
 	bool "expand"
 	default y
@@ -258,8 +246,6 @@ config BUSYBOX_FEATURE_EXPAND_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_EXPAND && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the expand applet.
 
 config BUSYBOX_UNEXPAND
 	bool "unexpand"
@@ -271,8 +257,6 @@ config BUSYBOX_FEATURE_UNEXPAND_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_UNEXPAND && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the unexpand applet.
 config BUSYBOX_EXPR
 	bool "expr"
 	default y
@@ -288,6 +272,11 @@ config BUSYBOX_EXPR_MATH_SUPPORT_64
 	  Enable 64-bit math support in the expr applet. This will make
 	  the applet slightly larger, but will allow computation with very
 	  large numbers.
+config BUSYBOX_FACTOR
+	bool "factor"
+	default y
+	help
+	  factor factorizes integers
 config BUSYBOX_FALSE
 	bool "false"
 	default y
@@ -311,11 +300,9 @@ config BUSYBOX_HEAD
 	  from files.
 
 config BUSYBOX_FEATURE_FANCY_HEAD
-	bool "Enable head options (-c, -q, and -v)"
+	bool "Enable -c, -q, and -v"
 	default y
 	depends on BUSYBOX_HEAD
-	help
-	  This enables the head options (-c, -q, and -v).
 config BUSYBOX_HOSTID
 	bool "hostid"
 	default y
@@ -343,8 +330,11 @@ config BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_INSTALL && BUSYBOX_LONG_OPTS
+config BUSYBOX_LINK
+	bool "link"
+	default y
 	help
-	  Support long options for the install applet.
+	  link creates hard links between files.
 config BUSYBOX_LN
 	bool "ln"
 	default y
@@ -365,22 +355,21 @@ config BUSYBOX_FEATURE_LS_FILETYPES
 	bool "Enable filetyping options (-p and -F)"
 	default y
 	depends on BUSYBOX_LS
-	help
-	  Enable the ls options (-p and -F).
 
 config BUSYBOX_FEATURE_LS_FOLLOWLINKS
 	bool "Enable symlinks dereferencing (-L)"
 	default y
 	depends on BUSYBOX_LS
-	help
-	  Enable the ls option (-L).
 
 config BUSYBOX_FEATURE_LS_RECURSIVE
 	bool "Enable recursion (-R)"
 	default y
 	depends on BUSYBOX_LS
-	help
-	  Enable the ls option (-R).
+
+config BUSYBOX_FEATURE_LS_WIDTH
+	bool "Enable -w WIDTH and window size autodetection"
+	default y
+	depends on BUSYBOX_LS
 
 config BUSYBOX_FEATURE_LS_SORTFILES
 	bool "Sort the file names"
@@ -460,7 +449,6 @@ config BUSYBOX_FEATURE_MD5_SHA1_SUM_CHECK
 	help
 	  Enabling the -c options allows files to be checked
 	  against pre-calculated hash values.
-
 	  -s and -w are useful options when verifying checksums.
 config BUSYBOX_MKDIR
 	bool "mkdir"
@@ -472,8 +460,6 @@ config BUSYBOX_FEATURE_MKDIR_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_MKDIR && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the mkdir applet.
 config BUSYBOX_MKFIFO
 	bool "mkfifo"
 	default y
@@ -486,6 +472,11 @@ config BUSYBOX_MKNOD
 	help
 	  mknod is used to create FIFOs or block/character special
 	  files with the specified names.
+config BUSYBOX_MKTEMP
+	bool "mktemp"
+	default y
+	help
+	  mktemp is used to create unique temporary files
 config BUSYBOX_MV
 	bool "mv"
 	default y
@@ -496,23 +487,37 @@ config BUSYBOX_FEATURE_MV_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_MV && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the mv applet.
 config BUSYBOX_NICE
 	bool "nice"
 	default y
 	help
 	  nice runs a program with modified scheduling priority.
+config BUSYBOX_NL
+	bool "nl"
+	default y
+	help
+	  nl is used to number lines of files.
 config BUSYBOX_NOHUP
 	bool "nohup"
 	default y
 	help
 	  run a command immune to hangups, with output to a non-tty.
+config BUSYBOX_NPROC
+	bool "nproc"
+	default y
+	help
+	  Print number of CPUs
 config BUSYBOX_OD
 	bool "od"
 	default y
 	help
 	  od is used to dump binary files in octal and other formats.
+config BUSYBOX_PASTE
+	bool "paste"
+	default y
+	help
+	  paste is used to paste lines of different files together
+	  and write the result to stdout
 config BUSYBOX_PRINTENV
 	bool "printenv"
 	default y
@@ -571,6 +576,11 @@ config BUSYBOX_SEQ
 	default y
 	help
 	  print a sequence of numbers
+config BUSYBOX_SHRED
+	bool "shred"
+	default y
+	help
+	  Overwrite a file to hide its contents, and optionally delete it
 config BUSYBOX_SHUF
 	bool "shuf"
 	default y
@@ -624,7 +634,7 @@ config BUSYBOX_SPLIT
 	bool "split"
 	default y
 	help
-	  split a file into pieces.
+	  Split a file into pieces.
 
 config BUSYBOX_FEATURE_SPLIT_FANCY
 	bool "Fancy extensions"
@@ -692,13 +702,12 @@ config BUSYBOX_TAIL
 	  from files.
 
 config BUSYBOX_FEATURE_FANCY_TAIL
-	bool "Enable extra tail options (-q, -s, -v, and -F)"
+	bool "Enable -q, -s, -v, and -F options"
 	default y
 	depends on BUSYBOX_TAIL
 	help
-	  The options (-q, -s, -v and -F) are provided by GNU tail, but
-	  are not specific in the SUSv3 standard.
-
+	  These options are provided by GNU tail, but
+	  are not specific in the SUSv3 standard:
 	    -q      Never output headers giving file names
 	    -s SEC  Wait SEC seconds between reads with -f
 	    -v      Always output headers giving file names
@@ -739,9 +748,15 @@ config BUSYBOX_TEST2
 config BUSYBOX_FEATURE_TEST_64
 	bool "Extend test to 64 bit"
 	default y
-	depends on BUSYBOX_TEST || BUSYBOX_TEST1 || BUSYBOX_TEST2 || BUSYBOX_ASH_BUILTIN_TEST || BUSYBOX_HUSH
+	depends on BUSYBOX_TEST || BUSYBOX_TEST1 || BUSYBOX_TEST2 || BUSYBOX_ASH_TEST || BUSYBOX_HUSH_TEST
 	help
 	  Enable 64-bit support in test.
+config BUSYBOX_TIMEOUT
+	bool "timeout"
+	default y
+	help
+	  Runs a program and watches it. If it does not terminate in
+	  specified number of seconds, it is sent a signal.
 config BUSYBOX_TOUCH
 	bool "touch"
 	default y
@@ -856,17 +871,24 @@ config BUSYBOX_WC
 	  in specified files.
 
 config BUSYBOX_FEATURE_WC_LARGE
-	bool "Support very large files in wc"
+	bool "Support very large counts"
 	default y
 	depends on BUSYBOX_WC
 	help
-	  Use "unsigned long long" in wc for counter variables.
+	  Use "unsigned long long" for counter variables.
 config BUSYBOX_WHO
       bool "who"
       default y
       depends on BUSYBOX_FEATURE_UTMP
       help
         who is used to show who is logged on.
+
+config BUSYBOX_W
+      bool "w"
+      default y
+      depends on BUSYBOX_FEATURE_UTMP
+      help
+        w is used to show who is logged on.
 
 config BUSYBOX_USERS
       bool "users"
@@ -907,25 +929,11 @@ config BUSYBOX_FEATURE_PRESERVE_HARDLINKS
 	help
 	  Allow cp and mv to preserve hard links.
 
-comment "Common options for ls, more and telnet"
-	depends on BUSYBOX_LS || BUSYBOX_MORE || BUSYBOX_TELNET
-
-config BUSYBOX_FEATURE_AUTOWIDTH
-	bool "Calculate terminal & column widths"
-	default y
-	depends on BUSYBOX_LS || BUSYBOX_MORE || BUSYBOX_TELNET
-	help
-	  This option allows utilities such as 'ls', 'more' and 'telnet'
-	  to determine the width of the screen, which can allow them to
-	  display additional text or avoid wrapping text onto the next line.
-	  If you leave this disabled, your utilities will be especially
-	  primitive and will be unable to determine the current screen width.
-
 comment "Common options for df, du, ls"
 	depends on BUSYBOX_DF || BUSYBOX_DU || BUSYBOX_LS
 
 config BUSYBOX_FEATURE_HUMAN_READABLE
-	bool "Support for human readable output (example 13k, 23M, 235G)"
+	bool "Support human readable output (example 13k, 23M, 235G)"
 	default y
 	depends on BUSYBOX_DF || BUSYBOX_DU || BUSYBOX_LS
 	help
