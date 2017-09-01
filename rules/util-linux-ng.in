@@ -216,6 +216,16 @@ config UTIL_LINUX_NG_FSCK
 comment "BusyBox' fsck is selected!"
 	depends on BUSYBOX_FSCK
 
+config UTIL_LINUX_NG_FSFREEZE
+	bool
+	prompt "fsfreeze"
+	depends on !BUSYBOX_FSFREEZE || ALLYES
+	help
+	  fsfreeze suspends or resumes access to a filesystem.
+
+comment "BusyBox' fsfreeze is selected!"
+	depends on BUSYBOX_FSFREEZE
+
 config UTIL_LINUX_NG_FSTRIM
 	bool
 	prompt "fstrim"

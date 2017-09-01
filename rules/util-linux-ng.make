@@ -237,6 +237,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSCK
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fsck)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_FSFREEZE
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fsfreeze)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSTRIM
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fstrim)
 endif
