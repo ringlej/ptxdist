@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.8.0
-LIBGCRYPT_MD5		:= 530db74602b558209f9ad7356a680971
+LIBGCRYPT_VERSION	:= 1.8.1
+LIBGCRYPT_MD5		:= b21817f9d850064d2177285f1073ec55
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
@@ -52,6 +52,7 @@ LIBGCRYPT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--enable-shared \
+	--enable-endian-check \
 	--enable-random=linux \
 	--enable-dev-random \
 	--disable-random-daemon \
