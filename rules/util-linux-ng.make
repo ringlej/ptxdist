@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.30
-UTIL_LINUX_NG_MD5	:= eaa3429150268027908a1b8ae6ee9a62
+UTIL_LINUX_NG_VERSION	:= 2.30.1
+UTIL_LINUX_NG_MD5	:= 5e5ec141e775efe36f640e62f3f8cd0d
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
 UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[\.[0-9]*]\?/\1/g')
@@ -63,8 +63,6 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--enable-all-programs=undefined \
 	--enable-tls \
 	--disable-widechar \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LSMEM)-lsmem \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_CHMEM)-chmem \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
@@ -96,6 +94,8 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-logger \
 	--disable-switch_root \
 	--disable-pivot_root \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LSMEM)-lsmem \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_CHMEM)-chmem \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCRM)-ipcrm \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCS)-ipcs \
 	--disable-tunelp \
