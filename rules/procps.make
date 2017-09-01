@@ -45,12 +45,24 @@ PROCPS_CONF_ENV	:= \
 PROCPS_CONF_TOOL	:= autoconf
 PROCPS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-shared \
 	--disable-static \
 	--disable-nls \
 	--disable-rpath \
+	--disable-watch8bit \
+	--disable-libselinux \
+	--$(call ptx/endis, PTXCONF_PROCPS_PIDOF)-pidof \
 	--disable-kill \
-	--$(call ptx/endis, PROCPS_TOP_MODERN)-modern-top \
+	--disable-skill \
+	--disable-examples \
+	--disable-sigwinch \
+	--disable-wide-percent \
+	--enable-wide-memory \
+	--$(call ptx/endis, PTXCONF_PROCPS_TOP_MODERN)-modern-top \
+	--disable-numa \
+	--disable-w-from \
+	--enable-whining \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--$(call ptx/wwo, PTXCONF_PROCPS_USES_NCURSES)-ncurses \
