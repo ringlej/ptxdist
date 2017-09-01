@@ -25,6 +25,7 @@ HOST_E2FSPROGS_CONF_TOOL	:= autoconf
 HOST_E2FSPROGS_CONF_OPT		:= \
 	$(HOST_AUTOCONF) \
 	--disable-symlink-install \
+	--disable-relative-symlinks \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
 	--disable-elf-shlibs \
@@ -53,7 +54,8 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-nls \
 	--enable-threads=posix \
 	--disable-rpath \
-	--disable-fuse2fs
+	--disable-fuse2fs \
+	--without-included-gettext
 
 # vim: syntax=make
 

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.43.4
-E2FSPROGS_MD5		:= 0bd1c74f357f6e9ae2ab6fa6229b9aea
+E2FSPROGS_VERSION	:= 1.43.6
+E2FSPROGS_MD5		:= 94fb7105284474a71cf5dd0e03b92661
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
@@ -40,6 +40,7 @@ E2FSPROGS_CONF_TOOL	:= autoconf
 E2FSPROGS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-symlink-install \
+	--disable-relative-symlinks \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
 	--enable-elf-shlibs \
@@ -68,7 +69,8 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-nls \
 	--enable-threads=posix \
 	--disable-rpath \
-	--disable-fuse2fs
+	--disable-fuse2fs \
+	--without-included-gettext
 
 E2FSPROGS_MAKE_OPT	:= $(if $(filter 1,$(strip $(PTXDIST_VERBOSE))),V=1)
 E2FSPROGS_INSTALL_OPT	:= install
@@ -138,9 +140,6 @@ ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT3
 endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4
 	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext4)
-endif
-ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4DEV
-	@$(call install_link, e2fsprogs, e2fsck, /usr/sbin/fsck.ext4dev)
 endif
 
 
