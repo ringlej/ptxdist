@@ -33,7 +33,12 @@ LLDPD_LICENSE	:= ISC
 LLDPD_CONF_TOOL	:= autoconf
 LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-doxygen-doc \
-	--without-embedded-libevent \
+	--enable-hardening \
+	--disable-sanitizers \
+	--disable-gcov \
+	--disable-json0 \
+	--disable-dtrace \
+	--enable-privsep \
 	--$(call ptx/endis, PTXCONF_LLDPD_CDP)-cdp \
 	--$(call ptx/endis, PTXCONF_LLDPD_FDP)-fdp \
 	--$(call ptx/endis, PTXCONF_LLDPD_EDP)-edp \
@@ -43,8 +48,11 @@ LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_LLDPD_DOT3)-dot3 \
 	--$(call ptx/endis, PTXCONF_LLDPD_CUSTOM_TLV)-custom \
 	--$(call ptx/endis, PTXCONF_LLDPD_OLDIES)-oldies \
+	--without-embedded-libevent \
+	--with-readline \
 	--$(call ptx/wwo, PTXCONF_LLDPD_SNMP)-snmp \
 	--$(call ptx/wwo, PTXCONF_LLDPD_XML)-xml \
+	--without-seccomp \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-privsep-user="$(PTXCONF_LLDPD_PRIVSEP_USER)" \
 	--with-privsep-group="$(PTXCONF_LLDPD_PRIVSEP_GROUP)" \
