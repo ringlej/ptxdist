@@ -244,13 +244,6 @@ config E2FSPROGS_INSTALL_MKFS_EXT4
 	help
 	  Create link to mkfs.ext4 program.
 
-config E2FSPROGS_INSTALL_MKFS_EXT4DEV
-	bool
-	prompt "mkfs.ext4dev"
-	select E2FSPROGS_INSTALL_MKE2FS
-	help
-	  Create link to mkfs.ext4dev program.
-
 endif
 
 config E2FSPROGS_INSTALL_MKLOSTANDFOUND

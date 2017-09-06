@@ -188,9 +188,6 @@ endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4
 	@$(call install_link, e2fsprogs, mke2fs, /usr/sbin/mkfs.ext4)
 endif
-ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4DEV
-	@$(call install_link, e2fsprogs, mke2fs, /usr/sbin/mkfs.ext4dev)
-endif
 
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_MKLOSTANDFOUND
