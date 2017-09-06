@@ -162,8 +162,12 @@ config PROCPS_VMSTAT
 config PROCPS_W
 	bool
 	prompt "w"
+	depends on !BUSYBOX_W || ALLYES
 	help
 	  Show who is logged on and what they are doing.
+
+comment "busybox' w is selected!"
+	depends on BUSYBOX_W
 
 config PROCPS_WATCH
 	bool
