@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 93132b49787e..b6fd994fe017 100644
+index ae5f3ce165eb..16c1a140ee65 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -981,6 +981,10 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -1014,6 +1014,10 @@ struct input_mask {
  #  define BPF_XOR 0xa0
  #endif
  

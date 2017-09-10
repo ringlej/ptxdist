@@ -30,13 +30,13 @@ HOST_SYSTEMD_CONF_ENV	:= \
 HOST_SYSTEMD_CONF_TOOL	:= autoconf
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-gcrypt \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-lto \
 	--disable-dbus \
+	--disable-glib \
 	--disable-utmp \
 	--disable-coverage \
 	--disable-kmod \
@@ -55,6 +55,7 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
+	--disable-gcrypt \
 	--disable-audit \
 	--disable-elfutils \
 	--disable-libcryptsetup \
@@ -63,12 +64,17 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	--disable-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
+	--disable-libidn2 \
+	--disable-idn \
+	--disable-nss-systemd \
 	--disable-libiptc \
 	--disable-binfmt \
 	--disable-vconsole \
 	--disable-quotacheck \
 	--disable-tmpfiles \
+	--disable-environment-d \
 	--disable-sysusers \
+	--disable-gshadow \
 	--disable-firstboot \
 	--disable-randomseed \
 	--disable-backlight \

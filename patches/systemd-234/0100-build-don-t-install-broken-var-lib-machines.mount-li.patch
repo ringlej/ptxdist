@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 13 Sep 2017 12:24:17 +0200
+Subject: [PATCH] build: don't install broken var-lib-machines.mount link if
+ machined is disabled
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile.am b/Makefile.am
+index c16e62280be7..ff10cfe4cd97 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -6602,8 +6602,10 @@ LOCAL_FS_TARGET_WANTS += \
+ 	systemd-remount-fs.service \
+ 	tmp.mount
+ 
++if ENABLE_MACHINED
+ REMOTE_FS_TARGET_WANTS += \
+ 	var-lib-machines.mount
++endif
+ 
+ MULTI_USER_TARGET_WANTS += \
+ 	getty.target \

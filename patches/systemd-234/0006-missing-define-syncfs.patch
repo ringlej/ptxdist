@@ -13,22 +13,22 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 9 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 0870c1cd2cd8..3b6e8959bdcd 100644
+index c8fa808bc4d3..2101755d4e58 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -334,6 +334,7 @@ AC_CHECK_DECLS([
+@@ -335,6 +335,7 @@ AC_CHECK_DECLS([
          pivot_root,
          name_to_handle_at,
          setns,
 +        syncfs,
-         getrandom,
          renameat2,
          kcmp,
+         keyctl,
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index f4dcf3056e90..d32f9ca0c333 100644
+index 8671c56140a6..fae5329663b2 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -932,6 +932,14 @@ struct btrfs_ioctl_quota_ctl_args {
+@@ -965,6 +965,14 @@ struct input_mask {
  #define AT_EMPTY_PATH	0x1000	/* Allow empty relative pathname */
  #endif
  

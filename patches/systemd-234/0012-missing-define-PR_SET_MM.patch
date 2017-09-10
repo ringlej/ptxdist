@@ -12,10 +12,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 19 insertions(+)
 
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 360591c494c7..3635e929db57 100644
+index 54ee7fa91414..3bebd8d59e47 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -991,6 +991,25 @@ static inline int syncfs(int fd)
+@@ -1024,6 +1024,25 @@ static inline int syncfs(int fd)
  #define BINFMTFS_MAGIC 0x42494e4d
  #endif
  

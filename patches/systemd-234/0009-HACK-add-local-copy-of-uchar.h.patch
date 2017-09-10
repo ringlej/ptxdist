@@ -15,10 +15,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  create mode 100644 src/basic/_uchar.h
 
 diff --git a/configure.ac b/configure.ac
-index 3b6e8959bdcd..0307ada56aba 100644
+index 2101755d4e58..335a718ad2c1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -316,6 +316,7 @@ AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers n
+@@ -317,6 +317,7 @@ AC_CHECK_HEADERS([sys/capability.h], [], [AC_MSG_ERROR([*** POSIX caps headers n
  AC_CHECK_HEADERS([linux/btrfs.h], [], [])
  AC_CHECK_HEADERS([linux/memfd.h], [], [])
  AC_CHECK_HEADERS([linux/vm_sockets.h], [], [], [#include <sys/socket.h>])
@@ -111,7 +111,7 @@ index 000000000000..b15d355ae0c5
 +
 +#endif	/* uchar.h */
 diff --git a/src/basic/escape.h b/src/basic/escape.h
-index deaa4def2828..36d437cfaa2f 100644
+index 6f5cc60bc80d..d2edac9ccdce 100644
 --- a/src/basic/escape.h
 +++ b/src/basic/escape.h
 @@ -23,7 +23,6 @@
@@ -123,10 +123,10 @@ index deaa4def2828..36d437cfaa2f 100644
  #include "string-util.h"
  #include "missing.h"
 diff --git a/src/basic/missing.h b/src/basic/missing.h
-index 4581408effe4..747d832fa3a2 100644
+index 975d6054c5ce..a7f53e4622af 100644
 --- a/src/basic/missing.h
 +++ b/src/basic/missing.h
-@@ -36,7 +36,11 @@
+@@ -37,7 +37,11 @@
  #include <sys/resource.h>
  #include <sys/socket.h>
  #include <sys/syscall.h>

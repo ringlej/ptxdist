@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 233
-SYSTEMD_MD5	:= 11d3ff48f3361b8bdcfcdc076a31b537
+SYSTEMD_VERSION	:= 234
+SYSTEMD_MD5	:= 2d8f6ebded3462ac0d1a6275e54db561
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -61,13 +61,13 @@ SYSTEMD_CONF_TOOL	:= autoconf
 SYSTEMD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-gcrypt \
 	--enable-silent-rules \
 	--disable-static \
 	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-lto \
 	--disable-dbus \
+	--disable-glib \
 	--disable-utmp \
 	--disable-coverage \
 	--enable-kmod \
@@ -86,6 +86,7 @@ SYSTEMD_CONF_OPT	:= \
 	--disable-pam \
 	--disable-acl \
 	--disable-smack \
+	--disable-gcrypt \
 	--disable-audit \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_COREDUMP)-elfutils \
 	--disable-libcryptsetup \
@@ -94,6 +95,9 @@ SYSTEMD_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_MICROHTTPD)-microhttpd \
 	--disable-libcurl \
 	--disable-libidn \
+	--disable-libidn2 \
+	--disable-idn \
+	--enable-nss-systemd \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_IPMASQUERADE)-libiptc \
 	--disable-binfmt \
 	--$(call ptx/endis,PTXCONF_SYSTEMD_VCONSOLE)-vconsole \
@@ -101,6 +105,7 @@ SYSTEMD_CONF_OPT	:= \
 	--enable-tmpfiles \
 	--disable-environment-d \
 	--disable-sysusers \
+	--disable-gshadow \
 	--disable-firstboot \
 	--$(call ptx/disen,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED)-randomseed \
 	--disable-backlight \
