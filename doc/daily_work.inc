@@ -566,7 +566,7 @@ packages at the same time. Never worry again about your local host and
 how slow it is. With the help of *ICECC* every host will be a high speed
 development machine.
 
-Using pre-built archives
+Using Pre-Built Archives
 ------------------------
 
 PTXdist is a tool which creates all the required parts of a target’s
@@ -602,7 +602,7 @@ with care and so it is not enabled and used as default.
 This section describes how to make use of this PTXdist feature and what
 pitfalls exist when doing so.
 
-Creating pre-built archives
+Creating Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To make PTXdist creating pre-built archives, enable this feature prior a
@@ -626,7 +626,7 @@ additional archive files with the name scheme ``*-dev.tar.gz``. These
 files are the pre-built archives which PTXdist can use later on to
 re-build the project.
 
-Using pre-built archives
+Using Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 To make PTXdist using pre-built archives, enable this feature prior a
@@ -687,7 +687,7 @@ must be done manually by the user of the PTXdist project. Doing so, we
 can decide on a package by package base if its pre-built archive should
 be used or not.
 
-Packages without pre-built archives support
+Packages without Pre-Built Archives Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 No host nor cross related packages can be used based on their pre-built
@@ -707,7 +707,7 @@ archives, but there are a few exceptions:
 -  some other somehow broken packages all marked with a
    ``<packagename>_DEVPKG := NO`` in their corresponding rule file
 
-Workflow with pre-built archives
+Workflow with Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We starting with an empty PTXdist project and enabling the pre-built
@@ -744,7 +744,7 @@ in this step.
 
     $ cp platform-<platformname>/packages/*-dev.tar.gz /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
-Use cases
+Use Cases
 ~~~~~~~~~
 
 Some major possible use cases are covered in this section:
