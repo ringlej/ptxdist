@@ -676,7 +676,7 @@ Please be careful when using the pre-built archives if you:
    package is under development.
 
 -  change the hard coded configure settings in the package’s rule file,
-   e.g. a package is under development
+   e.g. a package is under development.
 
 -  intend to use one pre-built archive pool from different PTXdist
    projects.
@@ -696,16 +696,16 @@ archives. These kind of packages are always (re-)built.
 Only target related packages can be used based on their pre-built
 archives, but there are a few exceptions:
 
--  Linux kernel: It has an incomplete install stage, which results into
+-  Linux kernel: it has an incomplete install stage, which results into
    an incomplete pre-built archive. Due to this, it cannot be used as a
-   pre-built archive
+   pre-built archive.
 
--  Barebox bootloader: It has an incomplete install stage, which results
+-  Barebox bootloader: it has an incomplete install stage, which results
    into an incomplete pre-built archive. Due to this, it cannot be used
-   as a pre-built archive
+   as a pre-built archive.
 
 -  some other somehow broken packages all marked with a
-   ``<packagename>_DEVPKG := NO`` in their corresponding rule file
+   ``<packagename>_DEVPKG := NO`` in their corresponding rule file.
 
 Workflow with Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -749,10 +749,10 @@ Use Cases
 
 Some major possible use cases are covered in this section:
 
--  Speed up a re-build of one single project
+-  speed up a re-build of one single project.
 
--  Sharing pre-built archives between two platforms based on the same
-   architecture
+-  sharing pre-built archives between two platforms based on the same
+   architecture.
 
 To simply speed up a re-build of the whole project (without development
 on any of the used packages) we just can copy all ``*-dev.tar.gz``
