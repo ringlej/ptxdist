@@ -57,7 +57,7 @@ WGET_AUTOCONF := \
 	--without-ssl \
 	--without-zlib \
 	--with-metalink \
-	--with-cares \
+	--without-cares \
 	--without-openssl \
 	--with-included-libunistring \
 	--without-included-regex \
