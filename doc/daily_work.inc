@@ -566,7 +566,7 @@ packages at the same time. Never worry again about your local host and
 how slow it is. With the help of *ICECC* every host will be a high speed
 development machine.
 
-Using pre-build archives
+Using pre-built archives
 ------------------------
 
 PTXdist is a tool which creates all the required parts of a target’s
@@ -600,12 +600,12 @@ re-build the whole project. But also, this PTXdist feature must handle
 with care and so it is not enabled and used as default.
 
 This section describes how to make use of this PTXdist feature and what
-pitfalls exists when doing so.
+pitfalls exist when doing so.
 
-Creating pre-build archives
+Creating pre-built archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To make PTXdist creating pre-build archives, enable this feature prior a
+To make PTXdist creating pre-built archives, enable this feature prior a
 build in the menu:
 
 ::
@@ -613,7 +613,7 @@ build in the menu:
     $ ptxdist menuconfig
 
         Project Name & Version --->
-            [*] create pre-build archives
+            [*] create pre-built archives
 
 Now run a regular build of the whole project:
 
@@ -622,14 +622,14 @@ Now run a regular build of the whole project:
     $ ptxdist go
 
 When the build is finished, the directory ``packages`` contains
-additional archives files with the name scheme ``*-dev.tar.gz``. These
-files are the pre-build archives which PTXdist can use later on to
+additional archive files with the name scheme ``*-dev.tar.gz``. These
+files are the pre-built archives which PTXdist can use later on to
 re-build the project.
 
-Using pre-build archives
+Using pre-built archives
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-To make PTXdist using pre-build archives, enable this feature prior a
+To make PTXdist using pre-built archives, enable this feature prior a
 build in the menu:
 
 ::
@@ -637,38 +637,38 @@ build in the menu:
     $ ptxdist menuconfig
 
         Project Name & Version --->
-            [*] use pre-build archives
+            [*] use pre-built archives
             (</some/path/to/the/archives>)
 
 With the next build (e.g. ``ptxdist go``) PTXdist will look for a
-specific package if its corresponding pre-build archive does exist. If
-it does exist and the used hash value in the pre-build archive’s
+specific package if its corresponding pre-built archive does exist. If
+it does exist and the used hash value in the pre-built archive’s
 filename matches, PTXdist will skip all source archive handling
 (extract, patch, compile and install) and just extract and use the
-pre-build archive’s content.
+pre-built archive’s content.
 
-A regular and save usecase of pre-build archives is:
+A regular and safe usecase of pre-built archives is:
 
--  using one pre-build archive pool for one specific PTXdist project.
+-  using one pre-built archive pool for one specific PTXdist project.
 
 -  using a constant PTXdist version all the time.
 
 -  using a constant OSELAS.Toolchain() version all the time.
 
--  no package with a pre-build archive in the project is under
+-  no package with a pre-built archive in the project is under
    development.
 
-The hash as a part of the pre-build archive’s filename does only reflect
+The hash as a part of the pre-built archive’s filename does only reflect
 the package’s configuration made in the menu (``ptxdist menuconfig``).
 If this package specific configuration changes, a new hash value will be
-the result and PTXdist can select the corresponding correct pre-build
+the result and PTXdist can select the corresponding correct pre-built
 archive.
 
 This hash value change is an important fact, as many things outside and
 inside the package can have a big impact of the binary result but
 without a hash value change!
 
-Please be careful when using the pre-build archives if you:
+Please be careful when using the pre-built archives if you:
 
 -  intend to switch to a different toolchain with the next build.
 
@@ -678,48 +678,48 @@ Please be careful when using the pre-build archives if you:
 -  change the hard coded configure settings in the package’s rule file,
    e.g. a package is under development
 
--  intend to use one pre-build archive pool from different PTXdist
+-  intend to use one pre-built archive pool from different PTXdist
    projects.
 
-To consider all these precautions the generated pre-build archives are
-not transfered automatically where the next build expects them. This
+To consider all these precautions the generated pre-built archives are
+not transferred automatically where the next build expects them. This
 must be done manually by the user of the PTXdist project. Doing so, we
-can decide on a package by package base if its pre-build archive should
+can decide on a package by package base if its pre-built archive should
 be used or not.
 
-Packages without pre-build archives support
+Packages without pre-built archives support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No host nor cross related packages can be used based on their pre-build
+No host nor cross related packages can be used based on their pre-built
 archives. These kind of packages are always (re-)built.
 
-Only target related packages can be used based on their pre-build
+Only target related packages can be used based on their pre-built
 archives, but there are a few exceptions:
 
 -  Linux kernel: It has an incomplete install stage, which results into
-   an incomplete pre-build archive. Due to this, it cannot be used as a
-   pre-build archive
+   an incomplete pre-built archive. Due to this, it cannot be used as a
+   pre-built archive
 
 -  Barebox bootloader: It has an incomplete install stage, which results
-   into an incomplete pre-build archive. Due to this, it cannot be used
-   as a pre-build archive
+   into an incomplete pre-built archive. Due to this, it cannot be used
+   as a pre-built archive
 
 -  some other somehow broken packages all marked with a
    ``<packagename>_DEVPKG := NO`` in their corresponding rule file
 
-Workflow with pre-build archives
+Workflow with pre-built archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We starting with an empty PTXdist project and enabling the pre-build
+We starting with an empty PTXdist project and enabling the pre-built
 archive feature as mentioned in the previous section. After that
 a regular build of the project can be made.
 
-When the build is finished its time to copy all the pre-build archives
+When the build is finished it's time to copy all the pre-built archives
 of interest where the next build will expect them.
 The previous section mentions the step to enable their use. It also
 allows to define a directory. The default path of this directory is made
-from various other menu settings, to ensure the pre-build archives of
-the current PTXdist project do not conflict with pre-build archives of
+from various other menu settings to ensure the pre-built archives of
+the current PTXdist project do not conflict with pre-built archives of
 different PTXdist projects. To get an idea what the final path is, we
 can ask PTXdist.
 
@@ -734,15 +734,15 @@ If this directory does not exist, we can simply create it:
 
     $ mkdir -p /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
-Now its time to copy the pre-build archives to this new directory. We
-could simply copy all pre-build archives from the ``/packages``
+Now it's time to copy the pre-built archives to this new directory. We
+could simply copy all pre-built archives from the ``/packages``
 directory. But we should keep in mind, if any of the related packages
-are under development, we must omit its corresponding pre-build archives
+are under development, we must omit its corresponding pre-built archives
 in this step.
 
 ::
 
-    $ cp platform-<platformname>/packages/*-dev.tar.gz| /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
+    $ cp platform-<platformname>/packages/*-dev.tar.gz /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
 Use cases
 ~~~~~~~~~
@@ -751,7 +751,7 @@ Some major possible use cases are covered in this section:
 
 -  Speed up a re-build of one single project
 
--  Sharing pre-build archives between two platforms based on the same
+-  Sharing pre-built archives between two platforms based on the same
    architecture
 
 To simply speed up a re-build of the whole project (without development
@@ -760,11 +760,11 @@ archives after the first build to the location where PTXdist expects
 them at the next build time.
 
 If two platforms are sharing the same architecture it is possible to
-share pre-build archives as well. The best way it can work is, if both
+share pre-built archives as well. The best way it can work is, if both
 platforms are part of the same PTXdist project. They must also share the
 same toolchain settings, patch series and rule files. If these
 precautions are handled the whole project can be built for the first
-platform and these pre-build archives can be used to build the project
+platform and these pre-built archives can be used to build the project
 for the second platform. This can reduce the required time to build the
 second platform from hours to minutes.
 
