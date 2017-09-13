@@ -9,7 +9,7 @@ Signed-off-by: Markus Niebel <Markus.Niebel@tq-group.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 1557199d1fb5..9f22f9129604 100644
+index 1557199d1fb5..1f926b4cf6be 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -12,3 +12,5 @@ include $(TOPDIR)/Rules.make
@@ -17,4 +17,4 @@ index 1557199d1fb5..9f22f9129604 100644
  images:	pnmtohex
  
 +install:
-+	install -c $(TARGET) $(DESTDIR)/sbin/fbtest
++	install -c $(TARGET) $(DESTDIR)/usr/sbin/fbtest

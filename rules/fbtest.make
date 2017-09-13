@@ -47,7 +47,7 @@ $(STATEDIR)/fbtest.targetinstall:
 	@$(call install_fixup, fbtest,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fbtest,DESCRIPTION,missing)
 
-	@$(call install_copy, fbtest, 0, 0, 0755, -, /sbin/fbtest)
+	@$(call install_copy, fbtest, 0, 0, 0755, -, /usr/sbin/fbtest)
 
 	@$(call install_finish, fbtest)
 
