@@ -46,7 +46,6 @@ LIBSSH2_AUTOCONF := \
 	--enable-hidden-symbols \
 	--enable-examples-build \
 	--with-openssl \
-	--without-libgcrypt \
 	--without-wincng \
 	--without-mbedtls \
 	--with-libz \
