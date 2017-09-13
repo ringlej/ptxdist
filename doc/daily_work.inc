@@ -582,10 +582,10 @@ about 6 hours.
 Introduction
 ~~~~~~~~~~~~
 
-While the development of a PTXdist project it is needed to clean and
+While developing a PTXdist project it is necessary to clean and
 re-build everything from time to time to get a re-synced project result
 which honors all changes made in the project. But since cleaning and
-re-building everything from time to time is a very good test case if
+re-building everything from time to time is a very good test case for if
 some adaptions are still missing or if everything is complete, it can be
 a real time sink to do so.
 
@@ -594,9 +594,9 @@ archives from the last run which includes all the files the package's
 build system has installed while the PTXdist's *install* stage runs for
 it.
 
-The next time PTXdist should build a package it can use the results from
+The next time PTXdist shall build a package it can use the results from
 the last run instead. This feature can drastically reduce the time to
-re-build the whole project. But also, this PTXdist feature must handle
+re-build the whole project. But also, this PTXdist feature must be handled
 with care and so it is not enabled and used as default.
 
 This section describes how to make use of this PTXdist feature and what
@@ -605,7 +605,7 @@ pitfalls exist when doing so.
 Creating Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To make PTXdist creating pre-built archives, enable this feature prior a
+To make PTXdist create pre-built archives, enable this feature prior to a
 build in the menu:
 
 ::
@@ -629,7 +629,7 @@ re-build the project.
 Using Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-To make PTXdist using pre-built archives, enable this feature prior a
+To make PTXdist use pre-built archives, enable this feature prior to a
 build in the menu:
 
 ::
@@ -640,14 +640,14 @@ build in the menu:
             [*] use pre-built archives
             (</some/path/to/the/archives>)
 
-With the next build (e.g. ``ptxdist go``) PTXdist will look for a
-specific package if its corresponding pre-built archive does exist. If
-it does exist and the used hash value in the pre-built archive's
+During the next build (e.g. ``ptxdist go``) PTXdist will look for a
+specific package if its corresponding pre-built archive exists. If
+it exists and the used hash value in the pre-built archive's
 filename matches, PTXdist will skip all source archive handling
 (extract, patch, compile and install) and just extract and use the
 pre-built archive's content.
 
-A regular and safe usecase of pre-built archives is:
+Sufficient conditions for safe application of pre-built archives are:
 
 -  using one pre-built archive pool for one specific PTXdist project.
 
@@ -658,11 +658,10 @@ A regular and safe usecase of pre-built archives is:
 -  no package with a pre-built archive in the project is under
    development.
 
-The hash as a part of the pre-built archive's filename does only reflect
+The hash as a part of the pre-built archive's filename only reflects
 the package's configuration made in the menu (``ptxdist menuconfig``).
 If this package specific configuration changes, a new hash value will be
-the result and PTXdist can select the corresponding correct pre-built
-archive.
+the result and PTXdist can select the matching pre-built archive.
 
 This hash value change is an important fact, as many things outside and
 inside the package can have a big impact of the binary result but
@@ -672,55 +671,55 @@ Please be careful when using the pre-built archives if you:
 
 -  intend to switch to a different toolchain with the next build.
 
--  change the patch set applied to the corresponding package, e.g. a
+-  change the patch set applied to the corresponding package, e.g. the
    package is under development.
 
 -  change the hard coded configure settings in the package's rule file,
-   e.g. a package is under development.
+   e.g. the package is under development.
 
 -  intend to use one pre-built archive pool from different PTXdist
    projects.
 
 To consider all these precautions the generated pre-built archives are
-not transferred automatically where the next build expects them. This
+not transferred automatically to where the next build expects them. This
 must be done manually by the user of the PTXdist project. Doing so, we
-can decide on a package by package base if its pre-built archive should
+can decide on a package by package basis if its pre-built archive should
 be used or not.
 
 Packages without Pre-Built Archives Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No host nor cross related packages can be used based on their pre-built
-archives. These kind of packages are always (re-)built.
+Neither host nor cross related packages support pre-built archives. These kind
+of packages are always (re-)built.
 
 Only target related packages can be used based on their pre-built
 archives, but there are a few exceptions:
 
--  Linux kernel: it has an incomplete install stage, which results into
+-  Linux kernel: it has an incomplete install stage, which results in
    an incomplete pre-built archive. Due to this, it cannot be used as a
    pre-built archive.
 
 -  Barebox bootloader: it has an incomplete install stage, which results
-   into an incomplete pre-built archive. Due to this, it cannot be used
+   in an incomplete pre-built archive. Due to this, it cannot be used
    as a pre-built archive.
 
--  some other somehow broken packages all marked with a
+-  a few somehow broken packages that are all explicitely marked with a
    ``<packagename>_DEVPKG := NO`` in their corresponding rule file.
 
 Workflow with Pre-Built Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We starting with an empty PTXdist project and enabling the pre-built
+We are starting with an empty PTXdist project and enabling the pre-built
 archive feature as mentioned in the previous section. After that
 a regular build of the project can be made.
 
 When the build is finished it's time to copy all the pre-built archives
-of interest where the next build will expect them.
+of interest to where the next build will expect them.
 The previous section mentions the step to enable their use. It also
 allows to define a directory. The default path of this directory is made
 from various other menu settings to ensure the pre-built archives of
 the current PTXdist project do not conflict with pre-built archives of
-different PTXdist projects. To get an idea what the final path is, we
+different PTXdist projects. To get an idea of what the final path is, we
 can ask PTXdist.
 
 ::
@@ -737,7 +736,7 @@ If this directory does not exist, we can simply create it:
 Now it's time to copy the pre-built archives to this new directory. We
 could simply copy all pre-built archives from the ``/packages``
 directory. But we should keep in mind, if any of the related packages
-are under development, we must omit its corresponding pre-built archives
+are under development, we must omit their corresponding pre-built archives
 in this step.
 
 ::
@@ -751,7 +750,7 @@ Some major possible use cases are covered in this section:
 
 -  speed up a re-build of one single project.
 
--  sharing pre-built archives between two platforms based on the same
+-  share pre-built archives between two platforms based on the same
    architecture.
 
 To simply speed up a re-build of the whole project (without development
