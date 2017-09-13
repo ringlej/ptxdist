@@ -1,5 +1,5 @@
-From: Sascha Hauer <sha@pengutronix.de>
-Date: Sun, 30 Oct 2011 22:18:39 +0100
+From: Markus Niebel <Markus.Niebel@tq-group.com>
+Date: Wed, 9 Aug 2017 10:10:38 +0200
 Subject: [PATCH] provide a pre-generated penguin.c to get rid of this
  dependency
 
@@ -7,32 +7,32 @@ fbtest compiles pnmtohex for the host. pnmtohex generates
 penguin.c from penguin.ppm. pnmtohex needs libnetpbm which
 is very painful to compile.
 
-[mkl: added std patch header]
-[mkl: don't delete penguin.c on clean]
+port patch from older release
 
+Signed-off-by: Markus Niebel <Markus.Niebel@tq-group.com>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile         |    2 +-
- images/Makefile  |    3 -
- images/penguin.c |  605 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Makefile         |   2 +-
+ images/Makefile  |   3 -
+ images/penguin.c | 605 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
  3 files changed, 606 insertions(+), 4 deletions(-)
  create mode 100644 images/penguin.c
 
 diff --git a/Makefile b/Makefile
-index b628bd8..f78c67a 100644
+index 9a0a7ad95d9b..1557199d1fb5 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -6,7 +6,7 @@ TARGET = $(CROSS_COMPILE)fbtest
- OBJS += drawops/drawops.o fonts/fonts.o images/images.o visops/visops.o \
- 	tests/tests.o
+@@ -3,7 +3,7 @@ TOPDIR = .
+ 
+ TARGET = $(CROSS_COMPILE)fbtest
  
 -SUBDIRS = drawops pnmtohex fonts images visops tests
 +SUBDIRS = drawops fonts images visops tests
  
- include $(TOPDIR)/Rules.make
- 
+ LIBS += tests/tests.a drawops/drawops.a fonts/fonts.a images/images.a \
+ 	visops/visops.a
 diff --git a/images/Makefile b/images/Makefile
-index 0883c46..209bdd9 100644
+index 2b6b2e27d56b..c098199df710 100644
 --- a/images/Makefile
 +++ b/images/Makefile
 @@ -19,6 +19,3 @@ include $(TOPDIR)/Rules.make
@@ -44,7 +44,7 @@ index 0883c46..209bdd9 100644
 -
 diff --git a/images/penguin.c b/images/penguin.c
 new file mode 100644
-index 0000000..e454b99
+index 000000000000..e454b99d9505
 --- /dev/null
 +++ b/images/penguin.c
 @@ -0,0 +1,605 @@
