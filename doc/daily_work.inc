@@ -569,7 +569,7 @@ development machine.
 Using Pre-Built Archives
 ------------------------
 
-PTXdist is a tool which creates all the required parts of a target’s
+PTXdist is a tool which creates all the required parts of a target's
 filesystem to breathe life into it. And it creates these parts from any
 kind of source files. If a PTXdist project consists of many packages the
 build may take a huge amount of time.
@@ -589,9 +589,9 @@ re-building everything from time to time is a very good test case if
 some adaptions are still missing or if everything is complete, it can be
 a real time sink to do so.
 
-To not lose developer’s temper when doing such tests, PTXdist can keep
-archives from the last run which includes all the files the package’s
-build system has installed while the PTXdist’s *install* stage runs for
+To not lose developer's temper when doing such tests, PTXdist can keep
+archives from the last run which includes all the files the package's
+build system has installed while the PTXdist's *install* stage runs for
 it.
 
 The next time PTXdist should build a package it can use the results from
@@ -642,10 +642,10 @@ build in the menu:
 
 With the next build (e.g. ``ptxdist go``) PTXdist will look for a
 specific package if its corresponding pre-built archive does exist. If
-it does exist and the used hash value in the pre-built archive’s
+it does exist and the used hash value in the pre-built archive's
 filename matches, PTXdist will skip all source archive handling
 (extract, patch, compile and install) and just extract and use the
-pre-built archive’s content.
+pre-built archive's content.
 
 A regular and safe usecase of pre-built archives is:
 
@@ -658,8 +658,8 @@ A regular and safe usecase of pre-built archives is:
 -  no package with a pre-built archive in the project is under
    development.
 
-The hash as a part of the pre-built archive’s filename does only reflect
-the package’s configuration made in the menu (``ptxdist menuconfig``).
+The hash as a part of the pre-built archive's filename does only reflect
+the package's configuration made in the menu (``ptxdist menuconfig``).
 If this package specific configuration changes, a new hash value will be
 the result and PTXdist can select the corresponding correct pre-built
 archive.
@@ -675,7 +675,7 @@ Please be careful when using the pre-built archives if you:
 -  change the patch set applied to the corresponding package, e.g. a
    package is under development.
 
--  change the hard coded configure settings in the package’s rule file,
+-  change the hard coded configure settings in the package's rule file,
    e.g. a package is under development.
 
 -  intend to use one pre-built archive pool from different PTXdist
