@@ -680,11 +680,17 @@ Please be careful when using the pre-built archives if you:
 -  intend to use one pre-built archive pool from different PTXdist
    projects.
 
+-  change a global PTXdist configuration parameter (e.g. PTXCONF_GLOBAL_IPV6).
+
 To consider all these precautions the generated pre-built archives are
 not transferred automatically to where the next build expects them. This
 must be done manually by the user of the PTXdist project. Doing so, we
 can decide on a package by package basis if its pre-built archive should
 be used or not.
+
+If you are unsure if your modifications rendered some or all of your pre-built
+archives invalid you can always delete and build them again to be on the safe
+side.
 
 Packages without Pre-Built Archives Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -752,6 +758,8 @@ Some major possible use cases are covered in this section:
 
 -  share pre-built archives between two platforms based on the same
    architecture.
+
+-  increase reproducibility of binaries.
 
 To simply speed up a re-build of the whole project (without development
 on any of the used packages) we just can copy all ``*-dev.tar.gz``
