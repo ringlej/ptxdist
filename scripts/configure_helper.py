@@ -102,6 +102,7 @@ def ask_ptxdist(pkg):
 	ptxdist = os.environ.get("ptxdist", "ptxdist")
 	p = subprocess.Popen([ ptxdist, "-k", "make",
 		"/print-%s_DIR" % pkg,
+		"/print-%s_SUBDIR" % pkg,
 		"/print-%s_CONF_OPT" % pkg,
 		"/print-%s_AUTOCONF" % pkg,
 		"/print-%s_CONF_TOOL" %pkg,
@@ -110,6 +111,7 @@ def ask_ptxdist(pkg):
 		universal_newlines=True)
 
 	d = p.stdout.readline().strip()
+	subdir = p.stdout.readline().strip()
 	opt = shlex.split(p.stdout.readline().strip()) + shlex.split(p.stdout.readline().strip())
 	tool = p.stdout.readline().strip()
 	default = shlex.split(p.stdout.readline().strip())
@@ -119,7 +121,7 @@ def ask_ptxdist(pkg):
 		abort("'%s' is not a valid package: %s_DIR is undefined" % (pkg, pkg))
 	if not opt:
 		abort("'%s' is not a autoconf package: %s_CONF_OPT and %s_AUTOCONF are undefined" % (pkg, pkg, pkg))
-	return (d, opt)
+	return (d, subdir, opt)
 
 def blacklist_hit(name, blacklist):
 	for e in blacklist:
@@ -167,9 +169,12 @@ def build_args(parsed):
 		build.append("\t" + arg_str + "\n")
 	return build
 
-def handle_dir(d):
+def handle_dir(d, subdir):
 	if not d:
 		return (None, None, None)
+
+	if subdir:
+		d = os.path.join(d, subdir)
 
 	d = os.path.normpath(d)
 	if not os.path.exists(d):
@@ -275,8 +280,9 @@ else:
 	ptx_PKG = None
 
 ptx_pkg_conf_opt = []
+pkg_subdir = ""
 if args.pkg:
-	(d, pkg_conf_opt) = ask_ptxdist(ptx_PKG)
+	(d, pkg_subdir, pkg_conf_opt) = ask_ptxdist(ptx_PKG)
 	ptx_pkg_label = "rules/%s.make" % ptx_pkg
 	parsed_pkg_conf_opt = parse_configure_args(pkg_conf_opt, [])
 
@@ -295,8 +301,8 @@ else:
 	if not old_dir or not new_dir:
 		abort("If no package is given, then both '--old-src' and '--new-src' must be specified")
 
-(old_parsed_configure_args, old_pkg_conf_opt, old_pkg_label) = handle_dir(old_dir)
-(new_parsed_configure_args, new_pkg_conf_opt, new_pkg_label) = handle_dir(new_dir)
+(old_parsed_configure_args, old_pkg_conf_opt, old_pkg_label) = handle_dir(old_dir, pkg_subdir)
+(new_parsed_configure_args, new_pkg_conf_opt, new_pkg_label) = handle_dir(new_dir, pkg_subdir)
 
 if not old_pkg_conf_opt:
 	show_diff(ptx_pkg_conf_opt, ptx_pkg_label, new_pkg_conf_opt, new_pkg_label)
