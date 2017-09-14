@@ -89,8 +89,6 @@ ifdef PTXCONF_BAREBOX_EXTRA_ENV
 		else \
 			cp "$(path)" $(BAREBOX_DIR)/.ptxdist-defaultenv/; \
 		fi;)
-	@sed -i -e "s,^\(CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\)\"$$,\1 .ptxdist-defaultenv\"," \
-		$(BAREBOX_DIR)/.config
 endif
 
 	@$(call touch)
@@ -101,6 +99,14 @@ endif
 
 $(STATEDIR)/barebox.compile:
 	@$(call targetinfo)
+
+ifdef PTXCONF_BAREBOX_EXTRA_ENV
+	@if test $$(grep -c -e "^CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\.ptxdist-defaultenv" $(BAREBOX_DIR)/.config) -eq 0; then \
+		sed -i -e "s,^\(CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\)\"$$,\1 .ptxdist-defaultenv\"," \
+			$(BAREBOX_DIR)/.config; \
+	fi
+endif
+
 	@+cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
 		$(MAKE) $(BAREBOX_MAKEVARS)
 	@$(call touch)
