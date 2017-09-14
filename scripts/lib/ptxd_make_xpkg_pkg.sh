@@ -327,7 +327,7 @@ ptxd_install_file_strip() {
     done &&
 
     if [ "${strip}" != "k" ]; then
-	ptxd_install_file_extract_debug "${dir}" "${dst}" || return
+	ptxd_install_file_extract_debug "${dst}" || return
     fi
 }
 export -f ptxd_install_file_strip
