@@ -3,7 +3,7 @@
 menuconfig LUA
 	tristate
 	prompt "lua                           "
-	select READLINE	if LUA_READLINE
+	select READLINE
 	select LIBC_M
 	select LIBC_DL
 	help
@@ -18,13 +18,6 @@ menuconfig LUA
 	  More information under http://www.lua.org/
 
 if LUA
-
-config LUA_READLINE
-	bool
-	prompt "Use readline"
-	depends on BROKEN
-	help
-	  FIXME
 
 config LUA_INSTALL_LUA
 	bool
