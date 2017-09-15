@@ -24,6 +24,7 @@ LUA_SUFFIX	:= tar.gz
 LUA_URL		:= http://www.lua.org/ftp/$(LUA).$(LUA_SUFFIX)
 LUA_SOURCE	:= $(SRCDIR)/$(LUA).$(LUA_SUFFIX)
 LUA_DIR		:= $(BUILDDIR)/$(LUA)
+LUA_LICENSE     := MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
