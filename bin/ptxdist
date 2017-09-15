@@ -1040,7 +1040,10 @@ Options:
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
 				(default = 2*CPUs)
   --j-extern=<n>, -je<n>	set number of packages built in parallel
-				(default = 1)
+				(default = 1). Deprecated, use -j instead.
+  -j[<n>]			build packages in parallel with a total number
+				of <n> jobs in parallel. If -j is used without
+				argument then <n> defaults to 2*CPUs.
 
   --load-average=<n>, -l<n>	try to limit load to <n>
 
