@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	:= 1.8.9p5
-SUDO_MD5	:= d3f1f1cfca6b2b06b048e1abb7d0227e
+SUDO_VERSION	:= 1.8.21p2
+SUDO_MD5	:= cd3993d910c713ae72e94beebd230b22
 SUDO		:= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	:= tar.gz
 SUDO_URL	:= \
@@ -57,6 +57,7 @@ SUDO_AUTOCONF = \
 	--disable-nls \
 	--disable-rpath \
 	--enable-static-sudoers \
+	--disable-shared-libutil \
 	--disable-sia \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-pam-session \
