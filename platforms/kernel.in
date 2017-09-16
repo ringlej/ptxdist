@@ -7,6 +7,7 @@ menuconfig KERNEL
 	select HOST_U_BOOT_TOOLS	if KERNEL_IMAGE_U || (KERNEL_IMAGE_SIMPLE && ARCH_MICROBLAZE)
 	select HOST_XZ			if KERNEL_XZ
 	select HOST_LZOP		if KERNEL_LZOP
+	select HOST_LZ4			if KERNEL_LZ4
 	select HOST_LIBKMOD		if KERNEL_MODULES
 	select HOST_SYSTEM_BC
 	select HOST_OPENSSL		if KERNEL_OPENSSL
@@ -233,6 +234,17 @@ config KERNEL_LZOP
 	  Select this if you're going to build your kernel compressed
 	  with lzo and your host system is lacking the proper tools.
 	  (the "lzop" package)
+
+	  Select this if you're unsure, as it won't hurt. It just
+	  increases the build time.
+
+config KERNEL_LZ4
+	prompt "build lz4 hosttool"
+	bool
+	help
+	  Select this if you're going to build your kernel compressed
+	  with lz4 and your host system is lacking the proper tools.
+	  (the "lz4" package)
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
