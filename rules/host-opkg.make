@@ -32,13 +32,17 @@ HOST_OPKG_ENV	:= $(HOST_ENV)
 HOST_OPKG_CONF_TOOL	:= autoconf
 HOST_OPKG_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-static \
 	--disable-libopkg-api \
+	--disable-static \
 	--disable-pathfinder \
+	--disable-xz \
+	--disable-bzip2 \
 	--disable-curl \
 	--disable-sha256 \
 	--disable-openssl \
 	--disable-ssl-curl \
-	--disable-gpg
+	--disable-gpg \
+	--without-libsolv \
+	--without-static-libopkg
 
 # vim: syntax=make
