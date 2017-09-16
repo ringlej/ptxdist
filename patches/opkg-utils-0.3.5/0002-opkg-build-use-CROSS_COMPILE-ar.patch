@@ -14,15 +14,15 @@ Signed-off-by: Andreas Bießmann <andreas@biessmann.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/opkg-build b/opkg-build
-index fb533a6..646787b 100755
+index f05eaecc6836..e24216946346 100755
 --- a/opkg-build
 +++ b/opkg-build
-@@ -250,7 +250,7 @@ if [ "$outer" = "ar" ] ; then
+@@ -309,7 +309,7 @@ if [ "$outer" = "ar" ] ; then
    # chown the content to "0:0".  files. This is needed as high UID values (>
    # 99999) cause problems when parsing ar file headers
    ( cd $tmp_dir && chown 0:0 ./debian-binary ./data.tar.gz ./control.tar.gz &&
--	ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
-+	${CROSS_COMPILE}ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+-	ar -crf $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
++	${CROSS_COMPILE}ar -crf $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
  else
-   ( cd $tmp_dir && tar -cz --format=gnu -f $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+   ( cd $tmp_dir && tar -cz $tarformat -f $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
  fi
