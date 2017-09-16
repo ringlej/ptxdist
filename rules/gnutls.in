@@ -2,7 +2,6 @@
 
 menuconfig GNUTLS
 	tristate
-	select ZLIB
 	select LIBGCRYPT
 	select LIBTASN1
 	select NETTLE
