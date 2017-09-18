@@ -1,0 +1,30 @@
+From: Axel Beckert <abe@debian.org>
+Date: Mon, 3 Jul 2017 10:46:08 +0200
+Subject: [PATCH] Fix privilege escalation by reverting upstream commit
+ 5460f5d2
+
+Bug-Debian: https://bugs.debian.org/852484
+Bug-CVE: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5618
+Bug: https://savannah.gnu.org/bugs/?50142
+     https://lists.gnu.org/archive/html/screen-devel/2017-01/msg00025.html
+---
+ screen.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/screen.c b/screen.c
+index 7cad20626f2b..e60d0a712fb5 100644
+--- a/screen.c
++++ b/screen.c
+@@ -673,12 +673,6 @@ int main(int ac, char** av)
+                 Panic(0, "-L: logfile name can not start with \"-\" symbol");
+               if (strlen(screenlogfile) > PATH_MAX)
+                 Panic(0, "-L: logfile name too long. (max. %d char)", PATH_MAX);
+-
+-              FILE *w_check;
+-              if ((w_check = fopen(screenlogfile, "w")) == NULL)
+-                Panic(0, "-L: logfile name access problem");
+-              else
+-                fclose(w_check);
+             }
+             nwin_options.Lflag = 1;
+             break;

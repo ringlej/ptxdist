@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SCREEN) += screen
 #
 # Paths and names
 #
-SCREEN_VERSION	:= 4.0.3
-SCREEN_MD5	:= 8506fd205028a96c741e4037de6e3c42
+SCREEN_VERSION	:= 4.5.0
+SCREEN_MD5	:= a32105a91359afab1a4349209a028e31
 SCREEN		:= screen-$(SCREEN_VERSION)
 SCREEN_SUFFIX	:= tar.gz
 SCREEN_URL	:= $(call ptx/mirror, GNU, screen/$(SCREEN).$(SCREEN_SUFFIX))
@@ -37,6 +37,7 @@ SCREEN_ENV 	:= $(CROSS_ENV)
 #
 SCREEN_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-use-locale \
 	--with-sys-screenrc=/etc/screenrc
 
 # ----------------------------------------------------------------------------

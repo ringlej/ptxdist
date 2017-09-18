@@ -7,17 +7,19 @@ AC_TRY_RUN fails when cross-compiling.
 Not for upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+[osterlad: Update locations for version 4.5.0]
+Signed-off-by: Denis Osterland <Denis.Osterland@diehl.com>
 ---
- configure.in |  652 +---------------------------------------------------------
- 1 files changed, 9 insertions(+), 643 deletions(-)
+ configure.ac | 651 +----------------------------------------------------------
+ 1 file changed, 9 insertions(+), 642 deletions(-)
 
-diff --git a/configure.in b/configure.in
-index c1460af..419279d 100644
---- a/configure.in
-+++ b/configure.in
-@@ -46,31 +46,6 @@ AC_PROG_CPP
- AC_PROG_GCC_TRADITIONAL
+diff --git a/configure.ac b/configure.ac
+index d88af75af665..155b34c7ecce 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -48,31 +48,6 @@ AC_PROG_GCC_TRADITIONAL
  AC_ISC_POSIX
+ AC_USE_SYSTEM_EXTENSIONS
  
 -AC_TRY_RUN(main(){exit(0);},,[
 -if test $CC != cc ; then
@@ -47,7 +49,7 @@ index c1460af..419279d 100644
  AC_PROG_AWK
  
  AC_PROG_INSTALL
-@@ -279,354 +254,6 @@ AC_CHECKING(select with $LIBS)
+@@ -295,353 +270,6 @@ AC_CHECKING(select with $LIBS)
  AC_TRY_LINK(,[select(0, 0, 0, 0, 0);],, 
  AC_MSG_ERROR(!!! no select - no screen))
  )
@@ -57,7 +59,14 @@ index c1460af..419279d 100644
 -
 -AC_CHECKING(fifos)
 -AC_TRY_RUN([
+-/* For select - According to POSIX 1003.1-2001 */
+-#include <sys/select.h>
+-
+-/* For select - According to earlier standards */
+-#include <sys/time.h>
 -#include <sys/types.h>
+-#include <unistd.h>
+-
 -#include <sys/stat.h>
 -#include <fcntl.h>
 -
@@ -73,13 +82,10 @@ index c1460af..419279d 100644
 -main()
 -{
 -  struct stat stb;
--#ifdef FD_SET
 -  fd_set f;
--#else
--  int f;
--#endif
 -
 -  (void)alarm(5);
+-  unlink(fin);
 -#ifdef POSIX
 -  if (mkfifo(fin, 0777))
 -#else
@@ -111,11 +117,7 @@ index c1460af..419279d 100644
 -	exit(1);
 -      exit(0);
 -    }
--#ifdef FD_SET
 -  FD_SET(0, &f);
--#else
--  f = 1;
--#endif
 -  if (select(1, &f, 0, 0, 0) == -1)
 -    exit(1);
 -  exit(0);
@@ -127,10 +129,16 @@ index c1460af..419279d 100644
 -if test -n "$fifo"; then
 -AC_CHECKING(for broken fifo implementation)
 -AC_TRY_RUN([
--#include <sys/types.h>
--#include <fcntl.h>
+-/* For select - According to POSIX 1003.1-2001 */
+-#include <sys/select.h>
+-
+-/* For select - According to earlier standards */
 -#include <sys/time.h>
+-#include <sys/types.h>
+-#include <unistd.h>
+-
 -#include <sys/stat.h>
+-#include <fcntl.h>
 -
 -#ifndef O_NONBLOCK
 -#define O_NONBLOCK O_NDELAY
@@ -144,11 +152,7 @@ index c1460af..419279d 100644
 -main()
 -{
 -  struct timeval tv;
--#ifdef FD_SET
 -  fd_set f;
--#else
--  int f;
--#endif
 -
 -#ifdef POSIX
 -  if (mkfifo(fin, 0600))
@@ -159,11 +163,7 @@ index c1460af..419279d 100644
 -  close(0);
 -  if (open(fin, O_RDONLY|O_NONBLOCK))
 -    exit(1);
--#ifdef FD_SET
 -  FD_SET(0, &f);
--#else
--  f = 1;
--#endif
 -  tv.tv_sec = 1;
 -  tv.tv_usec = 0;
 -  if (select(1, &f, 0, 0, &tv))
@@ -183,10 +183,18 @@ index c1460af..419279d 100644
 -
 -AC_CHECKING(sockets)
 -AC_TRY_RUN([
+-/* For select - According to POSIX 1003.1-2001 */
+-#include <sys/select.h>
+-
+-/* For select - According to earlier standards */
+-#include <sys/time.h>
 -#include <sys/types.h>
+-#include <unistd.h>
+-
+-#include <sys/stat.h>
+-#include <fcntl.h>
 -#include <sys/socket.h>
 -#include <sys/un.h>
--#include <fcntl.h>
 -
 -char *son = "/tmp/conftest$$";
 -
@@ -194,11 +202,7 @@ index c1460af..419279d 100644
 -{
 -  int s1, s2, l;
 -  struct sockaddr_un a;
--#ifdef FD_SET
 -  fd_set f;
--#else
--  int f;
--#endif
 -
 -  (void)alarm(5);
 -  if ((s1 = socket(AF_UNIX, SOCK_STREAM, 0)) == -1)
@@ -223,11 +227,7 @@ index c1460af..419279d 100644
 -  close(0);
 -  if (accept(s1, &a, &l))
 -    exit(1);
--#ifdef FD_SET
 -  FD_SET(0, &f);
--#else
--  f = 1;
--#endif
 -  if (select(1, &f, 0, 0, 0) == -1)
 -    exit(1);
 -  exit(0);
@@ -239,7 +239,14 @@ index c1460af..419279d 100644
 -if test -n "$sock"; then
 -AC_CHECKING(socket implementation)
 -AC_TRY_RUN([
+-/* For select - According to POSIX 1003.1-2001 */
+-#include <sys/select.h>
+-
+-/* For select - According to earlier standards */
+-#include <sys/time.h>
 -#include <sys/types.h>
+-#include <unistd.h>
+-
 -#include <sys/stat.h>
 -#include <sys/socket.h>
 -#include <sys/un.h>
@@ -281,8 +288,7 @@ index c1460af..419279d 100644
 -    elif test -n "$fifobr"; then
 -      AC_NOTE(- as your fifos are broken lets use the sockets.)
 -    else
--      AC_NOTE(- both sockets and fifos usable. let's take fifos.)
--      AC_DEFINE(NAMEDPIPE)
+-      AC_NOTE(- both sockets and fifos usable. let's take sockets.)
 -    fi
 -  else
 -    AC_NOTE(- using named pipes, of course)
@@ -300,7 +306,14 @@ index c1460af..419279d 100644
 -
 -AC_CHECKING(select return value)
 -AC_TRY_RUN([
+-/* For select - According to POSIX 1003.1-2001 */
+-#include <sys/select.h>
+-
+-/* For select - According to earlier standards */
+-#include <sys/time.h>
 -#include <sys/types.h>
+-#include <unistd.h>
+-
 -#include <sys/stat.h>
 -#include <fcntl.h>
 -
@@ -318,11 +331,7 @@ index c1460af..419279d 100644
 -
 -main()
 -{
--#ifdef FD_SET
 -  fd_set f;
--#else
--  int f;
--#endif
 -
 -#ifdef __FreeBSD__
 -/* From Andrew A. Chernov (ache@astral.msk.su):
@@ -354,11 +363,7 @@ index c1460af..419279d 100644
 -{
 -  int s1, s2, l;
 -  struct sockaddr_un a;
--#ifdef FD_SET
 -  fd_set f;
--#else
--  int f;
--#endif
 -
 -  (void)alarm(5);
 -  if ((s1 = socket(AF_UNIX, SOCK_STREAM, 0)) == -1)
@@ -386,11 +391,7 @@ index c1460af..419279d 100644
 -#endif
 -
 -
--#ifdef FD_SET
 -  FD_SET(0, &f);
--#else
--  f = 1;
--#endif
 -  if (select(1, &f, 0, 0, 0) == -1)
 -    exit(1);
 -  if (select(1, &f, &f, 0, 0) != 2)
@@ -402,9 +403,9 @@ index c1460af..419279d 100644
  
  dnl
  dnl    ****  termcap or terminfo  ****
-@@ -654,12 +281,8 @@ AC_CHECKING(libncurses)
+@@ -678,12 +306,8 @@ AC_CHECKING(libtinfo)
  AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
- AC_MSG_ERROR(!!! no tgetent - no screen))))))
+ AC_MSG_ERROR(!!! no tgetent - no screen)))))))))
  
 -AC_TRY_RUN([
 -main()
@@ -417,7 +418,7 @@ index c1460af..419279d 100644
  AC_CHECKING(ospeed)
  AC_TRY_LINK(extern short ospeed;,ospeed=5;,,AC_DEFINE(NEED_OSPEED))
  
-@@ -710,95 +333,6 @@ AC_DEFINE_UNQUOTED(PTYRANGE0,"$p0")
+@@ -734,95 +358,6 @@ AC_DEFINE_UNQUOTED(PTYRANGE0,"$p0")
  AC_DEFINE_UNQUOTED(PTYRANGE1,"$p1")
  fi
  
@@ -513,7 +514,7 @@ index c1460af..419279d 100644
  dnl
  dnl    ****  utmp handling  ****
  dnl
-@@ -871,101 +405,6 @@ AC_DEFINE(LOADAV_GETLOADAVG) load=1, LIBS="$olibs")
+@@ -895,101 +430,6 @@ AC_DEFINE(LOADAV_GETLOADAVG) load=1, LIBS="$olibs")
  fi
  )
  
@@ -615,7 +616,7 @@ index c1460af..419279d 100644
  AC_PROGRAM_SOURCE([
  #include <sys/types.h>
  #include <sys/param.h>
-@@ -1037,41 +476,8 @@ sigset(0, (void (*)())0);
+@@ -1061,41 +501,8 @@ sigset(0, (void (*)())0);
  sigset(0, (int (*)())0);
  #endif
  ], AC_DEFINE(USESIGSET))
@@ -623,7 +624,7 @@ index c1460af..419279d 100644
 -AC_TRY_RUN([
 -#include <sys/types.h>
 -#include <signal.h>
- 
+-
 -#ifndef SIGCLD
 -#define SIGCLD SIGCHLD
 -#endif
@@ -632,7 +633,7 @@ index c1460af..419279d 100644
 -#endif
 -
 -int got;
--
+ 
 -#ifdef SIGVOID
 -void
 -#endif
@@ -658,7 +659,7 @@ index c1460af..419279d 100644
  
  fi
  
-@@ -1139,50 +545,12 @@ AC_CHECKING(fdwalk)
+@@ -1163,50 +570,12 @@ AC_CHECKING(fdwalk)
  AC_TRY_LINK([#include <stdlib.h>], [fdwalk(NULL, NULL);],AC_DEFINE(HAVE_FDWALK))
  
  AC_CHECKING(whether memcpy/memmove/bcopy handles overlapping arguments)
@@ -713,17 +714,14 @@ index c1460af..419279d 100644
 +
 +AC_DEFINE(USEMEMCPY)
  
- AC_MSG_CHECKING(long file names)
- (echo 1 > /tmp/conftest9012345) 2>/dev/null
-@@ -1257,8 +625,6 @@ fi
+ AC_SYS_LONG_FILE_NAMES
+ 
+@@ -1292,8 +661,6 @@ fi
  dnl Ptx bug workaround -- insert -lc after -ltermcap
  test -n "$seqptx" && LIBS="-ltermcap -lc -lsocket -linet -lnsl -lsec -lseq"
  
 -AC_TRY_RUN(main(){exit(0);},,AC_MSG_ERROR(Can't run the compiler - internal error. Sorry.))
 -
- ETCSCREENRC="\"/usr/local/etc/screenrc\""
- if test -n "$prefix"; then
- ETCSCREENRC="\"$prefix/etc/screenrc\""
--- 
-1.7.4.1
-
+ ETCSCREENRC=
+ AC_MSG_CHECKING(for the global screenrc file)
+ AC_ARG_WITH(sys-screenrc, [  --with-sys-screenrc=path to the global screenrc file], [ ETCSCREENRC="${withval}" ])
