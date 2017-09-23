@@ -1,0 +1,23 @@
+From: Fabrizio Gennari <fabrizio.ge@tiscali.it>
+Date: Mon, 4 Jul 2016 23:27:35 -0500
+Subject: [PATCH] Fix data corruption when changing both sample format and
+ channel count.
+
+Fix for CVE-2015-7747.
+---
+ libaudiofile/modules/ModuleState.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libaudiofile/modules/ModuleState.cpp b/libaudiofile/modules/ModuleState.cpp
+index f76c4956b2f6..0c29d7aaf0d3 100644
+--- a/libaudiofile/modules/ModuleState.cpp
++++ b/libaudiofile/modules/ModuleState.cpp
+@@ -402,7 +402,7 @@ status ModuleState::arrange(AFfilehandle file, Track *track)
+ 		addModule(new Transform(outfc, in.pcm, out.pcm));
+ 
+ 	if (in.channelCount != out.channelCount)
+-		addModule(new ApplyChannelMatrix(infc, isReading,
++		addModule(new ApplyChannelMatrix(outfc, isReading,
+ 			in.channelCount, out.channelCount,
+ 			in.pcm.minClip, in.pcm.maxClip,
+ 			track->channelMatrix));
