@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.169
-LIBELF_MD5	:= 1ce77c5315d6bba7d883c3c4f0c2697e
+LIBELF_VERSION	:= 0.170
+LIBELF_MD5	:= 03599aee98c9b726c7a732a2dd0245d5
 LIBELF		:= elfutils-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.bz2
 LIBELF_URL	:= https://fedorahosted.org/releases/e/l/elfutils/$(LIBELF_VERSION)/$(LIBELF).$(LIBELF_SUFFIX)
