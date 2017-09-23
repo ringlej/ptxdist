@@ -36,6 +36,7 @@ NCURSES_ENV := \
 	TIC_PATH="$(PTXCONF_SYSROOT_HOST)/bin/tic"
 
 NCURSES_AUTOCONF_SHARED := \
+	--without-cxx-binding \
 	--disable-echo \
 	--disable-nls \
 	--enable-const \
@@ -123,7 +124,6 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 		echo "INPUT(-l$${lib}w)" > $(NCURSES_PKGDIR)/$(CROSS_LIB_DIR)/lib$${lib}.so ; \
 	done
 	echo "INPUT(-lncursesw)" > $(NCURSES_PKGDIR)/$(CROSS_LIB_DIR)/libcurses.so
-	ln -sf libncurses++w.a $(NCURSES_PKGDIR)/$(CROSS_LIB_DIR)/libncurses++.a
 
 	ln -sf -- "ncursesw$(NCURSES_MAJOR)-config" \
 		"$(NCURSES_PKGDIR)/usr/bin/ncurses$(NCURSES_MAJOR)-config"
