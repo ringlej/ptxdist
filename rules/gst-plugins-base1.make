@@ -98,6 +98,12 @@ ifneq ($(call remove_quotes,$(GST_PLUGINS_BASE1_ENABLEC-)),)
 GST_PLUGINS_BASE1_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_BASE1_ENABLEC-)))
 endif
 
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+GST_PLUGINS_BASE1_LDFLAGS := \
+	-Wl,-rpath-link,$(GST_PLUGINS_BASE1_DIR)/gst-libs/gst/tag/.libs \
+	-Wl,-rpath-link,$(GST_PLUGINS_BASE1_DIR)/gst-libs/gst/rtp/.libs
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
