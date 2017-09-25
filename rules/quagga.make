@@ -89,6 +89,7 @@ $(STATEDIR)/quagga.targetinstall:
 	@$(call install_fixup, quagga,SECTION,base)
 	@$(call install_fixup, quagga,AUTHOR,"<oliver.graute@neuhaus.de>")
 	@$(call install_fixup, quagga,DESCRIPTION,missing)
+
 	@$(call install_lib, quagga, 0, 0, 0644, libzebra)
 
 ifdef PTXCONF_QUAGGA_RIPD
@@ -112,6 +113,7 @@ ifdef PTXCONF_QUAGGA_ZEBRA
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/zebra.conf)
 endif
 ifdef PTXCONF_QUAGGA_OSPFD
+	@$(call install_lib, quagga, 0, 0, 0644, libospf)
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/ospfd)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/ospfd.conf)
 endif
