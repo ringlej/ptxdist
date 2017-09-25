@@ -88,6 +88,10 @@ GSTREAMER1_CONF_OPT	:= \
 	--with-ptp-helper-setuid-group=nogroup \
 	--with-ptp-helper-permissions=setuid-root
 
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+GSTREAMER1_LDFLAGS := -Wl,-rpath-link,$(GSTREAMER1_DIR)/libs/gst/base/.libs
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
