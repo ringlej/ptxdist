@@ -4,6 +4,8 @@ menuconfig QUAGGA
 	tristate
 	select NET_SNMP
 	select NET_SNMP_MIB_MODULES_AGENTX
+	select READLINE				if QUAGGA_VTYSH
+	select TERMCAP				if QUAGGA_VTYSH
 	prompt "quagga                        "
 	help
 	  Quagga Routing Suite. Quagga is a routing software suite, providing
