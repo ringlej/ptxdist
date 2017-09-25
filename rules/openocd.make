@@ -26,6 +26,7 @@ OPENOCD_LICENSE	:= GPL-2.0+, BSD
 
 OPENOCD_CONF_TOOL	:= autoconf
 OPENOCD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
+	--disable-werror \
 	--$(call ptx/endis, PTXCONF_OPENOCD_DUMMY)-dummy \
 	--$(call ptx/endis, PTXCONF_OPENOCD_FTDI)-ftdi \
 	--$(call ptx/endis, PTXCONF_OPENOCD_STLINK)-stlink \
