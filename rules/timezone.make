@@ -115,9 +115,6 @@ $(STATEDIR)/timezone.targetinstall:
 ifneq ($(call remove_quotes,$(PTXCONF_TIMEZONE_LOCALTIME)),)
 	@$(call install_link, timezone, ..$(TIMEZONE_LOCALTIME_FILE), \
 		/etc/localtime)
-	@$(call install_alternative, timezone, 0, 0, 0644, /etc/timezone)
-	@$(call install_replace, timezone, /etc/timezone, @TIMEZONE@, \
-		$(PTXCONF_TIMEZONE_LOCALTIME))
 endif
 
 	@$(call install_finish, timezone)
