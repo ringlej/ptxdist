@@ -1,0 +1,42 @@
+## SECTION=disk_and_file
+
+menuconfig CRYPTSETUP
+	select LVM2
+	select LIBUUID
+	select LIBPOPT
+	select LIBGCRYPT if CRYPTSETUP_CRYPT_BACKEND_GCRYPT
+	select OPENSSL if CRYPTSETUP_CRYPT_BACKEND_OPENSSL
+	select NETTLE if CRYPTSETUP_CRYPT_BACKEND_NETTLE
+	tristate
+	prompt "cryptsetup                    "
+	help
+	  Cryptsetup is a utility used to conveniently setup disk encryption
+	  based on DMCrypt kernel module.
+
+if CRYPTSETUP
+
+choice
+	prompt "Crypto backend"
+
+	config CRYPTSETUP_CRYPT_BACKEND_KERNEL
+	bool "kernel"
+
+	config CRYPTSETUP_CRYPT_BACKEND_GCRYPT
+	bool "gcrypt"
+
+	config CRYPTSETUP_CRYPT_BACKEND_OPENSSL
+	bool "openssl"
+
+	config CRYPTSETUP_CRYPT_BACKEND_NETTLE
+	bool "nettle"
+endchoice
+
+config CRYPTSETUP_CRYPTSETUP
+	bool
+	prompt "install cryptsetup"
+
+config CRYPTSETUP_VERITYSETUP
+	bool
+	prompt "install veritysetup"
+
+endif
