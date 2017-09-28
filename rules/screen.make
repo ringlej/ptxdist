@@ -53,7 +53,9 @@ $(STATEDIR)/screen.targetinstall:
 	@$(call install_fixup, screen,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, screen,DESCRIPTION,missing)
 
-	@$(call install_copy, screen, 0, 0, 0755, -, /usr/bin/screen)
+	@$(call install_copy, screen, 0, 0, 0755, \
+		$(SCREEN_PKGDIR)/usr/bin/screen-$(SCREEN_VERSION), \
+		/usr/bin/screen)
 
 ifdef PTXCONF_SCREEN_ETC_SCREENRC
 	@$(call install_alternative, screen, 0, 0, 0644, /etc/screenrc, n)
