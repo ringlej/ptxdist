@@ -44,26 +44,11 @@ CRYPTSETUP_CONF_OPT	:= \
 	--enable-cryptsetup-reencrypt \
 	--disable-selinux \
 	--enable-udev \
+	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPT_BACKEND_KERNEL)-kernel_crypto \
+	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPT_BACKEND_GCRYPT)-gcrypt-pbkdf2 \
 	--enable-dev-random \
-	--disable-python
-
-ifdef PTXCONF_CRYPTSETUP_CRYPT_BACKEND_GCRYPT
-CRYPTSETUP_CONF_OPT += --with-crypto_backend=gcrypt \
-			--enable-gcrypt-pbkdf2
-endif
-
-ifdef PTXCONF_CRYPTSETUP_CRYPT_BACKEND_OPENSSL
-CRYPTSETUP_CONF_OPT += --with-crypto_backend=openssl
-endif
-
-ifdef PTXCONF_CRYPTSETUP_CRYPT_BACKEND_KERNEL
-CRYPTSETUP_CONF_OPT += --with-crypto_backend=kernel \
-			--enable-kernel_crypto
-endif
-
-ifdef PTXCONF_CRYPTSETUP_CRYPT_BACKEND_NETTLE
-CRYPTSETUP_CONF_OPT += --with-crypto_backend=nettle
-endif
+	--disable-python \
+	--with-crypto_backend=$(PTXCONF_CRYPTSETUP_CRYPT_BACKEND)
 
 # ----------------------------------------------------------------------------
 # Target-Install
