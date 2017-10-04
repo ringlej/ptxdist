@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.6.0
-IPTABLES_MD5		:= 27ba3451cb622467fc9267a176f19a31
+IPTABLES_VERSION	:= 1.6.1
+IPTABLES_MD5		:= ab38a33806b6182c6f53d6afb4619add
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -50,8 +50,6 @@ IPTABLES_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_IPTABLES_NFTABLES_COMPAT)-nftables \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
-
-IPTABLES_CFLAGS:= -D_FILE_OFFSET_BITS=64
 
 # ----------------------------------------------------------------------------
 # Install
