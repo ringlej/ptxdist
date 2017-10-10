@@ -1,0 +1,7 @@
+## SECTION=multimedia_sound
+
+config BEEP
+	tristate
+	prompt "beep"
+	help
+	  Extended beep utility
