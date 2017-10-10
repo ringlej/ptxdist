@@ -160,6 +160,7 @@ $(STATEDIR)/kernel.tags:
 # ----------------------------------------------------------------------------
 
 KERNEL_TOOL_PERF_OPTS := \
+	WERROR=0 \
 	NO_LIBPERL=1 \
 	NO_LIBPYTHON=1 \
 	NO_DWARF= \
@@ -183,10 +184,6 @@ KERNEL_TOOL_PERF_OPTS := \
 	NO_LIBBPF=1 \
 	NO_SDT=1
 
-KERNEL_PERF_ENV := \
-	$(KERNEL_ENV) \
-	pkg_cflags="-C"
-
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
 	@rm -f \
@@ -195,7 +192,7 @@ $(STATEDIR)/kernel.compile:
 	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 ifdef PTXCONF_KERNEL_TOOL_PERF
-	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_PERF_ENV) $(MAKE) \
+	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf
 endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
