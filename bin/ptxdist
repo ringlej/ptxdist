@@ -2039,7 +2039,7 @@ EOF
 				exit 1
 			fi
 			while [ ${#} -gt 0 ]; do
-				if [[ ! ( "${1}" =~ "/" ) ]] && [ -n "${!1}" ]; then
+				if [[ ! ( "${1}" =~ "/" ) ]]  && ([ -n "${!1}" ]) 2>/dev/null; then
 					if [ "${PTXDIST_VERBOSE}" = "1" ]; then
 						echo -n "${1}="
 					fi
