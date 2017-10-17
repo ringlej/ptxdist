@@ -1,0 +1,23 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Tue, 17 Oct 2017 12:29:22 +0200
+Subject: [PATCH] add largefile support
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+---
+ configure.ac | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 26e5d125c884..ed36447f3b62 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -38,6 +38,9 @@ AM_PROG_LIBTOOL
+ 
+ CC_NOUNDEFINED
+ 
++dnl enable largefile
++AC_SYS_LARGEFILE
++
+ dnl Checks for header files.
+ AC_HEADER_STDC
+ AC_CONFIG_HEADERS(include/config.h)
