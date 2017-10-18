@@ -285,6 +285,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_BLKID
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/blkid)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_LSBLK
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/lsblk)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDD
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/uuidd)
 endif

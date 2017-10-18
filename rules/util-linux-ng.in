@@ -371,6 +371,16 @@ config UTIL_LINUX_NG_BLKID
 comment "BusyBox' blkid is selected!"
 	depends on BUSYBOX_BLKID
 
+config UTIL_LINUX_NG_LSBLK
+	bool
+	select UTIL_LINUX_NG_LIBBLKID
+	select UTIL_LINUX_NG_LIBMOUNT
+	select UTIL_LINUX_NG_LIBSMARTCOLS
+	prompt "lsblk"
+	help
+	  The lsblk command lists information about all available or the
+	  specified block devices.
+
 config UTIL_LINUX_NG_FINDFS
 	bool
 	select UTIL_LINUX_NG_LIBBLKID
