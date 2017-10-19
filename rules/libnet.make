@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBNET) += libnet
 #
 # Paths and names
 #
-LIBNET_VERSION	:= 1.1.4
-LIBNET_MD5	:= c5e06418a89cc4209f677a776a798fd9
+LIBNET_VERSION	:= 1.1.6
+LIBNET_MD5	:= 710296fe424a49344e5fcc0d09e53317
 LIBNET		:= libnet-$(LIBNET_VERSION)
 LIBNET_SUFFIX	:= tar.gz
 LIBNET_URL	:= $(call ptx/mirror, SF, libnet-dev/$(LIBNET).$(LIBNET_SUFFIX))
@@ -29,14 +29,15 @@ LIBNET_DIR	:= $(BUILDDIR)/$(LIBNET)
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
 LIBNET_CONF_TOOL	:= autoconf
-
 LIBNET_CONF_ENV		:= \
 	$(CROSS_ENV) \
 	libnet_cv_have_packet_socket=yes
+
+LIBNET_CONF_OPT		:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-samples \
+	--with-link-layer=linux
 
 # ----------------------------------------------------------------------------
 # Target-Install
