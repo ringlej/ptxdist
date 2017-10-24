@@ -379,7 +379,7 @@ endif
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/system/)
 
-ifndef PTXCONF_SYSTEMD_VCONSOLE
+ifdef PTXCONF_SYSTEMD_VCONSOLE
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
 endif
 
