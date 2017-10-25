@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WPAN_TOOLS) += wpan-tools
 #
 # Paths and names
 #
-WPAN_TOOLS_VERSION	:= 0.6
-WPAN_TOOLS_MD5		:= 05322b1bc2fcdc040d326f0a5017aa4e
+WPAN_TOOLS_VERSION	:= 0.7
+WPAN_TOOLS_MD5		:= 06608f69951088844196f79685318aa9
 WPAN_TOOLS		:= wpan-tools-$(WPAN_TOOLS_VERSION)
 WPAN_TOOLS_SUFFIX	:= tar.gz
 WPAN_TOOLS_URL		:= http://wpan.cakelab.org/releases/$(WPAN_TOOLS).$(WPAN_TOOLS_SUFFIX)
@@ -32,8 +32,8 @@ WPAN_TOOLS_CONF_TOOL	:= autoconf
 WPAN_TOOLS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-shared \
-	--disable-static
+	--disable-static \
+	--disable-shared
 
 # ----------------------------------------------------------------------------
 # Target-Install
