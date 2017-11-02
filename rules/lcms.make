@@ -16,13 +16,15 @@ PACKAGES-$(PTXCONF_LCMS) += lcms
 #
 # Paths and names
 #
-LCMS_VERSION	:= 1.19
-LCMS_MD5	:= 8af94611baf20d9646c7c2c285859818
-LCMS		:= lcms-$(LCMS_VERSION)
-LCMS_SUFFIX	:= tar.gz
-LCMS_URL	:= $(call ptx/mirror, SF, lcms/$(LCMS).$(LCMS_SUFFIX))
-LCMS_SOURCE	:= $(SRCDIR)/$(LCMS).$(LCMS_SUFFIX)
-LCMS_DIR	:= $(BUILDDIR)/lcms-1.19
+LCMS_VERSION		:= 1.19
+LCMS_MD5		:= 8af94611baf20d9646c7c2c285859818
+LCMS			:= lcms-$(LCMS_VERSION)
+LCMS_SUFFIX		:= tar.gz
+LCMS_URL		:= $(call ptx/mirror, SF, lcms/$(LCMS).$(LCMS_SUFFIX))
+LCMS_SOURCE		:= $(SRCDIR)/$(LCMS).$(LCMS_SUFFIX)
+LCMS_DIR		:= $(BUILDDIR)/lcms-1.19
+LCMS_LICENSE		:= MIT
+LCMS_LICENSE_FILES	:= file://COPYING;md5=156745cad721a8783cb847e82b79f586
 
 # ----------------------------------------------------------------------------
 # Prepare
