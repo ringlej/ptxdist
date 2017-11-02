@@ -36,6 +36,7 @@ config PHP5_INI
 
 choice
 	prompt "SAPI Module"
+	default PHP5_SAPI_NONE
 
 config PHP5_SAPI_AOLSERVER
 	bool
