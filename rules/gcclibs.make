@@ -21,6 +21,8 @@ GCCLIBS_VERSION	:= unknown
 else
 GCCLIBS_VERSION	:= $(shell $(CROSS_CC) -dumpversion)
 endif
+# for license information
+-include $(PTXDIST_PLATFORMDIR)/selected_toolchain/../share/compliance/gcclibs.make
 
 # ----------------------------------------------------------------------------
 # Target-Install
