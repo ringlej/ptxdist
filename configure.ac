@@ -39,6 +39,8 @@ dnl Check header files, mostly for lxdialog & kconfig
 dnl
 AC_HEADER_STDC
 
+AC_CHECK_HEADERS([fcntl.h inttypes.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h unistd.h])
+
 AC_CHECK_HEADER([regex.h], [], AC_MSG_ERROR([Cannot find regex.h.]))
 
 AC_SEARCH_LIBS(regcomp, [regex gnuregex],,
@@ -87,6 +89,29 @@ AC_CHECK_HEADER(
 	fi
 ])
 AM_CONDITIONAL(BUILD_NCONF, test "x$NCURSES_FOUND" = "xyes")
+
+dnl
+dnl Checks for typedefs, structures, and compiler characteristics.
+dnl
+AC_CHECK_HEADER_STDBOOL
+AC_C_INLINE
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT8_T
+AC_TYPE_OFF_T
+AC_TYPE_SIZE_T
+AC_TYPE_SSIZE_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT8_T
+
+dnl
+dnl Checks for library functions.
+dnl
+AC_FUNC_ALLOCA
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+AC_CHECK_FUNCS([bzero gettimeofday memmove memset mkdir regcomp setlocale strcasecmp strchr strcspn strdup strncasecmp strpbrk strrchr strspn strtol strtoull uname])
 
 
 AC_SYS_INTERPRETER
