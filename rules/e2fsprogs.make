@@ -73,7 +73,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--without-included-gettext
 
 E2FSPROGS_MAKE_OPT	:= $(if $(filter 1,$(strip $(PTXDIST_VERBOSE))),V=1)
-E2FSPROGS_INSTALL_OPT	:= install
+E2FSPROGS_INSTALL_OPT	:= install install-libs
 
 # ----------------------------------------------------------------------------
 # Target-Install
