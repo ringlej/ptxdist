@@ -36,6 +36,7 @@ kconfig:
 	$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" \
 		CONF_LIBS="@CONF_LIBS@" \
 		MCONF_LIBS="@MCONF_LIBS@" \
+		NCONF_LIBS="@NCONF_LIBS@" \
 		CURSES_LOC="@CURSES_LOC@" \
 		conf mconf $(NCONF)
 	@echo "done."
