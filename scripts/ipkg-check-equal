@@ -23,8 +23,9 @@ pushd ${TMPDIR}/first > /dev/null
 ar x $IPKG1
 cd data    && tar -zxf ../data.tar.gz;    cd ..
 cd control && tar -zxf ../control.tar.gz; cd ..
+sed -i 's/^Version:.*//' control/control
 find data    -type f | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > data.md5
-find control -type f | grep -v "control/control" | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > control.md5
+find control -type f | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > control.md5
 popd > /dev/null
 
 mkdir -p ${TMPDIR}/second/data
@@ -33,8 +34,9 @@ pushd ${TMPDIR}/second > /dev/null
 ar x $IPKG2
 cd data    && tar -zxf ../data.tar.gz;    cd ..
 cd control && tar -zxf ../control.tar.gz; cd ..
+sed -i 's/^Version:.*//' control/control
 find data    -type f | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > data.md5
-find control -type f | grep -v "control/control" | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > control.md5
+find control -type f | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > control.md5
 popd > /dev/null
 
 diff -u ${TMPDIR}/first/data.md5 ${TMPDIR}/second/data.md5
