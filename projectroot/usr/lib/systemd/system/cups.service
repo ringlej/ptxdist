@@ -1,0 +1,15 @@
+[Unit]
+Description=CUPS Scheduler service
+Documentation=man:cupsd(8)
+Requires=systemd-tmpfiles-setup.service
+Requires=cups.socket
+
+[Service]
+User=daemon
+Group=lp
+ExecStart=/usr/sbin/cupsd -l -c /etc/cups/cupsd.conf -s /etc/cups/cups-files.conf
+Type=simple
+
+[Install]
+Also=cups.socket
+WantedBy=printer.target

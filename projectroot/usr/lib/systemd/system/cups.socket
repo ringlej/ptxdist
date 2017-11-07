@@ -1,0 +1,14 @@
+[Unit]
+Description=CUPS Scheduler socket
+PartOf=cups.service
+
+[Socket]
+ListenStream=/run/cups.sock
+ListenStream=[::1]:631
+ListenStream=127.0.0.1:631
+BindIPv6Only=No
+SocketUser=daemon
+SocketGroup=lp
+
+[Install]
+WantedBy=sockets.target

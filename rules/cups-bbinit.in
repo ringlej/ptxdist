@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config CUPS_BBINIT_LINK
+        string "cups"
+        depends on CUPS_STARTSCRIPT
+        default "S90cups"
+
+# vim: ft=kconfig ts=8 noet tw=80

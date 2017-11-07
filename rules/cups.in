@@ -1,0 +1,147 @@
+## SECTION=applications
+
+menuconfig CUPS
+	tristate
+	prompt "cups                          "
+
+	select ROOTFS_VAR_LOG
+	select ROOTFS_VAR_RUN
+	select LIBC_M
+	select LIBC_CRYPT
+	select ZLIB
+
+	select LIBC_PTHREAD		if CUPS_THREADING
+	select SYSTEMD			if CUPS_SYSTEMD_UNIT
+	select LIBPAPER			if CUPS_LIBPAPER
+	select LIBUSB			if CUPS_LIBUSB
+	select DBUS			if CUPS_DBUS
+	select GNUTLS			if CUPS_SSL
+	select AVAHI			if CUPS_AVAHI
+	select AVAHI_LIBAVAHI_CLIENT	if CUPS_AVAHI
+	select PERL			if CUPS_PERL && RUNTIME
+	select PHP5			if CUPS_PHP && RUNTIME
+	select PHP5_SAPI_CLI		if CUPS_PHP5_CLI && RUNTIME
+	select PHP5_SAPI_CGI		if CUPS_PHP5_CGI && RUNTIME
+	select PYTHON			if CUPS_PYTHON && CUPS_PYTHON2 && RUNTIME
+	select PYTHON3			if CUPS_PYTHON && CUPS_PYTHON3 && RUNTIME
+
+	help
+	  CUPS is the standards-based, open source printing system. It uses the
+	  Internet Printing Protocol (IPP) to support printing to local and
+	  network printers.
+
+if CUPS
+
+comment "--- CUPS Features ---"
+
+config CUPS_WEBINTERFACE
+	bool "enable web interface"
+	help
+	   Enable CUPS printer management via HTTP(S). Useful for hosts which
+	   should act as a print server, but can also serve as a GUI for CUPS.
+
+	   If you overwrite /etc/cups/cupsd.conf in your projectroot, be sure to
+	   set "WebInterface Yes" to enable it.
+
+if CUPS_WEBINTERFACE
+
+config CUPS_JAVA
+	bool "enable Java support for web interface"
+
+if CUPS_JAVA
+	comment "Please remember to install a suitable Java interpreter!"
+
+config CUPS_JAVA_PATH
+	string "path to Java interpreter"
+	default "/usr/bin/java"
+endif
+
+config CUPS_PERL
+	bool "enable Perl support for web interface"
+
+config CUPS_PHP
+	bool "enable PHP support for web interface"
+
+if CUPS_PHP
+choice
+	prompt "PHP interpreter"
+	default CUPS_PHP5_CLI
+
+config CUPS_PHP5_CLI
+	bool "php5-cli"
+
+config CUPS_PHP5_CGI
+	bool "php5-cgi"
+
+endchoice
+endif	# CUPS_PHP
+
+config CUPS_PYTHON
+	bool "enable Python support for web interface"
+
+if CUPS_PYTHON
+choice
+	prompt "Python interpreter"
+	default CUPS_PYTHON3
+
+config CUPS_PYTHON2
+	bool "python2"
+
+config CUPS_PYTHON3
+	bool "python3"
+
+endchoice
+endif # CUPS_PYTHON
+
+endif # CUPS_WEBINTERFACE
+
+config CUPS_SYSTEMD_UNIT
+	bool "install systemd unit file"
+	default y
+	depends on INITMETHOD_SYSTEMD
+	help
+	  Installs a systemd service file so that CUPS can be started as a
+	  systemd service.
+
+config CUPS_STARTSCRIPT
+	bool "install init.d script"
+	depends on INITMETHOD_BBINIT
+	help
+	  Install /etc/init.d/cups
+
+config CUPS_TEST_TOOLS
+	bool "install cupstest* tools"
+	default n
+	help
+	  Install cupstestdsc and cupstestppd on the target.
+
+comment "--- External Libraries ---"
+
+config CUPS_LIBPAPER
+	bool "libpaper support"
+	help
+	  Build with support for libpaper's collection of paper sizes
+
+config CUPS_LIBUSB
+	bool "libusb support"
+	help
+	  Build with libusb support. This is needed for the usb backend in order
+	  to use USB printers.
+
+config CUPS_DBUS
+	bool "dbus support"
+	help
+	  Builds CUPS with support for sending event notifications over DBUS
+
+config CUPS_SSL
+	bool "enable TLS support"
+	help
+	  Enables SSL support over IPP and HTTP, also for the web interface.
+
+config CUPS_AVAHI
+	bool "enable Avahi support"
+	help
+	  Enables support for discovery of network printers over Avahi/zeroconf.
+
+endif # CUPS
+# vim: ft=kconfig ts=8 noet tw=80
