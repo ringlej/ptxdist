@@ -1,0 +1,22 @@
+## SECTION=system_libraries
+
+menuconfig QPDF
+	tristate
+	prompt "qpdf                          "
+
+	select LIBJPEG
+	select ZLIB
+
+	help
+	  QPDF is a library that can be used to linearize (web-optimize),
+	  encrypt (password-protect), decrypt, and inspect PDF files.
+
+if QPDF
+
+config QPDF_TOOLS
+	bool "install tools"
+	help
+	  Install the tools. Those include qpdf, zlib-flate, and fix-qdf.
+
+endif
+# vim: ft=kconfig ts=8 noet tw=80

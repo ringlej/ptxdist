@@ -1,0 +1,40 @@
+From: Roland Hieber <r.hieber@pengutronix.de>
+Date: Mon, 25 Sep 2017 13:01:04 +0200
+Subject: [PATCH] Remove libjpeg dependency from pkg-config
+
+I'm linking QPDF with the original libjpeg-9a from http://ijg.org. This
+works well. But when I then compile cups-filters with QPDF support,
+cups-filters' configure is confused about it, because libjpeg does not
+ship pkg-config definitions:
+
+	[...]
+	checking for ZLIB... yes
+	checking for LIBQPDF... no
+	configure: error: Package requirements (libqpdf >= 3.0.2) were not met:
+
+	Package 'libjpeg', required by 'libqpdf', not found
+
+	Consider adjusting the PKG_CONFIG_PATH environment variable if you
+	installed software in a non-standard prefix.
+
+We cannot solve this problem in QPDF, so just remove the libjpeg
+dependency from the Requires.private variable.
+
+Forwarded: https://github.com/qpdf/qpdf/pull/157
+Signed-off-by: Roland Hieber <r.hieber@pengutronix.de>
+---
+ libqpdf.pc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libqpdf.pc.in b/libqpdf.pc.in
+index d45df49ed73b..8ece48734941 100644
+--- a/libqpdf.pc.in
++++ b/libqpdf.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libqpdf
+ Description: PDF transformation library
+ Version: @PACKAGE_VERSION@
+-Requires.private: zlib, libjpeg
++Requires.private: zlib
+ Libs: -L${libdir} -lqpdf
+ Cflags: -I${includedir}
