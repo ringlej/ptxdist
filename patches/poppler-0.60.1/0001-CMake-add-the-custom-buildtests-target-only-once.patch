@@ -1,0 +1,58 @@
+From: Roland Hieber <r.hieber@pengutronix.de>
+Date: Mon, 6 Nov 2017 15:36:34 +0100
+Subject: [PATCH] CMake: add the custom `buildtests` target only once
+
+This fixes building with -DBUILD_QT4_TESTS=NO or -DBUILD_QT5_TESTS=NO,
+which resulted in error messages like:
+
+  CMake Error at cmake/modules/PopplerMacros.cmake:41 (add_custom_target):
+    add_custom_target cannot create target "buildtests" because another
+    target with the same name already exists.  The existing target is a
+    custom target created in source directory
+    "[...]/poppler-0.60.1/qt4/tests".
+    See documentation for policy CMP0002 for more details.
+  Call Stack (most recent call first):
+    qt4/tests/CMakeLists.txt:30 (poppler_add_unittest)
+    qt4/tests/CMakeLists.txt:52 (qt4_add_qtest)
+
+Solve this by making BUILDTESTS_ADDED a global property so it is only
+remembered once per project instead of per directory.
+
+Fixes bug #103003.
+
+Forwarded: https://bugs.freedesktop.org/show_bug.cgi?id=103003#c5
+Signed-off-by: Roland Hieber <r.hieber@pengutronix.de>
+---
+ cmake/modules/PopplerMacros.cmake | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/cmake/modules/PopplerMacros.cmake b/cmake/modules/PopplerMacros.cmake
+index ba4bceb36ba4..4542751a0857 100644
+--- a/cmake/modules/PopplerMacros.cmake
++++ b/cmake/modules/PopplerMacros.cmake
+@@ -13,10 +13,10 @@ macro(POPPLER_ADD_TEST exe build_flag)
+ 
+   # if the tests are EXCLUDE_FROM_ALL, add a target "buildtests" to build all tests
+   if(NOT build_test AND NOT MSVC_IDE)
+-    get_directory_property(_buildtestsAdded BUILDTESTS_ADDED)
++    get_property(_buildtestsAdded GLOBAL PROPERTY BUILDTESTS_ADDED)
+     if(NOT _buildtestsAdded)
+       add_custom_target(buildtests)
+-      set_directory_properties(PROPERTIES BUILDTESTS_ADDED TRUE)
++      set_property(GLOBAL PROPERTY BUILDTESTS_ADDED TRUE)
+     endif(NOT _buildtestsAdded)
+     add_dependencies(buildtests ${exe})
+   endif(NOT build_test AND NOT MSVC_IDE)
+@@ -33,10 +33,10 @@ macro(POPPLER_ADD_UNITTEST exe build_flag)
+ 
+   # if the tests are EXCLUDE_FROM_ALL, add a target "buildtests" to build all tests
+   if(NOT build_test)
+-    get_directory_property(_buildtestsAdded BUILDTESTS_ADDED)
++    get_property(_buildtestsAdded GLOBAL PROPERTY BUILDTESTS_ADDED)
+     if(NOT _buildtestsAdded)
+       add_custom_target(buildtests)
+-      set_directory_properties(PROPERTIES BUILDTESTS_ADDED TRUE)
++      set_property(GLOBAL PROPERTY BUILDTESTS_ADDED TRUE)
+     endif(NOT _buildtestsAdded)
+     add_dependencies(buildtests ${exe})
+   endif(NOT build_test)
