@@ -438,23 +438,24 @@ ptxd_make_world_patchin_init()
 	return
     fi
 
+    if [[ "${pkg_url}" =~ ^file:// ]]; then
+	local url="${pkg_url//file:\/\//}"
+	# local directories are not intended to be patched
+	if [[ ! "${url}" =~ ^/ ]]; then
+	    # ensure an absolute path for this BSP relative URL
+	    url="${PTXDIST_WORKSPACE}/${url}"
+	fi
+	if [ -d "${url}" ]; then
+	   echo "Local source directory detected, skipping patch-in step"
+	   return
+	fi
+    fi
+
     if [ -n "${pkg_deprecated_patchin_series}" ]; then
 	ptxd_bailout "a 3rd parameter to patchin ('${pkg_deprecated_patchin_series}') is obsolete, please define <PKG>_SERIES instead"
     fi
 
     pkg_patchin_dir=${pkg_deprecated_patchin_dir:-${pkg_dir}}
-
-    #
-    # FIXME: do we still need this check?
-    #
-    case "${pkg_url}" in
-	file://)
-	    local dir="${pkg_url#file://}"
-	    if [ -d "${dir}" -a "${pkg_label}" != "kernel" ]; then
-		echo "local directory instead of tar file, skipping patch"
-	    fi
-	    ;;
-    esac
 
     #
     # find patch_dir
