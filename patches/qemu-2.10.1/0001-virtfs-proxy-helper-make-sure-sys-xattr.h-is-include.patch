@@ -16,7 +16,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fsdev/virtfs-proxy-helper.c b/fsdev/virtfs-proxy-helper.c
-index 54f7ad1c48f0..1f35a300ef89 100644
+index 6c066ec9a0ce..dd1801ce8589 100644
 --- a/fsdev/virtfs-proxy-helper.c
 +++ b/fsdev/virtfs-proxy-helper.c
 @@ -9,6 +9,7 @@

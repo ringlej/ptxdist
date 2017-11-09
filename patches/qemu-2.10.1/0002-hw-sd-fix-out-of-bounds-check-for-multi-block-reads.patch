@@ -1,0 +1,50 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 6 Oct 2017 16:46:47 +0100
+Subject: [PATCH] hw/sd: fix out-of-bounds check for multi block reads
+
+The current code checks if the next block exceeds the size of the card.
+This generates an error while reading the last block of the card.
+Do the out-of-bounds check when starting to read a new block to fix this.
+
+This issue became visible with increased error checking in Linux 4.13.
+
+Cc: qemu-stable@nongnu.org
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Reviewed-by: Alistair Francis <alistair.francis@xilinx.com>
+Message-id: 20170916091611.10241-1-m.olbrich@pengutronix.de
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+---
+ hw/sd/sd.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/hw/sd/sd.c b/hw/sd/sd.c
+index ba47bff4db80..35347a5bbcde 100644
+--- a/hw/sd/sd.c
++++ b/hw/sd/sd.c
+@@ -1797,8 +1797,13 @@ uint8_t sd_read_data(SDState *sd)
+         break;
+ 
+     case 18:	/* CMD18:  READ_MULTIPLE_BLOCK */
+-        if (sd->data_offset == 0)
++        if (sd->data_offset == 0) {
++            if (sd->data_start + io_len > sd->size) {
++                sd->card_status |= ADDRESS_ERROR;
++                return 0x00;
++            }
+             BLK_READ_BLOCK(sd->data_start, io_len);
++        }
+         ret = sd->data[sd->data_offset ++];
+ 
+         if (sd->data_offset >= io_len) {
+@@ -1812,11 +1817,6 @@ uint8_t sd_read_data(SDState *sd)
+                     break;
+                 }
+             }
+-
+-            if (sd->data_start + io_len > sd->size) {
+-                sd->card_status |= ADDRESS_ERROR;
+-                break;
+-            }
+         }
+         break;
+ 
