@@ -1,0 +1,23 @@
+From: Yu Watanabe <watanabe.yu+github@gmail.com>
+Date: Tue, 31 Oct 2017 16:20:53 +0900
+Subject: [PATCH] meson: do not create systemd-user-sessions.service if PAM is
+ disabled
+
+Fixes #7227.
+---
+ units/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/units/meson.build b/units/meson.build
+index 8494d23e9e40..1f4ed261a6d9 100644
+--- a/units/meson.build
++++ b/units/meson.build
+@@ -209,7 +209,7 @@ in_units = [
+          'multi-user.target.wants/ graphical.target.wants/ rescue.target.wants/'],
+         ['systemd-update-utmp.service',          'ENABLE_UTMP',
+          'sysinit.target.wants/'],
+-        ['systemd-user-sessions.service',        '',
++        ['systemd-user-sessions.service',        'HAVE_PAM',
+          'multi-user.target.wants/'],
+         ['systemd-vconsole-setup.service',       'ENABLE_VCONSOLE'],
+         ['systemd-volatile-root.service',        ''],

@@ -1,0 +1,866 @@
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Mon, 13 Nov 2017 13:30:39 +0100
+Subject: [PATCH] i18n: drop intltool use, use meson's merge_file directly
+
+This didn't work during the initial conversion to meson, but should now.
+A sufficiently new polkit is also required, for the .its rules files.
+
+Note that https://github.com/mesonbuild/meson/blob/master/docs/markdown/i18n-module.md
+says that 'install' argument was added in meson 0.43.0. If this is accurate,
+warnigs might be generated with older mesons. Fedora has 0.43.0 across the
+board, but other distros probably don't, but I guess that a warning is
+prefereable to having to update do latest meson.
+
+The advantages are:
+- one less dependency (intltool)
+- using the generic implementation instead of our open-coded calls
+- we don't need to use the fake "_" prefixes in XML
+
+Replaces #1609, fixes #7300.
+---
+ README                                           |   1 +
+ po/meson.build                                   |   8 --
+ src/core/meson.build                             |  15 +--
+ src/core/org.freedesktop.systemd1.policy.in.in   |  20 ++--
+ src/hostname/meson.build                         |   4 +-
+ src/hostname/org.freedesktop.hostname1.policy.in |  12 +--
+ src/import/meson.build                           |   4 +-
+ src/import/org.freedesktop.import1.policy.in     |  12 +--
+ src/locale/meson.build                           |   4 +-
+ src/locale/org.freedesktop.locale1.policy.in     |   8 +-
+ src/login/meson.build                            |   4 +-
+ src/login/org.freedesktop.login1.policy.in       | 128 +++++++++++------------
+ src/machine/meson.build                          |   4 +-
+ src/machine/org.freedesktop.machine1.policy.in   |  32 +++---
+ src/timedate/meson.build                         |   4 +-
+ src/timedate/org.freedesktop.timedate1.policy.in |  20 ++--
+ 16 files changed, 131 insertions(+), 149 deletions(-)
+
+diff --git a/README b/README
+index e36a1f9fa156..f73524df1d72 100644
+--- a/README
++++ b/README
+@@ -149,6 +149,7 @@ REQUIREMENTS:
+         libpython (optional)
+         libidn2 or libidn (optional)
+         elfutils >= 158 (optional)
++        polkit >= 0.113-22-gc78819245f (optional)
+         pkg-config
+         gperf
+         docbook-xsl (optional, required for documentation)
+diff --git a/po/meson.build b/po/meson.build
+index f89291bfc435..c4654be5ffe5 100644
+--- a/po/meson.build
++++ b/po/meson.build
+@@ -1,12 +1,4 @@
+ i18n = import('i18n')
+ i18n.gettext(meson.project_name())
+ 
+-#####################################################################
+-
+-intltool_merge = find_program('intltool-merge')
+ po_dir = meson.current_source_dir()
+-
+-intltool_cache = join_paths(meson.current_build_dir(), 'intltool-merge-cache')
+-intltool_command = [intltool_merge, '-x', '-u',
+-                    '-c', intltool_cache,
+-                    po_dir, '@INPUT@', '@OUTPUT@']
+diff --git a/src/core/meson.build b/src/core/meson.build
+index 4355f9ca6dbb..d364c5a284a2 100644
+--- a/src/core/meson.build
++++ b/src/core/meson.build
+@@ -197,25 +197,14 @@ policy_in = configure_file(
+         output : 'org.freedesktop.systemd1.policy.in',
+         configuration : substs)
+ 
+-custom_target(
++i18n.merge_file(
+         'org.freedesktop.systemd1.policy',
+         input : policy_in,
+         output : 'org.freedesktop.systemd1.policy',
+-        command : intltool_command,
++        po_dir : po_dir,
+         install : install_polkit,
+         install_dir : polkitpolicydir)
+ 
+-# TODO: this might work with meson from git, see
+-# https://github.com/mesonbuild/meson/issues/1441#issuecomment-283585493
+-#
+-# i18n.merge_file(
+-#   'org.freedesktop.systemd1.policy',
+-#   po_dir : po_dir,
+-#   input : policy_in,
+-#   output : 'org.freedesktop.systemd1.policy',
+-#   install : install_polkit,
+-#   install_dir : polkitpolicydir)
+-
+ install_data('system.conf',
+              'user.conf',
+              install_dir : pkgsysconfdir)
+diff --git a/src/core/org.freedesktop.systemd1.policy.in.in b/src/core/org.freedesktop.systemd1.policy.in.in
+index cc39a9e1c3ac..9f9263762e83 100644
+--- a/src/core/org.freedesktop.systemd1.policy.in.in
++++ b/src/core/org.freedesktop.systemd1.policy.in.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.systemd1.reply-password">
+-                <_description>Send passphrase back to system</_description>
+-                <_message>Authentication is required to send the entered passphrase back to the system.</_message>
++                <description>Send passphrase back to system</description>
++                <message>Authentication is required to send the entered passphrase back to the system.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>no</allow_inactive>
+@@ -28,8 +28,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.systemd1.manage-units">
+-                <_description>Manage system services or other units</_description>
+-                <_message>Authentication is required to manage system services or other units.</_message>
++                <description>Manage system services or other units</description>
++                <message>Authentication is required to manage system services or other units.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -38,8 +38,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.systemd1.manage-unit-files">
+-                <_description>Manage system service or unit files</_description>
+-                <_message>Authentication is required to manage system service or unit files.</_message>
++                <description>Manage system service or unit files</description>
++                <message>Authentication is required to manage system service or unit files.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -48,8 +48,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.systemd1.set-environment">
+-                <_description>Set or unset system and service manager environment variables</_description>
+-                <_message>Authentication is required to set or unset system and service manager environment variables.</_message>
++                <description>Set or unset system and service manager environment variables</description>
++                <message>Authentication is required to set or unset system and service manager environment variables.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -58,8 +58,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.systemd1.reload-daemon">
+-                <_description>Reload the systemd state</_description>
+-                <_message>Authentication is required to reload the systemd state.</_message>
++                <description>Reload the systemd state</description>
++                <message>Authentication is required to reload the systemd state.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+diff --git a/src/hostname/meson.build b/src/hostname/meson.build
+index 834300ae6e1f..b4db5afb1f6e 100644
+--- a/src/hostname/meson.build
++++ b/src/hostname/meson.build
+@@ -4,11 +4,11 @@ if conf.get('ENABLE_HOSTNAMED') == 1
+         install_data('org.freedesktop.hostname1.service',
+                      install_dir : dbussystemservicedir)
+ 
+-        custom_target(
++        i18n.merge_file(
+                 'org.freedesktop.hostname1.policy',
+                 input : 'org.freedesktop.hostname1.policy.in',
+                 output : 'org.freedesktop.hostname1.policy',
+-                command : intltool_command,
++                po_dir : po_dir,
+                 install : install_polkit,
+                 install_dir : polkitpolicydir)
+ endif
+diff --git a/src/hostname/org.freedesktop.hostname1.policy.in b/src/hostname/org.freedesktop.hostname1.policy.in
+index c32c1d4fda05..cf61c15619cc 100644
+--- a/src/hostname/org.freedesktop.hostname1.policy.in
++++ b/src/hostname/org.freedesktop.hostname1.policy.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.hostname1.set-hostname">
+-                <_description>Set host name</_description>
+-                <_message>Authentication is required to set the local host name.</_message>
++                <description>Set host name</description>
++                <message>Authentication is required to set the local host name.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -27,8 +27,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.hostname1.set-static-hostname">
+-                <_description>Set static host name</_description>
+-                <_message>Authentication is required to set the statically configured local host name, as well as the pretty host name.</_message>
++                <description>Set static host name</description>
++                <message>Authentication is required to set the statically configured local host name, as well as the pretty host name.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -38,8 +38,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.hostname1.set-machine-info">
+-                <_description>Set machine information</_description>
+-                <_message>Authentication is required to set local machine information.</_message>
++                <description>Set machine information</description>
++                <message>Authentication is required to set local machine information.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+diff --git a/src/import/meson.build b/src/import/meson.build
+index e3a0da65d211..9ace20f50d94 100644
+--- a/src/import/meson.build
++++ b/src/import/meson.build
+@@ -54,11 +54,11 @@ if conf.get('ENABLE_IMPORTD') == 1
+         install_data('org.freedesktop.import1.service',
+                      install_dir : dbussystemservicedir)
+ 
+-        custom_target(
++        i18n.merge_file(
+                 'org.freedesktop.import1.policy',
+                 input : 'org.freedesktop.import1.policy.in',
+                 output : 'org.freedesktop.import1.policy',
+-                command : intltool_command,
++                po_dir : po_dir,
+                 install : install_polkit,
+                 install_dir : polkitpolicydir)
+ 
+diff --git a/src/import/org.freedesktop.import1.policy.in b/src/import/org.freedesktop.import1.policy.in
+index 85924ed7437b..39167b06bc24 100644
+--- a/src/import/org.freedesktop.import1.policy.in
++++ b/src/import/org.freedesktop.import1.policy.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.import1.import">
+-                <_description>Import a VM or container image</_description>
+-                <_message>Authentication is required to import a VM or container image</_message>
++                <description>Import a VM or container image</description>
++                <message>Authentication is required to import a VM or container image</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -27,8 +27,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.import1.export">
+-                <_description>Export a VM or container image</_description>
+-                <_message>Authentication is required to export a VM or container image</_message>
++                <description>Export a VM or container image</description>
++                <message>Authentication is required to export a VM or container image</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -37,8 +37,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.import1.pull">
+-                <_description>Download a VM or container image</_description>
+-                <_message>Authentication is required to download a VM or container image</_message>
++                <description>Download a VM or container image</description>
++                <message>Authentication is required to download a VM or container image</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+diff --git a/src/locale/meson.build b/src/locale/meson.build
+index e9de6089f319..a0411fb1a666 100644
+--- a/src/locale/meson.build
++++ b/src/locale/meson.build
+@@ -12,11 +12,11 @@ if conf.get('ENABLE_LOCALED') == 1
+         install_data('org.freedesktop.locale1.service',
+                      install_dir : dbussystemservicedir)
+ 
+-        custom_target(
++        i18n.merge_file(
+                 'org.freedesktop.locale1.policy',
+                 input : 'org.freedesktop.locale1.policy.in',
+                 output : 'org.freedesktop.locale1.policy',
+-                command : intltool_command,
++                po_dir : po_dir,
+                 install : install_polkit,
+                 install_dir : polkitpolicydir)
+ endif
+diff --git a/src/locale/org.freedesktop.locale1.policy.in b/src/locale/org.freedesktop.locale1.policy.in
+index df63845e9be6..575a1ffaaf04 100644
+--- a/src/locale/org.freedesktop.locale1.policy.in
++++ b/src/locale/org.freedesktop.locale1.policy.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.locale1.set-locale">
+-                <_description>Set system locale</_description>
+-                <_message>Authentication is required to set the system locale.</_message>
++                <description>Set system locale</description>
++                <message>Authentication is required to set the system locale.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -28,8 +28,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.locale1.set-keyboard">
+-                <_description>Set system keyboard settings</_description>
+-                <_message>Authentication is required to set the system keyboard settings.</_message>
++                <description>Set system keyboard settings</description>
++                <message>Authentication is required to set the system keyboard settings.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+diff --git a/src/login/meson.build b/src/login/meson.build
+index d0723f134f43..339c5d73cae3 100644
+--- a/src/login/meson.build
++++ b/src/login/meson.build
+@@ -71,11 +71,11 @@ if conf.get('ENABLE_LOGIND') == 1
+         install_data('org.freedesktop.login1.service',
+                      install_dir : dbussystemservicedir)
+ 
+-        custom_target(
++        i18n.merge_file(
+                 'org.freedesktop.login1.policy',
+                 input : 'org.freedesktop.login1.policy.in',
+                 output : 'org.freedesktop.login1.policy',
+-                command : intltool_command,
++                po_dir : po_dir,
+                 install : install_polkit,
+                 install_dir : polkitpolicydir)
+ 
+diff --git a/src/login/org.freedesktop.login1.policy.in b/src/login/org.freedesktop.login1.policy.in
+index 3e8a9bbe3f9f..17bae02f5e6e 100644
+--- a/src/login/org.freedesktop.login1.policy.in
++++ b/src/login/org.freedesktop.login1.policy.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.login1.inhibit-block-shutdown">
+-                <_description>Allow applications to inhibit system shutdown</_description>
+-                <_message>Authentication is required for an application to inhibit system shutdown.</_message>
++                <description>Allow applications to inhibit system shutdown</description>
++                <message>Authentication is required for an application to inhibit system shutdown.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -28,8 +28,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-delay-shutdown">
+-                <_description>Allow applications to delay system shutdown</_description>
+-                <_message>Authentication is required for an application to delay system shutdown.</_message>
++                <description>Allow applications to delay system shutdown</description>
++                <message>Authentication is required for an application to delay system shutdown.</message>
+                 <defaults>
+                         <allow_any>yes</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -39,8 +39,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-block-sleep">
+-                <_description>Allow applications to inhibit system sleep</_description>
+-                <_message>Authentication is required for an application to inhibit system sleep.</_message>
++                <description>Allow applications to inhibit system sleep</description>
++                <message>Authentication is required for an application to inhibit system sleep.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -50,8 +50,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-delay-sleep">
+-                <_description>Allow applications to delay system sleep</_description>
+-                <_message>Authentication is required for an application to delay system sleep.</_message>
++                <description>Allow applications to delay system sleep</description>
++                <message>Authentication is required for an application to delay system sleep.</message>
+                 <defaults>
+                         <allow_any>yes</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -60,8 +60,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-block-idle">
+-                <_description>Allow applications to inhibit automatic system suspend</_description>
+-                <_message>Authentication is required for an application to inhibit automatic system suspend.</_message>
++                <description>Allow applications to inhibit automatic system suspend</description>
++                <message>Authentication is required for an application to inhibit automatic system suspend.</message>
+                 <defaults>
+                         <allow_any>yes</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -70,8 +70,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-handle-power-key">
+-                <_description>Allow applications to inhibit system handling of the power key</_description>
+-                <_message>Authentication is required for an application to inhibit system handling of the power key.</_message>
++                <description>Allow applications to inhibit system handling of the power key</description>
++                <message>Authentication is required for an application to inhibit system handling of the power key.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -81,8 +81,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-handle-suspend-key">
+-                <_description>Allow applications to inhibit system handling of the suspend key</_description>
+-                <_message>Authentication is required for an application to inhibit system handling of the suspend key.</_message>
++                <description>Allow applications to inhibit system handling of the suspend key</description>
++                <message>Authentication is required for an application to inhibit system handling of the suspend key.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -92,8 +92,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-handle-hibernate-key">
+-                <_description>Allow applications to inhibit system handling of the hibernate key</_description>
+-                <_message>Authentication is required for an application to inhibit system handling of the hibernate key.</_message>
++                <description>Allow applications to inhibit system handling of the hibernate key</description>
++                <message>Authentication is required for an application to inhibit system handling of the hibernate key.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -102,8 +102,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.inhibit-handle-lid-switch">
+-                <_description>Allow applications to inhibit system handling of the lid switch</_description>
+-                <_message>Authentication is required for an application to inhibit system handling of the lid switch.</_message>
++                <description>Allow applications to inhibit system handling of the lid switch</description>
++                <message>Authentication is required for an application to inhibit system handling of the lid switch.</message>
+                 <defaults>
+                         <allow_any>no</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -112,8 +112,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.set-self-linger">
+-                <_description>Allow non-logged-in user to run programs</_description>
+-                <_message>Explicit request is required to run programs as a non-logged-in user.</_message>
++                <description>Allow non-logged-in user to run programs</description>
++                <message>Explicit request is required to run programs as a non-logged-in user.</message>
+                 <defaults>
+                         <allow_any>yes</allow_any>
+                         <allow_inactive>yes</allow_inactive>
+@@ -122,8 +122,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.set-user-linger">
+-                <_description>Allow non-logged-in users to run programs</_description>
+-                <_message>Authentication is required to run programs as a non-logged-in user.</_message>
++                <description>Allow non-logged-in users to run programs</description>
++                <message>Authentication is required to run programs as a non-logged-in user.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -132,8 +132,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.attach-device">
+-                <_description>Allow attaching devices to seats</_description>
+-                <_message>Authentication is required for attaching a device to a seat.</_message>
++                <description>Allow attaching devices to seats</description>
++                <message>Authentication is required for attaching a device to a seat.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -143,8 +143,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.flush-devices">
+-                <_description>Flush device to seat attachments</_description>
+-                <_message>Authentication is required for resetting how devices are attached to seats.</_message>
++                <description>Flush device to seat attachments</description>
++                <message>Authentication is required for resetting how devices are attached to seats.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -153,8 +153,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.power-off">
+-                <_description>Power off the system</_description>
+-                <_message>Authentication is required for powering off the system.</_message>
++                <description>Power off the system</description>
++                <message>Authentication is required for powering off the system.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -164,8 +164,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.power-off-multiple-sessions">
+-                <_description>Power off the system while other users are logged in</_description>
+-                <_message>Authentication is required for powering off the system while other users are logged in.</_message>
++                <description>Power off the system while other users are logged in</description>
++                <message>Authentication is required for powering off the system while other users are logged in.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -175,8 +175,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.power-off-ignore-inhibit">
+-                <_description>Power off the system while an application asked to inhibit it</_description>
+-                <_message>Authentication is required for powering off the system while an application asked to inhibit it.</_message>
++                <description>Power off the system while an application asked to inhibit it</description>
++                <message>Authentication is required for powering off the system while an application asked to inhibit it.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -186,8 +186,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.reboot">
+-                <_description>Reboot the system</_description>
+-                <_message>Authentication is required for rebooting the system.</_message>
++                <description>Reboot the system</description>
++                <message>Authentication is required for rebooting the system.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -197,8 +197,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.reboot-multiple-sessions">
+-                <_description>Reboot the system while other users are logged in</_description>
+-                <_message>Authentication is required for rebooting the system while other users are logged in.</_message>
++                <description>Reboot the system while other users are logged in</description>
++                <message>Authentication is required for rebooting the system while other users are logged in.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -208,8 +208,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.reboot-ignore-inhibit">
+-                <_description>Reboot the system while an application asked to inhibit it</_description>
+-                <_message>Authentication is required for rebooting the system while an application asked to inhibit it.</_message>
++                <description>Reboot the system while an application asked to inhibit it</description>
++                <message>Authentication is required for rebooting the system while an application asked to inhibit it.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -219,8 +219,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.halt">
+-                <_description>Halt the system</_description>
+-                <_message>Authentication is required for halting the system.</_message>
++                <description>Halt the system</description>
++                <message>Authentication is required for halting the system.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -230,8 +230,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.halt-multiple-sessions">
+-                <_description>Halt the system while other users are logged in</_description>
+-                <_message>Authentication is required for halting the system while other users are logged in.</_message>
++                <description>Halt the system while other users are logged in</description>
++                <message>Authentication is required for halting the system while other users are logged in.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -241,8 +241,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.halt-ignore-inhibit">
+-                <_description>Halt the system while an application asked to inhibit it</_description>
+-                <_message>Authentication is required for halting the system while an application asked to inhibit it.</_message>
++                <description>Halt the system while an application asked to inhibit it</description>
++                <message>Authentication is required for halting the system while an application asked to inhibit it.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -252,8 +252,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.suspend">
+-                <_description>Suspend the system</_description>
+-                <_message>Authentication is required for suspending the system.</_message>
++                <description>Suspend the system</description>
++                <message>Authentication is required for suspending the system.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -262,8 +262,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.suspend-multiple-sessions">
+-                <_description>Suspend the system while other users are logged in</_description>
+-                <_message>Authentication is required for suspending the system while other users are logged in.</_message>
++                <description>Suspend the system while other users are logged in</description>
++                <message>Authentication is required for suspending the system while other users are logged in.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -273,8 +273,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.suspend-ignore-inhibit">
+-                <_description>Suspend the system while an application asked to inhibit it</_description>
+-                <_message>Authentication is required for suspending the system while an application asked to inhibit it.</_message>
++                <description>Suspend the system while an application asked to inhibit it</description>
++                <message>Authentication is required for suspending the system while an application asked to inhibit it.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -284,8 +284,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.hibernate">
+-                <_description>Hibernate the system</_description>
+-                <_message>Authentication is required for hibernating the system.</_message>
++                <description>Hibernate the system</description>
++                <message>Authentication is required for hibernating the system.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -294,8 +294,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.hibernate-multiple-sessions">
+-                <_description>Hibernate the system while other users are logged in</_description>
+-                <_message>Authentication is required for hibernating the system while other users are logged in.</_message>
++                <description>Hibernate the system while other users are logged in</description>
++                <message>Authentication is required for hibernating the system while other users are logged in.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -305,8 +305,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.hibernate-ignore-inhibit">
+-                <_description>Hibernate the system while an application asked to inhibit it</_description>
+-                <_message>Authentication is required for hibernating the system while an application asked to inhibit it.</_message>
++                <description>Hibernate the system while an application asked to inhibit it</description>
++                <message>Authentication is required for hibernating the system while an application asked to inhibit it.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -316,8 +316,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.manage">
+-                <_description>Manage active sessions, users and seats</_description>
+-                <_message>Authentication is required for managing active sessions, users and seats.</_message>
++                <description>Manage active sessions, users and seats</description>
++                <message>Authentication is required for managing active sessions, users and seats.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -326,8 +326,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.lock-sessions">
+-                <_description>Lock or unlock active sessions</_description>
+-                <_message>Authentication is required to lock or unlock active sessions.</_message>
++                <description>Lock or unlock active sessions</description>
++                <message>Authentication is required to lock or unlock active sessions.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -336,8 +336,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.set-reboot-to-firmware-setup">
+-                <_description>Allow indication to the firmware to boot to setup interface</_description>
+-                <_message>Authentication is required to indicate to the firmware to boot to setup interface.</_message>
++                <description>Allow indication to the firmware to boot to setup interface</description>
++                <message>Authentication is required to indicate to the firmware to boot to setup interface.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -346,8 +346,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.login1.set-wall-message">
+-                <_description>Set a wall message</_description>
+-                <_message>Authentication is required to set a wall message</_message>
++                <description>Set a wall message</description>
++                <message>Authentication is required to set a wall message</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+diff --git a/src/machine/meson.build b/src/machine/meson.build
+index 693503da539f..bdf64ac3d2b7 100644
+--- a/src/machine/meson.build
++++ b/src/machine/meson.build
+@@ -27,11 +27,11 @@ if conf.get('ENABLE_MACHINED') == 1
+         install_data('org.freedesktop.machine1.service',
+                      install_dir : dbussystemservicedir)
+ 
+-        custom_target(
++        i18n.merge_file(
+                 'org.freedesktop.machine1.policy',
+                 input : 'org.freedesktop.machine1.policy.in',
+                 output : 'org.freedesktop.machine1.policy',
+-                command : intltool_command,
++                po_dir : po_dir,
+                 install : install_polkit,
+                 install_dir : polkitpolicydir)
+ endif
+diff --git a/src/machine/org.freedesktop.machine1.policy.in b/src/machine/org.freedesktop.machine1.policy.in
+index 69f78a5c2505..b266b564b050 100644
+--- a/src/machine/org.freedesktop.machine1.policy.in
++++ b/src/machine/org.freedesktop.machine1.policy.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.machine1.login">
+-                <_description>Log into a local container</_description>
+-                <_message>Authentication is required to log into a local container.</_message>
++                <description>Log into a local container</description>
++                <message>Authentication is required to log into a local container.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -27,8 +27,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.host-login">
+-                <_description>Log into the local host</_description>
+-                <_message>Authentication is required to log into the local host.</_message>
++                <description>Log into the local host</description>
++                <message>Authentication is required to log into the local host.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -37,8 +37,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.shell">
+-                <_description>Acquire a shell in a local container</_description>
+-                <_message>Authentication is required to acquire a shell in a local container.</_message>
++                <description>Acquire a shell in a local container</description>
++                <message>Authentication is required to acquire a shell in a local container.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -48,8 +48,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.host-shell">
+-                <_description>Acquire a shell on the local host</_description>
+-                <_message>Authentication is required to acquire a shell on the local host.</_message>
++                <description>Acquire a shell on the local host</description>
++                <message>Authentication is required to acquire a shell on the local host.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -59,8 +59,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.open-pty">
+-                <_description>Acquire a pseudo TTY in a local container</_description>
+-                <_message>Authentication is required to acquire a pseudo TTY in a local container.</_message>
++                <description>Acquire a pseudo TTY in a local container</description>
++                <message>Authentication is required to acquire a pseudo TTY in a local container.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -69,8 +69,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.host-open-pty">
+-                <_description>Acquire a pseudo TTY on the local host</_description>
+-                <_message>Authentication is required to acquire a pseudo TTY on the local host.</_message>
++                <description>Acquire a pseudo TTY on the local host</description>
++                <message>Authentication is required to acquire a pseudo TTY on the local host.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -79,8 +79,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.manage-machines">
+-                <_description>Manage local virtual machines and containers</_description>
+-                <_message>Authentication is required to manage local virtual machines and containers.</_message>
++                <description>Manage local virtual machines and containers</description>
++                <message>Authentication is required to manage local virtual machines and containers.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+@@ -90,8 +90,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.machine1.manage-images">
+-                <_description>Manage local virtual machine and container images</_description>
+-                <_message>Authentication is required to manage local virtual machine and container images.</_message>
++                <description>Manage local virtual machine and container images</description>
++                <message>Authentication is required to manage local virtual machine and container images.</message>
+                 <defaults>
+                         <allow_any>auth_admin</allow_any>
+                         <allow_inactive>auth_admin</allow_inactive>
+diff --git a/src/timedate/meson.build b/src/timedate/meson.build
+index ce92a6be692b..188cdcac7d4d 100644
+--- a/src/timedate/meson.build
++++ b/src/timedate/meson.build
+@@ -4,11 +4,11 @@ if conf.get('ENABLE_TIMEDATED') == 1
+         install_data('org.freedesktop.timedate1.service',
+                      install_dir : dbussystemservicedir)
+ 
+-        custom_target(
++        i18n.merge_file(
+                 'org.freedesktop.timedate1.policy',
+                 input : 'org.freedesktop.timedate1.policy.in',
+                 output : 'org.freedesktop.timedate1.policy',
+-                command : intltool_command,
++                po_dir : po_dir,
+                 install : install_polkit,
+                 install_dir : polkitpolicydir)
+ endif
+diff --git a/src/timedate/org.freedesktop.timedate1.policy.in b/src/timedate/org.freedesktop.timedate1.policy.in
+index aa30b70831ad..c70605098514 100644
+--- a/src/timedate/org.freedesktop.timedate1.policy.in
++++ b/src/timedate/org.freedesktop.timedate1.policy.in
+@@ -17,8 +17,8 @@
+         <vendor_url>http://www.freedesktop.org/wiki/Software/systemd</vendor_url>
+ 
+         <action id="org.freedesktop.timedate1.set-time">
+-                <_description>Set system time</_description>
+-                <_message>Authentication is required to set the system time.</_message>
++                <description>Set system time</description>
++                <message>Authentication is required to set the system time.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -28,8 +28,8 @@
+         </action>
+ 
+         <action id="org.freedesktop.timedate1.set-timezone">
+-                <_description>Set system timezone</_description>
+-                <_message>Authentication is required to set the system timezone.</_message>
++                <description>Set system timezone</description>
++                <message>Authentication is required to set the system timezone.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -38,9 +38,9 @@
+         </action>
+ 
+         <action id="org.freedesktop.timedate1.set-local-rtc">
+-                <_description>Set RTC to local timezone or UTC</_description>
+-                <_message>Authentication is required to control whether
+-                the RTC stores the local or UTC time.</_message>
++                <description>Set RTC to local timezone or UTC</description>
++                <message>Authentication is required to control whether
++                the RTC stores the local or UTC time.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
+@@ -49,9 +49,9 @@
+         </action>
+ 
+         <action id="org.freedesktop.timedate1.set-ntp">
+-                <_description>Turn network time synchronization on or off</_description>
+-                <_message>Authentication is required to control whether
+-                network time synchronization shall be enabled.</_message>
++                <description>Turn network time synchronization on or off</description>
++                <message>Authentication is required to control whether
++                network time synchronization shall be enabled.</message>
+                 <defaults>
+                         <allow_any>auth_admin_keep</allow_any>
+                         <allow_inactive>auth_admin_keep</allow_inactive>
