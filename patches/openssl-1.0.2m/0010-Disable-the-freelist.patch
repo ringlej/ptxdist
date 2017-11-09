@@ -1,5 +1,5 @@
 From: Kurt Roeckx <kurt@roeckx.be>
-Date: Fri, 26 May 2017 14:05:55 +0200
+Date: Thu, 9 Nov 2017 21:10:14 +0100
 Subject: [PATCH] Disable the freelist
 
 We don't define OPENSSL_NO_BUF_FREELISTS globally sinc it changes structures and
@@ -7,7 +7,7 @@ would break the ABI.  Instead we just do it in the .c files that try to do
 something with it.
 
 
-Imported from openssl1.0_1.0.2l-1.debian.tar.xz
+Imported from openssl1.0_1.0.2m-3.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -28,7 +28,7 @@ index 054ded1c9903..bb0085cf2ec0 100644
  /*-
   * On some platforms, malloc() performance is bad enough that you can't just
 diff --git a/ssl/ssl_lib.c b/ssl/ssl_lib.c
-index 24be376c9fdf..6bb6b5f10cc4 100644
+index 3539f4b8d20a..31cc31f793d4 100644
 --- a/ssl/ssl_lib.c
 +++ b/ssl/ssl_lib.c
 @@ -162,6 +162,8 @@

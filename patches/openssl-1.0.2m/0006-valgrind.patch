@@ -1,8 +1,8 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Fri, 26 May 2017 14:05:55 +0200
+Date: Thu, 9 Nov 2017 21:10:14 +0100
 Subject: [PATCH] valgrind
 
-Imported from openssl1.0_1.0.2l-1.debian.tar.xz
+Imported from openssl1.0_1.0.2m-3.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -21,11 +21,11 @@ index 29e465b07524..ce602cb403b1 100644
          /*
           * The following line uses the supplied buffer as a small source of
           * entropy: since this buffer is often uninitialised it may cause
-@@ -500,6 +501,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
+@@ -499,6 +500,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
+          */
          if (!MD_Update(&m, buf, j))
              goto err;
- #endif
 +#endif
+ #endif
  
          k = (st_idx + MD_DIGEST_LENGTH / 2) - st_num;
-         if (k > 0) {

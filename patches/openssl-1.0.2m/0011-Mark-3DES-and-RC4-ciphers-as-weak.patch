@@ -6,7 +6,7 @@ This disables RC4 and 3DES in our build
 
 Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
 
-Imported from openssl1.0_1.0.2l-1.debian.tar.xz
+Imported from openssl1.0_1.0.2m-3.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -219,14 +219,14 @@ index 1014a3fce16f..9eb38739b0bc 100644
      {
       1,
       TLS1_TXT_DHE_DSS_WITH_RC4_128_SHA,
-@@ -1433,6 +1459,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[] = {
+@@ -1432,6 +1458,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[] = {
+      128,
       128,
       },
- #endif
 +#endif
+ #endif
  
      /* TLS v1.2 ciphersuites */
-     /* Cipher 67 */
 @@ -1703,6 +1730,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[] = {
  
  #ifndef OPENSSL_NO_PSK
