@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: lib@name@
+Description: TODO Add here the purpose of the library
+Version: @VERSION@
+URL: @PACKAGE_URL@
+Requires: @REQUIRES@
+Requires.private: @REQUIRES@
+Conflicts: @CONFLICTS@
+Libs: -L${libdir} -l@name@
+Libs.private: @LIBS@
+Cflags: -I${includedir} @PRIVATE_CFLAGS@
