@@ -247,6 +247,27 @@ AC_DEFUN([CC_ATTRIBUTE_CONST], [
     [$1], [$2])
 ])
 
+AC_DEFUN([CC_ATTRIBUTE_PURE], [
+  CC_CHECK_ATTRIBUTE(
+    [pure], ,
+    [int twopow(int); int __attribute__((pure)) twopow(int n) { return 1 << n; } ],
+    [$1], [$2])
+])
+
+AC_DEFUN([CC_ATTRIBUTE_NORETURN], [
+  CC_CHECK_ATTRIBUTE(
+    [noreturn], ,
+    [void twopow(int); void __attribute__((noreturn)) twopow(int n) { while(1); } ],
+    [$1], [$2])
+])
+
+AC_DEFUN([CC_ATTRIBUTE_CLEANUP], [
+  CC_CHECK_ATTRIBUTE(
+    [cleanup], ,
+    [void clean_up(char **p) { *p = (void*)0; } void test(void) { __attribute__((cleanup(clean_up))) char *p; } ],
+    [$1], [$2])
+])
+
 AC_DEFUN([CC_FLAG_VISIBILITY], [
   AC_REQUIRE([CC_CHECK_WERROR])
   AC_CACHE_CHECK([if $CC supports -fvisibility=hidden],
