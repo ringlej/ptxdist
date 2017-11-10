@@ -11,3 +11,5 @@ TODO: decide what kind of license your work should have:
 or any other license. But you should *always* include a valid license here.
 
 Note: for the LGPL-3 case you must also include the GPL-3 license.
+Note: you can define your library to use the LGPL-* license, while the program
+      can use the GPL-*
