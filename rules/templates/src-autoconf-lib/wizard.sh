@@ -14,13 +14,20 @@ mv "@name@.c" "${NAME}.c"
 mv "lib@name@.h" "lib${NAME}.h"
 mv "lib@name@.pc.in" "lib${NAME}.pc.in"
 
+# prepare and instantiate the M4 macros
+mkdir -v m4
+tar -C "${2}/template-m4-macros" -cf - . | tar -C m4 -xvf -
+
+mv m4/INSTALL .
+mv m4/internal.h .
+
 for i in \
 	configure.ac \
-	lib${NAME}.pc.in \
-	README \
 	Makefile.am \
 	${NAME}.c \
 	lib${NAME}.h \
+	lib${NAME}.pc.in \
+	INSTALL \
 	internal.h \
 ; do
 	sed -i -e "s/\@name\@/${NAME}/g" $i
@@ -28,6 +35,3 @@ for i in \
 	sed -i -e "s/\@NAME\@/${NAME_UP}/g" $i
 done
 
-# prepare and instantiate the M4 macros
-mkdir -v m4
-tar -C "${2}/template-m4-macros" -cf - . | tar -C m4 -xvf -
