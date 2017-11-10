@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_HOST_SYSTEM_PYTHON3) += host-system-python3
+HOST_PACKAGES-$(PTXCONF_HOST_SYSTEM_PYTHON3) += host-system-python3
 HOST_SYSTEM_PYTHON3_LICENSE := ignore
 
 # ----------------------------------------------------------------------------

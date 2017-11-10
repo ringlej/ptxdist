@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_HOST_SYSTEM_JDK) += host-system-jdk
+HOST_PACKAGES-$(PTXCONF_HOST_SYSTEM_JDK) += host-system-jdk
 HOST_SYSTEM_JDK_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
