@@ -807,20 +807,187 @@ directory.
   shared source archive directory. Otherwise PTXdist will start to
   download them from the world wide web.
 
+.. _adding_src_autoconf_templates:
+
+Creating Autotools based Packages
+---------------------------------
+
+Developing your own programs and libraries can be one of the required tasks to
+support an embedded system. PTXdist comes with three autotoolized templates to
+provide a comfortable buildsystem:
+
+- a library package template
+- an executable package template
+- a program combined with a library package template
+
+Some template components are shared between all three packages types and described
+here, some other template componente are indvidual to each package type and
+described later on.
+
+Shared components
+~~~~~~~~~~~~~~~~~
+
+Some files and their content are used in all three packages types. Most of them
+need your attention and some adaptions and thus listed here.
+
+Licence related stuff
+^^^^^^^^^^^^^^^^^^^^^
+
+**COPYING**
+
+You **must** think about the licence your package uses. The template file
+``COPYING`` contains some links to GPL/LGPL license texts you can use. Replace
+the ``COPYING's`` content by one of the listed licence files or a different
+license. But do not omit this step. Never!
+
+Refer https://www.gnu.org/licenses/license-list.html#SoftwareLicenses for a
+large list of available licenses.
+
+M4 macros
+^^^^^^^^^
+
+Autotool based buildsystems use M4 macros for their detection and configuring
+features. Some of these M4 macros are generic and come with the autotools itself,
+some other are project specific and must be shipped with your package. The
+PTXdist autotoolized templates come with a few M4 macro files listed below:
+
+.. code-block:: text
+
+   $ tree m4/
+   m4/
+   |-- ptx.m4
+   |-- attributes.m4
+   |-- ax_code_coverage.m4
+   |-- pkg.m4
+   |-- ax_armv4_detection.m4
+   |-- ax_armv5_detection.m4
+   |-- ax_armv6_detection.m4
+   |-- ax_armv7_detection.m4
+   `-- ax_floating_point.m4
+
+Note: these files contains M4 macros used in ``configure.ac``.
+
+The ``ptx.m4`` file contains a list of tests, handy for many projects. They
+end up into options of the final ``configure`` script. These options are mentioned
+in the ``INSTALL`` file (see below). This file is used like some kind of library
+to keep the ``configure.ac`` small. The ``configure.ac`` just call an M4 macro
+from the ``ptx.m4`` file and all details are handled there.
+
+The ``attributes.m4`` file contains various tests for compiler and linker options
+and flags. They are used in the ``ptx.m4`` file.
+
+The ``ax_code_coverage.m4`` file provides a comfortable way to add the coverage
+feature to the buildsystem. It handles all the details how to parametrize the
+compiler and linker correctly.
+
+The ``pkg.m4`` must be shipped with a package which uses *pkg-config* to detect
+the existance of external libraries and query details how to use them. If your
+package doesn't use *pkg-config*, you can remove this file (and remove it from
+the EXTRA_DIST variable in ``Makefile.am``).
+
+The ``ax_armv*_detection.m4``/``ax_floating_point.m4`` files provide architecture
+specific M4 macros. If your code doesn't depend on the architecture, you can
+remove these files (don't forget to remove them from the EXTRA_DIST variable in
+``Makefile.am`` in this case).
+
+Note: if you use more non-generic M4 macros in your ``configure.ac`` file,
+don't forget to add their source files to the ``m4/`` directory. This will
+enable any user of your package to re-generate the autotools based files
+without providing all dependencies by themself.
+
+Hints for a User of your Package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**INSTALL**
+
+Prepared with some information about the package you provide. Be kind to the
+users of your package and write some sentences about basic features and usage
+of your package, how to configure it and how to build it. It already lists
+build-time options provided by the ``ptx.m4`` M4 macro file.
+
+Build system related files
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**autogen.sh**
+
+The autotools are using macro files which are easier to read for a
+human. But to work with the autotools these macro files must be
+converted into executabe shell code first. The ``autogen.sh`` script
+does this job for us.
+
+**configure.ac**
+
+This is the first part of the autotools based build system. Its purpose
+is to collect as much required information as possible about the target
+to build the package for. This file is a macro file. It uses a bunch of
+M4 macros to define the jobs to do. The autotools are complex and this
+macro file should help you to create a useful and cross compile aware
+``configure`` script everybody can use.
+
+This macro file is full of examples and comments. Many M4 macros are
+commented out and you can decide if you need them to detect special
+features about the target.
+
+Search for the “TODO” keyword and adapt the setting to your needs. After
+that you should remove the “TODO” comments to not confuse any user later
+on.
+
+Hints about some shared M4 macros used in ``configure.ac``:
+
+**AC_INIT**
+    add the intended revision number (the second argument), an email
+    address to report bugs and some web info about your package.
+
+**AC_PREFIX_DEFAULT**
+    most of the time you can remove this entry, because most users
+    expect the default install path prefix is ``/usr/local`` which is
+    always the default if not changed by this macro.
+
+**CC_CHECK_CFLAGS / CC_CHECK_LDFLAGS**
+    if you need special command line parameters given to the compiler or
+    linker, don't add them unconditionally. Always test, if the tools
+    can handle the parameter and fail gracefully if not. Use
+    CC_CHECK_CFLAGS to check parameters for the compiler and
+    CC_CHECK_LDFLAGS for the linker.
+
+**AX_HARDWARE_FP / AX_DETECT_ARMV\***
+    sometimes it is important to know for which architecture or CPU the
+    current build is for and if it supports hard float or not. Please
+    don't try to guess it. Ask the compiler instead. The M4
+    AX_HARDWARE_FP and AX_DETECT_ARMV\* macros will help you.
+
+**Makefile.am**
+
+This is the second part of the autotools based build system. Its purpose is
+to define what is to build, to install and to distribute.
+
+**SUBDIR**
+    if your project contains more than one sub-directory to build, add
+    these directories here. Keep in mind, these directories are visited
+    in this order (but never in parallel), so you must handle
+    dependencies manually.
+
+**\*_CPPFLAGS / \*_CFLAGS / \*_LIBADD / \*_LDADD**
+    if your library has some optional external dependencies add them on
+    demand (external libraries for example). Keep in mind to not mix
+    CPPFLAGS and CFLAGS additions. And do not add these additions fixed
+    to the \*_CPPFLAGS and \*_CFLAGS variables, let ``configure`` do it
+    in a sane way. Never add libraries to the \*_LDFLAGS variable. Always add
+    them to the \*_LIBADD variable (for a library) or \*_LDADD (for an executable)
+    instead. This is important because the autotools forward all these variable
+    based parameters in a specifc order to the tools (compiler and linker).
+
+**EXTRA_DIST**
+    Include here all files which must be part of the distribution and are not
+    generated by the *autotools* itself and the buildsystem.
+
 .. _adding_src_autoconf_lib:
 
-Creating a new Autotools Based Library
---------------------------------------
+Creating a Library Template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Developing your own library can be one of the required tasks to support
-an embedded system. PTXdist comes with an autotoolized library template
-which can be simply integrated into a PTXdist project.
-
-Creating the Library Template
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Creating the library package can be done by the PTXdist’s *newpackage*
-command:
+This template creates a library only package and can be done by the PTXdist's
+*newpackage* option:
 
 .. code-block:: text
 
@@ -838,16 +1005,27 @@ command:
 
     local_src/foo does not exist, create? [Y/n] Y
     ./
-    ./internal.h
-    ./@name@.c
     ./configure.ac
-    ./README
-    ./COPYING
     ./Makefile.am
+    ./COPYING
     ./lib@name@.pc.in
-    ./autogen.sh
-    ./lib@name@.h
     ./wizard.sh
+    ./lib@name@.h
+    ./@name@.c
+    ./autogen.sh
+    mkdir: created directory 'm4'
+    ./
+    ./ax_armv6_detection.m4
+    ./ptx.m4
+    ./internal.h
+    ./pkg.m4
+    ./ax_armv4_detection.m4
+    ./ax_floating_point.m4
+    ./INSTALL
+    ./ax_armv5_detection.m4
+    ./attributes.m4
+    ./ax_armv7_detection.m4
+    ./ax_code_coverage.m4
 
 After this step the new directory ``local_src/foo`` exists and contains
 various template files. All of these files are dedicated to be modified
@@ -855,78 +1033,40 @@ by yourself.
 
 The content of this directory is:
 
-::
+.. code-block:: text
 
-    $ ls -l local_src/foo/
-    total 48
-    -rw-r--r-- 1 jbe ptx   335 Jun 18 23:00 COPYING
-    -rw-r--r-- 1 jbe ptx  1768 Jun 18 23:16 Makefile.am
-    -rw-r--r-- 1 jbe ptx  1370 Jun 18 23:16 README
-    -rwxr-xr-x 1 jbe ptx   267 Apr 16  2012 autogen.sh
-    -rw-r--r-- 1 jbe ptx 11947 Jun 18 23:16 configure.ac
-    -rw-r--r-- 1 jbe ptx   708 Jun 18 23:16 foo.c
-    -rw-r--r-- 1 jbe ptx   428 Jun 18 23:00 internal.h
-    -rw-r--r-- 1 jbe ptx   185 Jun 18 23:16 libfoo.h
-    -rw-r--r-- 1 jbe ptx   331 Jun 18 23:16 libfoo.pc.in
-    drwxr-xr-x 2 jbe ptx  4096 Jun 18 23:16 m4
+    $ tree local_src/foo/
+    local_src/foo/
+    |-- COPYING
+    |-- INSTALL
+    |-- Makefile.am
+    |-- autogen.sh
+    |-- configure.ac
+    |-- foo.c
+    |-- internal.h
+    |-- libfoo.h
+    |-- libfoo.pc.in
+    `-- m4/
+        |-- ptx.m4
+        |-- attributes.m4
+        |-- ax_code_coverage.m4
+        |-- pkg.m4
+        |-- ax_armv4_detection.m4
+        |-- ax_armv5_detection.m4
+        |-- ax_armv6_detection.m4
+        |-- ax_armv7_detection.m4
+        `-- ax_floating_point.m4
 
-Licence related stuff
-~~~~~~~~~~~~~~~~~~~~~
-
-COPYING
-^^^^^^^
-
-You must think about the licence your library uses. The template file
-``COPYING`` contains some links to GPL/LGPL texts you can use. Replace
-the ``COPYING’s`` content by one of the listed licence files or
-something different. But do not omit this step. Never!
+Most files and their content are already described above. Some files
+and their content are library specific:
 
 Build system related files
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-autogen.sh
-^^^^^^^^^^
+**configure.ac**
 
-The autotools are using macro files which are easier to read for a
-human. But to work with the autotools these macro files must be
-converted into executabe shell code first. The ``autogen.sh`` script
-does this job for us.
-
-configure.ac
-^^^^^^^^^^^^
-
-This is the first part of the autotools based build system. Its purpose
-is to collect as much required information as possible about the target
-to build the library for. This file is a macro file. It uses a bunch of
-M4 macros to define the job to do. The autotools are complex and this
-macro file should help you to create a useful and cross compile aware
-``configure`` script everybody can use.
-
-This macro file is full of examples and comments. Many M4 macros are
-commented out and you can decide if you need them to detect special
-features about the target.
-
-Search for the “TODO” keyword and adapt the setting to your needs. After
-that you should remove the “TODO” comments to not confuse any user later
-on.
-
-Special hints about some M4 macros:
-
-**AC_INIT**
-    add the intended revision number (the second argument), an email
-    address to report bugs and some web info about your library. The
-    intended revision number will be part of the released archive name
-    later on. You can keep it in sync with the API\_RELEASE, but you
-    must not.
-
-**AC_PREFIX_DEFAULT**
-    most of the time you can remove this entry, because most users
-    expect the default install path prefix is ``/usr/local`` which is
-    always the default if not changed by this macro.
-
-**API_RELEASE**
-    defines the API version of your library. This API version will be
-    part of the binary library’s name later on.
+The shared part is already described above. For a library there are some
+extensions:
 
 **LT_CURRENT / LT_REVISION / LT_AGE**
     define the binary compatibility of your library. The rules how these
@@ -944,99 +1084,26 @@ Special hints about some M4 macros:
     You must manually change these numbers whenever you change the code
     in your library prior a release.
 
-**CC_CHECK_CFLAGS / CC_CHECK_LDFLAGS**
-    if you need special command line parameters given to the compiler or
-    linker, don’t add them unconditionally. Always test, if the tools
-    can handle the parameter and fail gracefully if not. Use
-    CC_CHECK_CFLAGS to check parameters for the compiler and
-    CC_CHECK_LDFLAGS for the linker.
-
-**AX_HARDWARE_FP / AX_DETECT_ARMV\***
-    sometimes it is important to know for which architecture or CPU the
-    current build is for and if it supports hard float or not. Please
-    don’t try to guess it. Ask the compiler instead. The M4
-    AX\_HARDWARE_FP and AX_DETECT_ARMV\* macros will help you.
-
 **REQUIRES**
     to enrich the generated \*.pc file for easier dependency handling
     you should also fill the REQUIRES variable. Here you can define from
     the package management point of view the dependencies of your
-    library. For example if your library depends on the ’udev’ library
+    library. For example if your library depends on the *udev* library
     and requires a specific version of it, just add the string
     ``udev >= 1.0.0`` to the REQUIRES variable. Note: the listed
-    packages must be comma-separated.
+    packages must be space-separated.
 
 **CONFLICTS**
     if your library conflicts with a different library, add this
     different library to the CONFLICTS variable (from the package
     management point of view).
 
-It might be a good idea to include the API version into the names of the
-library’s include file and pkg-config file. For example in the first API
-version all files are named like this:
-
--  /usr/local/lib/libfoo-1.so.0.0.0
-
--  /usr/local/include/libfoo-1.h
-
--  /usr/local/lib/pkgconfig/libfoo-1.pc
-
-In this case its simple to create the next generation libfoo without
-conflicting with earlier versions of your library: they can co-exist
-side by sid.
-
--  /usr/local/lib/libfoo-1.so.0.0.0
-
--  /usr/local/lib/libfoo-2.so.0.0.0
-
--  /usr/local/include/libfoo-1.h
-
--  /usr/local/include/libfoo-2.h
-
--  /usr/local/lib/pkgconfig/libfoo-1.pc
-
--  /usr/local/lib/pkgconfig/libfoo-2.pc
-
-If you want to do so, you must rename the header file and the pc file
-accordingly. And adapt the *pkgconfig\_DATA* and *include\_HEADERS*
-entries in the ``Makefile.am`` file, and the *AC\_CONFIG\_FILES* in the
-``configure.ac`` file.
-
-Makefile.am
-^^^^^^^^^^^
-
-Special hints:
-
-**SUBDIR**
-    if your project contains more than one sub-directory to build, add
-    these directories here. Keep in mind, these directories are visited
-    in this order (but never in parallel), so you must handle
-    dependencies manually.
-
-**\*_CPPFLAGS / \*_CFLAGS / \*_LIBADD**
-    if your library has some optional external dependencies add them on
-    demand (external libraries for example). Keep in mind to not mix
-    CPPFLAGS and CFLAGS additions. And do not add these additions fixed
-    to the \*_CPPFLAGS and \*_CFLAGS variables, let ’configure’ do it
-    in a sane way. Whenever you want to forward special things to the
-    \*_CPPFLAGS and \*_CFLAGS, don’t forget to add the AM_CPPFLAGS
-    and AM\_CFLAGS, else they get lost. Never add libraries to the
-    \*_LDFLAGS variable. Always add them to the \*_LIBADD variable
-    instead. This is important because the autotools forward all these
-    variable based parameters in a specifc order to the tools (compiler
-    and linker).
-
-Template file for pkg-config
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-libfoo.pc.in
-^^^^^^^^^^^^
+**libfoo.pc.in**
 
 This file gets installed to support the *pkg-config* tool for package
-management. It contains some important information how to use your
-library and also handles its dependencies.
-
-Special hints:
+management. It contains some important information for users of your package
+how to use your library and also handles its dependencies. Some TODOs in this
+file need your attention:
 
 **Name**
     A human-readable name for the library.
@@ -1052,9 +1119,16 @@ Special hints:
     where to find your library. Will automatically replaced from your
     settings in ``configure.ac``.
 
+**Requires**
+    space-separated list of modules your library itself depends on and managed
+    by *pkg-config*. The listed modules gets honored for the static
+    linking case and should not be given again in the *Libs.private*
+    line. This line will be filled by the *REQUIRES* variable from the
+    ``configure.ac``.
+
 **Requires.private**
-    comma-separated list of packages your library depends on and managed
-    by pkg-config. The listed packages gets honored for the static
+    space-separated list of modules your library itself depends on and managed
+    by *pkg-config*. The listed modules gets honored for the static
     linking case and should not be given again in the *Libs.private*
     line. This line will be filled by the *REQUIRES* variable from the
     ``configure.ac``.
@@ -1064,14 +1138,14 @@ Special hints:
     replaced from your CONFLICTS variable settings in ``configure.ac``.
 
 **Libs**
-    defines the linker command line content to link your library against
-    other applications or libraries
+    defines the linker command line content to use your library and link it
+    against other applications or libraries
 
 **Libs.private**
-    defines the linker command line content to link your library
-    against other application or libraries statically. List only
-    libraries here which are not managed by pkg-config (e.g. do not
-    conflict with packages given in the *Requires*).
+    defines the linker command line content to use your library and link it
+    against other application or libraries **statically**. List only
+    libraries here which are not managed by *pkg-config* (e.g. do not
+    conflict with modules given in the *Requires*).
     This line will be filled by the *LIBS* variable from the
     ``configure.ac``.
 
@@ -1080,47 +1154,28 @@ Special hints:
     you must mix CPPFLAGS and CFLAGS here which is a really bad idea.
 
 It is not easy to fully automate the adaption of the pc file. At least
-the lines *Requires.private* and *Libs.private* are hardly to fill for
-packages which are highly configureable.
+the lines *Requires*, *Requires.private* and *Libs.private* are hardly to fill
+for packages which are highly configureable.
 
-Generic template files
-~~~~~~~~~~~~~~~~~~~~~~
+I nice and helpful description about this kind of configuration file can be
+found here:
 
-m4/*
-^^^^
+    https://people.freedesktop.org/~dbn/pkg-config-guide.html
 
-M4 macros used in ``configure.ac``.
+Library related Files
+^^^^^^^^^^^^^^^^^^^^^
 
-If you use more non-generic M4 macros in your ``configure.ac`` file,
-don’t forget to add their source files to the m4 directory. This will
-enable any user of your library to re-generate the autotools based files
-without providing all dependencies by themself.
-
-Library related files
-~~~~~~~~~~~~~~~~~~~~~
-
-README
-^^^^^^
-
-Prepared file with some information about the library you provide. Be
-kind to the users of your library and write some sentences about basic
-features and usage of your library, how to configure it and how to build
-it.
-
-libfoo.h
-^^^^^^^^
+**libfoo.h**
 
 This file will be installed. It defines the API your library provides
-and will be used by other applications.
+and be used by other applications.
 
-internal.h
-^^^^^^^^^^
+**internal.h**
 
 This file will not be installed. It will be used only at build time of
 your library.
 
-foo.c
-^^^^^
+**foo.c**
 
 The main source file of your library. Keep in mind to mark all functions
 with the DSO_VISIBLE macro you want to export. All other functions are
@@ -1128,5 +1183,110 @@ kept internaly and you cannot link against them from an external
 application.
 
 Note: debugging is hard when all internal functions are hidden. For this
-case you should configure the libary with the ``--disable-hide`` or with
+case you should configure the library with the ``--disable-hide`` or with
 ``--enable-debug`` which includes switching off hiding functions.
+
+.. _adding_src_autoconf_exec:
+
+Creating an Executable Template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Creating an executable template works nearly the same like the example above
+in :ref:`adding_src_autoconf_lib`. It just skips the library related stuff.
+
+The command:
+
+.. code-block:: text
+
+    $ ptxdist newpackage src-autoconf-prog
+
+Results into the following generated files:
+
+.. code-block:: text
+
+    $ tree local_src/foo
+    |-- COPYING
+    |-- INSTALL
+    |-- Makefile.am
+    |-- autogen.sh
+    |-- configure.ac
+    |-- foo.c
+    |-- internal.h
+    `-- m4/
+        |-- ptx.m4
+        |-- attributes.m4
+        |-- ax_code_coverage.m4
+        |-- pkg.m4
+        |-- ax_armv4_detection.m4
+        |-- ax_armv5_detection.m4
+        |-- ax_armv6_detection.m4
+        |-- ax_armv7_detection.m4
+        `-- ax_floating_point.m4
+
+Executable related Files
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**internal.h**
+
+This file will not be installed. It will be used only at build time of
+your executable.
+
+**foo.c**
+
+The main source file of your executable.
+
+.. _adding_src_autoconf_exec_lib:
+
+Creating an Executable with a Library Template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Creating a library and an executable which makes use of this library is a
+combination of :ref:`adding_src_autoconf_lib` and :ref:`adding_src_autoconf_exec`.
+
+The command:
+
+.. code-block:: text
+
+    $ ptxdist newpackage src-autoconf-proglib
+
+Results into the following generated files:
+
+.. code-block:: text
+
+    $ tree local_src/foo
+    |-- COPYING
+    |-- INSTALL
+    |-- Makefile.am
+    |-- autogen.sh
+    |-- configure.ac
+    |-- internal.h
+    |-- libfoo.c
+    |-- libfoo.h
+    |-- libfoo.pc.in
+    |-- foo.c
+    `-- m4/
+        |-- ptx.m4
+        |-- attributes.m4
+        |-- ax_code_coverage.m4
+        |-- pkg.m4
+        |-- ax_armv4_detection.m4
+        |-- ax_armv5_detection.m4
+        |-- ax_armv6_detection.m4
+        |-- ax_armv7_detection.m4
+        `-- ax_floating_point.m4
+
+The intended purpose of this template is a new tool, which has all its
+features implemented in the library. And the executable is a shell command
+frontend to provide the library's features to an interactive user.
+
+The advantage of this approach is, the library's features can also be used by a
+non-interactive user, e.g. a different application.
+
+.. note:: If you intend to use the GPL license, think about using the LGPL
+   license variant for the **library part** of your project.
+
+.. important:: If you want to be able to move code from the executable (and GPL
+   licensed) part into the library (and LGPL licensed) part later on, you
+   should use the **LGPL license for both parts** from the beginning. Else
+   you may cannot move source code in such a way, because it would require a
+   license change for this specific piece of source code (to be pedantic!).

@@ -1181,7 +1181,7 @@ script out of an autotoolized ``configure.ac`` file for example. This separation
 from the *extract* stage is useful to be able to extract a package for a quick
 look into the sources without the need to build all the autotools first. The
 autotoolized PTXdist templates makes use of this feature. Refer
-:ref:`adding_src_autoconf_lib` for further details.
+:ref:`adding_src_autoconf_templates` for further details.
 
 prepare Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
