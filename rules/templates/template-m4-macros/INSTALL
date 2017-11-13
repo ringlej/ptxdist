@@ -1,0 +1,51 @@
+                   @name@ - The @NAME@ project
+                   ---------------------------
+
+    Overview
+    --------
+
+    <TODO tell something about this project>
+
+    License
+    -------
+
+    <define the license of this project>; see the file COPYING for the
+    actual terms.
+
+    Configure options
+    -----------------
+
+    Here is a list of configure options which are sometimes useful
+    for installation.
+
+     --disable-largefile
+                     Switch off largefile support for small 32 bit machines.
+                     May fail when NFS is used.
+
+     --enable-debug
+                     Make the library more noise and do more runtime checks.
+                     This may slow down the library at runtime.
+
+     --enable-profiling
+                     Build the library with profiling support.
+
+     --enable-code-coverage
+                     Build the library with coverage support.
+
+     --enable-abort
+                     Use abort() instead of exit() in case of failures.
+                     (advantage of abort() is to get a coredump for easier
+                      debugging)
+
+     --with-goal=<speed|secure>
+                     Optimize for 'speed' or 'secure'. 'secure' enables more
+                     compile-time security options, 'speed' disables them.
+
+    <TODO add more switches on demand here>
+
+    Environment Variables
+    ---------------------
+
+    You can overwrite CPPFLAGS, CFLAGS and LDFLAGS from the environment. But
+    keep in mind to not forget to add the "-O2 -g", if you use your own CFLAGS
+    settings. Only in the case CFLAGS is unset, configure defaults to "-O2 -g"
