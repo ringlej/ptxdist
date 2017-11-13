@@ -11,7 +11,7 @@ Cloning the Linux Kernel Source Tree
 In this example we are using the officially Linux kernel development
 tree.
 
-::
+.. code-block:: text
 
     jbe@octopus:~$ git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
     [...]
@@ -29,7 +29,7 @@ Configuring the PTXdist Project
 To make PTXdist use of this kernel source tree, instead of an archive we
 can simply create a link now:
 
-::
+.. code-block:: text
 
     jbe@octopus:~$ cd myprj
     jbe@octopus:~/myprj$ mkdir local_src
@@ -52,7 +52,7 @@ Due to this, we must setup:
 
 Lets setup these topics. We just add the kernel component to it.
 
-::
+.. code-block:: text
 
     jbe@octopus:~/myprj$ ptxdist platformconfig
 
@@ -99,19 +99,19 @@ using PTXdist to include the kernel into the root filesystem.
 
 To configure the kernel source tree, we simply run:
 
-::
+.. code-block:: text
 
     jbe@octopus:~/myprj$ ptxdist kernelconfig
 
 To build the kernel:
 
-::
+.. code-block:: text
 
     jbe@octopus:~/myprj$ ptxdist targetinstall kernel
 
 To rebuild the kernel:
 
-::
+.. code-block:: text
 
     jbe@octopus:~/myprj$ ptxdist drop kernel compile
     jbe@octopus:~/myprj$ ptxdist targetinstall kernel
@@ -136,7 +136,7 @@ comes with the OSELAS.Toolchain and is called via ``<target>-readelf``.
 
 To test the ``foo`` binary from our new package ``FOO``, we simply run:
 
-::
+.. code-block:: text
 
     $ ./selected_toolchain/<target>-readelf -d platform-<platformname>/root/usr/bin/foo | grep NEEDED
      0x00000001 (NEEDED)                     Shared library: [libm.so.6]
@@ -164,7 +164,7 @@ in its ``Debug Tools`` menu.
 After adding strace to the root filesystem, we can use it and observe
 our ``foo`` binary:
 
-::
+.. code-block:: text
 
     $ strace usr/bin/foo
     execve("/usr/bin/foo", ["/usr/bin/foo"], [/* 41 vars */]) = 0
@@ -191,7 +191,7 @@ Occasionally the output of ``strace`` can be very long and the
 interesting parts are lost. So, if we assume the binary tries to open a
 nonexisting file, we can limit the output to all ``open`` system calls:
 
-::
+.. code-block:: text
 
     $ strace -e open usr/bin/foo
     open("/etc/ld.so.cache", O_RDONLY)      = 3
@@ -223,7 +223,7 @@ the root filesystem.
 
 With this preparation we can run it on our build host:
 
-::
+.. code-block:: text
 
     $ cd |ptxdistPlatformDir|/root
     |ptxdistPlatformDir|/root$ qemu-<architecture> -cpu <cpu-core> -L . usr/bin/myapp
@@ -249,7 +249,7 @@ architecture aware debugger comes with the OSELAS.Toolchain. Two
 consoles are required for this debug session in this example. We start
 the QEMU in the first console as:
 
-::
+.. code-block:: text
 
     $ cd ptxdistPlatformDir/root
     ptxdistPlatformDir/root$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
@@ -270,7 +270,7 @@ In the second console we start GDB with the correct architecture
 support. This GDB comes with the same OSELAS.Toolchain that was also
 used to build the project:
 
-::
+.. code-block:: text
 
     $ ./selected_toolchain/<target>-gdbtui platform-<platformname>/root/usr/bin/myapp
 
@@ -281,13 +281,13 @@ a quick look at our application.
 At first we tell GDB where to look for debug symbols. The correct
 directory here is ``root/``.
 
-::
+.. code-block:: text
 
     (gdb) set solib-absolute-prefix platform-<platformname>/root
 
 Next we connect this GDB to the waiting QEMU:
 
-::
+.. code-block:: text
 
     (gdb) target remote localhost:1234
     Remote debugging using localhost:1234
@@ -298,7 +298,7 @@ As our application is already started, we can’t use the GDB command
 ``start`` to run it until it reaches ``main()``. We set a breakpoint
 instead at ``main()`` and *continue* the application:
 
-::
+.. code-block:: text
 
     (gdb) break main
     Breakpoint 1 at 0x100024e8: file myapp.c, line 644.
@@ -328,7 +328,7 @@ Migration between Releases
 To migrate an existing project from within one minor release to the next
 one, we do the following step:
 
-::
+.. code-block:: text
 
     ~/my_bsp# ptxdist migrate
 
@@ -412,7 +412,7 @@ differently, because each call must be parametrized individually.
 The used Platform Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+.. code-block:: text
 
     $ ptxdist platform <some-platform-config>
 
@@ -426,7 +426,7 @@ It can be overwritten temporarily by the command line parameter
 The used Project Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+.. code-block:: text
 
     $ ptxdist select <some-project-config>
 
@@ -441,7 +441,7 @@ It can be overwritten temporarily by the command line parameter
 The used Toolchain to Build
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+.. code-block:: text
 
     $ ptxdist toolchain <some-toolchain-path>
 
@@ -467,7 +467,7 @@ A few Examples
 The project contains two individual platforms, sharing the same
 architecture and same project configuration.
 
-::
+.. code-block:: text
 
     $ ptxdist select <project-config>
     $ ptxdist toolchain <architecture-toolchain-path>
@@ -477,7 +477,7 @@ architecture and same project configuration.
 The project contains two individual platforms, sharing the same project
 configuration.
 
-::
+.. code-block:: text
 
     $ ptxdist select <project-config>
     $ ptxdist --platformconfig=<architecture-A> --toolchain=<architecture-A-toolchain-path> --quiet go &
@@ -486,7 +486,7 @@ configuration.
 The project contains two individual platforms, but they do not share
 anything else.
 
-::
+.. code-block:: text
 
     $ ptxdist --select=<project-A-config> --platformconfig=<architecture-A> --toolchain=<architecture-A-toolchain-path> --quiet go &
     $ ptxdist --select=<project-B-config> --platformconfig=<architecture-B> --toolchain=<architecture-B-toolchain-path> go
@@ -530,7 +530,7 @@ simply enabling a setup switch.
 
 Run the PTXdist setup and navigate to the new *ICECC* menu entry:
 
-::
+.. code-block:: text
 
     $ ptxdist setup
        Developer Options   --->
@@ -557,7 +557,7 @@ parallel.
 
 A complete command line could look like this:
 
-::
+.. code-block:: text
 
     $ ptxdist go -ji64 -je8
 
@@ -608,7 +608,7 @@ Creating Pre-Built Archives
 To make PTXdist create pre-built archives, enable this feature prior to a
 build in the menu:
 
-::
+.. code-block:: text
 
     $ ptxdist menuconfig
 
@@ -617,7 +617,7 @@ build in the menu:
 
 Now run a regular build of the whole project:
 
-::
+.. code-block:: text
 
     $ ptxdist go
 
@@ -632,7 +632,7 @@ Using Pre-Built Archives
 To make PTXdist use pre-built archives, enable this feature prior to a
 build in the menu:
 
-::
+.. code-block:: text
 
     $ ptxdist menuconfig
 
@@ -728,14 +728,14 @@ the current PTXdist project do not conflict with pre-built archives of
 different PTXdist projects. To get an idea of what the final path is, we
 can ask PTXdist.
 
-::
+.. code-block:: text
 
     $ ptxdist print PTXCONF_PROJECT_DEVPKGDIR
     /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
 If this directory does not exist, we can simply create it:
 
-::
+.. code-block:: text
 
     $ mkdir -p /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
@@ -745,7 +745,7 @@ directory. But we should keep in mind, if any of the related packages
 are under development, we must omit their corresponding pre-built archives
 in this step.
 
-::
+.. code-block:: text
 
     $ cp platform-<platformname>/packages/*-dev.tar.gz /home/jbe/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-Generic
 
@@ -792,7 +792,7 @@ If everything is set up correctly we can run the following commands to
 get the full list of required archives to build the project again
 without an internet connection.
 
-::
+.. code-block:: text
 
     $ mkdir my_archives
     $ ptxdist export_src my_archives
@@ -820,7 +820,7 @@ Creating the Library Template
 Creating the library package can be done by the PTXdist’s *newpackage*
 command:
 
-::
+.. code-block:: text
 
     $ ptxdist newpackage src-autoconf-lib
 
