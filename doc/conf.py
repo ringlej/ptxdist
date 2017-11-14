@@ -280,6 +280,8 @@ latex_additional_files = [
   'figures/warning.pdf',
 ]
 
+latex_engine='xelatex'
+
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
