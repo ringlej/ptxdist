@@ -33,9 +33,11 @@ can simply create a link now:
 
     jbe@octopus:~$ cd myprj
     jbe@octopus:~/myprj$ mkdir local_src
-    jbe@octopus:~/myprj$ ln -s ~/linux local_src/kernel.<platformname>
+    jbe@octopus:~/myprj$ ptxdist local-src kernel ~/linux
+    jbe@octopus:~/myprj$ ls -l local_src
+    lrwxrwxrwx  1 jbe ptx   36 Nov 14 16:14 kernel.<platformname> -> /home/jbe/linux
 
-.. note:: The ``<platformname>`` in the example above must be replaced by the name of your own platform.
+.. note:: The ``<platformname>`` in the example above will be replaced by the name of your own platform.
 
 PTXdist will handle it in the same way as a kernel part of the project.
 Due to this, we must setup:
