@@ -37,7 +37,8 @@ when not globally present in the host system.
    $ pip3 install sphinx_rtd_theme
 
 .. note:: Whenever you want to create the PTXdist user manual, you must first
-   source the ``env/bin/activate`` file if not already done.
+   source the ``env/bin/activate`` file if not already done or do each PTXdist
+   call with the --virtualenv=<dir> parameter.
 
 Building the Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

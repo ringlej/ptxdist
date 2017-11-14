@@ -866,13 +866,24 @@ check_premake()
 	check_deps
 }
 
+check_virtualenv()
+{
+	if [ -n "${PTXDIST_VIRTUALENV}" ]; then
+		if [ ! -e "${PTXDIST_VIRTUALENV}/bin/activate" ]; then
+			ptxd_bailout "Virtual Env '${PTXDIST_VIRTUALENV}' not found"
+		fi
+		. "${PTXDIST_VIRTUALENV}/bin/activate"
+	fi
+}
+
 #
 # runs the standard tests before calling into make + compiler check
 #
 check_premake_compiler()
 {
 	check_premake &&
-	check_compiler
+	check_compiler &&
+	check_virtualenv
 }
 
 
@@ -1056,6 +1067,9 @@ Options:
   --git				use git to apply patches
 
   --auto-version		automatically switch to the correct PTXdist version
+
+  --virtualenv=<dir>		Python virtual environment directory. It must
+				contain a 'bin/activate' shell script.
 EOF
 }
 
@@ -1241,6 +1255,7 @@ create_docs() {
 			cp -an "${dir}/${entry}" "${srcdir}/" || return
 		done
 	done &&
+	check_virtualenv &&
 	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
 		"${outdir}/${builder}" &&
 	if [ "${builder}" = "latex" ]; then
@@ -1397,6 +1412,9 @@ parse_first()
 			;;
 		--auto-version)
 			PTXDIST_AUTOVERSION=1
+			;;
+		--virtualenv=*)
+			PTXDIST_VIRTUALENV="${arg#*=}"
 			;;
 		--)
 			while [ ${#} -ne 0 ]; do
