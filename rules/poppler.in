@@ -6,6 +6,7 @@ menuconfig POPPLER
 	select HOST_CMAKE
 	select FONTCONFIG
 	select FREETYPE
+	select LIBC_PTHREAD
 	select HOST_GETTEXT
 	select POPPLER_DATA			if POPPLER_WITH_DATA
 	select GLIB				if POPPLER_GLIB
@@ -172,7 +173,7 @@ config POPPLER_CMS
 	bool
 	prompt "enable color management support"
 	help
-	  compile poppler with color management support via libcms1
+	  compile poppler with color management support via libcms
 
 endif
 

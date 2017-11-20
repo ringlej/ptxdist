@@ -14,7 +14,6 @@
 # - package libtiff for additional TIFF support
 # - runtime-test the Qt5 backend
 # - package libopenjpeg and build with --enable-libopenjpeg
-# - update lcms to lcms2 and use --enable-cms=lcms2
 #
 # We provide this package
 #
@@ -23,14 +22,17 @@ PACKAGES-$(PTXCONF_POPPLER) += poppler
 #
 # Paths and names
 #
-POPPLER_VERSION	:= 0.60.1
-POPPLER_MD5	:= 7648416d51a6e9fbc4a75b6f8b53dd7c
+POPPLER_VERSION	:= 0.61.1
+POPPLER_MD5	:= 2d3dcea88d6a814317fac74d2a16c3cd
 POPPLER		:= poppler-$(POPPLER_VERSION)
 POPPLER_SUFFIX	:= tar.xz
 POPPLER_URL	:= http://poppler.freedesktop.org/$(POPPLER).$(POPPLER_SUFFIX)
 POPPLER_SOURCE	:= $(SRCDIR)/$(POPPLER).$(POPPLER_SUFFIX)
 POPPLER_DIR	:= $(BUILDDIR)/$(POPPLER)
 POPPLER_LICENSE	:= GPL-2.0 OR GPL-3.0
+POPPLER_LICENSE_FILES	:= \
+	file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+	file://COPYING3;md5=d32239bcb673463ab874e80d47fae504
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -40,13 +42,18 @@ POPPLER_PATH	:= PATH=$(CROSS_PATH)
 POPPLER_ENV 	:= $(CROSS_ENV)
 
 #
-# autoconf
+# CMake
+#
+# FindThreads.cmake tries to determine if our compiler understands -pthread by
+# compiling a file and running the binary. We set -DTHREADS_PTHREAD_ARG=2 to
+# tell CMake that this binary returns 2, which means -pthread. is understood.
 #
 POPPLER_CONF_TOOL	:= cmake
 POPPLER_CONF_OPT	:= \
 	$(CROSS_CMAKE_USR) \
 	-DBUILD_SHARED_LIBS=ON \
 	-DEXTRA_WARN=NO \
+	-DTHREADS_PTHREAD_ARG=2 \
 	-DFONT_CONFIGURATION=fontconfig \
 	-DENABLE_UTILS=$(call ptx/onoff,PTXCONF_POPPLER_BIN) \
 	-DENABLE_XPDF_HEADERS=$(call ptx/onoff,PTXCONF_POPPLER_XPDF) \
@@ -78,7 +85,7 @@ POPPLER_CONF_OPT	:= \
 	-DENABLE_ZLIB=$(call ptx/onoff,PTXCONF_POPPLER_ZLIB) \
 	-DENABLE_ZLIB_UNCOMPRESS=NO \
 	-DENABLE_LIBCURL=$(call ptx/onoff,PTXCONF_POPPLER_CURL) \
-	-DENABLE_CMS=$(call ptx/ifdef,PTXCONF_POPPLER_CMS,lcms1,)
+	-DENABLE_CMS=$(call ptx/ifdef,PTXCONF_POPPLER_CMS,lcms2,)
 
 # ----------------------------------------------------------------------------
 # Target-Install
