@@ -221,6 +221,15 @@ ptxd_make_world_patchin_apply()
 	pkg_patch_series \
 	pkg_patch_tool
 
+    if [[ "${pkg_url}" =~ ^file:// ]]; then
+	local url="$(ptxd_file_url_path "${pkg_url}")"
+	# local directories are not intended to be patched
+	if [ -d "${url}" ]; then
+	   echo "Local source directory detected, skipping patch-in step"
+	   return
+	fi
+    fi
+
     ptxd_make_world_patchin_apply_init || return
     if [ -z "${pkg_patch_dir}" ]; then
 	return
@@ -436,15 +445,6 @@ ptxd_make_world_patchin_init()
     if [ -z "${pkg_url}" -a -z "${pkg_src}" ]; then
 	# no <PKG>_URL and no <PKG>_SOURCE -> assume the package has nothing to patchin.
 	return
-    fi
-
-    if [[ "${pkg_url}" =~ ^file:// ]]; then
-	local url="$(ptxd_file_url_path "${pkg_url}")"
-	# local directories are not intended to be patched
-	if [ -d "${url}" ]; then
-	   echo "Local source directory detected, skipping patch-in step"
-	   return
-	fi
     fi
 
     if [ -n "${pkg_deprecated_patchin_series}" ]; then

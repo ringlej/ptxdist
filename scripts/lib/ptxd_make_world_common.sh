@@ -250,7 +250,6 @@ ptxd_make_world_init() {
     if [ -d "$(readlink -f "${wip_sources}")" ]; then
 	pkg_url="file://${wip_sources}"
 	unset pkg_src
-	pkg_pkg=${pkg_pkg}-wip # don't apply patches
     fi
     unset wip_sources
 
