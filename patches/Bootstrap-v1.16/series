@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-crt0_gnu.S-fix-image-size.patch
 0002-elf32-littlearm.lds-fix-overlap-linker-error.patch
-# 6daacb9f08ce1b5f27a02b02d35aa2ee  - git-ptx-patches magic
+0003-Fix-build-with-EABI-toolchain.patch
+# 0771a94d6e5f085e4c18dcea3102d267  - git-ptx-patches magic

@@ -16,12 +16,12 @@ This patch applies to Bootstrap-v1.16.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- crt0_gnu.S          |    2 +-
- elf32-littlearm.lds |    1 +
- 2 files changed, 2 insertions(+), 1 deletions(-)
+ crt0_gnu.S          | 2 +-
+ elf32-littlearm.lds | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/crt0_gnu.S b/crt0_gnu.S
-index 042b617..638b32b 100644
+index 042b617fae6f..638b32bdf3b3 100644
 --- a/crt0_gnu.S
 +++ b/crt0_gnu.S
 @@ -56,7 +56,7 @@ _exception_vectors:
@@ -34,7 +34,7 @@ index 042b617..638b32b 100644
  	b 	fiq_vector      /* FIQ */
  
 diff --git a/elf32-littlearm.lds b/elf32-littlearm.lds
-index a33952f..bf02b93 100644
+index a33952f68e4f..bf02b931f488 100644
 --- a/elf32-littlearm.lds
 +++ b/elf32-littlearm.lds
 @@ -19,6 +19,7 @@ SECTIONS
