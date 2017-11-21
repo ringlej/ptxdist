@@ -439,12 +439,8 @@ ptxd_make_world_patchin_init()
     fi
 
     if [[ "${pkg_url}" =~ ^file:// ]]; then
-	local url="${pkg_url//file:\/\//}"
+	local url="$(ptxd_file_url_path "${pkg_url}")"
 	# local directories are not intended to be patched
-	if [[ ! "${url}" =~ ^/ ]]; then
-	    # ensure an absolute path for this BSP relative URL
-	    url="${PTXDIST_WORKSPACE}/${url}"
-	fi
 	if [ -d "${url}" ]; then
 	   echo "Local source directory detected, skipping patch-in step"
 	   return

@@ -646,6 +646,18 @@ ptxd_abs2rel() {
 }
 export -f ptxd_abs2rel
 
+#
+# Converts a file URL into an absolute path
+#
+ptxd_file_url_path() {
+    local url="${1//file:\/\//}"
+    if [[ ! "${url}" =~ ^/ ]]; then
+	    # relative to absolute path
+	    url="${PTXDIST_WORKSPACE}/${url}"
+    fi
+    echo "${url}"
+}
+export -f ptxd_file_url_path
 
 #
 # prints a path but removes non interesting prefixes
