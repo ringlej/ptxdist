@@ -27,6 +27,7 @@ LIBPAPER_URL		:= http://snapshot.debian.org/archive/debian-debug/20161113T151229
 LIBPAPER_SOURCE		:= $(SRCDIR)/$(LIBPAPER).$(LIBPAPER_SUFFIX)
 LIBPAPER_DIR		:= $(BUILDDIR)/$(LIBPAPER)
 LIBPAPER_LICENSE	:= GPL-2.0
+LIBPAPER_LICENSE_FILES	:= file://COPYING;md5=0278281246c1e59af1ef0ae1784a4948
 
 # ----------------------------------------------------------------------------
 # Prepare
