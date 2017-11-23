@@ -23,7 +23,8 @@ QPDF_SUFFIX	:= tar.gz
 QPDF_URL	:= $(call ptx/mirror, SF, /qpdf/qpdf/$(QPDF_VERSION)/$(QPDF).$(QPDF_SUFFIX))
 QPDF_SOURCE	:= $(SRCDIR)/$(QPDF).$(QPDF_SUFFIX)
 QPDF_DIR	:= $(BUILDDIR)/$(QPDF)
-QPDF_LICENSE	:= Artistic-2.0
+QPDF_LICENSE	:= Apache-2.0
+QPDF_LICENSE_FILES	:= file://LICENSE.txt;md5=3b83ef96387f14655fc854ddc3c6bd57
 
 # ----------------------------------------------------------------------------
 # Prepare
