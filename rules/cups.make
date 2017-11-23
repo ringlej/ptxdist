@@ -24,6 +24,7 @@ CUPS_URL	:= https://github.com/apple/cups/releases/download/v$(CUPS_VERSION)/$(C
 CUPS_SOURCE	:= $(SRCDIR)/$(CUPS)-source.$(CUPS_SUFFIX)
 CUPS_DIR	:= $(BUILDDIR)/cups-$(CUPS_VERSION)
 CUPS_LICENSE	:= LGPL-2.0 AND GPL-2.0
+CUPS_LICENSE_FILES	:= file://LICENSE.txt;md5=f212b4338db0da8cb892e94bf2949460
 
 # ----------------------------------------------------------------------------
 # Prepare
