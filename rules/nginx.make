@@ -25,6 +25,7 @@ NGINX_URL	:= https://nginx.org/download/$(NGINX).$(NGINX_SUFFIX)
 NGINX_SOURCE	:= $(SRCDIR)/$(NGINX).$(NGINX_SUFFIX)
 NGINX_DIR	:= $(BUILDDIR)/$(NGINX)
 NGINX_LICENSE	:= BSD-2-Clause
+NGINX_LICENSE_FILES	:= file://LICENSE;md5=903753de5f86a1ee0341fd2f9491b282
 
 # ----------------------------------------------------------------------------
 # Prepare
