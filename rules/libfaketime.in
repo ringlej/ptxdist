@@ -1,0 +1,27 @@
+## SECTION=debug_tools
+
+config LIBFAKETIME
+	tristate
+	prompt "libfaketime"
+	help
+	  libfaketime intercepts various system calls that programs use to
+	  retrieve the current date and time. It then reports modified (faked)
+	  dates and times (as specified by you, the user) to these programs.
+	  This means you can modify the system time a program sees without
+	  having to change the time system-wide.
+
+	  libfaketime allows you to specify both absolute dates (e.g. 01/01/2004)
+	  and relative dates (e.g., 10 days ago).
+
+	  libfaketime might be used for various purposes, for example
+	    - deterministic build processes
+	    - debugging time-related issues, such as expired SSL certificates
+	    - testing software for year-2038 compliance
+
+	  libfaketime ships with a command line wrapper called "faketime" that
+	  makes it easier to use, but does not expose all of libfaketime's
+	  functionality. If your use case is not covered by the faketime command,
+	  make sure to look in this documentation whether it can be achieved by
+	  using libfaketime directly.
+
+	  For more information, see https://github.com/wolfcw/libfaketime
