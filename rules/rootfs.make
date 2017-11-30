@@ -194,10 +194,12 @@ ifdef PTXCONF_ROOTFS_ISSUE
 		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
 	@$(call install_replace_figlet, rootfs, /etc/issue, \
 		@FIGLET:VENDOR@, \
-		`sed -r 's/ ?([\.:;,]) ?/ \1 /' <<< $(PTXCONF_PROJECT_VENDOR)`)
+		`sed -r 's/ ?([\.:;,]) ?/ \1 /' <<< $(PTXCONF_PROJECT_VENDOR)`, \
+		etcissue)
 	@$(call install_replace_figlet, rootfs, /etc/issue, \
 		@FIGLET:HOSTNAME@, \
-		`sed -r 's/ ?([\.:;,]) ?/ \1 /' <<< $(PTXCONF_ROOTFS_ETC_HOSTNAME)`)
+		`sed -r 's/ ?([\.:;,]) ?/ \1 /' <<< $(PTXCONF_ROOTFS_ETC_HOSTNAME)`, \
+		etcissue)
 endif
 
 ifdef PTXCONF_ROOTFS_HOSTS
