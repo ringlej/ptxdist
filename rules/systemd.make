@@ -226,6 +226,7 @@ SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_MTD_PROBE)		+= mtd_probe
 
 SYSTEMD_UDEV_RULES-y := \
 	50-udev-default.rules \
+	60-input-id.rules \
 	60-persistent-alsa.rules \
 	60-persistent-input.rules \
 	60-persistent-storage-tape.rules \
