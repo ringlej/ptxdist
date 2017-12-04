@@ -23,7 +23,7 @@ LIBARCHIVE_SUFFIX	:= tar.gz
 LIBARCHIVE_URL		:= http://www.libarchive.org/downloads/$(LIBARCHIVE).$(LIBARCHIVE_SUFFIX)
 LIBARCHIVE_SOURCE	:= $(SRCDIR)/$(LIBARCHIVE).$(LIBARCHIVE_SUFFIX)
 LIBARCHIVE_DIR		:= $(BUILDDIR)/$(LIBARCHIVE)
-LIBARCHIVE_LICENSE	:= BSD New
+LIBARCHIVE_LICENSE	:= BSD-2-Clause AND BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
