@@ -3,7 +3,7 @@ The PTXdist User Manual
 
 The HTML based PTXdist user manual can be found in web at
 
-http://www.pengutronix.de/en/software/ptxdist
+http://www.ptxdist.org/
 
 Requirements to build the Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

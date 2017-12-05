@@ -14,7 +14,7 @@ About PTXdist in Particular
 This is an English language public mailing list for questions about
 PTXdist. See
 
-http://www.pengutronix.de/mailinglists/index_en.html
+http://www.ptxdist.org/pages/support.html
 
 on how to subscribe to this list. If you want to search through the
 mailing list archive, visit

@@ -10,7 +10,7 @@ evaluation board package or by downloading them from the Pengutronix web
 site.
 
 The central place for OSELAS related documentation is
-http://www.oselas.com and http://www.ptxdist.de. These websites provide
+http://www.oselas.com and http://www.ptxdist.org. These websites provide
 all required packages and documentation (at least for software
 components which are available to the public).
 
