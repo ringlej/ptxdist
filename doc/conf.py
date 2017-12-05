@@ -104,7 +104,7 @@ gnu_target = os.getenv("PTXCONF_GNU_TARGET") or "arm-v5te-linux-gnueabi"
 try:
 	toolchain = os.readlink(os.path.join(os.getenv("PTXDIST_PLATFORMDIR",""), "selected_toolchain")).split("/")
 except:
-	toolchain = "/opt/OSELAS.Toolchain-2014.12.2/arm-v5te-linux-gnueabi/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin".split("/")
+	toolchain = "/opt/OSELAS.Toolchain-2016.06.1/arm-v5te-linux-gnueabi/gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized/bin".split("/")
 
 ptxdistPlatformDir = "platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb")
 oselasTCNarch = gnu_target.split("-")[0]
