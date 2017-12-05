@@ -25,16 +25,6 @@ and search for the list *ptxdist*. Please note again that this mailing
 list is just related to the PTXdist as a software. For questions
 regarding your specific BSP, see the following items.
 
-About Embedded Linux in General
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is a German language public mailing list for general questions
-about Linux in embedded environments. See
-
-http://www.pengutronix.de/mailinglists/index_de.html
-
-on how to subscribe to this list. Note: You can also send mails in
-English.
 
 About Working on the Linux Kernel
 ---------------------------------
