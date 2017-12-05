@@ -405,7 +405,6 @@ ptxd_make_world_license() {
     local -a pkg_license_texts
     local -a pkg_license_texts_guessed
     local pkg_dot
-    local pkg_tex
     local pkg_dot="${pkg_license_dir}/graph.dot"
     local pkg_tex="${pkg_license_dir}/graph.tex"
 
