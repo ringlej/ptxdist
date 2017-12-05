@@ -18,7 +18,7 @@ In order to build |ptxdistBSPName|, the following source archives have to be ava
 on the development host:
 
  * ptxdist-|ptxdistVendorVersion|.tar.bz2
- * |ptxdistBSPName|.tar.bz2
+ * |ptxdistBSPName|.tar.bz2 (or a similar source)
  * ptxdist-|oselasTCNVendorptxdistversion|.tar.bz2
  * OSELAS.Toolchain-|oselasTCNVendorVersion|.tar.bz2
 
