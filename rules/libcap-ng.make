@@ -23,7 +23,7 @@ LIBCAP_NG_SUFFIX	:= tar.gz
 LIBCAP_NG_URL		:= http://people.redhat.com/sgrubb/libcap-ng/$(LIBCAP_NG).$(LIBCAP_NG_SUFFIX)
 LIBCAP_NG_SOURCE	:= $(SRCDIR)/$(LIBCAP_NG).$(LIBCAP_NG_SUFFIX)
 LIBCAP_NG_DIR		:= $(BUILDDIR)/$(LIBCAP_NG)
-LIBCAP_NG_LICENSE	:= LGPL-2.1+,GPL-2.0+
+LIBCAP_NG_LICENSE	:= LGPL-2.1+ AND GPL-2.0+
 
 # ----------------------------------------------------------------------------
 # Prepare

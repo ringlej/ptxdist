@@ -23,7 +23,7 @@ LESS_SUFFIX	:= tar.gz
 LESS_URL	:= $(call ptx/mirror, GNU, less/$(LESS).$(LESS_SUFFIX))
 LESS_SOURCE	:= $(SRCDIR)/$(LESS).$(LESS_SUFFIX)
 LESS_DIR	:= $(BUILDDIR)/$(LESS)
-LESS_LICENSE	:= GPL-3.0+, BSD-2-Clause
+LESS_LICENSE	:= GPL-3.0+ AND BSD-2-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

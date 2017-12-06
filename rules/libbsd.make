@@ -23,7 +23,7 @@ LIBBSD_SUFFIX	:= tar.xz
 LIBBSD_URL	:= http://libbsd.freedesktop.org/releases/$(LIBBSD).$(LIBBSD_SUFFIX)
 LIBBSD_SOURCE	:= $(SRCDIR)/$(LIBBSD).$(LIBBSD_SUFFIX)
 LIBBSD_DIR	:= $(BUILDDIR)/$(LIBBSD)
-LIBBSD_LICENSE	:= BSD-4-Clause, BSD-3-Clause, BSD-2-Clause-NetBSD, ISC, MIT, BEER-WARE, public_domain
+LIBBSD_LICENSE	:= BSD-4-Clause AND BSD-3-Clause AND BSD-2-Clause-NetBSD AND ISC AND MIT AND Beerware AND public_domain
 
 # ----------------------------------------------------------------------------
 # Prepare

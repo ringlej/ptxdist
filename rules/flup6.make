@@ -23,7 +23,7 @@ FLUP6_SUFFIX	:= tar.gz
 FLUP6_URL	:= https://pypi.python.org/packages/source/f/flup6/$(FLUP6).$(FLUP6_SUFFIX)
 FLUP6_SOURCE	:= $(SRCDIR)/$(FLUP6).$(FLUP6_SUFFIX)
 FLUP6_DIR	:= $(BUILDDIR)/$(FLUP6)
-FLUP6_LICENSE	:= BSD, MIT
+FLUP6_LICENSE	:= BSD AND MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

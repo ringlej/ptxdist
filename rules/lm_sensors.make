@@ -26,7 +26,7 @@ LM_SENSORS_URL		:= \
 	https://github.com/groeck/lm-sensors/archive/$(LM_SENSORS_TAG).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_SOURCE	:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_DIR		:= $(BUILDDIR)/$(LM_SENSORS)
-LM_SENSORS_LICENSE	:= GPL-2.0+, LGPL-2.1+
+LM_SENSORS_LICENSE	:= GPL-2.0+ AND LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

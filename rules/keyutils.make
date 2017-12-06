@@ -15,7 +15,7 @@ KEYUTILS_SUFFIX		:= tar.bz2
 KEYUTILS_URL		:= http://people.redhat.com/~dhowells/keyutils/$(KEYUTILS).$(KEYUTILS_SUFFIX)
 KEYUTILS_SOURCE		:= $(SRCDIR)/$(KEYUTILS).$(KEYUTILS_SUFFIX)
 KEYUTILS_DIR		:= $(BUILDDIR)/$(KEYUTILS)
-KEYUTILS_LICENSE	:= GPL-2.0+, LGPL-2.1+
+KEYUTILS_LICENSE	:= GPL-2.0+ AND LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

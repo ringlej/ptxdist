@@ -18,7 +18,7 @@ OPENOCD_URL	:= $(call ptx/mirror, SF, openocd/$(OPENOCD).$(OPENOCD_SUFFIX))
 OPENOCD_SOURCE	:= $(SRCDIR)/$(OPENOCD).$(OPENOCD_SUFFIX)
 OPENOCD_DIR	:= $(BUILDDIR)/$(OPENOCD)
 # License: OpenOCD: GPLv2+, jimtcl: BSD
-OPENOCD_LICENSE	:= GPL-2.0+, BSD
+OPENOCD_LICENSE	:= GPL-2.0+ AND BSD
 
 # ----------------------------------------------------------------------------
 # Prepare
