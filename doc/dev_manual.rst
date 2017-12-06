@@ -157,7 +157,8 @@ handle:
    archive but a plain source project instead. Creating such a package
    will also create a small autotools based source template project on
    demand to give the developer an easy point to start. This template is
-   prepared to build a single executable program.
+   prepared to build a single executable program. For further details refer
+   section :ref:`adding_src_autoconf_exec`.
 
 -  **src-autoconf-lib**: This kind of package is built for the target.
    It is intended for development, as it does not handle a released
@@ -174,7 +175,7 @@ handle:
    project on demand to give the developer an easy point to start. This
    template is prepared to build a single shared library and a single
    executable program. The program will be linked against the shared
-   library.
+   library. For further details refer section :ref:`adding_src_autoconf_exec_lib`.
 
 -  **file**: This kind of package is intended to add a few simple files
    into the build process. We assume these files do not need any
