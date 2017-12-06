@@ -57,8 +57,6 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-fuse2fs \
 	--without-included-gettext
 
-# vim: syntax=make
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
@@ -73,3 +71,5 @@ $(STATEDIR)/host-e2fsprogs.install.post:
 	@sed -i -e 's,/share,$(PTXCONF_SYSROOT_HOST)/share,' \
 		$(PTXCONF_SYSROOT_HOST)/bin/mk_cmds
 	@$(call touch)
+
+# vim: syntax=make
