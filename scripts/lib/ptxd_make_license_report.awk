@@ -21,7 +21,7 @@ $1 == "DEP" {
 
 $1 == "LICENSE" {
 	# add newline after each third word
-	gsub("[^ ]* [^ ]* [^ ]* ", "&\\n", $4);
+	gsub("[^ ]* [^ ]* [^ ]* ", "&\\\\ ", $4);
 	gsub("_", "\\_", $4);
 	licenses[$2] = $4
 	raw_names[$2] = $3
