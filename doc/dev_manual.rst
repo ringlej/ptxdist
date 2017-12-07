@@ -412,7 +412,7 @@ variable is still empty. Let’s fill it:
     $ md5sum /global_src/foo-1.1.0.tar.gz
     9a09840ab775a139ebb00f57a587b447
 
-This string must be assigned to the FOO\_MD5 in our new ``foo.make``
+This string must be assigned to the FOO_MD5 in our new ``foo.make``
 rule file:
 
 .. code-block:: text
