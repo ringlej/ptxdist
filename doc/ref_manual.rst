@@ -191,7 +191,7 @@ Package Definition
   The license of the package. The SPDX license identifiers should be used
   here. Use ``proprietary`` for proprietary packages and ``ignore`` for
   packages without their own license, e.g. meta packages or packages that
-  only install files from projectroot/.
+  only install files from ``projectroot/``.
 
 ``<PKG>_LICENSE_FILES``
   A space separated list of URLs of license text files. The URLs must be

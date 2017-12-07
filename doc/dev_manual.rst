@@ -721,6 +721,51 @@ This will re-start with a **clean** BSP and builds exactly the new package and
 its (known) dependencies. If this builds successfully as well we are really done
 with the new package.
 
+Some Notes about Licenses
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The already mentioned rule variable ``*_LICENSE`` (e.g. ``FOO_LICENSE`` in our
+example) is very important and must be filled by the developer of the package.
+Many licenses bring in obligations using the corresponding package (*attribution*
+for example). To make life easier for everybody the license for a package must
+be provided. *SPDX* license identifiers unify the license names and are used
+in PTXdist to identify license types and obligations.
+
+If a package comes with more than one license, alls of their SPDX identifiers
+must be listed and connected with the keyword ``AND``. If your package comes
+with GPL-2.0 and LGPL-2.1 licenses, the definition should look like this:
+
+.. code-block:: make
+
+   FOO_LICENSE := GPL-2.0 AND LGPL-2.1
+
+One specific obligation cannot be detected examining the SPDX license identifiers
+by PTXdist: *the license choice*. In this case all licenses of choice must be
+listed and connected by the keyword ``OR``.
+
+If, for example, your obligation is to select one of the licenses *GPL-2.0* **or**
+*GPL-3.0*, the ``*_LICENSE`` variable should look like this:
+
+.. code-block:: make
+
+   FOO_LICENSE := GPL-2.0 OR GPL-3.0
+
+SPDX License Identifiers
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+A list of SPDX license identifiers can be found here:
+
+   https://www.gnu.org/licenses/license-list.html#SoftwareLicenses
+
+Help to Detect the Correct License
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+License identification isn't trivial. A help in doing so can be the following
+repository and its content. It contains a list of known licenses based on their
+SPDX identifier. The content is without formatting to simplify text search.
+
+   https://github.com/spdx/license-list.git
+
 Advanced Rule Files
 ~~~~~~~~~~~~~~~~~~~
 
