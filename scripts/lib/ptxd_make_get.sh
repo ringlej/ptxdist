@@ -89,7 +89,6 @@ ptxd_make_get_http() {
 		--connect-timeout 30 \
 		--retry 5 \
 		--user-agent "PTXdist ${PTXDIST_VERSION_FULL}" \
-		${PTXDIST_QUIET:+--silent} \
 		"${curl_opts[@]}" \
 		-o /dev/null \
 		--dump-header "${temp_header}" \
