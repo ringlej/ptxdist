@@ -1,8 +1,14 @@
 From: Raphael Geissert <geissert@debian.org>
-Date: Thu, 9 Nov 2017 21:10:14 +0100
+Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] block_digicert_malaysia
 
-Imported from openssl1.0_1.0.2m-3.debian.tar.xz
+Description: make X509_verify_cert indicate that any certificate whose
+ name contains "Digicert Sdn. Bhd." (from Malaysia) is revoked.
+Forwarded: not-needed
+Origin: vendor
+Last-Update: 2011-11-05
+
+Imported from openssl1.0_1.0.2n-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

@@ -1,11 +1,19 @@
 From: Raphael Geissert <geissert@debian.org>
-Date: Thu, 9 Nov 2017 21:10:14 +0100
+Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] block_diginotar
+
+Description: make X509_verify_cert indicate that any certificate whose
+ name contains "DigiNotar" is revoked.
+Forwarded: not-needed
+Origin: vendor
+Last-Update: 2011-09-08
+Bug: http://bugs.debian.org/639744
+Reviewed-by: Kurt Roeckx <kurt@roeckx.be>
+Reviewed-by: Dr Stephen N Henson <shenson@drh-consultancy.co.uk>
 
 This is not meant as final patch.
 
-
-Imported from openssl1.0_1.0.2m-3.debian.tar.xz
+Imported from openssl1.0_1.0.2n-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

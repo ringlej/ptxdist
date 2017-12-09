@@ -1,13 +1,12 @@
 From: Kurt Roeckx <kurt@roeckx.be>
-Date: Thu, 9 Nov 2017 21:10:14 +0100
+Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] Disable the freelist
 
 We don't define OPENSSL_NO_BUF_FREELISTS globally sinc it changes structures and
 would break the ABI.  Instead we just do it in the .c files that try to do
 something with it.
 
-
-Imported from openssl1.0_1.0.2m-3.debian.tar.xz
+Imported from openssl1.0_1.0.2n-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

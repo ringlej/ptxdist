@@ -1,8 +1,8 @@
-From: Michael Olbrich <m.olbrich@pengutronix.de>
-Date: Thu, 9 Nov 2017 21:10:14 +0100
+From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
+Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] shared-lib-ext
 
-Imported from openssl1.0_1.0.2m-3.debian.tar.xz
+Imported from openssl1.0_1.0.2n-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index dff65274fc03..a9783989b3cd 100755
+index e5cdd2f03ef5..5b118035224d 100755
 --- a/Configure
 +++ b/Configure
 @@ -1838,7 +1838,8 @@ while (<IN>)
