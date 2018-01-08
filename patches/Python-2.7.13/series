@@ -8,4 +8,5 @@
 0006-python-don-t-add-rpaths-in-setup.py.patch
 0007-add-more-search-paths.patch
 0008-resolve-existing-LD_LIBRARY_PATH-during-make-not-dur.patch
-# 9497b574212cc870e4c8fce4dd1b0b44  - git-ptx-patches magic
+0009-python2-prevent-host-path-leakage.patch
+# 1fb48b2848c102e3848999b1d9f65710  - git-ptx-patches magic
