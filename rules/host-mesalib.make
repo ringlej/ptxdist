@@ -49,7 +49,7 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-xvmc \
 	--disable-vdpau \
 	--disable-va \
-	--disable-omx \
+	--disable-omx-bellagio \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
