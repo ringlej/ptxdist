@@ -86,11 +86,13 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	-Drfkill=false \
 	-Dseccomp=false \
 	-Dselinux=false \
+	-Dslow-tests=false \
 	-Dsmack=false \
 	-Dsplit-usr=false \
 	-Dsystem-gid-max=999 \
 	-Dsystem-uid-max=999 \
 	-Dsysusers=false \
+	-Dtests=true \
 	-Dtimedated=false \
 	-Dtimesyncd=false \
 	-Dtmpfiles=false \
@@ -113,8 +115,8 @@ $(STATEDIR)/host-systemd.install:
 	@rm -rf $(HOST_SYSTEMD_PKGDIR)
 	@install -vD -m755 $(HOST_SYSTEMD_DIR)-build/systemd-hwdb \
 		$(HOST_SYSTEMD_PKGDIR)/bin/systemd-hwdb
-	@install -vD -m755 $(HOST_SYSTEMD_DIR)-build/src/shared/libsystemd-shared-235.so \
-		$(HOST_SYSTEMD_PKGDIR)/lib/libsystemd-shared-235.so
+	@install -vD -m755 $(HOST_SYSTEMD_DIR)-build/src/shared/libsystemd-shared-$(HOST_SYSTEMD_VERSION).so \
+		$(HOST_SYSTEMD_PKGDIR)/lib/libsystemd-shared-$(HOST_SYSTEMD_VERSION).so
 	@$(call touch)
 
 # vim: syntax=make

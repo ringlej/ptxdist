@@ -14,3 +14,4 @@ tmpfs	/run			tmpfs	nosuid,nodev,strictatime,mode=0755	0 0
 tmpfs	/var/log		tmpfs	nosuid,nodev,noexec,mode=0755,size=10%	0 0
 tmpfs	/var/lock		tmpfs	nosuid,nodev,noexec,mode=0755,size=1M	0 0
 tmpfs	/var/tmp		tmpfs	nosuid,nodev,mode=1777,size=20%		0 0
+tmpfs	/var/lib/private	tmpfs	mode=0700,size=20%			0 0

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 235
-SYSTEMD_MD5	:= d53a925f1ca5b2e124de0a8aa65d0db2
+SYSTEMD_VERSION	:= 236
+SYSTEMD_MD5	:= 8609cb9043ac8f374371cbac5546acf4
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -76,6 +76,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dgcrypt=false \
 	-Dglib=false \
 	-Dgnutls=false \
+	-Dgroup-render-mode=0666 \
 	-Dgshadow=false \
 	-Dhibernate=false \
 	-Dhostnamed=true \
@@ -123,6 +124,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dseccomp=$(call ptx/truefalse,PTXCONF_SYSTEMD_SECCOMP) \
 	-Dselinux=$(call ptx/truefalse,PTXCONF_GLOBAL_SELINUX) \
 	-Dsetfont-path=/usr/bin/setfont \
+	-Dslow-tests=false \
 	-Dsmack=false \
 	-Dsplit-usr=false \
 	-Dsulogin-path=/sbin/sulogin \
@@ -130,6 +132,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dsystem-uid-max=999 \
 	-Dsysusers=false \
 	-Dtelinit-path=/usr/bin/telinit \
+	-Dtests=true \
 	-Dtime-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01 UTC" +%s` \
 	-Dtimedated=$(call ptx/truefalse,PTXCONF_SYSTEMD_TIMEDATE) \
 	-Dtimesyncd=$(call ptx/truefalse,PTXCONF_SYSTEMD_TIMEDATE) \
@@ -137,6 +140,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dtpm=false \
 	-Dtty-gid=112 \
 	-Dumount-path=/usr/bin/umount \
+	-Dusers-gid= \
 	-Dutmp=false \
 	-Dvconsole=$(call ptx/truefalse,PTXCONF_SYSTEMD_VCONSOLE) \
 	-Dwheel-group=false \
@@ -377,12 +381,13 @@ ifdef PTXCONF_SYSTEMD_VCONSOLE
 endif
 
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd)
+	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/private)
 
 #	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd/coredump)
 	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/machines)
 ifdef PTXCONF_SYSTEMD_TIMEDATE
-	@$(call install_copy, systemd, systemd-timesync, nogroup, 0755, \
+	@$(call install_link, systemd, ../private/systemd/timesync, \
 		/var/lib/systemd/timesync)
 endif
 

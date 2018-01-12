@@ -14,8 +14,8 @@ start() {
 	systemctl daemon-reexec
 	sleep 1
 	if [ -d /var/lib/systemd/timesync ]; then
-		touch /var/lib/systemd/clock
-		chown systemd-timesync:nogroup /var/lib/systemd/clock
+		touch /var/lib/systemd/timesync/clock
+		chown systemd-timesync:nogroup /var/lib/systemd/timesync/clock
 	fi
 	exec "$0" umount
 }
