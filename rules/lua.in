@@ -3,7 +3,7 @@
 menuconfig LUA
 	tristate
 	prompt "lua                           "
-	select READLINE
+	select READLINE if BUILDTIME || LUA_INSTALL_LUA
 	select LIBC_M
 	select LIBC_DL
 	help
