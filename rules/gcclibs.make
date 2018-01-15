@@ -45,6 +45,10 @@ ifdef PTXCONF_GCCLIBS_CXX
 	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so)
 endif
 
+ifdef PTXCONF_GCCLIBS_ATOMIC
+	@$(call install_copy_toolchain_lib, gcclibs, libatomic.so)
+endif
+
 ifdef PTXCONF_GCCLIBS_GCJ
 	@$(call install_copy_toolchain_lib, gcclibs, libgcj.so)
 endif
