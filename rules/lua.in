@@ -6,6 +6,7 @@ menuconfig LUA
 	select READLINE if BUILDTIME || LUA_INSTALL_LUA
 	select LIBC_M
 	select LIBC_DL
+	select LIBC_PTHREAD
 	help
 	  Lua is a powerful, fast, light-weight, embeddable scripting language.
 	  Lua combines simple procedural syntax with powerful data description
