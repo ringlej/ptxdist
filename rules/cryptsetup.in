@@ -1,6 +1,7 @@
 ## SECTION=disk_and_file
 
 menuconfig CRYPTSETUP
+	select JSON_C
 	select LVM2
 	select LIBUUID
 	select LIBPOPT
@@ -11,7 +12,10 @@ menuconfig CRYPTSETUP
 	prompt "cryptsetup                    "
 	help
 	  Cryptsetup is a utility used to conveniently setup disk encryption
-	  based on DMCrypt kernel module.
+	  based on the dm-crypt kernel module.
+	  It also includes veritysetup, used to setup dm-verity block integrity
+	  checking of read-only targets, as well as integritysetup to setup
+	  dm-integrity block integrity checking of read-write targets.
 
 if CRYPTSETUP
 
@@ -41,6 +45,10 @@ config CRYPTSETUP_CRYPT_BACKEND
 config CRYPTSETUP_CRYPTSETUP
 	bool
 	prompt "install cryptsetup"
+
+config CRYPTSETUP_INTEGRITYSETUP
+	bool
+	prompt "install integritysetup"
 
 config CRYPTSETUP_VERITYSETUP
 	bool

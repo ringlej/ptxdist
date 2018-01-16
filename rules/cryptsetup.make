@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_CRYPTSETUP) += cryptsetup
 #
 # Paths and names
 #
-CRYPTSETUP_VERSION	:= 1.7.5
-CRYPTSETUP_MD5		:= dde798a883b06a2903379dcd593480e1
+CRYPTSETUP_VERSION	:= 2.0.0
+CRYPTSETUP_MD5		:= 0f44b7535b2cdabbf0c4adf523fbceeb
 CRYPTSETUP		:= cryptsetup-$(CRYPTSETUP_VERSION)
 CRYPTSETUP_SUFFIX	:= tar.gz
-CRYPTSETUP_URL		:= https://www.kernel.org/pub/linux/utils/cryptsetup/v1.7//$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)
+CRYPTSETUP_URL		:= https://www.kernel.org/pub/linux/utils/cryptsetup/v$(basename $(CRYPTSETUP_VERSION))/$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)
 CRYPTSETUP_SOURCE	:= $(SRCDIR)/$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)
 CRYPTSETUP_DIR		:= $(BUILDDIR)/$(CRYPTSETUP)
 CRYPTSETUP_LICENSE	:= GPL-2.0+
@@ -35,20 +35,27 @@ CRYPTSETUP_LICENSE	:= GPL-2.0+
 CRYPTSETUP_CONF_TOOL	:= autoconf
 CRYPTSETUP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-keyring \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
+	--disable-fips \
 	--disable-pwquality \
 	--disable-static-cryptsetup \
-	--enable-veritysetup \
-	--enable-cryptsetup-reencrypt \
+	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPTSETUP)-cryptsetup \
+	--$(call ptx/endis, PTXCONF_CRYPTSETUP_VERITYSETUP)-veritysetup \
+	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPTSETUP)-cryptsetup-reencrypt \
+	--$(call ptx/endis, PTXCONF_CRYPTSETUP_INTEGRITYSETUP)-integritysetup \
 	--disable-selinux \
 	--enable-udev \
 	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPT_BACKEND_KERNEL)-kernel_crypto \
 	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPT_BACKEND_GCRYPT)-gcrypt-pbkdf2 \
+	--enable-internal-argon2 \
+	--disable-libargon2 \
 	--enable-dev-random \
 	--disable-python \
-	--with-crypto_backend=$(PTXCONF_CRYPTSETUP_CRYPT_BACKEND)
+	--with-crypto_backend=$(PTXCONF_CRYPTSETUP_CRYPT_BACKEND) \
+	--with-luks2-lock-path=/run/cryptsetup
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -65,11 +72,14 @@ $(STATEDIR)/cryptsetup.targetinstall:
 
 	@$(call install_lib, cryptsetup, 0, 0, 0644, libcryptsetup)
 
-ifdef PTXCONF_CRYPTSETUP_VERITYSETUP
-	@$(call install_copy, cryptsetup, 0, 0, 0755, -, /usr/sbin/veritysetup)
-endif
 ifdef PTXCONF_CRYPTSETUP_CRYPTSETUP
 	@$(call install_copy, cryptsetup, 0, 0, 0755, -, /usr/sbin/cryptsetup)
+endif
+ifdef PTXCONF_CRYPTSETUP_INTEGRITYSETUP
+	@$(call install_copy, cryptsetup, 0, 0, 0755, -, /usr/sbin/integritysetup)
+endif
+ifdef PTXCONF_CRYPTSETUP_VERITYSETUP
+	@$(call install_copy, cryptsetup, 0, 0, 0755, -, /usr/sbin/veritysetup)
 endif
 
 	@$(call install_finish, cryptsetup)
