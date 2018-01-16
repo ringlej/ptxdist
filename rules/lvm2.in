@@ -14,10 +14,21 @@ menuconfig LVM2
 
 if LVM2
 
+config LVM2_LVM_TOOLS
+	bool
+	default y
+	prompt "install lvm tools"
+	help
+	  If disabled, only dmsetup and the dm-mapper library are installed.
+
+if LVM2_LVM_TOOLS
+
 config LVM2_STARTSCRIPT
 	bool
 	default y
         prompt "install /etc/init.d/lvm2"
+
+endif
 
 config LVM2_DEVICE_UID
 	int
