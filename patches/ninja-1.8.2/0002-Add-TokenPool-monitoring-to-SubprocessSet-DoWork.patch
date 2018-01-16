@@ -24,10 +24,10 @@ ninja a more aggressive GNU make jobserver client.
  10 files changed, 108 insertions(+), 29 deletions(-)
 
 diff --git a/src/build.cc b/src/build.cc
-index c3dcc5899981..db6da983cee4 100644
+index cc796ff838fa..ccd67697786d 100644
 --- a/src/build.cc
 +++ b/src/build.cc
-@@ -45,7 +45,7 @@ struct DryRunCommandRunner : public CommandRunner {
+@@ -50,7 +50,7 @@ struct DryRunCommandRunner : public CommandRunner {
    // Overridden from CommandRunner:
    virtual bool CanRunMore();
    virtual bool StartCommand(Edge* edge);
@@ -36,7 +36,7 @@ index c3dcc5899981..db6da983cee4 100644
  
   private:
    queue<Edge*> finished_;
-@@ -60,7 +60,7 @@ bool DryRunCommandRunner::StartCommand(Edge* edge) {
+@@ -65,7 +65,7 @@ bool DryRunCommandRunner::StartCommand(Edge* edge) {
    return true;
  }
  
@@ -45,7 +45,7 @@ index c3dcc5899981..db6da983cee4 100644
     if (finished_.empty())
       return false;
  
-@@ -507,7 +507,7 @@ struct RealCommandRunner : public CommandRunner {
+@@ -490,7 +490,7 @@ struct RealCommandRunner : public CommandRunner {
    virtual ~RealCommandRunner();
    virtual bool CanRunMore();
    virtual bool StartCommand(Edge* edge);
@@ -54,7 +54,7 @@ index c3dcc5899981..db6da983cee4 100644
    virtual vector<Edge*> GetActiveEdges();
    virtual void Abort();
  
-@@ -561,14 +561,23 @@ bool RealCommandRunner::StartCommand(Edge* edge) {
+@@ -544,14 +544,23 @@ bool RealCommandRunner::StartCommand(Edge* edge) {
    return true;
  }
  
@@ -81,7 +81,7 @@ index c3dcc5899981..db6da983cee4 100644
    if (tokens_)
      tokens_->Release();
  
-@@ -701,7 +710,7 @@ bool Builder::Build(string* err) {
+@@ -685,7 +694,7 @@ bool Builder::Build(string* err) {
      // See if we can reap any finished commands.
      if (pending_commands) {
        CommandRunner::Result result;
@@ -90,7 +90,7 @@ index c3dcc5899981..db6da983cee4 100644
            result.status == ExitInterrupted) {
          Cleanup();
          status_->BuildFinished();
-@@ -709,6 +718,10 @@ bool Builder::Build(string* err) {
+@@ -693,6 +702,10 @@ bool Builder::Build(string* err) {
          return false;
        }
  
@@ -102,10 +102,10 @@ index c3dcc5899981..db6da983cee4 100644
        if (!FinishCommand(&result, err)) {
          Cleanup();
 diff --git a/src/build.h b/src/build.h
-index 651e1e6540bc..292130942ad5 100644
+index cca7e8d8181d..ec6594f714c0 100644
 --- a/src/build.h
 +++ b/src/build.h
-@@ -118,7 +118,7 @@ struct CommandRunner {
+@@ -119,7 +119,7 @@ struct CommandRunner {
      bool success() const { return status == ExitSuccess; }
    };
    /// Wait for a command to complete, or return false if interrupted.
@@ -115,10 +115,10 @@ index 651e1e6540bc..292130942ad5 100644
    virtual vector<Edge*> GetActiveEdges() { return vector<Edge*>(); }
    virtual void Abort() {}
 diff --git a/src/build_test.cc b/src/build_test.cc
-index 640e1b01a3c6..20423ccd6d34 100644
+index 46ab33ef86c8..c1d3b047271a 100644
 --- a/src/build_test.cc
 +++ b/src/build_test.cc
-@@ -499,7 +499,7 @@ struct FakeCommandRunner : public CommandRunner {
+@@ -446,7 +446,7 @@ struct FakeCommandRunner : public CommandRunner {
    // CommandRunner impl
    virtual bool CanRunMore();
    virtual bool StartCommand(Edge* edge);
@@ -127,7 +127,7 @@ index 640e1b01a3c6..20423ccd6d34 100644
    virtual vector<Edge*> GetActiveEdges();
    virtual void Abort();
  
-@@ -627,7 +627,7 @@ bool FakeCommandRunner::StartCommand(Edge* edge) {
+@@ -575,7 +575,7 @@ bool FakeCommandRunner::StartCommand(Edge* edge) {
    return true;
  }
  
@@ -151,7 +151,7 @@ index a714ece791f7..75ebf6a7a0ce 100644
  
  #endif  // NINJA_EXIT_STATUS_H_
 diff --git a/src/subprocess-posix.cc b/src/subprocess-posix.cc
-index 5ffe85b76161..d5862c0ccb89 100644
+index 1de22c38f7fa..980fadf78e0d 100644
 --- a/src/subprocess-posix.cc
 +++ b/src/subprocess-posix.cc
 @@ -13,6 +13,7 @@
@@ -162,7 +162,7 @@ index 5ffe85b76161..d5862c0ccb89 100644
  
  #include <assert.h>
  #include <errno.h>
-@@ -216,7 +217,7 @@ Subprocess *SubprocessSet::Add(const string& command, bool use_console) {
+@@ -219,7 +220,7 @@ Subprocess *SubprocessSet::Add(const string& command, bool use_console) {
  }
  
  #ifdef USE_PPOLL
@@ -171,7 +171,7 @@ index 5ffe85b76161..d5862c0ccb89 100644
    vector<pollfd> fds;
    nfds_t nfds = 0;
  
-@@ -230,6 +231,12 @@ bool SubprocessSet::DoWork() {
+@@ -233,6 +234,12 @@ bool SubprocessSet::DoWork() {
      ++nfds;
    }
  
@@ -184,7 +184,7 @@ index 5ffe85b76161..d5862c0ccb89 100644
    interrupted_ = 0;
    int ret = ppoll(&fds.front(), nfds, NULL, &old_mask_);
    if (ret == -1) {
-@@ -262,11 +269,20 @@ bool SubprocessSet::DoWork() {
+@@ -265,11 +272,20 @@ bool SubprocessSet::DoWork() {
      ++i;
    }
  
@@ -206,7 +206,7 @@ index 5ffe85b76161..d5862c0ccb89 100644
    fd_set set;
    int nfds = 0;
    FD_ZERO(&set);
-@@ -281,6 +297,13 @@ bool SubprocessSet::DoWork() {
+@@ -284,6 +300,13 @@ bool SubprocessSet::DoWork() {
      }
    }
  
@@ -220,7 +220,7 @@ index 5ffe85b76161..d5862c0ccb89 100644
    interrupted_ = 0;
    int ret = pselect(nfds, &set, 0, 0, 0, &old_mask_);
    if (ret == -1) {
-@@ -309,6 +332,12 @@ bool SubprocessSet::DoWork() {
+@@ -312,6 +335,12 @@ bool SubprocessSet::DoWork() {
      ++i;
    }
  

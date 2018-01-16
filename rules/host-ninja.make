@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_NINJA) += host-ninja
 #
 # Paths and names
 #
-HOST_NINJA_VERSION	:= 1.7.2
-HOST_NINJA_MD5		:= 7b482218757acbaeac4d4d54a3cd94e1
+HOST_NINJA_VERSION	:= 1.8.2
+HOST_NINJA_MD5		:= 5fdb04461cc7f5d02536b3bfc0300166
 HOST_NINJA		:= ninja-$(HOST_NINJA_VERSION)
 HOST_NINJA_SUFFIX	:= tar.gz
 HOST_NINJA_URL		:= https://github.com/ninja-build/ninja/archive/v$(HOST_NINJA_VERSION).$(HOST_NINJA_SUFFIX)
