@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.30.2
-UTIL_LINUX_NG_MD5	:= 23a5dce0030144a42676b92310026bac
+UTIL_LINUX_NG_VERSION	:= 2.31.1
+UTIL_LINUX_NG_MD5	:= 7733b583dcb51518944d42aa62ef19ea
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
 UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[\.[0-9]*]\?/\1/g')
@@ -98,6 +98,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_CHMEM)-chmem \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCRM)-ipcrm \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCS)-ipcs \
+	--disable-rfkill \
 	--disable-tunelp \
 	--disable-kill \
 	--disable-last \
@@ -106,7 +107,6 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-mesg \
 	--disable-raw \
 	--disable-rename \
-	--disable-reset \
 	--disable-vipw \
 	--disable-newgrp \
 	--disable-chfn-chsh-password \
