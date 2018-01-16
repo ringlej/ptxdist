@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_EXPAT) += expat
 #
 # Paths and names
 #
-EXPAT_VERSION	:= 2.2.4
-EXPAT_MD5	:= 6e3980aba29a224a9f478d88ac7ec207
+EXPAT_VERSION	:= 2.2.5
+EXPAT_MD5	:= 789e297f547980fc9ecc036f9a070d49
 EXPAT		:= expat-$(EXPAT_VERSION)
 EXPAT_SUFFIX	:= tar.bz2
 EXPAT_URL	:= $(call ptx/mirror, SF, expat/$(EXPAT).$(EXPAT_SUFFIX))
@@ -40,7 +40,8 @@ EXPAT_CONF_OPT	:= \
 	--disable-static \
 	--enable-xml-context \
 	--without-xmlwf \
-	--without-libbsd
+	--without-libbsd \
+	--without-docbook
 
 # ----------------------------------------------------------------------------
 # Target-Install
