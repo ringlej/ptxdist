@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 4.13.0
-IPROUTE2_MD5		:= 69dc9e3ece3296890278f0de478330c8
+IPROUTE2_VERSION	:= 4.14.1
+IPROUTE2_MD5		:= 1075423d7029e02a8f23ed4f42b7e372
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.xz
 IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
@@ -37,15 +37,15 @@ $(STATEDIR)/iproute2.prepare:
 	@$(call targetinfo)
 	@$(call world/prepare, IPROUTE2)
 # overwrite options we don't want, or may be misdetected
-	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/Config
-	@echo 'TC_CONFIG_NO_XT:=y'	>> $(IPROUTE2_DIR)/Config
-	@echo 'HAVE_ELF:=n'		>> $(IPROUTE2_DIR)/Config
+	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/config.mk
+	@echo 'TC_CONFIG_NO_XT:=y'	>> $(IPROUTE2_DIR)/config.mk
+	@echo 'HAVE_ELF:=n'		>> $(IPROUTE2_DIR)/config.mk
 ifndef PTXCONF_GLOBAL_SELINUX
-	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/Config
+	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/config.mk
 endif
-	@echo 'HAVE_MNL:=n'		>> $(IPROUTE2_DIR)/Config
+	@echo 'HAVE_MNL:=n'		>> $(IPROUTE2_DIR)/config.mk
 ifndef PTXCONF_IPROUTE2_ARPD
-	@echo 'HAVE_BERKELEY_DB:=n'	>> $(IPROUTE2_DIR)/Config
+	@echo 'HAVE_BERKELEY_DB:=n'	>> $(IPROUTE2_DIR)/config.mk
 endif
 	@$(call touch)
 
