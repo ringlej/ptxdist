@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_AIOFILES
+	tristate
+	select PYTHON3
+	prompt "aiofiles"
+	help
+	  Library for handling local disk files in asyncio applications.
