@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.10.24
-DBUS_MD5	:= d548ae16f9a3268fe4650ccc86a3f06f
+DBUS_VERSION	:= 1.12.2
+DBUS_MD5	:= 3361456cadb99aa6601bed5b48964254
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -38,11 +38,10 @@ DBUS_CONF_TOOL	:= autoconf
 DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
+	--disable-developer \
+	--disable-debug \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
-	--disable-compiler-coverage \
-	--enable-compiler-optimisations \
-	--disable-developer \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
@@ -50,7 +49,6 @@ DBUS_CONF_OPT	:= \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
 	--disable-ducktype-docs \
-	--enable-abstract-sockets=yes \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
 	--disable-apparmor \
 	--disable-libaudit \
@@ -63,9 +61,12 @@ DBUS_CONF_OPT	:= \
 	--disable-modular-tests \
 	--disable-tests \
 	--disable-installed-tests \
+	--disable-code-coverage \
 	--enable-epoll \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
+	--disable-compile-warnings \
 	--disable-Werror \
+	--disable-relocation \
 	--disable-stats \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
 	--with-dbus-user=messagebus \
