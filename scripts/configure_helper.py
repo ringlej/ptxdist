@@ -154,6 +154,8 @@ def ask_ptxdist(pkg):
 	subdir = p.stdout.readline().strip()
 	opt = shlex.split(p.stdout.readline().strip()) + shlex.split(p.stdout.readline().strip())
 	tool = p.stdout.readline().strip()
+	if not tool and opt:
+		tool = "autoconf"
 	meson_default = shlex.split(p.stdout.readline().strip())
 	autoconf_default = shlex.split(p.stdout.readline().strip())
 	if tool == "meson" and not opt:
