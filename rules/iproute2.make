@@ -38,12 +38,6 @@ $(STATEDIR)/iproute2.prepare:
 	@$(call world/prepare, IPROUTE2)
 # overwrite options we don't want, or may be misdetected
 	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/config.mk
-	@echo 'TC_CONFIG_NO_XT:=y'	>> $(IPROUTE2_DIR)/config.mk
-	@echo 'HAVE_ELF:=n'		>> $(IPROUTE2_DIR)/config.mk
-ifndef PTXCONF_GLOBAL_SELINUX
-	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/config.mk
-endif
-	@echo 'HAVE_MNL:=n'		>> $(IPROUTE2_DIR)/config.mk
 ifndef PTXCONF_IPROUTE2_ARPD
 	@echo 'HAVE_BERKELEY_DB:=n'	>> $(IPROUTE2_DIR)/config.mk
 endif
@@ -52,9 +46,7 @@ endif
 IPROUTE2_MAKE_OPT := \
 	SBINDIR=/usr/sbin \
 	DBM_INCLUDE=$(SYSROOT)/usr/include \
-	LDFLAGS='-rdynamic' \
-	WFLAGS="-Wall" \
-	KERNEL_INCLUDE="$(KERNEL_HEADERS_INCLUDE_DIR)"
+	LDFLAGS='-rdynamic'
 
 IPROUTE2_INSTALL_OPT := \
 	$(IPROUTE2_MAKE_OPT) \
