@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_YARL
+	tristate
+	select HOST_PYTHON3_SETUPTOOLS
+	select PYTHON3
+	select PYTHON3_MULTIDICT
+	prompt "python3-yarl"
+	help
+	  Yet another URL library for Python
