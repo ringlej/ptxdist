@@ -7,6 +7,9 @@ config PYTHON3_AIOHTTP
 	select PYTHON3_ZLIB
 	select PYTHON3_SSL
 	select PYTHON3_CHARDET
+	select PYTHON3_MULTIDICT
+	select PYTHON3_YARL
+	select PYTHON3_ASYNC_TIMEOUT
 	prompt "aiohttp"
 	help
 	  http client/server for asyncio
