@@ -31,6 +31,11 @@ DBUS_LICENSE	:= AFL-2.1 AND GPL-2.0+
 # Prepare
 # ----------------------------------------------------------------------------
 
+
+DBUS_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_ICE_IceConnectionNumber=no
+
 #
 # autoconf
 #
