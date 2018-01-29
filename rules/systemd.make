@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 236
-SYSTEMD_MD5	:= 8609cb9043ac8f374371cbac5546acf4
+SYSTEMD_VERSION	:= 237
+SYSTEMD_MD5	:= 5a835ddc2a2ae9ef523a5a11674a6713
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -97,6 +97,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dlibidn2=false \
 	-Dlibiptc=$(call ptx/truefalse,PTXCONF_SYSTEMD_IPMASQUERADE) \
 	-Dlink-udev-shared=true \
+	-Dllvm-fuzz=false \
 	-Dloadkeys-path=/usr/bin/loadkeys \
 	-Dlocaled=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOCALES) \
 	-Dlogind=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOGIND) \
@@ -111,7 +112,9 @@ SYSTEMD_CONF_OPT	:= \
 	-Dnobody-user=nobody \
 	-Dnss-systemd=true \
 	-Dntp-servers= \
+	-Doss-fuzz=false \
 	-Dpam=false \
+	-Dpcre2=false \
 	-Dpolkit=false \
 	-Dqrencode=false \
 	-Dquotacheck=true \
@@ -132,7 +135,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dsystem-uid-max=999 \
 	-Dsysusers=false \
 	-Dtelinit-path=/usr/bin/telinit \
-	-Dtests=true \
+	-Dtests=false \
 	-Dtime-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01 UTC" +%s` \
 	-Dtimedated=$(call ptx/truefalse,PTXCONF_SYSTEMD_TIMEDATE) \
 	-Dtimesyncd=$(call ptx/truefalse,PTXCONF_SYSTEMD_TIMEDATE) \
@@ -239,7 +242,6 @@ SYSTEMD_UDEV_RULES-y := \
 
 SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
 	70-power-switch.rules \
-	70-uaccess.rules \
 	71-seat.rules \
 	73-seat-late.rules
 
