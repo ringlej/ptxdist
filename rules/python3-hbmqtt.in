@@ -1,0 +1,12 @@
+## SECTION=python3
+
+config PYTHON3_HBMQTT
+	tristate
+	prompt "python3-hbmqtt"
+	select HOST_PYTHON3_SETUPTOOLS
+	select PYTHON3
+	select PYTHON3_TRANSITIONS
+	select PYTHON3_WEBSOCKETS
+	select PYTHON3_PYYAML
+	help
+	  MQTT client/broker using Python asyncio
