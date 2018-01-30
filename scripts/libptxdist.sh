@@ -438,13 +438,14 @@ ptxd_filter_dir() {
 
 	mkdir -p "${dstdir}" &&
 
-	tar -C "${srcdir}" -c . \
+	tar -c -C "${srcdir}" \
 		--exclude .svn \
 		--exclude .pc \
 		--exclude .git \
 		--exclude "*.in" \
 		--exclude "*.in.*" \
 		--exclude "*/*~" \
+		. \
 		| tar -C "${dstdir}" -x
 	check_pipe_status || return
 
