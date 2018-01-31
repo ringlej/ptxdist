@@ -1,0 +1,37 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 26 Jan 2011 01:20:31 +0100
+Subject: [PATCH] only add qaccessibleevent_wrapper.cpp if accessible is
+ enabled
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ PySide/QtGui/CMakeLists.txt | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/PySide/QtGui/CMakeLists.txt b/PySide/QtGui/CMakeLists.txt
+index 6e147067f8aa..94d4787d57ff 100644
+--- a/PySide/QtGui/CMakeLists.txt
++++ b/PySide/QtGui/CMakeLists.txt
+@@ -86,6 +86,13 @@ check_qt_class(QtGui QMacStyle                  QtGui_OPTIONAL_SRC QtGui_DROPPED
+ 
+ qt4_wrap_cpp(QPYTEXTOBJECT_MOC "${pyside_SOURCE_DIR}/qpytextobject.h")
+ 
++if (QT_QCONFIG MATCHES "accessibility")
++set(QtGui_accessible_SRC
++${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qaccessibleevent_wrapper.cpp)
++else()
++set(QtGui_accessible_SRC )
++endif ()
++
+ set(QtGui_SRC
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qabstractbutton_wrapper.cpp
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qabstractgraphicsshapeitem_wrapper.cpp
+@@ -98,7 +105,7 @@ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qabstractspinbox_wrapper.cpp
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qabstracttextdocumentlayout_paintcontext_wrapper.cpp
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qabstracttextdocumentlayout_selection_wrapper.cpp
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qabstracttextdocumentlayout_wrapper.cpp
+-${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qaccessibleevent_wrapper.cpp
++${QtGui_accessible_SRC}
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qactionevent_wrapper.cpp
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qactiongroup_wrapper.cpp
+ ${CMAKE_CURRENT_BINARY_DIR}/PySide/QtGui/qaction_wrapper.cpp
