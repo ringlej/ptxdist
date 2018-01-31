@@ -29,9 +29,6 @@ KEXEC_TOOLS_DIR		:= $(BUILDDIR)/$(KEXEC_TOOLS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-KEXEC_TOOLS_PATH	:= PATH=$(CROSS_PATH)
-KEXEC_TOOLS_ENV 	:= $(CROSS_ENV)
-
 ifdef PTXCONF_ARCH_ARM64
 KEXEC_TOOLS_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_PIE
@@ -42,12 +39,11 @@ endif
 #
 KEXEC_TOOLS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-gamecube \
 	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_ZLIB)-zlib \
 	--without-lzma \
 	--$(call ptx/wwo, PTXCONF_KEXEC_TOOLS_XEN)-xen \
 	--without-booke
-	
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
