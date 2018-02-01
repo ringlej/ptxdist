@@ -9,7 +9,6 @@ menuconfig GST_PLUGINS_BASE1
 	select GLIB
 	select GSTREAMER1
 	select ORC
-	select HOST_ORC
 
 	select ALSA_LIB		if GST_PLUGINS_BASE1_ALSA
 	select ALSA_LIB_PCM	if GST_PLUGINS_BASE1_ALSA
