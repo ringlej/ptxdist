@@ -18,7 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LZ4) += host-lz4
 # ----------------------------------------------------------------------------
 
 HOST_LZ4_CONF_TOOL	:= NO
-HOST_LZ4_MAKE_ENV	:= $(CROSS_ENV) PREFIX=
+HOST_LZ4_MAKE_ENV	:= PREFIX=
 HOST_LZ4_MAKE_OPT	:= BUILD_STATIC=no lz4
 HOST_LZ4_INSTALL_OPT	:= BUILD_STATIC=no install
 
