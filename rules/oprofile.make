@@ -35,7 +35,7 @@ OPROFILE_CONF_TOOL	:= autoconf
 OPROFILE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-kernel=$(KERNEL_HEADERS_DIR) \
+	$(call ptx/ifdef PTXCONF_KERNEL_HEADER,--with-kernel=$(KERNEL_HEADERS_DIR)) \
 	--without-java \
 	--without-x
 
