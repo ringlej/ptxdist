@@ -38,6 +38,8 @@ SLANG_DIR	:= $(BUILDDIR)/$(SLANG)
 SLANG_CONF_TOOL	:= autoconf
 SLANG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--without-readline \
 	--without-x \
 	--without-pcre \
 	--without-onig \
