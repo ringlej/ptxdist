@@ -52,7 +52,8 @@ GST_LIBAV1_CONF_OPT	:= \
 	--disable-static-plugins \
 	--disable-gpl \
 	--with-package-origin="PTXdist" \
-	--without-system-libav
+	--without-system-libav \
+	--with-libav-extra-configure="--yasmexe=false"
 
 # ----------------------------------------------------------------------------
 # Target-Install
