@@ -39,6 +39,9 @@ LIBNEWT_CONF_OPT	:= \
 	--without-gpm-support \
 	--without-colorsfile
 
+LIBNEWT_MAKE_OPT	:= sharedlib
+LIBNEWT_INSTALL_OPT	:= install-sh
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
