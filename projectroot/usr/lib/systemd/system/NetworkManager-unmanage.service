@@ -1,11 +1,12 @@
 [Unit]
 Description=Network Manager configuration (ignore kernel activated network interfaces)
+DefaultDependencies=no
 Before=NetworkManager.service
 ConditionPathExists=!/var/run/NetworkManager.conf
 
 [Service]
 Type=oneshot
-ExecStart=/lib/init/nm-unmanage.sh
+ExecStart=/usr/lib/init/nm-unmanage.sh
 
 [Install]
 WantedBy=NetworkManager.service
