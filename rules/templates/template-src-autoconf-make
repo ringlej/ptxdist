@@ -30,6 +30,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 $(STATEDIR)/@package@.extract.post: $(STATEDIR)/autogen-tools
 	@$(call targetinfo)
 	@cd $(@PACKAGE@_DIR) && [ -f configure ] || sh autogen.sh
+	@$(call world/patchin/post, @PACKAGE@)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
