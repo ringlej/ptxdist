@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PYTHON3_PYSIDE) += python3-pyside
 # Paths and names
 #
 PYTHON3_PYSIDE_VERSION	:= 4.8+1.2.2
-PYTHON3_PYSIDE_MD5		:= 1969c2ff90eefaa4b200d234059d2287
-PYTHON3_PYSIDE			:= pyside-qt$(PYTHON3_PYSIDE_VERSION)
+PYTHON3_PYSIDE_MD5	:= 1969c2ff90eefaa4b200d234059d2287
+PYTHON3_PYSIDE		:= pyside-qt$(PYTHON3_PYSIDE_VERSION)
 PYTHON3_PYSIDE_SUFFIX	:= tar.bz2
-PYTHON3_PYSIDE_URL		:= http://download.qt-project.org/official_releases/pyside/$(PYTHON3_PYSIDE).$(PYTHON3_PYSIDE_SUFFIX)
+PYTHON3_PYSIDE_URL	:= http://download.qt-project.org/official_releases/pyside/$(PYTHON3_PYSIDE).$(PYTHON3_PYSIDE_SUFFIX)
 PYTHON3_PYSIDE_SOURCE	:= $(SRCDIR)/$(PYTHON3_PYSIDE).$(PYTHON3_PYSIDE_SUFFIX)
-PYTHON3_PYSIDE_DIR		:= $(BUILDDIR)/$(PYTHON3_PYSIDE)
+PYTHON3_PYSIDE_DIR	:= $(BUILDDIR)/$(PYTHON3_PYSIDE)
 PYTHON3_PYSIDE_LICENSE	:= LGPL-2.1
 
 # ----------------------------------------------------------------------------
@@ -32,9 +32,8 @@ PYTHON3_PYSIDE_LICENSE	:= LGPL-2.1
 #
 # cmake
 #
-PYSIDE_CONF_TOOL	:= cmake
-PYSIDE_CONF_ENV		:= PATH=$(CROSS_PATH)
-PYSIDE_CONF_OPT	= \
+PYTHON3_PYSIDE_CONF_TOOL	:= cmake
+PYTHON3_PYSIDE_CONF_OPT		:= \
 	$(CROSS_CMAKE_USR) \
 	-DUSE_PYTHON3:BOOL=ON
 
@@ -53,8 +52,7 @@ $(STATEDIR)/python3-pyside.targetinstall:
 
 	@$(call install_lib, python3-pyside, 0, 0, 0644, \
 		libpyside.cpython-*)
-	@$(call install_tree, python3-pyside, 0, 0, \
-		$(PYTHON3_PYSIDE_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/PySide, \
+	@$(call install_tree, python3-pyside, 0, 0, -,\
 		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/PySide)
 
 	@$(call install_finish, python3-pyside)
