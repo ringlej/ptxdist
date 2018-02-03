@@ -9,5 +9,6 @@ config PYTHON3_SHIBOKEN
 	select LIBXSLT
 	select PYTHON3
 	select QT4
+	depends on !SHIBOKEN || ALLYES
 	help
 	  Shiboken generates bindings for C++ libraries using CPython source code.
