@@ -499,9 +499,9 @@ Building the OSELAS.Toolchain for |ptxdistBSPName|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Do the following steps in your own home directory ($HOME). The final
-OSELAS.Toolchain gets installed to ``opt/``, but must **never** be
-compiled in the **opt/** directory. You will get many funny error
-messages, if you try to compile the OSELAS-Toolchain in **opt/**.
+OSELAS.Toolchain gets installed to ``/opt``, but must **never** be
+compiled in the ``/opt`` directory. You will get many funny error
+messages, if you try to compile the OSELAS-Toolchain in ``/opt``.
 
 To compile and install an OSELAS.Toolchain we have to extract the
 OSELAS.Toolchain archive, change into the new folder, configure the
