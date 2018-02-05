@@ -60,9 +60,9 @@ Package Descriptions:
 Toolchains:
     PTXdist does not come with a pre-built binary toolchain.
     Nevertheless, PTXdist itself is able to build toolchains, which are
-    provided by the OSELAS.Toolchain() project. More in-deep information
-    about the OSELAS.Toolchain() project can be found here:
-    http://www.pengutronix.de/oselas/toolchain/index_en.html
+    provided by the OSELAS.Toolchain() project.
+    The different OSELAS toolchains can be found at
+    https://www.pengutronix.de/en/software/toolchain.html.
 
     Building a toolchain is not part of this manual, refer for
     application note “Building Toolchains” instead.
