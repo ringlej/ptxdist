@@ -54,6 +54,7 @@ $(STATEDIR)/logrotate.targetinstall:
 
 	@$(call install_copy, logrotate, 0, 0, 0755, -, /usr/sbin/logrotate)
 	@$(call install_alternative, logrotate, 0, 0, 0644, /etc/logrotate.conf)
+	@$(call install_copy, logrotate, 0, 0, 0755, /var/lib/logrotate)
 
 ifdef PTXCONF_LOGROTATE_SYSTEMD_UNIT
 	@$(call install_alternative, logrotate, 0, 0, 0644, \
