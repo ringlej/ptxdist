@@ -37,6 +37,8 @@ LOGROTATE_CONF_OPT := \
 	--$(call ptx/wwo, PTXCONF_LOGROTATE_ACL)-acl \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux
 
+LOGROTATE_MAKE_OPT := AM_CFLAGS="-Wall"
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
