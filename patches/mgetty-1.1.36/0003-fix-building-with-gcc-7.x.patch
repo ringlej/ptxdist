@@ -1,0 +1,78 @@
+From: Hilko Bengen <bengen@debian.org>
+Date: Wed, 7 Feb 2018 10:59:18 +0100
+Subject: [PATCH] fix building with gcc 7.x
+
+make some functions static
+
+Patch imported from Debian.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ g3/g3cat.c  | 3 +++
+ g3/pbm2g3.c | 4 ++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/g3/g3cat.c b/g3/g3cat.c
+index 8a4b708afa7e..4205d332cde7 100644
+--- a/g3/g3cat.c
++++ b/g3/g3cat.c
+@@ -67,6 +67,7 @@ void putcode _P2( (code, len), int code, int len )
+ }
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void putwhitespan _P1( (l), int l )
+@@ -98,6 +99,7 @@ void putwhitespan _P1( (l), int l )
+ }
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void putblackspan _P1( (l), int l )
+@@ -129,6 +131,7 @@ void putblackspan _P1( (l), int l )
+ }
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void puteol _P0( void )			/* write byte-aligned EOL */
+diff --git a/g3/pbm2g3.c b/g3/pbm2g3.c
+index 283a72867312..7dc81a808bfc 100644
+--- a/g3/pbm2g3.c
++++ b/g3/pbm2g3.c
+@@ -40,6 +40,7 @@ static unsigned int out_hibit = 0;
+ static int out_byte_tab[ 256 ];			/* for g3 byte reversal */
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void putcode _P2( (code, len), int code, int len )
+@@ -60,6 +61,7 @@ void putcode _P2( (code, len), int code, int len )
+ }
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void puteol _P0( void )			/* write byte-aligned EOL */
+@@ -69,6 +71,7 @@ void puteol _P0( void )			/* write byte-aligned EOL */
+ }
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void putwhitespan _P1( (l), int l )
+@@ -100,6 +103,7 @@ void putwhitespan _P1( (l), int l )
+ }
+ 
+ #ifdef __GNUC__
++static
+ inline
+ #endif
+ void putblackspan _P1( (l), int l )
