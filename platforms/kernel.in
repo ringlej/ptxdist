@@ -11,6 +11,7 @@ menuconfig KERNEL
 	select HOST_LIBKMOD		if KERNEL_MODULES
 	select HOST_SYSTEM_BC
 	select HOST_OPENSSL		if KERNEL_OPENSSL
+	select HOST_LIBELF		if KERNEL_LIBELF
 	prompt "Linux kernel                  "
 
 if KERNEL
@@ -258,6 +259,14 @@ config KERNEL_OPENSSL
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
+
+config KERNEL_LIBELF
+	prompt "build libelf host library"
+	bool
+	help
+	  Select this if you're going to build your kernel with
+	  STACK_VALIDATION enabled. Stack validation is used for the orc
+	  unwinder for kernel version >= v4.14 on x86_64.
 
 menu "patching & configuration      "
 
