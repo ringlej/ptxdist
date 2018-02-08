@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 2.0.2
-HTOP_MD5	:= 7d354d904bad591a931ad57e99fea84a
+HTOP_VERSION	:= 2.1.0
+HTOP_MD5	:= f262b66ad6c194782f4d3a80627e84c8
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
@@ -44,7 +44,9 @@ HTOP_CONF_OPT	:= \
 	--enable-taskstats \
 	--disable-unicode \
 	--enable-linux-affinity \
-	--disable-hwloc
+	--disable-hwloc \
+	--disable-setuid \
+	--disable-delayacct
 
 # ----------------------------------------------------------------------------
 # Target-Install

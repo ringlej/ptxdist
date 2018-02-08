@@ -1,0 +1,28 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 7 Feb 2018 23:16:37 +0100
+Subject: [PATCH] linux/LinuxProcessList: fix reading of number of read
+ syscalls of process
+
+The "if" tests if the character at index "5" is 'r', as a first quick
+check. However at index "5" will always be a colon ":". This patch fixes
+the off-by-one error. htop now shows proper values in the RD_SYSC
+column.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ linux/LinuxProcessList.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/linux/LinuxProcessList.c b/linux/LinuxProcessList.c
+index 6f2631afa12f..230770258084 100644
+--- a/linux/LinuxProcessList.c
++++ b/linux/LinuxProcessList.c
+@@ -436,7 +436,7 @@ static void LinuxProcessList_readIoFile(LinuxProcess* process, const char* dirna
+          }
+          break;
+       case 's':
+-         if (line[5] == 'r' && strncmp(line+1, "yscr: ", 6) == 0) {
++         if (line[4] == 'r' && strncmp(line+1, "yscr: ", 6) == 0) {
+             process->io_syscr = strtoull(line+7, NULL, 10);
+          } else if (strncmp(line+1, "yscw: ", 6) == 0) {
+             process->io_syscw = strtoull(line+7, NULL, 10);
