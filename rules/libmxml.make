@@ -21,7 +21,7 @@ LIBMXML_SUFFIX	:= tar.gz
 LIBMXML_URL	:= https://github.com/michaelrsweet/mxml/releases/download/v$(LIBMXML_VERSION)/$(LIBMXML).$(LIBMXML_SUFFIX)
 LIBMXML_SOURCE	:= $(SRCDIR)/$(LIBMXML).$(LIBMXML_SUFFIX)
 LIBMXML_DIR	:= $(BUILDDIR)/mxml-$(LIBMXML_VERSION)
-LIBMXML_LICENSE	:= LGPL-2.0
+LIBMXML_LICENSE	:= LGPL-2.0-only
 LIBMXML_STRIP_LEVEL := 0
 
 # ----------------------------------------------------------------------------

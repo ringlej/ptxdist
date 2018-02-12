@@ -24,7 +24,7 @@ EASY_RSA_TARBALL	:= $(EASY_RSA_VERSION).$(EASY_RSA_SUFFIX)
 EASY_RSA_URL		:= https://github.com/OpenVPN/easy-rsa/archive/$(EASY_RSA_TARBALL)
 EASY_RSA_SOURCE		:= $(SRCDIR)/$(EASY_RSA).$(EASY_RSA_SUFFIX)
 EASY_RSA_DIR		:= $(BUILDDIR)/$(EASY_RSA)
-EASY_RSA_LICENSE	:= GPL-2.0
+EASY_RSA_LICENSE	:= GPL-2.0-only
 
 EASY_RSA_INSTALL_SCRIPTS := \
 	build-ca build-dh build-inter build-key build-key-pass build-key-pkcs12 \

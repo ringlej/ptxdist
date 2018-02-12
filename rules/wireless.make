@@ -25,7 +25,7 @@ WIRELESS_SUFFIX		:= tar.gz
 WIRELESS_URL		:= http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_SOURCE		:= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_DIR 		:= $(BUILDDIR)/wireless_tools.$(WIRELESS_VERSION)
-WIRELESS_LICENSE	:= GPL-2.0
+WIRELESS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

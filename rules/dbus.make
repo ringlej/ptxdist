@@ -25,7 +25,7 @@ DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
 DBUS_SOURCE	:= $(SRCDIR)/$(DBUS).$(DBUS_SUFFIX)
 DBUS_DIR	:= $(BUILDDIR)/$(DBUS)
-DBUS_LICENSE	:= AFL-2.1 AND GPL-2.0+
+DBUS_LICENSE	:= AFL-2.1 AND GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

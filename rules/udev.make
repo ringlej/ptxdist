@@ -24,7 +24,7 @@ UDEV_LEGACY_SUFFIX	:= tar.bz2
 UDEV_LEGACY_URL		:= $(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV_LEGACY).$(UDEV_LEGACY_SUFFIX))
 UDEV_LEGACY_SOURCE	:= $(SRCDIR)/$(UDEV_LEGACY).$(UDEV_LEGACY_SUFFIX)
 UDEV_LEGACY_DIR		:= $(BUILDDIR)/$(UDEV_LEGACY)
-UDEV_LEGACY_LICENSE	:= GPL-2.0
+UDEV_LEGACY_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

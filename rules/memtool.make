@@ -23,7 +23,7 @@ MEMTOOL_SUFFIX	:= tar.xz
 MEMTOOL_URL	:= http://www.pengutronix.de/software/memtool/downloads/$(MEMTOOL).$(MEMTOOL_SUFFIX)
 MEMTOOL_SOURCE	:= $(SRCDIR)/$(MEMTOOL).$(MEMTOOL_SUFFIX)
 MEMTOOL_DIR	:= $(BUILDDIR)/$(MEMTOOL)
-MEMTOOL_LICENSE	:= GPL-2.0
+MEMTOOL_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,7 +23,7 @@ HOST_GENIMAGE_SUFFIX	:= tar.xz
 HOST_GENIMAGE_URL	:= http://www.pengutronix.de/software/genimage/download/$(HOST_GENIMAGE).$(HOST_GENIMAGE_SUFFIX)
 HOST_GENIMAGE_SOURCE	:= $(SRCDIR)/$(HOST_GENIMAGE).$(HOST_GENIMAGE_SUFFIX)
 HOST_GENIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_GENIMAGE)
-HOST_GENIMAGE_LICENSE	:= GPL-2.0
+HOST_GENIMAGE_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

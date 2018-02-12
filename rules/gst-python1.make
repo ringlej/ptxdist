@@ -24,7 +24,7 @@ GST_PYTHON1_URL		:= http://gstreamer.freedesktop.org/src/gst-python/$(GST_PYTHON
 GST_PYTHON1_SOURCE	:= $(SRCDIR)/$(GST_PYTHON1).$(GST_PYTHON1_SUFFIX)
 GST_PYTHON1_DIR		:= $(BUILDDIR)/$(GST_PYTHON1)
 GST_PYTHON1_BUILD_OOT	:= YES
-GST_PYTHON1_LICENSE	:= LGPL-2.1+
+GST_PYTHON1_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

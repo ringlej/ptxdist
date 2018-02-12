@@ -23,7 +23,7 @@ LIBMODBUS3_SUFFIX	:= tar.gz
 LIBMODBUS3_URL		:= http://libmodbus.org/site_media/build/$(LIBMODBUS3).$(LIBMODBUS3_SUFFIX)
 LIBMODBUS3_SOURCE	:= $(SRCDIR)/$(LIBMODBUS3).$(LIBMODBUS3_SUFFIX)
 LIBMODBUS3_DIR		:= $(BUILDDIR)/$(LIBMODBUS3)
-LIBMODBUS3_LICENSE	:= LGPL-3.0
+LIBMODBUS3_LICENSE	:= LGPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

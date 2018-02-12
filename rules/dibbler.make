@@ -23,7 +23,7 @@ DIBBLER_SUFFIX	:= tar.gz
 DIBBLER_URL	:= http://klub.com.pl/dhcpv6/dibbler/$(DIBBLER)-src.$(DIBBLER_SUFFIX)
 DIBBLER_SOURCE	:= $(SRCDIR)/$(DIBBLER)-src.$(DIBBLER_SUFFIX)
 DIBBLER_DIR	:= $(BUILDDIR)/$(DIBBLER)
-DIBBLER_LICENSE	:= GPL-2.0
+DIBBLER_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

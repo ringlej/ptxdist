@@ -23,7 +23,7 @@ IPUTILS_SUFFIX	:= tar.gz
 IPUTILS_URL	:= http://codeload.github.com/iputils/iputils/$(IPUTILS_SUFFIX)/$(IPUTILS_VERSION)
 IPUTILS_SOURCE	:= $(SRCDIR)/$(IPUTILS).$(IPUTILS_SUFFIX)
 IPUTILS_DIR	:= $(BUILDDIR)/$(IPUTILS)
-IPUTILS_LICENSE	:= GPL-2.0
+IPUTILS_LICENSE	:= GPL-2.0-only
 IPUTILS_LICENSE_FILES := file://ninfod/COPYING;md5=5e9a325527978995c41e6d9a83f6e6bd
 
 # ----------------------------------------------------------------------------

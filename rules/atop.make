@@ -23,7 +23,7 @@ ATOP			:= atop-$(ATOP_VERSION)
 ATOP_URL		:= http://www.atoptool.nl/download/$(ATOP).tar.gz
 ATOP_SOURCE		:= $(SRCDIR)/$(ATOP).tar.gz
 ATOP_DIR		:= $(BUILDDIR)/$(ATOP)
-ATOP_LICENSE		:= GPL-2.0+
+ATOP_LICENSE		:= GPL-2.0-or-later
 ATOP_LICENSE_FILES	:= file://COPYING;md5=393a5ca445f6965873eca0259a17f833
 
 # ----------------------------------------------------------------------------

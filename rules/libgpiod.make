@@ -23,7 +23,7 @@ LIBGPIOD_SUFFIX		:= tar.gz
 LIBGPIOD_URL		:= https://www.kernel.org/pub/software/libs/libgpiod/$(LIBGPIOD).$(LIBGPIOD_SUFFIX)
 LIBGPIOD_SOURCE		:= $(SRCDIR)/$(LIBGPIOD).$(LIBGPIOD_SUFFIX)
 LIBGPIOD_DIR		:= $(BUILDDIR)/$(LIBGPIOD)
-LIBGPIOD_LICENSE	:= LGPL-2.1
+LIBGPIOD_LICENSE	:= LGPL-2.1-only
 LIBGPIOD_LICENSE_FILES	:= file://COPYING;md5=2caced0b25dfefd4c601d92bd15116de
 
 # ----------------------------------------------------------------------------

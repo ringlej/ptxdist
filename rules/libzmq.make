@@ -23,7 +23,7 @@ LIBZMQ_SUFFIX		:= tar.gz
 LIBZMQ_URL		:= http://download.zeromq.org/$(LIBZMQ).$(LIBZMQ_SUFFIX)
 LIBZMQ_SOURCE		:= $(SRCDIR)/$(LIBZMQ).$(LIBZMQ_SUFFIX)
 LIBZMQ_DIR		:= $(BUILDDIR)/$(LIBZMQ)
-LIBZMQ_LICENSE		:= LGPL-3.0+
+LIBZMQ_LICENSE		:= LGPL-3.0-or-later
 
 #
 # autoconf

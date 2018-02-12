@@ -23,7 +23,7 @@ LIBMBIM_SUFFIX	:= tar.xz
 LIBMBIM_URL	:= http://www.freedesktop.org/software/libmbim/$(LIBMBIM).$(LIBMBIM_SUFFIX)
 LIBMBIM_SOURCE	:= $(SRCDIR)/$(LIBMBIM).$(LIBMBIM_SUFFIX)
 LIBMBIM_DIR	:= $(BUILDDIR)/$(LIBMBIM)
-LIBMBIM_LICENSE	:= GPL-2.0+ AND LGPL-2.1+
+LIBMBIM_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

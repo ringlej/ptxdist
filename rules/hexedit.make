@@ -25,7 +25,7 @@ HEXEDIT_SUFFIX	:= tar.gz
 HEXEDIT_URL	:= https://github.com/pixel/hexedit/archive/$(HEXEDIT_VERSION).$(HEXEDIT_SUFFIX)
 HEXEDIT_SOURCE	:= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_DIR	:= $(BUILDDIR)/$(HEXEDIT)
-HEXEDIT_LICENSE	:= GPL-2.0+
+HEXEDIT_LICENSE	:= GPL-2.0-or-later
 
 #
 # autoconf

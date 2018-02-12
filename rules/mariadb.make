@@ -23,7 +23,7 @@ MARIADB_SUFFIX	:= tar.gz
 MARIADB_URL	:= https://downloads.mariadb.com/MariaDB/$(MARIADB)/source/$(MARIADB).$(MARIADB_SUFFIX)
 MARIADB_SOURCE	:= $(SRCDIR)/$(MARIADB).$(MARIADB_SUFFIX)
 MARIADB_DIR	:= $(BUILDDIR)/$(MARIADB)
-MARIADB_LICENSE	:= GPL-2.0
+MARIADB_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

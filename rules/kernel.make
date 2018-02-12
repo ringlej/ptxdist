@@ -46,7 +46,7 @@ KERNEL_SUFFIX		:= tar.gz
 endif
 KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
-KERNEL_LICENSE		:= GPL-2.0
+KERNEL_LICENSE		:= GPL-2.0-only
 ifneq ($(KERNEL_NEEDS_GIT_URL),y)
 KERNEL_URL		:= $(call kernel-url, KERNEL)
 else

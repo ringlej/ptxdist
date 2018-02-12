@@ -23,7 +23,7 @@ RAUC_SUFFIX	:= tar.xz
 RAUC_URL	:= https://github.com/rauc/rauc/releases/download/v$(RAUC_VERSION)/$(RAUC).$(RAUC_SUFFIX)
 RAUC_SOURCE	:= $(SRCDIR)/$(RAUC).$(RAUC_SUFFIX)
 RAUC_DIR	:= $(BUILDDIR)/$(RAUC)
-RAUC_LICENSE	:= LGPL-2.1
+RAUC_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

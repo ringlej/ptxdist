@@ -23,7 +23,7 @@ NFTABLES_SUFFIX		:= tar.bz2
 NFTABLES_URL		:= http://ftp.netfilter.org/pub/nftables/$(NFTABLES).$(NFTABLES_SUFFIX)
 NFTABLES_SOURCE		:= $(SRCDIR)/$(NFTABLES).$(NFTABLES_SUFFIX)
 NFTABLES_DIR		:= $(BUILDDIR)/$(NFTABLES)
-NFTABLES_LICENSE	:= GPL-2.0
+NFTABLES_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

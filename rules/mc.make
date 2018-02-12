@@ -24,7 +24,7 @@ MC_SUFFIX	:= tar.gz
 MC_URL		:= http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/$(MC).$(MC_SUFFIX)
 MC_SOURCE	:= $(SRCDIR)/$(MC).$(MC_SUFFIX)
 MC_DIR		:= $(BUILDDIR)/$(MC)
-MC_LICENSE	:= GPL-2.0
+MC_LICENSE	:= GPL-2.0-only
 
 
 # ----------------------------------------------------------------------------

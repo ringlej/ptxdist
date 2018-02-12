@@ -23,7 +23,7 @@ GST_VALIDATE1_SUFFIX	:= tar.xz
 GST_VALIDATE1_URL	:= http://gstreamer.freedesktop.org/data/src/gst-validate/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
 GST_VALIDATE1_SOURCE	:= $(SRCDIR)/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
 GST_VALIDATE1_DIR	:= $(BUILDDIR)/$(GST_VALIDATE1)
-GST_VALIDATE1_LICENSE	:= LGPL-2.1+
+GST_VALIDATE1_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

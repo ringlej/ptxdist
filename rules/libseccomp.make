@@ -23,7 +23,7 @@ LIBSECCOMP_SUFFIX	:= tar.gz
 LIBSECCOMP_URL		:= https://github.com/seccomp/libseccomp/releases/download/v$(LIBSECCOMP_VERSION)/$(LIBSECCOMP).$(LIBSECCOMP_SUFFIX)
 LIBSECCOMP_SOURCE	:= $(SRCDIR)/$(LIBSECCOMP).$(LIBSECCOMP_SUFFIX)
 LIBSECCOMP_DIR		:= $(BUILDDIR)/$(LIBSECCOMP)
-LIBSECCOMP_LICENSE	:= LGPL-2.1
+LIBSECCOMP_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

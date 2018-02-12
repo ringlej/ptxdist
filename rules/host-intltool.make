@@ -23,7 +23,7 @@ HOST_INTLTOOL_SUFFIX	:= tar.gz
 HOST_INTLTOOL_URL	:= http://launchpad.net/intltool/trunk/0.50.0/+download/$(HOST_INTLTOOL).$(HOST_INTLTOOL_SUFFIX)
 HOST_INTLTOOL_SOURCE	:= $(SRCDIR)/$(HOST_INTLTOOL).$(HOST_INTLTOOL_SUFFIX)
 HOST_INTLTOOL_DIR	:= $(HOST_BUILDDIR)/$(HOST_INTLTOOL)
-HOST_INTLTOOL_LICENSE	:= GPL-2.0
+HOST_INTLTOOL_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

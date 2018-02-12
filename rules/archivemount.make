@@ -17,7 +17,7 @@ ARCHIVEMOUNT_SUFFIX	:= tar.gz
 ARCHIVEMOUNT_URL	:= http://www.cybernoia.de/software/archivemount/$(ARCHIVEMOUNT).$(ARCHIVEMOUNT_SUFFIX)
 ARCHIVEMOUNT_SOURCE	:= $(SRCDIR)/$(ARCHIVEMOUNT).$(ARCHIVEMOUNT_SUFFIX)
 ARCHIVEMOUNT_DIR	:= $(BUILDDIR)/$(ARCHIVEMOUNT)
-ARCHIVEMOUNT_LICENSE	:= LGPL-2.0
+ARCHIVEMOUNT_LICENSE	:= LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

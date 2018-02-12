@@ -24,7 +24,7 @@ BUSYBOX_URL	:= https://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_KCONFIG	:= $(BUSYBOX_DIR)/Config.in
-BUSYBOX_LICENSE	:= GPL-2.0
+BUSYBOX_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

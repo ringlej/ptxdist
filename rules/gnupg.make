@@ -24,7 +24,7 @@ GNUPG_SUFFIX	:= tar.bz2
 GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_SOURCE	:= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_DIR	:= $(BUILDDIR)/$(GNUPG)
-GNUPG_LICENSE	:= GPL-3.0+
+GNUPG_LICENSE	:= GPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

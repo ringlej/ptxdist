@@ -23,7 +23,7 @@ KERNEL_HEADER_URL		:= $(call kernel-url, KERNEL_HEADER)
 KERNEL_HEADER_SOURCE		:= $(SRCDIR)/linux-$(KERNEL_HEADER_VERSION).$(KERNEL_HEADER_SUFFIX)
 KERNEL_HEADER_DIR		:= $(BUILDDIR)/kernel-header-$(KERNEL_HEADER_VERSION)
 KERNEL_HEADER_PKGDIR		:= $(PKGDIR)/kernel-header-$(KERNEL_HEADER_VERSION)
-KERNEL_HEADER_LICENSE		:= GPL-2.0
+KERNEL_HEADER_LICENSE		:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

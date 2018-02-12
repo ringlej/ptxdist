@@ -23,7 +23,7 @@ PYTHON3_PYSIDE_SUFFIX	:= tar.bz2
 PYTHON3_PYSIDE_URL	:= http://download.qt-project.org/official_releases/pyside/$(PYTHON3_PYSIDE).$(PYTHON3_PYSIDE_SUFFIX)
 PYTHON3_PYSIDE_SOURCE	:= $(SRCDIR)/$(PYTHON3_PYSIDE).$(PYTHON3_PYSIDE_SUFFIX)
 PYTHON3_PYSIDE_DIR	:= $(BUILDDIR)/$(PYTHON3_PYSIDE)
-PYTHON3_PYSIDE_LICENSE	:= LGPL-2.1
+PYTHON3_PYSIDE_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

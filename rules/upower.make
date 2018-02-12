@@ -23,7 +23,7 @@ UPOWER_SUFFIX	:= tar.xz
 UPOWER_URL	:= https://upower.freedesktop.org/releases/$(UPOWER).$(UPOWER_SUFFIX)
 UPOWER_SOURCE	:= $(SRCDIR)/$(UPOWER).$(UPOWER_SUFFIX)
 UPOWER_DIR	:= $(BUILDDIR)/$(UPOWER)
-UPOWER_LICENSE	:= GPL-2.0+
+UPOWER_LICENSE	:= GPL-2.0-or-later
 UPOWER_LICENSE_FILES := file://COPYING;md5=0de8fbf1d97a140d1d93b9f14dcfbf08
 
 # ----------------------------------------------------------------------------

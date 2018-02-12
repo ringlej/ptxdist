@@ -23,7 +23,7 @@ GZIP_SUFFIX	:= tar.xz
 GZIP_URL	:= $(call ptx/mirror, GNU, gzip/$(GZIP).$(GZIP_SUFFIX))
 GZIP_SOURCE	:= $(SRCDIR)/$(GZIP).$(GZIP_SUFFIX)
 GZIP_DIR	:= $(BUILDDIR)/$(GZIP)
-GZIP_LICENSE	:= GPL-3.0
+GZIP_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

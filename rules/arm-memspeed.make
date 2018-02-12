@@ -23,7 +23,7 @@ ARM_MEMSPEED_SUFFIX	:= tar.bz2
 ARM_MEMSPEED_URL	:= http://www.kreuzholzen.de/src/arm-memspeed/$(ARM_MEMSPEED).$(ARM_MEMSPEED_SUFFIX)
 ARM_MEMSPEED_SOURCE	:= $(SRCDIR)/$(ARM_MEMSPEED).$(ARM_MEMSPEED_SUFFIX)
 ARM_MEMSPEED_DIR	:= $(BUILDDIR)/$(ARM_MEMSPEED)
-ARM_MEMSPEED_LICENSE	:= GPL-2.0
+ARM_MEMSPEED_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,7 +23,7 @@ I2C_TOOLS_SUFFIX	:= tar.xz
 I2C_TOOLS_URL		:= https://www.kernel.org/pub/software/utils/i2c-tools/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_SOURCE	:= $(SRCDIR)/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_DIR		:= $(BUILDDIR)/$(I2C_TOOLS)
-I2C_TOOLS_LICENSE	:= GPL-2.0+
+I2C_TOOLS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

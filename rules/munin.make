@@ -23,7 +23,7 @@ MUNIN_SUFFIX	:= tar.gz
 MUNIN_URL	:= $(call ptx/mirror, SF, munin/$(MUNIN).$(MUNIN_SUFFIX))
 MUNIN_SOURCE	:= $(SRCDIR)/$(MUNIN).$(MUNIN_SUFFIX)
 MUNIN_DIR	:= $(BUILDDIR)/$(MUNIN)
-MUNIN_LICENSE	:= GPL-2.0
+MUNIN_LICENSE	:= GPL-2.0-only
 MUNIN_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------

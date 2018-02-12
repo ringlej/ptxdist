@@ -25,7 +25,7 @@ MYSQL_SUFFIX	:= tar.gz
 MYSQL_URL	:= https://dev.mysql.com/get/Downloads/MySQL-5.7/$(MYSQL).tar.gz
 MYSQL_SOURCE	:= $(SRCDIR)/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_DIR	:= $(BUILDDIR)/$(MYSQL)
-MYSQL_LICENSE	:= GPL-2.0
+MYSQL_LICENSE	:= GPL-2.0-only
 
 # mySQL has a hard dependency to boost_1_59_0. Deal with it
 

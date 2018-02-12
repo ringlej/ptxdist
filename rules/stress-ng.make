@@ -23,7 +23,7 @@ STRESS_NG_SUFFIX	:= tar.xz
 STRESS_NG_URL		:= http://kernel.ubuntu.com/~cking/tarballs/stress-ng/$(STRESS_NG).$(STRESS_NG_SUFFIX)
 STRESS_NG_SOURCE	:= $(SRCDIR)/$(STRESS_NG).$(STRESS_NG_SUFFIX)
 STRESS_NG_DIR		:= $(BUILDDIR)/$(STRESS_NG)
-STRESS_NG_LICENSE	:= GPL-2.0+
+STRESS_NG_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

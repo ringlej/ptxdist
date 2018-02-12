@@ -24,7 +24,7 @@ POWERTOP_SUFFIX		:= tar.gz
 POWERTOP_URL		:= https://01.org/sites/default/files/downloads/powertop/$(POWERTOP).$(POWERTOP_SUFFIX)
 POWERTOP_SOURCE		:= $(SRCDIR)/$(POWERTOP).$(POWERTOP_SUFFIX)
 POWERTOP_DIR		:= $(BUILDDIR)/$(POWERTOP)
-POWERTOP_LICENSE	:= GPL-2.0
+POWERTOP_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

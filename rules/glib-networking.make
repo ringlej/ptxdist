@@ -23,7 +23,7 @@ GLIB_NETWORKING_SUFFIX	:= tar.xz
 GLIB_NETWORKING_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glib-networking/$(basename $(GLIB_NETWORKING_VERSION))/$(GLIB_NETWORKING).$(GLIB_NETWORKING_SUFFIX)
 GLIB_NETWORKING_SOURCE	:= $(SRCDIR)/$(GLIB_NETWORKING).$(GLIB_NETWORKING_SUFFIX)
 GLIB_NETWORKING_DIR	:= $(BUILDDIR)/$(GLIB_NETWORKING)
-GLIB_NETWORKING_LICENSE	:= LGPL-2.0+
+GLIB_NETWORKING_LICENSE	:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

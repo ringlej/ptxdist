@@ -28,7 +28,7 @@ HOST_KERNEL_HEADER_VERSION	= $(KERNEL_HEADER_VERSION)
 endif
 HOST_KERNEL_HEADER_DIR		= $(HOST_BUILDDIR)/kernel-header-$(HOST_KERNEL_HEADER_VERSION)
 HOST_KERNEL_HEADER_PKGDIR	= $(PKGDIR)/host-kernel-header-$(HOST_KERNEL_HEADER_VERSION)
-HOST_KERNEL_HEADER_LICENSE	:= GPL-2.0
+HOST_KERNEL_HEADER_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -25,7 +25,7 @@ LVM2_URL	:= \
 	ftp://sources.redhat.com/pub/lvm2/old/$(LVM2).$(LVM2_SUFFIX)
 LVM2_SOURCE	:= $(SRCDIR)/$(LVM2).$(LVM2_SUFFIX)
 LVM2_DIR	:= $(BUILDDIR)/$(LVM2)
-LVM2_LICENSE	:= GPL-2.0, LGPL-2.1
+LVM2_LICENSE	:= GPL-2.0-only, LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

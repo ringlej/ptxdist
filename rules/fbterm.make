@@ -23,7 +23,7 @@ FBTERM_SUFFIX	:= tar.gz
 FBTERM_URL	:= https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/fbterm/$(FBTERM).$(FBTERM_SUFFIX)
 FBTERM_SOURCE	:= $(SRCDIR)/$(FBTERM).$(FBTERM_SUFFIX)
 FBTERM_DIR	:= $(BUILDDIR)/$(FBTERM)
-FBTERM_LICENSE	:= GPL-2.0
+FBTERM_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

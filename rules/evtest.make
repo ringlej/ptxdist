@@ -23,7 +23,7 @@ EVTEST_SUFFIX	:= tar.bz2
 EVTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(EVTEST).$(EVTEST_SUFFIX)
 EVTEST_SOURCE	:= $(SRCDIR)/$(EVTEST).$(EVTEST_SUFFIX)
 EVTEST_DIR	:= $(BUILDDIR)/$(EVTEST)
-EVTEST_LICENSE	:= GPL-2.0
+EVTEST_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

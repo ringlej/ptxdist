@@ -24,7 +24,7 @@ IMA_EVM_UTILS_SUFFIX	:= tar.gz
 IMA_EVM_UTILS_URL	:= $(call ptx/mirror, SF, linux-ima/$(IMA_EVM_UTILS).$(IMA_EVM_UTILS_SUFFIX))
 IMA_EVM_UTILS_SOURCE	:= $(SRCDIR)/$(IMA_EVM_UTILS).$(IMA_EVM_UTILS_SUFFIX)
 IMA_EVM_UTILS_DIR	:= $(BUILDDIR)/$(IMA_EVM_UTILS)
-IMA_EVM_UTILS_LICENSE	:= LGPL-2.0+
+IMA_EVM_UTILS_LICENSE	:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

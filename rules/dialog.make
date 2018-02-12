@@ -23,7 +23,7 @@ DIALOG_SUFFIX	:= tgz
 DIALOG_URL	:= ftp://ftp.invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_SOURCE	:= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_DIR	:= $(BUILDDIR)/$(DIALOG)
-DIALOG_LICENSE	:= LGPL-2.1
+DIALOG_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
