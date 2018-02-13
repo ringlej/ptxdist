@@ -81,6 +81,9 @@ ifdef PTXCONF_INITMETHOD_SYSTEMD
 		/usr/lib/systemd/system/rauc-mark-good.service)
 	@$(call install_link, rauc, ../rauc-mark-good.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/rauc-mark-good.service)
+else
+	@$(call install_copy, rauc, 0, 0, 0755, -, \
+		/usr/libexec/rauc-service.sh)
 endif
 
 	@$(call install_finish, rauc)
