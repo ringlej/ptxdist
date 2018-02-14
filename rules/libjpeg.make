@@ -34,6 +34,15 @@ LIBJPEG_LICENSE_FILES := \
 # Prepare
 # ----------------------------------------------------------------------------
 
+
+LIBJPEG_SIMD :=
+ifdef PTXCONF_ARCH_X86
+LIBJPEG_SIMD := y
+endif
+ifdef PTXCONF_ARCH_ARM_NEON
+LIBJPEG_SIMD := y
+endif
+
 LIBJPEG_CONF_TOOL := autoconf
 LIBJPEG_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
@@ -46,7 +55,7 @@ LIBJPEG_CONF_OPT := \
 	--without-turbojpeg \
 	--without-java \
 	--without-gas-preprocessor \
-	--with-simd
+	--$(call ptx/wwo, LIBJPEG_SIMD)-simd
 
 # ----------------------------------------------------------------------------
 # Target-Install

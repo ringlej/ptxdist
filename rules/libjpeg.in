@@ -2,6 +2,7 @@
 
 menuconfig LIBJPEG
 	tristate
+	select CROSS_NASM
 	prompt "libjpeg-turbo                 "
 	help
 	  libjpeg-turbo is a library for handling the JPEG (JFIF) image format
