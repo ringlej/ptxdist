@@ -178,9 +178,6 @@ endif
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/home.conf
 #	# the upstream default (graphical.target) wants display-manager.service
 	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/usr/lib/systemd/system/default.target
-#	# rpath is only needed for the executables
-	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/lib*.so*
-	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/systemd/libsystemd-shared-$(SYSTEMD_VERSION).so
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
