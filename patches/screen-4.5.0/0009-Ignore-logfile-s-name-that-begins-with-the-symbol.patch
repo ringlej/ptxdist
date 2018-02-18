@@ -1,0 +1,77 @@
+From: Alexander Naumov <alexander_naumov@opensuse.org>
+Date: Mon, 3 Jul 2017 10:48:05 +0200
+Subject: [PATCH] Ignore logfile's name that begins with the "-" symbol
+
+ This fixes the API:
+ .
+ To enable logging we use -L option. But in case of
+ default logfile name (screenlog.0) we will need to
+ define it anyway. Because screen will try to interpret
+ next option as a parameter for -L option (which is
+ logfile name). It will fails ALWAYS, because next
+ parameter will always start with "-" symbol...
+ what is not permited for logfile name of course.
+ .
+ For example:
+ .
+ $ screen -L -D -m ./configure
+ .
+ In this case logfile name is screenlog.0, because "-D"
+ will not be interpreted by screen as a name of logfile.
+Bug-Debian: https://bugs.debian.org/863095
+Bug: https://savannah.gnu.org/bugs/?50440
+Reviewd-By: Axel Beckert <abe@debian.org>
+---
+ doc/screen.1       | 4 ++--
+ doc/screen.texinfo | 4 +++-
+ screen.c           | 7 +++++--
+ 3 files changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/doc/screen.1 b/doc/screen.1
+index 0fe8d0e533c2..ee210346dab8 100644
+--- a/doc/screen.1
++++ b/doc/screen.1
+@@ -262,8 +262,8 @@ Ask your system administrator if you are not sure. Remove sessions with the
+ tells
+ .I screen
+ to turn on automatic output logging for the windows. By default, logfile's name
+-is screenlog.1. You can sets new name: add it right after -L option e.g. "screen
+--L my_logfile".
++is screenlog.0. You can set new name: add it right after -L option e.g. "screen
++-L my_logfile". Keep in mind that name can not start with "-" symbol.
+ .TP 5
+ .B \-m
+ causes
+diff --git a/doc/screen.texinfo b/doc/screen.texinfo
+index 2ff39b08a79c..c94993edd2ed 100644
+--- a/doc/screen.texinfo
++++ b/doc/screen.texinfo
+@@ -334,7 +334,9 @@ Remove sessions with the @samp{-wipe} option.
+ 
+ @item -L
+ Tell @code{screen} to turn on automatic output logging for the
+-windows.
++windows. By default, logfile's name is screenlog.0. You can set new name:
++add it right after -L option e.g. "screen -L my_logfile". Keep in mind
++that name can not start with "-" symbol.
+ 
+ @item -m
+ Tell @code{screen} to ignore the @code{$STY} environment variable.  When
+diff --git a/screen.c b/screen.c
+index e60d0a712fb5..07f0c1387e32 100644
+--- a/screen.c
++++ b/screen.c
+@@ -669,8 +669,11 @@ int main(int ac, char** av)
+           case 'L':
+             if (--ac != 0) {
+               screenlogfile = SaveStr(*++av);
+-              if (screenlogfile[0] == '-')
+-                Panic(0, "-L: logfile name can not start with \"-\" symbol");
++              if (screenlogfile[0] == '-') {
++                screenlogfile = SaveStr("screenlog.%n");
++                av--;
++                ac++;
++              }
+               if (strlen(screenlogfile) > PATH_MAX)
+                 Panic(0, "-L: logfile name too long. (max. %d char)", PATH_MAX);
+             }

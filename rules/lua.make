@@ -17,25 +17,26 @@ PACKAGES-$(PTXCONF_LUA) += lua
 #
 # Paths and names
 #
-LUA_VERSION	:= 5.1.4
-LUA_MD5		:= d0870f2de55d59c1c8419f36e8fac150
+LUA_VERSION	:= 5.3.4
+LUA_MD5		:= 53a9c68bcc0eda58bdc2095ad5cdfc63
 LUA		:= lua-$(LUA_VERSION)
 LUA_SUFFIX	:= tar.gz
 LUA_URL		:= http://www.lua.org/ftp/$(LUA).$(LUA_SUFFIX)
 LUA_SOURCE	:= $(SRCDIR)/$(LUA).$(LUA_SUFFIX)
 LUA_DIR		:= $(BUILDDIR)/$(LUA)
+LUA_LICENSE     := MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-LUA_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--enable-static \
-	--$(call ptx/wwo, PTXCONF_LUA_READLINE)-readline \
+LUA_CONF_TOOL      := NO
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+LUA_MAKE_ENV       := $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -57,7 +58,7 @@ ifdef PTXCONF_LUA_INSTALL_LUAC
 	@$(call install_copy, lua, 0, 0, 0755, -, /usr/bin/luac)
 endif
 ifdef PTXCONF_LUA_INSTALL_LIBLUA
-	@$(call install_lib, lua, 0, 0, 0644, liblua-$(LUA_VERSION))
+	@$(call install_lib, lua, 0, 0, 0644, liblua)
 endif
 	@$(call install_finish, lua)
 

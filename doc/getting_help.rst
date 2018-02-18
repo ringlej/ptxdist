@@ -14,27 +14,15 @@ About PTXdist in Particular
 This is an English language public mailing list for questions about
 PTXdist. See
 
-http://www.pengutronix.de/mailinglists/index_en.html
+http://www.ptxdist.org/pages/support.html
 
 on how to subscribe to this list. If you want to search through the
 mailing list archive, visit
 
-http://www.mail-archive.com/
+https://www.mail-archive.com/ptxdist@pengutronix.de/
 
-and search for the list *ptxdist*. Please note again that this mailing
-list is just related to the PTXdist as a software. For questions
-regarding your specific BSP, see the following items.
-
-About Embedded Linux in General
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is a German language public mailing list for general questions
-about Linux in embedded environments. See
-
-http://www.pengutronix.de/mailinglists/index_de.html
-
-on how to subscribe to this list. Note: You can also send mails in
-English.
+Please note again that this mailing list is just related to the PTXdist as a
+software. For questions regarding your specific BSP, see the following items.
 
 About Working on the Linux Kernel
 ---------------------------------

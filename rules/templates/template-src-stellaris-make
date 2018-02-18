@@ -29,7 +29,7 @@ endif
 #
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/@package@
+@PACKAGE@_URL		:= file://local_src/@package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_BUILD_OOT	:= YES
 @PACKAGE@_LICENSE	:= unknown

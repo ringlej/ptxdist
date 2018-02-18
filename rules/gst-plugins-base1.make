@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE1) += gst-plugins-base1
 #
 # Paths and names
 #
-GST_PLUGINS_BASE1_VERSION	:= 1.12.1
-GST_PLUGINS_BASE1_MD5		:= 77d67208ff3750ea6417f0365f655a90
+GST_PLUGINS_BASE1_VERSION	:= 1.12.4
+GST_PLUGINS_BASE1_MD5		:= b35b04071f69b8ab69a7f3a497ff0131
 GST_PLUGINS_BASE1		:= gst-plugins-base-$(GST_PLUGINS_BASE1_VERSION)
 GST_PLUGINS_BASE1_SUFFIX	:= tar.xz
 GST_PLUGINS_BASE1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE1).$(GST_PLUGINS_BASE1_SUFFIX)
@@ -96,6 +96,12 @@ endif
 
 ifneq ($(call remove_quotes,$(GST_PLUGINS_BASE1_ENABLEC-)),)
 GST_PLUGINS_BASE1_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_BASE1_ENABLEC-)))
+endif
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+GST_PLUGINS_BASE1_LDFLAGS := \
+	-Wl,-rpath-link,$(GST_PLUGINS_BASE1_DIR)/gst-libs/gst/tag/.libs \
+	-Wl,-rpath-link,$(GST_PLUGINS_BASE1_DIR)/gst-libs/gst/rtp/.libs
 endif
 
 # ----------------------------------------------------------------------------

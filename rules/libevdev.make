@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBEVDEV) += libevdev
 #
 # Paths and names
 #
-LIBEVDEV_VERSION	:= 1.2.2
-LIBEVDEV_MD5		:= 7c1ee9c2069489b2a25dfde6f8e2ff6a
+LIBEVDEV_VERSION	:= 1.5.7
+LIBEVDEV_MD5		:= 4f1cfaee8d75ea3fbbfeb99a98730952
 LIBEVDEV		:= libevdev-$(LIBEVDEV_VERSION)
 LIBEVDEV_SUFFIX		:= tar.xz
 LIBEVDEV_URL		:= http://www.freedesktop.org/software/libevdev/$(LIBEVDEV).$(LIBEVDEV_SUFFIX)

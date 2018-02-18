@@ -1,0 +1,20 @@
+From: Markus Niebel <Markus.Niebel@tq-group.com>
+Date: Wed, 9 Aug 2017 10:16:24 +0200
+Subject: [PATCH] add install target
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Signed-off-by: Markus Niebel <Markus.Niebel@tq-group.com>
+---
+ Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 1557199d1fb5..1f926b4cf6be 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,3 +12,5 @@ include $(TOPDIR)/Rules.make
+ 
+ images:	pnmtohex
+ 
++install:
++	install -c $(TARGET) $(DESTDIR)/usr/sbin/fbtest

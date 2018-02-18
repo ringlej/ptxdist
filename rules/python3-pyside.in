@@ -1,0 +1,12 @@
+## SECTION=qt
+
+config PYTHON3_PYSIDE
+	tristate
+	prompt "python3-pyside-qt4"
+	select QT4
+	select PYTHON3_SHIBOKEN
+	select HOST_CMAKE
+	depends on !PYSIDE || ALLYES
+	help
+	  PySide provides Python bindings for the Qt cross-platform
+	  application and UI framework.

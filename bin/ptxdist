@@ -866,13 +866,24 @@ check_premake()
 	check_deps
 }
 
+check_virtualenv()
+{
+	if [ -n "${PTXDIST_VIRTUALENV}" ]; then
+		if [ ! -e "${PTXDIST_VIRTUALENV}/bin/activate" ]; then
+			ptxd_bailout "Virtual Env '${PTXDIST_VIRTUALENV}' not found"
+		fi
+		. "${PTXDIST_VIRTUALENV}/bin/activate"
+	fi
+}
+
 #
 # runs the standard tests before calling into make + compiler check
 #
 check_premake_compiler()
 {
 	check_premake &&
-	check_compiler
+	check_compiler &&
+	check_virtualenv
 }
 
 
@@ -1040,7 +1051,10 @@ Options:
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
 				(default = 2*CPUs)
   --j-extern=<n>, -je<n>	set number of packages built in parallel
-				(default = 1)
+				(default = 1). Deprecated, use -j instead.
+  -j[<n>]			build packages in parallel with a total number
+				of <n> jobs in parallel. If -j is used without
+				argument then <n> defaults to 2*CPUs.
 
   --load-average=<n>, -l<n>	try to limit load to <n>
 
@@ -1053,6 +1067,9 @@ Options:
   --git				use git to apply patches
 
   --auto-version		automatically switch to the correct PTXdist version
+
+  --virtualenv=<dir>		Python virtual environment directory. It must
+				contain a 'bin/activate' shell script.
 EOF
 }
 
@@ -1238,6 +1255,7 @@ create_docs() {
 			cp -an "${dir}/${entry}" "${srcdir}/" || return
 		done
 	done &&
+	check_virtualenv &&
 	sphinx-build -b "${builder}" -d "${outdir}/.doctrees" "${srcdir}" \
 		"${outdir}/${builder}" &&
 	if [ "${builder}" = "latex" ]; then
@@ -1394,6 +1412,9 @@ parse_first()
 			;;
 		--auto-version)
 			PTXDIST_AUTOVERSION=1
+			;;
+		--virtualenv=*)
+			PTXDIST_VIRTUALENV="${arg#*=}"
 			;;
 		--)
 			while [ ${#} -ne 0 ]; do
@@ -1863,8 +1884,8 @@ parse_second()
 ######## the rest of it
 
 		moo)
-			local cow="55555555555555555555555D5X5XX5XXX555XXX555XXX55D254X535X5P5T5X5P5T5X5P5D252525252525IXS525IXS52D2X252X252X2PXXXT5PXXXT5D55555555555555555555555D"
-			echo "${cow}" | tr "PTXDIST2345" "\\\\\ _\\n\\(\\)/|\`\' "
+			local cow="555555554994D555555516X65155558664D555555511XT51D555555TT555P5P5D55555I15555515S5D5555T2PX555XT2PD5555PXXXS7IXXXT"
+			echo "${cow}" | tr "PTXDIST123456789" "\\\\\ _\\n\\(\\)/|\`\'. o=M-"
 			exit
 			;;
 
@@ -2036,7 +2057,7 @@ EOF
 				exit 1
 			fi
 			while [ ${#} -gt 0 ]; do
-				if [[ ! ( "${1}" =~ "/" ) ]] && [ -n "${!1}" ]; then
+				if [[ ! ( "${1}" =~ "/" ) ]]  && ([ -n "${!1}" ]) 2>/dev/null; then
 					if [ "${PTXDIST_VERBOSE}" = "1" ]; then
 						echo -n "${1}="
 					fi

@@ -142,13 +142,6 @@ config E2FSPROGS_INSTALL_FSCK_EXT4
 	help
 	  Create link to fsck.ext4 program.
 
-config E2FSPROGS_INSTALL_FSCK_EXT4DEV
-	bool
-	prompt "fsck.ext4dev"
-	select E2FSPROGS_INSTALL_E2FSCK
-	help
-	  Create link to fsck.ext4dev program.
-
 
 config E2FSPROGS_INSTALL_DEBUGFS
 	bool
@@ -250,13 +243,6 @@ config E2FSPROGS_INSTALL_MKFS_EXT4
 	select E2FSPROGS_INSTALL_MKE2FS
 	help
 	  Create link to mkfs.ext4 program.
-
-config E2FSPROGS_INSTALL_MKFS_EXT4DEV
-	bool
-	prompt "mkfs.ext4dev"
-	select E2FSPROGS_INSTALL_MKE2FS
-	help
-	  Create link to mkfs.ext4dev program.
 
 endif
 

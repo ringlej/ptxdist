@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.12.1
-GSTREAMER1_MD5		:= 3c9f2bc7d75daf87fb5d8d0f2158b8ea
+GSTREAMER1_VERSION	:= 1.12.4
+GSTREAMER1_MD5		:= 9d268f2e891cce1ac0832f1cc467d4ea
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -86,7 +86,13 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-check \
 	--with-ptp-helper-setuid-user=nobody \
 	--with-ptp-helper-setuid-group=nogroup \
-	--with-ptp-helper-permissions=setuid-root
+	--with-ptp-helper-permissions=setuid-root \
+	--with-unwind \
+	--without-dw
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+GSTREAMER1_LDFLAGS := -Wl,-rpath-link,$(GSTREAMER1_DIR)/libs/gst/base/.libs
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

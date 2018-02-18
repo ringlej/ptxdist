@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_FILE) += file
 #
 # Paths and names
 #
-FILE_VERSION	:= 5.30
-FILE_MD5	:= f35eaf05489ae566eafc4d26bb1dcd90
+FILE_VERSION	:= 5.32
+FILE_MD5	:= 4f2503752ff041895090ed6435610435
 FILE		:= file-$(FILE_VERSION)
 FILE_SUFFIX	:= tar.gz
 FILE_URL	:= ftp://ftp.astron.com/pub/file/$(FILE).$(FILE_SUFFIX)
 FILE_SOURCE	:= $(SRCDIR)/$(FILE).$(FILE_SUFFIX)
 FILE_DIR	:= $(BUILDDIR)/$(FILE)
-FILE_LICENSE	:= BSD, 2-term BSD
+FILE_LICENSE	:= BSD AND 2-term BSD
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -38,7 +38,8 @@ FILE_CONF_OPT	:= \
 	--enable-elf-core \
 	--enable-zlib \
 	--disable-fsect-man5 \
-	$(GLOBAL_LARGE_FILE_OPTION)
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-warnings
 
 # ----------------------------------------------------------------------------
 # Target-Install

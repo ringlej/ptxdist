@@ -3,7 +3,6 @@
 config LIBNEWT
 	tristate
 	select SLANG
-	select LIBPOPT
 	prompt "libnewt"
 	help
 	  Newt is a programming library for color text mode, widget based user

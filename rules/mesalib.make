@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 17.1.3
-MESALIB_MD5	:= 1946a93d543bc219427e2bebe2ac4752
+MESALIB_VERSION	:= 17.3.2
+MESALIB_MD5	:= 5c59b779925f504ffd0f13c7dcd29ac6
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -61,6 +61,7 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_ETNAVIV)	+= etnaviv
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IMX)	+= imx
 ifdef PTXCONF_ARCH_ARM
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC5)	+= vc5
 endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
@@ -114,7 +115,7 @@ MESALIB_CONF_OPT	:= \
 	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
-	--disable-omx \
+	--disable-omx-bellagio \
 	--disable-va \
 	--disable-opencl \
 	--disable-opencl-icd \

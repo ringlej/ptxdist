@@ -30,11 +30,12 @@ BAREBOX_@PACKAGE@_SOURCE	:= $(SRCDIR)/$(BAREBOX_@PACKAGE@).$(BAREBOX_@PACKAGE@_S
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_@PACKAGE@_BLACKLIST := \
+BAREBOX_@PACKAGE@_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \
-	TARGET_DEBUG
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
 
 BAREBOX_@PACKAGE@_CONF_ENV := KCONFIG_NOTIMESTAMP=1
 BAREBOX_@PACKAGE@_CONF_OPT := $(call barebox-opts, BAREBOX_@PACKAGE@)
@@ -62,14 +63,16 @@ $(STATEDIR)/barebox-@package@.prepare: $(BAREBOX_@PACKAGE@_CONFIG)
 # Install
 # ----------------------------------------------------------------------------
 
-BAREBOX_@PACKAGE@_INSTALL_OPT := \
-	$(call barebox-opts, BAREBOX_@PACKAGE@)
-
 $(STATEDIR)/barebox-@package@.install:
 	@$(call targetinfo)
-#	@mkdir -p $(BAREBOX_@PACKAGE@_PKGDIR)/usr/lib/$(BAREBOX_@PACKAGE@)
-#		install -m 644 $(image)
-#			$(BAREBOX_@PACKAGE@_PKGDIR)/usr/lib/$(BAREBOX_@PACKAGE@)/$(notdir $(image));
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Targetinstall
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-@package@.targetinstall:
+	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_@PACKAGE@_IMAGES), \
 		install -m 644 \
 			$(image) $(IMAGEDIR)/$(notdir $(image))-@package@;)

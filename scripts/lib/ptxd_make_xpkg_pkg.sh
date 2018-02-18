@@ -327,7 +327,7 @@ ptxd_install_file_strip() {
     done &&
 
     if [ "${strip}" != "k" ]; then
-	ptxd_install_file_extract_debug "${dir}" "${dst}" || return
+	ptxd_install_file_extract_debug "${dst}" || return
     fi
 }
 export -f ptxd_install_file_strip
@@ -567,6 +567,7 @@ ptxd_install_replace_figlet() {
     local dst="$1"
     local placeholder="$2"
     local value="$3"
+    local escapemode="$4"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
 
@@ -578,8 +579,23 @@ install replace figlet:
 " &&
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
-    figlet="$(figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
-	awk '{ gsub("\\\\", "`"); if ($0 !~ "^ *$") printf("%s\\n", $0) }')" && #`
+    ptxd_figlet_helper() {
+        local value="$1"
+        local escapemode="$2"
+        figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
+        case "$escapemode" in
+            # a lot of leaning toothpicks because we need to escape a literal
+            # '\' with '\\' on multiple levels:
+            # - one level for the string inside awk: \\\\\\\\\\\\\\\\ -> \\\\\\\\
+            # - one level for the shell string after sed -e:          -> \\\\
+            # - one level for the s expression inside sed:            -> \\
+            # - and finally, one level for /etc/issue:                -> \
+            etcissue)	awk '{ gsub("\\\\", "\\\\\\\\\\\\\\\\"); print }' ;;
+            *)		;;
+        esac | \
+        awk '{ if ($0 !~ "^ *$") printf("%s\\n", $0) }'  # newlines for sed
+    } &&
+    figlet="$(ptxd_figlet_helper "$value" "$escapemode")" &&
     sed -i -e "s#${placeholder}#${figlet}#g" "${dirs[@]/%/${dst}}" ||
 
     ptxd_install_error "install_replace failed!"

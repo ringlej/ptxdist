@@ -1,6 +1,7 @@
 root:x:0:
 daemon:x:1:
 adm:x:4:
+kvm:x:36:
 shadow:x:42:
 utmp:x:43:
 users:x:100:

@@ -157,7 +157,8 @@ handle:
    archive but a plain source project instead. Creating such a package
    will also create a small autotools based source template project on
    demand to give the developer an easy point to start. This template is
-   prepared to build a single executable program.
+   prepared to build a single executable program. For further details refer
+   section :ref:`adding_src_autoconf_exec`.
 
 -  **src-autoconf-lib**: This kind of package is built for the target.
    It is intended for development, as it does not handle a released
@@ -174,7 +175,7 @@ handle:
    project on demand to give the developer an easy point to start. This
    template is prepared to build a single shared library and a single
    executable program. The program will be linked against the shared
-   library.
+   library. For further details refer section :ref:`adding_src_autoconf_exec_lib`.
 
 -  **file**: This kind of package is intended to add a few simple files
    into the build process. We assume these files do not need any
@@ -240,7 +241,7 @@ Rule File Creation
 To create such a new package, we create a project local ``rules/``
 directory first. Then we run
 
-::
+.. code-block:: text
 
     $ ptxdist newpackage <package type>
 
@@ -250,14 +251,14 @@ package types.
 In our first example, we want to add a new target type archive package.
 When running the
 
-::
+.. code-block:: text
 
     $ ptxdist newpackage target
 
 command, PTXdist asks a few questions about this package. This
 information is the basic data PTXdist must know about the package.
 
-::
+.. code-block:: text
 
     ptxdist: creating a new 'target' package:
 
@@ -373,7 +374,7 @@ After enabling the menu entry, we can start to check the *get* and
   archives between PTXdist based projects. Advantage is every download
   happens only once. Refer to the ``setup`` command PTXdist provides.
 
-::
+.. code-block:: text
 
     $ ptxdist get foo
 
@@ -397,7 +398,7 @@ in use is correct.
   the rule file. To get an idea what content a variable has, we can ask
   PTXdist about it:
 
-::
+.. code-block:: text
 
     $ ptxdist print FOO_URL
     http://www.foo.com/download/src/foo-1.1.0.tar.gz
@@ -406,21 +407,21 @@ The next step would be to extract the archive. But as PTXdist checks the
 MD5 sum in this case, this step will fail, because the ``FOO_MD5``
 variable is still empty. Let’s fill it:
 
-::
+.. code-block:: text
 
     $ md5sum /global_src/foo-1.1.0.tar.gz
     9a09840ab775a139ebb00f57a587b447
 
-This string must be assigned to the FOO\_MD5 in our new ``foo.make``
+This string must be assigned to the FOO_MD5 in our new ``foo.make``
 rule file:
 
-::
+.. code-block:: text
 
     FOO_MD5		:= 9a09840ab775a139ebb00f57a587b447
 
 We are now prepared for the next step:
 
-::
+.. code-block:: text
 
     $ ptxdist extract foo
 
@@ -441,7 +442,7 @@ prepare the build, the archive comes with a ``configure`` script. This
 is the default case for PTXdist. So, there is no need to modify the rule
 file and we can simply run:
 
-::
+.. code-block:: text
 
     $ ptxdist prepare foo
 
@@ -493,7 +494,7 @@ first.
 If the *prepare* stage has finished successfully, the next step is to
 compile the package.
 
-::
+.. code-block:: text
 
     $ ptxdist compile foo
 
@@ -535,7 +536,7 @@ features to simplify this task.
 In this example we expect the best case: everything went fine, even for
 cross compiling. So, we can continue with the next stage: *install*
 
-::
+.. code-block:: text
 
     $ ptxdist install foo
 
@@ -605,13 +606,13 @@ From the previous *install* stage we know this package installs an
 executable called ``foo`` to location ``/usr/bin``. We can do the same
 for our target by changing the *install\_copy* line to:
 
-::
+.. code-block:: make
 
     @$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/foo)
 
 To check it, we just run:
 
-::
+.. code-block:: text
 
     $ ptxdist targetinstall foo
 
@@ -661,7 +662,7 @@ our new entry to. We just have to edit the head of our new menu file
 package is a network related tool, the head of the menu file should
 look like:
 
-::
+.. code-block:: kconfig
 
     ## SECTION=networking
 
@@ -669,7 +670,7 @@ We can grep through the other menu files from the PTXdist main
 installation ``rules/`` directory to get an idea what section names are
 available:
 
-::
+.. code-block:: text
 
     rules/ $ find . -name \*.in | xargs grep "## SECTION"
     ./acpid.in:## SECTION=shell_and_console
@@ -689,7 +690,7 @@ Porting a new package to PTXdist is (almost) finished now.
 
 To check it right away, we simply run these two commands:
 
-::
+.. code-block:: text
 
     $ ptxdist clean foo
     rm -rf /home/jbe/my_new_prj/state/foo.*
@@ -709,7 +710,7 @@ results are working on the target.
 So to check for this kind of dependencies there is still one more final check
 to do (even if its boring and takes time):
 
-::
+.. code-block:: text
 
     $ ptxdist clean
     [...]
@@ -719,6 +720,51 @@ to do (even if its boring and takes time):
 This will re-start with a **clean** BSP and builds exactly the new package and
 its (known) dependencies. If this builds successfully as well we are really done
 with the new package.
+
+Some Notes about Licenses
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The already mentioned rule variable ``*_LICENSE`` (e.g. ``FOO_LICENSE`` in our
+example) is very important and must be filled by the developer of the package.
+Many licenses bring in obligations using the corresponding package (*attribution*
+for example). To make life easier for everybody the license for a package must
+be provided. *SPDX* license identifiers unify the license names and are used
+in PTXdist to identify license types and obligations.
+
+If a package comes with more than one license, alls of their SPDX identifiers
+must be listed and connected with the keyword ``AND``. If your package comes
+with GPL-2.0 and LGPL-2.1 licenses, the definition should look like this:
+
+.. code-block:: make
+
+   FOO_LICENSE := GPL-2.0 AND LGPL-2.1
+
+One specific obligation cannot be detected examining the SPDX license identifiers
+by PTXdist: *the license choice*. In this case all licenses of choice must be
+listed and connected by the keyword ``OR``.
+
+If, for example, your obligation is to select one of the licenses *GPL-2.0* **or**
+*GPL-3.0*, the ``*_LICENSE`` variable should look like this:
+
+.. code-block:: make
+
+   FOO_LICENSE := GPL-2.0 OR GPL-3.0
+
+SPDX License Identifiers
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+A list of SPDX license identifiers can be found here:
+
+   https://www.gnu.org/licenses/license-list.html#SoftwareLicenses
+
+Help to Detect the Correct License
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+License identification isn't trivial. A help in doing so can be the following
+repository and its content. It contains a list of known licenses based on their
+SPDX identifier. The content is without formatting to simplify text search.
+
+   https://github.com/spdx/license-list.git
 
 Advanced Rule Files
 ~~~~~~~~~~~~~~~~~~~
@@ -753,7 +799,7 @@ be given to ``configure``.
 
 Currently this variable is commented out and defined to:
 
-::
+.. code-block:: make
 
     # FOO_CONF_OPT := $(CROSS_AUTOCONF_USR)
 
@@ -764,7 +810,7 @@ contains all basic parameters to instruct ``configure`` to prepare for a
 To use the two additional mentioned ``configure`` parameters, we comment
 in this line and supplement this expression as follows:
 
-::
+.. code-block:: make
 
     FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
     	--enable-debug \
@@ -776,7 +822,7 @@ in this line and supplement this expression as follows:
 
 To do a fast check if this addition was successful, we run:
 
-::
+.. code-block:: text
 
     $ ptxdist print FOO_CONF_OPT
     --prefix=/usr --sysconfdir=/etc --host=|ptxdistCompilerName| --build=i686-host-linux-gnu --enable-debug --with-bar
@@ -787,7 +833,7 @@ To do a fast check if this addition was successful, we run:
 
 Or re-build the package with the new settings:
 
-::
+.. code-block:: text
 
     $ ptxdist drop foo prepare
     $ ptxdist targetinstall foo
@@ -876,7 +922,7 @@ To support this process, PTXdist supplies a helper script, located at
 ``/path/to/ptxdist/scripts/configure-helper.py`` that compares the configure
 output with the settings from ``FOO_CONF_OPT``:
 
-::
+.. code-block:: text
 
     $ /opt/ptxdist-2017.06.0/scripts/configure-helper.py -p libsigrok
     --- rules/libsigrok.make
@@ -938,7 +984,7 @@ modify our *targetinstall* stage:
 Now we can play with our new menu entries and check if they are working
 as expected:
 
-::
+.. code-block:: text
 
     $ ptxdist menuconfig
     $ ptxdist targetinstall foo
@@ -954,7 +1000,7 @@ missing external dependency.
 
 For example:
 
-::
+.. code-block:: text
 
     checking whether zlib exists....failed
 
@@ -1236,7 +1282,7 @@ Using quilt
 We create a special directory for the patch series in the local project
 directory:
 
-::
+.. code-block:: text
 
     $ mkdir -p patches/foo-1.1.0
 
@@ -1245,7 +1291,7 @@ one patch. Otherwise it fails. Due to the fact that we do not have any
 patch content yet, we’ll start with a dummy entry in the ``series`` file
 and an empty ``patch`` file.
 
-::
+.. code-block:: text
 
     $ touch patches/foo-1.1.0/dummy
     $ echo dummy > patches/foo-1.1.0/series
@@ -1253,7 +1299,7 @@ and an empty ``patch`` file.
 Next is to extract the package (if already done, we must remove it
 first):
 
-::
+.. code-block:: text
 
     $ ptxdist extract foo
 
@@ -1276,14 +1322,16 @@ Using Git
 """""""""
 
 Create the patch directory like above for *quilt*,
-but only add an empty series file::
+but only add an empty series file
+
+.. code-block:: text
 
     $ mkdir -p patches/foo-1.1.0
     $ touch patches/foo-1.1.0/series
 
 Then extract the package with an additional command line switch:
 
-::
+.. code-block:: text
 
     $ ptxdist --git extract foo
 
@@ -1303,7 +1351,7 @@ patch the required source files,
 and make Git commits on the way.
 The Git history should now look something like this:
 
-::
+.. code-block:: text
 
     $ git log --oneline --decorate
     * df343e821851 (HEAD -> master) Makefile: don't build the tests
@@ -1367,7 +1415,7 @@ package was patched (while the *extract* stage is running).
 Its content depends on developer needs; for the most simple case the
 content can be:
 
-::
+.. code-block:: bash
 
     #!/bin/bash
 
@@ -1409,7 +1457,7 @@ Add binary Files File by File
 Doing to on a file by file base can happen by just using the ``install_copy``
 macro in the *targetinstall* stage in our own customized rules file.
 
-::
+.. code-block:: make
 
     @$(call install_copy, binary_example, 0, 0, 0644, \
        </path/to/some/file/>ptx_logo.png, \
@@ -1439,7 +1487,7 @@ correct manner:
 
 -  user and group ID on a per file base
 
-::
+.. code-block:: make
 
     @$(call install_archive, binary_example, -, -, \
        </path/to/an/>archive.tgz, /)
@@ -1463,7 +1511,7 @@ Creating a Rules File
 
 Let PTXdist create one for us.
 
-::
+.. code-block:: text
 
     $ ptxdist newpackage file
 
@@ -1484,7 +1532,7 @@ Both files now must be customized to meet our requirements. Due to the
 answer *rootfs* to the “``enter package section``” question, we will
 find the new menu entry in:
 
-::
+.. code-block:: text
 
     Root Filesystem --->
     	< > my_binfiles (NEW)
@@ -1492,7 +1540,7 @@ find the new menu entry in:
 Enabling this new entry will also run our stages in
 ``rules/my_binfiles.make`` the next time we enter:
 
-::
+.. code-block:: text
 
     $ ptxdist go
 

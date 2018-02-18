@@ -1,4 +1,7 @@
-## SECTION=scripting_languages
+## SECTION=staging
+## old section:
+### SECTION=scripting_languages
+
 config GMAKE
 	tristate
 	prompt "gmake"
@@ -7,3 +10,5 @@ config GMAKE
 	help
 	  gmake is GNU make.
 
+	  STAGING: remove in ptxdist-2019.02.0
+	  Really old version that needs updating and fails to build with gcc 7.x.

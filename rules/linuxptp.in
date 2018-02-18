@@ -7,3 +7,15 @@ config LINUXPTP
 	  The Linux PTP project implements the Precision Time protocol (PTP),
 	  standardized as IEEE1588.
 
+if LINUXPTP
+
+config LINUXPTP_SYSTEMD_SERVICE
+	bool "install ptp4l and phc2sys systemd service files"
+	default y
+
+config LINUXPTP_PHC2SYS_SYSTEMD_SERVICE
+	bool "Enable phc2sys systemd service file"
+	default y
+	depends on LINUXPTP_SYSTEMD_SERVICE
+
+endif

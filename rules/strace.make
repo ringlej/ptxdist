@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.16
-STRACE_MD5	:= 2873366cac98770efcbed6e748d5ef23
+STRACE_VERSION	:= 4.20
+STRACE_MD5	:= f2271ab0fac49ebee9cbd7f3469227cb
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
 STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
@@ -38,6 +38,11 @@ STRACE_CONF_OPT		:= \
 	--disable-code-coverage \
 	--disable-arm-oabi \
 	--disable-valgrind \
+	--disable-valgrind-memcheck \
+	--disable-valgrind-helgrind \
+	--disable-valgrind-drd \
+	--disable-valgrind-sgcheck \
+	--without-gcov \
 	--without-libunwind
 
 

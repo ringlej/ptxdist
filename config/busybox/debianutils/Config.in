@@ -6,11 +6,6 @@
 
 menu "Debian Utilities"
 
-config BUSYBOX_MKTEMP
-	bool "mktemp"
-	default y
-	help
-	  mktemp is used to create unique temporary files
 config BUSYBOX_PIPE_PROGRESS
 	bool "pipe_progress"
 	default y
@@ -35,8 +30,6 @@ config BUSYBOX_FEATURE_RUN_PARTS_LONG_OPTIONS
 	bool "Enable long options"
 	default y
 	depends on BUSYBOX_RUN_PARTS && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the run-parts applet.
 
 config BUSYBOX_FEATURE_RUN_PARTS_FANCY
 	bool "Support additional arguments"
@@ -54,22 +47,19 @@ config BUSYBOX_START_STOP_DAEMON
 	  termination of system-level processes, usually the ones
 	  started during the startup of the system.
 
+config BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS
+	bool "Enable long options"
+	default y
+	depends on BUSYBOX_START_STOP_DAEMON && BUSYBOX_LONG_OPTS
+
 config BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY
 	bool "Support additional arguments"
 	default y
 	depends on BUSYBOX_START_STOP_DAEMON
 	help
-	  Support additional arguments.
 	  -o|--oknodo ignored since we exit with 0 anyway
 	  -v|--verbose
 	  -N|--nicelevel N
-
-config BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS
-	bool "Enable long options"
-	default y
-	depends on BUSYBOX_START_STOP_DAEMON && BUSYBOX_LONG_OPTS
-	help
-	  Support long options for the start-stop-daemon applet.
 config BUSYBOX_WHICH
 	bool "which"
 	default y

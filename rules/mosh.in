@@ -1,12 +1,13 @@
 ## SECTION=networking
 
-config MOSH
+menuconfig MOSH
 	tristate
 	prompt "mosh"
 	select PROTOBUF
 	select NCURSES
 	select ZLIB
-	select OPENSSL
+	select NETTLE		if MOSH_NETTLE
+	select OPENSSL		if MOSH_OPENSSL
 	select OPENSSH		if RUNTIME
 	select OPENSSH_SSH	if RUNTIME
 	select OPENSSH_SSHD	if RUNTIME
@@ -15,3 +16,23 @@ config MOSH
 	  connectivity, and provides intelligent local echo and line editing of
 	  user keystrokes. Mosh is a replacement for SSH. It's more robust and
 	  responsive, especially over Wi-Fi, cellular, and long-distance links.
+
+if MOSH
+
+choice
+	prompt "crypto library"
+	default MOSH_OPENSSL
+	help
+	  Select the crypto library to be used
+
+	config MOSH_NETTLE
+		bool
+		prompt "nettle"
+
+	config MOSH_OPENSSL
+		bool
+		prompt "openssl"
+
+endchoice
+
+endif

@@ -23,7 +23,7 @@ TOTD_SUFFIX	:= tar.gz
 TOTD_URL	:= http://www.dillema.net/software/totd/$(TOTD).$(TOTD_SUFFIX)
 TOTD_SOURCE	:= $(SRCDIR)/$(TOTD).$(TOTD_SUFFIX)
 TOTD_DIR	:= $(BUILDDIR)/$(TOTD)
-PTRTD_LICENSE  	:= multiple, BSD Style
+PTRTD_LICENSE  	:= multiple AND BSD Style
 
 # ----------------------------------------------------------------------------
 # Prepare

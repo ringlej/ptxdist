@@ -25,6 +25,7 @@ HOST_E2FSPROGS_CONF_TOOL	:= autoconf
 HOST_E2FSPROGS_CONF_OPT		:= \
 	$(HOST_AUTOCONF) \
 	--disable-symlink-install \
+	--disable-relative-symlinks \
 	--disable-symlink-build \
 	--disable-verbose-makecmds \
 	--disable-elf-shlibs \
@@ -53,7 +54,22 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-nls \
 	--enable-threads=posix \
 	--disable-rpath \
-	--disable-fuse2fs
+	--disable-fuse2fs \
+	--without-included-gettext
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+HOST_E2FSPROGS_INSTALL_OPT	:= install install-libs
+
+$(STATEDIR)/host-e2fsprogs.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, HOST_E2FSPROGS)
+	@sed -i -e 's,/share,$(PTXCONF_SYSROOT_HOST)/share,' \
+		$(PTXCONF_SYSROOT_HOST)/bin/compile_et
+	@sed -i -e 's,/share,$(PTXCONF_SYSROOT_HOST)/share,' \
+		$(PTXCONF_SYSROOT_HOST)/bin/mk_cmds
+	@$(call touch)
 
 # vim: syntax=make
-

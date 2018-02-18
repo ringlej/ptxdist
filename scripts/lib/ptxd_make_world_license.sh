@@ -405,7 +405,6 @@ ptxd_make_world_license() {
     local -a pkg_license_texts
     local -a pkg_license_texts_guessed
     local pkg_dot
-    local pkg_tex
     local pkg_dot="${pkg_license_dir}/graph.dot"
     local pkg_tex="${pkg_license_dir}/graph.tex"
 
@@ -484,9 +483,9 @@ ptxd_make_world_release() {
     mkdir -p ${pkg_release_dir} &&
 
     # BSP local packages do not have ${pkg_srcs} filled
-    if [[ -z "${pkg_srcs}" && "${pkg_url}" =~ "file://${PTXDIST_WORKSPACE}" && -f "${pkg_url#file://}" ]]; then
+    if [[ -z "${pkg_srcs}" && "${pkg_url}" =~ "file://" && -f "$(ptxd_file_url_path "${pkg_url}")" ]]; then
 	# Use the URL for local archives
-	pkg_srcs="${pkg_url#file://}"
+	pkg_srcs="$(ptxd_file_url_path "${pkg_url}")"
     fi
     if [ -z "${pkg_srcs}" ]; then
 	if [ -z "${pkg_url}" ]; then
@@ -494,7 +493,7 @@ ptxd_make_world_release() {
 	    # does not work, since some packages (udev for example, refer to systemd and has no own sources)
 	    echo "Error: unable to detect source files/archives for package '${pkg_label}'" > "${pkg_release_dir}/source"
 	else
-	    if [[ "${pkg_url}" =~ "file://${PTXDIST_WORKSPACE}" ]]; then
+	    if [[ "${pkg_url}" =~ "file://" ]]; then
 		echo "Note: this package has BSP internal source code" > "${pkg_release_dir}/source"
 	    else
 		if [[ "${pkg_url}" =~ "lndir://${PTXDIST_WORKSPACE}" ]]; then

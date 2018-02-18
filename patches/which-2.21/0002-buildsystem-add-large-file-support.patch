@@ -1,0 +1,22 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Fri, 25 Aug 2017 14:49:05 +0200
+Subject: [PATCH] buildsystem: add large file support
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ configure.ac | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 0c782b45455d..06e509fb97ad 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -16,6 +16,8 @@ AC_PROG_INSTALL
+ AC_LANG_C
+ AC_MINIX
+ 
++AC_SYS_LARGEFILE
++
+ dnl Checks for libraries.
+ if test "$which_cv_iberty" = yes ; then
+   AC_CHECK_STATICLIB(libiberty.a, xmalloc)

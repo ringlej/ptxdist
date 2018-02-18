@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 1 Oct 2017 07:54:45 +0200
+Subject: [PATCH] fix build error with gcc-7.x
+
+Without this, building fails with:
+
+xdr_sizeof.c: In function 'x_inline':
+xdr_sizeof.c:93:13: error: 'uintptr_t' undeclared (first use in this function); did you mean '__intptr_t'?
+xdr_sizeof.c:93:13: note: each undeclared identifier is reported only once for each function it appears in
+xdr_sizeof.c:93:23: error: expected ')' before 'xdrs'
+xdr_sizeof.c:105:38: error: expected ';' before 'len'
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/xdr_sizeof.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/xdr_sizeof.c b/src/xdr_sizeof.c
+index d23fbd141c1e..79d6707d0017 100644
+--- a/src/xdr_sizeof.c
++++ b/src/xdr_sizeof.c
+@@ -39,6 +39,7 @@
+ #include <rpc/xdr.h>
+ #include <sys/types.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ #include "un-namespace.h"
+ 
+ /* ARGSUSED */

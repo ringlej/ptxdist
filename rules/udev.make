@@ -12,17 +12,6 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_UDEV) += udev
-
-ifdef PTXCONF_INITMETHOD_SYSTEMD
-UDEV_LICENSE = $(SYSTEMD_LICENSE)
-else
-UDEV_LICENSE = $(UDEV_LEGACY_LICENSE)
-endif
-
-#
-# We provide this package
-#
 PACKAGES-$(PTXCONF_UDEV_LEGACY) += udev-legacy
 
 #

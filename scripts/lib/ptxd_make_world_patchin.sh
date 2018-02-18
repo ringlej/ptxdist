@@ -221,6 +221,15 @@ ptxd_make_world_patchin_apply()
 	pkg_patch_series \
 	pkg_patch_tool
 
+    if [[ "${pkg_url}" =~ ^file:// ]]; then
+	local url="$(ptxd_file_url_path "${pkg_url}")"
+	# local directories are not intended to be patched
+	if [ -d "${url}" ]; then
+	   echo "Local source directory detected, skipping patch-in step"
+	   return
+	fi
+    fi
+
     ptxd_make_world_patchin_apply_init || return
     if [ -z "${pkg_patch_dir}" ]; then
 	return
@@ -443,18 +452,6 @@ ptxd_make_world_patchin_init()
     fi
 
     pkg_patchin_dir=${pkg_deprecated_patchin_dir:-${pkg_dir}}
-
-    #
-    # FIXME: do we still need this check?
-    #
-    case "${pkg_url}" in
-	file://)
-	    local dir="${pkg_url#file://}"
-	    if [ -d "${dir}" -a "${pkg_label}" != "kernel" ]; then
-		echo "local directory instead of tar file, skipping patch"
-	    fi
-	    ;;
-    esac
 
     #
     # find patch_dir

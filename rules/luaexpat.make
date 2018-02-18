@@ -16,14 +16,15 @@ PACKAGES-$(PTXCONF_LUAEXPAT) += luaexpat
 #
 # Paths and names
 #
-LUAEXPAT_VERSION	:= 1.2.0
-LUAEXPAT_MD5		:= 03efe50c7f30a34580701e6527d7bfee
+LUAEXPAT_VERSION	:= 1.3.0
+LUAEXPAT_MD5		:= 3c20b5795e7107f847f8da844fbfe2da
 LUAEXPAT		:= luaexpat-$(LUAEXPAT_VERSION)
 LUAEXPAT_SUFFIX		:= tar.gz
 LUAEXPAT_URL		:= http://matthewwild.co.uk/projects/luaexpat/$(LUAEXPAT).$(LUAEXPAT_SUFFIX)
 LUAEXPAT_SOURCE		:= $(SRCDIR)/$(LUAEXPAT).$(LUAEXPAT_SUFFIX)
 LUAEXPAT_DIR		:= $(BUILDDIR)/$(LUAEXPAT)
-LUAEXPAT_LICENSE	:= unknown
+LUAEXPAT_LICENSE	:= MIT
+LUAEXPAT_LICENSE_FILES	:= file://doc/us/license.html;md5=9e100888b4a39ac08c37fb127fefc458
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -31,17 +32,12 @@ LUAEXPAT_LICENSE	:= unknown
 
 LUAEXPAT_CONF_TOOL := NO
 
-LUAEXPAT_MAKE_OPT := \
-	$(CROSS_ENV_CC) \
-	LUA_VERSION_NUM=501 \
-	LUA_INC=. \
-	EXPAT_INC=.
-
-LUAEXPAT_INSTALL_OPT := \
-	$(LUAEXPAT_MAKE_OPT) \
-	LUA_LIBDIR=$(LUAEXPAT_PKGDIR)/usr/lib/lua/5.1 \
-	LUA_DIR=$(LUAEXPAT_PKGDIR)/usr/share/lua/5.1 \
-	install
+LUAEXPAT_LUA_VERSION	= $(basename $(LUA_VERSION))
+LUAEXPAT_MAKE_ENV	= \
+	$(CROSS_ENV) \
+	LUA_V=$(LUAEXPAT_LUA_VERSION) \
+	LUA_INC= \
+	EXPAT_INC=
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -56,8 +52,10 @@ $(STATEDIR)/luaexpat.targetinstall:
 	@$(call install_fixup, luaexpat,AUTHOR,"Joerg Platte <joerg.platte@googlemail.com>")
 	@$(call install_fixup, luaexpat,DESCRIPTION,missing)
 
-	@$(call install_copy, luaexpat, 0, 0, 0644, -, /usr/share/lua/5.1/lxp/lom.lua)
-	@$(call install_lib, luaexpat, 0, 0, 0644, lua/5.1/lxp)
+	@$(call install_copy, luaexpat, 0, 0, 0644, -, \
+		/usr/share/lua/$(LUAEXPAT_LUA_VERSION)/lxp/lom.lua)
+	@$(call install_lib, luaexpat, 0, 0, 0644, \
+		lua/$(LUAEXPAT_LUA_VERSION)/lxp)
 	@$(call install_finish, luaexpat)
 
 	@$(call touch)

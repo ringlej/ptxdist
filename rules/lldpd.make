@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LLDPD) += lldpd
 #
 # Paths and names
 #
-LLDPD_VERSION	:= 0.9.2
-LLDPD_MD5	:= b809887bc927fb558fd5dd64b6c0a494
+LLDPD_VERSION	:= 0.9.8
+LLDPD_MD5	:= 8809600492f6b73149eb19158e819c1f
 LLDPD		:= lldpd-$(LLDPD_VERSION)
 LLDPD_SUFFIX	:= tar.gz
 LLDPD_URL	:= http://media.luffy.cx/files/lldpd//$(LLDPD).$(LLDPD_SUFFIX)
@@ -33,7 +33,12 @@ LLDPD_LICENSE	:= ISC
 LLDPD_CONF_TOOL	:= autoconf
 LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-doxygen-doc \
-	--without-embedded-libevent \
+	--enable-hardening \
+	--disable-sanitizers \
+	--disable-gcov \
+	--disable-json0 \
+	--disable-dtrace \
+	--enable-privsep \
 	--$(call ptx/endis, PTXCONF_LLDPD_CDP)-cdp \
 	--$(call ptx/endis, PTXCONF_LLDPD_FDP)-fdp \
 	--$(call ptx/endis, PTXCONF_LLDPD_EDP)-edp \
@@ -43,9 +48,11 @@ LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_LLDPD_DOT3)-dot3 \
 	--$(call ptx/endis, PTXCONF_LLDPD_CUSTOM_TLV)-custom \
 	--$(call ptx/endis, PTXCONF_LLDPD_OLDIES)-oldies \
+	--without-embedded-libevent \
+	--with-readline \
 	--$(call ptx/wwo, PTXCONF_LLDPD_SNMP)-snmp \
-	--$(call ptx/wwo, PTXCONF_LLDPD_JSON)-json \
 	--$(call ptx/wwo, PTXCONF_LLDPD_XML)-xml \
+	--without-seccomp \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-privsep-user="$(PTXCONF_LLDPD_PRIVSEP_USER)" \
 	--with-privsep-group="$(PTXCONF_LLDPD_PRIVSEP_GROUP)" \

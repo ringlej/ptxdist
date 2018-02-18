@@ -23,7 +23,7 @@ LIBQMI_SUFFIX	:= tar.xz
 LIBQMI_URL	:= http://www.freedesktop.org/software/libqmi/$(LIBQMI).$(LIBQMI_SUFFIX)
 LIBQMI_SOURCE	:= $(SRCDIR)/$(LIBQMI).$(LIBQMI_SUFFIX)
 LIBQMI_DIR	:= $(BUILDDIR)/$(LIBQMI)
-LIBQMI_LICENSE	:= GPL-2.0+, LGPL-2.1+
+LIBQMI_LICENSE	:= GPL-2.0+ AND LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare

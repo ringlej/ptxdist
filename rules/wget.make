@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WGET) += wget
 #
 # Paths and names
 #
-WGET_VERSION	:= 1.11.4
-WGET_MD5	:= 69e8a7296c0e12c53bd9ffd786462e87
+WGET_VERSION	:= 1.19.1
+WGET_MD5	:= 87cea36b7161fd43e3fd51a4e8b89689
 WGET		:= wget-$(WGET_VERSION)
 WGET_SUFFIX	:= tar.gz
 WGET_URL	:= $(call ptx/mirror, GNU, wget/$(WGET).$(WGET_SUFFIX))
@@ -39,9 +39,31 @@ WGET_ENV := \
 #
 WGET_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-opie \
+	--enable-digest \
+	--disable-ntlm \
+	--enable-debug \
+	--disable-valgrind-tests \
+	--enable-assert \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-threads=posix \
+	--disable-nls \
+	--disable-rpath \
 	$(GLOBAL_IPV6_OPTION) \
-	--without-socks \
-	--without-ssl
+	--disable-iri \
+	--disable-pcre \
+	--disable-xattr \
+	--without-libpsl \
+	--without-ssl \
+	--without-zlib \
+	--with-metalink \
+	--without-cares \
+	--without-openssl \
+	--with-included-libunistring \
+	--without-included-regex \
+	--with-libidn=/usr \
+	--without-libuuid
+
 
 # ----------------------------------------------------------------------------
 # Target-Install

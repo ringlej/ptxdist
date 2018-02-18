@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-argp-fmtstream.h-Force-inlining-of-extern-inline-fun.patch
 0002-set-and-use-LDFLAGS.patch
-# 2f6c634f07e60a324a5c4230b566fa54  - git-ptx-patches magic
+0003-Don-t-include-xlocale.h.patch
+# 372be4295bac0da8e084aba7918b9092  - git-ptx-patches magic

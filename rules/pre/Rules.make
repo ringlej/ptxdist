@@ -319,6 +319,11 @@ HOST_CMAKE_OPT_SYSROOT := \
 	-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 	-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'
 
+HOST_MESON_OPT := \
+	-Dprefix=/ \
+	--backend ninja \
+	--buildtype debugoptimized
+
 # ----------------------------------------------------------------------------
 # HOST_CROSS stuff
 # ----------------------------------------------------------------------------

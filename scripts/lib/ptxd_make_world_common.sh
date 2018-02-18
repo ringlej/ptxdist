@@ -250,7 +250,6 @@ ptxd_make_world_init() {
     if [ -d "$(readlink -f "${wip_sources}")" ]; then
 	pkg_url="file://${wip_sources}"
 	unset pkg_src
-	pkg_pkg=${pkg_pkg}-wip # don't apply patches
     fi
     unset wip_sources
 
@@ -316,7 +315,19 @@ ptxd_make_world_init() {
 
 	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
 	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env}"
-	    pkg_env="${pkg_env} LC_ALL='C.UTF-8'"
+
+	    # Try to find a suitable UTF-8 locale on all distros
+	    local c_locale
+	    if c_locale=$(locale -a | grep -i -m 1 "^C\.utf[-]\?8$") || \
+	       c_locale=$(locale -a | grep -i -m 1 "^en_US\.utf[-]\?8$") || \
+	       c_locale=$(locale -a | grep -i -m 1 "^en_.*\.utf[-]\?8$"); then
+		pkg_env="${pkg_env} LC_ALL='${c_locale}'"
+	    else
+		ptxd_warning "Failed to find a good UTF-8 locale for meson."
+		pkg_env="${pkg_env} LC_ALL='$(locale -a | grep -i -m 1 "\.utf[-]\?8")'"
+	    fi
+	    unset c_locale
+
 	    if [ "${PTXDIST_VERBOSE}" = "1" ]; then
 		pkg_make_opt="-v ${pkg_make_opt}"
 		pkg_install_opt="-v ${pkg_install_opt}"

@@ -89,7 +89,7 @@ AC_DEFUN([CC_CHECK_LDFLAGS], [
     AS_TR_SH([cc_cv_ldflags_$1]),
     [ac_save_LDFLAGS="$LDFLAGS"
      LDFLAGS="$LDFLAGS $1"
-     AC_LINK_IFELSE([int main() { return 1; }],
+     AC_LINK_IFELSE(AC_LANG_SOURCE([int main(void); int main() { return 1; }]),
        [eval "AS_TR_SH([cc_cv_ldflags_$1])='yes'"],
        [eval "AS_TR_SH([cc_cv_ldflags_$1])="])
      LDFLAGS="$ac_save_LDFLAGS"
@@ -165,35 +165,35 @@ AC_DEFUN([CC_CHECK_ATTRIBUTE], [
 AC_DEFUN([CC_ATTRIBUTE_CONSTRUCTOR], [
   CC_CHECK_ATTRIBUTE(
     [constructor],,
-    [void __attribute__((constructor)) ctor() { int a; }],
+    [void ctor(void); void __attribute__((constructor)) ctor() { int a; }],
     [$1], [$2])
 ])
 
 AC_DEFUN([CC_ATTRIBUTE_FORMAT], [
   CC_CHECK_ATTRIBUTE(
     [format], [format(printf, n, n)],
-    [void __attribute__((format(printf, 1, 2))) printflike(const char *fmt, ...) { fmt = (void *)0; }],
+    [void printflike(const char*, ...); void __attribute__((format(printf, 1, 2))) printflike(const char *fmt, ...) { fmt = (void *)0; }],
     [$1], [$2])
 ])
 
 AC_DEFUN([CC_ATTRIBUTE_FORMAT_ARG], [
   CC_CHECK_ATTRIBUTE(
     [format_arg], [format_arg(printf)],
-    [char *__attribute__((format_arg(1))) gettextlike(const char *fmt) { fmt = (void *)0; }],
+    [char *gettextlike(const char*); char *__attribute__((format_arg(1))) gettextlike(const char *fmt) { fmt = (void *)0; }],
     [$1], [$2])
 ])
 
 AC_DEFUN([CC_ATTRIBUTE_VISIBILITY], [
   CC_CHECK_ATTRIBUTE(
     [visibility_$1], [visibility("$1")],
-    [void __attribute__((visibility("$1"))) $1_function() { }],
+    [void $1_function(void); void __attribute__((visibility("$1"))) $1_function() { }],
     [$2], [$3])
 ])
 
 AC_DEFUN([CC_ATTRIBUTE_NONNULL], [
   CC_CHECK_ATTRIBUTE(
     [nonnull], [nonnull()],
-    [void __attribute__((nonnull())) some_function(void *foo, void *bar) { foo = (void*)0; bar = (void*)0; }],
+    [void some_function(void*, void*); void __attribute__((nonnull())) some_function(void *foo, void *bar) { foo = (void*)0; bar = (void*)0; }],
     [$1], [$2])
 ])
 
@@ -221,7 +221,7 @@ AC_DEFUN([CC_ATTRIBUTE_DEPRECATED], [
 AC_DEFUN([CC_ATTRIBUTE_ALIAS], [
   CC_CHECK_ATTRIBUTE(
     [alias], [weak, alias],
-    [void other_function(void *foo) { }
+    [void other_function(void*); void other_function(void *foo) { }
      void some_function(void *foo) __attribute__((weak, alias("other_function")));],
     [$1], [$2])
 ])
@@ -243,7 +243,28 @@ AC_DEFUN([CC_ATTRIBUTE_PACKED], [
 AC_DEFUN([CC_ATTRIBUTE_CONST], [
   CC_CHECK_ATTRIBUTE(
     [const], ,
-    [int __attribute__((const)) twopow(int n) { return 1 << n; } ],
+    [int twopow(int); int __attribute__((const)) twopow(int n) { return 1 << n; } ],
+    [$1], [$2])
+])
+
+AC_DEFUN([CC_ATTRIBUTE_PURE], [
+  CC_CHECK_ATTRIBUTE(
+    [pure], ,
+    [int twopow(int); int __attribute__((pure)) twopow(int n) { return 1 << n; } ],
+    [$1], [$2])
+])
+
+AC_DEFUN([CC_ATTRIBUTE_NORETURN], [
+  CC_CHECK_ATTRIBUTE(
+    [noreturn], ,
+    [void twopow(int); void __attribute__((noreturn)) twopow(int n) { while(1); } ],
+    [$1], [$2])
+])
+
+AC_DEFUN([CC_ATTRIBUTE_CLEANUP], [
+  CC_CHECK_ATTRIBUTE(
+    [cleanup], ,
+    [void clean_up(char **p) { *p = (void*)0; } void test(void) { __attribute__((cleanup(clean_up))) char *p; } ],
     [$1], [$2])
 ])
 
@@ -272,7 +293,7 @@ AC_DEFUN([CC_FUNC_EXPECT], [
     [ac_save_CFLAGS="$CFLAGS"
      CFLAGS="$CFLAGS $cc_cv_werror"
      AC_COMPILE_IFELSE([AC_LANG_SOURCE(
-       [int some_function() {
+       [int some_function(void); int some_function() {
         int a = 3;
         return (int)__builtin_expect(a, 3);
 	}])],
@@ -296,6 +317,7 @@ AC_DEFUN([CC_ATTRIBUTE_ALIGNED], [
      CFLAGS="$CFLAGS $cc_cv_werror"
      for cc_attribute_align_try in 64 32 16 8 4 2; do
         AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+          int main(void);
           int main() {
             static char c __attribute__ ((aligned($cc_attribute_align_try))) = 0;
             return c;

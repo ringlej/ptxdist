@@ -36,6 +36,7 @@ kconfig:
 	$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" \
 		CONF_LIBS="@CONF_LIBS@" \
 		MCONF_LIBS="@MCONF_LIBS@" \
+		NCONF_LIBS="@NCONF_LIBS@" \
 		CURSES_LOC="@CURSES_LOC@" \
 		conf mconf $(NCONF)
 	@echo "done."
@@ -76,9 +77,13 @@ environment:
 	@echo " done"
 
 man: man/ptxdist.1.gz
-man/ptxdist.1.gz: doc/ptxdist.man doc/ref_parameter.inc
+man/ptxdist.1: doc/ptxdist.man doc/ref_parameter.inc
 	@mkdir -pv man
-	$(RST2MAN) $< 2>/dev/null | gzip > $@
+	$(RST2MAN) $< $@
+
+.INTERMEDIATE: man/ptxdist.1
+man/ptxdist.1.gz: man/ptxdist.1
+	gzip $<
 
 clean:
 	@rm -f .done

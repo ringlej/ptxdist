@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 #
 # Paths and names
 #
-OPKG_VERSION	:= 0.3.0
-OPKG_MD5	:= 3412cdc71d78b98facc84b19331ec64e
+OPKG_VERSION	:= 0.3.5
+OPKG_MD5	:= d202d09ea0932943071b842626cab13c
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
 OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFIX)
@@ -37,14 +37,18 @@ OPKG_CONF_TOOL	:= autoconf
 OPKG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-static \
 	--disable-libopkg-api \
+	--disable-static \
 	--$(call ptx/endis, PTXCONF_OPKG_PATHFINDER)-pathfinder \
+	--disable-xz \
+	--disable-bzip2 \
 	--$(call ptx/endis, PTXCONF_OPKG_CURL)-curl \
 	--$(call ptx/endis, PTXCONF_OPKG_SHA256)-sha256 \
 	--$(call ptx/endis, PTXCONF_OPKG_OPENSSL)-openssl \
 	--$(call ptx/endis, PTXCONF_OPKG_SSL_CURL)-ssl-curl \
-	--$(call ptx/endis, PTXCONF_OPKG_GPG)-gpg
+	--$(call ptx/endis, PTXCONF_OPKG_GPG)-gpg \
+	--without-libsolv \
+	--without-static-libopkg
 
 # ----------------------------------------------------------------------------
 # Target-Install

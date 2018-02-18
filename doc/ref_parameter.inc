@@ -313,3 +313,6 @@ Options
   the correct PTXdist version in the ptxconfig file and execute it if it
   does not match the current version.
 
+``--virtualenv=<dir>``
+  inlcude a Python Virtual Environment. The given path must contain a
+  ``bin/activate`` shell script.

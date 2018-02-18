@@ -438,13 +438,14 @@ ptxd_filter_dir() {
 
 	mkdir -p "${dstdir}" &&
 
-	tar -C "${srcdir}" -c . \
+	tar -c -C "${srcdir}" \
 		--exclude .svn \
 		--exclude .pc \
 		--exclude .git \
 		--exclude "*.in" \
 		--exclude "*.in.*" \
 		--exclude "*/*~" \
+		. \
 		| tar -C "${dstdir}" -x
 	check_pipe_status || return
 
@@ -646,6 +647,18 @@ ptxd_abs2rel() {
 }
 export -f ptxd_abs2rel
 
+#
+# Converts a file URL into an absolute path
+#
+ptxd_file_url_path() {
+    local url="${1//file:\/\//}"
+    if [[ ! "${url}" =~ ^/ ]]; then
+	    # relative to absolute path
+	    url="${PTXDIST_WORKSPACE}/${url}"
+    fi
+    echo "${url}"
+}
+export -f ptxd_file_url_path
 
 #
 # prints a path but removes non interesting prefixes

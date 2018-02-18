@@ -85,18 +85,18 @@ config BUSYBOX_PIDOF
 	  those id's on the standard output.
 
 config BUSYBOX_FEATURE_PIDOF_SINGLE
-	bool "Enable argument for single shot (-s)"
+	bool "Enable single shot (-s)"
 	default y
 	depends on BUSYBOX_PIDOF
 	help
-	  Support argument '-s' for returning only the first pid found.
+	  Support '-s' for returning only the first pid found.
 
 config BUSYBOX_FEATURE_PIDOF_OMIT
-	bool "Enable argument for omitting pids (-o)"
+	bool "Enable omitting pids (-o PID)"
 	default y
 	depends on BUSYBOX_PIDOF
 	help
-	  Support argument '-o' for omitting the given pids in output.
+	  Support '-o PID' for omitting the given pid(s) in output.
 	  The special pid %PPID can be used to name the parent process
 	  of the pidof, in other words the calling shell or shell script.
 config BUSYBOX_PMAP
@@ -109,6 +109,14 @@ config BUSYBOX_POWERTOP
 	default y
 	help
 	  Analyze power consumption on Intel-based laptops
+
+config BUSYBOX_FEATURE_POWERTOP_INTERACTIVE
+	bool "Accept keyboard commands"
+	default y
+	depends on BUSYBOX_POWERTOP
+	help
+	  Without this, powertop will only refresh display every 10 seconds.
+	  No keyboard commands will work, only ^C to terminate.
 config BUSYBOX_PS
 	bool "ps"
 	default y
@@ -133,19 +141,10 @@ config BUSYBOX_FEATURE_PS_LONG
 	  Adds fields PPID, RSS, START, TIME & TTY
 
 config BUSYBOX_FEATURE_PS_TIME
-	bool "Enable time and elapsed time output"
+	bool "Support -o time and -o etime output specifiers"
 	default y
 	depends on BUSYBOX_PS && BUSYBOX_DESKTOP
 	select BUSYBOX_PLATFORM_LINUX
-	help
-	  Support -o time and -o etime output specifiers.
-
-config BUSYBOX_FEATURE_PS_ADDITIONAL_COLUMNS
-	bool "Enable additional ps columns"
-	default y
-	depends on BUSYBOX_PS && BUSYBOX_DESKTOP
-	help
-	  Support -o rgroup, -o ruser, -o nice output specifiers.
 
 config BUSYBOX_FEATURE_PS_UNUSUAL_SYSTEMS
 	bool "Support Linux prior to 2.4.0 and non-ELF systems"
@@ -154,6 +153,11 @@ config BUSYBOX_FEATURE_PS_UNUSUAL_SYSTEMS
 	help
 	  Include support for measuring HZ on old kernels and non-ELF systems
 	  (if you are on Linux 2.4.0+ and use ELF, you don't need this)
+
+config BUSYBOX_FEATURE_PS_ADDITIONAL_COLUMNS
+	bool "Support -o rgroup, -o ruser, -o nice specifiers"
+	default y
+	depends on BUSYBOX_PS && BUSYBOX_DESKTOP
 config BUSYBOX_PSTREE
 	bool "pstree"
 	default y
@@ -164,12 +168,6 @@ config BUSYBOX_PWDX
 	default y
 	help
 	  Report current working directory of a process
-config BUSYBOX_RENICE
-	bool "renice"
-	default y
-	help
-	  Renice alters the scheduling priority of one or more running
-	  processes.
 config BUSYBOX_SMEMCAP
 	bool "smemcap"
 	default y
@@ -187,6 +185,14 @@ config BUSYBOX_TOP
 	help
 	  The top program provides a dynamic real-time view of a running
 	  system.
+
+config BUSYBOX_FEATURE_TOP_INTERACTIVE
+	bool "Accept keyboard commands"
+	default y
+	depends on BUSYBOX_TOP
+	help
+	  Without this, top will only refresh display every 5 seconds.
+	  No keyboard commands will work, only ^C to terminate.
 
 config BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
 	bool "Show CPU per-process usage percentage"
@@ -244,11 +250,11 @@ config BUSYBOX_UPTIME
 	  on, and the system load averages for the past 1, 5, and 15 minutes.
 
 config BUSYBOX_FEATURE_UPTIME_UTMP_SUPPORT
-	bool "Support for showing the number of users"
+	bool "Show the number of users"
 	default y
 	depends on BUSYBOX_UPTIME && BUSYBOX_FEATURE_UTMP
 	help
-	  Makes uptime display the number of users currently logged on.
+	  Display the number of users currently logged on.
 config BUSYBOX_WATCH
 	bool "watch"
 	default y
@@ -257,7 +263,7 @@ config BUSYBOX_WATCH
 	  output to the screen.
 
 config BUSYBOX_FEATURE_SHOW_THREADS
-	bool "Support for showing threads in ps/pstree/top"
+	bool "Support thread display in ps/pstree/top"
 	default y
 	depends on BUSYBOX_PS || BUSYBOX_TOP || BUSYBOX_PSTREE
 	help

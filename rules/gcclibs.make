@@ -21,6 +21,8 @@ GCCLIBS_VERSION	:= unknown
 else
 GCCLIBS_VERSION	:= $(shell $(CROSS_CC) -dumpversion)
 endif
+# for license information
+-include $(PTXDIST_PLATFORMDIR)/selected_toolchain/../share/compliance/gcclibs.make
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -41,6 +43,10 @@ endif
 
 ifdef PTXCONF_GCCLIBS_CXX
 	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so)
+endif
+
+ifdef PTXCONF_GCCLIBS_ATOMIC
+	@$(call install_copy_toolchain_lib, gcclibs, libatomic.so)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCJ

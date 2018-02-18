@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 
 config DCONF
 	tristate
@@ -11,3 +13,6 @@ config DCONF
 	  dconf is a low-level configuration system. Its main purpose is to
 	  provide a backend to GSettings on platforms that don't already have
 	  configuration storage systems.
+
+	  STAGING: remove in ptxdist-2019.02.0
+	  Really old version that needs updating and fails to build.

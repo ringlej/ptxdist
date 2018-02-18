@@ -23,7 +23,7 @@ GLEW_SUFFIX	:= tgz
 GLEW_URL	:= $(call ptx/mirror, SF, glew/$(GLEW_VERSION)/$(GLEW).$(GLEW_SUFFIX))
 GLEW_SOURCE	:= $(SRCDIR)/$(GLEW).$(GLEW_SUFFIX)
 GLEW_DIR	:= $(BUILDDIR)/$(GLEW)
-GLEW_LICENSE	:= BSD-3-Clause, MIT
+GLEW_LICENSE	:= BSD-3-Clause AND MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

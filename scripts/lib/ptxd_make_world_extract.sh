@@ -42,7 +42,7 @@ ptxd_make_world_extract() {
 	    fi
 	    ;;
 	file://*)
-	    local url="${pkg_url//file:\/\//}"
+	    local url="$(ptxd_file_url_path "${pkg_url}")"
 	    if [ -d "${url}" ]; then
 		echo "local directory instead of tar file, linking build dir"
 		ln -sf "$(ptxd_abspath "${url}")" "${pkg_dir}"

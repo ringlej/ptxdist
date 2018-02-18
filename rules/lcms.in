@@ -1,9 +1,18 @@
 ## SECTION=system_libraries
 
-config LCMS
+menuconfig LCMS
 	tristate
-	prompt "lcms"
+	prompt "lcms                          "
 	select LIBC_M
 	help
 	  LittleCMS intends to be a small-footprint, speed
 	  optimized color management engine in open source form.
+
+if LCMS
+
+config LCMS_BIN
+	bool "install tools"
+	help
+	  Install transicc, psicc, linkicc
+
+endif

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 #
 # Paths and names
 #
-LIGHTTPD_VERSION	:= 1.4.39
-LIGHTTPD_MD5		:= 63c7563be1c7a7a9819a51f07f1af8b2
+LIGHTTPD_VERSION	:= 1.4.45
+LIGHTTPD_MD5		:= a128e1eda76899ce3fd115efae5fe631
 LIGHTTPD		:= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX		:= tar.xz
 LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
@@ -36,28 +36,42 @@ LIGHTTPD_LICENSE	:= BSD-3-Clause
 LIGHTTPD_CONF_TOOL	:= autoconf
 LIGHTTPD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--runstatedir=/run \
 	--libdir=/usr/lib/lighttpd \
 	--$(call ptx/endis, PTXCONF_GLOBAL_LARGE_FILE)-lfs \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-mmap \
+	--enable-extra-warnings \
 	--without-libev \
 	--without-mysql \
 	--without-ldap \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ATTR)-attr \
 	--without-valgrind \
 	--without-libunwind \
+	--without-krb5 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_OPENSSL)-openssl \
-	--without-kerberos5 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_PCRE)-pcre \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ZLIB)-zlib \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_BZ2LIB)-bzip2 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_FAM)-fam \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_PROPS)-webdav-props \
+	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_PROPS)-libxml \
+	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_PROPS)-sqlite \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_LOCKS)-webdav-locks \
+	--$(call ptx/wwo, PTXCONF_LIGHTTPD_WEBDAV_LOCKS)-uuid \
 	--without-gdbm \
-	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MEMCACHE)-memcache \
+	--without-geoip \
+	--$(call ptx/wwo, PTXCONF_LIGHTTPD_MEMCACHED)-memcached \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_LUA)-lua
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+$(STATEDIR)/lighttpd.install:
+	@$(call targetinfo)
+	@$(call world/install, LIGHTTPD)
+	@install -vD -m 0644 "$(LIGHTTPD_DIR)/doc/config/conf.d/mime.conf" \
+		"$(LIGHTTPD_PKGDIR)/etc/lighttpd/conf.d/mime.conf"
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -68,6 +82,7 @@ LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_ACCESS)		+= mod_access
 LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_ACCESSLOG)	+= mod_accesslog
 LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_ALIAS)		+= mod_alias
 LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_AUTH)		+= mod_auth
+LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_AUTH)		+= mod_authn_file
 LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_CML)		+= mod_cml
 LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_COMPRESS)	+= mod_compress
 LIGHTTPD_MODULES-$(PTXCONF_LIGHTTPD_MOD_FASTCGI)	+= mod_fastcgi
@@ -113,6 +128,8 @@ endif
 	@$(call install_copy, lighttpd, 0, 0, 0755, /etc/lighttpd/conf.d)
 	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
 		@MODULES@, $(LIGHTTPD_MODULE_STRING))
+	@$(call install_alternative, lighttpd, 0, 0, 0644, \
+		/etc/lighttpd/conf.d/mime.conf)
 
 ifdef PTXCONF_LIGHTTPD_MOD_FASTCGI_PHP
 	@$(call install_alternative, lighttpd, 0, 0, 0644, \

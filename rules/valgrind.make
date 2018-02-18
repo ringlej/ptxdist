@@ -60,6 +60,7 @@ endif
 VALGRIND_CONF_TOOL	:= autoconf
 VALGRIND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--without-mpicc \
 	--enable-tls
 
 # ----------------------------------------------------------------------------

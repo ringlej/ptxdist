@@ -89,7 +89,6 @@ ptxd_make_get_http() {
 		--connect-timeout 30 \
 		--retry 5 \
 		--user-agent "PTXdist ${PTXDIST_VERSION_FULL}" \
-		${PTXDIST_QUIET:+--silent} \
 		"${curl_opts[@]}" \
 		-o /dev/null \
 		--dump-header "${temp_header}" \
@@ -98,7 +97,7 @@ ptxd_make_get_http() {
 		--head \
 		--request GET \
 		"${url}" &&
-		if grep -q "content-type:text/html" "${temp_header}"; then
+		if grep -i "content-type:" "${temp_header}" | tail -n 1 | grep -q "text/html"; then
 		    ptxd_bailout "Got HTML file"
 		fi
 		ptxd_make_serialize_put

@@ -3,23 +3,36 @@
 menuconfig POPPLER
 	tristate
 	prompt "poppler                       "
+	select HOST_CMAKE
 	select FONTCONFIG
+	select FREETYPE
+	select LIBC_PTHREAD
 	select HOST_GETTEXT
-	select GLIB		if POPPLER_GLIB
-	select LIBPNG		if POPPLER_PNG
-	select LIBJPEG		if POPPLER_JPEG
-	select CAIRO		if POPPLER_CAIRO
-	select GTK		if POPPLER_SPLASH && POPPLER_GLIB
-	select ZLIB		if POPPLER_ZLIB
-	select LIBCURL		if POPPLER_CURL
-	select LCMS		if POPPLER_CMS
-	select QT4		if POPPLER_QT4
-	select QT4_BUILD_GUI	if POPPLER_QT4
-	select QT4_BUILD_XML	if POPPLER_QT4
+	select POPPLER_DATA			if POPPLER_WITH_DATA
+	select GLIB				if POPPLER_GLIB
+	select HOST_GLIB			if POPPLER_GLIB
+	select GOBJECT_INTROSPECTION		if POPPLER_INTROSPECTION
+	select LIBPNG				if POPPLER_PNG
+	select LIBJPEG				if POPPLER_JPEG
+	select CAIRO				if POPPLER_CAIRO
+	select CAIRO_FREETYPE			if POPPLER_CAIRO
+	select ZLIB				if POPPLER_ZLIB
+	select LIBCURL				if POPPLER_CURL
+	select LCMS				if POPPLER_CMS
+	select QT4				if POPPLER_QT4
+	select QT4_BUILD_GUI			if POPPLER_QT4
+	select QT4_BUILD_XML			if POPPLER_QT4
+	select QT4_BUILD_QTESTLIB		if POPPLER_QT4
+	select QT5				if POPPLER_QT5
+	select QT5_GUI				if POPPLER_QT5
+	select QT5_MODULE_QTBASE		if POPPLER_QT5
+	select QT5_MODULE_QTBASE_WIDGETS	if POPPLER_QT5
 	help
 	  Poppler is a PDF rendering library based on the xpdf-3.0 code base.
 
 if POPPLER
+
+comment "--- Install components ---"
 
 config POPPLER_BIN
 	bool
@@ -29,65 +42,139 @@ config POPPLER_BIN
 	  pdffonts, pdfimages, pdfinfo, pdftoabw, pdftohtml, pdftoppm, pdftops,
 	  pdftotext.
 
+config POPPLER_XPDF
+	bool
+
+config POPPLER_WITH_DATA
+	bool
+	prompt "install poppler-data"
+	help
+	  poppler-data contains the encoding files which enable poppler to
+	  correctly render CJK and Cyrillic.
+
+comment "--- Wrappers ---"
+
+config POPPLER_CPP
+	bool
+	prompt "enable CPP wrapper"
+
 config POPPLER_GLIB
 	select POPPLER_CAIRO
 	bool
-	prompt "enable poppler glib wrapper"
+	prompt "enable Glib wrapper"
 	help
 	  build poppler glib wrapper.
 
+config POPPLER_INTROSPECTION
+	select POPPLER_GLIB
+	default GOBJECT_INTROSPECTION_HELPER
+	bool
+
 config POPPLER_QT4
 	bool
-	prompt "enable poppler Qt4 wrapper"
+	prompt "enable Qt4 wrapper"
 	help
 	  build poppler Qt4 wrapper.
 
-comment "least one graphics backend should be selected"
+config POPPLER_QT5
+	bool
+	prompt "enable Qt5 wrapper"
+	help
+	  build poppler Qt5 wrapper.
+
+comment "--- Rendering Backends ---"
+
+comment "at least one rendering backend should be selected"
 	depends on !(POPPLER_CAIRO || POPPLER_SPLASH)
 
 config POPPLER_CAIRO
 	bool
-	prompt "enable poppler cairo graphics backend"
+	prompt "enable cairo backend"
 	help
-	  built cairo graphics backend
+	  build cairo graphics backend
 
 config POPPLER_SPLASH
 	bool
-	prompt "enable poppler Splash graphics backend"
+	prompt "enable Splash backend"
 	help
-	  build splash graphics backend
+	  build the Splash graphics backend
+
+if POPPLER_SPLASH
+
+config POPPLER_SPLASH_CMYK
+	bool
+	prompt "enable CMYK raster support"
+
+config POPPLER_SPLASH_SINGLE
+	bool
+	prompt "use single precision float arithmetic"
+	help
+	  Use single precision instead of double precision floating point
+	  arithmetic in Splash backend
+
+config POPPLER_SPLASH_FIXED
+	bool
+	prompt "use fixed point arithmetic"
+	depends on !POPPLER_SPLASH_SINGLE
+	help
+	  If enabled, the Splash backend will use floating point operations
+	  instead of fixed-point arithmetic.
+
+endif # POPPLER_SPLASH
+
+comment "--- Features --- "
 
 config POPPLER_PNG
 	bool
-	# fails to build with the current libpng
-	depends on BROKEN
-	prompt "enable poppler png support"
+	prompt "enable PNG support"
 	help
-	  compiles poppler with png support.
+	  compile poppler with png support via libpng
 
 config POPPLER_JPEG
 	bool
-	depends on BROKEN
-	prompt "enable poppler jpeg support"
+	prompt "enable JPEG support"
 	help
-	  compiles poppler with jpeg support.
+	  compile poppler with jpeg support via libjpeg
+
+config POPPLER_OPENJPEG
+	bool
+	depends on BROKEN
+	prompt "enable JPEG2000 support"
+	help
+	  compile poppler with jpeg2000 (JPX) support via libopenjpeg
+
+config POPPLER_TIFF
+	bool
+	depends on BROKEN
+	prompt "enable TIFF support"
+	help
+	  compile poppler with support for TIFF via libtiff
+
+config POPPLER_NSS
+	bool
+	depends on BROKEN
+	prompt "enable NSS support"
+	help
+	  compile poppler with support for signed PDFs via libnss
 
 config POPPLER_ZLIB
 	bool
-	prompt "enable poppler zlib support"
+	prompt "enable zlib support"
 	help
-	  compiles poppler with zlib support.
+	  compile poppler with zlib support.
 
 config POPPLER_CURL
 	bool
-	prompt "enable poppler curl support"
+	prompt "enable curl support"
 	help
-	  compiles poppler with curl support.
+	  compile poppler with libcurl support.
 
 config POPPLER_CMS
 	bool
-	prompt "enable poppler cms support"
+	prompt "enable color management support"
 	help
-	  compiles poppler with color management system support.
+	  compile poppler with color management support via libcms
 
 endif
+
+# vim: ft=kconfig ts=8 noet tw=80

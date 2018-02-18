@@ -23,6 +23,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PROTOBUF) += host-protobuf
 HOST_PROTOBUF_CONF_TOOL	:= autoconf
 HOST_PROTOBUF_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--disable-64bit-solaris \
 	--disable-static \
 	--without-zlib
 

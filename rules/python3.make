@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PYTHON3) += python3
 #
 # Paths and names
 #
-PYTHON3_VERSION		:= 3.5.3
-PYTHON3_MD5		:= 57d1f8bfbabf4f2500273fb0706e6f21
+PYTHON3_VERSION		:= 3.5.4
+PYTHON3_MD5		:= fb2780baa260b4e51cbea814f111f303
 PYTHON3_MAJORMINOR	:= $(basename $(PYTHON3_VERSION))
 PYTHON3_SITEPACKAGES	:= /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages
 PYTHON3			:= Python-$(PYTHON3_VERSION)
@@ -153,7 +153,7 @@ $(STATEDIR)/python3.targetinstall:
 		*.so *.pyc, */test */tests */__pycache__ $(PYTHON3_SKIP-y))
 
 	@$(call install_copy, python3, 0, 0, 755, -, /usr/bin/python$(PYTHON3_MAJORMINOR))
-	@$(call install_link, python3, python$(PYTHON_MAJORMINOR), /usr/bin/python3)
+	@$(call install_link, python3, python$(PYTHON3_MAJORMINOR), /usr/bin/python3)
 	@$(call install_lib, python3, 0, 0, 644, libpython$(PYTHON3_MAJORMINOR)m)
 
 ifdef PTXCONF_PYTHON3_SYMLINK
