@@ -263,6 +263,9 @@ CROSS_MESON_USR := \
 	--buildtype debugoptimized \
 	--cross-file '${PTXDIST_MESON_CROSS_FILE}'
 
+CROSS_MESON_ENV = \
+	$(HOST_ENV_PROGS)
+
 ifdef PTXCONF_GLOBAL_IPV6
 GLOBAL_IPV6_OPTION := --enable-ipv6
 else
