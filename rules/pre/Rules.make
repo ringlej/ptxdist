@@ -144,8 +144,7 @@ CROSS_LIB_DIR   := $(shell ptxd_get_lib_dir)
 #
 CROSS_ENV_PKG_CONFIG := \
 	SYSROOT="$(PTXDIST_SYSROOT_TARGET)" \
-	$(PTXDIST_CROSS_ENV_PKG_CONFIG) \
-	PKG_CONFIG="$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
+	$(PTXDIST_CROSS_ENV_PKG_CONFIG)
 
 #
 # The ac_cv_* variables are needed to tell configure scripts not to
