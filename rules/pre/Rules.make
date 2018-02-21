@@ -287,8 +287,18 @@ endif
 
 HOST_PATH	:= $$PATH
 
+HOST_ENV_AC := \
+	enable_option_checking=fatal \
+	enable_maintainer_mode=no \
+	enable_static=no
+
 HOST_ENV_CC		:= CC="$(HOSTCC)"
 HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
+
+HOST_ENV_PROGS := \
+	$(HOST_ENV_CC) \
+	$(HOST_ENV_CXX)
+
 HOST_ENV_PKG_CONFIG	:= $(PTXDIST_HOST_ENV_PKG_CONFIG)
 
 HOST_ENV_PYTHONPATH	:= \
@@ -296,11 +306,8 @@ HOST_ENV_PYTHONPATH	:= \
 		print "%s" % sysconfig.get_python_lib(prefix="'"$(PTXDIST_SYSROOT_HOST)"'")')"
 
 HOST_ENV	:= \
-	enable_option_checking=fatal \
-	enable_maintainer_mode=no \
-	enable_static=no \
-	$(HOST_ENV_CC) \
-	$(HOST_ENV_CXX) \
+	$(HOST_ENV_AC) \
+	$(HOST_ENV_PROGS) \
 	$(HOST_ENV_PKG_CONFIG) \
 	$(HOST_ENV_PYTHONPATH)
 
