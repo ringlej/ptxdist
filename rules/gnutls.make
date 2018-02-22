@@ -103,7 +103,9 @@ $(STATEDIR)/gnutls.targetinstall:
 	@$(call install_fixup, gnutls,DESCRIPTION,missing)
 
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls)
+ifdef PTXCONF_GNUTLS_CXX
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutlsxx)
+endif
 
 ifdef PTXCONF_GNUTLS_OPENSSL
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls-openssl)
