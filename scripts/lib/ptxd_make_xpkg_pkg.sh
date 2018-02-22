@@ -883,7 +883,10 @@ ptxd_install_lib() {
     fi
 
     local file="$(for dir in "${pkg_pkg_dir}"${root_dir}{/,/usr/}${lib_dir}; do
-	    find "${dir}" -type f -path "${dir}/${lib}.so*" ! -name "*.debug"; done 2>/dev/null)"
+	    find "${dir}" -type f -path "${dir}/${lib}.so*" ! -name "*.debug"; done 2>/dev/null \
+	    | while read f; do
+		grep -q '^INPUT(' "${f}" || echo "${f}"
+	    done)"
 
     if [ ! -f "${file}" ]; then
 	ptxd_install_error "ptxd_lib_install: cannot find library '${lib}'!"
