@@ -22,12 +22,13 @@ HOST_LIBLZO_DIR	= $(HOST_BUILDDIR)/$(LIBLZO)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_LIBLZO_PATH	:= PATH=$(HOST_PATH)
-HOST_LIBLZO_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_LIBLZO_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_LIBLZO_CONF_TOOL	:= autoconf
+HOST_LIBLZO_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--enable-shared \
+	--disable-static
 
 # vim: syntax=make
