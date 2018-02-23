@@ -187,14 +187,12 @@ ptxd_make_world_install_pack() {
 	done || return
     fi
 
+    # remove la files. They are not needed
+    find "${pkg_pkg_dir}" \( -type f -o -type l \) -name "*.la" -print0 | xargs -r -0 rm &&
+    check_pipe_status &&
+
     local pkg_sysroot_dir_nolink="$(readlink -f "${pkg_sysroot_dir}")" &&
     local pkg_build_dir_nolink="$(readlink -f "${pkg_build_dir}")" &&
-    # remove sysroot prefix from paths in la files
-    find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
-	sed -i \
-	-e "/^dependency_libs/s:\( \|-L\|-R\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" \
-	-e "/^libdir=/s:\(libdir='\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" &&
-    check_pipe_status &&
     find "${pkg_pkg_dir}" -name "*.prl" -print0 | xargs -r -0 -- \
 	sed -i -E \
 	-e "/^QMAKE_PRL_BUILD_DIR/d" \
@@ -232,10 +230,6 @@ ptxd_make_world_install_post() {
     if [ \! -d "${pkg_pkg_dir}" ]; then
 	return
     fi &&
-    # prefix paths in la files with sysroot
-    find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
-	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
-    check_pipe_status &&
 
     # fix *-config and copy into sysroot_cross for target packages
     local config &&
