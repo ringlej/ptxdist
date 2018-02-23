@@ -2,6 +2,6 @@
 
 config HOST_CHRPATH
 	tristate
-	default ALLYES
+	default y
 	help
 	  Tool to change the rpath of a ELF binary.
