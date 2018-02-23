@@ -39,6 +39,7 @@ PCMCIAUTILS_COMPILE_ENV := \
 
 PCMCIAUTILS_MAKEVARS := \
 	prefix=/usr \
+	mandir=/usr/share/man \
 	CROSS=$(COMPILER_PREFIX) \
 	V=1 \
 	STRIP=echo \
