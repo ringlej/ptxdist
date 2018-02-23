@@ -139,16 +139,7 @@ ptxd_make_world_install_unpack() {
     fi &&
     rm -rf -- "${pkg_pkg_dir}" &&
     mkdir -p -- "${ptx_pkg_dir}" &&
-    tar -x -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dev_dir}/${pkg_pkg_dev}" &&
-
-    # fix rpaths in host/cross tools
-    if [ "${pkg_type}" != "target" ]; then
-	find "${pkg_pkg_dir}" ! -type d -perm /111 -print | while read file; do
-	    if chrpath "${file}" > /dev/null 2>&1; then
-		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
-	    fi
-	done
-    fi
+    tar -x -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dev_dir}/${pkg_pkg_dev}"
 }
 export -f ptxd_make_world_install_unpack
 
@@ -182,6 +173,19 @@ ptxd_make_world_install_pack() {
     find "${pkg_pkg_dir}" -name "*.pc" -print0 | \
 	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk" &&
     check_pipe_status &&
+
+    # relocatable rpaths in host/cross tools
+    if [ "${pkg_type}" != "target" ]; then
+	find "${pkg_pkg_dir}" -type f -print | while read file; do
+	    if chrpath "${file}" >& /dev/null; then
+		local rel="$(ptxd_abs2rel "$(dirname "${file}")" "${pkg_pkg_dir}/lib")"
+		chmod +w "${file}" &&
+		if ! chrpath --replace "\${ORIGIN}/${rel}" "${file}" > /dev/null; then
+		    ptxd_bailout "Failed to adjust rpath for '${file}'"
+		fi
+	    fi
+	done || return
+    fi
 
     local pkg_sysroot_dir_nolink="$(readlink -f "${pkg_sysroot_dir}")" &&
     local pkg_build_dir_nolink="$(readlink -f "${pkg_build_dir}")" &&

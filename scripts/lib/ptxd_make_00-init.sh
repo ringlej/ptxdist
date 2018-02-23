@@ -331,7 +331,7 @@ ptxd_init_host_env() {
     ldflags=( \
 	"${ldflags[@]/#/-L}" \
 	"${ldflags[@]/#/-Wl,-rpath -Wl,}" \
-	"-Wl,-rpath" "-Wl,/this/is/a/long/path/to/make/host/tools/relocateable/with/chrpath/when/using/dev/packages"
+	'-Wl,-rpath,$ORIGIN/../lib:/with/some/extra/space'
     )
 
     export \
