@@ -184,6 +184,7 @@ ptxd_make_world_install_pack() {
     check_pipe_status &&
 
     local pkg_sysroot_dir_nolink="$(readlink -f "${pkg_sysroot_dir}")" &&
+    local pkg_build_dir_nolink="$(readlink -f "${pkg_build_dir}")" &&
     # remove sysroot prefix from paths in la files
     find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
 	sed -i \
@@ -191,8 +192,11 @@ ptxd_make_world_install_pack() {
 	-e "/^libdir=/s:\(libdir='\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" &&
     check_pipe_status &&
     find "${pkg_pkg_dir}" -name "*.prl" -print0 | xargs -r -0 -- \
-	sed -i \
-	-e "/^QMAKE_PRL_LIBS/s:\( \|-L\|-R\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" &&
+	sed -i -E \
+	-e "/^QMAKE_PRL_BUILD_DIR/d" \
+	-e "/^QMAKE_PRL_LIBS/s:(-L|-R)(${pkg_build_dir}|${pkg_build_dir_nolink})[^ ]* ::g" \
+	-e "/^QMAKE_PRL_LIBS/s:(-L|-R)(|${pkg_sysroot_dir}|${pkg_sysroot_dir_nolink}|${pkg_pkg_dir})/*(/lib|/usr/lib) ::g" \
+	-e "/^QMAKE_PRL_LIBS/s:(-L|-R)(|${pkg_sysroot_dir}|${pkg_sysroot_dir_nolink})/*(|/usr)/lib:\1\$\$[QT_INSTALL_LIBS]:g" &&
     check_pipe_status &&
     find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" -print0 | xargs -r -0 -- \
 	sed -i \
@@ -225,7 +229,7 @@ ptxd_make_world_install_post() {
 	return
     fi &&
     # prefix paths in la files with sysroot
-    find "${pkg_pkg_dir}" \( -name "*.la" -o -name "*.prl" \) -print0 | xargs -r -0 -- \
+    find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
 	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
     check_pipe_status &&
 
