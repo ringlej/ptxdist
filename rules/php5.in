@@ -47,6 +47,7 @@ config PHP5_SAPI_AOLSERVER
 
 config PHP5_SAPI_APXS2FILTER
 	bool
+	depends on STAGING
 	prompt "apxs2filter"
 	help
 	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
@@ -54,6 +55,7 @@ config PHP5_SAPI_APXS2FILTER
 
 config PHP5_SAPI_APXS2
 	bool
+	depends on STAGING
 	prompt "apache mod_php (apxs2)"
 	help
 	  Build shared Apache 2.0 Handler module.

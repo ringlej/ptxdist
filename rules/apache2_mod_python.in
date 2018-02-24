@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 config APACHE2_MOD_PYTHON
 	tristate
@@ -8,3 +10,6 @@ config APACHE2_MOD_PYTHON
 	help
 	  This module adds the python script language to the server
 	  to support dynamic website generation
+
+	  STAGING: remove in ptxdist-2019.03.0
+	  Apache was moved to staging.
