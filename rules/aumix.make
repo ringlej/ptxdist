@@ -29,6 +29,10 @@ AUMIX_LICENSE	:= GPL-2.0
 # Prepare
 # ----------------------------------------------------------------------------
 
+AUMIX_CONF_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_path_MSGMERGE=:
+
 #
 # autoconf
 #
