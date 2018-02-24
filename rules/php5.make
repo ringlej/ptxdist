@@ -259,7 +259,7 @@ ifdef PTXCONF_PHP5_EXT_SQLITE3
 PHP5_AUTOCONF += --with-sqlite3=$(PTXDIST_SYSROOT_TARGET)/usr --with-pdo-sqlite
 # broken config system: sqlite3 (local copy) uses it
 # but it is only linked to if used by external dependencies
-PHP5_CONF_ENV += PHP_LDFLAGS=-ldl
+PHP5_CONF_ENV += PHP_LDFLAGS="-ldl -lpthread"
 else
 PHP5_AUTOCONF += --without-sqlite3 --without-pdo-sqlite
 endif
