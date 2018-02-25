@@ -4,12 +4,12 @@ Subject: [PATCH] Cross-compile in ptxdist envirionment.
 
 Signed-off-by: Denis Osterland <Denis.Osterland@diehl.com>
 ---
- Makefile     |  9 ++++++---
+ Makefile     | 10 +++++++---
  src/Makefile | 18 ++++++++++--------
- 2 files changed, 16 insertions(+), 11 deletions(-)
+ 2 files changed, 17 insertions(+), 11 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 119110d2f010..2b2968449fb5 100644
+index 119110d2f010..c40c4cd6e0f7 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -4,13 +4,13 @@
@@ -37,18 +37,19 @@ index 119110d2f010..2b2968449fb5 100644
  
  test:	dummy
  	src/lua -v
-@@ -62,6 +62,9 @@ install: dummy
+@@ -62,6 +62,10 @@ install: dummy
  	cd src && $(INSTALL_EXEC) $(TO_BIN) $(INSTALL_BIN)
  	cd src && $(INSTALL_DATA) $(TO_INC) $(INSTALL_INC)
  	cd src && $(INSTALL_DATA) $(TO_LIB) $(INSTALL_LIB)
 +	cd src && $(INSTALL_EXEC) liblua.so.$R $(INSTALL_LIB)
 +	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$V
++	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$(basename $V)
 +	ln -s liblua.so.$V $(INSTALL_LIB)/liblua.so
  	cd doc && $(INSTALL_DATA) $(TO_MAN) $(INSTALL_MAN)
  
  uninstall:
 diff --git a/src/Makefile b/src/Makefile
-index d71c75c87322..ef1760d65225 100644
+index d71c75c87322..8ad9a1b718ad 100644
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -4,15 +4,13 @@
@@ -98,7 +99,7 @@ index d71c75c87322..ef1760d65225 100644
  	$(RANLIB) $@
  
 +$(LUA_SO): $(BASE_O)
-+	$(CC) -shared -o $@ $(BASE_O) $(filter-out %readline, $(LIBS))
++	$(CC) -shared -Wl,-soname=liblua.so.$(basename $V) -o $@ $(BASE_O) $(filter-out %readline, $(LIBS))
 +
  $(LUA_T): $(LUA_O) $(LUA_A)
  	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
