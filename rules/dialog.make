@@ -30,7 +30,31 @@ DIALOG_LICENSE	:= LGPL-2.1
 # ----------------------------------------------------------------------------
 
 DIALOG_CONF_TOOL	:= autoconf
-DIALOG_MAKE_OPT		:= LDFLAGS=
+DIALOG_CONF_OPT		:= \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-echo \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls \
+	--disable-trace \
+	--disable-rpath \
+	--with-ncurses \
+	--without-Xaw3d \
+	--without-Xaw3dxft \
+	--without-neXtaw \
+	--without-XawPlus \
+	--without-x \
+	--enable-extras \
+	--enable-rc-file \
+	--enable-Xdialog \
+	--enable-Xdialog2 \
+	--enable-whiptail \
+	--enable-form \
+	--enable-gauge \
+	--enable-tailbox \
+	--enable-mixedform \
+	--enable-mixedgauge \
+	--enable-widec \
+	--disable-rpath-hack
 
 # ----------------------------------------------------------------------------
 # Target-Install
