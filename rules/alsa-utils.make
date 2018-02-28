@@ -37,7 +37,6 @@ ALSA_UTILS_LICENSE	:= GPL-2.0+
 #
 ALSA_UTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(CROSS_ENV_AC_NCURSES) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
