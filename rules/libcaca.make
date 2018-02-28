@@ -31,8 +31,7 @@ LIBCACA_DIR	:= $(BUILDDIR)/$(LIBCACA)
 LIBCACA_PATH	:= PATH=$(CROSS_PATH)
 LIBCACA_ENV 	:= \
 	$(CROSS_ENV) \
-	CONFIG_SHELL=bash \
-	$(call ptx/ncurses, PTXCONF_LIBCACA_NCURSES)
+	CONFIG_SHELL=bash
 
 #
 # autoconf
