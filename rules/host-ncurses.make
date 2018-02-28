@@ -24,10 +24,8 @@ HOST_NCURSES_CONF_TOOL	:= autoconf
 HOST_NCURSES_CONF_OPT	= \
 	$(HOST_AUTOCONF) \
 	$(NCURSES_AUTOCONF_SHARED) \
-	--without-shared \
-	--without-cxx-binding
-
-HOST_NCURSES_CPPFLAGS	:= -P
+	--with-progs \
+	--without-shared
 
 # ----------------------------------------------------------------------------
 # Install
