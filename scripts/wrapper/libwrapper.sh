@@ -242,22 +242,33 @@ cxx_add_host_extra() {
 	add_host_arg ${pkg_cxxflags}
 }
 
+
+add_icecc_args() {
+	if [ -n "${PTXDIST_ICECC}" ]; then
+		add_late_arg "-fno-diagnostics-show-caret"
+	fi
+}
+
 cc_add_target_icecc() {
+	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
 	export ICECC_CC="${0%/*}/real/${0##*/}"
 }
 
 cxx_add_target_icecc() {
+	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
 	export ICECC_CXX="${0%/*}/real/${0##*/}"
 }
 
 cc_add_host_icecc() {
+	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_HOST}"
 	export ICECC_CC="${0%/*}/real/${0##*/}"
 }
 
 cxx_add_host_icecc() {
+	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_HOST}"
 	export ICECC_CXX="${0%/*}/real/${0##*/}"
 }
