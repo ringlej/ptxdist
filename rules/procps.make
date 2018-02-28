@@ -35,10 +35,6 @@ PROCPS_LICENSE_FILES := \
 # Prepare
 # ----------------------------------------------------------------------------
 
-PROCPS_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	$(call ptx/ncurses, PTXCONF_PROCPS_USES_NCURSES)
-
 #
 # autoconf
 #
