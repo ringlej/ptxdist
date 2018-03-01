@@ -1,0 +1,28 @@
+## SECTION=system_libraries
+menuconfig UPOWER
+	tristate
+	select GLIB
+	select GOBJECT_INTROSPECTION	if UPOWER_INTROSPECTION
+	select UDEV
+	select LIBGUDEV
+	select LIBUSB
+	prompt "upower                        "
+	help
+	  UPower is an abstraction for enumerating power devices, listening to
+	  device events and querying history and statistics.
+
+	  https://upower.freedesktop.org/
+
+if UPOWER
+
+config UPOWER_SYSTEMD_UNIT
+	bool
+	default y
+	depends on INITMETHOD_SYSTEMD
+	prompt "install systemd unit files for UPower"
+
+config UPOWER_INTROSPECTION
+	bool
+	default GOBJECT_INTROSPECTION_HELPER
+
+endif
