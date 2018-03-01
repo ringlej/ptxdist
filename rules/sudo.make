@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	:= 1.8.21p2
-SUDO_MD5	:= cd3993d910c713ae72e94beebd230b22
+SUDO_VERSION	:= 1.8.22
+SUDO_MD5	:= 24abdea48db4c5abcd410167c801cc8c
 SUDO		:= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	:= tar.gz
 SUDO_URL	:= \
