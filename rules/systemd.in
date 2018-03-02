@@ -136,6 +136,7 @@ menu "install options               "
 
 config SYSTEMD_UDEV_DRIVERS_RULES
 	bool
+	default y
 	prompt "install udev driver rules"
 	help
 	  This will install the generic udev drivers rules files from the udev package
