@@ -31,7 +31,6 @@ config ROOTFS_DEV_INITIAL
 	depends on ROOTFS_DEV
 	bool
 	prompt "create initial device nodes"
-	default y
 	help
 	  install /dev/null, /dev/zero and /dev/console device nodes.
 	  udev needs at least these nodes to startup. If you use udev
