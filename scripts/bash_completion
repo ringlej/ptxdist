@@ -115,7 +115,7 @@ _ptxdist_completion()
 		compgen -f /dummy >/dev/null
 		[ ${#args[@]} -lt 1 ] && _filedir -d
 		;;
-	select|platform|collection)
+	select|platform|collection|gdb)
 		compgen -f /dummy >/dev/null
 		[ ${#args[@]} -lt 1 ] && _filedir
 		;;
