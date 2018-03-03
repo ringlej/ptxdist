@@ -29,10 +29,6 @@ JSON_C_LICENSE		:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-JSON_C_CONF_ENV		:= \
-	$(CROSS_ENV) \
-	CFLAGS="-O2 -g -Wno-error"
-
 #
 # autoconf
 #
