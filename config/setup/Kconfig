@@ -178,7 +178,7 @@ config SETUP_GNUMIRROR
 
 config SETUP_XORGMIRROR
 	string
-	default "http://ftp.x.org/pub/individual http://xorg.freedesktop.org/releases"
+	default "https://ftp.x.org/archive https://xorg.freedesktop.org/releases"
 	prompt "x.org Mirror"
 	help
 	  For all x.org related packages enter an available mirror here.
