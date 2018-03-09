@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_MESON) += host-meson
 #
 # Paths and names
 #
-HOST_MESON_VERSION	:= 0.44.0
-HOST_MESON_MD5		:= 0485860724787eb4cccbdc450b6ddda0
+HOST_MESON_VERSION	:= 0.44.1
+HOST_MESON_MD5		:= 623ebb89422911ce4fbac6707e2cffc5
 HOST_MESON		:= meson-$(HOST_MESON_VERSION)
 HOST_MESON_SUFFIX	:= tar.gz
 HOST_MESON_URL		:= https://github.com/mesonbuild/meson/archive/$(HOST_MESON_VERSION).$(HOST_MESON_SUFFIX)
