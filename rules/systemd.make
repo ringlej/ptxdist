@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 237
-SYSTEMD_MD5	:= 5a835ddc2a2ae9ef523a5a11674a6713
+SYSTEMD_VERSION	:= 238
+SYSTEMD_MD5	:= 76db8004647283b779234364cd637d3c
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -104,6 +104,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dlz4=$(call ptx/truefalse,PTXCONF_SYSTEMD_LZ4) \
 	-Dmachined=false \
 	-Dman=false \
+	-Dmemory-accounting-default=true \
 	-Dmicrohttpd=$(call ptx/truefalse,PTXCONF_SYSTEMD_MICROHTTPD) \
 	-Dmount-path=/usr/bin/mount \
 	-Dmyhostname=true \
@@ -112,6 +113,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dnobody-user=nobody \
 	-Dnss-systemd=true \
 	-Dntp-servers= \
+	-Dok-color=green \
 	-Doss-fuzz=false \
 	-Dpam=false \
 	-Dpcre2=false \
@@ -129,6 +131,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dsetfont-path=/usr/bin/setfont \
 	-Dslow-tests=false \
 	-Dsmack=false \
+	-Dsplit-bin=true \
 	-Dsplit-usr=false \
 	-Dsulogin-path=/sbin/sulogin \
 	-Dsystem-gid-max=999 \
