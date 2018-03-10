@@ -24,10 +24,10 @@ Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
  2 files changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/configure b/configure
-index dd73cce62f9d..53581d787dac 100755
+index 0c6e7572dbab..087a82ac5078 100755
 --- a/configure
 +++ b/configure
-@@ -3855,7 +3855,7 @@ fi
+@@ -3920,7 +3920,7 @@ fi
  # check if memfd is supported
  memfd=no
  cat > $TMPC << EOF
