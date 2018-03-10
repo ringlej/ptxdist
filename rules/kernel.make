@@ -212,9 +212,9 @@ ifdef PTXCONF_KERNEL_TOOL_PERF
 		$(KERNEL_MAKEVARS) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf
 endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
-	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
-		$(KERNEL_MAKEVARS) -C tools/iio
+		$(KERNEL_MAKEVARS) $(PARALLELMFLAGS_BROKEN) -C tools/iio
 endif
 	@$(call touch)
 
