@@ -103,12 +103,6 @@ config NTP_SIMULATOR
 	help
 	  FIXME: This item needs to be documented
 
-config NTP_UDP_WILDCARD
-	bool
-	prompt "use UDP wildcard delivery"
-	help
-	  FIXME: This item needs to be documented
-
 config NTP_SLEW_ALWAYS
 	bool
 	prompt "always slew the time"
