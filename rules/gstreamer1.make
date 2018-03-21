@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.12.4
-GSTREAMER1_MD5		:= 9d268f2e891cce1ac0832f1cc467d4ea
+GSTREAMER1_VERSION	:= 1.14.0
+GSTREAMER1_MD5		:= 63c7cbfb86aa28c4522e374dc5555b96
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
@@ -48,6 +48,7 @@ GSTREAMER1_BASIC_CONF_OPT = \
 
 GSTREAMER1_GENERIC_CONF_OPT = \
 	$(GSTREAMER1_BASIC_CONF_OPT) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	\
 	--disable-nls \
 	--disable-rpath \
@@ -58,7 +59,6 @@ GSTREAMER1_GENERIC_CONF_OPT = \
 	--disable-examples \
 	\
 	--enable-Bsymbolic \
-	--disable-static-plugins \
 	\
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
@@ -80,7 +80,6 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-benchmarks \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_INSTALL_TOOLS)-tools \
 	--disable-poisoning \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--disable-check \
