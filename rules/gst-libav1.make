@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_LIBAV1) += gst-libav1
 #
 # Paths and names
 #
-GST_LIBAV1_VERSION	:= 1.12.4
-GST_LIBAV1_MD5		:= 8a851bf2e475e90a3fdac9506e3e4dbd
+GST_LIBAV1_VERSION	:= 1.14.0
+GST_LIBAV1_MD5		:= 943045b9e937ffc5c6cfa0bd5c44230d
 GST_LIBAV1		:= gst-libav-$(GST_LIBAV1_VERSION)
 GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
@@ -44,16 +44,16 @@ GST_LIBAV1_CONF_OPT	:= \
 	--enable-extra-check \
 	--disable-valgrind \
 	--disable-gcov \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-gobject-cast-checks \
 	--disable-glib-asserts \
-	--disable-static-plugins \
 	--disable-gpl \
 	--with-package-origin="PTXdist" \
 	--without-system-libav \
-	--with-libav-extra-configure="--yasmexe=false"
+	--with-libav-extra-configure="--x86asmexe=nasm"
 
 # ----------------------------------------------------------------------------
 # Target-Install
