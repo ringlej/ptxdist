@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.12.4
-GST_RTSP_SERVER1_MD5		:= ad70a9735f58da21d0f5cedf48ccadd3
+GST_RTSP_SERVER1_VERSION	:= 1.14.0
+GST_RTSP_SERVER1_MD5		:= 8a505c88f7469c3a0d1e9f4e9a315e53
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
@@ -45,7 +45,6 @@ GST_RTSP_SERVER1_CONF_OPT	= \
 	--disable-docbook \
 	\
 	--enable-Bsymbolic \
-	--disable-static-plugins \
 	--with-package-origin="PTXdist"
 
 # ----------------------------------------------------------------------------
