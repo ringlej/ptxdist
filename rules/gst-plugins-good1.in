@@ -14,6 +14,8 @@ menuconfig GST_PLUGINS_GOOD1
 	select LIBCACA			if GST_PLUGINS_GOOD1_LIBCACA
 	select XORG_LIB_X11		if GST_PLUGINS_GOOD1_X
 	select GDK_PIXBUF		if GST_PLUGINS_GOOD1_GDK_PIXBUF
+	select GTK			if GST_PLUGINS_GOOD1_GTK3
+	select LAME			if GST_PLUGINS_GOOD1_LAME
 	select LIBSOUP			if GST_PLUGINS_GOOD1_SOUP
 	select SPEEX			if GST_PLUGINS_GOOD1_SPEEX
 	select FLAC			if GST_PLUGINS_GOOD1_FLAC
@@ -24,6 +26,10 @@ menuconfig GST_PLUGINS_GOOD1
 	select V4L_UTILS_LIBV4L2	if GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
 	select LIBSHOUT			if GST_PLUGINS_GOOD1_SHOUT2
 	select PULSEAUDIO		if GST_PLUGINS_GOOD1_PULSE
+	select QT5			if GST_PLUGINS_GOOD1_QT
+	select QT5_GUI			if GST_PLUGINS_GOOD1_QT
+	select QT5_MODULE_QTDECLARATIVE	if GST_PLUGINS_GOOD1_QT
+	select TWOLAME			if GST_PLUGINS_GOOD1_TWOLAME
 
 	prompt "gst-plugins-good              "
 	help
@@ -253,6 +259,10 @@ config GST_PLUGINS_GOOD1_GDK_PIXBUF
 	bool
 	prompt "gdk_pixbuf"
 
+config GST_PLUGINS_GOOD1_GTK3
+	bool
+	prompt "gtk3"
+
 config GST_PLUGINS_GOOD1_JACK
 	bool
 	prompt "jack"
@@ -261,6 +271,10 @@ config GST_PLUGINS_GOOD1_JACK
 config GST_PLUGINS_GOOD1_JPEG
 	bool
 	prompt "jpeg"
+
+config GST_PLUGINS_GOOD1_LAME
+	bool
+	prompt "lame"
 
 config GST_PLUGINS_GOOD1_LIBCACA
 	bool
@@ -275,6 +289,12 @@ config GST_PLUGINS_GOOD1_LIBPNG
 	bool
 	prompt "libpng"
 
+config GST_PLUGINS_GOOD1_MPG123
+	bool
+	prompt "mpg123"
+	# needs libmpg123
+	depends on BROKEN
+
 config GST_PLUGINS_GOOD1_PULSE
 	bool
 	prompt "pulse"
@@ -283,6 +303,10 @@ config GST_PLUGINS_GOOD1_DV1394
 	bool
 	depends on BROKEN
 	prompt "dv1394"
+
+config GST_PLUGINS_GOOD1_QT
+	bool
+	prompt "qt"
 
 config GST_PLUGINS_GOOD1_SHOUT2
 	bool
@@ -300,6 +324,10 @@ config GST_PLUGINS_GOOD1_TAGLIB
 	bool
 	depends on BROKEN
 	prompt "taglib"
+
+config GST_PLUGINS_GOOD1_TWOLAME
+	bool
+	prompt "twolame"
 
 config GST_PLUGINS_GOOD1_VPX
 	bool
