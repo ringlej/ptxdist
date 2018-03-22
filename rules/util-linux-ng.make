@@ -306,6 +306,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_MKFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/mkfs)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_LSCPU
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/lscpu)
+endif
 
 	@$(call install_finish, util-linux-ng)
 

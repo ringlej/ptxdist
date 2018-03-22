@@ -428,4 +428,11 @@ config UTIL_LINUX_NG_MKFS
 	  The mkfs command is a generic wrapper for fs specific
           mkfs.* commands.
 
+config UTIL_LINUX_NG_LSCPU
+	bool
+	select UTIL_LINUX_NG_LIBSMARTCOLS
+	prompt "lscpu"
+	help
+	  lscpu shows information about the CPU architecture
+
 endif
