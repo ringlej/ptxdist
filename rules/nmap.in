@@ -17,6 +17,9 @@ if NMAP
 config NMAP_OPENSSL
        bool "openssl support"
 
+config NMAP_NPING
+	bool "build and install nping"
+
 config NMAP_SERVICES
 	bool "Install nmap-services"
 	default y

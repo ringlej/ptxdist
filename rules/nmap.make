@@ -37,7 +37,7 @@ NMAP_CONF_OPT := \
 	--without-localdirs \
 	--without-ndiff \
 	--without-zenmap \
-	--without-nping \
+	--$(call ptx/wwo, PTXCONF_NMAP_NPING)-nping \
 	--with-openssl=$(call ptx/ifdef,PTXCONF_NMAP_OPENSSL,$(SYSROOT),no) \
 	--with-libpcap \
 	--with-libpcre \
@@ -65,6 +65,10 @@ $(STATEDIR)/nmap.targetinstall:
 	@$(call install_fixup, nmap,DESCRIPTION,missing)
 
 	@$(call install_copy, nmap, 0, 0, 0755, -, /usr/bin/nmap)
+
+ifdef PTXCONF_NMAP_NPING
+	@$(call install_copy, nmap, 0, 0, 0755, -, /usr/bin/nping)
+endif
 
 ifdef PTXCONF_NMAP_SERVICES
 	@$(call install_copy, nmap, 0, 0, 0644, -, \
