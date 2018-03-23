@@ -77,6 +77,10 @@ config SYSTEMD_LOGIND
 	select SYSTEMD_DBUS
 	prompt "login daemon"
 
+config SYSTEMD_UNITS_USER
+	bool
+	prompt "install default user target units"
+
 config SYSTEMD_NETWORK
 	bool
 	prompt "network configuration with systemd"
