@@ -31,10 +31,10 @@ NTP_LICENSE_FILES	:= file://COPYRIGHT;md5=e877a1d567a6a58996d2b66e3e387003
 # Prepare
 # ----------------------------------------------------------------------------
 
-NTP_PATH	:= PATH=$(CROSS_PATH)
-NTP_ENV 	:= \
+NTP_CONF_ENV	:= \
 	$(CROSS_ENV) \
-	libopts_cv_test_dev_zero=yes
+	libopts_cv_test_dev_zero=yes \
+	ntp_cv_vsnprintf_percent_m=yes
 
 #
 # autoconf
@@ -42,18 +42,29 @@ NTP_ENV 	:= \
 
 # Note: Only if '--disable-all-clocks' is given, the additional clock driver
 # switches makes sense (else most of the clock drivers are enabled by default)
-NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+NTP_CONF_TOOL	:= autoconf
+NTP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
 	--bindir=/usr/sbin \
 	--disable-nls \
+	--enable-local-libopts \
+	--disable-libopts-install \
+	--disable-local-libevent \
 	--without-lineeditlibs \
 	--$(call ptx/endis, PTXCONF_NTP_DEBUGGING)-debugging \
 	--enable-thread-support \
+	--with-threads=posix \
 	--with-yielding-select=yes \
-	--$(call ptx/endis, PTXCONF_NTP_CLOCKCTL)-clockctl \
-	--disable-linuxcaps \
-	--$(call ptx/wwo, PTXCONF_NTP_ARLIB)-arlib \
+	--disable-c99-snprintf \
+	--disable-clockctl \
+	--enable-linuxcaps \
+	--disable-solarisprivs \
+	--without-arlib \
 	--without-net-snmp-config \
-	--$(call ptx/endis, PTXCONF_NTP_DST_MINUTES)-dst-minutes$(call ptx/ifdef, PTXCONF_NTP_DST_MINUTES, =$(PTXCONF_NTP_DST_MINUTES),) \
+	--disable-libseccomp \
+	--disable-debug-timing \
+	--enable-dst-minutes=60 \
+	--disable-ignore-dns-errors \
 	--$(call ptx/endis, PTXCONF_NTP_BANCOMM)-BANCOMM \
 	--$(call ptx/endis, PTXCONF_NTP_GPSVME)-GPSVME \
 	--$(call ptx/endis, PTXCONF_NTP_ALL_CLOCK_DRIVERS)-all-clocks \
@@ -95,6 +106,7 @@ NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_NTP_TSYNCPCI)-TSYNCPCI \
 	--$(call ptx/endis, PTXCONF_NTP_WWV)-WWV \
 	--$(call ptx/endis, PTXCONF_NTP_ZYFER)-ZYFER \
+	--$(call ptx/endis, PTXCONF_NTP_ALL_CLOCK_DRIVERS)-parse-clocks \
 	--$(call ptx/endis, PTXCONF_NTP_COMPUTIME)-COMPUTIME \
 	--$(call ptx/endis, PTXCONF_NTP_DCF7000)-DCF7000 \
 	--$(call ptx/endis, PTXCONF_NTP_HOPF6021)-HOPF6021 \
@@ -108,23 +120,32 @@ NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_NTP_VARITEXT)-VARITEXT \
 	--$(call ptx/endis, PTXCONF_NTP_SEL240X)-SEL240X \
 	--$(call ptx/wwo, PTXCONF_NTP_CRYPTO)-crypto \
-	--$(call ptx/wwo, PTXCONF_NTP_CRYPTO)-openssl-libdir$(call ptx/ifdef, PTXCONF_NTP_CRYPTO, =$(PTXDIST_SYSROOT_TARGET)/usr/lib,) \
-	--$(call ptx/wwo, PTXCONF_NTP_CRYPTO)-openssl-incdir$(call ptx/ifdef, PTXCONF_NTP_CRYPTO, =$(PTXDIST_SYSROOT_TARGET)/usr/include,) \
 	--without-rpath \
-	--$(call ptx/endis, PTXCONF_NTP_KMEM)-kmem \
-	--$(call ptx/endis, PTXCONF_NTP_ACCURATE_ADJTIME)-accurate-adjtime \
-	--$(call ptx/endis, PTXCONF_NTP_TICK_FORCE)-tick$(call ptx/ifdef, PTXCONF_NTP_TICK_FORCE, =$(PTXCONF_NTP_TICK),) \
-	--$(call ptx/endis, PTXCONF_NTP_TICKADJ_FORCE)-tickadj$(call ptx/ifdef, PTXCONF_NTP_TICKADJ_FORCE, =$(PTXCONF_NTP_TICKADJ),) \
-	--$(call ptx/endis, PTXCONF_NTP_SIMULATOR)-simulator \
-	--$(call ptx/wwo, PTXCONF_NTP_SNTP)-sntp \
+	--$(call ptx/endis, PTXCONF_NTP_CRYPTO)-openssl-random \
+	--$(call ptx/endis, PTXCONF_NTP_CRYPTO)-autokey \
+	--disable-kmem \
+	--enable-accurate-adjtime \
+	--disable-simulator \
+	--without-sntp \
+	--without-ntpsnmpd \
 	--$(call ptx/endis, PTXCONF_NTP_SLEW_ALWAYS)-slew-always \
 	--$(call ptx/endis, PTXCONF_NTP_STEP_SLEW)-step-slew \
 	--$(call ptx/endis, PTXCONF_NTP_NTPDATE_STEP)-ntpdate-step \
 	--$(call ptx/endis, PTXCONF_NTP_HOURLY_TODR_SYNC)-hourly-todr-sync \
-	--$(call ptx/endis, PTXCONF_NTP_KERNEL_FLL_BUG)-kernel-fll-bug \
+	--disable-kernel-fll-bug \
+	--enable-bug1243-fix \
+	--enable-bug3020-fix \
 	--$(call ptx/endis, PTXCONF_NTP_IRIG_SAWTOOTH)-irig-sawtooth \
 	--$(call ptx/endis, PTXCONF_NTP_NIST)-nist \
-	$(GLOBAL_IPV6_OPTION)
+	--disable-ntp-signd \
+	$(GLOBAL_IPV6_OPTION) \
+	--without-kame \
+	--enable-getifaddrs \
+	--disable-saveconfig \
+	--disable-leap-smear \
+	--disable-dynamic-interleave \
+	--without-gtest \
+	--disable-problem-tests
 
 # ----------------------------------------------------------------------------
 # Target-Install
