@@ -16,7 +16,7 @@ Signed-off-by: Jon Ringle <jon@ringle.org>
  2 files changed, 2 insertions(+)
 
 diff --git a/libmount/src/cache.c b/libmount/src/cache.c
-index 6ff997140e06..40425b222825 100644
+index b52ca809801a..e65a1a23772e 100644
 --- a/libmount/src/cache.c
 +++ b/libmount/src/cache.c
 @@ -23,6 +23,7 @@

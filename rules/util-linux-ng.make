@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.31.1
-UTIL_LINUX_NG_MD5	:= 7733b583dcb51518944d42aa62ef19ea
+UTIL_LINUX_NG_VERSION	:= 2.32
+UTIL_LINUX_NG_MD5	:= e0d8a25853f88cd15ff557e5d8cb4ea7
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
 UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[^0-9].*\?/\1/g')
@@ -52,6 +52,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--bindir=/usr/bin \
 	--sbindir=/usr/sbin \
+	--disable-asan \
 	--enable-shared \
 	--disable-static \
 	--disable-gtk-doc \
