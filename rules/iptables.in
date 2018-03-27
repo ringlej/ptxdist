@@ -78,6 +78,6 @@ config IPTABLES_NFTABLES_COMPAT
 	bool
 	prompt "nftables compat"
 	help
-	  install xtables-compat-multi, allowing compability with nftables
+	  install xtables-compat-multi, allowing compatibility with nftables
 
 endif
