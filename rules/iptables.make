@@ -76,7 +76,6 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_fixup, iptables,DESCRIPTION,missing)
 
 # 	# install the basic libraries
-	@$(call install_lib, iptables, 0, 0, 0644, libiptc)
 	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
 
 ifdef PTXCONF_IPTABLES_LIBIPQ
