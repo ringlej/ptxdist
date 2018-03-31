@@ -13,7 +13,7 @@ Reviewed-by: Dr Stephen N Henson <shenson@drh-consultancy.co.uk>
 
 This is not meant as final patch.
 
-Imported from openssl1.0_1.0.2n-1.debian.tar.xz
+Imported from openssl1.0_1.0.2o-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

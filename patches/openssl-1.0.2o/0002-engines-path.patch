@@ -2,7 +2,7 @@ From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
 Date: Tue, 12 Dec 2017 23:35:23 +0100
 Subject: [PATCH] engines-path
 
-Imported from openssl1.0_1.0.2n-1.debian.tar.xz
+Imported from openssl1.0_1.0.2o-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  4 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Configure b/Configure
-index ecf12ae990c4..e5cdd2f03ef5 100755
+index af3914285616..186140ea20b6 100755
 --- a/Configure
 +++ b/Configure
-@@ -1980,7 +1980,7 @@ while (<IN>)
+@@ -1987,7 +1987,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{
