@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBNFTNL) += libnftnl
 #
 # Paths and names
 #
-LIBNFTNL_VERSION	:= 1.0.6
-LIBNFTNL_MD5	:= 6d7f9f161538ca7efd535dcc70caf964
+LIBNFTNL_VERSION	:= 1.0.9
+LIBNFTNL_MD5	:= 6c4f392faab5745933553b4354be5d8d
 LIBNFTNL		:= libnftnl-$(LIBNFTNL_VERSION)
 LIBNFTNL_SUFFIX	:= tar.bz2
 LIBNFTNL_URL		:= http://ftp.netfilter.org/pub/libnftnl/$(LIBNFTNL).$(LIBNFTNL_SUFFIX)
@@ -31,7 +31,6 @@ LIBNFTNL_LICENSE	:= GPL-2.0-only
 LIBNFTNL_CONF_TOOL	:= autoconf
 LIBNFTNL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/wwo, PTXCONF_LIBNFTNL_XML)-xml-parsing \
 	--$(call ptx/wwo, PTXCONF_LIBNFTNL_JSON)-json-parsing
 
 # ----------------------------------------------------------------------------
