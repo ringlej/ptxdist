@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NFTABLES) += nftables
 #
 # Paths and names
 #
-NFTABLES_VERSION	:= 0.6
-NFTABLES_MD5		:= fd320e35fdf14b7be795492189b13dae
+NFTABLES_VERSION	:= 0.8.3
+NFTABLES_MD5		:= a604501c10a302fa417410b16f293d2c
 NFTABLES		:= nftables-$(NFTABLES_VERSION)
 NFTABLES_SUFFIX		:= tar.bz2
 NFTABLES_URL		:= http://ftp.netfilter.org/pub/nftables/$(NFTABLES).$(NFTABLES_SUFFIX)
@@ -29,13 +29,6 @@ NFTABLES_LICENSE	:= GPL-2.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-NFTABLES_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	ac_cv_prog_DOCBOOK2X_MAN=no \
-	ac_cv_prog_DOCBOOK2MAN=no \
-	ac_cv_prog_DB2X_DOCBOOK2MAN=no \
-	ac_cv_prog_DBLATEX=no
-
 #
 # autoconf
 #
@@ -43,7 +36,11 @@ NFTABLES_CONF_TOOL	:= autoconf
 NFTABLES_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_NFTABLES_DEBUG)-debug \
-	--$(call ptx/wwo, PTXCONF_NFTABLES_MGMP)-mini-gmp
+	--disable-man-doc \
+	--disable-pdf-doc \
+	--$(call ptx/wwo, PTXCONF_NFTABLES_MGMP)-mini-gmp \
+	--without-cli \
+	--without-xtables
 
 # ----------------------------------------------------------------------------
 # Target-Install
