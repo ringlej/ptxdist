@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	:= 2.2.4
-GNUPG_MD5	:= 709e5af5bba84d251c520222e720972f
+GNUPG_VERSION	:= 2.2.5
+GNUPG_MD5	:= 567cd2d41fa632903066fde73d2005cb
 GNUPG		:= gnupg-$(GNUPG_VERSION)
 GNUPG_SUFFIX	:= tar.bz2
 GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
