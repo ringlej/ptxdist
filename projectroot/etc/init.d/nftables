@@ -1,0 +1,103 @@
+#!/bin/sh
+
+# Author: Arturo Borrero Gonzalez <arturo@debian.org>
+# Adapted by: Alexander Dahl <ada@thorsis.com>
+
+# Do NOT "set -e"
+
+CONF=/etc/nftables.conf
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="firewall service"
+NAME=nftables
+BIN=/usr/sbin/nft
+SCRIPTNAME=/etc/init.d/$NAME
+
+# Exit if the package is not installed
+[ -x "$BIN" ] || exit 0
+
+do_start()
+{
+    # Return
+    #  0 if start OK
+    #  2 if start NOK
+
+    # nft v0.4 return 0 if ENOENT $CONF
+    if [ ! -r "$CONF" ] ; then
+        echo "E: No such $NAME $DESC config file $CONF" >&2
+        return 2
+    fi
+
+    $BIN -f $CONF || return 2
+}
+
+do_stop()
+{
+    # Return
+    #   0 if stopped
+    #   1 if already stopped
+    #   2 if could not be stopped
+    if ! do_status ; then
+        $BIN flush ruleset || return 2
+    fi
+}
+
+do_status()
+{
+    # Return
+    #   0 if no rules
+    #   1 if rules
+    if [ "$($BIN list ruleset 2>/dev/null | wc -l)" = "0" ] ; then
+        return 0
+    fi
+
+    return 1
+}
+
+case "$1" in
+    start)
+        echo -n "Starting $DESC ..."
+        do_start
+        ret="$?"
+        case "$ret" in
+            0|1)    echo " Done." ;;
+            2)      echo " Failed." ;;
+        esac
+        exit $ret
+        ;;
+    restart|force-reload)
+        echo -n "Restarting $DESC ..."
+        do_start
+        ret="$?"
+        case "$ret" in
+            0|1)    echo " Done." ;;
+            2)      echo " Failed." ;;
+        esac
+        exit $ret
+        ;;
+    stop)
+        echo -n "Stopping $DESC ..."
+        do_stop
+        ret="$?"
+        case "$ret" in
+            0|1)    echo " Done." ;;
+            2)      echo " Failed." ;;
+        esac
+        exit $ret
+        ;;
+    status)
+        if ! do_status ; then
+            echo "Status of ${DESC}: rules loaded"
+            exit 0
+        else
+            echo "Status of ${DESC}: no rules loaded"
+            exit 1
+        fi
+        ;;
+    *)
+        echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+        exit 3
+        ;;
+esac
+
+:

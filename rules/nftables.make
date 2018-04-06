@@ -58,6 +58,17 @@ $(STATEDIR)/nftables.targetinstall:
 	@$(call install_copy, nftables, 0, 0, 0755, -, /usr/sbin/nft)
 	@$(call install_alternative, nftables, 0, 0, 0755, /etc/nftables.conf)
 
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_NFTABLES_STARTSCRIPT
+	@$(call install_alternative, nftables, 0, 0, 0755, /etc/init.d/nftables)
+
+ifneq ($(call remove_quotes,$(PTXCONF_NFTABLES_BBINIT_LINK)),)
+	@$(call install_link, nftables, ../init.d/nftables, \
+		/etc/rc.d/$(PTXCONF_NFTABLES_BBINIT_LINK))
+endif
+endif
+endif
+
 	@$(call install_finish, nftables)
 
 	@$(call touch)
