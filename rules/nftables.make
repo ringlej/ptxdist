@@ -56,6 +56,7 @@ $(STATEDIR)/nftables.targetinstall:
 	@$(call install_fixup, nftables,DESCRIPTION,missing)
 
 	@$(call install_copy, nftables, 0, 0, 0755, -, /usr/sbin/nft)
+	@$(call install_alternative, nftables, 0, 0, 0755, /etc/nftables.conf)
 
 	@$(call install_finish, nftables)
 
