@@ -57,6 +57,15 @@ config WESTON_FBDEV_COMPOSITOR
 	bool
 	prompt "fbdev compositor"
 
+config WESTON_LAUNCH
+	bool
+	prompt "weston-launch support"
+	# needs pam
+	depends on BROKEN
+	help
+	  weston-launch is a setuid-root program which does privileged
+	  operations on Weston's behalf
+
 config WESTON_SYSTEMD
 	bool
 	default INITMETHOD_SYSTEMD

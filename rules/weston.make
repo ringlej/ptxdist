@@ -59,7 +59,7 @@ WESTON_CONF_OPT		:= \
 	--disable-simple-dmabuf-v4l-client \
 	--enable-clients \
 	--enable-resize-optimization \
-	--disable-weston-launch \
+	--$(call ptx/endis, PTXCONF_WESTON_LAUNCH)-weston-launch \
 	--enable-fullscreen-shell \
 	--disable-colord \
 	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-dbus \
@@ -90,6 +90,9 @@ $(STATEDIR)/weston.targetinstall:
 
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-info)
+ifdef PTXCONF_WESTON_LAUNCH
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-launch)
+endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-terminal)
 
 ifdef PTXCONF_WESTON_WCAP_TOOLS
