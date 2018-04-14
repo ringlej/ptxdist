@@ -124,8 +124,10 @@ endif
 
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoreelements)
+ifdef PTXCONF_GSTREAMER1_DEBUG
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoretracers)
+endif
 
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)
