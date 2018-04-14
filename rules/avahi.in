@@ -6,6 +6,7 @@ menuconfig AVAHI
 	select LIBDAEMON
 	select EXPAT
 	select LIBCAP
+	select GLIB	if AVAHI_GLIB
 	select QT4	if AVAHI_QT4
 	select DBUS	if AVAHI_DBUS
 	select GTK	if AVAHI_GTK
