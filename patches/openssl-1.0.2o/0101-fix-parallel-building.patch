@@ -4,13 +4,13 @@ Subject: [PATCH] fix parallel building
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Makefile.org     | 18 ++++++++++++------
+ Makefile.org     | 22 ++++++++++++++--------
  crypto/Makefile  |  4 ++--
  engines/Makefile |  4 ++--
- 3 files changed, 16 insertions(+), 10 deletions(-)
+ 3 files changed, 18 insertions(+), 12 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index aec7e577e0bc..21235e04d7c6 100644
+index aec7e577e0bc..0b11edb0217f 100644
 --- a/Makefile.org
 +++ b/Makefile.org
 @@ -281,18 +281,24 @@ build_libs: build_libcrypto build_libssl openssl.pc
@@ -44,6 +44,24 @@ index aec7e577e0bc..21235e04d7c6 100644
  
  all_testapps: build_libs build_testapps
  build_testapps:
+@@ -311,7 +317,7 @@ libcrypto$(SHLIB_EXT): libcrypto.a fips_premain_dso$(EXE_EXT)
+ 			FIPSLD_CC="$(CC)"; CC=$(FIPSDIR)/bin/fipsld; \
+ 			export CC FIPSLD_CC FIPSLD_LIBCRYPTO; \
+ 		fi; \
+-		$(MAKE) -e SHLIBDIRS=crypto  CC="$${CC:-$(CC)}" build-shared && \
++		$(MAKE) -j1 -e SHLIBDIRS=crypto  CC="$${CC:-$(CC)}" build-shared && \
+ 		(touch -c fips_premain_dso$(EXE_EXT) || :); \
+ 	else \
+ 		echo "There's no support for shared libraries on this platform" >&2; \
+@@ -320,7 +326,7 @@ libcrypto$(SHLIB_EXT): libcrypto.a fips_premain_dso$(EXE_EXT)
+ 
+ libssl$(SHLIB_EXT): libcrypto$(SHLIB_EXT) libssl.a
+ 	@if [ "$(SHLIB_TARGET)" != "" ]; then \
+-		$(MAKE) SHLIBDIRS=ssl SHLIBDEPS='-lcrypto' build-shared; \
++		$(MAKE) -j1 SHLIBDIRS=ssl SHLIBDEPS='-lcrypto' build-shared; \
+ 	else \
+ 		echo "There's no support for shared libraries on this platform" >&2; \
+ 		exit 1; \
 diff --git a/crypto/Makefile b/crypto/Makefile
 index 7869996a9c07..76690a1c8619 100644
 --- a/crypto/Makefile
