@@ -10,6 +10,8 @@ menuconfig GNUPG
 	select NPTH
 	select READLINE
 	select ZLIB
+	# disabling GNUPG_GPG_EDDSA is broken
+	select GNUPG_GPG_EDDSA
 	help
 	  GnuPG - The GNU Privacy Guard suite of programs
 
