@@ -123,4 +123,16 @@ define ptx/falsetrue
 $(call ptx/ifdef, $(1), false, true)
 endef
 
+
+#
+# $(call ptx/yesno, PTXCONF_SYMBOL) returns "yes" or "no"
+# depending on the symbol is defined or not
+#
+# $(call ptx/yesno, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/yesno
+$(call ptx/ifdef, $(1), yes, no)
+endef
+
 # vim: syntax=make
