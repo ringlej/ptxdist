@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_STRESS_NG) += stress-ng
 #
 # Paths and names
 #
-STRESS_NG_VERSION	:= 0.09.13
-STRESS_NG_MD5		:= 37eaef85fb352760c9f92c09c2c992dc
+STRESS_NG_VERSION	:= 0.09.24
+STRESS_NG_MD5		:= 3a0370dbd1bca7f5aa2614bd4fb0b628
 STRESS_NG		:= stress-ng-$(STRESS_NG_VERSION)
 STRESS_NG_SUFFIX	:= tar.xz
 STRESS_NG_URL		:= http://kernel.ubuntu.com/~cking/tarballs/stress-ng/$(STRESS_NG).$(STRESS_NG_SUFFIX)
@@ -55,3 +55,5 @@ $(STATEDIR)/stress-ng.targetinstall:
 	@$(call install_finish, stress-ng)
 
 	@$(call touch)
+
+# vim: syntax=make
