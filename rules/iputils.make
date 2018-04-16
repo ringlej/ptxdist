@@ -44,8 +44,8 @@ IPUTILS_CONF_TOOL	:= NO
 IPUTILS_MAKEVARS	:= \
 	$(CROSS_ENV) \
 	USE_IDN=no \
-	USE_GCRYPT=$(call ptx/ifdef, PTXCONF_IPUTILS_GCRYPT, yes, no) \
-	USE_NETTLE=$(call ptx/ifdef, PTXCONF_IPUTILS_NETTLE, yes, no) \
+	USE_GCRYPT=$(call ptx/yesno, PTXCONF_IPUTILS_GCRYPT) \
+	USE_NETTLE=$(call ptx/yesno, PTXCONF_IPUTILS_NETTLE) \
 	USE_CRYPTO=$(call ptx/ifdef, PTXCONF_IPUTILS_OPENSSL, shared, no) \
 	TARGETS="$(IPUTILS_TOOLS-y)"
 

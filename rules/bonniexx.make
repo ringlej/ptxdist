@@ -32,7 +32,7 @@ BONNIEXX_LICENSE	:= GPL-2.0-only
 
 BONNIEXX_ENV	:= \
 	$(CROSS_ENV) \
-	bonnie_cv_sys_largefile=$(call ptx/ifdef,PTXCONF_GLOBAL_LARGE_FILE,yes,no)
+	bonnie_cv_sys_largefile=$(call ptx/yesno, PTXCONF_GLOBAL_LARGE_FILE)
 
 #
 # autoconf

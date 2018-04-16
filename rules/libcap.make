@@ -33,7 +33,7 @@ LIBCAP_LICENSE_FILES := file://License;md5=3f84fd6f29d453a56514cb7e4ead25f1
 
 LIBCAP_MAKE_OPT	:= \
 	prefix=/usr PAM_CAP=no DYNAMIC=yes \
-	LIBATTR=$(call ptx/ifdef, PTXCONF_LIBCAP_SETCAP,yes,no) \
+	LIBATTR=$(call ptx/yesno, PTXCONF_LIBCAP_SETCAP) \
 	lib=lib \
 	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC)
