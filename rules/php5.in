@@ -229,6 +229,7 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 
 config PHP5_XML_LIBXML2_XMLRPC
 	bool
+	depends on STAGING
 	prompt "xmlrpc support"
 	help
 	  xmlrpc support
