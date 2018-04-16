@@ -95,7 +95,7 @@ SDL_CONF_OPT	:= \
 	--disable-video-vgl \
 	--disable-video-wscons \
 	--disable-video-aalib \
-	--enable-video-caca \
+	--disable-video-caca \
 	--disable-video-qtopia \
 	--disable-video-picogui \
 	--disable-xbios \
