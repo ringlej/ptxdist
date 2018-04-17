@@ -36,7 +36,9 @@ FBTERM_CONF_TOOL	:= autoconf
 FBTERM_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_FBTERM_GPM)-gpm \
-	--disable-vesa
+	--disable-vesa \
+	--enable-epoll \
+	--enable-signalfd
 
 # ----------------------------------------------------------------------------
 # Target-Install
