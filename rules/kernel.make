@@ -26,32 +26,20 @@ KERNEL_BDIR		:= $(BUILDDIR)
 endif
 
 #
-# Starting with 4.12-rc1, Linus no longer provides signed tarballs for
-# pre-release ("-rc") kernels. Download the version automatically generated
-# by cgit.
-#
-ifneq ($(findstring -rc,$(KERNEL_VERSION)),)
-KERNEL_NEEDS_GIT_URL := $(shell test $(KERNEL_VERSION_MAJOR) -ge 4 -a $(KERNEL_VERSION_MINOR) -ge 12 && echo y)
-endif
-
-#
 # Paths and names
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_MD5		:= $(call remove_quotes,$(PTXCONF_KERNEL_MD5))
 ifneq ($(KERNEL_NEEDS_GIT_URL),y)
 KERNEL_SUFFIX		:= tar.xz
+KERNEL_URL		:= $(call kernel-url, KERNEL)
 else
 KERNEL_SUFFIX		:= tar.gz
+KERNEL_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL).$(KERNEL_SUFFIX)
 endif
 KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
 KERNEL_LICENSE		:= GPL-2.0-only
-ifneq ($(KERNEL_NEEDS_GIT_URL),y)
-KERNEL_URL		:= $(call kernel-url, KERNEL)
-else
-KERNEL_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL).$(KERNEL_SUFFIX)
-endif
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DEVPKG		:= NO
 
