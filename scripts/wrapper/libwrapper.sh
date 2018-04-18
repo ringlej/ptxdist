@@ -71,6 +71,9 @@ cc_check_args() {
 					exit 1
 				fi
 				;;
+			-Wl,-rpath,/*build-target*)
+				add_late_arg "-Wl,-rpath-link${ARG#-Wl,-rpath}"
+				;;
 			-)
 				COMPILING=true
 				;;
