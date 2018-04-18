@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 2.1.0
-HTOP_MD5	:= f262b66ad6c194782f4d3a80627e84c8
+HTOP_VERSION	:= 2.2.0
+HTOP_MD5	:= 0d816b6beed31edc75babcfbf863ffa8
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
@@ -30,6 +30,9 @@ HTOP_LICENSE	:= GPL-2.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
+HTOP_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	HTOP_NCURSES_CONFIG_SCRIPT=ncurses6-config
 #
 # autoconf
 #
