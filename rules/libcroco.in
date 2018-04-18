@@ -4,6 +4,7 @@ menuconfig LIBCROCO
 	tristate
 	prompt "libcroco                      "
 	select LIBXML2
+	select LIBXML2_SAX1
 	select GLIB
 	help
 	  a generic Cascading Style Sheet (CSS) parsing and
