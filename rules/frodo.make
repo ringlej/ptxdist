@@ -45,7 +45,7 @@ FRODO_AUTOCONF := \
 	--without-x
 
 # cpp files are built with gcc
-FRODO_CFLAGS := -std=c++98
+FRODO_CFLAGS := -std=gnu++98
 
 # ----------------------------------------------------------------------------
 # Install
