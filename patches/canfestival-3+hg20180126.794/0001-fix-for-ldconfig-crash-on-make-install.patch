@@ -10,7 +10,7 @@ Signed-off-by: Markus Messmer <mme@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index 957281e..bdfff24 100644
+index 957281e91352..bdfff24c8b3a 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -46,7 +46,7 @@ install: canfestival driver
