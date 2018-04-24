@@ -32,21 +32,21 @@ CANFESTIVAL_DIR		:= $(BUILDDIR)/$(CANFESTIVAL)
 # Prepare
 # ----------------------------------------------------------------------------
 
-CANFESTIVAL_PATH	:= PATH=$(CROSS_PATH)
-CANFESTIVAL_ENV 	:= $(CROSS_ENV_CC)
-# Overwrite OPT_CFLAGS instead of CFLAGS so we don't loose other flags
-# such as -fPIC for libs. Note this breaks when using "--disable-Ox"
-CANFESTIVAL_MAKEVARS	:= OPT_CFLAGS="-isystem $(KERNEL_HEADERS_INCLUDE_DIR) -O2"
 #
 # autoconf
 #
 CANFESTIVAL_CONF_TOOL	:= autoconf
 CANFESTIVAL_CONF_OPT	:= \
+	--ld=$(CROSS_CXX) \
 	--prefix=/usr \
 	--can=socket \
 	--timers=unix \
 	--wx=0 \
 	$(call ptx/ifdef,PTXCONF_ENDIAN_BIG,--CANOPEN_BIG_ENDIAN=1) \
+
+ifdef PTXCONF_KERNEL_HEADER
+CANFESTIVAL_CFLAGS	:= -isystem $(KERNEL_HEADERS_INCLUDE_DIR)
+endif
 
 # ----------------------------------------------------------------------------
 # Install
