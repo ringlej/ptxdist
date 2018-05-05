@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QT5) += qt5
 #
 # Paths and names
 #
-QT5_VERSION	:= 5.6.2
-QT5_MD5		:= 5175fba2f221fd4c91e94771a57a5557
+QT5_VERSION	:= 5.6.3
+QT5_MD5		:= 010342d515b62ee1c0e709254f4ef9ab
 QT5		:= qt-everywhere-opensource-src-$(QT5_VERSION)
 QT5_SUFFIX	:= tar.xz
 QT5_URL		:= \
@@ -371,7 +371,6 @@ QT5_QML-$(PTXCONF_QT5_MODULE_QTENGINIO)				+= Enginio
 QT5_QML-$(PTXCONF_QT5_MODULE_QTGRAPHICALEFFECTS)		+= QtGraphicalEffects
 
 ### QtImageFormats ###
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqdds
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqicns
 QT5_PLUGINS-$(PTXCONF_QT5_LIBMNG)				+= imageformats/libqmng
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqtga

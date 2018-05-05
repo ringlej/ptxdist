@@ -1,6 +1,6 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 12 May 2015 11:38:35 +0200
-Subject: [PATCH] ptxdist: qtwebengine: allow building with ptxdsit
+Subject: [PATCH] ptxdist: qtwebengine: allow building with ptxdist
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -8,10 +8,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/qtwebengine/tools/qmake/mkspecs/features/functions.prf b/qtwebengine/tools/qmake/mkspecs/features/functions.prf
-index 2df689bcad14..d2dc988c0233 100644
+index c8fd278b4e01..3faee6455953 100644
 --- a/qtwebengine/tools/qmake/mkspecs/features/functions.prf
 +++ b/qtwebengine/tools/qmake/mkspecs/features/functions.prf
-@@ -105,7 +105,7 @@ defineReplace(getChromiumSrcDir) {
+@@ -162,7 +162,7 @@ defineReplace(getChromiumSrcDir) {
  }
  
  defineReplace(extractCFlag) {
