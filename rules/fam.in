@@ -1,4 +1,6 @@
-## SECTION=disk_and_file
+## SECTION=staging
+## old section:
+### SECTION=disk_and_file
 # fam File Alteration Monitor
 
 menuconfig FAM
@@ -20,6 +22,9 @@ menuconfig FAM
 	  feature is enabled in the kernel (search for symbol CONFIG_DNOTIFY)
 
 	  This daemon requires portmap to spread its service.
+
+	  STAGING: remove in ptxdist-2019.05.0
+	  Old, obsolete and upstream seems to be gone.
 
 if FAM
 
