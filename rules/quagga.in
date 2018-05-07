@@ -4,6 +4,7 @@ menuconfig QUAGGA
 	tristate
 	select NET_SNMP
 	select NET_SNMP_MIB_MODULES_AGENTX
+	select C_ARES				if QUAGGA_NHRPD
 	select READLINE				if QUAGGA_VTYSH
 	select TERMCAP				if QUAGGA_VTYSH
 	prompt "quagga                        "
@@ -52,6 +53,13 @@ config QUAGGA_RIPNGD
 	help
 	  Disable the ripngd component if you do not need it
 
+config QUAGGA_OSPF
+	bool
+	default y
+	prompt "Install ospfclient"
+	help
+	  Disable the ospfclient component if you do not need it
+
 config QUAGGA_OSPFD
 	bool
 	default y
@@ -66,12 +74,12 @@ config QUAGGA_OSPF6D
 	help
 	  Disable the ospf6d component if you do not need it
 
-config QUAGGA_BABELD
+config QUAGGA_NHRPD
 	bool
 	default y
-	prompt "Install babeld"
+	prompt "Install nhrpd"
 	help
-	  Disable the babeld component if you do not need it
+	  Disable the nhrpd component if you do not need it
 
 config QUAGGA_WATCHQUAGGA
 	bool
@@ -79,5 +87,19 @@ config QUAGGA_WATCHQUAGGA
 	prompt "Install watchquagga"
 	help
 	  Disable the watchquagga component if you do not need it
+
+config QUAGGA_ISISD
+	bool
+	default y
+	prompt "Install isisd"
+	help
+	  Disable the isisd component if you do not need it
+
+config QUAGGA_PIMD
+	bool
+	default y
+	prompt "Install pimd"
+	help
+	  Disable the pimd component if you do not need it
 
 endif
