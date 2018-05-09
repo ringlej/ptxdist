@@ -33,6 +33,14 @@ GST_LIBAV1_ENV		:= \
 	$(CROSS_ENV) \
 	AS=$(CROSS_CC)
 
+GST_LIBAV1_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-march=\([^']*\)'.*/\1/p" | tail -n1))
+ifeq ($(GST_LIBAV1_CPU),)
+GST_LIBAV1_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mcpu=\([^']*\)'.*/\1/p" | tail -n1))
+endif
+ifeq ($(GST_LIBAV1_CPU),)
+GST_LIBAV1_CPU := generic
+endif
+
 #
 # autoconf
 #
@@ -53,7 +61,7 @@ GST_LIBAV1_CONF_OPT	:= \
 	--disable-gpl \
 	--with-package-origin="PTXdist" \
 	--without-system-libav \
-	--with-libav-extra-configure="--x86asmexe=nasm"
+	--with-libav-extra-configure="--x86asmexe=nasm --cpu=$(GST_LIBAV1_CPU)"
 
 # ----------------------------------------------------------------------------
 # Target-Install
