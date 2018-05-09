@@ -1,0 +1,27 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Tue, 12 Apr 2016 11:36:26 +0200
+Subject: [PATCH] add nss.pc.in
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ nss/nss.pc.in | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+ create mode 100644 nss/nss.pc.in
+
+diff --git a/nss/nss.pc.in b/nss/nss.pc.in
+new file mode 100644
+index 000000000000..b80838f8ca0d
+--- /dev/null
++++ b/nss/nss.pc.in
+@@ -0,0 +1,11 @@
++prefix=/usr
++exec_prefix=${prefix}
++libdir=${prefix}/lib
++includedir=${prefix}/include/nss
++
++Name: NSS
++Description: Mozilla Network Security Services
++Version: @VERSION@
++Requires: nspr
++Libs: -lnss3 -lnssutil3 -lsmime3 -lssl3
++Cflags: -I${includedir}
