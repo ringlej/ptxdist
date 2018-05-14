@@ -11,18 +11,17 @@ Signed-off-by: Martin Bark <martin@barkynet.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/auto/lib/openssl/conf b/auto/lib/openssl/conf
-index 39d9602..995c6f3 100644
+index 4fb52df7fe17..32ab2a045209 100644
 --- a/auto/lib/openssl/conf
 +++ b/auto/lib/openssl/conf
-@@ -58,8 +58,9 @@ else
+@@ -59,8 +59,8 @@ else
          ngx_feature_name="NGX_OPENSSL"
          ngx_feature_run=no
          ngx_feature_incs="#include <openssl/ssl.h>"
 -        ngx_feature_path=
--        ngx_feature_libs="-lssl -lcrypto $NGX_LIBDL"
-+        ngx_feature_path="$(${PKG_CONFIG:=pkg-config} --cflags-only-I openssl|
-+			     sed -re 's/(^|\s)-I\s*(\S+)/\1\2/g')"
-+        ngx_feature_libs="$(${PKG_CONFIG:=pkg-config} --libs openssl)"
+-        ngx_feature_libs="-lssl -lcrypto $NGX_LIBDL $NGX_LIBPTHREAD"
++        ngx_feature_path="$(${PKG_CONFIG:=pkg-config} --cflags-only-I openssl|sed -re 's/(^|\s)-I\s*(\S+)/\1\2/g')"
++        ngx_feature_libs="$(${PKG_CONFIG:=pkg-config} --libs openssl) $NGX_LIBDL $NGX_LIBPTHREAD"
          ngx_feature_test="SSL_CTX_set_options(NULL, 0)"
          . auto/feature
- 
+

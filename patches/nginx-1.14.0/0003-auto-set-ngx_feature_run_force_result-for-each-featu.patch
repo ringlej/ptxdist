@@ -24,18 +24,18 @@ Signed-off-by: Danomi Manchego <danomimanchego123@gmail.com>
  6 files changed, 20 insertions(+)
 
 diff --git a/auto/cc/conf b/auto/cc/conf
-index b3b9f92eb005..8aa95a042057 100644
+index afbca62bcef9..ad42c8000cca 100644
 --- a/auto/cc/conf
 +++ b/auto/cc/conf
-@@ -181,6 +181,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
-     ngx_feature="gcc builtin atomic operations"
-     ngx_feature_name=NGX_HAVE_GCC_ATOMIC
-     ngx_feature_run=yes
-+    ngx_feature_run_force_result="$ngx_force_gcc_have_atomic"
-     ngx_feature_incs=
-     ngx_feature_path=
-     ngx_feature_libs=
-@@ -201,6 +202,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
+@@ -184,6 +184,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
+         ngx_feature="gcc builtin atomic operations"
+         ngx_feature_name=NGX_HAVE_GCC_ATOMIC
+         ngx_feature_run=yes
++        ngx_feature_run_force_result="$ngx_force_gcc_have_atomic"
+         ngx_feature_incs=
+         ngx_feature_path=
+         ngx_feature_libs=
+@@ -205,6 +206,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
          ngx_feature="C99 variadic macros"
          ngx_feature_name="NGX_HAVE_C99_VARIADIC_MACROS"
          ngx_feature_run=yes
@@ -43,7 +43,7 @@ index b3b9f92eb005..8aa95a042057 100644
          ngx_feature_incs="#include <stdio.h>
  #define var(dummy, ...)  sprintf(__VA_ARGS__)"
          ngx_feature_path=
-@@ -215,6 +217,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
+@@ -219,6 +221,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
      ngx_feature="gcc variadic macros"
      ngx_feature_name="NGX_HAVE_GCC_VARIADIC_MACROS"
      ngx_feature_run=yes
@@ -52,7 +52,7 @@ index b3b9f92eb005..8aa95a042057 100644
  #define var(dummy, args...)  sprintf(args)"
      ngx_feature_path=
 diff --git a/auto/cc/name b/auto/cc/name
-index 35d319e615bc..87c6248e7d1d 100644
+index ded93f5bc989..7c3cb74a2bd1 100644
 --- a/auto/cc/name
 +++ b/auto/cc/name
 @@ -8,6 +8,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
@@ -76,10 +76,10 @@ index d1e484ab32ee..37249161ea2f 100644
                        #include <atomic_ops.h>"
      ngx_feature_path=
 diff --git a/auto/os/darwin b/auto/os/darwin
-index b4b3ad306308..2bcfdfbff97d 100644
+index 429468f7fd40..1ed47cca5c89 100644
 --- a/auto/os/darwin
 +++ b/auto/os/darwin
-@@ -30,6 +30,7 @@ NGX_KQUEUE_CHECKED=YES
+@@ -33,6 +33,7 @@ NGX_KQUEUE_CHECKED=YES
  ngx_feature="kqueue's EVFILT_TIMER"
  ngx_feature_name="NGX_HAVE_TIMER_EVENT"
  ngx_feature_run=yes
@@ -87,7 +87,7 @@ index b4b3ad306308..2bcfdfbff97d 100644
  ngx_feature_incs="#include <sys/event.h>
                    #include <sys/time.h>"
  ngx_feature_path=
-@@ -60,6 +61,7 @@ ngx_feature_test="int      kq;
+@@ -63,6 +64,7 @@ ngx_feature_test="int      kq;
  ngx_feature="Darwin 64-bit kqueue millisecond timeout bug"
  ngx_feature_name=NGX_DARWIN_KEVENT_BUG
  ngx_feature_run=bug
@@ -95,7 +95,7 @@ index b4b3ad306308..2bcfdfbff97d 100644
  ngx_feature_incs="#include <sys/event.h>
                    #include <sys/time.h>"
  ngx_feature_path=
-@@ -90,6 +92,7 @@ CC_AUX_FLAGS="$CC_AUX_FLAGS"
+@@ -92,6 +94,7 @@ ngx_feature_test="int  kq;
  ngx_feature="sendfile()"
  ngx_feature_name="NGX_HAVE_SENDFILE"
  ngx_feature_run=yes
@@ -104,7 +104,7 @@ index b4b3ad306308..2bcfdfbff97d 100644
                    #include <sys/socket.h>
                    #include <sys/uio.h>
 diff --git a/auto/os/linux b/auto/os/linux
-index fae8842c6454..cd40c7b8b6d8 100644
+index 2c8a9bb8e380..eb4513eeed7c 100644
 --- a/auto/os/linux
 +++ b/auto/os/linux
 @@ -37,6 +37,7 @@ fi
@@ -140,7 +140,7 @@ index fae8842c6454..cd40c7b8b6d8 100644
  ngx_feature_path=
  ngx_feature_libs=
 diff --git a/auto/unix b/auto/unix
-index 5ef74d4a8993..7d47fe3faaf5 100644
+index 43d3b25a5456..3da005375cf5 100644
 --- a/auto/unix
 +++ b/auto/unix
 @@ -100,6 +100,7 @@ if test -z "$NGX_KQUEUE_CHECKED"; then
@@ -151,7 +151,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
          ngx_feature_incs="#include <sys/event.h>
                            #include <sys/time.h>"
          ngx_feature_path=
-@@ -702,6 +703,7 @@ ngx_feature_test="char buf[1]; struct iovec vec[1]; ssize_t n;
+@@ -730,6 +731,7 @@ ngx_feature_test="char buf[1]; struct iovec vec[1]; ssize_t n;
  ngx_feature="sys_nerr"
  ngx_feature_name="NGX_SYS_NERR"
  ngx_feature_run=value
@@ -159,7 +159,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
  ngx_feature_incs='#include <errno.h>
                    #include <stdio.h>'
  ngx_feature_path=
-@@ -716,6 +718,7 @@ if [ $ngx_found = no ]; then
+@@ -744,6 +746,7 @@ if [ $ngx_found = no ]; then
      ngx_feature="_sys_nerr"
      ngx_feature_name="NGX_SYS_NERR"
      ngx_feature_run=value
@@ -167,7 +167,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
      ngx_feature_incs='#include <errno.h>
                        #include <stdio.h>'
      ngx_feature_path=
-@@ -731,6 +734,7 @@ if [ $ngx_found = no ]; then
+@@ -759,6 +762,7 @@ if [ $ngx_found = no ]; then
      ngx_feature='maximum errno'
      ngx_feature_name=NGX_SYS_NERR
      ngx_feature_run=value
@@ -175,7 +175,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
      ngx_feature_incs='#include <errno.h>
                        #include <string.h>
                        #include <stdio.h>'
-@@ -789,6 +793,7 @@ ngx_feature_test="void *p; p = memalign(4096, 4096);
+@@ -841,6 +845,7 @@ ngx_feature_test="void *p; p = memalign(4096, 4096);
  ngx_feature="mmap(MAP_ANON|MAP_SHARED)"
  ngx_feature_name="NGX_HAVE_MAP_ANON"
  ngx_feature_run=yes
@@ -183,7 +183,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
  ngx_feature_incs="#include <sys/mman.h>"
  ngx_feature_path=
  ngx_feature_libs=
-@@ -802,6 +807,7 @@ ngx_feature_test="void *p;
+@@ -854,6 +859,7 @@ ngx_feature_test="void *p;
  ngx_feature='mmap("/dev/zero", MAP_SHARED)'
  ngx_feature_name="NGX_HAVE_MAP_DEVZERO"
  ngx_feature_run=yes
@@ -191,7 +191,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
  ngx_feature_incs="#include <sys/mman.h>
                    #include <sys/stat.h>
                    #include <fcntl.h>"
-@@ -817,6 +823,7 @@ ngx_feature_test='void *p; int  fd;
+@@ -869,6 +875,7 @@ ngx_feature_test='void *p; int  fd;
  ngx_feature="System V shared memory"
  ngx_feature_name="NGX_HAVE_SYSVSHM"
  ngx_feature_run=yes
@@ -199,7 +199,7 @@ index 5ef74d4a8993..7d47fe3faaf5 100644
  ngx_feature_incs="#include <sys/ipc.h>
                    #include <sys/shm.h>"
  ngx_feature_path=
-@@ -831,6 +838,7 @@ ngx_feature_test="int  id;
+@@ -883,6 +890,7 @@ ngx_feature_test="int  id;
  ngx_feature="POSIX semaphores"
  ngx_feature_name="NGX_HAVE_POSIX_SEM"
  ngx_feature_run=yes

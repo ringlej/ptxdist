@@ -9,8 +9,7 @@
 0006-auto-lib-openssl-conf-use-pkg-config.patch
 0007-auto-lib-libgd-conf-use-pkg-config.patch
 0008-src-os-unix-ngx_linux_config.h-only-include-dlfcn.h-.patch
-0009-auto-lib-conf-fix-PCRE-condition-WRT-the-http-and-ht.patch
 #tag:ptxdist --start-number 100
 0100-auto-endianness-add-mechanism-allowing-to-force-resu.patch
 0101-auto-unix-allow-overriding-the-IPv6-build-test.patch
-# 3a5ee77373446a5a6dd9d189d51ecdc2  - git-ptx-patches magic
+# 296747e524339625bd4ef3856eac1d8b  - git-ptx-patches magic
