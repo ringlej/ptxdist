@@ -33,6 +33,7 @@ dnl
 dnl Check for pkg-config
 dnl
 PKG_PROG_PKG_CONFIG
+AS_IF([test -z "$PKG_CONFIG"], AC_MSG_ERROR([pkg-config not found.]))
 
 dnl
 dnl Check header files, mostly for lxdialog & kconfig
