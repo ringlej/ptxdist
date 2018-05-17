@@ -34,12 +34,15 @@ NETWORKMANAGER_OPENVPN_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER_OPENVPN)
 NETWORKMANAGER_OPENVPN_CONF_TOOL := autoconf
 NETWORKMANAGER_OPENVPN_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-static \
 	--enable-shared \
+	--disable-static \
+	--disable-absolute-paths \
+	--disable-ld-gc \
+	--disable-lto \
 	--disable-nls \
 	--enable-more-warnings \
-	--without-libnm-glib \
-	--without-gnome
+	--without-gnome \
+	--without-libnm-glib
 
 # ----------------------------------------------------------------------------
 # Target-Install
