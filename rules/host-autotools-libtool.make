@@ -29,6 +29,16 @@ HOST_AUTOTOOLS_LIBTOOL_LICENSE	:= GPL-2.0-or-later
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-libtool.install.post
 
 # ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-autotools-libtool.extract.post:
+	@$(call targetinfo)
+	@cd $(HOST_AUTOTOOLS_LIBTOOL_DIR) && aclocal && autoreconf --force && autoheader
+	@$(call world/patchin/post, HOST_AUTOTOOLS_LIBTOOL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

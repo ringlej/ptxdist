@@ -3,4 +3,5 @@
 config HOST_AUTOTOOLS_LIBTOOL
 	bool
 	select HOST_AUTOTOOLS_AUTOMAKE
+	select HOST_AUTOTOOLS_AUTOCONF
 	default y
