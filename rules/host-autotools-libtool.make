@@ -34,7 +34,7 @@ $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-libtool.install.post
 
 $(STATEDIR)/host-autotools-libtool.extract.post:
 	@$(call targetinfo)
-	@cd $(HOST_AUTOTOOLS_LIBTOOL_DIR) && aclocal && autoreconf --force && autoheader
+	@cd $(HOST_AUTOTOOLS_LIBTOOL_DIR) && touch -r m4/ltdl.m4 m4/libtool.m4
 	@$(call world/patchin/post, HOST_AUTOTOOLS_LIBTOOL)
 	@$(call touch)
 
