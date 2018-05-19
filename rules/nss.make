@@ -91,8 +91,8 @@ $(STATEDIR)/nss.install:
 	VERSION=$(NSS_VERSION) ptxd_replace_magic \
 		$(NSS_DIR)/nss/nss.pc.in > $(NSS_PKGDIR)/usr/lib/pkgconfig/nss.pc
 
-	@install -v -d $(SYSROOT)/usr/include/nss
-	@install -v -m 644 -t $(SYSROOT)/usr/include/nss $(NSS_DIR)/dist/public/nss/*
+	@install -v -d $(NSS_PKGDIR)/usr/include/nss
+	@install -v -m 644 -t $(NSS_PKGDIR)/usr/include/nss $(NSS_DIR)/dist/public/nss/*
 
 	@$(call touch)
 
