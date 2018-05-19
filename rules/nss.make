@@ -33,10 +33,15 @@ NSS_LICENSE_FILES	:= \
 
 NSS_CONF_TOOL	:= NO
 
-NSS_COMPILE_ENV   := \
+NSS_ARCH := $(call remove_quotes,$(PTXCONF_ARCH_STRING))
+ifdef PTXCONF_ARCH_ARM64
+NSS_ARCH := aarch64
+endif
+
+NSS_MAKE_ENV := \
 	$(CROSS_ENV) \
 	CCC=$(CROSS_CXX) \
-	CPU_ARCH=$(PTXCONF_ARCH_STRING) \
+	CPU_ARCH=$(NSS_ARCH) \
 	CROSS_COMPILE=1 \
 	NATIVE_CC="gcc" \
 	BUILD_OPT=1 \
@@ -52,7 +57,7 @@ NSS_MAKE_PAR := NO
 NSS_MAKE_OPT := \
 	OS_ARCH=Linux \
 	OS_RELEASE=$(PTXCONF_KERNEL_VERSION) \
-	OS_TEST=$(PTXCONF_ARCH_STRING)
+	OS_TEST=$(NSS_ARCH)
 
 # ----------------------------------------------------------------------------
 # Install
