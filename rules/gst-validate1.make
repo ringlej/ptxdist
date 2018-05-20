@@ -46,7 +46,7 @@ GST_VALIDATE1_CONF_OPT	:= \
 	--disable-debug \
 	--disable-valgrind \
 	--disable-gcov \
-	--disable-introspection \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	--disable-docbook \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
@@ -89,6 +89,11 @@ $(STATEDIR)/gst-validate1.targetinstall:
 
 	@$(call install_tree, gst-validate1, 0, 0, -, \
 		/usr/share/gstreamer-1.0/validate/scenarios)
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_copy, gst-validate1, 0, 0, 644, -, \
+		/usr/lib/girepository-1.0/GstValidate-1.0.typelib)
+endif
 
 ifdef PTXCONF_GST_VALIDATE1_VIDEO
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \
