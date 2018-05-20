@@ -82,7 +82,7 @@ FNR == 1 {
 # put "source"d file to argument, in order to convert them, too
 # add prefix to sourced files
 #
-/^[[:space:]]*source[[:space:]]+/ {
+/^[[:space:]]*source[[:space:]]+[^[:space:]]+$/ {
 	# remove quotes from file
 	gsub(/(^"|"$)/, "", $2);
 	ARGC++;
