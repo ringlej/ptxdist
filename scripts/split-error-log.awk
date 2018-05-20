@@ -1,5 +1,9 @@
 #!/usr/bin/awk -f
 
+BEGIN {
+	stages = " "
+}
+
 /^target: / {
 	n = split(stages, l, " ")
 	for (i = 0; i < n; i++) {
@@ -12,13 +16,20 @@
 				break
 		}
 	}
-	stages = stages " " $2
+	stages = stages $2 " "
 	cache[$2][0] = last
 }
 
+function drop(stage) {
+	delete cache[stage]
+	do {
+		old = stages
+		stages = gensub(" " stage " ", " ", "g", stages)
+	} while (old != stages)
+}
+
 /\<finished target / {
-	delete cache[$NF]
-	stages = gensub(" " $NF, "", "g", stages)
+	drop($NF)
 }
 
 {
@@ -42,6 +53,5 @@
 	}
 	close(targetfile)
 
-	delete cache[stage]
-	stages = gensub(" " stage, "", "g", stages)
+	drop(stage)
 }
