@@ -41,7 +41,7 @@ GST_RTSP_SERVER1_CONF_OPT	= \
 	--disable-gcov \
 	--disable-examples \
 	--disable-tests \
-	--disable-introspection \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	--disable-docbook \
 	\
 	--enable-Bsymbolic \
@@ -62,6 +62,10 @@ $(STATEDIR)/gst-rtsp-server1.targetinstall:
 
 	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, libgstrtspserver-1.0)
 	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, gstreamer-1.0/libgstrtspclientsink)
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_copy, gst-rtsp-server1, 0, 0, 644, -, \
+		/usr/lib/girepository-1.0/GstRtspServer-1.0.typelib)
+endif
 
 	@$(call install_finish, gst-rtsp-server1)
 
