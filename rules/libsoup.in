@@ -8,6 +8,15 @@ config LIBSOUP
 	select LIBXML2_OUTPUT
 	select LIBXML2_SAX1
 	select HOST_INTLTOOL
+	select GOBJECT_INTROSPECTION	if LIBSOUP_INTROSPECTION
 	prompt "libsoup"
 	help
 	  HTTP library implementation in C.
+
+if LIBSOUP
+
+config LIBSOUP_INTROSPECTION
+	bool
+	default GOBJECT_INTROSPECTION_HELPER
+
+endif
