@@ -7,20 +7,20 @@
 menu "Print Utilities"
 
 config BUSYBOX_LPD
-	bool "lpd"
+	bool "lpd (5.3 kb)"
 	default y
 	help
-	  lpd is a print spooling daemon.
+	lpd is a print spooling daemon.
 config BUSYBOX_LPR
-	bool "lpr"
+	bool "lpr (10 kb)"
 	default y
 	help
-	  lpr sends files (or standard input) to a print spooling daemon.
+	lpr sends files (or standard input) to a print spooling daemon.
 
 config BUSYBOX_LPQ
-	bool "lpq"
+	bool "lpq (10 kb)"
 	default y
 	help
-	  lpq is a print spool queue examination and manipulation program.
+	lpq is a print spool queue examination and manipulation program.
 
 endmenu

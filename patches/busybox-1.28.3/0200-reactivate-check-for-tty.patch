@@ -14,10 +14,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index ea2446a89814..8b70f99e7633 100644
+index 57734b590ace..b9cf03d76f55 100644
 --- a/scripts/kconfig/conf.c
 +++ b/scripts/kconfig/conf.c
-@@ -498,7 +498,7 @@ int main(int ac, char **av)
+@@ -537,7 +537,7 @@ int main(int ac, char **av)
  			break;
  		case 's':
  			input_mode = ask_silent;

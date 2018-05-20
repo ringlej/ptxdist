@@ -10,7 +10,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 1 insertion(+)
 
 diff --git a/Makefile.flags b/Makefile.flags
-index 65021de25ffb..b9d0abb0dce5 100644
+index f3c897b0687f..72e0a13a6388 100644
 --- a/Makefile.flags
 +++ b/Makefile.flags
 @@ -153,6 +153,7 @@ ifeq ($(CONFIG_SELINUX),y)

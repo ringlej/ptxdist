@@ -9,10 +9,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/trylink b/scripts/trylink
-index 9f288c141a6b..713c09d523c8 100755
+index ba2d265bc919..a3f3b5b8cc10 100755
 --- a/scripts/trylink
 +++ b/scripts/trylink
-@@ -262,7 +262,12 @@ if test "$CONFIG_BUILD_LIBBUSYBOX" = y; then
+@@ -268,7 +268,12 @@ if test "$CONFIG_BUILD_LIBBUSYBOX" = y; then
  	cat $EXE.out
  	exit 1
      }
@@ -26,7 +26,7 @@ index 9f288c141a6b..713c09d523c8 100755
      chmod a+x "$sharedlib_dir/libbusybox.so.$BB_VER"
      echo "libbusybox: $sharedlib_dir/libbusybox.so.$BB_VER"
  fi
-@@ -283,7 +288,11 @@ if test "$CONFIG_FEATURE_SHARED_BUSYBOX" = y; then
+@@ -289,7 +294,11 @@ if test "$CONFIG_FEATURE_SHARED_BUSYBOX" = y; then
  	cat $EXE.out
  	exit 1
      }
@@ -39,7 +39,7 @@ index 9f288c141a6b..713c09d523c8 100755
      echo "busybox linked against libbusybox: $sharedlib_dir/busybox"
  fi
  
-@@ -320,7 +329,9 @@ int main(int argc, char **argv)
+@@ -326,7 +335,9 @@ int main(int argc, char **argv)
  	    exit 1
  	}
  	rm -- "$sharedlib_dir/applet.c" $EXE.out
