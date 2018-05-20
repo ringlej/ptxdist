@@ -18,11 +18,11 @@ PACKAGES-$(PTXCONF_ATK) += atk
 #
 # Paths and names
 #
-ATK_VERSION	:= 2.2.0
-ATK_MD5		:= 4894e9b04f0a9f1c37a624a1e8d6d73f
+ATK_VERSION	:= 2.28.1
+ATK_MD5		:= dfb5e7474220afa3f4ca7e45af9f3a11
 ATK		:= atk-$(ATK_VERSION)
-ATK_SUFFIX	:= tar.bz2
-ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/2.2/$(ATK).$(ATK_SUFFIX)
+ATK_SUFFIX	:= tar.xz
+ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/$(basename $(ATK_VERSION))/$(ATK).$(ATK_SUFFIX)
 ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		:= $(BUILDDIR)/$(ATK)
 ATK_LICENSE	:= LGPL-2.0-only
@@ -31,16 +31,20 @@ ATK_LICENSE	:= LGPL-2.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-ATK_PATH	:= PATH=$(CROSS_PATH)
-ATK_ENV		:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-ATK_AUTOCONF := \
+ATK_CONF_TOOL	:= autoconf
+ATK_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-static \
-	--disable-glibtest
+	--disable-rebuilds \
+	--disable-nls \
+	--disable-rpath \
+	--$(call ptx/endis, PTXCONF_ATK_INTROSPECTION)-introspection \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -56,6 +60,10 @@ $(STATEDIR)/atk.targetinstall:
 	@$(call install_fixup, atk,DESCRIPTION,missing)
 
 	@$(call install_lib, atk, 0, 0, 0644, libatk-1.0)
+ifdef PTXCONF_ATK_INTROSPECTION
+	@$(call install_copy, atk, 0, 0, 0644, -, \
+		/usr/lib/girepository-1.0/Atk-1.0.typelib)
+endif
 
 	@$(call install_finish, atk)
 

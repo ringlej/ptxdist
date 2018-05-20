@@ -2,8 +2,9 @@
 
 config ATK
 	tristate
-	prompt "atk                           "
+	prompt "atk"
 	select GLIB
+	select GOBJECT_INTROSPECTION	if ATK_INTROSPECTION
 	help
 	  ATK is a toolkit providing accessibility interfaces
 	  for applications or other toolkits. By implementing
@@ -11,3 +12,11 @@ config ATK
 	  can be used with tools such as screen readers,
 	  magnifiers, and other alternative input devices.
 	  ATK is part of the GNOME project.
+
+if ATK
+
+config ATK_INTROSPECTION
+	bool
+	default GOBJECT_INTROSPECTION_HELPER
+
+endif
