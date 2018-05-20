@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ORC) += orc
 #
 # Paths and names
 #
-ORC_VERSION	:= 0.4.26
-ORC_MD5		:= 8e9bef677bae289d3324d81c337a4507
+ORC_VERSION	:= 0.4.28
+ORC_MD5		:= 6b582ec4b3275c5efd51e3ae6406d445
 ORC		:= orc-$(ORC_VERSION)
 ORC_SUFFIX	:= tar.xz
 ORC_URL		:= http://gstreamer.freedesktop.org/data/src/orc/$(ORC).$(ORC_SUFFIX)
@@ -29,6 +29,11 @@ ORC_LICENSE	:= BSD-2-Clause AND BSD-3-Clause
 # Prepare
 # ----------------------------------------------------------------------------
 
+ORC_BACKEND := all
+ifdef PTXCONF_ARCH_ARM_NEON
+ORC_BACKEND := neon
+endif
+
 #
 # autoconf
 #
@@ -37,7 +42,9 @@ ORC_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf
+	--disable-gtk-doc-pdf \
+	--enable-backend=$(ORC_BACKEND) \
+	--$(call ptx/endis,PTXCONF_ORC_TEST)-tests
 
 # ----------------------------------------------------------------------------
 # Install
@@ -63,7 +70,9 @@ $(STATEDIR)/orc.targetinstall:
 	@$(call install_fixup, orc,DESCRIPTION,missing)
 
 	@$(call install_lib, orc, 0, 0, 0644, liborc-0.4)
+ifdef PTXCONF_ORC_TEST
 	@$(call install_lib, orc, 0, 0, 0644, liborc-test-0.4)
+endif
 
 	@$(call install_finish, orc)
 

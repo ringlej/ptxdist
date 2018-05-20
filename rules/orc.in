@@ -13,3 +13,9 @@ config ORC
 	  the features available in SIMD architectures, including saturated
 	  addition and subtraction, and many arithmetic operations.
 
+if ORC
+
+config ORC_TEST
+	bool
+
+endif
