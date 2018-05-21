@@ -1,0 +1,402 @@
+From: Ladislav Michl <ladis@linux-mips.org>
+Subject: [PATCH] Remove notes sections when producing binary
+
+Some linkers are producing notes section which causes objcopy creating over
+2MiB binary. Fix this by removing whole section - this is what kernel does:
+https://lkml.org/lkml/2011/12/15/162
+
+Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
+---
+ board/at91cap9adk/dataflash/Makefile      |    4 +++-
+ board/at91cap9adk/norflash/Makefile       |    4 +++-
+ board/at91cap9stk/nandflash/Makefile      |    4 +++-
+ board/at91sam9260ek/dataflash/Makefile    |    4 +++-
+ board/at91sam9260ek/nandflash/Makefile    |    4 +++-
+ board/at91sam9261ek/dataflash/Makefile    |    4 +++-
+ board/at91sam9261ek/nandflash/Makefile    |    4 +++-
+ board/at91sam9263ek/dataflash/Makefile    |    4 +++-
+ board/at91sam9263ek/nandflash/Makefile    |    4 +++-
+ board/at91sam9g10ek/dataflash/Makefile    |    4 +++-
+ board/at91sam9g10ek/nandflash/Makefile    |    4 +++-
+ board/at91sam9g20ek/dataflash/Makefile    |    4 +++-
+ board/at91sam9g20ek/nandflash/Makefile    |    4 +++-
+ board/at91sam9g45ekes/nandflash/Makefile  |    4 +++-
+ board/at91sam9m10ekes/dataflash/Makefile  |    4 +++-
+ board/at91sam9m10ekes/nandflash/Makefile  |    4 +++-
+ board/at91sam9m10g45ek/dataflash/Makefile |    4 +++-
+ board/at91sam9m10g45ek/nandflash/Makefile |    4 +++-
+ board/at91sam9rlek/dataflash/Makefile     |    4 +++-
+ board/at91sam9rlek/nandflash/Makefile     |    4 +++-
+ board/at91sam9xeek/dataflash/Makefile     |    4 +++-
+ board/at91sam9xeek/nandflash/Makefile     |    4 +++-
+ lib/Makefile                              |    4 +++-
+ 23 files changed, 69 insertions(+), 23 deletions(-)
+
+--- a/board/at91cap9adk/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91cap9adk/dataflash/Makefile	2018-05-21 15:46:47.965572041 +0200
+@@ -65,10 +65,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 	
+ 	
+--- a/board/at91cap9adk/norflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91cap9adk/norflash/Makefile	2018-05-21 15:46:47.965572041 +0200
+@@ -65,10 +65,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 	
+ 	
+--- a/board/at91cap9stk/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91cap9stk/nandflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9260ek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9260ek/dataflash/Makefile	2018-05-21 15:46:47.965572041 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9260ek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9260ek/nandflash/Makefile	2018-05-21 15:46:47.965572041 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9261ek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9261ek/dataflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9261ek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9261ek/nandflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9263ek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9263ek/dataflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -65,10 +65,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 	
+ 	
+--- a/board/at91sam9263ek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9263ek/nandflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -64,10 +64,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 	
+ 	
+--- a/board/at91sam9g10ek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9g10ek/dataflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9g10ek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9g10ek/nandflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9g20ek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9g20ek/dataflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9g20ek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9g20ek/nandflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9g45ekes/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9g45ekes/nandflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9m10ekes/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9m10ekes/dataflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9m10ekes/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9m10ekes/nandflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9m10g45ek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9m10g45ek/dataflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9m10g45ek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9m10g45ek/nandflash/Makefile	2018-05-21 15:46:47.985572522 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9rlek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9rlek/dataflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ $(BOARD).o: $(BOOTSTRAP_PATH)/board/$(BOARD)/$(BOARD).c 
+--- a/board/at91sam9rlek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9rlek/nandflash/Makefile	2018-05-21 15:46:47.965572041 +0200
+@@ -69,10 +69,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/board/at91sam9xeek/dataflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9xeek/dataflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -72,10 +72,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ $(BOARD).o: $(BOOTSTRAP_PATH)/board/$(BOARD)/$(BOARD).c 
+--- a/board/at91sam9xeek/nandflash/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/board/at91sam9xeek/nandflash/Makefile	2018-05-21 15:46:47.975572282 +0200
+@@ -72,10 +72,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ 
+--- a/lib/Makefile	2018-05-21 15:48:07.887504700 +0200
++++ b/lib/Makefile	2018-05-21 15:53:48.685832495 +0200
+@@ -68,10 +68,12 @@
+ 
+ all: 	$(BOOT_NAME)
+ 
++REMOVE_SECTIONS=-R .note -R .comment -R .note.gnu.build-id
++
+ ifeq ($(TOOLCHAIN), gcc)
+ $(BOOT_NAME): $(OBJS)
+ 	$(LD) $(LDFLAGS) -n -o $(BOOT_NAME).elf $(OBJS)
+-	$(OBJCOPY) --strip-debug --strip-unneeded $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
++	$(OBJCOPY) --strip-debug --strip-unneeded $(REMOVE_SECTIONS) $(BOOT_NAME).elf -O binary $(BOOT_NAME).bin
+ endif
+ 
+ $(BOARD).o: $(BOOTSTRAP_PATH)/board/$(BOARD)/$(BOARD).c 

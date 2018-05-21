@@ -3,4 +3,5 @@
 0001-crt0_gnu.S-fix-image-size.patch
 0002-elf32-littlearm.lds-fix-overlap-linker-error.patch
 0003-Fix-build-with-EABI-toolchain.patch
+0004-Remove-note-sections.patch
 # 0771a94d6e5f085e4c18dcea3102d267  - git-ptx-patches magic
