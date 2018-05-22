@@ -29,7 +29,7 @@ GST_LIBAV1_LICENSE	:= unknown
 # Prepare
 # ----------------------------------------------------------------------------
 
-GST_LIBAV1_ENV		:= \
+GST_LIBAV1_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	AS=$(CROSS_CC)
 
