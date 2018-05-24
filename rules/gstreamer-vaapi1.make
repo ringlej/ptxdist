@@ -33,7 +33,8 @@ GSTREAMER_VAAPI1_ENABLE-y					:= drm
 GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_X11)		+= x11
 GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_GLX)		+= glx
 GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_WAYLAND)	+= wayland
-GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_EGL)		+= egl
+# EGL backend is gone but configure only looks for OpenGL if glx or egl is enabled
+GSTREAMER_VAAPI1_ENABLE-$(PTXCONF_GSTREAMER_VAAPI1_OPENGL)	+= egl
 
 #
 # autoconf
@@ -47,7 +48,7 @@ GSTREAMER_VAAPI1_CONF_OPT	= \
 	--enable-encoders \
 	$(addprefix --enable-,$(GSTREAMER_VAAPI1_ENABLE-y)) \
 	$(addprefix --disable-,$(GSTREAMER_VAAPI1_ENABLE-)) \
-	--with-glapi=any \
+	--with-glapi=$(call ptx/ifdef,PTXCONF_GSTREAMER_VAAPI1_OPENGL,any,no) \
 	--without-gtk
 
 # ----------------------------------------------------------------------------

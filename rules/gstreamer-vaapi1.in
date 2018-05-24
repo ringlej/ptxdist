@@ -7,9 +7,8 @@ config GSTREAMER_VAAPI1
 	select GSTREAMER1_DEBUG
 	select GST_PLUGINS_BAD1
 	select GST_PLUGINS_BASE1
-	select GST_PLUGINS_BASE1_GL	if GSTREAMER_VAAPI1_EGL
-	select GST_PLUGINS_BASE1_EGL	if GSTREAMER_VAAPI1_EGL
-	select MESALIB			if GSTREAMER_VAAPI1_EGL
+	select MESALIB			if GSTREAMER_VAAPI1_OPENGL
+	select XORG_LIB_XRANDR		if GSTREAMER_VAAPI1_X11
 	prompt "gstreamer-vaapi1"
 	help
 	  Gstreamer-vaapi is a collection of GStreamer plugins and helper
@@ -17,6 +16,10 @@ config GSTREAMER_VAAPI1
 	  encoding and processing through VA-API.
 
 if GSTREAMER_VAAPI1
+
+config GSTREAMER_VAAPI1_OPENGL
+	bool
+	default GST_PLUGINS_BASE1_GL
 
 config GSTREAMER_VAAPI1_X11
 	bool
@@ -29,9 +32,5 @@ config GSTREAMER_VAAPI1_GLX
 config GSTREAMER_VAAPI1_WAYLAND
 	bool
 	default LIBVA_WAYLAND
-
-config GSTREAMER_VAAPI1_EGL
-	bool
-	default LIBVA_EGL
 
 endif
