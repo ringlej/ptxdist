@@ -1,0 +1,9 @@
+## SECTION=system_libraries
+
+config LIBEV
+	bool
+	prompt "libev"
+	help
+	  A full-featured and high-performance event loop that is loosely
+	  modelled after libevent, but without its limitations and bugs.
+	  
