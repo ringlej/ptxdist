@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2014 by Guillermo Rodriguez <guille.rodriguez@gmail.com>
+# Copyright (C) 2018 by Guillermo Rodriguez <guille.rodriguez@gmail.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_FUSE_ZIP) += fuse-zip
 #
 # Paths and names
 #
-FUSE_ZIP_VERSION	:= 0.4.0
-FUSE_ZIP_MD5	:= da2d85c5b28ccd153c928f8030e3f729
-FUSE_ZIP		:= fuse-zip-$(FUSE_ZIP_VERSION)
+FUSE_ZIP_VERSION	:= 0.4.2
+FUSE_ZIP_MD5	:= 673a351e4116d5576a92d62d21208afe
+FUSE_ZIP	:= fuse-zip-$(FUSE_ZIP_VERSION)
 FUSE_ZIP_SUFFIX	:= tar.gz
-FUSE_ZIP_URL	:= http://fuse-zip.googlecode.com/files/$(FUSE_ZIP).$(FUSE_ZIP_SUFFIX)
+FUSE_ZIP_URL	:= https://bitbucket.org/agalanin/fuse-zip/downloads/$(FUSE_ZIP).$(FUSE_ZIP_SUFFIX)
 FUSE_ZIP_SOURCE	:= $(SRCDIR)/$(FUSE_ZIP).$(FUSE_ZIP_SUFFIX)
 FUSE_ZIP_DIR	:= $(BUILDDIR)/$(FUSE_ZIP)
 FUSE_ZIP_LICENSE	:= LGPL
@@ -31,9 +31,7 @@ FUSE_ZIP_LICENSE	:= LGPL
 
 FUSE_ZIP_CONF_TOOL	:= NO
 FUSE_ZIP_MAKE_ENV	:= $(CROSS_ENV)
-
-# Makefile ignores DESTDIR
-FUSE_ZIP_INSTALL_OPT	:= 'INSTALLPREFIX=$(FUSE_ZIP_PKGDIR)/usr' install
+FUSE_ZIP_INSTALL_OPT	:= 'prefix=/usr' install
 
 
 # ----------------------------------------------------------------------------
