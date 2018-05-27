@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_ZSYNC) += zsync
 #
 # Paths and names
 #
-ZSYNC_VERSION	:= 0.6.1
-ZSYNC_MD5	:= cab880e6cb3a5b0976b0930a5b6e3256
+ZSYNC_VERSION	:= 0.6.2
+ZSYNC_MD5	:= 862f90bafda118c4d3c5ee6477e50841
 ZSYNC		:= zsync-$(ZSYNC_VERSION)
 ZSYNC_SUFFIX	:= tar.bz2
 ZSYNC_URL	:= http://zsync.moria.org.uk/download/$(ZSYNC).$(ZSYNC_SUFFIX)
