@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_STUNNEL) += stunnel
 #
 # Paths and names
 #
-STUNNEL_VERSION	:= 5.02
-STUNNEL_MD5	:= bb48b1c18cfc0a42708ef996b1a26926
+STUNNEL_VERSION	:= 5.45
+STUNNEL_MD5	:= 68c64609c6154d485883f7c436def004
 STUNNEL		:= stunnel-$(STUNNEL_VERSION)
 STUNNEL_SUFFIX	:= tar.gz
 STUNNEL_URL	:= \
@@ -39,7 +39,9 @@ STUNNEL_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--with-ssl=$(PTXDIST_SYSROOT_TARGET)/usr \
 	$(GLOBAL_IPV6_OPTION) \
-	--disable-fips
+	--disable-fips \
+	--disable-systemd \
+	--disable-libwrap
 
 # ----------------------------------------------------------------------------
 # Target-Install
