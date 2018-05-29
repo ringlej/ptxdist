@@ -14,7 +14,6 @@ host_keys_required() {
 	else
 		# No HostKey directives found, so we pick secure defaults
 		echo /etc/ssh/ssh_host_ed25519_key
-		echo /etc/ssh/ssh_host_rsa_key
 	fi
 }
 
