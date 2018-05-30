@@ -1,8 +1,8 @@
-## SECTION=image
+## SECTION=image2
 
-config IMAGE_VDI
-	bool
-	select IMAGE_HD
+config IMAGE_HD_VDI
+	tristate
+	select IMAGE_HDIMG
 	prompt "Generate images/hd.vdi"
 	help
 	  Build a VirtualBox's disk image file.
