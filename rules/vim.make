@@ -16,15 +16,15 @@ PACKAGES-$(PTXCONF_VIM) += vim
 #
 # Paths and names
 #
-VIM_VERSION	:= 7.3
-VIM_MD5		:= 5b9510a17074e2b37d8bb38ae09edbf2
+VIM_VERSION	:= 8.1
+VIM_MD5		:= 1739a1df312305155285f0cfa6118294
 VIM		:= vim-$(VIM_VERSION)
 VIM_SUFFIX	:= tar.bz2
 VIM_URL		:= ftp://ftp.vim.org/pub/vim/unix/$(VIM).$(VIM_SUFFIX)
 VIM_SOURCE	:= $(SRCDIR)/$(VIM).$(VIM_SUFFIX)
 VIM_DIR		:= $(BUILDDIR)/$(VIM)
 VIM_SUBDIR	:= src
-VIM_LICENSE	:= unknown
+VIM_LICENSE	:= Vim
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -34,6 +34,7 @@ VIM_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	vim_cv_toupper_broken=no \
 	vim_cv_terminfo=yes \
+	vim_cv_tgetent=zero \
 	vim_cv_tty_group=world \
 	vim_cv_tty_mode=0620 \
 	vim_cv_getcwd_broken=no \
@@ -46,7 +47,9 @@ VIM_CONF_ENV	:= \
 VIM_CONF_TOOL	:= autoconf
 VIM_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-fail-if-missing \
 	--disable-darwin \
+	--disable-smack \
 	--disable-selinux \
 	--disable-xsmp \
 	--disable-xsmp-interact \
@@ -60,7 +63,9 @@ VIM_CONF_OPT	:= \
 	--disable-cscope \
 	--disable-workshop \
 	--disable-netbeans \
-	--disable-sniff \
+	--disable-channel \
+	--disable-terminal \
+	--disable-autoservername \
 	--disable-multibyte \
 	--disable-hangulinput \
 	--disable-xim \
@@ -68,11 +73,14 @@ VIM_CONF_OPT	:= \
 	--disable-gui \
 	--disable-gtk2-check \
 	--disable-gnome-check \
+	--disable-gtk3-check \
 	--disable-motif-check \
 	--disable-athena-check \
 	--disable-nextaw-check \
 	--disable-carbon-check \
 	--disable-gtktest \
+	--disable-icon-cache-update \
+	--disable-desktop-database-update \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-acl \
 	--disable-gpm \
