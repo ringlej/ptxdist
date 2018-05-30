@@ -33,6 +33,7 @@ STRONGSWAN_LICENSE	:= GPL
 STRONGSWAN_CONF_TOOL	:= autoconf
 STRONGSWAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	--enable-aes \
 	--$(call ptx/endis, PTXCONF_STRONGSWAN_AFALG)-af-alg \
 	--disable-bliss \
@@ -221,9 +222,6 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-defaults \
 	--enable-dependency-tracking \
 	--enable-shared \
-	--disable-static \
-	--enable-fast-install \
-	--enable-libtool-lock \
 	--with-ipseclibdir=/usr/lib \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
