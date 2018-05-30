@@ -9,24 +9,9 @@
 #
 
 #
-# create all requested images and clean up when done
+# create all requested images
 #
 PHONY += images
-images: world $(SEL_ROOTFS-y)
-	@echo "Clean up temp working directory"
-	@rm -rf \
-		$(STATEDIR)/image_working_dir \
-		$(image/permissions) \
-		$(image/work_dir)
-
-#
-# trick to supress the message:
-# "make: Nothing to be done for `images_world'."
-#
-PHONY += images_world_dep
-images_world_dep:
-	@true
-
-images_world: $(STATEDIR)/world.targetinstall images_world_dep
+images: world
 
 # vim: syntax=make

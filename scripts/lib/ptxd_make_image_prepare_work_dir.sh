@@ -17,9 +17,6 @@
 # - $1				directory where ipkg are extracted
 # - $PTXDIST_IPKG_ARCH_STRING	ARCH variable for ipkg files
 #
-# out:
-# - $image_permissions		file containing all permissions
-#
 ptxd_make_image_extract_xpkg_files() {
     # FIXME: consolidate "ptxd_install_setup_src"
     local src="/etc/opkg/opkg.conf"
@@ -70,27 +67,3 @@ ${list[*]}
     ptxd_install_fixup_timestamps "${work_dir}"
 }
 export -f ptxd_make_image_extract_xpkg_files
-
-#
-# ptxd_make_image_prepare_work_dir_impl
-#
-# in:
-# - $image_work_dir		directory where ipkg are extracted
-# - $image_permissions		name of file that should contain all permissions
-# - $image_pkgs_selected_target	space seperated list of selected
-#
-ptxd_make_image_prepare_work_dir_impl() {
-    ptxd_make_image_init &&
-    ptxd_get_ipkg_files ${image_pkgs_selected_target} &&
-    ptxd_make_image_extract_xpkg_files "${image_work_dir}" &&
-    if ! cat "${ptxd_reply_perm_files[@]}" > "${image_permissions}"; then
-	echo "${PTXDIST_LOG_PROMPT}error: failed read permission files" >&2
-	return 1
-    fi
-}
-export -f ptxd_make_image_prepare_work_dir_impl
-
-ptxd_make_image_prepare_work_dir() {
-    fakeroot ptxd_make_image_prepare_work_dir_impl
-}
-export -f ptxd_make_image_prepare_work_dir
