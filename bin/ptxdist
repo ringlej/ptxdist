@@ -996,7 +996,6 @@ Build Actions:
   install <package>		install host side components into sysroot/
   targetinstall <package>	install files for target into root/
   clean <package>		cleanup package
-  autobuild			search for "autobuild" scripts and run them
   drop <package>.<stage>	mark a stage of a package as unbuilt
   tags <package>		try to build tags for the package
   urlcheck <package>		check if the package URL still works
