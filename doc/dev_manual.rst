@@ -149,9 +149,6 @@ handle:
 -  **cross type**: This kind of package is built for the build host, but
    creates architecture specific data for the target.
 
--  **klibc type**: This kind of package is built against klibc to be
-   part of an initramfs for the target.
-
 -  **src-autoconf-prog**: This kind of package is built for the target.
    It is intended for development, as it does not handle a released
    archive but a plain source project instead. Creating such a package
@@ -679,7 +676,6 @@ available:
     ./apache2.in:## SECTION=networking
     ./apache2_mod_python.in:## SECTION=networking
     [...]
-    ./klibc-module-init-tools.in:## SECTION=initramfs
     ./xkeyboard-config.in:## SECTION=multimedia_xorg_data
     ./xorg-app-xev.in:## SECTION=multimedia_xorg_app
     ./xorg-app-xrandr.in:## SECTION=multimedia_xorg_app

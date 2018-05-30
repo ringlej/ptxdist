@@ -501,7 +501,6 @@ check_dirs() {
 	for dir in \
 		"${BUILDDIR}" \
 		"${CROSS_BUILDDIR}" \
-		"${KLIBC_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		"${STATEDIR}" \
 		"${IMAGEDIR}" \
@@ -518,7 +517,6 @@ check_dirs() {
 	for dir in \
 		"${BUILDDIR}" \
 		"${CROSS_BUILDDIR}" \
-		"${KLIBC_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		; do
 		local testfile_lower="${dir}/.secret-world-domination-project"
@@ -1115,7 +1113,7 @@ clean() {
 
 	echo
 	echo "${PTXDIST_LOG_PROMPT}removing build directories..."
-	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${KLIBC_BUILDDIR}" "${HOST_BUILDDIR}"; do
+	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}"; do
 		if [ ! -d "${dir}" ]; then
 			continue
 		fi

@@ -1,8 +1,0 @@
-## SECTION=initramfs
-
-config @CLASS@@PACKAGE@
-	bool
-	prompt "@class@@package@"
-	select KLIBC
-	help
-	  FIXME

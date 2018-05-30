@@ -117,7 +117,6 @@ endif
 # file for now. the rootfs isn't build yet.
 #
 KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.cpio
-KERNEL_INITRAMFS_SOURCE_$(PTXCONF_KLIBC) += $(INITRAMFS_CONTROL)
 
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
