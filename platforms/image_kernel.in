@@ -14,7 +14,7 @@ comment "'rootfs in kernel image' is incompatible with 'install kernel into /boo
 
 config IMAGE_KERNEL_INITRAMFS
 	bool
-	select IMAGE_CPIO
+	select IMAGE_ROOT_CPIO
 	depends on !KERNEL_INSTALL
 	select IMAGE_KERNEL_INSTALL_LATE
 	prompt "include root filesystem as initramfs in kernel image"
