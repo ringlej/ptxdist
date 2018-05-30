@@ -16,14 +16,15 @@ PACKAGES-$(PTXCONF_C_ARES) += c-ares
 #
 # Paths and names
 #
-C_ARES_VERSION	:= 1.10.0
-C_ARES_MD5	:= 1196067641411a75d3cbebe074fd36d8
+C_ARES_VERSION	:= 1.14.0
+C_ARES_MD5	:= e57b37a7c46283e83c21cde234df10c7
 C_ARES		:= c-ares-$(C_ARES_VERSION)
 C_ARES_SUFFIX	:= tar.gz
 C_ARES_URL	:= http://c-ares.haxx.se/download/$(C_ARES).$(C_ARES_SUFFIX)
 C_ARES_SOURCE	:= $(SRCDIR)/$(C_ARES).$(C_ARES_SUFFIX)
 C_ARES_DIR	:= $(BUILDDIR)/$(C_ARES)
 C_ARES_LICENSE	:= MIT
+C_ARES_LICENSE_MD5	:= file://LICENSE.md;md5=fb997454c8d62aa6a47f07a8cd48b006
 
 
 # ----------------------------------------------------------------------------
@@ -42,8 +43,12 @@ C_ARES_CONF_OPT              := \
 	--disable-werror \
 	--disable-curldebug \
 	--enable-symbol-hiding \
+	--disable-expose-statics \
+	--disable-code-coverage \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-libgcc \
 	--enable-nonblocking \
+	--disable-tests \
 	--with-random=/dev/urandom
 
 # ----------------------------------------------------------------------------
