@@ -1,20 +1,19 @@
 ## SECTION=image
 
-menuconfig IMAGE_KERNEL
+config IMAGE_KERNEL
 	bool
-	prompt "Generate images/linuximage    "
-	depends on KERNEL
-	help
-	  Install the kernel to "platform-FOO/images/linuximage"
+	default KERNEL
+	select IMAGE_ROOT_CPIO	if IMAGE_KERNEL_INITRAMFS
 
 if IMAGE_KERNEL
+
+menu "Generate images/linuximage    "
 
 comment "'rootfs in kernel image' is incompatible with 'install kernel into /boot'"
 	depends on KERNEL_INSTALL
 
 config IMAGE_KERNEL_INITRAMFS
 	bool
-	select IMAGE_ROOT_CPIO
 	depends on !KERNEL_INSTALL
 	select IMAGE_KERNEL_INSTALL_LATE
 	prompt "include root filesystem as initramfs in kernel image"
@@ -43,5 +42,7 @@ config IMAGE_KERNEL_LZOP_EXTRA_ARGS
 	depends on IMAGE_KERNEL_LZOP
 	string
 	prompt "extra arguments passed to the lzop command"
+
+endmenu
 
 endif

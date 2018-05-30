@@ -231,9 +231,6 @@ endif
 $(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo)
 
-# delete the kernel image, it might be out-of-date
-	@rm -f $(IMAGEDIR)/linuximage
-
 ifdef PTXCONF_KERNEL_XPKG
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
