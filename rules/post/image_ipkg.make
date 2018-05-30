@@ -9,7 +9,9 @@
 # see the README file.
 #
 
-SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_PUSH_TO_REPOSITORY) += $(STATEDIR)/ipkg-push
+ifdef PTXCONF_IMAGE_IPKG_PUSH_TO_REPOSITORY
+images: $(STATEDIR)/ipkg-push
+endif
 
 ipkg-push : $(STATEDIR)/ipkg-push
 
@@ -40,8 +42,9 @@ ifdef PTXCONF_IMAGE_IPKG_SIGN_OPENSSL
 endif
 	@touch $@
 
-
-SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_INDEX) += $(PKGDIR)/Packages
+ifdef PTXCONF_IMAGE_IPKG_INDEX
+images: $(PKGDIR)/Packages
+endif
 
 ipkg-index: $(PKGDIR)/Packages
 
