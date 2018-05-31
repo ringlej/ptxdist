@@ -251,8 +251,7 @@ _get_config_ptx() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error:	'${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
-			"	try 'ptxdist select <ptxconfig>' or\n" \
-			"	'ptxdist clone <project>' to clone an existing project"
+			"	try 'ptxdist select <ptxconfig>'\n"
 		return 1
 	fi
 
@@ -266,8 +265,7 @@ _get_config_ptx() {
 			"	is missing the symbol 'PTXCONF_CONFIGFILE_VERSION',\n" \
 			"	which means it is broken.\n" \
 			"\n" \
-			"	Try 'ptxdist select <ptxconfig>' or\n" \
-			"	'ptxdist clone <project>' to clone an existing project"
+			"	Try 'ptxdist select <ptxconfig>'\n"
 		return 1
 	}
 }
@@ -885,43 +883,6 @@ check_premake_compiler()
 }
 
 
-clone() {
-	local projectdir
-
-	if [ -d "${2}" ]; then
-		echo
-		echo "${PTXDIST_LOG_PROMPT}error: directory ${2} does already exist"
-		echo
-		exit 1
-	fi
-
-	local ifs_old="${IFS}"
-	IFS=:
-
-	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
-
-		echo "${PTXDIST_LOG_PROMPT}scanning ${projectdir}..."
-
-		if [ -d "${projectdir}/${1}" ] ; then
-
-			mkdir -p "${2}"
-			tar -C "${projectdir}/${1}" -cf - \
-			    --exclude .svn --exclude state --exclude debian . | \
-			    tar -C "${2}" -xvf -
-
-			echo "${PTXDIST_LOG_PROMPT}done."
-			echo
-			IFS="${ifs_old}"
-			return 0
-		fi
-	done
-	IFS="${ifs_old}"
-
-	echo "${PTXDIST_LOG_PROMPT}project ${1} is to be cloned, but could not be found"
-	echo
-}
-
-
 #
 # usage()
 #
@@ -938,9 +899,6 @@ Setup and Project Actions:
 
   setup				setup per-user preferences
   boardsetup			setup per-board preferences
-
-  projects			show available projects
-  clone <from> <to>		create a new project, cloned from <from>.
 
   nconfig
   menuconfig			configure the project's filesystem
@@ -1260,33 +1218,6 @@ create_docs() {
 		make -C "${outdir}/${builder}"
 	fi
 }
-
-projects() {
-	local ifs_old projects projectdir
-	echo
-	echo "${PTXDIST_LOG_PROMPT}searching for projects:"
-	ifs_old="${IFS}"
-	IFS=:
-	projects=
-	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
-		echo "${PTXDIST_LOG_PROMPT}scanning ${projectdir}..."
-		if [ ! -d ${projectdir} ]; then
-			echo
-			echo "${PTXDIST_LOG_PROMPT}error: directory does not exist"
-			echo "${PTXDIST_LOG_PROMPT}please check PTXCONF_SETUP_PROJECTPATH in 'ptxdist setup'"
-			exit 1
-		fi
-		projects="${projects} $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
-	done
-	IFS="${ifs_old}"
-	projects=$(echo ${projects} | sort -u)
-	echo
-	echo "---------------------- Available PTXdist Projects: ----------------------------"
-	for i in ${projects}; do echo ${i}; done
-	echo "-------------------------------------------------------------------------------"
-	echo
-}
-
 
 
 ##################################################################
@@ -1909,15 +1840,6 @@ EOF
 			clean "${@}"
 			exit
 			;;
-		clone)
-			if [ ${#} -ne 2 ]; then
-				usage
-				exit 1
-			fi
-
-			clone "${1}" "${2}"
-			exit
-			;;
 		distclean)
 			clean
 
@@ -2073,10 +1995,6 @@ EOF
 				fi
 				shift
 			done
-			exit
-			;;
-		projects)
-			projects
 			exit
 			;;
 		test)
