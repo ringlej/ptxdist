@@ -283,7 +283,9 @@ def handle_dir(d, subdir):
 
 def handle_dir_configure(d, configure):
 	configure_args = []
-	p = subprocess.Popen([ configure, "--help" ], stdout=subprocess.PIPE, universal_newlines=True)
+	p = subprocess.Popen([ "./" + os.path.basename(configure), "--help" ],
+			stdout=subprocess.PIPE, universal_newlines=True,
+			cwd=os.path.dirname(configure))
 	lines = p.stdout.read().splitlines()
 	for line in lines:
 		if not re.match("^\s.*", line):
