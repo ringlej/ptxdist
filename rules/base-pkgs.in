@@ -1,6 +1,0 @@
-## SECTION=core
-
-config BASE_PKGS
-	bool
-	select BASE
-	default y if PROJECT_USE_BASE_PLATFORM

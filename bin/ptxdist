@@ -1092,33 +1092,8 @@ clean() {
 		local ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 		local ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 		local ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-		local ptxconf_project_build_production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"
 
-		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
-		    if [ ! -d "${dir}" ]; then
-			continue
-		    fi
-
-		    if [ -n "${ptxconf_project_build_production}" ]; then
-			#
-			# in case of a production build, delete sysroots.
-			# it makes no sense to keep them,
-			# but delete the image and state dirs
-			#
-			rm -fr -- "${dir}"
-		    else
-			#
-			# remove the dir only if it is inside the workspace; if we for
-			# example build toolchains to /opt/...,
-			# we don't want to clean them here!
-			#
-			case "${dir}" in
-			    (${PTXDIST_WORKSPACE}/*)
-			    rm -fr -- "${dir}" ;;
-			    (*) ;;
-			esac
-		    fi
-		done
+		rm -rf -- "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"
 
 		# this is for ptxdist-1 backward compatibility
 		dir="${PTXDIST_WORKSPACE}/local/${ptxconf_gnu_target}"
@@ -2443,45 +2418,21 @@ setup_platform_continue_with_broken_config()
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
-	local platform platform_version project project_version production
+	local platform platform_version project project_version
 
 	# ptxd_get_ptxconf's return value is
 	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"				|| [ ${?} -eq 1 ] &&
 	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"				|| [ ${?} -eq 1 ] &&
-	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"		|| [ ${?} -eq 1 ] &&
-	production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"	|| [ ${?} -eq 1 ] || return
+	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"		|| [ ${?} -eq 1 ] || return
 
 	# remove space and "(" ")"
 	project_version="${project_version//[ \(\)]/_}"
 
-	local prefix
-	if [ -n "${production}" ]; then
-		if ! prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION_PREFIX)"; then
-			if setup_platform_continue_with_broken_config; then
-				# use default
-				prefix="${PTXDIST_WORKSPACE}"
-			else
-				ptxd_dialog_msgbox \
-				    "error: 'production' release is activated, but the config symbol\n" \
-				    "       PROJECT_BUILD_PRODUCTION_PREFIX is empty.\n" \
-				    "\n" \
-				    "       Please do 'ptxdist menuconfig',\n" \
-				    "       navigate into the submenu 'Project Name & Version'\n" \
-				    "       and enter a production prefix, \n" \
-				    "       or choose: 'Build Type (development)'."
-				return 1
-			fi
-		fi
-		platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
-	else
-		prefix="${PTXDIST_WORKSPACE}"
-	fi
-
 	if [ -n "${platform}" ]; then
-		PTXDIST_PLATFORMDIR="${prefix}/platform-${platform}${platform_version}"
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}${platform_version}"
 		PTXDIST_PLATFORMSUFFIX=".${platform}"
 	else
-		PTXDIST_PLATFORMDIR="${prefix}/platform"
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform"
 		PTXDIST_PLATFORMSUFFIX=""
 	fi
 
