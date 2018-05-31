@@ -1,4 +1,4 @@
-## SECTION=image2
+## SECTION=image
 
 menuconfig IMAGE_BOOT_VFAT
 	tristate

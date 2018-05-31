@@ -27,9 +27,6 @@ endmenu
 
 menu "image creation options        "
 source "generated/image.in"
-endmenu
-
-menu "new image creation options    "
 source "generated/image2.in"
 endmenu
 
