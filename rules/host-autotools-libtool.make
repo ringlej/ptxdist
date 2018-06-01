@@ -42,6 +42,10 @@ $(STATEDIR)/host-autotools-libtool.extract.post:
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_AUTOTOOLS_LIBTOOL_CONF_ENV		:= \
+	$(HOST_ENV) \
+	MAKEINFO=:
+
 #
 # autoconf
 #
