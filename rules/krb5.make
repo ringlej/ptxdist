@@ -41,7 +41,7 @@ KRB5_CONF_ENV	:= \
 	ac_cv_printf_positional=yes \
 	ac_cv_file__etc_environment=yes \
 	ac_cv_file__etc_TIMEZONE=no \
-	ac_cv_header_keyutils_h=$(call ptx/ifdef, PTXCONF_KRB5_CLIENT_TOOLS, yes, no)
+	ac_cv_header_keyutils_h=$(call ptx/yesno, PTXCONF_KRB5_CLIENT_TOOLS)
 
 #
 # autoconf

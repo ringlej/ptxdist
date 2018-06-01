@@ -23,7 +23,7 @@ NPTH_SUFFIX		:= tar.bz2
 NPTH_URL		:= ftp://ftp.gnupg.org/gcrypt/npth/$(NPTH).$(NPTH_SUFFIX)
 NPTH_SOURCE		:= $(SRCDIR)/$(NPTH).$(NPTH_SUFFIX)
 NPTH_DIR		:= $(BUILDDIR)/$(NPTH)
-NPTH_LICENSE		:= LGPL-2.1
+NPTH_LICENSE		:= LGPL-2.1-only
 NPTH_LICENSE_FILES	:= \
 	file://COPYING.LIB;md5=2caced0b25dfefd4c601d92bd15116de
 

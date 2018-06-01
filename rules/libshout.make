@@ -23,7 +23,7 @@ LIBSHOUT_SUFFIX		:= tar.gz
 LIBSHOUT_URL		:= http://downloads.xiph.org/releases/libshout/$(LIBSHOUT).$(LIBSHOUT_SUFFIX)
 LIBSHOUT_SOURCE		:= $(SRCDIR)/$(LIBSHOUT).$(LIBSHOUT_SUFFIX)
 LIBSHOUT_DIR		:= $(BUILDDIR)/$(LIBSHOUT)
-LIBSHOUT_LICENSE	:= LGPL-2.0+
+LIBSHOUT_LICENSE	:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

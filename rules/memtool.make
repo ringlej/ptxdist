@@ -16,20 +16,24 @@ PACKAGES-$(PTXCONF_MEMTOOL) += memtool
 #
 # Paths and names
 #
-MEMTOOL_VERSION	:= 2016.10.0
-MEMTOOL_MD5	:= ee0a70954144985e344e4e5318d1f267
+MEMTOOL_VERSION	:= 2018.03.0
+MEMTOOL_MD5	:= b3b16018cda270fa1d375ea09b67d6ae
 MEMTOOL		:= memtool-$(MEMTOOL_VERSION)
 MEMTOOL_SUFFIX	:= tar.xz
 MEMTOOL_URL	:= http://www.pengutronix.de/software/memtool/downloads/$(MEMTOOL).$(MEMTOOL_SUFFIX)
 MEMTOOL_SOURCE	:= $(SRCDIR)/$(MEMTOOL).$(MEMTOOL_SUFFIX)
 MEMTOOL_DIR	:= $(BUILDDIR)/$(MEMTOOL)
-MEMTOOL_LICENSE	:= GPL-2.0
+MEMTOOL_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 MEMTOOL_CONF_TOOL := autoconf
+MEMTOOL_CONF_OPT := \
+       $(CROSS_AUTOCONF_USR) \
+       $(GLOBAL_LARGE_FILE_OPTION) \
+       --enable-mdio \
 
 # ----------------------------------------------------------------------------
 # Target-Install

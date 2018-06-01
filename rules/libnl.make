@@ -24,7 +24,7 @@ LIBNL_SUFFIX	:= tar.gz
 LIBNL_URL	:= http://people.suug.ch/~tgr/libnl/files/$(LIBNL).$(LIBNL_SUFFIX)
 LIBNL_SOURCE	:= $(SRCDIR)/$(LIBNL).$(LIBNL_SUFFIX)
 LIBNL_DIR	:= $(BUILDDIR)/$(LIBNL)
-LIBNL_LICENSE	:= LGPL-2.1
+LIBNL_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

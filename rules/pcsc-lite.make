@@ -25,7 +25,7 @@ PCSC_LITE_URL		:= https://alioth.debian.org/frs/download.php/file/4138/$(PCSC_LI
 PCSC_LITE_SOURCE	:= $(SRCDIR)/$(PCSC_LITE).$(PCSC_LITE_SUFFIX)
 PCSC_LITE_DIR		:= $(BUILDDIR)/$(PCSC_LITE)
 PCSC_LITE_BUILD_OOT	:= YES
-# src/spy LICENSE := GPL-3.0+ - but file is not distributed
+# src/spy LICENSE := GPL-3.0-or-later - but file is not distributed
 PCSC_LITE_LICENSE	:= BSD-3-Clause AND BSD-2-Clause AND MIT AND ISC
 
 # ----------------------------------------------------------------------------

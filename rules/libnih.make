@@ -23,7 +23,7 @@ LIBNIH_SUFFIX	:= tar.gz
 LIBNIH_URL	:= http://launchpad.net/libnih/1.0/$(LIBNIH_VERSION)/+download/$(LIBNIH).$(LIBNIH_SUFFIX)
 LIBNIH_DIR	:= $(BUILDDIR)/$(LIBNIH)
 LIBNIH_SOURCE	:= $(SRCDIR)/$(LIBNIH).$(LIBNIH_SUFFIX)
-LIBNIH_LICENSE	:= GPL-2.0+
+LIBNIH_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

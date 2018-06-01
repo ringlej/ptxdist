@@ -3,10 +3,8 @@ menuconfig NMAP
 	tristate
 	prompt "nmap                          "
 	select OPENSSL if NMAP_OPENSSL
-	select OPENSSL
 	select LIBPCRE
 	select LIBPCAP
-	select GCCLIBS_CXX
 	help
 	  Nmap ("Network Mapper") is a utility for network exploration
 	  or security auditing. Many systems and network administrators
@@ -18,6 +16,9 @@ if NMAP
 
 config NMAP_OPENSSL
        bool "openssl support"
+
+config NMAP_NPING
+	bool "build and install nping"
 
 config NMAP_SERVICES
 	bool "Install nmap-services"

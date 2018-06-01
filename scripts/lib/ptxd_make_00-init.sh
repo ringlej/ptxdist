@@ -286,34 +286,15 @@ ptxd_init_cross_env() {
     pkg_system_libpath=( "${pkg_libdir[@]/%//../../lib}" "${pkg_libdir[@]/%//../lib}" "/usr/lib" "/lib" )
     pkg_system_incpath=( "${pkg_libdir[@]/%//../../include}" "${pkg_libdir[@]/%//../include}" "/usr/include" "/include" )
 
-    #
-    # PKG_CONFIG_PATH contains additional pkg-config search
-    # directories. It's searched before searching the path specified
-    # in _LIBDIR.
-    #
-
-    #
-    # If we have pkg_config_path defined in our ptxconfig,
-    # prefix them with sysroot and add to pkg_path.
-    #
-    # FIXME: we only take care of normal sysroot for now, no support
-    #        for production releases, though.
-    #
-    local -a pkg_path
-    local -a opt_pkg_path
-    if opt_pkg_path=( $(ptxd_get_ptxconf PTXCONF_PKG_CONFIG_PATH) ); then
-	IFS=":"
-	local -a sysroot
-	sysroot=( ${PTXDIST_PATH_SYSROOT} )
-	IFS="${orig_IFS}"
-
-	pkg_path=( "${opt_pkg_path[@]/#/${sysroot[0]}}" )
-    fi
-
     IFS=":"
-    PTXDIST_CROSS_ENV_PKG_CONFIG="PKG_CONFIG_PATH='${pkg_path[*]}' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}' PKG_CONFIG_SYSTEM_LIBRARY_PATH='${pkg_system_libpath[*]}' PKG_CONFIG_SYSTEM_INCLUDE_PATH='${pkg_system_incpath[*]}'"
-    export PTXDIST_CROSS_ENV_PKG_CONFIG
+    local pc_path="PKG_CONFIG_PATH=''"
+    local pc_libdir="PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
+    local pc_sys_lib_path="PKG_CONFIG_SYSTEM_LIBRARY_PATH='${pkg_system_libpath[*]}'"
+    local pc_syc_inc_path="PKG_CONFIG_SYSTEM_INCLUDE_PATH='${pkg_system_incpath[*]}'"
     IFS="${orig_IFS}"
+    local pc="PKG_CONFIG='$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)/bin/$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)pkg-config'"
+    PTXDIST_CROSS_ENV_PKG_CONFIG="${pc_path} ${pc_libdir} ${pc_sys_lib_path} ${pc_syc_inc_path} ${pc}"
+    export PTXDIST_CROSS_ENV_PKG_CONFIG
 }
 
 #
@@ -350,7 +331,7 @@ ptxd_init_host_env() {
     ldflags=( \
 	"${ldflags[@]/#/-L}" \
 	"${ldflags[@]/#/-Wl,-rpath -Wl,}" \
-	"-Wl,-rpath" "-Wl,/this/is/a/long/path/to/make/host/tools/relocateable/with/chrpath/when/using/dev/packages"
+	'-Wl,-rpath,$ORIGIN/../lib:/with/some/extra/space'
     )
 
     export \
@@ -369,9 +350,12 @@ ptxd_init_host_env() {
     pkg_libdir=( "${prefix[@]/%//${lib_dir}/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
 
     IFS=":"
-    PTXDIST_HOST_ENV_PKG_CONFIG="PKG_CONFIG_PATH='' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
-    export PTXDIST_HOST_ENV_PKG_CONFIG
+    local pc_path="PKG_CONFIG_PATH=''"
+    local pc_libdir="PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
     IFS="${orig_IFS}"
+    local pc="PKG_CONFIG='$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)/bin/pkg-config'"
+    PTXDIST_HOST_ENV_PKG_CONFIG="${pc_path} ${pc_libdir} ${pc}"
+    export PTXDIST_HOST_ENV_PKG_CONFIG
 }
 
 ptxd_init_devpkg()

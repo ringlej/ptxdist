@@ -24,7 +24,7 @@ LINUXPTP_SUFFIX		:= tgz
 LINUXPTP_URL		:= $(call ptx/mirror, SF, linuxptp/$(LINUXPTP).$(LINUXPTP_SUFFIX))
 LINUXPTP_SOURCE		:= $(SRCDIR)/$(LINUXPTP).$(LINUXPTP_SUFFIX)
 LINUXPTP_DIR		:= $(BUILDDIR)/$(LINUXPTP)
-LINUXPTP_LICENSE	:= GPL-2.0+
+LINUXPTP_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

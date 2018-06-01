@@ -28,7 +28,7 @@ SQUASHFS_TOOLS_URL	:= $(call ptx/mirror, SF, squashfs/$(SQUASHFS_TOOLS).$(SQUASH
 SQUASHFS_TOOLS_SOURCE	:= $(SRCDIR)/$(SQUASHFS_TOOLS).$(SQUASHFS_TOOLS_SUFFIX)
 SQUASHFS_TOOLS_DIR	:= $(BUILDDIR)/$(SQUASHFS_TOOLS)
 SQUASHFS_TOOLS_SUBDIR	:= squashfs-tools
-SQUASHFS_TOOLS_LICENSE	:= GPL-2.0+
+SQUASHFS_TOOLS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

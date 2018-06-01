@@ -23,7 +23,7 @@ NBD_SUFFIX	:= tar.xz
 NBD_URL		:= $(call ptx/mirror, SF, nbd/$(NBD).$(NBD_SUFFIX))
 NBD_SOURCE	:= $(SRCDIR)/$(NBD).$(NBD_SUFFIX)
 NBD_DIR		:= $(BUILDDIR)/$(NBD)
-NBD_LICENSE	:= GPL-2.0
+NBD_LICENSE	:= GPL-2.0-only
 
 #
 # autoconf

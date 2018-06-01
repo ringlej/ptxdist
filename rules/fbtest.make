@@ -24,7 +24,7 @@ FBTEST_SUFFIX	:= tar.gz
 FBTEST_URL	:= https://git.kernel.org/pub/scm/linux/kernel/git/geert/fbtest.git;tag=$(FBTEST_VERSION)
 FBTEST_SOURCE	:= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
 FBTEST_DIR	:= $(BUILDDIR)/$(FBTEST)
-FBTEST_LICENSE	:= GPL-2.0
+FBTEST_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Compile

@@ -46,7 +46,7 @@ NGINX_CONF_ENV := \
 	ngx_force_have_map_devzero=yes \
 	ngx_force_have_sysvshm=yes \
 	ngx_force_have_posix_sem=yes \
-	ngx_force_ipv6=$(call ptx/ifdef, PTXCONF_GLOBAL_IPV6, yes, no)
+	ngx_force_ipv6=$(call ptx/yesno, PTXCONF_GLOBAL_IPV6)
 
 ifdef PTXCONF_ENDIAN_LITTLE
 NGINX_CONF_ENV += ngx_force_have_little_endian=yes

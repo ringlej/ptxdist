@@ -23,7 +23,7 @@ SDL_IMAGE_SUFFIX	:= tar.gz
 SDL_IMAGE_URL		:= http://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).$(SDL_IMAGE_SUFFIX)
 SDL_IMAGE_SOURCE	:= $(SRCDIR)/$(SDL_IMAGE).$(SDL_IMAGE_SUFFIX)
 SDL_IMAGE_DIR		:= $(BUILDDIR)/$(SDL_IMAGE)
-SDL_IMAGE_LICENSE	:= LGPL-2.1
+SDL_IMAGE_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

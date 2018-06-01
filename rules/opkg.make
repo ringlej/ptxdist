@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 #
 # Paths and names
 #
-OPKG_VERSION	:= 0.3.5
-OPKG_MD5	:= d202d09ea0932943071b842626cab13c
+OPKG_VERSION	:= 0.3.6
+OPKG_MD5	:= 79e04307f6f54db431c251772d7d987c
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
 OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFIX)
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
-OPKG_LICENSE	:= GPL-2.0+
+OPKG_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

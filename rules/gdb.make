@@ -24,7 +24,7 @@ GDB		:= gdb-$(GDB_VERSION)
 GDB_SUFFIX	:= tar.gz
 GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		:= $(BUILDDIR)/$(GDB)
-GDB_LICENSE	:= GPL-3.0+
+GDB_LICENSE	:= GPL-3.0-or-later
 
 GDB_URL := \
 	$(call ptx/mirror, GNU, gdb/$(GDB).$(GDB_SUFFIX)) \

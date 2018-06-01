@@ -23,30 +23,24 @@ I2C_TOOLS_SUFFIX	:= tar.xz
 I2C_TOOLS_URL		:= https://www.kernel.org/pub/software/utils/i2c-tools/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_SOURCE	:= $(SRCDIR)/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_DIR		:= $(BUILDDIR)/$(I2C_TOOLS)
-I2C_TOOLS_LICENSE	:= GPL-2.0+
+I2C_TOOLS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-I2C_TOOLS_PATH	:= PATH=$(CROSS_PATH)
-I2C_TOOLS_ENV 	:= $(CROSS_ENV)
+I2C_TOOLS_CONF_TOOL := NO
 
-I2C_TOOLS_MAKE_OPT := \
-	prefix=/usr \
-	KERNELVERSION=$(KERNEL_HEADER_VERSION) \
-	$(CROSS_ENV_CC)
+I2C_TOOLS_MAKE_ENV := \
+	$(CROSS_ENV) \
+	BUILD_STATIC_LIB=0
 
 # install the header files to include/i2c-tools
 # this way they don't collide with the toolchain's i2c headers
 I2C_TOOLS_INSTALL_OPT := \
-	$(I2C_TOOLS_MAKE_OPT) \
+	prefix=/usr \
 	incdir="\$$(prefix)/include/i2c-tools" \
 	install
-
-$(STATEDIR)/i2c-tools.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

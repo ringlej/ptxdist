@@ -24,7 +24,7 @@ MINICOM_SUFFIX	:= tar.gz
 MINICOM_URL	:= https://alioth.debian.org/frs/download.php/file/3869/$(MINICOM).$(MINICOM_SUFFIX)
 MINICOM_SOURCE	:= $(SRCDIR)/$(MINICOM).$(MINICOM_SUFFIX)
 MINICOM_DIR	:= $(BUILDDIR)/$(MINICOM)
-MINICOM_LICENSE	:= GPL-2.0
+MINICOM_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

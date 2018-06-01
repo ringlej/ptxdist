@@ -5,5 +5,9 @@ config TMUX
 	prompt "tmux"
 	select LIBEVENT
 	select NCURSES
+	# tmux needs an utf-8 locale. Select "en_US (UTF-8)" unless any other
+	# utf-8 locale is already enabled
+	select LOCALES			if RUNTIME
+	select LOCALES_EN_US_UTF8	if !LOCALES_DE_DE_UTF8
 	help
 	  Terminal multiplexer, something like GNU screen.

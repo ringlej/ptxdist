@@ -23,7 +23,7 @@ LIBSOUP_SUFFIX	:= tar.xz
 LIBSOUP_URL	:= http://ftp.gnome.org/pub/GNOME/sources/libsoup/$(basename $(LIBSOUP_VERSION))/$(LIBSOUP).$(LIBSOUP_SUFFIX)
 LIBSOUP_SOURCE	:= $(SRCDIR)/$(LIBSOUP).$(LIBSOUP_SUFFIX)
 LIBSOUP_DIR	:= $(BUILDDIR)/$(LIBSOUP)
-LIBSOUP_LICENSE	:= LGPL-2.1
+LIBSOUP_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 237
-SYSTEMD_MD5	:= 5a835ddc2a2ae9ef523a5a11674a6713
+SYSTEMD_VERSION	:= 238
+SYSTEMD_MD5	:= 76db8004647283b779234364cd637d3c
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
-SYSTEMD_LICENSE	:= GPL-2.0+ AND LGPL-2.1
+SYSTEMD_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-only
 SYSTEMD_LICENSE_FILES := \
 	file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
 	file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c
@@ -41,7 +41,7 @@ endif
 
 ifdef PTXCONF_KERNEL_HEADER
 SYSTEMD_CPPFLAGS	:= \
-	-I$(KERNEL_HEADERS_INCLUDE_DIR)
+	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
 endif
 
 SYSTEMD_CONF_TOOL	:= meson
@@ -104,6 +104,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dlz4=$(call ptx/truefalse,PTXCONF_SYSTEMD_LZ4) \
 	-Dmachined=false \
 	-Dman=false \
+	-Dmemory-accounting-default=true \
 	-Dmicrohttpd=$(call ptx/truefalse,PTXCONF_SYSTEMD_MICROHTTPD) \
 	-Dmount-path=/usr/bin/mount \
 	-Dmyhostname=true \
@@ -112,6 +113,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dnobody-user=nobody \
 	-Dnss-systemd=true \
 	-Dntp-servers= \
+	-Dok-color=green \
 	-Doss-fuzz=false \
 	-Dpam=false \
 	-Dpcre2=false \
@@ -129,11 +131,14 @@ SYSTEMD_CONF_OPT	:= \
 	-Dsetfont-path=/usr/bin/setfont \
 	-Dslow-tests=false \
 	-Dsmack=false \
+	-Dsplit-bin=true \
 	-Dsplit-usr=false \
 	-Dsulogin-path=/sbin/sulogin \
 	-Dsystem-gid-max=999 \
 	-Dsystem-uid-max=999 \
 	-Dsysusers=false \
+	-Dsysvinit-path= \
+	-Dsysvrcnd-path= \
 	-Dtelinit-path=/usr/bin/telinit \
 	-Dtests=false \
 	-Dtime-epoch=`date --date "$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01 UTC" +%s` \
@@ -176,9 +181,6 @@ endif
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/home.conf
 #	# the upstream default (graphical.target) wants display-manager.service
 	@ln -sf multi-user.target $(SYSTEMD_PKGDIR)/usr/lib/systemd/system/default.target
-#	# rpath is only needed for the executables
-	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/lib*.so*
-	@chrpath --delete $(SYSTEMD_PKGDIR)/usr/lib/systemd/libsystemd-shared-$(SYSTEMD_VERSION).so
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -377,6 +379,9 @@ endif
 
 #	# units
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/system/)
+ifdef PTXCONF_SYSTEMD_UNITS_USER
+	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/user/)
+endif
 
 ifdef PTXCONF_SYSTEMD_VCONSOLE
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)

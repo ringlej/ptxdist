@@ -24,7 +24,7 @@ KILLPROC_SUFFIX		:= tar.gz
 KILLPROC_URL		:= http://ftp.suse.com/pub/projects/init/$(KILLPROC).$(KILLPROC_SUFFIX)
 KILLPROC_SOURCE		:= $(SRCDIR)/$(KILLPROC).$(KILLPROC_SUFFIX)
 KILLPROC_DIR		:= $(BUILDDIR)/$(KILLPROC)
-KILLPROC_LICENSE	:= GPL-2.0
+KILLPROC_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

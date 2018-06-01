@@ -24,7 +24,7 @@ LIBCGI_SUFFIX	:= tar.gz
 LIBCGI_URL	:= $(call ptx/mirror, SF, libcgi/$(LIBCGI).$(LIBCGI_SUFFIX))
 LIBCGI_SOURCE	:= $(SRCDIR)/$(LIBCGI).$(LIBCGI_SUFFIX)
 LIBCGI_DIR	:= $(BUILDDIR)/$(LIBCGI)
-LIBCGI_LICENSE	:= LGPL-2.1
+LIBCGI_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

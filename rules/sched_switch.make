@@ -23,7 +23,7 @@ SCHED_SWITCH_SUFFIX	:= tgz
 SCHED_SWITCH_URL	:= http://www.osadl.org/uploads/media/$(SCHED_SWITCH).$(SCHED_SWITCH_SUFFIX)
 SCHED_SWITCH_SOURCE	:= $(SRCDIR)/$(SCHED_SWITCH).$(SCHED_SWITCH_SUFFIX)
 SCHED_SWITCH_DIR	:= $(BUILDDIR)/$(SCHED_SWITCH)
-SCHED_SWITCH_LICENSE	:= GPL-2.0
+SCHED_SWITCH_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

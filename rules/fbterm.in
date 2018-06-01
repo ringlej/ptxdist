@@ -14,6 +14,7 @@ if FBTERM
 
 config FBTERM_GPM
 	bool
+	depends on STAGING
 	prompt "Build fbterm with gpm support"
 	help
 	  If enabled, fbterm is built with console mouse support. The required

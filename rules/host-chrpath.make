@@ -23,8 +23,7 @@ HOST_CHRPATH_SUFFIX	:= tar.gz
 HOST_CHRPATH_URL	:= https://alioth.debian.org/frs/download.php/file/3979/$(HOST_CHRPATH).$(HOST_CHRPATH_SUFFIX)
 HOST_CHRPATH_SOURCE	:= $(SRCDIR)/$(HOST_CHRPATH).$(HOST_CHRPATH_SUFFIX)
 HOST_CHRPATH_DIR	:= $(HOST_BUILDDIR)/$(HOST_CHRPATH)
-HOST_CHRPATH_DEVPKG	:= NO
-HOST_CHRPATH_LICENSE	:= GPL-2.0
+HOST_CHRPATH_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

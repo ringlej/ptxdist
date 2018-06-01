@@ -288,12 +288,15 @@ ptxd_create_section_from_license()
     IFS=$'(), '
 
     for license in ${1}; do
+	local deprecated="false"
 	local osi="false"
 	local exception="false"
 	# remove the 'or later' modifier
 	license="${license%+}"
 	if ptxd_make_spdx "${license}"; then
-	    if [ "${osi}" == "true" ]; then
+	    if [ "${deprecated}" == "true" ]; then
+		section[deprecated]="true"
+	    elif [ "${osi}" == "true" ]; then
 		section[osi-conform]="true"
 	    elif [ "${exception}" != "true" ]; then
 		section[misc]="true"
@@ -328,7 +331,9 @@ ptxd_create_section_from_license()
 	echo "${!section[@]}"
 	return 0
     fi
-    if [ "${section[other]}" = "true" ]; then
+    if [ "${section[deprecated]}" = "true" ]; then
+	echo "deprecated"
+    elif [ "${section[other]}" = "true" ]; then
 	echo "other"
     else
 	echo "mixed"

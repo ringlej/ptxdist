@@ -24,7 +24,7 @@ MEMTESTER_SUFFIX	:= tar.gz
 MEMTESTER_URL		:= http://pyropus.ca/software/memtester/old-versions/$(MEMTESTER).$(MEMTESTER_SUFFIX)
 MEMTESTER_SOURCE	:= $(SRCDIR)/$(MEMTESTER).$(MEMTESTER_SUFFIX)
 MEMTESTER_DIR		:= $(BUILDDIR)/$(MEMTESTER)
-MEMTESTER_LICENSE	:= GPL-2.0
+MEMTESTER_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

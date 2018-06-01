@@ -39,6 +39,16 @@ config LIBCURL_TFTP
 config LIBCURL_FILE
        bool "file"
 
+config LIBCURL_SMTP
+       bool "smtp"
+       help
+       enable smtp support for sending emails
+
+config LIBCURL_VERBOSE
+       bool "verbose messages"
+       help
+       enable verbose messages, helpful for error indication
+
 config LIBCURL_SSL
        bool "ssl"
 

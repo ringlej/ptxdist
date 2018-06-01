@@ -23,7 +23,7 @@ ALFRED_SUFFIX	:= tar.gz
 ALFRED_URL	:= http://downloads.open-mesh.org/batman/stable/sources/alfred/$(ALFRED).$(ALFRED_SUFFIX)
 ALFRED_SOURCE	:= $(SRCDIR)/$(ALFRED).$(ALFRED_SUFFIX)
 ALFRED_DIR	:= $(BUILDDIR)/$(ALFRED)
-ALFRED_LICENSE	:= GPL-2.0
+ALFRED_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

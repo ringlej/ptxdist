@@ -25,7 +25,7 @@ DOSFSTOOLS_SRC		:= $(DOSFSTOOLS).$(DOSFSTOOLS_SUFFIX)
 DOSFSTOOLS_URL		:= https://github.com/dosfstools/dosfstools/releases/download/v$(DOSFSTOOLS_VERSION)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SOURCE	:= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		:= $(BUILDDIR)/$(DOSFSTOOLS)
-DOSFSTOOLS_LICENSE	:= GPL-3.0
+DOSFSTOOLS_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare (nothing to be done here)

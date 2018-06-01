@@ -1,4 +1,6 @@
-## SECTION=hosttools_noprompt
+## SECTION=staging
+## old section:
+### SECTION=hosttools_noprompt
 
 config HOST_APR
 	tristate

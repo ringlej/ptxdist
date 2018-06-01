@@ -23,7 +23,7 @@ LIBEXIF_SUFFIX		:= tar.bz2
 LIBEXIF_URL		:= http://sourceforge.net/projects/libexif/files/libexif/$(LIBEXIF_VERSION)/$(LIBEXIF).$(LIBEXIF_SUFFIX)
 LIBEXIF_SOURCE		:= $(SRCDIR)/$(LIBEXIF).$(LIBEXIF_SUFFIX)
 LIBEXIF_DIR		:= $(BUILDDIR)/$(LIBEXIF)
-LIBEXIF_LICENSE		:= LGPL-2.0+
+LIBEXIF_LICENSE		:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -24,7 +24,7 @@ LIBNL3_SUFFIX	:= tar.gz
 LIBNL3_URL	:= https://github.com/thom311/libnl/releases/download/$(LIBNL3_RELEASE)/$(LIBNL3).$(LIBNL3_SUFFIX)
 LIBNL3_SOURCE	:= $(SRCDIR)/$(LIBNL3).$(LIBNL3_SUFFIX)
 LIBNL3_DIR	:= $(BUILDDIR)/$(LIBNL3)
-LIBNL3_LICENSE	:= GPL-2.0
+LIBNL3_LICENSE	:= GPL-2.0-only
 
 #
 # autoconf

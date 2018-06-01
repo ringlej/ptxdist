@@ -24,7 +24,7 @@ LOGROTATE_SUFFIX	:= tar.gz
 LOGROTATE_URL		:= http://downloads.yoctoproject.org/mirror/sources/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_SOURCE	:= $(SRCDIR)/$(LOGROTATE).$(LOGROTATE_SUFFIX)
 LOGROTATE_DIR		:= $(BUILDDIR)/$(LOGROTATE)
-LOGROTATE_LICENSE	:= GPL-2.0
+LOGROTATE_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Compile

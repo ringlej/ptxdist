@@ -25,7 +25,7 @@ HAVEGED_URL	:= \
 	http://www.issihosts.com/haveged/archive/$(HAVEGED).$(HAVEGED_SUFFIX)
 HAVEGED_SOURCE	:= $(SRCDIR)/$(HAVEGED).$(HAVEGED_SUFFIX)
 HAVEGED_DIR	:= $(BUILDDIR)/$(HAVEGED)
-HAVEGED_LICENSE	:= GPL-3.0
+HAVEGED_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

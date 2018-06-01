@@ -46,7 +46,7 @@ config KERNEL_MODULES_BUILD
 config KERNEL_VERSION
 	prompt "kernel version"
 	string
-	default "3.10"
+	default "4.15"
 
 config KERNEL_MD5
 	prompt "kernel source md5sum"

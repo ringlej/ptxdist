@@ -1,0 +1,46 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Sun, 1 Jun 2014 22:33:36 +0200
+Subject: [PATCH] Makefile.in: fix suffix rules
+
+With modern toolchains, "%o: %c" isn't a correct suffix rule any more
+and make falls back to the built-in default rules, which gives us this
+error:
+
+  make[2]: Leaving directory 'CanFestival-3-20081204-1/objdictgen'
+  timers_unix.c:7:22: fatal error: applicfg.h: No such file or directory
+   #include "applicfg.h"
+                        ^
+  compilation terminated.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ drivers/hcs12/Makefile.in            | 2 +-
+ examples/gene_SYNC_HCS12/Makefile.in | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hcs12/Makefile.in b/drivers/hcs12/Makefile.in
+index 501bb681ae49..6ddaea3ad6db 100644
+--- a/drivers/hcs12/Makefile.in
++++ b/drivers/hcs12/Makefile.in
+@@ -55,7 +55,7 @@ libcandriver.a: $(OBJS)
+ 	@echo "*********************************************"
+ 	$(CC) $(OPT_CFLAGS) $(CFLAGS) $(PROG_CFLAGS) ${PROGDEFINES} $(INCLUDES) -c -o $@ $<
+ 
+-%o: %s
++%.o: %.s
+ 	@echo " "
+ 	@echo "*********************************************"
+ 	@echo "**Compiling $< -> $@"
+diff --git a/examples/gene_SYNC_HCS12/Makefile.in b/examples/gene_SYNC_HCS12/Makefile.in
+index 0f34c5a5e2a8..ba7cb63dd4b4 100644
+--- a/examples/gene_SYNC_HCS12/Makefile.in
++++ b/examples/gene_SYNC_HCS12/Makefile.in
+@@ -68,7 +68,7 @@ all: $(PGR).elf $(PGR).s19 $(PGR).b $(PGR).s MSG
+ 	@echo "*********************************************"
+ 	$(CC) $(CFLAGS) $(PROG_CFLAGS) ${PROGDEFINES} $(INCLUDES) -c -o $@ $<
+ 
+-%o: %s
++%.o: %.s
+ 	@echo " "
+ 	@echo "*********************************************"
+ 	@echo "**Compiling $< -> $@"

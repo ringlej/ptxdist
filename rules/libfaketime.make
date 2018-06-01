@@ -17,7 +17,7 @@ LIBFAKETIME_SUFFIX	:= tar.gz
 LIBFAKETIME_URL		:= https://github.com/wolfcw/libfaketime/archive/v$(LIBFAKETIME_VERSION).$(LIBFAKETIME_SUFFIX)
 LIBFAKETIME_SOURCE	:= $(SRCDIR)/$(LIBFAKETIME).$(LIBFAKETIME_SUFFIX)
 LIBFAKETIME_DIR		:= $(BUILDDIR)/$(LIBFAKETIME)
-LIBFAKETIME_LICENSE	:= GPL-2.0
+LIBFAKETIME_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

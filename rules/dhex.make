@@ -23,7 +23,7 @@ DHEX_SUFFIX	:= tar.gz
 DHEX_URL	:= http://www.dettus.net/dhex/$(DHEX).$(DHEX_SUFFIX)
 DHEX_SOURCE	:= $(SRCDIR)/$(DHEX).$(DHEX_SUFFIX)
 DHEX_DIR	:= $(BUILDDIR)/$(DHEX)
-DHEX_LICENSE	:= GPL-2.0
+DHEX_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

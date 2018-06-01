@@ -17,18 +17,22 @@ PACKAGES-$(PTXCONF_POWERTOP) += powertop
 #
 # Paths and names
 #
-POWERTOP_VERSION	:= 2.5
-POWERTOP_MD5		:= 806bbcbd44fcea1f807c9582fc1f7d3e
-POWERTOP		:= powertop-$(POWERTOP_VERSION)
+POWERTOP_VERSION	:= 2.9
+POWERTOP_MD5		:= 583518c5c4434c6e9b9c58c3920950b6
+POWERTOP		:= powertop-v$(POWERTOP_VERSION)
 POWERTOP_SUFFIX		:= tar.gz
 POWERTOP_URL		:= https://01.org/sites/default/files/downloads/powertop/$(POWERTOP).$(POWERTOP_SUFFIX)
 POWERTOP_SOURCE		:= $(SRCDIR)/$(POWERTOP).$(POWERTOP_SUFFIX)
 POWERTOP_DIR		:= $(BUILDDIR)/$(POWERTOP)
-POWERTOP_LICENSE	:= GPL-2.0
+POWERTOP_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+POWERTOP_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_search_pci_get_dev=$(call ptx/yesno, PTXCONF_POWERTOP_PCI_SUPPORT)
 
 #
 # autoconf
@@ -36,8 +40,8 @@ POWERTOP_LICENSE	:= GPL-2.0
 POWERTOP_CONF_TOOL	:= autoconf
 POWERTOP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_POWERTOP_PCI_SUPPORT)-pci \
 	--disable-nls \
+	--disable-rpath \
 	--without-libiconv-prefix \
 	--without-libintl-prefix
 

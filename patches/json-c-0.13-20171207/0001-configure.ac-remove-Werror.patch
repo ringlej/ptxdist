@@ -1,0 +1,32 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 3 Mar 2018 21:13:12 +0100
+Subject: [PATCH] configure.ac: remove -Werror
+
+Building with -Werror fails for gcc-7.x and icecc.
+
+Icecc splits preprocessing and compiling. As a result comments are no
+longer available at compile time and building fails with:
+
+json_object.c: In function 'json_object_get_int64':
+json_object.c:698:6: error: this statement may fall through [-Werror=implicit-fallthrough=]
+json_object.c:701:2: note: here
+cc1: all warnings being treated as errors
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 024c5aa0d687..74caa4d99e15 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -165,7 +165,7 @@ AS_IF([test "x$enable_Bsymbolic" = "xcheck"],
+ AS_IF([test "x$enable_Bsymbolic" = "xyes"], [JSON_BSYMBOLIC_LDFLAGS=-Wl[,]-Bsymbolic-functions])
+ AC_SUBST(JSON_BSYMBOLIC_LDFLAGS)
+ 
+-AX_APPEND_COMPILE_FLAGS([-Wall -Werror -Wcast-qual -Wno-error=deprecated-declarations])
++AX_APPEND_COMPILE_FLAGS([-Wall -Wcast-qual -Wno-error=deprecated-declarations])
+ AX_APPEND_COMPILE_FLAGS([-Wextra -Wwrite-string -Wno-unused-parameter])
+ AX_APPEND_COMPILE_FLAGS([-D_GNU_SOURCE -D_REENTRANT])
+ 

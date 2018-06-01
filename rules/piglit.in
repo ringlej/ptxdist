@@ -30,7 +30,7 @@ if PIGLIT
 
 config PIGLIT_WAYLAND
 	bool
-	default MESALIB_EGL_WAYLAND
+	default MESALIB_EGL_WAYLAND || WAFFLE_WAYLAND
 
 # OpenGL tests need some more dependencies sorted out
 

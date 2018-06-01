@@ -23,7 +23,7 @@ FBUTILS_SUFFIX	:= tar.gz
 FBUTILS_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBUTILS).$(FBUTILS_SUFFIX)
 FBUTILS_SOURCE	:= $(SRCDIR)/$(FBUTILS).$(FBUTILS_SUFFIX)
 FBUTILS_DIR	:= $(BUILDDIR)/$(FBUTILS)
-FBUTILS_LICENSE := GPL-3.0
+FBUTILS_LICENSE := GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Compile

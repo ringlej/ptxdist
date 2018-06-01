@@ -24,7 +24,7 @@ SDL_MIXER_SUFFIX	:= tar.gz
 SDL_MIXER_URL		:= http://www.libsdl.org/projects/SDL_mixer/release/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
 SDL_MIXER_SOURCE	:= $(SRCDIR)/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
 SDL_MIXER_DIR		:= $(BUILDDIR)/$(SDL_MIXER)
-SDL_MIXER_LICENSE	:= LGPL-2.1
+SDL_MIXER_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

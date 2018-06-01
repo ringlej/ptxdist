@@ -26,7 +26,7 @@ PROCPS_SUFFIX	:= tar.xz
 PROCPS_URL	:= $(call ptx/mirror, SF, procps-ng/Production/$(PROCPS).$(PROCPS_SUFFIX))
 PROCPS_SOURCE	:= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
-PROCPS_LICENSE	:= GPL-2.0 AND LGPL-2.0
+PROCPS_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
 PROCPS_LICENSE_FILES := \
 	file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 	file://COPYING.LIB;md5=4cf66a4984120007c9881cc871cf49db
@@ -34,10 +34,6 @@ PROCPS_LICENSE_FILES := \
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-PROCPS_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	$(call ptx/ncurses, PTXCONF_PROCPS_USES_NCURSES)
 
 #
 # autoconf

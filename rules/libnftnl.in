@@ -3,7 +3,6 @@
 menuconfig LIBNFTNL
 	tristate
 	select LIBMNL
-	select LIBMXML if LIBNFTNL_XML
 	select JANSSON if LIBNFTNL_JSON
 	prompt "libnftnl                      "
 	help
@@ -13,11 +12,6 @@ menuconfig LIBNFTNL
 	  This library is currently used by nftables.
 
 if LIBNFTNL
-
-config LIBNFTNL_XML
-	bool
-	depends on LIBNFTNL
-	prompt "XML parsing support"
 
 config LIBNFTNL_JSON
 	bool

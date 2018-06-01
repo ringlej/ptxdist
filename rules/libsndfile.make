@@ -23,7 +23,7 @@ LIBSNDFILE_SUFFIX	:= tar.gz
 LIBSNDFILE_URL		:= http://www.mega-nerd.com/libsndfile/files/$(LIBSNDFILE).$(LIBSNDFILE_SUFFIX)
 LIBSNDFILE_SOURCE	:= $(SRCDIR)/$(LIBSNDFILE).$(LIBSNDFILE_SUFFIX)
 LIBSNDFILE_DIR		:= $(BUILDDIR)/$(LIBSNDFILE)
-LIBSNDFILE_LICENSE	:= LGPL-2.1
+LIBSNDFILE_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -25,7 +25,7 @@ NTPCLIENT_TARBALL	:= ntpclient_2007_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
 NTPCLIENT_URL		:= http://doolittle.icarus.com/ntpclient/$(NTPCLIENT_TARBALL)
 NTPCLIENT_SOURCE	:= $(SRCDIR)/$(NTPCLIENT_TARBALL)
 NTPCLIENT_DIR		:= $(BUILDDIR)/$(NTPCLIENT)
-NTPCLIENT_LICENSE	:= GPL-2.0
+NTPCLIENT_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

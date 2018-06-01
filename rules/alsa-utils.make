@@ -26,7 +26,7 @@ ALSA_UTILS_URL		:= \
 	ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_SOURCE	:= $(SRCDIR)/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_DIR		:= $(BUILDDIR)/$(ALSA_UTILS)
-ALSA_UTILS_LICENSE	:= GPL-2.0+
+ALSA_UTILS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -37,7 +37,6 @@ ALSA_UTILS_LICENSE	:= GPL-2.0+
 #
 ALSA_UTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(CROSS_ENV_AC_NCURSES) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
