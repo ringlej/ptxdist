@@ -3,6 +3,15 @@
 config HOST_SYSTEM_PYTHON3
 	tristate
 
-if HOST_SYSTEM_PYTHON
+if HOST_SYSTEM_PYTHON3
+
+config HOST_SYSTEM_PYTHON3_MAKO
+	bool
+
+config HOST_SYSTEM_PYTHON3_NUMPY
+	bool
+
+config HOST_SYSTEM_PYTHON3_SIX
+	bool
 
 endif
