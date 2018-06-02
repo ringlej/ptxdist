@@ -2,7 +2,7 @@
 
 config HOST_NINJA
 	tristate
-	select HOST_SYSTEM_PYTHON
+	select HOST_SYSTEM_PYTHON3
 	default ALLYES
 	help
 	  Ninja build tool
