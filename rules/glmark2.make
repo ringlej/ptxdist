@@ -56,7 +56,7 @@ GLMARK2_CONF_OPT	:= \
 $(STATEDIR)/glmark2.prepare:
 	@$(call targetinfo)
 	@cd $(GLMARK2_DIR) && \
-		$(GLMARK2_CONF_ENV) ./waf configure $(GLMARK2_CONF_OPT)
+		$(GLMARK2_CONF_ENV) $(SYSTEMPYTHON3) ./waf configure $(GLMARK2_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ $(STATEDIR)/glmark2.prepare:
 
 $(STATEDIR)/glmark2.compile:
 	@$(call targetinfo)
-	@cd $(GLMARK2_DIR) && ./waf build -j 1
+	@cd $(GLMARK2_DIR) && $(SYSTEMPYTHON3) ./waf build -j 1
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ $(STATEDIR)/glmark2.install:
 	@$(call targetinfo)
 	@rm -rf "$(GLMARK2_PKGDIR)"
 	@mkdir -p "$(GLMARK2_PKGDIR)"
-	@cd "$(GLMARK2_DIR)" && ./waf --destdir=$(GLMARK2_PKGDIR) install
+	@cd "$(GLMARK2_DIR)" && $(SYSTEMPYTHON3) ./waf --destdir=$(GLMARK2_PKGDIR) install
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
