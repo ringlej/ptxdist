@@ -29,9 +29,9 @@ LIBEPOXY_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBEPOXY_CONF_ENV	:= \
+LIBEPOXY_CONF_ENV	= \
 	$(CROSS_ENV) \
-	ac_cv_prog_PYTHON=python
+	ac_cv_prog_PYTHON=$(SYSTEMPYTHON3)
 #
 # autoconf
 #

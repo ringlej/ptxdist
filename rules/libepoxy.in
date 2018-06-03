@@ -2,6 +2,7 @@
 
 config LIBEPOXY
 	tristate
+	select HOST_SYSTEM_PYTHON3
 	# for autogen.sh
 	select HOST_XORG_UTIL_MACROS
 	select XORG_LIB_X11
