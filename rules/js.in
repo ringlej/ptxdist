@@ -1,4 +1,6 @@
-## SECTION=scripting_languages
+## SECTION=staging
+## old section:
+### SECTION=scripting_languages
 
 config JS
 	tristate "mozjs (spidermonkey)"
@@ -13,3 +15,6 @@ config JS
 	  SpiderMonkey is Mozilla's JavaScript engine written in C/C++.
 	  It is used in various Mozilla products, including Firefox,
 	  and is available under the MPL2.
+
+	  STAGING: remove in ptxdist-2019.06.0
+	  Really old version that needs updating.
