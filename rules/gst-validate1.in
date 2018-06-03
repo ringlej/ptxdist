@@ -7,7 +7,7 @@ menuconfig GST_VALIDATE1
 	select JSON_GLIB
 	select CAIRO		if GST_VALIDATE1_VIDEO
 	select CAIRO_PNG	if GST_VALIDATE1_VIDEO
-	select PYTHON		if RUNTIME && GST_VALIDATE1_LAUNCHER
+	select PYTHON3		if RUNTIME && GST_VALIDATE1_LAUNCHER
 	prompt "gst-validate                  "
 	help
 	  GstValidate is a tool that allows GStreamer developers to check

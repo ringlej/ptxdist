@@ -32,7 +32,7 @@ GST_VALIDATE1_LICENSE	:= LGPL-2.1-or-later
 GST_VALIDATE1_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	ac_cv_prog_enable_sphinx_doc=no \
-	ac_cv_path_PYTHON=/usr/bin/python
+	ac_cv_path_PYTHON=$(CROSS_PYTHON3)
 
 #
 # autoconf
