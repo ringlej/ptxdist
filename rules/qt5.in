@@ -3,6 +3,7 @@
 menuconfig QT5
 	tristate
 	select HOST_SYSTEM_PERL
+	select HOST_SYSTEM_PYTHON	if QT5_MODULE_QTDECLARATIVE
 	select LIBC_PTHREAD
 	select LIBC_DL
 	select LIBC_RT
@@ -509,6 +510,11 @@ config QT5_MODULE_QTWEBCHANNEL
 	bool
 	depends on QT5_GUI
 	prompt "QtWebChannel"
+
+config QT5_MODULE_QTWEBCHANNEL_QUICK
+	bool
+	depends on QT5_MODULE_QTWEBCHANNEL
+	default QT5_MODULE_QTDECLARATIVE
 
 config QT5_MODULE_QTWEBENGINE
 	bool
