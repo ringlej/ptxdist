@@ -23,7 +23,7 @@ TNTNET_SUFFIX	:= tar.gz
 TNTNET_URL		:= http://www.tntnet.org/download/$(TNTNET).$(TNTNET_SUFFIX)
 TNTNET_SOURCE	:= $(SRCDIR)/$(TNTNET).$(TNTNET_SUFFIX)
 TNTNET_DIR		:= $(BUILDDIR)/$(TNTNET)
-TNTNET_LICENSE	:= LGPL-2.1
+TNTNET_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

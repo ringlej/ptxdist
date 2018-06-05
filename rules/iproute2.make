@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 4.10.0
-IPROUTE2_MD5		:= b94a2b0edefaeac124dc8f5d006931b9
+IPROUTE2_VERSION	:= 4.14.1
+IPROUTE2_MD5		:= 1075423d7029e02a8f23ed4f42b7e372
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.xz
 IPROUTE2_URL		:= $(call ptx/mirror, KERNEL, utils/net/iproute2/$(IPROUTE2).$(IPROUTE2_SUFFIX))
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
-IPROUTE2_LICENSE	:= GPL-2.0
+IPROUTE2_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -37,24 +37,16 @@ $(STATEDIR)/iproute2.prepare:
 	@$(call targetinfo)
 	@$(call world/prepare, IPROUTE2)
 # overwrite options we don't want, or may be misdetected
-	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/Config
-	@echo 'TC_CONFIG_NO_XT:=y'	>> $(IPROUTE2_DIR)/Config
-	@echo 'HAVE_ELF:=n'		>> $(IPROUTE2_DIR)/Config
-ifndef PTXCONF_GLOBAL_SELINUX
-	@echo 'HAVE_SELINUX:=n'		>> $(IPROUTE2_DIR)/Config
-endif
-	@echo 'HAVE_MNL:=n'		>> $(IPROUTE2_DIR)/Config
+	@echo 'TC_CONFIG_ATM:=n'	>> $(IPROUTE2_DIR)/config.mk
 ifndef PTXCONF_IPROUTE2_ARPD
-	@echo 'HAVE_BERKELEY_DB:=n'	>> $(IPROUTE2_DIR)/Config
+	@echo 'HAVE_BERKELEY_DB:=n'	>> $(IPROUTE2_DIR)/config.mk
 endif
 	@$(call touch)
 
 IPROUTE2_MAKE_OPT := \
 	SBINDIR=/usr/sbin \
 	DBM_INCLUDE=$(SYSROOT)/usr/include \
-	LDFLAGS='-rdynamic' \
-	WFLAGS="-Wall" \
-	KERNEL_INCLUDE="$(KERNEL_HEADERS_INCLUDE_DIR)"
+	LDFLAGS='-rdynamic'
 
 IPROUTE2_INSTALL_OPT := \
 	$(IPROUTE2_MAKE_OPT) \

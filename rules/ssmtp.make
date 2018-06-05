@@ -25,7 +25,7 @@ SSMTP_SRC		:= ssmtp_$(SSMTP_VERSION).orig.$(SSMTP_SUFFIX)
 SSMTP_URL		:= $(call ptx/mirror, DEB, pool/main/s/ssmtp/$(SSMTP_SRC))
 SSMTP_SOURCE		:= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		:= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)
-SSMTP_LICENSE		:= GPL-2.0+
+SSMTP_LICENSE		:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

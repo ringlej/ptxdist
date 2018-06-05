@@ -1,0 +1,36 @@
+## SECTION=multimedia_libs
+
+menuconfig LIBPAPER
+	tristate
+	prompt "libpaper                      "
+	help
+	  System-wide paper size configuration
+
+if LIBPAPER
+
+config LIBPAPER_SIZE
+	string "default fallback paper size"
+	default "letter"
+	help
+	  Paper size that is used if nothing else is specified in
+	  /etc/papersize. Currently libpaper knows about the following formats:
+
+	  10x14 11x17 Comm10 DL Monarch a0 a1 a10 a2 a3 a4 a5 a6 a7 a8 a9 archA
+	  archB archC archD archE b0 b1 b10 b2 b3 b4 b5 b6 b7 b8 b9 c2 c3 c4 c5
+	  c6 c7 c8 csheet dsheet esheet executive flsa flse folio halfexecutive
+	  halfletter ledger legal letter note quarto statement tabloid
+
+config LIBPAPER_PAPERCONFIG
+	bool "install paperconfig"
+	help
+	  Install the paperconfig tool which sets the default paper size of the
+	  system
+
+config LIBPAPER_PAPERCONF
+	bool "install paperconf"
+	help
+	  Install the paperconf tool which prints information about a specific
+	  paper size
+
+endif
+# vim: ft=kconfig ts=8 noet tw=80

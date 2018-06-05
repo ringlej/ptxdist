@@ -1,0 +1,26 @@
+From: Karol Augustin <karol@augustin.pl>
+Date: Sun, 18 Mar 2018 10:40:07 +0000
+Subject: [PATCH] units: Fix SuccessAction that belongs to [Unit] section not
+ [Service] section (#8478)
+
+---
+ units/system-update-cleanup.service.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/units/system-update-cleanup.service.in b/units/system-update-cleanup.service.in
+index 84d16f608ef8..58baab3023d7 100644
+--- a/units/system-update-cleanup.service.in
++++ b/units/system-update-cleanup.service.in
+@@ -14,6 +14,7 @@ After=system-update.target
+ DefaultDependencies=no
+ Conflicts=shutdown.target
+ Before=shutdown.target
++SuccessAction=reboot
+ 
+ # system-update-generator uses laccess("/system-update"), while a plain
+ # ConditionPathExists=/system-update uses access("/system-update"), so
+@@ -32,4 +33,3 @@ ConditionPathIsSymbolicLink=|/system-update
+ [Service]
+ Type=oneshot
+ ExecStart=/bin/rm -fv /system-update
+-SuccessAction=reboot

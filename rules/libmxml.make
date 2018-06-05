@@ -14,14 +14,15 @@ PACKAGES-$(PTXCONF_LIBMXML) += libmxml
 #
 # Paths and names
 #
-LIBMXML_VERSION	:= 2.6
-LIBMXML_MD5	:= 68977789ae64985dddbd1a1a1652642e
+LIBMXML_VERSION	:= 2.11
+LIBMXML_MD5	:= 479281fc365706343b36e3b2012a6f28
 LIBMXML		:= mxml-$(LIBMXML_VERSION)
 LIBMXML_SUFFIX	:= tar.gz
-LIBMXML_URL	:= http://www.msweet.org/files/project3/$(LIBMXML).$(LIBMXML_SUFFIX)
+LIBMXML_URL	:= https://github.com/michaelrsweet/mxml/releases/download/v$(LIBMXML_VERSION)/$(LIBMXML).$(LIBMXML_SUFFIX)
 LIBMXML_SOURCE	:= $(SRCDIR)/$(LIBMXML).$(LIBMXML_SUFFIX)
 LIBMXML_DIR	:= $(BUILDDIR)/mxml-$(LIBMXML_VERSION)
-LIBMXML_LICENSE	:= LGPL-2.0
+LIBMXML_LICENSE	:= LGPL-2.0-only
+LIBMXML_STRIP_LEVEL := 0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -30,6 +31,8 @@ LIBMXML_LICENSE	:= LGPL-2.0
 LIBMXML_CONF_TOOL := autoconf
 LIBMXML_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--enable-threads \
 	--enable-shared
 
 # build static lib, too. make install will fail otherwise

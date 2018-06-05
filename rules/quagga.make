@@ -23,7 +23,7 @@ QUAGGA_SUFFIX	:= tar.gz
 QUAGGA_URL	:= http://download.savannah.gnu.org/releases/quagga/$(QUAGGA).$(QUAGGA_SUFFIX)
 QUAGGA_SOURCE	:= $(SRCDIR)/$(QUAGGA).$(QUAGGA_SUFFIX)
 QUAGGA_DIR	:= $(BUILDDIR)/$(QUAGGA)
-QUAGGA_LICENSE	:= GPL-2.0
+QUAGGA_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -37,15 +37,15 @@ QUAGGA_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	$(GLOBAL_IPV6_OPTION) \
-	--$(call ptx/endis, PTXCONF_VTYSH)-vtysh \
-	--$(call ptx/endis, PTXCONF_ZEBRA)-zebra \
-	--$(call ptx/endis, PTXCONF_BGPD)-bgpd \
-	--$(call ptx/endis, PTXCONF_RIPD)-ripd \
-	--$(call ptx/endis, PTXCONF_RIPNGD)-ripngd \
-	--$(call ptx/endis, PTXCONF_OSPFD)-ospfd \
-	--$(call ptx/endis, PTXCONF_OSPF6D)-ospf6d \
-	--$(call ptx/endis, PTXCONF_BABELD)-babeld \
-	--$(call ptx/endis, PTXCONF_WATCHQUAGGA)-watchquagga \
+	--$(call ptx/endis, PTXCONF_QUAGGA_VTYSH)-vtysh \
+	--$(call ptx/endis, PTXCONF_QUAGGA_ZEBRA)-zebra \
+	--$(call ptx/endis, PTXCONF_QUAGGA_BGPD)-bgpd \
+	--$(call ptx/endis, PTXCONF_QUAGGA_RIPD)-ripd \
+	--$(call ptx/endis, PTXCONF_QUAGGA_RIPNGD)-ripngd \
+	--$(call ptx/endis, PTXCONF_QUAGGA_OSPFD)-ospfd \
+	--$(call ptx/endis, PTXCONF_QUAGGA_OSPF6D)-ospf6d \
+	--$(call ptx/endis, PTXCONF_QUAGGA_BABELD)-babeld \
+	--$(call ptx/endis, PTXCONF_QUAGGA_WATCHQUAGGA)-watchquagga \
 	--disable-doc \
 	--enable-isisd \
 	--enable-solaris \
@@ -89,42 +89,43 @@ $(STATEDIR)/quagga.targetinstall:
 	@$(call install_fixup, quagga,SECTION,base)
 	@$(call install_fixup, quagga,AUTHOR,"<oliver.graute@neuhaus.de>")
 	@$(call install_fixup, quagga,DESCRIPTION,missing)
+
 	@$(call install_lib, quagga, 0, 0, 0644, libzebra)
 
-ifdef PTXCONF_RIPD
+ifdef PTXCONF_QUAGGA_RIPD
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/ripd)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/ripd.conf)
 endif
-ifdef PTXCONF_RIPNGD
+ifdef PTXCONF_QUAGGA_RIPNGD
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/ripngd)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/ripngd.conf)
 endif
-ifdef PTXCONF_BABELD
+ifdef PTXCONF_QUAGGA_BABELD
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/babeld)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/babeld.conf)
 endif
-ifdef PTXCONF_BGPD
+ifdef PTXCONF_QUAGGA_BGPD
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/bgpd)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/bgpd.conf)
 endif
-ifdef PTXCONF_ZEBRA
+ifdef PTXCONF_QUAGGA_ZEBRA
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/zebra)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/zebra.conf)
 endif
-ifdef PTXCONF_OSPFD
+ifdef PTXCONF_QUAGGA_OSPFD
+	@$(call install_lib, quagga, 0, 0, 0644, libospf)
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/ospfd)
-	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/ospfclient)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/ospfd.conf)
 endif
-ifdef PTXCONF_OSPF6D
+ifdef PTXCONF_QUAGGA_OSPF6D
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/ospf6d)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/ospf6d.conf)
 endif
-ifdef PTXCONF_WATCHQUAGGA
+ifdef PTXCONF_QUAGGA_WATCHQUAGGA
 	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/watchquagga)
 endif
-ifdef PTXCONF_VTYSH
-	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/sbin/vtysh)
+ifdef PTXCONF_QUAGGA_VTYSH
+	@$(call install_copy, quagga, 0, 0, 0755, -, /usr/bin/vtysh)
 	@$(call install_alternative, quagga, 0, 0, 0644, /etc/vtysh.conf)
 endif
 

@@ -2,6 +2,7 @@
 
 config LIBSODIUM
 	bool
+	select LIBC_PTHREAD
 	prompt "libsodium"
 	help
 	  Sodium is a new, easy-to-use software library for encryption,

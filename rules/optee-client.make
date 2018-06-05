@@ -36,6 +36,9 @@ OPTEE_CLIENT_MAKE_ENV := \
 	BINDIR=/usr/bin \
 	INCLUDEDIR=/usr/include
 
+ifdef PTXDIST_ICECC
+OPTEE_CLIENT_CFLAGS := -C
+endif
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------

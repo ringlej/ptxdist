@@ -16,37 +16,31 @@ PACKAGES-$(PTXCONF_I2C_TOOLS) += i2c-tools
 #
 # Paths and names
 #
-I2C_TOOLS_VERSION	:= 3.1.2
-I2C_TOOLS_MD5		:= 7104a1043d11a5e2c7b131614eb1b962
+I2C_TOOLS_VERSION	:= 4.0
+I2C_TOOLS_MD5		:= f873c657d00bc00e9c47ed938c2cd770
 I2C_TOOLS		:= i2c-tools-$(I2C_TOOLS_VERSION)
-I2C_TOOLS_SUFFIX	:= tar.bz2
-I2C_TOOLS_URL		:= http://dl.lm-sensors.org/i2c-tools/releases/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX) http://jdelvare.nerim.net/mirror/i2c-tools/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
+I2C_TOOLS_SUFFIX	:= tar.xz
+I2C_TOOLS_URL		:= https://www.kernel.org/pub/software/utils/i2c-tools/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_SOURCE	:= $(SRCDIR)/$(I2C_TOOLS).$(I2C_TOOLS_SUFFIX)
 I2C_TOOLS_DIR		:= $(BUILDDIR)/$(I2C_TOOLS)
-I2C_TOOLS_LICENSE	:= GPL-2.0+
+I2C_TOOLS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-I2C_TOOLS_PATH	:= PATH=$(CROSS_PATH)
-I2C_TOOLS_ENV 	:= $(CROSS_ENV)
+I2C_TOOLS_CONF_TOOL := NO
 
-I2C_TOOLS_MAKE_OPT := \
-	prefix=/usr \
-	KERNELVERSION=$(KERNEL_HEADER_VERSION) \
-	$(CROSS_ENV_CC)
+I2C_TOOLS_MAKE_ENV := \
+	$(CROSS_ENV) \
+	BUILD_STATIC_LIB=0
 
 # install the header files to include/i2c-tools
 # this way they don't collide with the toolchain's i2c headers
 I2C_TOOLS_INSTALL_OPT := \
-	$(I2C_TOOLS_MAKE_OPT) \
+	prefix=/usr \
 	incdir="\$$(prefix)/include/i2c-tools" \
 	install
-
-$(STATEDIR)/i2c-tools.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -65,6 +59,8 @@ $(STATEDIR)/i2c-tools.targetinstall:
 	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /usr/sbin/i2cdump)
 	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /usr/sbin/i2cset)
 	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /usr/sbin/i2cget)
+	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /usr/sbin/i2ctransfer)
+	@$(call install_lib, i2c-tools, 0, 0, 0644, libi2c)
 
 	@$(call install_finish, i2c-tools)
 

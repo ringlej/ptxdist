@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION	:= 7.5p1
-OPENSSH_MD5	:= 652fdc7d8392f112bef11cacf7e69e23
+OPENSSH_VERSION	:= 7.6p1
+OPENSSH_MD5	:= 06a88699018e5fef13d4655abfed1f63
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= \
@@ -27,8 +27,8 @@ OPENSSH_URL	:= \
 
 OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
-OPENSSH_LICENSE	:= BSD, 2-term BSD, 3-term BSD, MIT, THE BEER-WARE LICENSE
-OPENSSH_LICENSE_FILES := file://LICENCE;md5=e326045657e842541d3f35aada442507
+OPENSSH_LICENSE	:= BSD AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Beerware AND ISC
+OPENSSH_LICENSE_FILES := file://LICENCE;md5=429658c6612f3a9b1293782366ab29d8
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -64,7 +64,6 @@ OPENSSH_CONF_OPT	:= \
 	--disable-pututline \
 	--disable-pututxline \
 	--with-openssl \
-	--without-ssh1 \
 	--with-stackprotect \
 	--with-hardening \
 	--without-rpath \

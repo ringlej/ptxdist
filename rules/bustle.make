@@ -23,7 +23,7 @@ BUSTLE_SUFFIX	:= tar.gz
 BUSTLE_URL	:= http://www.willthompson.co.uk/bustle/releases/$(BUSTLE).$(BUSTLE_SUFFIX)
 BUSTLE_SOURCE	:= $(SRCDIR)/$(BUSTLE).$(BUSTLE_SUFFIX)
 BUSTLE_DIR	:= $(BUILDDIR)/$(BUSTLE)
-BUSTLE_LICENSE	:= GPL-2.0+, LGPL-2.1+
+BUSTLE_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -25,7 +25,7 @@ PPP_SUFFIX	:= tar.gz
 PPP_URL		:= http://ftp.samba.org/pub/ppp/$(PPP).$(PPP_SUFFIX)
 PPP_SOURCE	:= $(SRCDIR)/$(PPP).$(PPP_SUFFIX)
 PPP_DIR		:= $(BUILDDIR)/$(PPP)
-PPP_LICENSE	:= BSD,GPL-2.0
+PPP_LICENSE	:= BSD AND GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

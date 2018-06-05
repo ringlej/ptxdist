@@ -16,7 +16,6 @@ menuconfig OPROFILE
 	select BUSYBOX_TR
 	select BINUTILS
 	select BINUTILS_OBJDUMP
-	select KERNEL_HEADER
 	prompt "oprofile                      "
 	help
 	  oprofile user space executables including opcontrol, opreport and others

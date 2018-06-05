@@ -1,0 +1,478 @@
+From: Stefan Becker <stefanb@gpartner-nvidia.com>
+Date: Tue, 22 Mar 2016 13:48:07 +0200
+Subject: [PATCH] Add GNU make jobserver client support
+
+- add new TokenPool interface
+- GNU make implementation for TokenPool parses and verifies the magic
+  information from the MAKEFLAGS environment variable
+- RealCommandRunner tries to acquire TokenPool
+  * if no token pool is available then there is no change in behaviour
+- When a token pool is available then RealCommandRunner behaviour
+  changes as follows
+  * CanRunMore() only returns true if TokenPool::Acquire() returns true
+  * StartCommand() calls TokenPool::Reserve()
+  * WaitForCommand() calls TokenPool::Release()
+
+Documentation for GNU make jobserver
+
+  http://make.mad-scientist.net/papers/jobserver-implementation/
+
+Fixes https://github.com/ninja-build/ninja/issues/1139
+---
+ configure.py              |   2 +
+ src/build.cc              |  59 ++++++++-----
+ src/build.h               |   3 +
+ src/tokenpool-gnu-make.cc | 211 ++++++++++++++++++++++++++++++++++++++++++++++
+ src/tokenpool-none.cc     |  27 ++++++
+ src/tokenpool.h           |  26 ++++++
+ 6 files changed, 308 insertions(+), 20 deletions(-)
+ create mode 100644 src/tokenpool-gnu-make.cc
+ create mode 100644 src/tokenpool-none.cc
+ create mode 100644 src/tokenpool.h
+
+diff --git a/configure.py b/configure.py
+index a4437489426e..41d95469c00d 100755
+--- a/configure.py
++++ b/configure.py
+@@ -499,6 +499,7 @@ for name in ['build',
+     objs += cxx(name)
+ if platform.is_windows():
+     for name in ['subprocess-win32',
++                 'tokenpool-none',
+                  'includes_normalize-win32',
+                  'msvc_helper-win32',
+                  'msvc_helper_main-win32']:
+@@ -508,6 +509,7 @@ if platform.is_windows():
+     objs += cc('getopt')
+ else:
+     objs += cxx('subprocess-posix')
++    objs += cxx('tokenpool-gnu-make')
+ if platform.is_aix():
+     objs += cc('getopt')
+ if platform.is_msvc():
+diff --git a/src/build.cc b/src/build.cc
+index 61ef0e849add..cc796ff838fa 100644
+--- a/src/build.cc
++++ b/src/build.cc
+@@ -38,6 +38,7 @@
+ #include "graph.h"
+ #include "state.h"
+ #include "subprocess.h"
++#include "tokenpool.h"
+ #include "util.h"
+ 
+ namespace {
+@@ -347,7 +348,7 @@ bool Plan::AddSubTarget(Node* node, Node* dependent, string* err) {
+ }
+ 
+ Edge* Plan::FindWork() {
+-  if (ready_.empty())
++  if (!more_ready())
+     return NULL;
+   set<Edge*>::iterator e = ready_.begin();
+   Edge* edge = *e;
+@@ -485,8 +486,8 @@ void Plan::Dump() {
+ }
+ 
+ struct RealCommandRunner : public CommandRunner {
+-  explicit RealCommandRunner(const BuildConfig& config) : config_(config) {}
+-  virtual ~RealCommandRunner() {}
++  explicit RealCommandRunner(const BuildConfig& config);
++  virtual ~RealCommandRunner();
+   virtual bool CanRunMore();
+   virtual bool StartCommand(Edge* edge);
+   virtual bool WaitForCommand(Result* result);
+@@ -495,9 +496,18 @@ struct RealCommandRunner : public CommandRunner {
+ 
+   const BuildConfig& config_;
+   SubprocessSet subprocs_;
++  TokenPool *tokens_;
+   map<Subprocess*, Edge*> subproc_to_edge_;
+ };
+ 
++RealCommandRunner::RealCommandRunner(const BuildConfig& config) : config_(config) {
++  tokens_ = TokenPool::Get();
++}
++
++RealCommandRunner::~RealCommandRunner() {
++  delete tokens_;
++}
++
+ vector<Edge*> RealCommandRunner::GetActiveEdges() {
+   vector<Edge*> edges;
+   for (map<Subprocess*, Edge*>::iterator e = subproc_to_edge_.begin();
+@@ -508,14 +518,18 @@ vector<Edge*> RealCommandRunner::GetActiveEdges() {
+ 
+ void RealCommandRunner::Abort() {
+   subprocs_.Clear();
++  if (tokens_)
++    tokens_->Clear();
+ }
+ 
+ bool RealCommandRunner::CanRunMore() {
+   size_t subproc_number =
+       subprocs_.running_.size() + subprocs_.finished_.size();
+   return (int)subproc_number < config_.parallelism
+-    && ((subprocs_.running_.empty() || config_.max_load_average <= 0.0f)
+-        || GetLoadAverage() < config_.max_load_average);
++    && (subprocs_.running_.empty() ||
++        ((config_.max_load_average <= 0.0f ||
++          GetLoadAverage() < config_.max_load_average)
++      && (!tokens_ || tokens_->Acquire())));
+ }
+ 
+ bool RealCommandRunner::StartCommand(Edge* edge) {
+@@ -523,6 +537,8 @@ bool RealCommandRunner::StartCommand(Edge* edge) {
+   Subprocess* subproc = subprocs_.Add(command, edge->use_console());
+   if (!subproc)
+     return false;
++  if (tokens_)
++    tokens_->Reserve();
+   subproc_to_edge_.insert(make_pair(subproc, edge));
+ 
+   return true;
+@@ -536,6 +552,9 @@ bool RealCommandRunner::WaitForCommand(Result* result) {
+       return false;
+   }
+ 
++  if (tokens_)
++    tokens_->Release();
++
+   result->status = subproc->Finish();
+   result->output = subproc->GetOutput();
+ 
+@@ -644,23 +663,23 @@ bool Builder::Build(string* err) {
+   // Second, we attempt to wait for / reap the next finished command.
+   while (plan_.more_to_do()) {
+     // See if we can start any more commands.
+-    if (failures_allowed && command_runner_->CanRunMore()) {
+-      if (Edge* edge = plan_.FindWork()) {
+-        if (!StartEdge(edge, err)) {
+-          Cleanup();
+-          status_->BuildFinished();
+-          return false;
+-        }
+-
+-        if (edge->is_phony()) {
+-          plan_.EdgeFinished(edge, Plan::kEdgeSucceeded);
+-        } else {
+-          ++pending_commands;
+-        }
++    if (failures_allowed && plan_.more_ready() &&
++        command_runner_->CanRunMore()) {
++      Edge* edge = plan_.FindWork();
++      if (!StartEdge(edge, err)) {
++        Cleanup();
++        status_->BuildFinished();
++        return false;
++      }
+ 
+-        // We made some progress; go back to the main loop.
+-        continue;
++      if (edge->is_phony()) {
++        plan_.EdgeFinished(edge, Plan::kEdgeSucceeded);
++      } else {
++        ++pending_commands;
+       }
++
++      // We made some progress; go back to the main loop.
++      continue;
+     }
+ 
+     // See if we can reap any finished commands.
+diff --git a/src/build.h b/src/build.h
+index 43786f1c928f..cca7e8d8181d 100644
+--- a/src/build.h
++++ b/src/build.h
+@@ -53,6 +53,9 @@ struct Plan {
+   /// Returns true if there's more work to be done.
+   bool more_to_do() const { return wanted_edges_ > 0 && command_edges_ > 0; }
+ 
++  /// Returns true if there's more edges ready to start
++  bool more_ready() const { return !ready_.empty(); }
++
+   /// Dumps the current state of the plan.
+   void Dump();
+ 
+diff --git a/src/tokenpool-gnu-make.cc b/src/tokenpool-gnu-make.cc
+new file mode 100644
+index 000000000000..a8f9b7139d23
+--- /dev/null
++++ b/src/tokenpool-gnu-make.cc
+@@ -0,0 +1,211 @@
++// Copyright 2016 Google Inc. All Rights Reserved.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++// See the License for the specific language governing permissions and
++// limitations under the License.
++
++#include "tokenpool.h"
++
++#include <errno.h>
++#include <fcntl.h>
++#include <poll.h>
++#include <unistd.h>
++#include <signal.h>
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++
++// TokenPool implementation for GNU make jobserver
++// (http://make.mad-scientist.net/papers/jobserver-implementation/)
++struct GNUmakeTokenPool : public TokenPool {
++  GNUmakeTokenPool();
++  virtual ~GNUmakeTokenPool();
++
++  virtual bool Acquire();
++  virtual void Reserve();
++  virtual void Release();
++  virtual void Clear();
++
++  bool Setup();
++
++ private:
++  int available_;
++  int used_;
++
++#ifdef _WIN32
++  // @TODO
++#else
++  int rfd_;
++  int wfd_;
++
++  struct sigaction old_act_;
++  bool restore_;
++
++  static int dup_rfd_;
++  static void CloseDupRfd(int signum);
++
++  bool CheckFd(int fd);
++  bool SetAlarmHandler();
++#endif
++
++  void Return();
++};
++
++// every instance owns an implicit token -> available_ == 1
++GNUmakeTokenPool::GNUmakeTokenPool() : available_(1), used_(0),
++                                       rfd_(-1), wfd_(-1), restore_(false) {
++}
++
++GNUmakeTokenPool::~GNUmakeTokenPool() {
++  Clear();
++  if (restore_)
++    sigaction(SIGALRM, &old_act_, NULL);
++}
++
++bool GNUmakeTokenPool::CheckFd(int fd) {
++  if (fd < 0)
++    return false;
++  int ret = fcntl(fd, F_GETFD);
++  if (ret < 0)
++    return false;
++  return true;
++}
++
++int GNUmakeTokenPool::dup_rfd_ = -1;
++
++void GNUmakeTokenPool::CloseDupRfd(int signum) {
++  close(dup_rfd_);
++  dup_rfd_ = -1;
++}
++
++bool GNUmakeTokenPool::SetAlarmHandler() {
++  struct sigaction act;
++  memset(&act, 0, sizeof(act));
++  act.sa_handler = CloseDupRfd;
++  if (sigaction(SIGALRM, &act, &old_act_) < 0) {
++    perror("sigaction:");
++    return(false);
++  } else {
++    restore_ = true;
++    return(true);
++  }
++}
++
++bool GNUmakeTokenPool::Setup() {
++  const char *value = getenv("MAKEFLAGS");
++  if (value) {
++    // GNU make <= 4.1
++    const char *jobserver = strstr(value, "--jobserver-fds=");
++    // GNU make => 4.2
++    if (!jobserver)
++      jobserver = strstr(value, "--jobserver-auth=");
++    if (jobserver) {
++      int rfd = -1;
++      int wfd = -1;
++      if ((sscanf(jobserver, "%*[^=]=%d,%d", &rfd, &wfd) == 2) &&
++          CheckFd(rfd) &&
++          CheckFd(wfd) &&
++          SetAlarmHandler()) {
++        printf("ninja: using GNU make jobserver.\n");
++        rfd_ = rfd;
++        wfd_ = wfd;
++        return true;
++      }
++    }
++  }
++
++  return false;
++}
++
++bool GNUmakeTokenPool::Acquire() {
++  if (available_ > 0)
++    return true;
++
++#ifdef USE_PPOLL
++  pollfd pollfds[] = {{rfd_, POLLIN, 0}};
++  int ret = poll(pollfds, 1, 0);
++#else
++  fd_set set;
++  struct timeval timeout = { 0, 0 };
++  FD_ZERO(&set);
++  FD_SET(rfd_, &set);
++  int ret = select(rfd_ + 1, &set, NULL, NULL, &timeout);
++#endif
++  if (ret > 0) {
++    dup_rfd_ = dup(rfd_);
++
++    if (dup_rfd_ != -1) {
++      struct sigaction act, old_act;
++      int ret = 0;
++
++      memset(&act, 0, sizeof(act));
++      act.sa_handler = CloseDupRfd;
++      if (sigaction(SIGCHLD, &act, &old_act) == 0) {
++        char buf;
++
++        // block until token read, child exits or timeout
++        alarm(1);
++        ret = read(dup_rfd_, &buf, 1);
++        alarm(0);
++
++        sigaction(SIGCHLD, &old_act, NULL);
++      }
++
++      CloseDupRfd(0);
++
++      if (ret > 0) {
++        available_++;
++        return true;
++      }
++    }
++  }
++  return false;
++}
++
++void GNUmakeTokenPool::Reserve() {
++  available_--;
++  used_++;
++}
++
++void GNUmakeTokenPool::Return() {
++  const char buf = '+';
++  while (1) {
++    int ret = write(wfd_, &buf, 1);
++    if (ret > 0)
++      available_--;
++    if ((ret != -1) || (errno != EINTR))
++      return;
++    // write got interrupted - retry
++  }
++}
++
++void GNUmakeTokenPool::Release() {
++  available_++;
++  used_--;
++  if (available_ > 1)
++    Return();
++}
++
++void GNUmakeTokenPool::Clear() {
++  while (used_ > 0)
++    Release();
++  while (available_ > 1)
++    Return();
++}
++
++struct TokenPool *TokenPool::Get(void) {
++  GNUmakeTokenPool *tokenpool = new GNUmakeTokenPool;
++  if (tokenpool->Setup())
++    return tokenpool;
++  else
++    delete tokenpool;
++  return NULL;
++}
+diff --git a/src/tokenpool-none.cc b/src/tokenpool-none.cc
+new file mode 100644
+index 000000000000..602b3316f54d
+--- /dev/null
++++ b/src/tokenpool-none.cc
+@@ -0,0 +1,27 @@
++// Copyright 2016 Google Inc. All Rights Reserved.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++// See the License for the specific language governing permissions and
++// limitations under the License.
++
++#include "tokenpool.h"
++
++#include <fcntl.h>
++#include <poll.h>
++#include <unistd.h>
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++
++// No-op TokenPool implementation
++struct TokenPool *TokenPool::Get(void) {
++  return NULL;
++}
+diff --git a/src/tokenpool.h b/src/tokenpool.h
+new file mode 100644
+index 000000000000..f560b1083b65
+--- /dev/null
++++ b/src/tokenpool.h
+@@ -0,0 +1,26 @@
++// Copyright 2016 Google Inc. All Rights Reserved.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++// See the License for the specific language governing permissions and
++// limitations under the License.
++
++// interface to token pool
++struct TokenPool {
++  virtual ~TokenPool() {}
++
++  virtual bool Acquire() = 0;
++  virtual void Reserve() = 0;
++  virtual void Release() = 0;
++  virtual void Clear() = 0;
++
++  // returns NULL if token pool is not available
++  static struct TokenPool *Get(void);
++};

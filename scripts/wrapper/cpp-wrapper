@@ -7,7 +7,7 @@ cc_check_args "${@}"
 LINKING=false
 unset PTXDIST_CCACHE
 
-cc_add_fortify
 cpp_add_target_extra
+cc_add_fortify
 
 wrapper_exec "$@"

@@ -24,7 +24,7 @@ FBSET_SUFFIX	:= tar.gz
 FBSET_URL	:= http://users.telenet.be/geertu/Linux/fbdev/$(FBSET).$(FBSET_SUFFIX)
 FBSET_SOURCE	:= $(SRCDIR)/$(FBSET).$(FBSET_SUFFIX)
 FBSET_DIR	:= $(BUILDDIR)/$(FBSET)
-FBSET_LICENSE	:= GPL-2.0
+FBSET_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Compile

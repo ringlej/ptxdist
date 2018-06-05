@@ -23,6 +23,8 @@ HOST_LZOP_SUFFIX	:= tar.gz
 HOST_LZOP_URL		:= http://www.lzop.org/download/$(HOST_LZOP).$(HOST_LZOP_SUFFIX)
 HOST_LZOP_SOURCE	:= $(SRCDIR)/$(HOST_LZOP).$(HOST_LZOP_SUFFIX)
 HOST_LZOP_DIR		:= $(HOST_BUILDDIR)/$(HOST_LZOP)
+HOST_LZOP_LICENSE	:= GPL-2.0-or-later
+HOST_LZOP_LICENSE_FILES	:= file://COPYING;md5=dfeaf3dc4beef4f5a7bdbc35b197f39e
 
 # ----------------------------------------------------------------------------
 # Prepare

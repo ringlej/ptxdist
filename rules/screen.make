@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_SCREEN) += screen
 #
 # Paths and names
 #
-SCREEN_VERSION	:= 4.0.3
-SCREEN_MD5	:= 8506fd205028a96c741e4037de6e3c42
+SCREEN_VERSION	:= 4.5.0
+SCREEN_MD5	:= a32105a91359afab1a4349209a028e31
 SCREEN		:= screen-$(SCREEN_VERSION)
 SCREEN_SUFFIX	:= tar.gz
 SCREEN_URL	:= $(call ptx/mirror, GNU, screen/$(SCREEN).$(SCREEN_SUFFIX))
 SCREEN_SOURCE	:= $(SRCDIR)/$(SCREEN).$(SCREEN_SUFFIX)
 SCREEN_DIR	:= $(BUILDDIR)/$(SCREEN)
-SCREEN_LICENSE	:= GPL-2.0+
+SCREEN_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -37,6 +37,7 @@ SCREEN_ENV 	:= $(CROSS_ENV)
 #
 SCREEN_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-use-locale \
 	--with-sys-screenrc=/etc/screenrc
 
 # ----------------------------------------------------------------------------
@@ -52,7 +53,9 @@ $(STATEDIR)/screen.targetinstall:
 	@$(call install_fixup, screen,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, screen,DESCRIPTION,missing)
 
-	@$(call install_copy, screen, 0, 0, 0755, -, /usr/bin/screen)
+	@$(call install_copy, screen, 0, 0, 0755, \
+		$(SCREEN_PKGDIR)/usr/bin/screen-$(SCREEN_VERSION), \
+		/usr/bin/screen)
 
 ifdef PTXCONF_SCREEN_ETC_SCREENRC
 	@$(call install_alternative, screen, 0, 0, 0644, /etc/screenrc, n)

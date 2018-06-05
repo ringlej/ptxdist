@@ -1,0 +1,10 @@
+## SECTION=multimedia_gtk
+
+config POPPLER_DATA
+	tristate
+	prompt "poppler-data"
+	help
+	  Encoding data which enables poppler to correctly render CJK and
+	  Cyrillic languages.
+
+# vim: ft=kconfig ts=8 noet tw=80

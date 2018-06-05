@@ -20,7 +20,7 @@ GPM_SUFFIX	:= tar.bz2
 GPM_URL		:= http://www.nico.schottelius.org/software/gpm/archives/$(GPM).$(GPM_SUFFIX)
 GPM_SOURCE	:= $(SRCDIR)/$(GPM).$(GPM_SUFFIX)
 GPM_DIR		:= $(BUILDDIR)/$(GPM)
-GPM_LICENSE	:= GPL-2.0+
+GPM_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -261,4 +261,8 @@ config BASH_CURSES
 	bool
 	prompt "Use libcurses instead of libtermcap"
 
+config BASH_SH
+	bool
+	default BUSYBOX = n || BUSYBOX_SH_IS_NONE
+
 endif

@@ -23,7 +23,7 @@ NSS_MDNS_SUFFIX		:= tar.gz
 NSS_MDNS_URL		:= http://0pointer.de/lennart/projects/nss-mdns/$(NSS_MDNS).$(NSS_MDNS_SUFFIX)
 NSS_MDNS_SOURCE		:= $(SRCDIR)/$(NSS_MDNS).$(NSS_MDNS_SUFFIX)
 NSS_MDNS_DIR		:= $(BUILDDIR)/$(NSS_MDNS)
-NSS_MDNS_LICENSE	:= LGPL-2.1+
+NSS_MDNS_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -3,6 +3,7 @@
 menuconfig LIBDRM
 	tristate
 	prompt "libdrm                        "
+	select HOST_MESON
 	select LIBC_RT
 	select UDEV
 	select UDEV_LIBUDEV

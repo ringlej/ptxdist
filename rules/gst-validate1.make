@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_GST_VALIDATE1) += gst-validate1
 #
 # Paths and names
 #
-GST_VALIDATE1_VERSION	:= 1.12.1
-GST_VALIDATE1_MD5	:= 94434f5e4ea0e544bf1114a369738e22
+GST_VALIDATE1_VERSION	:= 1.14.0
+GST_VALIDATE1_MD5	:= deb8654c912b189388fe585b0fc5bc8f
 GST_VALIDATE1		:= gst-validate-$(GST_VALIDATE1_VERSION)
 GST_VALIDATE1_SUFFIX	:= tar.xz
 GST_VALIDATE1_URL	:= http://gstreamer.freedesktop.org/data/src/gst-validate/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
 GST_VALIDATE1_SOURCE	:= $(SRCDIR)/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
 GST_VALIDATE1_DIR	:= $(BUILDDIR)/$(GST_VALIDATE1)
-GST_VALIDATE1_LICENSE	:= LGPL-2.1+
+GST_VALIDATE1_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

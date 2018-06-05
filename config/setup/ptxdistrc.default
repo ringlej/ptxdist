@@ -40,7 +40,7 @@ PTXCONF_SETUP_PTXMIRROR="http://www.pengutronix.de/software/ptxdist/temporary-sr
 PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian"
 PTXCONF_SETUP_SFMIRROR="http://downloads.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="http://ftp.uni-kl.de/pub/gnu"
-PTXCONF_SETUP_XORGMIRROR="http://ftp.sunet.se/pub/X11/ftp.x.org http://ftp.x.org/pub http://xorg.freedesktop.org/releases"
+PTXCONF_SETUP_XORGMIRROR="https://ftp.x.org/archive https://xorg.freedesktop.org/releases"
 PTXCONF_SETUP_KERNELMIRROR="https://www.kernel.org/pub/linux http://www.linux-mips.org/pub/linux/mips http://mirror.linux.org.au/linux"
 PTXCONF_SETUP_CHECK_ALWAYS=y
 # PTXCONF_SETUP_CHECK_NOTEMPTY is not set

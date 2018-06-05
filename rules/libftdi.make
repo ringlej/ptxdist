@@ -24,7 +24,7 @@ LIBFTDI_SUFFIX	:= tar.gz
 LIBFTDI_URL	:= http://www.intra2net.com/en/developer/libftdi/download/$(LIBFTDI).$(LIBFTDI_SUFFIX)
 LIBFTDI_SOURCE	:= $(SRCDIR)/$(LIBFTDI).$(LIBFTDI_SUFFIX)
 LIBFTDI_DIR	:= $(BUILDDIR)/$(LIBFTDI)
-LIBFTDI_LICENSE	:= LGPL-2.1
+LIBFTDI_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

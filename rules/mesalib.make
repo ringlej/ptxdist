@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 17.1.3
-MESALIB_MD5	:= 1946a93d543bc219427e2bebe2ac4752
+MESALIB_VERSION	:= 18.0.0
+MESALIB_MD5	:= c2a59fc5b56de3e197fa3a6023409e23
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -61,6 +61,7 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_ETNAVIV)	+= etnaviv
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IMX)	+= imx
 ifdef PTXCONF_ARCH_ARM
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC5)	+= vc5
 endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
@@ -76,6 +77,7 @@ MESALIB_LIBS-$(PTXCONF_MESALIB_GLES2)	+= libGLESv2
 MESALIB_LIBS-$(PTXCONF_MESALIB_EGL)	+= libEGL
 MESALIB_LIBS-$(PTXCONF_MESALIB_GBM)	+= libgbm
 
+MESALIBS_EGL_PLATFORMS-y				:= surfaceless
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_X11)	+= x11
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_DRM)	+= drm
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_WAYLAND)	+= wayland
@@ -114,7 +116,7 @@ MESALIB_CONF_OPT	:= \
 	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
-	--disable-omx \
+	--disable-omx-bellagio \
 	--disable-va \
 	--disable-opencl \
 	--disable-opencl-icd \
@@ -129,10 +131,21 @@ MESALIB_CONF_OPT	:= \
 	--disable-llvm \
 	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
+	--with-gl-lib-name=GL \
+	--with-osmesa-lib-name=OSMesa \
+	--with-platforms=$(subst $(space),$(comma),$(MESALIBS_EGL_PLATFORMS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
+	--with-dri-searchpath=/usr/lib/dri \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y)) \
 	--without-vulkan-drivers \
-	--with-platforms=$(subst $(space),$(comma),$(MESALIBS_EGL_PLATFORMS-y))
+	--with-vulkan-icddir=/etc/vulkan/icd.d \
+	--with-osmesa-bits=8 \
+	--with-xvmc-libdir=/usr/lib \
+	--with-vdpau-libdir=/usr/lib/vdpau \
+	--with-omx-bellagio-libdir=/usr/lib/dri \
+	--with-va-libdir=/usr/lib/dri \
+	--with-d3d-libdir=/usr/lib/d3d \
+	--with-swr-archs=
 
 # ----------------------------------------------------------------------------
 # Compile

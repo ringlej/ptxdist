@@ -1,4 +1,6 @@
-## SECTION=qt
+## SECTION=staging
+## old section:
+### SECTION=qt
 
 menuconfig LIBQXT
 	tristate
@@ -13,6 +15,9 @@ menuconfig LIBQXT
 	  LibQxt is an extension library for Qt providing a suite of
 	  cross-platform utility classes to add functionality not readily
 	  available in the Qt toolkit.
+
+	  STAGING: remove in ptxdist-2019.04.0
+	  Old, unmaintained package that fails to build with gcc 7x.
 
 if LIBQXT
 

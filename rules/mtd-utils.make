@@ -17,36 +17,29 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.5.2
-MTD_UTILS_MD5		:= 596bc7b20a6d4fb86d63fc9b8af674d6
+MTD_UTILS_VERSION	:= 2.0.1
+MTD_UTILS_MD5		:= ef065490799f5e21e90199dd25d033b6
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_SOURCE	:= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
-MTD_UTILS_LICENSE	:= GPL-2.0+
+MTD_UTILS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-MTD_UTILS_CONF_TOOL	:= NO
-
-MTD_UTILS_COMPILE_ENV	:= \
-	$(CROSS_ENV) \
-	CROSS="$(COMPILER_PREFIX)" \
-	WITHOUT_XATTR=1
-
-ifndef PTXCONF_MTD_UTILS_USE_LIBLZO
-MTD_UTILS_COMPILE_ENV += WITHOUT_LZO=1
-endif
-
-ifndef PTXCONF_MTD_UTILS_MKFS_UBIFS
-MTD_UTILS_COMPILE_ENV += WITHOUT_MKUBIFS=1
-endif
-
-MTD_UTILS_COMPILE_OPT	:= \
-	BUILDDIR=$(MTD_UTILS_DIR)
+MTD_UTILS_CONF_TOOL	:= autoconf
+MTD_UTILS_CONF_OPT      := \
+        $(CROSS_AUTOCONF_USR) \
+        --disable-unit-tests \
+        --disable-tests \
+        --disable-install-tests \
+        --$(call ptx/wwo, PTXCONF_MTD_UTILS_JFFS)-jffs \
+        --$(call ptx/wwo, PTXCONF_MTD_UTILS_UBIFS)-ubifs \
+        --without-xattr \
+        --$(call ptx/wwo, PTXCONF_MTD_UTILS_USE_LIBLZO)-lzo
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,6 +117,10 @@ endif
 ifdef PTXCONF_MTD_UTILS_NANDDUMP
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/nanddump)
+endif
+ifdef PTXCONF_MTD_UTILS_NANDMARKBAD
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/nandmarkbad)
 endif
 ifdef PTXCONF_MTD_UTILS_NANDTEST
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \

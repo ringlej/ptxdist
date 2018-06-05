@@ -3,6 +3,7 @@
 menuconfig FONTCONFIG
 	tristate
 	prompt "fontconfig                    "
+	select HOST_GPERF
 	select FREETYPE
 	select EXPAT
 	help

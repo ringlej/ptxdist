@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_RAUC) += rauc
 #
 # Paths and names
 #
-RAUC_VERSION	:= 0.1.1
-RAUC_MD5	:= 4457d4d98efb83399ff45d36b31b3e3f
+RAUC_VERSION	:= 0.4
+RAUC_MD5	:= 52a8f15e9484d590e6261e9bd453ff76
 RAUC		:= rauc-$(RAUC_VERSION)
 RAUC_SUFFIX	:= tar.xz
 RAUC_URL	:= https://github.com/rauc/rauc/releases/download/v$(RAUC_VERSION)/$(RAUC).$(RAUC_SUFFIX)
 RAUC_SOURCE	:= $(SRCDIR)/$(RAUC).$(RAUC_SUFFIX)
 RAUC_DIR	:= $(BUILDDIR)/$(RAUC)
-RAUC_LICENSE	:= LGPL-2.1
+RAUC_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,6 +81,9 @@ ifdef PTXCONF_INITMETHOD_SYSTEMD
 		/usr/lib/systemd/system/rauc-mark-good.service)
 	@$(call install_link, rauc, ../rauc-mark-good.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/rauc-mark-good.service)
+else
+	@$(call install_copy, rauc, 0, 0, 0755, -, \
+		/usr/libexec/rauc-service.sh)
 endif
 
 	@$(call install_finish, rauc)

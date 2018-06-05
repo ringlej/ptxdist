@@ -16,25 +16,20 @@ PACKAGES-$(PTXCONF_LVM2) += lvm2
 #
 # Paths and names
 #
-LVM2_VERSION	:= 2.02.66
-LVM2_MD5	:= 59766571610a4298f8bedf9f73839050
+LVM2_VERSION	:= 2.02.177
+LVM2_MD5	:= ee6cfbc5a0c5696ffae79dac04ee7a2b
 LVM2		:= LVM2.$(LVM2_VERSION)
 LVM2_SUFFIX	:= tgz
 LVM2_URL	:= \
-	ftp://sources.redhat.com/pub/lvm2/$(LVM2).$(LVM2_SUFFIX) \
+	ftp://sources.redhat.com/pub/lvm2/releases/$(LVM2).$(LVM2_SUFFIX) \
 	ftp://sources.redhat.com/pub/lvm2/old/$(LVM2).$(LVM2_SUFFIX)
 LVM2_SOURCE	:= $(SRCDIR)/$(LVM2).$(LVM2_SUFFIX)
 LVM2_DIR	:= $(BUILDDIR)/$(LVM2)
-LVM2_LICENSE	:= GPL-2.0
+LVM2_LICENSE	:= GPL-2.0-only, LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LVM2_ENV := \
-	$(CROSS_ENV) \
-	CFLAGS="$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" \
-	ac_cv_path_MODPROBE_CMD="/sbin/modprobe"
 
 #
 # autoconf
@@ -42,6 +37,45 @@ LVM2_ENV := \
 LVM2_CONF_TOOL	:= autoconf
 LVM2_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static_link \
+	--disable-lvm1_fallback \
+	--disable-thin_check_needs_check \
+	--disable-cache_check_needs_check \
+	--enable-readline \
+	--enable-realtime \
+	--disable-ocf \
+	--disable-cmirrord \
+	--disable-debug \
+	--disable-profiling \
+	--disable-testing \
+	--disable-valgrind-pool \
+	--enable-devmapper \
+	--disable-lvmetad \
+	--disable-lvmpolld \
+	--disable-lvmlockd-sanlock \
+	--disable-lvmlockd-dlm \
+	--disable-use-lvmlockd \
+	--disable-use-lvmetad \
+	--disable-use-lvmpolld \
+	--disable-dmfilemapd \
+	--disable-notify-dbus \
+	--disable-blkid_wiping \
+	--disable-compat \
+	--disable-units-compat \
+	--enable-ioctl \
+	--enable-o_direct \
+	--enable-applib \
+	--enable-cmdlib \
+	--disable-python_bindings \
+	--disable-python2_bindings \
+	--disable-python3_bindings \
+	--enable-pkgconfig \
+	--enable-write_install \
+	--enable-fsadm \
+	--enable-blkdeactivate \
+	--enable-dmeventd \
+	--disable-selinux \
+	--disable-nls \
 	--with-device-uid=$(PTXCONF_LVM2_DEVICE_UID) \
 	--with-device-gid=$(PTXCONF_LVM2_DEVICE_GID) \
 	--with-device-mode=$(PTXCONF_LVM2_DEVICE_MODE)
@@ -60,6 +94,8 @@ $(STATEDIR)/lvm2.targetinstall:
 	@$(call install_fixup, lvm2,DESCRIPTION,missing)
 
 	@$(call install_copy, lvm2, 0, 0, 0755, -, /usr/sbin/dmsetup)
+
+ifdef PTXCONF_LVM2_LVM_TOOLS
 	@$(call install_copy, lvm2, 0, 0, 0755, -, /usr/sbin/fsadm)
 	@$(call install_copy, lvm2, 0, 0, 0755, -, /usr/sbin/lvmdump)
 	@$(call install_copy, lvm2, 0, 0, 0755, -, /usr/sbin/vgimportclone)
@@ -107,10 +143,12 @@ $(STATEDIR)/lvm2.targetinstall:
 	@$(call install_link, lvm2, lvm, /usr/sbin/vgs)
 	@$(call install_link, lvm2, lvm, /usr/sbin/vgscan)
 	@$(call install_link, lvm2, lvm, /usr/sbin/vgsplit)
+endif
 
 	@$(call install_alternative, lvm2, 0, 0, 0644, /etc/lvm/lvm.conf)
 
 	@$(call install_lib, lvm2, 0, 0, 0644, libdevmapper)
+	@$(call install_lib, lvm2, 0, 0, 0644, libdevmapper-event)
 
 ifdef PTXCONF_LVM2_STARTSCRIPT
 	@$(call install_alternative, lvm2, 0, 0, 0755, /etc/init.d/lvm2)

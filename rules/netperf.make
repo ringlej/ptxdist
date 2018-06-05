@@ -17,10 +17,11 @@ PACKAGES-$(PTXCONF_NETPERF) += netperf
 # Paths and names
 #
 NETPERF_VERSION	:= 2.7.0
-NETPERF_MD5	:= ad1c5342d61f297c417a93133aeba65a
+NETPERF_MD5	:= e0d45b5bca1eee2aef0155de82366202
 NETPERF		:= netperf-$(NETPERF_VERSION)
-NETPERF_SUFFIX	:= tar.bz2
-NETPERF_URL	:= ftp://ftp.netperf.org/netperf/$(NETPERF).$(NETPERF_SUFFIX)
+NETPERF_SUFFIX	:= tar.gz
+NETPERF_URL	:= \
+	https://github.com/HewlettPackard/netperf/archive/$(NETPERF).$(NETPERF_SUFFIX)
 NETPERF_SOURCE	:= $(SRCDIR)/$(NETPERF).$(NETPERF_SUFFIX)
 NETPERF_DIR	:= $(BUILDDIR)/$(NETPERF)
 NETPERF_LICENSE	:= HP

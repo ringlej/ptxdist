@@ -1,4 +1,6 @@
-## SECTION=multimedia_gtk
+## SECTION=staging
+## old section:
+### SECTION=multimedia_gtk
 
 config GLADE
 	tristate
@@ -17,3 +19,6 @@ config GLADE
 	  can turn the XML files into source code in other languages
 	  such as C++, Perl and Python. Other tools such as libglade
 	  can load the XML files and create the interfaces at runtime.
+
+	  STAGING: remove in ptxdist-2018.12.0
+	  Old and obsolete, version. Should be update to a new version.

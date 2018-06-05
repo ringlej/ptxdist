@@ -23,7 +23,7 @@ RRDTOOL_SUFFIX	:= tar.gz
 RRDTOOL_URL	:= http://oss.oetiker.ch/rrdtool/pub/$(RRDTOOL).$(RRDTOOL_SUFFIX)
 RRDTOOL_SOURCE	:= $(SRCDIR)/$(RRDTOOL).$(RRDTOOL_SUFFIX)
 RRDTOOL_DIR	:= $(BUILDDIR)/$(RRDTOOL)
-RRDTOOL_LICENSE	:= GPL-2.0+
+RRDTOOL_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -17,20 +17,25 @@ PACKAGES-$(PTXCONF_ATOP) += atop
 #
 # Paths and names
 #
-ATOP_VERSION	:= 1.24
-ATOP_MD5	:= 46522f7da28460e810e193ab46907af9
-ATOP		:= atop-$(ATOP_VERSION)
-ATOP_URL	:= http://www.atoptool.nl/download/$(ATOP).tar.gz
-ATOP_SOURCE	:= $(SRCDIR)/$(ATOP).tar.gz
-ATOP_DIR	:= $(BUILDDIR)/$(ATOP)
-
+ATOP_VERSION		:= 2.3.0
+ATOP_MD5		:= 48e1dbef8c7d826e68829a8d5fc920fc
+ATOP			:= atop-$(ATOP_VERSION)
+ATOP_URL		:= http://www.atoptool.nl/download/$(ATOP).tar.gz
+ATOP_SOURCE		:= $(SRCDIR)/$(ATOP).tar.gz
+ATOP_DIR		:= $(BUILDDIR)/$(ATOP)
+ATOP_LICENSE		:= GPL-2.0-or-later
+ATOP_LICENSE_FILES	:= file://COPYING;md5=393a5ca445f6965873eca0259a17f833
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 ATOP_CONF_TOOL		:= NO
-ATOP_COMPILE_ENV	:= $(CROSS_ENV)
+ATOP_MAKE_OPT		:= $(CROSS_ENV)
+ATOP_INSTALL_OPT	:= \
+        $(ATOP_MAKE_OPT) \
+        DESTDIR=$(ATOP_PKGDIR) \
+        genericinstall
 
 # ----------------------------------------------------------------------------
 # Target-Install

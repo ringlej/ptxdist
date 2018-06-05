@@ -14,13 +14,15 @@ PACKAGES-$(PTXCONF_FCGI) += fcgi
 #
 # Paths and names
 #
-FCGI_VERSION    := 2.4.0
-FCGI_MD5	:= d15060a813b91383a9f3c66faf84867e
-FCGI		:= fcgi-$(FCGI_VERSION)
-FCGI_SUFFIX	:= tar.gz
-FCGI_URL	:= https://sourceforge.net/projects/slackbuildsdirectlinks/files/fcgi/$(FCGI).$(FCGI_SUFFIX)
-FCGI_SOURCE	:= $(SRCDIR)/$(FCGI).$(FCGI_SUFFIX)
-FCGI_DIR	:= $(BUILDDIR)/$(FCGI)
+FCGI_VERSION    	:= 2.4.0
+FCGI_MD5		:= d15060a813b91383a9f3c66faf84867e
+FCGI			:= fcgi-$(FCGI_VERSION)
+FCGI_SUFFIX		:= tar.gz
+FCGI_URL		:= https://sourceforge.net/projects/slackbuildsdirectlinks/files/fcgi/$(FCGI).$(FCGI_SUFFIX)
+FCGI_SOURCE		:= $(SRCDIR)/$(FCGI).$(FCGI_SUFFIX)
+FCGI_DIR		:= $(BUILDDIR)/$(FCGI)
+FCGI_LICENSE		:= OML
+FCGI_LICENSE_FILES	:= file://LICENSE.TERMS;md5=e3aacac3a647af6e7e31f181cda0a06a
 
 # ----------------------------------------------------------------------------
 # Prepare

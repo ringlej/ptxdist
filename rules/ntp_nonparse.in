@@ -98,10 +98,6 @@ config NTP_LOCAL_CLOCK
 	  Enables the driver for the internal PC CMOS clock. This clock
 	  is mostly unreliable, but suitable as a fall back time source.
 
-config NTP_MSFEES
-	bool
-	prompt "EES M201 MSF receiver"
-
 config NTP_MX4200
 	bool
 	prompt "Magnavox MX4200 GPS receiver "
@@ -130,10 +126,6 @@ config NTP_PST
 	bool
 	prompt "PST/Traconex 1020 WWV/WWVH receiver"
 
-config NTP_PTBACTS
-	bool
-	prompt "PTB modem service"
-
 config NTP_RIPENCC
 	bool
 	prompt "RIPENCC specific Trimble driver"
@@ -153,10 +145,6 @@ config NTP_TPRO
 	bool
 	prompt "KSI/Odetics TPRO/S GPS receiver/IRIG interface [BROKEN]"
 	depends on BROKEN
-
-config NTP_TRAK
-	bool
-	prompt "TRAK 8810 GPS receiver"
 
 config NTP_TRUETIME
 	bool

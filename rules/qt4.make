@@ -27,7 +27,7 @@ QT4_URL		:= \
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
 QT4_BUILD_OOT	:= YES
-QT4_LICENSE	:= GPL3, LGPL-2.1
+QT4_LICENSE	:= GPL3 AND LGPL-2.1-only
 ifdef PTXCONF_QT4_EXAMPLES
 QT4_DEVPKG	:= NO
 endif
@@ -45,7 +45,7 @@ $(STATEDIR)/qt4.extract:
 		sed -e "s,@COMPILER_PREFIX@,$(COMPILER_PREFIX),g" \
 		    -e "s,@CPPFLAGS@,$(CROSS_CPPFLAGS),g" \
 		    -e "s,@CFLAGS@,$(CROSS_CFLAGS),g" \
-		    -e "s,@CXXFLAGS@,$(CROSS_CXXFLAGS),g" \
+		    -e "s,@CXXFLAGS@,$(CROSS_CXXFLAGS) -std=gnu++98,g" \
 		    -e "s,@INCDIR@,$(SYSROOT)/include $(SYSROOT)/usr/include,g" \
 		    -e "s,@LIBDIR@,$(SYSROOT)/usr/lib,g" \
 		    -e "s#@LDFLAGS@#$(strip $(CROSS_LDFLAGS))#g" \

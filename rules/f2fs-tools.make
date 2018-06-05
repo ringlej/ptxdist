@@ -25,7 +25,7 @@ F2FS_TOOLS_SUFFIX	:= tar.xz
 F2FS_TOOLS_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git;tag=v$(F2FS_TOOLS_VERSION)
 F2FS_TOOLS_SOURCE	:= $(SRCDIR)/$(F2FS_TOOLS).$(F2FS_TOOLS_SUFFIX)
 F2FS_TOOLS_DIR		:= $(BUILDDIR)/$(F2FS_TOOLS)
-F2FS_TOOLS_LICENSE	:= GPL-2.0+ LGPL-2.1+
+F2FS_TOOLS_LICENSE	:= GPL-2.0-or-later LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

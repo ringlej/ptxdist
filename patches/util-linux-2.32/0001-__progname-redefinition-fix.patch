@@ -1,0 +1,41 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Thu, 21 Apr 2011 17:08:15 -0400
+Subject: [PATCH] __progname redefinition fix
+
+Problem occurs with uclibc errno.h header
+
+In file included from ../include/writeall.h:7,
+                 from swaplabel.c:35:
+/opt/crosstool-ng-1.9.0/arm-1136j-linux-uclibcgnueabi/gcc-4.4.5-uClibc-0.9.30.2-binutils-2.20.1-kernel-2.6.32.25-sanitized/arm-1136j-linux-uclibcgnueabi//sys-root/usr/include/errno.h:55: error: conflicting types for '__progname'
+../include/c.h:118: note: previous declaration of '__progname' was here
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ libmount/src/cache.c | 1 +
+ libmount/src/iter.c  | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/libmount/src/cache.c b/libmount/src/cache.c
+index b52ca809801a..e65a1a23772e 100644
+--- a/libmount/src/cache.c
++++ b/libmount/src/cache.c
+@@ -23,6 +23,7 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <blkid.h>
++#include <errno.h>
+ 
+ #include "canonicalize.h"
+ #include "mountP.h"
+diff --git a/libmount/src/iter.c b/libmount/src/iter.c
+index 016f88e3576d..0155d12130b3 100644
+--- a/libmount/src/iter.c
++++ b/libmount/src/iter.c
+@@ -16,6 +16,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
++#include <errno.h>
+ 
+ #include "mountP.h"
+ 

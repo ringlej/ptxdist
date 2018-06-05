@@ -3,6 +3,7 @@
 config NETCAT
 	tristate
 	prompt "netcat"
+	depends on !BUSYBOX_NC || ALLYES
 	select LIBBSD
 	select LIBC_RESOLV
 	help
@@ -10,3 +11,6 @@ config NETCAT
 	  sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP
 	  connections, send UDP packets, listen on arbitrary TCP and UDP ports
 	  do port scanning, and deal with both IPv4 and IPv6.
+
+comment "busybox' netcat is selected!"
+	depends on BUSYBOX_NC

@@ -1,0 +1,9 @@
+## SECTION=initmethod_bbinit
+
+config NFTABLES_BBINIT_LINK
+	depends on NFTABLES_STARTSCRIPT
+	string
+	prompt "nftables"
+	default "S24nftables"
+
+# vim: ft=kconfig noet tw=72

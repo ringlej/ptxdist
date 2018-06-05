@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QT5) += qt5
 #
 # Paths and names
 #
-QT5_VERSION	:= 5.6.2
-QT5_MD5		:= 5175fba2f221fd4c91e94771a57a5557
+QT5_VERSION	:= 5.6.3
+QT5_MD5		:= 010342d515b62ee1c0e709254f4ef9ab
 QT5		:= qt-everywhere-opensource-src-$(QT5_VERSION)
 QT5_SUFFIX	:= tar.xz
 QT5_URL		:= \
@@ -26,7 +26,7 @@ QT5_URL		:= \
 QT5_SOURCE	:= $(SRCDIR)/$(QT5).$(QT5_SUFFIX)
 QT5_DIR		:= $(BUILDDIR)/$(QT5)
 QT5_BUILD_OOT	:= YES
-QT5_LICENSE	:= LGPL-2.1, Nokia-Qt-exception-1.1, LGPL-3.0, GFDL-1.3
+QT5_LICENSE	:= LGPL-2.1-only AND Nokia-Qt-exception-1.1 AND LGPL-3.0-only AND GFDL-1.3-only
 QT5_LICENSE_FILES := \
 	file://LICENSE.LGPLv21;md5=4bfd28363f541b10d9f024181b8df516 \
 	file://LGPL_EXCEPTION.txt;md5=9625233da42f9e0ce9d63651a9d97654 \
@@ -371,7 +371,6 @@ QT5_QML-$(PTXCONF_QT5_MODULE_QTENGINIO)				+= Enginio
 QT5_QML-$(PTXCONF_QT5_MODULE_QTGRAPHICALEFFECTS)		+= QtGraphicalEffects
 
 ### QtImageFormats ###
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqdds
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqicns
 QT5_PLUGINS-$(PTXCONF_QT5_LIBMNG)				+= imageformats/libqmng
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTIMAGEFORMATS)		+= imageformats/libqtga

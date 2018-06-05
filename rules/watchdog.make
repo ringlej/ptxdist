@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_WATCHDOG) += watchdog
 #
 # Paths and names
 #
-WATCHDOG_VERSION	:= 5.7
-WATCHDOG_MD5		:= 31766450ecfc9aff70fe966c0b9df06d
+WATCHDOG_VERSION	:= 5.15
+WATCHDOG_MD5		:= 678c32f6f35a0492c9c1b76b4aa88828
 WATCHDOG		:= watchdog-$(WATCHDOG_VERSION)
 WATCHDOG_SUFFIX		:= tar.gz
 WATCHDOG_URL		:= $(call ptx/mirror, SF, watchdog/$(WATCHDOG).$(WATCHDOG_SUFFIX))
 WATCHDOG_SOURCE		:= $(SRCDIR)/$(WATCHDOG).$(WATCHDOG_SUFFIX)
 WATCHDOG_DIR		:= $(BUILDDIR)/$(WATCHDOG)
-WATCHDOG_LICENSE	:= GPL-2.0
+WATCHDOG_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

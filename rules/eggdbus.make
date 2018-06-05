@@ -23,7 +23,7 @@ EGGDBUS_SUFFIX	:= tar.gz
 EGGDBUS_URL	:= http://hal.freedesktop.org/releases/$(EGGDBUS).$(EGGDBUS_SUFFIX)
 EGGDBUS_SOURCE	:= $(SRCDIR)/$(EGGDBUS).$(EGGDBUS_SUFFIX)
 EGGDBUS_DIR	:= $(BUILDDIR)/$(EGGDBUS)
-EGGDBUS_LICENSE	:= LGPL-2.0
+EGGDBUS_LICENSE	:= LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

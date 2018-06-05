@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.3.27
-GNUTLS_MD5	:= 8ee8cebd7f7575b11f232766a21c31d3
+GNUTLS_VERSION	:= 3.6.0
+GNUTLS_MD5	:= 296f8d61333851b9326bd18484e6135e
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
 GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_SOURCE	:= $(SRCDIR)/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_DIR	:= $(BUILDDIR)/$(GNUTLS)
-GNUTLS_LICENSE	:= LGPL-3.0+
+GNUTLS_LICENSE	:= LGPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,35 +36,41 @@ GNUTLS_CONF_TOOL	:= autoconf
 GNUTLS_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-code-coverage \
+	--disable-doc \
+	--disable-manpages \
+	--disable-tools \
 	--enable-cxx \
 	--enable-hardware-acceleration \
 	--enable-padlock \
+	--enable-sha1-support \
+	--disable-ssl3-support \
+	--enable-ssl2-support \
 	--enable-dtls-srtp-support \
 	--enable-alpn-support \
-	--enable-rsa-export \
 	--enable-heartbeat-support \
 	--enable-srp-authentication \
 	--enable-psk-authentication \
 	--enable-anon-authentication \
 	--enable-dhe \
 	--enable-ecdhe \
-	--enable-openpgp-authentication \
 	--disable-cryptodev \
 	--enable-ocsp \
 	--enable-session-tickets \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
-	--disable-doc \
 	--disable-tests \
+	--disable-fuzzer-target \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-nls \
 	--disable-rpath \
+	--disable-seccomp-tests \
 	--disable-valgrind-tests \
+	--disable-full-test-suite \
 	--disable-gcc-warnings \
 	--disable-static \
 	--enable-shared \
-	--disable-self-checks \
 	--disable-fips140-mode \
 	--enable-non-suiteb-curves \
 	--disable-libdane \
@@ -72,18 +78,15 @@ GNUTLS_CONF_OPT		:= \
 	--disable-libopts-install \
 	--enable-optional-args \
 	--disable-guile \
-	--disable-crywrap \
 	--with-nettle-mini \
 	--without-included-libtasn1 \
-	--without-librt-prefix \
-	--without-arcfour128 \
-	--without-ssl3 \
+	--with-included-unistring \
+	--without-fips140-key \
+	--without-idn \
 	--without-p11-kit \
 	--without-tpm \
 	--without-trousers-lib \
 	--without-libregex \
-	--with-zlib \
-	--without-libz-prefix \
 	--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt
 
 # ----------------------------------------------------------------------------
@@ -100,7 +103,9 @@ $(STATEDIR)/gnutls.targetinstall:
 	@$(call install_fixup, gnutls,DESCRIPTION,missing)
 
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls)
+ifdef PTXCONF_GNUTLS_CXX
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutlsxx)
+endif
 
 ifdef PTXCONF_GNUTLS_OPENSSL
 	@$(call install_lib, gnutls, 0, 0, 0644, libgnutls-openssl)

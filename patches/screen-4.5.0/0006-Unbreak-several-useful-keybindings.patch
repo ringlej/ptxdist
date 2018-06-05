@@ -1,0 +1,22 @@
+From: Loic Minier <lool@dooz.org>
+Date: Mon, 3 Jul 2017 10:44:57 +0200
+Subject: [PATCH] Unbreak several useful keybindings.
+
+Bugs-Debian: https://bugs.debian.org/484647
+---
+ termcap.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/termcap.c b/termcap.c
+index ae89d175bc2c..57ed43a6d096 100644
+--- a/termcap.c
++++ b/termcap.c
+@@ -552,8 +552,6 @@ int map;
+       else
+ 	break;
+     }
+-  if (n < KMAP_KEYS)
+-    domap = 1;
+   if (map == 0 && domap)
+     return 0;
+   if (map && !domap)

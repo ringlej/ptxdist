@@ -18,18 +18,23 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.10.18
-DBUS_MD5	:= 1209c455598165a0c5263d4201894179
+DBUS_VERSION	:= 1.12.2
+DBUS_MD5	:= 3361456cadb99aa6601bed5b48964254
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
 DBUS_SOURCE	:= $(SRCDIR)/$(DBUS).$(DBUS_SUFFIX)
 DBUS_DIR	:= $(BUILDDIR)/$(DBUS)
-DBUS_LICENSE	:= AFL-2.1, GPL-2.0+
+DBUS_LICENSE	:= AFL-2.1 AND GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+
+DBUS_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_ICE_IceConnectionNumber=no
 
 #
 # autoconf
@@ -38,11 +43,10 @@ DBUS_CONF_TOOL	:= autoconf
 DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
+	--disable-developer \
+	--disable-debug \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-static \
-	--disable-compiler-coverage \
-	--enable-compiler-optimisations \
-	--disable-developer \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-asserts \
@@ -50,7 +54,6 @@ DBUS_CONF_OPT	:= \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
 	--disable-ducktype-docs \
-	--enable-abstract-sockets=yes \
 	--$(call ptx/endis, PTXCONF_DBUS_SELINUX)-selinux \
 	--disable-apparmor \
 	--disable-libaudit \
@@ -63,9 +66,12 @@ DBUS_CONF_OPT	:= \
 	--disable-modular-tests \
 	--disable-tests \
 	--disable-installed-tests \
+	--disable-code-coverage \
 	--enable-epoll \
 	--$(call ptx/endis, PTXCONF_DBUS_X)-x11-autolaunch \
+	--disable-compile-warnings \
 	--disable-Werror \
+	--disable-relocation \
 	--disable-stats \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
 	--with-dbus-user=messagebus \

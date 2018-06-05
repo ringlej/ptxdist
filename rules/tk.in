@@ -7,7 +7,6 @@ menuconfig TK
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_PTHREAD
-	select XORG
 	select XORG_LIB_X11
 	select XORG_LIB_XFT if TK_XFT
 	help

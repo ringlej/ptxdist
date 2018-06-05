@@ -23,7 +23,7 @@ PSLIB_SUFFIX	:= tar.gz
 PSLIB_URL	:= $(call ptx/mirror, SF, pslib/$(PSLIB).$(PSLIB_SUFFIX))
 PSLIB_SOURCE	:= $(SRCDIR)/$(PSLIB).$(PSLIB_SUFFIX)
 PSLIB_DIR	:= $(BUILDDIR)/$(PSLIB)
-PSLIB_LICENSE	:= LGPL-2.0+
+PSLIB_LICENSE	:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

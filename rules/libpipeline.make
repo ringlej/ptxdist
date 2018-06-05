@@ -23,7 +23,7 @@ LIBPIPELINE_SUFFIX	:= tar.gz
 LIBPIPELINE_URL		:= http://download.savannah.gnu.org/releases/libpipeline/$(LIBPIPELINE).$(LIBPIPELINE_SUFFIX)
 LIBPIPELINE_SOURCE	:= $(SRCDIR)/$(LIBPIPELINE).$(LIBPIPELINE_SUFFIX)
 LIBPIPELINE_DIR		:= $(BUILDDIR)/$(LIBPIPELINE)
-LIBPIPELINE_LICENSE	:= GPL-3.0
+LIBPIPELINE_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

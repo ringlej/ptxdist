@@ -23,7 +23,7 @@ BASH_URL	:= $(call ptx/mirror, GNU, bash/$(BASH).$(BASH_SUFFIX))
 BASH_SOURCE	:= $(SRCDIR)/$(BASH).$(BASH_SUFFIX)
 BASH_DIR	:= $(BUILDDIR)/$(BASH)
 BASH_MAKE_PAR	:= NO
-BASH_LICENSE	:= GPL-3.0
+BASH_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -96,7 +96,7 @@ $(STATEDIR)/bash.targetinstall:
 	@$(call install_fixup, bash,DESCRIPTION,missing)
 
 	@$(call install_copy, bash, 0, 0, 0755, -, /usr/bin/bash)
-ifdef PTXCONF_BUSYBOX_SH_IS_NONE
+ifdef PTXCONF_BASH_SH
 	@$(call install_link, bash, bash, /usr/bin/sh)
 endif
 

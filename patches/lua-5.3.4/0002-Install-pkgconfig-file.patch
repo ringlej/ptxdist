@@ -1,0 +1,62 @@
+From: Denis Osterland <Denis.Osterland@diehl.com>
+Date: Thu, 29 Jun 2017 14:54:04 +0200
+Subject: [PATCH] Install pkgconfig file.
+
+Signed-off-by: Denis Osterland <Denis.Osterland@diehl.com>
+---
+ Makefile  |  8 ++++++--
+ lua.pc.in | 12 ++++++++++++
+ 2 files changed, 18 insertions(+), 2 deletions(-)
+ create mode 100644 lua.pc.in
+
+diff --git a/Makefile b/Makefile
+index c40c4cd6e0f7..179246813af2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -57,8 +57,8 @@ $(PLATS) clean:
+ test:	dummy
+ 	src/lua -v
+ 
+-install: dummy
+-	cd src && $(MKDIR) $(INSTALL_BIN) $(INSTALL_INC) $(INSTALL_LIB) $(INSTALL_MAN) $(INSTALL_LMOD) $(INSTALL_CMOD)
++install: dummy lua.pc
++	cd src && $(MKDIR) $(INSTALL_BIN) $(INSTALL_INC) $(INSTALL_LIB)/pkgconfig $(INSTALL_MAN) $(INSTALL_LMOD) $(INSTALL_CMOD)
+ 	cd src && $(INSTALL_EXEC) $(TO_BIN) $(INSTALL_BIN)
+ 	cd src && $(INSTALL_DATA) $(TO_INC) $(INSTALL_INC)
+ 	cd src && $(INSTALL_DATA) $(TO_LIB) $(INSTALL_LIB)
+@@ -66,6 +66,7 @@ install: dummy
+ 	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$V
+ 	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$(basename $V)
+ 	ln -s liblua.so.$V $(INSTALL_LIB)/liblua.so
++	$(INSTALL_DATA) lua.pc $(INSTALL_LIB)/pkgconfig
+ 	cd doc && $(INSTALL_DATA) $(TO_MAN) $(INSTALL_MAN)
+ 
+ uninstall:
+@@ -112,6 +113,9 @@ pc:
+ 	@echo "libdir=$(INSTALL_LIB)"
+ 	@echo "includedir=$(INSTALL_INC)"
+ 
++lua.pc: lua.pc.in
++	sed -e "s/@VERSION@/$R/g" $< > $@
++
+ # list targets that do not create files (but not all makes understand .PHONY)
+ .PHONY: all $(PLATS) clean test install local none dummy echo pecho lecho
+ 
+diff --git a/lua.pc.in b/lua.pc.in
+new file mode 100644
+index 000000000000..637b4e6b4c14
+--- /dev/null
++++ b/lua.pc.in
+@@ -0,0 +1,12 @@
++prefix=${pcfiledir}/../..
++libdir=${prefix}/lib
++includedir=${prefix}/include
++
++Name: Lua
++Description: Lua language engine
++Version: @VERSION@
++Requires:
++Libs: -L${libdir} -llua
++Libs.private: -lm -ldl
++Cflags: -I${includedir}
++

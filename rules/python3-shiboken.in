@@ -1,0 +1,14 @@
+## SECTION=qt
+
+config PYTHON3_SHIBOKEN
+	tristate
+	prompt "python3-shiboken"
+	select HOST_CMAKE
+	select HOST_PYTHON3_SHIBOKEN
+	select LIBXML2
+	select LIBXSLT
+	select PYTHON3
+	select QT4
+	depends on !SHIBOKEN || ALLYES
+	help
+	  Shiboken generates bindings for C++ libraries using CPython source code.

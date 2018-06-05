@@ -25,7 +25,7 @@ LIBLOCKFILE_TARBALL	:= liblockfile_$(LIBLOCKFILE_VERSION).orig.$(LIBLOCKFILE_SUF
 LIBLOCKFILE_URL		:= http://snapshot.debian.org/archive/debian/20080725T000000Z/pool/main/libl/liblockfile/$(LIBLOCKFILE_TARBALL)
 LIBLOCKFILE_SOURCE	:= $(SRCDIR)/$(LIBLOCKFILE_TARBALL)
 LIBLOCKFILE_DIR		:= $(BUILDDIR)/liblockfile-$(LIBLOCKFILE_VERSION)
-LIBLOCKFILE_LICENSE	:= GPL-2.0+, LGPL-2.0+
+LIBLOCKFILE_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
 LIBLOCKFILE_LICENSE_FILES := file://COPYRIGHT;md5=35127b30003a121544b5d13a2ac868b6
 
 # ----------------------------------------------------------------------------

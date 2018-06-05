@@ -30,9 +30,16 @@ AC_PROG_CC
 AC_PROG_CXX
 
 dnl
+dnl Check for pkg-config
+dnl
+PKG_PROG_PKG_CONFIG
+
+dnl
 dnl Check header files, mostly for lxdialog & kconfig
 dnl
 AC_HEADER_STDC
+
+AC_CHECK_HEADERS([fcntl.h inttypes.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h unistd.h])
 
 AC_CHECK_HEADER([regex.h], [], AC_MSG_ERROR([Cannot find regex.h.]))
 
@@ -41,28 +48,36 @@ AC_SEARCH_LIBS(regcomp, [regex gnuregex],,
 CONF_LIBS=${LIBS}
 AC_SUBST(CONF_LIBS)
 
-AC_SEARCH_LIBS(mvaddch, [curses ncurses pdcurses], [CURSES_LIB=$ac_lib],
-	[AC_MSG_ERROR([curses development library not found, please install libncurses-dev])])
-MCONF_LIBS=${LIBS}
+PKG_CHECK_MODULES([NCURSES], [ncurses],, [
+	AC_MSG_ERROR([Cannot find ncurses library.])])
+MCONF_LIBS="${LIBS} ${NCURSES_LIBS}"
 AC_SUBST(MCONF_LIBS)
 
+PKG_CHECK_MODULES([NCURSES_PANEL], [panel],,
+	AC_MSG_ERROR([Cannot find ncurses panel library.])])
+PKG_CHECK_MODULES([NCURSES_MENU], [menu],,
+	AC_MSG_ERROR([Cannot find ncurses menu library.])])
+NCONF_LIBS="${LIBS} ${NCURSES_LIBS} ${NCURSES_PANEL_LIBS} ${NCURSES_MENU_LIBS}"
+AC_SUBST(NCONF_LIBS)
+
 AC_CHECK_HEADERS(
-	[curses.h ncurses.h ncurses/curses.h ncurses/ncurses.h pdcurses.h pdcurses/curses.h pdcurses/pdcurses.h],
+	[curses.h ncurses.h ncurses/curses.h ncurses/ncurses.h],
 	[CURSES_LOC="<$ac_header>";found_curses_headers=yes; break;])
 AS_IF([test "x$CURSES_LOC" = "x"],
-	[AC_MSG_ERROR([curses headers not found])])
+	[AC_MSG_ERROR([ncurses headers not found])])
 AC_SUBST(CURSES_LOC)
 
+CPPFLAGS="${NCURSES_CFLAGS}"
 AC_ARG_WITH(ncurses, AS_HELP_STRING([--with-ncurses],[Include path to the ncurses headers]),
 	[
 		if test "x$withval" != "xyes"; then
-			CPPFLAGS="-I$withval"
-			AC_SUBST(CPPFLAGS)
+			CPPFLAGS="-I$withval ${CPPFLAGS}"
 		fi
 		with_ncurses=yes
 	],[
 		with_ncurses=auto
 ])
+AC_SUBST(CPPFLAGS)
 
 AC_CHECK_HEADER(
 	[menu.h],
@@ -74,6 +89,29 @@ AC_CHECK_HEADER(
 	fi
 ])
 AM_CONDITIONAL(BUILD_NCONF, test "x$NCURSES_FOUND" = "xyes")
+
+dnl
+dnl Checks for typedefs, structures, and compiler characteristics.
+dnl
+AC_CHECK_HEADER_STDBOOL
+AC_C_INLINE
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT8_T
+AC_TYPE_OFF_T
+AC_TYPE_SIZE_T
+AC_TYPE_SSIZE_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT8_T
+
+dnl
+dnl Checks for library functions.
+dnl
+AC_FUNC_ALLOCA
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+AC_CHECK_FUNCS([bzero gettimeofday memmove memset mkdir regcomp setlocale strcasecmp strchr strcspn strdup strncasecmp strpbrk strrchr strspn strtol strtoull uname])
 
 
 AC_SYS_INTERPRETER

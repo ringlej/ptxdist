@@ -7,16 +7,13 @@ menuconfig SDL
 	select LIBC_DL
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
+	select CROSS_NASM		if SDL_VIDEO
 	select ALSA_LIB			if SDL_ALSA
 	select XORG_LIB_X11		if SDL_XORG
 	select XORG_LIB_XT		if SDL_XORG
-	select XORG_LIB_XV		if SDL_XORG_XV
-	select XORG_LIB_XVMC		if SDL_XORG_XV
-	select XORG_LIB_XINERAMA	if SDL_XORG_XINERAMA
-
-	select ALSA_LIB			if SDL_ALSA
+	select XORG_LIB_XV		if SDL_XORG && SDL_VIDEO
+	select XORG_LIB_XVMC		if SDL_XORG && SDL_VIDEO
 	select DIRECTFB			if SDL_DIRECTFB
-	select CROSS_NASM		if SDL_NASM
 	select TSLIB			if SDL_TSLIB
 	help
 	  Simple DirectMedia Layer is a cross-platform multimedia
@@ -25,25 +22,6 @@ menuconfig SDL
 	  2D video framebuffer.
 
 if SDL
-
-config SDL_NASM
-	bool
-	prompt "Use NASM"
-	help
-	  FIXME
-
-config SDL_SHARED
-	bool
-	prompt "Build Shared libraries"
-	default y
-	help
-	  FIXME
-
-config SDL_STATIC
-	bool
-	prompt "Build Static libraries"
-	help
-	  FIXME
 
 config SDL_TIMERS
 	bool
@@ -93,58 +71,6 @@ config SDL_ALSA
 	  provides audio and MIDI functionality to the
 	  Linux operating system.
 
-config SDL_ALSA_SHARED
-	bool
-	prompt "SDL ALSA Shared library"
-	depends on SDL_ALSA
-	default y
-	help
-	  FIXME
-
-config SDL_ESD
-	bool
-	prompt "SDL ESD Support"
-	depends on BROKEN
-	help
-	  ESound Audio Daemon
-
-config SDL_ESD_SHARED
-	bool
-	prompt "SDL ESD Shared library"
-	depends on SDL_ESD
-	help
-	  FIXME
-
-config SDL_ARTS
-	bool
-	prompt "SDL Arts Support"
-	depends on BROKEN
-	help
-	  SDL-arts is a plugin for the SDL library that allows
-	  it to output sound using the aRts sound daemon
-
-config SDL_ARTS_SHARED
-	bool
-	prompt "SDL Arts Shared library"
-	depends on SDL_ARTS
-	help
-	  FIXME
-
-config SDL_NAS
-	bool
-	prompt "SDL NAS Support"
-	depends on BROKEN
-	help
-	  The Network Audio System is a network transparent,
-	  client/server audio transport system. It can be
-	  described as the audio equivalent of an X server.
-
-config SDL_DISKAUDIO
-	bool
-	prompt "SDL Disk Audio Support"
-	help
-	  FIXME
-
 endif
 
 menuconfig SDL_VIDEO
@@ -156,15 +82,6 @@ menuconfig SDL_VIDEO
 
 if SDL_VIDEO
 
-config SDL_NANOX
-	bool
-	prompt "NanoX Support"
-	depends on BROKEN
-	help
-	  The Nano-X Window System is an Open Source project
-	  aimed at bringing the features of modern graphical
-	  windowing environments to smaller devices and platforms.
-
 menuconfig SDL_XORG
 	bool
 	prompt "Xorg Support                "
@@ -172,16 +89,6 @@ menuconfig SDL_XORG
 	help
 	  X.Org provides an open source implementation of the
 	  X Window System.
-
-config SDL_XORG_XV
-	bool
-	prompt "XVideo Support"
-	depends on SDL_XORG
-
-config SDL_XORG_XINERAMA
-	bool
-	prompt "Xinerama Support"
-	depends on SDL_XORG
 
 config SDL_FBCON
 	bool
@@ -200,13 +107,6 @@ config SDL_DIRECTFB
 	  abstraction, integrated windowing system with support
 	  for translucent windows and multiple display layers,
 	  not only on top of the Linux Framebuffer Device.
-
-config SDL_AALIB
-	bool
-	prompt "AALib Support"
-	depends on BROKEN
-	help
-	  AAlib is an portable ascii art GFX library.
 
 config SDL_OPENGL
 	bool
@@ -238,21 +138,12 @@ config SDL_CDROM
 	help
 	  FIXME
 
-
 menuconfig SDL_THREADS
 	bool
 	prompt "SDL Thread Support            "
 	default y
 	help
 	  Turn on multithreading support
-
-config SDL_PTH
-	bool
-	prompt "PTH Support"
-	depends on SDL_THREADS
-	default y
-	help
-	  Turn on support for GNU Portable Threads
 
 config SDL_TSLIB
 	bool

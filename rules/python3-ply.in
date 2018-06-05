@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_PLY
+	tristate
+	select PYTHON3
+	prompt "ply"
+	help
+	  Yet another implementation of lex and yacc for Python.

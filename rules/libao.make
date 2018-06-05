@@ -23,7 +23,7 @@ LIBAO_SUFFIX	:= tar.gz
 LIBAO_URL	:= http://downloads.xiph.org/releases/ao/$(LIBAO).$(LIBAO_SUFFIX)
 LIBAO_SOURCE	:= $(SRCDIR)/$(LIBAO).$(LIBAO_SUFFIX)
 LIBAO_DIR	:= $(BUILDDIR)/$(LIBAO)
-LIBAO_LICENSE	:= GPL-2.0
+LIBAO_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -16,14 +16,18 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 1.12.2
-V4L_UTILS_MD5		:= 13a3fde0f30bca32bc4e55fb371174ba
+V4L_UTILS_VERSION	:= 1.14.0
+V4L_UTILS_MD5		:= ef7a0eaadf85a06ec0df272ddca6f5f7
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_SOURCE	:= $(SRCDIR)/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
 V4L_UTILS_DIR		:= $(BUILDDIR)/$(V4L_UTILS)
-V4L_UTILS_LICENSE	:= GPL-2.0+ (tools); LGPL-2.1+ (libs)
+V4L_UTILS_LICENSE	:= GPL-2.0-or-later (tools); LGPL-2.1-or-later (libs)
+V4L_UTILS_LICENSE_FILES	:= \
+	file://COPYING;md5=48da9957849056017dc568bbc43d8975 \
+	file://COPYING.libdvbv5;md5=28fb0f8e5cecc8a7a1a88008019dc3d0 \
+	file://COPYING.libv4l;md5=d749e86a105281d7a44c2328acebc4b0
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -33,11 +37,25 @@ V4L_UTILS_CONF_TOOL	:= autoconf
 V4L_UTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-doxygen-doc \
+	--disable-doxygen-dot \
+	--disable-doxygen-man \
+	--disable-doxygen-rtf \
+	--disable-doxygen-xml \
+	--disable-doxygen-chm \
+	--disable-doxygen-chi \
+	--disable-doxygen-html \
+	--disable-doxygen-ps \
+	--disable-doxygen-pdf \
+	--disable-nls \
 	--disable-rpath \
 	--disable-libdvbv5 \
-	--enable-libv4l \
+	--enable-dyn-libv4l \
 	--enable-v4l-utils \
+	--enable-v4l2-compliance-libv4l \
+	--enable-v4l2-ctl-libv4l \
+	--enable-v4l2-ctl-stream-to \
 	--disable-qv4l2 \
+	--disable-gconv \
 	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg
 
 # ----------------------------------------------------------------------------

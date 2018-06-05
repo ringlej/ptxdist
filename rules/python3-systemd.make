@@ -23,7 +23,7 @@ PYTHON3_SYSTEMD_SUFFIX	:= tar.gz
 PYTHON3_SYSTEMD_URL	:= https://github.com/systemd/python-systemd/archive/v$(PYTHON3_SYSTEMD_VERSION).$(PYTHON3_SYSTEMD_SUFFIX)
 PYTHON3_SYSTEMD_SOURCE	:= $(SRCDIR)/$(PYTHON3_SYSTEMD).$(PYTHON3_SYSTEMD_SUFFIX)
 PYTHON3_SYSTEMD_DIR	:= $(BUILDDIR)/$(PYTHON3_SYSTEMD)
-PYTHON3_SYSTEMD_LICENSE	:= LGPL-2.1+
+PYTHON3_SYSTEMD_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

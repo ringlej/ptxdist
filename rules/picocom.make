@@ -23,7 +23,7 @@ PICOCOM_SUFFIX	:= tar.gz
 PICOCOM_URL	:= https://github.com/npat-efault/picocom/archive/$(PICOCOM_VERSION).$(PICOCOM_SUFFIX)
 PICOCOM_SOURCE	:= $(SRCDIR)/$(PICOCOM_VERSION).$(PICOCOM_SUFFIX)
 PICOCOM_DIR	:= $(BUILDDIR)/$(PICOCOM)
-PICOCOM_LICENSE	:= GPL-2.0+
+PICOCOM_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

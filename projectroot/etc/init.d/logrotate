@@ -24,10 +24,10 @@ logrotate(){
 			if [ -e "${filename}.${i}" ]
 			then
 				j=$(( i + 1 ))
-				mv -f ${filename}.${i} ${filename}.${j}
+				mv -f -- "${filename}.${i}" "${filename}.${j}"
 			fi
 		done &&
-		mv -f ${filename} ${filename}.1
+		mv -f -- "${filename}" "${filename}.1"
 	done
 }
 

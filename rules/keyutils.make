@@ -8,14 +8,14 @@ PACKAGES-$(PTXCONF_KEYUTILS) += keyutils
 #
 # Paths and names
 #
-KEYUTILS_VERSION	:= 1.5.9
-KEYUTILS_MD5		:= 7f8ac985c45086b5fbcd12cecd23cf07
+KEYUTILS_VERSION	:= 1.5.10
+KEYUTILS_MD5		:= 3771676319bc7b84b1549b5c63ff5243
 KEYUTILS		:= keyutils-$(KEYUTILS_VERSION)
 KEYUTILS_SUFFIX		:= tar.bz2
 KEYUTILS_URL		:= http://people.redhat.com/~dhowells/keyutils/$(KEYUTILS).$(KEYUTILS_SUFFIX)
 KEYUTILS_SOURCE		:= $(SRCDIR)/$(KEYUTILS).$(KEYUTILS_SUFFIX)
 KEYUTILS_DIR		:= $(BUILDDIR)/$(KEYUTILS)
-KEYUTILS_LICENSE	:= GPL-2.0+, LGPL-2.1+
+KEYUTILS_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,7 +23,7 @@ FUSE_SUFFIX	:= tar.gz
 FUSE_URL	:= https://github.com/libfuse/libfuse/releases/download/fuse_$(subst .,_,$(FUSE_VERSION))/$(FUSE).$(FUSE_SUFFIX)
 FUSE_SOURCE	:= $(SRCDIR)/$(FUSE).$(FUSE_SUFFIX)
 FUSE_DIR	:= $(BUILDDIR)/$(FUSE)
-FUSE_LICENSE	:= GPL-2.0 AND LGPL-2.1
+FUSE_LICENSE	:= GPL-2.0-only AND LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

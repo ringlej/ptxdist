@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 menuconfig APACHE2
 	tristate
@@ -17,6 +19,9 @@ menuconfig APACHE2
 	  This version - a total rewrite - introduces many new
 	  improvements, such as threading, a new API, IPv6 support,
 	  request/response filtering, and more.
+
+	  STAGING: remove in ptxdist-2019.03.0
+	  Really old version that needs updating.
 
 if APACHE2
 

@@ -23,7 +23,7 @@ MONIT_SUFFIX	:= tar.gz
 MONIT_URL	:= http://mmonit.com/monit/dist/$(MONIT).$(MONIT_SUFFIX)
 MONIT_SOURCE	:= $(SRCDIR)/$(MONIT).$(MONIT_SUFFIX)
 MONIT_DIR	:= $(BUILDDIR)/$(MONIT)
-MONIT_LICENSE	:= AGPL-3.0
+MONIT_LICENSE	:= AGPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

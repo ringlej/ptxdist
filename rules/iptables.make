@@ -21,14 +21,14 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.6.0
-IPTABLES_MD5		:= 27ba3451cb622467fc9267a176f19a31
+IPTABLES_VERSION	:= 1.6.1
+IPTABLES_MD5		:= ab38a33806b6182c6f53d6afb4619add
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_SOURCE		:= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_DIR		:= $(BUILDDIR)/$(IPTABLES)
-IPTABLES_LICENSE	:= GPL-2.0
+IPTABLES_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +76,6 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_fixup, iptables,DESCRIPTION,missing)
 
 # 	# install the basic libraries
-	@$(call install_lib, iptables, 0, 0, 0644, libiptc)
 	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
 
 ifdef PTXCONF_IPTABLES_LIBIPQ

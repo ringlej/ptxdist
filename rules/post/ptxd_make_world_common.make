@@ -56,6 +56,10 @@ ptx/env = \
 	ptx_install_opt_python_host="$(call ptx/escape,$(HOST_PYTHON_INSTALL))"	\
 										\
 	ptx_conf_opt_meson_target="$(call ptx/escape,$(CROSS_MESON_USR))"	\
+	ptx_conf_env_meson_target="$(call ptx/escape,$(CROSS_MESON_ENV))"	\
+										\
+	ptx_conf_opt_meson_host="$(call ptx/escape,$(HOST_MESON_OPT))"		\
+	ptx_conf_env_meson_host="$(call ptx/escape,$(HOST_ENV))"		\
 										\
 	ptx_xpkg_extra_args=$(PTXCONF_IMAGE_XPKG_EXTRA_ARGS)
 

@@ -1,0 +1,35 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 15 Apr 2018 13:08:23 +0200
+Subject: [PATCH] only build GL surface tests if GLX is enabled
+
+All GL surface tests use GLX. So with --enable-png (to enable tests in
+general) and --enable-gl (for CAIRO_HAS_GL_SURFACE) building fails with:
+[...]
+gl-surface-source.c:33:5: error: unknown type name 'Display'
+gl-surface-source.c:34:5: error: unknown type name 'GLXContext'
+[...]
+And similar errors for the other tests.
+
+Fix this by making sure the GL surface tests are only built is GLX is
+enabled.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ test/Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/test/Makefile.am b/test/Makefile.am
+index b2fcd275d3e9..b7e9c12a355d 100644
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -17,8 +17,10 @@ endif
+ endif
+ 
+ if CAIRO_HAS_GL_SURFACE
++if CAIRO_HAS_GLX_FUNCTIONS
+ test_sources += $(gl_surface_test_sources)
+ endif
++endif
+ 
+ if CAIRO_HAS_EGL_FUNCTIONS
+ test_sources += $(egl_surface_test_sources)

@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_MULTIDICT
+	tristate
+	select HOST_PYTHON3_SETUPTOOLS
+	select PYTHON3
+	prompt "multidict"
+	help
+	  Multidict is a dict-like collection of key-value pairs where
+	  the key might occur more than once in the container.

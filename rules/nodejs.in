@@ -20,7 +20,7 @@ menuconfig NODEJS
 if NODEJS
 
 config NODEJS_NPM
-	tristate
+	bool
 	prompt "install npm on target"
 
 config NODEJS_MODULE_LIST

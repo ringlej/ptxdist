@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LDD) += ldd
 
 # This is the version from the glibc we have stolen from
 LDD_VERSION	:= 2.7
-LDD_LICENSE	:= LGPL-2.1+
+LDD_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,10 @@
+[Unit]
+Description=Precision Time Protocol system clock synchronization
+Wants=ptp4l@.service
+
+[Service]
+ExecStart=/usr/sbin/phc2sys -a -r
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

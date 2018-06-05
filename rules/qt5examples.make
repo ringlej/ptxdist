@@ -524,6 +524,12 @@ ifdef PTXCONF_QT5_EXAMPLES_LOCATION_QML_LOCATION_MAPVIEWER
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
+ifdef PTXCONF_QT5_EXAMPLES_LOCATION_MINIMAL_MAP
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/location/minimal_map/minimal_map)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTLOCATION)),)
 ifdef PTXCONF_QT5_EXAMPLES_LOCATION_QML_LOCATION_PLACES
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/location/places/qml_location_places)
@@ -579,6 +585,8 @@ endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTMULTIMEDIA)),)
 ifdef PTXCONF_QT5_EXAMPLES_MULTIMEDIA_DECLARATIVE_CAMERA
+	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
+		/usr/lib/qt5/examples/multimedia/declarative-camera/Info.plist)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/multimedia/declarative-camera/declarative-camera)
 endif
@@ -1591,6 +1599,12 @@ ifdef PTXCONF_QT5_EXAMPLES_QUICK_DEMOS_PHOTOSURFACE
 		/usr/lib/qt5/examples/quick/demos/photosurface/resources/photosurface.icns)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/quick/demos/photosurface/resources/photosurface.ico)
+endif
+endif
+ifneq ($(strip $(PTXCONF_QT5_MODULE_QTDECLARATIVE)),)
+ifdef PTXCONF_QT5_EXAMPLES_QUICK_DEMOS_PHOTOVIEWER
+	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
+		/usr/lib/qt5/examples/quick/demos/photoviewer/photoviewer)
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTDECLARATIVE)),)
@@ -3294,8 +3308,6 @@ ifdef PTXCONF_QT5_EXAMPLES_XML_DOMBOOKMARKS
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/xml/dombookmarks/dombookmarks)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/xml/dombookmarks/frank.xbel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/xml/dombookmarks/jennifer.xbel)
 endif
 endif
@@ -3314,8 +3326,6 @@ endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_XML_SAXBOOKMARKS
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/xml/saxbookmarks/frank.xbel)
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/xml/saxbookmarks/jennifer.xbel)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/xml/saxbookmarks/saxbookmarks)
@@ -3323,8 +3333,6 @@ endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTBASE)),)
 ifdef PTXCONF_QT5_EXAMPLES_XML_STREAMBOOKMARKS
-	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
-		/usr/lib/qt5/examples/xml/streambookmarks/frank.xbel)
 	@$(call install_copy, qt5-examples, 0, 0, 0644, -, \
 		/usr/lib/qt5/examples/xml/streambookmarks/jennifer.xbel)
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \

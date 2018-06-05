@@ -3,9 +3,10 @@
 menuconfig LUA
 	tristate
 	prompt "lua                           "
-	select READLINE	if LUA_READLINE
+	select READLINE if BUILDTIME || LUA_INSTALL_LUA
 	select LIBC_M
 	select LIBC_DL
+	select LIBC_PTHREAD
 	help
 	  Lua is a powerful, fast, light-weight, embeddable scripting language.
 	  Lua combines simple procedural syntax with powerful data description
@@ -18,13 +19,6 @@ menuconfig LUA
 	  More information under http://www.lua.org/
 
 if LUA
-
-config LUA_READLINE
-	bool
-	prompt "Use readline"
-	depends on BROKEN
-	help
-	  FIXME
 
 config LUA_INSTALL_LUA
 	bool

@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 config APR_UTIL
 	tristate
@@ -13,3 +15,6 @@ config APR_UTIL
 	  APR Util is a utilities library implemented on top of apr,
 	  providing database access, xml parsing, and other useful
 	  functionality.
+
+	  STAGING: remove in ptxdist-2019.03.0
+	  Really old version that needs updating.

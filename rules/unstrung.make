@@ -23,7 +23,7 @@ UNSTRUNG_SUFFIX		:= tar.gz
 UNSTRUNG_URL		:= http://unstrung.sandelman.ca/downloads/$(UNSTRUNG).$(UNSTRUNG_SUFFIX)
 UNSTRUNG_SOURCE		:= $(SRCDIR)/$(UNSTRUNG).$(UNSTRUNG_SUFFIX)
 UNSTRUNG_DIR		:= $(BUILDDIR)/$(UNSTRUNG)
-UNSTRUNG_LICENSE	:= GPL-2.0+
+UNSTRUNG_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -107,6 +107,9 @@ AuthorizedKeysFile	.ssh/authorized_keys
 # no default banner path
 #Banner none
 
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
 # override default of no subsystems
 Subsystem	sftp	/usr/sbin/sftp-server
 

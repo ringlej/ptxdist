@@ -23,7 +23,7 @@ LIBURCU_SUFFIX	:= tar.bz2
 LIBURCU_URL	:= http://lttng.org/files/urcu/$(LIBURCU).$(LIBURCU_SUFFIX)
 LIBURCU_SOURCE	:= $(SRCDIR)/$(LIBURCU).$(LIBURCU_SUFFIX)
 LIBURCU_DIR	:= $(BUILDDIR)/$(LIBURCU)
-LIBURCU_LICENSE	:= LGPL-2.1
+LIBURCU_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

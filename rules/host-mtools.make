@@ -23,7 +23,7 @@ HOST_MTOOLS_SUFFIX	:= tar.bz2
 HOST_MTOOLS_URL		:= $(call ptx/mirror, GNU, mtools/$(HOST_MTOOLS).$(HOST_MTOOLS_SUFFIX))
 HOST_MTOOLS_SOURCE	:= $(SRCDIR)/$(HOST_MTOOLS).$(HOST_MTOOLS_SUFFIX)
 HOST_MTOOLS_DIR		:= $(HOST_BUILDDIR)/$(HOST_MTOOLS)
-HOST_MTOOLS_LICENSE	:= GPL-3.0
+HOST_MTOOLS_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

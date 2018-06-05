@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 #
 # Paths and names
 #
-LIBXML2_VERSION	:= 2.9.4
-LIBXML2_MD5	:= ae249165c173b1ff386ee8ad676815f5
+LIBXML2_VERSION	:= 2.9.7
+LIBXML2_MD5	:= 896608641a08b465098a40ddf51cefba
 LIBXML2		:= libxml2-$(LIBXML2_VERSION)
 LIBXML2_SUFFIX	:= tar.gz
 LIBXML2_SOURCE	:= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
@@ -57,7 +57,6 @@ LIBXML2_AUTOCONF := \
 	--without-icu \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_ISO8859X)-iso8859x \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_LEGACY)-legacy \
-	--$(call ptx/wwo, PTXCONF_LIBXML2_LZMA)-lzma \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_MEM_DEBUG)-mem-debug \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_MINIMUM)-minimum \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_OUTPUT)-output \
@@ -77,7 +76,9 @@ LIBXML2_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_XINCLUDE)-xinclude \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_XPATH)-xpath \
 	--$(call ptx/wwo, PTXCONF_LIBXML2_XPTR)-xptr \
-	--$(call ptx/wwo, PTXCONF_LIBXML2_MODULES)-modules
+	--$(call ptx/wwo, PTXCONF_LIBXML2_MODULES)-modules \
+	--$(call ptx/wwo, PTXCONF_LIBXML2_LZMA)-lzma \
+	--without-coverage
 
 ifdef PTXCONF_ICONV
 # --with-iconv=yes -> does the right thing for libc-iconv

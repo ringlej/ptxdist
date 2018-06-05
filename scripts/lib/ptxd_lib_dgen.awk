@@ -124,11 +124,11 @@ $1 ~ /^PTX_MAP_._DEP/ {
 	this_PKG = gensub(/PTX_MAP_._DEP_/, "", "g", $1);
 	dep_type = gensub(/PTX_MAP_(.)_DEP_.*/, "\\1", "g", $1);
 
-	# no pkg
-	if (!(this_PKG in PKG_to_pkg))
+	if ($2 ~ /\<VIRTUAL\>/)
+		virtual_pkg[this_PKG] = 1
+	else if (!(this_PKG in PKG_to_pkg)) # no pkg
 		next;
 
-	this_DEP = $2
 	n = split($2, this_DEP_array, ":");
 
 	# no deps
@@ -139,13 +139,8 @@ $1 ~ /^PTX_MAP_._DEP/ {
 	for (i = 1; i <= n; i++) {
 		this_DEP = this_DEP_array[i];
 
-		if (this_DEP ~ /^VIRTUAL$/) {
-			virtual_pkg[this_PKG] = 1
+		if (this_DEP ~ /^VIRTUAL$/)
 			continue;
-		}
-
-		if (!(this_DEP in PKG_to_pkg))
-			continue
 
 		if (this_DEP ~ /^BASE$/) {
 			base_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
@@ -239,6 +234,8 @@ function write_maps(this_PKG, dep_type) {
 			continue
 		if (this_DEP_array[i] in virtual_pkg)
 			continue
+		if (!(this_DEP_array[i] in PKG_to_pkg))
+			continue
 		this_PKG_DEP = this_PKG_DEP " " this_DEP_array[i];
 		this_PKG_dep = this_PKG_dep " " PKG_to_pkg[this_DEP_array[i]];
 		last = this_DEP_array[i]
@@ -248,6 +245,9 @@ function write_maps(this_PKG, dep_type) {
 		 PKG_to_R_DEP[this_PKG]= this_PKG_DEP;
 	else
 		 PKG_to_B_DEP[this_PKG]= this_PKG_DEP;
+
+	if (this_PKG_DEP == "")
+		return;
 
 	print "PTX_MAP_" dep_type "_DEP_" this_PKG "=" this_PKG_DEP	> MAP_DEPS;
 	print "PTX_MAP_" dep_type "_dep_" this_PKG "=" this_PKG_dep	> MAP_DEPS;
@@ -280,6 +280,7 @@ function write_vars_pkg_all(this_PKG, this_pkg, prefix) {
 	# define default ${PKG}, ${PKG}_SOURCE, ${PKG}_DIR
 	if ((prefix != "") && (target_PKG in PKG_to_pkg)) {
 		print this_PKG " = $(" target_PKG ")"			> DGEN_DEPS_PRE;
+		print this_PKG "_VERSION = $(" target_PKG "_VERSION)"	> DGEN_DEPS_PRE;
 		print this_PKG "_MD5 = $(" target_PKG "_MD5)"		> DGEN_DEPS_PRE;
 		print this_PKG "_SOURCE = $(" target_PKG "_SOURCE)"	> DGEN_DEPS_PRE;
 		print this_PKG "_URL = $(" target_PKG "_URL)"		> DGEN_DEPS_PRE;

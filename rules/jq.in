@@ -1,0 +1,9 @@
+## SECTION=shell_and_console
+
+config JQ
+	tristate
+	prompt "jq"
+	help
+	  lightweight and flexible command-line JSON processor
+
+# vim: ft=kconfig noet tw=72

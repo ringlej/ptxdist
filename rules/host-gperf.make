@@ -23,7 +23,7 @@ HOST_GPERF_SUFFIX	:= tar.gz
 HOST_GPERF_URL		:= $(call ptx/mirror, GNU, gperf/$(HOST_GPERF).$(HOST_GPERF_SUFFIX))
 HOST_GPERF_SOURCE	:= $(SRCDIR)/$(HOST_GPERF).$(HOST_GPERF_SUFFIX)
 HOST_GPERF_DIR		:= $(HOST_BUILDDIR)/$(HOST_GPERF)
-HOST_GPERF_LICENSE	:= GPL-3.0
+HOST_GPERF_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

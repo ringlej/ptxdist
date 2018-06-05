@@ -23,7 +23,7 @@ HOST_QOOXDOO_SUFFIX	:= zip
 HOST_QOOXDOO_URL	:= $(call ptx/mirror, SF, qooxdoo/$(HOST_QOOXDOO).$(HOST_QOOXDOO_SUFFIX))
 HOST_QOOXDOO_SOURCE	:= $(SRCDIR)/$(HOST_QOOXDOO).$(HOST_QOOXDOO_SUFFIX)
 HOST_QOOXDOO_DIR	:= $(HOST_BUILDDIR)/$(HOST_QOOXDOO)
-HOST_QOOXDOO_LICENSE	:= LGPL-2.1
+HOST_QOOXDOO_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

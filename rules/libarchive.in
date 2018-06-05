@@ -25,6 +25,10 @@ config LIBARCHIVE_BSDTAR
 	bool
 	prompt "install bsdtar"
 
+config LIBARCHIVE_BSDCAT
+	bool
+	prompt "install bsdcat"
+
 config LIBARCHIVE_BSDCPIO
 	bool
 	prompt "install bsdcpio"

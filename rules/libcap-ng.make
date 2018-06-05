@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBCAP_NG) += libcap-ng
 #
 # Paths and names
 #
-LIBCAP_NG_VERSION	:= 0.7.7
-LIBCAP_NG_MD5		:= 3d7d126b29e2869a0257c17c8b0d9b2e
+LIBCAP_NG_VERSION	:= 0.7.8
+LIBCAP_NG_MD5		:= 0dece96644bd798020e170fbf7663802
 LIBCAP_NG		:= libcap-ng-$(LIBCAP_NG_VERSION)
 LIBCAP_NG_SUFFIX	:= tar.gz
 LIBCAP_NG_URL		:= http://people.redhat.com/sgrubb/libcap-ng/$(LIBCAP_NG).$(LIBCAP_NG_SUFFIX)
 LIBCAP_NG_SOURCE	:= $(SRCDIR)/$(LIBCAP_NG).$(LIBCAP_NG_SUFFIX)
 LIBCAP_NG_DIR		:= $(BUILDDIR)/$(LIBCAP_NG)
-LIBCAP_NG_LICENSE	:= LGPL-2.1+,GPL-2.0+
+LIBCAP_NG_LICENSE	:= LGPL-2.1-or-later AND GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -33,9 +33,16 @@ LIBCAP_NG_LICENSE	:= LGPL-2.1+,GPL-2.0+
 # autoconf
 #
 LIBCAP_NG_CONF_TOOL := autoconf
+
+LIBCAP_NG_CONF_ENV := \
+	ac_cv_prog_swig_found=no
+
 LIBCAP_NG_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-python
+	--without-debug \
+	--without-warn \
+	--without-python \
+	--without-python3
 
 # ----------------------------------------------------------------------------
 # Target-Install

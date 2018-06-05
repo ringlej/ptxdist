@@ -45,6 +45,7 @@ config UTIL_LINUX_NG_AGETTY
 
 config UTIL_LINUX_NG_COLUMN
 	bool
+	select UTIL_LINUX_NG_LIBSMARTCOLS
 	prompt "column"
 	help
 	  Columnate lists.
@@ -215,6 +216,16 @@ config UTIL_LINUX_NG_FSCK
 comment "BusyBox' fsck is selected!"
 	depends on BUSYBOX_FSCK
 
+config UTIL_LINUX_NG_FSFREEZE
+	bool
+	prompt "fsfreeze"
+	depends on !BUSYBOX_FSFREEZE || ALLYES
+	help
+	  fsfreeze suspends or resumes access to a filesystem.
+
+comment "BusyBox' fsfreeze is selected!"
+	depends on BUSYBOX_FSFREEZE
+
 config UTIL_LINUX_NG_FSTRIM
 	bool
 	prompt "fstrim"
@@ -360,6 +371,16 @@ config UTIL_LINUX_NG_BLKID
 comment "BusyBox' blkid is selected!"
 	depends on BUSYBOX_BLKID
 
+config UTIL_LINUX_NG_LSBLK
+	bool
+	select UTIL_LINUX_NG_LIBBLKID
+	select UTIL_LINUX_NG_LIBMOUNT
+	select UTIL_LINUX_NG_LIBSMARTCOLS
+	prompt "lsblk"
+	help
+	  The lsblk command lists information about all available or the
+	  specified block devices.
+
 config UTIL_LINUX_NG_FINDFS
 	bool
 	select UTIL_LINUX_NG_LIBBLKID
@@ -406,5 +427,12 @@ config UTIL_LINUX_NG_MKFS
 	help
 	  The mkfs command is a generic wrapper for fs specific
           mkfs.* commands.
+
+config UTIL_LINUX_NG_LSCPU
+	bool
+	select UTIL_LINUX_NG_LIBSMARTCOLS
+	prompt "lscpu"
+	help
+	  lscpu shows information about the CPU architecture
 
 endif

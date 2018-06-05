@@ -23,7 +23,7 @@ LIBMMS_SUFFIX	:= tar.gz
 LIBMMS_URL	:= $(call ptx/mirror, SF, libmms/libmms-$(LIBMMS_VERSION).$(LIBMMS_SUFFIX))
 LIBMMS_SOURCE	:= $(SRCDIR)/$(LIBMMS).$(LIBMMS_SUFFIX)
 LIBMMS_DIR	:= $(BUILDDIR)/$(LIBMMS)
-LIBMMS_LICENSE	:= LGPL-2.1+
+LIBMMS_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

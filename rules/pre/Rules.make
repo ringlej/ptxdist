@@ -144,8 +144,7 @@ CROSS_LIB_DIR   := $(shell ptxd_get_lib_dir)
 #
 CROSS_ENV_PKG_CONFIG := \
 	SYSROOT="$(PTXDIST_SYSROOT_TARGET)" \
-	$(PTXDIST_CROSS_ENV_PKG_CONFIG) \
-	PKG_CONFIG="$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
+	$(PTXDIST_CROSS_ENV_PKG_CONFIG)
 
 #
 # The ac_cv_* variables are needed to tell configure scripts not to
@@ -264,6 +263,9 @@ CROSS_MESON_USR := \
 	--buildtype debugoptimized \
 	--cross-file '${PTXDIST_MESON_CROSS_FILE}'
 
+CROSS_MESON_ENV = \
+	$(HOST_ENV_PROGS)
+
 ifdef PTXCONF_GLOBAL_IPV6
 GLOBAL_IPV6_OPTION := --enable-ipv6
 else
@@ -288,8 +290,18 @@ endif
 
 HOST_PATH	:= $$PATH
 
+HOST_ENV_AC := \
+	enable_option_checking=fatal \
+	enable_maintainer_mode=no \
+	enable_static=no
+
 HOST_ENV_CC		:= CC="$(HOSTCC)"
 HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
+
+HOST_ENV_PROGS := \
+	$(HOST_ENV_CC) \
+	$(HOST_ENV_CXX)
+
 HOST_ENV_PKG_CONFIG	:= $(PTXDIST_HOST_ENV_PKG_CONFIG)
 
 HOST_ENV_PYTHONPATH	:= \
@@ -297,11 +309,8 @@ HOST_ENV_PYTHONPATH	:= \
 		print "%s" % sysconfig.get_python_lib(prefix="'"$(PTXDIST_SYSROOT_HOST)"'")')"
 
 HOST_ENV	:= \
-	enable_option_checking=fatal \
-	enable_maintainer_mode=no \
-	enable_static=no \
-	$(HOST_ENV_CC) \
-	$(HOST_ENV_CXX) \
+	$(HOST_ENV_AC) \
+	$(HOST_ENV_PROGS) \
 	$(HOST_ENV_PKG_CONFIG) \
 	$(HOST_ENV_PYTHONPATH)
 
@@ -318,6 +327,11 @@ HOST_CMAKE_OPT_SYSROOT := \
 	-DCMAKE_INSTALL_PREFIX=$(PTXDIST_SYSROOT_HOST) \
 	-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 	-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'
+
+HOST_MESON_OPT := \
+	-Dprefix=/ \
+	--backend ninja \
+	--buildtype debugoptimized
 
 # ----------------------------------------------------------------------------
 # HOST_CROSS stuff

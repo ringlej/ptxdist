@@ -3,6 +3,8 @@
 menuconfig NTP
 	tristate
 	prompt "ntp                           "
+	select LIBCAP
+	select LIBEVENT
 	select OPENSSL		if NTP_CRYPTO
 	select ROOTFS_VAR_CACHE	if NTP_NTPD
 	select LIBC_M
@@ -18,32 +20,11 @@ if NTP
 
 comment "Compile Options"
 
-config NTP_CLOCKCTL
-	bool
-	prompt "Use /dev/clockctl for non-root time control"
-	help
-	  The clockctl device introduces alternative entry
-	  points to these system calls, through a special
-	  device file typically named /dev/clockctl
-	  The access control is made upon this file: if a
-	  user can write to it, then the user is allowed to
-	  change system time. The goal is to enable daemons
-	  such as ntpd to run in a chroot jail and hence to
-	  enhance the security of the system.
-
 config NTP_DEBUGGING
 	bool
 	prompt "include debugging code"
 	help
 	  Include a lot of debugging code.
-
-config NTP_DST_MINUTES
-	int
-	prompt "minutes per DST adjustment"
-	default 60
-	help
-	  Enter here how many minutes should be added when
-	  switching to daylight saving time.
 
 config NTP_BANCOMM
 	bool
@@ -54,58 +35,6 @@ config NTP_BANCOMM
 config NTP_GPSVME
 	bool
 	prompt "TrueTime GPS receiver/VME interface"
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_KMEM
-	bool
-	prompt "read /dev/kmem for tick and/or tickadj"
-	help
-	  This feature seems only required on non Linux based systems
-
-config NTP_ACCURATE_ADJTIME
-	bool
-	prompt "the adjtime () call is accurate"
-	help
-	  The adjtime() call is accurate.
-
-config NTP_TICK_FORCE
-	bool
-	prompt "force a value for 'tick'"
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_TICK
-	int
-	prompt "value for 'tick'"
-	default 1
-	depends on NTP_TICK_FORCE
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_TICKADJ_FORCE
-	bool
-	prompt "force a value for 'tickadj'"
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_TICKADJ
-	bool
-	prompt "value for 'tickadj'"
-	default 1
-	depends on NTP_TICKADJ_FORCE
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_SIMULATOR
-	bool
-	prompt "build/install the NTPD simulator"
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_UDP_WILDCARD
-	bool
-	prompt "use UDP wildcard delivery"
 	help
 	  FIXME: This item needs to be documented
 
@@ -137,12 +66,6 @@ config NTP_HOURLY_TODR_SYNC
 	  If we should sync TODR hourly (the Solaris hardware clock).
 	  When unsure, say no here.
 
-config NTP_KERNEL_FLL_BUG
-	bool
-	prompt "avoid a kernel FLL bug"
-	help
-	  If we should avoid a (Solaris) kernel FLL bug.
-
 config NTP_IRIG_SAWTOOTH
 	bool
 	prompt "enable the IRIG sawtooth filter"
@@ -166,23 +89,6 @@ config NTP_NIST
 config NTP_CRYPTO
 	bool
 	prompt "use openssl"
-	help
-	  FIXME: This item needs to be documented
-
-config NTP_SNTP
-	bool
-	prompt "build SNTP"
-	help
-	  Simple Network Time Protocol is a subset of the Network
-	  Time Protocol (NTP). SNTP can be used when the ultimate
-	  performance of a full NTP implementation based on
-	  RFC 1305 is neither needed nor justified.
-	  It is strongly recommended that SNTP be used only at
-	  the extremities of the synchronization subnet.
-
-config NTP_ARLIB
-	bool
-	prompt "compile the async resolver library"
 	help
 	  FIXME: This item needs to be documented
 

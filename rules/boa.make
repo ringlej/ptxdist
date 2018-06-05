@@ -24,7 +24,7 @@ BOA_TARBALL	:= boa_$(BOA_VERSION).orig.$(BOA_SUFFIX)
 BOA_URL		:= $(call ptx/mirror, DEB, pool/main/b/boa/$(BOA_TARBALL))
 BOA_SOURCE	:= $(SRCDIR)/$(BOA_TARBALL)
 BOA_DIR		:= $(BUILDDIR)/$(BOA)
-BOA_LICENSE	:= GPL-2.0
+BOA_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

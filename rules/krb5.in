@@ -1,0 +1,38 @@
+## SECTION=security
+
+menuconfig KRB5
+	tristate
+	select HOST_E2FSPROGS
+	select E2FSPROGS
+	select E2FSPROGS_LIBCOM_ERR
+	select E2FSPROGS_LIBSS
+	select OPENSSL
+	select LIBEDIT
+	select KEYUTILS if KRB5_CLIENT_TOOLS
+	prompt "Kerberos"
+	help
+	  This is the MIT implementation of the Kerberos network authentication
+	  protocol.
+
+if KRB5
+
+config KRB5_ADMIN_LIBS
+	bool
+	prompt "enable admin libraries (libkadm5clnt & libkadm5srv)"
+
+config KRB5_CLIENT_TOOLS
+	bool
+	prompt "enable client tools"
+
+config KRB5_ADMIN_TOOLS
+	bool
+	select KRB5_ADMIN_LIBS
+	prompt "enable admin tools (kinit & kadmin)"
+
+config KRB5_EXAMPLES
+	bool
+	prompt "enable example tools"
+	help
+	  This installs gss-client, gss-server, sclient and sserver.
+
+endif

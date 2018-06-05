@@ -16,15 +16,15 @@ PACKAGES-$(PTXCONF_GST_PYTHON1) += gst-python1
 #
 # Paths and names
 #
-GST_PYTHON1_VERSION	:= 1.12.1
-GST_PYTHON1_MD5		:= c5b84caff0f2b51018bad23b2eaa9772
+GST_PYTHON1_VERSION	:= 1.14.0
+GST_PYTHON1_MD5		:= 97782b2fde877f1d1d68c64f7db4f735
 GST_PYTHON1		:= gst-python-$(GST_PYTHON1_VERSION)
 GST_PYTHON1_SUFFIX	:= tar.xz
 GST_PYTHON1_URL		:= http://gstreamer.freedesktop.org/src/gst-python/$(GST_PYTHON1).$(GST_PYTHON1_SUFFIX)
 GST_PYTHON1_SOURCE	:= $(SRCDIR)/$(GST_PYTHON1).$(GST_PYTHON1_SUFFIX)
 GST_PYTHON1_DIR		:= $(BUILDDIR)/$(GST_PYTHON1)
 GST_PYTHON1_BUILD_OOT	:= YES
-GST_PYTHON1_LICENSE	:= LGPL-2.1+
+GST_PYTHON1_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,7 +71,7 @@ $(STATEDIR)/gst-python1.targetinstall:
 		$(call install_copy, gst-python1, 0, 0, 0644, -, \
 			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi/$$file); \
 	done
-	@$(call install_lib, gst-python1, 0, 0, 0644, gstreamer-1.0/libgstpythonplugin*)
+	@$(call install_lib, gst-python1, 0, 0, 0644, gstreamer-1.0/libgstpython*)
 
 	@$(call install_finish, gst-python1)
 

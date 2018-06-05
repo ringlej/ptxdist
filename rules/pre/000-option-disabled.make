@@ -99,4 +99,40 @@ define ptx/onoff
 $(call ptx/ifdef, $(1), ON, OFF)
 endef
 
+
+#
+# $(call ptx/truefalse, PTXCONF_SYMBOL) returns "true" or "false"
+# depending on the symbol is defined or not
+#
+# $(call ptx/truefalse, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/truefalse
+$(call ptx/ifdef, $(1), true, false)
+endef
+
+
+#
+# $(call ptx/falsetrue, PTXCONF_SYMBOL) returns "true" or "false"
+# depending on the symbol is defined or not
+#
+# $(call ptx/falsetrue, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/falsetrue
+$(call ptx/ifdef, $(1), false, true)
+endef
+
+
+#
+# $(call ptx/yesno, PTXCONF_SYMBOL) returns "yes" or "no"
+# depending on the symbol is defined or not
+#
+# $(call ptx/yesno, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/yesno
+$(call ptx/ifdef, $(1), yes, no)
+endef
+
 # vim: syntax=make

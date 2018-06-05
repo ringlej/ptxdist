@@ -6,9 +6,6 @@ endif
 # SUBDIR =
 
 # pkg's stuff
-pkgconfigdir = \
-	$(libdir)/pkgconfig
-
 pkgconfig_DATA = \
 	lib@name@.pc
 
@@ -30,11 +27,13 @@ lib_LTLIBRARIES = \
 EXTRA_DIST = \
 	autogen.sh \
 	m4/attributes.m4 \
+	m4/ptx.m4 \
 	m4/ax_armv4_detection.m4 \
 	m4/ax_armv5_detection.m4 \
 	m4/ax_armv6_detection.m4 \
 	m4/ax_armv7_detection.m4 \
 	m4/ax_floating_point.m4 \
+	m4/ax_code_coverage.m4 \
 	m4/pkg.m4 \
 	lib@name@.pc.in \
 	COPYING
@@ -78,21 +77,19 @@ MAINTAINERCLEANFILES = \
 #
 # library
 #
-# lib@namenodash@_la_CPPFLAGS = \
-#	$(some_pre_processor_flags)
+lib@namenodash@_la_CPPFLAGS = \
+	@CODE_COVERAGE_CPPFLAGS@
 
-# lib@namenodash@_la_CFLAGS = \
-#	$(some_compiler_flags)
+lib@namenodash@_la_CFLAGS = \
+	@CODE_COVERAGE_CFLAGS@
 
 # lib@namenodash@_la_LIBADD = \
 #	$(some_libs)
 
-# Note: It overrides the AM_LDFLAGS variable
 lib@namenodash@_la_LDFLAGS = \
-	$(AM_LDFLAGS) \
 	@LDFLAGS_NOUNDEFINED@ \
-	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
-	-release $(API_RELEASE)
+	@CODE_COVERAGE_LDFLAGS@ \
+	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 lib@namenodash@_la_SOURCES = \
 	@name@.c

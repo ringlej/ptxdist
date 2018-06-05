@@ -1,0 +1,24 @@
+From: Samuel Thibault <sthibault@debian.org>
+Date: Mon, 3 Jul 2017 10:47:14 +0200
+Subject: [PATCH] Fix terminal garbage in Debian Installer over serial line
+
+Reviewed-By: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Bug-Debian: https://bugs.debian.org/857808
+Bug: https://savannah.gnu.org/bugs/?50588
+---
+ termcap.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/termcap.c b/termcap.c
+index 57ed43a6d096..1b15e63a3192 100644
+--- a/termcap.c
++++ b/termcap.c
+@@ -486,6 +486,8 @@ int he;
+ 
+   D_tcinited = 1;
+   MakeTermcap(0);
++  /* Make sure libterm uses external term properties for our tputs() calls.  */
++  e_tgetent(tbuf, D_termname);
+ #ifdef MAPKEYS
+   CheckEscape();
+ #endif

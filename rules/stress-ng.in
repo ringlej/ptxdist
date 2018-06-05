@@ -1,0 +1,12 @@
+## SECTION=test_suites
+
+config STRESS_NG
+	tristate
+	prompt "stress-ng"
+	select LIBAIO
+	select LIBBSD
+	select ZLIB
+	help
+	  stress-ng will stress test a computer system in various selectable
+	  ways. It was designed to exercise various physical subsystems of a
+	  computer as well as the various operating system kernel interfaces.

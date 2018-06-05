@@ -10,7 +10,7 @@ evaluation board package or by downloading them from the Pengutronix web
 site.
 
 The central place for OSELAS related documentation is
-http://www.oselas.com and http://www.ptxdist.de. These websites provide
+http://www.oselas.com and http://www.ptxdist.org. These websites provide
 all required packages and documentation (at least for software
 components which are available to the public).
 
@@ -18,7 +18,7 @@ In order to build |ptxdistBSPName|, the following source archives have to be ava
 on the development host:
 
  * ptxdist-|ptxdistVendorVersion|.tar.bz2
- * |ptxdistBSPName|.tar.bz2
+ * |ptxdistBSPName|.tar.bz2 (or a similar source)
  * ptxdist-|oselasTCNVendorptxdistversion|.tar.bz2
  * OSELAS.Toolchain-|oselasTCNVendorVersion|.tar.bz2
 
@@ -60,9 +60,9 @@ Package Descriptions:
 Toolchains:
     PTXdist does not come with a pre-built binary toolchain.
     Nevertheless, PTXdist itself is able to build toolchains, which are
-    provided by the OSELAS.Toolchain() project. More in-deep information
-    about the OSELAS.Toolchain() project can be found here:
-    http://www.pengutronix.de/oselas/toolchain/index_en.html
+    provided by the OSELAS.Toolchain() project.
+    The different OSELAS toolchains can be found at
+    https://www.pengutronix.de/en/software/toolchain.html.
 
     Building a toolchain is not part of this manual, refer for
     application note “Building Toolchains” instead.
@@ -499,9 +499,9 @@ Building the OSELAS.Toolchain for |ptxdistBSPName|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Do the following steps in your own home directory ($HOME). The final
-OSELAS.Toolchain gets installed to ``opt/``, but must **never** be
-compiled in the **opt/** directory. You will get many funny error
-messages, if you try to compile the OSELAS-Toolchain in **opt/**.
+OSELAS.Toolchain gets installed to ``/opt``, but must **never** be
+compiled in the ``/opt`` directory. You will get many funny error
+messages, if you try to compile the OSELAS-Toolchain in ``/opt``.
 
 To compile and install an OSELAS.Toolchain we have to extract the
 OSELAS.Toolchain archive, change into the new folder, configure the

@@ -69,5 +69,7 @@ ptxd_make_image_init() {
     if [ -n "${PTXDIST_BASE_PLATFORMDIR}" ]; then
 	image_ipkg_repo_dirs[${#image_ipkg_repo_dirs[@]}]="${PTXDIST_BASE_PLATFORMDIR}/packages"
     fi
+
+    exec 2>&${PTXDIST_FD_LOGERR}
 }
 export -f ptxd_make_image_init

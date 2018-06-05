@@ -27,10 +27,10 @@ PTRTD_MD5		:= 6a342fbb21a333f12a082001dece68f2
 PTRTD_VERSION_SUFFIX    := -1~14
 PTRTD			:= ptrtd-$(PTRTD_VERSION)
 PTRTD_SUFFIX		:= tar.gz
-PTRTD_URL		:= https://ptrtd.googlecode.com/files/ptrtd_$(PTRTD_VERSION)$(PTRTD_VERSION_SUFFIX).$(PTRTD_SUFFIX)
+PTRTD_URL		:= https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/ptrtd/ptrtd_$(PTRTD_VERSION)$(PTRTD_VERSION_SUFFIX).$(PTRTD_SUFFIX)
 PTRTD_SOURCE		:= $(SRCDIR)/ptrtd_$(PTRTD_VERSION)$(PTRTD_VERSION_SUFFIX).$(PTRTD_SUFFIX)
 PTRTD_DIR		:= $(BUILDDIR)/$(PTRTD)
-PTRTD_LICENSE      	:= GPL-2.0
+PTRTD_LICENSE      	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

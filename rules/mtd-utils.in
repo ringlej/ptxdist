@@ -5,8 +5,7 @@ menuconfig MTD_UTILS
 	prompt "mtd-utils                     "
 	select LIBC_M if MTD_UTILS_MKFS_UBIFS
 	select ZLIB
-	select LIBUUID if MTD_UTILS_MKFS_UBIFS
-	select ATTR if MTD_UTILS_MKFS_UBIFS
+	select LIBUUID if MTD_UTILS_UBIFS
 	select LIBLZO if MTD_UTILS_USE_LIBLZO
 	help
 	  Memory Technology Device Utilities
@@ -15,6 +14,12 @@ menuconfig MTD_UTILS
 	  operations on flash devices.
 
 if MTD_UTILS
+
+config MTD_UTILS_JFFS
+	bool
+
+config MTD_UTILS_UBIFS
+	bool
 
 config MTD_UTILS_USE_LIBLZO
 	bool
@@ -116,13 +121,15 @@ config MTD_UTILS_FTL_FORMAT
 
 config MTD_UTILS_JFFS2_DUMP
 	bool
-	prompt "jffs2_dump"
+	prompt "jffs2dump"
+	select MTD_UTILS_JFFS
 	help
 	  This utility dumps the contents of a binary JFFS2 image.
 
 #config MTD_UTILS_JFFS2READER
 #	bool
 #	prompt "jffs2reader"
+#	select MTD_UTILS_JFFS
 #	help
 #	  A jffs2 image reader
 
@@ -153,6 +160,12 @@ config MTD_UTILS_NANDDUMP
 
 comment "busybox' nanddump is selected!"
 	depends on BUSYBOX_NANDDUMP
+
+config MTD_UTILS_NANDMARKBAD
+	bool
+	prompt "nandmarkbad"
+	help
+	  Mark block bad.
 
 config MTD_UTILS_NANDTEST
 	bool
@@ -187,6 +200,7 @@ config MTD_UTILS_NFTLDUMP
 config MTD_UTILS_MKJFFS2
 	bool
 	prompt "mkfs.jffs2"
+	select MTD_UTILS_JFFS
 	help
 	  Build a JFFS2 image in a file, from a given directory tree.
 
@@ -217,6 +231,7 @@ config MTD_UTILS_SERVE_IMAGE
 config MTD_UTILS_SUMTOOL
 	bool
 	prompt "sumtool"
+	select MTD_UTILS_JFFS
 	help
 	  Sumtool can be used to generate EBS(Erase Block Summary)
 	  information for a jffs2 image. This way we can do faster
@@ -335,6 +350,7 @@ comment "busybox' ubiupdatevol is selected!"
 config MTD_UTILS_MKFS_UBIFS
 	bool
 	prompt "mkfs.ubifs"
+	select MTD_UTILS_UBIFS
 	help
 	  Create ubifs filesystems
 

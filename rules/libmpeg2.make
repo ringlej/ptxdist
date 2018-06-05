@@ -23,7 +23,7 @@ LIBMPEG2_SUFFIX		:= tar.gz
 LIBMPEG2_URL		:= http://libmpeg2.sourceforge.net/files//$(LIBMPEG2).$(LIBMPEG2_SUFFIX)
 LIBMPEG2_SOURCE		:= $(SRCDIR)/$(LIBMPEG2).$(LIBMPEG2_SUFFIX)
 LIBMPEG2_DIR		:= $(BUILDDIR)/$(LIBMPEG2)
-LIBMPEG2_LICENSE	:= GPL-2.0
+LIBMPEG2_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

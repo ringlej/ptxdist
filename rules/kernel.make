@@ -25,17 +25,21 @@ else
 KERNEL_BDIR		:= $(BUILDDIR)
 endif
 
-
 #
 # Paths and names
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_MD5		:= $(call remove_quotes,$(PTXCONF_KERNEL_MD5))
+ifneq ($(KERNEL_NEEDS_GIT_URL),y)
 KERNEL_SUFFIX		:= tar.xz
+KERNEL_URL		:= $(call kernel-url, KERNEL)
+else
+KERNEL_SUFFIX		:= tar.gz
+KERNEL_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL).$(KERNEL_SUFFIX)
+endif
 KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
-KERNEL_LICENSE		:= GPL-2.0
-KERNEL_URL		:= $(call kernel-url, KERNEL)
+KERNEL_LICENSE		:= GPL-2.0-only
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DEVPKG		:= NO
 
@@ -160,6 +164,7 @@ $(STATEDIR)/kernel.tags:
 # ----------------------------------------------------------------------------
 
 KERNEL_TOOL_PERF_OPTS := \
+	WERROR=0 \
 	NO_LIBPERL=1 \
 	NO_LIBPYTHON=1 \
 	NO_DWARF= \
@@ -195,9 +200,9 @@ ifdef PTXCONF_KERNEL_TOOL_PERF
 		$(KERNEL_MAKEVARS) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf
 endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
-	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
-		$(KERNEL_MAKEVARS) -C tools/iio
+		$(KERNEL_MAKEVARS) $(PARALLELMFLAGS_BROKEN) -C tools/iio
 endif
 	@$(call touch)
 

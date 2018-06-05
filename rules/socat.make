@@ -21,7 +21,7 @@ SOCAT_SUFFIX	:= tar.gz
 SOCAT_URL	:= http://www.dest-unreach.org/socat/download/$(SOCAT).$(SOCAT_SUFFIX)
 SOCAT_SOURCE	:= $(SRCDIR)/$(SOCAT).$(SOCAT_SUFFIX)
 SOCAT_DIR	:= $(BUILDDIR)/$(SOCAT)
-SOCAT_LICENSE	:= GPL-2.0
+SOCAT_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

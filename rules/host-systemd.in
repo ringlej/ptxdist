@@ -2,6 +2,8 @@
 
 config HOST_SYSTEMD
 	bool
+	default ALLYES
+	select HOST_MESON
 	select HOST_GPERF
 	# for 'ln --relative'
 	select HOST_COREUTILS

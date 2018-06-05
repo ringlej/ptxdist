@@ -23,7 +23,7 @@ SEPOLGEN_SUFFIX		:= tar.gz
 SEPOLGEN_URL		:= https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20120924/$(SEPOLGEN).$(SEPOLGEN_SUFFIX)
 SEPOLGEN_SOURCE		:= $(SRCDIR)/$(SEPOLGEN).$(SEPOLGEN_SUFFIX)
 SEPOLGEN_DIR		:= $(BUILDDIR)/$(SEPOLGEN)
-SEPOLGEN_LICENSE	:= GPL-2.0
+SEPOLGEN_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

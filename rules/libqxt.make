@@ -23,7 +23,7 @@ LIBQXT_SUFFIX	:= tar.bz2
 LIBQXT_URL	:= https://bitbucket.org/libqxt/libqxt/get/v$(LIBQXT_VERSION).$(LIBQXT_SUFFIX)
 LIBQXT_SOURCE	:= $(SRCDIR)/$(LIBQXT).$(LIBQXT_SUFFIX)
 LIBQXT_DIR	:= $(BUILDDIR)/$(LIBQXT)
-LIBQXT_LICENSE	:= LGPL-2.1,CPLv1.0
+LIBQXT_LICENSE	:= LGPL-2.1-only AND CPLv1.0
 
 # ----------------------------------------------------------------------------
 # Prepare

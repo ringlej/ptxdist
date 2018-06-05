@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_PYYAML
+	tristate
+	prompt "python3-pyyaml"
+	select HOST_CYTHON3
+	select PYTHON3
+	select LIBYAML
+	help
+	  YAML parser and emitter for Python

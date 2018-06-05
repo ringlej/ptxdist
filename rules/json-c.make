@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_JSON_C) += json-c
 #
 # Paths and names
 #
-JSON_C_VERSION		:= 0.12.1-20160607
-JSON_C_MD5		:= 0a2a49a1e89044fdac414f984f3f81a6
+JSON_C_VERSION		:= 0.13-20171207
+JSON_C_MD5		:= 0cd2cca9bd869eacf3595ad3484135be
 JSON_C			:= json-c-$(JSON_C_VERSION)
 JSON_C_SUFFIX		:= tar.gz
 JSON_C_URL		:= https://github.com/json-c/json-c/archive/$(JSON_C).$(JSON_C_SUFFIX)
@@ -29,16 +29,14 @@ JSON_C_LICENSE		:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-JSON_C_CONF_ENV		:= \
-	$(CROSS_ENV) \
-	CFLAGS="-O2 -g -Wno-error"
-
 #
 # autoconf
 #
 JSON_C_CONF_TOOL	:= autoconf
 JSON_C_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-threading \
+	--disable-rdrand \
 	--disable-static
 
 # ----------------------------------------------------------------------------

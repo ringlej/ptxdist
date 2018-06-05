@@ -23,7 +23,7 @@ PERL_SUFFIX		:= tar.gz
 PERL_URL		:= http://cpan.perl.org/src/5.0/$(PERL).$(PERL_SUFFIX)
 PERL_SOURCE		:= $(SRCDIR)/$(PERL).$(PERL_SUFFIX)
 PERL_DIR		:= $(BUILDDIR)/$(PERL)
-PERL_LICENSE		:= GPL-1.0
+PERL_LICENSE		:= GPL-1.0-only
 PERL_LICENSE_FILES	:= file://Copying;md5=5b122a36d0f6dc55279a0ebc69f3c60b
 
 PERLCROSS_VERSION	:= 5.18.2-cross-0.8.5

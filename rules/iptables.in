@@ -3,12 +3,12 @@
 menuconfig IPTABLES
 	tristate
 	prompt "iptables                      "
-	select KERNEL_HEADER
 	select LIBC_M
 	select LIBC_DL
 	select GCCLIBS_GCC_S
-	select LIBNFTNL
-	select LIBNFNETLINK if IPTABLES_LIBNFNETLINK
+	select LIBNFTNL		if IPTABLES_NFTABLES_COMPAT
+	select NFTABLES		if IPTABLES_NFTABLES_COMPAT && RUNTIME
+	select LIBNFNETLINK	if IPTABLES_LIBNFNETLINK
 	help
 	  Iptables  is used to set up, maintain, and inspect the
 	  tables of IP packet filter rules in the Linux kernel.
@@ -76,9 +76,8 @@ config IPTABLES_LIBNFNETLINK
 
 config IPTABLES_NFTABLES_COMPAT
 	bool
-	select NFTABLES
 	prompt "nftables compat"
 	help
-	  install xtables-compat-multi, allowing compability with nftables
+	  install xtables-compat-multi, allowing compatibility with nftables
 
 endif

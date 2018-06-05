@@ -5,41 +5,31 @@ menuconfig GST_PLUGINS_BAD1
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
+	select GST_PLUGINS_BASE1_GL	if GST_PLUGINS_BAD1_GL
 	select ORC
-	select BZIP2		if GST_PLUGINS_BAD1_BZ2
-	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD1_BZ2
-	select BLUEZ		if GST_PLUGINS_BAD1_BLUEZ
-	select LIBCURL		if GST_PLUGINS_BAD1_CURL
-	select LIBXML2		if GST_PLUGINS_BAD1_DASH || GST_PLUGINS_BAD1_SMOOTHSTREAMING || GST_PLUGINS_BAD1_TTML
-	select LIBXML2_DOM	if GST_PLUGINS_BAD1_DASH || GST_PLUGINS_BAD1_SMOOTHSTREAMING
-	select DIRECTFB		if GST_PLUGINS_BAD1_DIRECTFB
-	select OPENSSL		if GST_PLUGINS_BAD1_DTLS
-	select GTK		if GST_PLUGINS_BAD1_GTK3
-	select OPENSSL		if GST_PLUGINS_BAD1_HLS
-	select LIBMMS		if GST_PLUGINS_BAD1_LIBMMS
-	select MESALIB		if GST_PLUGINS_BAD1_OPENGL || GST_PLUGINS_BAD1_GLES2 || GST_PLUGINS_BAD1_EGL
-	select MESALIB_OPENGL	if GST_PLUGINS_BAD1_OPENGL
-	select GLU		if GST_PLUGINS_BAD1_OPENGL
-	select MESALIB_GLES2	if GST_PLUGINS_BAD1_GLES2
-	select MESALIB_EGL	if GST_PLUGINS_BAD1_EGL
-	select MESALIB_EGL_WAYLAND if GST_PLUGINS_BAD1_EGL_WAYLAND
-	select MESALIB_GLX	if GST_PLUGINS_BAD1_GLX
-	select XORG_LIB_X11	if GST_PLUGINS_BAD1_EGL_X11
-	select LIBDRM		if GST_PLUGINS_BAD1_KMS
-	select LIBDRM_LIBKMS	if GST_PLUGINS_BAD1_KMS
-	select OPUS		if GST_PLUGINS_BAD1_OPUS
-	select QT5		if GST_PLUGINS_BAD1_QT
-	select QT5_GUI		if GST_PLUGINS_BAD1_QT
-	select QT5_MODULE_QTDECLARATIVE	if GST_PLUGINS_BAD1_QT
-	select RTMPDUMP		if GST_PLUGINS_BAD1_RTMP
-	select LIBSNDFILE	if GST_PLUGINS_BAD1_SNDFILE
-	select PANGO		if GST_PLUGINS_BAD1_TTML
-	select CAIRO		if GST_PLUGINS_BAD1_TTML
-	select LIBGUDEV		if GST_PLUGINS_BAD1_UVCH264
-	select LIBUSB		if GST_PLUGINS_BAD1_UVCH264
-	select VO_AACENC	if GST_PLUGINS_BAD1_VOAACENC
-	select WAYLAND		if GST_PLUGINS_BAD1_WAYLAND
-	select WAYLAND_PROTOCOLS if GST_PLUGINS_BAD1_WAYLAND
+	select BZIP2			if GST_PLUGINS_BAD1_BZ2
+	select BZIP2_LIBBZ2		if GST_PLUGINS_BAD1_BZ2
+	select BLUEZ			if GST_PLUGINS_BAD1_BLUEZ
+	select LCMS			if GST_PLUGINS_BAD1_LCMS2
+	select LIBCURL			if GST_PLUGINS_BAD1_CURL
+	select LIBXML2			if GST_PLUGINS_BAD1_DASH || GST_PLUGINS_BAD1_SMOOTHSTREAMING || GST_PLUGINS_BAD1_TTML
+	select LIBXML2_DOM		if GST_PLUGINS_BAD1_DASH || GST_PLUGINS_BAD1_SMOOTHSTREAMING
+	select DIRECTFB			if GST_PLUGINS_BAD1_DIRECTFB
+	select OPENSSL			if GST_PLUGINS_BAD1_DTLS
+	select OPENSSL			if GST_PLUGINS_BAD1_HLS
+	select LIBMMS			if GST_PLUGINS_BAD1_LIBMMS
+	select LIBDRM			if GST_PLUGINS_BAD1_KMS || GST_PLUGINS_BAD1_WAYLAND
+	select LIBDRM_LIBKMS		if GST_PLUGINS_BAD1_KMS
+	select OPUS			if GST_PLUGINS_BAD1_OPUS
+	select RTMPDUMP			if GST_PLUGINS_BAD1_RTMP
+	select LIBSNDFILE		if GST_PLUGINS_BAD1_SNDFILE
+	select PANGO			if GST_PLUGINS_BAD1_TTML
+	select CAIRO			if GST_PLUGINS_BAD1_TTML
+	select LIBGUDEV			if GST_PLUGINS_BAD1_UVCH264
+	select LIBUSB			if GST_PLUGINS_BAD1_UVCH264
+	select VO_AACENC		if GST_PLUGINS_BAD1_VOAACENC
+	select WAYLAND			if GST_PLUGINS_BAD1_WAYLAND
+	select WAYLAND_PROTOCOLS	if GST_PLUGINS_BAD1_WAYLAND
 
 	prompt "gst-plugins-bad               "
 	help
@@ -84,9 +74,9 @@ config GST_PLUGINS_BAD1_AUDIOFXBAD
 	bool
 	prompt "audiofxbad"
 
-config GST_PLUGINS_BAD1_AUDIOMIXER
+config GST_PLUGINS_BAD1_AUDIOLATENCY
 	bool
-	prompt "audiomixer"
+	prompt "audiolatency"
 
 config GST_PLUGINS_BAD1_AUDIOMIXMATRIX
 	bool
@@ -115,6 +105,12 @@ config GST_PLUGINS_BAD1_CAMERABIN2
 config GST_PLUGINS_BAD1_COLOREFFECTS
 	bool
 	prompt "coloreffects"
+
+config GST_PLUGINS_BAD1_CUDA
+	bool
+	# needs cuda
+	depends on BROKEN
+	prompt "cuda"
 
 config GST_PLUGINS_BAD1_DEBUGUTILS
 	bool
@@ -160,6 +156,14 @@ config GST_PLUGINS_BAD1_GDP
 	bool
 	prompt "gdp"
 
+config GST_PLUGINS_BAD1_GL
+	bool
+	prompt "gl"
+
+config GST_PLUGINS_BAD1_IPCPIPELINE
+	bool
+	prompt "ipcpipeline"
+
 config GST_PLUGINS_BAD1_ID3TAG
 	bool
 	prompt "id3tag"
@@ -193,6 +197,10 @@ config GST_PLUGINS_BAD1_JP2KDECIMATOR
 config GST_PLUGINS_BAD1_JPEGFORMAT
 	bool
 	prompt "jpegformat"
+
+config GST_PLUGINS_BAD1_LCMS2
+	bool
+	prompt "lcms2"
 
 config GST_PLUGINS_BAD1_LIBRFB
 	bool
@@ -237,6 +245,10 @@ config GST_PLUGINS_BAD1_PCAPPARSE
 config GST_PLUGINS_BAD1_PNM
 	bool
 	prompt "pnm"
+
+config GST_PLUGINS_BAD1_PROXY
+	bool
+	prompt "proxy"
 
 config GST_PLUGINS_BAD1_RAWPARSE
 	bool
@@ -533,6 +545,12 @@ config GST_PLUGINS_BAD1_NEON
 	prompt "neon"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD1_NVDEC
+	bool
+	prompt "nvdec"
+	# Needs NVDEC
+	depends on BROKEN
+
 config GST_PLUGINS_BAD1_OFA
 	bool
 	prompt "ofa"
@@ -565,6 +583,12 @@ config GST_PLUGINS_BAD1_OPENJPEG
 	prompt "openjpeg"
 	depends on BROKEN
 
+config GST_PLUGINS_BAD1_OPENMPT
+	bool
+	prompt "openmpt"
+	# Needs OpenMPT
+	depends on BROKEN
+
 config GST_PLUGINS_BAD1_OPENNI2
 	bool
 	prompt "openni2"
@@ -580,62 +604,21 @@ config GST_PLUGINS_BAD1_RSVG
 	prompt "rsvg"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD1_GL
+config GST_PLUGINS_BAD1_SRT
 	bool
-	prompt "gl"
-
-if GST_PLUGINS_BAD1_GL
-
-config GST_PLUGINS_BAD1_GLES2
-	bool
-	depends on !GST_PLUGINS_BAD1_OPENGL
-	prompt "gles2"
-
-config GST_PLUGINS_BAD1_OPENGL
-	bool
-	prompt "opengl"
-
-config GST_PLUGINS_BAD1_EGL
-	bool
-	prompt "egl"
-
-if GST_PLUGINS_BAD1_EGL
-
-config GST_PLUGINS_BAD1_EGL_X11
-	bool
-	select GST_PLUGINS_BAD1_X11
-	prompt "x11 egl"
-
-config GST_PLUGINS_BAD1_EGL_WAYLAND
-	bool
-	prompt "wayland egl"
-
-endif
-
-config GST_PLUGINS_BAD1_GLX
-	bool
-	select GST_PLUGINS_BAD1_OPENGL
-	select GST_PLUGINS_BAD1_X11
-	prompt "glx"
-
-config GST_PLUGINS_BAD1_X11
-	bool
-
-endif
-
-config GST_PLUGINS_BAD1_GTK3
-	bool
-	prompt "gtk3"
-
-config GST_PLUGINS_BAD1_QT
-	bool
-	# Needs Qt 5.5.x
+	prompt "srt"
+	# Needs libsrt
 	depends on BROKEN
-	prompt "qt"
 
 config GST_PLUGINS_BAD1_VULKAN
 	bool
 	prompt "vulkan"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD1_WEBRTC
+	bool
+	prompt "webrtc"
+	# Needs libnice
 	depends on BROKEN
 
 config GST_PLUGINS_BAD1_TELETEXTDEC
@@ -690,12 +673,6 @@ config GST_PLUGINS_BAD1_SBC
 	# needs sbc
 	depends on BROKEN
 	prompt "sbc"
-
-config GST_PLUGINS_BAD1_SCHRO
-	bool
-	# needs schroedinger-1.0
-	depends on BROKEN
-	prompt "schro"
 
 config GST_PLUGINS_BAD1_ZBAR
 	bool

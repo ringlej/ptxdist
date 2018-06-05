@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	:= 1.0.0
-OPROFILE_MD5		:= ba0b340e5c421a93959776c836ed35b3
+OPROFILE_VERSION	:= 1.2.0
+OPROFILE_MD5		:= 4fcd3920984dcb607314b2e225086c3a
 OPROFILE		:= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		:= tar.gz
 OPROFILE_URL		:= $(call ptx/mirror, SF, oprofile/$(OPROFILE).$(OPROFILE_SUFFIX))
@@ -35,7 +35,7 @@ OPROFILE_CONF_TOOL	:= autoconf
 OPROFILE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-kernel=$(KERNEL_HEADERS_DIR) \
+	$(call ptx/ifdef, PTXCONF_KERNEL_HEADER,--with-kernel=$(KERNEL_HEADERS_DIR)) \
 	--without-java \
 	--without-x
 

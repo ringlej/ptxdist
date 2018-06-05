@@ -2,6 +2,7 @@
 
 config LIBINPUT
 	tristate
+	select HOST_MESON
 	select MTDEV
 	select LIBEVDEV
 	select UDEV

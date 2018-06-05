@@ -4,7 +4,7 @@
 #
 
 # make sure bash is used to execute commands from makefiles
-SHELL=$(PTXDIST_TOPDIR)/bin/bash
+SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash)
 export SHELL
 
 unexport MAKEFLAGS

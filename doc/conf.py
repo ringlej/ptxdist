@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PTXdist'
-copyright = u'2015, The Pengutronix Development Team'
+copyright = u'2015-2017, The Pengutronix Development Team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -104,7 +104,7 @@ gnu_target = os.getenv("PTXCONF_GNU_TARGET") or "arm-v5te-linux-gnueabi"
 try:
 	toolchain = os.readlink(os.path.join(os.getenv("PTXDIST_PLATFORMDIR",""), "selected_toolchain")).split("/")
 except:
-	toolchain = "/opt/OSELAS.Toolchain-2014.12.2/arm-v5te-linux-gnueabi/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin".split("/")
+	toolchain = "/opt/OSELAS.Toolchain-2016.06.1/arm-v5te-linux-gnueabi/gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized/bin".split("/")
 
 ptxdistPlatformDir = "platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb")
 oselasTCNarch = gnu_target.split("-")[0]
@@ -279,6 +279,8 @@ latex_additional_files = [
   'figures/small_leiste_200dpi.jpg',
   'figures/warning.pdf',
 ]
+
+latex_engine='xelatex'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,

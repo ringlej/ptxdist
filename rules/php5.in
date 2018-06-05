@@ -10,6 +10,8 @@ menuconfig PHP5
 	select LIBXML2_C14N	if PHP5_XML_LIBXML2
 	select LIBXML2_DTD	if PHP5_XML_LIBXML2
 	select LIBXML2_XINCLUDE	if PHP5_XML_LIBXML2
+	select LIBXML2_READER	if PHP5_XML_LIBXML2_READER
+	select LIBXML2_WRITER	if PHP5_XML_LIBXML2_WRITER
 	select LIBXSLT		if PHP5_XML_LIBXML2_XSLT
 	select MYSQLDB		if PHP5_EXT_MYSQL
 	select PHP5_XML		if PHP5_EXT_SOAP
@@ -36,6 +38,7 @@ config PHP5_INI
 
 choice
 	prompt "SAPI Module"
+	default PHP5_SAPI_NONE
 
 config PHP5_SAPI_AOLSERVER
 	bool
@@ -46,6 +49,7 @@ config PHP5_SAPI_AOLSERVER
 
 config PHP5_SAPI_APXS2FILTER
 	bool
+	depends on STAGING
 	prompt "apxs2filter"
 	help
 	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
@@ -53,6 +57,7 @@ config PHP5_SAPI_APXS2FILTER
 
 config PHP5_SAPI_APXS2
 	bool
+	depends on STAGING
 	prompt "apache mod_php (apxs2)"
 	help
 	  Build shared Apache 2.0 Handler module.
@@ -224,6 +229,7 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 
 config PHP5_XML_LIBXML2_XMLRPC
 	bool
+	depends on STAGING
 	prompt "xmlrpc support"
 	help
 	  xmlrpc support

@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBSSH2) += libssh2
 #
 # Paths and names
 #
-LIBSSH2_VERSION	:= 1.2.4
-LIBSSH2_MD5	:= 4d65a66d5f232e5bb1d05b311e43d46d
+LIBSSH2_VERSION	:= 1.8.0
+LIBSSH2_MD5	:= 3d1147cae66e2959ea5441b183de1b1c
 LIBSSH2		:= libssh2-$(LIBSSH2_VERSION)
 LIBSSH2_SUFFIX	:= tar.gz
 LIBSSH2_URL	:= http://www.libssh2.org/download/$(LIBSSH2).$(LIBSSH2_SUFFIX)
@@ -36,9 +36,22 @@ LIBSSH2_ENV 	:= $(CROSS_ENV)
 #
 LIBSSH2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-libz-prefix=$(SYSROOT)/usr \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-rpath \
+	--enable-crypt-none \
+	--enable-mac-none \
+	--disable-gex-new \
+	--disable-clear-memory \
+	--enable-debug \
+	--enable-hidden-symbols \
+	--enable-examples-build \
+	--with-openssl \
+	--without-wincng \
+	--without-mbedtls \
+	--with-libz \
 	--with-libssl-prefix=$(SYSROOT)/usr \
-	--with-openssl
+	--with-libz-prefix=$(SYSROOT)/usr
+
 
 # ----------------------------------------------------------------------------
 # Target-Install

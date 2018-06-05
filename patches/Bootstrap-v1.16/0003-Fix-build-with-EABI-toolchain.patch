@@ -1,0 +1,338 @@
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Sun, 5 Dec 2010 21:52:46 +0100
+Subject: [PATCH] Fix build with EABI toolchain
+
+When using an EABI toolchain, the default compilation generates
+references to __aeabi_unwind_cpp_pr0(). This symbol is defined in
+libgcc, but we don't want to use it for a bootloader.
+
+Therefore, this patch passes some additional CFLAGS to disable the
+generation of such references by avoiding unwind tables, exceptions,
+etc.
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+---
+ board/at91cap9adk/dataflash/Makefile      | 2 +-
+ board/at91cap9adk/norflash/Makefile       | 2 +-
+ board/at91cap9stk/nandflash/Makefile      | 2 +-
+ board/at91sam9260ek/dataflash/Makefile    | 2 +-
+ board/at91sam9260ek/nandflash/Makefile    | 2 +-
+ board/at91sam9261ek/dataflash/Makefile    | 2 +-
+ board/at91sam9261ek/nandflash/Makefile    | 2 +-
+ board/at91sam9263ek/dataflash/Makefile    | 2 +-
+ board/at91sam9263ek/nandflash/Makefile    | 2 +-
+ board/at91sam9g10ek/dataflash/Makefile    | 2 +-
+ board/at91sam9g10ek/nandflash/Makefile    | 2 +-
+ board/at91sam9g20ek/dataflash/Makefile    | 2 +-
+ board/at91sam9g20ek/nandflash/Makefile    | 2 +-
+ board/at91sam9g45ekes/nandflash/Makefile  | 2 +-
+ board/at91sam9m10ekes/dataflash/Makefile  | 2 +-
+ board/at91sam9m10ekes/nandflash/Makefile  | 2 +-
+ board/at91sam9m10g45ek/dataflash/Makefile | 2 +-
+ board/at91sam9m10g45ek/nandflash/Makefile | 2 +-
+ board/at91sam9rlek/dataflash/Makefile     | 2 +-
+ board/at91sam9rlek/nandflash/Makefile     | 2 +-
+ board/at91sam9xeek/dataflash/Makefile     | 2 +-
+ board/at91sam9xeek/nandflash/Makefile     | 2 +-
+ lib/Makefile                              | 2 +-
+ 23 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/board/at91cap9adk/dataflash/Makefile b/board/at91cap9adk/dataflash/Makefile
+index 8272847b221a..5196783b2e34 100644
+--- a/board/at91cap9adk/dataflash/Makefile
++++ b/board/at91cap9adk/dataflash/Makefile
+@@ -34,7 +34,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91cap9adk/norflash/Makefile b/board/at91cap9adk/norflash/Makefile
+index 407c1ce7a6a4..22390e8b8151 100644
+--- a/board/at91cap9adk/norflash/Makefile
++++ b/board/at91cap9adk/norflash/Makefile
+@@ -34,7 +34,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91cap9stk/nandflash/Makefile b/board/at91cap9stk/nandflash/Makefile
+index 92b79737aeec..0b5b0ef16ab8 100755
+--- a/board/at91cap9stk/nandflash/Makefile
++++ b/board/at91cap9stk/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -D$(BOARD) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ 
+diff --git a/board/at91sam9260ek/dataflash/Makefile b/board/at91sam9260ek/dataflash/Makefile
+index 145e066babc9..8035a3bb344f 100644
+--- a/board/at91sam9260ek/dataflash/Makefile
++++ b/board/at91sam9260ek/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9260ek/nandflash/Makefile b/board/at91sam9260ek/nandflash/Makefile
+index 6b5c2b272d79..7c3982ddb520 100644
+--- a/board/at91sam9260ek/nandflash/Makefile
++++ b/board/at91sam9260ek/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9261ek/dataflash/Makefile b/board/at91sam9261ek/dataflash/Makefile
+index 119c0ff33e78..2f7e637ecf81 100644
+--- a/board/at91sam9261ek/dataflash/Makefile
++++ b/board/at91sam9261ek/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9261ek/nandflash/Makefile b/board/at91sam9261ek/nandflash/Makefile
+index b568858cb65e..66d5712eb8f4 100644
+--- a/board/at91sam9261ek/nandflash/Makefile
++++ b/board/at91sam9261ek/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9263ek/dataflash/Makefile b/board/at91sam9263ek/dataflash/Makefile
+index f872ab26b6a2..696e8726b9f4 100644
+--- a/board/at91sam9263ek/dataflash/Makefile
++++ b/board/at91sam9263ek/dataflash/Makefile
+@@ -34,7 +34,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9263ek/nandflash/Makefile b/board/at91sam9263ek/nandflash/Makefile
+index 96478e2711f6..7b90eabd568c 100644
+--- a/board/at91sam9263ek/nandflash/Makefile
++++ b/board/at91sam9263ek/nandflash/Makefile
+@@ -33,7 +33,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -O0 -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -O0 -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9g10ek/dataflash/Makefile b/board/at91sam9g10ek/dataflash/Makefile
+index 4be4de33492f..84060d702450 100644
+--- a/board/at91sam9g10ek/dataflash/Makefile
++++ b/board/at91sam9g10ek/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9g10ek/nandflash/Makefile b/board/at91sam9g10ek/nandflash/Makefile
+index f231536b2c99..e9c139862b82 100644
+--- a/board/at91sam9g10ek/nandflash/Makefile
++++ b/board/at91sam9g10ek/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9g20ek/dataflash/Makefile b/board/at91sam9g20ek/dataflash/Makefile
+index 27d2394e0dc6..a11b0808d054 100644
+--- a/board/at91sam9g20ek/dataflash/Makefile
++++ b/board/at91sam9g20ek/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9g20ek/nandflash/Makefile b/board/at91sam9g20ek/nandflash/Makefile
+index 62c2914d71ba..109a3c8fe685 100644
+--- a/board/at91sam9g20ek/nandflash/Makefile
++++ b/board/at91sam9g20ek/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9g45ekes/nandflash/Makefile b/board/at91sam9g45ekes/nandflash/Makefile
+index e3616a12d923..a96a5fab3334 100644
+--- a/board/at91sam9g45ekes/nandflash/Makefile
++++ b/board/at91sam9g45ekes/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -O2 -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9m10ekes/dataflash/Makefile b/board/at91sam9m10ekes/dataflash/Makefile
+index cfee3cd39c5a..28e8d42a859f 100644
+--- a/board/at91sam9m10ekes/dataflash/Makefile
++++ b/board/at91sam9m10ekes/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -O2 -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9m10ekes/nandflash/Makefile b/board/at91sam9m10ekes/nandflash/Makefile
+index b7ed0744d7b0..0ffd08d5489b 100644
+--- a/board/at91sam9m10ekes/nandflash/Makefile
++++ b/board/at91sam9m10ekes/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -O2 -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9m10g45ek/dataflash/Makefile b/board/at91sam9m10g45ek/dataflash/Makefile
+index de41eeb72bca..0eefc52535b8 100644
+--- a/board/at91sam9m10g45ek/dataflash/Makefile
++++ b/board/at91sam9m10g45ek/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -O2 -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9m10g45ek/nandflash/Makefile b/board/at91sam9m10g45ek/nandflash/Makefile
+index 75b6f486f806..f7cde1bfb1aa 100644
+--- a/board/at91sam9m10g45ek/nandflash/Makefile
++++ b/board/at91sam9m10g45ek/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -O2 -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -O2 -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9rlek/dataflash/Makefile b/board/at91sam9rlek/dataflash/Makefile
+index d74b317ce635..83f5c62723f5 100644
+--- a/board/at91sam9rlek/dataflash/Makefile
++++ b/board/at91sam9rlek/dataflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9rlek/nandflash/Makefile b/board/at91sam9rlek/nandflash/Makefile
+index 07407e0bb988..961a3fb90636 100644
+--- a/board/at91sam9rlek/nandflash/Makefile
++++ b/board/at91sam9rlek/nandflash/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9xeek/dataflash/Makefile b/board/at91sam9xeek/dataflash/Makefile
+index f2135558e0af..07e0d4c1ca06 100644
+--- a/board/at91sam9xeek/dataflash/Makefile
++++ b/board/at91sam9xeek/dataflash/Makefile
+@@ -38,7 +38,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/board/at91sam9xeek/nandflash/Makefile b/board/at91sam9xeek/nandflash/Makefile
+index c3c5a1ac6a53..ff7d7df8f46a 100644
+--- a/board/at91sam9xeek/nandflash/Makefile
++++ b/board/at91sam9xeek/nandflash/Makefile
+@@ -38,7 +38,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm9 -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm9 -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.
+diff --git a/lib/Makefile b/lib/Makefile
+index 2d677c20a265..c3434883dd3a 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -37,7 +37,7 @@ NM= $(CROSS_COMPILE)nm
+ SIZE=$(CROSS_COMPILE)size
+ OBJCOPY=$(CROSS_COMPILE)objcopy
+ OBJDUMP=$(CROSS_COMPILE)objdump
+-CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL)
++CCFLAGS=-g -mcpu=arm926ej-s -Os -Wall -D$(TARGET) -I$(INCL) -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+ ASFLAGS=-g -mcpu=arm926ej-s -c -Os -Wall -D$(TARGET) -I$(INCL) -DTOP_OF_MEM=$(TOP_OF_MEMORY)
+ 
+ # Linker flags.

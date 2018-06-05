@@ -25,6 +25,7 @@ HOST_LIBARCHIVE_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--disable-static \
 	--disable-bsdtar \
+	--disable-bsdcat \
 	--disable-bsdcpio \
 	--disable-rpath \
 	--enable-posix-regex-lib=libc \
@@ -32,10 +33,11 @@ HOST_LIBARCHIVE_CONF_OPT	:= \
 	--disable-acl \
 	--with-zlib \
 	--without-bz2lib \
-	--without-lzmadec \
 	--without-iconv \
+	--without-lz4 \
 	--without-lzma \
 	--without-lzo2 \
+	--without-cng \
 	--without-nettle \
 	--without-openssl \
 	--without-xml2 \

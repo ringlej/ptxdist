@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 9 Mar 2018 16:58:12 +0100
+Subject: [PATCH] increase maximum struct size for cross_sizeof()
+
+Upstream is still discussing a better fix.
+
+https://github.com/mesonbuild/meson/issues/3113
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ mesonbuild/compilers/c.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mesonbuild/compilers/c.py b/mesonbuild/compilers/c.py
+index 0841fb2ffe73..c05bf78fe9c0 100644
+--- a/mesonbuild/compilers/c.py
++++ b/mesonbuild/compilers/c.py
+@@ -406,7 +406,7 @@ class CCompiler(Compiler):
+         }}'''
+         if not self.compiles(t.format(**fargs), env, extra_args, dependencies):
+             return -1
+-        return self.cross_compute_int('sizeof(%s)' % typename, 1, 128, None, prefix, env, extra_args, dependencies)
++        return self.cross_compute_int('sizeof(%s)' % typename, 1, 1024, None, prefix, env, extra_args, dependencies)
+ 
+     def sizeof(self, typename, prefix, env, extra_args=None, dependencies=None):
+         if extra_args is None:

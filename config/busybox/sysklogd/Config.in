@@ -58,7 +58,7 @@ config BUSYBOX_FEATURE_LOGREAD_REDUCED_LOCKING
 	default y
 	depends on BUSYBOX_LOGREAD
 	help
-	  'logread' ouput to slow serial terminals can have
+	  'logread' output to slow serial terminals can have
 	  side effects on syslog because of the semaphore.
 	  This option make logread to double buffer copy
 	  from circular buffer, minimizing semaphore

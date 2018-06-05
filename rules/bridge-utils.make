@@ -24,22 +24,17 @@ BRIDGE_UTILS_SUFFIX	:= tar.gz
 BRIDGE_UTILS_URL	:= $(call ptx/mirror, SF, bridge/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX))
 BRIDGE_UTILS_SOURCE	:= $(SRCDIR)/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
 BRIDGE_UTILS_DIR	:= $(BUILDDIR)/$(BRIDGE_UTILS)
-BRIDGE_UTILS_LICENSE	:= GPL-2.0+
+BRIDGE_UTILS_LICENSE	:= GPL-2.0-or-later
 
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-BRIDGE_UTILS_PATH	:= PATH=$(CROSS_PATH)
-BRIDGE_UTILS_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-BRIDGE_UTILS_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--with-linux-headers=$(KERNEL_HEADERS_DIR)
+BRIDGE_UTILS_CONF_TOOL	:= autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install

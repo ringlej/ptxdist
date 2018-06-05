@@ -24,7 +24,7 @@ LIBCAP_URL	:= \
 	$(call ptx/mirror, KERNEL, libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX))
 LIBCAP_SOURCE	:= $(SRCDIR)/$(LIBCAP).$(LIBCAP_SUFFIX)
 LIBCAP_DIR	:= $(BUILDDIR)/$(LIBCAP)
-LIBCAP_LICENSE	:= BSD-3-Clause, GPL-2.0
+LIBCAP_LICENSE	:= BSD-3-Clause AND GPL-2.0-only
 LIBCAP_LICENSE_FILES := file://License;md5=3f84fd6f29d453a56514cb7e4ead25f1
 
 # ----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ LIBCAP_LICENSE_FILES := file://License;md5=3f84fd6f29d453a56514cb7e4ead25f1
 
 LIBCAP_MAKE_OPT	:= \
 	prefix=/usr PAM_CAP=no DYNAMIC=yes \
-	LIBATTR=$(call ptx/ifdef, PTXCONF_LIBCAP_SETCAP,yes,no) \
+	LIBATTR=$(call ptx/yesno, PTXCONF_LIBCAP_SETCAP) \
 	lib=lib \
 	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC)

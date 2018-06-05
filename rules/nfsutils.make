@@ -23,7 +23,7 @@ NFSUTILS_SUFFIX		:= tar.bz2
 NFSUTILS_URL		:= $(call ptx/mirror, SF, nfs/$(NFSUTILS).$(NFSUTILS_SUFFIX))
 NFSUTILS_SOURCE		:= $(SRCDIR)/$(NFSUTILS).$(NFSUTILS_SUFFIX)
 NFSUTILS_DIR		:= $(BUILDDIR)/$(NFSUTILS)
-NFSUTILS_LICENSE	:= GPL-2.0+
+NFSUTILS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

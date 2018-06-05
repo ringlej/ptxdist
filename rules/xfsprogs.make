@@ -18,13 +18,13 @@ PACKAGES-$(PTXCONF_XFSPROGS) += xfsprogs
 # Paths and names
 #
 XFSPROGS_VERSION:= 4.5.0
-XFSPROGS_MD5	:= fcba94b6c74b726dac956d7a650c0c31
+XFSPROGS_MD5	:= fcba94b6c74b726dac956d7a650c0c31 1f04cc1464994a9a43210ddd887cb680
 XFSPROGS	:= xfsprogs-$(XFSPROGS_VERSION)
 XFSPROGS_SUFFIX	:= tar.gz
-XFSPROGS_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars/$(XFSPROGS).$(XFSPROGS_SUFFIX)
+XFSPROGS_URL	:= $(call ptx/mirror, KERNEL, utils/fs/xfs/xfsprogs/$(XFSPROGS).$(XFSPROGS_SUFFIX))
 XFSPROGS_SOURCE	:= $(SRCDIR)/$(XFSPROGS).$(XFSPROGS_SUFFIX)
 XFSPROGS_DIR	:= $(BUILDDIR)/$(XFSPROGS)
-XFSPROGS_LICENSE:= GPL-2.0, LGPL-2.1
+XFSPROGS_LICENSE:= GPL-2.0-only AND LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

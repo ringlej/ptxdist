@@ -23,7 +23,7 @@ HUB_CTRL_SUFFIX		:= tar.bz2
 HUB_CTRL_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HUB_CTRL).$(HUB_CTRL_SUFFIX)
 HUB_CTRL_SOURCE		:= $(SRCDIR)/$(HUB_CTRL).$(HUB_CTRL_SUFFIX)
 HUB_CTRL_DIR		:= $(BUILDDIR)/$(HUB_CTRL)
-HUB_CTRL_LICENSE	:= GPL-2.0+
+HUB_CTRL_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

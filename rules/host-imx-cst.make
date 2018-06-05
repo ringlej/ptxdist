@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_IMX_CST) += host-imx-cst
 #
 # Paths and names
 #
-HOST_IMX_CST_VERSION	:= 2.3.1
-HOST_IMX_CST_MD5	:= 01684a853e9245dbd6db42acad5861dd
+HOST_IMX_CST_VERSION	:= 2.3.2
+HOST_IMX_CST_MD5	:= a81766cab2e184ab12e459c0476f6639
 HOST_IMX_CST		:= cst-$(HOST_IMX_CST_VERSION)
 HOST_IMX_CST_SUFFIX	:= tar.gz
 HOST_IMX_CST_URL	:= https://www.nxp.com/webapp/sps/download/license.jsp?colCode=IMX_CST_TOOL

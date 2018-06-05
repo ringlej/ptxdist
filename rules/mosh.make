@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_MOSH) += mosh
 #
 # Paths and names
 #
-MOSH_VERSION	:= 1.3.0
-MOSH_MD5	:= d961276995936953bf2d5a794068b076
+MOSH_VERSION	:= 1.3.2
+MOSH_MD5	:= 5122f4d2b973ab7c38dcdac8c35cb61e
 MOSH		:= mosh-$(MOSH_VERSION)
 MOSH_SUFFIX	:= tar.gz
 MOSH_URL	:= https://mosh.mit.edu/$(MOSH).$(MOSH_SUFFIX)
 MOSH_SOURCE	:= $(SRCDIR)/$(MOSH).$(MOSH_SUFFIX)
 MOSH_DIR	:= $(BUILDDIR)/$(MOSH)
-MOSH_LICENSE	:= GPL-3.0
+MOSH_LICENSE	:= GPL-3.0-only
 
 #
 # autoconf
@@ -31,13 +31,18 @@ MOSH_LICENSE	:= GPL-3.0
 MOSH_CONF_TOOL	:= autoconf
 MOSH_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-compile-warnings \
 	--enable-hardening \
 	--enable-client \
 	--enable-server \
 	--disable-examples \
 	--disable-ufw \
 	--disable-completion \
-	--without-utempter
+	--without-utempter \
+	--with-ncurses \
+	--without-ncursesw \
+	--with-crypto-library=$(call ptx/ifdef, PTXCONF_MOSH_NETTLE, nettle, openssl)
+
 
 # ----------------------------------------------------------------------------
 # Target-Install

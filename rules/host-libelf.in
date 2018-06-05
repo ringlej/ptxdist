@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
+
+config HOST_LIBELF
+	tristate
+	select HOST_ZLIB
+	default ALLYES

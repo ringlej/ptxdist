@@ -21,7 +21,8 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 # Paths and names
 #
 GLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
-GLIBC_LICENSE	:= GPL-2.0, LGPL-2.1
+# for license information
+-include $(PTXDIST_PLATFORMDIR)/selected_toolchain/../share/compliance/glibc.make
 
 # ----------------------------------------------------------------------------
 # Target-Install

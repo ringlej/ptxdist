@@ -26,7 +26,7 @@ VALGRIND_SUFFIX		:= tar.bz2
 VALGRIND_URL		:= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_SOURCE		:= $(SRCDIR)/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_DIR		:= $(BUILDDIR)/$(VALGRIND)
-VALGRIND_LICENSE	:= GPL-2.0
+VALGRIND_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -60,6 +60,7 @@ endif
 VALGRIND_CONF_TOOL	:= autoconf
 VALGRIND_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--without-mpicc \
 	--enable-tls
 
 # ----------------------------------------------------------------------------

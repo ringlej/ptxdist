@@ -24,7 +24,7 @@ RTMPDUMP_SUFFIX		:= tar.xz
 RTMPDUMP_URL		:= git://git.ffmpeg.org/rtmpdump.git;tag=$(RTMPDUMP_VERSION)
 RTMPDUMP_SOURCE		:= $(SRCDIR)/$(RTMPDUMP).$(RTMPDUMP_SUFFIX)
 RTMPDUMP_DIR		:= $(BUILDDIR)/$(RTMPDUMP)
-RTMPDUMP_LICENSE	:= LGPL-2.1+,GPL-2.0+
+RTMPDUMP_LICENSE	:= LGPL-2.1-or-later AND GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

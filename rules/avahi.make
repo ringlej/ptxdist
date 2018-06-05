@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_AVAHI) += avahi
 #
 # Paths and names
 #
-AVAHI_VERSION	:= 0.6.31
-AVAHI_MD5	:= 2f22745b8f7368ad5a0a3fddac343f2d
+AVAHI_VERSION	:= 0.7
+AVAHI_MD5	:= d76c59d0882ac6c256d70a2a585362a6
 AVAHI		:= avahi-$(AVAHI_VERSION)
 AVAHI_SUFFIX	:= tar.gz
 AVAHI_URL	:= http://avahi.org/download/$(AVAHI).$(AVAHI_SUFFIX)
 AVAHI_SOURCE	:= $(SRCDIR)/$(AVAHI).$(AVAHI_SUFFIX)
 AVAHI_DIR	:= $(BUILDDIR)/$(AVAHI)
-AVAHI_LICENSE	:= LGPL-2.1+
+AVAHI_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -52,7 +52,7 @@ AVAHI_CONF_OPT	:= \
 	--disable-gdbm \
 	--enable-libdaemon \
 	--disable-python \
-	--disable-pygtk \
+	--disable-pygobject \
 	--disable-python-dbus \
 	--disable-mono \
 	--disable-monodoc \
@@ -83,6 +83,12 @@ AVAHI_CONF_OPT	:= \
 	--with-autoipd-group=$(PTXCONF_AVAHI_AUTOIP_GROUP) \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
+# if PTXCONF_AVAHI_LIBAVAHI_CLIENT and PTXCONF_AVAHI_GTK are set:
+# warning: libavahi-glib.so.1, needed by ./.libs/libavahi-ui-gtk3.so, not found (try using -rpath or -rpath-link)
+AVAHI_LDFLAGS := -Wl,-rpath-link,$(AVAHI_DIR)/avahi-glib/.libs/
+
+AVAHI_CFLAGS:= -D_FILE_OFFSET_BITS=64
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -96,8 +102,6 @@ $(STATEDIR)/avahi.targetinstall:
 	@$(call install_fixup, avahi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, avahi,DESCRIPTION,missing)
 
-	@$(call install_copy, avahi, 0, 0, 0644, -, \
-		/usr/share/avahi/service-types)
 	@$(call install_copy, avahi, 0, 0, 0644, -, \
 		/usr/share/avahi/avahi-service.dtd)
 

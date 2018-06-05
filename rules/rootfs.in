@@ -8,7 +8,7 @@ config ROOTFS
 	bool
 	prompt "Create Directories in /"
 	default y
-	select BUSYBOX_FEATURE_SHADOWPASSWDS if ROOTFS_SHADOW
+	select BUSYBOX_FEATURE_SHADOWPASSWDS if ROOTFS_SHADOW && BUSYBOX
 	select HOST_FIGLET if ROOTFS_ISSUE
 	help
 	  In order to support a standard root filesystem some subdirectories are
@@ -31,7 +31,6 @@ config ROOTFS_DEV_INITIAL
 	depends on ROOTFS_DEV
 	bool
 	prompt "create initial device nodes"
-	default y
 	help
 	  install /dev/null, /dev/zero and /dev/console device nodes.
 	  udev needs at least these nodes to startup. If you use udev
@@ -265,6 +264,7 @@ menu "files in rootfs               "
 config ROOTFS_PASSWD
 	bool
 	prompt "install /etc/passwd"
+	default y
 	help
 	  If enabled, it installs the "./projectroot/etc/passwd" file if
 	  present, else a generic one from the ptxdist directory.
@@ -272,12 +272,14 @@ config ROOTFS_PASSWD
 config ROOTFS_SHADOW
 	bool
 	prompt "install /etc/shadow"
+	default y
 	help
 	  If enabled, it installs the "./projectroot/etc/shadow" file if
 	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_GROUP
 	bool
+	default y
 	prompt "install /etc/group"
 	help
 	  If enabled, it installs the "./projectroot/etc/group" file if
@@ -285,6 +287,7 @@ config ROOTFS_GROUP
 
 config ROOTFS_GSHADOW
 	bool
+	default y
 	prompt "install /etc/gshadow"
 	help
 	  If enabled, it installs the "./projectroot/etc/gshadow" file if
@@ -292,6 +295,7 @@ config ROOTFS_GSHADOW
 
 config ROOTFS_FSTAB
 	bool
+	default y
 	prompt "install /etc/fstab"
 	help
 	  If enabled, it installs the "./projectroot/etc/fstab" file if
@@ -336,11 +340,13 @@ config ROOTFS_MTAB_LINK_VAR_FAKE_OVERLAYFS
 
 config ROOTFS_HOSTNAME
 	bool
+	default y
 	prompt "install /etc/hostname"
 
 config ROOTFS_ETC_HOSTNAME
 	string
 	prompt "hostname"
+	default "${PTXCONF_PROJECT}"
 	depends on ROOTFS_HOSTNAME
 
 config ROOTFS_HOSTS
@@ -360,7 +366,6 @@ config ROOTFS_ISSUE
 
 config ROOTFS_MODPROBE_CONF
 	bool
-	default n
 	prompt "install /etc/modprobe.conf"
 	help
 	  If enabled, it installs the "./projectroot/etc/modprobe.conf" file if
@@ -378,6 +383,7 @@ config ROOTFS_NSSWITCH_CONF
 
 config ROOTFS_PROFILE
 	bool
+	default y
 	prompt "install /etc/profile"
 	help
 	  If enabled, it installs "./projectroot/etc/profile" (for init-shells)

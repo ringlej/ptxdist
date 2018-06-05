@@ -17,6 +17,8 @@ menuconfig PYTHON
 	select READLINE		if PYTHON_READLINE
 	select DB		if PYTHON_DB
 	select OPENSSL		if PYTHON_HASHLIB
+	select TCL		if PYTHON_LIBTK
+	select TK		if PYTHON_LIBTK
 	help
 	  Python is a dynamic object-oriented programming
 	  language that can be used for many kinds of

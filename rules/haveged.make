@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_HAVEGED) += haveged
 #
 # Paths and names
 #
-HAVEGED_VERSION	:= 1.9.1
-HAVEGED_MD5	:= 015ff58cd10607db0e0de60aeca2f5f8
+HAVEGED_VERSION	:= 1.9.2
+HAVEGED_MD5	:= fb1d8b3dcbb9d06b30eccd8aa500fd31
 HAVEGED		:= haveged-$(HAVEGED_VERSION)
 HAVEGED_SUFFIX	:= tar.gz
 HAVEGED_URL	:= \
@@ -25,7 +25,7 @@ HAVEGED_URL	:= \
 	http://www.issihosts.com/haveged/archive/$(HAVEGED).$(HAVEGED_SUFFIX)
 HAVEGED_SOURCE	:= $(SRCDIR)/$(HAVEGED).$(HAVEGED_SUFFIX)
 HAVEGED_DIR	:= $(BUILDDIR)/$(HAVEGED)
-HAVEGED_LICENSE	:= GPL-3.0
+HAVEGED_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,0 +1,48 @@
+From: Axel Beckert <abe@debian.org>
+Date: Mon, 3 Jul 2017 10:41:19 +0200
+Subject: [PATCH] Fix some typos found by Lintian
+
+Forwarded: no
+Bug-Debian: https://bugs.debian.org/741141
+---
+ acls.c       | 4 ++--
+ doc/screen.1 | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/acls.c b/acls.c
+index 3b1669cf4a93..514e0fc4716d 100644
+--- a/acls.c
++++ b/acls.c
+@@ -578,7 +578,7 @@ char *name, *pw1, *pw2;
+     }
+   
+   debug2("syslog(LOG_NOTICE, \"screen %s: \"su %s\" ", SockPath, name);
+-  debug2("%s for \"%s\"\n", sorry ? "failed" : "succeded", (*up)->u_name);
++  debug2("%s for \"%s\"\n", sorry ? "failed" : "succeeded", (*up)->u_name);
+ #ifndef NOSYSLOG
+ # ifdef BSD_42
+   openlog("screen", LOG_PID);
+@@ -586,7 +586,7 @@ char *name, *pw1, *pw2;
+   openlog("screen", LOG_PID, LOG_AUTH);
+ # endif /* BSD_42 */
+   syslog(LOG_NOTICE, "%s: \"su %s\" %s for \"%s\"", SockPath, name, 
+-         sorry ? "failed" : "succeded", (*up)->u_name);
++         sorry ? "failed" : "succeeded", (*up)->u_name);
+   closelog();
+ #else
+   debug("NOT LOGGED.\n");
+diff --git a/doc/screen.1 b/doc/screen.1
+index 23b4d7b1202a..0fe8d0e533c2 100644
+--- a/doc/screen.1
++++ b/doc/screen.1
+@@ -1356,8 +1356,8 @@ non-whitespace character on the line.
+ \fBB\fP, \fBE\fP move the cursor WORD by WORD (as in vi).
+ .br 
+ .ti -2n
+-.\"\fBf\fP,\fBt\fP, \fBF\fP, \fBT\fP move the cursor forward/backward to the next occurence of the target.
+-\fBf/F\fP, \fBt/T\fP move the cursor forward/backward to the next occurence of the target. (eg, '3fy' will 
++.\"\fBf\fP,\fBt\fP, \fBF\fP, \fBT\fP move the cursor forward/backward to the next occurrence of the target.
++\fBf/F\fP, \fBt/T\fP move the cursor forward/backward to the next occurrence of the target. (eg, '3fy' will 
+ move the cursor to the 3rd 'y' to the right.)
+ .br
+ .ti -2n

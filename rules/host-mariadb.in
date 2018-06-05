@@ -3,10 +3,7 @@
 config HOST_MARIADB
 	tristate
 	default ALLYES
-	select HOST_LIBAIO
 	select HOST_NCURSES
 	select HOST_CMAKE
-	select HOST_SYSTEMD
-	select HOST_ZLIB
 	help
 	  Required host part of the MariaDB build system

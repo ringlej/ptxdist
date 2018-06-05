@@ -21,14 +21,14 @@ WPA_SUPPLICANT_VERSION	:= 2.6
 WPA_SUPPLICANT_MD5	:= 091569eb4440b7d7f2b4276dbfc03c3c
 WPA_SUPPLICANT		:= $(WPA_SUPPLICANT_NAME)-$(WPA_SUPPLICANT_VERSION)
 WPA_SUPPLICANT_SUFFIX	:= tar.gz
-WPA_SUPPLICANT_URL	:= http://hostap.epitest.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
+WPA_SUPPLICANT_URL	:= https://w1.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
 WPA_SUPPLICANT_SOURCE	:= $(SRCDIR)/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
 WPA_SUPPLICANT_DIR	:= $(BUILDDIR)/$(WPA_SUPPLICANT)
 WPA_SUPPLICANT_SUBDIR	:= $(WPA_SUPPLICANT_NAME)
 # Use '=' to delay $(shell ...) calls until this is needed
 WPA_SUPPLICANT_DEFCONF	 = $(shell ptxd_get_alternative config/wpasupplicant defconfig && echo $$ptxd_reply)
 WPA_SUPPLICANT_CONFIG	:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_SUBDIR)/.config
-WPA_SUPPLICANT_LICENSE	:= GPL-2.0
+WPA_SUPPLICANT_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

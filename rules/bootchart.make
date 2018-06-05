@@ -24,7 +24,7 @@ BOOTCHART_TARBALL	:= bootchart_$(BOOTCHART_VERSION)-3.$(BOOTCHART_SUFFIX)
 BOOTCHART_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BOOTCHART_TARBALL)
 BOOTCHART_SOURCE	:= $(SRCDIR)/$(BOOTCHART_TARBALL)
 BOOTCHART_DIR		:= $(BUILDDIR)/$(BOOTCHART)
-BOOTCHART_LICENSE	:= GPL-3.0
+BOOTCHART_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

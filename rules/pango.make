@@ -25,7 +25,7 @@ PANGO_SUFFIX	:= tar.bz2
 PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.29/$(PANGO).$(PANGO_SUFFIX)
 PANGO_SOURCE	:= $(SRCDIR)/$(PANGO).$(PANGO_SUFFIX)
 PANGO_DIR	:= $(BUILDDIR)/$(PANGO)
-PANGO_LICENSE	:= LGPL-2.0+
+PANGO_LICENSE	:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

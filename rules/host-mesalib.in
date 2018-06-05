@@ -3,6 +3,7 @@
 config HOST_MESALIB
 	tristate
 	default ALLYES
+	select HOST_EXPAT
 	select HOST_MAKEDEPEND
 	select HOST_SYSTEM_PYTHON
 	select HOST_SYSTEM_PYTHON_XML2

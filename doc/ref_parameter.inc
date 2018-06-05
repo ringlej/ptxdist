@@ -191,6 +191,10 @@ Misc Actions
   run a userspace NFS server and export the nfsroot (refer section
   :ref:`nfsroot` for further details).
 
+``gdb``
+  run the cross gdb from the toolchain. The sysroot and other search paths
+  are configured to ensure that gdb finds all available debug files.
+
 ``print <var>``
   print the contents of a variable. It will first look for a shell variable
   with the given name. If none exists, it will run make and look if a
@@ -313,3 +317,6 @@ Options
   the correct PTXdist version in the ptxconfig file and execute it if it
   does not match the current version.
 
+``--virtualenv=<dir>``
+  inlcude a Python Virtual Environment. The given path must contain a
+  ``bin/activate`` shell script.

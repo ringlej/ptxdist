@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_WHICH) += which
 #
 # Paths and names
 #
-WHICH_VERSION	:= 2.20
-WHICH_MD5	:= 95be0501a466e515422cde4af46b2744
+WHICH_VERSION	:= 2.21
+WHICH_MD5	:= 097ff1a324ae02e0a3b0369f07a7544a
 WHICH		:= which-$(WHICH_VERSION)
 WHICH_SUFFIX	:= tar.gz
 WHICH_URL	:= $(call ptx/mirror, GNU, which/$(WHICH).$(WHICH_SUFFIX))
 WHICH_SOURCE	:= $(SRCDIR)/$(WHICH).$(WHICH_SUFFIX)
 WHICH_DIR	:= $(BUILDDIR)/$(WHICH)
-WHICH_LICENSE	:= GPL-3.0
+WHICH_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

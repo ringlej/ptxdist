@@ -23,7 +23,7 @@ ED_SUFFIX	:= tar.gz
 ED_URL		:= $(call ptx/mirror, GNU, ed/$(ED).$(ED_SUFFIX))
 ED_SOURCE	:= $(SRCDIR)/$(ED).$(ED_SUFFIX)
 ED_DIR		:= $(BUILDDIR)/$(ED)
-ED_LICENSE	:= GPL-3.0
+ED_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

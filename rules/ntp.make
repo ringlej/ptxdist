@@ -17,277 +17,135 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	:= 4.2.8p8
-NTP_MD5		:= 4a8636260435b230636f053ffd070e34
+NTP_VERSION	:= 4.2.8p10
+NTP_MD5		:= 745384ed0dedb3f66b33fe84d66466f9
 NTP		:= ntp-$(NTP_VERSION)
 NTP_SUFFIX	:= tar.gz
 NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
 NTP_SOURCE	:= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
 NTP_DIR		:= $(BUILDDIR)/$(NTP)
 NTP_LICENSE	:= ntp
-NTP_LICENSE_FILES	:= file://COPYRIGHT;md5=f41fedb22dffefcbfafecc85b0f79cfa
+NTP_LICENSE_FILES	:= file://COPYRIGHT;md5=e877a1d567a6a58996d2b66e3e387003
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-NTP_PATH	:= PATH=$(CROSS_PATH)
-NTP_ENV 	:= \
+NTP_CONF_ENV	:= \
 	$(CROSS_ENV) \
-	libopts_cv_test_dev_zero=yes
+	libopts_cv_test_dev_zero=yes \
+	ntp_cv_vsnprintf_percent_m=yes
 
 #
 # autoconf
 #
-NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
-	--bindir=/usr/sbin \
-	--without-lineeditlibs \
-	--without-net-snmp-config \
-	--disable-linuxcaps \
-	--with-yielding-select=yes
 
-ifdef PTXCONF_NTP_ALL_CLOCK_DRIVERS
-NTP_AUTOCONF += --enable-all-clocks
-else
-NTP_AUTOCONF += --disable-all-clocks
-endif
-
-#
-# NTP: options, we need lots of options ;-)
 # Note: Only if '--disable-all-clocks' is given, the additional clock driver
-# switches makes sense (else most of the clock drivers are enabled
-# by default)
-#
-ifdef PTXCONF_NTP_CLOCKCTL
-NTP_AUTOCONF += --enable-clockctl
-endif
-ifdef PTXCONF_NTP_DEBUGGING
-NTP_AUTOCONF += --enable-debugging
-endif
-ifdef PTXCONF_NTP_DST_MINUTES
-NTP_AUTOCONF += --enable-dst-minutes=$(PTXCONF_NTP_DST_MINUTES)
-endif
-ifdef PTXCONF_NTP_BANCOMM
-NTP_AUTOCONF += --enable-BANCOMM
-endif
-ifdef PTXCONF_NTP_GPSVME
-NTP_AUTOCONF += --enable-GPSVME
-endif
-ifdef PTXCONF_NTP_ACTS
-NTP_AUTOCONF += --enable-ACTS
-endif
-ifdef PTXCONF_NTP_ARBITER
-NTP_AUTOCONF += --enable-ARBITER
-endif
-ifdef PTXCONF_NTP_ARCRON_MSF
-NTP_AUTOCONF += --enable-ARCRON_MSF
-endif
-ifdef PTXCONF_NTP_AS2201
-NTP_AUTOCONF += --enable-AS2201
-endif
-ifdef PTXCONF_NTP_ATOM
-NTP_AUTOCONF += --enable-ATOM
-endif
-ifdef PTXCONF_NTP_CHRONOLOG
-NTP_AUTOCONF += --enable-CHRONOLOG
-endif
-ifdef PTXCONF_NTP_CHU
-NTP_AUTOCONF += --enable-CHU
-endif
-ifdef PTXCONF_NTP_AUDIO_CHU
-NTP_AUTOCONF += --enable-AUDIO-CHU
-endif
-ifdef PTXCONF_NTP_DATUM
-NTP_AUTOCONF += --enable-DATUM
-endif
-ifdef PTXCONF_NTP_DUMBCLOCK
-NTP_AUTOCONF += --enable-DUMBCLOCK
-endif
-ifdef PTXCONF_NTP_FG
-NTP_AUTOCONF += --enable-FG
-endif
-ifdef PTXCONF_NTP_GPSD
-NTP_AUTOCONF += --enable-GPSD
-endif
-ifdef PTXCONF_NTP_HEATH
-NTP_AUTOCONF += --enable-HEATH
-endif
-ifdef PTXCONF_NTP_HOPFSERIAL
-NTP_AUTOCONF += --enable-HOPFSERIAL
-endif
-ifdef PTXCONF_NTP_HOPFPCI
-NTP_AUTOCONF += --enable-HOPFPCI
-endif
-ifdef PTXCONF_NTP_HPGPS
-NTP_AUTOCONF += --enable-HPGPS
-endif
-ifdef PTXCONF_NTP_IRIG
-NTP_AUTOCONF += --enable-IRIG
-endif
-ifdef PTXCONF_NTP_JJY
-NTP_AUTOCONF += --enable-JJY
-endif
-ifdef PTXCONF_NTP_JUPITER
-NTP_AUTOCONF += --enable-JUPITER
-endif
-ifdef PTXCONF_NTP_LEITCH
-NTP_AUTOCONF += --enable-LEITCH
-endif
-ifdef PTXCONF_NTP_LOCAL_CLOCK
-NTP_AUTOCONF += --enable-LOCAL-CLOCK
-endif
-ifdef PTXCONF_NTP_MSFEES
-NTP_AUTOCONF += --enable-MSFEES
-endif
-ifdef PTXCONF_NTP_MX4200
-NTP_AUTOCONF += --enable-MX4200
-endif
-ifdef PTXCONF_NTP_NEOCLOCK4X
-NTP_AUTOCONF += --enable-NEOCLOCK4X
-endif
-ifdef PTXCONF_NTP_NMEA
-NTP_AUTOCONF += --enable-NMEA
-endif
-ifdef PTXCONF_NTP_ONCORE
-NTP_AUTOCONF += --enable-ONCORE
-endif
-ifdef PTXCONF_NTP_PALISADE
-NTP_AUTOCONF += --enable-PALISADE
-endif
-ifdef PTXCONF_NTP_PCF
-NTP_AUTOCONF += --enable-PCF
-endif
-ifdef PTXCONF_NTP_PST
-NTP_AUTOCONF += --enable-PST
-endif
-ifdef PTXCONF_NTP_PTBACTS
-NTP_AUTOCONF += --enable-PTBACTS
-endif
-ifdef PTXCONF_NTP_RIPENCC
-NTP_AUTOCONF += --enable-RIPENCC
-endif
-ifdef PTXCONF_NTP_SEL240X
-NTP_AUTOCONF += --enable-SEL240X
-endif
-ifdef PTXCONF_NTP_SHM
-NTP_AUTOCONF += --enable-SHM
-endif
-ifdef PTXCONF_NTP_SPECTRACOM
-NTP_AUTOCONF += --enable-SPECTRACOM
-endif
-ifdef PTXCONF_NTP_TPRO
-NTP_AUTOCONF += --enable-TPRO
-endif
-ifdef PTXCONF_NTP_TRAK
-NTP_AUTOCONF += --enable-TRAK
-endif
-ifdef PTXCONF_NTP_TRUETIME
-NTP_AUTOCONF += --enable-TRUETIME
-endif
-ifdef PTXCONF_NTP_TSYNCPCI
-NTP_AUTOCONF += --enable-TSYNCPCI
-endif
-ifdef PTXCONF_NTP_TT560
-NTP_AUTOCONF += --enable-TT560
-endif
-ifdef PTXCONF_NTP_ULINK
-NTP_AUTOCONF += --enable-ULINK
-endif
-ifdef PTXCONF_NTP_WWV
-NTP_AUTOCONF += --enable-WWV
-endif
-ifdef PTXCONF_NTP_ZYFER
-NTP_AUTOCONF += --enable-ZYFER
-endif
-ifdef PTXCONF_NTP_COMPUTIME
-NTP_AUTOCONF += --enable-COMPUTIME
-endif
-ifdef PTXCONF_NTP_DCF7000
-NTP_AUTOCONF += --enable-DCF7000
-endif
-ifdef PTXCONF_NTP_HOPF6021
-NTP_AUTOCONF += --enable-HOPF6021
-endif
-ifdef PTXCONF_NTP_MEINBERG
-NTP_AUTOCONF += --enable-MEINBERG
-endif
-ifdef PTXCONF_NTP_RAWDCF
-NTP_AUTOCONF += --enable-RAWDCF
-endif
-ifdef PTXCONF_NTP_RCC8000
-NTP_AUTOCONF += --enable-RCC8000
-endif
-ifdef PTXCONF_NTP_SCHMID
-NTP_AUTOCONF += --enable-SCHMID
-endif
-ifdef PTXCONF_NTP_TRIMTAIP
-NTP_AUTOCONF += --enable-TRIMTAIP
-endif
-ifdef PTXCONF_NTP_TRIMTSIP
-NTP_AUTOCONF += --enable-TRIMTSIP
-endif
-ifdef PTXCONF_NTP_WHARTON
-NTP_AUTOCONF += --enable-WHARTON
-endif
-ifdef PTXCONF_NTP_VARITEXT
-NTP_AUTOCONF += --enable-VARITEXT
-endif
-ifdef PTXCONF_NTP_KMEM
-NTP_AUTOCONF += --enable-kmem
-endif
-ifdef PTXCONF_NTP_ACCURATE_ADJTIME
-NTP_AUTOCONF += --enable-accurate-adjtime
-endif
-ifdef PTXCONF_NTP_TICK_FORCE
-NTP_AUTOCONF += --enable-tick=$(PTXCONF_NTP_TICK)
-endif
-ifdef PTXCONF_NTP_TICKADJ_FORCE
-NTP_AUTOCONF += --enable-tickadj=$(PTXCONF_NTP_TICKADJ)
-endif
-ifdef PTXCONF_NTP_SIMULATOR
-NTP_AUTOCONF += --enable-simulator
-endif
-ifdef PTXCONF_NTP_UDP_WILDCARD
-NTP_AUTOCONF += --enable-udp-wildcard
-endif
-ifdef PTXCONF_NTP_SLEW_ALWAYS
-NTP_AUTOCONF += --enable-slew-always
-endif
-ifdef PTXCONF_NTP_STEP_SLEW
-NTP_AUTOCONF += --enable-step-slew
-endif
-ifdef PTXCONF_NTP_NTPDATE_STEP
-NTP_AUTOCONF += --enable-ntpdate-step
-endif
-ifdef PTXCONF_NTP_HOURLY_TODR_SYNC
-NTP_AUTOCONF += --enable-hourly-todr-sync
-endif
-ifdef PTXCONF_NTP_KERNEL_FLL_BUG
-NTP_AUTOCONF += --enable-kernel-fll-bug
-endif
-ifdef PTXCONF_NTP_IRIG_SAWTOOTH
-NTP_AUTOCONF += --enable-irig-sawtooth
-endif
-ifdef PTXCONF_NTP_NIST
-NTP_AUTOCONF += --enable-nist
-endif
-ifdef PTXCONF_NTP_CRYPTO
-NTP_AUTOCONF += \
-	--with-crypto \
-	--with-openssl-libdir=$(PTXDIST_SYSROOT_TARGET)/usr/lib \
-	--with-openssl-incdir=$(PTXDIST_SYSROOT_TARGET)/usr/include
-else
-NTP_AUTOCONF += --without-crypto \
-	--without-openssl-libdir \
-	--without-openssl-incdir
-endif
-ifdef PTXCONF_NTP_SNTP
-NTP_AUTOCONF += --with-sntp
-endif
-ifdef PTXCONF_NTP_ARLIB
-NTP_AUTOCONF += --enable-arlib
-endif
+# switches makes sense (else most of the clock drivers are enabled by default)
+NTP_CONF_TOOL	:= autoconf
+NTP_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--bindir=/usr/sbin \
+	--disable-nls \
+	--enable-local-libopts \
+	--disable-libopts-install \
+	--disable-local-libevent \
+	--without-lineeditlibs \
+	--$(call ptx/endis, PTXCONF_NTP_DEBUGGING)-debugging \
+	--enable-thread-support \
+	--with-threads=posix \
+	--with-yielding-select=yes \
+	--disable-c99-snprintf \
+	--disable-clockctl \
+	--enable-linuxcaps \
+	--disable-solarisprivs \
+	--without-arlib \
+	--without-net-snmp-config \
+	--disable-libseccomp \
+	--disable-debug-timing \
+	--enable-dst-minutes=60 \
+	--disable-ignore-dns-errors \
+	--$(call ptx/endis, PTXCONF_NTP_BANCOMM)-BANCOMM \
+	--$(call ptx/endis, PTXCONF_NTP_GPSVME)-GPSVME \
+	--$(call ptx/endis, PTXCONF_NTP_ALL_CLOCK_DRIVERS)-all-clocks \
+	--$(call ptx/endis, PTXCONF_NTP_ACTS)-ACTS \
+	--$(call ptx/endis, PTXCONF_NTP_ARBITER)-ARBITER \
+	--$(call ptx/endis, PTXCONF_NTP_ARCRON_MSF)-ARCRON-MSF \
+	--$(call ptx/endis, PTXCONF_NTP_AS2201)-AS2201 \
+	--$(call ptx/endis, PTXCONF_NTP_ATOM)-ATOM \
+	--$(call ptx/endis, PTXCONF_NTP_CHRONOLOG)-CHRONOLOG \
+	--$(call ptx/endis, PTXCONF_NTP_CHU)-CHU \
+	--$(call ptx/endis, PTXCONF_NTP_AUDIO_CHU)-AUDIO-CHU \
+	--$(call ptx/endis, PTXCONF_NTP_DATUM)-DATUM \
+	--$(call ptx/endis, PTXCONF_NTP_DUMBCLOCK)-DUMBCLOCK \
+	--$(call ptx/endis, PTXCONF_NTP_FG)-FG \
+	--$(call ptx/endis, PTXCONF_NTP_HEATH)-HEATH \
+	--$(call ptx/endis, PTXCONF_NTP_HOPFSERIAL)-HOPFSERIAL \
+	--$(call ptx/endis, PTXCONF_NTP_HOPFPCI)-HOPFPCI \
+	--$(call ptx/endis, PTXCONF_NTP_HPGPS)-HPGPS \
+	--$(call ptx/endis, PTXCONF_NTP_IRIG)-IRIG \
+	--$(call ptx/endis, PTXCONF_NTP_JJY)-JJY \
+	--$(call ptx/endis, PTXCONF_NTP_JUPITER)-JUPITER \
+	--$(call ptx/endis, PTXCONF_NTP_LEITCH)-LEITCH \
+	--$(call ptx/endis, PTXCONF_NTP_LOCAL_CLOCK)-LOCAL-CLOCK \
+	--$(call ptx/endis, PTXCONF_NTP_MX4200)-MX4200 \
+	--$(call ptx/endis, PTXCONF_NTP_NEOCLOCK4X)-NEOCLOCK4X \
+	--$(call ptx/endis, PTXCONF_NTP_NMEA)-NMEA \
+	--$(call ptx/endis, PTXCONF_NTP_GPSD)-GPSD \
+	--$(call ptx/endis, PTXCONF_NTP_ONCORE)-ONCORE \
+	--$(call ptx/endis, PTXCONF_NTP_PALISADE)-PALISADE \
+	--$(call ptx/endis, PTXCONF_NTP_PCF)-PCF \
+	--$(call ptx/endis, PTXCONF_NTP_PST)-PST \
+	--$(call ptx/endis, PTXCONF_NTP_RIPENCC)-RIPENCC \
+	--$(call ptx/endis, PTXCONF_NTP_SHM)-SHM \
+	--$(call ptx/endis, PTXCONF_NTP_SPECTRACOM)-SPECTRACOM \
+	--$(call ptx/endis, PTXCONF_NTP_TPRO)-TPRO \
+	--$(call ptx/endis, PTXCONF_NTP_TRUETIME)-TRUETIME \
+	--$(call ptx/endis, PTXCONF_NTP_TT560)-TT560 \
+	--$(call ptx/endis, PTXCONF_NTP_ULINK)-ULINK \
+	--$(call ptx/endis, PTXCONF_NTP_TSYNCPCI)-TSYNCPCI \
+	--$(call ptx/endis, PTXCONF_NTP_WWV)-WWV \
+	--$(call ptx/endis, PTXCONF_NTP_ZYFER)-ZYFER \
+	--$(call ptx/endis, PTXCONF_NTP_ALL_CLOCK_DRIVERS)-parse-clocks \
+	--$(call ptx/endis, PTXCONF_NTP_COMPUTIME)-COMPUTIME \
+	--$(call ptx/endis, PTXCONF_NTP_DCF7000)-DCF7000 \
+	--$(call ptx/endis, PTXCONF_NTP_HOPF6021)-HOPF6021 \
+	--$(call ptx/endis, PTXCONF_NTP_MEINBERG)-MEINBERG \
+	--$(call ptx/endis, PTXCONF_NTP_RAWDCF)-RAWDCF \
+	--$(call ptx/endis, PTXCONF_NTP_RCC8000)-RCC8000 \
+	--$(call ptx/endis, PTXCONF_NTP_SCHMID)-SCHMID \
+	--$(call ptx/endis, PTXCONF_NTP_TRIMTAIP)-TRIMTAIP \
+	--$(call ptx/endis, PTXCONF_NTP_TRIMTSIP)-TRIMTSIP \
+	--$(call ptx/endis, PTXCONF_NTP_WHARTON)-WHARTON \
+	--$(call ptx/endis, PTXCONF_NTP_VARITEXT)-VARITEXT \
+	--$(call ptx/endis, PTXCONF_NTP_SEL240X)-SEL240X \
+	--$(call ptx/wwo, PTXCONF_NTP_CRYPTO)-crypto \
+	--without-rpath \
+	--$(call ptx/endis, PTXCONF_NTP_CRYPTO)-openssl-random \
+	--$(call ptx/endis, PTXCONF_NTP_CRYPTO)-autokey \
+	--disable-kmem \
+	--enable-accurate-adjtime \
+	--disable-simulator \
+	--without-sntp \
+	--without-ntpsnmpd \
+	--$(call ptx/endis, PTXCONF_NTP_SLEW_ALWAYS)-slew-always \
+	--$(call ptx/endis, PTXCONF_NTP_STEP_SLEW)-step-slew \
+	--$(call ptx/endis, PTXCONF_NTP_NTPDATE_STEP)-ntpdate-step \
+	--$(call ptx/endis, PTXCONF_NTP_HOURLY_TODR_SYNC)-hourly-todr-sync \
+	--disable-kernel-fll-bug \
+	--enable-bug1243-fix \
+	--enable-bug3020-fix \
+	--$(call ptx/endis, PTXCONF_NTP_IRIG_SAWTOOTH)-irig-sawtooth \
+	--$(call ptx/endis, PTXCONF_NTP_NIST)-nist \
+	--disable-ntp-signd \
+	$(GLOBAL_IPV6_OPTION) \
+	--without-kame \
+	--enable-getifaddrs \
+	--disable-saveconfig \
+	--disable-leap-smear \
+	--disable-dynamic-interleave \
+	--without-gtest \
+	--disable-problem-tests
 
 # ----------------------------------------------------------------------------
 # Target-Install

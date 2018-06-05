@@ -1,0 +1,32 @@
+From: Geert Stappers <stappers@debian.org>
+Date: Sun, 1 Oct 2017 08:07:04 +0200
+Subject: [PATCH] remove linux/if_arp.h from configure.ac
+
+Without this, building with newer kernel headers fails with:
+
+In file included from includes.h:106:0,
+                 from socket.c:17:
+                 <TOOLCHAIN>/usr/include/linux/if_arp.h:114:8: error: redefinition of 'struct arpreq'
+In file included from includes.h:90:0,
+                 from socket.c:17:
+                 <TOOLCHAIN>/usr/include/net/if_arp.h:137:8: note: originally defined here
+
+Taken from Debian.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 1790f1349c73..a1de6b2c188b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -156,7 +156,6 @@ AC_HEADER_STDC
+ AC_CHECK_HEADERS( \
+ 	getopt.h \
+ 	ifaddrs.h \
+-	linux/if_arp.h \
+ 	machine/limits.h \
+ 	machine/param.h \
+ 	net/if_arp.h \

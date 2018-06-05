@@ -1,0 +1,52 @@
+From: Yi-Jheng Lin <yzlin@cs.nctu.edu.tw>
+Date: Mon, 3 Jul 2017 10:42:52 +0200
+Subject: [PATCH] show encoding in hardstatus
+
+Origin: https://svnweb.freebsd.org/ports/head/sysutils/screen/files/opt-showencoding?view=markup
+Reviewed-By: rascov <rascov@rascov.tw>
+Reviewed-By: Dustin Kirkland <kirkland@ubuntu.com>
+Last-Update: Wed Feb 11 05:51:31 CST 2009
+Bug-FreeBSD: https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=124492
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/screen/+bug/286810
+Bug-Debian: https://bugs.debian.org/533498
+---
+ process.c |  1 +
+ screen.c  | 13 +++++++++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/process.c b/process.c
+index 63c85b1a0a65..304ce0e691de 100644
+--- a/process.c
++++ b/process.c
+@@ -3783,6 +3783,7 @@ int key;
+ 	    {
+ 	      WinSwitchEncoding(fore, n);
+ 	      ResetCharsets(fore);
++	      RedisplayDisplays(0);
+ 	    }
+ 	  else if (i && display)
+ 	    D_encoding  = n;
+diff --git a/screen.c b/screen.c
+index 64650e9b2edc..7cad20626f2b 100644
+--- a/screen.c
++++ b/screen.c
+@@ -2761,6 +2761,19 @@ char *MakeWinMsgEv(char *str, struct win *win, int esc, int padlen, struct event
+       p += strlen(p) - 1;
+       break;
+ 
++      #ifdef ENCODINGS
++      case 'e':
++        *p = 0;
++        D_encoding = nwin_options.encoding > 0 ? nwin_options.encoding : 0;
++        if (win && win->w_encoding)
++          {
++            *p++ = ' ';
++            strcpy(p, EncodingName(win->w_encoding));
++          }
++          p += strlen(p) - 1;
++          break;
++      #endif
++
+     case '{':
+     {
+       char rbuf[128];

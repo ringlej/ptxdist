@@ -1,0 +1,19 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Fri, 25 Aug 2017 16:03:15 +0200
+Subject: [PATCH] run-time: use a broadly supported shell interpreter
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ tools/scmp_app_inspector | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/scmp_app_inspector b/tools/scmp_app_inspector
+index 45b86b2ca0c5..14f3dfc07387 100755
+--- a/tools/scmp_app_inspector
++++ b/tools/scmp_app_inspector
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ #
+ # Runtime syscall inspector

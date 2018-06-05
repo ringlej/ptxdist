@@ -23,7 +23,7 @@ LAME_SUFFIX	:= tar.gz
 LAME_URL	:= $(call ptx/mirror, SF, lame/$(LAME).$(LAME_SUFFIX))
 LAME_SOURCE	:= $(SRCDIR)/$(LAME).$(LAME_SUFFIX)
 LAME_DIR	:= $(BUILDDIR)/$(LAME)
-LAME_LICENSE	:= LGPL-2.0
+LAME_LICENSE	:= LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

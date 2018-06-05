@@ -23,7 +23,7 @@ LIBOPING_SUFFIX		:= tar.gz
 LIBOPING_URL		:= http://verplant.org/liboping/files/$(LIBOPING).$(LIBOPING_SUFFIX)
 LIBOPING_SOURCE		:= $(SRCDIR)/$(LIBOPING).$(LIBOPING_SUFFIX)
 LIBOPING_DIR		:= $(BUILDDIR)/$(LIBOPING)
-LIBOPING_LICENSE	:= LGPL-2.1+
+LIBOPING_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

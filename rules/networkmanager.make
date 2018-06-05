@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.8.0
-NETWORKMANAGER_MD5	:= de0e70933a17ee6a682e8440015c9b1e
+NETWORKMANAGER_VERSION	:= 1.10.4
+NETWORKMANAGER_MD5	:= 2a603a970eaccc9be9bf7bf16175d3c0
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.8/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.10/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
-NETWORKMANAGER_LICENSE	:= GPL-2.0+ AND LGPL-2.0+
+NETWORKMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
 NETWORKMANAGER_LICENSE_FILES := file://COPYING;md5=cbbffd568227ada506640fe950a4823b
 
 # ----------------------------------------------------------------------------
@@ -57,6 +57,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-modify-system \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
 	--disable-bluez5-dun \
+	--disable-ovs \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_CONCHECK)-concheck \
 	--enable-more-warnings \
 	--disable-more-asserts \
@@ -88,6 +89,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--with-pppd=/usr/sbin/pppd \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
 	--without-ofono \
+	--without-dhcpcanon \
 	--with-dhclient=/usr/sbin/dhclient \
 	--without-dhcpcd \
 	--without-dhcpcd-supports-ipv6 \

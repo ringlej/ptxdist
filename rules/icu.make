@@ -24,7 +24,7 @@ ICU_URL		:= http://download.icu-project.org/files/icu4c/$(ICU_VERSION)/$(ICU).$(
 ICU_SOURCE	:= $(SRCDIR)/$(ICU).$(ICU_SUFFIX)
 ICU_DIR		:= $(BUILDDIR)/$(ICU)
 ICU_SUBDIR	:= source
-ICU_LICENSE	:= MIT, Unicode-TOU, public_domain
+ICU_LICENSE	:= MIT AND Unicode-TOU AND public_domain
 ICU_LICENSE_FILES := \
 	file://license.html;md5=3a0605ebb7852070592fbd57e8967f3f
 

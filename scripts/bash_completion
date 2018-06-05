@@ -103,20 +103,16 @@ _ptxdist_completion()
 		# if no commands were given, complete on commands themselves
 		COMPREPLY=( $( compgen -W "${_ptxdist_completion_cmds[*]} help" -- $cur ) )
 		;;
-	menuconfig)
+	*config)
 		COMPREPLY=( $( compgen -W "kernel platform barebox board collection user" -- $cur) )
 		;;
 	clone)
-		#HACK! Enable filename completion without specifying '-o filenames' during complete (that will add slashes to commands if there is a dir of the same name :( )
-		compgen -f /dummy >/dev/null
 		[ ${#args[@]} -lt 2 ] && _filedir -d
 		;;
 	toolchain|export_src)
-		compgen -f /dummy >/dev/null
 		[ ${#args[@]} -lt 1 ] && _filedir -d
 		;;
-	select|platform|collection)
-		compgen -f /dummy >/dev/null
+	select|platform|collection|gdb)
 		[ ${#args[@]} -lt 1 ] && _filedir
 		;;
 	clean)
@@ -136,6 +132,12 @@ _ptxdist_completion()
 			COMPREPLY=( $( compgen -W "${_ptxdist_completion_newpkg[*]}" -- $cur) )
 		fi
 		;;
+	local-src)
+		if [ ${#args[@]} -lt 1 ]; then
+			COMPREPLY+=( $( compgen -W "$(__ptxdist_completion_packages)" -- $cur ) )
+		else
+			_filedir -d
+		fi
 	esac
 	COMPREPLY+=( $( compgen -W "${_ptxdist_completion_opts[*]}" -- $cur ) )
 	[[ $COMPREPLY == *= ]] && compopt -o nospace

@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		:= 2.8.4
-NANO_MD5		:= e2a6bfc054d1f535b723f93eb73e5f77
+NANO_VERSION		:= 2.9.2
+NANO_MD5		:= 40ac792d28641969ce0be0a4a37df6a0
 NANO			:= nano-$(NANO_VERSION)
 NANO_SUFFIX		:= tar.gz
 NANO_URL		:= https://www.nano-editor.org/dist/v$(basename $(NANO_VERSION))/$(NANO).$(NANO_SUFFIX)
 NANO_SOURCE		:= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
 NANO_DIR		:= $(BUILDDIR)/$(NANO)
-NANO_LICENSE		:= GPL-3.0+
+NANO_LICENSE		:= GPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -42,6 +42,7 @@ NANO_CONF_TOOL	:= autoconf
 NANO_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-threads=posix \
 	--disable-rpath \
 	--disable-nls \
 	--disable-browser \
@@ -66,6 +67,7 @@ NANO_CONF_OPT	:= \
 	--disable-tiny \
 	--disable-utf8 \
 	--disable-altrcname \
+	--without-included-regex \
 	--without-slang \
 	--with-wordbounds
 

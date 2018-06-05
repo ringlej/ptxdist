@@ -24,8 +24,11 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 
 HOST_GLIB_CONF_ENV	:= \
 	$(HOST_ENV) \
-	ac_cv_path_MSGFMT=: \
-	ac_cv_path_XGETTEXT=no
+	ac_cv_path_MSGFMT="" \
+	ac_cv_path_XGETTEXT="" \
+	ac_cv_prog_GTKDOC_CHECK="" \
+	ac_cv_path_GTKDOC_REBASE="" \
+	ac_cv_path_GTKDOC_MKPDF=""
 
 #
 # autoconf
@@ -33,6 +36,7 @@ HOST_GLIB_CONF_ENV	:= \
 HOST_GLIB_CONF_TOOL	:= autoconf
 HOST_GLIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
+	--disable-maintainer-mode \
 	--disable-debug \
 	--disable-gc-friendly \
 	--enable-mem-pools \
@@ -48,6 +52,8 @@ HOST_GLIB_CONF_OPT	:= \
 	--disable-libelf \
 	--disable-libmount \
 	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf \
 	--disable-man \
 	--disable-dtrace \
 	--disable-systemtap \

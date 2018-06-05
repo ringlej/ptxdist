@@ -29,6 +29,7 @@ config LINKS_SSL
 
 config LINKS_GPM
 	bool
+	depends on STAGING
 	prompt "support for GPM"
 	help
 	  Activate support for General Purpose Mouse (GPM) service
@@ -51,6 +52,7 @@ config LINKS_FBCON
 	select LINKS_PNG
 	select LINKS_JPEG
 	select LINKS_GPM
+	depends on STAGING
 	prompt "support for fbcon"
 	help
 	  Activate support for Framebuffer Console mode

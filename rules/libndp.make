@@ -23,7 +23,7 @@ LIBNDP_SUFFIX	:= tar.gz
 LIBNDP_URL	:= http://libndp.org/files/$(LIBNDP).$(LIBNDP_SUFFIX)
 LIBNDP_SOURCE	:= $(SRCDIR)/$(LIBNDP).$(LIBNDP_SUFFIX)
 LIBNDP_DIR	:= $(BUILDDIR)/$(LIBNDP)
-LIBNDP_LICENSE	:= LGPL-2.1
+LIBNDP_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

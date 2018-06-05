@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBUSB) += libusb
 #
 # Paths and names
 #
-LIBUSB_VERSION	:= 1.0.21
-LIBUSB_MD5	:= 1da9ea3c27b3858fa85c5f4466003e44
+LIBUSB_VERSION	:= 1.0.22
+LIBUSB_MD5	:= 466267889daead47674df933cea9cacb
 LIBUSB		:= libusb-$(LIBUSB_VERSION)
 LIBUSB_SUFFIX	:= tar.bz2
 LIBUSB_URL	:= $(call ptx/mirror, SF, libusb/$(LIBUSB).$(LIBUSB_SUFFIX))
 LIBUSB_SOURCE	:= $(SRCDIR)/$(LIBUSB).$(LIBUSB_SUFFIX)
 LIBUSB_DIR	:= $(BUILDDIR)/$(LIBUSB)
-LIBUSB_LICENSE	:= LGPL-2.1
+LIBUSB_LICENSE	:= LGPL-2.1-only
 
 #
 # autoconf
@@ -33,7 +33,6 @@ LIBUSB_AUTOCONF := \
 	--enable-shared \
 	--disable-static \
 	--disable-udev \
-	--disable-usbdk \
 	--enable-timerfd \
 	--$(call ptx/endis, PTXCONF_LIBUSB_LOG)-log \
 	--$(call ptx/endis, PTXCONF_LIBUSB_DEBUG_LOG)-debug-log \

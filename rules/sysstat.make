@@ -23,7 +23,7 @@ SYSSTAT_SUFFIX	:= tar.xz
 SYSSTAT_URL	:= http://pagesperso-orange.fr/sebastien.godard/$(SYSSTAT).$(SYSSTAT_SUFFIX)
 SYSSTAT_SOURCE	:= $(SRCDIR)/$(SYSSTAT).$(SYSSTAT_SUFFIX)
 SYSSTAT_DIR	:= $(BUILDDIR)/$(SYSSTAT)
-SYSSTAT_LICENSE	:= GPL-2.0+
+SYSSTAT_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

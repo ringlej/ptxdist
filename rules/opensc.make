@@ -18,13 +18,13 @@ PACKAGES-$(PTXCONF_OPENSC) += opensc
 # Paths and names
 #
 OPENSC_VERSION	:= 0.15.0
-OPENSC_MD5	:= 01e6b803865f7b7574ee65a7b2d63c17
-OPENSC		:= opensc-$(OPENSC_VERSION)
+OPENSC_MD5	:= f266024e5a9630821ffa0ac14f72e369
+OPENSC		:= OpenSC-$(OPENSC_VERSION)
 OPENSC_SUFFIX	:= tar.gz
-OPENSC_URL	:= $(call ptx/mirror, SF, opensc/OpenSC/$(OPENSC)/$(OPENSC).$(OPENSC_SUFFIX))
+OPENSC_URL	:= https://github.com/OpenSC/OpenSC/archive/$(OPENSC_VERSION).$(OPENSC_SUFFIX)
 OPENSC_SOURCE	:= $(SRCDIR)/$(OPENSC).$(OPENSC_SUFFIX)
 OPENSC_DIR	:= $(BUILDDIR)/$(OPENSC)
-OPENSC_LICENSE	:= LGPL-2.1+ AND Expat AND ISC
+OPENSC_LICENSE	:= LGPL-2.1-or-later AND Expat AND ISC
 
 # ----------------------------------------------------------------------------
 # Prepare

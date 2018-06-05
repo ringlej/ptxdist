@@ -1,4 +1,6 @@
-## SECTION=communication
+## SECTION=staging
+## old section:
+### SECTION=communication
 
 menuconfig IRSSI
 	tristate
@@ -11,6 +13,10 @@ menuconfig IRSSI
 	select OPENSSL		if IRSSI_SSL
 	help
 	  IRSSI is a command-line focused IRC client.
+
+	  STAGING: remove in ptxdist-2019.05.0
+	  Old version that is no longer available for download.
+	  Should be updated to a new version.
 
 if IRSSI
 

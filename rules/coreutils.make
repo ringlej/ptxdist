@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names
 #
-COREUTILS_VERSION	:= 8.27
-COREUTILS_MD5		:= 502795792c212932365e077946d353ae
+COREUTILS_VERSION	:= 8.29
+COREUTILS_MD5		:= 960cfe75a42c9907c71439f8eb436303
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
 COREUTILS_SUFFIX	:= tar.xz
 COREUTILS_URL		:= $(call ptx/mirror, GNU, coreutils/$(COREUTILS).$(COREUTILS_SUFFIX))
 COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).$(COREUTILS_SUFFIX)
 COREUTILS_DIR		:= $(BUILDDIR)/$(COREUTILS)
-COREUTILS_LICENSE	:= GPL-3.0
+COREUTILS_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -169,10 +169,14 @@ COREUTILS_CONF_OPT	:= \
 	--disable-libsmack \
 	--disable-xattr \
 	--disable-libcap \
+	--disable-gcc-warnings \
+	--disable-single-binary \
+	--disable-single-binary-exceptions \
 	--enable-no-install-program=$(subst $(space),$(comma),$(strip $(COREUTILS_INST-))) \
 	--disable-nls \
 	--without-openssl \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux \
+	--with-tty-group=tty \
 	--without-gmp
 
 COREUTILS_MAKE_OPT	:= \

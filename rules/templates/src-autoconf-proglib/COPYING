@@ -1,0 +1,15 @@
+TODO: decide what kind of license your work should have:
+
+ - LGPL:
+   * http://www.gnu.org/licenses/lgpl-2.0.txt
+   * http://www.gnu.org/licenses/lgpl-3.0.txt
+
+ - GPL:
+   * http://www.gnu.org/licenses/gpl-2.0.txt
+   * http://www.gnu.org/licenses/gpl-3.0.txt
+
+or any other license. But you should *always* include a valid license here.
+
+Note: for the LGPL-3 case you must also include the GPL-3 license.
+Note: you can define your library to use the LGPL-* license, while the program
+      can use the GPL-*

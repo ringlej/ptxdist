@@ -1,0 +1,25 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 28 Apr 2016 13:42:53 +0200
+Subject: [PATCH] Makefile.in: fix cross compiling
+
+Don't use SLANG_INST_LIB (= the installation path == /use/lib) during
+link time.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ slsh/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/slsh/Makefile.in b/slsh/Makefile.in
+index cba9d81fe6d9..4c1c3708d735 100644
+--- a/slsh/Makefile.in
++++ b/slsh/Makefile.in
+@@ -77,7 +77,7 @@ SLSYSWRAP_LIB = @LIB_SLSYSWRAP@
+ #----------------------------------------------------------------------------
+ @SET_MAKE@
+ SHELL = /bin/sh
+-INST_LIBS = $(DEST_LIB_DIR) $(RPATH) $(SLANG_INST_LIB) -lslang $(READLINE_LIB) $(DYNAMIC_LIBS)
++INST_LIBS = $(DEST_LIB_DIR) $(RPATH) -lslang $(READLINE_LIB) $(DYNAMIC_LIBS)
+ DEFS = -DSLSH_CONF_DIR='"$(SLSH_CONF_DIR)"' -DSLSH_PATH='"$(SLSH_LIB_DIR)"' \
+  -DSLSH_CONF_DIR_ENV='$(SLSH_CONF_DIR_ENV)' -DSLSH_LIB_DIR_ENV='$(SLSH_LIB_DIR_ENV)' \
+  -DSLSH_PATH_ENV='$(SLSH_PATH_ENV)' $(SLSYSWRAP_DEF)

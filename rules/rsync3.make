@@ -23,7 +23,7 @@ RSYNC3_SUFFIX	:= tar.gz
 RSYNC3_URL	:= http://rsync.samba.org/ftp/rsync/src/$(RSYNC3).$(RSYNC3_SUFFIX)
 RSYNC3_SOURCE	:= $(SRCDIR)/$(RSYNC3).$(RSYNC3_SUFFIX)
 RSYNC3_DIR	:= $(BUILDDIR)/$(RSYNC3)
-RSYNC3_LICENSE	:= GPL-3.0
+RSYNC3_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

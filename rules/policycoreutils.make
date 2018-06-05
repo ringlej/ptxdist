@@ -23,7 +23,7 @@ POLICYCOREUTILS_SUFFIX	:= tar.gz
 POLICYCOREUTILS_URL	:= https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20120924/$(POLICYCOREUTILS).$(POLICYCOREUTILS_SUFFIX)
 POLICYCOREUTILS_SOURCE	:= $(SRCDIR)/$(POLICYCOREUTILS).$(POLICYCOREUTILS_SUFFIX)
 POLICYCOREUTILS_DIR	:= $(BUILDDIR)/$(POLICYCOREUTILS)
-POLICYCOREUTILS_LICENSE	:= GPL-2.0+
+POLICYCOREUTILS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

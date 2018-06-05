@@ -9,11 +9,11 @@ This patch applies to Bootstrap-v1.16.
 
 Signed-off-by: Alexander Dahl <post@lespocky.de>
 ---
- elf32-littlearm.lds |    6 +++++-
- 1 files changed, 5 insertions(+), 1 deletions(-)
+ elf32-littlearm.lds | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/elf32-littlearm.lds b/elf32-littlearm.lds
-index bf02b93..d85680c 100644
+index bf02b931f488..d85680c9a409 100644
 --- a/elf32-littlearm.lds
 +++ b/elf32-littlearm.lds
 @@ -14,7 +14,11 @@ SECTIONS

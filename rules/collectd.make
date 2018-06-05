@@ -24,7 +24,7 @@ COLLECTD_URL		:= https://collectd.org/files/${COLLECTD}.${COLLECTD_SUFFIX}
 COLLECTD_MD5		:= 5da2b69c286a064db35c6cc1e758b039
 COLLECTD_DIR		:= $(BUILDDIR)/$(COLLECTD)
 COLLECTD_SOURCE		:= $(SRCDIR)/$(COLLECTD).$(COLLECTD_SUFFIX)
-COLLECTD_LICENSE	:= MIT, GPL-2.0
+COLLECTD_LICENSE	:= MIT AND GPL-2.0-only
 COLLECTD_LICENSE_FILES	:= file://COPYING;md5=1bd21f19f7f0c61a7be8ecacb0e28854
 
 # ----------------------------------------------------------------------------

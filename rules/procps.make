@@ -26,7 +26,7 @@ PROCPS_SUFFIX	:= tar.xz
 PROCPS_URL	:= $(call ptx/mirror, SF, procps-ng/Production/$(PROCPS).$(PROCPS_SUFFIX))
 PROCPS_SOURCE	:= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
-PROCPS_LICENSE	:= GPL-2.0 (tools), LGPL-2.0 (libs)
+PROCPS_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
 PROCPS_LICENSE_FILES := \
 	file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 	file://COPYING.LIB;md5=4cf66a4984120007c9881cc871cf49db
@@ -35,22 +35,30 @@ PROCPS_LICENSE_FILES := \
 # Prepare
 # ----------------------------------------------------------------------------
 
-PROCPS_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	$(call ptx/ncurses, PTXCONF_PROCPS_USES_NCURSES)
-
 #
 # autoconf
 #
 PROCPS_CONF_TOOL	:= autoconf
 PROCPS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-shared \
 	--disable-static \
 	--disable-nls \
 	--disable-rpath \
+	--disable-watch8bit \
+	--disable-libselinux \
+	--$(call ptx/endis, PTXCONF_PROCPS_PIDOF)-pidof \
 	--disable-kill \
-	--$(call ptx/endis, PROCPS_TOP_MODERN)-modern-top \
+	--disable-skill \
+	--disable-examples \
+	--disable-sigwinch \
+	--disable-wide-percent \
+	--enable-wide-memory \
+	--$(call ptx/endis, PTXCONF_PROCPS_TOP_MODERN)-modern-top \
+	--disable-numa \
+	--disable-w-from \
+	--enable-whining \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--$(call ptx/wwo, PTXCONF_PROCPS_USES_NCURSES)-ncurses \

@@ -42,8 +42,6 @@ config BUSYBOX_FEATURE_FIND_PERM
 	bool "Enable -perm: permissions matching"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  Enable searching based on file permissions.
 
 config BUSYBOX_FEATURE_FIND_TYPE
 	bool "Enable -type: file type matching (file/dir/link/...)"
@@ -57,15 +55,11 @@ config BUSYBOX_FEATURE_FIND_XDEV
 	bool "Enable -xdev: 'stay in filesystem'"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  This option allows find to restrict searches to a single filesystem.
 
 config BUSYBOX_FEATURE_FIND_MAXDEPTH
 	bool "Enable -mindepth N and -maxdepth N"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  This option enables -mindepth N and -maxdepth N option.
 
 config BUSYBOX_FEATURE_FIND_NEWER
 	bool "Enable -newer: compare file modification times"
@@ -79,8 +73,6 @@ config BUSYBOX_FEATURE_FIND_INUM
 	bool "Enable -inum: inode number matching"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  Support the 'find -inum' option for searching by inode number.
 
 config BUSYBOX_FEATURE_FIND_EXEC
 	bool "Enable -exec: execute commands"
@@ -104,15 +96,11 @@ config BUSYBOX_FEATURE_FIND_USER
 	bool "Enable -user: username/uid matching"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  Support the 'find -user' option for searching by username or uid.
 
 config BUSYBOX_FEATURE_FIND_GROUP
 	bool "Enable -group: group/gid matching"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  Support the 'find -group' option for searching by group name or gid.
 
 config BUSYBOX_FEATURE_FIND_NOT
 	bool "Enable the 'not' (!) operator"
@@ -141,15 +129,13 @@ config BUSYBOX_FEATURE_FIND_SIZE
 	bool "Enable -size: file size matching"
 	default y
 	depends on BUSYBOX_FIND
-	help
-	  Support the 'find -size' option for searching by file size.
 
 config BUSYBOX_FEATURE_FIND_PRUNE
 	bool "Enable -prune: exclude subdirectories"
 	default y
 	depends on BUSYBOX_FIND
 	help
-	  If the file is a directory, dont descend into it. Useful for
+	  If the file is a directory, don't descend into it. Useful for
 	  exclusion .svn and CVS directories.
 
 config BUSYBOX_FEATURE_FIND_DELETE
@@ -209,7 +195,7 @@ config BUSYBOX_FGREP
 config BUSYBOX_FEATURE_GREP_CONTEXT
 	bool "Enable before and after context flags (-A, -B and -C)"
 	default y
-	depends on BUSYBOX_GREP || BUSYBOX_EGREP
+	depends on BUSYBOX_GREP || BUSYBOX_EGREP || BUSYBOX_FGREP
 	help
 	  Print the specified number of leading (-B) and/or trailing (-A)
 	  context surrounding our matching lines.

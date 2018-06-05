@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-fix-install.patch
 0002-fix-building-on-arm64.patch
-# fc05b6ed9561e1654fa95e4434ac515a  - git-ptx-patches magic
+0003-fix-building-with-gcc-7.x.patch
+# 96cac79d77bdaba764aa0a1ae734b06b  - git-ptx-patches magic

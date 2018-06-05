@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.7.8
-LIBGCRYPT_MD5		:= 34fd2e6d230cbe56799cdf7df05f56c5
+LIBGCRYPT_VERSION	:= 1.8.2
+LIBGCRYPT_MD5		:= cfb0b5c79eab07686b6898160a407139
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
 LIBGCRYPT_SOURCE	:= $(SRCDIR)/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
 LIBGCRYPT_DIR		:= $(BUILDDIR)/$(LIBGCRYPT)
-LIBGCRYPT_LICENSE	:= GPL-2.0, LGPL-2.0
+LIBGCRYPT_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
 LIBGCRYPT_LICENSE_FILES	:= \
 	file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
 	file://COPYING.LIB;md5=bbb461211a33b134d42ed5ee802b37ff
@@ -52,6 +52,7 @@ LIBGCRYPT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--enable-shared \
+	--enable-endian-check \
 	--enable-random=linux \
 	--enable-dev-random \
 	--disable-random-daemon \
@@ -59,6 +60,7 @@ LIBGCRYPT_AUTOCONF := \
 	--disable-m-guard \
 	--disable-large-data-tests \
 	--disable-hmac-binary-check \
+	--enable-jent-support \
 	--enable-padlock-support \
 	--enable-aesni-support \
 	--enable-pclmul-support \

@@ -1,0 +1,9 @@
+## SECTION=hosttools_noprompt
+
+config HOST_PYTHON3_SHIBOKEN
+	tristate
+	default ALLYES
+	select HOST_APIEXTRACTOR
+	select HOST_GENERATORRUNNER
+	select HOST_CMAKE
+	select HOST_PYTHON3

@@ -7,9 +7,11 @@ menuconfig KERNEL
 	select HOST_U_BOOT_TOOLS	if KERNEL_IMAGE_U || (KERNEL_IMAGE_SIMPLE && ARCH_MICROBLAZE)
 	select HOST_XZ			if KERNEL_XZ
 	select HOST_LZOP		if KERNEL_LZOP
+	select HOST_LZ4			if KERNEL_LZ4
 	select HOST_LIBKMOD		if KERNEL_MODULES
 	select HOST_SYSTEM_BC
 	select HOST_OPENSSL		if KERNEL_OPENSSL
+	select HOST_LIBELF		if KERNEL_LIBELF
 	prompt "Linux kernel                  "
 
 if KERNEL
@@ -44,7 +46,7 @@ config KERNEL_MODULES_BUILD
 config KERNEL_VERSION
 	prompt "kernel version"
 	string
-	default "3.10"
+	default "4.15"
 
 config KERNEL_MD5
 	prompt "kernel source md5sum"
@@ -237,6 +239,17 @@ config KERNEL_LZOP
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
 
+config KERNEL_LZ4
+	prompt "build lz4 hosttool"
+	bool
+	help
+	  Select this if you're going to build your kernel compressed
+	  with lz4 and your host system is lacking the proper tools.
+	  (the "lz4" package)
+
+	  Select this if you're unsure, as it won't hurt. It just
+	  increases the build time.
+
 config KERNEL_OPENSSL
 	prompt "build openssl hosttool"
 	bool
@@ -246,6 +259,14 @@ config KERNEL_OPENSSL
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
+
+config KERNEL_LIBELF
+	prompt "build libelf host library"
+	bool
+	help
+	  Select this if you're going to build your kernel with
+	  STACK_VALIDATION enabled. Stack validation is used for the orc
+	  unwinder for kernel version >= v4.14 on x86_64.
 
 menu "patching & configuration      "
 

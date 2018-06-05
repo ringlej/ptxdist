@@ -8,6 +8,7 @@ menuconfig NFSUTILS
 	select UTIL_LINUX_NG_LIBMOUNT
 	select RPCBIND			if RUNTIME
 	select LIBTIRPC			if GLOBAL_IPV6
+	select ROOTFS_PROTOCOLS		if NFSUTILS_CLIENT
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
 	  access to shared files across networks. The NFS protocol is designed

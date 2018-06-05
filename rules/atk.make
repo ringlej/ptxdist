@@ -25,7 +25,7 @@ ATK_SUFFIX	:= tar.bz2
 ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/2.2/$(ATK).$(ATK_SUFFIX)
 ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		:= $(BUILDDIR)/$(ATK)
-ATK_LICENSE	:= LGPL-2.0
+ATK_LICENSE	:= LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

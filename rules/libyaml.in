@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBYAML
+	tristate
+	prompt "libyaml"
+	help
+	  A C library for parsing and emitting YAML.

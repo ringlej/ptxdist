@@ -18,19 +18,22 @@ PACKAGES-$(PTXCONF_HEXEDIT) += hexedit
 #
 # Paths and names
 #
-HEXEDIT_VERSION	:= 1.2.12
-HEXEDIT_MD5	:= 0d2f48610006278cd93359fea9a06d5c
+HEXEDIT_VERSION	:= 1.4.2
+HEXEDIT_MD5	:= 6fa1ce9c8c0306f3392f1ea002c80370
 HEXEDIT		:= hexedit-$(HEXEDIT_VERSION)
-HEXEDIT_SUFFIX	:= src.tgz
-HEXEDIT_URL	:= http://rigaux.org/$(HEXEDIT).$(HEXEDIT_SUFFIX)
+HEXEDIT_SUFFIX	:= tar.gz
+HEXEDIT_URL	:= https://github.com/pixel/hexedit/archive/$(HEXEDIT_VERSION).$(HEXEDIT_SUFFIX)
 HEXEDIT_SOURCE	:= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_DIR	:= $(BUILDDIR)/$(HEXEDIT)
-HEXEDIT_LICENSE	:= GPL-2.0+
+HEXEDIT_LICENSE	:= GPL-2.0-or-later
 
 #
 # autoconf
 #
-HEXEDIT_CONF_TOOL := autoconf
+HEXEDIT_CONF_TOOL	:= autoconf
+HEXEDIT_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -23,7 +23,7 @@ MTR_SUFFIX	:= tar.gz
 MTR_URL		:= ftp://ftp.bitwizard.nl/mtr/$(MTR).$(MTR_SUFFIX)
 MTR_SOURCE	:= $(SRCDIR)/$(MTR).$(MTR_SUFFIX)
 MTR_DIR		:= $(BUILDDIR)/$(MTR)
-MTR_LICENSE	:= GPL-2.0+
+MTR_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 
 config APR
 	tristate
@@ -7,3 +9,6 @@ config APR
 	  APR is Apache's Portable Runtime Library, designed to be a
 	  support library that provides a predictable and consistent
 	  interface to underlying platform-specific implementations.
+
+	  STAGING: remove in ptxdist-2019.03.0
+	  Really old version that needs updating.

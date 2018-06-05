@@ -23,7 +23,7 @@ USTR_SUFFIX	:= tar.bz2
 USTR_URL	:= http://www.and.org/ustr/$(USTR_VERSION)/$(USTR).$(USTR_SUFFIX)
 USTR_SOURCE	:= $(SRCDIR)/$(USTR).$(USTR_SUFFIX)
 USTR_DIR	:= $(BUILDDIR)/$(USTR)
-USTR_LICENSE	:= LGPL-2.0+,MIT,BSD
+USTR_LICENSE	:= LGPL-2.0-or-later AND MIT AND BSD
 
 # ----------------------------------------------------------------------------
 # Prepare

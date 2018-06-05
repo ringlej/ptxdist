@@ -3,8 +3,8 @@
 menuconfig SYSTEMD
 	tristate
 	depends on INITMETHOD_SYSTEMD
+	select HOST_MESON
 	select HOST_GPERF
-	select HOST_CHRPATH
 	# for 'ln --relative'
 	select HOST_COREUTILS
 	select ROOTFS_RUN
@@ -77,6 +77,10 @@ config SYSTEMD_LOGIND
 	select SYSTEMD_DBUS
 	prompt "login daemon"
 
+config SYSTEMD_UNITS_USER
+	bool
+	prompt "install default user target units"
+
 config SYSTEMD_NETWORK
 	bool
 	prompt "network configuration with systemd"
@@ -136,6 +140,7 @@ menu "install options               "
 
 config SYSTEMD_UDEV_DRIVERS_RULES
 	bool
+	default y
 	prompt "install udev driver rules"
 	help
 	  This will install the generic udev drivers rules files from the udev package

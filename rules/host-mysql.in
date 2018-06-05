@@ -6,6 +6,5 @@ config HOST_MYSQL
 	select HOST_LIBAIO
 	select HOST_NCURSES
 	select HOST_CMAKE
-	select HOST_SYSTEMD
 	help
 	  Required host part of the mySQL build system

@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_FBTEST) += fbtest
 #
 # Paths and names
 #
-FBTEST_VERSION	:= 20041102-1
-FBTEST_MD5	:= d9dc61e96edb60dc52491ce3a5d5185c
+FBTEST_VERSION	:= 2014-08-11-g29ab066
+FBTEST_MD5	:= 48d1f4e6450ded48c44733539c1c9614
 FBTEST		:= fbtest-$(FBTEST_VERSION)
 FBTEST_SUFFIX	:= tar.gz
-FBTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)
+FBTEST_URL	:= https://git.kernel.org/pub/scm/linux/kernel/git/geert/fbtest.git;tag=$(FBTEST_VERSION)
 FBTEST_SOURCE	:= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
 FBTEST_DIR	:= $(BUILDDIR)/$(FBTEST)
-FBTEST_LICENSE	:= GPL-2.0
+FBTEST_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -47,7 +47,7 @@ $(STATEDIR)/fbtest.targetinstall:
 	@$(call install_fixup, fbtest,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fbtest,DESCRIPTION,missing)
 
-	@$(call install_copy, fbtest, 0, 0, 0755, -, /sbin/fbtest)
+	@$(call install_copy, fbtest, 0, 0, 0755, -, /usr/sbin/fbtest)
 
 	@$(call install_finish, fbtest)
 

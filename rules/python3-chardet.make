@@ -23,7 +23,7 @@ PYTHON3_CHARDET_SUFFIX	:= tar.gz
 PYTHON3_CHARDET_URL	:= https://pypi.python.org/packages/source/c/chardet/$(PYTHON3_CHARDET).$(PYTHON3_CHARDET_SUFFIX)
 PYTHON3_CHARDET_SOURCE	:= $(SRCDIR)/$(PYTHON3_CHARDET).$(PYTHON3_CHARDET_SUFFIX)
 PYTHON3_CHARDET_DIR	:= $(BUILDDIR)/$(PYTHON3_CHARDET)
-PYTHON3_CHARDET_LICENSE	:= LGPL-2.1+
+PYTHON3_CHARDET_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

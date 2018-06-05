@@ -23,7 +23,7 @@ LIBSEMANAGE_SUFFIX	:= tar.gz
 LIBSEMANAGE_URL		:= https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20120924/$(LIBSEMANAGE).$(LIBSEMANAGE_SUFFIX)
 LIBSEMANAGE_SOURCE	:= $(SRCDIR)/$(LIBSEMANAGE).$(LIBSEMANAGE_SUFFIX)
 LIBSEMANAGE_DIR		:= $(BUILDDIR)/$(LIBSEMANAGE)
-LIBSEMANAGE_LICENSE	:= LGPL-2.1+
+LIBSEMANAGE_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

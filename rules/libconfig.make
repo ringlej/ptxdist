@@ -23,7 +23,7 @@ LIBCONFIG_SUFFIX	:= tar.gz
 LIBCONFIG_URL		:= http://www.hyperrealm.com/libconfig/$(LIBCONFIG).$(LIBCONFIG_SUFFIX)
 LIBCONFIG_SOURCE	:= $(SRCDIR)/$(LIBCONFIG).$(LIBCONFIG_SUFFIX)
 LIBCONFIG_DIR		:= $(BUILDDIR)/$(LIBCONFIG)
-LIBCONFIG_LICENSE	:= LGPL-2.1
+LIBCONFIG_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 
 config GPM
 	tristate
@@ -7,3 +9,6 @@ config GPM
 	select NCURSES
 	help
 	  Console-based mouse driver
+
+	  STAGING: remove in ptxdist-2019.04.0
+	  Old, obsolete package that fails to build gcc 7.x

@@ -1,7 +1,8 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005 by Jiri Nesladek
-#          
+# Copyright (C) 2018 by Clemens Gruber <clemens.gruber@pqgruber.com>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,14 +17,14 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	:= 2.0.30
-GNUPG_MD5	:= 01bb47e669a78eaca90dbe6b4b4acc24
+GNUPG_VERSION	:= 2.2.5
+GNUPG_MD5	:= 567cd2d41fa632903066fde73d2005cb
 GNUPG		:= gnupg-$(GNUPG_VERSION)
 GNUPG_SUFFIX	:= tar.bz2
 GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_SOURCE	:= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_DIR	:= $(BUILDDIR)/$(GNUPG)
-GNUPG_LICENSE	:= GPL-3.0+
+GNUPG_LICENSE	:= GPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -31,27 +32,61 @@ GNUPG_LICENSE	:= GPL-3.0+
 
 GNUPG_CONF_TOOL := autoconf
 GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-gpg \
 	--disable-gpgsm \
-	--disable-agent \
 	--disable-scdaemon \
-	--disable-tools \
+	--disable-g13 \
+	--disable-dirmngr \
 	--disable-doc \
+	--disable-symcryptrun \
 	--disable-gpgtar \
+	--disable-wks-tools \
+	--disable-gpg-is-gpg2 \
+	--$(call ptx/endis, PTXCONF_GLOBAL_SELINUX)-selinux-support \
+	--disable-large-secmem \
+	--enable-trust-models \
+	--disable-tofu \
+	--disable-libdns \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_RSA)-gpg-rsa \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_ECDH)-gpg-ecdh \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_ECDSA)-gpg-ecdsa \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_EDDSA)-gpg-eddsa \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_IDEA)-gpg-idea \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_CAST5)-gpg-cast5 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_BLOWFISH)-gpg-blowfish \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_AES)-gpg-aes128 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_AES)-gpg-aes192 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_AES)-gpg-aes256 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_TWOFISH)-gpg-twofish \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_CAMELLIA)-gpg-camellia128 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_CAMELLIA)-gpg-camellia192 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_CAMELLIA)-gpg-camellia256 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_MD5)-gpg-md5 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_RMD160)-gpg-rmd160 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha224 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha384 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha512 \
+	--disable-zip \
+	--disable-bzip2 \
 	--disable-exec \
 	--disable-photo-viewers \
-	--disable-keyserver-helpers \
+	--disable-card-support \
+	--disable-ccid-driver \
+	--disable-dirmngr-auto-start \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-sqlite \
+	--disable-ntbtls \
+	--disable-gnutls \
 	--disable-ldap \
-	--disable-hkp \
-	--disable-finger \
-	--disable-keyserver-path \
-	--disable-standard-socket \
-	--disable-dns-srv \
-	--disable-nls \
 	--disable-rpath \
+	--disable-nls \
+	--enable-endian-check \
 	--disable-regex \
-	--disable-bzip2
+	--enable-optimization \
+	--disable-werror \
+	--disable-all-tests \
+	--disable-run-gnupg-user-socket \
+	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000"
 
 ifndef PTXCONF_ICONV
 GNUPG_CONF_OPT += --without-libiconv-prefix
@@ -71,11 +106,12 @@ $(STATEDIR)/gnupg.targetinstall:
 	@$(call install_fixup, gnupg,DESCRIPTION,missing)
 
 ifdef PTXCONF_GNUPG_GPG
-	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg2)
-	@$(call install_link, gnupg, gpg2, /usr/bin/gpg)
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg)
+	@$(call install_link, gnupg, gpg, /usr/bin/gpg2)
 endif
 ifdef PTXCONF_GNUPG_GPGV
-	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpgv2)
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpgv)
+	@$(call install_link, gnupg, gpgv, /usr/bin/gpgv2)
 endif
 
 	@$(call install_finish, gnupg)

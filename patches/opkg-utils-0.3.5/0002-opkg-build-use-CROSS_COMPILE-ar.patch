@@ -1,0 +1,28 @@
+From: =?UTF-8?q?Andreas=20Bie=C3=9Fmann?= <andreas@biessmann.de>
+Date: Fri, 20 Jan 2012 09:03:55 +0100
+Subject: [PATCH] opkg-build: use ${CROSS_COMPILE}ar
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Some host systems do not provide proper ar, make it possible to switch
+to cross-ar here.
+
+Signed-off-by: Andreas Bießmann <andreas@biessmann.de>
+---
+ opkg-build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/opkg-build b/opkg-build
+index f05eaecc6836..e24216946346 100755
+--- a/opkg-build
++++ b/opkg-build
+@@ -309,7 +309,7 @@ if [ "$outer" = "ar" ] ; then
+   # chown the content to "0:0".  files. This is needed as high UID values (>
+   # 99999) cause problems when parsing ar file headers
+   ( cd $tmp_dir && chown 0:0 ./debian-binary ./data.tar.gz ./control.tar.gz &&
+-	ar -crf $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
++	${CROSS_COMPILE}ar -crf $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
+ else
+   ( cd $tmp_dir && tar -cz $tarformat -f $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
+ fi

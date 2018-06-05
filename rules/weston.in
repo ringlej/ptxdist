@@ -12,8 +12,7 @@ menuconfig WESTON
 	select LIBINPUT
 	select CAIRO
 	select CAIRO_PNG
-	select LIBDRM			if WESTON_DRM_COMPOSITOR
-	select MTDEV			if WESTON_DRM_COMPOSITOR || WESTON_FBDEV_COMPOSITOR
+	select LIBDRM			if WESTON_DRM_COMPOSITOR || BUILDTIME
 	select UDEV			if WESTON_DRM_COMPOSITOR || WESTON_FBDEV_COMPOSITOR
 	select UDEV_LIBUDEV		if WESTON_DRM_COMPOSITOR || WESTON_FBDEV_COMPOSITOR
 	select MESALIB			if WESTON_DRM_COMPOSITOR
@@ -30,6 +29,7 @@ menuconfig WESTON
 	select XORG_SERVER_XWAYLAND	if WESTON_XWAYLAND && RUNTIME
 	select SYSTEMD			if WESTON_SYSTEMD
 	select SYSTEMD_LOGIND		if WESTON_SYSTEMD_LOGIND
+	select DBUS			if WESTON_SYSTEMD_LOGIND
 	prompt "weston                        "
 	help
 	  Wayland compositor reference implementation
@@ -57,11 +57,18 @@ config WESTON_FBDEV_COMPOSITOR
 	bool
 	prompt "fbdev compositor"
 
+config WESTON_LAUNCH
+	bool
+	prompt "weston-launch support"
+	# needs pam
+	depends on BROKEN
+	help
+	  weston-launch is a setuid-root program which does privileged
+	  operations on Weston's behalf
+
 config WESTON_SYSTEMD
 	bool
-	depends on INITMETHOD_SYSTEMD
-	default y
-	prompt "systemd support"
+	default INITMETHOD_SYSTEMD
 
 config WESTON_SYSTEMD_LOGIND
 	bool

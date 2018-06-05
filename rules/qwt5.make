@@ -24,7 +24,7 @@ QWT5_URL	:= $(call ptx/mirror, SF, qwt/$(QWT5).$(QWT5_SUFFIX))
 QWT5_SOURCE	:= $(SRCDIR)/$(QWT5).$(QWT5_SUFFIX)
 QWT5_DIR	:= $(BUILDDIR)/$(QWT5)
 QWT5_BUILD_OOT	:= YES
-QWT5_LICENSE	:= LGPL-2.1, QWT-1.0
+QWT5_LICENSE	:= LGPL-2.1-only AND QWT-1.0
 
 # ----------------------------------------------------------------------------
 # Prepare

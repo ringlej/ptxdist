@@ -25,7 +25,7 @@ endif
 
 conf-libs  := $(CONF_LIBS)
 mconf-libs := $(MCONF_LIBS)
-nconf-libs := -lncurses -lmenu -lpanel
+nconf-libs := $(NCONF_LIBS)
 
 lkc-deps := lkc.h lkc_defs.h expr.h
 

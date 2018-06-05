@@ -16,7 +16,7 @@ menuconfig LIGHTTPD
 	select SQLITE			if LIGHTTPD_WEBDAV_PROPS
 	select LIBUUID			if LIGHTTPD_WEBDAV_LOCKS
 	select OPENSSL			if LIGHTTPD_OPENSSL
-	select LIBMEMCACHE		if LIGHTTPD_MEMCACHE
+	select LIBMEMCACHED		if LIGHTTPD_MEMCACHED
 	select LUA			if LIGHTTPD_LUA
 	select LUA_INSTALL_LIBLUA	if LIGHTTPD_LUA
 	select PHP5			if LIGHTTPD_MOD_FASTCGI_PHP && RUNTIME
@@ -50,6 +50,7 @@ config LIGHTTPD_ATTR
 
 config LIGHTTPD_FAM
 	bool
+	depends on STAGING
 	prompt "fam"
 	help
 	  fam/gamin for reducing number of stat() calls.
@@ -60,9 +61,11 @@ config LIGHTTPD_LUA
 	help
 	  lua engine for mod_cml and mod_magnet
 
-config LIGHTTPD_MEMCACHE
+config LIGHTTPD_MEMCACHED
 	bool
 	prompt "memcached storage"
+	# fails to build with current libmemcached version
+	depends on BROKEN
 	help
 	  memcached storage for mod_trigger_b4_dl and mod_cml
 
@@ -171,8 +174,10 @@ config LIGHTTPD_MOD_REWRITE
 
 config LIGHTTPD_MOD_TRIGGER_B4_DL
 	bool
-	select LIGHTTPD_MEMCACHE
+	select LIGHTTPD_MEMCACHED
 	select LIGHTTPD_PCRE
+	# needs (currently broken) LIGHTTPD_MEMCACHED
+	depends on BROKEN
 	prompt "mod_trigger_b4_dl"
 	help
 	  Module for Anti Hotlinking

@@ -23,7 +23,7 @@ GDK_PIXBUF_SUFFIX	:= tar.bz2
 GDK_PIXBUF_URL		:= http://ftp.gnome.org/pub/GNOME/sources/gdk-pixbuf/2.24/$(GDK_PIXBUF).$(GDK_PIXBUF_SUFFIX)
 GDK_PIXBUF_SOURCE	:= $(SRCDIR)/$(GDK_PIXBUF).$(GDK_PIXBUF_SUFFIX)
 GDK_PIXBUF_DIR		:= $(BUILDDIR)/$(GDK_PIXBUF)
-GDK_PIXBUF_LICENSE	:= LGPL-2.0
+GDK_PIXBUF_LICENSE	:= LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

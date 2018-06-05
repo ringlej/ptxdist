@@ -1,0 +1,11 @@
+## SECTION=python3
+
+config PYTHON3_PYALSAAUDIO
+	tristate
+	prompt "python3-pyalsaaudio"
+	select PYTHON3
+	select ALSA_LIB
+	select ALSA_LIB_FULL
+	help
+	  Wrappers for accessing the ALSA API from Python. Fairly complete for
+	  PCM devices and mixer access.

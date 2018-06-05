@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_PROTOBUF) += protobuf
 #
 # Paths and names
 #
-PROTOBUF_VERSION	:= 3.3.1
-PROTOBUF_MD5		:= 20c685147753b515ce380421442044b5
-PROTOBUF		:= protobuf-$(PROTOBUF_VERSION)
+PROTOBUF_VERSION	:= 3.5.1
+PROTOBUF_MD5		:= 94fd082b16e1931d45773f0f59a22356
+PROTOBUF		:= protobuf-all-$(PROTOBUF_VERSION)
 PROTOBUF_SUFFIX		:= tar.gz
-PROTOBUF_URL		:= https://github.com/google/protobuf/archive/v$(PROTOBUF_VERSION).$(PROTOBUF_SUFFIX)
+PROTOBUF_URL		:= https://github.com/google/protobuf/releases/download/v$(PROTOBUF_VERSION)/$(PROTOBUF).$(PROTOBUF_SUFFIX)
 PROTOBUF_SOURCE		:= $(SRCDIR)/$(PROTOBUF).$(PROTOBUF_SUFFIX)
 PROTOBUF_DIR		:= $(BUILDDIR)/$(PROTOBUF)
 PROTOBUF_LICENSE	:= BSD-3-Clause
@@ -35,6 +35,7 @@ PROTOBUF_LICENSE	:= BSD-3-Clause
 PROTOBUF_CONF_TOOL	:= autoconf
 PROTOBUF_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-64bit-solaris \
 	--disable-static \
 	--$(call ptx/wwo, PTXCONF_PROTOBUF_ZLIB)-zlib \
 	--with-protoc=$(PTXDIST_SYSROOT_HOST)/bin/protoc

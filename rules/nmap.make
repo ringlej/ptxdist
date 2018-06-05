@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NMAP) += nmap
 #
 # Paths and names
 #
-NMAP_VERSION	:= 5.51
-NMAP_MD5	:= 0b80d2cb92ace5ebba8095a4c2850275
+NMAP_VERSION	:= 7.70
+NMAP_MD5	:= 84eb6fbe788e0d4918c2b1e39421bf79
 NMAP		:= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX	:= tar.bz2
 NMAP_URL	:= http://nmap.org/dist/$(NMAP).$(NMAP_SUFFIX)
@@ -30,24 +30,25 @@ NMAP_DIR	:= $(BUILDDIR)/$(NMAP)
 # Prepare
 # ----------------------------------------------------------------------------
 
-NMAP_PATH := PATH=$(CROSS_PATH)
-NMAP_ENV  := \
-	$(CROSS_ENV) \
-	ac_cv_linux_vers=$(KERNEL_HEADER_VERSION_MAJOR)
-
-#
-# autoconf
-#
-NMAP_AUTOCONF := \
+NMAP_CONF_TOOL := autoconf
+NMAP_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-nls \
+	--without-localdirs \
 	--without-ndiff \
 	--without-zenmap \
-	--without-nping \
+	--$(call ptx/wwo, PTXCONF_NMAP_NPING)-nping \
 	--with-openssl=$(call ptx/ifdef,PTXCONF_NMAP_OPENSSL,$(SYSROOT),no) \
 	--with-libpcap \
 	--with-libpcre \
+	--without-libz \
+	--without-libssh2 \
+	--with-libdnet=included \
 	--without-liblua \
-	--without-ncat
+	--with-liblinear=included \
+	--without-ncat \
+	--without-nmap-update \
+	--without-subversion \
 
 
 # ----------------------------------------------------------------------------
@@ -64,6 +65,10 @@ $(STATEDIR)/nmap.targetinstall:
 	@$(call install_fixup, nmap,DESCRIPTION,missing)
 
 	@$(call install_copy, nmap, 0, 0, 0755, -, /usr/bin/nmap)
+
+ifdef PTXCONF_NMAP_NPING
+	@$(call install_copy, nmap, 0, 0, 0755, -, /usr/bin/nping)
+endif
 
 ifdef PTXCONF_NMAP_SERVICES
 	@$(call install_copy, nmap, 0, 0, 0644, -, \

@@ -1,0 +1,106 @@
+From: Denis Osterland <Denis.Osterland@diehl.com>
+Date: Wed, 28 Jun 2017 15:52:42 +0200
+Subject: [PATCH] Cross-compile in ptxdist envirionment.
+
+Signed-off-by: Denis Osterland <Denis.Osterland@diehl.com>
+---
+ Makefile     | 10 +++++++---
+ src/Makefile | 18 ++++++++++--------
+ 2 files changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 119110d2f010..c40c4cd6e0f7 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,13 +4,13 @@
+ # == CHANGE THE SETTINGS BELOW TO SUIT YOUR ENVIRONMENT =======================
+ 
+ # Your platform. See PLATS for possible values.
+-PLAT= none
++PLAT= linux
+ 
+ # Where to install. The installation starts in the src and doc directories,
+ # so take care if INSTALL_TOP is not an absolute path. See the local target.
+ # You may want to make INSTALL_LMOD and INSTALL_CMOD consistent with
+ # LUA_ROOT, LUA_LDIR, and LUA_CDIR in luaconf.h.
+-INSTALL_TOP= /usr/local
++INSTALL_TOP= $(DESTDIR)/usr
+ INSTALL_BIN= $(INSTALL_TOP)/bin
+ INSTALL_INC= $(INSTALL_TOP)/include
+ INSTALL_LIB= $(INSTALL_TOP)/lib
+@@ -52,7 +52,7 @@ R= $V.4
+ all:	$(PLAT)
+ 
+ $(PLATS) clean:
+-	cd src && $(MAKE) $@
++	cd src && $(MAKE) $@ R=$R
+ 
+ test:	dummy
+ 	src/lua -v
+@@ -62,6 +62,10 @@ install: dummy
+ 	cd src && $(INSTALL_EXEC) $(TO_BIN) $(INSTALL_BIN)
+ 	cd src && $(INSTALL_DATA) $(TO_INC) $(INSTALL_INC)
+ 	cd src && $(INSTALL_DATA) $(TO_LIB) $(INSTALL_LIB)
++	cd src && $(INSTALL_EXEC) liblua.so.$R $(INSTALL_LIB)
++	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$V
++	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$(basename $V)
++	ln -s liblua.so.$V $(INSTALL_LIB)/liblua.so
+ 	cd doc && $(INSTALL_DATA) $(TO_MAN) $(INSTALL_MAN)
+ 
+ uninstall:
+diff --git a/src/Makefile b/src/Makefile
+index d71c75c87322..8ad9a1b718ad 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -4,15 +4,13 @@
+ # == CHANGE THE SETTINGS BELOW TO SUIT YOUR ENVIRONMENT =======================
+ 
+ # Your platform. See PLATS for possible values.
+-PLAT= none
++PLAT= linux
+ 
+-CC= gcc -std=gnu99
+-CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) $(MYCFLAGS)
++CFLAGS= -std=gnu99 -fPIC -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) $(MYCFLAGS)
+ LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
+ LIBS= -lm $(SYSLIBS) $(MYLIBS)
+ 
+-AR= ar rcu
+-RANLIB= ranlib
++ARFLAGS= rcu
+ RM= rm -f
+ 
+ SYSCFLAGS=
+@@ -29,6 +27,7 @@ MYOBJS=
+ PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris
+ 
+ LUA_A=	liblua.a
++LUA_SO= liblua.so.$R
+ CORE_O=	lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o \
+ 	lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o \
+ 	ltm.o lundump.o lvm.o lzio.o
+@@ -43,8 +42,8 @@ LUAC_T=	luac
+ LUAC_O=	luac.o
+ 
+ ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O)
+-ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
+-ALL_A= $(LUA_A)
++ALL_T= $(LUA_A) $(LUA_SO) $(LUA_T) $(LUAC_T)
++ALL_A= $(LUA_A) $(LUA_SO)
+ 
+ # Targets start here.
+ default: $(PLAT)
+@@ -56,9 +55,12 @@ o:	$(ALL_O)
+ a:	$(ALL_A)
+ 
+ $(LUA_A): $(BASE_O)
+-	$(AR) $@ $(BASE_O)
++	$(AR) $(ARFLAGS) $@ $(BASE_O)
+ 	$(RANLIB) $@
+ 
++$(LUA_SO): $(BASE_O)
++	$(CC) -shared -Wl,-soname=liblua.so.$(basename $V) -o $@ $(BASE_O) $(filter-out %readline, $(LIBS))
++
+ $(LUA_T): $(LUA_O) $(LUA_A)
+ 	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
+ 

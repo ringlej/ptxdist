@@ -1,0 +1,55 @@
+From: Clemens Gruber <clemens.gruber@pqgruber.com>
+Date: Thu, 3 Aug 2017 15:47:08 +0200
+Subject: [PATCH] auto/unix: allow overriding the IPv6 build tests
+
+Signed-off-by: Clemens Gruber <clemens.gruber@pqgruber.com>
+---
+ auto/feature | 7 ++++++-
+ auto/unix    | 6 ++++--
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/auto/feature b/auto/feature
+index 8016d802e7a8..a9c6b6ee5eeb 100644
+--- a/auto/feature
++++ b/auto/feature
+@@ -81,10 +81,15 @@ if [ -x $NGX_AUTOTEST ]; then
+         value)
+             if test -n "$ngx_feature_run_force_result" ; then
+                 echo " not tested (maybe cross-compiling)"
++                if test "$ngx_feature_run_force_result" = "yes" ; then
++                    ngx_feature_run_force_result_int=1
++                else
++                    ngx_feature_run_force_result_int=0
++                fi
+                 cat << END >> $NGX_AUTO_CONFIG_H
+
+ #ifndef $ngx_feature_name
+-#define $ngx_feature_name  $ngx_feature_run_force_result
++#define $ngx_feature_name  $ngx_feature_run_force_result_int
+ #endif
+
+ END
+diff --git a/auto/unix b/auto/unix
+index ed821b5a5aaa..e7ad3b5c0be5 100644
+--- a/auto/unix
++++ b/auto/unix
+@@ -412,7 +412,8 @@ ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_PKTINFO, NULL, 0)"
+ 
+ ngx_feature="IPV6_RECVPKTINFO"
+ ngx_feature_name="NGX_HAVE_IPV6_RECVPKTINFO"
+-ngx_feature_run=no
++ngx_feature_run_force_result="$ngx_force_ipv6"
++ngx_feature_run=value
+ ngx_feature_incs="#include <sys/socket.h>
+                   #include <netinet/in.h>"
+ ngx_feature_path=
+@@ -640,7 +641,8 @@ ngx_param=NGX_MAX_TIME_T_VALUE; ngx_value=$ngx_max_value; . auto/types/value
+ 
+ ngx_feature="AF_INET6"
+ ngx_feature_name="NGX_HAVE_INET6"
+-ngx_feature_run=no
++ngx_feature_run_force_result="$ngx_force_ipv6"
++ngx_feature_run=value
+ ngx_feature_incs="#include <sys/socket.h>
+                   #include <netinet/in.h>
+                   #include <arpa/inet.h>"

@@ -24,7 +24,7 @@ PRELINK_TARBALL	:= prelink_$(PRELINK_VERSION).$(PRELINK_SUFFIX)
 PRELINK_URL	:= $(call ptx/mirror, DEB, pool/main/p/prelink/$(PRELINK_TARBALL))
 PRELINK_SOURCE	:= $(SRCDIR)/$(PRELINK_TARBALL)
 PRELINK_DIR	:= $(BUILDDIR)/$(PRELINK)
-PRELINK_LICENSE	:= GPL-2.0
+PRELINK_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,0 +1,32 @@
+From: Florian Westphal <fw@strlen.de>
+Date: Wed, 4 Apr 2018 13:53:28 +0200
+Subject: [PATCH] configure: don't enable xtables when --without-xtables is
+ passed
+
+AC_ARG_WITH runs this when EITHER --with-foo or --without-foo is given,
+so use 'withval'.
+
+After this patch:
+./configure -> xtables off
+./configure --with-xtables -> xtables on
+./configure --without-xtables -> xtables off (was on).
+
+Reported-by: Alexander Dahl <ada@thorsis.com>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 2d0b1b939a18..74e721cd4691 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -99,7 +99,7 @@ AM_CONDITIONAL([BUILD_CLI], [test "x$with_cli" != xno])
+ 
+ AC_ARG_WITH([xtables], [AS_HELP_STRING([--with-xtables],
+             [Use libxtables for iptables interaction)])],
+-	    [with_libxtables=yes], [with_libxtables=no])
++	    [with_libxtables=$withval], [with_libxtables=no])
+ AS_IF([test "x$with_libxtables" != xno], [
+ PKG_CHECK_MODULES([XTABLES], [xtables >= 1.6.1])
+ AC_DEFINE([HAVE_LIBXTABLES], [1], [0])

@@ -23,7 +23,7 @@ SMARTMONTOOLS_SUFFIX	:= tar.gz
 SMARTMONTOOLS_URL	:= $(call ptx/mirror, SF, smartmontools/$(SMARTMONTOOLS).$(SMARTMONTOOLS_SUFFIX))
 SMARTMONTOOLS_SOURCE	:= $(SRCDIR)/$(SMARTMONTOOLS).$(SMARTMONTOOLS_SUFFIX)
 SMARTMONTOOLS_DIR	:= $(BUILDDIR)/$(SMARTMONTOOLS)
-SMARTMONTOOLS_LICENSE	:= GPL-2.0
+SMARTMONTOOLS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -12,7 +12,10 @@ if XZ
 config XZ_TOOLS
 	bool
 	prompt "install tools (xz, xzdec, ...)"
-	depends on !BUSYBOX_UNXZ || ALLYES
+	depends on (!BUSYBOX_UNXZ && !BUSYBOX_UNXZ) || ALLYES
+
+comment "BusyBox' xz is selected!"
+	depends on BUSYBOX_XZ
 
 comment "BusyBox' unxz is selected!"
 	depends on BUSYBOX_UNXZ

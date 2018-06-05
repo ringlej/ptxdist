@@ -26,7 +26,7 @@ SYSLOGNG_SUFFIX		:= tar.gz
 SYSLOGNG_URL		:= https://github.com/balabit/syslog-ng/releases/download/syslog-ng-$(SYSLOGNG_VERSION)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_SOURCE		:= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_DIR		:= $(BUILDDIR)/$(SYSLOGNG)
-SYSLOGNG_LICENSE	:= GPL-2.0+, LGPL-2.1
+SYSLOGNG_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

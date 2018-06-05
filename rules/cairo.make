@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 #
 # Paths and names
 #
-CAIRO_VERSION	:= 1.14.8
-CAIRO_MD5	:= 4ef0db2eacb271c74f8a3fd87822aa98
+CAIRO_VERSION	:= 1.14.12
+CAIRO_MD5	:= 9f0db9dbfca0966be8acd682e636d165
 CAIRO		:= cairo-$(CAIRO_VERSION)
 CAIRO_SUFFIX	:= tar.xz
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
 CAIRO_DIR	:= $(BUILDDIR)/$(CAIRO)
-CAIRO_LICENSE	:= LGPL-2.1, MPL-1.1
+CAIRO_LICENSE	:= LGPL-2.1-only AND MPL-1.1
 
 # ----------------------------------------------------------------------------
 # Prepare

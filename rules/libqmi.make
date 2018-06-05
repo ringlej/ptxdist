@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBQMI) += libqmi
 #
 # Paths and names
 #
-LIBQMI_VERSION	:= 1.18.0
-LIBQMI_MD5	:= 25bae4e383ad77f491ad49b49e04fdcf
+LIBQMI_VERSION	:= 1.20.0
+LIBQMI_MD5	:= 797e365521df76b77b067e6317618b41
 LIBQMI		:= libqmi-$(LIBQMI_VERSION)
 LIBQMI_SUFFIX	:= tar.xz
 LIBQMI_URL	:= http://www.freedesktop.org/software/libqmi/$(LIBQMI).$(LIBQMI_SUFFIX)
 LIBQMI_SOURCE	:= $(SRCDIR)/$(LIBQMI).$(LIBQMI_SUFFIX)
 LIBQMI_DIR	:= $(BUILDDIR)/$(LIBQMI)
-LIBQMI_LICENSE	:= GPL-2.0+, LGPL-2.1+
+LIBQMI_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

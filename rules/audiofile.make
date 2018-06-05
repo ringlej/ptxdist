@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_AUDIOFILE) += audiofile
 #
 # Paths and names
 #
-AUDIOFILE_VERSION	:= 0.3.4
-AUDIOFILE_MD5		:= 2ed06d64ee552a2ce490f54351b86ccd
+AUDIOFILE_VERSION	:= 0.3.6
+AUDIOFILE_MD5		:= 2731d79bec0acef3d30d2fc86b0b72fd
 AUDIOFILE		:= audiofile-$(AUDIOFILE_VERSION)
 AUDIOFILE_SUFFIX	:= tar.gz
 AUDIOFILE_URL		:= http://audiofile.68k.org/$(AUDIOFILE).$(AUDIOFILE_SUFFIX)
 AUDIOFILE_SOURCE	:= $(SRCDIR)/$(AUDIOFILE).$(AUDIOFILE_SUFFIX)
 AUDIOFILE_DIR		:= $(BUILDDIR)/$(AUDIOFILE)
-AUDIOFILE_LICENSE	:= GPL-2.0, LGPL-2.0
+AUDIOFILE_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,7 +35,13 @@ AUDIOFILE_LICENSE	:= GPL-2.0, LGPL-2.0
 AUDIOFILE_CONF_TOOL := autoconf
 AUDIOFILE_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION)
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-werror \
+	--disable-coverage \
+	--disable-valgrind \
+	--disable-docs \
+	--disable-examples \
+	--disable-flac
 
 # ----------------------------------------------------------------------------
 # Target-Install

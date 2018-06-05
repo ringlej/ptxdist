@@ -23,7 +23,7 @@ MSMTP_SUFFIX	:= tar.bz2
 MSMTP_URL	:= $(call ptx/mirror, SF, msmtp/$(MSMTP).$(MSMTP_SUFFIX))
 MSMTP_SOURCE	:= $(SRCDIR)/$(MSMTP).$(MSMTP_SUFFIX)
 MSMTP_DIR	:= $(BUILDDIR)/$(MSMTP)
-MSMTP_LICENSE	:= GPL-3.0
+MSMTP_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -18,23 +18,19 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/@package@
+@PACKAGE@_URL		:= file://local_src/@package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_BUILD_OOT	:= YES
 @PACKAGE@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
-# Extract
+# Extract (just create the 'configure' script on demand)
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.extract: $(STATEDIR)/autogen-tools
-
-$(STATEDIR)/@package@.extract:
+$(STATEDIR)/@package@.extract.post: $(STATEDIR)/autogen-tools
 	@$(call targetinfo)
-	@$(call clean, $(@PACKAGE@_DIR))
-	@$(call extract, @PACKAGE@)
-	cd $(@PACKAGE@_DIR) && [ -f configure ] || sh autogen.sh
-	@$(call patchin, @PACKAGE@)
+	@cd $(@PACKAGE@_DIR) && [ -f configure ] || sh autogen.sh
+	@$(call world/patchin/post, @PACKAGE@)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

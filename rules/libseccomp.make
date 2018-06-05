@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBSECCOMP) += libseccomp
 #
 # Paths and names
 #
-LIBSECCOMP_VERSION	:= 2.3.2
-LIBSECCOMP_MD5		:= e74a626bea0cd607c23229b10b5f93da
+LIBSECCOMP_VERSION	:= 2.3.3
+LIBSECCOMP_MD5		:= e6b4e463857fe05c09dc56ec3bcaef84
 LIBSECCOMP		:= libseccomp-$(LIBSECCOMP_VERSION)
 LIBSECCOMP_SUFFIX	:= tar.gz
 LIBSECCOMP_URL		:= https://github.com/seccomp/libseccomp/releases/download/v$(LIBSECCOMP_VERSION)/$(LIBSECCOMP).$(LIBSECCOMP_SUFFIX)
 LIBSECCOMP_SOURCE	:= $(SRCDIR)/$(LIBSECCOMP).$(LIBSECCOMP_SUFFIX)
 LIBSECCOMP_DIR		:= $(BUILDDIR)/$(LIBSECCOMP)
-LIBSECCOMP_LICENSE	:= LGPL-2.1
+LIBSECCOMP_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -53,6 +53,10 @@ $(STATEDIR)/libseccomp.targetinstall:
 
 	@$(call install_lib, libseccomp, 0, 0, 0644, libseccomp)
 
+ifdef PTXCONF_LIBSECCOMP_UTILS
+	@$(call install_copy, libseccomp, 0, 0, 0755, -, /usr/bin/scmp_sys_resolver)
+	@$(call install_copy, libseccomp, 0, 0, 0755, $(LIBSECCOMP_DIR)/tools/scmp_app_inspector, /usr/bin/scmp_app_inspector)
+endif
 	@$(call install_finish, libseccomp)
 
 	@$(call touch)

@@ -25,7 +25,7 @@ MYSQL_SUFFIX	:= tar.gz
 MYSQL_URL	:= https://dev.mysql.com/get/Downloads/MySQL-5.7/$(MYSQL).tar.gz
 MYSQL_SOURCE	:= $(SRCDIR)/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_DIR	:= $(BUILDDIR)/$(MYSQL)
-MYSQL_LICENSE	:= GPL-2.0
+MYSQL_LICENSE	:= GPL-2.0-only
 
 # mySQL has a hard dependency to boost_1_59_0. Deal with it
 
@@ -63,10 +63,10 @@ $(STATEDIR)/mysql.extract:
 MYSQL_CONF_TOOL	:= cmake
 MYSQL_CONF_OPT	:= \
 	$(CROSS_CMAKE_USR) \
+	-DINSTALL_LAYOUT=TARGZ \
 	-DBUILD_CONFIG=mysql_release \
 	-DSTACK_DIRECTION=1 \
 	-DHAVE_LLVM_LIBCPP_EXITCODE=no \
-	-DCMAKE_INSTALL_PREFIX:PATH=/usr \
 	-DWITH_ZLIB=system \
 	-DWITH_LZ4=bundled \
 	-DWITH_SSL=bundled \
@@ -85,6 +85,8 @@ MYSQL_CONF_OPT	:= \
 	-DCOMPILATION_COMMENT=PTXdist \
 	-DDEFAULT_CHARSET=latin1 \
 	-DENABLE_DTRACE=OFF
+
+MYSQL_CXXFLAGS := -std=c++98
 
 # ----------------------------------------------------------------------------
 # Compile

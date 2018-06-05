@@ -23,7 +23,7 @@ GLU_SUFFIX	:= tar.bz2
 GLU_URL		:= ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).$(GLU_SUFFIX)
 GLU_SOURCE	:= $(SRCDIR)/$(GLU).$(GLU_SUFFIX)
 GLU_DIR		:= $(BUILDDIR)/$(GLU)
-GLU_LICENSE	:= SGI-B-2.0, SGI-B-1.1
+GLU_LICENSE	:= SGI-B-2.0 AND SGI-B-1.1
 GLU_LICENSE_FILES := \
 	file://src/libutil/glue.c;startline=2;endline=28;md5=76832a1e3b436747980ebbc1cd89bfac \
 	file://src/libnurbs/internals/bin.cc;startline=2;endline=32;md5=f2807b3ac0a293c6faaac74d8933bb1f

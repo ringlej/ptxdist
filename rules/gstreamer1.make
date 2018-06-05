@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_GSTREAMER1) += gstreamer1
 #
 # Paths and names
 #
-GSTREAMER1_VERSION	:= 1.12.1
-GSTREAMER1_MD5		:= 3c9f2bc7d75daf87fb5d8d0f2158b8ea
+GSTREAMER1_VERSION	:= 1.14.0
+GSTREAMER1_MD5		:= 63c7cbfb86aa28c4522e374dc5555b96
 GSTREAMER1		:= gstreamer-$(GSTREAMER1_VERSION)
 GSTREAMER1_SUFFIX	:= tar.xz
 GSTREAMER1_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_SOURCE	:= $(SRCDIR)/$(GSTREAMER1).$(GSTREAMER1_SUFFIX)
 GSTREAMER1_DIR		:= $(BUILDDIR)/$(GSTREAMER1)
-GSTREAMER1_LICENSE	:= LGPL-2.1+
+GSTREAMER1_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -48,6 +48,7 @@ GSTREAMER1_BASIC_CONF_OPT = \
 
 GSTREAMER1_GENERIC_CONF_OPT = \
 	$(GSTREAMER1_BASIC_CONF_OPT) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	\
 	--disable-nls \
 	--disable-rpath \
@@ -58,7 +59,6 @@ GSTREAMER1_GENERIC_CONF_OPT = \
 	--disable-examples \
 	\
 	--enable-Bsymbolic \
-	--disable-static-plugins \
 	\
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
@@ -80,13 +80,18 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-benchmarks \
 	--$(call ptx/endis,PTXCONF_GSTREAMER1_INSTALL_TOOLS)-tools \
 	--disable-poisoning \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
 	--disable-check \
 	--with-ptp-helper-setuid-user=nobody \
 	--with-ptp-helper-setuid-group=nogroup \
-	--with-ptp-helper-permissions=setuid-root
+	--with-ptp-helper-permissions=setuid-root \
+	--with-unwind \
+	--without-dw
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+GSTREAMER1_LDFLAGS := -Wl,-rpath-link,$(GSTREAMER1_DIR)/libs/gst/base/.libs
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -119,8 +124,10 @@ endif
 
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoreelements)
+ifdef PTXCONF_GSTREAMER1_DEBUG
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoretracers)
+endif
 
 	@$(call install_copy, gstreamer1, 0, 0, 0755, -, \
 		/usr/libexec/gstreamer-1.0/gst-plugin-scanner)

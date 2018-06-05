@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_URL		:= lndir://$(PTXDIST_WORKSPACE)/local_src/@package@
+@PACKAGE@_URL		:= lndir://local_src/@package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_LICENSE	:= unknown
 

@@ -139,16 +139,7 @@ ptxd_make_world_install_unpack() {
     fi &&
     rm -rf -- "${pkg_pkg_dir}" &&
     mkdir -p -- "${ptx_pkg_dir}" &&
-    tar -x -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dev_dir}/${pkg_pkg_dev}" &&
-
-    # fix rpaths in host/cross tools
-    if [ "${pkg_type}" != "target" ]; then
-	find "${pkg_pkg_dir}" ! -type d -perm /111 -print | while read file; do
-	    if chrpath "${file}" > /dev/null 2>&1; then
-		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
-	    fi
-	done
-    fi
+    tar -x -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dev_dir}/${pkg_pkg_dev}"
 }
 export -f ptxd_make_world_install_unpack
 
@@ -183,16 +174,31 @@ ptxd_make_world_install_pack() {
 	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk" &&
     check_pipe_status &&
 
-    local pkg_sysroot_dir_nolink="$(readlink -f "${pkg_sysroot_dir}")" &&
-    # remove sysroot prefix from paths in la files
-    find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
-	sed -i \
-	-e "/^dependency_libs/s:\( \|-L\|-R\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" \
-	-e "/^libdir=/s:\(libdir='\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" &&
+    # relocatable rpaths in host/cross tools
+    if [ "${pkg_type}" != "target" ]; then
+	find "${pkg_pkg_dir}" -type f -print | while read file; do
+	    if chrpath "${file}" >& /dev/null; then
+		local rel="$(ptxd_abs2rel "$(dirname "${file}")" "${pkg_pkg_dir}/lib")"
+		chmod +w "${file}" &&
+		if ! chrpath --replace "\${ORIGIN}/${rel}" "${file}" > /dev/null; then
+		    ptxd_bailout "Failed to adjust rpath for '${file}'"
+		fi
+	    fi
+	done || return
+    fi
+
+    # remove la files. They are not needed
+    find "${pkg_pkg_dir}" \( -type f -o -type l \) -name "*.la" -print0 | xargs -r -0 rm &&
     check_pipe_status &&
+
+    local pkg_sysroot_dir_nolink="$(readlink -f "${pkg_sysroot_dir}")" &&
+    local pkg_build_dir_nolink="$(readlink -f "${pkg_build_dir}")" &&
     find "${pkg_pkg_dir}" -name "*.prl" -print0 | xargs -r -0 -- \
-	sed -i \
-	-e "/^QMAKE_PRL_LIBS/s:\( \|-L\|-R\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" &&
+	sed -i -E \
+	-e "/^QMAKE_PRL_BUILD_DIR/d" \
+	-e "/^QMAKE_PRL_LIBS/s:(-L|-R)(${pkg_build_dir}|${pkg_build_dir_nolink})[^ ]* ::g" \
+	-e "/^QMAKE_PRL_LIBS/s:(-L|-R)(|${pkg_sysroot_dir}|${pkg_sysroot_dir_nolink}|${pkg_pkg_dir})/*(/lib|/usr/lib) ::g" \
+	-e "/^QMAKE_PRL_LIBS/s:(-L|-R)(|${pkg_sysroot_dir}|${pkg_sysroot_dir_nolink})/*(|/usr)/lib:\1\$\$[QT_INSTALL_LIBS]:g" &&
     check_pipe_status &&
     find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" -print0 | xargs -r -0 -- \
 	sed -i \
@@ -224,10 +230,6 @@ ptxd_make_world_install_post() {
     if [ \! -d "${pkg_pkg_dir}" ]; then
 	return
     fi &&
-    # prefix paths in la files with sysroot
-    find "${pkg_pkg_dir}" \( -name "*.la" -o -name "*.prl" \) -print0 | xargs -r -0 -- \
-	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
-    check_pipe_status &&
 
     # fix *-config and copy into sysroot_cross for target packages
     local config &&

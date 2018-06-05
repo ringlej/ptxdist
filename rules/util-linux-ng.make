@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.30
-UTIL_LINUX_NG_MD5	:= eaa3429150268027908a1b8ae6ee9a62
+UTIL_LINUX_NG_VERSION	:= 2.32
+UTIL_LINUX_NG_MD5	:= e0d8a25853f88cd15ff557e5d8cb4ea7
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[\.[0-9]*]\?/\1/g')
+UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[^0-9].*\?/\1/g')
 UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/$(UTIL_LINUX_NG_BASENAME)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
-UTIL_LINUX_NG_LICENSE	:= GPL-2.0, GPL-2.0+, GPL-3.0+, LGPL-2.0+, BSD-3-Clause, BSD-4-Clause, public_domain
+UTIL_LINUX_NG_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND BSD-4-Clause AND public_domain
 UTIL_LINUX_NG_LICENSE_FILES := \
 	file://Documentation/licenses/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 	file://Documentation/licenses/COPYING.BSD-3;md5=58dcd8452651fc8b07d1f65ce07ca8af \
@@ -52,6 +52,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--bindir=/usr/bin \
 	--sbindir=/usr/sbin \
+	--disable-asan \
 	--enable-shared \
 	--disable-static \
 	--disable-gtk-doc \
@@ -63,8 +64,6 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--enable-all-programs=undefined \
 	--enable-tls \
 	--disable-widechar \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LSMEM)-lsmem \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_CHMEM)-chmem \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBUUID)-libuuid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBBLKID)-libblkid \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LIBMOUNT)-libmount \
@@ -96,8 +95,11 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-logger \
 	--disable-switch_root \
 	--disable-pivot_root \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_LSMEM)-lsmem \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_CHMEM)-chmem \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCRM)-ipcrm \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_IPCS)-ipcs \
+	--disable-rfkill \
 	--disable-tunelp \
 	--disable-kill \
 	--disable-last \
@@ -106,7 +108,6 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	--disable-mesg \
 	--disable-raw \
 	--disable-rename \
-	--disable-reset \
 	--disable-vipw \
 	--disable-newgrp \
 	--disable-chfn-chsh-password \
@@ -237,6 +238,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSCK
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fsck)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_FSFREEZE
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fsfreeze)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_FSTRIM
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/fstrim)
 endif
@@ -282,6 +286,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_BLKID
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/blkid)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_LSBLK
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/lsblk)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDD
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/uuidd)
 endif
@@ -299,6 +306,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_ZRAMCTL
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MKFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/mkfs)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_LSCPU
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/lscpu)
 endif
 
 	@$(call install_finish, util-linux-ng)

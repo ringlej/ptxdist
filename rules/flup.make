@@ -20,10 +20,10 @@ FLUP_VERSION	:= 1.0.2
 FLUP_MD5	:= 24dad7edc5ada31dddd49456ee8d5254
 FLUP		:= flup-$(FLUP_VERSION)
 FLUP_SUFFIX	:= tar.gz
-FLUP_URL	:= http://pypi.python.org/packages/source/f/flup/$(FLUP).$(FLUP_SUFFIX)
+FLUP_URL	:= https://pypi.python.org/packages/source/f/flup/$(FLUP).$(FLUP_SUFFIX)
 FLUP_SOURCE	:= $(SRCDIR)/$(FLUP).$(FLUP_SUFFIX)
 FLUP_DIR	:= $(BUILDDIR)/$(FLUP)
-FLUP_LICENSE	:= BSD, MIT
+FLUP_LICENSE	:= BSD AND MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

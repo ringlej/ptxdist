@@ -14,6 +14,8 @@
 #
 CROSS_PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_CROSS_NASM) += cross-nasm
 
+ifdef PTXCONF_ARCH_X86
+
 #
 # Paths and names
 #
@@ -37,5 +39,7 @@ CROSS_NASM_LICENSE_FILES := \
 #
 CROSS_NASM_CONF_TOOL := autoconf
 CROSS_NASM_INSTALL_OPT := INSTALLROOT="$(CROSS_NASM_PKGDIR)" install
+
+endif
 
 # vim: syntax=make

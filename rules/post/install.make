@@ -301,14 +301,16 @@ install_replace = \
 # $2: filename
 # $3: placeholder
 # $4: value
+# $5: escape mode (empty or 'etcissue')
 #
 install_replace_figlet = \
 	XPKG=$(subst _,-,$(strip $(1)));							\
 	FILE=$(strip $(2));									\
 	PLACEHOLDER=$(strip $(3));								\
 	VALUE=$(strip $(4));									\
+	ESCAPEMODE=$(strip $(5));									\
 	$(call install_check, install_replace);							\
-	echo "ptxd_install_replace_figlet '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$XPKG.cmds"
+	echo "ptxd_install_replace_figlet '$$FILE' '$$PLACEHOLDER' '$$VALUE' '$$ESCAPEMODE'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_script_replace

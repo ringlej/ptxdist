@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WAYLAND) += wayland
 #
 # Paths and names
 #
-WAYLAND_VERSION	:= 1.13.0
-WAYLAND_MD5	:= cae152ed956da6de53f9727bc1c45039
+WAYLAND_VERSION	:= 1.15.0
+WAYLAND_MD5	:= b7393c17fdce9a8d383edab656c92fd2
 WAYLAND		:= wayland-$(WAYLAND_VERSION)
 WAYLAND_SUFFIX	:= tar.xz
 WAYLAND_URL	:= http://wayland.freedesktop.org/releases/$(WAYLAND).$(WAYLAND_SUFFIX)

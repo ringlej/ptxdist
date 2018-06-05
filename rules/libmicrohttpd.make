@@ -24,7 +24,7 @@ LIBMICROHTTPD_SUFFIX	:= tar.gz
 LIBMICROHTTPD_URL	:= $(call ptx/mirror, GNU, libmicrohttpd/$(LIBMICROHTTPD).$(LIBMICROHTTPD_SUFFIX))
 LIBMICROHTTPD_SOURCE	:= $(SRCDIR)/$(LIBMICROHTTPD).$(LIBMICROHTTPD_SUFFIX)
 LIBMICROHTTPD_DIR	:= $(BUILDDIR)/$(LIBMICROHTTPD)
-LIBMICROHTTPD_LICENSE	:= LGPL-2.1 OR GPL-2.0 WITH eCos-exception-2.0
+LIBMICROHTTPD_LICENSE	:= LGPL-2.1-only OR GPL-2.0-only WITH eCos-exception-2.0
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_TRACE_CMD) += trace-cmd
 #
 # Paths and names
 #
-TRACE_CMD_VERSION	:= 2.5.2
-TRACE_CMD_MD5		:= 304f28febc7a261c5a586b589c12571c
+TRACE_CMD_VERSION	:= 2.6.2
+TRACE_CMD_MD5		:= c30343f4965096ad7a97c813a6626a80
 TRACE_CMD		:= trace-cmd-$(TRACE_CMD_VERSION)
 TRACE_CMD_SUFFIX	:= tar.bz2
 TRACE_CMD_URL		:= http://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;tag=trace-cmd-v$(TRACE_CMD_VERSION)
 TRACE_CMD_SOURCE	:= $(SRCDIR)/$(TRACE_CMD).$(TRACE_CMD_SUFFIX)
 TRACE_CMD_DIR		:= $(BUILDDIR)/$(TRACE_CMD)
-TRACE_CMD_LICENSE	:= GPL-2.0
+TRACE_CMD_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -34,6 +34,7 @@ TRACE_CMD_CONF_TOOL	:= NO
 TRACE_CMD_MAKE_ENV	:= \
 	$(CROSS_ENV) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
+	NO_PYTHON=1 \
 	prefix=/usr
 
 # ----------------------------------------------------------------------------

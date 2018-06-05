@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.9.0
-HOST_QEMU_MD5		:= 02781eb15b364aedef79da7a5113f5b7
+HOST_QEMU_VERSION	:= 2.11.1
+HOST_QEMU_MD5		:= 61cf862b6007eba4ac98247776af2e27
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -40,6 +40,7 @@ HOST_QEMU_BROKEN_ICECC	:= \
 ifeq ($(HOST_QEMU_BROKEN_ICECC),y)
 HOST_QEMU_MAKE_ENV	:= PTXDIST_ICECC=
 endif
+HOST_QEMU_MAKE_OPT	:= V=$(filter 1,$(PTXDIST_VERBOSE))
 
 HOST_QEMU_TARGETS	:= $(PTXCONF_ARCH_STRING)
 ifndef PTXCONF_ARCH_X86_64
@@ -98,6 +99,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-vnc-png \
 	--disable-cocoa \
 	--enable-virtfs \
+	--disable-mpath \
 	--disable-xen \
 	--disable-xen-pci-passthrough \
 	--disable-brlapi \
@@ -112,6 +114,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-cap-ng \
 	--enable-attr \
 	--enable-vhost-net \
+	--disable-capstone \
 	--disable-spice \
 	--disable-rbd \
 	--disable-libiscsi \
@@ -138,13 +141,13 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-qom-cast-debug \
 	--disable-tools \
 	\
-	$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,--with-system-pixman,--without-pixman) \
 	--enable-vhost-scsi
 
 # Use '=' to delay $(shell ...) calls until this is needed
 QEMU_CROSS_QEMU = $(shell ptxd_get_alternative config/qemu qemu-cross && echo $$ptxd_reply)
 QEMU_CROSS_DL = $(shell ptxd_cross_cc_v | sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
-QEMU_CROSS_LD_LIBRARY_PATH := $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
+QEMU_CROSS_TOOLEXECLIBDIR = $(shell dirname $$(realpath $$(ptxd_cross_cc -print-file-name=libatomic.so 2> /dev/null)))
+QEMU_CROSS_LD_LIBRARY_PATH = $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(QEMU_CROSS_TOOLEXECLIBDIR):$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
 
 QEMU_CROSS_QEMU_ENV = \
 	QEMU="$(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS)" \

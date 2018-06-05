@@ -191,7 +191,7 @@ Package Definition
   The license of the package. The SPDX license identifiers should be used
   here. Use ``proprietary`` for proprietary packages and ``ignore`` for
   packages without their own license, e.g. meta packages or packages that
-  only install files from projectroot/.
+  only install files from ``projectroot/``.
 
 ``<PKG>_LICENSE_FILES``
   A space separated list of URLs of license text files. The URLs must be
@@ -330,10 +330,24 @@ Compile Stage
   For packages without configuration tool this must be set correctly,
   usually based on the ``<PKG>_CONF_ENV`` default values.
 
+``<PKG>_MAKE_OPT``
+  This variables defines additional parameters to be forwarded to ``make`` in
+  order to build the package. It defaults to nothing to let ``make`` traditionally
+  build the first defined target.
+
+``<PKG>_MAKE_PAR``
+  This variables informs PTXdist, if this package can be built in parallel. Some
+  (mostly very smart selfmade) buildsystems fail doing so. In this case this
+  variable can be set to ``NO``. PTXdist will then build this package with one
+  CPU only.
+
 Install Stage
 ^^^^^^^^^^^^^
 
-TBD
+``<PKG>_INSTALL_OPT``
+  This variable defaults to ``install`` which is used as a *target* for ``make``.
+  It can be overwritten if the package needs a special target to install its
+  results.
 
 Targetinstall Stage
 ^^^^^^^^^^^^^^^^^^^
@@ -1083,23 +1097,27 @@ Depending on the state of FOO_VARIABLE this line results into
 
 .. _rulefile:
 
-Rule file layout
+Rule File Layout
 ----------------
 
-Each rule file provides PTXdist with the required steps to be done on a
-per package base:
+Each rule file provides PTXdist with the required steps (in PTXdist called
+*stages*) to be done on a per package base:
 
--  get
+1. get
+2. extract
 
--  extract
+   - extract.post
 
--  prepare
+3. prepare
+4. compile
+5. install
 
--  compile
+   - install.post
+   - install.pack
 
--  install
+6. targetinstall
 
--  targetinstall
+   - targetinstall.post
 
 Default stage rules
 ~~~~~~~~~~~~~~~~~~~
@@ -1153,6 +1171,17 @@ If the *extract* stage is omitted, PTXdist runs instead:
 Which means a current existing directory of this package will be
 removed, the archive gets freshly extracted again and (if corresponding
 patches are found) patched.
+
+extract.post Stage Default Rule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is an optional stage, mainly used to somehow prepare a package for the
+next *prepare* stage step. This stage can be used to generate a ``configure``
+script out of an autotoolized ``configure.ac`` file for example. This separation
+from the *extract* stage is useful to be able to extract a package for a quick
+look into the sources without the need to build all the autotools first. The
+autotoolized PTXdist templates makes use of this feature. Refer
+:ref:`adding_src_autoconf_templates` for further details.
 
 prepare Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1259,6 +1288,16 @@ Note: ``@package@_INSTALL_OPT`` is always defined to ``install`` if not
 otherwise specified. This value can be replaced by a package’s rule file
 definition.
 
+install.post Stage Default Rule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TBD
+
+install.pack Stage Default Rule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TBD
+
 targetinstall Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1268,10 +1307,15 @@ to the developer only. Refer to section :ref:`reference_macros`
 for further info on how to select files to be included in the target’s
 root filesystem.
 
+targetinstall.post Stage Default Rule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TBD
+
 Skipping a Stage
 ~~~~~~~~~~~~~~~~
 
-For the case that a specific stage should be skipped, an empty rule must
+For the case that a specific stage should be really skipped, an empty rule must
 be provided:
 
 .. code-block:: make

@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_HOST_SYSTEM_BC) += host-system-bc
+HOST_PACKAGES-$(PTXCONF_HOST_SYSTEM_BC) += host-system-bc
 HOST_SYSTEM_BC_LICENSE := ignore
 
 # ----------------------------------------------------------------------------

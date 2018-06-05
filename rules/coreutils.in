@@ -211,6 +211,10 @@ comment "busybox' cut is selected!"
 config COREUTILS_SHRED
 	bool
 	prompt "shred"
+	depends on !BUSYBOX_SHRED || ALLYES
+
+comment "busybox' shred is selected!"
+	depends on BUSYBOX_SHRED
 
 config COREUTILS_OD
 	bool
@@ -283,6 +287,10 @@ comment "busybox' touch is selected!"
 config COREUTILS_PASTE
 	bool
 	prompt "paste"
+	depends on !BUSYBOX_PASTE || ALLYES
+
+comment "busybox' paste is selected!"
+	depends on BUSYBOX_PASTE
 
 config COREUTILS_MKNOD
 	bool
@@ -372,6 +380,10 @@ comment "busybox' yes is selected!"
 config COREUTILS_FACTOR
 	bool
 	prompt "factor"
+	depends on !BUSYBOX_FACTOR || ALLYES
+
+comment "busybox' factor is selected!"
+	depends on BUSYBOX_FACTOR
 
 config COREUTILS_JOIN
 	bool
@@ -504,6 +516,10 @@ comment "busybox' id is selected!"
 config COREUTILS_LINK
 	bool
 	prompt "link"
+	depends on !BUSYBOX_LINK || ALLYES
+
+comment "busybox' link is selected!"
+	depends on BUSYBOX_LINK
 
 config COREUTILS_SLEEP
 	bool
@@ -568,6 +584,10 @@ config COREUTILS_PATHCHK
 config COREUTILS_NL
 	bool
 	prompt "nl"
+	depends on !BUSYBOX_NL || ALLYES
+
+comment "busybox' nl is selected!"
+	depends on BUSYBOX_NL
 
 config COREUTILS_WC
 	bool
@@ -592,6 +612,10 @@ comment "busybox' unexpand is selected!"
 config COREUTILS_NPROC
 	bool
 	prompt "nproc"
+	depends on !BUSYBOX_NPROC || ALLYES
+
+comment "busybox' nproc is selected!"
+	depends on BUSYBOX_NPROC
 
 config COREUTILS_NUMFMT
 	bool

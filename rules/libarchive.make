@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBARCHIVE) += libarchive
 #
 # Paths and names
 #
-LIBARCHIVE_VERSION	:= 3.1.2
-LIBARCHIVE_MD5		:= efad5a503f66329bb9d2f4308b5de98a
+LIBARCHIVE_VERSION	:= 3.3.2
+LIBARCHIVE_MD5		:= 4583bd6b2ebf7e0e8963d90879eb1b27
 LIBARCHIVE		:= libarchive-$(LIBARCHIVE_VERSION)
 LIBARCHIVE_SUFFIX	:= tar.gz
 LIBARCHIVE_URL		:= http://www.libarchive.org/downloads/$(LIBARCHIVE).$(LIBARCHIVE_SUFFIX)
 LIBARCHIVE_SOURCE	:= $(SRCDIR)/$(LIBARCHIVE).$(LIBARCHIVE_SUFFIX)
 LIBARCHIVE_DIR		:= $(BUILDDIR)/$(LIBARCHIVE)
-LIBARCHIVE_LICENSE	:= BSD New
+LIBARCHIVE_LICENSE	:= BSD-2-Clause AND BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,6 +36,7 @@ LIBARCHIVE_CONF_TOOL	:= autoconf
 LIBARCHIVE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_LIBARCHIVE_BSDTAR)-bsdtar \
+	--$(call ptx/endis, PTXCONF_LIBARCHIVE_BSDCAT)-bsdcat \
 	--$(call ptx/endis, PTXCONF_LIBARCHIVE_BSDCPIO)-bsdcpio \
 	--disable-rpath \
 	--enable-posix-regex-lib=libc \
@@ -44,10 +45,11 @@ LIBARCHIVE_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--with-zlib \
 	--$(call ptx/wwo, PTXCONF_LIBARCHIVE_BZIP2)-bz2lib \
-	--with-lzmadec \
 	--without-iconv \
+	--without-lz4 \
 	--$(call ptx/wwo, PTXCONF_LIBARCHIVE_LZMA)-lzma \
 	--without-lzo2 \
+	--without-cng \
 	--without-nettle \
 	--without-openssl \
 	--without-xml2 \
@@ -69,6 +71,9 @@ $(STATEDIR)/libarchive.targetinstall:
 	@$(call install_lib, libarchive, 0, 0, 0644, libarchive)
 ifdef PTXCONF_LIBARCHIVE_BSDTAR
 	@$(call install_copy, libarchive, 0, 0, 0755, -, /usr/bin/bsdtar)
+endif
+ifdef PTXCONF_LIBARCHIVE_BSDCAT
+	@$(call install_copy, libarchive, 0, 0, 0755, -, /usr/bin/bsdcat)
 endif
 ifdef PTXCONF_LIBARCHIVE_BSDCPIO
 	@$(call install_copy, libarchive, 0, 0, 0755, -, /usr/bin/bsdcpio)

@@ -18,12 +18,17 @@ PACKAGES-$(PTXCONF_KERNEL_HEADER) += kernel-header
 #
 KERNEL_HEADER			:= linux-$(KERNEL_HEADER_VERSION)
 KERNEL_HEADER_MD5		:= $(call remove_quotes,$(PTXCONF_KERNEL_HEADER_MD5))
+ifneq ($(KERNEL_HEADER_NEEDS_GIT_URL),y)
 KERNEL_HEADER_SUFFIX		:= tar.xz
 KERNEL_HEADER_URL		:= $(call kernel-url, KERNEL_HEADER)
+else
+KERNEL_HEADER_SUFFIX		:= tar.gz
+KERNEL_HEADER_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL_HEADER).$(KERNEL_HEADER_SUFFIX)
+endif
 KERNEL_HEADER_SOURCE		:= $(SRCDIR)/linux-$(KERNEL_HEADER_VERSION).$(KERNEL_HEADER_SUFFIX)
 KERNEL_HEADER_DIR		:= $(BUILDDIR)/kernel-header-$(KERNEL_HEADER_VERSION)
 KERNEL_HEADER_PKGDIR		:= $(PKGDIR)/kernel-header-$(KERNEL_HEADER_VERSION)
-KERNEL_HEADER_LICENSE		:= GPL-2.0
+KERNEL_HEADER_LICENSE		:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

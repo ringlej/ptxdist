@@ -17,8 +17,9 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 2.0.0
-WESTON_MD5	:= 15f38945942bf2a91fe2687145fb4c7d
+WESTON_VERSION	:= 4.0.0
+LIBWESTON_MAJOR := 4
+WESTON_MD5	:= 33709aa4d5916f89643fca0fc0064b39
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -41,7 +42,6 @@ WESTON_CONF_OPT		:= \
 	--enable-shared \
 	--disable-devdocs \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-egl \
-	--enable-xkbcommon \
 	--disable-setuid-install \
 	--$(call ptx/endis, PTXCONF_WESTON_XWAYLAND)-xwayland \
 	--disable-xwayland-test \
@@ -55,19 +55,18 @@ WESTON_CONF_OPT		:= \
 	--disable-vaapi-recorder \
 	--enable-simple-clients \
 	--$(call ptx/endis, PTXCONF_WESTON_GL)-simple-egl-clients \
-	--disable-simple-dmabuf-intel-client \
+	--disable-simple-dmabuf-drm-client \
 	--disable-simple-dmabuf-v4l-client \
 	--enable-clients \
 	--enable-resize-optimization \
-	--disable-weston-launch \
+	--$(call ptx/endis, PTXCONF_WESTON_LAUNCH)-weston-launch \
 	--enable-fullscreen-shell \
 	--disable-colord \
-	--disable-dbus \
+	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-dbus \
 	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-systemd-login \
 	--disable-junit-xml \
 	--disable-ivi-shell \
 	--$(call ptx/endis, PTXCONF_WESTON_WCAP_TOOLS)-wcap-tools \
-	--disable-libunwind \
 	--disable-demo-clients-install \
 	--disable-lcms \
 	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD)-systemd-notify \
@@ -91,29 +90,32 @@ $(STATEDIR)/weston.targetinstall:
 
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-info)
+ifdef PTXCONF_WESTON_LAUNCH
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-launch)
+endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-terminal)
 
 ifdef PTXCONF_WESTON_WCAP_TOOLS
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/wcap-decode)
 endif
 
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2)
-	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-2)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR))
+	@$(call install_lib, weston, 0, 0, 0644, libweston-desktop-$(LIBWESTON_MAJOR))
 ifdef PTXCONF_WESTON_XWAYLAND
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/xwayland)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/xwayland)
 endif
 ifdef PTXCONF_WESTON_DRM_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/drm-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/drm-backend)
 endif
 ifdef PTXCONF_WESTON_HEADLESS_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/headless-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/headless-backend)
 endif
 ifdef PTXCONF_WESTON_FBDEV_COMPOSITOR
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/fbdev-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/fbdev-backend)
 endif
 ifdef PTXCONF_WESTON_GL
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/wayland-backend)
-	@$(call install_lib, weston, 0, 0, 0644, libweston-2/gl-renderer)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/wayland-backend)
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/gl-renderer)
 endif
 	@$(call install_lib, weston, 0, 0, 0644, weston/desktop-shell)
 	@$(call install_lib, weston, 0, 0, 0644, weston/fullscreen-shell)
@@ -128,16 +130,16 @@ endif
 
 
 	@$(foreach image, \
-		wayland.svg \
+		border.png \
+		icon_window.png \
+		pattern.png \
+		sign_close.png \
+		sign_maximize.png \
+		sign_minimize.png \
 		terminal.png \
 		wayland.png \
-		border.png \
-		pattern.png \
-		sign_maximize.png \
-		icon_window.png \
-		sign_close.png \
-		sign_maximize.png, \
-		$(call install_copy, weston, 0, 0, 0644, -, /usr/share/weston/$(image));)
+		wayland.svg, \
+		$(call install_copy, weston, 0, 0, 0644, -, /usr/share/weston/$(image))$(ptx/nl))
 
 
 	@$(call install_finish, weston)

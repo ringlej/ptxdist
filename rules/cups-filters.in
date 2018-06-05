@@ -1,0 +1,73 @@
+## SECTION=applications
+
+menuconfig CUPS_FILTERS
+	tristate
+	prompt "cups-filters                  "
+
+	select LIBC_DL
+	select HOST_CUPS
+	select CUPS
+	select GLIB
+	select ZLIB
+	select LCMS
+	select FREETYPE
+	select FONTCONFIG
+	select QPDF
+
+	# Note: configure does not check for these poppler options:
+	select POPPLER			if CUPS_FILTERS_POPPLER
+	select POPPLER_BIN		if CUPS_FILTERS_POPPLER # for pdftops
+	select POPPLER_CPP		if CUPS_FILTERS_POPPLER
+	select POPPLER_CMS		if CUPS_FILTERS_POPPLER
+	select POPPLER_SPLASH		if CUPS_FILTERS_POPPLER
+	select POPPLER_XPDF		if CUPS_FILTERS_POPPLER
+
+	select LIBJPEG			if CUPS_FILTERS_JPEG
+	select LIBPNG			if CUPS_FILTERS_PNG
+
+	help
+	  cups-filters contains backends, filters, and other software that
+	  was once part of the core CUPS distribution but is no longer
+	  maintained by Apple Inc. In addition it contains additional filters
+	  and software developed independently of Apple, especially filters for
+	  the PDF-centric printing workflow introduced by OpenPrinting and a
+	  daemon to browse Bonjour broadcasts of remote CUPS printers and makes
+	  these printers available locally.
+
+if CUPS_FILTERS
+
+config CUPS_FILTERS_POPPLER
+	bool "build with poppler support"
+	help
+	  Build with poppler support, needed for pdfto* filters and banners.
+
+comment "poppler support will not build with POPPLER_SPLASH_FIXED!"
+	depends on (POPPLER_SPLASH_FIXED && CUPS_FILTERS_POPPLER)
+
+config CUPS_FILTERS_IMAGEFILTERS
+	bool "build image filters"
+	help
+	  Build imagetopdf and imagetoraster filters
+
+config CUPS_FILTERS_PCLM
+	bool "with PCLm support"
+	help
+	  Enable PCLm support for printing on Wi-Fi Direct printers via
+	  rastertopclm filter
+
+config CUPS_FILTERS_JPEG
+	bool "with JPEG support"
+	depends on CUPS_FILTERS_IMAGEFILTERS
+	default y
+	help
+	  Enable JPEG support in image filters
+
+config CUPS_FILTERS_PNG
+	bool "with PNG support"
+	depends on CUPS_FILTERS_IMAGEFILTERS
+	default y
+	help
+	  Enable PNG support in image filters
+
+endif
+# vim: ft=kconfig ts=8 noet tw=80

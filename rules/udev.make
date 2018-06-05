@@ -12,17 +12,6 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_UDEV) += udev
-
-ifdef PTXCONF_INITMETHOD_SYSTEMD
-UDEV_LICENSE = $(SYSTEMD_LICENSE)
-else
-UDEV_LICENSE = $(UDEV_LEGACY_LICENSE)
-endif
-
-#
-# We provide this package
-#
 PACKAGES-$(PTXCONF_UDEV_LEGACY) += udev-legacy
 
 #
@@ -35,7 +24,7 @@ UDEV_LEGACY_SUFFIX	:= tar.bz2
 UDEV_LEGACY_URL		:= $(call ptx/mirror, KERNEL, utils/kernel/hotplug/$(UDEV_LEGACY).$(UDEV_LEGACY_SUFFIX))
 UDEV_LEGACY_SOURCE	:= $(SRCDIR)/$(UDEV_LEGACY).$(UDEV_LEGACY_SUFFIX)
 UDEV_LEGACY_DIR		:= $(BUILDDIR)/$(UDEV_LEGACY)
-UDEV_LEGACY_LICENSE	:= GPL-2.0
+UDEV_LEGACY_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -46,7 +35,7 @@ UDEV_LEGACY_LICENSE	:= GPL-2.0
 #
 UDEV_LEGACY_CONF_ENV := \
 	$(CROSS_ENV) \
-	CPPFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR) $(CROSS_CPPFLAGS)"
+	CPPFLAGS="-isystem $(KERNEL_HEADERS_INCLUDE_DIR) $(CROSS_CPPFLAGS)"
 
 UDEV_LEGACY_CONF_TOOL	:= autoconf
 UDEV_LEGACY_CONF_OPT	:= \

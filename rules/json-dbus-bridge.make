@@ -24,7 +24,7 @@ JSON_DBUS_BRIDGE_SUFFIX		:= tar.bz2
 JSON_DBUS_BRIDGE_URL		:= http://www.pengutronix.de/software/json-dbus-bridge/download/$(JSON_DBUS_BRIDGE).$(JSON_DBUS_BRIDGE_SUFFIX)
 JSON_DBUS_BRIDGE_SOURCE		:= $(SRCDIR)/$(JSON_DBUS_BRIDGE).$(JSON_DBUS_BRIDGE_SUFFIX)
 JSON_DBUS_BRIDGE_DIR		:= $(BUILDDIR)/$(JSON_DBUS_BRIDGE)
-JSON_DBUS_BRIDGE_LICENSE	:= LGPL-2.1+
+JSON_DBUS_BRIDGE_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -24,7 +24,7 @@ MODULE_INIT_TOOLS_SUFFIX	:= tar.bz2
 MODULE_INIT_TOOLS_URL		:= $(call ptx/mirror, KERNEL, utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX))
 MODULE_INIT_TOOLS_SOURCE	:= $(SRCDIR)/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
 MODULE_INIT_TOOLS_DIR		:= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
-MODULE_INIT_TOOLS_LICENSE	:= GPL-2.0
+MODULE_INIT_TOOLS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

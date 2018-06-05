@@ -23,7 +23,7 @@ GTK_SUFFIX	:= tar.bz2
 GTK_URL		:= http://ftp.gtk.org/pub/gtk/3.2/$(GTK).$(GTK_SUFFIX)
 GTK_SOURCE	:= $(SRCDIR)/$(GTK).$(GTK_SUFFIX)
 GTK_DIR		:= $(BUILDDIR)/$(GTK)
-GTK_LICENSE	:= LGPL-2.0
+GTK_LICENSE	:= LGPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

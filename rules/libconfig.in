@@ -1,10 +1,16 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 
 menuconfig LIBCONFIG
 	tristate
 	prompt "libconfig                     "
 	help
 	  C/C++ Configuration File Library
+
+	  STAGING: remove in ptxdist-2019.05.0
+	  Old version that is no longer available for download.
+	  Should be updated to a new version.
 
 if LIBCONFIG
 

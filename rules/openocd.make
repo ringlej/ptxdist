@@ -18,7 +18,7 @@ OPENOCD_URL	:= $(call ptx/mirror, SF, openocd/$(OPENOCD).$(OPENOCD_SUFFIX))
 OPENOCD_SOURCE	:= $(SRCDIR)/$(OPENOCD).$(OPENOCD_SUFFIX)
 OPENOCD_DIR	:= $(BUILDDIR)/$(OPENOCD)
 # License: OpenOCD: GPLv2+, jimtcl: BSD
-OPENOCD_LICENSE	:= GPL-2.0+, BSD
+OPENOCD_LICENSE	:= GPL-2.0-or-later AND BSD
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -26,6 +26,7 @@ OPENOCD_LICENSE	:= GPL-2.0+, BSD
 
 OPENOCD_CONF_TOOL	:= autoconf
 OPENOCD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
+	--disable-werror \
 	--$(call ptx/endis, PTXCONF_OPENOCD_DUMMY)-dummy \
 	--$(call ptx/endis, PTXCONF_OPENOCD_FTDI)-ftdi \
 	--$(call ptx/endis, PTXCONF_OPENOCD_STLINK)-stlink \
