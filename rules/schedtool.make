@@ -23,7 +23,7 @@ SCHEDTOOL_SUFFIX	:= tar.bz2
 SCHEDTOOL_URL		:= http://freequaos.host.sk/schedtool/$(SCHEDTOOL).$(SCHEDTOOL_SUFFIX)
 SCHEDTOOL_SOURCE	:= $(SRCDIR)/$(SCHEDTOOL).$(SCHEDTOOL_SUFFIX)
 SCHEDTOOL_DIR		:= $(BUILDDIR)/$(SCHEDTOOL)
-SCHEDTOOL_LICENSE	:= GPL-2.0
+SCHEDTOOL_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

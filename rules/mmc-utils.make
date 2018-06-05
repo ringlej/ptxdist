@@ -24,7 +24,7 @@ MMC_UTILS_SUFFIX	:= tar.gz
 MMC_UTILS_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/cjb/mmc-utils.git;tag=$(MMC_UTILS_VERSION)
 MMC_UTILS_SOURCE	:= $(SRCDIR)/$(MMC_UTILS).$(MMC_UTILS_SUFFIX)
 MMC_UTILS_DIR		:= $(BUILDDIR)/$(MMC_UTILS)
-MMC_UTILS_LICENSE	:= GPL-2.0 AND BSD-3-Clause
+MMC_UTILS_LICENSE	:= GPL-2.0-only AND BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

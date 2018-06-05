@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_BONNIEXX) += bonniexx
 #
 # Paths and names
 #
-BONNIEXX_VERSION	:= 1.97
-BONNIEXX_MD5		:= d6cf9703242998b2ddc2d875b028b3c6
+BONNIEXX_VERSION	:= 1.97.3
+BONNIEXX_MD5		:= e4be8977e8f7e6d4375a8d1dadda8d9e
 BONNIEXX		:= bonnie++-$(BONNIEXX_VERSION)
 BONNIEXX_SUFFIX		:= tgz
-BONNIEXX_URL		:= http://www.coker.com.au/bonnie++/experimental/$(BONNIEXX).$(BONNIEXX_SUFFIX)
+BONNIEXX_URL		:= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_SOURCE		:= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_DIR		:= $(BUILDDIR)/$(BONNIEXX)
-BONNIEXX_LICENSE	:= GPL-2.0
+BONNIEXX_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -32,7 +32,7 @@ BONNIEXX_LICENSE	:= GPL-2.0
 
 BONNIEXX_ENV	:= \
 	$(CROSS_ENV) \
-	bonnie_cv_sys_largefile=$(call ptx/ifdef,PTXCONF_GLOBAL_LARGE_FILE,yes,no)
+	bonnie_cv_sys_largefile=$(call ptx/yesno, PTXCONF_GLOBAL_LARGE_FILE)
 
 #
 # autoconf

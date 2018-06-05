@@ -5,6 +5,6 @@
 0002-glibc-xattr-types.patch
 0003-hide-dlsym-error.patch
 #tag:ptxdist --start-number 100
-0100-add-FAKEROOT_SYSROOT-prefix-for-relocation.patch
+0100-make-fakeroot-relocatable.patch
 0101-fakeroot-disable-build-of-doc-and-test.patch
-# 5ca44e32b3f56954f5e5f253d7c2d302  - git-ptx-patches magic
+# 10e086ed26479131ecd760e5b7bb7cc2  - git-ptx-patches magic

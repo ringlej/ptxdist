@@ -161,7 +161,7 @@ ptxd_make_world_init_compat() {
     pkg_env="SYSROOT='${pkg_sysroot_dir}' V=${PTXDIST_VERBOSE} VERBOSE=${PTXDIST_VERBOSE/0/}"
     case "${pkg_type}" in
 	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} ${pkg_env}" ;;
-	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig:${PTXDIST_SYSROOT_HOST}/share/pkgconfig' ${pkg_env}" ;;
+	host|cross) pkg_env="${PTXDIST_HOST_ENV_PKG_CONFIG} ${pkg_env}" ;;
     esac
 }
 export -f ptxd_make_world_init_compat
@@ -312,9 +312,10 @@ ptxd_make_world_init() {
 	    ;;
 	meson)
 	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}${conf_opt_ext}"
+	    local conf_env_ptr="ptx_conf_env_${pkg_conf_tool}_${pkg_type}"
 
 	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
-	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env}"
+	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env:-${!conf_env_ptr}}"
 
 	    # Try to find a suitable UTF-8 locale on all distros
 	    local c_locale

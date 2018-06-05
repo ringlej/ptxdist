@@ -4,6 +4,7 @@ menuconfig GNUTLS
 	tristate
 	select LIBTASN1
 	select NETTLE
+	select GCCLIBS_CXX	if GNUTLS_CXX
 	select OPENSSL		if GNUTLS_OPENSSL
 	prompt "gnutls                        "
 	help
@@ -16,6 +17,10 @@ menuconfig GNUTLS
 	  security and interoperability.
 
 if GNUTLS
+
+config GNUTLS_CXX
+	bool
+	prompt "install C++ runtime library"
 
 config GNUTLS_OPENSSL
 	bool

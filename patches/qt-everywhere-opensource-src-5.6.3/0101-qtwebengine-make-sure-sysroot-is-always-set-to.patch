@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 6 May 2018 09:00:11 +0200
+Subject: [PATCH] qtwebengine: make sure sysroot is always set to ""
+
+Otherwise chromium will set it's own bogus sysroot.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtwebengine/src/core/gyp_run.pro | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/qtwebengine/src/core/gyp_run.pro b/qtwebengine/src/core/gyp_run.pro
+index 81e1c3297ad2..b96e9f026beb 100644
+--- a/qtwebengine/src/core/gyp_run.pro
++++ b/qtwebengine/src/core/gyp_run.pro
+@@ -44,6 +44,7 @@ force_debug_info {
+ cross_compile {
+     TOOLCHAIN_SYSROOT = $$[QT_SYSROOT]
+     !isEmpty(TOOLCHAIN_SYSROOT): GYP_CONFIG += sysroot=\"$${TOOLCHAIN_SYSROOT}\"
++    else: GYP_CONFIG += sysroot=\"\"
+ 
+     # Needed for v8, see chromium/v8/build/toolchain.gypi
+     GYP_CONFIG += CXX=\"$$which($$QMAKE_CXX)\"

@@ -23,7 +23,7 @@ LIBSEPOL_SUFFIX		:= tar.gz
 LIBSEPOL_URL		:= https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20120924/$(LIBSEPOL).$(LIBSEPOL_SUFFIX)
 LIBSEPOL_SOURCE		:= $(SRCDIR)/$(LIBSEPOL).$(LIBSEPOL_SUFFIX)
 LIBSEPOL_DIR		:= $(BUILDDIR)/$(LIBSEPOL)
-LIBSEPOL_LICENSE	:= LGPL-2.1+
+LIBSEPOL_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,7 +23,7 @@ LIBSOCKETCAN_SUFFIX	:= tar.bz2
 LIBSOCKETCAN_URL	:= http://www.pengutronix.de/software/libsocketcan/download/$(LIBSOCKETCAN).$(LIBSOCKETCAN_SUFFIX)
 LIBSOCKETCAN_SOURCE	:= $(SRCDIR)/$(LIBSOCKETCAN).$(LIBSOCKETCAN_SUFFIX)
 LIBSOCKETCAN_DIR	:= $(BUILDDIR)/$(LIBSOCKETCAN)
-LIBSOCKETCAN_LICENSE	:= LGPL-2.1+
+LIBSOCKETCAN_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

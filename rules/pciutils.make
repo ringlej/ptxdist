@@ -24,7 +24,7 @@ PCIUTILS_SUFFIX		:= tar.xz
 PCIUTILS_URL		:= $(call ptx/mirror, KERNEL, ../software/utils/pciutils/$(PCIUTILS).$(PCIUTILS_SUFFIX))
 PCIUTILS_SOURCE		:= $(SRCDIR)/$(PCIUTILS).$(PCIUTILS_SUFFIX)
 PCIUTILS_DIR		:= $(BUILDDIR)/$(PCIUTILS)
-PCIUTILS_LICENSE	:= GPL-2.0
+PCIUTILS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -39,9 +39,9 @@ PCIUTILS_MAKE_OPT := \
 	SBINDIR='\$$(PREFIX)/bin' \
 	HOST=$(PTXCONF_ARCH_STRING)-linux \
 	RELEASE=$(KERNEL_HEADER_VERSION) \
-	ZLIB=$(call ptx/ifdef,PTXCONF_PCIUTILS_COMPRESS,yes,no) \
-	LIBKMOD=$(call ptx/ifdef,PTXCONF_PCIUTILS_LIBKMOD,yes,no) \
-	SHARED=$(call ptx/ifdef,PTXCONF_PCIUTILS_LIBPCI,yes,no) \
+	ZLIB=$(call ptx/yesno, PTXCONF_PCIUTILS_COMPRESS) \
+	LIBKMOD=$(call ptx/yesno, PTXCONF_PCIUTILS_LIBKMOD) \
+	SHARED=$(call ptx/yesno, PTXCONF_PCIUTILS_LIBPCI) \
 	STRIP= \
 	DNS=no \
 	HWDB=no

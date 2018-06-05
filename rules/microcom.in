@@ -4,6 +4,7 @@ config MICROCOM
 	depends on !BUSYBOX_MICROCOM || ALLYES
 	tristate
 	prompt "microcom"
+	select READLINE
 	help
 	  minimalistic terminal program
 

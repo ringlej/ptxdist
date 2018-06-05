@@ -23,7 +23,7 @@ JSON_GLIB_SUFFIX	:= tar.xz
 JSON_GLIB_URL		:= http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.2/$(JSON_GLIB).$(JSON_GLIB_SUFFIX)
 JSON_GLIB_SOURCE	:= $(SRCDIR)/$(JSON_GLIB).$(JSON_GLIB_SUFFIX)
 JSON_GLIB_DIR		:= $(BUILDDIR)/$(JSON_GLIB)
-JSON_GLIB_LICENSE	:= LGPL-2.1
+JSON_GLIB_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

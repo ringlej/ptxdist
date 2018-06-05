@@ -23,7 +23,7 @@ SAMBA		:= samba-$(SAMBA_VERSION)
 SAMBA_SUFFIX	:= tar.gz
 SAMBA_SOURCE	:= $(SRCDIR)/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_DIR	:= $(BUILDDIR)/$(SAMBA)
-SAMBA_LICENSE	:= GPL-2.0
+SAMBA_LICENSE	:= GPL-2.0-only
 
 SAMBA_URL	:= \
 	http://www.samba.org/samba/ftp/stable/$(SAMBA).$(SAMBA_SUFFIX) \

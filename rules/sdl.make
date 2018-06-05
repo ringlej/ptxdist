@@ -24,243 +24,98 @@ SDL_SUFFIX	:= tar.gz
 SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)
 SDL_SOURCE	:= $(SRCDIR)/$(SDL).$(SDL_SUFFIX)
 SDL_DIR		:= $(BUILDDIR)/$(SDL)
-SDL_LICENSE	:= LGPL-2.1
+SDL_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-SDL_PATH	:= PATH=$(CROSS_PATH)
-SDL_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-SDL_AUTOCONF := \
+SDL_CONF_TOOL	:= autoconf
+SDL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis,PTXCONF_SDL_TSLIB)-input-tslib \
-
-ifdef PTXCONF_SDL_SHARED
-SDL_AUTOCONF += --enable-shared
-else
-SDL_AUTOCONF += --disable-shared
-endif
-
-ifdef PTXCONF_SDL_STATIC
-SDL_AUTOCONF += --enable-static
-else
-SDL_AUTOCONF += --disable-static
-endif
-
-ifdef PTXCONF_SDL_AUDIO
-SDL_AUTOCONF += --enable-audio
-
- ifdef PTXCONF_SDL_OSS
- SDL_AUTOCONF += --enable-oss
- else
- SDL_AUTOCONF += --disable-oss
- endif
-
- ifdef PTXCONF_SDL_ALSA
- SDL_AUTOCONF += \
-	--enable-alsa \
+	--enable-shared \
+	--disable-static \
+	--enable-libc \
+	--$(call ptx/endis,PTXCONF_SDL_AUDIO)-audio \
+	--$(call ptx/endis,PTXCONF_SDL_VIDEO)-video \
+	--$(call ptx/endis,PTXCONF_SDL_EVENT)-events \
+	--$(call ptx/endis,PTXCONF_SDL_JOYSTICK)-joystick \
+	--$(call ptx/endis,PTXCONF_SDL_CDROM)-cdrom \
+	--$(call ptx/endis,PTXCONF_SDL_THREADS)-threads \
+	--$(call ptx/endis,PTXCONF_SDL_TIMERS)-timers \
+	--$(call ptx/endis,PTXCONF_SDL_FILE)-file \
+	--enable-loadso \
+	--$(call ptx/endis,PTXCONF_SDL_CPUINFO)-cpuinfo \
+	--enable-assembly \
+	--$(call ptx/endis,PTXCONF_SDL_OSS)-oss \
+	--$(call ptx/endis,PTXCONF_SDL_ALSA)-alsa \
 	--disable-alsatest \
-	--with-alsa-prefix=$(SYSROOT)/usr/lib \
-	--with-alsa-inc-prefix=$(SYSROOT)/usr/include
-  ifdef PTXCONF_SDL_ALSA_SHARED
-  SDL_AUTOCONF += --enable-alsa-shared
-  else
-  SDL_AUTOCONF += --disable-alsa-shared
-  endif
- else
- SDL_AUTOCONF += --disable-alsa
- endif
-
- ifdef PTXCONF_SDL_ESD
- SDL_AUTOCONF += --enable-esd
- SDL_AUTOCONF += --disable-esdtest
- #SDL_AUTOCONF += --with-esd-prefix=PFX
- #SDL_AUTOCONF += --with-esd-exec-prefix=PFX
-  ifdef PTXCONF_SDL_ESD_SHARED
-  SDL_AUTOCONF += --enable-esd-shared
-  else
-  SDL_AUTOCONF += --disable-esd-shared
-  endif
- else
- SDL_AUTOCONF += --disable-esd
- endif
-
- ifdef PTXCONF_SDL_ARTS
- SDL_AUTOCONF += --enable-arts
-  ifdef PTXCONF_SDL_ARTS_SHARED
-  SDL_AUTOCONF += --enable-arts-shared
-  else
-  SDL_AUTOCONF += --disable-arts-shared
-  endif
- else
- SDL_AUTOCONF += --disable-arts
- endif
-
- ifdef PTXCONF_SDL_NAS
- SDL_AUTOCONF += --enable-nas
- else
- SDL_AUTOCONF += --disable-nas
- endif
-
- ifdef PTXCONF_SDL_DISKAUDIO
- SDL_AUTOCONF += --enable-diskaudio
- else
- SDL_AUTOCONF += --disable-diskaudio
- endif
-
-else
-SDL_AUTOCONF += --disable-audio
-endif
-
-ifdef PTXCONF_SDL_VIDEO
-SDL_AUTOCONF += --enable-video
-
- ifdef PTXCONF_SDL_NANOX
- SDL_AUTOCONF += \
-	--enable-video-nanox \
-	--enable-nanox-debug \
-	--enable-nanox-share-memory \
-	--enable-nanox-direct-fb
- else
- SDL_AUTOCONF += --disable-video-nanox
- endif
-
- ifdef PTXCONF_SDL_XORG
- SDL_AUTOCONF += \
-	--with-x \
-	--enable-video-x11 \
-	--enable-video-x11-vm \
-	--enable-dga \
-	--enable-video-x11-dgamouse \
-	--enable-video-x11-xme \
-	--enable-video-dga \
-	--x-includes=$(SYSROOT)/usr/include \
-	--x-libraries=$(SYSROOT)/usr/lib
-  ifdef PTXCONF_SDL_XORG_XV
-  SDL_AUTOCONF += --enable-video-x11-xv
-  else
-  SDL_AUTOCONF += --disable-video-x11-xv
-  endif
-  ifdef PTXCONF_SDL_XORG_XINERAMA
-  SDL_AUTOCONF += --enable-video-x11-xinerama
-  else
-  SDL_AUTOCONF += --disable-video-x11-xinerama
-  endif
- else
- SDL_AUTOCONF += --without-x
- endif
-
- ifdef PTXCONF_SDL_FBCON
- SDL_AUTOCONF += --enable-video-fbcon
- else
- SDL_AUTOCONF += --disable-video-fbcon
- endif
-
- ifdef PTXCONF_SDL_DIRECTFB
- SDL_AUTOCONF += --enable-video-directfb
- else
- SDL_AUTOCONF += --disable-video-directfb
- endif
-
- ifdef PTXCONF_SDL_AALIB
- SDL_AUTOCONF += --enable-video-aalib
- else
- SDL_AUTOCONF += --disable-video-aalib
- endif
-
- ifdef PTXCONF_SDL_OPENGL
- SDL_AUTOCONF += \
-	--enable-video-opengl \
-	--enable-osmesa-shared
- else
- SDL_AUTOCONF += --disable-video-opengl
- endif
-
- SDL_AUTOCONF += --disable-video-qtopia
-
-else
-SDL_AUTOCONF += --disable-video
-endif
-
-ifdef PTXCONF_SDL_EVENT
-SDL_AUTOCONF += --enable-events
-else
-SDL_AUTOCONF += --disable-events
-endif
-
-ifdef PTXCONF_SDL_JOYSTICK
-SDL_AUTOCONF += --enable-joystick
-else
-SDL_AUTOCONF += --disable-joystick
-endif
-
-ifdef PTXCONF_SDL_CDROM
-SDL_AUTOCONF += --enable-cdrom
-else
-SDL_AUTOCONF += --disable-cdrom
-endif
-
-ifdef PTXCONF_SDL_THREADS
-SDL_AUTOCONF += --enable-threads
- ifdef PTXCONF_SDL_PTH
- SDL_AUTOCONF += --enable-pth
- else
- SDL_AUTOCONF += --disable-pth
- endif
-else
-SDL_AUTOCONF += --disable-threads
-endif
-
-ifdef PTXCONF_SDL_TIMERS
-SDL_AUTOCONF += --enable-timers
-else
-SDL_AUTOCONF += --disable-timers
-endif
-
-ifdef PTXCONF_SDL_FILE
-SDL_AUTOCONF += --enable-file
-else
-SDL_AUTOCONF += --disable-file
-endif
-
-ifdef PTXCONF_SDL_CPUINFO
-SDL_AUTOCONF += --enable-cpuinfo
-else
-SDL_AUTOCONF += --disable-cpuinfo
-endif
-
-ifdef PTXCONF_SDL_NASM
-SDL_AUTOCONF += --enable-nasm
-else
-SDL_AUTOCONF += --disable-nasm
-endif
-
-SDL_AUTOCONF += \
+	--disable-alsa-shared \
+	--disable-esd \
+	--disable-esdtest \
+	--disable-esd-shared \
 	--disable-pulseaudio \
+	--disable-pulseaudio-shared \
+	--disable-arts \
+	--disable-arts-shared \
+	--disable-nas \
+	--disable-nas-shared \
+	--disable-diskaudio \
+	--disable-dummyaudio \
+	--disable-mintaudio \
+	--enable-nasm \
+	--disable-altivec \
+	--disable-ipod \
+	--disable-video-nanox \
+	--disable-nanox-debug \
+	--disable-nanox-share-memory \
+	--disable-nanox-direct-fb \
+	--$(call ptx/endis,PTXCONF_SDL_XORG)-video-x11 \
+	--disable-x11-shared \
+	--$(call ptx/endis,PTXCONF_SDL_XORG)-dga \
+	--$(call ptx/endis,PTXCONF_SDL_XORG)-video-dga \
+	--$(call ptx/endis,PTXCONF_SDL_XORG)-video-x11-dgamouse \
+	--$(call ptx/endis,PTXCONF_SDL_XORG)-video-x11-vm \
+	--$(call ptx/endis,PTXCONF_SDL_VIDEO)-video-x11-xv \
+	--disable-video-x11-xinerama \
+	--$(call ptx/endis,PTXCONF_SDL_XORG)-video-x11-xme \
+	--disable-video-x11-xrandr \
+	--disable-video-photon \
+	--disable-video-carbon \
+	--disable-video-cocoa \
+	--$(call ptx/endis,PTXCONF_SDL_FBCON)-video-fbcon \
+	--$(call ptx/endis,PTXCONF_SDL_DIRECTFB)-video-directfb \
 	--disable-video-ps2gs \
+	--disable-video-ps3 \
 	--disable-video-ggi \
 	--disable-video-svga \
 	--disable-video-vgl \
+	--disable-video-wscons \
+	--disable-video-aalib \
+	--disable-video-caca \
+	--disable-video-qtopia \
+	--disable-video-picogui \
 	--disable-xbios \
 	--disable-gem \
-	--enable-assembly \
 	--enable-video-dummy \
+	--$(call ptx/endis,PTXCONF_SDL_OPENGL)-video-opengl \
+	--disable-osmesa-shared \
+	--enable-screensaver \
+	--enable-input-events \
+	--$(call ptx/endis,PTXCONF_SDL_TSLIB)-input-tslib \
+	--disable-pth \
 	--enable-pthreads \
 	--enable-pthread-sem \
 	--disable-stdio-redirect \
 	--disable-directx \
-	--disable-video-picogui \
 	--enable-sdl-dlopen \
 	--disable-atari-ldg \
+	--enable-clock_gettime \
 	--disable-rpath \
-	--disable-mintaudio \
-	--disable-video-photon \
-	--enable-input-events
+	--$(call ptx/wwo,PTXCONF_SDL_XORG)-x
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -275,9 +130,8 @@ $(STATEDIR)/sdl.targetinstall:
 	@$(call install_fixup, sdl,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
-ifdef PTXCONF_SDL_SHARED
 	@$(call install_lib, sdl, 0, 0, 0644, libSDL-1.2)
-endif
+
 	@$(call install_finish, sdl)
 
 	@$(call touch)

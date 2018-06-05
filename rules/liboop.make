@@ -16,20 +16,17 @@ PACKAGES-$(PTXCONF_LIBOOP) += liboop
 #
 # Paths and names
 #
-LIBOOP_VERSION	:= 1.0
-LIBOOP_MD5	:= 88fc8decf99fd75d2af40e0a005fa0d3
+LIBOOP_VERSION	:= 1.0.1
+LIBOOP_MD5	:= f2b3dff17355fd9a6e2229caca8993f0
 LIBOOP		:= liboop-$(LIBOOP_VERSION)
-LIBOOP_SUFFIX	:= tar.bz2
-LIBOOP_URL	:= http://download.ofb.net/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)
+LIBOOP_SUFFIX	:= tar.gz
+LIBOOP_URL	:= http://ftp.lysator.liu.se/pub/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)
 LIBOOP_SOURCE	:= $(SRCDIR)/$(LIBOOP).$(LIBOOP_SUFFIX)
 LIBOOP_DIR	:= $(BUILDDIR)/$(LIBOOP)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBOOP_PATH	:= PATH=$(CROSS_PATH)
-LIBOOP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf

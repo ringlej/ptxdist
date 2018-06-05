@@ -28,7 +28,7 @@ IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_SOURCE		:= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_DIR		:= $(BUILDDIR)/$(IPTABLES)
-IPTABLES_LICENSE	:= GPL-2.0
+IPTABLES_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +76,6 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_fixup, iptables,DESCRIPTION,missing)
 
 # 	# install the basic libraries
-	@$(call install_lib, iptables, 0, 0, 0644, libiptc)
 	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
 
 ifdef PTXCONF_IPTABLES_LIBIPQ

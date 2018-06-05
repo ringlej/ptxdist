@@ -50,6 +50,7 @@ config LIGHTTPD_ATTR
 
 config LIGHTTPD_FAM
 	bool
+	depends on STAGING
 	prompt "fam"
 	help
 	  fam/gamin for reducing number of stat() calls.

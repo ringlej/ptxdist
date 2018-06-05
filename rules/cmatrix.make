@@ -23,7 +23,7 @@ CMATRIX_SUFFIX	:= tar.gz
 CMATRIX_URL	:= http://www.asty.org/cmatrix/dist/$(CMATRIX).$(CMATRIX_SUFFIX)
 CMATRIX_SOURCE	:= $(SRCDIR)/$(CMATRIX).$(CMATRIX_SUFFIX)
 CMATRIX_DIR	:= $(BUILDDIR)/$(CMATRIX)
-CMATRIX_LICENSE	:= GPL-2.0
+CMATRIX_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

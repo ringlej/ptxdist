@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.31.1
-UTIL_LINUX_NG_MD5	:= 7733b583dcb51518944d42aa62ef19ea
+UTIL_LINUX_NG_VERSION	:= 2.32
+UTIL_LINUX_NG_MD5	:= e0d8a25853f88cd15ff557e5d8cb4ea7
 UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.xz
-UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[\.[0-9]*]\?/\1/g')
+UTIL_LINUX_NG_BASENAME	:= v$(shell echo $(UTIL_LINUX_NG_VERSION) | sed -e 's/\([0-9]*\.[0-9]*\)[^0-9].*\?/\1/g')
 UTIL_LINUX_NG_URL	:= $(call ptx/mirror, KERNEL, utils/util-linux/$(UTIL_LINUX_NG_BASENAME)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX))
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
-UTIL_LINUX_NG_LICENSE	:= GPL-2.0 AND GPL-2.0+ AND GPL-3.0+ AND LGPL-2.0+ AND BSD-3-Clause AND BSD-4-Clause AND public_domain
+UTIL_LINUX_NG_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND BSD-4-Clause AND public_domain
 UTIL_LINUX_NG_LICENSE_FILES := \
 	file://Documentation/licenses/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 	file://Documentation/licenses/COPYING.BSD-3;md5=58dcd8452651fc8b07d1f65ce07ca8af \
@@ -52,6 +52,7 @@ UTIL_LINUX_NG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--bindir=/usr/bin \
 	--sbindir=/usr/sbin \
+	--disable-asan \
 	--enable-shared \
 	--disable-static \
 	--disable-gtk-doc \
@@ -305,6 +306,9 @@ ifdef PTXCONF_UTIL_LINUX_NG_ZRAMCTL
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MKFS
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/mkfs)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_LSCPU
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/lscpu)
 endif
 
 	@$(call install_finish, util-linux-ng)

@@ -14,7 +14,7 @@
 PACKAGES-$(PTXCONF_RTPS) += rtps
 
 RTPS_VERSION	:= 1.0
-RTPS_LICENSE	:= GPL-2.0
+RTPS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Target-Install

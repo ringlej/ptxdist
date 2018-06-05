@@ -23,7 +23,7 @@ LATRACE_SUFFIX	:= tar.bz2
 LATRACE_URL	:= http://people.redhat.com/jolsa/latrace/dl/$(LATRACE).$(LATRACE_SUFFIX)
 LATRACE_SOURCE	:= $(SRCDIR)/$(LATRACE).$(LATRACE_SUFFIX)
 LATRACE_DIR	:= $(BUILDDIR)/$(LATRACE)
-LATRACE_LICENSE	:= GPL-3.0
+LATRACE_LICENSE	:= GPL-3.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

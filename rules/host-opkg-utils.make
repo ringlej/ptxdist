@@ -23,7 +23,7 @@ HOST_OPKG_UTILS_SUFFIX	:= tar.bz2
 HOST_OPKG_UTILS_URL	:= https://git.yoctoproject.org/cgit/cgit.cgi/opkg-utils/snapshot/$(HOST_OPKG_UTILS).$(HOST_OPKG_UTILS_SUFFIX)
 HOST_OPKG_UTILS_SOURCE	:= $(SRCDIR)/$(HOST_OPKG_UTILS).$(HOST_OPKG_UTILS_SUFFIX)
 HOST_OPKG_UTILS_DIR	:= $(HOST_BUILDDIR)/$(HOST_OPKG_UTILS)
-HOST_OPKG_UTILS_LICENSE	:= GPL-2.0
+HOST_OPKG_UTILS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

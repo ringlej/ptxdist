@@ -57,7 +57,7 @@ LIBCURL_AUTOCONF := \
 	--disable-pop3 \
 	--disable-imap \
 	--disable-smb \
-	--disable-smtp \
+	--$(call ptx/endis, PTXCONF_LIBCURL_SMTP)-smtp \
 	--disable-gopher \
 	--disable-manual \
 	--enable-libcurl-option \
@@ -65,7 +65,7 @@ LIBCURL_AUTOCONF := \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-versioned-symbols \
 	--enable-threaded-resolver \
-	--disable-verbose \
+	--$(call ptx/endis, PTXCONF_LIBCURL_VERBOSE)-verbose \
 	--disable-sspi \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
 	--disable-ntlm-wb \

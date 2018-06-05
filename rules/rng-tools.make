@@ -17,7 +17,7 @@ RNG_TOOLS_SUFFIX	:= tar.gz
 RNG_TOOLS_URL		:= $(call ptx/mirror, SF, gkernel/$(RNG_TOOLS).$(RNG_TOOLS_SUFFIX))
 RNG_TOOLS_SOURCE	:= $(SRCDIR)/$(RNG_TOOLS).$(RNG_TOOLS_SUFFIX)
 RNG_TOOLS_DIR		:= $(BUILDDIR)/$(RNG_TOOLS)
-RNG_TOOLS_LICENSE	:= GPL-2.0
+RNG_TOOLS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

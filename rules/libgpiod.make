@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBGPIOD) += libgpiod
 #
 # Paths and names
 #
-LIBGPIOD_VERSION	:= 0.3.2
-LIBGPIOD_MD5		:= a9ce49fd5c15b1f20bac4e0670e41302
+LIBGPIOD_VERSION	:= 1.0
+LIBGPIOD_MD5		:= 7ea85c55c1637389d6e90ae4e8403ad6
 LIBGPIOD		:= libgpiod-$(LIBGPIOD_VERSION)
 LIBGPIOD_SUFFIX		:= tar.gz
 LIBGPIOD_URL		:= https://www.kernel.org/pub/software/libs/libgpiod/$(LIBGPIOD).$(LIBGPIOD_SUFFIX)
 LIBGPIOD_SOURCE		:= $(SRCDIR)/$(LIBGPIOD).$(LIBGPIOD_SUFFIX)
 LIBGPIOD_DIR		:= $(BUILDDIR)/$(LIBGPIOD)
-LIBGPIOD_LICENSE	:= LGPL-2.1
+LIBGPIOD_LICENSE	:= LGPL-2.1-only
 LIBGPIOD_LICENSE_FILES	:= file://COPYING;md5=2caced0b25dfefd4c601d92bd15116de
 
 # ----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ LIBGPIOD_CONF_OPT	:= \
 # libgpiod requires kernel headers >= 4.8
 ifdef PTXCONF_KERNEL_HEADER
 LIBGPIOD_CPPFLAGS	:= \
-	-I$(KERNEL_HEADERS_INCLUDE_DIR)
+	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
 endif
 
 LIBGPIOD_TOOLS-$(PTXCONF_LIBGPIOD_GPIODETECT)	+= gpiodetect

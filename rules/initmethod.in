@@ -11,6 +11,7 @@ if INITMETHOD
 
 choice
 	prompt "init method"
+	default INITMETHOD_SYSTEMD
 
 	config INITMETHOD_BBINIT
 		bool

@@ -23,7 +23,7 @@ LIBESTR_SUFFIX	:= tar.gz
 LIBESTR_URL	:= http://libestr.adiscon.com/files/download/$(LIBESTR).$(LIBESTR_SUFFIX)
 LIBESTR_SOURCE	:= $(SRCDIR)/$(LIBESTR).$(LIBESTR_SUFFIX)
 LIBESTR_DIR	:= $(BUILDDIR)/$(LIBESTR)
-LIBESTR_LICENSE	:= LGPL-2.1+
+LIBESTR_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

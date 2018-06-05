@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_MEMEDIT) += memedit
 #
 MEMEDIT_VERSION	:= 0.9
 MEMEDIT_MD5	:= fd8eb827c3072baf8678d9d33e5d6458
-MEMEDIT_LICENSE	:= GPL-2.0
+MEMEDIT_LICENSE	:= GPL-2.0-only
 MEMEDIT		:= memedit-$(MEMEDIT_VERSION)
 MEMEDIT_SUFFIX	:= tar.gz
 MEMEDIT_URL	:= http://www.pengutronix.de/software/memedit/downloads/$(MEMEDIT).$(MEMEDIT_SUFFIX)

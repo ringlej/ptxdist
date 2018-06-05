@@ -24,7 +24,7 @@ DROPWATCH_SUFFIX	:= tar.gz
 DROPWATCH_URL		:= git://git.infradead.org/users/nhorman/dropwatch.git;tag=$(DROPWATCH_VERSION)
 DROPWATCH_SOURCE	:= $(SRCDIR)/$(DROPWATCH).$(DROPWATCH_SUFFIX)
 DROPWATCH_DIR		:= $(BUILDDIR)/$(DROPWATCH)
-DROPWATCH_LICENSE	:= GPL-2.0
+DROPWATCH_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

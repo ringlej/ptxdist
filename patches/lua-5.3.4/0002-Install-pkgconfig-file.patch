@@ -10,10 +10,10 @@ Signed-off-by: Denis Osterland <Denis.Osterland@diehl.com>
  create mode 100644 lua.pc.in
 
 diff --git a/Makefile b/Makefile
-index 2b2968449fb5..0ecd0198169f 100644
+index c40c4cd6e0f7..179246813af2 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -57,14 +57,15 @@ $(PLATS) clean:
+@@ -57,8 +57,8 @@ $(PLATS) clean:
  test:	dummy
  	src/lua -v
  
@@ -24,14 +24,15 @@ index 2b2968449fb5..0ecd0198169f 100644
  	cd src && $(INSTALL_EXEC) $(TO_BIN) $(INSTALL_BIN)
  	cd src && $(INSTALL_DATA) $(TO_INC) $(INSTALL_INC)
  	cd src && $(INSTALL_DATA) $(TO_LIB) $(INSTALL_LIB)
- 	cd src && $(INSTALL_EXEC) liblua.so.$R $(INSTALL_LIB)
+@@ -66,6 +66,7 @@ install: dummy
  	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$V
+ 	ln -s liblua.so.$R $(INSTALL_LIB)/liblua.so.$(basename $V)
  	ln -s liblua.so.$V $(INSTALL_LIB)/liblua.so
 +	$(INSTALL_DATA) lua.pc $(INSTALL_LIB)/pkgconfig
  	cd doc && $(INSTALL_DATA) $(TO_MAN) $(INSTALL_MAN)
  
  uninstall:
-@@ -111,6 +112,9 @@ pc:
+@@ -112,6 +113,9 @@ pc:
  	@echo "libdir=$(INSTALL_LIB)"
  	@echo "includedir=$(INSTALL_INC)"
  

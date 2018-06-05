@@ -11,6 +11,7 @@ menuconfig MESALIB
 	select GCCLIBS
 	select GCCLIBS_CXX
 	select LIBDRM
+	select LIBDRM_INTEL		if MESALIB_DRI_I915 || MESALIB_DRI_I965
 	select UDEV			if MESALIB_UDEV
 	select UDEV_LIBUDEV		if MESALIB_UDEV
 	select WAYLAND			if MESALIB_EGL_WAYLAND
@@ -42,10 +43,6 @@ menuconfig MESALIB
 if MESALIB
 
 config MESALIB_UDEV
-	bool
-
-config MESALIB_GLX
-	prompt "GLX library"
 	bool
 
 comment "Drivers"
@@ -123,6 +120,7 @@ config MESALIB_OPENGL
 
 config MESALIB_GLES1
 	bool
+	select MESALIB_OPENGL
 	prompt "OpenGL ES1"
 
 config MESALIB_GLES2
@@ -130,7 +128,12 @@ config MESALIB_GLES2
 	select MESALIB_OPENGL
 	prompt "OpenGL ES2"
 
-if MESALIB_OPENGL || MESALIB_GLES1 || MESALIB_GLES2
+config MESALIB_GLX
+	select MESALIB_EGL_X11
+	select MESALIB_OPENGL
+	prompt "GLX"
+	bool
+
 config MESALIB_EGL
 	bool
 	select MESALIB_UDEV
@@ -140,26 +143,23 @@ config MESALIB_GBM
 	bool
 	select MESALIB_UDEV
 	prompt "GBM"
-endif
 
-if MESALIB_EGL
-
-comment "EGL Platforms"
+comment "Platforms"
 
 config MESALIB_EGL_X11
 	bool
-	default MESALIB_GLX
+	prompt "X11"
 
 config MESALIB_EGL_DRM
 	bool
 	select MESALIB_GBM
+	select MESALIB_EGL
 	prompt "DRM"
 
 config MESALIB_EGL_WAYLAND
 	bool
+	select MESALIB_EGL
 	prompt "Wayland"
-
-endif
 
 comment "Gallium HUD options"
 

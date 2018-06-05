@@ -26,7 +26,7 @@ GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
 GLIB_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glib/$(basename $(GLIB_VERSION))/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
-GLIB_LICENSE	:= LGPL-2.0+
+GLIB_LICENSE	:= LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

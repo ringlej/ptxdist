@@ -32,6 +32,18 @@ ifdef PTXCONF_ARCH_PPC
 GENERIC_KERNEL_ARCH := "powerpc"
 endif
 
+#
+# Starting with 4.12-rc1, Linus no longer provides signed tarballs for
+# pre-release ("-rc") kernels. Download the version automatically generated
+# by cgit.
+#
+ifneq ($(findstring -rc,$(KERNEL_VERSION)),)
+KERNEL_NEEDS_GIT_URL := $(shell test $(KERNEL_VERSION_MAJOR) -ge 4 -a $(KERNEL_VERSION_MINOR) -ge 12 && echo y)
+endif
+ifneq ($(findstring -rc,$(KERNEL_HEADER_VERSION)),)
+KERNEL_HEADER_NEEDS_GIT_URL := $(shell test $(KERNEL_HEADER_VERSION_MAJOR) -ge 4 -a $(KERNEL_HEADER_VERSION_MINOR) -ge 12 && echo y)
+endif
+
 KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
 KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include
 

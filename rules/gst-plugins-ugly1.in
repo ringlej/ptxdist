@@ -7,9 +7,6 @@ menuconfig GST_PLUGINS_UGLY1
 	select GST_PLUGINS_BASE1
 	select ORC
 	select LIBMPEG2		if GST_PLUGINS_UGLY1_MPEG2DEC
-	select MPG123		if GST_PLUGINS_UGLY1_MPG123
-	select LAME		if GST_PLUGINS_UGLY1_LAME
-	select TWOLAME		if GST_PLUGINS_UGLY1_TWOLAME
 	prompt "gst-plugins-ugly              "
 	help
 	  GStreamer Ugly Plug-ins is a set of plug-ins that
@@ -66,26 +63,14 @@ config GST_PLUGINS_UGLY1_DVDREADSRC
 	depends on BROKEN
 	prompt "dvdreadsrc"
 
-config GST_PLUGINS_UGLY1_LAME
-	bool
-	prompt "lame"
-
 config GST_PLUGINS_UGLY1_MPEG2DEC
 	bool
 	prompt "mpeg2dec"
-
-config GST_PLUGINS_UGLY1_MPG123
-	bool
-	prompt "mpg123"
 
 config GST_PLUGINS_UGLY1_SID
 	bool
 	depends on BROKEN
 	prompt "sid"
-
-config GST_PLUGINS_UGLY1_TWOLAME
-	bool
-	prompt "twolame"
 
 config GST_PLUGINS_UGLY1_X264
 	bool

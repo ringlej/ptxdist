@@ -24,7 +24,7 @@ LPC21ISP_SUFFIX		:= tar.gz
 LPC21ISP_URL		:= $(call ptx/mirror, SF, lpc21isp/$(LPC21ISP_VERSION)/$(LPC21ISP).$(LPC21ISP_SUFFIX))
 LPC21ISP_SOURCE		:= $(SRCDIR)/$(LPC21ISP).$(LPC21ISP_SUFFIX)
 LPC21ISP_DIR		:= $(BUILDDIR)/$(LPC21ISP)
-LPC21ISP_LICENSE	:= GPL-3.0+
+LPC21ISP_LICENSE	:= GPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

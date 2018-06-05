@@ -23,6 +23,8 @@ LSUIO_SUFFIX	:= tar.gz
 LSUIO_URL	:= http://www.osadl.org/projects/downloads/UIO/user/$(LSUIO).$(LSUIO_SUFFIX)
 LSUIO_SOURCE	:= $(SRCDIR)/$(LSUIO).$(LSUIO_SUFFIX)
 LSUIO_DIR	:= $(BUILDDIR)/$(LSUIO)
+LSUIO_LICENSE	:= GPL-2.0
+LSUIO_LICENSE_FILES := file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f
 
 # ----------------------------------------------------------------------------
 # Prepare

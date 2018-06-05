@@ -16,20 +16,45 @@ PACKAGES-$(PTXCONF_DIALOG) += dialog
 #
 # Paths and names
 #
-DIALOG_VERSION	:= 1.1-20100428
-DIALOG_MD5	:= 519c0a0cbac28ddb992111ec2c3f82aa
+DIALOG_VERSION	:= 1.3-20171209
+DIALOG_MD5	:= f66f28beca900b54f5fc90fdcce93508
 DIALOG		:= dialog-$(DIALOG_VERSION)
 DIALOG_SUFFIX	:= tgz
-DIALOG_URL	:= ftp://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
+DIALOG_URL	:= ftp://ftp.invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_SOURCE	:= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_DIR	:= $(BUILDDIR)/$(DIALOG)
-DIALOG_LICENSE	:= LGPL-2.1
+DIALOG_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 DIALOG_CONF_TOOL	:= autoconf
+DIALOG_CONF_OPT		:= \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-echo \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls \
+	--disable-trace \
+	--disable-rpath \
+	--with-ncurses \
+	--without-Xaw3d \
+	--without-Xaw3dxft \
+	--without-neXtaw \
+	--without-XawPlus \
+	--without-x \
+	--enable-extras \
+	--enable-rc-file \
+	--enable-Xdialog \
+	--enable-Xdialog2 \
+	--enable-whiptail \
+	--enable-form \
+	--enable-gauge \
+	--enable-tailbox \
+	--enable-mixedform \
+	--enable-mixedgauge \
+	--enable-widec \
+	--disable-rpath-hack
 
 # ----------------------------------------------------------------------------
 # Target-Install

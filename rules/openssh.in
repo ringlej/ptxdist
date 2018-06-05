@@ -4,12 +4,8 @@ menuconfig OPENSSH
 	tristate
 	select ZLIB
 	select OPENSSL
-	select LIBC_RESOLV
-	select LIBC_NSL
-	select LIBC_DL
 	select LIBC_CRYPT
 	select LIBC_UTIL
-	select GCCLIBS_GCC_S
 	select RC_ONCE if OPENSSH_SSHD && RUNTIME
 	select BUSYBOX_START_STOP_DAEMON if OPENSSH_SSHD_STARTSCRIPT
 	select LIBSELINUX if GLOBAL_SELINUX

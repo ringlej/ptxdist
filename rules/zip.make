@@ -38,6 +38,7 @@ ZIP_MAKE_OPT	:= \
 	$(CROSS_ENV_CC) \
 	$(CROSS_ENV_CPP) \
 	$(CROSS_ENV_AS) \
+	IZ_BZIP2=missing \
 	-f unix/Makefile generic
 
 ZIP_INSTALL_OPT	:= \

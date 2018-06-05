@@ -24,7 +24,7 @@ LIBELF_SUFFIX	:= tar.bz2
 LIBELF_URL	:= https://sourceware.org/elfutils/ftp/$(LIBELF_VERSION)/$(LIBELF).$(LIBELF_SUFFIX)
 LIBELF_SOURCE	:= $(SRCDIR)/$(LIBELF).$(LIBELF_SUFFIX)
 LIBELF_DIR	:= $(BUILDDIR)/$(LIBELF)
-LIBELF_LICENSE	:= (LGPL-3.0+ OR GPL-2.0+) AND GPL-3.0+
+LIBELF_LICENSE	:= (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,7 +23,7 @@ AVAHI_SUFFIX	:= tar.gz
 AVAHI_URL	:= http://avahi.org/download/$(AVAHI).$(AVAHI_SUFFIX)
 AVAHI_SOURCE	:= $(SRCDIR)/$(AVAHI).$(AVAHI_SUFFIX)
 AVAHI_DIR	:= $(BUILDDIR)/$(AVAHI)
-AVAHI_LICENSE	:= LGPL-2.1+
+AVAHI_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

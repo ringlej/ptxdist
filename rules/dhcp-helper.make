@@ -23,7 +23,7 @@ DHCP_HELPER_SUFFIX	:= tar.gz
 DHCP_HELPER_URL		:= http://www.thekelleys.org.uk/dhcp-helper/$(DHCP_HELPER).$(DHCP_HELPER_SUFFIX)
 DHCP_HELPER_SOURCE	:= $(SRCDIR)/$(DHCP_HELPER).$(DHCP_HELPER_SUFFIX)
 DHCP_HELPER_DIR		:= $(BUILDDIR)/$(DHCP_HELPER)
-DHCP_HELPER_LICENSE	:= GPL-2.0
+DHCP_HELPER_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

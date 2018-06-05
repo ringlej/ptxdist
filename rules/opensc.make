@@ -24,7 +24,7 @@ OPENSC_SUFFIX	:= tar.gz
 OPENSC_URL	:= https://github.com/OpenSC/OpenSC/archive/$(OPENSC_VERSION).$(OPENSC_SUFFIX)
 OPENSC_SOURCE	:= $(SRCDIR)/$(OPENSC).$(OPENSC_SUFFIX)
 OPENSC_DIR	:= $(BUILDDIR)/$(OPENSC)
-OPENSC_LICENSE	:= LGPL-2.1+ AND Expat AND ISC
+OPENSC_LICENSE	:= LGPL-2.1-or-later AND Expat AND ISC
 
 # ----------------------------------------------------------------------------
 # Prepare

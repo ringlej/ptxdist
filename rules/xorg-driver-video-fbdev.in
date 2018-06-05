@@ -9,6 +9,7 @@ config XORG_DRIVER_VIDEO_FBDEV
 	select XORG_PROTO_RANDR
 	select XORG_PROTO_RENDER
 	select XORG_PROTO_VIDEO
+	select XORG_SERVER_EXT_DGA
 	select XORG_SERVER_EXT_XV
 	prompt "FBDev"
 	help

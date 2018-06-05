@@ -274,7 +274,7 @@ used to build the project:
 
 .. code-block:: text
 
-    $ ./selected_toolchain/<target>-gdbtui platform-<platformname>/root/usr/bin/myapp
+    $ ./selected_toolchain/<target>-gdb --tui platform-<platformname>/root/usr/bin/myapp
 
 This will run a *curses* based GDB. Not so easy to handle (we must enter
 all the commands and cannot click with a mouse!), but very fast to take

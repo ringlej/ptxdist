@@ -23,7 +23,7 @@ LSHW_SUFFIX	:= tar.gz
 LSHW_URL	:= http://www.ezix.org/software/files/$(LSHW).$(LSHW_SUFFIX)
 LSHW_SOURCE	:= $(SRCDIR)/$(LSHW).$(LSHW_SUFFIX)
 LSHW_DIR	:= $(BUILDDIR)/$(LSHW)
-LSHW_LICENSE	:= GPL-2.0
+LSHW_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -23,7 +23,7 @@ CRYPTSETUP_SUFFIX	:= tar.gz
 CRYPTSETUP_URL		:= https://www.kernel.org/pub/linux/utils/cryptsetup/v$(basename $(CRYPTSETUP_VERSION))/$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)
 CRYPTSETUP_SOURCE	:= $(SRCDIR)/$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)
 CRYPTSETUP_DIR		:= $(BUILDDIR)/$(CRYPTSETUP)
-CRYPTSETUP_LICENSE	:= GPL-2.0+
+CRYPTSETUP_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

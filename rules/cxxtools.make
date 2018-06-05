@@ -23,7 +23,7 @@ CXXTOOLS_SUFFIX		:= tar.gz
 CXXTOOLS_URL		:= http://www.tntnet.org/download/$(CXXTOOLS).$(CXXTOOLS_SUFFIX)
 CXXTOOLS_SOURCE		:= $(SRCDIR)/$(CXXTOOLS).$(CXXTOOLS_SUFFIX)
 CXXTOOLS_DIR		:= $(BUILDDIR)/$(CXXTOOLS)
-CXXTOOLS_LICENSE	:= LGPL-2.1
+CXXTOOLS_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -1,4 +1,6 @@
-## SECTION=disk_and_file
+## SECTION=staging
+## old section:
+### SECTION=disk_and_file
 
 config FUSE_ZIP
 	tristate
@@ -14,3 +16,7 @@ config FUSE_ZIP
 	  With fuse-zip you really can work with ZIP archives as real
 	  directories. Unlike KIO or Gnome VFS, it can be used in any
 	  application without modifications.
+
+	  STAGING: remove in ptxdist-2019.05.0
+	  Old version that is no longer available for download.
+	  Should be updated to a new version.

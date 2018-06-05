@@ -17,19 +17,22 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 2.0.2
-HTOP_MD5	:= 7d354d904bad591a931ad57e99fea84a
+HTOP_VERSION	:= 2.2.0
+HTOP_MD5	:= 0d816b6beed31edc75babcfbf863ffa8
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= http://hisham.hm/htop/releases/$(HTOP_VERSION)/$(HTOP).$(HTOP_SUFFIX)
 HTOP_SOURCE	:= $(SRCDIR)/$(HTOP).$(HTOP_SUFFIX)
 HTOP_DIR	:= $(BUILDDIR)/$(HTOP)
-HTOP_LICENSE	:= GPL-2.0
+HTOP_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
+HTOP_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	HTOP_NCURSES_CONFIG_SCRIPT=ncurses6-config
 #
 # autoconf
 #
@@ -44,7 +47,9 @@ HTOP_CONF_OPT	:= \
 	--enable-taskstats \
 	--disable-unicode \
 	--enable-linux-affinity \
-	--disable-hwloc
+	--disable-hwloc \
+	--disable-setuid \
+	--disable-delayacct
 
 # ----------------------------------------------------------------------------
 # Target-Install

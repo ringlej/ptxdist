@@ -23,7 +23,7 @@ COMGT_SUFFIX	:= tgz
 COMGT_URL	:= $(call ptx/mirror, SF, comgt/$(COMGT).$(COMGT_SUFFIX))
 COMGT_SOURCE	:= $(SRCDIR)/$(COMGT).$(COMGT_SUFFIX)
 COMGT_DIR	:= $(BUILDDIR)/$(COMGT)
-COMGT_LICENSE	:= GPL-2.0
+COMGT_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

@@ -191,6 +191,10 @@ Misc Actions
   run a userspace NFS server and export the nfsroot (refer section
   :ref:`nfsroot` for further details).
 
+``gdb``
+  run the cross gdb from the toolchain. The sysroot and other search paths
+  are configured to ensure that gdb finds all available debug files.
+
 ``print <var>``
   print the contents of a variable. It will first look for a shell variable
   with the given name. If none exists, it will run make and look if a

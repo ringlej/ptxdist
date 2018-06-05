@@ -23,7 +23,7 @@ LATENCYTOP_SUFFIX	:= tar.gz
 LATENCYTOP_URL		:= https://www.latencytop.org/download/$(LATENCYTOP).$(LATENCYTOP_SUFFIX);no-check-certificate
 LATENCYTOP_SOURCE	:= $(SRCDIR)/$(LATENCYTOP).$(LATENCYTOP_SUFFIX)
 LATENCYTOP_DIR		:= $(BUILDDIR)/$(LATENCYTOP)
-LATENCYTOP_LICENSE	:= GPL-2.0
+LATENCYTOP_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

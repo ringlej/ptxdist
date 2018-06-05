@@ -23,7 +23,7 @@ DT_UTILS_SUFFIX		:= tar.xz
 DT_UTILS_URL		:= http://pengutronix.de/software/dt-utils/download/$(DT_UTILS).$(DT_UTILS_SUFFIX)
 DT_UTILS_SOURCE		:= $(SRCDIR)/$(DT_UTILS).$(DT_UTILS_SUFFIX)
 DT_UTILS_DIR		:= $(BUILDDIR)/$(DT_UTILS)
-DT_UTILS_LICENSE	:= GPL-2.0
+DT_UTILS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

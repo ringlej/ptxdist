@@ -32,4 +32,8 @@ config NFTABLES_MGMP
 	  use the nftables build-in mini-GMP instead of linking to the shared
 	  libgmp. (may reduce debugging verbosity on some files)
 
+config NFTABLES_STARTSCRIPT
+	bool
+	prompt "install /etc/init.d/nftables"
+
 endif

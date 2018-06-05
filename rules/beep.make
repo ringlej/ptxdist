@@ -23,7 +23,7 @@ BEEP_SUFFIX	:= tar.gz
 BEEP_URL	:= http://www.johnath.com/beep/$(BEEP).$(BEEP_SUFFIX)
 BEEP_SOURCE	:= $(SRCDIR)/$(BEEP).$(BEEP_SUFFIX)
 BEEP_DIR	:= $(BUILDDIR)/$(BEEP)
-BEEP_LICENSE	:= GPL-2.0
+BEEP_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

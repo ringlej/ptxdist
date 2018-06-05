@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGPG_ERROR) += libgpg-error
 #
 # Paths and names
 #
-LIBGPG_ERROR_VERSION	:= 1.27
-LIBGPG_ERROR_MD5	:= 5217ef3e76a7275a2a3b569a12ddc989
+LIBGPG_ERROR_VERSION	:= 1.28
+LIBGPG_ERROR_MD5	:= 2b072f6194eb22d48cd4c7c77e59b5af
 LIBGPG_ERROR		:= libgpg-error-$(LIBGPG_ERROR_VERSION)
 LIBGPG_ERROR_SUFFIX	:= tar.bz2
 LIBGPG_ERROR_URL	:= \
@@ -27,7 +27,7 @@ LIBGPG_ERROR_URL	:= \
 	ftp://ftp.gnupg.org/gcrypt/libgpg-error/$(LIBGPG_ERROR).$(LIBGPG_ERROR_SUFFIX)
 LIBGPG_ERROR_SOURCE	:= $(SRCDIR)/$(LIBGPG_ERROR).$(LIBGPG_ERROR_SUFFIX)
 LIBGPG_ERROR_DIR	:= $(BUILDDIR)/$(LIBGPG_ERROR)
-LIBGPG_ERROR_LICENSE	:= GPL-2.0 AND LGPL-2.0
+LIBGPG_ERROR_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
 LIBGPG_ERROR_LICENSE_FILES := \
 	file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
 	file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1
@@ -49,6 +49,8 @@ LIBGPG_ERROR_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
+	--disable-log-clock \
+	--disable-werror \
 	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
 	--disable-languages \
 	--disable-doc \

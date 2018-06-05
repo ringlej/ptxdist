@@ -1,4 +1,7 @@
-## SECTION=communication
+## SECTION=staging
+## old section:
+### SECTION=communication
+
 config RXTX
 	tristate
 	prompt "rxtx"
@@ -7,3 +10,6 @@ config RXTX
 	help
 	  RXTX is a native lib providing serial and parallel communication
 	  for the Java Development Toolkit (JDK).
+
+	  STAGING: remove in ptxdist-2019.04.0
+	  Old, obsolete package that fails to build with OpenJDK 9.

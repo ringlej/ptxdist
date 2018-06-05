@@ -23,7 +23,7 @@ LIBMNL_SUFFIX	:= tar.bz2
 LIBMNL_URL		:= http://ftp.netfilter.org/pub/libmnl/$(LIBMNL).$(LIBMNL_SUFFIX)
 LIBMNL_SOURCE	:= $(SRCDIR)/$(LIBMNL).$(LIBMNL_SUFFIX)
 LIBMNL_DIR		:= $(BUILDDIR)/$(LIBMNL)
-LIBMNL_LICENSE	:= GPL-2.0
+LIBMNL_LICENSE	:= GPL-2.0-only
 
 #
 # autoconf

@@ -23,7 +23,7 @@ KBD_SUFFIX	:= tar.gz
 KBD_URL		:= $(call ptx/mirror, KERNEL, utils/kbd/$(KBD).$(KBD_SUFFIX))
 KBD_SOURCE	:= $(SRCDIR)/$(KBD).$(KBD_SUFFIX)
 KBD_DIR		:= $(BUILDDIR)/$(KBD)
-KBD_LICENSE	:= GPL-2.0+
+KBD_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

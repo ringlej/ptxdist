@@ -23,7 +23,7 @@ PYTHON3_SHIBOKEN_SUFFIX		:= tar.bz2
 PYTHON3_SHIBOKEN_URL		:= https://download.qt.io/official_releases/pyside/shiboken-$(PYTHON3_SHIBOKEN_VERSION).$(PYTHON3_SHIBOKEN_SUFFIX)
 PYTHON3_SHIBOKEN_SOURCE		:= $(SRCDIR)/$(PYTHON3_SHIBOKEN).$(PYTHON3_SHIBOKEN_SUFFIX)
 PYTHON3_SHIBOKEN_DIR		:= $(BUILDDIR)/$(PYTHON3_SHIBOKEN)
-PYTHON3_SHIBOKEN_LICENSE	:= GPL-2.0
+PYTHON3_SHIBOKEN_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare

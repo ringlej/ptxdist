@@ -24,7 +24,7 @@ BUSYBOX_URL	:= https://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_KCONFIG	:= $(BUSYBOX_DIR)/Config.in
-BUSYBOX_LICENSE	:= GPL-2.0
+BUSYBOX_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,7 +58,7 @@ BUSYBOX_MAKE_OPT := \
 
 ifdef PTXCONF_KERNEL_HEADER
 BUSYBOX_CPPFLAGS := \
-	-I$(KERNEL_HEADERS_INCLUDE_DIR)
+	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
 endif
 
 BUSYBOX_MAKE_ENV := \

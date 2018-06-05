@@ -23,7 +23,7 @@ PYTHON3_GI_SUFFIX	:= tar.xz
 PYTHON3_GI_URL		:= http://ftp.gnome.org/pub/GNOME/sources/pygobject/$(basename $(PYTHON3_GI_VERSION))/$(PYTHON3_GI).$(PYTHON3_GI_SUFFIX)
 PYTHON3_GI_SOURCE	:= $(SRCDIR)/$(PYTHON3_GI).$(PYTHON3_GI_SUFFIX)
 PYTHON3_GI_DIR		:= $(BUILDDIR)/$(PYTHON3_GI)
-PYTHON3_GI_LICENSE	:= LGPL-2.1+
+PYTHON3_GI_LICENSE	:= LGPL-2.1-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
