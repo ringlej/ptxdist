@@ -3,7 +3,7 @@
 config HARFBUZZ
 	tristate
 	prompt "harfbuzz"
-	select CAIRO
+	select FONTCONFIG
 	select FREETYPE
 	select GLIB
 	help

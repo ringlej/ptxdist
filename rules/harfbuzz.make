@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_HARFBUZZ) += harfbuzz
 #
 # Paths and names
 #
-HARFBUZZ_VERSION	:= 1.4.6
-HARFBUZZ_MD5		:= e246c08a3bac98e31e731b2a1bf97edf
+HARFBUZZ_VERSION	:= 1.8.0
+HARFBUZZ_MD5		:= 1023806c6a25a3fb11af0bcee8d0dc7c
 HARFBUZZ		:= harfbuzz-$(HARFBUZZ_VERSION)
 HARFBUZZ_SUFFIX		:= tar.bz2
 HARFBUZZ_URL		:= https://www.freedesktop.org/software/harfbuzz/release/$(HARFBUZZ).$(HARFBUZZ_SUFFIX)
@@ -40,7 +40,7 @@ HARFBUZZ_CONF_OPT	:= \
 	--disable-introspection \
 	--with-glib \
 	--without-gobject \
-	--with-cairo \
+	--without-cairo \
 	--with-fontconfig \
 	--without-icu \
 	--without-ucdn \
