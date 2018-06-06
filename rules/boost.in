@@ -89,6 +89,12 @@ config BOOST_CONTAINER
 	help
 	  Boost container library
 
+config BOOST_CONTRACT
+	bool
+	prompt "contract"
+	help
+	  Boost contract library
+
 config BOOST_CONTEXT
 	bool
 	prompt "context"
@@ -98,16 +104,10 @@ config BOOST_CONTEXT
 config BOOST_COROUTINE
 	bool
 	select BOOST_CONTEXT
-	prompt "coroutine"
+	prompt "coroutine (deprecated)"
 	help
 	  Boost coroutine library
-
-config BOOST_COROUTINE2
-	bool
-	select BOOST_CONTEXT
-	prompt "coroutine2"
-	help
-	  Boost coroutine2 library
+	  This library is deprecated in favor of the header-only coroutine2 library
 
 config BOOST_DATE_TIME
 	bool
@@ -120,6 +120,13 @@ config BOOST_EXCEPTION
 	prompt "exception"
 	help
 	  Boost exception library
+
+config BOOST_FIBER
+	bool
+	select BOOST_CONTEXT
+	prompt "fiber"
+	help
+	  Boost fiber library
 
 config BOOST_FILESYSTEM
 	bool
@@ -206,6 +213,12 @@ config BOOST_SIGNALS
 	prompt "signals"
 	help
 	  Boost signals library
+
+config BOOST_STACKTRACE
+	bool
+	prompt "stacktrace"
+	help
+	  Boost stacktrace library
 
 config BOOST_SYSTEM
 	bool
