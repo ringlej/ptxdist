@@ -3,11 +3,11 @@
 
 menuconfig BOOST
 	tristate
-	select LIBC_M		if BOOST_INST_NOMT_DBG || BOOST_INST_NOMT_RED || BOOST_INST_MT_DBG || BOOST_INST_MT_RED
-	select LIBC_RT		if BOOST_INST_NOMT_DBG || BOOST_INST_NOMT_RED || BOOST_INST_MT_DBG || BOOST_INST_MT_RED
-	select LIBC_PTHREAD	if BOOST_INST_MT_DBG || BOOST_INST_MT_RED
-	select GCCLIBS_CXX	if BOOST_INST_NOMT_DBG || BOOST_INST_NOMT_RED || BOOST_INST_MT_DBG || BOOST_INST_MT_RED
-	select GCCLIBS_GCC_S	if BOOST_INST_NOMT_DBG || BOOST_INST_NOMT_RED || BOOST_INST_MT_DBG || BOOST_INST_MT_RED
+	select LIBC_M		if BOOST_LIBS
+	select LIBC_RT		if BOOST_LIBS
+	select LIBC_PTHREAD	if BOOST_LIBS
+	select GCCLIBS_CXX	if BOOST_LIBS
+	select GCCLIBS_GCC_S	if BOOST_LIBS
 	select ZLIB		if BOOST_IOSTREAMS
 	select BZIP2		if BOOST_IOSTREAMS
 	select BZIP2_LIBBZ2	if BOOST_IOSTREAMS
@@ -34,50 +34,22 @@ menuconfig BOOST
 		http://www.boost.org/
 
 if BOOST
-comment "Targetinstall Options         "
 
-config BOOST_INST_NOMT_DBG
+config BOOST_LIBS
 	bool
-	prompt "Install binaries with debug functions"
-	help
-	  Installs binaries with debugging functions.
-
-config BOOST_INST_NOMT_RED
-	bool
-	prompt "Install reduced binaries"
-	default y
-	help
-	  Installs reduced binaries witout debugging functions.
-
-config BOOST_INST_MT_DBG
-	bool
-	select BOOST_THREAD
-	prompt "Install binaries with multithread support and debug functions"
-	help
-	  Installs binaries with multithread support, needs thread library.
-
-config BOOST_INST_MT_RED
-	bool
-	select BOOST_THREAD
-	prompt "Install reduced binaries with multithread support"
-	default y
-	help
-	  Installs binaries with multithread support, needs thread library.
 
 comment "Boost Libraries"
 
 config BOOST_ATOMIC
 	bool
-	select BOOST_CHRONO
-	select BOOST_DATE_TIME
-	select BOOST_SYSTEM
-	select BOOST_THREAD
+	select BOOST_LIBS
 	prompt "atomic"
 	help
 	  Boost atomic library
 
 config BOOST_CHRONO
 	bool
+	select BOOST_LIBS
 	select BOOST_SYSTEM
 	prompt "chrono"
 	help
@@ -85,25 +57,32 @@ config BOOST_CHRONO
 
 config BOOST_CONTAINER
 	bool
+	select BOOST_LIBS
 	prompt "container"
 	help
 	  Boost container library
 
 config BOOST_CONTRACT
 	bool
+	select BOOST_LIBS
 	prompt "contract"
 	help
 	  Boost contract library
 
 config BOOST_CONTEXT
 	bool
+	select BOOST_LIBS
 	prompt "context"
 	help
 	  Boost context library
 
 config BOOST_COROUTINE
 	bool
+	select BOOST_LIBS
+	select BOOST_CHRONO
 	select BOOST_CONTEXT
+	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "coroutine (deprecated)"
 	help
 	  Boost coroutine library
@@ -111,18 +90,21 @@ config BOOST_COROUTINE
 
 config BOOST_DATE_TIME
 	bool
+	select BOOST_LIBS
 	prompt "date_time"
 	help
 	  Boost date time library
 
 config BOOST_EXCEPTION
 	bool
+	select BOOST_LIBS
 	prompt "exception"
 	help
 	  Boost exception library
 
 config BOOST_FIBER
 	bool
+	select BOOST_LIBS
 	select BOOST_CONTEXT
 	prompt "fiber"
 	help
@@ -130,6 +112,7 @@ config BOOST_FIBER
 
 config BOOST_FILESYSTEM
 	bool
+	select BOOST_LIBS
 	select BOOST_SYSTEM
 	prompt "filesystem"
 	help
@@ -137,6 +120,7 @@ config BOOST_FILESYSTEM
 
 config BOOST_GRAPH
 	bool
+	select BOOST_LIBS
 	select BOOST_REGEX
 	prompt "graph"
 	help
@@ -144,25 +128,37 @@ config BOOST_GRAPH
 
 config BOOST_GRAPH_PARALLEL
 	bool
+	select BOOST_LIBS
+	select BOOST_MPI
+	select BOOST_SERIALIZATION
+	# BOOST_MPI needs openmpi
+	depends on BROKEN
 	prompt "graph_parallel"
 	help
 	  Boost graph_parallel library
 
 config BOOST_IOSTREAMS
 	bool
+	select BOOST_LIBS
 	prompt "iostreams"
 	help
 	  Boost iostream library
 
 config BOOST_LOCALE
 	bool
+	select BOOST_LIBS
+	select BOOST_CHRONO
 	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "locale"
 	help
 	  Boost locale library
 
 config BOOST_LOG
 	bool
+	select BOOST_LIBS
+	select BOOST_ATOMIC
+	select BOOST_CHRONO
 	select BOOST_DATE_TIME
 	select BOOST_FILESYSTEM
 	select BOOST_REGEX
@@ -174,67 +170,83 @@ config BOOST_LOG
 
 config BOOST_MATH
 	bool
+	select BOOST_LIBS
 	prompt "math"
 	help
 	  Boost Math library
 
 config BOOST_MPI
 	bool
+	select BOOST_LIBS
+	select BOOST_SERIALIZATION
+	# BOOST_MPI needs openmpi
+	depends on BROKEN
 	prompt "mpi"
 	help
 	  Boost MPI library
 
 config BOOST_PROGRAM_OPTIONS
 	bool
+	select BOOST_LIBS
 	prompt "program options"
 	help
 	  Boost program option parser
 
 config BOOST_RANDOM
 	bool
+	select BOOST_LIBS
+	select BOOST_SYSTEM
 	prompt "random"
 	help
 	  Boost random library
 
 config BOOST_REGEX
 	bool
+	select BOOST_LIBS
 	prompt "regex"
 	help
 	  Boost regex library
 
 config BOOST_SERIALIZATION
 	bool
+	select BOOST_LIBS
 	prompt "serialization"
 	help
 	  Boost serialization library
 
 config BOOST_SIGNALS
 	bool
+	select BOOST_LIBS
 	prompt "signals"
 	help
 	  Boost signals library
 
 config BOOST_STACKTRACE
 	bool
+	select BOOST_LIBS
 	prompt "stacktrace"
 	help
 	  Boost stacktrace library
 
 config BOOST_SYSTEM
 	bool
+	select BOOST_LIBS
 	prompt "system"
 	help
 	  Boost system library
 
 config BOOST_TEST
 	bool
+	select BOOST_LIBS
+	select BOOST_SYSTEM
+	select BOOST_TIMER
 	prompt "test"
 	help
 	  Boost test framework
 
 config BOOST_THREAD
 	bool
-	select BOOST_CHRONO
+	select BOOST_LIBS
 	select BOOST_SYSTEM
 	prompt "thread"
 	help
@@ -242,23 +254,35 @@ config BOOST_THREAD
 
 config BOOST_TIMER
 	bool
+	select BOOST_LIBS
 	select BOOST_CHRONO
 	select BOOST_SYSTEM
 	prompt "timer"
 	help
 	  Boost timer library
 
+config BOOST_TYPE_ERASURE
+	bool
+	select BOOST_LIBS
+	select BOOST_CHRONO
+	select BOOST_SYSTEM
+	select BOOST_THREAD
+	prompt "type_erasure"
+
 config BOOST_WAVE
 	bool
-	select BOOST_THREAD
+	select BOOST_LIBS
 	select BOOST_CHRONO
+	select BOOST_DATE_TIME
 	select BOOST_FILESYSTEM
 	select BOOST_SYSTEM
+	select BOOST_THREAD
 	prompt "wave"
 	help
 	  Boost wave library
 
 config BOOST_PYTHON
+	select BOOST_LIBS
 	bool
 
 choice
