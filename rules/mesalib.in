@@ -6,8 +6,6 @@ menuconfig MESALIB
 	select HOST_MESALIB
 	select HOST_MAKEDEPEND
 	select HOST_SYSTEM_PYTHON
-	select HOST_SYSTEM_PYTHON_XML2
-	select HOST_SYSTEM_PYTHON_MAKO
 	select GCCLIBS
 	select GCCLIBS_CXX
 	select LIBDRM
