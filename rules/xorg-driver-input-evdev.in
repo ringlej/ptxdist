@@ -4,8 +4,7 @@ config XORG_DRIVER_INPUT_EVDEV
 	tristate
 	prompt "evdev"
 	depends on XORG_DRIVER_INPUT
-	select XORG_PROTO_X
-	select XORG_PROTO_INPUT
+	select XORGPROTO
 	select UDEV
 	select UDEV_LIBUDEV
 	select LIBEVDEV

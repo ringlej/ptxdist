@@ -2,7 +2,7 @@
 
 config XORG_LIB_XSHMFENCE
 	tristate
-	select XORG_PROTO_X
+	select XORGPROTO
 	prompt "libxshmfence"
 	help
 	  This library provides an interface to shared-memory fences for

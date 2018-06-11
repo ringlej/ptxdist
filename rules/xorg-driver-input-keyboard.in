@@ -4,10 +4,7 @@ config XORG_DRIVER_INPUT_KEYBOARD
 	tristate
 	prompt "Keyboard"
 	depends on XORG_DRIVER_INPUT
-	select XORG_PROTO_X
-	select XORG_PROTO_RANDR
-	select XORG_PROTO_INPUT
-	select XORG_PROTO_KB
+	select XORGPROTO
 	select XORG_SERVER
 	select XORG_SERVER_XORG
 	help

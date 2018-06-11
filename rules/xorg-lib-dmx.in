@@ -4,7 +4,7 @@ config XORG_LIB_DMX
 	tristate
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_DMX
+	select XORGPROTO
 	prompt "libdmx"
 	help
 	  X Window System DMX (Distributed Multihead X) extension. The DMX

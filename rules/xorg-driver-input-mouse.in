@@ -3,7 +3,7 @@
 config XORG_DRIVER_INPUT_MOUSE
 	tristate
 	depends on XORG_DRIVER_INPUT
-	select XORG_PROTO_X
+	select XORGPROTO
 	select XORG_SERVER
 	select XORG_SERVER_XORG
 	prompt "Mouse"

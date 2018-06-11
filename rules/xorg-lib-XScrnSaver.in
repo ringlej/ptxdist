@@ -5,7 +5,7 @@ config XORG_LIB_XSCRNSAVER
 	prompt "libXScrnSaver"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_SCRNSAVER
+	select XORGPROTO
 	help
 	  libXScrnSaver provides access to the MIT-SCREEN-SAVER extension of the
 	  X protocol.  The Screen Saver extension allows clients behaving as

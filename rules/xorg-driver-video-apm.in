@@ -7,8 +7,7 @@ config XORG_DRIVER_VIDEO_APM
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_XORG
-	select XORG_PROTO_X
-	select XORG_PROTO_FONTS
+	select XORGPROTO
 	prompt "APM"
 	help
 	  This is the Alliance ProMotion video driver for the modular Xorg server.

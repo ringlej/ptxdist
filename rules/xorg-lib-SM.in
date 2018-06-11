@@ -4,6 +4,6 @@ config XORG_LIB_SM
 	tristate
 	prompt "libSM"
 	select XORG_LIB_ICE
-	select XORG_PROTO_X
+	select XORGPROTO
 	help
 	  X Session Management Library

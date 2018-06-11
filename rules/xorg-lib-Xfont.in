@@ -8,8 +8,7 @@
 menuconfig XORG_LIB_XFONT
 	tristate
 	select LIBC_M
-	select XORG_PROTO_X
-	select XORG_PROTO_FONTS
+	select XORGPROTO
 	select XORG_LIB_FONTENC
 	select XORG_LIB_XTRANS
 	select ZLIB			if XORG_LIB_XFONT_BUILTIN_FONTS

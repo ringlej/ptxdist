@@ -3,9 +3,7 @@
 config XORG_LIB_XDAMAGE
 	tristate
 	prompt "libXdamage"
-	select XORG_PROTO_DAMAGE
-	select XORG_PROTO_FIXES
-	select XORG_PROTO_XEXT
+	select XORGPROTO
 	select XORG_LIB_XFIXES
 	help
 	 The X Damage Extension provides notifications to applications when the content

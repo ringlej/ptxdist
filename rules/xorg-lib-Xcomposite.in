@@ -3,11 +3,10 @@
 config XORG_LIB_XCOMPOSITE
 	tristate
 	prompt "libXcomposite"
-	select XORG_PROTO_COMPOSITE
+	select XORGPROTO
 	select XORG_LIB_X11
 	select XORG_LIB_XFIXES
 	select XORG_LIB_XEXT
-	select XORG_PROTO_FIXES
 	help
 	 The X Composite extension adds support for translucent windows and
 	 non-rectangular windows with anti-aliased edges to the X window system.

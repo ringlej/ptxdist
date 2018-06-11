@@ -4,8 +4,7 @@ config XORG_LIB_WINDOWSWM
 	tristate
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XEXT
-	select XORG_PROTO_WINDOWSWM
+	select XORGPROTO
 	prompt "libWindowsWM"
 	help
 	  The WindowsWM Library

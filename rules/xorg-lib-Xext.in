@@ -3,9 +3,8 @@
 config XORG_LIB_XEXT
 	tristate
 	prompt "libXext"
-	select XORG_PROTO_X
+	select XORGPROTO
 	select XORG_LIB_X11
-	select XORG_PROTO_XEXT
 	select XORG_LIB_XAU
 	select XORG_LIB_XDMCP
 	help
