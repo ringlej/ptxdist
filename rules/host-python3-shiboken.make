@@ -49,7 +49,7 @@ $(STATEDIR)/host-python3-shiboken.install.post:
 	@sed -i -e 's,(/,($(PTXCONF_SYSROOT_HOST)/,g' \
 		'$(PTXCONF_SYSROOT_HOST)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cmake'
 	@sed -i -e 's,"/,"$(PTXCONF_SYSROOT_HOST)/,g' \
-		$(HOST_PYTHON3_SHIBOKEN_PKGDIR)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython-*.cmake
+		$(PTXCONF_SYSROOT_HOST)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython-*.cmake
 	@$(call touch)
 
 # vim: syntax=make
