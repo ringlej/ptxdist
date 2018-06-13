@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MODEMMANAGER) += modemmanager
 #
 # Paths and names
 #
-MODEMMANAGER_VERSION	:= 1.6.12
-MODEMMANAGER_MD5	:= d21c280220ee647e62eeb4e1df642fe3
+MODEMMANAGER_VERSION	:= 1.8.0
+MODEMMANAGER_MD5	:= 89d9d6b230bbdd5e54a7c44f423cf34c
 MODEMMANAGER		:= ModemManager-$(MODEMMANAGER_VERSION)
 MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= http://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
@@ -49,6 +49,8 @@ MODEMMANAGER_CONF_OPT	:= \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--with-udev-base-dir=/usr/lib/udev \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
+	--$(call ptx/wwo, PTXCONF_INITMETHOD_SYSTEMD)-systemd-suspend-resume \
+	--$(call ptx/wwo, PTXCONF_INITMETHOD_SYSTEMD)-systemd-journal \
 	--without-polkit \
 	--with-mbim \
 	--with-qmi
