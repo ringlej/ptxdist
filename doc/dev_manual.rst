@@ -123,6 +123,8 @@ the local ``./projectroot/etc/fstab``, modify it and we are done. The
 next time PTXdist builds the root filesystem it will use the local
 ``fstab`` instead of the global (default) one.
 
+.. _adding_new_packages:
+
 Adding new Packages
 -------------------
 
