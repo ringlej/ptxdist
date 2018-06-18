@@ -27,8 +27,8 @@ $(IMAGE_KERNEL_IMAGE): $(STATEDIR)/kernel.install.post
 	@$(call targetinfo)
 
 ifdef PTXCONF_IMAGE_KERNEL_INITRAMFS
-	@echo "Creating '$(KERNEL_IMAGE)' including '$(notdir $(<))'..."
-	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(<)\",g' \
+	@echo "Creating '$(KERNEL_IMAGE)' including '$(notdir $(IMAGE_ROOT_CPIO_IMAGE))'..."
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(IMAGE_ROOT_CPIO_IMAGE)\",g' \
 		$(KERNEL_DIR)/.config
 	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE)
