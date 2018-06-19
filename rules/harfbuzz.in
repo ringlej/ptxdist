@@ -1,10 +1,24 @@
 ## SECTION=multimedia_libs
 
-config HARFBUZZ
+menuconfig HARFBUZZ
 	tristate
-	prompt "harfbuzz"
+	prompt "harfbuzz                      "
 	select FONTCONFIG
 	select FREETYPE
 	select GLIB
+	select GRAPHITE2	if HARFBUZZ_GRAPHITE
+	select ICU		if HARFBUZZ_ICU
 	help
 	  HarfBuzz is an OpenType text shaping engine.
+
+if HARFBUZZ
+
+config HARFBUZZ_GRAPHITE
+	bool
+	prompt "graphite support"
+
+config HARFBUZZ_ICU
+	bool
+	prompt "ICU support"
+
+endif

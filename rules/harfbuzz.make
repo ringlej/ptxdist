@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_HARFBUZZ) += harfbuzz
 #
 # Paths and names
 #
-HARFBUZZ_VERSION	:= 1.8.0
-HARFBUZZ_MD5		:= 1023806c6a25a3fb11af0bcee8d0dc7c
+HARFBUZZ_VERSION	:= 1.8.1
+HARFBUZZ_MD5		:= 97cb89c6e2a914c05c8b7e858703885f
 HARFBUZZ		:= harfbuzz-$(HARFBUZZ_VERSION)
 HARFBUZZ_SUFFIX		:= tar.bz2
 HARFBUZZ_URL		:= https://www.freedesktop.org/software/harfbuzz/release/$(HARFBUZZ).$(HARFBUZZ_SUFFIX)
@@ -42,9 +42,9 @@ HARFBUZZ_CONF_OPT	:= \
 	--without-gobject \
 	--without-cairo \
 	--with-fontconfig \
-	--without-icu \
+	--$(call ptx/wwo, PTXCONF_HARFBUZZ_ICU)-icu \
 	--without-ucdn \
-	--without-graphite2 \
+	--$(call ptx/wwo, PTXCONF_HARFBUZZ_GRAPHITE)-graphite2 \
 	--with-freetype \
 	--without-uniscribe \
 	--without-directwrite \
@@ -64,6 +64,9 @@ $(STATEDIR)/harfbuzz.targetinstall:
 	@$(call install_fixup, harfbuzz,DESCRIPTION, "OpenType text shaping engine")
 
 	@$(call install_lib, harfbuzz, 0, 0, 0644, libharfbuzz)
+ifdef PTXCONF_HARFBUZZ_ICU
+	@$(call install_lib, harfbuzz, 0, 0, 0644, libharfbuzz-icu)
+endif
 
 	@$(call install_finish, harfbuzz)
 
