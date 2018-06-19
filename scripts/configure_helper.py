@@ -180,7 +180,10 @@ parse_args_re = re.compile("--((enable|disable|with|without|with\(out\))-)?\[?([
 def parse_configure_args(args, blacklist):
 	ret = []
 	for arg in args:
-		groups = parse_args_re.match(arg).groups()
+		match = parse_args_re.match(arg)
+		if not match:
+			continue
+		groups = match.groups()
 		if not groups[2]:
 			continue
 		found = False
