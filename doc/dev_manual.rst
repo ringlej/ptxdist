@@ -605,7 +605,7 @@ From the previous *install* stage we know this package installs an
 executable called ``foo`` to location ``/usr/bin``. We can do the same
 for our target by changing the *install\_copy* line to:
 
-.. code-block:: make
+.. code-block:: none
 
     @$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/foo)
 
@@ -1455,7 +1455,7 @@ Add binary Files File by File
 Doing to on a file by file base can happen by just using the ``install_copy``
 macro in the *targetinstall* stage in our own customized rules file.
 
-.. code-block:: make
+.. code-block:: none
 
     @$(call install_copy, binary_example, 0, 0, 0644, \
        </path/to/some/file/>ptx_logo.png, \
@@ -1485,7 +1485,7 @@ correct manner:
 
 -  user and group ID on a per file base
 
-.. code-block:: make
+.. code-block:: none
 
     @$(call install_archive, binary_example, -, -, \
        </path/to/an/>archive.tgz, /)
