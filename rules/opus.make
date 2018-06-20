@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_OPUS) += opus
 #
 # Paths and names
 #
-OPUS_VERSION	:= 1.0.2
-OPUS_MD5	:= c503ad05a59ddb44deab96204401be03
+OPUS_VERSION	:= 1.2.1
+OPUS_MD5	:= 54bc867f13066407bc7b95be1fede090
 OPUS		:= opus-$(OPUS_VERSION)
 OPUS_SUFFIX	:= tar.gz
 OPUS_URL	:= http://downloads.xiph.org/releases/opus/$(OPUS).$(OPUS_SUFFIX)
 OPUS_SOURCE	:= $(SRCDIR)/$(OPUS).$(OPUS_SUFFIX)
 OPUS_DIR	:= $(BUILDDIR)/$(OPUS)
-OPUS_LICENSE	:= unknown
+OPUS_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,13 +36,21 @@ OPUS_CONF_TOOL	:= autoconf
 OPUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
-	--enable-fixed-point \
+	--$(call ptx/disen, PTXCONF_HAS_HARDFLOAT)-fixed-point \
 	--disable-fixed-point-debug \
+	--enable-float-api \
 	--disable-custom-modes \
 	--enable-float-approx \
+	--enable-asm \
+	--enable-rtcd \
+	--enable-intrinsics \
 	--disable-assertions \
 	--disable-fuzzing \
-	--disable-doc
+	--disable-check-asm \
+	--disable-ambisonics \
+	--disable-doc \
+	--disable-extra-programs \
+	--disable-update-draft
 
 
 # ----------------------------------------------------------------------------
