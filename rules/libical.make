@@ -16,36 +16,32 @@ PACKAGES-$(PTXCONF_LIBICAL) += libical
 #
 # Paths and names
 #
-LIBICAL_VERSION	:= 0.46
-LIBICAL_MD5	:= 9c08f88945bfd5d0791d102e4aa4125c
+LIBICAL_VERSION	:= 3.0.3
+LIBICAL_MD5	:= ead7d0d349f872a909cd4f30988de7fc
 LIBICAL		:= libical-$(LIBICAL_VERSION)
 LIBICAL_SUFFIX	:= tar.gz
-LIBICAL_URL	:= $(call ptx/mirror, SF, project/freeassociation/libical/libical-0.46/$(LIBICAL).$(LIBICAL_SUFFIX))
+LIBICAL_URL	:= https://github.com/libical/libical/releases/download/v$(LIBICAL_VERSION)/$(LIBICAL).$(LIBICAL_SUFFIX)
 LIBICAL_SOURCE	:= $(SRCDIR)/$(LIBICAL).$(LIBICAL_SUFFIX)
 LIBICAL_DIR	:= $(BUILDDIR)/$(LIBICAL)
-LIBICAL_LICENSE	:= unknown
+LIBICAL_LICENSE	:= LGPL-2.1
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBICAL_PATH := PATH=$(CROSS_PATH)
-LIBICAL_CONF_ENV := $(CROSS_ENV)
-
 #
-# autoconf
+# cmake
 #
-LIBICAL_CONF_TOOL := autoconf
+LIBICAL_CONF_TOOL := cmake
 LIBICAL_CONF_OPT := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-icalerrors-are-fatal \
-	--disable-java \
-	--disable-python \
-	--without-builtintz \
-	--without-bdb4 \
-	--without-backtrace \
-	--without-devel \
-	--$(call ptx/endis, PTXCONF_LIBICAL_CXX)-cxx
+	$(CROSS_CMAKE_USR) \
+	-DICU_INCLUDE_DIR=NO \
+	-DICU_LIBRARY=NO \
+	-DSHARED_ONLY=ON \
+	-DGOBJECT_INTROSPECTION=OFF \
+	-DICAL_BUILD_DOCS=OFF \
+	-DICAL_GLIB_VAPI=OFF \
+	-DICAL_GLIB=OFF \
+	-DWITH_CXX_BINDINGS=$(call ptx/onoff,PTXCONF_LIBICAL_CXX)
 
 # ----------------------------------------------------------------------------
 # Target-Install
