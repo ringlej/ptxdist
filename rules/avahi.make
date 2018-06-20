@@ -150,6 +150,12 @@ ifdef PTXCONF_AVAHI_SYSTEMD_UNIT
 		/usr/lib/systemd/system/multi-user.target.wants/avahi-daemon.service)
 endif
 endif
+ifdef PTXCONF_AVAHI_UTILS
+	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/bin/avahi-browse)
+	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/bin/avahi-publish)
+	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/bin/avahi-resolve)
+	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/bin/avahi-set-host-name)
+endif
 endif
 
 ifdef PTXCONF_AVAHI_SERVICES
