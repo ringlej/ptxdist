@@ -7,6 +7,5 @@ config XORG_LIB_XT
 	select XORGPROTO
 	select XORG_LIB_X11
 	select XORG_LIB_SM
-	select XORG_LIB_XDMCP
 	help
 	  X Toolkit Library
