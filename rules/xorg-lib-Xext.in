@@ -6,7 +6,6 @@ config XORG_LIB_XEXT
 	select XORGPROTO
 	select XORG_LIB_X11
 	select XORG_LIB_XAU
-	select XORG_LIB_XDMCP
 	help
 	  The X Extensions library provides mechanisms that
 	  were not provided in the core protocol in Xlib.
