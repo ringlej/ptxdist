@@ -4,7 +4,6 @@ menuconfig CAIRO
 	tristate
 	select GCCLIBS_GCC_S
 	select XORG_LIB_XEXT	if CAIRO_XLIB
-	select XORG_LIB_XT	if CAIRO_XLIB
 	select XORG_LIB_XRENDER	if CAIRO_XLIB
 	select ZLIB		if CAIRO_PS || CAIRO_PDF
 	select GLIB		if CAIRO_GOBJECT
