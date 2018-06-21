@@ -99,6 +99,13 @@ config GLIBC_M
 	  If at least one application on your target does any kind of math
 	  calculation, you should install this library.
 
+config GLIBC_ANL
+	bool
+	prompt "Install libanl"
+	help
+		Install the libanl
+
+
 config GLIBC_NSS_DNS
 	bool
 	prompt "Install libnss_dns"
