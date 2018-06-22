@@ -1,4 +1,6 @@
-## SECTION=multimedia_tk
+## SECTION=staging
+## old section:
+### SECTION=multimedia_tk
 
 menuconfig TK
 	tristate
@@ -11,6 +13,9 @@ menuconfig TK
 	select XORG_LIB_XFT if TK_XFT
 	help
 	  Tk is a graphical extension to Tcl (Tool Command Language)
+
+	  STAGING: remove in ptxdist-2019.07.0
+	  Old obsolete and unmaintained.
 
 if TK
 
