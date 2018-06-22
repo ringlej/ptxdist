@@ -1,0 +1,11 @@
+## SECTION=disk_and_file
+
+config DC3DD
+	tristate
+	select LIBC_PTHREAD
+	select LIBC
+	prompt "dc3dd"
+	help
+	  dc3dd is a patched version of GNU dd with added features for computer forensics.
+	  It was developed at the DoD Cyber Crime Center by Jesse Kornblum.
+	  See https://tools.kali.org/forensics/dc3dd for usage.
