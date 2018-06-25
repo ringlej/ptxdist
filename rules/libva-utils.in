@@ -1,0 +1,21 @@
+## SECTION=multimedia_tools
+
+config LIBVA_UTILS
+	tristate
+	select LIBVA
+	prompt "libva-utils"
+	help
+	  libva-utils is a collection of utilities and examples to exercise
+	  VA-API in accordance with the libva project.
+
+if LIBVA_UTILS
+
+config LIBVA_UTILS_X11
+	bool
+	default LIBVA_X11
+
+config LIBVA_UTILS_WAYLAND
+	bool
+	default LIBVA_WAYLAND
+
+endif
