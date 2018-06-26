@@ -66,8 +66,8 @@ $(STATEDIR)/host-tz-database.extract:
 HOST_TZ_DATABASE_PATH		:= PATH=$(HOST_PATH)
 HOST_TZ_DATABASE_CONF_TOOL	:= NO
 HOST_TZ_DATABASE_MAKE_OPT	:= \
-	zic TZDIR=/usr/share/zoneinfo CFLAGS="-DSTD_INSPIRED -DHAVE_SNPRINTF"
+	zic TZDIR=/usr/share/zoneinfo CFLAGS=-DSTD_INSPIRED
 HOST_TZ_DATABASE_INSTALL_OPT	:= \
-	posix_only TZDIR=/usr/share/zoneinfo CFLAGS="-DHAVE_SNPRINTF"
+	posix_only TZDIR=/usr/share/zoneinfo
 
 # vim: syntax=make
