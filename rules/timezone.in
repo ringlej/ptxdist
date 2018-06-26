@@ -25,25 +25,109 @@ config TIMEZONE_AFRICA
 	bool
 	prompt "Africa"
 
+config TIMEZONE_AMERICA
+	bool
+	prompt "America"
+
+config TIMEZONE_ANTARCTICA
+	bool
+	prompt "Antarctica"
+
+config TIMEZONE_ARCTIC
+	bool
+	prompt "Arctic"
+
+config TIMEZONE_ASIA
+	bool
+	prompt "Asia"
+
 config TIMEZONE_ATLANTIC
 	bool
 	prompt "Atlantic"
 
-config TIMEZONE_EUROPE
+config TIMEZONE_AUSTRALIA
 	bool
-	prompt "Europe"
+	prompt "Australia"
 
-config TIMEZONE_EST5EDT
+config TIMEZONE_BRAZIL
 	bool
-	prompt "EST5EDT"
+	prompt "Brazil"
 
 config TIMEZONE_CANADA
 	bool
 	prompt "Canada"
 
+config TIMEZONE_CHILE
+	bool
+	prompt "Chile"
+
+config TIMEZONE_ETC
+	bool
+	prompt "Etc"
+
+config TIMEZONE_EUROPE
+	bool
+	prompt "Europe"
+
+config TIMEZONE_INDIAN
+	bool
+	prompt "Indian"
+
+config TIMEZONE_MEXICO
+	bool
+	prompt "Mexico"
+
+config TIMEZONE_PACIFIC
+	bool
+	prompt "Pacific"
+
+config TIMEZONE_US
+	bool
+	prompt "US"
+
+config TIMEZONE_CET
+	bool
+	prompt "CET"
+
+config TIMEZONE_CST6CDT
+	bool
+	prompt "CST6CDT"
+
+config TIMEZONE_CUBA
+	bool
+	prompt "Cuba"
+
+config TIMEZONE_EET
+	bool
+	prompt "EET"
+
+config TIMEZONE_EGYPT
+	bool
+	prompt "Egypt"
+
+config TIMEZONE_EIRE
+	bool
+	prompt "Eire"
+
+config TIMEZONE_EST
+	bool
+	prompt "EST"
+
+config TIMEZONE_EST5EDT
+	bool
+	prompt "EST5EDT"
+
 config TIMEZONE_FACTORY
 	bool
 	prompt "Factory"
+
+config TIMEZONE_GB
+	bool
+	prompt "GB"
+
+config TIMEZONE_GMT
+	bool
+	prompt "GMT"
 
 config TIMEZONE_GMT0
 	bool
@@ -51,13 +135,49 @@ config TIMEZONE_GMT0
 	help
 	  This includes GMT-0 and GMT+0
 
+config TIMEZONE_HONGKONG
+	bool
+	prompt "Hongkong"
+
+config TIMEZONE_HST
+	bool
+	prompt "HST"
+
 config TIMEZONE_ICELAND
 	bool
 	prompt "Iceland"
 
+config TIMEZONE_IRAN
+	bool
+	prompt "Iran"
+
+config TIMEZONE_ISRAEL
+	bool
+	prompt "Israel"
+
+config TIMEZONE_JAMAICA
+	bool
+	prompt "Jamaica"
+
 config TIMEZONE_JAPAN
 	bool
 	prompt "Japan"
+
+config TIMEZONE_KWAJALEIN
+	bool
+	prompt "Kwajalein"
+
+config TIMEZONE_LIBYA
+	bool
+	prompt "Libya"
+
+config TIMEZONE_MET
+	bool
+	prompt "MET"
+
+config TIMEZONE_MST
+	bool
+	prompt "MST"
 
 config TIMEZONE_MST7MDT
 	bool
@@ -67,176 +187,56 @@ config TIMEZONE_NAVAJO
 	bool
 	prompt "Navajo"
 
-config TIMEZONE_WSU
-	bool
-	prompt "W-SU"
-
-config TIMEZONE_AMERICA
-	bool
-	prompt "America"
-
-config TIMEZONE_AUSTRALIA
-	bool
-	prompt "Australia"
-
-config TIMEZONE_CHILE
-	bool
-	prompt "Chile"
-
-config TIMEZONE_EGYPT
-	bool
-	prompt "Egypt"
-
-config TIMEZONE_GB
-	bool
-	prompt "GB"
-
-config TIMEZONE_INDIAN
-	bool
-	prompt "Indian"
-
-config TIMEZONE_KWAJALEIN
-	bool
-	prompt "Kwajalein"
-
-config TIMEZONE_MEXICO
-	bool
-	prompt "Mexico"
-
-config TIMEZONE_PRC
-	bool
-	prompt "PRC"
-
-config TIMEZONE_ROC
-	bool
-	prompt "ROC"
-
-config TIMEZONE_UCT
-	bool
-	prompt "UCT"
-
-config TIMEZONE_WET
-	bool
-	prompt "WET"
-
-config TIMEZONE_ANTARCTICA
-	bool
-	prompt "Antarctica"
-
-config TIMEZONE_BRAZIL
-	bool
-	prompt "Brazil"
-
-config TIMEZONE_CUBA
-	bool
-	prompt "Cuba"
-
-config TIMEZONE_EIRE
-	bool
-	prompt "Eire"
-
-config TIMEZONE_IRAN
-	bool
-	prompt "Iran"
-
-config TIMEZONE_LIBYA
-	bool
-	prompt "Libya"
-
-config TIMEZONE_PST8PDT
-	bool
-	prompt "PST8PDT"
-
-config TIMEZONE_ROK
-	bool
-	prompt "ROK"
-
-config TIMEZONE_US
-	bool
-	prompt "US"
-
-config TIMEZONE_ZULU
-	bool
-	prompt "Zulu"
-
-config TIMEZONE_ARCTIC
-	bool
-	prompt "Arctic"
-
-config TIMEZONE_CET
-	bool
-	prompt "CET"
-
-config TIMEZONE_EET
-	bool
-	prompt "EET"
-
-config TIMEZONE_ETC
-	bool
-	prompt "Etc"
-
-config TIMEZONE_GMT
-	bool
-	prompt "GMT"
-
-config TIMEZONE_HST
-	bool
-	prompt "HST"
-
-config TIMEZONE_ISRAEL
-	bool
-	prompt "Israel"
-
-config TIMEZONE_MET
-	bool
-	prompt "MET"
-
 config TIMEZONE_NZ
 	bool
 	prompt "NZ"
-
-config TIMEZONE_PACIFIC
-	bool
-	prompt "Pacific"
-
-config TIMEZONE_SINGAPORE
-	bool
-	prompt "Singapore"
-
-config TIMEZONE_UTC
-	bool
-	prompt "UTC"
-
-config TIMEZONE_ASIA
-	bool
-	prompt "Asia"
-
-config TIMEZONE_CST6CDT
-	bool
-	prompt "CST6CDT"
-
-config TIMEZONE_EST
-	bool
-	prompt "EST"
-
-config TIMEZONE_HONGKONG
-	bool
-	prompt "Hongkong"
-
-config TIMEZONE_JAMAICA
-	bool
-	prompt "Jamaica"
-
-config TIMEZONE_MST
-	bool
-	prompt "MST"
 
 config TIMEZONE_NZ_CHAT
 	bool
 	prompt "NZ-CHAT"
 
+config TIMEZONE_PRC
+	bool
+	prompt "PRC"
+
+config TIMEZONE_PST8PDT
+	bool
+	prompt "PST8PDT"
+
+config TIMEZONE_ROC
+	bool
+	prompt "ROC"
+
+config TIMEZONE_ROK
+	bool
+	prompt "ROK"
+
+config TIMEZONE_SINGAPORE
+	bool
+	prompt "Singapore"
+
+config TIMEZONE_UCT
+	bool
+	prompt "UCT"
+
 config TIMEZONE_UNIVERSAL
 	bool
 	prompt "Universal"
+
+config TIMEZONE_UTC
+	bool
+	prompt "UTC"
+
+config TIMEZONE_WET
+	bool
+	prompt "WET"
+
+config TIMEZONE_WSU
+	bool
+	prompt "W-SU"
+
+config TIMEZONE_ZULU
+	bool
+	prompt "Zulu"
 
 endif
