@@ -145,10 +145,6 @@ config TIMEZONE_LIBYA
 	bool
 	prompt "Libya"
 
-config TIMEZONE_MIDEAST
-	bool
-	prompt "Mideast"
-
 config TIMEZONE_PST8PDT
 	bool
 	prompt "PST8PDT"
