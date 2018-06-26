@@ -13,15 +13,13 @@ if TIMEZONE
 comment "Timezone support"
 
 config TIMEZONE_LOCALTIME
-	prompt "Timezone for /etc/localtime and /etc/timezone"
+	prompt "Timezone for /etc/localtime"
 	default "Europe/Berlin"
 	string
 	help
 	  Where should /etc/localtime point to? (e.g. put in "Europe/Berlin"
 	  here to let it point to /usr/share/zoneinfo/Europe/Berlin)
-	  Additionally this value is written to /etc/timezone like on Debian
-	  or for systemd. Note: if you leave this empty /etc/timezone and
-	  /etc/localtime are NOT created.
+	  Note: if you leave this empty /etc/localtime is NOT created.
 
 config TIMEZONE_AFRICA
 	bool
