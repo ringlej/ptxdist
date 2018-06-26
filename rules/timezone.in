@@ -195,6 +195,14 @@ config TIMEZONE_NZ_CHAT
 	bool
 	prompt "NZ-CHAT"
 
+config TIMEZONE_POLAND
+	bool
+	prompt "Poland"
+
+config TIMEZONE_PORTUGAL
+	bool
+	prompt "Portugal"
+
 config TIMEZONE_PRC
 	bool
 	prompt "PRC"
@@ -214,6 +222,10 @@ config TIMEZONE_ROK
 config TIMEZONE_SINGAPORE
 	bool
 	prompt "Singapore"
+
+config TIMEZONE_TURKEY
+	bool
+	prompt "Turkey"
 
 config TIMEZONE_UCT
 	bool
