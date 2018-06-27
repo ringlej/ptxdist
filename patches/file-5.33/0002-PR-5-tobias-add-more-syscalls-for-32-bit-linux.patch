@@ -1,0 +1,42 @@
+From: Christos Zoulas <christos@zoulas.com>
+Date: Sat, 23 Jun 2018 16:09:11 +0000
+Subject: [PATCH] PR/5: tobias: add more syscalls for 32 bit linux
+
+---
+ src/seccomp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/seccomp.c b/src/seccomp.c
+index 481a5624784c..51cf71c4ef6d 100644
+--- a/src/seccomp.c
++++ b/src/seccomp.c
+@@ -27,7 +27,7 @@
+ #include "file.h"
+ 
+ #ifndef	lint
+-FILE_RCSID("@(#)$File: seccomp.c,v 1.3 2018/05/06 16:36:41 christos Exp $")
++FILE_RCSID("@(#)$File: seccomp.c,v 1.4 2018/06/23 16:09:11 christos Exp $")
+ #endif	/* lint */
+ 
+ #if HAVE_LIBSECCOMP
+@@ -164,15 +164,20 @@ enable_sandbox_full(void)
+ 	ALLOW_RULE(exit);
+ 	ALLOW_RULE(exit_group);
+ 	ALLOW_RULE(fcntl);  
++ 	ALLOW_RULE(fcntl64);  
+ 	ALLOW_RULE(fstat);
++ 	ALLOW_RULE(fcntl64);  
+ 	ALLOW_RULE(getdents);
+ #ifdef __NR_getdents64
+ 	ALLOW_RULE(getdents64);
+ #endif
+ 	ALLOW_RULE(ioctl);
+ 	ALLOW_RULE(lseek);
++ 	ALLOW_RULE(_llseek);
+ 	ALLOW_RULE(lstat);
++ 	ALLOW_RULE(lstat64);
+ 	ALLOW_RULE(mmap);
++ 	ALLOW_RULE(mmap2);
+ 	ALLOW_RULE(mprotect);
+ 	ALLOW_RULE(mremap);
+ 	ALLOW_RULE(munmap);
