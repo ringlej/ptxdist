@@ -148,9 +148,7 @@ config BOOST_IOSTREAMS
 config BOOST_LOCALE
 	bool
 	select BOOST_LIBS
-	select BOOST_CHRONO
 	select BOOST_SYSTEM
-	select BOOST_THREAD
 	prompt "locale"
 	help
 	  Boost locale library
