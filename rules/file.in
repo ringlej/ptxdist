@@ -1,10 +1,11 @@
 ## SECTION=shell_and_console
 
-config FILE
+menuconfig FILE
 	tristate
 	select HOST_FILE
 	select ZLIB
 	select GCCLIBS_GCC_S
+	select LIBSECCOMP if FILE_SECCOMP
 	prompt "file"
 	help
 	  The file command is "a file type guesser", that is, a command-line tool
@@ -15,3 +16,14 @@ config FILE
 	  reliable, but requires a bit of I/O.
 	  
 	  http://www.darwinsys.com/file/
+
+if FILE
+
+config FILE_SECCOMP
+	bool
+	default y
+	prompt "enable seccomp sandboxing"
+	help
+	  Enables seccomp sandboxing to reduce the attack surface.
+
+endif

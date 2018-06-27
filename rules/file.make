@@ -37,7 +37,7 @@ FILE_CONF_OPT	:= \
 	--enable-elf \
 	--enable-elf-core \
 	--enable-zlib \
-	--disable-libseccomp \
+	--$(call ptx/endis, PTXCONF_FILE_SECCOMP)-libseccomp \
 	--disable-fsect-man5 \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-warnings
