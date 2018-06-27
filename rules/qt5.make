@@ -450,8 +450,8 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= platforms/libqwayland-generic
 ifdef PTXCONF_QT5_OPENGL
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND_MESA)		+= platforms/libqwayland-egl
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND_MESA)		+= wayland-graphics-integration-client/libwayland-egl
-endif
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND_MESA)		+= wayland-graphics-integration-client/libdrm-egl-server
+endif
 #QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-graphics-integration-client/libxcomposite-glx
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-decoration-client/libbradient
 
