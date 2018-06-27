@@ -164,6 +164,10 @@ config QT5_OPENGL_API
 
 endif
 
+config QT5_TEST
+	bool
+	prompt "Testing support"
+
 endmenu
 
 menuconfig QT5_GUI
