@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_LOCALES) += locales
 #
 LOCALES			:= locales
 LOCALES_VERSION		:= 1.0
+LOCALES_LICENSE		:= ignore
 
 # ----------------------------------------------------------------------------
 # Install
