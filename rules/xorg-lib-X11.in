@@ -10,6 +10,7 @@ menuconfig XORG_LIB_X11
 	select LIBXCB
 	select XORG_LIB_XTRANS
 	select LIBC_PTHREAD
+	select HOST_XORGPROTO
 	help
 	  This is the main X library
 
