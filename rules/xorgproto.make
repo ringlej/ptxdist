@@ -23,7 +23,7 @@ XORGPROTO_SUFFIX	:= tar.bz2
 XORGPROTO_URL		:= $(call ptx/mirror, XORG, individual/proto/$(XORGPROTO).$(XORGPROTO_SUFFIX))
 XORGPROTO_SOURCE	:= $(SRCDIR)/$(XORGPROTO).$(XORGPROTO_SUFFIX)
 XORGPROTO_DIR		:= $(BUILDDIR)/$(XORGPROTO)
-XORGPROTO_LICENSE	:= unknown
+XORGPROTO_LICENSE	:= X11 AND MIT AND BSD-2-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
