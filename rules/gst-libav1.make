@@ -23,7 +23,7 @@ GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
 GST_LIBAV1_SOURCE	:= $(SRCDIR)/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
 GST_LIBAV1_DIR		:= $(BUILDDIR)/$(GST_LIBAV1)
-GST_LIBAV1_LICENSE	:= unknown
+GST_LIBAV1_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
