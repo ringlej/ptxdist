@@ -94,19 +94,13 @@ MYSQL_CXXFLAGS := -std=c++98
 
 $(STATEDIR)/mysql.compile:
 	@$(call targetinfo)
-	# we must copy it twice: once for the buildsystem, once for runtime
-	cp $(HOST_MYSQL_DIR)-build/sql/gen_lex_hash $(PTXDIST_SYSROOT_HOST)/bin
-	cp $(HOST_MYSQL_DIR)-build/sql/gen_lex_hash $(MYSQL_DIR)/sql
-	cp $(HOST_MYSQL_DIR)-build/sql/gen_lex_token $(PTXDIST_SYSROOT_HOST)/bin
-	cp $(HOST_MYSQL_DIR)-build/sql/gen_lex_token $(MYSQL_DIR)/sql
-	cp $(HOST_MYSQL_DIR)-build/extra/lz4_decompress $(PTXDIST_SYSROOT_HOST)/bin
-	cp $(HOST_MYSQL_DIR)-build/extra/lz4_decompress $(MYSQL_DIR)/extra
-	cp $(HOST_MYSQL_DIR)-build/extra/zlib_decompress $(PTXDIST_SYSROOT_HOST)/bin
-	cp $(HOST_MYSQL_DIR)-build/extra/zlib_decompress $(MYSQL_DIR)/extra
-	cp $(HOST_MYSQL_DIR)-build/extra/comp_err $(PTXDIST_SYSROOT_HOST)/bin
-	cp $(HOST_MYSQL_DIR)-build/extra/comp_err $(MYSQL_DIR)/extra
-	cp $(HOST_MYSQL_DIR)-build/scripts/comp_sql $(PTXDIST_SYSROOT_HOST)/bin
-	cp $(HOST_MYSQL_DIR)-build/scripts/comp_sql $(MYSQL_DIR)/scripts
+
+	@install -v -m755  $(PTXDIST_SYSROOT_HOST)/bin/gen_lex_hash $(MYSQL_DIR)/sql/
+	@install -v -m755  $(PTXDIST_SYSROOT_HOST)/bin/gen_lex_token $(MYSQL_DIR)/sql/
+	@install -v -m755  $(PTXDIST_SYSROOT_HOST)/bin/lz4_decompress $(MYSQL_DIR)/extra/
+	@install -v -m755  $(PTXDIST_SYSROOT_HOST)/bin/zlib_decompress $(MYSQL_DIR)/extra/
+	@install -v -m755  $(PTXDIST_SYSROOT_HOST)/bin/comp_err $(MYSQL_DIR)/extra/
+	@install -v -m755  $(PTXDIST_SYSROOT_HOST)/bin/comp_sql $(MYSQL_DIR)/scripts/
 
 	@$(call world/compile, MYSQL)
 	@$(call touch)

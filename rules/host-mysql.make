@@ -54,4 +54,19 @@ HOST_MYSQL_CONF_OPT	:= \
 
 HOST_MYSQL_CXXFLAGS := -std=c++98
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-mysql.install:
+	@$(call targetinfo)
+	@$(call world/install, HOST_MYSQL)
+#	# prefix != /usr is broken, but only sysroot-host/bin is in $PATH
+	@mv -v $(HOST_MYSQL_PKGDIR)/usr/bin $(HOST_MYSQL_PKGDIR)
+	@install -v -m755  $(HOST_MYSQL_DIR)-build/sql/gen_lex_hash $(HOST_MYSQL_PKGDIR)/bin/
+	@install -v -m755  $(HOST_MYSQL_DIR)-build/sql/gen_lex_token $(HOST_MYSQL_PKGDIR)/bin/
+	@install -v -m755  $(HOST_MYSQL_DIR)-build/extra/comp_err $(HOST_MYSQL_PKGDIR)/bin/
+	@install -v -m755  $(HOST_MYSQL_DIR)-build/scripts/comp_sql $(HOST_MYSQL_PKGDIR)/bin/
+	@$(call touch)
+
 # vim: syntax=make
