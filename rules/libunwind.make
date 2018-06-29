@@ -23,7 +23,7 @@ LIBUNWIND_SUFFIX	:= tar.gz
 LIBUNWIND_URL		:= http://download.savannah.gnu.org/releases/libunwind/$(LIBUNWIND).$(LIBUNWIND_SUFFIX)
 LIBUNWIND_SOURCE	:= $(SRCDIR)/$(LIBUNWIND).$(LIBUNWIND_SUFFIX)
 LIBUNWIND_DIR		:= $(BUILDDIR)/$(LIBUNWIND)
-LIBUNWIND_LICENSE	:= unknown
+LIBUNWIND_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
