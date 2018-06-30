@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.10.8
-NETWORKMANAGER_MD5	:= 4bdcdfd05f609c2c53d3664b6573c078
+NETWORKMANAGER_VERSION	:= 1.12.0
+NETWORKMANAGER_MD5	:= f728a42310c85b53386b172b15d7fc20
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.10/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.12/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 NETWORKMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -43,9 +43,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-rpath \
 	--disable-config-plugin-ibft \
 	--disable-ifcfg-rh \
-	--disable-ifcfg-suse \
 	--enable-ifupdown \
-	--disable-ifnet \
 	--disable-code-coverage \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
 	--disable-introspection \
@@ -64,7 +62,6 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-more-logging \
 	--disable-lto \
 	--enable-ld-gc=auto \
-	--disable-address-sanitizer \
 	--disable-undefined-sanitizer \
 	--disable-vala \
 	--disable-tests \
@@ -205,16 +202,21 @@ endif
 
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/libexec/)
 
-	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-settings-plugin-ifupdown)
+	@$(call install_lib, networkmanager, 0, 0, 0644, \
+		NetworkManager/$(NETWORKMANAGER_VERSION)/libnm-settings-plugin-ifupdown)
 ifdef PTXCONF_NETWORKMANAGER_WIRELESS
-	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-device-plugin-wifi)
+	@$(call install_lib, networkmanager, 0, 0, 0644, \
+		NetworkManager/$(NETWORKMANAGER_VERSION)/libnm-device-plugin-wifi)
 endif
 ifdef PTXCONF_NETWORKMANAGER_WWAN
-	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-device-plugin-wwan)
-	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-wwan)
+	@$(call install_lib, networkmanager, 0, 0, 0644, \
+		NetworkManager/$(NETWORKMANAGER_VERSION)/libnm-device-plugin-wwan)
+	@$(call install_lib, networkmanager, 0, 0, 0644, \
+		NetworkManager/$(NETWORKMANAGER_VERSION)/libnm-wwan)
 endif
 ifdef PTXCONF_NETWORKMANAGER_PPP
-	@$(call install_lib, networkmanager, 0, 0, 0644, NetworkManager/libnm-ppp-plugin)
+	@$(call install_lib, networkmanager, 0, 0, 0644, \
+		NetworkManager/$(NETWORKMANAGER_VERSION)/libnm-ppp-plugin)
 	@$(call install_copy, networkmanager, 0, 0, 0644, -, $(PPP_SHARED_INST_PATH)/nm-pppd-plugin.so)
 endif
 	@$(call install_lib, networkmanager, 0, 0, 0644, libnm)
