@@ -78,6 +78,20 @@ $0 ~ /^include[[:space:]]+\/.*\.make$/ {
 }
 
 
+function dump_file(src, dst) {
+	if (!src)
+		return
+
+	old_RS = RS
+	RS = "^$"
+	getline tmp < src
+	print tmp >> dst
+	RS = old_RS
+	close(src)
+	close(dst)
+}
+
+
 #
 # parse "PACKAGES-$(PTXCONF_PKG) += pkg" lines, i.e. rules-files from
 # rules/*.make. Setup mapping between upper and lower case pkg names
@@ -100,6 +114,7 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 		exit 1
 	}
 
+	PKG_to_makefile[this_PKG] = FILENAME;
 	PKG_to_pkg[this_PKG] = this_pkg;
 	pkg_to_PKG[this_pkg] = this_PKG;
 	# make sure each file is only included once
@@ -168,6 +183,12 @@ $1 ~ /^PTX_MAP_._DEP/ {
 	next;
 }
 
+$1 ~ /^PTX_MAP_._SOURCE/ {
+	this_PKG = gensub(/PTX_MAP_._SOURCE_/, "", "g", $1);
+	if (this_PKG in PKG_to_pkg)
+		PKG_to_infile[this_PKG] = $2;
+	next;
+}
 
 #
 # parse the ptx- and platformconfig
@@ -316,6 +337,7 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".prepare: "                    "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".prepare: "   "$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".tags: "                       "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".compile: "                    "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".install: "                    "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
@@ -470,6 +492,11 @@ END {
 		}
 		else
 			write_deps_pkg_active_image(this_PKG, this_pkg, this_pkg_prefix)
+
+		if (this_PKG in PKG_to_infile)
+			dump_file(PKG_to_infile[this_PKG], PTXDIST_TEMPDIR "/pkghash-" this_PKG);
+		if (this_PKG in PKG_to_makefile)
+			dump_file(PKG_to_makefile[this_PKG], PTXDIST_TEMPDIR "/pkghash-" this_PKG);
 	}
 
 	close(PKG_HASHFILE);

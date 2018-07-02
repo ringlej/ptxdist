@@ -789,7 +789,6 @@ check_compiler() {
 #
 check_deps() {
 	ptxd_dgen || ptxd_bailout "error in dgen"
-	ptxd_cfgchg || ptxd_bailout "error in cfgchg"
 }
 
 

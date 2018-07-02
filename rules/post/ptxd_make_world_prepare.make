@@ -8,6 +8,15 @@
 # see the README file.
 #
 
+world/cfghash = \
+	+$(call world/env, $1) \
+	ptxd_make_world_cfghash
+
+$(STATEDIR)/%.cfghash:
+	@$(call targetinfo)
+	@$(call world/cfghash, $(PTX_MAP_TO_PACKAGE_$(basename $(*))))
+	@$(call touch)
+
 $(STATEDIR)/%.prepare:
 	@$(call targetinfo)
 	@$(call world/prepare, $(PTX_MAP_TO_PACKAGE_$(*)))
