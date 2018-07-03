@@ -38,6 +38,11 @@ ptxd_lib_local_src() {
 		exit 1
 	fi
 
+	case "${target}" in
+	/*) ;;
+	*)  target="$(ptxd_abspath "${target}")" ;;
+	esac
+
 	echo "Creating local_src link for '${pkgname}'. Package '${pkgname}' will be built from '${target}'"
 
 	ln -s "${target}" "${link}"
