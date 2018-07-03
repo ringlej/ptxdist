@@ -263,7 +263,7 @@ ptxd_make_license_compliance_footer() {
 }
 export -f ptxd_make_license_compliance_footer
 
-ptxd_make_license_compliance() {
+ptxd_make_license_compliance_pdf() {
     local -a ptxd_reply
     local ptx_license_target_tex pkg_lic pkg
     local -A ptxd_package_license_association
@@ -293,5 +293,33 @@ ptxd_make_license_compliance() {
     ptxd_make_license_report_build &&
     cp "${ptx_license_target_tex%.tex}.pdf" "${ptx_license_target}"
 }
-export -f ptxd_make_license_compliance
+export -f ptxd_make_license_compliance_pdf
+
+ptxd_make_license_compliance_yaml() {
+    local -a ptxd_reply
+    local ptx_license_target_tex pkg_lic pkg
+    local -A ptxd_package_license_association
+
+    # regenerate license info and sort out unused packages
+    for pkg in $(cat "${ptx_report_dir}/package.list"); do
+	ptxd_package_license_association[$(basename ${pkg})]=$(dirname ${pkg})
+    done
+
+#
+# combine all package related info into one document
+#
+    (
+	for pkg in ${@}; do
+		pkg_lic="${ptxd_package_license_association[${pkg}]}"
+		if [ -z "${pkg_lic}" ]; then
+			continue
+		fi
+		pkg_lic="${pkg_lic}/${pkg}"
+		echo "${pkg}:"
+		sed 's/^/  /' "${ptx_report_dir}/${pkg_lic}/license-report.yaml"
+	done
+    ) > "${ptx_license_target}.tmp" &&
+    mv "${ptx_license_target}.tmp" "${ptx_license_target}"
+}
+export -f ptxd_make_license_compliance_yaml
 

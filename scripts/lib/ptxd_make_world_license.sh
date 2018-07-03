@@ -209,6 +209,33 @@ ptxd_make_world_license_write() {
 }
 export -f ptxd_make_world_license_write
 
+ptxd_make_world_license_yaml() {
+    cat << EOF
+flags: ${!pkg_license_flags[@]}
+licenses: ${pkg_license}
+md5: ${pkg_md5}
+name: ${pkg_label}
+section: ${pkg_section}
+url: ${pkg_url}
+version: ${pkg_version}
+license-files:
+EOF
+    local guess="no"
+    for license in "${pkg_license_texts[@]}" - "${pkg_license_texts_guessed[@]}"; do
+	if [ "${license}" = "-" ]; then
+	    guess="yes"
+	    continue
+	fi
+    cat << EOF
+  $(basename "${license}"):
+    guessed: ${guess}
+    file: ${license}
+    md5: $(sed -n "s/\(.*\)  $(basename "${license}")\$/\1/p" "${pkg_license_dir}/license/MD5SUM")
+EOF
+    done
+}
+export -f ptxd_make_world_license_yaml
+
 # Copy all patches according to the series file
 # $1 full path to the series file
 # $2 source directory
@@ -449,7 +476,10 @@ checksum of license file '$(ptxd_print_path "${file}")'
 changed: ${md5} -> $(md5sum "${lic}" | sed 's/ .*//')
 "
 	fi &&
-	echo "${md5}  $(basename ${lic})" >> "${pkg_license_dir}/license/MD5SUM" &&
+	(
+	cd "${pkg_license_dir}/license" &&
+	md5sum `basename ${lic}` >> MD5SUM 2>/dev/null
+	) &&
 	if [ -z "${guess}" ]; then
 	    pkg_license_texts[${#pkg_license_texts[@]}]="${lic}"
 	else
@@ -461,6 +491,8 @@ changed: ${md5} -> $(md5sum "${lic}" | sed 's/ .*//')
     ptxd_make_world_license_write | \
         sed -e 's/%/\\%/g' > "${pkg_license_dir}/license-report.tex" &&
     check_pipe_status &&
+
+    ptxd_make_world_license_yaml > "${pkg_license_dir}/license-report.yaml" &&
 
     echo "${pkg_license}" > "${pkg_license_dir}/license-name" &&
     if [ "${#pkg_license_flags[@]}" -gt 0 ]; then
