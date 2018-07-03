@@ -222,6 +222,10 @@ QT5_CONF_OPT += \
 	--$(call ptx/endis, PTXCONF_QT5_XRENDER)-xrender \
 	--$(call ptx/endis, PTXCONF_QT5_XV)-xvideo \
 
+# change default C++ standard
+# the detected standard is not used for configure and examples
+QT5_CXXFLAGS := -std=c++11
+
 ifdef PTXCONF_QT5_MODULE_QTBASE_SQL_MYSQL
 QT5_CONF_OPT += -mysql_config $(SYSROOT)/usr/bin/mysql_config
 endif
