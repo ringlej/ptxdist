@@ -449,10 +449,7 @@ checksum of license file '$(ptxd_print_path "${file}")'
 changed: ${md5} -> $(md5sum "${lic}" | sed 's/ .*//')
 "
 	fi &&
-	(
-	cd "${pkg_license_dir}/license" &&
-	md5sum `basename ${lic}` >> MD5SUM 2>/dev/null
-	) &&
+	echo "${md5}  $(basename ${lic})" >> "${pkg_license_dir}/license/MD5SUM" &&
 	if [ -z "${guess}" ]; then
 	    pkg_license_texts[${#pkg_license_texts[@]}]="${lic}"
 	else
