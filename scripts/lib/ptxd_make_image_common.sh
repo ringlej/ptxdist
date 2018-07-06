@@ -66,6 +66,8 @@ ptxd_make_image_init() {
 	image_ipkg_repo_dirs=( "${image_repo_dist_dir}" )
     fi
 
+    [ -n "${image_label}" ] && image_label_args='--label "${image_label}"'
+
     exec 2>&${PTXDIST_FD_LOGERR}
 }
 export -f ptxd_make_image_init
