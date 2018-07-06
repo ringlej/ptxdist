@@ -3,6 +3,6 @@
 config XORG_LIB_XDMCP
 	tristate
 	prompt "libXdmcp"
-	select XORG_PROTO_X
+	select XORGPROTO
 	help
 	  X Display Manager Control Protocol library

@@ -6,61 +6,16 @@ menuconfig PANGO
 	select LIBC_M
 	select CAIRO
 	select CAIRO_FREETYPE
-	select GOBJECT_INTROSPECTION	if PANGO_INTROSPECTION
 	select CAIRO_GOBJECT		if PANGO_INTROSPECTION
+	select FRIBIDI
 	select GLIB
-	select WINE if PANGO__WINE
+	select GOBJECT_INTROSPECTION	if PANGO_INTROSPECTION
+	select HARFBUZZ
 
 if PANGO
 
 config PANGO_INTROSPECTION
 	bool
 	default GOBJECT_INTROSPECTION_HELPER
-
-config PANGO_TARGET_X11
-	bool
-	default GTK_TARGET_X11
-
-
-config PANGO__WINE
-	bool "extra dep for MINGW"
-
-
-config PANGO_ARABIC
-	bool
-	prompt "arabic"
-
-config PANGO_BASIC
-	bool
-	default y
-	prompt "basic"
-
-config PANGO_HANGUL
-	bool
-	prompt "hangul"
-
-config PANGO_HEBREW
-	bool
-	prompt "hebrew"
-
-config PANGO_INDIC
-	bool
-	prompt "indic"
-
-config PANGO_KHMER
-	bool
-	prompt "khmer"
-
-config PANGO_SYRIAC
-	bool
-	prompt "syriac"
-
-config PANGO_THAI
-	bool
-	prompt "thai"
-
-config PANGO_TIBETAN
-	bool
-	prompt "tibetan"
 
 endif

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 #
 # Paths and names
 #
-CHRONY_VERSION	:= 1.31
-CHRONY_MD5	:= 04ab702fc81150db06809562a9aaed92
+CHRONY_VERSION	:= 3.3
+CHRONY_MD5	:= 81ab62cf5d60b4b3fa8cd2c1b267ffd9
 CHRONY		:= chrony-$(CHRONY_VERSION)
 CHRONY_SUFFIX	:= tar.gz
 CHRONY_URL	:= http://download.tuxfamily.org/chrony/$(CHRONY).$(CHRONY_SUFFIX)
@@ -29,15 +29,25 @@ CHRONY_DIR	:= $(BUILDDIR)/$(CHRONY)
 # Prepare
 # ----------------------------------------------------------------------------
 
-CHRONY_PATH	:= PATH=$(CROSS_PATH)
-CHRONY_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-CHRONY_AUTOCONF := \
+CHRONY_CONF_TOOL	:= autoconf
+CHRONY_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-readline
+	--disable-readline \
+	--without-editline \
+	--disable-sechash \
+	--without-nettle \
+	--without-nss \
+	--without-tomcrypt \
+	--disable-cmdmon \
+	--disable-ntp \
+	--disable-refclock \
+	--disable-phc \
+	--disable-pps \
+	$(call ptx/ifdef PTXCONF_GLOBAL_IPV6,,--disable-ipv6) \
+	--without-seccomp
 
 # ----------------------------------------------------------------------------
 # Target-Install

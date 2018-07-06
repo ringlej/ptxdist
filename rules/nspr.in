@@ -1,0 +1,10 @@
+## SECTION=networking
+
+config NSPR
+	tristate
+	prompt "nspr"
+	help
+	  Netscape Portable Runtime (NSPR) provides a platform-neutral API
+	  for system level and libc-like functions. The API is used in the
+	  Mozilla clients, many of Red Hat's and Sun's server applications,
+	  and other software offerings.

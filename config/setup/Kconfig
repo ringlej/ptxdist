@@ -171,7 +171,7 @@ config SETUP_SFMIRROR
 
 config SETUP_GNUMIRROR
 	string
-	default "http://ftp.uni-kl.de/pub/gnu"
+	default "https://ftp.gnu.org/gnu http://ftp.uni-kl.de/pub/gnu"
 	prompt "GNU.org Mirror"
 	help
 	  For all GNU.org related packages enter an available mirror here.

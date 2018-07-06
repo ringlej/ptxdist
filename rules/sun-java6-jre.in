@@ -1,4 +1,6 @@
-## SECTION=bytecode_engines
+## SECTION=staging
+## old section:
+### SECTION=bytecode_engines
 menuconfig SUN_JAVA6_JRE
 	tristate
 	prompt "jre 6u2 (sun)                 "
@@ -7,6 +9,10 @@ menuconfig SUN_JAVA6_JRE
 	  Note:
 	  This is a self-extracting shell archive,
 	  bad things could happen!
+
+	  STAGING: remove in ptxdist-2019.06.0
+	  Old version that has many security bugs, and no longer supported
+	  upstream. If needed, should be updated to OpenJDK.
 
 config SUN_JAVA6_JRE_LICENSE_ACCEPT_STRING
         string

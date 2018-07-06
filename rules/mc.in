@@ -11,27 +11,51 @@ menuconfig MC
 	help
 	  midnight commander is a text oriented file manager
 
+if MC
+
 comment "build options   ---"
-	depends on MC
 
 choice
 	prompt "Kind of MMI "
-	default MC_USES_NO_PREFERENCE
-	depends on MC
-
-config MC_USES_NO_PREFERENCE
-	bool "no preference"
-	help
-	  Build midnight commander without any external library preference
+	default MC_USES_NCURSES
 
 config MC_USES_NCURSES
-	bool "Use ncurses  "
+	bool "ncurses"
 	help
 	  Build midnight commander with ncurses
 
 config MC_USES_SLANG
-	bool "Use slang    "
+	bool "slang  "
 	help
 	  Build midnight commander with slang
 
 endchoice
+
+config MC_VFS_CPIO
+	bool "Support for cpio filesystem"
+
+config MC_VFS_EXTFS
+	bool "Support for extfs filesystem"
+
+config MC_VFS_FISH
+	bool "Support for FISH filesystem"
+
+config MC_VFS_FTP
+	bool "Support for FTP filesystem"
+
+config MC_VFS_SFS
+	bool "Support for sfs filesystem"
+
+config MC_VFS_SFTP
+	bool "Support for SFTP filesystem"
+
+config MC_VFS_SMB
+	bool "Support for SMB filesystem"
+
+config MC_VFS_TAR
+	bool "Support for tar filesystem"
+
+config MC_VFS_UNDELFS
+	bool "Support for ext2 undelete filesystem"
+
+endif

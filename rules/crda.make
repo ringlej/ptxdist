@@ -22,11 +22,37 @@ CRDA		:= crda-$(CRDA_VERSION)
 CRDA_SUFFIX	:= tar.xz
 CRDA_URL	:= $(call ptx/mirror, KERNEL, ../software/network/crda/$(CRDA).$(CRDA_SUFFIX))
 CRDA_SOURCE	:= $(SRCDIR)/$(CRDA).$(CRDA_SUFFIX)
+$(CRDA_SOURCE)	:= CRDA_SOURCE
 CRDA_DIR	:= $(BUILDDIR)/$(CRDA)
 CRDA_LICENSE	:= ISC AND copyleft-next-0.3.0
 CRDA_LICENSE_FILES := \
 	file://LICENSE;md5=ef8b69b43141352d821fd66b64ff0ee7 \
 	file://copyleft-next-0.3.0;md5=8743a2c359037d4d329a31e79eabeffe
+
+CRDA_REGDB_VERSION	:= 2018.05.31
+CRDA_REGDB_MD5		:= 69bee8391dd0f2a1d23182e8a75f64c5
+CRDA_REGDB		:= wireless-regdb-$(CRDA_REGDB_VERSION)
+CRDA_REGDB_SUFFIX	:= tar.gz
+CRDA_REGDB_URL		:= \
+	https://www.kernel.org/pub/software/network/wireless-regdb/$(CRDA_REGDB).$(CRDA_REGDB_SUFFIX)
+CRDA_REGDB_SOURCE	:= $(SRCDIR)/$(CRDA_REGDB).$(CRDA_REGDB_SUFFIX)
+$(CRDA_REGDB_SOURCE)	:= CRDA_REGDB
+CRDA_REGDB_DIR		:= $(CRDA_DIR)
+CRDA_REGDB_STRIP_LEVEL	:= 0
+
+CRDA_SOURCES		+= $(CRDA_REGDB_SOURCE)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/crda.extract:
+	@$(call targetinfo)
+	@$(call clean, $(CRDA_DIR))
+	@$(call extract, CRDA)
+	@$(call extract, CRDA_REGDB)
+	@$(call patchin, CRDA)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -55,6 +81,17 @@ CRDA_MAKE_ENV	:= \
 CRDA_MAKE_OPT	:= all_noverify
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/crda.install:
+	@$(call targetinfo)
+	@$(call world/install, CRDA)
+	@install -vD -m 644 $(CRDA_REGDB_DIR)/$(CRDA_REGDB)/regulatory.bin \
+		$(CRDA_PKGDIR)/usr/lib/crda/regulatory.bin
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -73,8 +110,6 @@ $(STATEDIR)/crda.targetinstall:
 		/usr/lib/udev/rules.d/85-regulatory.rules)
 	@$(call install_lib, crda, 0, 0, 0644, libreg)
 
-	# regulatory.bin was downloaded from:
-	# https://git.kernel.org/cgit/linux/kernel/git/sforshee/wireless-regdb.git/plain/regulatory.bin
 	@$(call install_alternative, crda, 0, 0, 0644, \
 		/usr/lib/crda/regulatory.bin)
 

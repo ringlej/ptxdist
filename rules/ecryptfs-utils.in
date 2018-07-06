@@ -4,11 +4,8 @@ menuconfig ECRYPTFS_UTILS
 	tristate
 	prompt "ecryptfs-utils                "
 	select KEYUTILS
-	select LIBGCRYPT
+	select NSS
 	select HOST_INTLTOOL
-	select HOST_GETTEXT	# needed for autogen.sh
-	select HOST_GLIB	# needed for autogen.sh
-	select HOST_LIBGCRYPT	# needed for autogen.sh
 	select ATTR			if ECRYPTFS_UTILS_TESTS
 	select BASH			if ECRYPTFS_UTILS_TESTS
 	select COREUTILS		if ECRYPTFS_UTILS_TESTS

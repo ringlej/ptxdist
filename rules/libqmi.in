@@ -2,6 +2,7 @@
 
 config LIBQMI
 	tristate
+	select HOST_SYSTEM_PYTHON
 	select GLIB
 	prompt "libqmi"
 	help

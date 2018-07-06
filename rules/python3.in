@@ -65,6 +65,7 @@ config PYTHON3_SYMLINK
 
 config PYTHON3_LIBTK
 	bool
+	depends on STAGING
 	prompt "Include TK packages"
 
 config PYTHON3_IDLELIB

@@ -3,8 +3,7 @@
 config XORG_LIB_FS
 	tristate
 	prompt "libFS"
-	select XORG_PROTO_X
-	select XORG_PROTO_FONTS
+	select XORGPROTO
 	select XORG_LIB_XTRANS
 	help
 	  libFS, the Font Services library, provides various

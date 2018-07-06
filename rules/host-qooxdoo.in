@@ -1,6 +1,11 @@
-## SECTION=hosttools_noprompt
+## SECTION=staging
+## old section:
+### SECTION=hosttools_noprompt
 
 config HOST_QOOXDOO
 	tristate
 	default ALLYES
 	select HOST_SYSTEM_PYTHON
+	help
+	  STAGING: remove in ptxdist-2019.06.0
+	  Really old version that needs updating.

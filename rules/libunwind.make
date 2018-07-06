@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_LIBUNWIND) += libunwind
 #
 # Paths and names
 #
-LIBUNWIND_VERSION	:= 1.2
-LIBUNWIND_MD5		:= eefcb5d7f78fdc8f1ed172a26ea4202f
+LIBUNWIND_VERSION	:= 1.2.1
+LIBUNWIND_MD5		:= 06ba9e60d92fd6f55cd9dadb084df19e
 LIBUNWIND		:= libunwind-$(LIBUNWIND_VERSION)
 LIBUNWIND_SUFFIX	:= tar.gz
 LIBUNWIND_URL		:= http://download.savannah.gnu.org/releases/libunwind/$(LIBUNWIND).$(LIBUNWIND_SUFFIX)
 LIBUNWIND_SOURCE	:= $(SRCDIR)/$(LIBUNWIND).$(LIBUNWIND_SUFFIX)
 LIBUNWIND_DIR		:= $(BUILDDIR)/$(LIBUNWIND)
-LIBUNWIND_LICENSE	:= unknown
+LIBUNWIND_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

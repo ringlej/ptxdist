@@ -5,7 +5,7 @@ config XORG_LIB_XCURSOR
 	select XORG_LIB_XRENDER
 	select XORG_LIB_XFIXES
 	select XORG_LIB_X11
-	select XORG_PROTO_FIXES
+	select XORGPROTO
 	prompt "libXcursor"
 	help
 	 The Xcursor library provides support for colored and animated cursor themes.

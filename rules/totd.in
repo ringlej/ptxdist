@@ -1,4 +1,6 @@
-## SECTION=networking_ipv6_transition
+## SECTION=staging
+## old section:
+### SECTION=networking_ipv6_transition
 
 menuconfig TOTD
 	tristate
@@ -22,6 +24,9 @@ menuconfig TOTD
 
 	  References:
 	  http://www.vermicelli.pasta.cs.uit.no/
+
+	  STAGING: remove in ptxdist-2019.05.0
+	  Old, obsolete and no longer available for download.
 
 if TOTD
 

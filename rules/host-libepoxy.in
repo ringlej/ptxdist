@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBEPOXY
+	tristate
+	default ALLYES

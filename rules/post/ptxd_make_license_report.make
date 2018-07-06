@@ -56,7 +56,20 @@ $(RELEASEDIR)/license-compliance.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .repo
 	@mkdir -p $(RELEASEDIR)
 	@$(image/env) \
 	ptx_license_target="$@" \
-	ptxd_make_license_compliance $(sort $(PTX_PACKAGES_INSTALL))
+	ptxd_make_license_compliance_pdf $(sort $(PTX_PACKAGES_INSTALL))
+	@$(call finish)
+
+PHONY += license-compliance-data
+
+license-compliance-data: \
+	$(RELEASEDIR)/license-compliance.yaml
+
+$(RELEASEDIR)/license-compliance.yaml: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_INSTALL)))
+	@$(call targetinfo)
+	@mkdir -p $(RELEASEDIR)
+	@$(image/env) \
+	ptx_license_target="$@" \
+	ptxd_make_license_compliance_yaml $(sort $(PTX_PACKAGES_INSTALL))
 	@$(call finish)
 
 # vim: syntax=make

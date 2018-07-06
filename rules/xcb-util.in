@@ -3,7 +3,7 @@
 config XCB_UTIL
 	tristate
 	select LIBC_PTHREAD
-	select XORG_PROTO_X
+	select XORGPROTO
 	select XCB_PROTO
 	select LIBXCB
 	select HOST_GPERF

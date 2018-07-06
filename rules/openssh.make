@@ -28,7 +28,7 @@ OPENSSH_URL	:= \
 OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
 OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
 OPENSSH_LICENSE	:= BSD AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Beerware AND ISC
-OPENSSH_LICENSE_FILES := file://LICENCE;md5=429658c6612f3a9b1293782366ab29d8
+OPENSSH_LICENSE_FILES := file://LICENCE;encoding=ISO-8859-1;md5=429658c6612f3a9b1293782366ab29d8
 
 # ----------------------------------------------------------------------------
 # Prepare

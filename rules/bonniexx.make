@@ -25,6 +25,8 @@ BONNIEXX_URL		:= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_SOURCE		:= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_DIR		:= $(BUILDDIR)/$(BONNIEXX)
 BONNIEXX_LICENSE	:= GPL-2.0-only
+BONNIEXX_LICENSE_FILES	:= \
+	file://copyright.txt;md5=cd4dde95a6b9d122f0a9150ae9cc3ee0
 
 # ----------------------------------------------------------------------------
 # Prepare

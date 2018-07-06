@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_VALIDATE1) += gst-validate1
 #
 # Paths and names
 #
-GST_VALIDATE1_VERSION	:= 1.14.0
-GST_VALIDATE1_MD5	:= deb8654c912b189388fe585b0fc5bc8f
+GST_VALIDATE1_VERSION	:= 1.14.1
+GST_VALIDATE1_MD5	:= 293262badee41357e029e5f2664354d7
 GST_VALIDATE1		:= gst-validate-$(GST_VALIDATE1_VERSION)
 GST_VALIDATE1_SUFFIX	:= tar.xz
 GST_VALIDATE1_URL	:= http://gstreamer.freedesktop.org/data/src/gst-validate/$(GST_VALIDATE1).$(GST_VALIDATE1_SUFFIX)
@@ -32,7 +32,7 @@ GST_VALIDATE1_LICENSE	:= LGPL-2.1-or-later
 GST_VALIDATE1_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	ac_cv_prog_enable_sphinx_doc=no \
-	ac_cv_path_PYTHON=/usr/bin/python
+	ac_cv_path_PYTHON=$(CROSS_PYTHON3)
 
 #
 # autoconf
@@ -46,7 +46,7 @@ GST_VALIDATE1_CONF_OPT	:= \
 	--disable-debug \
 	--disable-valgrind \
 	--disable-gcov \
-	--disable-introspection \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	--disable-docbook \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
@@ -89,6 +89,11 @@ $(STATEDIR)/gst-validate1.targetinstall:
 
 	@$(call install_tree, gst-validate1, 0, 0, -, \
 		/usr/share/gstreamer-1.0/validate/scenarios)
+
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_copy, gst-validate1, 0, 0, 644, -, \
+		/usr/lib/girepository-1.0/GstValidate-1.0.typelib)
+endif
 
 ifdef PTXCONF_GST_VALIDATE1_VIDEO
 	@$(call install_lib, gst-validate1, 0, 0, 0644, \

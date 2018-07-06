@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FILE) += file
 #
 # Paths and names
 #
-FILE_VERSION	:= 5.32
-FILE_MD5	:= 4f2503752ff041895090ed6435610435
+FILE_VERSION	:= 5.33
+FILE_MD5	:= bbe6db96e3a9ca9554dce647390540ef
 FILE		:= file-$(FILE_VERSION)
 FILE_SUFFIX	:= tar.gz
 FILE_URL	:= ftp://ftp.astron.com/pub/file/$(FILE).$(FILE_SUFFIX)
@@ -37,6 +37,7 @@ FILE_CONF_OPT	:= \
 	--enable-elf \
 	--enable-elf-core \
 	--enable-zlib \
+	--$(call ptx/endis, PTXCONF_FILE_SECCOMP)-libseccomp \
 	--disable-fsect-man5 \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-warnings

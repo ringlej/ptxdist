@@ -3,9 +3,8 @@
 config XORG_LIB_XRES
 	tristate
 	prompt "libXres"
-	select XORG_PROTO_RESOURCE
+	select XORGPROTO
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XEXT
 	help
 	  X-Resource extension client library

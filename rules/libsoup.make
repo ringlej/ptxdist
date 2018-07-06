@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBSOUP) += libsoup
 #
 # Paths and names
 #
-LIBSOUP_VERSION	:= 2.58.1
-LIBSOUP_MD5	:= 91d7a6bf8785d31f4b154a7612e53e62
+LIBSOUP_VERSION	:= 2.62.2
+LIBSOUP_MD5	:= eaf99b04ac8968ed2b26f2509ba75584
 LIBSOUP		:= libsoup-$(LIBSOUP_VERSION)
 LIBSOUP_SUFFIX	:= tar.xz
 LIBSOUP_URL	:= http://ftp.gnome.org/pub/GNOME/sources/libsoup/$(basename $(LIBSOUP_VERSION))/$(LIBSOUP).$(LIBSOUP_SUFFIX)
@@ -43,7 +43,7 @@ LIBSOUP_CONF_OPT := \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
-	--disable-introspection \
+	--$(call ptx/endis, PTXCONF_LIBSOUP_INTROSPECTION)-introspection \
 	--disable-vala \
 	--disable-tls-check \
 	--disable-code-coverage \
@@ -66,6 +66,10 @@ $(STATEDIR)/libsoup.targetinstall:
 	@$(call install_fixup, libsoup,DESCRIPTION,missing)
 
 	@$(call install_lib, libsoup, 0, 0, 0644, libsoup-2.4)
+ifdef PTXCONF_LIBSOUP_INTROSPECTION
+	@$(call install_copy, libsoup, 0, 0, 0644, -, \
+		/usr/lib/girepository-1.0/Soup-2.4.typelib)
+endif
 
 	@$(call install_finish, libsoup)
 

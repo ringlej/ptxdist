@@ -38,7 +38,7 @@ LIBV4L2_PYTHON_MAKE_OPT		:= $(CROSS_ENV_CC) CFLAGS="-O2 $(CROSS_CPPFLAGS) $(CROS
 
 $(STATEDIR)/libv4l2-python.install:
 	@$(call targetinfo)
-	PATH=$(CROSS_PATH) python -m compileall $(LIBV4L2_PYTHON_DIR)
+	PATH=$(CROSS_PATH) $(CROSS_PYTHON) -m compileall $(LIBV4L2_PYTHON_DIR)
 	install  -D -m644 $(LIBV4L2_PYTHON_DIR)/pyv4l2.pyc \
 		$(LIBV4L2_PYTHON_PKGDIR)/usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/pyv4l2.pyc
 	install  -D -m644 $(LIBV4L2_PYTHON_DIR)/libpyv4l2.so \

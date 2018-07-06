@@ -6,6 +6,7 @@ menuconfig CUPS_FILTERS
 
 	select LIBC_DL
 	select HOST_CUPS
+	select HOST_GLIB
 	select CUPS
 	select GLIB
 	select ZLIB

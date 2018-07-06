@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_MC) += mc
 #
 # Paths and names
 #
-MC_VERSION	:= 4.6.1
-MC_MD5		:= 18b20db6e40480a53bac2870c56fc3c4
+MC_VERSION	:= 4.8.20
+MC_MD5		:= 7f808b01f3f7d9aa52152a9efb86dbca
 MC		:= mc-$(MC_VERSION)
-MC_SUFFIX	:= tar.gz
-MC_URL		:= http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/$(MC).$(MC_SUFFIX)
+MC_SUFFIX	:= tar.xz
+MC_URL		:= http://ftp.midnight-commander.org/$(MC).$(MC_SUFFIX)
 MC_SOURCE	:= $(SRCDIR)/$(MC).$(MC_SUFFIX)
 MC_DIR		:= $(BUILDDIR)/$(MC)
 MC_LICENSE	:= GPL-2.0-only
@@ -31,28 +31,33 @@ MC_LICENSE	:= GPL-2.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-MC_PATH	:= PATH=$(CROSS_PATH)
-MC_ENV 	:= $(CROSS_ENV)
+# smbfs helpers configure.ac is using AC_TRY_RUN to figure out
+# gettimeofday parameters
+MC_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	samba_cv_HAVE_GETTIMEOFDAY_TZ=yes
 
-#
-# autoconf
-#
-MC_AUTOCONF := \
+MC_CONF_TOOL	:= autoconf
+MC_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--with-x=no \
-	--without-gpm-mouse \
-	--without-ext2undel \
-	--disable-rpath
-
-ifdef PTXCONF_MC_USES_NCURSES
-MC_AUTOCONF += --with-screen=ncurses
-endif
-
-ifdef PTXCONF_MC_USES_SLANG
-MC_AUTOCONF += --with-screen=slang
-endif
-
-MC_INSTALL_OPT := -C src install
+	--disable-tests \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls \
+	--$(call ptx/endis,PTXCONF_MC_VFS)-vfs \
+	--$(call ptx/endis,PTXCONF_MC_VFS_CPIO)-vfs-cpio \
+	--$(call ptx/endis,PTXCONF_MC_VFS_EXTFS)-vfs-extfs \
+	--$(call ptx/endis,PTXCONF_MC_VFS_FISH)-vfs-fish \
+	--$(call ptx/endis,PTXCONF_MC_VFS_FTP)-vfs-ftp \
+	--$(call ptx/endis,PTXCONF_MC_VFS_SFS)-vfs-sfs \
+	--$(call ptx/endis,PTXCONF_MC_VFS_SFTP)-vfs-sftp \
+	--$(call ptx/endis,PTXCONF_MC_VFS_SMB)-vfs-smb \
+	--$(call ptx/endis,PTXCONF_MC_VFS_TAR)-vfs-tar \
+	--$(call ptx/endis,PTXCONF_MC_VFS_UNDELFS)-vfs-undelfs \
+	--disable-doxygen-doc \
+	--with-screen=$(call ptx/ifdef, PTXCONF_MC_USES_SLANG, slang, ncurses) \
+	--without-x \
+	--with-mmap \
+	--without-gpm-mouse
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 14 Jun 2018 15:57:33 +0200
+Subject: [PATCH] HACK: touch gtkmarshalers.list to force regenerating
+ gtkmarshalers.c
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ gtk/gtkmarshalers.list | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/gtk/gtkmarshalers.list b/gtk/gtkmarshalers.list
+index cb6f4fa86149..b23fbb8181c4 100644
+--- a/gtk/gtkmarshalers.list
++++ b/gtk/gtkmarshalers.list
+@@ -21,6 +21,8 @@
+ #   NONE        deprecated alias for VOID
+ #   BOOL        deprecated alias for BOOLEAN
+ 
++# HACK: touch this file to regenerate broken distributed gtkmarshalers.c
++
+ BOOLEAN:BOXED
+ BOOLEAN:BOXED,BOXED
+ BOOLEAN:ENUM

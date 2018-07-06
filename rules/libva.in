@@ -3,12 +3,12 @@
 menuconfig LIBVA
 	tristate
 	select LIBDRM
-	select XORG_LIB_X11		if LIBVA_X11
+	select XORG_LIB_X11		if LIBVA_X11 || LIBVA_GLX
 	select XORG_LIB_XEXT		if LIBVA_X11
 	select XORG_LIB_XFIXES		if LIBVA_X11
-	select MESALIB			if LIBVA_GLX || LIBVA_EGL
+	select MESALIB			if LIBVA_GLX
 	select MESALIB_GLX		if LIBVA_GLX
-	select MESALIB_EGL		if LIBVA_EGL
+	select MESALIB_OPENGL		if LIBVA_GLX
 	select WAYLAND			if LIBVA_WAYLAND
 	prompt "libva                         "
 	help
@@ -24,10 +24,6 @@ config LIBVA_GLX
 	bool
 	select LIBVA_X11
 	prompt "GLX API support"
-
-config LIBVA_EGL
-	bool
-	prompt "EGL API support"
 
 config LIBVA_WAYLAND
 	bool

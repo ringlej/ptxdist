@@ -4,18 +4,13 @@ menuconfig XORG_LIB_X11
 	tristate
 	prompt "libX11                        "
 	select LIBC_DL
-	select XORG_PROTO_X
-	select XORG_PROTO_XEXT
+	select XORGPROTO
 	select XORG_LIB_XDMCP		if !XORG_LIB_X11_XCB_LOW_LEVEL
 	select XORG_LIB_XAU		if !XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_PROTO_XCMISC	if !XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_PROTO_BIGREQS	if !XORG_LIB_X11_XCB_LOW_LEVEL
 	select LIBXCB
 	select XORG_LIB_XTRANS
-	select XORG_PROTO_XF86BIGFONT	if XORG_LIB_X11_XF86BIGFONT
-	select XORG_PROTO_INPUT		if XORG_LIB_X11_XKB
-	select XORG_PROTO_KB		if XORG_LIB_X11_XKB
 	select LIBC_PTHREAD
+	select HOST_XORGPROTO
 	help
 	  This is the main X library
 

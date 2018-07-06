@@ -18,11 +18,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.11.1
-HOST_QEMU_MD5		:= 61cf862b6007eba4ac98247776af2e27
+HOST_QEMU_VERSION	:= 2.12.0
+HOST_QEMU_MD5		:= ca553eb04c933f58111c304452fc4cc5
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
-HOST_QEMU_SUFFIX	:= tar.bz2
-HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
+HOST_QEMU_SUFFIX	:= tar.xz
+HOST_QEMU_URL		:= https://download.qemu.org/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
 HOST_QEMU_SOURCE	:= $(SRCDIR)/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
 HOST_QEMU_DIR		:= $(HOST_BUILDDIR)/$(HOST_QEMU)
 
@@ -57,7 +57,8 @@ HOST_QEMU_USR_TARGETS	:= $(patsubst %,%-linux-user,$(HOST_QEMU_TARGETS))
 HOST_QEMU_CONF_TOOL	:= autoconf
 # Note: not realy autoconf:
 # e.g. there is --enable-debug but not --disable-debug
-HOST_QEMU_CONF_OPT	:= \
+# Note: use '=' for $(SYSTEMPYTHON3)
+HOST_QEMU_CONF_OPT	= \
 	$(HOST_AUTOCONF) \
 	--target-list=" \
 		$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,$(HOST_QEMU_SYS_TARGETS),) \
@@ -141,6 +142,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-qom-cast-debug \
 	--disable-tools \
 	\
+	--python=$(SYSTEMPYTHON3) \
 	--enable-vhost-scsi
 
 # Use '=' to delay $(shell ...) calls until this is needed

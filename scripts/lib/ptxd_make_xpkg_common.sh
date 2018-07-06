@@ -56,11 +56,8 @@ export -f ptxd_dopermissions
 # ptxd_reply (array)
 #
 ptxd_do_xpkg_map() {
-    if [ -n "${PTXDIST_BASE_PLATFORMDIR}" ]; then
-	set -- "${@/#/${ptx_state_dir}/}" "${@/#/${PTXDIST_BASE_PLATFORMDIR}/state/}"
-    else
-	set -- "${@/#/${ptx_state_dir}/}"
-    fi
+    set -- "${@/#/${ptx_state_dir}/}"
+
     ptxd_reply=( $(cat "${@/%/.xpkg.map}" 2>/dev/null) )
 
     [ ${#ptxd_reply[@]} -ne 0 ]

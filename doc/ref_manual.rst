@@ -354,6 +354,8 @@ Targetinstall Stage
 
 TBD
 
+.. _image_packages:
+
 Image Packages
 ^^^^^^^^^^^^^^
 

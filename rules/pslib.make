@@ -31,7 +31,11 @@ PSLIB_LICENSE	:= LGPL-2.0-or-later
 
 PSLIB_CONF_ENV	:= \
 	$(CROSS_ENV) \
-	ac_cv_prog_DOC_TO_MAN=
+	ac_cv_prog_DOC_TO_MAN= \
+	ac_cv_path_INTLTOOL_UPDATE=: \
+	ac_cv_path_INTLTOOL_MERGE=: \
+	ac_cv_path_INTLTOOL_EXTRACT=:
+
 #
 # autoconf
 #

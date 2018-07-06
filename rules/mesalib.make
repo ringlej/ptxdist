@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 18.0.0
-MESALIB_MD5	:= c2a59fc5b56de3e197fa3a6023409e23
+MESALIB_VERSION	:= 18.1.1
+MESALIB_MD5	:= 063468c930ff61d211ece0191874fa95
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -116,6 +116,7 @@ MESALIB_CONF_OPT	:= \
 	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
+	--disable-omx-tizonia \
 	--disable-omx-bellagio \
 	--disable-va \
 	--disable-opencl \
@@ -143,6 +144,7 @@ MESALIB_CONF_OPT	:= \
 	--with-xvmc-libdir=/usr/lib \
 	--with-vdpau-libdir=/usr/lib/vdpau \
 	--with-omx-bellagio-libdir=/usr/lib/dri \
+	--with-omx-tizonia-libdir=/usr/lib/dri \
 	--with-va-libdir=/usr/lib/dri \
 	--with-d3d-libdir=/usr/lib/d3d \
 	--with-swr-archs=

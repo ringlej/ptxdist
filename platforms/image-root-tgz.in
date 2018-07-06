@@ -1,4 +1,4 @@
-## SECTION=image2
+## SECTION=image
 
 config IMAGE_ROOT_TGZ
 	tristate

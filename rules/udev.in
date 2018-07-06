@@ -3,6 +3,7 @@
 config UDEV
 	tristate
 	select VIRTUAL
+	select HOST_GPERF
 	select SYSTEMD		if INITMETHOD_SYSTEMD
 	select UDEV_LEGACY	if !INITMETHOD_SYSTEMD
 

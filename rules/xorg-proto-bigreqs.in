@@ -1,6 +1,0 @@
-## SECTION=multimedia_xorg_proto
-
-config XORG_PROTO_BIGREQS
-	bool
-	help
-	  BigReqs extension headers

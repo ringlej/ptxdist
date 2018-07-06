@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBPCIACCESS) += libpciaccess
 #
 # Paths and names
 #
-LIBPCIACCESS_VERSION	:= 0.13.2
-LIBPCIACCESS_MD5	:= b7c0d3afce14eedca57312a3141ec13a
+LIBPCIACCESS_VERSION	:= 0.14
+LIBPCIACCESS_MD5	:= 8f436e151d5106a9cfaa71857a066d33
 LIBPCIACCESS		:= libpciaccess-$(LIBPCIACCESS_VERSION)
 LIBPCIACCESS_SUFFIX	:= tar.bz2
 LIBPCIACCESS_URL	:= $(call ptx/mirror, XORG, individual/lib/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX))
@@ -43,9 +43,11 @@ endif
 LIBPCIACCESS_CONF_TOOL	:= autoconf
 LIBPCIACCESS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-selective-werror \
 	--disable-strict-compilation \
 	--disable-linux-rom-fallback \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--with-pciids-path=/usr/share \
 	--$(call ptx/wwo, PTXCONF_LIBPCIACCESS_ZLIB)-zlib
 
 # ----------------------------------------------------------------------------

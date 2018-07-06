@@ -23,6 +23,7 @@ LIBVORBIS_SUFFIX	:= tar.gz
 LIBVORBIS_URL		:= http://downloads.xiph.org/releases/vorbis/$(LIBVORBIS).$(LIBVORBIS_SUFFIX)
 LIBVORBIS_SOURCE	:= $(SRCDIR)/$(LIBVORBIS).$(LIBVORBIS_SUFFIX)
 LIBVORBIS_DIR		:= $(BUILDDIR)/$(LIBVORBIS)
+LIBVORBIS_LICENSE	:= BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare

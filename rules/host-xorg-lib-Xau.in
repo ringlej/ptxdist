@@ -3,4 +3,4 @@
 config HOST_XORG_LIB_XAU
 	tristate
 	default ALLYES
-	select HOST_XORG_PROTO_X
+	select HOST_XORGPROTO

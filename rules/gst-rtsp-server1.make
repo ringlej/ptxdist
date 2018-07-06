@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.14.0
-GST_RTSP_SERVER1_MD5		:= 8a505c88f7469c3a0d1e9f4e9a315e53
+GST_RTSP_SERVER1_VERSION	:= 1.14.1
+GST_RTSP_SERVER1_MD5		:= baa721c289880c2cc0e9c5cbebca5201
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
@@ -41,7 +41,7 @@ GST_RTSP_SERVER1_CONF_OPT	= \
 	--disable-gcov \
 	--disable-examples \
 	--disable-tests \
-	--disable-introspection \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	--disable-docbook \
 	\
 	--enable-Bsymbolic \
@@ -62,6 +62,10 @@ $(STATEDIR)/gst-rtsp-server1.targetinstall:
 
 	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, libgstrtspserver-1.0)
 	@$(call install_lib, gst-rtsp-server1, 0, 0, 0644, gstreamer-1.0/libgstrtspclientsink)
+ifdef PTXCONF_GSTREAMER1_INTROSPECTION
+	@$(call install_copy, gst-rtsp-server1, 0, 0, 644, -, \
+		/usr/lib/girepository-1.0/GstRtspServer-1.0.typelib)
+endif
 
 	@$(call install_finish, gst-rtsp-server1)
 

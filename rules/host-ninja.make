@@ -38,7 +38,7 @@ $(STATEDIR)/host-ninja.compile:
 	@$(call targetinfo)
 	cd $(HOST_NINJA_DIR) && \
 		$(HOST_NINJA_PATH) \
-		./configure.py $(HOST_NINJA_CONF_OPT)
+		$(SYSTEMPYTHON3) ./configure.py $(HOST_NINJA_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

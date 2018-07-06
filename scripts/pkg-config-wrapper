@@ -54,8 +54,17 @@ else
     args=( ${args[@]} ${sysroot_prefix[@]/#/-e s~-I} -e "s~\s\+~ ~g" -e "s~^\s\+$~~")
 fi
 
+check_pipe_status() {
+	for _pipe_status in "${PIPESTATUS[@]}"; do
+		if [ ${_pipe_status} -ne 0 ]; then
+			return ${_pipe_status}
+		fi
+	done
+}
+
 if [ -n "${PKGCONFIG_WHITELIST_SRC}" ]; then
-    for pkg in $("${PKG_CONFIG}" --print-provides "${@}" 2>/dev/null | awk '{print $1}'); do
+    pkgs="$("${PKG_CONFIG}" --print-provides "${@}" 2>/dev/null | awk '{print $1}' && check_pipe_status)" &&
+    for pkg in ${pkgs}; do
 	if [[ ! " ${PKGCONFIG_WHITELIST} " =~ " ${pkg} " && ! "${pkg}" =~ '-uninstalled' ]]; then
 	    echo "$(basename ${0}): warning: blocking '${pkg}': not selected by '${PKGCONFIG_WHITELIST_SRC}'" >&2
 	    exit 1
@@ -63,8 +72,4 @@ if [ -n "${PKGCONFIG_WHITELIST_SRC}" ]; then
     done
 fi
 "${PKG_CONFIG}" "${@}" | sed "${args[@]}"
-for _pipe_status in "${PIPESTATUS[@]}"; do
-    if [ ${_pipe_status} -ne 0 ]; then
-        exit ${_pipe_status}
-    fi
-done
+check_pipe_status

@@ -1,0 +1,128 @@
+From: Stefan Becker <chemobejk@gmail.com>
+Date: Sun, 12 Nov 2017 18:04:12 +0200
+Subject: [PATCH] Honor -lN from MAKEFLAGS
+
+This emulates the behaviour of GNU make.
+
+- build: make a copy of max_load_average and pass it to TokenPool.
+- GNUmakeTokenPool: if we detect a jobserver and a valid -lN argument in
+  MAKEFLAGS then set max_load_average to N.
+---
+ src/build.cc              | 10 +++++++---
+ src/tokenpool-gnu-make.cc | 19 +++++++++++++++----
+ src/tokenpool-none.cc     |  2 +-
+ src/tokenpool.h           |  2 +-
+ 4 files changed, 24 insertions(+), 9 deletions(-)
+
+diff --git a/src/build.cc b/src/build.cc
+index bc26bdade61b..6eaf299caeec 100644
+--- a/src/build.cc
++++ b/src/build.cc
+@@ -501,13 +501,17 @@ struct RealCommandRunner : public CommandRunner {
+   virtual void Abort();
+ 
+   const BuildConfig& config_;
++  // copy of config_.max_load_average; can be modified by TokenPool setup
++  double max_load_average_;
+   SubprocessSet subprocs_;
+   TokenPool *tokens_;
+   map<Subprocess*, Edge*> subproc_to_edge_;
+ };
+ 
+ RealCommandRunner::RealCommandRunner(const BuildConfig& config) : config_(config) {
+-  tokens_ = TokenPool::Get(config_.parallelism_from_cmdline);
++  max_load_average_ = config.max_load_average;
++  tokens_ = TokenPool::Get(config_.parallelism_from_cmdline,
++                           max_load_average_);
+ }
+ 
+ RealCommandRunner::~RealCommandRunner() {
+@@ -535,8 +539,8 @@ bool RealCommandRunner::CanRunMore() {
+             subprocs_.finished_.size()) < config_.parallelism);
+   return parallelism_limit_not_reached
+     && (subprocs_.running_.empty() ||
+-        (config_.max_load_average <= 0.0f ||
+-         GetLoadAverage() < config_.max_load_average));
++        (max_load_average_ <= 0.0f ||
++         GetLoadAverage() < max_load_average_));
+ }
+ 
+ bool RealCommandRunner::AcquireToken() {
+diff --git a/src/tokenpool-gnu-make.cc b/src/tokenpool-gnu-make.cc
+index af4be05a31cf..fb654c4d88ba 100644
+--- a/src/tokenpool-gnu-make.cc
++++ b/src/tokenpool-gnu-make.cc
+@@ -35,7 +35,7 @@ struct GNUmakeTokenPool : public TokenPool {
+   virtual void Clear();
+   virtual int GetMonitorFd();
+ 
+-  bool Setup(bool ignore);
++  bool Setup(bool ignore, double& max_load_average);
+ 
+  private:
+   int available_;
+@@ -100,7 +100,7 @@ bool GNUmakeTokenPool::SetAlarmHandler() {
+   }
+ }
+ 
+-bool GNUmakeTokenPool::Setup(bool ignore) {
++bool GNUmakeTokenPool::Setup(bool ignore, double& max_load_average) {
+   const char *value = getenv("MAKEFLAGS");
+   if (value) {
+     // GNU make <= 4.1
+@@ -118,9 +118,20 @@ bool GNUmakeTokenPool::Setup(bool ignore) {
+             CheckFd(rfd) &&
+             CheckFd(wfd) &&
+             SetAlarmHandler()) {
++          const char *l_arg = strstr(value, " -l");
++          int load_limit = -1;
++
+           printf("ninja: using GNU make jobserver.\n");
+           rfd_ = rfd;
+           wfd_ = wfd;
++
++          // translate GNU make -lN to ninja -lN
++          if (l_arg &&
++              (sscanf(l_arg + 3, "%d ", &load_limit) == 1) &&
++              (load_limit > 0)) {
++            max_load_average = load_limit;
++          }
++
+           return true;
+         }
+       }
+@@ -210,9 +221,9 @@ int GNUmakeTokenPool::GetMonitorFd() {
+   return(rfd_);
+ }
+ 
+-struct TokenPool *TokenPool::Get(bool ignore) {
++struct TokenPool *TokenPool::Get(bool ignore, double& max_load_average) {
+   GNUmakeTokenPool *tokenpool = new GNUmakeTokenPool;
+-  if (tokenpool->Setup(ignore))
++  if (tokenpool->Setup(ignore, max_load_average))
+     return tokenpool;
+   else
+     delete tokenpool;
+diff --git a/src/tokenpool-none.cc b/src/tokenpool-none.cc
+index 199b22264bc6..e8e25426c39f 100644
+--- a/src/tokenpool-none.cc
++++ b/src/tokenpool-none.cc
+@@ -22,6 +22,6 @@
+ #include <stdlib.h>
+ 
+ // No-op TokenPool implementation
+-struct TokenPool *TokenPool::Get(bool ignore) {
++struct TokenPool *TokenPool::Get(bool ignore, double& max_load_average) {
+   return NULL;
+ }
+diff --git a/src/tokenpool.h b/src/tokenpool.h
+index 878a0933c2f0..f9e8cc2ee081 100644
+--- a/src/tokenpool.h
++++ b/src/tokenpool.h
+@@ -28,5 +28,5 @@ struct TokenPool {
+ #endif
+ 
+   // returns NULL if token pool is not available
+-  static struct TokenPool *Get(bool ignore);
++  static struct TokenPool *Get(bool ignore, double& max_load_average);
+ };

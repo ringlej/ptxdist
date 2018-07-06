@@ -407,6 +407,12 @@ function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
 }
 
 function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
+	print "ifdef PTXCONF_IMAGE_INSTALL_FROM_IPKG_REPOSITORY"						> DGEN_DEPS_POST;
+	print "ifneq ($(" this_PKG "_PKGS),)"									> DGEN_DEPS_POST;
+	print "$(" this_PKG "_IMAGE): $(STATEDIR)/ipkg-push"							> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+	print "$(" this_PKG "_IMAGE): "                               "$(STATEDIR)/host-fakeroot.install.post"	> DGEN_DEPS_POST;
 	print "$(" this_PKG "_IMAGE): " \
 		"$(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(" this_PKG "_PKGS)))"		> DGEN_DEPS_POST;
 	print "$(" this_PKG "_IMAGE): "                               "$(" this_PKG "_FILES)"			> DGEN_DEPS_POST;

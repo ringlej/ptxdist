@@ -146,7 +146,8 @@ def ask_ptxdist(pkg):
 		"/print-%s_AUTOCONF" % pkg,
 		"/print-%s_CONF_TOOL" %pkg,
 		"/print-CROSS_MESON_USR",
-		"/print-CROSS_AUTOCONF_USR"],
+		"/print-CROSS_AUTOCONF_USR",
+		"/print-PTXDIST_SYSROOT_HOST"],
 		stdout=subprocess.PIPE,
 		universal_newlines=True)
 
@@ -158,6 +159,7 @@ def ask_ptxdist(pkg):
 		tool = "autoconf"
 	meson_default = shlex.split(p.stdout.readline().strip())
 	autoconf_default = shlex.split(p.stdout.readline().strip())
+	sysroot_host = p.stdout.readline().strip()
 	if tool == "meson" and not opt:
 		opt = meson_default
 	if tool == "autoconf" and not opt:
@@ -166,7 +168,7 @@ def ask_ptxdist(pkg):
 		abort("'%s' is not a valid package: %s_DIR is undefined" % (pkg, pkg))
 	if not opt:
 		abort("'%s' is not a autoconf/meson package: %s_CONF_OPT and %s_AUTOCONF are undefined" % (pkg, pkg, pkg))
-	return (tool, d, subdir, opt)
+	return (tool, d, subdir, opt, sysroot_host)
 
 def blacklist_hit(name, blacklist):
 	for e in blacklist:
@@ -178,7 +180,10 @@ parse_args_re = re.compile("--((enable|disable|with|without|with\(out\))-)?\[?([
 def parse_configure_args(args, blacklist):
 	ret = []
 	for arg in args:
-		groups = parse_args_re.match(arg).groups()
+		match = parse_args_re.match(arg)
+		if not match:
+			continue
+		groups = match.groups()
 		if not groups[2]:
 			continue
 		found = False
@@ -281,7 +286,9 @@ def handle_dir(d, subdir):
 
 def handle_dir_configure(d, configure):
 	configure_args = []
-	p = subprocess.Popen([ configure, "--help" ], stdout=subprocess.PIPE, universal_newlines=True)
+	p = subprocess.Popen([ "./" + os.path.basename(configure), "--help" ],
+			stdout=subprocess.PIPE, universal_newlines=True,
+			cwd=os.path.dirname(configure))
 	lines = p.stdout.read().splitlines()
 	for line in lines:
 		if not re.match("^\s.*", line):
@@ -306,7 +313,7 @@ def handle_dir_meson(d):
 		abort("package must be configured")
 		exit(1)
 	args = []
-	p = subprocess.Popen([ "meson", "introspect", meson_builddir, "--buildoptions" ], stdout=subprocess.PIPE, universal_newlines=True)
+	p = subprocess.Popen([ os.path.join(sysroot_host, "bin", "meson"), "introspect", meson_builddir, "--buildoptions" ], stdout=subprocess.PIPE, universal_newlines=True)
 	options = json.load(p.stdout)
 	for option in options:
 		try:
@@ -408,7 +415,7 @@ ptx_pkg_conf_opt = []
 pkg_subdir = ""
 tool = None
 if args.pkg:
-	(tool, d, pkg_subdir, pkg_conf_opt) = ask_ptxdist(ptx_PKG)
+	(tool, d, pkg_subdir, pkg_conf_opt, sysroot_host) = ask_ptxdist(ptx_PKG)
 	ptx_pkg_label = "rules/%s.make" % ptx_pkg
 	if tool == "autoconf":
 		parsed_pkg_conf_opt = parse_configure_args(pkg_conf_opt, [])

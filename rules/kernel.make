@@ -14,17 +14,6 @@
 #
 PACKAGES-$(PTXCONF_KERNEL) += kernel
 
-
-#
-# when using a production release,
-# we use the precompiled kernel from /opt
-#
-ifdef PTXCONF_PROJECT_USE_PRODUCTION
-KERNEL_BDIR		:= $(PTXDIST_BASE_PLATFORMDIR)/build-target
-else
-KERNEL_BDIR		:= $(BUILDDIR)
-endif
-
 #
 # Paths and names
 #
@@ -37,7 +26,7 @@ else
 KERNEL_SUFFIX		:= tar.gz
 KERNEL_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL).$(KERNEL_SUFFIX)
 endif
-KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
+KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
 KERNEL_LICENSE		:= GPL-2.0-only
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
@@ -98,8 +87,6 @@ KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUX) := $(KERNEL_DIR)/vmlinux
 KERNEL_IMAGE_PATH_$(PTXCONF_ARCH_AVR32) := $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/$(KERNEL_IMAGE)
 
 
-ifndef PTXCONF_PROJECT_USE_PRODUCTION
-
 ifdef PTXCONF_KERNEL
 $(KERNEL_CONFIG):
 	@echo
@@ -117,7 +104,6 @@ endif
 # file for now. the rootfs isn't build yet.
 #
 KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.cpio
-KERNEL_INITRAMFS_SOURCE_$(PTXCONF_KLIBC) += $(INITRAMFS_CONTROL)
 
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
@@ -206,8 +192,6 @@ ifdef PTXCONF_KERNEL_TOOL_IIO
 endif
 	@$(call touch)
 
-endif # !PTXCONF_PROJECT_USE_PRODUCTION
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
@@ -231,9 +215,6 @@ endif
 
 $(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo)
-
-# delete the kernel image, it might be out-of-date
-	@rm -f $(IMAGEDIR)/linuximage
 
 ifdef PTXCONF_KERNEL_XPKG
 	@$(call install_init,  kernel)
@@ -306,8 +287,6 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-ifndef PTXCONF_PROJECT_USE_PRODUCTION
-
 $(STATEDIR)/kernel.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, KERNEL)
@@ -336,7 +315,5 @@ kernel_oldconfig kernel_menuconfig kernel_nconfig: $(STATEDIR)/kernel.extract
 	else \
 		cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
 	fi
-
-endif
 
 # vim: syntax=make

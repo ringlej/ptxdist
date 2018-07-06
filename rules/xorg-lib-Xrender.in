@@ -4,8 +4,7 @@ config XORG_LIB_XRENDER
 	tristate
 	prompt "libXrender"
 	select XORG_LIB_X11
-	select XORG_LIB_XDMCP
-	select XORG_PROTO_RENDER
+	select XORGPROTO
 	help
 	  The X Render Extension adds support for alpha-blended icons, anti-aliased
 	  fonts and drawing primitives, as well as true-color animated mouse cursors

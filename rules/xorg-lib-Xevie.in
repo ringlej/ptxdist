@@ -1,11 +1,13 @@
-## SECTION=multimedia_xorg_lib
+## SECTION=staging
+## old section:
+### SECTION=multimedia_xorg_lib
 
 config XORG_LIB_XEVIE
 	tristate
 	prompt "libXevie"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_EVIEEXT
+	select XORGPROTO
 	help
 	  XEvIE - X Event Interception Extension
 
@@ -16,3 +18,5 @@ config XORG_LIB_XEVIE
 
 	  For information, see http://freedesktop.org/wiki/Software/XEvIE
 
+	  STAGING: remove in ptxdist-2018.07.0
+	  Obsolete, no longer needed and fails to build with xorgproto.
