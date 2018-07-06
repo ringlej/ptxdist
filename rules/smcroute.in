@@ -1,0 +1,39 @@
+## SECTION=networking
+
+menuconfig SMCROUTE
+	tristate
+	prompt "smcroute                      "
+	select SYSTEMD		if SMCROUTE_SYSTEMD_UNIT
+	select LIBCAP		if SMCROUTE_LIBCAP
+	help
+	  SMCRoute is a daemon and command line tool to manipulate
+	  the multicast routing table in the UNIX kernel. 
+	  SMCRoute can be used as an alternative to dynamic multicast
+	  routing daemons like mrouted or pimd when (only) static
+	  multicast routes should be maintained and/or no proper
+	  IGMP signalling exists.
+
+if SMCROUTE
+
+config SMCROUTE_CONFIG
+	bool
+	default y
+	prompt "install smcroute.conf"
+
+config SMCROUTE_SYSTEMD_UNIT
+	bool
+	default y
+	depends on INITMETHOD_SYSTEMD
+	prompt "install systemd unit files for smcroute"
+
+config SMCROUTE_CLIENT
+	bool
+	prompt "install smcroutectl"
+	help
+	  Enable IPC API and install smcroutectl.
+
+config SMCROUTE_LIBCAP
+	bool
+	prompt "use libcap to manipulate capabilities"
+
+endif

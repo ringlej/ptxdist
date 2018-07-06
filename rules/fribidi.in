@@ -1,0 +1,9 @@
+## SECTION=multimedia_libs
+
+config FRIBIDI
+	tristate
+	prompt "fribidi"
+	help
+	  Free Implementation of the Unicode BiDi algorithm
+	  FriBiDi is a BiDi algorithm implementation for Hebrew and/or
+	  Arabic languages.

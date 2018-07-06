@@ -1,9 +1,0 @@
-## SECTION=multimedia_xorg_proto
-
-config XORG_PROTO_DAMAGE
-	tristate
-	help
-	The X Damage Extension provides notifications to applications when the
-	content of the screen or individual windows changes as a result of
-	applications drawing on them.
-

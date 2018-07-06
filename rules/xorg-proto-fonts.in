@@ -1,6 +1,0 @@
-## SECTION=multimedia_xorg_proto
-
-config XORG_PROTO_FONTS
-	tristate
-	help
-	  Fonts extension headers

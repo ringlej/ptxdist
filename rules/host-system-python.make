@@ -29,18 +29,6 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON_XML2
 		ptxd_bailout "Python libxml2 module not found! \
 	Please install python-libxml2 (debian)";
 endif
-ifdef PTXCONF_HOST_SYSTEM_PYTHON_ARGPARSE
-	@echo "Checking for Python argparse ..."
-	@python -c 'import argparse' 2>/dev/null || \
-		ptxd_bailout "Python argparse module not found! \
-	Please install python-argparse (debian)";
-endif
-ifdef PTXCONF_HOST_SYSTEM_PYTHON_BZ2
-	@echo "Checking for Python bz2 ..."
-	@python -c 'import bz2' 2>/dev/null || \
-		ptxd_bailout "Python bz2 module not found! \
-	Please install python-bz2";
-endif
 ifdef PTXCONF_HOST_SYSTEM_PYTHON_MAKO
 	@echo "Checking for Python Mako ..."
 	@python -c 'import mako' 2>/dev/null || \

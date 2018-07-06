@@ -85,6 +85,10 @@ ifdef PTXCONF_GLIBC_NSS_HESIOD
 	@$(call install_copy_toolchain_lib, glibc, libnss_hesiod.so)
 endif
 
+ifdef PTXCONF_GLIBC_ANL
+	@$(call install_copy_toolchain_lib, glibc, libanl.so)
+endif
+
 ifdef PTXCONF_GLIBC_NSS_NIS
 	@$(call install_copy_toolchain_lib, glibc, libnss_nis.so)
 endif

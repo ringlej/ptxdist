@@ -7,8 +7,7 @@ config XORG_DRIVER_VIDEO_VESA
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_EXT_DGA
-	select XORG_PROTO_X
-	select XORG_PROTO_FONTS
+	select XORGPROTO
 	prompt "VESA"
 	help
 	  This is the VESA video driver for the modular Xorg server.

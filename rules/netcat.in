@@ -3,7 +3,7 @@
 config NETCAT
 	tristate
 	prompt "netcat"
-	depends on !BUSYBOX_NC || ALLYES
+	depends on !BUSYBOX_NC && !BUSYBOX_NETCAT || ALLYES
 	select LIBBSD
 	select LIBC_RESOLV
 	help
@@ -13,4 +13,4 @@ config NETCAT
 	  do port scanning, and deal with both IPv4 and IPv6.
 
 comment "busybox' netcat is selected!"
-	depends on BUSYBOX_NC
+	depends on BUSYBOX_NC || BUSYBOX_NETCAT

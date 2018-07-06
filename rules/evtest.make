@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_EVTEST) += evtest
 #
 # Paths and names
 #
-EVTEST_VERSION	:= 1.31
-EVTEST_MD5	:= 2f4814fd011eb21770040b27d5e68d46
+EVTEST_VERSION	:= 1.33
+EVTEST_MD5	:= 19c74f94ffde781bab9ecd60e4e2f986
 EVTEST		:= evtest-$(EVTEST_VERSION)
-EVTEST_SUFFIX	:= tar.bz2
-EVTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(EVTEST).$(EVTEST_SUFFIX)
+EVTEST_SUFFIX	:= tar.xz
+EVTEST_URL	:= http://anongit.freedesktop.org/git/evtest.git;tag=evtest-$(EVTEST_VERSION)
 EVTEST_SOURCE	:= $(SRCDIR)/$(EVTEST).$(EVTEST_SUFFIX)
 EVTEST_DIR	:= $(BUILDDIR)/$(EVTEST)
 EVTEST_LICENSE	:= GPL-2.0-only

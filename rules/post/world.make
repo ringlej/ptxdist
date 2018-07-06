@@ -24,6 +24,11 @@ $(STATEDIR)/world.targetinstall: \
 	@echo $(notdir $@) : $(notdir $^) >> $(DEP_OUTPUT)
 	@$(call touch)
 
+ifdef PTXCONF_ALLYES
+WORLD_PACKAGES_LAZY	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(LAZY_PACKAGES)))
+$(STATEDIR)/world.targetinstall: $(WORLD_PACKAGES_LAZY)
+endif
+
 PHONY += world
 world: $(STATEDIR)/world.targetinstall
 

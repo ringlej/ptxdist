@@ -17,10 +17,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_GOBJECT_INTROSPECTION) += host-gobject-introspectio
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GOBJECT_INTROSPECTION_CONF_ENV	:= \
-	$(HOST_ENV) \
-	PYTHON=python
-
 #
 # autoconf
 #
@@ -31,7 +27,8 @@ HOST_GOBJECT_INTROSPECTION_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-doctool \
-	--without-cairo
+	--without-cairo \
+	--with-python=$(SYSTEMPYTHON3)
 
 # ----------------------------------------------------------------------------
 # Install

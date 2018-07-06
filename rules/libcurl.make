@@ -33,7 +33,8 @@ LIBCURL_LICENSE	:= MIT
 #
 # autoconf
 #
-LIBCURL_AUTOCONF := \
+LIBCURL_CONF_TOOL	:= autoconf
+LIBCURL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-debug \
 	--enable-optimize \
@@ -41,7 +42,7 @@ LIBCURL_AUTOCONF := \
 	--disable-werror \
 	--disable-curldebug \
 	--enable-symbol-hiding \
-	--disable-ares \
+	--$(call ptx/endis, PTXCONF_LIBCURL_C_ARES)-ares \
 	--enable-rt \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
@@ -64,7 +65,7 @@ LIBCURL_AUTOCONF := \
 	--disable-libgcc \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-versioned-symbols \
-	--enable-threaded-resolver \
+	--$(call ptx/disen, PTXCONF_LIBCURL_C_ARES)-threaded-resolver \
 	--$(call ptx/endis, PTXCONF_LIBCURL_VERBOSE)-verbose \
 	--disable-sspi \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \

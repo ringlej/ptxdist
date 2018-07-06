@@ -23,7 +23,7 @@ LIBWEBSOCKETS_SUFFIX	:= tar.gz
 LIBWEBSOCKETS_URL	:= https://github.com/warmcat/libwebsockets/archive/$(LIBWEBSOCKETS_VERSION).$(LIBWEBSOCKETS_SUFFIX)
 LIBWEBSOCKETS_SOURCE	:= $(SRCDIR)/$(LIBWEBSOCKETS).$(LIBWEBSOCKETS_SUFFIX)
 LIBWEBSOCKETS_DIR	:= $(BUILDDIR)/$(LIBWEBSOCKETS)
-LIBWEBSOCKETS_LICENSE	:= unknown
+LIBWEBSOCKETS_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Get

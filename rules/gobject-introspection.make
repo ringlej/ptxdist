@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GOBJECT_INTROSPECTION) += gobject-introspection
 #
 # Paths and names
 #
-GOBJECT_INTROSPECTION_VERSION	:= 1.52.1
-GOBJECT_INTROSPECTION_MD5	:= 34157073991f9eeb0ed953351b65eb61
+GOBJECT_INTROSPECTION_VERSION	:= 1.56.1
+GOBJECT_INTROSPECTION_MD5	:= 62e5f5685b8d9752fdeaf17c057d53d1
 GOBJECT_INTROSPECTION		:= gobject-introspection-$(GOBJECT_INTROSPECTION_VERSION)
 GOBJECT_INTROSPECTION_SUFFIX	:= tar.xz
 GOBJECT_INTROSPECTION_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/$(basename $(GOBJECT_INTROSPECTION_VERSION))/$(GOBJECT_INTROSPECTION).$(GOBJECT_INTROSPECTION_SUFFIX)
@@ -33,13 +33,14 @@ GOBJECT_INTROSPECTION_LICENSE	:= LGPL-2.1-or-later AND GPL-2.0-or-later
 # autoconf
 #
 GOBJECT_INTROSPECTION_CONF_TOOL	:= autoconf
-GOBJECT_INTROSPECTION_CONF_OPT	:= \
+GOBJECT_INTROSPECTION_CONF_OPT	= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-doctool \
-	--without-cairo
+	--without-cairo \
+	--with-python=$(SYSTEMPYTHON3)
 
 # needed so g-ir-compiler runs in qemu
 GOBJECT_INTROSPECTION_MAKE_ENV	= \

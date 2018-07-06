@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.6.0
-GNUTLS_MD5	:= 296f8d61333851b9326bd18484e6135e
+GNUTLS_VERSION	:= 3.6.2
+GNUTLS_MD5	:= 8b4912c6c0e5ffefd3dbb4888eaf8a58
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
 GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
@@ -59,6 +59,7 @@ GNUTLS_CONF_OPT		:= \
 	--enable-session-tickets \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
 	--disable-tests \
+	--disable-destructive-tests \
 	--disable-fuzzer-target \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \

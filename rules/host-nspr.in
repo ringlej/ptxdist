@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_NSPR
+	tristate
+	default ALL_YES

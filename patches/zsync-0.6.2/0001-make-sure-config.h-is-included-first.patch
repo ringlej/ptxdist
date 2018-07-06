@@ -1,0 +1,42 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 27 May 2018 11:01:51 +0200
+Subject: [PATCH] make sure config.h is included first
+
+Otherwise off_t may be defined incorrectly.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ librcksum/md4.c | 3 +--
+ librcksum/md4.h | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/librcksum/md4.c b/librcksum/md4.c
+index dcf04ff4115e..4cb3a3b17711 100644
+--- a/librcksum/md4.c
++++ b/librcksum/md4.c
+@@ -22,9 +22,8 @@
+ static const char rcsid[] = "$OpenBSD: md4.c,v 1.6 2004/05/28 15:10:27 millert Exp $";
+ #endif /* LIBC_SCCS and not lint */
+ 
+-#include <sys/types.h>
+-#include <string.h>
+ #include "md4.h"
++#include <string.h>
+ 
+ /* Map Solaris endian stuff to something useful */
+ #if defined(_BIG_ENDIAN) && !defined(_BYTE_ORDER)
+diff --git a/librcksum/md4.h b/librcksum/md4.h
+index e90603a83a68..e6a5fe4712f2 100644
+--- a/librcksum/md4.h
++++ b/librcksum/md4.h
+@@ -20,9 +20,8 @@
+ 
+ #ifdef HAVE_INTTYPES_H
+ #include <inttypes.h>
+-#else
+-#include <sys/types.h>
+ #endif
++#include <sys/types.h>
+ 
+ #define	MD4_BLOCK_LENGTH		64
+ #define	MD4_DIGEST_LENGTH		16

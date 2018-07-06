@@ -32,13 +32,14 @@ SYSLOGNG_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-SYSLOGNG_PATH	:= PATH=$(CROSS_PATH)
-SYSLOGNG_ENV 	:= $(CROSS_ENV)
+SYSLOGNG_ENV 	= \
+	$(CROSS_ENV) \
+	ac_cv_path_PYTHON=$(CROSS_PYTHON)
 
 #
 # autoconf
 #
-SYSLOGNG_AUTOCONF := \
+SYSLOGNG_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--enable-dynamic-linking \
@@ -54,7 +55,8 @@ SYSLOGNG_AUTOCONF := \
 	--with-systemd-journal=$(call ptx/ifdef, PTXCONF_SYSLOGNG_SYSTEMD,system,no) \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--localstatedir=/var/run \
-	--with-libnet=$(SYSROOT)/usr/bin
+	--with-libnet=$(SYSROOT)/usr/bin \
+	--with-python=$(PYTHON_MAJORMINOR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -62,6 +62,13 @@ config NGINX_HTTP_GZIP_STATIC_MODULE
 	  ngx_http_gzip_static_module allows sending precompressed files
 	  with the .gz filename extension instead of regular files.
 
+config NGINX_HTTP_GRPC_MODULE
+	bool
+	select NGINX_HTTP_V2_MODULE
+	prompt "ngx_http_grpc_module"
+	help
+	  ngx_http_grpc_module allows passing requests to a gRPC server.
+
 config NGINX_HTTP_PROXY_MODULE
 	bool
 	prompt "ngx_http_proxy_module"

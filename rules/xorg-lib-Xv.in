@@ -9,8 +9,7 @@ config XORG_LIB_XV
 	prompt "libXv"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XEXT
-	select XORG_PROTO_VIDEO
+	select XORGPROTO
 	help
 	  The Xv extension provides support for video adaptors attached to an X
 	  display. It takes the approach that a display may have one or more video

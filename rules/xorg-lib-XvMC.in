@@ -6,8 +6,7 @@ config XORG_LIB_XVMC
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	select XORG_LIB_XV
-	select XORG_PROTO_XEXT
-	select XORG_PROTO_VIDEO
+	select XORGPROTO
 	help
 	  libXvMC provides an X Window System client
 	  interface to the XVideo-MotionCompensation

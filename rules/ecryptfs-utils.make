@@ -36,7 +36,7 @@ ECRYPTFS_UTILS_LICENSE	:= GPL-2.0-only
 ECRYPTFS_UTILS_CONF_TOOL := autoconf
 ECRYPTFS_UTILS_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-nss \
+	--enable-nss \
 	--disable-pywrap \
 	--disable-openssl \
 	--disable-pkcs11-helper \

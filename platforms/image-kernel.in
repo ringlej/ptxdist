@@ -1,0 +1,48 @@
+## SECTION=image
+
+config IMAGE_KERNEL
+	bool
+	default KERNEL
+	select IMAGE_ROOT_CPIO	if IMAGE_KERNEL_INITRAMFS
+
+if IMAGE_KERNEL
+
+menu "Generate images/linuximage    "
+
+comment "'rootfs in kernel image' is incompatible with 'install kernel into /boot'"
+	depends on KERNEL_INSTALL
+
+config IMAGE_KERNEL_INITRAMFS
+	bool
+	depends on !KERNEL_INSTALL
+	select IMAGE_KERNEL_INSTALL_LATE
+	prompt "include root filesystem as initramfs in kernel image"
+	help
+	  In order to boot into the initrd use these kernel parameters:
+	  "root=/dev/ram0 rdinit=/sbin/init"
+
+config IMAGE_KERNEL_INSTALL_EARLY
+	bool
+	default !IMAGE_KERNEL_INSTALL_LATE
+	help
+	  If activated the kernel is installed during the kernel's
+	  "targetinstall" stage.
+
+config IMAGE_KERNEL_INSTALL_LATE
+	bool
+	help
+	  Install kernel image during "images".
+
+config IMAGE_KERNEL_LZOP
+	bool
+	select KERNEL_LZOP
+	prompt "Generate a lzop compressed kernel image"
+
+config IMAGE_KERNEL_LZOP_EXTRA_ARGS
+	depends on IMAGE_KERNEL_LZOP
+	string
+	prompt "extra arguments passed to the lzop command"
+
+endmenu
+
+endif

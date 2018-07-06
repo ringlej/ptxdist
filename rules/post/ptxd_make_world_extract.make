@@ -27,17 +27,6 @@ world/patchin/post = \
 	$(call world/env, $(1)) \
 	ptxd_make_world_patchin_post
 
-### --- for KLIBC packages only ---
-
-$(STATEDIR)/klibc-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $(KLIBC_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
-	@$(call touch)
-
-### --- all but KLIBC packages ---
-
 $(STATEDIR)/%.extract:
 	@$(call targetinfo)
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))

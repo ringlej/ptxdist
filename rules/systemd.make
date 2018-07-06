@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 238
-SYSTEMD_MD5	:= 76db8004647283b779234364cd637d3c
+SYSTEMD_VERSION	:= 239
+SYSTEMD_MD5	:= 6137e3f50390391cf34521d071a1a078
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -62,11 +62,12 @@ SYSTEMD_CONF_OPT	:= \
 	-Ddbuspolicydir=/usr/share/dbus-1/system.d \
 	-Ddbussessionservicedir=/usr/share/dbus-1/services \
 	-Ddbussystemservicedir=/usr/share/dbus-1/system-services \
-	-Ddebug=false \
+	-Ddefault-dns-over-tls=no \
 	-Ddefault-dnssec=no \
 	-Ddefault-hierarchy=hybrid \
 	-Ddefault-kill-user-processes=true \
 	-Ddev-kvm-mode=0660 \
+	-Ddns-over-tls=false \
 	-Ddns-servers= \
 	-Defi=false \
 	-Delfutils=$(call ptx/truefalse,PTXCONF_SYSTEMD_COREDUMP) \
@@ -96,6 +97,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dlibidn=false \
 	-Dlibidn2=false \
 	-Dlibiptc=$(call ptx/truefalse,PTXCONF_SYSTEMD_IPMASQUERADE) \
+	-Dlink-systemctl-shared=true \
 	-Dlink-udev-shared=true \
 	-Dllvm-fuzz=false \
 	-Dloadkeys-path=/usr/bin/loadkeys \
@@ -118,6 +120,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dpam=false \
 	-Dpcre2=false \
 	-Dpolkit=false \
+	-Dportabled=false \
 	-Dqrencode=false \
 	-Dquotacheck=true \
 	-Dquotacheck-path=/usr/sbin/quotacheck \
@@ -132,6 +135,8 @@ SYSTEMD_CONF_OPT	:= \
 	-Dslow-tests=false \
 	-Dsmack=false \
 	-Dsplit-bin=true \
+	-Dstatic-libsystemd=false \
+	-Dstatic-libudev=false \
 	-Dsplit-usr=false \
 	-Dsulogin-path=/sbin/sulogin \
 	-Dsystem-gid-max=999 \
@@ -150,6 +155,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dumount-path=/usr/bin/umount \
 	-Dusers-gid= \
 	-Dutmp=false \
+	-Dvalgrind=false \
 	-Dvconsole=$(call ptx/truefalse,PTXCONF_SYSTEMD_VCONSOLE) \
 	-Dwheel-group=false \
 	-Dxkbcommon=false \
@@ -191,30 +197,35 @@ SYSTEMD_HELPER := \
 	systemd \
 	systemd-ac-power \
 	systemd-cgroups-agent \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_COREDUMP,systemd-coredump,) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_COREDUMP,systemd-coredump) \
 	systemd-fsck \
+	systemd-growfs \
 	systemd-hostnamed \
 	systemd-initctl \
 	systemd-journald \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_JOURNAL_REMOTE,systemd-journal-remote,) \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOCALES,systemd-localed,) \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-logind,) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_JOURNAL_REMOTE,systemd-journal-remote) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOCALES,systemd-localed) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_LOGIND,systemd-logind) \
+	systemd-makefs \
 	systemd-modules-load \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-networkd,) \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-networkd-wait-online,) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-networkd) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-networkd-wait-online) \
 	systemd-quotacheck \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
 	systemd-remount-fs \
 	systemd-reply-password \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved,) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved) \
 	systemd-shutdown \
 	systemd-sleep \
 	systemd-socket-proxyd \
 	systemd-sysctl \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated,) \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd,) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-time-wait-sync) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd) \
+	systemd-udevd \
 	systemd-update-done \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup,)
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_UNITS_USER,systemd-user-runtime-dir) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup)
 
 SYSTEMD_UDEV_HELPER-y :=
 
@@ -400,7 +411,6 @@ endif
 
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/profile.d/systemd.sh)
 
-	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/lib/systemd/systemd-udevd)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/udevadm)
 	@$(call install_lib, systemd, 0, 0, 0644, libudev)
 

@@ -6,37 +6,49 @@ Improve on the original jobserver client implementation. This makes
 ninja a more aggressive GNU make jobserver client.
 
 - add monitor interface to TokenPool
-- TokenPool passed down when plan indicates more work is ready to start
+- TokenPool is passed down when main loop indicates that more work is
+  ready and would be allowed to start if a token becomes available
 - posix: update DoWork() to monitor TokenPool read file descriptor
 - WaitForCommand() exits when DoWork() sets token flag
 - Main loop starts over when WaitForCommand() sets token exit status
 ---
- src/build.cc              | 27 ++++++++++++++++++++-------
- src/build.h               |  2 +-
- src/build_test.cc         |  4 ++--
+ src/build.cc              | 53 +++++++++++++++++++++++++++++++++++------------
+ src/build.h               |  3 ++-
+ src/build_test.cc         |  9 ++++++--
  src/exit_status.h         |  3 ++-
- src/subprocess-posix.cc   | 33 +++++++++++++++++++++++++++++++--
+ src/subprocess-posix.cc   | 33 +++++++++++++++++++++++++++--
  src/subprocess-win32.cc   |  2 +-
- src/subprocess.h          |  8 +++++++-
- src/subprocess_test.cc    | 47 +++++++++++++++++++++++++++++++++--------------
+ src/subprocess.h          |  8 ++++++-
+ src/subprocess_test.cc    | 47 ++++++++++++++++++++++++++++-------------
  src/tokenpool-gnu-make.cc |  5 +++++
  src/tokenpool.h           |  6 ++++++
- 10 files changed, 108 insertions(+), 29 deletions(-)
+ 10 files changed, 134 insertions(+), 35 deletions(-)
 
 diff --git a/src/build.cc b/src/build.cc
-index cc796ff838fa..ccd67697786d 100644
+index cc796ff838fa..219bb9f1ff48 100644
 --- a/src/build.cc
 +++ b/src/build.cc
-@@ -50,7 +50,7 @@ struct DryRunCommandRunner : public CommandRunner {
+@@ -49,8 +49,9 @@ struct DryRunCommandRunner : public CommandRunner {
+ 
    // Overridden from CommandRunner:
    virtual bool CanRunMore();
++  virtual bool AcquireToken();
    virtual bool StartCommand(Edge* edge);
 -  virtual bool WaitForCommand(Result* result);
 +  virtual bool WaitForCommand(Result* result, bool more_ready);
  
   private:
    queue<Edge*> finished_;
-@@ -65,7 +65,7 @@ bool DryRunCommandRunner::StartCommand(Edge* edge) {
+@@ -60,12 +61,16 @@ bool DryRunCommandRunner::CanRunMore() {
+   return true;
+ }
+ 
++bool DryRunCommandRunner::AcquireToken() {
++  return true;
++}
++
+ bool DryRunCommandRunner::StartCommand(Edge* edge) {
+   finished_.push(edge);
    return true;
  }
  
@@ -45,16 +57,34 @@ index cc796ff838fa..ccd67697786d 100644
     if (finished_.empty())
       return false;
  
-@@ -490,7 +490,7 @@ struct RealCommandRunner : public CommandRunner {
+@@ -489,8 +494,9 @@ struct RealCommandRunner : public CommandRunner {
+   explicit RealCommandRunner(const BuildConfig& config);
    virtual ~RealCommandRunner();
    virtual bool CanRunMore();
++  virtual bool AcquireToken();
    virtual bool StartCommand(Edge* edge);
 -  virtual bool WaitForCommand(Result* result);
 +  virtual bool WaitForCommand(Result* result, bool more_ready);
    virtual vector<Edge*> GetActiveEdges();
    virtual void Abort();
  
-@@ -544,14 +544,23 @@ bool RealCommandRunner::StartCommand(Edge* edge) {
+@@ -527,9 +533,12 @@ bool RealCommandRunner::CanRunMore() {
+       subprocs_.running_.size() + subprocs_.finished_.size();
+   return (int)subproc_number < config_.parallelism
+     && (subprocs_.running_.empty() ||
+-        ((config_.max_load_average <= 0.0f ||
+-          GetLoadAverage() < config_.max_load_average)
+-      && (!tokens_ || tokens_->Acquire())));
++        (config_.max_load_average <= 0.0f ||
++         GetLoadAverage() < config_.max_load_average));
++}
++
++bool RealCommandRunner::AcquireToken() {
++  return (!tokens_ || tokens_->Acquire());
+ }
+ 
+ bool RealCommandRunner::StartCommand(Edge* edge) {
+@@ -544,14 +553,23 @@ bool RealCommandRunner::StartCommand(Edge* edge) {
    return true;
  }
  
@@ -81,16 +111,34 @@ index cc796ff838fa..ccd67697786d 100644
    if (tokens_)
      tokens_->Release();
  
-@@ -685,7 +694,7 @@ bool Builder::Build(string* err) {
+@@ -662,9 +680,14 @@ bool Builder::Build(string* err) {
+   // command runner.
+   // Second, we attempt to wait for / reap the next finished command.
+   while (plan_.more_to_do()) {
+-    // See if we can start any more commands.
+-    if (failures_allowed && plan_.more_ready() &&
+-        command_runner_->CanRunMore()) {
++    // See if we can start any more commands...
++    bool can_run_more =
++        failures_allowed   &&
++        plan_.more_ready() &&
++        command_runner_->CanRunMore();
++
++    // ... but we also need a token to do that.
++    if (can_run_more && command_runner_->AcquireToken()) {
+       Edge* edge = plan_.FindWork();
+       if (!StartEdge(edge, err)) {
+         Cleanup();
+@@ -685,7 +708,7 @@ bool Builder::Build(string* err) {
      // See if we can reap any finished commands.
      if (pending_commands) {
        CommandRunner::Result result;
 -      if (!command_runner_->WaitForCommand(&result) ||
-+      if (!command_runner_->WaitForCommand(&result, plan_.more_ready()) ||
++      if (!command_runner_->WaitForCommand(&result, can_run_more) ||
            result.status == ExitInterrupted) {
          Cleanup();
          status_->BuildFinished();
-@@ -693,6 +702,10 @@ bool Builder::Build(string* err) {
+@@ -693,6 +716,10 @@ bool Builder::Build(string* err) {
          return false;
        }
  
@@ -102,10 +150,18 @@ index cc796ff838fa..ccd67697786d 100644
        if (!FinishCommand(&result, err)) {
          Cleanup();
 diff --git a/src/build.h b/src/build.h
-index cca7e8d8181d..ec6594f714c0 100644
+index cca7e8d8181d..ca605e62e0e3 100644
 --- a/src/build.h
 +++ b/src/build.h
-@@ -119,7 +119,7 @@ struct CommandRunner {
+@@ -108,6 +108,7 @@ private:
+ struct CommandRunner {
+   virtual ~CommandRunner() {}
+   virtual bool CanRunMore() = 0;
++  virtual bool AcquireToken() = 0;
+   virtual bool StartCommand(Edge* edge) = 0;
+ 
+   /// The result of waiting for a command.
+@@ -119,7 +120,7 @@ struct CommandRunner {
      bool success() const { return status == ExitSuccess; }
    };
    /// Wait for a command to complete, or return false if interrupted.
@@ -115,19 +171,32 @@ index cca7e8d8181d..ec6594f714c0 100644
    virtual vector<Edge*> GetActiveEdges() { return vector<Edge*>(); }
    virtual void Abort() {}
 diff --git a/src/build_test.cc b/src/build_test.cc
-index 46ab33ef86c8..c1d3b047271a 100644
+index 46ab33ef86c8..a1022edcf546 100644
 --- a/src/build_test.cc
 +++ b/src/build_test.cc
-@@ -446,7 +446,7 @@ struct FakeCommandRunner : public CommandRunner {
+@@ -445,8 +445,9 @@ struct FakeCommandRunner : public CommandRunner {
+ 
    // CommandRunner impl
    virtual bool CanRunMore();
++  virtual bool AcquireToken();
    virtual bool StartCommand(Edge* edge);
 -  virtual bool WaitForCommand(Result* result);
 +  virtual bool WaitForCommand(Result* result, bool more_ready);
    virtual vector<Edge*> GetActiveEdges();
    virtual void Abort();
  
-@@ -575,7 +575,7 @@ bool FakeCommandRunner::StartCommand(Edge* edge) {
+@@ -547,6 +548,10 @@ bool FakeCommandRunner::CanRunMore() {
+   return last_command_ == NULL;
+ }
+ 
++bool FakeCommandRunner::AcquireToken() {
++  return true;
++}
++
+ bool FakeCommandRunner::StartCommand(Edge* edge) {
+   assert(!last_command_);
+   commands_ran_.push_back(edge->EvaluateCommand());
+@@ -575,7 +580,7 @@ bool FakeCommandRunner::StartCommand(Edge* edge) {
    return true;
  }
  

@@ -30,7 +30,7 @@ HOST_ICU_CONF_OPT	:= \
 	--enable-shared \
 	--disable-static \
 	--enable-draft \
-	--disable-renaming \
+	--enable-renaming \
 	--disable-tracing \
 	--enable-dyload \
 	--disable-rpath \

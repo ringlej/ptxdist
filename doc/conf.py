@@ -156,6 +156,8 @@ for line in fileinput.FileInput(files=filter(os.path.isfile, os.listdir(".")), i
 	except:
 		sys.stdout.write(line)
 
+line = None
+
 if os.getenv("PTXDIST_VERBOSE","0") == "1":
 	for key, value in sorted(replace_dict.items()):
 		print("%s => '%s'" % (key, value))

@@ -3,6 +3,7 @@
 menuconfig LIBICAL
 	tristate
 	select LIBC_PTHREAD
+	select HOST_CMAKE
 	select LIBC_M		if LIBICAL_CXX
 	select GCCLIBS_CXX	if LIBICAL_CXX
 	select GCCLIBS_GCC_S	if LIBICAL_CXX

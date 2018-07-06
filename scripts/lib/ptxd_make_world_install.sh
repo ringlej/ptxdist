@@ -220,8 +220,10 @@ export -f ptxd_make_world_install_pack
 ptxd_make_world_install_post() {
     ptxd_make_world_init &&
     (
-	find "${pkg_pkg_dir}"/usr/{lib,share}/pkgconfig -name *.pc \
-	    -printf "%f\n" 2>/dev/null | sed 's/\.pc$//'
+	if [ -n "${pkg_pkg_dir}" -a -d "${pkg_pkg_dir}" ]; then
+	    find "${pkg_pkg_dir}"/usr/{lib,share}/pkgconfig -name *.pc \
+		-printf "%f\n" 2>/dev/null | sed 's/\.pc$//'
+	fi
 	for dep in ${pkg_build_deps}; do
 	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
 	done

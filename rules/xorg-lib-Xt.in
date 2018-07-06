@@ -3,12 +3,9 @@
 config XORG_LIB_XT
 	tristate
 	prompt "libXt"
-	select HOST_XORG_PROTO_X
-	select XORG_PROTO_X
-	select XORG_PROTO_KB
+	select HOST_XORGPROTO
+	select XORGPROTO
 	select XORG_LIB_X11
 	select XORG_LIB_SM
-	select XORG_LIB_XDMCP
-	select XORG_PROTO_KB if XORG_KEYBOARD_MAPPING_SUPPORT
 	help
 	  X Toolkit Library

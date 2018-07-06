@@ -1,4 +1,6 @@
-## SECTION=multimedia_gtk
+## SECTION=staging
+## old section:
+### SECTION=multimedia_gtk
 
 config GTKMM
 	tristate
@@ -17,3 +19,5 @@ config GTKMM
 	  using libglademm. There's extensive documentation, including API
 	  reference and a tutorial.
 
+	  STAGING: remove in ptxdist-2019.07.0
+	  Old version that fails to built with current gtk, needs updating.

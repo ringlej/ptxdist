@@ -5,7 +5,7 @@ config XORG_LIB_XKBFILE
 	prompt "libxkbfile"
 	select XORG_LIB_X11_XKB
 	select XORG_LIB_X11
-	select XORG_PROTO_KB
+	select XORGPROTO
 	help
 	  The xkbfile library libxkbfile provides an interface
 	  to read and manipulate description files for XKB,

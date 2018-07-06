@@ -4,31 +4,39 @@ menuconfig GTK
 	tristate
 	prompt "gtk+                          "
 
+	# for autogen.sh
+	select HOST_GETTEXT
+	select HOST_GOBJECT_INTROSPECTION
+
 	# core dependencies
-	select GLIB
 	select ATK
-	select PANGO
 	select CAIRO
+	select CAIRO_GOBJECT
 	select CAIRO_PDF
 	select CAIRO_PS
 	select CAIRO_SVG
-	select CAIRO_GOBJECT
-	select CAIRO_XLIB
+	select CAIRO_XLIB		if GTK_X11
 	select GDK_PIXBUF
+	select GLIB
+	select LIBEPOXY
+	select PANGO
 
 	# disabling xkb is broken
-	select GTK_XKB
+	select GTK_XKB			if GTK_X11
+	select XORG_LIB_XI		if GTK_X11
 
 	select XORG_LIB_X11		if GTK_XKB
 	select XORG_LIB_X11_XKB		if GTK_XKB
-	select XORG_LIB_XINERAMA	if GTK_XINERAMA
-	# FIXME - gtk's configure doesn't check for XInput.h. Should be patched.
-	# gdk needs XInput.h even with xinput disabled
-	select XORG_LIB_XI
-	select XORG_LIB_XRANDR		if GTK_XRANDR
-	select XORG_LIB_XFIXES		if GTK_XFIXES
+	select XORG_LIB_XEXT		if GTK_XKB
 	select XORG_LIB_XCOMPOSITE	if GTK_XCOMPOSITE
 	select XORG_LIB_XDAMAGE		if GTK_XDAMAGE
+	select XORG_LIB_XFIXES		if GTK_XFIXES
+	select XORG_LIB_XINERAMA	if GTK_XINERAMA
+	select XORG_LIB_XRANDR		if GTK_XRANDR
+
+	select LIBXKBCOMMON		if GTK_WAYLAND
+	select WAYLAND			if GTK_WAYLAND
+	select WAYLAND_PROTOCOLS	if GTK_WAYLAND
 
 	help
 	  The GTK+ is a multi-platform toolkit for creating graphical
@@ -37,6 +45,12 @@ menuconfig GTK
 	  application suites.
 
 if GTK
+
+config GTK_X11
+	bool
+	prompt "X11 backend"
+
+if GTK_X11
 
 config GTK_XKB
 	bool
@@ -65,6 +79,12 @@ config GTK_XCOMPOSITE
 config GTK_XDAMAGE
 	bool
 	prompt "X Damage support"
+
+endif
+
+config GTK_WAYLAND
+	bool
+	prompt "Wayland backend"
 
 endif
 

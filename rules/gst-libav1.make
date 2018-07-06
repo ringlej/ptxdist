@@ -16,20 +16,20 @@ PACKAGES-$(PTXCONF_GST_LIBAV1) += gst-libav1
 #
 # Paths and names
 #
-GST_LIBAV1_VERSION	:= 1.14.0
-GST_LIBAV1_MD5		:= 943045b9e937ffc5c6cfa0bd5c44230d
+GST_LIBAV1_VERSION	:= 1.14.1
+GST_LIBAV1_MD5		:= d57b0052f6eccb8e6762def05995133c
 GST_LIBAV1		:= gst-libav-$(GST_LIBAV1_VERSION)
 GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
 GST_LIBAV1_SOURCE	:= $(SRCDIR)/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
 GST_LIBAV1_DIR		:= $(BUILDDIR)/$(GST_LIBAV1)
-GST_LIBAV1_LICENSE	:= unknown
+GST_LIBAV1_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-GST_LIBAV1_ENV		:= \
+GST_LIBAV1_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	AS=$(CROSS_CC)
 

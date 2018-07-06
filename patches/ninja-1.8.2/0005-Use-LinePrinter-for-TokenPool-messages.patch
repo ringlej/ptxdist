@@ -1,0 +1,122 @@
+From: Stefan Becker <chemobejk@gmail.com>
+Date: Wed, 6 Dec 2017 22:14:21 +0200
+Subject: [PATCH] Use LinePrinter for TokenPool messages
+
+- replace printf() with calls to LinePrinter
+- print GNU make jobserver message only when verbose build is requested
+---
+ src/build.cc              |  1 +
+ src/tokenpool-gnu-make.cc | 22 ++++++++++++++++------
+ src/tokenpool-none.cc     |  4 +++-
+ src/tokenpool.h           |  4 +++-
+ 4 files changed, 23 insertions(+), 8 deletions(-)
+
+diff --git a/src/build.cc b/src/build.cc
+index 6eaf299caeec..754d362c7162 100644
+--- a/src/build.cc
++++ b/src/build.cc
+@@ -511,6 +511,7 @@ struct RealCommandRunner : public CommandRunner {
+ RealCommandRunner::RealCommandRunner(const BuildConfig& config) : config_(config) {
+   max_load_average_ = config.max_load_average;
+   tokens_ = TokenPool::Get(config_.parallelism_from_cmdline,
++                           config_.verbosity == BuildConfig::VERBOSE,
+                            max_load_average_);
+ }
+ 
+diff --git a/src/tokenpool-gnu-make.cc b/src/tokenpool-gnu-make.cc
+index fb654c4d88ba..b0d3e6ebc463 100644
+--- a/src/tokenpool-gnu-make.cc
++++ b/src/tokenpool-gnu-make.cc
+@@ -23,6 +23,8 @@
+ #include <string.h>
+ #include <stdlib.h>
+ 
++#include "line_printer.h"
++
+ // TokenPool implementation for GNU make jobserver
+ // (http://make.mad-scientist.net/papers/jobserver-implementation/)
+ struct GNUmakeTokenPool : public TokenPool {
+@@ -35,7 +37,7 @@ struct GNUmakeTokenPool : public TokenPool {
+   virtual void Clear();
+   virtual int GetMonitorFd();
+ 
+-  bool Setup(bool ignore, double& max_load_average);
++  bool Setup(bool ignore, bool verbose, double& max_load_average);
+ 
+  private:
+   int available_;
+@@ -100,7 +102,9 @@ bool GNUmakeTokenPool::SetAlarmHandler() {
+   }
+ }
+ 
+-bool GNUmakeTokenPool::Setup(bool ignore, double& max_load_average) {
++bool GNUmakeTokenPool::Setup(bool ignore,
++                             bool verbose,
++                             double& max_load_average) {
+   const char *value = getenv("MAKEFLAGS");
+   if (value) {
+     // GNU make <= 4.1
+@@ -109,8 +113,10 @@ bool GNUmakeTokenPool::Setup(bool ignore, double& max_load_average) {
+     if (!jobserver)
+       jobserver = strstr(value, "--jobserver-auth=");
+     if (jobserver) {
++      LinePrinter printer;
++
+       if (ignore) {
+-        printf("ninja: warning: -jN forced on command line; ignoring GNU make jobserver.\n");
++        printer.PrintOnNewLine("ninja: warning: -jN forced on command line; ignoring GNU make jobserver.\n");
+       } else {
+         int rfd = -1;
+         int wfd = -1;
+@@ -121,7 +127,9 @@ bool GNUmakeTokenPool::Setup(bool ignore, double& max_load_average) {
+           const char *l_arg = strstr(value, " -l");
+           int load_limit = -1;
+ 
+-          printf("ninja: using GNU make jobserver.\n");
++          if (verbose) {
++            printer.PrintOnNewLine("ninja: using GNU make jobserver.\n");
++          }
+           rfd_ = rfd;
+           wfd_ = wfd;
+ 
+@@ -221,9 +229,11 @@ int GNUmakeTokenPool::GetMonitorFd() {
+   return(rfd_);
+ }
+ 
+-struct TokenPool *TokenPool::Get(bool ignore, double& max_load_average) {
++struct TokenPool *TokenPool::Get(bool ignore,
++                                 bool verbose,
++                                 double& max_load_average) {
+   GNUmakeTokenPool *tokenpool = new GNUmakeTokenPool;
+-  if (tokenpool->Setup(ignore, max_load_average))
++  if (tokenpool->Setup(ignore, verbose, max_load_average))
+     return tokenpool;
+   else
+     delete tokenpool;
+diff --git a/src/tokenpool-none.cc b/src/tokenpool-none.cc
+index e8e25426c39f..1c1c499c8d9c 100644
+--- a/src/tokenpool-none.cc
++++ b/src/tokenpool-none.cc
+@@ -22,6 +22,8 @@
+ #include <stdlib.h>
+ 
+ // No-op TokenPool implementation
+-struct TokenPool *TokenPool::Get(bool ignore, double& max_load_average) {
++struct TokenPool *TokenPool::Get(bool ignore,
++                                 bool verbose,
++                                 double& max_load_average) {
+   return NULL;
+ }
+diff --git a/src/tokenpool.h b/src/tokenpool.h
+index f9e8cc2ee081..4bf477f20c8a 100644
+--- a/src/tokenpool.h
++++ b/src/tokenpool.h
+@@ -28,5 +28,7 @@ struct TokenPool {
+ #endif
+ 
+   // returns NULL if token pool is not available
+-  static struct TokenPool *Get(bool ignore, double& max_load_average);
++  static struct TokenPool *Get(bool ignore,
++                               bool verbose,
++                               double& max_load_average);
+ };

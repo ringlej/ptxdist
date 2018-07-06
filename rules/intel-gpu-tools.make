@@ -92,8 +92,6 @@ $(STATEDIR)/intel-gpu-tools.targetinstall:
 	@$(call install_fixup, intel-gpu-tools,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, intel-gpu-tools,DESCRIPTION,missing)
 
-	@$(call install_lib, intel-gpu-tools, 0, 0, 0644, intel_aubdump)
-
 	@$(foreach app, $(INTEL_GPU_TOOLS_APPS), \
 		$(call install_copy, intel-gpu-tools, 0, 0, 0755, -, /usr/bin/$(app));)
 

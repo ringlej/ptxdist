@@ -36,22 +36,6 @@ ptxd_init_arch() {
 		    ;;
 	    esac
 	    ;;
-
-	microblaze)
-	    local target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-
-	    case "${target}" in
-		microblaze-*gnu)
-		    ipkg_arch=mbeb
-		    ;;
-		microblazeel-*gnu)
-		    ipkg_arch=mbel
-		    ;;
-		*)
-		    ipkg_arch=mb
-		    ;;
-	    esac
-	    ;;
     esac
 
     PTXDIST_IPKG_ARCH_STRING="${ipkg_arch}"
@@ -153,12 +137,6 @@ ptxd_init_ptxdist_path_sysroot() {
     local sysroot="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
     local sysroot_prefix="${sysroot}:${sysroot}/usr"
 
-    local sysroot_base_platform
-    if ptxd_init_get_sysroot_base_platform; then
-	sysroot="${sysroot}:${sysroot_base_platform}"
-	sysroot_prefix="${sysroot_prefix}:${sysroot_base_platform}:${sysroot_base_platform}/usr"
-    fi
-
     local sysroot_all="${sysroot}"
     local sysroot_prefix_all="${sysroot_prefix}"
     if [ -n "${PTXDIST_SYSROOT_TOOLCHAIN}" ]; then
@@ -187,34 +165,6 @@ ptxd_init_ptxdist_path_sysroot_host() {
     export \
 	PTXDIST_PATH_SYSROOT_HOST="${sysroot}" \
 	PTXDIST_PATH_SYSROOT_HOST_PREFIX="${sysroot}"
-}
-
-
-#
-# fixup collectionconfig when using another platform
-#
-# out:
-# PTXDIST_BASE_PACKAGES		packages of the used platform (without 'm' when using a collection)
-# PTXDIST_COLLECTIONCONFIG	a modified collectionconfig (for packages from the other platform)
-#
-ptxd_init_collectionconfig() {
-    if [ -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
-	local new_collection="${PTXDIST_TEMPDIR}/collectionconfig"
-	sed -e 's/=y$/=b/' "${PTXDIST_COLLECTIONCONFIG}" > "${new_collection}"
-	export PTXDIST_COLLECTIONCONFIG="${new_collection}"
-	PTXDIST_BASE_PACKAGES="$(PTXDIST_PTXCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_ptxconfig"
-		PTXDIST_PLATFORMCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_platformconfig"
-		PTXDIST_BASE_PLATFORMDIR=
-		ptxd_lib_init
-		ptxd_make_log "print-PACKAGES-y")"
-    else
-	PTXDIST_BASE_PACKAGES="$(PTXDIST_PTXCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_ptxconfig"
-		PTXDIST_PLATFORMCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_platformconfig"
-		PTXDIST_BASE_PLATFORMDIR=
-		ptxd_lib_init
-		ptxd_make_log "print-PACKAGES")"
-    fi
-    export PTXDIST_BASE_PACKAGES
 }
 
 
@@ -420,9 +370,6 @@ ptxd_make_init() {
 
     ptxd_init_devpkg &&
 
-    if [ -n "${PTXDIST_BASE_PLATFORMDIR}" ]; then
-	ptxd_init_collectionconfig
-    fi &&
     ptxd_init_cross_env &&
     ptxd_init_host_env &&
     ptxd_init_save_wrapper_env

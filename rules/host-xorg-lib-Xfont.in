@@ -4,7 +4,6 @@ config HOST_XORG_LIB_XFONT
 	tristate
 	default ALLYES
 	select HOST_ZLIB
-	select HOST_XORG_PROTO_X
-	select HOST_XORG_PROTO_FONTS
+	select HOST_XORGPROTO
 	select HOST_XORG_LIB_FONTENC
 	select HOST_XORG_LIB_XTRANS

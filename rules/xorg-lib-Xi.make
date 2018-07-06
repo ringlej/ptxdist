@@ -24,6 +24,7 @@ XORG_LIB_XI_SUFFIX	:= tar.bz2
 XORG_LIB_XI_URL		:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_XI).$(XORG_LIB_XI_SUFFIX))
 XORG_LIB_XI_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XI).$(XORG_LIB_XI_SUFFIX)
 XORG_LIB_XI_DIR		:= $(BUILDDIR)/$(XORG_LIB_XI)
+XORG_LIB_XI_LICENSE	:= X11 AND MIT
 
 # ----------------------------------------------------------------------------
 # Prepare

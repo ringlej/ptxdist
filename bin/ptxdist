@@ -251,8 +251,7 @@ _get_config_ptx() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error:	'${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
-			"	try 'ptxdist select <ptxconfig>' or\n" \
-			"	'ptxdist clone <project>' to clone an existing project"
+			"	try 'ptxdist select <ptxconfig>'\n"
 		return 1
 	fi
 
@@ -266,8 +265,7 @@ _get_config_ptx() {
 			"	is missing the symbol 'PTXCONF_CONFIGFILE_VERSION',\n" \
 			"	which means it is broken.\n" \
 			"\n" \
-			"	Try 'ptxdist select <ptxconfig>' or\n" \
-			"	'ptxdist clone <project>' to clone an existing project"
+			"	Try 'ptxdist select <ptxconfig>'\n"
 		return 1
 	}
 }
@@ -501,7 +499,6 @@ check_dirs() {
 	for dir in \
 		"${BUILDDIR}" \
 		"${CROSS_BUILDDIR}" \
-		"${KLIBC_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		"${STATEDIR}" \
 		"${IMAGEDIR}" \
@@ -518,7 +515,6 @@ check_dirs() {
 	for dir in \
 		"${BUILDDIR}" \
 		"${CROSS_BUILDDIR}" \
-		"${KLIBC_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		; do
 		local testfile_lower="${dir}/.secret-world-domination-project"
@@ -887,43 +883,6 @@ check_premake_compiler()
 }
 
 
-clone() {
-	local projectdir
-
-	if [ -d "${2}" ]; then
-		echo
-		echo "${PTXDIST_LOG_PROMPT}error: directory ${2} does already exist"
-		echo
-		exit 1
-	fi
-
-	local ifs_old="${IFS}"
-	IFS=:
-
-	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
-
-		echo "${PTXDIST_LOG_PROMPT}scanning ${projectdir}..."
-
-		if [ -d "${projectdir}/${1}" ] ; then
-
-			mkdir -p "${2}"
-			tar -C "${projectdir}/${1}" -cf - \
-			    --exclude .svn --exclude state --exclude debian . | \
-			    tar -C "${2}" -xvf -
-
-			echo "${PTXDIST_LOG_PROMPT}done."
-			echo
-			IFS="${ifs_old}"
-			return 0
-		fi
-	done
-	IFS="${ifs_old}"
-
-	echo "${PTXDIST_LOG_PROMPT}project ${1} is to be cloned, but could not be found"
-	echo
-}
-
-
 #
 # usage()
 #
@@ -940,9 +899,6 @@ Setup and Project Actions:
 
   setup				setup per-user preferences
   boardsetup			setup per-board preferences
-
-  projects			show available projects
-  clone <from> <to>		create a new project, cloned from <from>.
 
   nconfig
   menuconfig			configure the project's filesystem
@@ -996,7 +952,6 @@ Build Actions:
   install <package>		install host side components into sysroot/
   targetinstall <package>	install files for target into root/
   clean <package>		cleanup package
-  autobuild			search for "autobuild" scripts and run them
   drop <package>.<stage>	mark a stage of a package as unbuilt
   tags <package>		try to build tags for the package
   urlcheck <package>		check if the package URL still works
@@ -1116,7 +1071,7 @@ clean() {
 
 	echo
 	echo "${PTXDIST_LOG_PROMPT}removing build directories..."
-	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${KLIBC_BUILDDIR}" "${HOST_BUILDDIR}"; do
+	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}"; do
 		if [ ! -d "${dir}" ]; then
 			continue
 		fi
@@ -1137,33 +1092,8 @@ clean() {
 		local ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 		local ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 		local ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-		local ptxconf_project_build_production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"
 
-		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
-		    if [ ! -d "${dir}" ]; then
-			continue
-		    fi
-
-		    if [ -n "${ptxconf_project_build_production}" ]; then
-			#
-			# in case of a production build, delete sysroots.
-			# it makes no sense to keep them,
-			# but delete the image and state dirs
-			#
-			rm -fr -- "${dir}"
-		    else
-			#
-			# remove the dir only if it is inside the workspace; if we for
-			# example build toolchains to /opt/...,
-			# we don't want to clean them here!
-			#
-			case "${dir}" in
-			    (${PTXDIST_WORKSPACE}/*)
-			    rm -fr -- "${dir}" ;;
-			    (*) ;;
-			esac
-		    fi
-		done
+		rm -rf -- "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"
 
 		# this is for ptxdist-1 backward compatibility
 		dir="${PTXDIST_WORKSPACE}/local/${ptxconf_gnu_target}"
@@ -1263,33 +1193,6 @@ create_docs() {
 		make -C "${outdir}/${builder}"
 	fi
 }
-
-projects() {
-	local ifs_old projects projectdir
-	echo
-	echo "${PTXDIST_LOG_PROMPT}searching for projects:"
-	ifs_old="${IFS}"
-	IFS=:
-	projects=
-	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
-		echo "${PTXDIST_LOG_PROMPT}scanning ${projectdir}..."
-		if [ ! -d ${projectdir} ]; then
-			echo
-			echo "${PTXDIST_LOG_PROMPT}error: directory does not exist"
-			echo "${PTXDIST_LOG_PROMPT}please check PTXCONF_SETUP_PROJECTPATH in 'ptxdist setup'"
-			exit 1
-		fi
-		projects="${projects} $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
-	done
-	IFS="${ifs_old}"
-	projects=$(echo ${projects} | sort -u)
-	echo
-	echo "---------------------- Available PTXdist Projects: ----------------------------"
-	for i in ${projects}; do echo ${i}; done
-	echo "-------------------------------------------------------------------------------"
-	echo
-}
-
 
 
 ##################################################################
@@ -1912,15 +1815,6 @@ EOF
 			clean "${@}"
 			exit
 			;;
-		clone)
-			if [ ${#} -ne 2 ]; then
-				usage
-				exit 1
-			fi
-
-			clone "${1}" "${2}"
-			exit
-			;;
 		distclean)
 			clean
 
@@ -2076,10 +1970,6 @@ EOF
 				fi
 				shift
 			done
-			exit
-			;;
-		projects)
-			projects
 			exit
 			;;
 		test)
@@ -2528,45 +2418,21 @@ setup_platform_continue_with_broken_config()
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
-	local platform platform_version project project_version production
+	local platform platform_version project project_version
 
 	# ptxd_get_ptxconf's return value is
 	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"				|| [ ${?} -eq 1 ] &&
 	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"				|| [ ${?} -eq 1 ] &&
-	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"		|| [ ${?} -eq 1 ] &&
-	production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"	|| [ ${?} -eq 1 ] || return
+	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"		|| [ ${?} -eq 1 ] || return
 
 	# remove space and "(" ")"
 	project_version="${project_version//[ \(\)]/_}"
 
-	local prefix
-	if [ -n "${production}" ]; then
-		if ! prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION_PREFIX)"; then
-			if setup_platform_continue_with_broken_config; then
-				# use default
-				prefix="${PTXDIST_WORKSPACE}"
-			else
-				ptxd_dialog_msgbox \
-				    "error: 'production' release is activated, but the config symbol\n" \
-				    "       PROJECT_BUILD_PRODUCTION_PREFIX is empty.\n" \
-				    "\n" \
-				    "       Please do 'ptxdist menuconfig',\n" \
-				    "       navigate into the submenu 'Project Name & Version'\n" \
-				    "       and enter a production prefix, \n" \
-				    "       or choose: 'Build Type (development)'."
-				return 1
-			fi
-		fi
-		platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
-	else
-		prefix="${PTXDIST_WORKSPACE}"
-	fi
-
 	if [ -n "${platform}" ]; then
-		PTXDIST_PLATFORMDIR="${prefix}/platform-${platform}${platform_version}"
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}${platform_version}"
 		PTXDIST_PLATFORMSUFFIX=".${platform}"
 	else
-		PTXDIST_PLATFORMDIR="${prefix}/platform"
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform"
 		PTXDIST_PLATFORMSUFFIX=""
 	fi
 

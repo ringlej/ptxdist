@@ -26,10 +26,6 @@ choice
 		select SYSTEMD
 		prompt "systemd         "
 
-	config INITMETHOD_INITRAMFS
-		bool
-		prompt "initramfs init  "
- 
 endchoice
 
 source "generated/initmethod.in"

@@ -1,5 +1,0 @@
-## SECTION=hosttools_noprompt
-
-config HOST_XORG_PROTO_INPUT
-	tristate
-	default ALLYES
