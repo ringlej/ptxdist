@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_JSON_GLIB) += json-glib
 #
 # Paths and names
 #
-JSON_GLIB_VERSION	:= 1.2.0
-JSON_GLIB_MD5		:= efe14b6b8e7aa95ee3240cc60627dc9f
+JSON_GLIB_VERSION	:= 1.2.8
+JSON_GLIB_MD5		:= ff31e7d0594df44318e12facda3d086e
 JSON_GLIB		:= json-glib-$(JSON_GLIB_VERSION)
 JSON_GLIB_SUFFIX	:= tar.xz
 JSON_GLIB_URL		:= http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.2/$(JSON_GLIB).$(JSON_GLIB_SUFFIX)
@@ -37,6 +37,7 @@ JSON_GLIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-glibtest \
 	--enable-debug=minimum \
+	--enable-maintainer-flags=no \
 	--disable-installed-tests \
 	--disable-always-build-tests \
 	--disable-gcov \
@@ -44,9 +45,9 @@ JSON_GLIB_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-man \
+	--$(call ptx/endis, PTXCONF_JSON_GLIB_INTROSPECTION)-introspection \
 	--disable-nls \
-	--disable-rpath \
-	--$(call ptx/endis, PTXCONF_JSON_GLIB_INTROSPECTION)-introspection
+	--disable-rpath
 
 
 # ----------------------------------------------------------------------------
