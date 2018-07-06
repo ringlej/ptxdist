@@ -14,6 +14,7 @@
 PACKAGES-$(PTXCONF_USR_ROOTFS) += usr-rootfs
 
 USR_ROOTFS_VERSION	:= 1.0
+USR_ROOTFS_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

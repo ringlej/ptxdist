@@ -91,9 +91,7 @@ PTX_PACKAGES_SELECTED	:= \
 	$(LAZY_PACKAGES)
 
 PTX_PACKAGES_INSTALL	:= \
-	$(PACKAGES) \
-	$(PTXDIST_BASE_PACKAGES) \
-	$(PACKAGES-b)
+	$(PACKAGES)
 
 # might be non existent
 include $(foreach dir, $(call reverse,$(subst :,$(space),$(PTXDIST_PATH_POSTRULES))), $(sort $(wildcard $(dir)/*.make)))

@@ -1,0 +1,151 @@
+From: Stefan Becker <chemobejk@gmail.com>
+Date: Sat, 7 Apr 2018 17:11:21 +0300
+Subject: [PATCH] Prepare PR for merging
+
+- fix Windows build error in no-op TokenPool implementation
+- improve Acquire() to block for a maximum of 100ms
+- address review comments
+---
+ src/build.h               |  2 ++
+ src/tokenpool-gnu-make.cc | 53 ++++++++++++++++++++++++++++++++++++++++-------
+ src/tokenpool-none.cc     |  7 +------
+ 3 files changed, 49 insertions(+), 13 deletions(-)
+
+diff --git a/src/build.h b/src/build.h
+index 6bc6fea26e94..530812bb9a2a 100644
+--- a/src/build.h
++++ b/src/build.h
+@@ -120,6 +120,8 @@ struct CommandRunner {
+     bool success() const { return status == ExitSuccess; }
+   };
+   /// Wait for a command to complete, or return false if interrupted.
++  /// If more_ready is true then the optional TokenPool is monitored too
++  /// and we return when a token becomes available.
+   virtual bool WaitForCommand(Result* result, bool more_ready) = 0;
+ 
+   virtual vector<Edge*> GetActiveEdges() { return vector<Edge*>(); }
+diff --git a/src/tokenpool-gnu-make.cc b/src/tokenpool-gnu-make.cc
+index b0d3e6ebc463..4132bb06d9dd 100644
+--- a/src/tokenpool-gnu-make.cc
++++ b/src/tokenpool-gnu-make.cc
+@@ -1,4 +1,4 @@
+-// Copyright 2016-2017 Google Inc. All Rights Reserved.
++// Copyright 2016-2018 Google Inc. All Rights Reserved.
+ //
+ // Licensed under the Apache License, Version 2.0 (the "License");
+ // you may not use this file except in compliance with the License.
+@@ -19,6 +19,7 @@
+ #include <poll.h>
+ #include <unistd.h>
+ #include <signal.h>
++#include <sys/time.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
+@@ -153,6 +154,15 @@ bool GNUmakeTokenPool::Acquire() {
+   if (available_ > 0)
+     return true;
+ 
++  // Please read
++  //
++  //   http://make.mad-scientist.net/papers/jobserver-implementation/
++  //
++  // for the reasoning behind the following code.
++  //
++  // Try to read one character from the pipe. Returns true on success.
++  //
++  // First check if read() would succeed without blocking.
+ #ifdef USE_PPOLL
+   pollfd pollfds[] = {{rfd_, POLLIN, 0}};
+   int ret = poll(pollfds, 1, 0);
+@@ -164,33 +174,62 @@ bool GNUmakeTokenPool::Acquire() {
+   int ret = select(rfd_ + 1, &set, NULL, NULL, &timeout);
+ #endif
+   if (ret > 0) {
++    // Handle potential race condition:
++    //  - the above check succeeded, i.e. read() should not block
++    //  - the character disappears before we call read()
++    //
++    // Create a duplicate of rfd_. The duplicate file descriptor dup_rfd_
++    // can safely be closed by signal handlers without affecting rfd_.
+     dup_rfd_ = dup(rfd_);
+ 
+     if (dup_rfd_ != -1) {
+       struct sigaction act, old_act;
+       int ret = 0;
+ 
++      // Temporarily replace SIGCHLD handler with our own
+       memset(&act, 0, sizeof(act));
+       act.sa_handler = CloseDupRfd;
+       if (sigaction(SIGCHLD, &act, &old_act) == 0) {
+-        char buf;
+-
+-        // block until token read, child exits or timeout
+-        alarm(1);
+-        ret = read(dup_rfd_, &buf, 1);
+-        alarm(0);
++        struct itimerval timeout;
++
++        // install a 100ms timeout that generates SIGALARM on expiration
++        memset(&timeout, 0, sizeof(timeout));
++        timeout.it_value.tv_usec = 100 * 1000; // [ms] -> [usec]
++        if (setitimer(ITIMER_REAL, &timeout, NULL) == 0) {
++          char buf;
++
++          // Now try to read() from dup_rfd_. Return values from read():
++          //
++          // 1. token read                               ->  1
++          // 2. pipe closed                              ->  0
++          // 3. alarm expires                            -> -1 (EINTR)
++          // 4. child exits                              -> -1 (EINTR)
++          // 5. alarm expired before entering read()     -> -1 (EBADF)
++          // 6. child exited before entering read()      -> -1 (EBADF)
++          // 7. child exited before handler is installed -> go to 1 - 3
++          ret = read(dup_rfd_, &buf, 1);
++
++          // disarm timer
++          memset(&timeout, 0, sizeof(timeout));
++          setitimer(ITIMER_REAL, &timeout, NULL);
++        }
+ 
+         sigaction(SIGCHLD, &old_act, NULL);
+       }
+ 
+       CloseDupRfd(0);
+ 
++      // Case 1 from above list
+       if (ret > 0) {
+         available_++;
+         return true;
+       }
+     }
+   }
++
++  // read() would block, i.e. no token available,
++  // cases 2-6 from above list or
++  // select() / poll() / dup() / sigaction() / setitimer() failed
+   return false;
+ }
+ 
+diff --git a/src/tokenpool-none.cc b/src/tokenpool-none.cc
+index 1c1c499c8d9c..4c592875b4ad 100644
+--- a/src/tokenpool-none.cc
++++ b/src/tokenpool-none.cc
+@@ -1,4 +1,4 @@
+-// Copyright 2016-2017 Google Inc. All Rights Reserved.
++// Copyright 2016-2018 Google Inc. All Rights Reserved.
+ //
+ // Licensed under the Apache License, Version 2.0 (the "License");
+ // you may not use this file except in compliance with the License.
+@@ -14,11 +14,6 @@
+ 
+ #include "tokenpool.h"
+ 
+-#include <fcntl.h>
+-#include <poll.h>
+-#include <unistd.h>
+-#include <stdio.h>
+-#include <string.h>
+ #include <stdlib.h>
+ 
+ // No-op TokenPool implementation

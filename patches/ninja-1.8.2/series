@@ -2,4 +2,8 @@
 #tag:base --start-number 1
 0001-Add-GNU-make-jobserver-client-support.patch
 0002-Add-TokenPool-monitoring-to-SubprocessSet-DoWork.patch
-# 0034c2e369003b7ed18a6396de19c997  - git-ptx-patches magic
+0003-Ignore-jobserver-when-jN-is-forced-on-command-line.patch
+0004-Honor-lN-from-MAKEFLAGS.patch
+0005-Use-LinePrinter-for-TokenPool-messages.patch
+0006-Prepare-PR-for-merging.patch
+# d3f8b2e9621f8f2490c54704a2621fb2  - git-ptx-patches magic

@@ -3,6 +3,7 @@
 menuconfig QT5
 	tristate
 	select HOST_SYSTEM_PERL
+	select HOST_SYSTEM_PYTHON	if QT5_MODULE_QTDECLARATIVE
 	select LIBC_PTHREAD
 	select LIBC_DL
 	select LIBC_RT
@@ -163,6 +164,10 @@ config QT5_OPENGL_API
 
 endif
 
+config QT5_TEST
+	bool
+	prompt "Testing support"
+
 endmenu
 
 menuconfig QT5_GUI
@@ -312,6 +317,11 @@ config QT5_MODULE_QTBASE_WIDGETS
 	depends on QT5_GUI
 	select QT5_WIDGETS
 	prompt "QtWidgets"
+
+config QT5_MODULE_QTBASE_PRINT
+	bool
+	depends on QT5_MODULE_QTBASE_WIDGETS
+	prompt "printing support"
 
 config QT5_MODULE_QTBASE_OPENGL
 	bool
@@ -509,6 +519,11 @@ config QT5_MODULE_QTWEBCHANNEL
 	bool
 	depends on QT5_GUI
 	prompt "QtWebChannel"
+
+config QT5_MODULE_QTWEBCHANNEL_QUICK
+	bool
+	depends on QT5_MODULE_QTWEBCHANNEL
+	default QT5_MODULE_QTDECLARATIVE
 
 config QT5_MODULE_QTWEBENGINE
 	bool

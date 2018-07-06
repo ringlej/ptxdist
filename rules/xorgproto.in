@@ -1,0 +1,5 @@
+## SECTION=multimedia_xorg_proto
+
+config XORGPROTO
+	tristate
+	default ALLYES

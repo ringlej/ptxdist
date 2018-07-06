@@ -89,6 +89,7 @@ ifdef PTXCONF_BAREBOX_EXTRA_ENV
 		else \
 			cp "$(path)" $(BAREBOX_DIR)/.ptxdist-defaultenv/; \
 		fi;)
+	@rm -rf $(BAREBOX_DIR)/defaultenv/barebox_default_env
 endif
 
 	@$(call touch)

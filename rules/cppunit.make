@@ -18,13 +18,14 @@ PACKAGES-$(PTXCONF_CPPUNIT) += cppunit
 #
 # Paths and names
 #
-CPPUNIT_VERSION	:= 1.13.2
-CPPUNIT_MD5	:= d1c6bdd5a76c66d2c38331e2d287bc01
+CPPUNIT_VERSION	:= 1.14.0
+CPPUNIT_MD5	:= 7ad93022171710a541bfe4bfd8b4a381
 CPPUNIT		:= cppunit-$(CPPUNIT_VERSION)
 CPPUNIT_SUFFIX	:= tar.gz
 CPPUNIT_URL	:= http://dev-www.libreoffice.org/src/$(CPPUNIT).$(CPPUNIT_SUFFIX)
 CPPUNIT_SOURCE	:= $(SRCDIR)/$(CPPUNIT).$(CPPUNIT_SUFFIX)
 CPPUNIT_DIR	:= $(BUILDDIR)/$(CPPUNIT)
+CPPUNIT_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -33,7 +34,12 @@ CPPUNIT_DIR	:= $(BUILDDIR)/$(CPPUNIT)
 CPPUNIT_CONF_TOOL	:= autoconf
 CPPUNIT_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-doxygen
+	--disable-doxygen \
+	--disable-dot \
+	--disable-html-docs \
+	--enable-latex-docs \
+	--disable-debug \
+	--disable-werror
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -48,7 +54,7 @@ $(STATEDIR)/cppunit.targetinstall:
 	@$(call install_fixup, cppunit,AUTHOR,"Shahar Livne <shahar@livnex.com>")
 	@$(call install_fixup, cppunit,DESCRIPTION,missing)
 
-	@$(call install_lib, cppunit, 0, 0, 0644, libcppunit-1.13)
+	@$(call install_lib, cppunit, 0, 0, 0644, libcppunit-$(basename $(CPPUNIT_VERSION)))
 
 	@$(call install_finish, cppunit)
 

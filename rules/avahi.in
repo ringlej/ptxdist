@@ -98,6 +98,12 @@ config AVAHI_SERVICES
 	help
 	  install avahi service descriptions
 
+config AVAHI_UTILS
+	bool
+	depends on AVAHI_DAEMON
+	prompt "avahi utils"
+	help
+	  install avahi utils
 endif
 
 config AVAHI_DNSCONFD

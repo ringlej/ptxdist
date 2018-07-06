@@ -39,13 +39,6 @@ menu "Core (libc, locales)          "
 source "generated/core.in"
 endmenu
 
-menuconfig CORE_INITRAMFS
-	bool "Core (initramfs)              "
-if CORE_INITRAMFS
-source "generated/initramfs.in"
-endif
-
-
 comment "------------------------------------"
 
 menu "Shell & Console Tools         "

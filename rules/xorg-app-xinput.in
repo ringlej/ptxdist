@@ -7,7 +7,7 @@ config XORG_APP_XINPUT
 	select XORG_LIB_XI
 	select XORG_LIB_XINERAMA
 	select XORG_LIB_XRANDR
-	select XORG_PROTO_INPUT
+	select XORGPROTO
 	prompt "xinput"
 	help
 	  Xinput is an utility for configuring and testing XInput

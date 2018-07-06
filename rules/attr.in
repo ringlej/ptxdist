@@ -16,7 +16,11 @@ if ATTR
 
 config ATTR_TOOLS
 	bool
+	depends on !BUSYBOX_SETFATTR || ALLYES
 	prompt "install tools"
+
+comment "BusyBox' setfattr is selected!"
+	depends on BUSYBOX_SETFATTR
 
 config ATTR_GETTEXT
 	bool

@@ -2,7 +2,7 @@
 
 menuconfig XORG_LIB_XAU
 	tristate
-	select XORG_PROTO_X
+	select XORGPROTO
 	prompt "libXau                        "
 	help
 	  A Sample Authorization Protocol for X for basic authorization.

@@ -150,7 +150,6 @@ ptxd_make_world_init_compat() {
     # pkg_sysroot_dir
     #
     case "${pkg_stamp}" in
-	klibc-*)             pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}/usr/lib/klibc" ;;
 	host-*)              pkg_sysroot_dir="${PTXDIST_SYSROOT_HOST}" ;;
 	cross-*)             pkg_sysroot_dir="${PTXDIST_SYSROOT_CROSS}" ;;
 	*)                   pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}" ;;
@@ -333,9 +332,9 @@ ptxd_make_world_init() {
 		pkg_make_opt="-v ${pkg_make_opt}"
 		pkg_install_opt="-v ${pkg_install_opt}"
 	    fi
-	    # both jobserver and argument limit parallelism so both are needed
+	    # pass jobserver via MAKEFLAGS to ninja
 	    pkg_env="${pkg_env} MAKEFLAGS='${PTXDIST_JOBSERVER_FLAGS}'"
-	    PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLEL_FLAGS}"
+	    PTXDIST_PARALLELMFLAGS_INTERN=""
 
 	    unset conf_opt_ptr
 	    ;;

@@ -3,11 +3,9 @@
 config XORG_LIB_XXF86VM
 	tristate
 	prompt "libXxf86vm"
-	select XORG_PROTO_X
+	select XORGPROTO
 	select XORG_LIB_X11
-	select XORG_PROTO_XEXT
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XF86VIDMODE
 	help
 	  libXxf86vm provides an interface to the
 	  XFree86-VidModeExtension extension, which

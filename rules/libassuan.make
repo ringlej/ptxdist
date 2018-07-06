@@ -20,12 +20,11 @@ LIBASSUAN_VERSION	:= 2.5.1
 LIBASSUAN_MD5		:= 4354b7ae296894f232ada226a062d7d7
 LIBASSUAN		:= libassuan-$(LIBASSUAN_VERSION)
 LIBASSUAN_SUFFIX	:= tar.bz2
-LIBASSUAN_URL		:= ftp://ftp.gnupg.org/gcrypt/libassuan/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
+LIBASSUAN_URL		:= https://www.gnupg.org/ftp/gcrypt/libassuan/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
 LIBASSUAN_SOURCE	:= $(SRCDIR)/$(LIBASSUAN).$(LIBASSUAN_SUFFIX)
 LIBASSUAN_DIR		:= $(BUILDDIR)/$(LIBASSUAN)
-LIBASSUAN_LICENSE	:= GPL-3.0-only AND LGPL-2.1-only
+LIBASSUAN_LICENSE	:= LGPL-2.1-or-later
 LIBASSUAN_LICENSE_FILES	:= \
-	file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
 	file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1
 
 # ----------------------------------------------------------------------------

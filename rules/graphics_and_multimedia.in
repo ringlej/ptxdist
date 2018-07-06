@@ -72,8 +72,6 @@ menu "sound                         "
 source "generated/multimedia_sound.in"
 endmenu
 
-source "generated/multimedia_tk.in"
-
 menu "tools                         "
 source "generated/multimedia_tools.in"
 endmenu

@@ -40,7 +40,6 @@ HOST_GLIB_CONF_OPT	:= \
 	--disable-debug \
 	--disable-gc-friendly \
 	--enable-mem-pools \
-	--disable-rebuilds \
 	--disable-installed-tests \
 	--disable-always-build-tests \
 	--disable-static \

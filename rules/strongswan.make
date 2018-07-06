@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_STRONGSWAN) += strongswan
 #
 # Paths and names
 #
-STRONGSWAN_VERSION	:= 5.3.5
-STRONGSWAN_MD5		:= a2f9ea185f27e7f8413d4cd2ee61efe4
+STRONGSWAN_VERSION	:= 5.6.1
+STRONGSWAN_MD5		:= cb2241f1b96c524cd15b1c0f50ed9a27
 STRONGSWAN		:= strongswan-$(STRONGSWAN_VERSION)
 STRONGSWAN_SUFFIX	:= tar.bz2
 STRONGSWAN_URL		:= https://download.strongswan.org/$(STRONGSWAN).$(STRONGSWAN_SUFFIX)
@@ -33,6 +33,7 @@ STRONGSWAN_LICENSE	:= GPL
 STRONGSWAN_CONF_TOOL	:= autoconf
 STRONGSWAN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-static \
 	--enable-aes \
 	--$(call ptx/endis, PTXCONF_STRONGSWAN_AFALG)-af-alg \
 	--disable-bliss \
@@ -46,9 +47,12 @@ STRONGSWAN_CONF_OPT	:= \
 	--enable-gcm \
 	--disable-gcrypt \
 	--enable-gmp \
+	--disable-curve25519 \
 	--enable-hmac \
 	--disable-md4 \
 	--disable-md5 \
+	--disable-mgf1 \
+	--disable-newhope \
 	--enable-nonce \
 	--disable-ntru \
 	--$(call ptx/endis, PTXCONF_STRONGSWAN_OPENSSL)-openssl \
@@ -89,6 +93,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-eap-sim-file \
 	--disable-eap-sim-pcsc \
 	--disable-eap-aka \
+	--disable-eap-aka-3gpp \
 	--disable-eap-aka-3gpp2 \
 	--disable-eap-simaka-sql \
 	--disable-eap-simaka-pseudonym \
@@ -107,6 +112,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-ipseckey \
 	--disable-keychain \
 	--disable-pkcs11 \
+	--disable-tpm \
 	--enable-revocation \
 	--disable-whitelist \
 	--enable-xauth-generic \
@@ -132,6 +138,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-attr-sql \
 	--disable-dhcp \
 	--disable-osx-attr \
+	--disable-p-cscf \
 	--enable-resolve \
 	--disable-unity \
 	--disable-imc-test \
@@ -144,6 +151,8 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-imv-attestation \
 	--disable-imc-swid \
 	--disable-imv-swid \
+	--disable-imc-swima \
+	--disable-imv-swima \
 	--disable-imc-hcd \
 	--disable-imv-hcd \
 	--disable-tnc-ifmap \
@@ -154,8 +163,10 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-tnccs-20 \
 	--disable-tnccs-dynamic \
 	--disable-android-log \
+	--disable-bypass-lan \
 	--disable-certexpire \
 	--disable-connmark \
+	--disable-counters \
 	--disable-forecast \
 	--disable-duplicheck \
 	--disable-error-notify \
@@ -164,7 +175,6 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-led \
 	--disable-load-tester \
 	--disable-lookip \
-	--disable-maemo \
 	--disable-radattr \
 	--disable-systime-fix \
 	--disable-test-vectors \
@@ -175,6 +185,7 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-conftest \
 	--disable-dumm \
 	--disable-fast \
+	--disable-fuzzing \
 	--disable-libipsec \
 	--disable-manager \
 	--disable-medcli \
@@ -199,16 +210,18 @@ STRONGSWAN_CONF_OPT	:= \
 	--disable-ruby-gems-install \
 	--disable-python-eggs \
 	--disable-python-eggs-install \
+	--disable-perl-cpan \
+	--disable-perl-cpan-install \
+	--disable-tss-trousers \
+	--disable-tss-tss2 \
 	--disable-coverage \
 	--disable-leak-detective \
 	--disable-lock-profiler \
+	--disable-log-thread-ids \
 	--disable-monolithic \
 	--disable-defaults \
 	--enable-dependency-tracking \
 	--enable-shared \
-	--disable-static \
-	--enable-fast-install \
-	--enable-libtool-lock \
 	--with-ipseclibdir=/usr/lib \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
 
@@ -272,7 +285,6 @@ $(STATEDIR)/strongswan.targetinstall:
 	@$(call install_tree, strongswan, 0, 0, -, /usr/libexec/ipsec)
 
 	@$(call install_lib, strongswan, 0, 0, 0644, libcharon)
-	@$(call install_lib, strongswan, 0, 0, 0644, libhydra)
 	@$(call install_lib, strongswan, 0, 0, 0644, libstrongswan)
 
 	@$(foreach plugin, $(STRONGSWAN_PLUGINS), \

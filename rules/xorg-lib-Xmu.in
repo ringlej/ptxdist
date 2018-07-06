@@ -5,7 +5,7 @@ config XORG_LIB_XMU
 	prompt "libXmu"
 	select XORG_LIB_XT
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XEXT
+	select XORGPROTO
 	help
 	  This library contains miscellaneous utilities and is not part of the
 	  Xlib standard. It contains routines which only use public interfaces

@@ -2,13 +2,20 @@
 
 config LIBEPOXY
 	tristate
-	select HOST_SYSTEM_PYTHON
-	select HOST_SYSTEM_PYTHON_ARGPARSE
-	# for autogen.sh
-	select HOST_XORG_UTIL_MACROS
-	select XORG_LIB_X11
 	select MESALIB
-	select MESALIB_EGL
+	select XORG_LIB_X11	if LIBEPOXY_GLX
 	prompt "libepoxy"
 	help
 	  FIXME
+
+if LIBEPOXY
+
+config LIBEPOXY_GLX
+	bool
+	default MESALIB_GLX
+
+config LIBEPOXY_EGL
+	bool
+	default MESALIB_EGL
+
+endif

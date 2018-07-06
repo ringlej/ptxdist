@@ -299,16 +299,6 @@ export -f ptxd_template_new_cross
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="cross"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create cross development package"
 
-ptxd_template_new_klibc() {
-    ptxd_template_setup_class KLIBC_ &&
-    ptxd_template_read_remote_existing &&
-    ptxd_template_write_rules
-}
-export -f ptxd_template_new_klibc
-ptxd_template_help_list[${#ptxd_template_help_list[@]}]="klibc"
-ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create package for initramfs built against klibc"
-ptxd_template_help_list[${#ptxd_template_help_list[@]}]=""
-
 ptxd_template_new_src_autoconf_lib() {
     ptxd_template_autoconf_base
 }

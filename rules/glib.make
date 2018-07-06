@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-GLIB_VERSION	:= 2.54.2
-GLIB_MD5	:= 50f83e08f080f99b1e2f0ad2b760fb81
+GLIB_VERSION	:= 2.56.1
+GLIB_MD5	:= 988af38524804ea1ae6bc9a2bad181ff
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.xz
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
@@ -40,8 +40,6 @@ GLIB_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	glib_cv_uscore=no \
 	glib_cv_stack_grows=no \
-	glib_cv_have_qsort_r=yes \
-	ac_cv_func_statfs=yes \
 	ac_cv_path_MSGFMT="" \
 	ac_cv_path_XGETTEXT="" \
 	ac_cv_prog_GTKDOC_CHECK="" \
@@ -62,7 +60,6 @@ GLIB_CONF_OPT	:= \
 	--enable-debug=minimum \
 	--disable-gc-friendly \
 	--enable-mem-pools \
-	--disable-rebuilds \
 	--disable-installed-tests \
 	--disable-always-build-tests \
 	$(GLOBAL_LARGE_FILE_OPTION) \

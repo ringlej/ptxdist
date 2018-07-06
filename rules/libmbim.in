@@ -2,6 +2,7 @@
 
 config LIBMBIM
 	tristate
+	select HOST_SYSTEM_PYTHON3
 	select GLIB
 	select UDEV
 	select LIBGUDEV

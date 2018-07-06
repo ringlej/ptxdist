@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+
+config HOST_CAIRO
+	tristate
+	select HOST_FONTCONFIG
+	select HOST_FREETYPE
+	select HOST_PIXMAN
+	default ALLYES

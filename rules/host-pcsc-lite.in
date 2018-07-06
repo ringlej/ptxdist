@@ -3,6 +3,7 @@
 
 config HOST_PCSC_LITE
 	tristate
+	default ALLYES
 	help
 	  Middleware to access a smart card using PC/SC (library)
 

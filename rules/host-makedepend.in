@@ -2,5 +2,5 @@
 
 config HOST_MAKEDEPEND
 	tristate
-	select HOST_XORG_PROTO_X
+	select HOST_XORGPROTO
 	default ALLYES

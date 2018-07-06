@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config YAJL
+	tristate
+	prompt "yajl"
+	select HOST_CMAKE
+	help
+	  A fast streaming JSON parsing library in C.

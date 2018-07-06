@@ -123,6 +123,8 @@ the local ``./projectroot/etc/fstab``, modify it and we are done. The
 next time PTXdist builds the root filesystem it will use the local
 ``fstab`` instead of the global (default) one.
 
+.. _adding_new_packages:
+
 Adding new Packages
 -------------------
 
@@ -148,9 +150,6 @@ handle:
 
 -  **cross type**: This kind of package is built for the build host, but
    creates architecture specific data for the target.
-
--  **klibc type**: This kind of package is built against klibc to be
-   part of an initramfs for the target.
 
 -  **src-autoconf-prog**: This kind of package is built for the target.
    It is intended for development, as it does not handle a released
@@ -606,7 +605,7 @@ From the previous *install* stage we know this package installs an
 executable called ``foo`` to location ``/usr/bin``. We can do the same
 for our target by changing the *install\_copy* line to:
 
-.. code-block:: make
+.. code-block:: none
 
     @$(call install_copy, foo, 0, 0, 0755, $(FOO_DIR)/foo, /usr/bin/foo)
 
@@ -679,7 +678,6 @@ available:
     ./apache2.in:## SECTION=networking
     ./apache2_mod_python.in:## SECTION=networking
     [...]
-    ./klibc-module-init-tools.in:## SECTION=initramfs
     ./xkeyboard-config.in:## SECTION=multimedia_xorg_data
     ./xorg-app-xev.in:## SECTION=multimedia_xorg_app
     ./xorg-app-xrandr.in:## SECTION=multimedia_xorg_app
@@ -1457,7 +1455,7 @@ Add binary Files File by File
 Doing to on a file by file base can happen by just using the ``install_copy``
 macro in the *targetinstall* stage in our own customized rules file.
 
-.. code-block:: make
+.. code-block:: none
 
     @$(call install_copy, binary_example, 0, 0, 0644, \
        </path/to/some/file/>ptx_logo.png, \
@@ -1487,7 +1485,7 @@ correct manner:
 
 -  user and group ID on a per file base
 
-.. code-block:: make
+.. code-block:: none
 
     @$(call install_archive, binary_example, -, -, \
        </path/to/an/>archive.tgz, /)
@@ -1543,4 +1541,82 @@ Enabling this new entry will also run our stages in
 .. code-block:: text
 
     $ ptxdist go
+
+Creating new Package Templates
+------------------------------
+
+For larger project it can be convenient to have project specific package
+templates. This can be achieved by either modifying existing templates or
+by creating completely new templates.
+
+Modifying a Template
+~~~~~~~~~~~~~~~~~~~~
+
+A template can be modified by providing new input files. This is easier
+than creating a new template but does not allow to specify new variables to
+substitute in the input files.
+
+PTXdist looks for template files the same way it looks for rules files. The
+only difference is, that it searches in the ``templates/`` subdirectory.
+So a modified ``./rules/templates/template-target-make`` can be used to
+tweak the ``target`` template.
+
+Creating a new Template
+~~~~~~~~~~~~~~~~~~~~~~~
+
+For a completely new template, some bash scripting is required. All shell
+code must be placed in a file named like this:
+``./scripts/lib/ptxd_lib_*.sh``.
+
+The minimum requirement for a new template is:
+-  a shell function that creates the new package
+-  registering the new template
+
+.. code-block:: sh
+
+    ptxd_template_new_mypkg() {
+        # create the package here
+    }
+    export -f ptxd_template_new_mypkg
+    ptxd_template_help_list[${#ptxd_template_help_list[@]}]="mypkg"
+    ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create awsame mypkg package"
+
+PTXdist provides several helper functions to simply the template.
+Using those functions, the package creation process is split into two
+parts:
+
+-  query the user for input and export variables
+-  Create the new package files from the template source files by
+   substituting all instances of ``@<variable>@`` with the value of the
+   corresponding variable.
+
+A simple template function could look like this:
+
+.. code-block:: sh
+
+    ptxd_template_new_mypkg() {
+        ptxd_template_read_basic &&
+        ptxd_template_read "enter download section" DL_SECTION "foobar"
+        ptxd_template_read_author &&
+        export section="local_${dlsection}" &&
+        ptxd_template_write_rules
+    }
+
+This template requires ``rules/templates/template-mypkg-make`` and
+``rules/templates/template-mypkg-in`` as source files. They could be
+derived from the ``target`` template with a simple modification:
+
+.. code-block:: make
+
+    @PACKAGE@_SUFFIX	:= tar.xz
+    @PACKAGE@_URL	:= http://dl.my-company.local/downloads/@DL_SECTION@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+
+The helper functions that are used in the example above are defined in
+``scripts/lib/ptxd_lib_template.sh`` in the PTXdist source tree.
+
+The template is a normal shell function. Arbitrary things can be done here
+to create the new package. The helper functions are just the most
+convenient way to crate simple templates. It is also possible to create
+more files. For examples, the builtin ``genimage`` template creates a extra
+config file for the new package.
 

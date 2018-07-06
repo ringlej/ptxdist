@@ -1,4 +1,7 @@
-## SECTION=bytecode_engines
+## SECTION=staging
+## old section:
+### SECTION=bytecode_engines
+
 menuconfig TCL
 	tristate
 	prompt "tcl                           "
@@ -22,6 +25,9 @@ menuconfig TCL
 	  compilation.
 	  Note: To install this package you must have a working TCL on your
 	  host (only required for the install stage).
+
+	  STAGING: remove in ptxdist-2019.07.0
+	  Old obsolete and unmaintained.
 
 if TCL
 

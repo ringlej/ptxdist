@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBASSUAN
+	tristate
+	select HOST_LIBGPG_ERROR
+	default ALLYES

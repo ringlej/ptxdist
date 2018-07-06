@@ -5,7 +5,7 @@ config XORG_DRIVER_VIDEO_DUMMY
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_XORG
-	select XORG_PROTO_FONTS
+	select XORGPROTO
 	prompt "Dummy"
 	help
 	  This package contains the X.Org xf86-video-dummy driver.

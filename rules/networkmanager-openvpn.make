@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER_OPENVPN) += networkmanager-openvpn
 #
 # Paths and names
 #
-NETWORKMANAGER_OPENVPN_VERSION	:= 1.2.6
-NETWORKMANAGER_OPENVPN_MD5	:= 47ed9b6c43ca364976a15e84207687df
+NETWORKMANAGER_OPENVPN_VERSION	:= 1.8.2
+NETWORKMANAGER_OPENVPN_MD5	:= dce82d9cb007fcdc9d737a2e583e2a9e
 NETWORKMANAGER_OPENVPN		:= NetworkManager-openvpn-$(NETWORKMANAGER_OPENVPN_VERSION)
 NETWORKMANAGER_OPENVPN_SUFFIX	:= tar.xz
-NETWORKMANAGER_OPENVPN_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager-openvpn/1.2/$(NETWORKMANAGER_OPENVPN).$(NETWORKMANAGER_OPENVPN_SUFFIX)
+NETWORKMANAGER_OPENVPN_URL	:= http://ftp.gnome.org/pub/GNOME/sources/NetworkManager-openvpn/1.8/$(NETWORKMANAGER_OPENVPN).$(NETWORKMANAGER_OPENVPN_SUFFIX)
 NETWORKMANAGER_OPENVPN_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER_OPENVPN).$(NETWORKMANAGER_OPENVPN_SUFFIX)
 NETWORKMANAGER_OPENVPN_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER_OPENVPN)
 
@@ -34,12 +34,15 @@ NETWORKMANAGER_OPENVPN_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER_OPENVPN)
 NETWORKMANAGER_OPENVPN_CONF_TOOL := autoconf
 NETWORKMANAGER_OPENVPN_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-static \
 	--enable-shared \
+	--disable-static \
+	--disable-absolute-paths \
+	--disable-ld-gc \
+	--disable-lto \
 	--disable-nls \
 	--enable-more-warnings \
-	--without-libnm-glib \
-	--without-gnome
+	--without-gnome \
+	--without-libnm-glib
 
 # ----------------------------------------------------------------------------
 # Target-Install

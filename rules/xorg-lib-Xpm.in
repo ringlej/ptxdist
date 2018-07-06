@@ -4,7 +4,7 @@ config XORG_LIB_XPM
 	tristate
 	prompt "libXpm"
 	select XORG_LIB_X11
-	select XORG_PROTO_X
+	select XORGPROTO
 	help
 	  The XPM (X PixMap) library is a format for storing/retrieving X pixmaps
 	  to/from files.

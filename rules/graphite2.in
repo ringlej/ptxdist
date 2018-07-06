@@ -1,0 +1,13 @@
+## SECTION=multimedia_libs
+
+config GRAPHITE2
+	tristate
+	select HOST_CMAKE
+	prompt "graphite2"
+	help
+	  Graphite is a system that can be used to create and use "smart
+	  fonts" capable of displaying writing systems with various complex
+	  behaviors, such as: contextual shaping, ligatures, reordering,
+	  split glyphs, bidirectionality, stacking diacritics and complex
+	  positioning.
+

@@ -16,8 +16,8 @@ ptxd_make_image_archive_impl() {
     ptxd_get_ipkg_files ${image_pkgs} &&
     ptxd_make_image_extract_xpkg_files "${pkg_dir}" &&
     cd "${pkg_dir}" &&
-    echo -e "\nCreating $(ptxd_print_path "${image_image}") ...\n" &&
-    tar -zcf "${image_image}" . &&
+    printf "\nCreating $(ptxd_print_path "${image_image}")%.*s*...\n" $([ -n "${image_label}" ] && echo ' with label "${image_label}"') &&
+    tar ${image_label_args} -zcf "${image_image}" . &&
     rm -r "${pkg_dir}"
 }
 export -f ptxd_make_image_archive_impl

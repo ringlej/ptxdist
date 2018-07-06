@@ -15,11 +15,13 @@ config USB_MODESWITCH_UDEV_HELPER
 	bool "install udev helper"
 	default y
 	depends on UDEV
+	depends on STAGING
 
 config USB_MODESWITCH_SYSTEMD_UNIT
 	bool "install systemd unit file"
 	default y
 	depends on SYSTEMD
+	depends on STAGING
 
 endif
 

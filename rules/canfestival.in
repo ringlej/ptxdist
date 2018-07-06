@@ -2,6 +2,7 @@
 
 config CANFESTIVAL
 	tristate
+	select HOST_SYSTEM_PYTHON
 	prompt "canfestival"
 	help
 	  CanFestival is an OpenSource CANOpen framework, licensed with GPLv2 and

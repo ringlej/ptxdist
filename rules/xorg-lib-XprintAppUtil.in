@@ -1,12 +1,17 @@
-## SECTION=multimedia_xorg_lib
+## SECTION=staging
+## old section:
+### SECTION=multimedia_xorg_lib
 
 config XORG_LIB_XPRINTAPPUTIL
 	tristate
 	select XORG_LIB_X11
 	select XORG_LIB_XP
 	select XORG_LIB_XPRINTUTIL
-	select XORG_PROTO_PRINT
+	select XORGPROTO
 	select XORG_LIB_XAU
 	prompt "libXprintAppUtil"
 	help
 	  Xprint job utility client library
+
+	  STAGING: remove in ptxdist-2018.07.0
+	  Obsolete, no longer needed and fails to build with xorgproto.

@@ -5,7 +5,7 @@ config XORG_LIB_XXF86DGA
 	prompt "libXxf86dga"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XF86DGA
+	select XORGPROTO
 	help
 	  libXxf86dga provides the XFree86-DGA extension,
 	  which allows direct graphics access to a

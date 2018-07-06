@@ -1,0 +1,12 @@
+## SECTION=image
+
+config IMAGE_HD_VDI
+	tristate
+	select IMAGE_HDIMG
+	prompt "Generate images/hd.vdi"
+	help
+	  Build a VirtualBox's disk image file.
+	  Check "Generate images/hd.img" to define the hd geometry.
+	  VirtualBox must be installed in the host system to generate
+	  this image.
+

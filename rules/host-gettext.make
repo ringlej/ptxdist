@@ -23,14 +23,15 @@ HOST_PACKAGES-$(PTXCONF_HOST_GETTEXT) += host-gettext
 #
 HOST_GETTEXT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--disable-csharp \
 	--disable-java \
-	--disable-static \
-	--disable-libasprintf \
 	--disable-native-java \
-	--disable-openmp \
+	--disable-csharp \
+	--disable-static \
+	--disable-nls \
 	--disable-c++ \
 	--enable-relocatable \
+	--disable-libasprintf \
+	--disable-acl \
 	--disable-openmp \
 	--disable-curses \
 	--without-emacs \

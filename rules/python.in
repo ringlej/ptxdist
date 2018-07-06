@@ -54,6 +54,7 @@ config PYTHON_SYMLINK
 
 config PYTHON_LIBTK
 	bool
+	depends on STAGING
 	prompt "Include lib-tk packages"
 
 config PYTHON_IDLELIB

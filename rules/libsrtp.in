@@ -1,0 +1,14 @@
+## SECTION=multimedia_libs
+
+config LIBSRTP
+	tristate
+	select OPENSSL
+	prompt "libsrtp"
+	help
+	  Secure RTP (SRTP) and UST Reference Implementations
+	  SRTP is a security profile for RTP that adds confidentiality,
+	  message authentication, and replay protection to that protocol.
+	  It is specified in RFC 3711.
+	  LibSRTP provides an implementation of the Secure Real-time Transport
+	  Protocol (SRTP), the Universal Security Transform (UST), and a
+	  supporting cryptographic kernel.

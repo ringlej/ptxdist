@@ -4,7 +4,7 @@ menuconfig GLMARK2
 	tristate
 	prompt "glmark2                       "
 	select MESALIB
-	select HOST_SYSTEM_PYTHON
+	select HOST_SYSTEM_PYTHON3
 	select LIBPNG
 	select LIBJPEG
 	help

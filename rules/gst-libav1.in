@@ -8,6 +8,7 @@ config GST_LIBAV1
 	select GST_PLUGINS_BASE1
 	select BZIP2
 	select BZIP2_LIBBZ2
+	select XZ
 	select ORC
 	prompt "gst-libav"
 	help

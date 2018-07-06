@@ -1,0 +1,23 @@
+## SECTION=system_libraries
+
+menuconfig GPGME
+	tristate
+	select LIBASSUAN
+	select LIBGPG_ERROR
+	prompt "gpgme                         "
+	help
+	  GnuPG Made Easy (GPGME) is a library designed to make access to
+	  GnuPG easier for applications. It provides a High-Level Crypto
+	  API for encryption, decryption, signing, signature verification
+	  and key management.
+
+if GPGME
+
+comment "language bindings"
+
+config GPGME_CPP
+	bool
+	prompt "install C++ bindings"
+
+endif
+

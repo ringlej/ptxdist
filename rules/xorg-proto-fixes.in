@@ -1,9 +1,0 @@
-## SECTION=multimedia_xorg_proto
-
-config XORG_PROTO_FIXES
-	tristate
-	help
-	  The X Fixes extension was created to address a number of shortcomings in
-	  the core X window system that prevented applications from doing some
-	  things efficiently.
-

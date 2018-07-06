@@ -3,4 +3,4 @@
 config HOST_LNDIR
 	bool
 	default y
-	select HOST_XORG_PROTO_X
+	select HOST_XORGPROTO
