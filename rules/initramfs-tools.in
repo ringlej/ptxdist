@@ -1,0 +1,30 @@
+## SECTION=initmethod
+
+if INITMETHOD_INITRAMFS || ALLYES
+
+menuconfig INITRAMFS_TOOLS
+	bool
+	prompt "initramfs-tools               "
+	help
+	  Install initramfs skeleton framework
+
+if INITRAMFS_TOOLS
+
+config INITRAMFS_TOOLS_SCRIPTS_INIT
+	bool "install /scripts/init         "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_LOCAL
+	bool "install /scripts/local        "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_NFS
+	bool "install /scripts/nfs          "
+	help
+	  FIXME
+
+endif
+
+endif
