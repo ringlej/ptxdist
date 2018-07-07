@@ -10,7 +10,7 @@ if IMAGE_ROOT_TGZ
 config IMAGE_ROOT_TGZ_LABEL
 	string
 	prompt "label"
-	default "${PXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
+	default "${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
 	help
 	  This string gets expanded to form the label. An empty string produces no label.
 
