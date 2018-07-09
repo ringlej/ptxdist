@@ -145,6 +145,9 @@ add_ld_args() {
 	if ${BUILDID}; then
 		add_opt_arg TARGET_BUILD_ID "${1}--build-id=sha1"
 	fi
+	if ! ( PTXCONF_TARGET_BUILD_ID=y test_opt TARGET_BUILD_ID ); then
+		add_arg "${1}--build-id=none"
+	fi
 }
 
 ld_add_ld_args() {
@@ -183,6 +186,8 @@ cc_add_fortify() {
 }
 
 cc_add_stack() {
+	# TARGET_HARDEN_STACK blacklists all stack protector options
+	( PTXCONF_TARGET_HARDEN_STACK=y test_opt TARGET_HARDEN_STACK ) || return 0
 	if ${STDLIB}; then
 		add_opt_arg TARGET_HARDEN_STACK "-fstack-protector" "--param=ssp-buffer-size=4"
 		add_opt_arg TARGET_HARDEN_STACK_STRONG "-fstack-protector-strong"
