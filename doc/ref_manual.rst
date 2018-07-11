@@ -399,6 +399,10 @@ different.
   conflicting files from multiple images. The created nfsroot directory is
   ``<platform-dir>/nfsroot/<image-name>``.
 
+``<PKG>_LABEL``
+  This is a tar label to put on an image. This is supported by
+  ``image-root-tgz`` and images created with the ``image-tgz`` template.
+
 .. _reference_macros:
 
 Rule File Macro Reference

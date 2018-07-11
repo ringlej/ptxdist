@@ -1,7 +1,22 @@
 ## SECTION=image
 
-config IMAGE_ROOT_TGZ
+menuconfig IMAGE_ROOT_TGZ
 	tristate
-	prompt "Generate images/root.tgz"
+	prompt "Generate images/root.tgz      "
 	help
 	  FIXME
+
+if IMAGE_ROOT_TGZ
+
+config IMAGE_ROOT_TGZ_LABEL
+	string
+	prompt "label"
+	help
+	  This string gets expanded to form the label. An empty string produces no label.
+	  For example, this could be set to:
+	    ${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}
+
+	  The label on the generate image can be checked with the command:
+	    $ tar --test-label -f images/root.tgz
+endif
+

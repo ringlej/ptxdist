@@ -20,6 +20,7 @@ IMAGE_ROOT_TGZ		:= image-root-tgz
 IMAGE_ROOT_TGZ_DIR	:= $(BUILDDIR)/$(IMAGE_ROOT_TGZ)
 IMAGE_ROOT_TGZ_IMAGE	:= $(IMAGEDIR)/root.tgz
 IMAGE_ROOT_TGZ_PKGS	= $(PTX_PACKAGES_INSTALL)
+IMAGE_ROOT_TGZ_LABEL	:= $(call remove_quotes, $(PTXCONF_IMAGE_ROOT_TGZ_LABEL))
 
 # ----------------------------------------------------------------------------
 # Image

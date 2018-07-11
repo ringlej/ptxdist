@@ -21,7 +21,8 @@ world/image/env/impl = \
 	image_env="$(call ptx/escape,$($(1)_ENV))"		\
 	image_pkgs="$(call ptx/escape,$($(1)_PKGS))"		\
 	image_files="$(call ptx/escape,$($(1)_FILES))"		\
-	image_image="$(call ptx/escape,$($(1)_IMAGE))"
+	image_image="$(call ptx/escape,$($(1)_IMAGE))"		\
+	image_label="$(call ptx/escape,$($(1)_LABEL))"
 
 world/image/env = \
 	$(call world/image/env/impl,$(strip $(1)))
