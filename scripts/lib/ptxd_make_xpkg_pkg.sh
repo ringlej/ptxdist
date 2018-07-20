@@ -141,13 +141,10 @@ ptxd_install_setup_src_list() {
 	# if pkg_dir is empty we'll have some some empty entries in
 	# the array, but that's no problem for the "-e" below.
 	#
+	local -a ptxd_reply
+	ptxd_get_alternative_list projectroot "${1}"
 	list=( \
-	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${1}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${1}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}" \
-	    "${PTXDIST_TOPDIR}/projectroot${1}" \
+	    "${ptxd_reply[@]}" \
 	    "${pkg_pkg_dir:+${pkg_pkg_dir}${1}}" \
 	    "${pkg_dir:+${pkg_dir}${1}}" \
 	    )
