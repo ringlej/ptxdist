@@ -12,9 +12,7 @@ PTXDIST_LOG_PROMPT="ptxdist: "
 # defaults
 #
 PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
-PTXDIST_PTXCONFIG_FALLBACK='${PTXDIST_WORKSPACE}/configs/ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
-PTXDIST_PLATFORMCONFIG_FALLBACK='${PTXDIST_WORKSPACE}/configs/*/platformconfig'
 PTXDIST_COLLECTIONCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_collectionconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
 PTXDIST_PTXRC_DEFAULT=${PTXDIST_PTXRC:-'${HOME}/.ptxdist/ptxdistrc-${PTXDIST_VERSION_PTXRC}'}
@@ -1206,10 +1204,10 @@ parse_first()
 	#
 	# sane defaults
 	#
-	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
-	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
-	PTXDIST_COLLECTIONCONFIG="${PTXDIST_COLLECTIONCONFIG_DEFAULT}"
-	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
+	PTXDIST_TOOLCHAIN=
+	PTXDIST_PLATFORMCONFIG=
+	PTXDIST_COLLECTIONCONFIG=
+	PTXDIST_PTXCONFIG=
 	PTXDIST_VERBOSE=0
 
 	#
@@ -1331,21 +1329,79 @@ parse_first()
 			;;
 		esac || return
 	done
+}
 
-	if [ "${PTX_ptxconfig_SET}" = "false" -a \
-	    \! -e "${PTXDIST_PTXCONFIG}" -a -e "${PTXDIST_PTXCONFIG_FALLBACK}" ]; then
-		PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_FALLBACK}"
+setup_layers()
+{
+	export -a PTXDIST_LAYERS
+	local layer="${PTXDIST_WORKSPACE}"
+
+	while [ -e "${layer}" -o -h "${layer}" ]; do
+		if [ ! -d "${layer}" ]; then
+			echo
+			echo "${PTXDIST_LOG_PROMPT}error: Layer '${layer}' does not exist!"
+			echo
+			exit 1
+		fi
+		if [ -z "${PTXDIST_AUTOVERSION}" -a -e "${layer}/bin/ptxdist" -a \
+				"${layer}" != "${PTXDIST_TOPDIR}" ]; then
+			echo
+			echo "${PTXDIST_LOG_PROMPT}error: PTXdist layer '${layer}' does not match the current PTXDIST_TOPDIR='${PTXDIST_TOPDIR}'"
+			echo
+			exit 1
+		fi
+		PTXDIST_LAYERS[${#PTXDIST_LAYERS[@]}]="${layer}"
+		layer="${layer}/base"
+	done
+	if [ "${PTXDIST_LAYERS[(${#PTXDIST_LAYERS[@]}-1)]}" != "${PTXDIST_TOPDIR}" ]; then
+		PTXDIST_LAYERS[${#PTXDIST_LAYERS[@]}]="${PTXDIST_TOPDIR}"
 	fi
 
-	if [ "${PTX_platformconfig_SET}" = "false" -a \
-	    \! -e "${PTXDIST_PLATFORMCONFIG}" -a -e "${PTXDIST_PLATFORMCONFIG_FALLBACK}" ]; then
-		PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_FALLBACK}"
+	if [ "${PTX_ptxconfig_SET}" = "false" ]; then
+		local -a cfgs=( "selected_ptxconfig" "configs/ptxconfig" )
+		for layer in "${PTXDIST_LAYERS[@]}"; do
+			local -a ptxd_reply
+			ptxd_get_path "${cfgs[@]/#/${layer}/}" || continue
+			PTXDIST_PTXCONFIG="${ptxd_reply[0]}"
+			break
+		done
 	fi
 
-	if [ "${PTX_toolchain_SET}" = "false" -a \! -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
-		local -a toolchain
-		if do_select_toolchain_guess 2>/dev/null; then
-			PTXDIST_TOOLCHAIN="${toolchain}"
+	if [ "${PTX_platformconfig_SET}" = "false" ]; then
+		local -a cfgs=( "selected_platformconfig" "configs/*/platformconfig" )
+		for layer in "${PTXDIST_LAYERS[@]}"; do
+			local tmp=( ${cfgs[@]/#/${layer}/} )
+			if [ "${#tmp[@]}" -gt 2 ]; then
+				tmp=( "${tmp[0]}" )
+			fi
+			local -a ptxd_reply
+			ptxd_get_path "${tmp[@]}" || continue
+			PTXDIST_PLATFORMCONFIG="${ptxd_reply[0]}"
+			break
+		done
+	fi
+
+	if [ "${PTX_collectionconfig_SET}" = "false" ]; then
+		for layer in "${PTXDIST_LAYERS[@]}"; do
+			local -a ptxd_reply
+			ptxd_get_path "${layer}/selected_collectionconfig" || continue
+			PTXDIST_COLLECTIONCONFIG="${ptxd_reply[0]}"
+			break
+		done
+	fi
+
+	if [ "${PTX_toolchain_SET}" = "false" ]; then
+		for layer in "${PTXDIST_LAYERS[@]}"; do
+			local -a ptxd_reply
+			ptxd_get_path "${layer}/selected_toolchain" || continue
+			PTXDIST_TOOLCHAIN="${ptxd_reply[0]}"
+			break
+		done
+		if [ -z "${PTXDIST_TOOLCHAIN}" ]; then
+			local -a toolchain
+			if do_select_toolchain_guess 2>/dev/null; then
+				PTXDIST_TOOLCHAIN="${toolchain}"
+			fi
 		fi
 	fi
 }
@@ -2092,17 +2148,9 @@ setup_topdir() {
 	PTXDIST_WORKSPACE="$(pwd)"
 
 	eval PTXDIST_PTXCONFIG_DEFAULT="${PTXDIST_PTXCONFIG_DEFAULT}"
-	eval PTXDIST_PTXCONFIG_FALLBACK="${PTXDIST_PTXCONFIG_FALLBACK}"
 	eval PTXDIST_PLATFORMCONFIG_DEFAULT="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
-	eval PTXDIST_PLATFORMCONFIG_FALLBACK="${PTXDIST_PLATFORMCONFIG_FALLBACK}"
 	eval PTXDIST_COLLECTIONCONFIG_DEFAULT="${PTXDIST_COLLECTIONCONFIG_DEFAULT}"
 	eval PTXDIST_TOOLCHAIN_DEFAULT="${PTXDIST_TOOLCHAIN_DEFAULT}"
-
-	# platformconfig is a bit more sophisticated
-	PTXDIST_PLATFORMCONFIG_FALLBACK=($(echo ${PTXDIST_PLATFORMCONFIG_FALLBACK} 2>/dev/null))
-	if [ ${#PTXDIST_PLATFORMCONFIG_FALLBACK[@]} -ne 1 ]; then
-		unset PTXDIST_PLATFORMCONFIG_FALLBACK
-	fi
 }
 
 
@@ -2424,6 +2472,7 @@ setup_platform_continue_with_broken_config()
 # out: PTXDIST_PLATFORMDIR
 #      PTXDIST_PLATFORMSUFFIX
 #      PTXDIST_PLATFORMCONFIGDIR
+#      PTXDIST_PLATFORMCONFIG_SUBDIR
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
@@ -2456,11 +2505,22 @@ setup_platform() {
 
 		cfg_file="$(readlink -f "${cfg_file}")" || return
 		cfg_dir="$(dirname "${cfg_file}")"
-		cfg_dir="${cfg_dir/#$(readlink -f "${PTXDIST_WORKSPACE}")/${PTXDIST_WORKSPACE}}"
+		for layer in "${PTXDIST_LAYERS[@]}"; do
+			cfg_dir="${cfg_dir/#$(readlink -f ${layer})\//${layer}/}"
+		done
 		break
 	done
 
 	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir:-${PTXDIST_WORKSPACE}}"
+	PTXDIST_PLATFORMCONFIG_SUBDIR=
+	if [ "${PTXDIST_WORKSPACE}" != "${PTXDIST_PLATFORMCONFIGDIR}" ]; then
+		local tmp=${PTXDIST_PLATFORMCONFIGDIR#${PTXDIST_WORKSPACE}/}
+		while [ "${tmp}" != "${tmp#base/}" ]; do
+			tmp=${tmp#base/}
+		done
+		PTXDIST_PLATFORMCONFIG_SUBDIR="${tmp}"
+	fi
+
 	PTXDIST_BOARDSETUP="${HOME}/.ptxdist/boardsetup.${project}${project_version}.${platform}"
 }
 
@@ -2613,6 +2673,7 @@ setup_export() {
 		PTXDIST_PLATFORMDIR \
 		PTXDIST_PLATFORMSUFFIX \
 		PTXDIST_PLATFORMCONFIGDIR \
+		PTXDIST_PLATFORMCONFIG_SUBDIR \
 		\
 		PTXDIST_PARALLELMFLAGS \
 		PTXDIST_PARALLELMFLAGS_INTERN \
@@ -2647,6 +2708,8 @@ main() {
 	# --- errexit feature may be active ---
 
 	parse_first &&
+
+	setup_layers &&
 	# --- vars to config files are setup ---
 
 	setup_parallel &&
