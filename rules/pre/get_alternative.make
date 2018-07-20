@@ -11,4 +11,6 @@
 ptx/get-alternative = $(shell ptxd_get_alternative $(1) $(2) && echo $$ptxd_reply)
 ptx/get_alternative = $(error ptx/get_alternative has been renamed to ptx/get-alternative)
 
+ptx/in-path = $(shell ptxd_in_path $(1) $(2) && echo $$ptxd_reply)
+
 # vim: syntax=make
