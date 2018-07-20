@@ -510,6 +510,29 @@ ptxd_replace_link() {
 }
 export -f ptxd_replace_link
 
+ptxd_get_alternative_list() {
+    local prefix="${1%/}"
+    local file="${2#/}"
+    local -a layers
+    [ -n "${prefix}" -a -n "${file}" ] || return
+
+    ptxd_in_path PTXDIST_PATH_LAYERS
+    layers=( "${ptxd_reply[@]}" )
+
+    ptxd_reply=()
+    for layer in "${layers[@]}"; do
+	ptxd_reply=( \
+	    "${ptxd_reply[@]}" \
+	    "${layer}/${prefix}${PTXDIST_PLATFORMSUFFIX}/${file}" \
+	    "${layer}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${layer}/${PTXDIST_PLATFORMCONFIG_SUBDIR}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${layer}/${prefix}/${file}" \
+	    "${layer}/${PTXDIST_PLATFORMCONFIG_SUBDIR}/${prefix}/${file}" \
+	    )
+    done
+}
+export -f ptxd_get_alternative_list
+
 #
 # ptxd_get_alternative - look for files in platform, BSP and ptxdist
 #
@@ -523,20 +546,8 @@ export -f ptxd_replace_link
 # array "ptxd_reply" containing the found files
 #
 ptxd_get_alternative() {
-    local prefix="${1%/}"
-    local file="${2}"
-    [ -n "${prefix}" -a -n "${file}" ] || return
-
-    list=( \
-	"${PTXDIST_WORKSPACE}/${prefix}${PTXDIST_PLATFORMSUFFIX}/${file}" \
-	"${PTXDIST_WORKSPACE}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
-	"${PTXDIST_PLATFORMCONFIGDIR}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
-	"${PTXDIST_WORKSPACE}/${prefix}/${file}" \
-	"${PTXDIST_PLATFORMCONFIGDIR}/${prefix}/${file}" \
-	"${PTXDIST_TOPDIR}/${prefix}/${file}" \
-	)
-
-    ptxd_get_path "${list[@]}"
+    ptxd_get_alternative_list "${@}" &&
+    ptxd_get_path "${ptxd_reply[@]}"
 }
 export -f ptxd_get_alternative
 
