@@ -146,7 +146,7 @@ HOST_QEMU_CONF_OPT	= \
 	--enable-vhost-scsi
 
 # Use '=' to delay $(shell ...) calls until this is needed
-QEMU_CROSS_QEMU = $(shell ptxd_get_alternative config/qemu qemu-cross && echo $$ptxd_reply)
+QEMU_CROSS_QEMU = $(call ptx/get-alternative, config/qemu, qemu-cross)
 QEMU_CROSS_DL = $(shell ptxd_cross_cc_v | sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
 QEMU_CROSS_TOOLEXECLIBDIR = $(shell dirname $$(realpath $$(ptxd_cross_cc -print-file-name=libatomic.so 2> /dev/null)))
 QEMU_CROSS_LD_LIBRARY_PATH = $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(QEMU_CROSS_TOOLEXECLIBDIR):$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)

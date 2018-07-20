@@ -33,7 +33,7 @@ QT5_LICENSE_FILES := \
 	file://LICENSE.GPLv3;md5=88e2b9117e6be406b5ed6ee4ca99a705 \
 	file://LICENSE.LGPLv3;md5=e0459b45c5c4840b353141a8bbed91f0 \
 	file://LICENSE.FDL;md5=6d9f2a9af4c8b8c3c769f6cc1b6aaf7e
-QT5_MKSPECS	:= $(shell ptxd_get_alternative config/qt5 linux-ptx-g++ && echo $$ptxd_reply)
+QT5_MKSPECS	:= $(call ptx/get-alternative, config/qt5, linux-ptx-g++)
 
 ifdef PTXCONF_QT5
 ifeq ($(strip $(QT5_MKSPECS)),)
