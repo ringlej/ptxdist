@@ -23,7 +23,8 @@ AT91BOOTSTRAP2_SUFFIX	:= tar.gz
 AT91BOOTSTRAP2_URL	:= https://github.com/linux4sam/at91bootstrap/archive/v$(AT91BOOTSTRAP2_VERSION).$(AT91BOOTSTRAP2_SUFFIX)
 AT91BOOTSTRAP2_SOURCE	:= $(SRCDIR)/$(AT91BOOTSTRAP2).$(AT91BOOTSTRAP2_SUFFIX)
 AT91BOOTSTRAP2_DIR	:= $(BUILDDIR)/$(AT91BOOTSTRAP2)
-AT91BOOTSTRAP2_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_AT91BOOTSTRAP2_CONFIG))
+AT91BOOTSTRAP2_CONFIG	:= $(call ptx/in-platformconfigdir, \
+		$(call remove_quotes, $(PTXCONF_AT91BOOTSTRAP2_CONFIG)))
 AT91BOOTSTRAP2_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------

@@ -611,6 +611,35 @@ ptxd_in_path() {
 export -f ptxd_in_path
 
 #
+# ptxd_in_platformconfigdir - find paths in platformconfigdir
+#
+# $1 filename to find
+#
+# If the filename is absolute then return the filename unchanged.
+# Otherwise search in platformconfigdir in all layers for the file and
+# return the first hit.
+# If no file is found return ${PTXDIST_PLATFORMCONFIGDIR}/${1}
+#
+# return:
+# The result is written to stdout.
+#
+ptxd_in_platformconfigdir() {
+    case "${1}" in
+    /*)
+	echo "${1}"
+	;;
+    *)
+	if ptxd_in_path PTXDIST_PATH_PLATFORMCONFIGDIR "${1}"; then
+	    echo "${ptxd_reply[0]}"
+	else
+	    echo "${PTXDIST_PLATFORMCONFIGDIR}/${1}"
+	fi
+	;;
+    esac
+}
+export -f ptxd_in_platformconfigdir
+
+#
 # convert a relative or absolute path into an absolute path
 #
 ptxd_abspath() {

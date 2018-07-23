@@ -26,8 +26,8 @@ IMAGE_RAUC_CONFIG	:= rauc.config
 # Image
 # ----------------------------------------------------------------------------
 
-IMAGE_RAUC_KEY = $(PTXDIST_PLATFORMCONFIGDIR)/config/rauc/rauc.key.pem
-IMAGE_RAUC_CERT = $(PTXDIST_PLATFORMCONFIGDIR)/config/rauc/rauc.cert.pem
+IMAGE_RAUC_KEY := $(call ptx/in-platformconfigdir, config/rauc/rauc.key.pem)
+IMAGE_RAUC_CERT := $(call ptx/in-platformconfigdir, config/rauc/rauc.cert.pem)
 
 IMAGE_RAUC_ENV	:= \
 	RAUC_BUNDLE_COMPATIBLE="$(call remove_quotes,$(PTXCONF_RAUC_COMPATIBLE))" \

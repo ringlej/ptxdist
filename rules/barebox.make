@@ -27,7 +27,8 @@ BAREBOX_DIR	:= $(BUILDDIR)/$(BAREBOX)
 BAREBOX_LICENSE	:= GPL-2.0-only
 BAREBOX_DEVPKG	:= NO
 
-BAREBOX_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_BAREBOX_CONFIG))
+BAREBOX_CONFIG	:= $(call ptx/in-platformconfigdir, \
+		$(call remove_quotes, $(PTXCONF_BAREBOX_CONFIG)))
 
 # ----------------------------------------------------------------------------
 # Prepare

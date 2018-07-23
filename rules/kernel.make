@@ -27,7 +27,7 @@ KERNEL_SUFFIX		:= tar.gz
 KERNEL_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL).$(KERNEL_SUFFIX)
 endif
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
-KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
+KERNEL_CONFIG		:= $(call ptx/in-platformconfigdir, $(call remove_quotes, $(PTXCONF_KERNEL_CONFIG)))
 KERNEL_LICENSE		:= GPL-2.0-only
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DEVPKG		:= NO

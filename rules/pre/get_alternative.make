@@ -13,4 +13,6 @@ ptx/get_alternative = $(error ptx/get_alternative has been renamed to ptx/get-al
 
 ptx/in-path = $(shell ptxd_in_path $(1) $(2) && echo $$ptxd_reply)
 
+ptx/in-platformconfigdir = $(if $(strip $(1)),$(shell ptxd_in_platformconfigdir $(1)))
+
 # vim: syntax=make
