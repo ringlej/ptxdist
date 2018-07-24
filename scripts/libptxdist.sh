@@ -583,10 +583,28 @@ export -f ptxd_get_path
 #
 ptxd_in_path() {
 	local orig_IFS="${IFS}"
+	local -a paths tmp
+	local path
+	local relative
 	IFS=:
-	local -a paths
-	paths=( ${!1} )
+	tmp=( ${!1} )
 	IFS="${orig_IFS}"
+	for path in "${tmp[@]}"; do
+	    local search
+	    case "${path}" in
+	    /*)
+		paths=( "${paths[@]}" "${path}" )
+		;;
+	    *)
+		if [ -n "${relative}" ]; then
+		    ptxd_bailout "More than one relative path found in ${1}"
+		fi
+		relative=true
+		ptxd_in_path PTXDIST_PATH_LAYERS "${path}" || continue
+		paths=( "${paths[@]}" "${ptxd_reply[@]}" )
+		;;
+	    esac
+	done
 	paths=( "${paths[@]/%/${2:+/}${2}}" )
 	ptxd_get_path "${paths[@]}"
 }
