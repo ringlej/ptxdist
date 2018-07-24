@@ -48,6 +48,8 @@ ifdef PTXCONF_KERNEL_HEADER
 CANFESTIVAL_CFLAGS	:= -isystem $(KERNEL_HEADERS_INCLUDE_DIR)
 endif
 
+CANFESTIVAL_MAKE_OPT	:= canfestival examples
+
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
