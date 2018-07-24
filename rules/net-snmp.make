@@ -31,6 +31,8 @@ NET_LICENSE		:= BSD like
 # Prepare
 # ----------------------------------------------------------------------------
 
+NET_SNMP_WRAPPER_BLACKLIST := TARGET_DEBUG_FULL
+
 NET_SNMP_MIB_MODULES-y	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_MODULES))
 NET_SNMP_MIB_MODULES-	:= $(call remove_quotes,$(PTXCONF_NET_SNMP_WITHOUT_MIB_MODULES))
 NET_SNMP_MIB_MODULES-$(PTXCONF_NET_SNMP_MIB_MODULES_AGENTX) += agentx
