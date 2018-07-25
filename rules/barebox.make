@@ -78,11 +78,9 @@ endif
 $(STATEDIR)/barebox.prepare: $(BAREBOX_CONFIG)
 	@$(call targetinfo)
 
-	@echo "Using barebox config file: $(<)"
-	@install -m 644 "$(<)" "$(BAREBOX_DIR)/.config"
-
+	@$(call world/kconfig-setup, BAREBOX)
 	@$(call ptx/oldconfig, BAREBOX)
-	@diff -q -I "# [^C]" "$(BAREBOX_DIR)/.config" "$(<)" > /dev/null || cp "$(BAREBOX_DIR)/.config" "$(<)"
+	@$(call world/kconfig-sync, BAREBOX)
 
 ifdef PTXCONF_BAREBOX_EXTRA_ENV
 	@rm -rf $(BAREBOX_DIR)/.ptxdist-defaultenv
@@ -210,15 +208,11 @@ $(STATEDIR)/barebox.clean:
 # ----------------------------------------------------------------------------
 
 barebox_oldconfig barebox_menuconfig barebox_nconfig: $(STATEDIR)/barebox.extract
-	@if test -e $(BAREBOX_CONFIG); then \
-		cp $(BAREBOX_CONFIG) $(BAREBOX_DIR)/.config; \
-	fi
+	@$(call world/kconfig-setup, BAREBOX)
+
 	@cd $(BAREBOX_DIR) && \
 		$(BAREBOX_PATH) $(BAREBOX_ENV) $(MAKE) $(BAREBOX_MAKEVARS) $(subst barebox_,,$@)
-	@if cmp -s $(BAREBOX_DIR)/.config $(BAREBOX_CONFIG); then \
-		echo "barebox configuration unchanged"; \
-	else \
-		cp $(BAREBOX_DIR)/.config $(BAREBOX_CONFIG); \
-	fi
+
+	@$(call world/kconfig-sync, BAREBOX)
 
 # vim: syntax=make
