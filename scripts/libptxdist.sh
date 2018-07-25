@@ -519,7 +519,11 @@ ptxd_file_url_path() {
     local url="${1//file:\/\//}"
     if [[ ! "${url}" =~ ^/ ]]; then
 	    # relative to absolute path
-	    url="${PTXDIST_WORKSPACE}/${url}"
+	    if ptxd_in_path PTXDIST_PATH_LAYERS "${url}"; then
+		url="${ptxd_reply}"
+	    else
+		url="${PTXDIST_WORKSPACE}/${url}"
+	    fi
     fi
     echo "${url}"
 }
