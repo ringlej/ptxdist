@@ -107,7 +107,7 @@ NETWORKMANAGER_CONF_OPT = \
 
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 NETWORKMANAGER_LDFLAGS	:= \
-	-Wl,-rpath,/usr/lib/NetworkManager
+	-Wl,-rpath,/usr/lib/NetworkManager/$(NETWORKMANAGER_VERSION)
 endif
 
 # ----------------------------------------------------------------------------
