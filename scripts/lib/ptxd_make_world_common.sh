@@ -194,6 +194,12 @@ export -f ptxd_make_world_init_sanity_check
 ptxd_make_world_init() {
     ptxd_make_world_init_sanity_check || return
 
+    # PTXDIST_LAYERS gets lost in 'make' so redefine it here
+    local orig_IFS="${IFS}"
+    IFS=:
+    export -a PTXDIST_LAYERS=( ${PTXDIST_PATH_LAYERS} )
+    IFS="${orig_IFS}"
+
     #
     # type
     #
