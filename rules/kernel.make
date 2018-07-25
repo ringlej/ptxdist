@@ -108,8 +108,7 @@ KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.c
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
 
-	@echo "Using kernel config file: $(<)"
-	@install -m 644 "$(<)" "$(KERNEL_DIR)/.config"
+	@$(call world/kconfig-setup, KERNEL)
 ifdef PTXCONF_KERNEL_IMAGE_SIMPLE
 	cp $(PTXCONF_KERNEL_IMAGE_SIMPLE_DTS) \
 		$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/dts/$(PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET).dts
@@ -122,7 +121,7 @@ ifdef KERNEL_INITRAMFS_SOURCE_y
 endif
 
 	@$(call ptx/oldconfig, KERNEL)
-	@diff -q -I "# [^C]" "$(KERNEL_DIR)/.config" "$(<)" > /dev/null || cp "$(KERNEL_DIR)/.config" "$(<)"
+	@$(call world/kconfig-sync, KERNEL)
 
 #
 # Don't keep the expanded path to INITRAMS_SOURCE in $(KERNEL_CONFIG),
@@ -303,17 +302,11 @@ $(STATEDIR)/kernel.clean:
 # ----------------------------------------------------------------------------
 
 kernel_oldconfig kernel_menuconfig kernel_nconfig: $(STATEDIR)/kernel.extract
-	@if [ -e $(KERNEL_CONFIG) ]; then \
-		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
-	fi
+	@$(call world/kconfig-setup, KERNEL)
 
 	@cd $(KERNEL_DIR) && \
 		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) $(subst kernel_,,$@)
 
-	@if cmp -s $(KERNEL_DIR)/.config $(KERNEL_CONFIG); then \
-		echo "kernel configuration unchanged"; \
-	else \
-		cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
-	fi
+	@$(call world/kconfig-sync, KERNEL)
 
 # vim: syntax=make
