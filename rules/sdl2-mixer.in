@@ -1,0 +1,11 @@
+## SECTION=multimedia_sdl
+
+config SDL2_MIXER
+	tristate
+	select SDL2
+	prompt "SDL2 mixer"
+	help
+          SDL_mixer is a sample multi-channel audio mixer library. It supports any
+          number of simultaneously playing channels of 16 bit stereo audio, plus a
+          single channel of music, in FLAC, Ogg Vorbis, MP3, MOD, and MIDI
+          formats.
