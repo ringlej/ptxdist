@@ -1,0 +1,10 @@
+## SECTION=multimedia_sdl
+
+config SDL2_NET
+	tristate
+	select SDL2
+	prompt "SDL2 net"
+	help
+	  This is a small sample cross-platform networking library, with
+	  a sample chat client and server application. The chat client
+	  uses the GUIlib GUI framework library.
