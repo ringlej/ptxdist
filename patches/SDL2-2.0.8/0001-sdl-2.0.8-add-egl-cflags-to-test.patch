@@ -1,0 +1,55 @@
+From: Sergey Zhuravlevich <zhurxx@gmail.com>
+Date: Mon, 16 Jul 2018 12:03:42 +0200
+Subject: [PATCH] sdl-2.0.8: add egl-cflags to test
+
+- also call aclocal to expand PKG_CHECK_MODULES
+
+Signed-off-by: Sergey Zhuravlevich <zhurxx@gmail.com>
+Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
+---
+ autogen.sh   |  2 +-
+ configure.in | 11 +++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/autogen.sh b/autogen.sh
+index 9edfb8a7d913..2f1e2ef3d419 100755
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -8,7 +8,7 @@ test -z "$srcdir" && srcdir=.
+ cd "$srcdir"
+ 
+ # Regenerate configuration files
+-cat acinclude/* >aclocal.m4
++aclocal
+ found=false
+ for autoconf in autoconf autoconf259 autoconf-2.59
+ do if which $autoconf >/dev/null 2>&1; then $autoconf && found=true; break; fi
+diff --git a/configure.in b/configure.in
+index 1c7e79338a88..06e37a1b7f98 100644
+--- a/configure.in
++++ b/configure.in
+@@ -2335,6 +2335,14 @@ dnl Find OpenGL ES
+ CheckOpenGLESX11()
+ {
+     if test x$enable_video = xyes -a x$enable_video_opengles = xyes; then
++        PKG_CHECK_MODULES(EGL, [egl], [have_egl="yes"], [have_egl="no"])
++
++        save_CFLAGS="$CFLAGS"
++        if test x$have_egl = xyes; then
++          CFLAGS="$save_CFLAGS $EGL_CFLAGS"
++          EXTRA_CFLAGS="$EXTRA_CFLAGS $EGL_CFLAGS"
++        fi
++
+         AC_MSG_CHECKING(for EGL support)
+         video_opengl_egl=no
+         AC_TRY_COMPILE([
+@@ -2347,6 +2355,9 @@ CheckOpenGLESX11()
+         video_opengl_egl=yes
+         ])
+         AC_MSG_RESULT($video_opengl_egl)
++
++        CFLAGS="$save_CFLAGS"
++
+         if test x$video_opengl_egl = xyes; then
+             AC_DEFINE(SDL_VIDEO_OPENGL_EGL, 1, [ ])
+         fi
