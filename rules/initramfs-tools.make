@@ -64,11 +64,11 @@ $(STATEDIR)/initramfs-tools.targetinstall:
 	@$(call install_fixup, initramfs-tools,DESCRIPTION,missing)
 
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /init)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /conf/initramfs.conf)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /conf/arch.conf)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/functions)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/local)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/nfs)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /conf/initramfs.conf)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /conf/arch.conf)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /scripts/functions)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /scripts/local)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /scripts/nfs)
 
 ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT_TOP
 	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/init-top/)
