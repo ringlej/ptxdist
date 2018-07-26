@@ -24,7 +24,12 @@ DC3DD_LICENSE_FILES	:= file://COPYING;md5=d32239bcb673463ab874e80d47fae504
 # Prepare
 # ----------------------------------------------------------------------------
 
-DC3DD_AUTOCONF := \
+DC3DD_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	PERL=
+
+DC3DD_CONF_TOOL	:= autoconf
+DC3DD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-dependency-tracking \
