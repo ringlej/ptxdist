@@ -35,9 +35,10 @@ MONIT_CONF_ENV	:= $(CROSS_ENV) \
 
 MONIT_CONF_TOOL	:= autoconf
 MONIT_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-optimized \
 	--disable-profiling \
-	$(GLOBAL_LARGE_FILE_OPTION) \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_LARGE_FILE)-largefiles \
 	--without-pam \
 	--$(call ptx/wwo, PTXCONF_MONIT_SSL)-ssl \
 	--with-ssl-dir=$(SYSROOT)/usr
