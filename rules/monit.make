@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MONIT) += monit
 #
 # Paths and names
 #
-MONIT_VERSION	:= 5.17.1
-MONIT_MD5	:= 6918ed7411a244c9e158f5e54c86be78
+MONIT_VERSION	:= 5.25.2
+MONIT_MD5	:= 890df599d6c1e9cfbbdd3edbacb7db81
 MONIT		:= monit-$(MONIT_VERSION)
 MONIT_SUFFIX	:= tar.gz
 MONIT_URL	:= http://mmonit.com/monit/dist/$(MONIT).$(MONIT_SUFFIX)
@@ -39,7 +39,9 @@ MONIT_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-optimized \
 	--disable-profiling \
+	--$(call ptx/wwo, PTXCONF_GLOBAL_IPV6)-ipv6 \
 	--$(call ptx/wwo, PTXCONF_GLOBAL_LARGE_FILE)-largefiles \
+	--$(call ptx/wwo, PTXCONF_MONIT_ZLIB)-zlib \
 	--without-pam \
 	--$(call ptx/wwo, PTXCONF_MONIT_SSL)-ssl \
 	--with-ssl-dir=$(SYSROOT)/usr

@@ -4,6 +4,7 @@ menuconfig MONIT
 	tristate
 	prompt "monit                         "
 	select OPENSSL if MONIT_SSL
+	select ZLIB if MONIT_ZLIB
 	select BUSYBOX_START_STOP_DAEMON if MONIT_STARTSCRIPT
 	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS if MONIT_STARTSCRIPT
 	help
@@ -15,6 +16,10 @@ if MONIT
 config MONIT_SSL
 	bool
 	prompt "SSL support"
+
+config MONIT_ZLIB
+	bool
+	prompt "zlib support"
 
 config MONIT_STARTSCRIPT
 	bool
