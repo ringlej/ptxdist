@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2014,2016 by Alexander Dahl <post@lespocky.de>
+# Copyright (C) 2014,2016,2018 by Alexander Dahl <post@lespocky.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,6 +24,7 @@ MONIT_URL	:= http://mmonit.com/monit/dist/$(MONIT).$(MONIT_SUFFIX)
 MONIT_SOURCE	:= $(SRCDIR)/$(MONIT).$(MONIT_SUFFIX)
 MONIT_DIR	:= $(BUILDDIR)/$(MONIT)
 MONIT_LICENSE	:= AGPL-3.0-only
+MONIT_LICENSE_FILES := file://COPYING;md5=ea116a7defaf0e93b3bb73b2a34a3f51
 
 # ----------------------------------------------------------------------------
 # Prepare
