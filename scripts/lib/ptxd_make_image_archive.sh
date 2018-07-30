@@ -21,7 +21,7 @@ ptxd_make_image_archive_impl() {
 	echo -n "with label \"${image_label}\" "
     fi
     echo -ne "...\n" &&
-    tar ${image_label_args} -zcf "${image_image}" . &&
+    tar "${image_label_args[@]}" -zcf "${image_image}" . &&
     rm -r "${pkg_dir}"
 }
 export -f ptxd_make_image_archive_impl
