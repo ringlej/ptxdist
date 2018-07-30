@@ -112,6 +112,7 @@ config KERNEL_ARCH_STRING
 	default "x86"			if KERNEL_ARCH_X86
 	default "i386"			if KERNEL_ARCH_I386
 	default "x86_64"		if KERNEL_ARCH_X86_64
+	default "riscv"			if ARCH_RISCV
 
 choice
 	prompt "Image Type          "
