@@ -329,7 +329,8 @@ HOST_CMAKE_OPT_SYSROOT := \
 	-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'
 
 HOST_MESON_OPT := \
-	-Dprefix=/ \
+	--prefix / \
+	--libdir lib \
 	--backend ninja \
 	--buildtype debugoptimized
 
