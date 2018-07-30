@@ -210,10 +210,13 @@ $1 ~ /^PTXCONF_/ {
 				close(PKG_HASHFILE);
 				PKG_HASHFILE = next_PKG_HASHFILE;
 			}
-			print $0 >> PKG_HASHFILE;
+			if (!($0 in allsym))
+				print $0 >> PKG_HASHFILE;
 			break;
 		}
 	} while (sub(/_+[^_]+$/, "", this_PKG));
+
+	allsym[$0] = 1
 
 	next;
 }
