@@ -125,6 +125,15 @@ choice
 		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the SuperH architecture.
+
+	config ARCH_RISCV
+		bool "riscv      "
+		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		select ARCH_LP64
+		help
+		  This is support for the RISC-V architecture.
+
 endchoice
 
 #
@@ -264,6 +273,7 @@ config HAS_HARDFLOAT
 	default y if ARCH_X86
 	default y if ARCH_SPARC
 	default y if ARCH_ARM64
+	default y if ARCH_RISCV
 	default n
 
 #
@@ -304,3 +314,4 @@ config ARCH_STRING
 	default "cris"			if ARCH_CRIS
 	default "parisc"		if ARCH_PARISC
 	default "sh"			if ARCH_SH
+	default "riscv"			if ARCH_RISCV
