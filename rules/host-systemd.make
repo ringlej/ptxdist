@@ -23,6 +23,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 HOST_SYSTEMD_CONF_TOOL	:= meson
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_MESON_OPT) \
+	-Drootprefix=/lib/.. \
 	-Dacl=false \
 	-Dadm-group=true \
 	-Dapparmor=false \
