@@ -121,7 +121,9 @@ HOST_SYSTEMD_CONF_OPT	:= \
 	-Dxz=false \
 	-Dzlib=false
 
+ifndef PTXCONF_HOST_SYSTEMD_INSTALL_DEV
 HOST_SYSTEMD_MAKE_OPT := systemd-hwdb
+endif
 
 # ----------------------------------------------------------------------------
 # Install
@@ -129,11 +131,15 @@ HOST_SYSTEMD_MAKE_OPT := systemd-hwdb
 
 $(STATEDIR)/host-systemd.install:
 	@$(call targetinfo)
+ifdef PTXCONF_HOST_SYSTEMD_INSTALL_DEV
+	@$(call world/install, HOST_SYSTEMD)
+else
 	@rm -rf $(HOST_SYSTEMD_PKGDIR)
 	@install -vD -m755 $(HOST_SYSTEMD_DIR)-build/systemd-hwdb \
 		$(HOST_SYSTEMD_PKGDIR)/bin/systemd-hwdb
 	@install -vD -m755 $(HOST_SYSTEMD_DIR)-build/src/shared/libsystemd-shared-$(HOST_SYSTEMD_VERSION).so \
 		$(HOST_SYSTEMD_PKGDIR)/lib/libsystemd-shared-$(HOST_SYSTEMD_VERSION).so
+endif
 	@$(call touch)
 
 # vim: syntax=make
