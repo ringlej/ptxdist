@@ -1,0 +1,153 @@
+## SECTION=multimedia_sdl
+
+menuconfig SDL2
+	tristate
+	prompt "SDL2                          "
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
+	select LIBUNWIND
+	select CROSS_NASM		if SDL2_VIDEO
+	select ALSA_LIB			if SDL2_ALSA
+	select XORGPROTO		if SDL2_XORG
+	select XORG_LIB_X11		if SDL2_XORG
+	select XORG_LIB_XXF86VM		if SDL2_XORG
+	select XORG_LIB_XRANDR		if SDL2_XORG
+	select XORG_LIB_XCURSOR		if SDL2_XORG
+	select XORG_LIB_XI		if SDL2_XORG
+	select TSLIB			if SDL2_TSLIB
+	select DBUS			if SDL2_DBUS
+	select LIBDRM			if SDL2_WAYLAND
+	select MESALIB_GLX		if SDL2_OPENGL
+	select MESALIB_GLES1		if SDL2_OPENGLES1
+	select MESALIB_GLES2		if SDL2_OPENGLES2
+	select MESALIB_EGL_DRM		if SDL2_KMS
+	select MESALIB			if SDL2_WAYLAND || SDL2_OPENGL
+	select MESALIB_GBM		if SDL2_WAYLAND
+	select MESALIB_EGL_WAYLAND	if SDL2_WAYLAND
+	select LIBXKBCOMMON		if SDL2_WAYLAND
+	select UDEV			if SDL2_UDEV
+	select UDEV_LIBUDEV		if SDL2_UDEV
+	select PULSEAUDIO		if SDL2_PULSEAUDIO
+	select WAYLAND_PROTOCOLS	if SDL2_WAYLAND
+	help
+	  Simple DirectMedia Layer is a cross-platform multimedia
+	  library designed to provide low level access to audio,
+	  keyboard, mouse, joystick, 3D hardware via OpenGL, and
+	  2D video framebuffer.
+
+if SDL2
+
+menuconfig SDL2_AUDIO
+	bool
+	prompt "SDL2 Audio Support             "
+	default y
+	help
+	  Turn on to enable audio support in libsdl2
+
+if SDL2_AUDIO
+
+config SDL2_OSS
+	bool
+	prompt "SDL2 OSS Support"
+	help
+	  Open Sound System (OSS) is the first attempt in
+	  unifying the digital audio architecture for UNIX.
+	  OSS is a set of device drivers that provide a
+	  uniform API across all the major UNIX architectures.
+
+config SDL2_ALSA
+	bool
+	prompt "SDL2 ALSA Support"
+	default y
+	help
+	  The Advanced Linux Sound Architecture (ALSA)
+	  provides audio and MIDI functionality to the
+	  Linux operating system.
+
+config SDL2_PULSEAUDIO
+	bool
+	prompt "SDL2 Pulseaudio Support"
+	default y
+	help
+	  PulseAudio is a sound system for POSIX OSes, meaning that it
+	  is a proxy for your sound applications.
+
+endif
+
+menuconfig SDL2_VIDEO
+	bool
+	prompt "SDL2 Video Support             "
+	default y
+	help
+	  Turn on to enable video support in libsdl2
+
+if SDL2_VIDEO
+
+config SDL2_KMS
+	bool
+	prompt "KMS Support"
+	help
+	  kms video support
+
+config SDL2_XORG
+	bool
+	prompt "Xorg Support"
+	help
+	  X.Org provides an open source implementation of the
+	  X Window System.
+
+config SDL2_WAYLAND
+	bool
+	prompt "Wayland Support"
+	help
+	  Wayland Window System.
+
+config SDL2_OPENGL
+	bool
+	prompt "OpenGL Support"
+	depends on SDL2_XORG
+	help
+	  OpenGL is a multi-platform software interface to
+	  graphics hardware, supporting rendering and imaging
+	  operations.
+
+config SDL2_OPENGLES
+	bool
+	default SDL2_OPENGLES1 || SDL2_OPENGLES2
+
+config SDL2_OPENGLES1
+	bool
+	prompt "OpenGLES1 Support"
+	help
+	  OpenGL ES1 graphics support
+
+config SDL2_OPENGLES2
+	bool
+	prompt "OpenGLES2 Support"
+	help
+	  OpenGL ES2 graphics support
+
+endif
+
+config SDL2_TSLIB
+	bool
+	prompt "tslib Support"
+	help
+	  Turn on support for the touchscreen library 'tslib'
+
+config SDL2_UDEV
+	bool
+	prompt "udev Support"
+	help
+	  Turn on support for the udev library
+
+config SDL2_DBUS
+	bool
+	prompt "dbus Support"
+
+	help
+	  Turn on support for the dbus library
+
+endif

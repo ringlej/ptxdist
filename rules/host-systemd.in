@@ -9,3 +9,9 @@ config HOST_SYSTEMD
 	select HOST_COREUTILS
 	select HOST_UTIL_LINUX_NG
 	select HOST_LIBCAP
+
+config HOST_SYSTEMD_INSTALL_DEV
+	bool
+	default n
+	help
+	  Install host systemd development headers/libs

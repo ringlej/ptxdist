@@ -1,0 +1,44 @@
+From: Jaret Cantu <jaret.cantu@timesys.com>
+Date: Tue, 16 Jan 2018 12:16:16 -0500
+Subject: [PATCH] sdl-2.0.8: tests: configure opengl
+
+    Allow OpenGL to be configured manually
+
+    The autodetection uses the presence of a header file which
+    SDL2 always installs, regardless of whether or not OpenGL was
+    enabled.  This causes the SDL2 tests to use OpenGL when SDL2
+    itself was not configured for it.
+
+    Configure certain tests not to build, depending on the
+    configuration.  Tests which require OpenGL development files
+    will fail when no OpenGL is detected (which should be obvious,
+    but it apparently wasn't for whoever designed this).
+---
+ test/configure.in | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/test/configure.in b/test/configure.in
+index fd3f3022bc2e..8ae15159b8f8 100644
+--- a/test/configure.in
++++ b/test/configure.in
+@@ -115,6 +115,12 @@ if test x$have_x = xyes; then
+     fi
+ fi
+ 
++dnl Check to see if OpenGL support is desired
++AC_ARG_ENABLE(opengl,
++AC_HELP_STRING([--enable-opengl], [include OpenGL support [[default=yes]]]),
++              , enable_opengl=yes)
++
++if test x$enable_opengl = xyes; then
+ dnl Check for OpenGL
+ AC_MSG_CHECKING(for OpenGL support)
+ have_opengl=no
+@@ -125,6 +131,7 @@ AC_TRY_COMPILE([
+ have_opengl=yes
+ ])
+ AC_MSG_RESULT($have_opengl)
++fi
+ 
+ dnl Check for OpenGL ES
+ AC_MSG_CHECKING(for OpenGL ES support)

@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.8.2
-LIBGCRYPT_MD5		:= cfb0b5c79eab07686b6898160a407139
+LIBGCRYPT_VERSION	:= 1.8.3
+LIBGCRYPT_MD5		:= 3139c2402e844985a67fb288a930534d
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
-LIBGCRYPT_URL		:= http://artfiles.org/gnupg.org/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX) ftp://ftp.gnupg.org/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
+LIBGCRYPT_URL		:= https://www.gnupg.org/ftp/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
 LIBGCRYPT_SOURCE	:= $(SRCDIR)/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
 LIBGCRYPT_DIR		:= $(BUILDDIR)/$(LIBGCRYPT)
 LIBGCRYPT_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
@@ -76,7 +76,7 @@ LIBGCRYPT_AUTOCONF := \
 	--enable-noexecstack \
 	--disable-doc \
 	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
-	--with-capabilities
+	--without-capabilities
 
 # ----------------------------------------------------------------------------
 # Target-Install

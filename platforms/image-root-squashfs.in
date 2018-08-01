@@ -1,0 +1,72 @@
+## SECTION=image
+
+menuconfig IMAGE_ROOT_SQUASHFS
+	tristate
+	select HOST_GENIMAGE
+	select HOST_SQUASHFS_TOOLS
+	select IMAGE_ROOT_TGZ
+	prompt "Generate images/root.squashfs "
+	help
+	  Build squashfs images of the root filesystem. This image can be stored
+	  linearly into target's flash device at the start of the desired
+	  partition. You should erase the whole partition first if the image
+	  is smaller than partition's size. If not, garbage data in the remaining
+	  space could confuse the filesystem driver.
+
+if IMAGE_ROOT_SQUASHFS
+
+choice
+	prompt "squashfs compression mode"
+	help
+	  Select your prefered compression mode.
+
+	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_GZIP
+	bool "gzip"
+	help
+	  Select your prefered compression mode.
+
+	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZMA
+	bool "lzma"
+	help
+	  Select your prefered compression mode.
+
+	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZO
+	bool "lzo"
+	help
+	  Select your prefered compression mode.
+
+	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZ4
+	bool "lz4"
+	help
+	  Select your prefered compression mode.
+
+	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_XZ
+	bool "xz"
+	help
+	  Select your prefered compression mode.
+
+endchoice
+
+config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE
+        string
+        default "gzip" if IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_GZIP
+        default "lzma" if IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZMA
+        default "lzo" if IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZO
+        default "lz4" if IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZ4
+        default "xz" if IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_XZ
+
+config IMAGE_ROOT_SQUASHFS_BLOCK_SIZE
+	string
+	default "128k"
+	prompt "Block size"
+	help
+	  This allows the compression data block size to be selected, both "K" and "M"
+	  postfixes are supported.
+
+config IMAGE_ROOT_SQUASHFS_EXTRA_ARGS
+	string
+	prompt "extra arguments passed to mksquashfs"
+	help
+	  You can add extra arguments for mksquashfs here
+
+endif

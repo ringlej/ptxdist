@@ -4,24 +4,61 @@ if INITMETHOD_INITRAMFS || ALLYES
 
 menuconfig INITRAMFS_TOOLS
 	bool
-	prompt "initramfs-tools               "
+	prompt "initramfs-tools                 "
 	help
 	  Install initramfs skeleton framework
 
 if INITRAMFS_TOOLS
 
-config INITRAMFS_TOOLS_SCRIPTS_INIT
-	bool "install /scripts/init         "
+config INITRAMFS_TOOLS_SCRIPTS_INIT_TOP
+	bool "install /scripts/init-top/      "
+	default y
 	help
 	  FIXME
 
-config INITRAMFS_TOOLS_SCRIPTS_LOCAL
-	bool "install /scripts/local        "
+config INITRAMFS_TOOLS_SCRIPTS_INIT_PREMOUNT
+	bool "install /scripts/init-premount/ "
 	help
 	  FIXME
 
-config INITRAMFS_TOOLS_SCRIPTS_NFS
-	bool "install /scripts/nfs          "
+config INITRAMFS_TOOLS_SCRIPTS_INIT_BOTTOM
+	bool "install /scripts/init-bottom/   "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_LOCAL_TOP
+	bool "install /scripts/local-top/     "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_LOCAL_BLOCK
+	bool "install /scripts/local-block/   "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_LOCAL_PREMOUNT
+	bool "install /scripts/local-premount/"
+	default y
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_LOCAL_BOTTOM
+	bool "install /scripts/local-bottom/  "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_NFS_TOP
+	bool "install /scripts/nfs-top/       "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_NFS_PREMOUNT
+	bool "install /scripts/nfs-premount/  "
+	help
+	  FIXME
+
+config INITRAMFS_TOOLS_SCRIPTS_NFS_BOTTOM
+	bool "install /scripts/nfs-bottom/    "
 	help
 	  FIXME
 

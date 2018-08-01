@@ -399,6 +399,10 @@ different.
   conflicting files from multiple images. The created nfsroot directory is
   ``<platform-dir>/nfsroot/<image-name>``.
 
+``<PKG>_LABEL``
+  This is a tar label to put on an image. This is supported by
+  ``image-root-tgz`` and images created with the ``image-tgz`` template.
+
 .. _reference_macros:
 
 Rule File Macro Reference
@@ -929,7 +933,11 @@ its ``<platform-dir>/packages/foo-1.0.0`` at:
 * first link: ``<platform-dir>/packages/foo-1.0.0/usr/lib/libfoo1.so.0``
 * second link: ``<platform-dir>/packages/foo-1.0.0/usr/lib/libfoo1.so``
 
-To install this library and its corresponding links, the following line does the job:
+.. note:: The second link is only needed  for the linker at build-time to
+   resolve ``-lfoo1``. It is not needed at run-time so ``install_lib`` will
+   skip it.
+
+To install this library and its corresponding link, the following line does the job:
 
 .. code-block:: make
 

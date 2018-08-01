@@ -4,8 +4,8 @@ Subject: [PATCH] conf: add an option to output the dependency information
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/conf.c | 41 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ scripts/kconfig/conf.c | 47 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
 diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
 index 866369f10ff8..46c6e1bb5910 100644
@@ -27,6 +27,7 @@ index 866369f10ff8..46c6e1bb5910 100644
 +{
 +	int i;
 +	bool hit;
++	const char *filename;
 +	struct symbol *sym;
 +	struct property *prop;
 +
@@ -35,12 +36,17 @@ index 866369f10ff8..46c6e1bb5910 100644
 +			continue;
 +
 +		hit = 0;
++		filename = NULL;
 +		for (prop = sym->prop; prop; prop = prop->next) {
-+			if (prop->type == P_SELECT && expr_calc_value(prop->visible.expr)) {
++			if (prop->type == P_SELECT && expr_calc_value(prop->visible.expr))
 +				hit=1;
++			if (prop->type == P_SYMBOL)
++				filename = prop->menu->file->name;
++			if (filename && hit)
 +				break;
-+			}
 +		}
++		if (filename)
++			printf("SOURCE:%s:%s\n", sym->name, filename);
 +		if (!hit)
 +			continue;
 +		printf("DEP:%s", sym->name);

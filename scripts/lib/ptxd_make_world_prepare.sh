@@ -8,6 +8,31 @@
 # see the README file.
 #
 
+ptxd_make_world_cfghash()
+{
+    local -a hashes
+    local hash h
+
+    ptxd_make_world_init || return
+
+    hashes=( "${ptx_state_dir}/${pkg_label}."*".cfghash" )
+    hash="${ptx_state_dir}/${pkg_label}.${pkg_cfghash}.cfghash"
+
+    if [ ${hashes[0]} = "${ptx_state_dir}/${pkg_label}.*.cfghash" ]; then
+	hashes=()
+    fi
+    if [ ${#hashes[@]} -gt 1 ]; then
+	ptxd_warning "more than one cfghash found!"
+    fi
+    for h in "${hashes[@]}"; do
+	if [ "${h}" != "${hash}" ]; then
+	    echo -e "Configuration changed! Reconfiguring...\n"
+	fi
+	rm "${h}" || break
+    done
+}
+export -f ptxd_make_world_cfghash
+
 #
 # perform sanity check
 #

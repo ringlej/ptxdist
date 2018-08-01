@@ -207,6 +207,7 @@ Misc Actions
 ``local-src <pkg> [<directory>]``
   overwrite a package source with a locally provided directory containing
   the source code. Not specifying the directory will undo the change.
+  Relative paths are converted to absolute paths relative to the workspace.
 
 ``bash``
   enter a PTXdist environment bash shell.

@@ -1,0 +1,17 @@
+## SECTION=system_libraries
+
+menuconfig GIFLIB
+	tristate
+	prompt "giflib                        "
+	help
+	  GIFLIB is a package of portable tools and library routines for working with GIF images.
+
+if GIFLIB
+
+config GIFLIB_TOOLS
+	bool "install gif tools"
+	help
+	  giftext gif2rgb gifinto gifecho
+	  gifbuild giftool giffix gifclrmp
+
+endif # GIFLIB

@@ -19,9 +19,10 @@ PACKAGES-$(PTXCONF_PCSC_LITE) += pcsc-lite
 #
 PCSC_LITE_VERSION	:= 1.8.14
 PCSC_LITE_MD5		:= 439b2c8892f502e39e5b8997a7ae01ed
-PCSC_LITE		:= pcsc-lite-$(PCSC_LITE_VERSION)
 PCSC_LITE_SUFFIX	:= tar.bz2
-PCSC_LITE_URL		:= https://alioth.debian.org/frs/download.php/file/4138/$(PCSC_LITE).$(PCSC_LITE_SUFFIX)
+PCSC_LITE		:= pcsc-lite-$(PCSC_LITE_VERSION)
+PCSC_LITE_TARBALL	:= pcsc-lite_$(PCSC_LITE_VERSION).orig.$(PCSC_LITE_SUFFIX)
+PCSC_LITE_URL		:= http://snapshot.debian.org/archive/debian/20150805T155032Z/pool/main/p/pcsc-lite/$(PCSC_LITE_TARBALL)
 PCSC_LITE_SOURCE	:= $(SRCDIR)/$(PCSC_LITE).$(PCSC_LITE_SUFFIX)
 PCSC_LITE_DIR		:= $(BUILDDIR)/$(PCSC_LITE)
 PCSC_LITE_BUILD_OOT	:= YES

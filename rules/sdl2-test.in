@@ -1,0 +1,12 @@
+## SECTION=multimedia_sdl
+
+config SDL2_TEST
+	tristate
+	prompt "SDL2 test"
+	select SDL2
+	select SDL2_TTF
+	help
+	  Simple DirectMedia Layer is a cross-platform multimedia
+	  library designed to provide low level access to audio,
+	  keyboard, mouse, joystick, 3D hardware via OpenGL, and
+	  2D video framebuffer.

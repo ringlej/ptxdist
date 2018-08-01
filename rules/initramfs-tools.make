@@ -31,7 +31,7 @@ INITRAMFS_TOOLS_DIR	:= $(BUILDDIR)/$(INITRAMFS_TOOLS)
 
 $(STATEDIR)/initramfs-tools.prepare:
 	@$(call targetinfo)
-	@echo "DPKG_ARCH=$(PTXCONF_ARCH_STRING)" > $(INITRAMFS_TOOLS_DIR)/conf/arch.conf
+	@echo "DPKG_ARCH=$(call remove_quotes, $(PTXCONF_ARCH_STRING))" > $(INITRAMFS_TOOLS_DIR)/conf/arch.conf
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -64,31 +64,43 @@ $(STATEDIR)/initramfs-tools.targetinstall:
 	@$(call install_fixup, initramfs-tools,DESCRIPTION,missing)
 
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /init)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /conf/initramfs.conf)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /conf/arch.conf)
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/functions)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /conf/initramfs.conf)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /conf/arch.conf)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /scripts/functions)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /scripts/local)
+	@$(call install_alternative, initramfs-tools, 0, 0, 0644, /scripts/nfs)
 
-ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT
-	@cd $(INITRAMFS_TOOLS_DIR) && \
-		find scripts/init-* -type d | while read dir; do \
-			$(call install_alternative_tree, initramfs-tools, 0, 0, /$${dir}$(ptx/nl)); \
-		done
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT_TOP
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/init-top/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT_PREMOUNT
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/init-premount/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT_BOTTOM
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/init-bottom/)
 endif
 
-ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/local)
-	@cd $(INITRAMFS_TOOLS_DIR) && \
-		find scripts/local-* -type d | while read dir; do \
-			$(call install_alternative_tree, initramfs-tools, 0, 0, /$${dir}$(ptx/nl)); \
-		done
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL_TOP
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/local-top/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL_BLOCK
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/local-block/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL_PREMOUNT
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/local-premount/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL_BOTTOM
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/local-bottom/)
 endif
 
-ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_NFS
-	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/nfs)
-	@cd $(INITRAMFS_TOOLS_DIR) && \
-		find scripts/nfs-* -type d | while read dir; do \
-			$(call install_alternative_tree, initramfs-tools, 0, 0, /$${dir}$(ptx/nl)); \
-		done
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_NFS_TOP
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/nfs-top/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_NFS_PREMOUNT
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/nfs-premount/)
+endif
+ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_NFS_BOTTOM
+	@$(call install_alternative_tree, initramfs-tools, 0, 0, /scripts/nfs-bottom/)
 endif
 
 	@$(call install_finish, initramfs-tools)

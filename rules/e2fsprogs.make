@@ -17,16 +17,16 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.44.1
-E2FSPROGS_MD5		:= d6079b031682fa947ea0f96013379155
+E2FSPROGS_VERSION	:= 1.44.3
+E2FSPROGS_MD5		:= 6bd765f3cf8f15740cdf81e71e88f2a4
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
-E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
+E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/e2fsprogs/v$(E2FSPROGS_VERSION)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
 E2FSPROGS_SOURCE	:= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
 E2FSPROGS_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND MIT
 E2FSPROGS_LICENSE_FILES	:= \
-	file://NOTICE;md5=b48f21d765b875bd10400975d12c1ca2 \
+	file://NOTICE;md5=d50be0580c0b0a7fbc7a4830bbe6c12b \
 	file://lib/uuid/gen_uuid.c;startline=4;endline=31;md5=697cf5d1be275fa2588beaaf2bb481bd
 
 # ----------------------------------------------------------------------------

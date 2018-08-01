@@ -452,6 +452,7 @@ static void create_dep_output()
 {
 	int i;
 	bool hit;
+	const char *filename;
 	struct symbol *sym;
 	struct property *prop;
 
@@ -460,12 +461,17 @@ static void create_dep_output()
 			continue;
 
 		hit = 0;
+		filename = NULL;
 		for (prop = sym->prop; prop; prop = prop->next) {
-			if (prop->type == P_SELECT && expr_calc_value(prop->visible.expr)) {
+			if (prop->type == P_SELECT && expr_calc_value(prop->visible.expr))
 				hit=1;
+			if (prop->type == P_SYMBOL)
+				filename = prop->menu->file->name;
+			if (filename && hit)
 				break;
-			}
 		}
+		if (filename)
+			printf("SOURCE:%s:%s\n", sym->name, filename);
 		if (!hit)
 			continue;
 		printf("DEP:%s", sym->name);

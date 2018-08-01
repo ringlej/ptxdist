@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CRYPTSETUP) += cryptsetup
 #
 # Paths and names
 #
-CRYPTSETUP_VERSION	:= 2.0.0
-CRYPTSETUP_MD5		:= 0f44b7535b2cdabbf0c4adf523fbceeb
+CRYPTSETUP_VERSION	:= 2.0.3
+CRYPTSETUP_MD5		:= 9161132f69e97018b39ab592d7831f61
 CRYPTSETUP		:= cryptsetup-$(CRYPTSETUP_VERSION)
 CRYPTSETUP_SUFFIX	:= tar.gz
 CRYPTSETUP_URL		:= https://www.kernel.org/pub/linux/utils/cryptsetup/v$(basename $(CRYPTSETUP_VERSION))/$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)

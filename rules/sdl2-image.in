@@ -1,0 +1,52 @@
+## SECTION=multimedia_sdl
+
+menuconfig SDL2_IMAGE
+	tristate
+	select SDL2
+	prompt "SDL2 image                    "
+	select LIBPNG	if SDL2_IMAGE_PNG
+	select LIBJPEG	if SDL2_IMAGE_JPG
+	help
+	  This is a simple library to load images of various
+	  formats as SDL surfaces. This library currently supports
+	  BMP, PPM, PCX, GIF, JPEG, PNG, TIFF, and XPM formats.
+
+if SDL2_IMAGE
+
+config SDL2_IMAGE_BMP
+	bool "bmp support"
+
+config SDL2_IMAGE_GIF
+	bool "gif support"
+
+config SDL2_IMAGE_JPG
+	bool "jpeg support"
+
+config SDL2_IMAGE_LBM
+	bool "lbm support"
+
+config SDL2_IMAGE_PCX
+	bool "pcx support"
+
+config SDL2_IMAGE_PNG
+	bool "png support"
+
+config SDL2_IMAGE_PNM
+	bool "pnm support"
+
+config SDL2_IMAGE_TGA
+	bool "tga support"
+
+config SDL2_IMAGE_TIF
+	bool "tiff support"
+
+config SDL2_IMAGE_XCF
+	bool "xcf support"
+
+config SDL2_IMAGE_XPM
+	bool "xpm support"
+
+config SDL2_IMAGE_XV
+	bool "xv support"
+
+endif

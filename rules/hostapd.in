@@ -1,7 +1,7 @@
 ## SECTION=networking
 
 config HOSTAPD
-	bool
+	tristate
 	select OPENSSL
 	select LIBNL3
 	prompt "hostapd"

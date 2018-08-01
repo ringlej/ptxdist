@@ -27,7 +27,7 @@ config COREUTILS_ECHO
 	prompt "echo"
 	depends on !BUSYBOX_ECHO || ALLYES
 
-comment "BusyBox' echo is selected!"
+comment "busybox' echo is selected!"
 	depends on BUSYBOX_ECHO
 
 config COREUTILS_STAT
@@ -35,7 +35,7 @@ config COREUTILS_STAT
 	prompt "stat"
 	depends on !BUSYBOX_STAT || ALLYES
 
-comment "BusyBox' stat is selected!"
+comment "busybox' stat is selected!"
 	depends on BUSYBOX_STAT
 
 config COREUTILS_DATE
@@ -43,7 +43,7 @@ config COREUTILS_DATE
 	prompt "date"
 	depends on !BUSYBOX_DATE || ALLYES
 
-comment "BusyBox' date is selected!"
+comment "busybox' date is selected!"
 	depends on BUSYBOX_DATE
 
 config COREUTILS_HOSTID
@@ -51,7 +51,7 @@ config COREUTILS_HOSTID
 	prompt "hostid"
 	depends on !BUSYBOX_HOSTID || ALLYES
 
-comment "BusyBox' hostid is selected!"
+comment "busybox' hostid is selected!"
 	depends on BUSYBOX_HOSTID
 
 config COREUTILS_UNAME
@@ -59,7 +59,7 @@ config COREUTILS_UNAME
 	prompt "uname"
 	depends on !BUSYBOX_UNAME || ALLYES
 
-comment "BusyBox' uname is selected!"
+comment "busybox' uname is selected!"
 	depends on BUSYBOX_UNAME
 
 config COREUTILS_DIRCOLORS
@@ -73,7 +73,7 @@ config COREUTILS_SEQ
 	help
 	  print a sequence of numbers
 
-comment "BusyBox' seq is selected!"
+comment "busybox' seq is selected!"
 	depends on BUSYBOX_SEQ
 
 config COREUTILS_NOHUP
@@ -81,7 +81,7 @@ config COREUTILS_NOHUP
 	prompt "nohup"
 	depends on !BUSYBOX_NOHUP || ALLYES
 
-comment "BusyBox' nohup is selected!"
+comment "busybox' nohup is selected!"
 	depends on BUSYBOX_NOHUP
 
 config COREUTILS_GROUPS
@@ -89,7 +89,7 @@ config COREUTILS_GROUPS
 	prompt "groups"
 	depends on !BUSYBOX_GROUPS || ALLYES
 
-comment "BusyBox' groups is selected!"
+comment "busybox' groups is selected!"
 	depends on BUSYBOX_GROUPS
 
 config COREUTILS_SHA224SUM
@@ -273,7 +273,7 @@ config COREUTILS_USERS
 	prompt "users"
 	depends on !BUSYBOX_USERS || ALLYES
 
-comment "BusyBox' users is selected!"
+comment "busybox' users is selected!"
 	depends on BUSYBOX_USERS
 
 config COREUTILS_TOUCH
@@ -327,12 +327,18 @@ config COREUTILS_READLINK
 	help
 	  the readlink tool
 
+comment "busybox' readlink is selected!"
+	depends on BUSYBOX_READLINK
+
 config COREUTILS_REALPATH
 	bool
 	prompt "realpath"
 	depends on !BUSYBOX_REALPATH || ALLYES
 	help
 	  return the canonicalised absolute pathname
+
+comment "busybox' realpath is selected!"
+	depends on BUSYBOX_REALPATH
 
 config COREUTILS_TAC
 	bool
@@ -349,7 +355,7 @@ config COREUTILS_MD5SUM
 	help
 	  compute and check MD5 message digest
 
-comment "BusyBox' md5sum is selected!"
+comment "busybox' md5sum is selected!"
 	depends on BUSYBOX_MD5SUM
 
 config COREUTILS_DD
@@ -359,6 +365,9 @@ config COREUTILS_DD
 	help
 	  convert and copy a file
 
+comment "busybox' dd is selected!"
+	depends on BUSYBOX_DD
+
 config COREUTILS_DF
 	bool
 	prompt "df"
@@ -366,8 +375,8 @@ config COREUTILS_DF
 	help
 	  report file system disk space usage
 
-comment "BusyBox' dd is selected!"
-	depends on COREUTILS && BUSYBOX_DD
+comment "busybox' df is selected!"
+	depends on BUSYBOX_DF
 
 config COREUTILS_YES
 	bool
@@ -720,7 +729,7 @@ config COREUTILS_CP
 	help
 	  copy files and directories
 
-comment "BusyBox' cp is selected!"
+comment "busybox' cp is selected!"
 	depends on BUSYBOX_CP
 
 config COREUTILS_COMM

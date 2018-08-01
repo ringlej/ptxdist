@@ -149,6 +149,14 @@ $(STATEDIR)/classpath.targetinstall:
 	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavalangreflect)
 	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavanio)
 
+	@$(call install_link, classpath, libjavautil.so.0.0.0, /usr/lib/classpath/libjavautil.so)
+	@$(call install_link, classpath, libjavalangmanagement.so.0.0.0, /usr/lib/classpath/libjavalangmanagement.so)
+	@$(call install_link, classpath, libjavaio.so.0.0.0, /usr/lib/classpath/libjavaio.so)
+	@$(call install_link, classpath, libjavalang.so.0.0.0, /usr/lib/classpath/libjavalang.so)
+	@$(call install_link, classpath, libjavanet.so.0.0.0, /usr/lib/classpath/libjavanet.so)
+	@$(call install_link, classpath, libjavalangreflect.so.0.0.0, /usr/lib/classpath/libjavalangreflect.so)
+	@$(call install_link, classpath, libjavanio.so.0.0.0, /usr/lib/classpath/libjavanio.so)
+
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/security/classpath.security)
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/logging.properties)
 

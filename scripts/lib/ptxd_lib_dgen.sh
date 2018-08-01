@@ -38,9 +38,9 @@ ptxd_dgen_configdeps() {
 
     {
 	PTXDIST_DEP_TARGET="build" ptxd_kconfig_dep_all "${config[@]}" \
-	    | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_B_DEP_\1=\2~p"
+	    | sed -ne "s~\([A-Z]*\):\([^:]*\):\(.*\)~PTX_MAP_B_\1_\2=\3~p"
 	PTXDIST_DEP_TARGET="run" ptxd_kconfig_dep_all "${config[@]}" \
-	    | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_R_DEP_\1=\2~p"
+	    | sed -ne "s~\([A-Z]*\):\([^:]*\):\(.*\)~PTX_MAP_R_\1_\2=\3~p"
     } > "${PTX_MAP_DEPS}.tmp"
     check_pipe_status || return
 }
