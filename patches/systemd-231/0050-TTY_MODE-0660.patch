@@ -1,0 +1,22 @@
+From: Jon Ringle <jringle@gridpoint.com>
+Date: Thu, 17 Apr 2014 17:15:14 -0400
+Subject: [PATCH] TTY_MODE: 0660
+
+Signed-off-by: Jon Ringle <jringle@gridpoint.com>
+---
+ src/core/execute.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/core/execute.c b/src/core/execute.c
+index 21721dc24073..01772ba9e070 100644
+--- a/src/core/execute.c
++++ b/src/core/execute.c
+@@ -94,7 +94,7 @@
+ #define IDLE_TIMEOUT2_USEC (1*USEC_PER_SEC)
+ 
+ /* This assumes there is a 'tty' group */
+-#define TTY_MODE 0620
++#define TTY_MODE 0660
+ 
+ #define SNDBUF_SIZE (8*1024*1024)
+ 

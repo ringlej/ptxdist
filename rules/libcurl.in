@@ -97,4 +97,7 @@ config LIBCURL_CRYPTO_AUTH
 config LIBCURL_LIBSSH2
        bool "scp/sftp (via libssh2)"
 
+config LIBCURL_CA_BUNDLE
+       bool "install /etc/ssl/certs/ca-bundle.crt"
+
 endif

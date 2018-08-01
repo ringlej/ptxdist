@@ -129,7 +129,7 @@ fi
 GIT_EXTRA_ARGS="$GIT_EXTRA_ARGS --summary --stat=80"
 
 cat .ptxdist/series.0 > .ptxdist/series
-git format-patch -N $GIT_EXTRA_ARGS ${tagopt} -o .ptxdist/patches/ ${range} | sed -e 's,^.ptxdist/patches/,,' > .ptxdist/series.auto
+git format-patch -M -N $GIT_EXTRA_ARGS ${tagopt} -o .ptxdist/patches/ ${range} | sed -e 's,^.ptxdist/patches/,,' > .ptxdist/series.auto
 cat .ptxdist/series.auto >> .ptxdist/series
 cat .ptxdist/series.1 >> .ptxdist/series
 cat .ptxdist/series | _md5sum >> .ptxdist/series
