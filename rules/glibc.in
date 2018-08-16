@@ -103,7 +103,7 @@ config GLIBC_ANL
 	bool
 	prompt "Install libanl"
 	help
-		Install the libanl
+	  libanl is an asynchronous name lookup library, originating in Bind.
 
 
 config GLIBC_NSS_DNS
