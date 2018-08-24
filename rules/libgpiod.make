@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBGPIOD) += libgpiod
 #
 # Paths and names
 #
-LIBGPIOD_VERSION	:= 1.1
-LIBGPIOD_MD5		:= 788f5ee333e67b85bb7bd9a17a6e659f
+LIBGPIOD_VERSION	:= 1.1.1
+LIBGPIOD_MD5		:= 57874b94652c69f6ac902acce5cfd531
 LIBGPIOD		:= libgpiod-$(LIBGPIOD_VERSION)
 LIBGPIOD_SUFFIX		:= tar.gz
 LIBGPIOD_URL		:= https://www.kernel.org/pub/software/libs/libgpiod/$(LIBGPIOD).$(LIBGPIOD_SUFFIX)
