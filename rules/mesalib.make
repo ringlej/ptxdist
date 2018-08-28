@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 18.1.5
-MESALIB_MD5	:= 622bd23ca8daa83a62938bd33600a580
+MESALIB_VERSION	:= 18.1.7
+MESALIB_MD5	:= 17d8a7e7ecbe146a7dc439e8b6eb02e9
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -132,8 +132,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-llvm \
 	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
-	--with-gl-lib-name=GL \
-	--with-osmesa-lib-name=OSMesa \
 	--with-platforms=$(subst $(space),$(comma),$(MESALIBS_EGL_PLATFORMS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-searchpath=/usr/lib/dri \
