@@ -36,7 +36,11 @@ LIBGPIOD_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_LIBGPIOD_TOOLS)-tools \
 	--disable-tests \
 	--disable-bindings-cxx \
-	--disable-bindings-python
+	--$(call ptx/endis, PTXCONF_LIBGPIOD_PYTHON3)-bindings-python
+
+LIBGPIOD_CONF_ENV := \
+	$(CROSS_ENV) \
+	$(if $(PTXCONF_PYTHON3), ac_cv_path_PYTHON=$(CROSS_PYTHON3))
 
 # libgpiod requires kernel headers >= 4.8
 ifdef PTXCONF_KERNEL_HEADER
@@ -70,6 +74,10 @@ $(STATEDIR)/libgpiod.targetinstall:
 		$(call install_copy, libgpiod, 0, 0, 0755, -, \
 			/usr/bin/$$tool); \
 	done
+
+ifdef PTXCONF_LIBGPIOD_PYTHON3
+	@$(call install_glob, libgpiod, 0, 0, -, $(PYTHON3_SITEPACKAGES),, gpiod.*)
+endif
 
 	@$(call install_finish, libgpiod)
 
