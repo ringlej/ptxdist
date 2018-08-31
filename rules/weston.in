@@ -81,4 +81,10 @@ config WESTON_WCAP_TOOLS
 	help
 	  Weston CAPture Tools
 
+config WESTON_INSTALL_CONFIG
+	bool
+	prompt "install configuration file"
+	help
+	  Install the Weston configuration file into /etc/xdg/weston
+
 endif

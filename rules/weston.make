@@ -74,6 +74,22 @@ WESTON_CONF_OPT		:= \
 	--with-jpeg \
 	--without-webp
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/weston.install:
+	@$(call targetinfo)
+	@$(call world/install, WESTON)
+
+	@mkdir -p $(WESTON_PKGDIR)/etc/xdg/weston
+	@bindir="/usr/bin" \
+		abs_top_builddir="/usr/bin" \
+		libexecdir="/usr/libexec" \
+		ptxd_replace_magic "$(WESTON_DIR)/weston.ini.in" > \
+		"$(WESTON_PKGDIR)/etc/xdg/weston/weston.ini"
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,6 +157,9 @@ endif
 		wayland.svg, \
 		$(call install_copy, weston, 0, 0, 0644, -, /usr/share/weston/$(image))$(ptx/nl))
 
+ifdef PTXCONF_WESTON_INSTALL_CONFIG
+	@$(call install_alternative, weston, 0, 0, 0644, /etc/xdg/weston/weston.ini)
+endif
 
 	@$(call install_finish, weston)
 
