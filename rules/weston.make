@@ -65,9 +65,9 @@ WESTON_CONF_OPT		:= \
 	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-dbus \
 	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-systemd-login \
 	--disable-junit-xml \
-	--disable-ivi-shell \
+	--$(call ptx/endis, PTXCONF_WESTON_IVISHELL)-ivi-shell \
 	--$(call ptx/endis, PTXCONF_WESTON_WCAP_TOOLS)-wcap-tools \
-	--disable-demo-clients-install \
+	--$(call ptx/endis, PTXCONF_WESTON_IVISHELL_EXAMPLE)-demo-clients-install \
 	--disable-lcms \
 	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD)-systemd-notify \
 	--with-cairo=$(call ptx/ifdef, PTXCONF_WESTON_GL,glesv2,image) \
@@ -83,11 +83,18 @@ $(STATEDIR)/weston.install:
 	@$(call world/install, WESTON)
 
 	@mkdir -p $(WESTON_PKGDIR)/etc/xdg/weston
+ifndef PTXCONF_WESTON_IVISHELL_EXAMPLE
 	@bindir="/usr/bin" \
 		abs_top_builddir="/usr/bin" \
 		libexecdir="/usr/libexec" \
 		ptxd_replace_magic "$(WESTON_DIR)/weston.ini.in" > \
 		"$(WESTON_PKGDIR)/etc/xdg/weston/weston.ini"
+else
+	@bindir="/usr/bin" \
+		westondatadir="/usr/share/weston" \
+		ptxd_replace_magic "$(WESTON_DIR)/ivi-shell/weston.ini.in" > \
+		"$(WESTON_PKGDIR)/etc/xdg/weston/weston.ini"
+endif
 
 	@$(call touch)
 
@@ -135,6 +142,9 @@ ifdef PTXCONF_WESTON_GL
 endif
 	@$(call install_lib, weston, 0, 0, 0644, weston/desktop-shell)
 	@$(call install_lib, weston, 0, 0, 0644, weston/fullscreen-shell)
+ifdef PTXCONF_WESTON_IVISHELL
+	@$(call install_lib, weston, 0, 0, 0644, weston/ivi-shell)
+endif
 ifdef PTXCONF_WESTON_SYSTEMD
 	@$(call install_lib, weston, 0, 0, 0644, weston/systemd-notify)
 endif
@@ -159,6 +169,32 @@ endif
 
 ifdef PTXCONF_WESTON_INSTALL_CONFIG
 	@$(call install_alternative, weston, 0, 0, 0644, /etc/xdg/weston/weston.ini)
+endif
+
+ifdef PTXCONF_WESTON_IVISHELL_EXAMPLE
+	@$(call install_lib, weston, 0, 0, 0644, weston/hmi-controller)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-ivi-shell-user-interface)
+
+	@$(foreach image, \
+		background.png \
+		fullscreen.png \
+		home.png \
+		icon_ivi_clickdot.png \
+		icon_ivi_flower.png \
+		icon_ivi_simple-egl.png \
+		icon_ivi_simple-shm.png \
+		icon_ivi_smoke.png \
+		panel.png \
+		random.png \
+		sidebyside.png \
+		tiling.png, \
+		$(call install_copy, weston, 0, 0, 0644, -, /usr/share/weston/$(image))$(ptx/nl))
+
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-clickdot)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-flower)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-egl)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-shm)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-smoke)
 endif
 
 	@$(call install_finish, weston)

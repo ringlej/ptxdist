@@ -87,4 +87,18 @@ config WESTON_INSTALL_CONFIG
 	help
 	  Install the Weston configuration file into /etc/xdg/weston
 
+config WESTON_IVISHELL
+	bool
+	prompt "IVI-Shell"
+
+config WESTON_IVISHELL_EXAMPLE
+	bool
+	depends on WESTON_IVISHELL
+	select WESTON_INSTALL_CONFIG
+	prompt "install example IVI-Shell user interface"
+	help
+	  Install the example hmi-controller, the IVI-Shell user interface
+	  application, a few demo clients and the weston.ini configuration for
+	  the IVI-Shell.
+
 endif
