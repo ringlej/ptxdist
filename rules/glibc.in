@@ -178,6 +178,13 @@ config GLIBC_NSL
 	  nis(+)
 
 
+config GLIBC_GETENT
+	bool
+	prompt "Install getent"
+	help
+	  getent is a tool to get entries from Name Service Switch
+	  libraries
+
 config GLIBC_LDCONFIG
 	bool
 	prompt "Install ldconfig"
