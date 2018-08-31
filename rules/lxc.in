@@ -1,0 +1,36 @@
+## SECTION=system_libraries
+
+menuconfig LXC
+	bool
+	prompt "lxc                           "
+	select LIBSECCOMP
+	select GLIBC_GETENT
+	select BUSYBOX_FEATURE_SH_MATH	if LXC_SYSTEMD_UNIT
+	select SYSTEMD			if LXC_SYSTEMD_UNIT
+	select DNSMASQ			if LXC_SYSTEMD_UNIT
+	select IPTABLES			if LXC_SYSTEMD_UNIT
+	select IPTABLES_IPV4		if LXC_SYSTEMD_UNIT
+	select IPTABLES_IPV6		if LXC_SYSTEMD_UNIT
+	select IPTABLES_INSTALL_TOOLS	if LXC_SYSTEMD_UNIT
+	help
+	  LXC is a userspace interface for the Linux kernel containment
+	  features. Through a powerful API and simple tools, it lets
+	  Linux users easily create and manage system or application
+	  containers.
+
+if LXC
+
+config LXC_SYSTEMD_UNIT
+	bool
+	prompt "LXC systemd unit"
+	default INITMETHOD_SYSTEMD
+	help
+	  Turn on to install systemd unit for lxc
+
+config LXC_TEST_TOOLS
+	bool
+	prompt "LXC test applications"
+	help
+	  Turn on to enable building the lxc test applications
+
+endif
