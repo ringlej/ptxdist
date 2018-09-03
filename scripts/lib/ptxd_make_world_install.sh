@@ -221,11 +221,20 @@ ptxd_make_world_install_post() {
     ptxd_make_world_init &&
     (
 	if [ -n "${pkg_pkg_dir}" -a -d "${pkg_pkg_dir}" ]; then
-	    find "${pkg_pkg_dir}"/usr/{lib,share}/pkgconfig -name *.pc \
+	    find "${pkg_pkg_dir}"{,/usr}/{lib,share}/pkgconfig -name *.pc \
 		-printf "%f\n" 2>/dev/null | sed 's/\.pc$//'
 	fi
 	for dep in ${pkg_build_deps}; do
-	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
+	    case "${dep}" in
+		host-*|cross-*)
+		    if [ "${pkg_type}" = "target" ]; then
+			continue
+		    fi
+		    ;&
+		*)
+		    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null
+		    ;;
+	    esac
 	done
     ) | sort -u > "${ptx_state_dir}/${pkg_label}.pkgconfig"
     # do nothing if pkg_pkg_dir does not exist

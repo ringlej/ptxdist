@@ -191,7 +191,6 @@ export -f ptxd_get_lib_dir
 # out:
 # PTXDIST_CROSS_CPPFLAGS		CPPFLAGS for cross-compiled packages
 # PTXDIST_CROSS_LDFLAGS			LDFLAGS for cross-compiled packages
-# PTXDIST_CROSS_ENV_PKG_CONFIG		PKG_CONFIG_* environemnt for cross pkg-config
 #
 ptxd_init_cross_env() {
 
@@ -219,32 +218,6 @@ ptxd_init_cross_env() {
     export \
 	PTXDIST_CROSS_CPPFLAGS="${cppflags[*]}" \
 	PTXDIST_CROSS_LDFLAGS="${ldflags[*]}"
-
-
-
-    ######## PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH ########
-
-    #
-    # PKG_CONFIG_LIBDIR contains the default pkg-config search
-    # directories. Set it to the components of
-    # PTXDIST_PATH_SYSROOT_PREFIX.
-    #
-
-    # add <DIR>/lib/pkgconfig and <DIR>/share/pkgconfig
-    local -a pkg_libdir pkg_lib_system_path pkg_system_incpath
-    pkg_libdir=( "${prefix[@]/%//${lib_dir}/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
-    pkg_system_libpath=( "${pkg_libdir[@]/%//../../lib}" "${pkg_libdir[@]/%//../lib}" "/usr/lib" "/lib" )
-    pkg_system_incpath=( "${pkg_libdir[@]/%//../../include}" "${pkg_libdir[@]/%//../include}" "/usr/include" "/include" )
-
-    IFS=":"
-    local pc_path="PKG_CONFIG_PATH=''"
-    local pc_libdir="PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
-    local pc_sys_lib_path="PKG_CONFIG_SYSTEM_LIBRARY_PATH='${pkg_system_libpath[*]}'"
-    local pc_syc_inc_path="PKG_CONFIG_SYSTEM_INCLUDE_PATH='${pkg_system_incpath[*]}'"
-    IFS="${orig_IFS}"
-    local pc="PKG_CONFIG='$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)/bin/$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)pkg-config'"
-    PTXDIST_CROSS_ENV_PKG_CONFIG="${pc_path} ${pc_libdir} ${pc_sys_lib_path} ${pc_syc_inc_path} ${pc}"
-    export PTXDIST_CROSS_ENV_PKG_CONFIG
 }
 
 #
@@ -287,25 +260,6 @@ ptxd_init_host_env() {
     export \
 	PTXDIST_HOST_CPPFLAGS="${cppflags[*]}" \
 	PTXDIST_HOST_LDFLAGS="${ldflags[*]}"
-
-    ######## PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH ########
-
-    #
-    # PKG_CONFIG_LIBDIR contains the default pkg-config search
-    # directories.
-    #
-
-    # add <DIR>/lib/pkgconfig and <DIR>/share/pkgconfig
-    local -a pkg_libdir
-    pkg_libdir=( "${prefix[@]/%//${lib_dir}/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
-
-    IFS=":"
-    local pc_path="PKG_CONFIG_PATH=''"
-    local pc_libdir="PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
-    IFS="${orig_IFS}"
-    local pc="PKG_CONFIG='$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)/bin/pkg-config'"
-    PTXDIST_HOST_ENV_PKG_CONFIG="${pc_path} ${pc_libdir} ${pc}"
-    export PTXDIST_HOST_ENV_PKG_CONFIG
 }
 
 ptxd_init_devpkg()

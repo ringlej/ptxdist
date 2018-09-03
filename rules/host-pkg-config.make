@@ -39,4 +39,20 @@ HOST_PKG_CONFIG_CONF_OPT	:= \
 	--disable-host-tool \
 	--with-internal-glib
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+PKG_CONFIG_SCRIPT = \
+	$(shell ptxd_get_alternative scripts pkg-config-wrapper && echo $$ptxd_reply)
+
+$(STATEDIR)/host-pkg-config.install:
+	@$(call targetinfo)
+	@$(call world/install, HOST_PKG_CONFIG)
+	@mv $(PTXDIST_SYSROOT_HOST)/bin/pkg-config \
+		$(PTXDIST_SYSROOT_HOST)/bin/pkg-config.real
+	@ln -sv $(PKG_CONFIG_SCRIPT) \
+		$(PTXDIST_SYSROOT_HOST)/bin/pkg-config
+	@$(call touch)
+
 # vim: syntax=make

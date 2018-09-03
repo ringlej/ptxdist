@@ -340,12 +340,21 @@ ptxd_make_world_init() {
 	    ;;
 	*) ;;
     esac
-    local pkgconfig_whitelist
-    pkgconfig_whitelist="$(echo $(
-	for dep in ${pkg_build_deps}; do
-	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
-	done))"
-    pkg_env="PKGCONFIG_WHITELIST='${pkgconfig_whitelist}' PKGCONFIG_WHITELIST_SRC='${pkg_label}' ${pkg_env}"
+    local -a deps_host deps_target
+    local whitelist_host whitelist_target
+    for dep in ${pkg_build_deps}; do
+	case "${dep}" in
+	    host-*|cross-*)
+		deps_host[${#deps_host[@]}]="${ptx_state_dir}/${dep}.pkgconfig"
+		;;
+	    *)
+		deps_target[${#deps_target[@]}]="${ptx_state_dir}/${dep}.pkgconfig"
+		;;
+	esac
+    done
+    whitelist_host="$(echo $(cat "${deps_host[@]}" /dev/null 2>/dev/null))"
+    whitelist_target="$(echo $(cat "${deps_target[@]}" /dev/null 2>/dev/null))"
+    pkg_env="PKGCONFIG_WHITELIST_HOST='${whitelist_host}' PKGCONFIG_WHITELIST_TARGET='${whitelist_target}' PKGCONFIG_WHITELIST_SRC='${pkg_label}' ${pkg_env}"
 
     # DESTDIR
     if [[ "${pkg_conf_tool}" =~ "python" ]]; then

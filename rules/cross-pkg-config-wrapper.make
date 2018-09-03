@@ -18,10 +18,15 @@ CROSS_PKG_CONFIG_WRAPPER_LICENSE := ignore
 # Install
 # ----------------------------------------------------------------------------
 
+CROSS_PKG_CONFIG_WRAPPER_SCRIPT = \
+	$(shell ptxd_get_alternative scripts pkg-config-wrapper && echo $$ptxd_reply)
+
 $(STATEDIR)/cross-pkg-config-wrapper.install:
 	@$(call targetinfo)
-	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_SYSROOT_CROSS)/bin/pkg-config
-	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
+	@ln -sv $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
+		$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
+	@ln -sv $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
+		$(PTXCONF_SYSROOT_CROSS)/bin/pkg-config
 	@$(call touch)
 
 # vim: syntax=make
