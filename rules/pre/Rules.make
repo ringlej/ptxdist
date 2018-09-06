@@ -138,16 +138,6 @@ CROSS_ENV_PROGS := \
 
 CROSS_LIB_DIR   := $(shell ptxd_get_lib_dir)
 
-#
-# prepare to use pkg-config with wrapper which takes care of
-# $(PTXDIST_SYSROOT_TARGET). The wrapper's magic doesn't work when
-# pkg-config strips out /usr/lib and other system libs/cflags, so we
-# leave them in; the wrapper replaces them by proper
-# $(PTXDIST_SYSROOT_TARGET) correspondees.
-#
-CROSS_ENV_PKG_CONFIG := \
-	SYSROOT="$(PTXDIST_SYSROOT_TARGET)" \
-	$(PTXDIST_CROSS_ENV_PKG_CONFIG)
 
 #
 # The ac_cv_* variables are needed to tell configure scripts not to

@@ -230,7 +230,6 @@ ptxd_init_cross_env() {
 # out:
 # PTXDIST_HOST_CPPFLAGS			CPPFLAGS for host packages
 # PTXDIST_HOST_LDFLAGS			LDFLAGS for host packages
-# PTXDIST_HOST_ENV_PKG_CONFIG		PKG_CONFIG_* environemnt for host pkg-config
 #
 ptxd_init_host_env() {
     ######## CPPFLAGS, LDFLAGS ########

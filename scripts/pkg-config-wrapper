@@ -4,10 +4,12 @@ basedir="$(basename "$(dirname "$(dirname "$0")")")"
 
 declare -a prefix
 if [ "${basedir}" = "sysroot-cross" ]; then
-    prefix="$(dirname "$(dirname "$(dirname "$0")")")/sysroot-target/usr"
+    sysroot="$(dirname "$(dirname "$(dirname "$0")")")/sysroot-target"
+    prefix="${sysroot}/usr"
     whitelist="${PKGCONFIG_WHITELIST_TARGET}"
 elif [ "${basedir}" = "sysroot-host" ]; then
-    prefix="$(dirname "$(dirname "$0")")"
+    sysroot="$(dirname "$(dirname "$0")")"
+    prefix="${sysroot}"
     whitelist="${PKGCONFIG_WHITELIST_HOST}"
 else
     echo "$(basename ${0}): failed to determine prefix" >&2
@@ -58,7 +60,7 @@ if [ -n "${PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT}" -a \
     # remove sysroot for variables that return a path
     #
     args[${#args[@]}]="-e"
-    args[${#args[@]}]="s~^${SYSROOT}/~/~"
+    args[${#args[@]}]="s~^${sysroot}/~/~"
 fi
 
 check_pipe_status() {

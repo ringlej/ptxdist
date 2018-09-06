@@ -158,10 +158,6 @@ ptxd_make_world_init_compat() {
 
     # pkg_env
     pkg_env="SYSROOT='${pkg_sysroot_dir}' V=${PTXDIST_VERBOSE} VERBOSE=${PTXDIST_VERBOSE/0/}"
-    case "${pkg_type}" in
-	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} ${pkg_env}" ;;
-	host|cross) pkg_env="${PTXDIST_HOST_ENV_PKG_CONFIG} ${pkg_env}" ;;
-    esac
 }
 export -f ptxd_make_world_init_compat
 
