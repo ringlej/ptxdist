@@ -23,7 +23,8 @@ if LXC
 config LXC_SYSTEMD_UNIT
 	bool
 	prompt "LXC systemd unit"
-	default INITMETHOD_SYSTEMD
+	default y
+	depends on INITMETHOD_SYSTEMD
 	help
 	  Turn on to install systemd unit for lxc
 
