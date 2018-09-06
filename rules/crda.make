@@ -22,7 +22,6 @@ CRDA		:= crda-$(CRDA_VERSION)
 CRDA_SUFFIX	:= tar.xz
 CRDA_URL	:= $(call ptx/mirror, KERNEL, ../software/network/crda/$(CRDA).$(CRDA_SUFFIX))
 CRDA_SOURCE	:= $(SRCDIR)/$(CRDA).$(CRDA_SUFFIX)
-$(CRDA_SOURCE)	:= CRDA_SOURCE
 CRDA_DIR	:= $(BUILDDIR)/$(CRDA)
 CRDA_LICENSE	:= ISC AND copyleft-next-0.3.0
 CRDA_LICENSE_FILES := \
