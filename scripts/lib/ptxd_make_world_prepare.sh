@@ -197,7 +197,7 @@ ptxd_make_world_prepare() {
 	echo "Full ${pkg_conf_tool} logfile (${full_log}):"
 	echo
 	cat "${pkg_build_dir}/${full_log}"
-    fi >&${PTXDIST_FD_LOGFILE}
+    fi >&${PTXDIST_QUIET:=${PTXDIST_FD_LOGFILE}}
     return ${ret}
 }
 export -f ptxd_make_world_prepare
