@@ -5,6 +5,7 @@ menuconfig LXC
 	prompt "lxc                           "
 	select LIBSECCOMP
 	select GLIBC_GETENT
+	select LIBSELINUX		if GLOBAL_SELINUX
 	select BUSYBOX_FEATURE_SH_MATH	if LXC_SYSTEMD_UNIT
 	select SYSTEMD			if LXC_SYSTEMD_UNIT
 	select DNSMASQ			if LXC_SYSTEMD_UNIT
