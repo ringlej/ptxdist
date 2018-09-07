@@ -3,6 +3,7 @@
 menuconfig LXC
 	bool
 	prompt "lxc                           "
+	select LIBCAP
 	select LIBSECCOMP
 	select GLIBC_GETENT
 	select LIBSELINUX		if GLOBAL_SELINUX
