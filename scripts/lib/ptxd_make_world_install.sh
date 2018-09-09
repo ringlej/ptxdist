@@ -251,9 +251,8 @@ ptxd_make_world_install_post() {
 	fi
     done &&
 
-    # create directories first to avoid race contitions with -jeX
-    find "${pkg_pkg_dir}" -type d -printf "%P\0" | \
-	xargs -0 -I{} mkdir -p "${pkg_sysroot_dir}/{}" &&
+    # avoid writing to sysroot in parallel with -jeX/-jX
+    flock "${pkg_sysroot_dir}" \
     cp -dpr --link --remove-destination -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
     # host and cross packages
