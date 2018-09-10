@@ -29,7 +29,6 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-shared \
 	--disable-debug \
 	--disable-mangling \
-	--disable-texture-float \
 	--disable-asm \
 	--disable-selinux \
 	--enable-opengl \

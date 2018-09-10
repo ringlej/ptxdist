@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 18.1.7
-MESALIB_MD5	:= 17d8a7e7ecbe146a7dc439e8b6eb02e9
+MESALIB_VERSION	:= 18.2.0
+MESALIB_MD5	:= 88e1a7f31f259cec69bb76b3cb10c956
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -60,8 +60,8 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_ETNAVIV)	+= etnaviv
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IMX)	+= imx
 ifdef PTXCONF_ARCH_ARM
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_V3D)	+= v3d
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
-MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC5)	+= vc5
 endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
@@ -93,7 +93,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-debug \
 	--disable-profile \
 	--disable-sanitize \
-	--disable-texture-float \
 	--disable-asm \
 	--disable-selinux \
 	--disable-llvm-shared-libs \
@@ -126,6 +125,7 @@ MESALIB_CONF_OPT	:= \
 	--enable-driglx-direct \
 	--enable-glx-tls \
 	--disable-glx-read-only-text \
+	--disable-xlib-lease \
 	--disable-gallium-llvm \
 	--disable-llvm \
 	--disable-valgrind \
