@@ -23,9 +23,9 @@ CROSS_PKG_CONFIG_WRAPPER_SCRIPT = \
 
 $(STATEDIR)/cross-pkg-config-wrapper.install:
 	@$(call targetinfo)
-	@ln -sv $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
+	@ln -svf $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
 		$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
-	@ln -sv $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
+	@ln -svf $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
 		$(PTXCONF_SYSROOT_CROSS)/bin/pkg-config
 	@$(call touch)
 
