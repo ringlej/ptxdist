@@ -192,7 +192,9 @@ ifdef PTXCONF_WESTON_IVISHELL_EXAMPLE
 
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-clickdot)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-flower)
+ifdef PTXCONF_WESTON_GL
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-egl)
+endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-shm)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-smoke)
 endif
