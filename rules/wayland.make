@@ -71,6 +71,7 @@ $(STATEDIR)/wayland.targetinstall:
 	@$(call install_lib, wayland, 0, 0, 0644, libwayland-client)
 	@$(call install_lib, wayland, 0, 0, 0644, libwayland-server)
 	@$(call install_lib, wayland, 0, 0, 0644, libwayland-cursor)
+	@$(call install_lib, wayland, 0, 0, 0644, libwayland-egl)
 
 	@$(call install_finish, wayland)
 
