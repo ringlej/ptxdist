@@ -33,11 +33,15 @@ USB_MODESWITCH_LICENSE	:= GPL-2.0-only
 # autoconf
 #
 USB_MODESWITCH_CONF_TOOL	:= NO
-USB_MODESWITCH_MAKE_ENV		:= $(CROSS_ENV)
-USB_MODESWITCH_MAKE_OPT		:= $(CROSS_ENV_PROGS)
+USB_MODESWITCH_MAKE_ENV		:= \
+	$(CROSS_ENV) \
+	HOST_TCL=$(PTXCONF_SYSROOT_HOST)/usr/bin/jimsh
+USB_MODESWITCH_MAKE_OPT		:= \
+	$(CROSS_ENV_PROGS) \
+	shared
 USB_MODESWITCH_INSTALL_OPT	:= \
 	UDEVDIR=$(USB_MODESWITCH_PKGDIR)/usr/lib/udev \
-	install
+	install-shared
 
 # ----------------------------------------------------------------------------
 # Install
