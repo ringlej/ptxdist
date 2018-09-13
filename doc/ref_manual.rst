@@ -884,7 +884,7 @@ match ``<yglob>`` and do not match ``<nglob>`` are installed.
 
 Examples:
 
-Install all shared libraries found in ``$(PKGDIR)/usr/lib/foo`` except
+Install all shared libraries found in ``$(FOO_PKGDIR)/usr/lib/foo`` except
 libbar.so
 
 .. code-block:: make
