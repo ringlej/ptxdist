@@ -649,6 +649,7 @@ export -f ptxd_install_generic
 ptxd_install_find() {
     local src="${1%/}"
     local dst="${2%/}"
+    dst=${dst:-/}
     local usr="${3#-}"
     local grp="${4#-}"
     local strip="${5}"
