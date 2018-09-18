@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,18 +29,8 @@ XORG_FONT_TTF_ANDROID_LICENSE		:= Apache-2.0
 XORG_FONT_TTF_ANDROID_LICENSE_FILES	:= \
 	file://NOTICE;md5=9645f39e9db895a4aa6e02cb57294595
 
-ifdef PTXCONF_XORG_FONT_TTF_ANDROID
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-android.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-#
-# autoconf
-#
-XORG_FONT_TTF_ANDROID_CONF_TOOL	:= NO
+XORG_FONT_TTF_ANDROID_CONF_TOOL		:= NO
+XORG_FONT_TTF_ANDROID_FONTDIR		:= $(XORG_FONTDIR)/truetype/android
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -55,6 +46,7 @@ $(STATEDIR)/xorg-font-ttf-android.compile:
 
 $(STATEDIR)/xorg-font-ttf-android.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_ANDROID,*.ttf)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -63,16 +55,15 @@ $(STATEDIR)/xorg-font-ttf-android.install:
 
 $(STATEDIR)/xorg-font-ttf-android.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init, xorg-font-ttf-android)
+	@$(call install_fixup, xorg-font-ttf-android,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-ttf-android,SECTION,base)
+	@$(call install_fixup, xorg-font-ttf-android,AUTHOR,"Florian Bäuerle <florian.baeuerle@allegion.com>")
+	@$(call install_fixup, xorg-font-ttf-android,DESCRIPTION,missing)
 
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
+	@$(call install_tree, xorg-font-ttf-android, 0, 0, -, /usr)
 
-	@find $(XORG_FONT_TTF_ANDROID_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
+	@$(call install_finish, xorg-font-ttf-android)
 	@$(call touch)
 
 # vim: syntax=make
