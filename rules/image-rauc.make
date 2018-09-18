@@ -26,6 +26,8 @@ IMAGE_RAUC_CONFIG	:= rauc.config
 # Image
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_IMAGE_RAUC
+
 IMAGE_RAUC_KEY := $(call ptx/in-platformconfigdir, config/rauc/rauc.key.pem)
 IMAGE_RAUC_CERT := $(call ptx/in-platformconfigdir, config/rauc/rauc.cert.pem)
 
@@ -65,5 +67,7 @@ $(IMAGE_RAUC_CERT):
 	@echo
 	@echo
 	@exit 1
+
+endif
 
 # vim: syntax=make
