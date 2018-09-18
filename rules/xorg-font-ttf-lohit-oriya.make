@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -27,15 +28,8 @@ XORG_FONT_TTF_LOHIT_ORIYA_LICENSE	:= OFL-1.1
 XORG_FONT_TTF_LOHIT_ORIYA_LICENSE_FILES := \
 	file://OFL.txt;md5=e56537d157e0ee370c0d8468da33e245
 
-ifdef PTXCONF_XORG_FONT_TTF_LOHIT_ORIYA
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-lohit-oriya.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
 XORG_FONT_TTF_LOHIT_ORIYA_CONF_TOOL	:= NO
+XORG_FONT_TTF_LOHIT_ORIYA_FONTDIR	:= $(XORG_FONTDIR)/truetype/lohit-oriya
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -51,6 +45,10 @@ $(STATEDIR)/xorg-font-ttf-lohit-oriya.compile:
 
 $(STATEDIR)/xorg-font-ttf-lohit-oriya.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_LOHIT_ORIYA,*.ttf)
+	@mkdir -p $(XORG_FONT_TTF_LOHIT_ORIYA_PKGDIR)/etc/fonts/conf.d
+	@install -m 644 $(XORG_FONT_TTF_LOHIT_ORIYA_DIR)/66-lohit-oriya.conf \
+		$(XORG_FONT_TTF_LOHIT_ORIYA_PKGDIR)/etc/fonts/conf.d
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -59,25 +57,14 @@ $(STATEDIR)/xorg-font-ttf-lohit-oriya.install:
 
 $(STATEDIR)/xorg-font-ttf-lohit-oriya.targetinstall:
 	@$(call targetinfo)
-
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
-
-	@find $(XORG_FONT_TTF_LOHIT_ORIYA_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
 	@$(call install_init,  xorg-font-ttf-lohit-oriya)
 	@$(call install_fixup, xorg-font-ttf-lohit-oriya,PRIORITY,optional)
 	@$(call install_fixup, xorg-font-ttf-lohit-oriya,SECTION,base)
 	@$(call install_fixup, xorg-font-ttf-lohit-oriya,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, xorg-font-ttf-lohit-oriya,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-font-ttf-lohit-oriya, 0, 0, 644, \
-		$(XORG_FONT_TTF_LOHIT_ORIYA_DIR)/66-lohit-oriya.conf, \
-		/etc/fonts/conf.d/66-lohit-oriya.conf)
+	@$(call install_tree, xorg-font-ttf-lohit-oriya, 0, 0, -, /etc)
+	@$(call install_tree, xorg-font-ttf-lohit-oriya, 0, 0, -, /usr)
 
 	@$(call install_finish, xorg-font-ttf-lohit-oriya)
 	@$(call touch)
