@@ -670,7 +670,7 @@ ptxd_print_path() {
     fi
 
     local path out
-    for path in ${PTXDIST_PATH//:/ }; do
+    for path in ${PTXDIST_WORKSPACE} ${PTXDIST_TOPDIR}; do
 	path="${path%/*}/"
 	out="${1/#${path}}"
 	if [ "${out}" != "${1}" ]; then
