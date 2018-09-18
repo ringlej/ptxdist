@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
-# 		2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
