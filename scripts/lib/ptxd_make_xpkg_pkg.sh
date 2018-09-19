@@ -581,13 +581,13 @@ install replace figlet:
         local escapemode="$2"
         figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
         case "$escapemode" in
-            # a lot of leaning toothpicks because we need to escape a literal
-            # '\' with '\\' on multiple levels:
-            # - one level for the string inside awk: \\\\\\\\\\\\\\\\ -> \\\\\\\\
-            # - one level for the shell string after sed -e:          -> \\\\
-            # - one level for the s expression inside sed:            -> \\
-            # - and finally, one level for /etc/issue:                -> \
-            etcissue)	awk '{ gsub("\\\\", "\\\\\\\\\\\\\\\\"); print }' ;;
+            # /etc/issue needs each backslash quoted by another backslash. As
+            # the string is interpreted by the shell once more below, another
+            # level of quoting is needed such that every \ in the output of
+            # figlet needs to be replaced by \\\\. As a \ in sed needs to be
+            # quoted, too, this results in eight backslashes in the replacement
+            # string.
+            etcissue)	sed 's,\\,\\\\\\\\,';;
             *)		;;
         esac | \
         awk '{ if ($0 !~ "^ *$") printf("%s\\n", $0) }'  # newlines for sed
