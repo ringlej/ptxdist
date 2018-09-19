@@ -30,6 +30,9 @@ BAREBOX_@PACKAGE@_SOURCE	:= $(SRCDIR)/$(BAREBOX_@PACKAGE@).$(BAREBOX_@PACKAGE@_S
 # Prepare
 # ----------------------------------------------------------------------------
 
+# use host pkg-config for host tools
+BAREBOX_@PACKAGE@_PATH := PATH=$(HOST_PATH)
+
 BAREBOX_@PACKAGE@_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
