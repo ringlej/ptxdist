@@ -99,7 +99,7 @@ function dump_file(src, dst) {
 # out:
 # PKG_to_pkg		array that maps from upper case to lower case pkg name
 # pkg_to_PKG		array that maps from lower case to upper case pkg name
-# PKG_to_filename	array that maps from upper case pkg name to filename
+# PKG_to_makefile	array that maps from upper case pkg name to makefile name
 #
 $1 ~ /^[A-Z_]*PACKAGES-/ {
 	this_PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
@@ -114,12 +114,11 @@ $1 ~ /^[A-Z_]*PACKAGES-/ {
 		exit 1
 	}
 
-	PKG_to_makefile[this_PKG] = FILENAME;
 	PKG_to_pkg[this_PKG] = this_pkg;
 	pkg_to_PKG[this_pkg] = this_PKG;
 	# make sure each file is only included once
 	if (FILENAME) {
-		PKG_to_filename[this_PKG] = FILENAME;
+		PKG_to_makefile[this_PKG] = FILENAME;
 		FILENAME = "";
 	}
 
@@ -221,12 +220,17 @@ $1 ~ /^PTXCONF_/ {
 	next;
 }
 
-function write_include(this_PKG) {
+function write_vars_all(this_PKG) {
 	#
 	# include this rules file
 	#
-	if (this_PKG in PKG_to_filename)
-		print "include " PKG_to_filename[this_PKG]		> DGEN_RULESFILES_MAKE;
+	if (this_PKG in PKG_to_makefile) {
+		print "include " PKG_to_makefile[this_PKG]		> DGEN_RULESFILES_MAKE;
+		print this_PKG "_MAKEFILE = " PKG_to_makefile[this_PKG]> DGEN_DEPS_PRE;
+	}
+	if (this_PKG in PKG_to_infile) {
+		print this_PKG "_INFILE = " PKG_to_infile[this_PKG]	> DGEN_DEPS_PRE;
+	}
 }
 
 function write_maps(this_PKG, dep_type) {
@@ -477,7 +481,7 @@ END {
 		this_pkg = PKG_to_pkg[this_PKG];
 		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_pkg)
 
-		write_include(this_PKG)
+		write_vars_all(this_PKG)
 		write_maps(this_PKG, "R")
 		write_maps(this_PKG, "B")
 		if (this_pkg_prefix != "image-") {
