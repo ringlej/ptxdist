@@ -195,6 +195,12 @@ Misc Actions
   run the cross gdb from the toolchain. The sysroot and other search paths
   are configured to ensure that gdb finds all available debug files.
 
+``package-info <pkg>``
+  show some basic information about the package. This includes the version,
+  URL and various paths and directories. The paths for menu and rule file
+  are shown as well, to this can be used to verify that the correct version
+  of these files are used.
+
 ``print <var>``
   print the contents of a variable. It will first look for a shell variable
   with the given name. If none exists, it will run make and look if a

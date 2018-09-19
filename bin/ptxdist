@@ -972,6 +972,7 @@ Misc:
 				use 'newpackage help' for a longer description
   nfsroot			run a userspace NFS server and export the nfsroot
   gdb				run cross gdb with configured sysroot etc.
+  package-info <package>	print some basic information about the package
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   list-packages			print a list of all selected packages
@@ -1943,6 +1944,15 @@ EOF
 		nfsroot)
 			check_premake_compiler &&
 			ptxd_make_log ptxd_make_nfsd
+			exit
+			;;
+		package-info)
+			declare -a pkgs
+
+			check_config &&
+			check_deps &&
+			pkgs=( "${@/#/${STATEDIR}/}" ) &&
+			ptxd_make_log "${pkgs[@]/%/.${cmd}}"
 			exit
 			;;
 		print)
