@@ -740,20 +740,36 @@ ptxd_debug(){
 
 ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 
+ptxd_bailout_impl() {
+	echo
+	while [ $# -gt 0 ]; do
+		if [[ $# -eq 1 && "$1" =~ ^[0-9]+$ ]]; then
+			break
+		fi
+		echo -e "${PTXDIST_LOG_PROMPT}error: ${1}"
+		shift
+	done
+	echo
+	return ${1:-1}
+}
+export -f ptxd_bailout_impl
+
 #
 # print out error message and exit with status 1
 #
-# $1: error message
-# $2: optional exit value (1 is default)
+# $*: error messages, one line per argument
+#
+# If the last argument is a number, then it is used as exit value
+# (1 is default)
 #
 # ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_bailout() {
-	echo -e "\n${PTXDIST_LOG_PROMPT}error: $1\n" >&2
 	if [ -n "${PTXDIST_FD_STDERR}" -a -n "${PTXDIST_QUIET}" ]; then
-		echo -e "\n${PTXDIST_LOG_PROMPT}error: $1\n" >&${PTXDIST_FD_STDERR}
+		ptxd_bailout_impl "${@}"  >&${PTXDIST_FD_STDERR}
 	fi
-	exit ${2:-1}
+	ptxd_bailout_impl "${@}" >&2
+	exit
 }
 export -f ptxd_bailout
 
