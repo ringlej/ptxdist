@@ -744,7 +744,8 @@ file in the following order:
 * project's directory ``projectroot/etc/foo``
 * platform's directory ``<platform-src>/projectroot/etc/foo``
 * ptxdist's directory ``projectroot/etc/foo``
-* project's directory ``$(FOO_DIR)/etc/foo``
+* package's directory ``$(FOO_PKGDIR)/etc/foo``
+* package's directory ``$(FOO_DIR)/etc/foo``
 
 The generic rules are looking like the following:
 
@@ -754,6 +755,7 @@ The generic rules are looking like the following:
 * ``$(PTXDIST_WORKSPACE)/projectroot/etc/foo``
 * ``$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/etc/foo``
 * ``$(PTXDIST_TOPDIR)/projectroot/etc/foo``
+* ``$(FOO_PKGDIR)/etc/foo``
 * ``$(FOO_DIR)/etc/foo``
 
 Note: You can get the current values for the listed variables above via running
