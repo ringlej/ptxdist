@@ -26,6 +26,8 @@ Global Variables
 ``PTXDIST_TOPDIR``
   Points always to the installation directory of PTXdist.
 
+.. _ptxdist_workspace:
+
 ``PTXDIST_WORKSPACE``
   Everything that references ``PTXDIST_WORKSPACE`` will use the active
   projects’s folder.
@@ -91,6 +93,8 @@ Other useful variables:
   ``PTXDIST_PLATFORMSUFFIX`` expands to the name of the currently selected
   platform, but with a leading dot. This is used in various files PTXdist
   should search for.
+
+.. _ptxdist_platformconfigdir:
 
 ``PTXDIST_PLATFORMCONFIGDIR``
   ``PTXDIST_PLATFORMCONFIGDIR`` points to the directory tree of the
@@ -1104,6 +1108,59 @@ Depending on the state of FOO_VARIABLE this line results into
 
  FOO_CONF_OPT += --with-something=/usr (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --with-something=none (if FOO_VARIABLE is unset)
+
+ptx/get-alternative
+~~~~~~~~~~~~~~~~~~~
+
+This macro can be used to find files or directories in the BSP and PTXdist.
+There are two arguments, **prefix** and **file**. The search path is very
+similar to :ref:`install_alternative`. The first existing location of the
+following paths is returned:
+
+* ``$(PTXDIST_WORKSPACE)/$(prefix)$(PTXDIST_PLATFORMSUFFIX)/$(file)``
+* ``$(PTXDIST_WORKSPACE)/$(prefix)/$(file)$(PTXDIST_PLATFORMSUFFIX)``
+* ``$(PTXDIST_PLATFORMCONFIGDIR)/$(prefix)/$(file)$(PTXDIST_PLATFORMSUFFIX)``
+* ``$(PTXDIST_WORKSPACE)/$(prefix)/$(file)``
+* ``$(PTXDIST_PLATFORMCONFIGDIR)/$(prefix)/$(file)``
+* ``$(PTXDIST_TOPDIR)/$(prefix)/$(file)``
+
+
+.. _in_path:
+
+ptx/in-path
+~~~~~~~~~~~
+
+This macro can be used to find files or directories in the BSP and PTXdist.
+There are two arguments, **path variable** and **file**. The **path
+variable** must be a variable name that is available in a shell called by
+**make**. The variable must contain a ``:`` separated list of directories.
+The **file** will be searched in these directories and the first existing
+path is returned. PTXdist defines several variables that can be used here.
+The directories are in the usual search order.
+
+-  **PTXDIST_PATH_LAYERS** contains all layers from **PTXDIST_WORKSPACE**
+   to **PTXDIST_TOPDIR**
+
+- **PTXDIST_PATH** is like **PTXDIST_PATH_LAYERS** but also contains the
+  **PTXDIST_PLATFORMCONFIGDIR** for each layer.
+
+- **PTXDIST_PATH_SCRIPTS**, **PTXDIST_PATH_RULES** and
+  **PTXDIST_PATH_PLATFORMS** are like **PTXDIST_PATH** with the extra
+  ``scripts/``, ``rules/`` and ``platforms/`` subdirectory respectively.
+
+Hint: use the :ref:`print<command_print>` command to get the exact list of
+directories for each of these variables.
+
+.. _in_platformconfigdir:
+
+ptx/in-platformconfigdir
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This macro is only useful with multiple layers. It has one argument
+**file**. The **file** is searched for in the platform directory in
+all layers in the usual search order. It returns the first existing file.
+If none exists it returns ``$(PTXDIST_PLATFORMCONFIGDIR)/$(file)``. This
+avoids unexpected errors due to empty variables if a file is missing.
 
 .. _rulefile:
 

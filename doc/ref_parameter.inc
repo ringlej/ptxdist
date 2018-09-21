@@ -201,6 +201,8 @@ Misc Actions
   are shown as well, to this can be used to verify that the correct version
   of these files are used.
 
+.. _command_print:
+
 ``print <var>``
   print the contents of a variable. It will first look for a shell variable
   with the given name. If none exists, it will run make and look if a
