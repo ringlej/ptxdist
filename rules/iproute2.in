@@ -133,10 +133,14 @@ config IPROUTE2_SS
 
 config IPROUTE2_TC
 	bool
+	depends on !BUSYBOX_TC || ALLYES
 	prompt "tc"
 	help
 	  tc is used to configure Traffic Control in the Linux Kernel, which
 	  consists of Shaping, Scheduling, Policing and Dropping.
 	  Processing of traffic is controlled by qdiscs, classes and filters.
+
+comment "busybox' tc is selected"
+	depends on BUSYBOX_TC
 
 endif
