@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Shells"
@@ -113,6 +113,22 @@ config BUSYBOX_ASH_BASH_COMPAT
 	bool "bash-compatible extensions"
 	default y
 	depends on BUSYBOX_ASH || BUSYBOX_SH_IS_ASH || BUSYBOX_BASH_IS_ASH
+
+config BUSYBOX_ASH_BASH_SOURCE_CURDIR
+	bool "'source' and '.' builtins search current directory after $PATH"
+	default n   # do not encourage non-standard behavior
+	depends on BUSYBOX_ASH_BASH_COMPAT
+	help
+	This is not compliant with standards. Avoid if possible.
+
+config BUSYBOX_ASH_BASH_NOT_FOUND_HOOK
+	bool "command_not_found_handle hook support"
+	default y
+	depends on BUSYBOX_ASH_BASH_COMPAT
+	help
+	Enable support for the 'command_not_found_handle' hook function,
+	from GNU bash, which allows for alternative command not found
+	handling.
 
 config BUSYBOX_ASH_JOB_CONTROL
 	bool "Job control"
@@ -265,6 +281,18 @@ config BUSYBOX_HUSH_BRACE_EXPANSION
 	help
 	Enable {abc,def} extension.
 
+config BUSYBOX_HUSH_LINENO_VAR
+	bool "$LINENO variable"
+	default y
+	depends on BUSYBOX_HUSH_BASH_COMPAT
+
+config BUSYBOX_HUSH_BASH_SOURCE_CURDIR
+	bool "'source' and '.' builtins search current directory after $PATH"
+	default n   # do not encourage non-standard behavior
+	depends on BUSYBOX_HUSH_BASH_COMPAT
+	help
+	This is not compliant with standards. Avoid if possible.
+
 config BUSYBOX_HUSH_INTERACTIVE
 	bool "Interactive mode"
 	default y
@@ -391,6 +419,11 @@ config BUSYBOX_HUSH_KILL
 
 config BUSYBOX_HUSH_WAIT
 	bool "wait builtin"
+	default y
+	depends on BUSYBOX_HUSH || BUSYBOX_SH_IS_HUSH || BUSYBOX_BASH_IS_HUSH
+
+config BUSYBOX_HUSH_COMMAND
+	bool "command builtin"
 	default y
 	depends on BUSYBOX_HUSH || BUSYBOX_SH_IS_HUSH || BUSYBOX_BASH_IS_HUSH
 

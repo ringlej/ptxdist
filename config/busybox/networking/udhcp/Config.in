@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 config BUSYBOX_UDHCPD
@@ -95,7 +95,7 @@ config BUSYBOX_FEATURE_UDHCPC_SANITIZEOPT
 config BUSYBOX_UDHCPC_DEFAULT_SCRIPT
 	string "Absolute path to config script"
 	default "/usr/share/udhcpc/default.script"
-	depends on BUSYBOX_UDHCPC
+	depends on BUSYBOX_UDHCPC || BUSYBOX_UDHCPC6
 	help
 	This script is called after udhcpc receives an answer. See
 	examples/udhcp for a working example. Normally it is safe
@@ -132,6 +132,14 @@ config BUSYBOX_FEATURE_UDHCPC6_RFC4833
 	help
 	You can request POSIX timezone with "-O tz" and timezone name
 	with "-O timezone".
+
+config BUSYBOX_FEATURE_UDHCPC6_RFC5970
+	bool "Support RFC 5970 (Network Boot)"
+	default y
+	depends on BUSYBOX_UDHCPC6
+	help
+	You can request bootfile-url with "-O bootfile_url" and
+	bootfile-params with "-O bootfile_params".
 
 comment "Common options for DHCP applets"
         depends on BUSYBOX_UDHCPD || BUSYBOX_UDHCPC || BUSYBOX_UDHCPC6 || BUSYBOX_DHCPRELAY

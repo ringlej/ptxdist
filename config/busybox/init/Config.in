@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Init Utilities"
@@ -61,6 +61,17 @@ config BUSYBOX_REBOOT
 	default y
 	help
 	Stop all processes and reboot the system.
+
+config BUSYBOX_FEATURE_WAIT_FOR_INIT
+	bool "Before signaling init, make sure it is ready for it"
+	default y
+	depends on BUSYBOX_HALT || BUSYBOX_POWEROFF || BUSYBOX_REBOOT
+	help
+	In rare cases, poweroff may be commanded by firmware to OS
+	even before init process exists. On Linux, this spawns
+	"/sbin/poweroff" very early. This option adds code
+	which checks that init is ready to receive poweroff
+	commands. Code size increase of ~80 bytes.
 
 config BUSYBOX_FEATURE_CALL_TELINIT
 	bool "Call telinit on shutdown and reboot"

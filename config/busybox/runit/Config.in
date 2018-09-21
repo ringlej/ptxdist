@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Runit Utilities"
@@ -69,7 +69,7 @@ config BUSYBOX_SV
 config BUSYBOX_SV_DEFAULT_SERVICE_DIR
 	string "Default directory for services"
 	default "/var/service"
-	depends on BUSYBOX_SV
+	depends on BUSYBOX_SV || BUSYBOX_SVC || BUSYBOX_SVOK
 	help
 	Default directory for services.
 	Defaults to "/var/service"
@@ -79,7 +79,14 @@ config BUSYBOX_SVC
 	default y
 	help
 	svc controls the state of services monitored by the runsv supervisor.
-	It is comaptible with daemontools command with the same name.
+	It is compatible with daemontools command with the same name.
+
+config BUSYBOX_SVOK
+	bool "svok"
+	default y
+	help
+	svok checks whether runsv supervisor is running.
+	It is compatible with daemontools command with the same name.
 config BUSYBOX_SVLOGD
 	bool "svlogd (15 kb)"
 	default y

@@ -2,10 +2,9 @@
 #tag:base --start-number 1
 #tag:upstream-stable --start-number 1
 #tag:upstream-master --start-number 100
-0100-build-system-fix-parallel-building-issue.patch
 #tag:ptx --start-number 200
 0200-reactivate-check-for-tty.patch
 0201-Fix-the-format-warning-when-building-applets-usage_p.patch
 0202-build-system-only-pass-real-libs-to-SELINUX_LIBS.patch
 0203-scripts-trylink-honour-SKIP_STRIP-and-don-t-strip-if.patch
-# fe7bceb52030b92043493f4992f8ff7f  - git-ptx-patches magic
+# 0036b420b1a49106a872780e90251289  - git-ptx-patches magic

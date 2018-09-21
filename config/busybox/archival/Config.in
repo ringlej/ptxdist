@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Archival Utilities"
@@ -150,6 +150,23 @@ config BUSYBOX_BZIP2
 
 	Unless you have a specific application which requires bzip2, you
 	should probably say N here.
+
+config BUSYBOX_BZIP2_SMALL
+	int "Trade bytes for speed (0:fast, 9:small)"
+	default 8  # all "fast or small" options default to small
+	range 0 9
+	depends on BUSYBOX_BZIP2
+	help
+	Trade code size versus speed.
+	Approximate values with gcc-6.3.0 "bzip -9" compressing
+	linux-4.15.tar were:
+	value         time (sec)  code size (386)
+	9 (smallest)       70.11             7687
+	8                  67.93             8091
+	7                  67.88             8405
+	6                  67.78             8624
+	5                  67.05             9427
+	4-0 (fastest)      64.14            12083
 
 config BUSYBOX_FEATURE_BZIP2_DECOMPRESS
 	bool "Enable decompression"
