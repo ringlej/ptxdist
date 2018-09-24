@@ -1634,7 +1634,7 @@ workspace of the PTXdist project. Any ``selected_*`` links and the platform
 build directory are created here. The layer below is defined by the
 subdirectory or symlink named ``base/``. More can be stacked the same
 way, so ``base/base/`` is the third layer and so on.
-In may ways, PTXdist itself can be considered as the bottom layer. This is
+In many ways, PTXdist itself can be considered as the bottom layer. This is
 either implicit or explicit with on last ``base/`` symlink.
 
 A project can overwrite files provided by PTXdist in many different ways,
