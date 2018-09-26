@@ -62,11 +62,14 @@ $(STATEDIR)/rauc.targetinstall:
 	@$(call install_fixup, rauc,DESCRIPTION,missing)
 
 	@$(call install_copy, rauc, 0, 0, 0755, -, /usr/bin/rauc)
+
+ifdef PTXCONFIG_RAUC_CONFIGURATION
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/system.conf)
 	@$(call install_replace, rauc, /etc/rauc/system.conf, \
 		@RAUC_BUNDLE_COMPATIBLE@, \
 		$(PTXCONF_RAUC_COMPATIBLE))
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/ca.cert.pem)
+endif
 
 	@$(call install_copy, rauc, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system-services/de.pengutronix.rauc.service)

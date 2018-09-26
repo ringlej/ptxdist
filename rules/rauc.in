@@ -22,6 +22,15 @@ config RAUC_JSON
 	bool
 	prompt "JSON support"
 
+config RAUC_CONFIGURATION
+	prompt "Install RAUC configuration in /etc/rauc"
+	bool
+	default y
+	help
+	  Install a default RAUC configuration that works for most projects.
+
+if RAUC_CONFIGURATION
+
 config RAUC_COMPATIBLE
 	prompt "RAUC Compatible"
 	string
@@ -39,5 +48,7 @@ config RAUC_BUNDLE_VERSION
 	default "${PTXDIST_BSP_AUTOVERSION}"
 	help
 	  Overwrite the bundle version if needed.
+
+endif
 
 endif
