@@ -42,7 +42,7 @@ ptxd_make_kconfig_sync() {
     fi &&
     ptxd_normalize_config &&
     ptxd_kconfig_sync_config update "${pkg_build_dir}/.config" \
-	"${relative_file_dotconfig}" "${relative_ref_file_dotconfig}"
+	"${relative_file_dotconfig}" "${file_dotconfig}" "${relative_ref_file_dotconfig}"
 }
 export -f ptxd_make_kconfig_sync
 

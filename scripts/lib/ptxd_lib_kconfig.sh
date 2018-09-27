@@ -414,7 +414,8 @@ ptxd_kconfig_sync_config() {
     local mode="${1}"
     local target_config="${2}"
     local relative_config="${3}"
-    local relative_ref_config="${4}"
+    local absolute_config="${4}"
+    local relative_ref_config="${5}"
     local last_config base_config
 
     ptxd_kconfig_find_config "${mode}" "${relative_config}" "${relative_ref_config}" &&
@@ -433,6 +434,10 @@ ptxd_kconfig_sync_config() {
 	ptxd_kconfig_update_config "${target_config}" \
 	    "${last_config}" "${base_config}"
 	;;
+    single)
+	ptxd_kconfig_update_config "${target_config}" \
+	    "${absolute_config}"
+	;;
     esac
 }
 export -f ptxd_kconfig_sync_config
@@ -444,7 +449,7 @@ ptxd_kconfig_update() {
 	# nothing to do for PTXdist itself
 	return
     fi
-    if [ "${config}" != dep ]; then
+    if [ "${config}" != dep -a "${part}" != user ]; then
 	(
 	# call ptxd_kconfig_update() recursively after removing the last layer
 	PTXDIST_LAYERS=( "${PTXDIST_LAYERS[@]:1}" )
@@ -541,7 +546,7 @@ ptxd_kconfig_update() {
     fi &&
 
     ptxd_kconfig_sync_config "${mode}" .config \
-	"${relative_file_dotconfig}"
+	"${relative_file_dotconfig}" "${file_dotconfig}"
 }
 export -f ptxd_kconfig_update
 
