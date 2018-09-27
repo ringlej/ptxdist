@@ -197,8 +197,9 @@ ptxd_make_world_init() {
     # PTXDIST_LAYERS gets lost in 'make' so redefine it here
     local orig_IFS="${IFS}"
     IFS=:
-    export -a PTXDIST_LAYERS=( ${PTXDIST_PATH_LAYERS} )
+    PTXDIST_LAYERS=( ${PTXDIST_PATH_LAYERS} )
     IFS="${orig_IFS}"
+    export PTXDIST_LAYERS
 
     #
     # type
