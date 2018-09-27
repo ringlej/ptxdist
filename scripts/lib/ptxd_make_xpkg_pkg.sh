@@ -916,7 +916,7 @@ executing '${pkg_label}.${1}'
 export -f ptxd_install_run
 
 ptxd_install_fixup_timestamps() {
-    local timestamp="${PTXDIST_VERSION_YEAR}-${PTXDIST_VERSION_MONTH}-01 UTC"
+    local timestamp="@${SOURCE_DATE_EPOCH}"
     local touch_args
     if touch --help | grep -q -- --no-dereference &> /dev/null; then
 	touch_args="--no-dereference"
