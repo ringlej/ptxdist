@@ -67,7 +67,7 @@ ifdef PTXCONFIG_RAUC_CONFIGURATION
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/system.conf)
 	@$(call install_replace, rauc, /etc/rauc/system.conf, \
 		@RAUC_BUNDLE_COMPATIBLE@, \
-		$(PTXCONF_RAUC_COMPATIBLE))
+		"$(call remove_quotes,$(PTXCONF_RAUC_COMPATIBLE))")
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/ca.cert.pem)
 endif
 
