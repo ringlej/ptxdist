@@ -62,7 +62,13 @@ export -f ptxd_make_world_kconfig_sync
 ptxd_make_kconfig() {
     local file_dotconfig="${pkg_config}"
     local ref_file_dotconfig="${pkg_ref_config}"
-    local ptx_config_mode=run
+
+    if [ -z "${ptx_config_mode}" ]; then
+	case "${pkg_stage}" in
+	    *config) ptx_config_mode=update ;;
+	    *) ptx_config_mode=run ;;
+	esac
+    fi
 
     ptxd_make_kconfig_setup &&
     ptxd_eval \

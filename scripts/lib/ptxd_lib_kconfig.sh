@@ -206,8 +206,15 @@ ptxd_kconfig_validate_config() {
     local relative_config="${1}"
     local file_md5 saved_md5
     local last next
+    local -a layers
 
-    for layer in ""${PTXDIST_LAYERS[@]}""; do
+    if [ "${mode}" = update ]; then
+	layers=( "${PTXDIST_LAYERS[@]:1}" )
+    else
+	layers=( "${PTXDIST_LAYERS[@]}" )
+    fi
+
+    for layer in "${layers[@]}"; do
 	next="${layer}/${relative_config}"
 	# no config in this layer
 	if [ ! -e "${next}" -a ! -e "${next}.diff" ]; then
@@ -255,7 +262,7 @@ ptxd_kconfig_find_config() {
     local relative_ref_config="${3}"
     local -a layers
 
-    if [ "${mode}" = run ]; then
+    if [ "${mode}" = run -o "${mode}" = "update" ]; then
 	ptxd_kconfig_validate_config "${relative_config}" || return
     fi
 
