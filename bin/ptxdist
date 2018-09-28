@@ -1339,7 +1339,7 @@ setup_layers()
 	while [ -e "${layer}" -o -h "${layer}" ]; do
 		if [ ! -d "${layer}" ]; then
 			echo
-			echo "${PTXDIST_LOG_PROMPT}error: Layer '${layer}' does not exist!"
+			echo "${PTXDIST_LOG_PROMPT}error: Layer '${layer}' is not a directory!"
 			echo
 			exit 1
 		fi
