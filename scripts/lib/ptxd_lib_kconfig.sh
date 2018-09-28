@@ -231,6 +231,7 @@ export -f ptxd_kconfig_validate_config_next
 ptxd_kconfig_validate_config() {
     local relative_config="${1}"
     local relative_ref_config="${2}"
+    local ignore_last_diff
     local file_md5 saved_md5
     local last next
     local -a layers
@@ -256,6 +257,7 @@ ptxd_kconfig_validate_config() {
 	if [ ! -e "${next}" -a -n "${relative_ref_config}" ]; then
 	    relative_config="${relative_ref_config}"
 	    unset relative_ref_config
+	    ignore_last_diff=y
 	    set -- "${layer}" "${@}"
 	    ptxd_kconfig_validate_config_next "${@}"
 	fi
@@ -272,7 +274,7 @@ ptxd_kconfig_validate_config() {
 	    ptxd_bailout "'$(ptxd_print_path "${last}.diff")' is not up to date, run oldconfig!"
 	fi
     done
-    if [ -e "${last}.diff" ]; then
+    if [ -e "${last}.diff" -a -z "${ignore_last_diff}" ]; then
 	ptxd_bailout  "'$(ptxd_print_path "${last}.diff")' exists without a base layer!"
     fi
 }
