@@ -201,9 +201,36 @@ ptxd_kconfig_create_config() {
 }
 export -f ptxd_kconfig_create_config
 
+ptxd_kconfig_validate_config_check() {
+    # no config in this layer
+    if [ ! -e "${1}" -a ! -e "${last}.diff" ]; then
+	return 1
+    fi
+    # explicitly skip this layer
+    if [ "$(readlink -f "${1}")" = /dev/null ]; then
+	return 1
+    fi
+    return 0
+}
+export -f ptxd_kconfig_validate_config_check
+
+ptxd_kconfig_validate_config_next() {
+	local layer
+	for layer in "${@}"; do
+	    next="${layer}/${relative_config}"
+	    if ! ptxd_kconfig_validate_config_check "${next}"; then
+		continue
+	    fi
+	    if [ -e "${next}" ]; then
+		break
+	    fi
+	done
+}
+export -f ptxd_kconfig_validate_config_next
 
 ptxd_kconfig_validate_config() {
     local relative_config="${1}"
+    local relative_ref_config="${2}"
     local file_md5 saved_md5
     local last next
     local -a layers
@@ -214,33 +241,36 @@ ptxd_kconfig_validate_config() {
 	layers=( "${PTXDIST_LAYERS[@]}" )
     fi
 
-    for layer in "${layers[@]}"; do
-	next="${layer}/${relative_config}"
-	# no config in this layer
-	if [ ! -e "${next}" -a ! -e "${next}.diff" ]; then
-	    continue
-	fi
-	# explicitly skip this layer
-	if [ "$(readlink -f "${next}")" = /dev/null ]; then
-	    continue
-	fi
-	if [ -z "${last}" ]; then
-	    last="${next}"
+    set -- "${layers[@]}";
+    while [ $# -gt 0 ]; do
+	layer="${1}"
+	last="${layer}/${relative_config}"
+	shift
+	if ! ptxd_kconfig_validate_config_check "${last}"; then
 	    continue
 	fi
 	if [ ! -e "${last}" ]; then
 	    ptxd_bailout "'$(ptxd_print_path "${last}")' is missing, run oldconfig!"
 	fi
+	ptxd_kconfig_validate_config_next "${@}"
+	if [ ! -e "${next}" -a -n "${relative_ref_config}" ]; then
+	    relative_config="${relative_ref_config}"
+	    unset relative_ref_config
+	    set -- "${layer}" "${@}"
+	    ptxd_kconfig_validate_config_next "${@}"
+	fi
+	if [ ! -e "${next}" ]; then
+	    break
+	fi
 	if [ ! -e "${last}.diff" ]; then
 	    ptxd_bailout "'$(ptxd_print_path "${last}.diff")' is missing, run oldconfig!"
 	fi
-	set -- $(md5sum "${next}")
-	file_md5="${1}"
+	tmp=( $(md5sum "${next}") )
+	file_md5="${tmp[0]}"
 	saved_md5="$(echo $(head -n1 "${last}.diff"))"
 	if [ "${file_md5}" != "${saved_md5}" ]; then
 	    ptxd_bailout "'$(ptxd_print_path "${last}.diff")' is not up to date, run oldconfig!"
 	fi
-	last="${next}"
     done
     if [ -e "${last}.diff" ]; then
 	ptxd_bailout  "'$(ptxd_print_path "${last}.diff")' exists without a base layer!"
@@ -263,7 +293,7 @@ ptxd_kconfig_find_config() {
     local -a layers
 
     if [ "${mode}" = run -o "${mode}" = "update" ]; then
-	ptxd_kconfig_validate_config "${relative_config}" || return
+	ptxd_kconfig_validate_config "${relative_config}" "${relative_ref_config}" || return
     fi
 
     last_config="${PTXDIST_LAYERS[0]}/${relative_config}"
