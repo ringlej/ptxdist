@@ -242,6 +242,11 @@ cxx_add_target_extra() {
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
 }
 
+cc_add_target_reproducible() {
+	add_arg -fdebug-prefix-map="${PTXDIST_PLATFORMDIR%/*}/="
+	add_arg -fdebug-prefix-map="$(readlink -f "${PTXDIST_PLATFORMDIR}")/=${PTXDIST_PLATFORMDIR##*/}/"
+}
+
 cpp_add_host_extra() {
 	cc_check_args ${pkg_cppflags}
 	add_arg ${PTXDIST_HOST_CPPFLAGS}
