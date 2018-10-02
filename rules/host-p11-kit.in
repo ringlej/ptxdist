@@ -1,0 +1,14 @@
+## SECTION=hosttools_noprompt
+
+config HOST_P11_KIT
+	tristate
+	select HOST_LIBFFI
+	select HOST_LIBTASN1
+	default ALLYES
+	help
+	  Provides a way to load and enumerate PKCS#11 modules. Provides a
+	  standard configuration setup for installing PKCS#11 modules in such a
+	  way that they're discoverable.
+	  Also solves problems with coordinating the use of PKCS#11 by different
+	  components or libraries living in the same process.
+	  https://p11-glue.github.io/p11-glue/p11-kit.html
