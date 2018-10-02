@@ -1,0 +1,10 @@
+## SECTION=hosttools_noprompt
+
+config HOST_OPENSC
+	tristate
+	# libz is disabled, but it still links against libz
+	# it links against libdl
+	select HOST_OPENSSL
+	default ALLYES
+	help
+	  https://github.com/OpenSC/OpenSC/wiki
