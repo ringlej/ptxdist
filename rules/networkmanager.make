@@ -226,10 +226,7 @@ endif
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
-		&& for FILE in `find -name "nm-*-*" -printf '%f\n'`; do \
-		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
-	done
+	@$(call install_glob, networkmanager, 0, 0, -, /usr/bin, */nm-*-*)
 endif
 
 	@$(call install_finish, networkmanager)
