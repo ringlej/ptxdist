@@ -66,11 +66,9 @@ $(STATEDIR)/gst-python1.targetinstall:
 	@$(call install_fixup, gst-python1,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, gst-python1,DESCRIPTION,missing)
 
-	@for file in `find $(GST_PYTHON1_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi  \
-			! -type d ! -name "*.py" ! -name "*.la" -printf "%P\n"`; do \
-		$(call install_copy, gst-python1, 0, 0, 0644, -, \
-			/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi/$$file); \
-	done
+	@$(call install_glob, gst-python1, 0, 0, -, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gi,, *.py *.la)
+
 	@$(call install_lib, gst-python1, 0, 0, 0644, gstreamer-1.0/libgstpython*)
 
 	@$(call install_finish, gst-python1)
