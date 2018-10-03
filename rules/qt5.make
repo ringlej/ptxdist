@@ -195,7 +195,7 @@ QT5_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS)-eglfs \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS_KMS)-kms \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS_KMS)-gbm \
-	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_DIRECTFB)-directfb \
+	--disable-directfb \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_LINUXFB)-linuxfb \
 	--disable-mirclient \
 	$(call ptx/ifdef, PTXCONF_QT5_GUI,-qpa $(PTXCONF_QT5_PLATFORM_DEFAULT)) \
@@ -332,7 +332,6 @@ ifdef PTXCONF_QT5_OPENGL_DESKTOP
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_XCB)				+= xcbglintegrations/libqxcb-glx-integration
 endif
 
-QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_DIRECTFB)			+= platforms/libqdirectfb
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS)			+= platforms/libqeglfs
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_LINUXFB)			+= platforms/libqlinuxfb
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTBASE_GUI)			+= platforms/libqminimal
