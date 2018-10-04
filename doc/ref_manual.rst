@@ -437,7 +437,7 @@ Whenever one of these macros installs something to the target's root filesystem,
 it also accepts user and group IDs which are common in all filesystems Linux
 supports. These IDs can be given as numerical values and as text strings.
 In the case text strings are given PTXdist converts them into the
-coresponding numerical value based on the BSP local files :file:`passwd` and :file:`group`.
+corresponding numerical value based on the BSP local files :file:`passwd` and :file:`group`.
 If more than one file with these names are present in the BSP PTXdist follows
 its regular rules which one it prefers.
 
@@ -467,7 +467,7 @@ Usage:
 
  $(call targetinfo)
 
-Gives a feedback, what build *stage* is just started. Thats why it
+Gives a feedback, what build *stage* is just started. That's why it
 should always be the first call for each *stage*. For the package
 *foo* and the *compile stage* it will output:
 
@@ -486,7 +486,7 @@ Usage:
 
  $(call touch)
 
-Gives a feedback, what build *stage* is just finished. Thats why it
+Gives a feedback, what build *stage* is just finished. That's why it
 should always be the last call for each *stage*. For the package
 *foo* and the *compile stage* it will output:
 
@@ -555,7 +555,7 @@ The ``<dest>`` parameter can be:
 
 * omitted if a directory in target's root filesystem should be created.
   For this case the directory to be created is in the <source> parameter.
-* an absolute path and filename with its root in target's root filesysem.
+* an absolute path and filename with its root in target's root filesystem.
   It must start with a slash (``//``). If also the <source>
   parameter was given, the file can be renamed while copying.
   If the <source> parameter was given as a minus
@@ -1443,7 +1443,7 @@ Replace the <stage_to_skip> by ``get``, ``extract``, ``prepare``,
 PTXdist parameter reference
 ---------------------------
 
-PTXdist is a command line tool, which is basicly called as:
+PTXdist is a command line tool, which is basically called as:
 
 .. code-block:: bash
 

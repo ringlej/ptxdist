@@ -60,7 +60,7 @@ A different use case for collections could be the security of an
 application. While the development is ongoing all kind of debugging and
 logging helpers are part of the root filesystem. But the final
 production root filesystem uses collections to omit all these helpers
-and to reduce the risc of security vulnerability.
+and to reduce the risk of security vulnerability.
 
 PTXdist can handle the following project variations:
 
@@ -146,7 +146,7 @@ function, we run it with the parameter *help*.
 
     $ ptxdist help
 
-This will output all possible parameters ans subcommands and their
+This will output all possible parameters and subcommands and their
 meaning.
 
 As the list we see is very long, let’s explain the major parameters
@@ -282,7 +282,7 @@ Notes about some of the files and directories listed above:
 
 **documentation**
     If this BSP is one of our OSELAS BSPs, this directory contains the
-    Quickstart you are currenly reading in.
+    Quickstart you are currently reading in.
 
 **configs**
     A multiplatform BSP contains configurations for more than one
@@ -386,24 +386,24 @@ project.
 
 ``|ptxdistPlatformDir|/build-cross``
     Contains all packages sources compiled to run on the host and handle
-    target architecture dependend things.
+    target architecture dependent things.
 
 ``|ptxdistPlatformDir|/build-host``
     Contains all packages sources compiled to run on the host and handle
     architecture independend things.
 
 ``|ptxdistPlatformDir|/build-target``
-    Contains all package sources compiled for the target architecure.
+    Contains all package sources compiled for the target architecture.
 
 ``|ptxdistPlatformDir|/images``
     Generated files for the target can be found here: Kernel image and
     root filesystem image.
 
 ``|ptxdistPlatformDir|/packages``
-    Location for alle individual packages in ipk format.
+    Location for all individual packages in ipk format.
 
 ``|ptxdistPlatformDir|/sysroot-target``
-    Contains everything target architecture dependend (libraries, header
+    Contains everything target architecture dependent (libraries, header
     files and so on).
 
 ``|ptxdistPlatformDir|/sysroot-cross``

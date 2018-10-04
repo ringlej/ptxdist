@@ -89,7 +89,7 @@ missing component is a valid kernel config file now. We can use one of
 the default config files the Linux kernel supports as a starting point.
 To do so, we copy one to the location, where PTXdist expects it in the
 current project. In a multi platform project this location is the
-platform directory usally in ``configs/<platform-directory>``. We must
+platform directory usually in ``configs/<platform-directory>``. We must
 store the file with a name selected in the platform setup menu (**kernel
 config file**).
 
@@ -231,7 +231,7 @@ With this preparation we can run it on our build host:
     |ptxdistPlatformDir|/root$ qemu-<architecture> -cpu <cpu-core> -L . usr/bin/myapp
 
 This command will run the application ``usr/bin/myapp`` built for an
-<cpu-core> CPU on the build host and is using all library compontents
+<cpu-core> CPU on the build host and is using all library components
 from the current directory.
 
 For the stdin and -out QEMU uses the regular mechanism of the build
@@ -256,7 +256,7 @@ the QEMU in the first console as:
     $ cd ptxdistPlatformDir/root
     ptxdistPlatformDir/root$ qemu-<architecture> -g 1234 -cpu <cpu-core> -L . usr/bin/myapp
 
-.. note:: PTXdist always builds a root filesystems ``root/``.
+.. note:: PTXdist always builds a root filesystem ``root/``.
   It contains all components without debug 
   information (all binaries are in the same size as used later on on the
   real target). In addition, each directory that contains binaries also
@@ -320,7 +320,7 @@ Now we can step through our application by using the commands *step*,
   stripped while building the toolchain. There is a switch in the
   OSELAS.Toolchain menu to keep the debug symbols also for the C run-time
   library. But be warned: This will enlarge the OSELAS.Toolchain
-  installation on your harddisk! When the toolchain was built with the
+  installation on your hard disk! When the toolchain was built with the
   debug symbols kept, it will be also possible for GDB to debug C library
   functions our application calls (so it might worth the disk space).
 
@@ -713,7 +713,7 @@ relocation problems or files outside the install directory are needed:
    in an incomplete pre-built archive. Due to this, it cannot be used
    as a pre-built archive.
 
--  a few somehow broken packages that are all explicitely marked with a
+-  a few somehow broken packages that are all explicitly marked with a
    ``<packagename>_DEVPKG := NO`` in their corresponding rule file.
 
 Workflow with Pre-Built Archives
@@ -823,7 +823,7 @@ provide a comfortable buildsystem:
 - a program combined with a library package template
 
 Some template components are shared between all three packages types and described
-here, some other template componente are indvidual to each package type and
+here, some other template components are individual to each package type and
 described later on.
 
 Shared components
@@ -883,7 +883,7 @@ feature to the buildsystem. It handles all the details how to parametrize the
 compiler and linker correctly.
 
 The ``pkg.m4`` must be shipped with a package which uses *pkg-config* to detect
-the existance of external libraries and query details how to use them. If your
+the existence of external libraries and query details how to use them. If your
 package doesn't use *pkg-config*, you can remove this file (and remove it from
 the EXTRA_DIST variable in ``Makefile.am``).
 
@@ -914,7 +914,7 @@ Build system related files
 
 The autotools are using macro files which are easier to read for a
 human. But to work with the autotools these macro files must be
-converted into executabe shell code first. The ``autogen.sh`` script
+converted into executable shell code first. The ``autogen.sh`` script
 does this job for us.
 
 **configure.ac**
@@ -1157,7 +1157,7 @@ file need your attention:
 
 It is not easy to fully automate the adaption of the pc file. At least
 the lines *Requires*, *Requires.private* and *Libs.private* are hardly to fill
-for packages which are highly configureable.
+for packages which are highly configurable.
 
 I nice and helpful description about this kind of configuration file can be
 found here:
@@ -1181,7 +1181,7 @@ your library.
 
 The main source file of your library. Keep in mind to mark all functions
 with the DSO_VISIBLE macro you want to export. All other functions are
-kept internaly and you cannot link against them from an external
+kept internally and you cannot link against them from an external
 application.
 
 Note: debugging is hard when all internal functions are hidden. For this

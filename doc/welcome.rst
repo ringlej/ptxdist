@@ -20,7 +20,7 @@ developed and our brave developer was able to do his project with the
 more and more well-known system. The controllers had legacy interfaces
 like RS232, i2c or SPI which connected them to the outside world and the
 main difference between the controllers available on the market was the
-number of GPIO pins, UARTS and memory resources.
+number of GPIO pins, UARTs and memory resources.
 
 Things have changed. Hardware manufacturers have weakened the border
 between deeply embedded microcontrollers – headless devices with just a
@@ -60,7 +60,7 @@ embedded operating system suppliers will survive that development.
 
 Only the largest commercial...? There is one exception: when the same
 situation came up in the “mainstream” computer market at the beginning
-of the 1990ies, people started to develop an alternative to the large
+of the 1990es, people started to develop an alternative to the large
 commercial operating systems: Linux. Linux did never start with a
 ready-to-use solution: people had a problem, searched for a solution but
 didn’t find one. Then they started to develop one themselves, often
