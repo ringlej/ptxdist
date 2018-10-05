@@ -5,11 +5,8 @@ Below is a list of locations where you can get help in case of trouble.
 For questions how to do something special with PTXdist or general
 questions about Linux in the embedded world, try these.
 
-Mailing Lists
--------------
-
-About PTXdist in Particular
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PTXdist Mailing List
+--------------------
 
 This is an English language public mailing list for questions about
 PTXdist. See
