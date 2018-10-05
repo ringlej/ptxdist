@@ -6,13 +6,13 @@ PTXdist Packages
 
 While contributions to all parts of PTXdist are welcome, most contributions
 concern individual packages. Here is a checklist of things to look out for
-while creating or updating packages. These are not hard requirements but
+while creating or updating packages. These are not hard requirements, but
 there should be good reasons for different choices.
 
 How to Contribute
 ~~~~~~~~~~~~~~~~~
 
-Contributions should be sent as patches to the PTXdist mailing list. This
+Contributions should be sent as patches to the :ref:`PTXdist mailing list`. This
 is usually done with ``git send-email``.
 
 All patches must contain a descriptive subject and should, for all
@@ -26,11 +26,11 @@ Package Builds should be Reproducible
 
 Many packages autodetect which features are available. As a result, the
 exact features of a package may depend on the build host and the build
-order of the packages. To avoid this autodetection must be restricted as
+order of the packages. To avoid this, autodetection must be restricted as
 much as possible.
 
 For **autoconf** based packages, the first step is to specify all relevant
-``configure`` options. The :ref:`configure_helper` scripts can help filter
+``configure`` options. The :ref:`configure_helper` script can help filter
 out the unimportant options.
 
 There are also cache variables that can be used to enforce the outcome of
@@ -55,17 +55,17 @@ Packages Suboptions
 
 Suboptions for PTXdist packages are useful to make parts of the package
 optional. However, it is not always easy to decide what should be optional
-and how to map the build system options to packages suboptions. Here are a
+and how to map the build system options to package suboptions. Here are a
 few guidelines to help with that.
 
 -  Avoid unnecessary suboptions. When in doubt, use the package default or
    what other distributions use. If the creator of the package does not
-   know what to choose then the user wont either.
+   know what to choose, then the user won't either.
 -  Use suboptions to save disk space. If a feature adds extra dependencies
-   or uses a lot of space then a suboptions is useful to save the disk
+   or uses a lot of space then a suboption is useful to save disk
    space when the feature is not needed.
 -  Try to create high-level options. Some packages have very low-level
-   build options with very few useful combinations. Try to define
+   build options with very few useful combinations. Try to distill the
    high-level features or use-cases and define options for those.
 -  Options for new use-cases can always be added later. It's perfectly
    acceptable to just disable some unused features when creating a new
@@ -78,19 +78,20 @@ The most common contribution to PTXdist are new versions for existing
 packages. This is usually quite simple, but there are a few things to keep
 in mind:
 
--  New versions can have new build system options that should be used.
+-  New versions can have new build system options that should be set for
+   reproducible builds.
    :ref:`configure_helper` can be used to find the new options.
--  There may be patches for the old version. Make sure they are update as
-   well or removed if they are no longer needed.
+-  There may be patches for the old version. Make sure they are updated as
+   well, or removed if they are no longer needed.
 
 Misc
 ~~~~
 
-For new Packages, the top-level option and any non-obvious suboption should
+For new packages, the top-level option and any non-obvious suboptions should
 have a help text. The homepage of a package or the package description from
-other distributions a usually a good inspiration.
+other distributions are usually a good inspiration.
 
-The package templates to create new packages contain commented out default
+For new packages, the generated templates contain commented-out default
 sections. These are meant as a helper to simplify creating custom stages.
 Any remaining default stages must be removed.
 
@@ -119,7 +120,7 @@ needed. This tool contains a blacklist to filter out these options.
 ``-h, --help``
     Show the help message and exit
 
-``-p <pgk>, --pkg <pgk>``
+``-p <pkg>, --pkg <pkg>``
     The ptxdist package to check
 
 ``-o <old>, --old-src <old>``
