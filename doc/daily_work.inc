@@ -568,6 +568,8 @@ packages at the same time. Never worry again about your local host and
 how slow it is. With the help of *ICECC* every host will be a high speed
 development machine.
 
+.. _devpkgs:
+
 Using Pre-Built Archives
 ------------------------
 
