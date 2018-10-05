@@ -55,7 +55,7 @@ fail compiling some files, use wrong include paths or try to link
 against host libraries. To be successful in the embedded world, these
 types of failures must be fixed. If required, PTXdist provides such
 fixes per package. They are organized in *patch series* and can be found
-in the ``patches/`` directory within a subdirectory using the same name
+in a ``patches/`` directory within a subdirectory using the same name
 as the package itself.
 
 PTXdist uses the utility ``patch`` or ``quilt`` (or ``git`` on demand) to apply
@@ -65,26 +65,26 @@ which the patches must be applied.
 
 .. note:: Patches can be compressed.
 
-Besides the ``patches/`` directory at the main installation location,
-PTXdist searches two additional locations for a patch series for the
-package in question.
+Patches are looked for at several locations:
 
-One location is the project’s currently used platform directory. If the
-currently used platform is located in ``configs/``, PTXdist searches in
-./configs/|ptxdistPlatformConfigDir|/patches/<package name>
+1.  the ``patches/`` folder in your BSP (``${PTXDIST_WORKSPACE}/patches``)
 
-If no patch series was found in the platform directory, the next
-location PTXdist it searches for a patch series is the main project
-directory in ``./patches/<package name>``.
+2.  the folder ``patches/`` folder relative to your selected platformconfig
+    file (``${PTXDIST_PLATFORMCONFIGDIR}/patches``). If your platformconfig
+    file is at ``configs/|ptxdistPlatformConfigDir|/platformconfig``, this
+    patch folder will be ``configs/|ptxdistPlatformConfigDir|/patches/``.
 
-If both project local locations do not provide a patch series for the
-specific package, PTXdist falls back to the ``patches/`` directory at
-its main installation location.
+3.  the ``patches/`` folder in PTXdist's main installation directory
+    (``${PTXDIST_TOPDIR}/patches``)
+
+The list is tried from first to last.
+If no patches were found in one of the locations, the next location is tried.
+When all locations have been tried unsuccessfully, the package is not patched.
 
 This search order can be used to use specific patch series for specific
 cases.
 
--  platfom specific
+-  platform specific
 
 -  project specific
 
