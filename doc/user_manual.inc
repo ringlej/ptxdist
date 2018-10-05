@@ -84,11 +84,12 @@ PTXdist’s build process
 When PTXdist is building one part (we call it a *package*) of the whole
 project, it is divided into up to six stages:
 
-.. figure:: figures/ptxbuild.png
-   :alt:  The build process
-   :align: center
-
-   The build process
+.. FIXME: this figure is bogus. The ipkgs are created during targetinstall
+.. .. figure:: figures/ptxbuild.png
+..    :alt:  The build process
+..    :align: center
+..
+..    The build process
 
 **get**
     The package will be obtained from its source (downloaded from the
