@@ -50,6 +50,17 @@ $(STATEDIR)/hostapd.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/hostapd.install:
+	@$(call targetinfo)
+	@$(call world/install, HOSTAPD)
+	@install -v -m644 -D $(HOSTAPD_DIR)/hostapd/hostapd.conf \
+		$(HOSTAPD_PKGDIR)/etc/hostapd/hostapd.conf
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -63,6 +74,7 @@ $(STATEDIR)/hostapd.targetinstall:
 	@$(call install_fixup, hostapd,DESCRIPTION,missing)
 
 	@$(call install_copy, hostapd, 0, 0, 0755, -, /usr/sbin/hostapd)
+	@$(call install_alternative, hostapd, 0, 0, 0644, /etc/hostapd/hostapd.conf)
 
 	@$(call install_finish, hostapd)
 
