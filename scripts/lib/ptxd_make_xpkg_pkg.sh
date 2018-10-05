@@ -587,7 +587,7 @@ install replace figlet:
             # figlet needs to be replaced by \\\\. As a \ in sed needs to be
             # quoted, too, this results in eight backslashes in the replacement
             # string.
-            etcissue)	sed 's,\\,\\\\\\\\,';;
+            etcissue)	sed 's,\\,\\\\\\\\,g';;
             *)		;;
         esac | \
         awk '{ if ($0 !~ "^ *$") printf("%s\\n", $0) }'  # newlines for sed
