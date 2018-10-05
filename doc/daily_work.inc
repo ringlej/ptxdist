@@ -699,11 +699,11 @@ side.
 Packages without Pre-Built Archives Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Neither host nor cross related packages support pre-built archives. These kind
-of packages are always (re-)built.
+Not all packages support pre-built archives. This is usually caused by
+relocation problems or files outside the install directory are needed:
 
-Only target related packages can be used based on their pre-built
-archives, but there are a few exceptions:
+-  Some host packages are not relocatable and install directly into
+   *sysroot-host*.
 
 -  Linux kernel: it has an incomplete install stage, which results in
    an incomplete pre-built archive. Due to this, it cannot be used as a
