@@ -43,7 +43,7 @@ license-compliance-distribution: \
 		$(RELEASEDIR)/license-compliance.pdf \
 		$(PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE)
 
-$(PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE): $(addprefix $(STATEDIR)/,$(addsuffix .release,$(PTX_PACKAGES_INSTALL) $(PTX_PACKAGES_TOOLS)))
+$(PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE): $(addprefix $(STATEDIR)/,$(addsuffix .release,$(PTX_PACKAGES_SELECTED)))
 	@$(call targetinfo)
 	@tar -C "$(RELEASEDIR)" \
 		--exclude=license-compliance.pdf --exclude $(notdir $@) \
