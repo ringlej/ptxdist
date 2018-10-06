@@ -1,0 +1,9 @@
+## SECTION=shell_and_console
+
+config STM32FLASH
+	tristate
+	prompt "stm32flash"
+	help
+	  Open source cross platform flash program for the STM32 ARM
+	  microcontrollers using the built-in ST serial bootloader over UART
+	  or I2C.
