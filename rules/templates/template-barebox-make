@@ -60,7 +60,7 @@ $(BAREBOX_@PACKAGE@_CONFIG):
 	@exit 1
 endif
 
-$(STATEDIR)/barebox-@package@.prepare: $(BAREBOX_@PACKAGE@_CONFIG)
+$(STATEDIR)/barebox-@package@.prepare:
 
 # ----------------------------------------------------------------------------
 # Install

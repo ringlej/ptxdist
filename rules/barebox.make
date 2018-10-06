@@ -75,7 +75,7 @@ BAREBOX_EXTRA_ENV_DEPS := \
 $(STATEDIR)/barebox.prepare: $(BAREBOX_EXTRA_ENV_DEPS)
 endif
 
-$(STATEDIR)/barebox.prepare: $(BAREBOX_CONFIG)
+$(STATEDIR)/barebox.prepare:
 	@$(call targetinfo)
 
 	@$(call world/kconfig-setup, BAREBOX)

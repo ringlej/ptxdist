@@ -57,7 +57,7 @@ $(KERNEL_@PACKAGE@_CONFIG):
 	@exit 1
 endif
 
-$(STATEDIR)/kernel-@package@.prepare: $(KERNEL_@PACKAGE@_CONFIG)
+$(STATEDIR)/kernel-@package@.prepare:
 
 # ----------------------------------------------------------------------------
 # Compile

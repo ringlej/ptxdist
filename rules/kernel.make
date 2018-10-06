@@ -105,7 +105,7 @@ endif
 #
 KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.cpio
 
-$(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
+$(STATEDIR)/kernel.prepare:
 	@$(call targetinfo)
 
 	@$(call world/kconfig-setup, KERNEL)
