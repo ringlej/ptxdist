@@ -13,18 +13,22 @@ PTX_PACKAGES_TOOLS := \
 	$(HOST_PACKAGES) \
 	$(LAZY_PACKAGES)
 
+PTX_PACKAGES_TARGET := \
+	$(PTX_PACKAGES_INSTALL) \
+	$(EXTRA_PACKAGES)
+
 PHONY += license-report
 
 license-report: \
 	$(REPORTDIR)/license-report.pdf \
 	$(REPORTDIR)/license-report-tools.pdf
 
-$(REPORTDIR)/license-report.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_INSTALL)))
+$(REPORTDIR)/license-report.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_TARGET)))
 	@$(call targetinfo)
 	@mkdir -p $(REPORTDIR)
 	@$(image/env) \
 	ptx_license_target="$@" \
-	ptxd_make_license_report $(sort $(PTX_PACKAGES_INSTALL))
+	ptxd_make_license_report $(sort $(PTX_PACKAGES_TARGET))
 	@$(call finish)
 
 $(REPORTDIR)/license-report-tools.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_TOOLS)))
@@ -51,12 +55,12 @@ $(PTXDIST_LICENSE_COMPLIANCE_OSS_ARCHIVE): $(addprefix $(STATEDIR)/,$(addsuffix 
 	@$(call finish)
 
 
-$(RELEASEDIR)/license-compliance.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_INSTALL)))
+$(RELEASEDIR)/license-compliance.pdf: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_TARGET)))
 	@$(call targetinfo)
 	@mkdir -p $(RELEASEDIR)
 	@$(image/env) \
 	ptx_license_target="$@" \
-	ptxd_make_license_compliance_pdf $(sort $(PTX_PACKAGES_INSTALL))
+	ptxd_make_license_compliance_pdf $(sort $(PTX_PACKAGES_TARGET))
 	@$(call finish)
 
 PHONY += license-compliance-data
@@ -64,12 +68,12 @@ PHONY += license-compliance-data
 license-compliance-data: \
 	$(RELEASEDIR)/license-compliance.yaml
 
-$(RELEASEDIR)/license-compliance.yaml: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_INSTALL)))
+$(RELEASEDIR)/license-compliance.yaml: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_TARGET)))
 	@$(call targetinfo)
 	@mkdir -p $(RELEASEDIR)
 	@$(image/env) \
 	ptx_license_target="$@" \
-	ptxd_make_license_compliance_yaml $(sort $(PTX_PACKAGES_INSTALL))
+	ptxd_make_license_compliance_yaml $(sort $(PTX_PACKAGES_TARGET))
 	@$(call finish)
 
 # vim: syntax=make
