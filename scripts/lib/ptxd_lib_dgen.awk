@@ -334,6 +334,12 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 	print "endif" > DGEN_DEPS_POST;
 }
 
+function write_deps_pkg_active_all(this_PKG, this_pkg) {
+	print "ifneq ($(filter /%,$(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash: $(" this_PKG "_CONFIG)"		> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+}
+
 function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	#
 	# default deps
@@ -501,6 +507,7 @@ END {
 		this_pkg = PKG_to_pkg[this_PKG];
 		this_pkg_prefix = gensub(/^(host-|cross-|image-|).*/, "\\1", 1, this_pkg)
 
+		write_deps_pkg_active_all(this_PKG, this_pkg)
 		if (this_pkg_prefix != "image-") {
 			write_deps_pkg_active(this_PKG, this_pkg, this_pkg_prefix)
 			write_deps_pkg_active_virtual(this_PKG, this_pkg, this_pkg_prefix)
