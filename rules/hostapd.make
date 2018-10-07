@@ -27,8 +27,8 @@ HOSTAPD_SOURCE	:= $(SRCDIR)/$(HOSTAPD).$(HOSTAPD_SUFFIX)
 HOSTAPD_DIR	:= $(BUILDDIR)/$(HOSTAPD)
 HOSTAPD_SUBDIR	:= $(HOSTAPD_NAME)
 # Use '=' to delay $(shell ...) calls until this is needed
-HOSTAPD_DEFCONF	 = $(call ptx/get-alternative, config/hostapd, defconfig)
-HOSTAPD_CONFIG	:= $(BUILDDIR)/$(HOSTAPD)/$(HOSTAPD_SUBDIR)/.config
+HOSTAPD_CONFIG	 = $(call ptx/get-alternative, config/hostapd, defconfig)
+HOSTAPD_DOTCONFIG := $(BUILDDIR)/$(HOSTAPD)/$(HOSTAPD_SUBDIR)/.config
 HOSTAPD_LICENSE	:= BSD-3-Clause
 HOSTAPD_LICENSE_FILES := \
 	file://COPYING;md5=292eece3f2ebbaa25608eed8464018a3 \
@@ -46,7 +46,7 @@ $(STATEDIR)/hostapd.prepare:
 	@$(call targetinfo)
 #	# run 'make clean' as hostapd's build system does not recognize config changes
 	@-$(HOSTAPD_MAKE_ENV) $(MAKE) -C $(HOSTAPD_DIR)/$(HOSTAPD_SUBDIR) clean
-	@cp $(HOSTAPD_DEFCONF) $(HOSTAPD_CONFIG)
+	@cp $(HOSTAPD_CONFIG) $(HOSTAPD_DOTCONFIG)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
