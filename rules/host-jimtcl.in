@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
+
+config HOST_JIMTCL
+	tristate
+	default ALLYES
