@@ -107,6 +107,7 @@ EOF
 	echo -e "\nxpkg_finish: failed.\n"
 	return ${ret}
     }
+    rm -f ${PTXDIST_TEMPDIR}/${pkg_stamp}.${pkg_xpkg}
     echo -e "\nxpkg_finish: done.\n"
 }
 export -f ptxd_make_xpkg_finish

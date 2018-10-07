@@ -11,7 +11,7 @@
 
 install_check =										\
 	CMD="$(strip $(1))";								\
-	if [ ! -f "$(STATEDIR)/$$XPKG.cmds" ]; then					\
+	if [ ! -f "$(PTXDIST_TEMPDIR)/$(notdir $(@)).$$XPKG" ]; then			\
 		echo;									\
 		echo "Error: install_init was not called for package '$$XPKG'!";	\
 		echo "This is probably caused by a typo in the package name of:";	\
