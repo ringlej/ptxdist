@@ -16,11 +16,7 @@
 #
 PACKAGES-$(PTXCONF_GCCLIBS) += gcclibs
 
-ifeq ($(shell which $(CROSS_CC) 2>/dev/null),)
-GCCLIBS_VERSION	:= unknown
-else
-GCCLIBS_VERSION	:= $(shell $(CROSS_CC) -dumpversion)
-endif
+GCCLIBS_VERSION	:= $(or $(shell $(CROSS_CC) -dumpversion),unknown)
 # for license information
 -include $(PTXDIST_PLATFORMDIR)/selected_toolchain/../share/compliance/gcclibs.make
 
