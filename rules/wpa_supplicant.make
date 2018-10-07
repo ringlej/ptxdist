@@ -26,8 +26,8 @@ WPA_SUPPLICANT_SOURCE	:= $(SRCDIR)/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
 WPA_SUPPLICANT_DIR	:= $(BUILDDIR)/$(WPA_SUPPLICANT)
 WPA_SUPPLICANT_SUBDIR	:= $(WPA_SUPPLICANT_NAME)
 # Use '=' to delay $(shell ...) calls until this is needed
-WPA_SUPPLICANT_DEFCONF	 = $(call ptx/get-alternative, config/wpasupplicant, defconfig)
-WPA_SUPPLICANT_CONFIG	:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_SUBDIR)/.config
+WPA_SUPPLICANT_CONFIG	 = $(call ptx/get-alternative, config/wpasupplicant, defconfig)
+WPA_SUPPLICANT_DOTCONFIG:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_SUBDIR)/.config
 WPA_SUPPLICANT_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
@@ -52,12 +52,12 @@ $(STATEDIR)/wpa_supplicant.prepare:
 	@-cd $(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR) && \
 		$(WPA_SUPPLICANT_MAKE_ENV) $(WPA_SUPPLICANT_PATH) $(MAKE) clean
 
-	@cp $(WPA_SUPPLICANT_DEFCONF) $(WPA_SUPPLICANT_CONFIG)
-	@$(call enable_sh,$(WPA_SUPPLICANT_CONFIG),CC=$(CROSS_CC))
+	@cp $(WPA_SUPPLICANT_CONFIG) $(WPA_SUPPLICANT_DOTCONFIG)
+	@$(call enable_sh,$(WPA_SUPPLICANT_DOTCONFIG),CC=$(CROSS_CC))
 ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
-	@$(call enable_sh,$(WPA_SUPPLICANT_CONFIG),CONFIG_CTRL_IFACE_DBUS=y)
-	@$(call enable_sh,$(WPA_SUPPLICANT_CONFIG),CONFIG_CTRL_IFACE_DBUS_NEW=y)
-	@$(call enable_sh,$(WPA_SUPPLICANT_CONFIG),CONFIG_CTRL_IFACE_DBUS_INTRO=y)
+	@$(call enable_sh,$(WPA_SUPPLICANT_DOTCONFIG),CONFIG_CTRL_IFACE_DBUS=y)
+	@$(call enable_sh,$(WPA_SUPPLICANT_DOTCONFIG),CONFIG_CTRL_IFACE_DBUS_NEW=y)
+	@$(call enable_sh,$(WPA_SUPPLICANT_DOTCONFIG),CONFIG_CTRL_IFACE_DBUS_INTRO=y)
 endif
 	@$(call touch)
 
