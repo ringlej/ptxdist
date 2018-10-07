@@ -99,7 +99,7 @@ ptxd_install_setup() {
     case "${dst}" in
 	/bin/*|/sbin/*|/lib/*) dst="/usr${dst}" ;;
 	/*|"") ;;
-	*) ptxd_bailout "'dst' must be an absolute path!" ;;
+	*) ptxd_bailout "${FUNCNAME[${#FUNCNAME[@]}-5]}: 'dst' must be an absolute path!" ;;
     esac
 
     nfsroot_dirs=("${ptx_nfsroot}" ${pkg_nfsroot_dirs})
