@@ -522,6 +522,7 @@ export -f ptxd_abs2rel
 #
 ptxd_file_url_path() {
     local url="${1//file:\/\//}"
+    url="${url//lndir:\/\//}"
     if [[ ! "${url}" =~ ^/ ]]; then
 	    # relative to absolute path
 	    if ptxd_in_path PTXDIST_PATH_LAYERS "${url}"; then
