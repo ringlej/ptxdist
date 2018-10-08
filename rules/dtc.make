@@ -18,12 +18,14 @@ PACKAGES-$(PTXCONF_DTC) += dtc
 DTC_VERSION := 1.0.0
 DTC_LICENSE := ignore
 
+DTC_OFTREE_DTS_PATH := $(call remove_quotes,$(PTXCONF_DTC_OFTREE_DTS_PATH))
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 ptx/dtb = $(notdir $(basename $(strip $(1)))).dtb
-ptx/dts = $(shell p=$(PTXCONF_DTC_OFTREE_DTS_PATH) ptxd_in_path p "$(strip $(1))" && echo "$${ptxd_reply}")
+ptx/dts = $(call ptx/in-path,DTC_OFTREE_DTS_PATH,$(strip $(1)))
 
 ifdef PTXCONF_DTC_OFTREE_DTS
 # Note: this must match the magic in ptxd_make_dts_dtb
