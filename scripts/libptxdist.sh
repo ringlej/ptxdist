@@ -422,6 +422,9 @@ export -f ptxd_in_path
 #
 # ptxd_in_platformconfigdir - find paths in platformconfigdir
 #
+# Note: the make implemenation in ptx/in-platformconfigdir must produce the
+# same result.
+#
 # $1 filename to find
 #
 # If the filename is absolute then return the filename unchanged.

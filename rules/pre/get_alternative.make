@@ -31,6 +31,19 @@ define ptx/in-path
 $(call ptx/in-path2,$(1),$(2),$(subst :,$(ptx/def/space),$($(strip $(1)))))
 endef
 
-ptx/in-platformconfigdir = $(if $(strip $(1)),$(shell ptxd_in_platformconfigdir $(1)))
+#
+# This must produce the same results as ptxd_in_platformconfigdir()
+#
+# Strip whitespaces introduced by the multiline macro
+define ptx/in-platformconfigdir2
+$(or $(strip $(1)),$(or $(strip $(2)),$(strip $(3))))
+endef
+# absolute path / first existing path / path in PTXDIST_PLATFORMCONFIGDIR
+define ptx/in-platformconfigdir
+$(call ptx/in-platformconfigdir2,
+$(filter /%,$(strip $(1))),
+$(call ptx/in-path,PTXDIST_PATH_PLATFORMCONFIGDIR,$(1)),
+$(PTXDIST_PLATFORMCONFIGDIR)/$(strip $(1)))
+endef
 
 # vim: syntax=make
