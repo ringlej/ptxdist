@@ -379,6 +379,8 @@ export -f ptxd_get_path
 #
 # ptxd_in_path - look for files and/or dirs
 #
+# Note: the make implemenation in ptx/in-path must produce the same result.
+#
 # $1 variable name with paths separated by ":"
 # $2 filename to find within these paths
 #
