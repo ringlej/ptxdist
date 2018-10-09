@@ -4,6 +4,7 @@ Version:	@VERSION@
 Section:  	@SECTION@
 Architecture:	@ARCH@
 Maintainer:	@AUTHOR@
+Installed-Size:	@INSTALLED_SIZE@
 Depends:	@DEPENDS@
 Source: 	http://www.ptxdist.org/
 Description:	@DESCRIPTION@
