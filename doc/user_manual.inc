@@ -316,8 +316,8 @@ Selecting a Userland Configuration
 
 First of all we have to select a userland configuration. This step
 defines what kind of applications will be built for the hardware
-platform. The comes with a predefined configuration we select in the
-following step:
+platform. The |ptxdistBSPName| project comes
+with a predefined configuration we select in the following step:
 
 ::
 
@@ -329,7 +329,8 @@ Selecting a Hardware Platform
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before we can build this BSP, we need to select one of the possible
-platforms to build for. In this case we want to build for the :
+platforms to build for. In this case we want to build for the
+|ptxdistPlatformName|:
 
 ::
 
