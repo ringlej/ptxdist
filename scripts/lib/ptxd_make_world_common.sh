@@ -412,5 +412,8 @@ ptxd_make_world_init() {
     esac
 
     exec 2>&${PTXDIST_FD_LOGERR}
+    if [ -n "${PTXDIST_QUIET}" ]; then
+	exec 9>&1
+    fi
 }
 export -f ptxd_make_world_init
