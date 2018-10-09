@@ -15,7 +15,7 @@
 ptxd_make_xpkg_finish_impl() {
     chown -R 0:0 "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" &&
     ptxd_make_xpkg_pkg "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" "${pkg_xpkg_cmds}" "${pkg_xpkg_perms}" &&
-    opkg-build ${ptx_xpkg_extra_args} "${pkg_xpkg_tmp}" "${ptx_pkg_dir}"
+    opkg-build ${ptx_xpkg_extra_args} "${pkg_xpkg_tmp}" "${ptx_pkg_dir}" &&
     if [ "$(find "${pkg_xpkg_dbg_tmp}" -type f | wc -l)" -gt 1 ]; then
 	# more than just the control file
 	opkg-build ${ptx_xpkg_extra_args} "${pkg_xpkg_dbg_tmp}" "${ptx_pkg_dir}"
