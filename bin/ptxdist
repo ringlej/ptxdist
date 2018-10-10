@@ -1344,18 +1344,19 @@ setup_layers()
 			exit 1
 		fi
 		if [ -z "${PTXDIST_AUTOVERSION}" -a -e "${layer}/bin/ptxdist" -a \
-				"${layer}" != "${PTXDIST_TOPDIR}" ]; then
+				"$(realpath "${layer}")" != "${PTXDIST_TOPDIR}" ]; then
 			echo
 			echo "${PTXDIST_LOG_PROMPT}error: PTXdist layer '${layer}' does not match the current PTXDIST_TOPDIR='${PTXDIST_TOPDIR}'"
 			echo
 			exit 1
 		fi
+		if [ "$(realpath "${layer}")" = "${PTXDIST_TOPDIR}" ]; then
+			break
+		fi
 		PTXDIST_LAYERS[${#PTXDIST_LAYERS[@]}]="${layer}"
 		layer="${layer}/base"
 	done
-	if [ "${PTXDIST_LAYERS[(${#PTXDIST_LAYERS[@]}-1)]}" != "${PTXDIST_TOPDIR}" ]; then
-		PTXDIST_LAYERS[${#PTXDIST_LAYERS[@]}]="${PTXDIST_TOPDIR}"
-	fi
+	PTXDIST_LAYERS[${#PTXDIST_LAYERS[@]}]="${PTXDIST_TOPDIR}"
 
 	if [ "${PTX_ptxconfig_SET}" = "false" ]; then
 		local -a cfgs=( "selected_ptxconfig" "configs/ptxconfig" )
