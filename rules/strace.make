@@ -18,11 +18,11 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.20
-STRACE_MD5	:= f2271ab0fac49ebee9cbd7f3469227cb
+STRACE_VERSION	:= 4.24
+STRACE_MD5	:= 8780136849c85acf76ad3a522aa4462a
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.xz
-STRACE_URL	:= $(call ptx/mirror, SF, strace/$(STRACE).$(STRACE_SUFFIX))
+STRACE_URL	:= https://strace.io/files/$(STRACE_VERSION)/$(STRACE).$(STRACE_SUFFIX)
 STRACE_SOURCE	:= $(SRCDIR)/$(STRACE).$(STRACE_SUFFIX)
 STRACE_DIR	:= $(BUILDDIR)/$(STRACE)
 STRACE_LICENSE	:= BSD-3-Clause
@@ -37,13 +37,17 @@ STRACE_CONF_OPT		:= \
 	--disable-gcc-Werror \
 	--disable-code-coverage \
 	--disable-arm-oabi \
+	--disable-stacktrace \
+	--disable-mpers \
 	--disable-valgrind \
 	--disable-valgrind-memcheck \
 	--disable-valgrind-helgrind \
 	--disable-valgrind-drd \
 	--disable-valgrind-sgcheck \
 	--without-gcov \
-	--without-libunwind
+	--without-libdw \
+	--without-libunwind \
+	--without-libiberty
 
 
 # ----------------------------------------------------------------------------
