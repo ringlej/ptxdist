@@ -1350,6 +1350,9 @@ setup_layers()
 			echo
 			exit 1
 		fi
+		if [ -n "${PTXDIST_AUTOVERSION}" -a -e "${layer}/bin/ptxdist" ]; then
+			PTXDIST_AUTOVERSION="$(realpath "${layer}")/bin/ptxdist"
+		fi
 		if [ "$(realpath "${layer}")" = "${PTXDIST_TOPDIR}" ]; then
 			break
 		fi
@@ -2416,34 +2419,49 @@ setup_parallel() {
 
 setup_auto_version()
 {
-	local configfile_version
+	local configfile_version next
+	local -a args
 
 	if [ -z "${PTXDIST_AUTOVERSION}" ]; then
 		return
 	fi
+
+	set -- "${PTXDIST_ARGS_FULL[@]}"
+	while [ ${#} -ne 0 ]; do
+		local arg="${1}"
+		shift
+		case "${arg}" in
+		--auto-version) ;;
+		*) args[${#args[@]}]="${arg}" ;;
+		esac
+	done
+
+	case "${PTXDIST_AUTOVERSION}" in
+	"${PTXDIST_TOPDIR}/bin/ptxdist")
+		# this is already the correct ptxdist
+		return
+		;;
+	/*)
+		# use ptxdist from the explicit PTXdist layer
+		exec "${PTXDIST_AUTOVERSION}" "${args[@]}"
+		;;
+	esac
+
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		# no config yet, so this is either 'select' or fails later anyways
 		return
 	fi
 
 	_get_config_ptx
-	if ! check_version "${configfile_version}"; then
-		local next
-		local -a args
-		set -- "${PTXDIST_ARGS_FULL[@]}"
-		while [ ${#} -ne 0 ]; do
-			local arg="${1}"
-			shift
-			case "${arg}" in
-			--auto-version) ;;
-			*) args[${#args[@]}]="${arg}" ;;
-			esac
-		done
-		if next="$(which ptxdist-${configfile_version})"; then
-			exec "${next}" "${args[@]}"
-		else
-			ptxd_bailout "ptxdist-${configfile_version} not found!"
-		fi
+	if check_version "${configfile_version}"; then
+		# this is already the correct version
+		return
+	fi
+
+	if next="$(which ptxdist-${configfile_version})"; then
+		exec "${next}" "${args[@]}"
+	else
+		ptxd_bailout "ptxdist-${configfile_version} not found!"
 	fi
 }
 
