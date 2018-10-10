@@ -161,19 +161,19 @@ endif
 
 ifdef PTXCONF_LIGHTTPD_GENERIC_SITE
 ifdef PTXCONF_LIGHTTPD_MOD_FASTCGI_PHP
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
+	@$(call install_copy, lighttpd, www, www, 0644, \
 		$(PTXDIST_TOPDIR)/projectroot/var/www/lighttpd.html, \
 		/var/www/index.html)
 
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
+	@$(call install_copy, lighttpd, www, www, 0644, \
 		$(PTXDIST_TOPDIR)/projectroot/var/www/bottles.php, \
 		/var/www/bottles.php)
 
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
+	@$(call install_copy, lighttpd, www, www, 0644, \
 		$(PTXDIST_TOPDIR)/projectroot/var/www/more_bottles.php, \
 		/var/www/more_bottles.php)
 else
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
+	@$(call install_copy, lighttpd, www, www, 0644, \
 		$(PTXDIST_TOPDIR)/projectroot/var/www/httpd.html, \
 		/var/www/index.html)
 endif
