@@ -505,9 +505,28 @@ ptxd_kconfig_update() {
 	fi
 	;;
     esac
-    if [ "${part}" = user ]; then
+    case "${part}" in
+    user)
 	mode=single
-    fi
+	;;
+    collection)
+	ptxd_kconfig_find_config run ${ptx_relative_file_dotconfig} || return 0
+	PTXDIST_PTXCONFIG="${base_config}"
+	ptxd_kconfig_find_config run ${platform_relative_file_dotconfig} || return 0
+	PTXDIST_PLATFORMCONFIG="${base_config}"
+	ptxd_dgen || ptxd_bailout "error in dgen"
+
+	#
+	# "PTXDIST_COLLECTIONCONFIG" would overwrite
+	# certain "m" packages with "y".
+	#
+	# but "menuconfig collection" works only on the
+	# "m" packages, so unset PTXDIST_COLLECTIONCONFIG
+	# here.
+	#
+	PTXDIST_COLLECTIONCONFIG="" ptxd_colgen || ptxd_bailout "error in colgen"
+	;;
+    esac
 
     ptxd_kgen "${part}" || ptxd_bailout "error in kgen"
 
@@ -549,9 +568,11 @@ ptxd_kconfig_update() {
 	    "${nconf}" "${file_kconfig}"
 	    ;;
 	oldconfig)
-	    ptxd_kconfig_migrate "${part}" &&
-	    # migrate touches the config, so update the timestamp
-	    touch -r ".config" ".config.stamp" &&
+	    if [ "${part}" = ptx -o "${part}" = platform ]; then
+		ptxd_kconfig_migrate "${part}" &&
+		# migrate touches the config, so update the timestamp
+		touch -r ".config" ".config.stamp"
+	    fi &&
 	    "${conf}" "${oldconfig}" "${file_kconfig}"
 	    ;;
 	all*config|randconfig)
@@ -604,18 +625,12 @@ ptxd_kconfig() {
 	file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
 	;;
     collection)
-	ptxd_dgen || ptxd_bailout "error in dgen"
-
-	#
-	# "PTXDIST_COLLECTIONCONFIG" would overwrite
-	# certain "m" packages with "y".
-	#
-	# but "menuconfig collection" works only on the
-	# "m" packages, so unset PTXDIST_COLLECTIONCONFIG
-	# here.
-	#
-	PTXDIST_COLLECTIONCONFIG="" ptxd_colgen || ptxd_bailout "error in colgen"
-
+	file_dotconfig="${PTXDIST_PTXCONFIG}"
+	ptxd_normalize_config
+	export ptx_relative_file_dotconfig="${relative_file_dotconfig}"
+	file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
+	ptxd_normalize_config
+	export platform_relative_file_dotconfig="${relative_file_dotconfig}"
 	file_kconfig="${PTXDIST_TOPDIR}/config/collection/Kconfig"
 	file_dotconfig="${3}"
 	;;
