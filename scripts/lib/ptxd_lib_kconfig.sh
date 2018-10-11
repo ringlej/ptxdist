@@ -336,6 +336,17 @@ ptxd_kconfig_find_config() {
 	ptxd_kconfig_find_config check "${relative_ref_config}" &&
 	last_config="${tmp_config}"
     fi
+    if [ ! -e "${last_config}" ]; then
+	# no config on this layer
+	if [ "${mode}" = check -a "${last_config}" = "${base_config}" ]; then
+	    # no config below -> nothing to do
+	    return 43
+	fi
+	if [ "${PTXDIST_LAYERS[0]}" != "${PTXDIST_WORKSPACE}" -a \
+	     "${mode}" = update -a -z "${baseconfig}" ]; then
+	    # not the first layer and no config below -> nothing to do
+	    return 43
+	fi
     fi
 }
 export -f ptxd_kconfig_find_config
@@ -355,8 +366,9 @@ ptxd_kconfig_setup_config() {
 	echo "Skipping '$(ptxd_print_path "${last_config}")'..."
 	return 42
 	;;
+    43) return 42 ;;
     0) ;;
-    *) return $?
+    *) return $? ;;
     esac
 
     if [ "${config}" = oldconfig ]; then
