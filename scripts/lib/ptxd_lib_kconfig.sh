@@ -293,6 +293,7 @@ ptxd_kconfig_find_config() {
     local relative_config="${2}"
     local relative_ref_config="${3}"
     local -a layers
+    local tmp_config
 
     if [ "${mode}" = run -o "${mode}" = "update" ]; then
 	ptxd_kconfig_validate_config "${relative_config}" "${relative_ref_config}" || return
@@ -300,7 +301,13 @@ ptxd_kconfig_find_config() {
 
     last_config="${PTXDIST_LAYERS[0]}/${relative_config}"
     if [ "$(readlink -f "${last_config}")" = /dev/null ]; then
-	return 42
+	# use the first existing config for 'run'
+	if [ "${mode}" = run ]; then
+	    last_config=
+	else
+	    # config disabled -> nothing to do
+	    return 42
+	fi
     fi
 
     if [ "${mode}" = update ]; then
@@ -321,9 +328,14 @@ ptxd_kconfig_find_config() {
 	    break
 	fi
     done
+    if [ -z "${last_config}" ]; then
+	last_config="${base_config}"
+    fi
     if [ "${mode}" = update -a -n "${relative_ref_config}" -a -z "${base_config}" ]; then
+	tmp_config="${last_config}"
 	ptxd_kconfig_find_config check "${relative_ref_config}" &&
-	last_config="${PTXDIST_LAYERS[0]}/${relative_config}"
+	last_config="${tmp_config}"
+    fi
     fi
 }
 export -f ptxd_kconfig_find_config
