@@ -17,6 +17,7 @@ image/env = \
 
 world/image/env/impl = \
 	$(call world/env, $(1))					\
+	ptx_packages_selected="$(PTX_PACKAGES_SELECTED)"	\
 	image_repo_dist_dir="$(IMAGE_REPO_DIST_DIR)"		\
 	image_env="$(call ptx/escape,$($(1)_ENV))"		\
 	image_pkgs="$(call ptx/escape,$($(1)_PKGS))"		\
