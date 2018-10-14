@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.12.0
-HOST_QEMU_MD5		:= ca553eb04c933f58111c304452fc4cc5
+HOST_QEMU_VERSION	:= 3.0.0
+HOST_QEMU_MD5		:= 6a5c8df583406ea24ef25b239c3243e0
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.xz
 HOST_QEMU_URL		:= https://download.qemu.org/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -116,6 +116,7 @@ HOST_QEMU_CONF_OPT	= \
 	--enable-attr \
 	--enable-vhost-net \
 	--disable-capstone \
+	--disable-debug-mutex \
 	--disable-spice \
 	--disable-rbd \
 	--disable-libiscsi \
