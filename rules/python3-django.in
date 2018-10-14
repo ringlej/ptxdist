@@ -3,7 +3,6 @@
 menuconfig PYTHON3_DJANGO
 	tristate
 	select PYTHON3
-	select PYTHON3_ZLIB
 	select HOST_PYTHON3_SETUPTOOLS
 	prompt "django                        "
 	help

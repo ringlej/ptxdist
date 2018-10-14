@@ -11,7 +11,6 @@ menuconfig PIGLIT
 	select LIBPNG
 	select PYTHON3
 	select PYTHON3_BZ2
-	select PYTHON3_ZLIB
 	select PYTHON3_LZMA
 	select PYTHON3_MAKO
 	select PYTHON3_SIX

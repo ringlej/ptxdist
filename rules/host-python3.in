@@ -2,6 +2,8 @@
 
 config HOST_PYTHON3
 	tristate
+	select HOST_EXPAT
+	select HOST_LIBFFI
 	select HOST_OPENSSL
 	default ALLYES
 	help
