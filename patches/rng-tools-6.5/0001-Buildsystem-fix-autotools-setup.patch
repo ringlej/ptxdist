@@ -1,0 +1,25 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Mon, 15 Oct 2018 12:51:16 +0200
+Subject: [PATCH] Buildsystem: fix autotools setup
+
+Using 'gnu' forces the existence of various files, which are not present
+in this repository ('README' for example).
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index b1544d9aefcb..6eaed1071869 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -21,7 +21,7 @@ AC_INIT(rng-tools, 6.5, [Neil Horman <nhorman@tuxdriver.com>])
+ AC_PREREQ(2.52)
+ AC_CONFIG_SRCDIR([rngd.c])
+ AC_CANONICAL_TARGET
+-AM_INIT_AUTOMAKE([gnu])
++AM_INIT_AUTOMAKE([foreign])
+ AC_CONFIG_HEADERS([rng-tools-config.h])
+ AC_CONFIG_MACRO_DIRS([m4])
+ 

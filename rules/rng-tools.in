@@ -3,6 +3,12 @@
 menuconfig RNG_TOOLS
 	tristate
 	prompt "rng-tools rngd                "
+	select LIBCURL
+	select LIBXML2
+	select OPENSSL
+	select LIBSYSFS
+	select LIBC_PTHREAD
+	select LIBGCRYPT
 	help
 	  random number generator daemon - seed kernel random from hwrng
 
@@ -11,10 +17,6 @@ menuconfig RNG_TOOLS
 	  that it is properly random.
 
 	  By default, a hardware rng at /dev/hwrng is used as entropy source.
-
-	  This daemon is part of the rng-tools, which can be found at
-	      http://sourceforge.net/projects/gkernel/
-	      git://git.kernel.org/pub/scm/utils/kernel/rng-tools/rng-tools.git
 
 if RNG_TOOLS
 
