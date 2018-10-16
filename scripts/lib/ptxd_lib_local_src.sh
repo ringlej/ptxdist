@@ -26,7 +26,7 @@ ptxd_lib_local_src() {
 	mkdir -p "${PTXDIST_WORKSPACE}/local_src"
 
 	if [ -e "${link}" -o -L "${link}" ]; then
-		if [ -n "${PTX_FORCE}" ]; then
+		if [ -n "${PTXDIST_FORCE}" ]; then
 			rm "${link}" || exit 1
 		else
 			ptxd_bailout "'${link}' already exists. Use -f to overwrite"

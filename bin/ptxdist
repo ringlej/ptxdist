@@ -192,7 +192,7 @@ check_version() {
 	# (or if beeing forced)
 	#
 	if [ "${1}" = "${PTXDIST_VERSION_FULL}" -o \
-	    -n "${PTX_FORCE}" ]; then
+	    -n "${PTXDIST_FORCE}" ]; then
 		return 0
 	fi
 
@@ -253,7 +253,7 @@ _get_config_ptx() {
 		return 1
 	fi
 
-	if [ -n "${PTX_FORCE}" ]; then
+	if [ -n "${PTXDIST_FORCE}" ]; then
 		return
 	fi
 
@@ -310,7 +310,7 @@ _check_config_platform() {
 		return 1
 	fi
 
-	if [ -n "${PTX_FORCE}" ]; then
+	if [ -n "${PTXDIST_FORCE}" ]; then
 		return
 	fi
 
@@ -1059,7 +1059,7 @@ clean() {
 		return
 	fi
 
-	if [ ! -n "${PTX_FORCE}${PTXDIST_QUIET}${PTXCONF_SETUP_DIRECT_CLEAN}" ]; then
+	if [ ! -n "${PTXDIST_FORCE}${PTXDIST_QUIET}${PTXCONF_SETUP_DIRECT_CLEAN}" ]; then
 		read -e -p "really clean all? [y/N] " r
 		case "${r}" in
 			y|Y) ;;
@@ -1238,7 +1238,7 @@ parse_first()
 			PTXDIST_PEDANTIC=true
 			;;
 		-f|--force)
-			PTX_FORCE=true
+			PTXDIST_FORCE=true
 			;;
 		--force-download)
 			PTXDIST_FORCE_DOWNLOAD=true
@@ -1525,7 +1525,7 @@ do_select()
 	fi
 
 	# check if magic is present in config file
-	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE}" ]; then
+	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTXDIST_FORCE}" ]; then
 		ptxd_dialog_msgbox \
 			"error: Couldn't verify that\n" \
 			"	'${file}'\n" \
@@ -1699,7 +1699,7 @@ do_select_toolchain() {
 #
 do_migrate()
 {
-	local PTX_FORCE=true
+	local PTXDIST_FORCE=true
 
 	local part
 	for part in ptx platform; do
@@ -2705,6 +2705,7 @@ setup_export() {
 		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
 		PTXDIST_OUTPUT_SYNC \
+		PTXDIST_FORCE \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
 		PTXDIST_VERBOSE
