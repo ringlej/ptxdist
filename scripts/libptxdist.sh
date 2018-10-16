@@ -674,7 +674,10 @@ export -f ptxd_pedantic
 # ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_warning() {
-	echo "${PTXDIST_LOG_PROMPT}warning: $1" >&2
+	while [ $# -gt 0 ]; do
+		echo -e "${PTXDIST_LOG_PROMPT}warning: $1" >&2
+		shift
+	done
 }
 export -f ptxd_warning
 
