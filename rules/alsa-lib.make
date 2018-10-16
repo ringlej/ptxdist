@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.1.4.1
-ALSA_LIB_MD5		:= 29fa3e69122d3cf3e8f0e01a0cb1d183
+ALSA_LIB_VERSION	:= 1.1.7
+ALSA_LIB_MD5		:= 51ca1283e27e7dc10207ccce33919cf2
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -43,13 +43,11 @@ ALSA_LIB_LICENSE	:= LGPL-2.1-or-later
 # Prepare
 # ----------------------------------------------------------------------------
 
-ALSA_LIB_PATH	:= PATH=$(CROSS_PATH)
-ALSA_LIB_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-ALSA_LIB_AUTOCONF := \
+ALSA_LIB_CONF_TOOL	:= autoconf
+ALSA_LIB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-shared \
@@ -77,14 +75,11 @@ ALSA_LIB_AUTOCONF := \
 	--with-pthread \
 	--with-librt \
 	--with-alsa-devdir=/dev/snd \
-	--with-aload-devdir=/dev
-
-ifdef PTXCONF_ALSA_LIB_PCM
-ALSA_LIB_AUTOCONF += --with-pcm-plugins=all
-endif
+	--with-aload-devdir=/dev \
+	--with-pcm-plugins=all
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
-ALSA_LIB_AUTOCONF += \
+ALSA_LIB_CONF_OPT += \
 	--enable-everyhing \
 	--enable-tlv \
 	--enable-timer \
