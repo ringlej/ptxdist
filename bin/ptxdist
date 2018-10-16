@@ -1487,7 +1487,7 @@ do_config()
 	local retval=${?}
 	if [ ${retval} -ne 0 ]; then
 		echo
-		echo "${PTXDIST_LOG_PROMPT}'${part} ${config}' returned with an error"
+		echo "${PTXDIST_LOG_PROMPT}'${config}${part:+ }${part}' returned with an error"
 		echo
 		if [ -n "${PTX_MENU}" ]; then
 			read
