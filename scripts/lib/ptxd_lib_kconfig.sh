@@ -271,7 +271,10 @@ ptxd_kconfig_validate_config() {
 	file_md5="${tmp[0]}"
 	saved_md5="$(echo $(head -n1 "${last}.diff"))"
 	if [ "${file_md5}" != "${saved_md5}" ]; then
-	    ptxd_bailout "'$(ptxd_print_path "${last}.diff")' is not up to date, run oldconfig!"
+	    local p="${part%ptx}"
+	    ptxd_bailout "'$(ptxd_print_path "${last}.diff")' is inconsistent." \
+		"It does not match '$(ptxd_print_path "${next}")'." \
+		"Run 'oldconfig${p:+ }${p}' to update all layers."
 	fi
     done
     if [ -e "${last}.diff" -a -z "${ignore_last_diff}" ]; then
@@ -450,7 +453,15 @@ ptxd_kconfig_sync_config() {
 	;;
     check)
 	if ! cmp -s "${target_config}" "${base_config}"; then
-	    ptxd_bailout "Inconsistent config for '$(ptxd_print_path "${PTXDIST_LAYERS[0]}")'"
+	    if [ -z "${PTXDIST_FORCE}" ]; then
+		local p="${part%ptx}"
+		ptxd_bailout "Outdated config for '$(ptxd_print_path "${PTXDIST_LAYERS[0]}")'" \
+		    "'oldconfig' changes the file. Run 'oldconfig${p:+ }${p}' to update all layers."
+		    "Use --force to continue anyways."
+	    else
+		ptxd_warning "Outdated config for '$(ptxd_print_path "${PTXDIST_LAYERS[0]}")'" \
+		    "Continue anyways because of '--force'.\n"
+	    fi
 	fi
 	return
 	;;
@@ -557,7 +568,8 @@ ptxd_kconfig_update() {
 
     if [ "${mode}" = check ]; then
 	if ! "${conf}" --silentoldconfig "${file_kconfig}" < /dev/null; then
-	    ptxd_bailout "Inconsistent config for '$(ptxd_print_path "${PTXDIST_LAYERS[0]}")'"
+	    # error handling in ptxd_kconfig_sync_config()
+	    :> .config
 	fi
     else
 	case "${config}" in
