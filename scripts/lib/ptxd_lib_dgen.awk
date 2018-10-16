@@ -21,6 +21,8 @@ BEGIN {
 	DGEN_RULESFILES_MAKE	= ENVIRON["PTX_DGEN_RULESFILES_MAKE"];
 	PTXDIST_TEMPDIR		= ENVIRON["PTXDIST_TEMPDIR"];
 	PARALLEL		= ENVIRON["PTXDIST_PARALLELMFLAGS_EXTERN"]
+	DIRTY			= ENVIRON["PTXDIST_DIRTY"];
+	DEP			= DIRTY == "true" ? "|" : ""
 	CHECK_LICENSES		= 0
 }
 
@@ -355,7 +357,9 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".prepare: "                    "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;
-	print "$(STATEDIR)/" this_pkg ".prepare: "   "$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash"	> DGEN_DEPS_POST;
+	if (DIRTY != "true")
+		print "$(STATEDIR)/" this_pkg ".prepare: " \
+						"$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".tags: "                       "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".compile: "                    "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".install: "                    "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
@@ -384,7 +388,7 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	print "ifneq ($(" this_PKG "),)"						> DGEN_DEPS_POST;
 	# on autogen script
 	print "ifneq ($(call autogen_dep,$(" this_PKG ")),)"				> DGEN_DEPS_POST;
-	print "$(STATEDIR)/" this_pkg ".extract.post: $(STATEDIR)/autogen-tools"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".extract.post:" DEP " $(STATEDIR)/autogen-tools"	> DGEN_DEPS_POST;
 	print "endif"									> DGEN_DEPS_POST;
 	# on lndir
 	print "ifneq ($(findstring lndir://,$(" this_PKG "_URL)),)"			> DGEN_DEPS_POST;
@@ -402,8 +406,8 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 
 		if (PARALLEL != "-j1")
 			print "$(STATEDIR)/" this_pkg	".extract:| " "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg	".extract.post: "     "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg	".install.unpack: "   "$(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg	".extract.post:" DEP   " $(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg	".install.unpack:" DEP " $(STATEDIR)/" this_dep ".install.post"	> DGEN_DEPS_POST;
 
 	}
 	this_PKG_DEPS = PKG_to_R_DEP[this_PKG];
@@ -417,7 +421,7 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 		if (this_dep ~ /^host-|^cross-/)
 			continue;
 
-		print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_dep ".targetinstall"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".targetinstall:" DEP " $(STATEDIR)/" this_dep ".targetinstall"	> DGEN_DEPS_POST;
 	}
 }
 
@@ -442,8 +446,8 @@ function write_deps_pkg_active_virtual(this_PKG, this_pkg, prefix) {
 	}
 	if (PARALLEL != "-j1")
 		print "$(STATEDIR)/" this_pkg ".extract:| "           "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
-	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
-	print "$(STATEDIR)/" this_pkg ".install.unpack: "             "$(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".extract.post:" DEP           " $(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
+	print "$(STATEDIR)/" this_pkg ".install.unpack:" DEP         " $(STATEDIR)/" virtual  ".install"	> DGEN_DEPS_POST;
 }
 
 function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {

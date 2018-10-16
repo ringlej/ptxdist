@@ -315,6 +315,15 @@ Options
 ``--nice=<n>``, ``-n<n>``
   run with reduced scheduling priority (i.e. nice). The default is 10.
 
+``--dirty``
+  avoid rebuilding packages. By default, if a package is rebuild then all
+  packages that depend on it are also rebuild. This happens because
+  PTXdist cannot know if rebuilding is necessary. With this option the
+  depending packages will not be rebuild. Also, changes to config options,
+  rule and menu file will not trigger a rebuild either.
+
+  To trigger a rebuild, the relevant stage of a package must be dropped.
+
 ``--keep-going``, ``-k``
   keep going. Continue as much as possible after an error.
 

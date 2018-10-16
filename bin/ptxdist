@@ -1014,6 +1014,8 @@ Options:
   --nice=<n>, -n<n>		run with reduced scheduling priority (i.e. nice)
 				(default = 10)
 
+  --dirty			avoid rebuilding packages to speed up development
+
   --keep-going, -k		keep going. Continue as much as possible
 				after an error.
 
@@ -1230,6 +1232,9 @@ parse_first()
 			;;
 		-v|--verbose)
 			PTXDIST_VERBOSE=1
+			;;
+		--dirty)
+			PTXDIST_DIRTY=true
 			;;
 		-k|--keep-going)
 			PTX_MAKE_ARGS[${#PTX_MAKE_ARGS[@]}]="-k"
@@ -2705,6 +2710,7 @@ setup_export() {
 		PTXDIST_ICECC \
 		PTXDIST_LOG_PROMPT \
 		PTXDIST_OUTPUT_SYNC \
+		PTXDIST_DIRTY \
 		PTXDIST_FORCE \
 		PTXDIST_PEDANTIC \
 		PTXDIST_QUIET \
