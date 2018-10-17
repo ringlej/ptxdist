@@ -2,7 +2,6 @@
 
 config PYTHON3_MSGPACK
 	tristate
-	select HOST_PYTHON3_SETUPTOOLS
 	select PYTHON3
 	prompt "msgpack"
 	help

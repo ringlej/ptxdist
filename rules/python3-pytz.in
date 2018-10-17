@@ -3,7 +3,6 @@
 config PYTHON3_PYTZ
 	tristate
 	select PYTHON3
-	select HOST_PYTHON3_SETUPTOOLS
 	select TIMEZONE if RUNTIME
 	prompt "pytz"
 	help
