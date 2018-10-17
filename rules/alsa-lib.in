@@ -103,6 +103,8 @@ config ALSA_LIB_UCM
 config ALSA_LIB_ALISP
 	bool
 	default y
+	# necessary files missing in the tarball for version 1.1.7
+	depends on BROKEN
 	prompt "alisp"
 	help
 	  Disable the alisp component if you do not need it
