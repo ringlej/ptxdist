@@ -12,7 +12,7 @@ there should be good reasons for different choices.
 How to Contribute
 ~~~~~~~~~~~~~~~~~
 
-Contributions should be sent as patches to the :ref:`PTXdist mailing list`. This
+Contributions should be sent as patches to the :ref:`mailing_list`. This
 is usually done with ``git send-email``.
 
 All patches must contain a descriptive subject and should, for all
