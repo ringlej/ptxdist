@@ -3,9 +3,6 @@
 menuconfig RNG_TOOLS
 	tristate
 	prompt "rng-tools rngd                "
-	select LIBCURL
-	select LIBXML2
-	select OPENSSL
 	select LIBSYSFS
 	select LIBC_PTHREAD
 	select LIBGCRYPT
