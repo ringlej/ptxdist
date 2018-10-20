@@ -56,7 +56,8 @@ HOST_PYTHON3_CONF_OPT	:= \
 	--without-valgrind \
 	--without-dtrace \
 	--with-computed-gotos \
-	--without-ensurepip
+	--without-ensurepip \
+	--with-openssl=$(PTXDIST_SYSROOT_HOST)
 
 # ----------------------------------------------------------------------------
 # Install
