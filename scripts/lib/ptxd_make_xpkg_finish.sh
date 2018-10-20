@@ -13,13 +13,14 @@
 # the actual opkg package creation, will run in fakeroot
 #
 ptxd_make_xpkg_finish_impl() {
+    local size
     chown -R 0:0 "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" &&
     ptxd_make_xpkg_pkg "${pkg_xpkg_tmp}" "${pkg_xpkg_dbg_tmp}" "${pkg_xpkg_cmds}" "${pkg_xpkg_perms}" &&
 
-    set -- $(du --apparent-size --bytes --summarize --exclude=CONTROL "${pkg_xpkg_tmp}") &&
-    sed -i -e "s,@INSTALLED_SIZE@,${1}," "${pkg_xpkg_control}" &&
-    set -- $(du --apparent-size --bytes --summarize --exclude=CONTROL "${pkg_xpkg_dbg_tmp}") &&
-    sed -i -e "s,@INSTALLED_SIZE@,${1}," "${pkg_xpkg_dbg_control}" &&
+    size="$(tar -C "${pkg_xpkg_tmp}" --exclude=CONTROL -c . | tar -tv  | awk '{ sum += $3; } END { print sum; }')"
+    sed -i -e "s,@INSTALLED_SIZE@,${size}," "${pkg_xpkg_control}" &&
+    size="$(tar -C "${pkg_xpkg_dbg_tmp}" --exclude=CONTROL -c . | tar -tv  | awk '{ sum += $3; } END { print sum; }')"
+    sed -i -e "s,@INSTALLED_SIZE@,${size}," "${pkg_xpkg_dbg_control}" &&
 
     opkg-build ${ptx_xpkg_extra_args} "${pkg_xpkg_tmp}" "${ptx_pkg_dir}" &&
     if [ "$(find "${pkg_xpkg_dbg_tmp}" -type f | wc -l)" -gt 1 ]; then
