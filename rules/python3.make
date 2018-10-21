@@ -119,11 +119,16 @@ $(STATEDIR)/python3.install.post:
 	@echo '_PYTHON_PROJECT_BASE=$(PYTHON3_DIR)'			>> "$(CROSS_PYTHON3)"
 	@echo '_PYTHON_HOST_PLATFORM=linux2-$(PYTHON3_PLATFORM)'	>> "$(CROSS_PYTHON3)"
 	@m=`sed -n 's/^MULTIARCH=[\t ]*\(.*\)/\1/p' $(PYTHON3_DIR)/Makefile` && \
-	 echo "_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_m_linux2_$$m"	>> "$(CROSS_PYTHON3)"
-	@d=`cat $(PYTHON3_DIR)/pybuilddir.txt` && \
-	 echo "PYTHONPATH=$(PYTHON3_DIR)/$$d:$(PYTHON3_DIR)/Lib"	>> "$(CROSS_PYTHON3)"
+	 d=`cat $(PYTHON3_DIR)/pybuilddir.txt` && \
+	 cross_dir="$(PTXDIST_SYSROOT_CROSS)/lib/python$(PYTHON3_MAJORMINOR)" && \
+	 mkdir -p "$${cross_dir}" && \
+	 cp "$(PYTHON3_DIR)/$$d/_sysconfigdata_m_linux2_$${m}.py" "$${cross_dir}" && \
+	 echo "_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_m_linux2_$$m"	>> "$(CROSS_PYTHON3)" && \
+	 echo "PYTHONPATH=$${cross_dir}"				>> "$(CROSS_PYTHON3)"
+	@echo 'PYTHONHASHSEED=0'					>> "$(CROSS_PYTHON3)"
 	@echo 'export _PYTHON_PROJECT_BASE _PYTHON_HOST_PLATFORM'	>> "$(CROSS_PYTHON3)"
 	@echo 'export _PYTHON_SYSCONFIGDATA_NAME PYTHONPATH'		>> "$(CROSS_PYTHON3)"
+	@echo 'export PYTHONHASHSEED'					>> "$(CROSS_PYTHON3)"
 	@echo 'exec $(HOSTPYTHON3) "$${@}"'				>> "$(CROSS_PYTHON3)"
 	@chmod a+x "$(CROSS_PYTHON3)"
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
@@ -180,5 +185,18 @@ endif
 	@$(call install_finish, python3)
 
 	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/python3.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, MESA_DEMOS)
+	@rm -vf \
+		"$(CROSS_PYTHON3)" \
+		"$(PTXCONF_SYSROOT_CROSS)/bin/python3" \
+		"$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config" \
+		"$(PTXDIST_SYSROOT_CROSS)/lib/python$(PYTHON3_MAJORMINOR)/"_sysconfigdata_m_linux2_*.py
 
 # vim: syntax=make
