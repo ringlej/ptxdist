@@ -7,6 +7,8 @@ config INTEL_GPU_TOOLS
 	select LIBDRM
 	select LIBDRM_INTEL
 	select LIBPCIACCESS
+	select LIBUNWIND
+	select PROCPS
 	select UDEV
 	select UDEV_LIBUDEV
 	select ZLIB
