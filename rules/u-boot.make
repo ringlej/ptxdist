@@ -69,6 +69,9 @@ endif
 ifdef PTXCONF_U_BOOT_INSTALL_ELF
 	@install -D -m644 $(U_BOOT_DIR)/u-boot $(IMAGEDIR)/u-boot.elf
 endif
+ifdef PTXCONF_U_BOOT_INSTALL_SPL
+	@install -D -m644 $(U_BOOT_DIR)/SPL $(IMAGEDIR)/SPL
+endif
 ifdef PTXCONF_U_BOOT_INSTALL_MLO
 	@install -D -m644 $(U_BOOT_DIR)/MLO $(IMAGEDIR)/MLO
 endif
@@ -88,6 +91,7 @@ $(STATEDIR)/u-boot.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, U_BOOT)
 	@rm -f $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
+	@rm -f $(IMAGEDIR)/u-boot.img $(IMAGEDIR)/SPL $(IMAGEDIR)/MLO
 	@rm -f $(IMAGEDIR)/u-boot.imx
 
 # vim: syntax=make
