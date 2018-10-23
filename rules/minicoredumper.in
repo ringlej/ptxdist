@@ -1,0 +1,21 @@
+## SECTION=shell_and_console
+
+config MINICOREDUMPER
+	tristate
+	prompt "minicoredumper"
+	select LIBELF
+	select JSON_C
+	help
+	  The minicoredumper project provides a program that handles the
+	  creation of core dump files on Linux. It can produce much smaller
+	  core dump files by making use of sparse files, compression, and
+	  allowing the user to configure what parts of the process memory image
+	  should be dumped.
+
+	  Note that there are currently no mechanisms integrated to
+	  automatically register minicoredumper as kernel coredump helper. So
+	  you might want to do
+
+	  	echo '|/usr/sbin/minicoredumper %P %u %g %s %t %h %e' > /proc/sys/kernel/core_pattern
+
+	  by hand to actually make use of it.
