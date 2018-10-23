@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	:= 4.2.8p10
-NTP_MD5		:= 745384ed0dedb3f66b33fe84d66466f9
+NTP_VERSION	:= 4.2.8p12
+NTP_MD5		:= 1522d66574bae14abb2622746dad2bdc
 NTP		:= ntp-$(NTP_VERSION)
 NTP_SUFFIX	:= tar.gz
 NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
@@ -45,6 +45,7 @@ NTP_CONF_ENV	:= \
 NTP_CONF_TOOL	:= autoconf
 NTP_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--with-hardenfile=linux \
 	--bindir=/usr/sbin \
 	--disable-nls \
 	--enable-local-libopts \
@@ -59,6 +60,7 @@ NTP_CONF_OPT	:= \
 	--disable-clockctl \
 	--enable-linuxcaps \
 	--disable-solarisprivs \
+	--disable-trustedbsd-mac \
 	--without-arlib \
 	--without-net-snmp-config \
 	--disable-libseccomp \
