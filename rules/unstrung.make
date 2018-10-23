@@ -35,6 +35,9 @@ UNSTRUNG_COMPILE_ENV	:= \
 	ARCH=$(PTXCONF_ARCH_STRING) \
 	EMBEDDED=$(call ptx/ifdef,PTXCONF_UNSTRUNG_TESTING,,1)
 
+UNSTRUNG_MAKE_OPT = \
+	BUILDNUMBER="$(shell date --utc --date @$(SOURCE_DATE_EPOCH) '+%Y%m%d_%s')"
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
