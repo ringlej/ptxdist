@@ -431,6 +431,7 @@ ptxd_kconfig_update_config() {
 	    echo
 	else
 	    # remove config and diff if the diff is empty
+	    echo "Empty diff. Skipping '$(ptxd_print_path "${config}")'."
 	    rm -f "${config}" "${config}.diff"
 	fi
     fi
