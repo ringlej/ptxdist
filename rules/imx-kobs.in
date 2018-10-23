@@ -1,0 +1,8 @@
+## SECTION=shell_and_console
+
+config IMX_KOBS
+	tristate
+	prompt "imx-kobs"
+	help
+	  The imx-kobs tool is used to create and write i.MX NAND boot
+	  related boot data structures to NAND flash.
