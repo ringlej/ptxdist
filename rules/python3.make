@@ -79,11 +79,6 @@ PYTHON3_CONF_OPT	:= \
 	--without-ensurepip \
 	--with-openssl=$(SYSROOT)/usr
 
-# Use fixed date / time
-xPYTHON3_CPPFLAGS = \
-	-DDATE='"$(shell date --utc --date @$(SOURCE_DATE_EPOCH) +'%x')"' \
-	-DTIME='"$(shell date --utc --date @$(SOURCE_DATE_EPOCH) +'%H:%M:%S')"'
-
 # Keep dictionary order in .pyc files stable
 PYTHON3_MAKE_ENV := \
 	PYTHONHASHSEED=0
