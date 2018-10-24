@@ -16,24 +16,24 @@ HOST_PACKAGES-$(PTXCONF_HOST_LZOP) += host-lzop
 #
 # Paths and names
 #
-HOST_LZOP_VERSION	:= 1.03
-HOST_LZOP_MD5		:= 006c5e27fb78cdd14a628fdfa5aa1905
+HOST_LZOP_VERSION	:= 1.04
+HOST_LZOP_MD5		:= 271eb10fde77a0a96b9cbf745e719ddf
 HOST_LZOP		:= lzop-$(HOST_LZOP_VERSION)
 HOST_LZOP_SUFFIX	:= tar.gz
 HOST_LZOP_URL		:= http://www.lzop.org/download/$(HOST_LZOP).$(HOST_LZOP_SUFFIX)
 HOST_LZOP_SOURCE	:= $(SRCDIR)/$(HOST_LZOP).$(HOST_LZOP_SUFFIX)
 HOST_LZOP_DIR		:= $(HOST_BUILDDIR)/$(HOST_LZOP)
 HOST_LZOP_LICENSE	:= GPL-2.0-or-later
-HOST_LZOP_LICENSE_FILES	:= file://COPYING;md5=dfeaf3dc4beef4f5a7bdbc35b197f39e
+HOST_LZOP_LICENSE_FILES	:= file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 HOST_LZOP_CONF_TOOL	:= autoconf
-
-# This is needed to pass configure check with host-gcc 6.1
-# Otherwise, we get "error: ACC conformance test failed"
-HOST_LZOP_CFLAGS	:= -std=c90 -fPIC
+HOST_LZOP_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--disable-asm \
+	--disable-ansi
 
 # vim: syntax=make
