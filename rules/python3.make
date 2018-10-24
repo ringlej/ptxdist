@@ -48,6 +48,7 @@ PYTHON3_CONF_ENV	:= \
 	ac_cv_file__dev_ptmx=no \
 	ac_cv_file__dev_ptc=no \
 	ac_cv_working_tzset=yes \
+	ac_cv_header_bluetooth_bluetooth_h=no \
 	LDFLAGS="-L $(PTXDIST_SYSROOT_TARGET)/usr/lib"
 
 PYTHON3_BINCONFIG_GLOB := ""
