@@ -31,15 +31,15 @@ MTD_UTILS_LICENSE	:= GPL-2.0-or-later
 # ----------------------------------------------------------------------------
 
 MTD_UTILS_CONF_TOOL	:= autoconf
-MTD_UTILS_CONF_OPT      := \
-        $(CROSS_AUTOCONF_USR) \
-        --disable-unit-tests \
-        --disable-tests \
-        --disable-install-tests \
-        --$(call ptx/wwo, PTXCONF_MTD_UTILS_JFFS)-jffs \
-        --$(call ptx/wwo, PTXCONF_MTD_UTILS_UBIFS)-ubifs \
-        --without-xattr \
-        --$(call ptx/wwo, PTXCONF_MTD_UTILS_USE_LIBLZO)-lzo
+MTD_UTILS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-unit-tests \
+	--disable-tests \
+	--disable-install-tests \
+	--$(call ptx/wwo, PTXCONF_MTD_UTILS_JFFS)-jffs \
+	--$(call ptx/wwo, PTXCONF_MTD_UTILS_UBIFS)-ubifs \
+	--without-xattr \
+	--$(call ptx/wwo, PTXCONF_MTD_UTILS_USE_LIBLZO)-lzo
 
 # ----------------------------------------------------------------------------
 # Target-Install
