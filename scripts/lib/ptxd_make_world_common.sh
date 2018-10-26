@@ -252,6 +252,8 @@ ptxd_make_world_init() {
     if [ -d "$(readlink -f "${wip_sources}")" ]; then
 	pkg_url="file://${wip_sources}"
 	unset pkg_src
+	# always use a new timestamp for wip builds
+	SOURCE_DATE_EPOCH="$(echo $(date "+%s"))"
     fi
     unset wip_sources
 
