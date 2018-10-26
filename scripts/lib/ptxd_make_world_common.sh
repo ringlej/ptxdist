@@ -413,6 +413,13 @@ ptxd_make_world_init() {
 	*)	  ptxd_bailout "<PKG>_MAKE_PAR: please set to YES or NO" ;;
     esac
 
+    #
+    # reproducible builds for kbuild
+    #
+    # use a date/time format without spaces to avoid problems
+    local kbuild_date="$(date --utc --date=@${SOURCE_DATE_EPOCH} -Iseconds)"
+    pkg_env="${pkg_env} KBUILD_BUILD_TIMESTAMP=${kbuild_date} KBUILD_BUILD_USER=ptxdist KBUILD_BUILD_HOST=ptxdist"
+
     exec 2>&${PTXDIST_FD_LOGERR}
     if [ -n "${PTXDIST_QUIET}" ]; then
 	exec 9>&1
