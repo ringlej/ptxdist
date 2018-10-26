@@ -79,12 +79,12 @@ export -f ptxd_install_getent_id
 # convert usr/grp that contain names into numeric values
 #
 ptxd_install_resolve_usr_grp() {
-    if ! [ 0 -le $usr ] 2>/dev/null; then
+    if [ -n "$usr" ] && ! [ 0 -le "$usr" ] 2>/dev/null; then
 	ptxd_install_getent_id usr || return
     else
 	unset usr_name
     fi
-    if ! [ 0 -le $grp ] 2>/dev/null; then
+    if [ -n "$grp" ] && ! [ 0 -le "$grp" ] 2>/dev/null; then
 	ptxd_install_getent_id grp || return
     else
 	unset grp_name
