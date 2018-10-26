@@ -34,6 +34,9 @@ BAREBOX_CONFIG	:= $(call ptx/in-platformconfigdir, \
 # Prepare
 # ----------------------------------------------------------------------------
 
+# use host pkg-config for host tools
+BAREBOX_PATH := PATH=$(HOST_PATH)
+
 BAREBOX_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
@@ -41,16 +44,8 @@ BAREBOX_WRAPPER_BLACKLIST := \
 	TARGET_DEBUG \
 	TARGET_BUILD_ID
 
-BAREBOX_ENV := \
-	KCONFIG_NOTIMESTAMP=1 \
-	pkg_wrapper_blacklist="$(BAREBOX_WRAPPER_BLACKLIST)"
-
-BAREBOX_MAKEVARS := \
-	V=$(PTXDIST_VERBOSE) \
-	HOSTCC=$(HOSTCC) \
-	ARCH=$(PTXCONF_BAREBOX_ARCH_STRING) \
-	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
-	$(PARALLELMFLAGS)
+BAREBOX_CONF_OPT := $(call barebox-opts, BAREBOX)
+BAREBOX_MAKE_OPT := $(BAREBOX_CONF_OPT)
 
 BAREBOX_TAGS_OPT := TAGS tags cscope
 
@@ -77,10 +72,7 @@ endif
 
 $(STATEDIR)/barebox.prepare:
 	@$(call targetinfo)
-
-	@$(call world/kconfig-setup, BAREBOX)
-	@$(call ptx/oldconfig, BAREBOX)
-	@$(call world/kconfig-sync, BAREBOX)
+	@$(call world/prepare, BAREBOX)
 
 ifdef PTXCONF_BAREBOX_EXTRA_ENV
 	@rm -rf $(BAREBOX_DIR)/.ptxdist-defaultenv
@@ -111,9 +103,7 @@ ifdef PTXCONF_BAREBOX_EXTRA_ENV
 			$(BAREBOX_DIR)/.config; \
 	fi
 endif
-
-	@+cd $(BAREBOX_DIR) && $(BAREBOX_PATH) $(BAREBOX_ENV) \
-		$(MAKE) $(BAREBOX_MAKEVARS)
+	@$(call world/compile, BAREBOX)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -200,19 +190,14 @@ $(STATEDIR)/barebox.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX)
 	@$(foreach prog, $(BAREBOX_PROGS_HOST), \
-		rm -rf $(PTXCONF_SYSROOT_HOST)/bin/$(notdir $(prog));)
-	rm -rf $(IMAGEDIR)/barebox-image $(IMAGEDIR)/barebox-default-environment
+		rm -vf $(PTXCONF_SYSROOT_HOST)/bin/$(notdir $(prog))$(ptx/nl))
+	@rm -vf $(IMAGEDIR)/barebox-image $(IMAGEDIR)/barebox-default-environment
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
 barebox_oldconfig barebox_menuconfig barebox_nconfig: $(STATEDIR)/barebox.extract
-	@$(call world/kconfig-setup, BAREBOX)
-
-	@cd $(BAREBOX_DIR) && \
-		$(BAREBOX_PATH) $(BAREBOX_ENV) $(MAKE) $(BAREBOX_MAKEVARS) $(subst barebox_,,$@)
-
-	@$(call world/kconfig-sync, BAREBOX)
+	@$(call world/kconfig, BAREBOX, $(subst barebox_,,$@))
 
 # vim: syntax=make
