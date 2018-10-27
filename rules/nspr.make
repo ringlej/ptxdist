@@ -67,7 +67,7 @@ NSPR_HOST_COMPILE_OPT := \
 	export
 
 NSPR_MAKE_OPT := \
-	SH_NOW="`date --utc --date @$(SOURCE_DATE_EPOCH) +%s`000000" \
+	SH_NOW="$(SOURCE_DATE_EPOCH)000000" \
 	SH_DATE="`date --utc --date @$(SOURCE_DATE_EPOCH) "+%Y-%m-%d %T"`"
 
 $(STATEDIR)/nspr.compile:
