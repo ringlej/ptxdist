@@ -51,7 +51,7 @@ LIBGPG_ERROR_CONF_OPT	:= \
 	--disable-rpath \
 	--disable-log-clock \
 	--disable-werror \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)" \
 	--disable-languages \
 	--disable-doc \
 	--disable-tests

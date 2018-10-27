@@ -87,7 +87,7 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-werror \
 	--disable-all-tests \
 	--disable-run-gnupg-user-socket \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000"
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)"
 
 ifndef PTXCONF_ICONV
 GNUPG_CONF_OPT += --without-libiconv-prefix
