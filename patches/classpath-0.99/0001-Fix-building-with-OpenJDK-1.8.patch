@@ -1,0 +1,50 @@
+This patch makes it possible to build GNU Classpath using javac
+from OpenJDK 1.7 and 1.8.
+
+- From the javac docs: "Classes found through the classpath are
+subject to automatic recompilation if their sources are found."
+javac from OpenJDK 1.7+ will try (and fail) to recompile "standard"
+Java classes (e.g. java/lang/Object.java) when compiling the Java
+test class. Fix this by explicitly passing an empty -sourcepath.
+
+- Test for 1.6 instead of 1.5, as -source/-target 1.5 is deprecated
+in Java 8, and the Makefiles already use -source/-target 1.6 anyway.
+
+---
+ m4/ac_prog_java_works.m4  | 3 ++-
+ m4/ac_prog_javac_works.m4 | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/m4/ac_prog_java_works.m4 b/m4/ac_prog_java_works.m4
+index d3f2744..f36318b 100644
+--- a/m4/ac_prog_java_works.m4
++++ b/m4/ac_prog_java_works.m4
+@@ -62,7 +62,8 @@ EOF
+ changequote([, ])dnl
+ if test x$ac_cv_prog_uudecode_base64 != xyes; then
+    	AC_REQUIRE([AC_PROG_JAVAC_WORKS])
+-        if AC_TRY_COMMAND($JAVAC $JAVACFLAGS $JAVA_TEST) && test -s $CLASS_TEST; then
++   	CMD="$JAVAC $JAVACFLAGS -sourcepath '' $JAVA_TEST"
++        if AC_TRY_COMMAND($CMD) && test -s $CLASS_TEST; then
+                 :
+         else
+           echo "configure: failed program was:" >&AC_FD_CC
+diff --git a/m4/ac_prog_javac_works.m4 b/m4/ac_prog_javac_works.m4
+index 7fb298d..fbe24ce 100644
+--- a/m4/ac_prog_javac_works.m4
++++ b/m4/ac_prog_javac_works.m4
+@@ -33,9 +33,9 @@ public class Object
+ }
+ EOF
+ if test x$JAVAC_IS_GCJ = xyes; then
+-  CMD="$JAVAC $JAVACFLAGS -fsource=1.5 -ftarget=1.5 $JAVA_TEST"
++  CMD="$JAVAC $JAVACFLAGS -fsource=1.6 -ftarget=1.6 $JAVA_TEST"
+ else
+-  CMD="$JAVAC $JAVACFLAGS -source 1.5 -target 1.5 $JAVA_TEST"
++  CMD="$JAVAC $JAVACFLAGS -sourcepath '' -source 1.6 -target 1.6 $JAVA_TEST"
+ fi
+ if AC_TRY_COMMAND($CMD) >/dev/null 2>&1; then
+   ac_cv_prog_javac_works=yes
+-- 
+1.9.1
+
