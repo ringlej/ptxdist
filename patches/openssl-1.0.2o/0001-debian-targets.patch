@@ -6,7 +6,7 @@ Imported from openssl1.0_1.0.2o-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- Configure | 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Configure | 56 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 56 insertions(+)
 
 diff --git a/Configure b/Configure

@@ -10,7 +10,7 @@ Imported from openssl1.0_1.0.2o-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- ssl/s3_lib.c | 59 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ ssl/s3_lib.c | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++-
  1 file changed, 58 insertions(+), 1 deletion(-)
 
 diff --git a/ssl/s3_lib.c b/ssl/s3_lib.c
