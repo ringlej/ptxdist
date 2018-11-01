@@ -4,6 +4,7 @@ config HOST_SOFTHSM
 	tristate
 	select HOST_P11_KIT
 	select HOST_OPENSSL
+	select HOST_SQLITE
 	default ALLYES
 	help
 	  SoftHSM emulates an HSM (e.g. Hardware Security Module) device and

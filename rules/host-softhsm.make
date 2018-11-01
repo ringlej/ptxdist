@@ -37,6 +37,7 @@ HOST_SOFTHSM_CONF_OPT	:= \
 	--disable-non-paged-memory \
 	--disable-gost \
 	--with-crypto-backend=openssl \
+	--with-objectstore-backend-db \
 	--without-migrate \
 	--with-p11-kit=/share/p11-kit/modules
 
