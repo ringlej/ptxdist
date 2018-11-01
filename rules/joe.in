@@ -14,7 +14,7 @@ if JOE
 config JOE_SYNTAX_HIGHLIGHT
 	bool
 	default y
-	prompt "Install syntax hilighting patterns"
+	prompt "Install syntax highlighting patterns"
 	help
 		This option will install the syntax highlighting for joe
 

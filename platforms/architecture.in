@@ -213,7 +213,7 @@ config ARCH_LP64
 
 
 #
-# endianess
+# endianness
 #
 config ARCH_SUPPORTS_ENDIAN_BIG
        bool
@@ -222,7 +222,7 @@ config ARCH_SUPPORTS_ENDIAN_LITTLE
        bool
 
 choice
-	prompt "endianess       "
+	prompt "endianness      "
 	default ENDIAN_LITTLE if !ARCH_MICROBLAZE
 	default ENDIAN_BIG if ARCH_MICROBLAZE
 

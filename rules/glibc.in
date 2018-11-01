@@ -225,7 +225,7 @@ config GLIBC_I18N_RAWDATA
 	help
 	  With the i18n datasets you can generate new locales in running
 	  system. This will, however, increase the installation size
-	  unneccessarily if you don't want to change your system locale
+	  unnecessarily if you don't want to change your system locale
 	  often. Hence we recommend to use the "System locale" option in
 	  ptxdist to determine locales while building the system.
 

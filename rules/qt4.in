@@ -126,7 +126,7 @@ choice
 	prompt "LinuxFb             "
 	default QT4_GFX_LINUXFB_NONE
 	help
-	  Unaccelerated linux frambuffer driver
+	  Unaccelerated linux framebuffer driver
 
 	config QT4_GFX_LINUXFB_NONE
 		bool
@@ -333,9 +333,9 @@ config QT4_KBD_INPUT
 
 config QT4_KBD_QVFB
 	bool
-	prompt "Qt Virtual Frambuffer"
+	prompt "Qt Virtual Framebuffer"
 	help
-	  Keyboard driver for the Qt Virtual Frambuffer
+	  Keyboard driver for the Qt Virtual Framebuffer
 
 endmenu
 
@@ -364,9 +364,9 @@ config QT4_MOUSE_TSLIB
 
 config QT4_MOUSE_QVFB
 	bool
-	prompt "Qt Virtual Frambuffer"
+	prompt "Qt Virtual Framebuffer"
 	help
-	  Mouse driver for the Qt Virtual Frambuffer
+	  Mouse driver for the Qt Virtual Framebuffer
 
 endmenu
 

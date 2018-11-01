@@ -4,4 +4,4 @@ config HOST_LIBAIO
 	tristate
 	default y if ALLYES
 	help
-	  Requiered host part of some buildsystems
+	  Required host part of some buildsystems

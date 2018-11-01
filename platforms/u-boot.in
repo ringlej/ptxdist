@@ -12,7 +12,7 @@ config U_BOOT_VERSION
 	default 1.2.0
 	prompt "U-Boot version"
 	help
-	  Enter the Uboot version you want to build. Usally something like "1.2.0"
+	  Enter the Uboot version you want to build. Usually something like "1.2.0"
 
 config U_BOOT_MD5
 	string

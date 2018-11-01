@@ -7,7 +7,7 @@ config IMAGE_ROOT_UBI
 	select IMAGE_ROOT_UBIFS
 	prompt "Generate images/root.ubi"
 	help
-	  Build ubi formated image(s) for the root file system and an
+	  Build ubi formatted image(s) for the root file system and an
 	  optional data partition. UBI is faster and robuster than JFFS2,
 	  we recommend strongly the usage of UBI if you want a file
 	  system for raw flash devices. The image(s) can be directly

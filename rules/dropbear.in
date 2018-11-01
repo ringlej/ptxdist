@@ -35,7 +35,7 @@ config DROPBEAR_ZLIB
 	bool
 	prompt "zlib support"
 	help
-	  Disable compresion in Dropbear by dropping use of
+	  Disable compression in Dropbear by dropping use of
 	  zlib.
 	  If you disable zlib, you must explicitly disable
 	  compression for the client - OpenSSH is possibly
@@ -131,7 +131,7 @@ config DROPBEAR_DIS_AGENT
 	bool
 	prompt "disable Authentication Agent Forwarding"
 	help
-	  Authentication agent is a program to automatize the
+	  Authentication agent is a program to automate the
 	  use of authentication private keys.
 
 comment "Encryption, at least one required --- RFC Draft requires 3DES and recommends AES128"

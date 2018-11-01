@@ -5,7 +5,7 @@ menuconfig X_LOAD
 	depends on ARCH_ARM
 	prompt "OMAP x-load                   "
 	help
-	  The X-Loader is a first level bootloader for Texas Intruments OMAP
+	  The X-Loader is a first level bootloader for Texas Instruments OMAP
 	  microprocessors (similar to the AT91Bootstrap application). It is
 	  used for booting these microprocessors from NAND-flash, MMC/SD-card,
 	  USB or serial interfaces.
@@ -17,7 +17,7 @@ config X_LOAD_VERSION
 	default f243938
 	prompt "x-loader version"
 	help
-	  Enter the X-Loader version you want to build. Usally something like "1.4.2"
+	  Enter the X-Loader version you want to build. Usually something like "1.4.2"
 
 	  NOTICE: The X-Loader source tree was never released as download archive.
 	  As long as that fact exists you can use the archived tarballs at:

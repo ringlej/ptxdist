@@ -27,7 +27,7 @@ config IPROUTE2_ARPD
 	bool
 	prompt "arpd"
 	help
-	  Enabling this extry will enlarge your system by the berkely
+	  Enabling this entry will enlarge your system by the berkely
 	  DB4.x library.
 
 config IPROUTE2_BRIDGE
@@ -129,7 +129,7 @@ config IPROUTE2_SS
 	help
 	  ss is used to dump socket statistics. It allows showing
 	  information similar to netstat. It can display more TCP
-	  and state informations than other tools.
+	  and state information than other tools.
 
 config IPROUTE2_TC
 	bool

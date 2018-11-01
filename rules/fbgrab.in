@@ -6,6 +6,6 @@ config FBGRAB
 	prompt "fbgrab"
 	help
 	  FBGrab is a framebuffer screenshot program, capturing the
-	  linux frambuffer and converting it to a png-picture.
+	  linux framebuffer and converting it to a png-picture.
 
 	  For details see: http://hem.bredband.net/gmogmo/fbgrab/

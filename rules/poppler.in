@@ -38,7 +38,7 @@ config POPPLER_BIN
 	bool
 	prompt "install poppler utilities"
 	help
-	  installs command line utilies comming with poppler package, contains
+	  installs command line utilies coming with poppler package, contains
 	  pdffonts, pdfimages, pdfinfo, pdftoabw, pdftohtml, pdftoppm, pdftops,
 	  pdftotext.
 

@@ -140,7 +140,7 @@ config SAMBA_SMBFS
 	select SAMBA_COMMON
 	prompt "Samba file system"
 	help
-	  Enables the sytem to mount windows share via SMB protocol
+	  Enables the system to mount windows share via SMB protocol
 
 config SAMBA_CUPS
 	bool
