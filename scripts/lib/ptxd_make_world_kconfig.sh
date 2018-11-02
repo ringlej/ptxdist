@@ -70,6 +70,8 @@ ptxd_make_kconfig() {
 	esac
     fi
 
+    export KCONFIG_NOTIMESTAMP="1"
+
     ptxd_make_kconfig_setup &&
     ptxd_eval \
 	"${pkg_path}" \
