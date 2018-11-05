@@ -4,7 +4,8 @@ menuconfig SPEEX
 	tristate
 	select LIBC_M
 	select GCCLIBS_GCC_S
-	select LIBOGG
+	select LIBOGG			if SPEEX_BINARIES
+	select SPEEXDSP
 	prompt "speex                         "
 	help
 	  Speex is an Open Source/Free Software
@@ -15,45 +16,35 @@ if SPEEX
 
 config SPEEX_FIXED_POINT
 	bool
-	prompt "use fixed point"
+	default SPEEXDSP_FIXED_POINT
 
 config SPEEX_FLOAT_API
 	bool
-	prompt "enable float api"
+	default SPEEXDSP_FLOAT_API
 
 config SPEEX_VBR
 	bool
 	prompt "enable VBR"
 
-choice
-	prompt "Kind of FFT to use"
-	default SPEEX_FFT_KISS
+config SPEEX_FFT_KISS
+	bool
+	default SPEEXDSP_FFT_KISS
 
-	config SPEEX_FFT_KISS
-		bool
-		prompt "kiss"
+config SPEEX_FFT_SMALLFT
+	bool
+	default SPEEXDSP_FFT_SMALLFT
 
-	config SPEEX_FFT_SMALLFT
-		bool
-		prompt "smallft"
-
-	config SPEEX_FFT_GPL_FFTW3
-		bool
-		depends on BROKEN
-		prompt "gpl-fftw3 [BROKEN]"
-
-	config SPEEX_FFT_PROPRIETARY_INTL_MKL
-		bool
-		depends on BROKEN
-		prompt "proprietary-intel-mkl [BROKEN]"
-endchoice
+config SPEEX_BINARIES
+	bool
 
 config SPEEX_INSTALL_SPEEXENC
 	bool
+	select SPEEX_BINARIES
 	prompt "Install speexenc"
 
 config SPEEX_INSTALL_SPEEXDEC
 	bool
+	select SPEEX_BINARIES
 	prompt "Install speexdec"
 
 endif

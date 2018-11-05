@@ -1,0 +1,35 @@
+## SECTION=multimedia_libs
+
+config SPEEXDSP
+	tristate
+	select LIBC_M
+	select GCCLIBS_GCC_S
+	prompt "speexdsp"
+	help
+	  SpeexDSP is the signal processing library
+	  developed by the Speex codec.
+
+if SPEEXDSP
+
+config SPEEXDSP_FIXED_POINT
+	bool
+	prompt "use fixed point"
+
+config SPEEXDSP_FLOAT_API
+	bool
+	prompt "enable float api"
+
+choice
+	prompt "Kind of FFT to use"
+	default SPEEXDSP_FFT_KISS
+
+	config SPEEXDSP_FFT_KISS
+		bool
+		prompt "kiss"
+
+	config SPEEXDSP_FFT_SMALLFT
+		bool
+		prompt "smallft"
+endchoice
+
+endif
