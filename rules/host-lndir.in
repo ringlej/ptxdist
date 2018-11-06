@@ -1,4 +1,4 @@
-## SECTION=hosttools_noprompt
+## SECTION=hosttools_noprompt_ptx
 
 config HOST_LNDIR
 	bool
