@@ -168,7 +168,7 @@ ptxd_install_setup_src() {
     ptxd_install_setup || return
 
     legacy_src="${src#/usr}"
-    if [ "${legacy_src}" != "${src}" ]; then
+    if [ \( "${cmd}" = "alternative" -o "${cmd}" = "config" \) -a "${legacy_src}" != "${src}" ]; then
 	ptxd_install_setup_src_list "${legacy_src}"
 	if ptxd_get_path "${list[@]}"; then
 	    local tmp
