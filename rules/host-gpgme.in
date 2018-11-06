@@ -4,4 +4,4 @@ config HOST_GPGME
 	tristate
 	select HOST_LIBASSUAN
 	select HOST_LIBGPG_ERROR
-	default ALLYES
+	default y if ALLYES

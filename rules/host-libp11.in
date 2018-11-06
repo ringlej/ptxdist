@@ -5,7 +5,7 @@ config HOST_LIBP11
 	select HOST_OPENSSL
 	select HOST_OPENSC
 	select HOST_P11_KIT
-	default ALLYES
+	default y if ALLYES
 	help
 	  pkcs#11 convenience library
 	  Libp11 is a library to simplify using smart cards via

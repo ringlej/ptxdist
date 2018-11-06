@@ -3,4 +3,4 @@
 
 config HOST_LIBLZO
 	tristate
-	default ALLYES
+	default y if ALLYES

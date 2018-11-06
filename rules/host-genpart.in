@@ -3,7 +3,7 @@
 
 config HOST_GENPART
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  Tool to generate a 16 byte partition table entry defined by
 	  command line arguments and dump it to stdout. No CHS magic is

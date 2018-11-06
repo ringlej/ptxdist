@@ -5,6 +5,6 @@ config HOST_OPENSC
 	# libz is disabled, but it still links against libz
 	# it links against libdl
 	select HOST_OPENSSL
-	default ALLYES
+	default y if ALLYES
 	help
 	  https://github.com/OpenSC/OpenSC/wiki

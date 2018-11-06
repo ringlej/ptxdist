@@ -2,6 +2,6 @@
 
 config HOST_GENERATORRUNNER
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_APIEXTRACTOR
 	select HOST_CMAKE

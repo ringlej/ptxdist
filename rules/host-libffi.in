@@ -3,4 +3,4 @@
 
 config HOST_LIBFFI
 	tristate
-	default ALLYES
+	default y if ALLYES

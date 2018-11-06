@@ -8,4 +8,4 @@ config HOST_MTD_UTILS
 	select HOST_LIBLZO
 	select HOST_LIBUUID
 	select HOST_ZLIB
-	default ALLYES
+	default y if ALLYES

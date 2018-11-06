@@ -4,4 +4,4 @@
 config HOST_U_BOOT_TOOLS
 	tristate
 	select HOST_OPENSSL
-	default ALLYES
+	default y if ALLYES

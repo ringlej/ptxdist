@@ -3,4 +3,4 @@
 
 config HOST_OPENSSL
 	tristate
-	default ALLYES
+	default y if ALLYES

@@ -2,6 +2,6 @@
 
 config HOST_IMX_CST
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  Freescale Code Signing Tool for High Assurance Boot.

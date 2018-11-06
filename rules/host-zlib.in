@@ -3,4 +3,4 @@
 
 config HOST_ZLIB
 	tristate
-	default ALLYES
+	default y if ALLYES

@@ -6,4 +6,4 @@ config HOST_XORG_APP_MKFONTSCALE
 	select HOST_XORG_LIB_FONTENC
 	select HOST_FREETYPE
 	select HOST_XORGPROTO
-	default ALLYES
+	default y if ALLYES

@@ -2,7 +2,7 @@
 
 config HOST_INTLTOOL
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_GETTEXT
 	select HOST_SYSTEM_PERL
 	select HOST_SYSTEM_PERL_XMLPARSER

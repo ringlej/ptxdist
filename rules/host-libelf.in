@@ -4,4 +4,4 @@
 config HOST_LIBELF
 	tristate
 	select HOST_ZLIB
-	default ALLYES
+	default y if ALLYES

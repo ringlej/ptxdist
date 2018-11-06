@@ -2,4 +2,4 @@
 
 config HOST_GTK_DOC
 	tristate
-	default ALLYES
+	default y if ALLYES

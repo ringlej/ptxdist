@@ -3,7 +3,7 @@
 
 config HOST_ACL
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_ATTR
 	help
 	  Access control list utilities

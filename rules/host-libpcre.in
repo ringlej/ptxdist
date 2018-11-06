@@ -3,4 +3,4 @@
 
 config HOST_LIBPCRE
 	tristate
-	default ALLYES
+	default y if ALLYES

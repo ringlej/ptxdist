@@ -3,6 +3,6 @@
 
 config HOST_UTIL_LINUX_NG
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  Useful hosttools and libs for linux ng utils.

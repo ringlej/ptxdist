@@ -2,7 +2,7 @@
 
 config HOST_YASM
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  modular assembler with multiple syntaxes support
 

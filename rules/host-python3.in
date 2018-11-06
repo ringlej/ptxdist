@@ -5,7 +5,7 @@ config HOST_PYTHON3
 	select HOST_EXPAT
 	select HOST_LIBFFI
 	select HOST_OPENSSL
-	default ALLYES
+	default y if ALLYES
 	help
 	  Python is an interpreted, interactive,
 	  object-oriented, extensible programming language.

@@ -3,4 +3,4 @@
 config HOST_LIBGD
 	tristate
 	select HOST_LIBPNG
-	default ALLYES
+	default y if ALLYES

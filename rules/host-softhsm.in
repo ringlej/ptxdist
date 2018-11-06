@@ -5,7 +5,7 @@ config HOST_SOFTHSM
 	select HOST_P11_KIT
 	select HOST_OPENSSL
 	select HOST_SQLITE
-	default ALLYES
+	default y if ALLYES
 	help
 	  SoftHSM emulates an HSM (e.g. Hardware Security Module) device and
 	  provides the regular API to be work in conjunction with PKCS#11.

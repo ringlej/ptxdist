@@ -2,4 +2,4 @@
 
 config HOST_NSPR
 	tristate
-	default ALL_YES
+	default y if ALLYES

@@ -2,4 +2,4 @@
 
 config HOST_XCB_PROTO
 	tristate
-	default ALLYES
+	default y if ALLYES

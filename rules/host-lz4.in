@@ -3,4 +3,4 @@
 
 config HOST_LZ4
 	tristate
-	default ALLYES
+	default y if ALLYES

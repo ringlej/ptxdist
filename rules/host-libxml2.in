@@ -3,7 +3,7 @@
 config HOST_LIBXML2
 	tristate
 	select HOST_ZLIB
-	default ALLYES
+	default y if ALLYES
 	help
 	  Libxml2 is a XML C parser and toolkit. XML itself is a
 	  metalanguage to design markup languages, i.e. text
