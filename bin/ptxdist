@@ -1343,6 +1343,9 @@ setup_layers()
 
 	while [ -e "${layer}" -o -h "${layer}" ]; do
 		if [ ! -d "${layer}" ]; then
+			if [ -n "${PTXDIST_AUTOVERSION}" ]; then
+				break
+			fi
 			echo
 			echo "${PTXDIST_LOG_PROMPT}error: Layer '${layer}' is not a directory!"
 			echo
