@@ -7,24 +7,24 @@ menu "gdb                           "
 if GDB || GDBSERVER
 
 config GDB_TOOLCHAIN_VERSION
-       bool
-       default y if GDBSERVER
-       prompt "use toolchain gdb version"
-       help
+	bool
+	default y if GDBSERVER
+	prompt "use toolchain gdb version"
+	help
 	  Use the same version as the gdb in the toolchain to make sure that
 	  gdb and gdbserver work correctly.
 
 if !GDB_TOOLCHAIN_VERSION
 
 config GDB_VERSION
-       string "gdb version"
-       default "7.6.1"
+	string "gdb version"
+	default "7.6.1"
 endif
 
 config GDB_MD5
 	string "gdb source md5sum"
 	default "d42841167fd061d90fddf9a7212a1f9f" if !GDB_TOOLCHAIN_VERSION
-       help
+	help
 	  md5sum for the gdb source archive. If the version is provided by
 	  the toolchain and the toolchain is a OSELAS.Toolchain then this
 	  can be left empty and the md5sum from the toolchain ptxconfig is
