@@ -119,10 +119,12 @@ ptxd_install_setup() {
     sdirs=("${nfsroot_dirs[@]}" "${pkg_xpkg_tmp}")
 
     # dirs with separate debug files
-    ddirs=("${nfsroot_dirs[@]}")
-    if [ "$(ptxd_get_ptxconf PTXCONF_DEBUG_PACKAGES)" = "y" -a \
-         "$(ptxd_get_ptxconf PTXCONF_TARGET_DEBUG_OFF)" != "y" ]; then
-	ddirs[${#ddirs[@]}]="${pkg_xpkg_dbg_tmp}"
+    ddirs=()
+    if [ "$(ptxd_get_ptxconf PTXCONF_TARGET_DEBUG_OFF)" != "y" ]; then
+	ddirs=("${nfsroot_dirs[@]}")
+	if [ "$(ptxd_get_ptxconf PTXCONF_DEBUG_PACKAGES)" = "y" ]; then
+	    ddirs[${#ddirs[@]}]="${pkg_xpkg_dbg_tmp}"
+	fi
     fi
 
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
@@ -163,6 +165,9 @@ ptxd_install_setup_src() {
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}${dst}"
+	gdb_src="${pkg_pkg_dir}/usr/share/gdb/auto-load${dst}-gdb"
+    elif [ "${src#${pkg_pkg_dir}}" != "${src}" ]; then
+	gdb_src="${pkg_pkg_dir}/usr/share/gdb/auto-load${src#${pkg_pkg_dir}}-gdb"
     fi
 
     ptxd_install_setup || return
@@ -258,6 +263,10 @@ ptxd_install_file_extract_debug() {
     local dbg dir
     local bid=$(ptxd_extract_build_id)
 
+    if [ "${#ddirs[*]}" -eq 0 ]; then
+	return
+    fi
+
     if [ -z "${bid}" ]; then
 	dbg="$(dirname "${dst}")/.debug/.$(basename "${dst}").dbg"
     else
@@ -280,6 +289,7 @@ ptxd_install_file_extract_debug() {
 	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${tmp}"
 	fi
     fi &&
+    echo "  debug file: ${dbg}" &&
     for dir in "${ddirs[@]}"; do
 	if [ -n "${bid}" -o -e "${dir}${dst}" ]; then
 	    install -D -m 644 "${tmp}" "${dir}/${dbg}"
@@ -340,6 +350,7 @@ ptxd_install_file_impl() {
     local strip="$6"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
+    local gdb_src
 
     ptxd_install_setup_src &&
     echo "\
@@ -348,8 +359,7 @@ install ${cmd}:
   dst=${dst}
   owner=${usr} ${usr_name}
   group=${grp} ${grp_name}
-  permissions=${mod}
-" &&
+  permissions=${mod}" &&
 
     ptxd_exist "${src}" &&
     rm -f "${dirs[@]/%/${dst}}" &&
@@ -395,6 +405,19 @@ Usually, just remove the 6th parameter and everything works fine.
 	    ptxd_bailout "${FUNCNAME}: invalid value for strip ('${strip}')"
 	    ;;
     esac &&
+
+    if [ "${#ddirs[*]}" -gt 0 -a -n "${gdb_src}" ]; then
+	local gdb_file
+	local ddir="$(dirname "${dst}")"
+	for gdb_file in $(ls "${gdb_src}".* 2>/dev/null); do
+	    local gdb_dst="${ddir}/$(basename "${gdb_file}")"
+	    echo "  debug file: ${gdb_dst}" &&
+	    for d in "${ddirs[@]/%/${gdb_dst}}"; do
+		install -m 644 -D "${gdb_file}" "${d}" || break
+	    done
+	done
+    fi &&
+    echo "" &&
 
     # now change to requested permissions
     chmod "${mod_nfs}" "${ndirs[@]/%/${dst}}" &&
@@ -652,6 +675,7 @@ ptxd_install_find() {
     local strip="${5}"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
+    local gdb_src
     if [ -z "${glob}" ]; then
 	local glob="-o -print"
     fi
