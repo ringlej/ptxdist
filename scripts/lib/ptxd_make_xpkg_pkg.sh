@@ -595,7 +595,7 @@ ptxd_install_replace_figlet() {
     echo "\
 install replace figlet:
   file=${dst}
-  '${placeholder}' -> '\`figlet ${value}\`'
+  '${placeholder}' -> '\$(figlet ${value})'
 " &&
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
