@@ -6,7 +6,7 @@ menuconfig OPENNTPD
 	tristate
 	prompt "openntpd                      "
 	select ROOTFS_VAR_RUN
-	select OPENSSL		if OPENNTPD_ARC4RANDOM
+	select OPENSSL		if !OPENNTPD_ARC4RANDOM
 	depends on !BUSYBOX_NTPD || ALLYES
 	help
 	  This will install the BSD Open NTPD Daemon
