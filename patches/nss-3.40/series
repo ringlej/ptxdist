@@ -2,5 +2,4 @@
 #tag:base --start-number 1
 0001-nss-fix-nsinstall-build.patch
 0002-add-nss.pc.in.patch
-0003-unconditionally-add-FStar-to-Makefile.patch
-# cb80c96f8dfb2ff5ef65b90b5cf05ab5  - git-ptx-patches magic
+# 9b53c047a21dbd46d849e90d773bd0d8  - git-ptx-patches magic
