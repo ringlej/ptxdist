@@ -44,6 +44,9 @@ LIGHTTPD_CONF_OPT	:= \
 	--enable-extra-warnings \
 	--without-libev \
 	--without-mysql \
+	--without-pgsql \
+	--without-dbi \
+	--without-sasl \
 	--without-ldap \
 	--without-pam \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ATTR)-attr \
@@ -51,6 +54,7 @@ LIGHTTPD_CONF_OPT	:= \
 	--without-libunwind \
 	--without-krb5 \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_OPENSSL)-openssl \
+	--without-wolfssl \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_PCRE)-pcre \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_ZLIB)-zlib \
 	--$(call ptx/wwo, PTXCONF_LIGHTTPD_BZ2LIB)-bzip2 \
