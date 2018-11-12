@@ -86,7 +86,7 @@ ifdef PTXCONF_BLUEZ_UTILS
 			hciattach hciconfig hcidump hcitool hex2hcd l2ping \
 			l2test mpris-proxy rctest rfcomm sdptool, \
 		$(call install_copy, bluez, 0, 0, 0755, -, \
-			/usr/bin/$(binprogram));)
+			/usr/bin/$(binprogram))$(ptx/nl))
 endif
 
 ifdef PTXCONF_BLUEZ_CLIENT
@@ -100,7 +100,7 @@ ifdef PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS
 	@$(foreach testdata, service-ftp.xml service-did.xml service-spp.xml \
 			service-record.dtd service-opp.xml, \
 		$(call install_copy, bluez, 0, 0, 0644, -, \
-			/usr/lib/bluez/test/$(testdata));)
+			/usr/lib/bluez/test/$(testdata))$(ptx/nl))
 
 	@$(foreach testprog, list-devices opp-client \
 			simple-endpoint test-alert test-discovery \
