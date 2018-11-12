@@ -43,8 +43,8 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-threads \
 	--enable-library \
 	--$(call ptx/endis, PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS)-test \
-	--enable-tools \
-	--enable-monitor \
+	--$(call ptx/endis, PTXCONF_BLUEZ_UTILS)-tools \
+	--$(call ptx/endis, PTXCONF_BLUEZ_UTILS)-monitor \
 	--enable-udev \
 	--disable-cups \
 	--disable-obex \
