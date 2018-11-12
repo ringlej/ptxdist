@@ -166,7 +166,7 @@ ptxd_kconfig_create_config_merge() {
 	# this will be dropped, but forces kconfig to write the config
 	echo "# ${prefix}OPTION_DOES_NOT_EXIST is not set" >> "${target}"
     fi
-    touch -r "${target}" "${target}.stamp" &&
+    stat -c '%y' "${target}" > "${target}.stamp" &&
     if [ "$?" -ne 0 ]; then
 	ptxd_bailout "Failed to apply" \
 	    "$(ptxd_print_path "${diff}")" \
@@ -404,8 +404,10 @@ ptxd_kconfig_update_config() {
     local target_config="${1}"
     local config="${2}"
     local base_config="${3}"
+    local stamp="$(stat -c '%y' "${target_config}")"
+    local old_stamp="$(cat "${target_config}.stamp")"
 
-    if [ ! "${target_config}" -nt "${target_config}.stamp" ]; then
+    if [ "${stamp}" == "${old_stamp}" ]; then
 	rm  -f "${target_config}.stamp"
 	return
     fi
@@ -584,7 +586,7 @@ ptxd_kconfig_update() {
 	    if [ "${part}" = ptx -o "${part}" = platform ]; then
 		ptxd_kconfig_migrate "${part}" &&
 		# migrate touches the config, so update the timestamp
-		touch -r ".config" ".config.stamp"
+		stat -c '%y' ".config" > ".config.stamp"
 	    fi &&
 	    "${conf}" "${oldconfig}" "${file_kconfig}"
 	    ;;
