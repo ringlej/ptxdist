@@ -43,8 +43,8 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--enable-threads \
 	--enable-library \
 	--$(call ptx/endis, PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS)-test \
-	--$(call ptx/endis, PTXCONF_BLUEZ_UTILS)-tools \
-	--$(call ptx/endis, PTXCONF_BLUEZ_UTILS)-monitor \
+	--$(call ptx/endis, PTXCONF_BLUEZ_TOOLS)-tools \
+	--$(call ptx/endis, PTXCONF_BLUEZ_TOOLS)-monitor \
 	--enable-udev \
 	--disable-cups \
 	--disable-obex \
@@ -81,7 +81,7 @@ $(STATEDIR)/bluez.targetinstall:
 	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/libexec/bluetooth/obexd)
 	@$(call install_lib, bluez, 0, 0, 0644, libbluetooth)
 
-ifdef PTXCONF_BLUEZ_UTILS
+ifdef PTXCONF_BLUEZ_TOOLS
 	@$(foreach binprogram, bccmd bluemoon btmon ciptool \
 			hciattach hciconfig hcidump hcitool hex2hcd l2ping \
 			l2test mpris-proxy rctest rfcomm sdptool, \

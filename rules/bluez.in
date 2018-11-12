@@ -23,7 +23,7 @@ config BLUEZ_SYSTEMD_UNIT
 	depends on SYSTEMD
 	prompt "install systemd unit files"
 
-config BLUEZ_UTILS
+config BLUEZ_TOOLS
 	bool "install bluez tools"
 	help
 	  install the tools "bccmd bluemoon btmon ciptool hciattach
