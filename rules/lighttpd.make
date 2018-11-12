@@ -25,6 +25,7 @@ LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD
 LIGHTTPD_SOURCE		:= $(SRCDIR)/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
 LIGHTTPD_LICENSE	:= BSD-3-Clause
+LIGHTTPD_LICENSE_FILES := file://COPYING;md5=e4dac5c6ab169aa212feb5028853a579
 
 # ----------------------------------------------------------------------------
 # Prepare
