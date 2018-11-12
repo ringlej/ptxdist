@@ -405,7 +405,7 @@ ptxd_kconfig_update_config() {
     local config="${2}"
     local base_config="${3}"
 
-    if [ "${target_config}" -ot "${target_config}.stamp" ]; then
+    if [ ! "${target_config}" -nt "${target_config}.stamp" ]; then
 	rm  -f "${target_config}.stamp"
 	return
     fi
