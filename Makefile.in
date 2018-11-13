@@ -101,7 +101,10 @@ install: all dirty-check
 	@mkdir -p "$(DESTDIR)$(instdir)"
 	@tar -C "$(abs_srcdir)" -cf - \
 		--exclude *~ \
+		--exclude .*.sw* \
+		--exclude .done \
 		--exclude .git \
+		--exclude .gitignore \
 		--exclude .pc \
 		--exclude .svn \
 		--exclude autom4te.cache \
