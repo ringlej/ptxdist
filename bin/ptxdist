@@ -2451,6 +2451,7 @@ setup_auto_version()
 		;;
 	/*)
 		# use ptxdist from the explicit PTXdist layer
+		ptxdist_trap_exit_handler
 		exec "${PTXDIST_AUTOVERSION}" "${args[@]}"
 		;;
 	esac
@@ -2467,6 +2468,7 @@ setup_auto_version()
 	fi
 
 	if next="$(which ptxdist-${configfile_version})"; then
+		ptxdist_trap_exit_handler
 		exec "${next}" "${args[@]}"
 	else
 		ptxd_bailout "ptxdist-${configfile_version} not found!"
