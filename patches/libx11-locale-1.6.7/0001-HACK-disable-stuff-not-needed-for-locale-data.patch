@@ -1,0 +1,54 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 15 Nov 2018 11:02:09 +0100
+Subject: [PATCH] HACK: disable stuff not needed for locale data
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac | 27 ---------------------------
+ 1 file changed, 27 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 30908453622b..ee52c09cbf84 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -226,30 +226,6 @@ AC_SUBST(XTHREAD_CFLAGS)
+ 
+ AC_CHECK_FUNC(poll, [AC_DEFINE(USE_POLL, 1, [poll() function is available])], )
+ 
+-#
+-# Find keysymdef.h
+-#
+-AC_MSG_CHECKING([keysym definitions])
+-AC_ARG_WITH([keysymdefdir],
+-        [AC_HELP_STRING([--with-keysymdefdir=DIR], [The location of keysymdef.h (defaults to xproto include dir)])],
+-        [KEYSYMDEFDIR=$withval],
+-        [KEYSYMDEFDIR=`$PKG_CONFIG --variable=includedir xproto`/X11])
+-
+-if test ! -d "$KEYSYMDEFDIR"; then
+-	AC_MSG_ERROR([$KEYSYMDEFDIR doesn't exist or isn't a directory])
+-fi
+-
+-FILES="keysymdef.h XF86keysym.h Sunkeysym.h DECkeysym.h HPkeysym.h"
+-for i in $FILES; do
+-    if test -f "$KEYSYMDEFDIR/$i"; then
+-            KEYSYMDEFS="$KEYSYMDEFS $KEYSYMDEFDIR/$i"
+-    elif test "x$i" = "xkeysymdef.h"; then
+-	    AC_MSG_ERROR([Cannot find keysymdef.h])
+-    fi
+-done
+-AC_MSG_RESULT([$KEYSYMDEFS])
+-AC_SUBST(KEYSYMDEFS)
+-
+ AC_ARG_ENABLE(xcms,
+               AS_HELP_STRING([--disable-xcms],
+                 [Disable Xlib support for CMS *EXPERIMENTAL*]),
+@@ -329,9 +305,6 @@ X11_LIBDIR="${libdir}/X11"
+ AX_DEFINE_DIR(X11_LIBDIR, X11_LIBDIR, [Location of libX11 library data])
+ AC_SUBST(X11_LIBDIR)
+ 
+-PKG_CHECK_MODULES(X11, [$X11_REQUIRES])
+-X11_CFLAGS="$X11_CFLAGS $XTHREAD_CFLAGS"
+-
+ #
+ # Yes, it would be nice to put the locale data in
+ # /usr/share, but the locale stuff includes loadable

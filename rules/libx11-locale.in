@@ -1,0 +1,7 @@
+## SECTION=multimedia_libs
+
+config LIBX11_LOCALE
+	tristate
+	prompt "libx11 locale data"
+	help
+	  X11 locale data files.

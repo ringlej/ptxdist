@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_XORG_LIB_X11) += xorg-lib-x11
 #
 # Paths and names
 #
-XORG_LIB_X11_VERSION	:= 1.6.2
-XORG_LIB_X11_MD5	:= c35d6ad95b06635a524579e88622fdb5
+XORG_LIB_X11_VERSION	:= 1.6.7
+XORG_LIB_X11_MD5	:= 034fdd6cc5393974d88aec6f5bc96162
 XORG_LIB_X11		:= libX11-$(XORG_LIB_X11_VERSION)
 XORG_LIB_X11_SUFFIX	:= tar.bz2
 XORG_LIB_X11_URL	:= $(call ptx/mirror, XORG, individual/lib/$(XORG_LIB_X11).$(XORG_LIB_X11_SUFFIX))
@@ -43,32 +43,27 @@ XORG_LIB_X11_CONF_ENV += ac_cv_func_mmap_fixed_mapped=yes
 XORG_LIB_X11_CONF_TOOL	:= autoconf
 XORG_LIB_X11_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull \
+	--datadir=$(XORG_DATADIR) \
+	--disable-selective-werror \
+	--disable-strict-compilation \
 	--disable-specs \
 	$(XORG_OPTIONS_TRANS) \
-	--$(call ptx/endis, PTXCONF_XORG_SERVER_OPT_SECURE_RPC)-secure-rpc \
 	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_I18N)-loadable-i18n \
 	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_CURSOR)-loadable-xcursor \
 	--enable-xthreads \
 	--enable-xcms \
 	--enable-xlocale \
+	--enable-xlocaledir \
 	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_XF86BIGFONT)-xf86bigfont \
 	--$(call ptx/endis, PTXCONF_XORG_LIB_X11_XKB)-xkb \
 	--enable-composecache \
+	--disable-lint-library \
+	--disable-malloc0returnsnull \
 	$(XORG_OPTIONS_DOCS) \
 	--without-perl \
-	--without-lint
-
-#
-# if no value is given ignore the "--datadir" switch
-#
-ifneq ($(call remove_quotes,$(XORG_DATADIR)),)
-XORG_LIB_X11_CONF_OPT += --datadir=$(XORG_DATADIR)
-endif
-
-# missing configure switches:
-# --enable-xlocaledir     Enable XLOCALEDIR environment variable support
-#
+	--without-launchd \
+	--without-lint \
+	--with-locale-lib-dir=$(XORG_DATADIR)/X11/locale
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -85,94 +80,6 @@ $(STATEDIR)/xorg-lib-x11.targetinstall:
 
 	@$(call install_lib, xorg-lib-x11, 0, 0, 0644, libX11)
 	@$(call install_lib, xorg-lib-x11, 0, 0, 0644, libX11-xcb)
-
-# Where is it gone?
-#	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-#		/usr/lib/X11/XKeysymDB)
-
-ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0755, $(XORG_DATADIR)/X11/locale)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/locale.alias,n)
-
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/locale.dir,n)
-
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/compose.dir,n)
-
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0755, $(XORG_DATADIR)/X11/locale/C)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/C/Compose,n)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/C/XI18N_OBJS,n)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/C/XLC_LOCALE,n)
-
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_1
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0755, $(XORG_DATADIR)/X11/locale/iso8859-1)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/iso8859-1/Compose,n)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/iso8859-1/XI18N_OBJS,n)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/iso8859-1/XLC_LOCALE,n)
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_15
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0755, $(XORG_DATADIR)/X11/locale/iso8859-15)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/iso8859-15/Compose,n)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/iso8859-15/XI18N_OBJS,n)
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_DATADIR)/X11/locale/iso8859-15/XLC_LOCALE,n)
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_CHN_MAIN
-	@cd $(XORG_LIB_X11_DIR)/nls; \
-	for file in `find . -name "*zh_CN*" -type d`; do \
-		echo "scanning $$file"; \
-		if [ -d $$file ]; then \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/Compose,n); \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/XI18N_OBJS,n); \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/XLC_LOCALE,n); \
-		fi; \
-	done;
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_CHN_HK
-	@cd $(XORG_LIB_X11_DIR)/nls; \
-	for file in `find . -name "*zh_HK*" -type d`; do \
-		if [ -d $$file ]; then \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/Compose,n); \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/XI18N_OBJS,n); \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/XLC_LOCALE,n); \
-		fi; \
-	done;
-endif
-
-ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_CHN_TW
-	@cd $(XORG_LIB_X11_DIR)/nls; \
-	for file in `find . -name "*zh_TW*" -type d`; do \
-		if [ -d $$file ]; then \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/Compose,n); \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/XI18N_OBJS,n); \
-			$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-				$(XORG_DATADIR)/X11/locale/$$file/XLC_LOCALE,n); \
-		fi; \
-	done;
-endif
 
 	@$(call install_finish, xorg-lib-x11)
 
