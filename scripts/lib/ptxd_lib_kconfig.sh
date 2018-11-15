@@ -341,7 +341,7 @@ ptxd_kconfig_find_config() {
     fi
     if [ ! -e "${last_config}" ]; then
 	# no config on this layer
-	if [ "${mode}" = check -a "${last_config}" = "${base_config}" ]; then
+	if [ \( "${mode}" = check -o "${mode}" = run \) -a "${last_config}" = "${base_config}" ]; then
 	    # no config below -> nothing to do
 	    return 43
 	fi
