@@ -166,7 +166,6 @@ ptxd_kconfig_create_config_merge() {
 	# this will be dropped, but forces kconfig to write the config
 	echo "# ${prefix}OPTION_DOES_NOT_EXIST is not set" >> "${target}"
     fi
-    stat -c '%y' "${target}" > "${target}.stamp" &&
     if [ "$?" -ne 0 ]; then
 	ptxd_bailout "Failed to apply" \
 	    "$(ptxd_print_path "${diff}")" \
@@ -197,7 +196,8 @@ ptxd_kconfig_create_config() {
 	if [ -e "${config}" ]; then
 	    cp -- "${config}" "${target}"
 	fi
-    fi
+    fi &&
+    stat -c '%y' "${target}" > "${target}.stamp"
 }
 export -f ptxd_kconfig_create_config
 
