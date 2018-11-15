@@ -675,7 +675,10 @@ ptxd_kconfig() {
 	PROJECT="ptxdist" \
 	FULLVERSION="${PTXDIST_VERSION_FULL}"
 
-    local confdir="${PTXDIST_TEMPDIR}/kconfig"
+    if [ -z "${confdir}" ]; then
+	local confdir="${PTXDIST_TEMPDIR}/kconfig"
+    fi
+
 
     #
     # In silent mode, we cannot redirect input. So use
