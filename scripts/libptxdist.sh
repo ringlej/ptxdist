@@ -377,6 +377,33 @@ ptxd_get_path() {
 export -f ptxd_get_path
 
 #
+# ptxd_get_path_fitered - look for files and/or dirs
+#
+# Like ptxd_get_path but skips paths that are symlinks to /dev/null
+#
+# return:
+# 0 if files/dirs are found
+# 1 if no files/dirs are found
+#
+# array "ptxd_reply" containing the found files/dirs
+#
+ptxd_get_path_filtered() {
+    ptxd_get_path "${@}" || return
+
+    set -- "${ptxd_reply[@]}"
+    ptxd_reply=()
+
+    while [ $# -gt 0 ]; do
+	if [ "$(readlink -f "${1}")" != /dev/null ]; then
+	    ptxd_reply[${#ptxd_reply[@]}]="${1}"
+	fi
+	shift
+    done
+    [ ${#ptxd_reply[@]} -ne 0 ]
+}
+export -f ptxd_get_path_filtered
+
+#
 # ptxd_in_path - look for files and/or dirs
 #
 # Note: the make implemenation in ptx/in-path must produce the same result.
