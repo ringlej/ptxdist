@@ -1374,7 +1374,7 @@ setup_layers()
 		PTXDIST_PTXCONFIG="${PTXDIST_LAYERS[0]}/${cfgs[0]}"
 		for layer in "${PTXDIST_LAYERS[@]}"; do
 			local -a ptxd_reply
-			ptxd_get_path "${cfgs[@]/#/${layer}/}" || continue
+			ptxd_get_path_filtered "${cfgs[@]/#/${layer}/}" || continue
 			PTXDIST_PTXCONFIG="${ptxd_reply[0]}"
 			break
 		done
@@ -1389,7 +1389,7 @@ setup_layers()
 				tmp=( "${tmp[0]}" )
 			fi
 			local -a ptxd_reply
-			ptxd_get_path "${tmp[@]}" || continue
+			ptxd_get_path_filtered "${tmp[@]}" || continue
 			PTXDIST_PLATFORMCONFIG="${ptxd_reply[0]}"
 			break
 		done
@@ -1398,7 +1398,7 @@ setup_layers()
 	if [ "${PTX_collectionconfig_SET}" = "false" ]; then
 		for layer in "${PTXDIST_LAYERS[@]}"; do
 			local -a ptxd_reply
-			ptxd_get_path "${layer}/selected_collectionconfig" || continue
+			ptxd_get_path_filtered "${layer}/selected_collectionconfig" || continue
 			PTXDIST_COLLECTIONCONFIG="${ptxd_reply[0]}"
 			break
 		done
@@ -1407,7 +1407,7 @@ setup_layers()
 	if [ "${PTX_toolchain_SET}" = "false" ]; then
 		for layer in "${PTXDIST_LAYERS[@]}"; do
 			local -a ptxd_reply
-			ptxd_get_path "${layer}/selected_toolchain" || continue
+			ptxd_get_path_filtered "${layer}/selected_toolchain" || continue
 			PTXDIST_TOOLCHAIN="${ptxd_reply[0]}"
 			break
 		done
