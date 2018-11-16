@@ -2,6 +2,7 @@
 
 config HOST_FONTCONFIG
 	tristate
+	select HOST_GPERF
 	select HOST_FREETYPE
 	select HOST_EXPAT
 	default y if ALLYES
