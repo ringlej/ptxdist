@@ -54,28 +54,16 @@ $(STATEDIR)/crda.extract:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/crda.prepare:
-	@$(call targetinfo)
-ifdef PTXCONF_ARCH_LP64
-	@cp $(CRDA_DIR)/keys-ssl.c.64 $(CRDA_DIR)/keys-ssl.c
-else
-	@cp $(CRDA_DIR)/keys-ssl.c.32 $(CRDA_DIR)/keys-ssl.c
-endif
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 CRDA_MAKE_ENV	:= \
 	$(CROSS_ENV) \
-	LIBDIR=/usr/lib \
 	SBINDIR=/usr/sbin/ \
 	UDEV_RULE_DIR=/usr/lib/udev/rules.d/ \
-	USE_OPENSSL=1
+	USE_OPENSSL=1 \
+	RUNTIME_PUBKEY_DIR=/usr/lib/crda/pubkeys \
+	RUNTIME_PUBKEY_ONLY=1
 
 CRDA_MAKE_OPT	:= all_noverify
 
@@ -88,6 +76,10 @@ $(STATEDIR)/crda.install:
 	@$(call world/install, CRDA)
 	@install -vD -m 644 $(CRDA_REGDB_DIR)/$(CRDA_REGDB)/regulatory.bin \
 		$(CRDA_PKGDIR)/usr/lib/crda/regulatory.bin
+	@install -vD -m 644 $(CRDA_REGDB_DIR)/pubkeys/linville.key.pub.pem \
+		$(CRDA_PKGDIR)/usr/lib/crda/pubkeys/linville.key.pub.pem
+	@install -vD -m 644 $(CRDA_REGDB_DIR)/pubkeys/sforshee.key.pub.pem \
+		$(CRDA_PKGDIR)/usr/lib/crda/pubkeys/sforshee.key.pub.pem
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -109,6 +101,8 @@ $(STATEDIR)/crda.targetinstall:
 		/usr/lib/udev/rules.d/85-regulatory.rules)
 	@$(call install_lib, crda, 0, 0, 0644, libreg)
 
+	@$(call install_alternative_tree, crda, 0, 0, \
+		/usr/lib/crda/pubkeys)
 	@$(call install_alternative, crda, 0, 0, 0644, \
 		/usr/lib/crda/regulatory.bin)
 

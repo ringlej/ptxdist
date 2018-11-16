@@ -9,7 +9,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 60a3182474e6..0bfded68a6c8 100644
+index a3ead30371c9..2f485724c3be 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -30,7 +30,7 @@ CFLAGS += -std=gnu99 -Wall -Werror -pedantic
