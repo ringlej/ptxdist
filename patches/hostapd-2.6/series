@@ -7,4 +7,6 @@
 0005-Fix-PTK-rekeying-to-generate-a-new-ANonce.patch
 0006-TDLS-Reject-TPK-TK-reconfiguration.patch
 0007-FT-Do-not-allow-multiple-Reassociation-Response-fram.patch
-# 4cd51a35a950def3c205b609b9c255c5  - git-ptx-patches magic
+0008-WPA-Ignore-unauthenticated-encrypted-EAPOL-Key-data.patch
+0009-Fix-pem-decryption.patch
+# 9d5b8f3b90aeb56b9612b2ed9201fe22  - git-ptx-patches magic
