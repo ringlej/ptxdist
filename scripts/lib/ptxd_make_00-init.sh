@@ -213,7 +213,7 @@ ptxd_init_cross_env() {
     # add "-L<DIR>/lib -Wl,-rpath-link -Wl,<DIR>"
     local -a ldflags
     ldflags=( "${prefix[@]/%//${lib_dir}}" )
-    ldflags=( "${ldflags[@]/#/-L}" "${ldflags[@]/#/-Wl,-rpath-link -Wl,}" )
+    ldflags=( "${ldflags[@]/#/-B}" "${ldflags[@]/#/-Wl,-rpath-link -Wl,}" )
 
     export \
 	PTXDIST_CROSS_CPPFLAGS="${cppflags[*]}" \
@@ -251,7 +251,7 @@ ptxd_init_host_env() {
     local -a ldflags
     ldflags=( "${prefix[@]/%//${lib_dir}}" )
     ldflags=( \
-	"${ldflags[@]/#/-L}" \
+	"${ldflags[@]/#/-B}" \
 	"${ldflags[@]/#/-Wl,-rpath -Wl,}" \
 	'-Wl,-rpath,$ORIGIN/../lib:/with/some/extra/space'
     )

@@ -76,7 +76,7 @@ cc_check_args() {
 					add_late_arg "-Wl,-rpath-link${ARG#-Wl,-rpath}"
 				fi
 				;;
-			-)
+			-|-print-search-dirs)
 				COMPILING=true
 				;;
 			-*)
