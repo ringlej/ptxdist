@@ -49,7 +49,7 @@ NETTLE_CONF_OPT		:= \
 	--disable-fat \
 	--$(call ptx/endis,PTXCONF_ARCH_ARM_NEON)-arm-neon \
 	--disable-x86-aesni \
-	--enable-mini-gmp
+	--$(call ptx/disen,PTXCONF_NETTLE_GMP)-mini-gmp
 
 # ----------------------------------------------------------------------------
 # Target-Install
