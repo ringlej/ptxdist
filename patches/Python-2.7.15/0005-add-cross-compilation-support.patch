@@ -11,10 +11,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  2 files changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index e28896406f6f..b404fbb9eb54 100644
+index 9297e7fc89c4..1400c8ca6f97 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -89,6 +89,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
+@@ -88,6 +88,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
  # C flags used for building the interpreter object files
  PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED) -DPy_BUILD_CORE
  
@@ -25,7 +25,7 @@ index e28896406f6f..b404fbb9eb54 100644
  
  # Machine-dependent subdirectories
  MACHDEP=	@MACHDEP@
-@@ -107,11 +111,11 @@ datarootdir=    @datarootdir@
+@@ -106,11 +110,11 @@ datarootdir=    @datarootdir@
  
  # Expanded directories
  BINDIR=		@bindir@
@@ -42,10 +42,10 @@ index e28896406f6f..b404fbb9eb54 100644
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
 diff --git a/configure.ac b/configure.ac
-index d14c74bb700b..6631dc233528 100644
+index c89e4a601cf1..863d7929507b 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -966,6 +966,13 @@ if test "$cross_compiling" = yes; then
+@@ -980,6 +980,13 @@ if test "$cross_compiling" = yes; then
  	RUNSHARED=
  fi
  

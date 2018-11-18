@@ -12,7 +12,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 3 insertions(+)
 
 diff --git a/setup.py b/setup.py
-index 54054c208a76..b2b793cf5d29 100644
+index 33cecc687573..521b6e77c234 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -1228,6 +1228,9 @@ class PyBuildExt(build_ext):

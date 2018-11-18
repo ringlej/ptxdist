@@ -35,7 +35,7 @@ index ad307f65398b..f72ae886cad8 100644
  AF_MAX = PF_MAX
  SOL_RAW = 255
 diff --git a/Modules/socketmodule.c b/Modules/socketmodule.c
-index 3e3c05f54079..0deb827e1925 100644
+index 8d3670529e85..f1c0bab247b0 100644
 --- a/Modules/socketmodule.c
 +++ b/Modules/socketmodule.c
 @@ -448,6 +448,10 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
@@ -51,7 +51,7 @@ index 3e3c05f54079..0deb827e1925 100644
   */
 @@ -1125,6 +1129,22 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
      }
- #endif
+ #endif /* ENABLE_IPV6 */
  
 +#ifdef ENABLE_CAN
 +    case AF_CAN:
@@ -74,7 +74,7 @@ index 3e3c05f54079..0deb827e1925 100644
          switch (proto) {
 @@ -1411,6 +1431,28 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
      }
- #endif
+ #endif /* ENABLE_IPV6 */
  
 +#ifdef ENABLE_CAN
 +    case AF_CAN:
@@ -103,7 +103,7 @@ index 3e3c05f54079..0deb827e1925 100644
      {
 @@ -1662,6 +1704,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
      }
- #endif
+ #endif /* ENABLE_IPV6 */
  
 +#ifdef ENABLE_CAN
 +    case AF_CAN:
@@ -199,10 +199,10 @@ index d98e00e88d27..3b6e22e29d3a 100644
      struct sockaddr_l2 bt_l2;
      struct sockaddr_rc bt_rc;
 diff --git a/configure.ac b/configure.ac
-index 127346502c3b..e56d674f60da 100644
+index 913d5469d06e..675f56835e59 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1720,6 +1720,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
+@@ -1746,6 +1746,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
  #endif
  ])
  

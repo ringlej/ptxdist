@@ -11,10 +11,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 6631dc233528..669624d53735 100644
+index 863d7929507b..661cd3dcb76c 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -912,7 +912,7 @@ if test $enable_shared = "yes"; then
+@@ -926,7 +926,7 @@ if test $enable_shared = "yes"; then
      Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*)
  	  LDLIBRARY='libpython$(VERSION).so'
  	  BLDLIBRARY='-L. -lpython$(VERSION)'

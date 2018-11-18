@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index b2b793cf5d29..d761cbd29365 100644
+index 521b6e77c234..213a4d969fbc 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -1101,7 +1101,6 @@ class PyBuildExt(build_ext):
