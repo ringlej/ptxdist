@@ -44,6 +44,7 @@ RTMPDUMP_MAKE_ENV	:= \
 	XLDFLAGS="$(CROSS_LDFLAGS)"
 
 RTMPDUMP_MAKE_OPT	:= \
+	CRYPTO=GNUTLS \
 	prefix=/usr
 
 # ----------------------------------------------------------------------------
