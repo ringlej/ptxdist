@@ -1,3 +1,7 @@
+From: =?UTF-8?q?Guillermo=20Rodr=C3=ADguez?= <guille.rodriguez@gmail.com>
+Date: Thu, 22 Nov 2018 06:44:55 +0100
+Subject: [PATCH] Fix building with OpenJDK 1.8
+
 This patch makes it possible to build GNU Classpath using javac
 from OpenJDK 1.7 and 1.8.
 
@@ -7,16 +11,50 @@ javac from OpenJDK 1.7+ will try (and fail) to recompile "standard"
 Java classes (e.g. java/lang/Object.java) when compiling the Java
 test class. Fix this by explicitly passing an empty -sourcepath.
 
-- Test for 1.6 instead of 1.5, as -source/-target 1.5 is deprecated
-in Java 8, and the Makefiles already use -source/-target 1.6 anyway.
-
+- Use -source/-target 1.6 instead of 1.5, as the latter is
+deprecated in Java 8.
 ---
+ examples/Makefile.am      | 4 ++--
+ lib/Makefile.am           | 4 ++--
  m4/ac_prog_java_works.m4  | 3 ++-
  m4/ac_prog_javac_works.m4 | 4 ++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ tools/Makefile.am         | 4 ++--
+ 5 files changed, 10 insertions(+), 9 deletions(-)
 
+diff --git a/examples/Makefile.am b/examples/Makefile.am
+index ff47801247c9..ba40c08747b8 100644
+--- a/examples/Makefile.am
++++ b/examples/Makefile.am
+@@ -2,9 +2,9 @@
+ GLIBJ_CLASSPATH='$(top_builddir)/lib/glibj.zip:$(top_builddir)/lib'
+ 
+ if GCJ_JAVAC
+-JCOMPILER = $(JAVAC) $(JAVACFLAGS) -fsource=1.5 -ftarget=1.5 --encoding=UTF-8 --bootclasspath=$(GLIBJ_CLASSPATH) --classpath='$(top_builddir)/tools/tools.zip'
++JCOMPILER = $(JAVAC) $(JAVACFLAGS) -fsource=1.6 -ftarget=1.6 --encoding=UTF-8 --bootclasspath=$(GLIBJ_CLASSPATH) --classpath='$(top_builddir)/tools/tools.zip'
+ else
+-JCOMPILER = $(JAVAC) $(JAVACFLAGS) -source 1.5 -target 1.5 -encoding UTF-8 -bootclasspath $(GLIBJ_CLASSPATH) -classpath '$(top_builddir)/tools/tools.zip'
++JCOMPILER = $(JAVAC) $(JAVACFLAGS) -source 1.6 -target 1.6 -encoding UTF-8 -bootclasspath $(GLIBJ_CLASSPATH) -classpath '$(top_builddir)/tools/tools.zip'
+ endif
+ 
+ # All our example java source files
+diff --git a/lib/Makefile.am b/lib/Makefile.am
+index 50d1baa9b738..97a8b692692c 100644
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -9,9 +9,9 @@ compile_classpath = $(vm_classes):$(top_srcdir):$(top_srcdir)/external/w3c_dom:$
+ 
+ # handling source to bytecode compiler programs like gcj, jikes  and kjc
+ if GCJ_JAVAC
+-JCOMPILER = $(JAVAC) $(JAVACFLAGS) -fsource=1.5 -ftarget=1.5 --bootclasspath='' --classpath=$(compile_classpath) -d . @classes
++JCOMPILER = $(JAVAC) $(JAVACFLAGS) -fsource=1.6 -ftarget=1.6 --bootclasspath='' --classpath=$(compile_classpath) -d . @classes
+ else
+-JCOMPILER = $(JAVAC) $(JAVACFLAGS) $(JAVAC_MEM_OPT) -source 1.5 -target 1.5 -bootclasspath '' -classpath $(compile_classpath) -d . @classes
++JCOMPILER = $(JAVAC) $(JAVACFLAGS) $(JAVAC_MEM_OPT) -source 1.6 -target 1.6 -bootclasspath '' -classpath $(compile_classpath) -d . @classes
+ endif
+ 
+ if CREATE_COLLECTIONS
 diff --git a/m4/ac_prog_java_works.m4 b/m4/ac_prog_java_works.m4
-index d3f2744..f36318b 100644
+index d3f274478d09..f36318ba1c9f 100644
 --- a/m4/ac_prog_java_works.m4
 +++ b/m4/ac_prog_java_works.m4
 @@ -62,7 +62,8 @@ EOF
@@ -30,7 +68,7 @@ index d3f2744..f36318b 100644
          else
            echo "configure: failed program was:" >&AC_FD_CC
 diff --git a/m4/ac_prog_javac_works.m4 b/m4/ac_prog_javac_works.m4
-index 7fb298d..fbe24ce 100644
+index 7fb298d49be5..fbe24ce60f25 100644
 --- a/m4/ac_prog_javac_works.m4
 +++ b/m4/ac_prog_javac_works.m4
 @@ -33,9 +33,9 @@ public class Object
@@ -45,6 +83,19 @@ index 7fb298d..fbe24ce 100644
  fi
  if AC_TRY_COMMAND($CMD) >/dev/null 2>&1; then
    ac_cv_prog_javac_works=yes
--- 
-1.9.1
-
+diff --git a/tools/Makefile.am b/tools/Makefile.am
+index c5db7cd0ada4..54cd2ceab5ed 100755
+--- a/tools/Makefile.am
++++ b/tools/Makefile.am
+@@ -14,9 +14,9 @@ GLIBJ_CLASSPATH=asm:$(ANTLR_CLASSPATH)
+ 
+ # Setup the compiler to use the GNU Classpath library we just built.
+ if GCJ_JAVAC
+-JCOMPILER = $(JAVAC) $(JAVACFLAGS) -fsource=1.5 -ftarget=1.5 --encoding=UTF-8 --bootclasspath=$(GLIBJ_BOOTCLASSPATH) --classpath=$(GLIBJ_CLASSPATH)
++JCOMPILER = $(JAVAC) $(JAVACFLAGS) -fsource=1.6 -ftarget=1.6 --encoding=UTF-8 --bootclasspath=$(GLIBJ_BOOTCLASSPATH) --classpath=$(GLIBJ_CLASSPATH)
+ else
+-JCOMPILER = $(JAVAC) $(JAVACFLAGS) -source 1.5 -target 1.5 -encoding UTF-8 -bootclasspath $(GLIBJ_BOOTCLASSPATH) -classpath $(GLIBJ_CLASSPATH)
++JCOMPILER = $(JAVAC) $(JAVACFLAGS) -source 1.6 -target 1.6 -encoding UTF-8 -bootclasspath $(GLIBJ_BOOTCLASSPATH) -classpath $(GLIBJ_CLASSPATH)
+ endif
+ 
+ if CREATE_WRAPPERS
