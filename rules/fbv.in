@@ -1,4 +1,4 @@
-### SECTION=multimedia_framebuffer
+## SECTION=multimedia_framebuffer
 
 menuconfig FBV
 	tristate
