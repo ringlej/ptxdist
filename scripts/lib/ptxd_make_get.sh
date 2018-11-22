@@ -394,6 +394,10 @@ ptxd_make_get() {
 		shift
 
 		case "${url}" in
+		git+file://*)
+			echo "local git repository, removing git+file:// prefix from URL"
+			url=${url#git+file://}
+			;&
 		git://*|http://*.git|https://*.git|ssh://*.git)
 			ptxd_make_get_download_permitted &&
 			ptxd_make_get_git && return
