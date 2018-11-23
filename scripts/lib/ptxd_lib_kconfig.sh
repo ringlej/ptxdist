@@ -458,8 +458,13 @@ ptxd_kconfig_sync_config() {
 	if ! cmp -s "${target_config}" "${base_config}"; then
 	    if [ -z "${PTXDIST_FORCE}" ]; then
 		local p="${part%ptx}"
+		local all=" all layers"
+		if [ -n "${pkg_label}" ]; then
+		    p="${pkg_label}"
+		    all=""
+		fi
 		ptxd_bailout "Outdated config for '$(ptxd_print_path "${PTXDIST_LAYERS[0]}")'" \
-		    "'oldconfig' changes the file. Run 'oldconfig${p:+ }${p}' to update all layers."
+		    "'oldconfig' changes the file. Run 'oldconfig${p:+ }${p}' to update${all}."
 		    "Use --force to continue anyways."
 	    else
 		ptxd_warning "Outdated config for '$(ptxd_print_path "${PTXDIST_LAYERS[0]}")'" \
