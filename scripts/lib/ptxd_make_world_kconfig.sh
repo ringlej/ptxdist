@@ -36,12 +36,18 @@ ptxd_make_world_kconfig_setup() {
 export -f ptxd_make_world_kconfig_setup
 
 ptxd_make_kconfig_sync() {
+    local mode
+    if [ -n "${PTXDIST_QUIET}" -a "${1}" = oldconfig ]; then
+	mode=check
+    else
+	mode=update
+    fi
     if [ -n "${ref_file_dotconfig}" ]; then
 	file_dotconfig="${ref_file_dotconfig}" ptxd_normalize_config &&
 	relative_ref_file_dotconfig="${relative_file_dotconfig}"
     fi &&
     ptxd_normalize_config &&
-    ptxd_kconfig_sync_config update "${pkg_build_dir}/.config" \
+    ptxd_kconfig_sync_config "${mode}" "${pkg_build_dir}/.config" \
 	"${relative_file_dotconfig}" "${file_dotconfig}" "${relative_ref_file_dotconfig}"
 }
 export -f ptxd_make_kconfig_sync
@@ -79,7 +85,7 @@ ptxd_make_kconfig() {
 	"${pkg_conf_env}" \
 	make "${1}" \
 	"${pkg_conf_opt}" &&
-    ptxd_make_kconfig_sync
+    ptxd_make_kconfig_sync "${1}"
 }
 export -f ptxd_make_kconfig
 

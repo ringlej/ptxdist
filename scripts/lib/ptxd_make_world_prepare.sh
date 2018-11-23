@@ -122,11 +122,7 @@ export -f ptxd_make_world_prepare_autoconf
 # prepare for kconfig based pkgs
 #
 ptxd_make_world_prepare_kconfig() {
-    if [ -n "${PTXDIST_QUIET}" ]; then
-	ptxd_make_kconfig silentoldconfig
-    else
-	ptxd_make_kconfig oldconfig
-    fi
+    ptxd_make_kconfig oldconfig
 }
 export -f ptxd_make_world_prepare_kconfig
 
