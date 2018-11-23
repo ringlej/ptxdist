@@ -191,6 +191,8 @@ ptxd_make_log() {(
 		# stdout and logfile
 		exec {logout}> >(tee -a "${PTX_LOGFILE}")
 	else
+		# no user input
+		exec < /dev/null
 		# logfile only
 		exec {logout}>> "${PTX_LOGFILE}"
 	fi
