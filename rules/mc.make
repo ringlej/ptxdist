@@ -43,7 +43,7 @@ MC_CONF_OPT	:= \
 	--disable-tests \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
-	--$(call ptx/endis,PTXCONF_MC_VFS)-vfs \
+	--enable-vfs \
 	--$(call ptx/endis,PTXCONF_MC_VFS_CPIO)-vfs-cpio \
 	--$(call ptx/endis,PTXCONF_MC_VFS_EXTFS)-vfs-extfs \
 	--$(call ptx/endis,PTXCONF_MC_VFS_FISH)-vfs-fish \
