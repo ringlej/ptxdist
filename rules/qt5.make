@@ -340,7 +340,6 @@ QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS)			+= platforms/libqminimalegl
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS_KMS)			+= egldeviceintegrations/libqeglfs-kms-integration
 
 ### QtCanvas3d ###
-QT5_LIBS_$(PTXCONF_QT5_MODULE_CANVAS3D)				+= QtCanvas3d
 QT5_QML-$(PTXCONF_QT5_MODULE_QTCANVAS3D_QUICK)			+= QtCanvas3D
 
 ### QtConnectivity ###
