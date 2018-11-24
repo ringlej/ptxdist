@@ -29,25 +29,20 @@ RSYNC3_LICENSE	:= GPL-3.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-RSYNC3_PATH	:= PATH=$(CROSS_PATH)
-RSYNC3_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
 RSYNC3_AUTOCONF  := \
-	 $(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_IPV6_OPTION) \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--disable-profile \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	$(GLOBAL_IPV6_OPTION) \
+	--disable-locale \
+	--$(call ptx/endis, PTXCONF_ICONV)-iconv \
 	--$(call ptx/endis, PTXCONF_RSYNC3_ACL)-acl-support \
 	--$(call ptx/endis, PTXCONF_RSYNC3_ATTR)-xattr-support \
-	--with-included-popt \
-	--disable-debug \
-	--disable-locale
-
-ifneq ($(call remove_quotes,$(PTXCONF_RSYNC3_CONFIG_FILE)),)
-RSYNC3_AUTOCONF += --with-rsync3d-conf=$(PTXCONF_RSYNC3_CONFIG_FILE)
-endif
+	--with-included-popt
 
 # ----------------------------------------------------------------------------
 # Target-Install
