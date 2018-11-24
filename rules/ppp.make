@@ -234,10 +234,6 @@ ifdef PTXCONF_PPP_OE
 	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/rp-pppoe.so)
 endif
-ifdef PTXCONF_PPP_PLUGIN_RP_PPPOE_DISCOVERY
-	@$(call install_copy, ppp, 0, 0, 0755, -, \
-		$(PPP_SHARED_INST_PATH)/pppoe-discovery)
-endif
 ifdef PTXCONF_PPP_MINCONN
 	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/minconn.so)
