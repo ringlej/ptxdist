@@ -58,6 +58,12 @@ config GST_PLUGINS_BAD1_AIFF
 	bool
 	prompt "aiff"
 
+config GST_PLUGINS_BAD1_AOM
+	bool
+	# needs libaom
+	depends on BROKEN
+	prompt "aom"
+
 config GST_PLUGINS_BAD1_VIDEOFRAME_AUDIOLEVEL
 	bool
 	prompt "videoframe_audiolevel"
