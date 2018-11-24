@@ -127,11 +127,6 @@ config UDEV_LEGACY_PERSISTENT_CDROM
 	bool
 	prompt "cdrom"
 
-config UDEV_LEGACY_PERSISTENT_EDD
-	bool
-	depends on UDEV_LEGACY
-	prompt "BIOS EDD data"
-
 config UDEV_LEGACY_PERSISTENT_GENERATOR
 	bool
 	prompt "cd / network generator"
