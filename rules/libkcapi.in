@@ -1,0 +1,58 @@
+## SECTION=project_specific
+
+menuconfig LIBKCAPI
+	tristate
+	prompt "libkcapi"
+	help
+	  The Linux kernel exports a Netlink interface of type AF_ALG to
+	  allow user space to utilize the kernel crypto API.
+
+if LIBKCAPI
+
+config LIBKCAPI_MD5SUM
+       bool
+       depends on !COREUTILS_MD5SUM
+       depends on !BUSYBOX_MD5SUM
+       prompt "md5sum"
+       help
+         support md5sum cmdline util
+
+config LIBKCAPI_SHA1SUM
+       bool
+       depends on !COREUTILS_SHA1SUM
+       depends on !BUSYBOX_SHA1SUM
+       prompt "sha1sum"
+       help
+         support sha1sum cmdline util
+
+config LIBKCAPI_SHA256SUM
+       bool
+       depends on !COREUTILS_SHA256SUM
+       depends on !BUSYBOX_SHA256SUM
+       prompt "sha256sum"
+       help
+         support sha256sum cmdline util
+
+config LIBKCAPI_SHA384SUM
+       bool
+       depends on !COREUTILS_SHA384SUM
+       prompt "sha384sum"
+       help
+         support sha384sum cmdline util
+
+config LIBKCAPI_SHA512SUM
+       bool
+       depends on !COREUTILS_SHA512SUM
+       depends on !BUSYBOX_SHA512SUM
+       prompt "sha512sum"
+       help
+         support sha512sum cmdline util
+
+config LIBKCAPI_TEST
+       bool
+       depends on OPENSSL_BIN
+       prompt "test"
+       help
+         support kcapi tests
+
+endif
