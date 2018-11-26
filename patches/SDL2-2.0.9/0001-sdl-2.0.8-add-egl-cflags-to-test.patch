@@ -25,10 +25,10 @@ index 9edfb8a7d913..2f1e2ef3d419 100755
  for autoconf in autoconf autoconf259 autoconf-2.59
  do if which $autoconf >/dev/null 2>&1; then $autoconf && found=true; break; fi
 diff --git a/configure.in b/configure.in
-index 1c7e79338a88..06e37a1b7f98 100644
+index ae866ff0c55c..23d4ee2d8fad 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -2335,6 +2335,14 @@ dnl Find OpenGL ES
+@@ -2349,6 +2349,14 @@ dnl Find OpenGL ES
  CheckOpenGLESX11()
  {
      if test x$enable_video = xyes -a x$enable_video_opengles = xyes; then
@@ -43,7 +43,7 @@ index 1c7e79338a88..06e37a1b7f98 100644
          AC_MSG_CHECKING(for EGL support)
          video_opengl_egl=no
          AC_TRY_COMPILE([
-@@ -2347,6 +2355,9 @@ CheckOpenGLESX11()
+@@ -2361,6 +2369,9 @@ CheckOpenGLESX11()
          video_opengl_egl=yes
          ])
          AC_MSG_RESULT($video_opengl_egl)

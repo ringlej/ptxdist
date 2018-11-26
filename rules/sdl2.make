@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SDL2) += sdl2
 #
 # Paths and names
 #
-SDL2_VERSION	:= 2.0.8
-SDL2_MD5	:= 3800d705cef742c6a634f202c37f263f
+SDL2_VERSION	:= 2.0.9
+SDL2_MD5	:= f2ecfba915c54f7200f504d8b48a5dfe
 SDL2		:= SDL2-$(SDL2_VERSION)
 SDL2_SUFFIX	:= tar.gz
 SDL2_URL	:= https://www.libsdl.org/release/$(SDL2).$(SDL2_SUFFIX)
@@ -49,6 +49,8 @@ SDL2_CONF_OPT	:= \
 	--enable-events \
 	--enable-joystick \
 	--enable-haptic \
+	--enable-sensor \
+	--enable-hidapi \
 	--disable-power \
 	--disable-filesystem \
 	--enable-threads \
@@ -125,6 +127,7 @@ SDL2_CONF_OPT	:= \
 	--enable-pthreads \
 	--enable-pthread-sem \
 	--disable-directx \
+	--disable-wasapi \
 	--enable-sdl-dlopen \
 	--enable-clock_gettime \
 	--disable-rpath \
