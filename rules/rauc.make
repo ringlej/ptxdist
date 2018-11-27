@@ -63,7 +63,7 @@ $(STATEDIR)/rauc.targetinstall:
 
 	@$(call install_copy, rauc, 0, 0, 0755, -, /usr/bin/rauc)
 
-ifdef PTXCONFIG_RAUC_CONFIGURATION
+ifdef PTXCONF_RAUC_CONFIGURATION
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/system.conf)
 	@$(call install_replace, rauc, /etc/rauc/system.conf, \
 		@RAUC_BUNDLE_COMPATIBLE@, \
