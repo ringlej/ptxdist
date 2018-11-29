@@ -195,6 +195,12 @@ ptxd_kconfig_create_config() {
     else
 	if [ -e "${config}" ]; then
 	    cp -- "${config}" "${target}"
+	    if [ -n "${base}" ]; then
+		echo -e "\nMissing diff, forcing config update...\n"
+		# this will be dropped, but forces kconfig to write the config
+		prefix="$(sed -n '/^[A-Z]/{s/\([^_]*_\).*/\1/p;q}' "${target}")"
+		echo "# ${prefix}OPTION_DOES_NOT_EXIST is not set" >> "${target}"
+	    fi
 	fi
     fi &&
     stat -c '%y' "${target}" > "${target}.stamp"
