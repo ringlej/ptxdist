@@ -2,7 +2,7 @@ From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
 Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] shared-lib-ext
 
-Imported from openssl1.0_1.0.2o-1.debian.tar.xz
+Imported from openssl1.0_1.0.2q-2.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index af3914285616..9f58145ef000 100755
+index 79b7d5c90d8e..97ce24d18a5c 100755
 --- a/Configure
 +++ b/Configure
-@@ -1845,7 +1845,8 @@ while (<IN>)
+@@ -1853,7 +1853,8 @@ while (<IN>)
  	elsif ($shared_extension ne "" && $shared_extension =~ /^\.s([ol])\.[^\.]*\.[^\.]*$/)
  		{
  		my $sotmp = $1;

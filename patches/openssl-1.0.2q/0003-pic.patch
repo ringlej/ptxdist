@@ -2,7 +2,7 @@ From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
 Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] pic
 
-Imported from openssl1.0_1.0.2o-1.debian.tar.xz
+Imported from openssl1.0_1.0.2q-2.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---

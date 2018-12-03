@@ -2,7 +2,7 @@ From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
 Date: Tue, 12 Dec 2017 23:35:24 +0100
 Subject: [PATCH] valgrind
 
-Imported from openssl1.0_1.0.2o-1.debian.tar.xz
+Imported from openssl1.0_1.0.2q-2.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -10,10 +10,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/crypto/rand/md_rand.c b/crypto/rand/md_rand.c
-index a7af9f9d8671..d07ab8801c55 100644
+index 2983a3fda487..a16cc804cc56 100644
 --- a/crypto/rand/md_rand.c
 +++ b/crypto/rand/md_rand.c
-@@ -490,6 +490,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
+@@ -488,6 +488,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
              goto err;
  
  #ifndef PURIFY                  /* purify complains */
@@ -21,7 +21,7 @@ index a7af9f9d8671..d07ab8801c55 100644
          /*
           * The following line uses the supplied buffer as a small source of
           * entropy: since this buffer is often uninitialised it may cause
-@@ -499,6 +500,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
+@@ -497,6 +498,7 @@ int ssleay_rand_bytes(unsigned char *buf, int num, int pseudo, int lock)
           */
          if (!MD_Update(&m, buf, j))
              goto err;
