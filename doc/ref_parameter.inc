@@ -287,6 +287,12 @@ Options
   completed. As a result, there will be long periods of time with no
   visible progress.
 
+``--progress``
+  show some progress information in the form of completed/total build
+  stages. This is only shown if quiet is enabled as well. Note, that this
+  adds some extra overhead at the beginning, so it will take some time
+  until the first build stage starts.
+
 ``--j-intern=<n>``, ``-ji<n>``
   set number of parallel jobs within packages. PTXdist will use this
   number for example when calling ``make`` during the compile stage.

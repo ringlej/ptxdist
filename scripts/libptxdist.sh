@@ -166,6 +166,7 @@ ptxd_make() {
 			source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
 		done
 	done
+	ptxd_make_setup_progress "${@}" &&
 	${PTX_NICE:+nice -n ${PTX_NICE}} "${PTXCONF_SETUP_HOST_MAKE}" \
 	    "${PTX_MAKE_ARGS[@]}" ${PTXDIST_PARALLELMFLAGS_EXTERN} ${PTXDIST_LOADMFLAGS} \
 	    -f "${RULESDIR}/other/Toplevel.make" "${@}" || return

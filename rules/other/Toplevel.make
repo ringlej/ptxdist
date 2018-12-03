@@ -3,8 +3,14 @@
 # Copyright (C) 2002-2009 by The PTXdist Team - See CREDITS for Details
 #
 
+ifneq ($(filter n,$(MAKEFLAGS)),)
+# make sure recursive calls do nothing for --dry-run
+MAKE=true
+SHELL=true
+else
 # make sure bash is used to execute commands from makefiles
 SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash)
+endif
 export SHELL
 
 unexport MAKEFLAGS

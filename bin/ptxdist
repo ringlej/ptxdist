@@ -1000,6 +1000,8 @@ Options:
   --output-sync			Improve output readability for parallel building.
 				Disabled by default except for quiet builds.
   --no-output-sync		Disable output-sync if enabled by default.
+  --progress			Show progress information. This is only available
+				in quiet mode.
 
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
 				(default = 2*CPUs)
@@ -1304,6 +1306,9 @@ parse_first()
 			;;
 		--no-output-sync)
 			PTXDIST_OUTPUT_SYNC=0
+			;;
+		--progress)
+			PTXDIST_PROGRESS=1
 			;;
 		-q|--quiet)
 			PTXDIST_QUIET=1
