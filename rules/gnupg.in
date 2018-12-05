@@ -29,6 +29,10 @@ config GNUPG_GPGV
 	bool
 	prompt "Install gpgv2"
 
+config GNUPG_GPG_AGENT
+	bool
+	prompt "Install gpg-agent"
+
 menu "public key algorithms"
 
 config GNUPG_GPG_RSA

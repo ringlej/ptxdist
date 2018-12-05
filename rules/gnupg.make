@@ -114,6 +114,9 @@ ifdef PTXCONF_GNUPG_GPGV
 	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpgv)
 	@$(call install_link, gnupg, gpgv, /usr/bin/gpgv2)
 endif
+ifdef PTXCONF_GNUPG_GPG_AGENT
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg-agent)
+endif
 
 	@$(call install_finish, gnupg)
 
