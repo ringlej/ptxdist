@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MMC_UTILS) += mmc-utils
 # Paths and names
 #
 # No tags: use a fake descriptive commit-ish to include the date
-MMC_UTILS_VERSION	:= 2016-06-07-g0ca049f25191
-MMC_UTILS_MD5		:= da395e908be7e11bd8417cc02485be31
+MMC_UTILS_VERSION	:= 2018-03-27-gb4fe0c8c0e57
+MMC_UTILS_MD5		:= 1018cdca94530054cc11e4bcb97d4b11
 MMC_UTILS		:= mmc-utils-$(MMC_UTILS_VERSION)
 MMC_UTILS_SUFFIX	:= tar.gz
 MMC_UTILS_URL		:= git://git.kernel.org/pub/scm/linux/kernel/git/cjb/mmc-utils.git;tag=$(MMC_UTILS_VERSION)
