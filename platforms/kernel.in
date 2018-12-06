@@ -265,6 +265,18 @@ config KERNEL_LIBELF
 	  STACK_VALIDATION enabled. Stack validation is used for the orc
 	  unwinder for kernel version >= v4.14 on x86_64.
 
+config KERNEL_GCC_PLUGINS
+	prompt "allow gcc plugins"
+	bool
+	help
+	  The kernel kconfig options to enable gcc plugins depend on a
+	  sufficiently new host compiler. As a result, the kernel config
+	  may change with a different host compiler version.
+	  If this option is disabled then the environment is manipulated
+	  to ensure that the compiler check always fails. This keeps the
+	  kernel config stable.
+	  Enable this option when the kernel gcc plugins are used.
+
 menu "patching & configuration      "
 
 config KERNEL_SERIES

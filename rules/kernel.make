@@ -64,6 +64,11 @@ KERNEL_CONF_OPT += \
 	DEPMOD=$(PTXCONF_SYSROOT_HOST)/sbin/depmod
 endif
 
+ifndef PTXCONF_KERNEL_GCC_PLUGINS
+KERNEL_CONF_OPT += \
+	HOSTCXX=false
+endif
+
 #
 # support the different kernel image formats
 #
