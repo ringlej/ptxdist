@@ -80,7 +80,7 @@ $0 ~ /^include[[:space:]]+\/.*\.make$/ {
 }
 
 
-function dump_file(src, dst) {
+function dump_file(src, dst, tmp) {
 	if (!src)
 		return
 
@@ -186,8 +186,13 @@ $1 ~ /^PTX_MAP_._DEP/ {
 
 $1 ~ /^PTX_MAP_._SOURCE/ {
 	this_PKG = gensub(/PTX_MAP_._SOURCE_/, "", "g", $1);
-	if (this_PKG in PKG_to_pkg)
-		PKG_to_infile[this_PKG] = $2;
+	if (this_PKG in PKG_to_pkg) {
+		if (index($2, "/") != 1)
+			tmp = PTXDIST_TEMPDIR "/kconfig/" $2;
+		else
+			tmp = $2
+		PKG_to_infile[this_PKG] = tmp;
+	}
 	next;
 }
 
