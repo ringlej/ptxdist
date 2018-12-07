@@ -66,8 +66,8 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha224 \
 	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha384 \
 	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha512 \
-	--disable-zip \
-	--disable-bzip2 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_ZIP)-zip \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_BZIP2)-bzip2 \
 	--disable-exec \
 	--disable-photo-viewers \
 	--disable-card-support \
