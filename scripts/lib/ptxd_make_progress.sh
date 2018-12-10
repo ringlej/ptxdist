@@ -9,7 +9,7 @@
 #
 
 ptxd_make_setup_progress() {
-    if [ -n "${PTXDIST_PROGRESS}" ]; then
+    if [ -n "${PTXDIST_PROGRESS}" -a -n "${PTXDIST_QUIET}" ]; then
 	ptxd_make_target_count=$( \
 	    "${PTXCONF_SETUP_HOST_MAKE}" --dry-run \
 	    -f "${RULESDIR}/other/Toplevel.make" "${@}" 2>/dev/null | \
