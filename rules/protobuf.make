@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PROTOBUF) += protobuf
 #
 # Paths and names
 #
-PROTOBUF_VERSION	:= 3.5.1
-PROTOBUF_MD5		:= 94fd082b16e1931d45773f0f59a22356
+PROTOBUF_VERSION	:= 3.6.1
+PROTOBUF_MD5		:= d4c50a611ac6486c6433eb53e3f60d1f
 PROTOBUF		:= protobuf-all-$(PROTOBUF_VERSION)
 PROTOBUF_SUFFIX		:= tar.gz
 PROTOBUF_URL		:= https://github.com/google/protobuf/releases/download/v$(PROTOBUF_VERSION)/$(PROTOBUF).$(PROTOBUF_SUFFIX)
