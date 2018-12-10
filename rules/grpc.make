@@ -50,6 +50,24 @@ GRPC_CONF_OPT	:= \
 	-DPROTOBUF_PROTOC_EXECUTABLE=$(PTXDIST_SYSROOT_HOST)/bin/protoc
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/grpc.install:
+	@$(call targetinfo)
+	@$(call world/install, GRPC)
+
+	@install -d $(GRPC_PKGDIR)/usr/lib/pkgconfig/
+	VERSION=$$(sed -n '/CORE_VERSION =/s/.*=\s*\(.*\)/\1/p' $(GRPC_DIR)/Makefile) \
+		ptxd_replace_magic $(GRPC_DIR)/grpc.pc.in > \
+		$(GRPC_PKGDIR)/usr/lib/pkgconfig/grpc.pc
+	VERSION=$$(sed -n '/CPP_VERSION =/s/.*=\s*\(.*\)/\1/p' $(GRPC_DIR)/Makefile) \
+		ptxd_replace_magic $(GRPC_DIR)/grpc++.pc.in > \
+		$(GRPC_PKGDIR)/usr/lib/pkgconfig/grpc++.pc
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
