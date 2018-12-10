@@ -1,4 +1,4 @@
-## SECTION=project_specific
+## SECTION=system_libraries
 
 menuconfig LIBKCAPI
 	tristate
