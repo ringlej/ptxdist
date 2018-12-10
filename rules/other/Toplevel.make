@@ -7,9 +7,15 @@ ifneq ($(findstring n,$(filter-out --%,$(MAKEFLAGS))),)
 # make sure recursive calls do nothing for --dry-run
 MAKE=true
 SHELL=true
+define ptx/force-shell
+$(eval SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash))$(shell $(1))$(eval SHELL=true)
+endef
 else
 # make sure bash is used to execute commands from makefiles
 SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash)
+define ptx/force-shell
+$(shell $(1))
+endef
 endif
 export SHELL
 
