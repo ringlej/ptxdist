@@ -102,7 +102,6 @@ install: all dirty-check
 	@tar -C "$(abs_srcdir)" -cf - \
 		--exclude *~ \
 		--exclude .*.sw* \
-		--exclude .done \
 		--exclude .git \
 		--exclude .gitignore \
 		--exclude .pc \
