@@ -53,6 +53,14 @@ ifdef PTXCONF_GCCLIBS_LIBASAN
 	@$(call install_copy_toolchain_lib, gcclibs, libasan.so)
 endif
 
+ifdef PTXCONF_GCCLIBS_LIBLSAN
+	@$(call install_copy_toolchain_lib, gcclibs, liblsan.so)
+endif
+
+ifdef PTXCONF_GCCLIBS_LIBTSAN
+	@$(call install_copy_toolchain_lib, gcclibs, liblsan.so)
+endif
+
 ifdef PTXCONF_GCCLIBS_LIBUBSAN
 	@$(call install_copy_toolchain_lib, gcclibs, libubsan.so)
 endif
