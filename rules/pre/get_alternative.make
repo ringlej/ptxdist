@@ -23,7 +23,7 @@ endef
 define ptx/in-path2
 $(call ptx/in-path3,
 $(filter-out /%,$(3)),
-$(shell p='$($(strip $(1)))' ptxd_in_path p $(2) && echo $$ptxd_reply),
+$(call ptx/force-shell, p='$($(strip $(1)))' ptxd_in_path p $(2) && echo $$ptxd_reply),
 $(firstword $(wildcard $(addsuffix /$(strip $(2)),$(3)))))
 endef
 # create a path ist from the variable with ':' separated paths

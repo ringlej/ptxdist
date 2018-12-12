@@ -19,8 +19,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_KERNEL_HEADER) += host-kernel-header
 ifndef PTXCONF_KERNEL_HEADER
 TOOLCHAIN_CONFIG	:= $(PTXDIST_PLATFORMDIR)/selected_toolchain/ptxconfig
 ifneq ($(wildcard $(TOOLCHAIN_CONFIG)),)
-HOST_KERNEL_HEADER_VERSION	:= $(call remove_quotes,$(shell ptxd_get_kconfig $(TOOLCHAIN_CONFIG) PTXCONF_KERNEL_HEADERS_VERSION))
-HOST_KERNEL_HEADER_MD5		:= $(call remove_quotes,$(shell ptxd_get_kconfig $(TOOLCHAIN_CONFIG) PTXCONF_KERNEL_HEADERS_MD5))
+HOST_KERNEL_HEADER_VERSION	:= $(call remove_quotes,$(call ptx/force-shell, ptxd_get_kconfig $(TOOLCHAIN_CONFIG) PTXCONF_KERNEL_HEADERS_VERSION))
+HOST_KERNEL_HEADER_MD5		:= $(call remove_quotes,$(call ptx/force-shell, ptxd_get_kconfig $(TOOLCHAIN_CONFIG) PTXCONF_KERNEL_HEADERS_MD5))
 else
 HOST_KERNEL_HEADER_VERSION	:= 4.19
 HOST_KERNEL_HEADER_MD5		:= 740a90cf810c2105df8ee12e5d0bb900

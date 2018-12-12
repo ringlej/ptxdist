@@ -9,8 +9,8 @@
 
 # FIXME: cleanup
 
-GNU_BUILD	:= $(shell $(SCRIPTSDIR)/autoconf/config.guess)
-GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
+GNU_BUILD	:= $(call ptx/force-shell, $(SCRIPTSDIR)/autoconf/config.guess)
+GNU_HOST	:= $(call ptx/force-shell, echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
 INSTALL		:= install
 

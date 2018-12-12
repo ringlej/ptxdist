@@ -66,7 +66,7 @@ BAREBOX_EXTRA_ENV_PATH := $(foreach path, \
 		$(call ptx/in-platformconfigdir,$(path)))
 BAREBOX_EXTRA_ENV_DEPS := \
 	$(BAREBOX_EXTRA_ENV_PATH) \
-	$(shell find $(BAREBOX_EXTRA_ENV_PATH) -print 2>/dev/null)
+	$(call ptx/force-shell, find $(BAREBOX_EXTRA_ENV_PATH) -print 2>/dev/null)
 $(STATEDIR)/barebox.prepare: $(BAREBOX_EXTRA_ENV_DEPS)
 endif
 

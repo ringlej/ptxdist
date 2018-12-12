@@ -9,11 +9,11 @@
 #
 
 ifdef PTXCONF_SW_EK_LM3S3748
-ifneq ($(shell test -h $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris && echo ok),ok)
+ifneq ($(call ptx/force-shell, test -h $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris && echo ok),ok)
     $(warning *** selected_toolchain_stellaris must point to a valid stellaris toolchain)
     $(error )
 endif
-ifneq ($(shell test -x $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris/$(PTXCONF_STELLARIS_CC) && echo ok),ok)
+ifneq ($(call ptx/force-shell, test -x $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris/$(PTXCONF_STELLARIS_CC) && echo ok),ok)
     $(warning *** $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris/$(PTXCONF_STELLARIS_CC) not found)
     $(error )
 endif
