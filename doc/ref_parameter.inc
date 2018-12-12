@@ -144,9 +144,6 @@ Build Actions
   identify the image. This is basically the same as ``images`` but builds
   just one image.
 
-  Note: This is only supported for the images in the 'new image creation
-  options' section of the platformconfig.
-
 Clean Actions
 ~~~~~~~~~~~~~
 
