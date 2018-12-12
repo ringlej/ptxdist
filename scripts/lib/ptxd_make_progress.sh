@@ -16,7 +16,7 @@ ptxd_make_setup_progress() {
 		grep -E '^target=.*\.(get|extract|prepare|compile|install|targetinstall|report).* touch' | \
 		wc -l ; exit ${PIPESTATUS[0]})
 	if [ $? -ne 0 ]; then
-	    echo "Failed to initialize progress data! $x" >&2
+	    echo "Failed to initialize progress data!" >&2
 	    exit 1
 	fi
 	export ptxd_make_target_count
