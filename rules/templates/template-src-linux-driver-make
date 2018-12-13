@@ -22,7 +22,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_LICENSE	:= unknown
 
-ifdef PTXCONF_@PACKAGE@
+ifneq ($(filter @package@,$(PTX_PACKAGES_SELECTED)),)
 $(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
 
