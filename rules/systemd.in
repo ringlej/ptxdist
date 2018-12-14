@@ -5,8 +5,6 @@ menuconfig SYSTEMD
 	depends on INITMETHOD_SYSTEMD
 	select HOST_MESON
 	select HOST_GPERF
-	# for 'ln --relative'
-	select HOST_COREUTILS
 	select ROOTFS_RUN
 	select LIBC_PTHREAD
 	select LIBC_RT
