@@ -3,5 +3,4 @@
 0001-CMakeLists.txt-allow-passing-a-pre-existing-grpc_cpp.patch
 0002-Add-pkg-config-files.patch
 #tag:upstream --start-number 100
-0100-Cancel-still-active-c-ares-queries-after-10-seconds-.patch
-# 2ec60af54d62c846f3125aae9358fc16  - git-ptx-patches magic
+# 61bf82594774e0a1ed5c10c258776dcf  - git-ptx-patches magic

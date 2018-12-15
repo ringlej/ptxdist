@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GRPC) += grpc
 #
 # Paths and names
 #
-GRPC_VERSION	:= 1.17.0
-GRPC_MD5	:= ccd111303712ffa8dcf8d766f39603ae
+GRPC_VERSION	:= 1.17.2
+GRPC_MD5	:= 346ecc9a9162664f7f50aadcdb4eac8e
 GRPC		:= grpc-$(GRPC_VERSION)
 GRPC_SUFFIX	:= tar.gz
 GRPC_URL	:= https://github.com/grpc/grpc/archive/v$(GRPC_VERSION).$(GRPC_SUFFIX)

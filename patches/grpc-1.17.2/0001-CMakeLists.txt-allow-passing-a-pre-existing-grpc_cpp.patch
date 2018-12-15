@@ -16,7 +16,7 @@ Signed-off-by: Robert Rose <robertroyrose@gmail.com>
  1 file changed, 13 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 58525d6c6f12..1957a4631d95 100644
+index b39e6f8e8852..9d9be187bda7 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -13228,6 +13228,18 @@ target_link_libraries(grpc_cli
