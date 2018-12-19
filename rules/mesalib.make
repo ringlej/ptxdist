@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 18.2.0
-MESALIB_MD5	:= 88e1a7f31f259cec69bb76b3cb10c956
+MESALIB_VERSION	:= 18.3.1
+MESALIB_MD5	:= d60828056d77bfdbae0970f9b15fb1be
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -126,7 +126,6 @@ MESALIB_CONF_OPT	:= \
 	--enable-glx-tls \
 	--disable-glx-read-only-text \
 	--disable-xlib-lease \
-	--disable-gallium-llvm \
 	--disable-llvm \
 	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
@@ -137,6 +136,7 @@ MESALIB_CONF_OPT	:= \
 	--without-vulkan-drivers \
 	--with-vulkan-icddir=/etc/vulkan/icd.d \
 	--with-osmesa-bits=8 \
+	--with-clang-libdir=/usr/lib \
 	--with-xvmc-libdir=/usr/lib \
 	--with-vdpau-libdir=/usr/lib/vdpau \
 	--with-omx-bellagio-libdir=/usr/lib/dri \
