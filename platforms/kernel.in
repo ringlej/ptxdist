@@ -161,6 +161,13 @@ choice
 		 This is the target to get the kernel image as an ELF. Mostly
 		 used for debugging purposes.
 
+	config KERNEL_IMAGE_VMLINUZ
+		bool
+		prompt "vmlinuz"
+		help
+		 This is the target to get the compressed kernel image as an ELF.
+		 Mostly used for debugging purposes or for MIPS.
+
 	config KERNEL_IMAGE_RAW
 		bool
 		prompt "Image"
@@ -208,6 +215,7 @@ config KERNEL_IMAGE
 	default "uImage"  if KERNEL_IMAGE_U
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
+	default "vmlinuz" if KERNEL_IMAGE_VMLINUZ
 	default "Image"   if KERNEL_IMAGE_RAW
 	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}.elf" if KERNEL_IMAGE_SIMPLE
 

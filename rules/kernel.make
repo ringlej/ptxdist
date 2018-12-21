@@ -77,8 +77,9 @@ KERNEL_IMAGE := $(call remove_quotes, $(PTXCONF_KERNEL_IMAGE))
 # these are sane default
 KERNEL_IMAGE_PATH_y := $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/$(KERNEL_IMAGE)
 
-# vmlinux is special
+# vmlinux and vmlinuz are special
 KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUX) := $(KERNEL_DIR)/vmlinux
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUZ) := $(KERNEL_DIR)/vmlinuz
 # avr32 is also special
 KERNEL_IMAGE_PATH_$(PTXCONF_ARCH_AVR32) := $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/$(KERNEL_IMAGE)
 
