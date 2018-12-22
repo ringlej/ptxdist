@@ -110,6 +110,9 @@ config SYSTEMD_SECCOMP
 	help
 	  Enable this if you want to use SystemCallFilter in service files
 
+config SYSTEMD_POLKIT
+	bool
+	default POLKIT
 
 menu "journald                    "
 
