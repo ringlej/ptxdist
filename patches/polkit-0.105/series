@@ -46,4 +46,5 @@
 0043-0.116-backend-Compare-PolkitUnixProcess-uids-for-tem.patch
 #tag:ptxdist --start-number 100
 0100-automake-add-missing-conditional-HAVE_INTROSPECTION.patch
-# 37496f3f986e77c3040a96c75cf68f42  - git-ptx-patches magic
+0101-Add-a-systemd-.service-file.patch
+# 6f0039b018c1c5a63bb80b750d1301dd  - git-ptx-patches magic

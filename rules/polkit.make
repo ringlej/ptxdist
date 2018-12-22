@@ -73,6 +73,11 @@ $(STATEDIR)/polkit.targetinstall:
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
 		/usr/share/polkit-1/actions/org.freedesktop.policykit.policy)
 
+ifdef PTXCONF_POLKIT_SYSTEMD
+	@$(call install_copy, polkit, 0, 0, 0644, -, \
+		/usr/lib/systemd/system/polkit.service)
+endif
+
 # libs
 	@$(call install_lib, polkit, 0, 0, 0644, libpolkit-agent-1)
 	@$(call install_lib, polkit, 0, 0, 0644, libpolkit-backend-1)
