@@ -33,13 +33,14 @@ LIBPAPER_LICENSE_FILES	:= file://COPYING;md5=0278281246c1e59af1ef0ae1784a4948
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPAPER_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	PAPERSIZE=$(PTXCONF_LIBPAPER_SIZE)
 #
 # autoconf
 #
-LIBPAPER_CONF_TOOL := autoconf
+LIBPAPER_CONF_TOOL	:= autoconf
+LIBPAPER_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--with-default-paper=$(PTXCONF_LIBPAPER_SIZE)
+
 #
 # ----------------------------------------------------------------------------
 # Target-Install

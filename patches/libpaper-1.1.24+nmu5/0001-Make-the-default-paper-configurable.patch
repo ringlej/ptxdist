@@ -1,0 +1,32 @@
+From: Juergen Borleis <juergen@kreuzholzen.de>
+Date: Tue, 1 Jan 2019 22:12:43 +0100
+Subject: [PATCH] Make the default paper configurable
+
+For embedded systems it makes sense to be able to configure the default
+paper name at build-time instead of run-time via environment variable.
+
+Signed-off-by: Juergen Borleis <juergen@kreuzholzen.de>
+---
+ configure.ac | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index b6e937163775..34342d1f9295 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -30,7 +30,14 @@ AC_SUBST(PAPERCONFVAR)
+ AH_TEMPLATE(PAPERCONFVAR, [Environment variable that overrides the default configuration file location])
+ AC_DEFINE_UNQUOTED(PAPERCONFVAR, "$PAPERCONFVAR")
+ 
+-PAPERSIZE=letter
++AC_MSG_CHECKING([which paper format name is the default one])
++AC_ARG_WITH([default-paper],
++	[AS_HELP_STRING([--with-default-paper=@<:@name@:>@], [build with default paper name @<:@default=letter@:>@])],
++	[],
++	[with_default_paper=letter])
++AC_MSG_RESULT([${with_default_paper}])
++
++PAPERSIZE=${with_default_paper}
+ AC_SUBST(PAPERSIZE)
+ AH_TEMPLATE(PAPERSIZE, [Default paper size])
+ AC_DEFINE_UNQUOTED(PAPERSIZE, "$PAPERSIZE")
