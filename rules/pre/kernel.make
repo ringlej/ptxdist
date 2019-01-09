@@ -38,10 +38,10 @@ endif
 # by cgit.
 #
 ifneq ($(findstring -rc,$(KERNEL_VERSION)),)
-KERNEL_NEEDS_GIT_URL := $(call ptx/force-shell, test $(KERNEL_VERSION_MAJOR) -ge 4 -a $(KERNEL_VERSION_MINOR) -ge 12 && echo y)
+KERNEL_NEEDS_GIT_URL := $(call ptx/force-shell, test $(KERNEL_VERSION_MAJOR) -ge 5 -o \( $(KERNEL_VERSION_MAJOR) -eq 4 -a $(KERNEL_VERSION_MINOR) -ge 12 \) && echo y)
 endif
 ifneq ($(findstring -rc,$(KERNEL_HEADER_VERSION)),)
-KERNEL_HEADER_NEEDS_GIT_URL := $(call ptx/force-shell, test $(KERNEL_HEADER_VERSION_MAJOR) -ge 4 -a $(KERNEL_HEADER_VERSION_MINOR) -ge 12 && echo y)
+KERNEL_HEADER_NEEDS_GIT_URL := $(call ptx/force-shell, test $(KERNEL_HEADER_VERSION_MAJOR) -ge 5 -o \( $(KERNEL_HEADER_VERSION_MAJOR) -eq 4 -a $(KERNEL_HEADER_VERSION_MINOR) -ge 12 \) && echo y)
 endif
 
 KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
