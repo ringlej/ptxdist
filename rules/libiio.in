@@ -1,0 +1,9 @@
+## SECTION=system_libraries
+
+config LIBIIO
+	tristate
+	prompt "libiio"
+	select HOST_CMAKE
+	help
+	  A cross platform library for interfacing with local and
+	  remote Linux IIO devices.
