@@ -677,7 +677,7 @@ ptxd_install_find() {
     local mod_nfs mod_rw
     local gdb_src
     if [ -z "${glob}" ]; then
-	local glob="-o -print"
+	local -a glob=( "-o" "-print" )
     fi
 
     ptxd_install_setup_src &&
@@ -691,7 +691,7 @@ ptxd_install_find() {
     find "${src}" ! -path "${src}" -a \( \
 		-path "*/.svn" -prune -o -path "*/.git" -prune -o \
 		-path "*/.pc" -prune -o -path "*/CVS" -prune \
-		${glob} \) | while read file; do
+		"${glob[@]}" \) | while read file; do
 	local dst_file="${dst}${file#${src}}"
 	ptxd_install_generic "${file}" "${dst_file}" "${usr}" "${grp}" "${strip}" || return
     done
@@ -713,19 +713,25 @@ ptxd_install_glob() {
     local cmd="file"
     local src="${1}"
     local dst="${2}"
+    set +B -f
     local yglob=( ${3} )
     local nglob=( ${4} )
-    local glob
+    set -B +f
+    local -a glob
 
     if [ -n "${3}" ]; then
-	yglob=( "${yglob[@]/#/-o -path }" )
-	glob="${yglob[*]/%/ -print }"
+	local pattern
+	for pattern in "${yglob[@]}"; do
+	    glob=( "${glob[@]}" "-o" "-path" "${pattern}" "-print" )
+	done
     else
-	glob="-o -print"
+	glob=( "-o" "-print" )
     fi
     if [ -n "${4}" ]; then
-	nglob=( "${nglob[@]/#/-o -path }" )
-	glob="${nglob[*]/%/ -prune } ${glob}"
+	local pattern
+	for pattern in "${nglob[@]}"; do
+	    glob=( "-o" "-path" "${pattern}" "-prune" "${glob[@]}" )
+	done
     fi
     shift 4
 
