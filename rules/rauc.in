@@ -6,8 +6,8 @@ menuconfig RAUC
 	select OPENSSL
 	select GLIB
 	select HOST_GLIB
-	select LIBCURL		if RAUC_NETWORK
-	select JSON_GLIB	if RAUC_JSON
+	select LIBCURL				if RAUC_NETWORK
+	select JSON_GLIB			if RAUC_JSON
 	select SQUASHFS_TOOLS			if RUNTIME
 	select SQUASHFS_TOOLS_UNSQUASHFS	if RUNTIME
 	help
