@@ -41,7 +41,7 @@ RAUC_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-code-coverage \
 	--disable-valgrind \
-	--enable-service \
+	--$(call ptx/endis,PTXCONF_RAUC_SERVICE)-service \
 	--$(call ptx/endis,PTXCONF_RAUC_NETWORK)-network \
 	--$(call ptx/endis,PTXCONF_RAUC_JSON)-json \
 	--with-systemdunitdir=/usr/lib/systemd/system \
@@ -71,10 +71,12 @@ ifdef PTXCONF_RAUC_CONFIGURATION
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/ca.cert.pem)
 endif
 
+ifdef PTXCONF_RAUC_SERVICE
 	@$(call install_copy, rauc, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system-services/de.pengutronix.rauc.service)
 	@$(call install_copy, rauc, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system.d/de.pengutronix.rauc.conf)
+endif
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_alternative, rauc, 0, 0, 0644, \

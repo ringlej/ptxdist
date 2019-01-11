@@ -15,6 +15,16 @@ menuconfig RAUC
 
 if RAUC
 
+config RAUC_SERVICE
+	bool
+	prompt "Enable service (D-Bus) support"
+	depends on DBUS
+	default y
+	help
+	  Compiles RAUC to act as a separate daemon and comand line interface
+	  that communicate with each other via D-Bus interface.
+	  Only deactivate this if you have a system that does not provide D-Bus!
+
 config RAUC_NETWORK
 	bool
 	prompt "Enable network support"
