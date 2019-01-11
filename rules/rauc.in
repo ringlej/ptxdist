@@ -17,18 +17,30 @@ if RAUC
 
 config RAUC_NETWORK
 	bool
-	prompt "network support"
+	prompt "Enable network support"
+	help
+	  Enables network support that allows RAUC to directly fetch bundles
+	  via http/https/ftp/sftp (using libcurl).
+	  Note that network is primarily designed to be used for RAUC'S casync
+	  capabilities, not for fetching full bundles.
 
 config RAUC_JSON
 	bool
 	prompt "JSON support"
+	help
+	  Enables JSON output format for 'rauc info' and 'rauc status'.
+	  Output format can be selected via '--output-format=<json/json-pretty>'
 
 config RAUC_CONFIGURATION
 	prompt "Install RAUC configuration in /etc/rauc"
 	bool
 	default y
 	help
-	  Install a default RAUC configuration that works for most projects.
+	  Installs a RAUC system configuration file and a keyring into /etc/rauc.
+	  By default, this will install some dummy files containing some
+	  example and help text.
+	  The default files must be overwritten in your projectroot to match
+	  your project's and platform's need.
 
 if RAUC_CONFIGURATION
 
