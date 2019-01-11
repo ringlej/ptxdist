@@ -6,6 +6,7 @@ menuconfig RAUC
 	select OPENSSL
 	select GLIB
 	select HOST_GLIB
+	select BUSYBOX_FEATURE_TAR_LONG_OPTIONS if BUSYBOX_TAR
 	select LIBCURL				if RAUC_NETWORK
 	select JSON_GLIB			if RAUC_JSON
 	select SQUASHFS_TOOLS			if RUNTIME
