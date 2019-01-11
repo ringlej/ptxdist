@@ -241,6 +241,9 @@ else
 QT5_QMAKE_OPT += "QT_CONFIG-=gstreamer-0.10 gstreamer-1.0"
 endif
 
+QT5_COMPILE_ENV := \
+	ICECC_REMOTE_CPP=0
+
 $(STATEDIR)/qt5.prepare:
 	@$(call targetinfo)
 	@rm -rf "$(QT5_DIR)/qtbase/mkspecs/linux-ptx-g++"
