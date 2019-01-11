@@ -105,6 +105,31 @@ Other useful variables:
   ``PTXDIST_PLATFORMDIR`` points to the directory build tree of the
   currently selected platform.
 
+``PACKAGES``, ``PACKAGES-y``, ``PACKAGES-m``
+  ``PACKAGES`` is a list of space-separated lowercase package names that are
+  built and installed during the PTXdist build run, and installed into the
+  target root filesystem when building images.
+
+  The ``-y`` variant contains only those packages that are selected with
+  ``PTXCONF_<PKG>=y``, while the ``-m`` variant contains only those which are
+  selected with ``PTXCONF_<PKG>=m`` (used for collections).
+  A target package rule usually adds its name to one of those variables if it
+  has been selected.
+  The union of those two sets then ends up in ``PACKAGES``.
+
+``EXTRA_PACKAGES``, ``EXTRA_PACKAGES-y``, ``EXTRA_PACKAGES-m``
+  In analogy to ``PACKAGES``, target packages that are added to these lists will
+  be built normally during the build run.
+  In contrast however, they are not installed into a root filesystem by default
+  when building images, and image rules must request them explicitely.
+  This is useful for specialized packages that are only needed for specific
+  images, see :ref:`multi_image_individual_root_filesystems`.
+
+``HOST_PACKAGES``, ``CROSS_PACKAGES``
+  Similar to ``PACKAGES``, these variables contain the host and cross packages
+  that are built and installed during the PTXdist build run.
+  There are analogous ``-y`` and ``-m`` variants of those variables too.
+
 Package Specific Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 

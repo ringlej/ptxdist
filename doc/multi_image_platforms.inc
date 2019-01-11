@@ -28,6 +28,8 @@ how to create a new package.
 .. note:: PTXdist looks in ``patches/$(<PKG>)`` for the patches. Symlinks
   can be uses to share the patch stack across multiple bootloader packages.
 
+.. _multi_image_individual_root_filesystems:
+
 Creating Individual Root-Filesystems for each Variant
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
