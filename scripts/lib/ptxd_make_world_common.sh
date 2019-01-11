@@ -310,7 +310,11 @@ ptxd_make_world_init() {
 	    local build_python_ptr="ptx_${pkg_conf_tool}_${pkg_type}"
 	    local env_ptr="ptx_conf_env_${pkg_type}"
 
-	    ptx_build_python="${!build_python_ptr}"
+	    if [[ " ${pkg_build_deps} " =~ " host-system-python " && "${pkg_conf_tool}" = python ]]; then
+		ptx_build_python=python
+	    else
+		ptx_build_python="${!build_python_ptr}"
+	    fi
 	    pkg_make_env="${pkg_conf_env:-${!env_ptr}}"
 	    pkg_make_opt="${pkg_make_opt:-build}"
 	    ;;
