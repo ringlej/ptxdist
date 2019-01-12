@@ -182,6 +182,7 @@ endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
 #	# manual make to handle CPPFLAGS and broken parallel building for some kernel versions
 	@PATH=$(CROSS_PATH) $(MAKE) -C $(KERNEL_DIR) \
+		PTXDIST_ICECC= \
 		CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
 		$(KERNEL_MAKE_OPT) $(PARALLELMFLAGS_BROKEN) -C tools/iio
 endif
