@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WGET) += wget
 #
 # Paths and names
 #
-WGET_VERSION	:= 1.19.1
-WGET_MD5	:= 87cea36b7161fd43e3fd51a4e8b89689
+WGET_VERSION	:= 1.20
+WGET_MD5	:= 9f1515d083b769e9ff7642ce6016518e
 WGET		:= wget-$(WGET_VERSION)
 WGET_SUFFIX	:= tar.gz
 WGET_URL	:= $(call ptx/mirror, GNU, wget/$(WGET).$(WGET_SUFFIX))
