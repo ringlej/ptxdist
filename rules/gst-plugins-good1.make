@@ -161,6 +161,11 @@ ifneq ($(call remove_quotes,$(GST_PLUGINS_GOOD1_ENABLEC-)),)
 GST_PLUGINS_GOOD1_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_GOOD1_ENABLEC-)))
 endif
 
+ifdef PTXCONF_GST_PLUGINS_GOOD1_QT
+GST_PLUGINS_GOOD1_COMPILE_ENV := \
+	ICECC_REMOTE_CPP=0
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
