@@ -87,6 +87,11 @@ POPPLER_CONF_OPT	:= \
 	-DENABLE_LIBCURL=$(call ptx/onoff,PTXCONF_POPPLER_CURL) \
 	-DENABLE_CMS=$(call ptx/ifdef,PTXCONF_POPPLER_CMS,lcms2,)
 
+ifdef PTXCONF_POPPLER_QT5
+POPPLER_COMPILE_ENV := \
+	ICECC_REMOTE_CPP=0
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
