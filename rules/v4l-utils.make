@@ -59,6 +59,11 @@ V4L_UTILS_CONF_OPT	:= \
 	--disable-gconv \
 	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg
 
+ifdef PTXCONF_KERNEL_HEADER
+V4L_UTILS_CPPFLAGS	:= \
+	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
