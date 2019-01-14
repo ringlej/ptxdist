@@ -37,7 +37,8 @@ WGET_ENV := \
 #
 # autoconf
 #
-WGET_AUTOCONF := \
+WGET_CONF_TOOL := autoconf
+WGET_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-opie \
 	--enable-digest \
@@ -54,11 +55,11 @@ WGET_AUTOCONF := \
 	--disable-pcre \
 	--disable-xattr \
 	--without-libpsl \
-	--without-ssl \
-	--without-zlib \
+	--with-ssl=$(call remove_quotes, $(PTXCONF_WGET_SSL)) \
+	--$(call ptx/wwo, PTXCONF_WGET_ZLIB)-zlib \
 	--with-metalink \
 	--without-cares \
-	--without-openssl \
+	--$(call ptx/wwo, PTXCONF_WGET_SSL_OPENSSL)-openssl \
 	--with-included-libunistring \
 	--without-included-regex \
 	--with-libidn=/usr \
