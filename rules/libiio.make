@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBIIO) += libiio
 #
 # Paths and names
 #
-LIBIIO_VERSION	:= 0.16
-LIBIIO_MD5	:= 2f2b630cec928cf691f40f720625d40d
+LIBIIO_VERSION	:= 0.17
+LIBIIO_MD5	:= 05a45aad2d50ef8c8a015d0caaf3802d
 LIBIIO		:= libiio-$(LIBIIO_VERSION)
 LIBIIO_SUFFIX	:= tar.gz
 LIBIIO_URL	:= https://github.com/analogdevicesinc/libiio/archive/v$(LIBIIO_VERSION).$(LIBIIO_SUFFIX)
