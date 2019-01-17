@@ -1,0 +1,47 @@
+From: Steve Langasek <steve.langasek@canonical.com>
+Date: Fri, 8 Mar 2013 12:00:00 +0100
+Subject: [PATCH] 0.111: pkexec: Set process environment from pam_getenvlist()
+
+Various pam modules provide environment variables that are intended to be set
+in the environment of the pam session.  pkexec needs to process the output of
+pam_getenvlist() to get these.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=62016
+Applied-upstream: 0.111, commit:5aef9722c15a350fbf8b20a3b58419f156cc7c98
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/982684
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/programs/pkexec.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/programs/pkexec.c b/src/programs/pkexec.c
+index 682fe95419c8..9a0570a307a1 100644
+--- a/src/programs/pkexec.c
++++ b/src/programs/pkexec.c
+@@ -145,6 +145,7 @@ open_session (const gchar *user_to_auth)
+   gboolean ret;
+   gint rc;
+   pam_handle_t *pam_h;
++  char **envlist;
+   struct pam_conv conversation;
+ 
+   ret = FALSE;
+@@ -176,6 +177,15 @@ open_session (const gchar *user_to_auth)
+ 
+   ret = TRUE;
+ 
++  envlist = pam_getenvlist (pam_h);
++  if (envlist != NULL)
++    {
++      guint n;
++      for (n = 0; envlist[n]; n++)
++        putenv (envlist[n]);
++      free (envlist);
++    }
++
+ out:
+   if (pam_h != NULL)
+     pam_end (pam_h, rc);

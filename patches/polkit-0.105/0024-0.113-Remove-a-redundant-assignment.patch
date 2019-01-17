@@ -1,0 +1,30 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Wed, 11 Jun 2014 22:44:28 +0200
+Subject: [PATCH] 0.113: Remove a redundant assignment.
+
+Instead of a nonsensical (data = data), use the more customary
+((void)data) to silence the warning about an unused parameter.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=80767
+Origin: upstream, 0.113, commit:37143eb06cb0c4dffca67079dd1c10c5b191b6a7
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitagent/polkitagenthelper-pam.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkitagent/polkitagenthelper-pam.c b/src/polkitagent/polkitagenthelper-pam.c
+index 292abbe44e88..937386e8f1d3 100644
+--- a/src/polkitagent/polkitagenthelper-pam.c
++++ b/src/polkitagent/polkitagenthelper-pam.c
+@@ -230,7 +230,7 @@ conversation_function (int n, const struct pam_message **msg, struct pam_respons
+   gchar *tmp = NULL;
+   size_t len;
+ 
+-  data = data;
++  (void)data;
+   if (n <= 0 || n > PAM_MAX_NUM_MSG)
+     return PAM_CONV_ERR;
+ 

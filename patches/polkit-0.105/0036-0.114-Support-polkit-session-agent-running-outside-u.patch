@@ -1,0 +1,56 @@
+From: Sebastien Bacher <seb128@ubuntu.com>
+Date: Mon, 2 Apr 2018 10:52:47 -0400
+Subject: [PATCH] 0.114: Support polkit session agent running outside user
+ session
+
+commit a68f5dfd7662767b7b9822090b70bc5bd145c50c made
+session applications that are running from a user bus
+work with polkitd, by falling back to using the currently
+active session.
+
+This commit is similar, but for the polkit agent.  It allows,
+a polkit agent to be run from a systemd --user service
+that's not running directly in the users session.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=96977
+Applied-upstream: 0.114, commit:00a663e3fb14d8023e7cb6a66d091872bf4f2851
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkit/polkitunixsession-systemd.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/src/polkit/polkitunixsession-systemd.c b/src/polkit/polkitunixsession-systemd.c
+index 8a8bf65b9995..c34f36a909cf 100644
+--- a/src/polkit/polkitunixsession-systemd.c
++++ b/src/polkit/polkitunixsession-systemd.c
+@@ -451,6 +451,7 @@ polkit_unix_session_initable_init (GInitable     *initable,
+   PolkitUnixSession *session = POLKIT_UNIX_SESSION (initable);
+   gboolean ret = FALSE;
+   char *s;
++  uid_t uid;
+ 
+   if (session->session_id != NULL)
+     {
+@@ -467,6 +468,19 @@ polkit_unix_session_initable_init (GInitable     *initable,
+       goto out;
+     }
+ 
++  /* Now do process -> uid -> graphical session (systemd version 213)*/
++  if (sd_pid_get_owner_uid (session->pid, &uid) < 0)
++    goto error;
++
++  if (sd_uid_get_display (uid, &s) >= 0)
++    {
++      session->session_id =  g_strdup (s);
++      free (s);
++      ret = TRUE;
++      goto out;
++    }
++
++error:
+   g_set_error (error,
+                POLKIT_ERROR,
+                POLKIT_ERROR_FAILED,

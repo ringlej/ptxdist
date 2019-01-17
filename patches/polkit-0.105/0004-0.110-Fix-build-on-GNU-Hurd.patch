@@ -1,0 +1,44 @@
+From: Emilio Pozuelo Monfort <pochu27@gmail.com>
+Date: Sat, 26 Mar 2011 07:28:14 +0000
+Subject: [PATCH] 0.110: Fix build on GNU Hurd
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=35685
+Applied-upstream: 0.110, commit:d6de13e12379826af8ca9355a32da48707b9831f
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/programs/pkexec.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/programs/pkexec.c b/src/programs/pkexec.c
+index 7fafa14d1c7a..682fe95419c8 100644
+--- a/src/programs/pkexec.c
++++ b/src/programs/pkexec.c
+@@ -53,7 +53,7 @@
+ #include <polkitagent/polkitagent.h>
+ 
+ static gchar *original_user_name = NULL;
+-static gchar original_cwd[PATH_MAX];
++static gchar *original_cwd;
+ static gchar *command_line = NULL;
+ static struct passwd *pw;
+ 
+@@ -465,7 +465,7 @@ main (int argc, char *argv[])
+       goto out;
+     }
+ 
+-  if (getcwd (original_cwd, sizeof (original_cwd)) == NULL)
++  if ((original_cwd = g_get_current_dir ()) == NULL)
+     {
+       g_printerr ("Error getting cwd: %s\n",
+                   g_strerror (errno));
+@@ -953,6 +953,7 @@ main (int argc, char *argv[])
+       g_ptr_array_free (saved_env, TRUE);
+     }
+ 
++  g_free (original_cwd);
+   g_free (path);
+   g_free (command_line);
+   g_free (opt_user);

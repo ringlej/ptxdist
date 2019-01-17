@@ -1,0 +1,264 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Wed, 17 Jun 2015 01:01:27 +0200
+Subject: [PATCH] 0.113: docs: Update for changes to uid
+ binding/AuthenticationAgentResponse2
+
+ - Refer to PolkitAgentSession in general instead of to _response only
+ - Revert to the original description of authentication cancellation, the
+   agent really needs to return an error to the caller (in addition to dealing
+   with the session if any).
+ - Explicitly document the UID assumption; in the process fixing bug #69980.
+ - Keep documenting that we need a sufficiently privileged caller.
+ - Refer to the ...Response2 API in more places.
+ - Also update docbook documentation.
+ - Drop a paragraph suggesting non-PolkitAgentSession implementations are
+   expected and commonplace.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=90837
+Reviewed-by: Colin Walters <walters@redhat.com>
+Origin: upstream, 0.113, commit:fb5076b7c05d01a532d593a4079a29cf2d63a228
+Bug-Debian: https://bugs.debian.org/796134
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ ...desktop.PolicyKit1.AuthenticationAgent.xml |  6 ++---
+ data/org.freedesktop.PolicyKit1.Authority.xml | 11 +++++----
+ ...desktop.PolicyKit1.AuthenticationAgent.xml |  7 ++++--
+ ...e-org.freedesktop.PolicyKit1.Authority.xml | 12 ++++++----
+ docs/polkit/overview.xml                      |  8 +++----
+ src/polkit/polkitauthority.c                  | 24 +++++++++++++++++--
+ src/polkitagent/polkitagentlistener.c         |  5 +---
+ src/polkitbackend/polkitbackendauthority.c    |  1 +
+ 8 files changed, 51 insertions(+), 23 deletions(-)
+
+diff --git a/data/org.freedesktop.PolicyKit1.AuthenticationAgent.xml b/data/org.freedesktop.PolicyKit1.AuthenticationAgent.xml
+index 5beef7d4ef92..482332f6fc35 100644
+--- a/data/org.freedesktop.PolicyKit1.AuthenticationAgent.xml
++++ b/data/org.freedesktop.PolicyKit1.AuthenticationAgent.xml
+@@ -13,14 +13,14 @@
+       user to authenticate as one of the identities in @identities for
+       the action with the identifier @action_id.</para><para>This
+       authentication is normally achieved via the
+-      polkit_agent_session_response() API, which invokes a private
++      PolkitAgentSession API, which invokes a private
+       setuid helper process to verify the authentication.  When
+       successful, it calls the
+       org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2()
+       method on the #org.freedesktop.PolicyKit1.Authority interface of
+       the PolicyKit daemon before returning.  If the user dismisses the
+-      authentication dialog, the authentication agent should call
+-      polkit_agent_session_cancel().</para>"/>
++      authentication dialog, the authentication agent should return an
++      error.</para>"/>
+ 
+       <arg name="action_id" direction="in" type="s">
+         <annotation name="org.gtk.EggDBus.DocString" value="The identifier for the action that the user is authentication for."/>
+diff --git a/data/org.freedesktop.PolicyKit1.Authority.xml b/data/org.freedesktop.PolicyKit1.Authority.xml
+index f9021ee2e7c8..88da3c052cbe 100644
+--- a/data/org.freedesktop.PolicyKit1.Authority.xml
++++ b/data/org.freedesktop.PolicyKit1.Authority.xml
+@@ -283,7 +283,7 @@
+     <!-- ---------------------------------------------------------------------------------------------------- -->
+ 
+     <method name="RegisterAuthenticationAgent">
+-      <annotation name="org.gtk.EggDBus.DocString" value="<para>Register an authentication agent.</para><para>Note that current versions of PolicyKit will only work if @session_id is set to the empty string. In the future it might work for non-empty strings if the caller is sufficiently privileged.</para>"/>
++      <annotation name="org.gtk.EggDBus.DocString" value="<para>Register an authentication agent.</para><para>Note that this should be called by the same effective UID which will be passed to org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2().</para>"/>
+ 
+       <arg name="subject" direction="in" type="(sa{sv})">
+         <annotation name="org.gtk.EggDBus.Type" value="Subject"/>
+@@ -315,7 +315,8 @@
+     <method name="AuthenticationAgentResponse">
+       <annotation name="org.gtk.EggDBus.DocString" value="Method for authentication agents to invoke on successful
+ authentication, intended only for use by a privileged helper process
+-internal to polkit."/>
++internal to polkit. This method will fail unless a sufficiently privileged
++caller invokes it. Deprecated in favor of org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2."/>
+ 
+       <arg name="cookie" direction="in" type="s">
+         <annotation name="org.gtk.EggDBus.DocString" value="The cookie identifying the authentication request that was passed to the authentication agent."/>
+@@ -330,11 +331,13 @@ internal to polkit."/>
+     <method name="AuthenticationAgentResponse2">
+       <annotation name="org.gtk.EggDBus.DocString" value="Method for authentication agents to invoke on successful
+ authentication, intended only for use by a privileged helper process
+-internal to polkit.   Note this method was added in 0.114, and should be preferred over AuthenticationAgentResponse
++internal to polkit. This method will fail unless a sufficiently privileged
++caller invokes it. Note this method was added in 0.114, and should be preferred over org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse()
+ as it fixes a security issue."/>
+ 
+       <arg name="uid" direction="in" type="u">
+-        <annotation name="org.gtk.EggDBus.DocString" value="The real uid of the agent.  Normally set by the setuid helper program."/>
++        <annotation name="org.gtk.EggDBus.DocString" value="The real uid of the agent.  Normally set by the setuid helper program.
++Must match the effective UID of the caller of org.freedesktop.PolicyKit1.Authority.RegisterAuthenticationAgent()."/>
+       </arg>
+ 
+       <arg name="cookie" direction="in" type="s">
+diff --git a/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.AuthenticationAgent.xml b/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.AuthenticationAgent.xml
+index ec596268cc3c..ab27b2f6638c 100644
+--- a/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.AuthenticationAgent.xml
++++ b/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.AuthenticationAgent.xml
+@@ -47,10 +47,13 @@ BeginAuthentication (IN  String               action_id,
+         identifier <parameter>action_id</parameter>.</para><para>Upon
+         succesful authentication, the authentication agent must invoke
+         the <link
+-        linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse">AuthenticationAgentResponse()</link>
++        linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2">AuthenticationAgentResponse2()</link>
+         method on the <link
+         linkend="eggdbus-interface-org.freedesktop.PolicyKit1.Authority">org.freedesktop.PolicyKit1.Authority</link>
+-        interface of the PolicyKit daemon before returning.
++        interface of the PolicyKit daemon before returning. This is normally
++        achieved via the <link linkend="PolkitAgentSession">PolkitAgentSession</link>
++        API, which invokes a private setuid helper process to verify the
++        authentication.
+       </para>
+       <para>
+         The authentication agent should not return until after authentication is complete.
+diff --git a/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.Authority.xml b/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.Authority.xml
+index e66bf5349c61..f2eed63999de 100644
+--- a/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.Authority.xml
++++ b/docs/polkit/docbook-interface-org.freedesktop.PolicyKit1.Authority.xml
+@@ -42,7 +42,7 @@ Structure    <link linkend="eggdbus-struct-TemporaryAuthorization">TemporaryAuth
+                                   IN  String                         object_path)
+ <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse">AuthenticationAgentResponse</link>      (IN  String                         cookie,
+                                   IN  <link linkend="eggdbus-struct-Identity">Identity</link>                       identity)
+-<link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse">AuthenticationAgentResponse2</link>      (IN uint32 uid, IN  String                         cookie,
++<link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2">AuthenticationAgentResponse2</link>      (IN uint32 uid, IN  String                         cookie,
+                                   IN  <link linkend="eggdbus-struct-Identity">Identity</link>                       identity)
+ <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.EnumerateTemporaryAuthorizations">EnumerateTemporaryAuthorizations</link> (IN  <link linkend="eggdbus-struct-Subject">Subject</link>                        subject,
+                                   OUT Array&lt;<link linkend="eggdbus-struct-TemporaryAuthorization">TemporaryAuthorization</link>&gt;  temporary_authorizations)
+@@ -701,7 +701,7 @@ RegisterAuthenticationAgent (IN  <link linkend="eggdbus-struct-Subject">Subject<
+                              IN  String   object_path)
+     </programlisting>
+     <para>
+-<para>Register an authentication agent.</para><para>Note that current versions of PolicyKit will only work if <parameter>session_id</parameter> is set to the empty string. In the future it might work for non-empty strings if the caller is sufficiently privileged.</para>
++<para>Register an authentication agent.</para><para>Note that this should be called by same effective UID which will be passed to <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2">AuthenticationAgentResponse2()</link>.</para>
+     </para>
+ <variablelist role="params">
+   <varlistentry>
+@@ -781,7 +781,8 @@ AuthenticationAgentResponse (IN  String    cookie,
+     <para>
+ Method for authentication agents to invoke on successful
+ authentication, intended only for use by a privileged helper process
+-internal to polkit.  Deprecated in favor of AuthenticationAgentResponse2.
++internal to polkit. This method will fail unless a sufficiently privileged
+++caller invokes it. Deprecated in favor of <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2">AuthenticationAgentResponse2()</link>.
+     </para>
+ <variablelist role="params">
+   <varlistentry>
+@@ -812,7 +813,10 @@ AuthenticationAgentResponse2 (IN  uint32 uid,
+     <para>
+ Method for authentication agents to invoke on successful
+ authentication, intended only for use by a privileged helper process
+-internal to polkit.  Note this method was introduced in 0.114 to fix a security issue.
++internal to polkit. This method will fail unless a sufficiently privileged
++caller invokes it. Note this method was introduced in 0.114 and should be
++preferred over <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse">AuthenticationAgentResponse()</link>
++as it fixes a security issue.
+     </para>
+ <variablelist role="params">
+   <varlistentry>
+diff --git a/docs/polkit/overview.xml b/docs/polkit/overview.xml
+index c29d8da242c6..8ddb34ccb1de 100644
+--- a/docs/polkit/overview.xml
++++ b/docs/polkit/overview.xml
+@@ -73,11 +73,11 @@
+       linkend="eggdbus-interface-org.freedesktop.PolicyKit1.AuthenticationAgent">org.freedesktop.PolicyKit1.AuthenticationAgent</link>
+       D-Bus interface. Once the user is authenticated, (a privileged
+       part of) the agent invokes the <link
+-      linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse">AuthenticationAgentResponse()</link>
++      linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.AuthenticationAgentResponse2">AuthenticationAgentResponse2()</link>
+       method.  This method should be treated as an internal
+-      implementation detail, and callers should use the public shared
+-      library API to invoke it, which currently uses a setuid helper
+-      program.
++      implementation detail, and callers should use the
++      <link linkend="PolkitAgentSession">PolkitAgentSession</link> API to invoke
++      it, which currently uses a setuid helper program.
+     </para>
+     <para>
+       The <link linkend="ref-authentication-agent-api">libpolkit-agent-1</link>
+diff --git a/src/polkit/polkitauthority.c b/src/polkit/polkitauthority.c
+index f45abc4ad946..4e882e6412ea 100644
+--- a/src/polkit/polkitauthority.c
++++ b/src/polkit/polkitauthority.c
+@@ -1038,6 +1038,10 @@ polkit_authority_check_authorization_sync (PolkitAuthority               *author
+  *
+  * Asynchronously registers an authentication agent.
+  *
++ * Note that this should be called by the same effective UID which will be
++ * the real UID using the #PolkitAgentSession API or otherwise calling
++ * polkit_authority_authentication_agent_response().
++ *
+  * When the operation is finished, @callback will be invoked in the
+  * <link linkend="g-main-context-push-thread-default">thread-default
+  * main loop</link> of the thread you are calling this method
+@@ -1129,7 +1133,13 @@ polkit_authority_register_authentication_agent_finish (PolkitAuthority *authorit
+  * @cancellable: (allow-none): A #GCancellable or %NULL.
+  * @error: (allow-none): Return location for error or %NULL.
+  *
+- * Registers an authentication agent. The calling thread is blocked
++ * Registers an authentication agent.
++ *
++ * Note that this should be called by the same effective UID which will be
++ * the real UID using the #PolkitAgentSession API or otherwise calling
++ * polkit_authority_authentication_agent_response().
++ *
++ * The calling thread is blocked
+  * until a reply is received. See
+  * polkit_authority_register_authentication_agent() for the
+  * asynchronous version.
+@@ -1178,6 +1188,10 @@ polkit_authority_register_authentication_agent_sync (PolkitAuthority     *author
+  *
+  * Asynchronously registers an authentication agent.
+  *
++ * Note that this should be called by the same effective UID which will be
++ * the real UID using the #PolkitAgentSession API or otherwise calling
++ * polkit_authority_authentication_agent_response().
++ *
+  * When the operation is finished, @callback will be invoked in the
+  * <link linkend="g-main-context-push-thread-default">thread-default
+  * main loop</link> of the thread you are calling this method
+@@ -1292,7 +1306,13 @@ polkit_authority_register_authentication_agent_with_options_finish (PolkitAuthor
+  * @cancellable: (allow-none): A #GCancellable or %NULL.
+  * @error: (allow-none): Return location for error or %NULL.
+  *
+- * Registers an authentication agent. The calling thread is blocked
++ * Registers an authentication agent.
++ *
++ * Note that this should be called by the same effective UID which will be
++ * the real UID using the #PolkitAgentSession API or otherwise calling
++ * polkit_authority_authentication_agent_response().
++ *
++ * The calling thread is blocked
+  * until a reply is received. See
+  * polkit_authority_register_authentication_agent_with_options() for the
+  * asynchronous version.
+diff --git a/src/polkitagent/polkitagentlistener.c b/src/polkitagent/polkitagentlistener.c
+index 0d97501a028c..10dbfb9c0d4e 100644
+--- a/src/polkitagent/polkitagentlistener.c
++++ b/src/polkitagent/polkitagentlistener.c
+@@ -37,10 +37,7 @@
+  *
+  * Typically authentication agents use #PolkitAgentSession to
+  * authenticate users (via passwords) and communicate back the
+- * authentication result to the PolicyKit daemon.  This is however not
+- * requirement. Depending on the system an authentication agent may
+- * use other means (such as a Yes/No dialog) to obtain sufficient
+- * evidence that the user is one of the requested identities.
++ * authentication result to the PolicyKit daemon.
+  *
+  * To register a #PolkitAgentListener with the PolicyKit daemon, use
+  * polkit_agent_listener_register() or
+diff --git a/src/polkitbackend/polkitbackendauthority.c b/src/polkitbackend/polkitbackendauthority.c
+index d1b1a257e435..10b8af34205c 100644
+--- a/src/polkitbackend/polkitbackendauthority.c
++++ b/src/polkitbackend/polkitbackendauthority.c
+@@ -343,6 +343,7 @@ polkit_backend_authority_unregister_authentication_agent (PolkitBackendAuthority
+  * polkit_backend_authority_authentication_agent_response:
+  * @authority: A #PolkitBackendAuthority.
+  * @caller: The system bus name that initiated the query.
++ * @uid: The real UID of the registered agent, or (uid_t)-1 if unknown.
+  * @cookie: The cookie passed to the authentication agent from the authority.
+  * @identity: The identity that was authenticated.
+  * @error: Return location for error or %NULL.

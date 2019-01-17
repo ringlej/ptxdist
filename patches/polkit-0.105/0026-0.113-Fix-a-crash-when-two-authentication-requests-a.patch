@@ -1,0 +1,41 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Sat, 6 Jun 2015 01:07:08 +0200
+Subject: [PATCH] 0.113: Fix a crash when two authentication requests are in
+ flight.
+
+To reproduce:
+1. pkttyagent -p $$ # or another suitable PID
+2. pkcheck -p $that_pid -a org.freedesktop.policykit.exec -u
+3. pkcheck -p $that_pid -a org.freedesktop.policykit.exec -u
+4. Then, in the pkttyagent prompt, press Enter.
+
+polkit_agent_text_listener_initiate_authentication was already setting
+an appropriate error code, so the g_assert was unnecessary.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=90879
+Origin: upstream, 0.113, commit:e2d2fafd106624ddfea4b17d3f40704b2031c00b
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitagent/polkitagenttextlistener.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/polkitagent/polkitagenttextlistener.c b/src/polkitagent/polkitagenttextlistener.c
+index b5c8a3f370e1..e63c2853cfe5 100644
+--- a/src/polkitagent/polkitagenttextlistener.c
++++ b/src/polkitagent/polkitagenttextlistener.c
+@@ -546,12 +546,10 @@ polkit_agent_text_listener_initiate_authentication_finish (PolkitAgentListener
+                                                            GAsyncResult         *res,
+                                                            GError              **error)
+ {
+-  PolkitAgentTextListener *listener = POLKIT_AGENT_TEXT_LISTENER (_listener);
+   gboolean ret;
+ 
+   g_warn_if_fail (g_simple_async_result_get_source_tag (G_SIMPLE_ASYNC_RESULT (res)) ==
+                   polkit_agent_text_listener_initiate_authentication);
+-  g_assert (listener->active_session == NULL);
+ 
+   ret = FALSE;
+ 

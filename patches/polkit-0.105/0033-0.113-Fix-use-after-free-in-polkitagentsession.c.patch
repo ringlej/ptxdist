@@ -1,0 +1,36 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Tue, 14 Apr 2015 22:27:41 +0200
+Subject: [PATCH] 0.113: Fix use-after-free in polkitagentsession.c
+
+PolkitAgentTextListener's "completed" handler drops the last reference
+to the session; in fact this is explicitly recommended in the signal's
+documentation.  So we must not access any members of session after
+emitting the signal.
+
+Found while dealing with
+https://bugs.freedesktop.org/show_bug.cgi?id=69501
+
+Origin: upstream, 0.113, commit:efb6cd56a423ba15bb1f44ee3c4987aad5a5fd45
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitagent/polkitagentsession.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/polkitagent/polkitagentsession.c b/src/polkitagent/polkitagentsession.c
+index 6a3d6bc94c49..46fbaf06f469 100644
+--- a/src/polkitagent/polkitagentsession.c
++++ b/src/polkitagent/polkitagentsession.c
+@@ -412,8 +412,9 @@ complete_session (PolkitAgentSession *session,
+     {
+       if (G_UNLIKELY (_show_debug ()))
+         g_print ("PolkitAgentSession: emitting ::completed(%s)\n", result ? "TRUE" : "FALSE");
+-      g_signal_emit_by_name (session, "completed", result);
+       session->have_emitted_completed = TRUE;
++      /* Note that the signal handler may drop the last reference to session. */
++      g_signal_emit_by_name (session, "completed", result);
+     }
+ }
+ 
