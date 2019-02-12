@@ -2,5 +2,5 @@
 
 config HOST_XORG_LIB_XAU
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_XORGPROTO

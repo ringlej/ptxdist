@@ -75,7 +75,7 @@ LIBGCRYPT_AUTOCONF := \
 	--enable-optimization \
 	--enable-noexecstack \
 	--disable-doc \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)" \
 	--without-capabilities
 
 # ----------------------------------------------------------------------------

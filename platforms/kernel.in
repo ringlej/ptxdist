@@ -161,6 +161,13 @@ choice
 		 This is the target to get the kernel image as an ELF. Mostly
 		 used for debugging purposes.
 
+	config KERNEL_IMAGE_VMLINUZ
+		bool
+		prompt "vmlinuz"
+		help
+		 This is the target to get the compressed kernel image as an ELF.
+		 Mostly used for debugging purposes or for MIPS.
+
 	config KERNEL_IMAGE_RAW
 		bool
 		prompt "Image"
@@ -208,6 +215,7 @@ config KERNEL_IMAGE
 	default "uImage"  if KERNEL_IMAGE_U
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
+	default "vmlinuz" if KERNEL_IMAGE_VMLINUZ
 	default "Image"   if KERNEL_IMAGE_RAW
 	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}.elf" if KERNEL_IMAGE_SIMPLE
 
@@ -264,6 +272,18 @@ config KERNEL_LIBELF
 	  Select this if you're going to build your kernel with
 	  STACK_VALIDATION enabled. Stack validation is used for the orc
 	  unwinder for kernel version >= v4.14 on x86_64.
+
+config KERNEL_GCC_PLUGINS
+	prompt "allow gcc plugins"
+	bool
+	help
+	  The kernel kconfig options to enable gcc plugins depend on a
+	  sufficiently new host compiler. As a result, the kernel config
+	  may change with a different host compiler version.
+	  If this option is disabled then the environment is manipulated
+	  to ensure that the compiler check always fails. This keeps the
+	  kernel config stable.
+	  Enable this option when the kernel gcc plugins are used.
 
 menu "patching & configuration      "
 

@@ -4,7 +4,6 @@ config PYTHON3_MAKO
 	tristate
 	prompt "python3-mako"
 	select PYTHON3
-	select HOST_PYTHON3_SETUPTOOLS
 	help
 	  Mako is a template library written in Python. It provides a
 	  familiar, non-XML syntax which compiles into Python modules

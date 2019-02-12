@@ -1,0 +1,107 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 20 Nov 2013 14:06:25 +0100
+Subject: [PATCH] generate freetype-config and freetype2.pc correctly
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ builds/unix/configure.ac       |  4 +++-
+ builds/unix/freetype-config.in | 19 ++++++-------------
+ builds/unix/freetype2.in       | 14 +++++++-------
+ builds/unix/unix-def.in        |  3 ---
+ 4 files changed, 16 insertions(+), 24 deletions(-)
+
+diff --git a/builds/unix/configure.ac b/builds/unix/configure.ac
+index b306821f42ff..5498e5b4462a 100644
+--- a/builds/unix/configure.ac
++++ b/builds/unix/configure.ac
+@@ -1083,7 +1083,9 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
+ # and `builds/unix/unix-cc.mk' that will be used by the build system
+ #
+ AC_CONFIG_FILES([unix-cc.mk:unix-cc.in
+-                 unix-def.mk:unix-def.in])
++                 unix-def.mk:unix-def.in
++                 freetype-config:freetype-config.in
++                 freetype2.pc:freetype2.in])
+ 
+ # re-generate the Jamfile to use libtool now
+ #
+diff --git a/builds/unix/freetype-config.in b/builds/unix/freetype-config.in
+index 2d5b90dc29d6..9f866c454e93 100644
+--- a/builds/unix/freetype-config.in
++++ b/builds/unix/freetype-config.in
+@@ -16,13 +16,6 @@ export LC_ALL
+ # if `pkg-config' is available, use values from `freetype2.pc'
+ %PKG_CONFIG% --atleast-pkgconfig-version 0.24 >/dev/null 2>&1
+ if test $? -eq 0 ; then
+-  # note that option `--variable' is not affected by the
+-  # PKG_CONFIG_SYSROOT_DIR environment variable
+-  if test "x$SYSROOT" != "x" ; then
+-    PKG_CONFIG_SYSROOT_DIR="$SYSROOT"
+-    export PKG_CONFIG_SYSROOT_DIR
+-  fi
+-
+   prefix=`%PKG_CONFIG% --variable prefix freetype2`
+   exec_prefix=`%PKG_CONFIG% --variable exec_prefix freetype2`
+ 
+@@ -35,17 +28,17 @@ if test $? -eq 0 ; then
+   dynamic_libs=`%PKG_CONFIG% --libs freetype2`
+   static_libs=`%PKG_CONFIG% --static --libs freetype2`
+ else
+-  prefix="%prefix%"
+-  exec_prefix="%exec_prefix%"
++  prefix="@prefix@"
++  exec_prefix="@exec_prefix@"
+ 
+-  includedir="%includedir%"
+-  libdir="%libdir%"
++  includedir="@includedir@"
++  libdir="@libdir@"
+ 
+-  version=%ft_version%
++  version=@ft_version@
+ 
+   cflags="-I${SYSROOT}$includedir/freetype2"
+   dynamic_libs="-lfreetype"
+-  static_libs="%LIBSSTATIC_CONFIG%"
++  static_libs="@LIBSSTATIC_CONFIG@"
+   if test "${SYSROOT}$libdir" != "/usr/lib"   &&
+      test "${SYSROOT}$libdir" != "/usr/lib64" ; then
+     libs_L="-L${SYSROOT}$libdir"
+diff --git a/builds/unix/freetype2.in b/builds/unix/freetype2.in
+index 2d759ecf8bfd..f44f14cabf9a 100644
+--- a/builds/unix/freetype2.in
++++ b/builds/unix/freetype2.in
+@@ -1,14 +1,14 @@
+-prefix=%prefix%
+-exec_prefix=%exec_prefix%
+-libdir=%libdir%
+-includedir=%includedir%
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
+ 
+ Name: FreeType 2
+ URL: https://freetype.org
+ Description: A free, high-quality, and portable font engine.
+-Version: %ft_version%
++Version: @ft_version@
+ Requires:
+-Requires.private: %REQUIRES_PRIVATE%
++Requires.private: @REQUIRES_PRIVATE@
+ Libs: -L${libdir} -lfreetype
+-Libs.private: %LIBS_PRIVATE%
++Libs.private: @LIBS_PRIVATE@
+ Cflags: -I${includedir}/freetype2
+diff --git a/builds/unix/unix-def.in b/builds/unix/unix-def.in
+index 6957053abe2a..44f329ef0ded 100644
+--- a/builds/unix/unix-def.in
++++ b/builds/unix/unix-def.in
+@@ -148,7 +148,4 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
+ # defines whether we should install `freetype-config' or not
+ INSTALL_FT2_CONFIG = @INSTALL_FT2_CONFIG@
+ 
+-all install: $(OBJ_BUILD)/freetype-config \
+-     $(OBJ_BUILD)/freetype2.pc
+-
+ # EOF

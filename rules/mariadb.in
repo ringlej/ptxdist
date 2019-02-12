@@ -14,7 +14,6 @@ config MARIADB
 	select LIBAIO
 	select LIBPCRE
 	select NCURSES
-	select OPENSSL
 	select SYSTEMD		if MARIADB_SYSTEMD
 	select ZLIB
 	prompt "mariadb" if ALLYES

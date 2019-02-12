@@ -1,8 +1,0 @@
-## SECTION=staging
-## old section:
-### SECTION=hosttools_noprompt
-
-config HOST_DIRECTFB
-	tristate
-	select HOST_LIBPNG
-	default ALLYES

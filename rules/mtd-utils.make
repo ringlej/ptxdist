@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 2.0.1
-MTD_UTILS_MD5		:= ef065490799f5e21e90199dd25d033b6
+MTD_UTILS_VERSION	:= 2.0.2
+MTD_UTILS_MD5		:= 3f05981551e73f1c6de28b2ea4edec7c
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
 MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
@@ -31,15 +31,15 @@ MTD_UTILS_LICENSE	:= GPL-2.0-or-later
 # ----------------------------------------------------------------------------
 
 MTD_UTILS_CONF_TOOL	:= autoconf
-MTD_UTILS_CONF_OPT      := \
-        $(CROSS_AUTOCONF_USR) \
-        --disable-unit-tests \
-        --disable-tests \
-        --disable-install-tests \
-        --$(call ptx/wwo, PTXCONF_MTD_UTILS_JFFS)-jffs \
-        --$(call ptx/wwo, PTXCONF_MTD_UTILS_UBIFS)-ubifs \
-        --without-xattr \
-        --$(call ptx/wwo, PTXCONF_MTD_UTILS_USE_LIBLZO)-lzo
+MTD_UTILS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-unit-tests \
+	--disable-tests \
+	--disable-install-tests \
+	--$(call ptx/wwo, PTXCONF_MTD_UTILS_JFFS)-jffs \
+	--$(call ptx/wwo, PTXCONF_MTD_UTILS_UBIFS)-ubifs \
+	--without-xattr \
+	--$(call ptx/wwo, PTXCONF_MTD_UTILS_USE_LIBLZO)-lzo
 
 # ----------------------------------------------------------------------------
 # Target-Install

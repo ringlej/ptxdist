@@ -4,6 +4,7 @@
 
 cc_check_args "${@}"
 
+cc_add_target_reproducible
 cxx_add_target_extra
 cc_add_target_ld_args
 cc_add_fortify

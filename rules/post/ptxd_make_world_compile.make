@@ -14,7 +14,7 @@ world/compile = \
 
 compile = \
 	+$(call world/env, $(1)) \
-	pkg_make_opt="$(2)" \
+	pkg_make_opt="$(call ptx/escape,$(2))" \
 	ptxd_make_world_compile
 
 $(STATEDIR)/%.compile:

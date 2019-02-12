@@ -1,4 +1,6 @@
-## SECTION=x_windowmanagers
+## SECTION=staging
+## old section:
+### SECTION=x_windowmanagers
 
 menuconfig PEKWM
 	tristate
@@ -19,6 +21,10 @@ menuconfig PEKWM
 	  much expanded feature-set, including window grouping
 	  (similar to ion, pwm, or fluxbox), autoproperties, xinerama,
 	  keygrabber that supports keychains, and much more.
+
+	  STAGING: remove in ptxdist-2019.12.0
+	  Old version that is no longer available for download.
+	  Should be updated to a new version.
 
 if PEKWM
 

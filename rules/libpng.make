@@ -31,6 +31,8 @@ LIBPNG_LICENSE	:= Zlib
 # Prepare
 # ----------------------------------------------------------------------------
 
+LIBPNG_WRAPPER_BLACKLIST := TARGET_DEBUG_FULL
+
 LIBPNG_CONF_TOOL:= autoconf
 LIBPNG_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \

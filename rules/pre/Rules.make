@@ -9,8 +9,8 @@
 
 # FIXME: cleanup
 
-GNU_BUILD	:= $(shell $(SCRIPTSDIR)/autoconf/config.guess)
-GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
+GNU_BUILD	:= $(call ptx/force-shell, $(SCRIPTSDIR)/autoconf/config.guess)
+GNU_HOST	:= $(call ptx/force-shell, echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
 INSTALL		:= install
 
@@ -64,6 +64,7 @@ CROSS_GNATMAKE		:= $(PTXCONF_COMPILER_PREFIX)gnatmake
 CROSS_GNATNAME		:= $(PTXCONF_COMPILER_PREFIX)gnatname
 CROSS_GNATPREP		:= $(PTXCONF_COMPILER_PREFIX)gnatprep
 CROSS_GNATXREF		:= $(PTXCONF_COMPILER_PREFIX)gnatxref
+CROSS_PKG_CONFIG	:= $(PTXCONF_COMPILER_PREFIX)pkg-config
 
 CROSS_ENV_AR		:= AR=$(CROSS_AR)
 CROSS_ENV_AS		:= AS=$(CROSS_AS)
@@ -93,6 +94,7 @@ CROSS_ENV_GNATXREF	:= GNATXREF=$(CROSS_GNATXREF)
 CROSS_ENV_CC_FOR_BUILD	:= CC_FOR_BUILD=$(HOSTCC)
 CROSS_ENV_CPP_FOR_BUILD	:= CPP_FOR_BUILD="$(HOSTCC) -E"
 CROSS_ENV_LINK_FOR_BUILD:= LINK_FOR_BUILD=$(HOSTCC)
+CROSS_ENV_PKG_CONFIG	:= PKG_CONFIG=$(CROSS_PKG_CONFIG)
 
 
 
@@ -131,20 +133,11 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_GNATXREF) \
 	$(CROSS_ENV_CC_FOR_BUILD) \
 	$(CROSS_ENV_CPP_FOR_BUILD) \
-	$(CROSS_ENV_LINK_FOR_BUILD)
+	$(CROSS_ENV_LINK_FOR_BUILD) \
+	$(CROSS_ENV_PKG_CONFIG)
 
 CROSS_LIB_DIR   := $(shell ptxd_get_lib_dir)
 
-#
-# prepare to use pkg-config with wrapper which takes care of
-# $(PTXDIST_SYSROOT_TARGET). The wrapper's magic doesn't work when
-# pkg-config strips out /usr/lib and other system libs/cflags, so we
-# leave them in; the wrapper replaces them by proper
-# $(PTXDIST_SYSROOT_TARGET) correspondees.
-#
-CROSS_ENV_PKG_CONFIG := \
-	SYSROOT="$(PTXDIST_SYSROOT_TARGET)" \
-	$(PTXDIST_CROSS_ENV_PKG_CONFIG)
 
 #
 # The ac_cv_* variables are needed to tell configure scripts not to
@@ -212,7 +205,6 @@ endif
 #
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
-	$(CROSS_ENV_PKG_CONFIG) \
 	$(CROSS_ENV_AC)
 
 
@@ -301,8 +293,6 @@ HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
 HOST_ENV_PROGS := \
 	$(HOST_ENV_CC) \
 	$(HOST_ENV_CXX)
-
-HOST_ENV_PKG_CONFIG	:= $(PTXDIST_HOST_ENV_PKG_CONFIG)
 
 HOST_ENV_PYTHONPATH	:= \
 	PYTHONPATH="$(shell python -c 'import distutils.sysconfig as sysconfig; \

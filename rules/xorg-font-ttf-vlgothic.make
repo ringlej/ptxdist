@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -31,15 +32,8 @@ XORG_FONT_TTF_VLGOTHIC_LICENSE_FILES := \
 	file://LICENSE_J.mplus;md5=0ec236dad673c87025379b1dc91ad7bd \
 	file://README.sazanami;encoding=euc-jp;md5=97d739900be6e852830f55aa3c07d4a0
 
-ifdef PTXCONF_XORG_FONT_TTF_VLGOTHIC
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-vlgothic.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
 XORG_FONT_TTF_VLGOTHIC_CONF_TOOL	:= NO
+XORG_FONT_TTF_VLGOTHIC_FONTDIR		:= $(XORG_FONTDIR)/truetype/vlgothic
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -55,6 +49,7 @@ $(STATEDIR)/xorg-font-ttf-vlgothic.compile:
 
 $(STATEDIR)/xorg-font-ttf-vlgothic.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_VLGOTHIC,*.ttf)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -63,16 +58,15 @@ $(STATEDIR)/xorg-font-ttf-vlgothic.install:
 
 $(STATEDIR)/xorg-font-ttf-vlgothic.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init, xorg-font-ttf-vlgothic)
+	@$(call install_fixup, xorg-font-ttf-vlgothic,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-ttf-vlgothic,SECTION,base)
+	@$(call install_fixup, xorg-font-ttf-vlgothic,AUTHOR,"Florian Bäuerle <florian.baeuerle@allegion.com>")
+	@$(call install_fixup, xorg-font-ttf-vlgothic,DESCRIPTION,missing)
 
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
+	@$(call install_tree, xorg-font-ttf-vlgothic, 0, 0, -, /usr)
 
-	@find $(XORG_FONT_TTF_VLGOTHIC_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
+	@$(call install_finish, xorg-font-ttf-vlgothic)
 	@$(call touch)
 
 # vim: syntax=make

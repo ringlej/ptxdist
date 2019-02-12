@@ -1,0 +1,51 @@
+## SECTION=scripting_languages
+
+menuconfig JIMTCL
+	tristate
+	prompt "jimtcl                        "
+	select HOST_JIMTCL
+	select LIBC_M		if JIMTCL_MATH
+	select OPENSSL		if JIMTCL_SSL
+	help
+	  Jim provides a powerful Tcl language implemented in roughly
+	  10k lines of code making it suitable for deployment on
+	  Embedded Systems.
+
+if JIMTCL
+
+config JIMTCL_SHELL
+	bool "install jimsh"
+	help
+	  Install Tcl shell on the target
+
+config JIMTCL_SYMLINK
+	bool "install tclsh symlink"
+	depends on JIMTCL_SHELL
+	depends on !TCL
+	help
+	  Make tclsh symlink to jimsh
+
+config JIMTCL_UTF8
+	bool "support utf8"
+
+config JIMTCL_LINEEDIT
+	bool "line editing"
+	default y
+
+config JIMTCL_REFERENCES
+	bool "support references"
+	default y
+
+config JIMTCL_MATH
+	bool "support math functions"
+
+config JIMTCL_SSL
+	bool "ssl/tls support in the aio extension"
+
+config JIMTCL_POSIX_REGEX
+	bool "use POSIX regex instead the built-in (Tcl-compatible) regex"
+
+config JIMTCL_RANDOM_HASH
+	bool "randomise hash tables"
+
+endif

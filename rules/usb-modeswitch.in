@@ -4,7 +4,8 @@ menuconfig USB_MODESWITCH
 	tristate
 	prompt "usb-modeswitch                "
 	select LIBUSB
-	select TCL if (USB_MODESWITCH_UDEV_HELPER || USB_MODESWITCH_SYSTEMD_UNIT) && RUNTIME
+	select JIMTCL if USB_MODESWITCH_UDEV_HELPER || USB_MODESWITCH_SYSTEMD_UNIT
+	select HOST_JIMTCL if USB_MODESWITCH_UDEV_HELPER || USB_MODESWITCH_SYSTEMD_UNIT
 	help
 	  USB_ModeSwitch is (surprise!) a mode switching tool
 	  for controlling 'multi-mode' USB devices.
@@ -15,13 +16,11 @@ config USB_MODESWITCH_UDEV_HELPER
 	bool "install udev helper"
 	default y
 	depends on UDEV
-	depends on STAGING
 
 config USB_MODESWITCH_SYSTEMD_UNIT
 	bool "install systemd unit file"
 	default y
 	depends on SYSTEMD
-	depends on STAGING
 
 endif
 

@@ -3,7 +3,8 @@
 config RTMPDUMP
 	tristate
 	select ZLIB
-	select OPENSSL
+	select GNUTLS
+	select NETTLE_GMP
 	prompt "rtmpdump"
 	help
 	  FIXME

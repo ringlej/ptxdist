@@ -19,7 +19,7 @@ menuconfig TCL
 	  actually implementing it when he got back to Berkeley in the spring
 	  of 1988; by summer of that year it was in use in some internal
 	  applications, but there was no Tk.  The first external releases of
-	  Tcl were in 1989. Tk implemention began in 1989, and the first
+	  Tcl were in 1989. Tk implementation began in 1989, and the first
 	  release of Tk was in 1991. [...]
 	  The current implementation uses a byte code interpreter and runtime
 	  compilation.

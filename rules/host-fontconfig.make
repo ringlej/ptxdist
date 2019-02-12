@@ -23,20 +23,24 @@ HOST_FONTCONFIG_DIR	= $(HOST_BUILDDIR)/$(FONTCONFIG)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_FONTCONFIG_PATH	:= PATH=$(HOST_PATH)
-HOST_FONTCONFIG_ENV 	:= \
+HOST_FONTCONFIG_CONF_ENV	:= \
 	$(HOST_ENV) \
 	ac_cv_prog_HASDOCBOOK=no
 
 #
 # autoconf
 #
-HOST_FONTCONFIG_AUTOCONF := \
+HOST_FONTCONFIG_CONF_TOOL := autoconf
+HOST_FONTCONFIG_CONF_OPT := \
 	$(HOST_AUTOCONF) \
+	--disable-nls \
+	--disable-rpath \
+	--disable-iconv \
+	--disable-libxml2 \
 	--disable-docs \
-	--with-cache-dir=$(PTXCONF_SYSROOT_HOST)/var/cache/fontconfig \
+	--with-arch=$(PTXCONF_ARCH_STRING) \
 	--with-default-fonts=$(XORG_FONTDIR) \
-	--with-arch=$(PTXCONF_ARCH_STRING)
+	--with-cache-dir=$(PTXCONF_SYSROOT_HOST)/var/cache/fontconfig
 
 HOST_FONTCONFIG_MAKE_PAR := NO
 

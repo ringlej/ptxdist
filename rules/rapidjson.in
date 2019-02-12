@@ -1,0 +1,10 @@
+## SECTION=system_libraries
+
+config RAPIDJSON
+	tristate
+	prompt "rapidjson"
+	select HOST_CMAKE
+	help
+	  A fast JSON parser/generator for C++ with both SAX/DOM style API
+
+          NOTE: This library is header-only, so there's no target package.

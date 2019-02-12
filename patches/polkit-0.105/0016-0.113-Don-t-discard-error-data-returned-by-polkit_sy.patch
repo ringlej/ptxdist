@@ -1,0 +1,29 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Mon, 11 Nov 2013 23:51:23 +0100
+Subject: [PATCH] 0.113: Don't discard error data returned by
+ polkit_system_bus_name_get_user_sync
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=71458
+Origin: upstream, 0.113, commit: 145d43b9c891f248ad68ebe597cb151a865bdb3a
+Bug-Debian: https://bugs.debian.org/798769
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitbackend/polkitbackendsessionmonitor.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkitbackend/polkitbackendsessionmonitor.c b/src/polkitbackend/polkitbackendsessionmonitor.c
+index 05f51c581479..e1a9ab3a32cc 100644
+--- a/src/polkitbackend/polkitbackendsessionmonitor.c
++++ b/src/polkitbackend/polkitbackendsessionmonitor.c
+@@ -306,7 +306,7 @@ polkit_backend_session_monitor_get_user_for_subject (PolkitBackendSessionMonitor
+     }
+   else if (POLKIT_IS_SYSTEM_BUS_NAME (subject))
+     {
+-      ret = (PolkitIdentity*)polkit_system_bus_name_get_user_sync (POLKIT_SYSTEM_BUS_NAME (subject), NULL, NULL);
++      ret = (PolkitIdentity*)polkit_system_bus_name_get_user_sync (POLKIT_SYSTEM_BUS_NAME (subject), NULL, error);
+     }
+   else if (POLKIT_IS_UNIX_SESSION (subject))
+     {

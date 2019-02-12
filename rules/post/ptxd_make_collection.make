@@ -8,6 +8,6 @@
 # see the README file.
 #
 
-ptx/collection = $(PACKAGES-y) $(filter $(foreach PKG,$(shell sed -n 's/^PTXCONF_\([^_][^=]*\)=y$$/\1/p' "$(strip $(1))"),$(PTX_MAP_TO_package_$(PKG))), $(PACKAGES-m))
+ptx/collection = $(PACKAGES-y) $(filter $(foreach PKG,$(call ptx/force-shell, sed -n 's/^PTXCONF_\([^_][^=]*\)=y$$/\1/p' "$(strip $(1))"),$(PTX_MAP_TO_package_$(PKG))), $(PACKAGES-m))
 
 # vim: syntax=make

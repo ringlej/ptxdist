@@ -2,4 +2,4 @@
 
 config HOST_ICU
 	tristate
-	default ALLYES
+	default y if ALLYES

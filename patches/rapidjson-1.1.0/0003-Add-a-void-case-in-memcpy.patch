@@ -1,0 +1,35 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sun, 6 Jan 2019 11:23:52 +0100
+Subject: [PATCH] Add a (void *) case in memcpy
+
+The code seems to be ok since that's the way they fixed it in the git
+repo. However, the patch from master doesn't cleanly apply in the old
+version.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ include/rapidjson/document.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/rapidjson/document.h b/include/rapidjson/document.h
+index e3e20dfbdc99..a99960426f34 100644
+--- a/include/rapidjson/document.h
++++ b/include/rapidjson/document.h
+@@ -1936,7 +1936,7 @@ private:
+         if (count) {
+             GenericValue* e = static_cast<GenericValue*>(allocator.Malloc(count * sizeof(GenericValue)));
+             SetElementsPointer(e);
+-            std::memcpy(e, values, count * sizeof(GenericValue));
++            std::memcpy((void *)e, values, count * sizeof(GenericValue));
+         }
+         else
+             SetElementsPointer(0);
+@@ -1949,7 +1949,7 @@ private:
+         if (count) {
+             Member* m = static_cast<Member*>(allocator.Malloc(count * sizeof(Member)));
+             SetMembersPointer(m);
+-            std::memcpy(m, members, count * sizeof(Member));
++            std::memcpy((void *)m, members, count * sizeof(Member));
+         }
+         else
+             SetMembersPointer(0);

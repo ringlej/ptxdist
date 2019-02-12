@@ -26,7 +26,7 @@ menuconfig INETUTILS_INETD
 	prompt "inetd                         "
 	help
 	  This is the network super daemon. It opens network connection for
-	  various other programs and start them if a connection request occures.
+	  various other programs and start them if a connection request occurs.
 
 if INETUTILS_INETD
 

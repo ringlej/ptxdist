@@ -2,5 +2,5 @@
 
 config HOST_PKG_CONFIG
 	tristate
-	default ALLYES
+	default y if ALLYES
 

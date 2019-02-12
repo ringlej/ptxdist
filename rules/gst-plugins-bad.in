@@ -6,7 +6,6 @@ menuconfig GST_PLUGINS_BAD
 	select LIBOIL
 	select GSTREAMER
 	select GST_PLUGINS_BASE
-	select DIRECTFB		if GST_PLUGINS_BAD_DIRECTFB
 	select SDL		if GST_PLUGINS_BAD_SDL
 	select BZIP2		if GST_PLUGINS_BAD_BZ2
 	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD_BZ2
@@ -301,8 +300,8 @@ config GST_PLUGINS_BAD_DC1394
 
 config GST_PLUGINS_BAD_DIRECTFB
 	bool
-	depends on STAGING
 	prompt "directfb"
+	depends on BROKEN
 
 config GST_PLUGINS_BAD_DIRAC
 	bool

@@ -18,32 +18,32 @@ if IMAGE_ROOT_SQUASHFS
 choice
 	prompt "squashfs compression mode"
 	help
-	  Select your prefered compression mode.
+	  Select your preferred compression mode.
 
 	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_GZIP
 	bool "gzip"
 	help
-	  Select your prefered compression mode.
+	  Select your preferred compression mode.
 
 	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZMA
 	bool "lzma"
 	help
-	  Select your prefered compression mode.
+	  Select your preferred compression mode.
 
 	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZO
 	bool "lzo"
 	help
-	  Select your prefered compression mode.
+	  Select your preferred compression mode.
 
 	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_LZ4
 	bool "lz4"
 	help
-	  Select your prefered compression mode.
+	  Select your preferred compression mode.
 
 	config IMAGE_ROOT_SQUASHFS_COMPRESSION_MODE_XZ
 	bool "xz"
 	help
-	  Select your prefered compression mode.
+	  Select your preferred compression mode.
 
 endchoice
 

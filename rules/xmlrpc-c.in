@@ -22,7 +22,7 @@ menuconfig XMLRPC_C
 	  for C and C++.
 
 	  STAGING: remove in ptxdist-2019.04.0
-	  Realy old version that fails to build gcc 7.x. should be updated
+	  Really old version that fails to build gcc 7.x. should be updated
 	  to a new version.
 
 if XMLRPC_C

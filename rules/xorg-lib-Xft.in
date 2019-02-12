@@ -10,7 +10,7 @@ config XORG_LIB_XFT
 	help
 	  This library is the X Font Library 2.x. (previous versions are called
 	  X Freetype Library). It supports client-side font rendering so it draws
-	  fonts independend from the X server side. The X server should support
+	  fonts independent from the X server side. The X server should support
 	  the X render extension to speed up rendering on the server side. Without
 	  this extension on X server side rendering will be very slow.
 	  The Xft library works in combination with the fontconfig and freetype2

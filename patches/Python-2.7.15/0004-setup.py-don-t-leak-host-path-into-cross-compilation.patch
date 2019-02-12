@@ -1,0 +1,27 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 28 Apr 2009 19:07:54 +0200
+Subject: [PATCH] setup.py: don't leak host path into cross compilation
+ environment
+
+During cross compilation we don't host path (neither include nor library
+search patch) to leak into our environment.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ setup.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index 33cecc687573..521b6e77c234 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1228,6 +1228,9 @@ class PyBuildExt(build_ext):
+         # the more recent berkeleydb's db.h file first in the include path
+         # when attempting to compile and it will fail.
+         f = "/usr/include/db.h"
++        if cross_compiling:
++            f = ''
++
+ 
+         if host_platform == 'darwin':
+             if is_macosx_sdk_path(f):

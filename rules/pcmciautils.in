@@ -20,7 +20,7 @@ config PCMCIAUTILS_STARTUP
 	bool
 	prompt "Support dynamic sockets (STARTUP, PCCARD_NONSTATIC)"
 	help
-	  If this is enabled some more programms are built and installed to allow
+	  If this is enabled some more programs are built and installed to allow
 	  hotplugging of the pcmcia socket itself.
 	  "You don't need it if the socket driver does not select
 	  PCCARD_NONSTATIC -- that is the case for many embedded systems --

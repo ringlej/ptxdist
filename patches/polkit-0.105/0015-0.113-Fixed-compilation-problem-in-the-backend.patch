@@ -1,0 +1,27 @@
+From: Xabier Rodriguez Calvar <calvaris@igalia.com>
+Date: Sun, 10 Nov 2013 19:16:41 +0100
+Subject: [PATCH] 0.113: Fixed compilation problem in the backend
+
+Origin: upstream, 0.113, commit: dbbb7dc60abdd970af0a8fae404484181fa909c9
+Bug-Debian: https://bugs.debian.org/798769
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitbackend/polkitbackendsessionmonitor.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkitbackend/polkitbackendsessionmonitor.c b/src/polkitbackend/polkitbackendsessionmonitor.c
+index 4075d3ff06ad..05f51c581479 100644
+--- a/src/polkitbackend/polkitbackendsessionmonitor.c
++++ b/src/polkitbackend/polkitbackendsessionmonitor.c
+@@ -306,7 +306,7 @@ polkit_backend_session_monitor_get_user_for_subject (PolkitBackendSessionMonitor
+     }
+   else if (POLKIT_IS_SYSTEM_BUS_NAME (subject))
+     {
+-      ret = (PolkitIdentity*)polkit_system_bus_name_get_user_sync (POLKIT_SYSTEM_BUS_NAME (subject));
++      ret = (PolkitIdentity*)polkit_system_bus_name_get_user_sync (POLKIT_SYSTEM_BUS_NAME (subject), NULL, NULL);
+     }
+   else if (POLKIT_IS_UNIX_SESSION (subject))
+     {

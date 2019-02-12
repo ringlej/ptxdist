@@ -10,22 +10,22 @@ Setup and Project Actions
 
 ``select <config>``
   this action will select a user land
-  configuration. This step is only required in projects, where no
+  configuration. This step is only required in projects where no
   ``selected_ptxconfig`` file is present. The <config> argument must point
-  to a valid user land configuration file. PTXdist provides this feature
-  to enable the user to maintain more than one user land configuration in
+  to a valid userland configuration file. PTXdist provides this feature
+  to enable the user to maintain more than one userland configuration in
   the same project. The default location for the configuration file is
   ``configs/ptxconfig``. PTXdist will use this if no other configuration is
   selected.
 
 ``platform <config>``
   this action will select a platform
-  configuration. This step is only required in projects, where no
+  configuration. This step is only required in projects where no
   ``selected_platform`` file is present. The <config> argument must point
   to a valid platform configuration file. PTXdist provides this feature to
   enable the user to maintain more than one platform in one project.
   The default location for the configuration file is
-  ``configs/*/platformconfig``. PTXdist will use it if the pattern matches
+  ``configs/*/platformconfig``. PTXdist will use that if the pattern matches
   exactly one file and no other configuration is selected.
 
 ``toolchain [<path>]``
@@ -48,23 +48,22 @@ Setup and Project Actions
 
 ``boardsetup``
   PTXdist based projects can provide information to
-  setup and configure the target automatically. This action let the user
+  setup and configure the target automatically. This action lets the user
   setup the environment specific settings like the network IP address and
   so on.
 
 ``menuconfig``
   start the menu to configure the project’s root
-  filesystem. This is in respect to user land only. Its the main menu to
-  select applications and libraries, the root filesystem of the target
-  should consist of.
+  filesystem. This is in respect to userland only. It’s the main menu to
+  select which applications and libraries should be built into the target’s
+  root filesystem.
 
 ``menuconfig platform``
-  this action starts the menu to configure
-  platform’s settings. As these are architecture and target specific
-  settings it configures the toolchain, the kernel and a bootloader (but
-  no user land components). Due to a project can support more than one
-  platform, this will configure the currently selected platform. The short
-  form for this action is ``platformconfig``.
+  this action starts the menu to configure the currently selected
+  platform. As these are architecture and target specific
+  settings, it configures the toolchain, the kernel and a bootloader (but
+  no userland components).
+  The short form for this action is ``platformconfig``.
 
 ``menuconfig kernel``
   start the menu to configure the platform’s
@@ -76,7 +75,7 @@ Setup and Project Actions
   this action starts the configure menu for
   the selected bootloader. It depends on the platform settings which
   bootloader is enabled and to be used as an argument to the
-  ``menuconfig`` action parameter. Due to a project can support more than
+  ``menuconfig`` action parameter. As a project can support more than
   one platform, this will configure the bootloader of the currently
   selected platform.
 
@@ -103,10 +102,10 @@ Build Actions
 
 ``go``
   this action will build all enabled packages in the current
-  project configurations (platform and user land). It will also rebuild
-  reconfigured packages if any or build additional packages if they where
-  enabled meanwhile. If enables this step also builds the kernel and
-  bootloader image.
+  project configurations (platform and userland). It will also rebuild
+  reconfigured packages (if any) or build additional packages if they were
+  enabled meanwhile. If enabled, this step also builds the kernel and
+  bootloader images.
 
 ``get``
   this action will download the sources for all packages. This is useful to
@@ -119,13 +118,14 @@ Build Actions
   but may not be 100% correct in all cases.
 
 ``get <package>``, ``extract <package>``, ``prepare <package>``, ``compile <package>``, ``install <package>``, ``targetinstall <package>``
-  this action will build the corresponding stage for the specified package
+  these actions will build the corresponding stage for the specified package
   including all previous stages and other dependencies. Multiple packages
   can be specified.
 
 ``drop <package>.<stage>``
   this action will 'drop' the specified stage without removing any other
-  files. Subsequent actions will rebuild this stage. This is useful during
+  files. Subsequent actions depending on this stage will rebuild it.
+  This is useful during
   development to rebuild a package without deleting the sources. Use
   ``clean <package>`` for a full rebuild of the package.
 
@@ -136,29 +136,30 @@ Build Actions
   media. The result can be found in the ``images/`` directory of the
   project or the platform directory.
 
+  If necessary, ``images`` also builds all required stages first, so it can be
+  used instead of ``go``.
+
 ``image <image>``
   build the specified image. The file name in ``images/`` is used to
   identify the image. This is basically the same as ``images`` but builds
   just one image.
 
-  Note: This is only supported for the images in the 'new image creation
-  options' section of the platformconfig.
-
 Clean Actions
 ~~~~~~~~~~~~~
 
 ``clean``
-  the ``clean`` action will remove all generated files
-  while the last ``go`` run: all build, packages and root filesystem
+  the ``clean`` action will remove all generated files:
+  all build, packages and root filesystem
   directories. Only the selected configuration files are left untouched.
   This is a way to start a fresh build cycle.
 
 ``clean root``
   this action will only clean the root filesystem
-  directories. All the build directories are left untouched. Using this
-  action will re-generate all ipkg/opkg archives from the already built
-  packages and also the root filesystem directories in the next ``go``
-  action. The ``clean root`` and ``go`` action is useful, if the
+  directories. All the build directories are left untouched.
+  After using this action, the next ``go`` action  will regenerate all opkg
+  archives from the already built packages as well as the root filesystem
+  directories.
+  The ``clean root`` and ``go`` action is useful if the
   *targetinstall* stage for all packages should run again.
 
 ``clean <package>``
@@ -170,7 +171,7 @@ Clean Actions
 ``distclean``
   the ``distclean`` action will remove all files that
   are not part of the main project. It removes all generated files and
-  directories like the ``clean`` action and also the created links in any
+  directories like the ``clean`` action, and also the created links in any
   ``platform`` and/or ``select`` action.
 
 Misc Actions
@@ -188,17 +189,26 @@ Misc Actions
   list of available package types.
 
 ``nfsroot``
-  run a userspace NFS server and export the nfsroot (refer section
+  run a userspace NFS server and export the nfsroot (refer to section
   :ref:`nfsroot` for further details).
 
 ``gdb``
   run the cross gdb from the toolchain. The sysroot and other search paths
   are configured to ensure that gdb finds all available debug files.
 
+``package-info <pkg>``
+  show some basic information about the package. This includes the version,
+  URL and various paths and directories. The paths for menu and rule file
+  are shown as well, so this can be used to verify that the correct version
+  of these files are used.
+
+.. _command_print:
+
 ``print <var>``
   print the contents of a variable. It will first look for a shell variable
-  with the given name. If none exists, it will run make and look if a
-  variable with the given name is known to 'make'.
+  with the given name. If none exists, it will run make on all selected package
+  rules, determine if a variable with the given name is known to make, and if
+  so, print it.
 
 ``list-packages``
   print a list of all selected packages. This list does not include the
@@ -222,21 +232,21 @@ Misc Actions
   export all source archives needed for this project to ``<target-dir>``.
 
 ``docs-html``
-  build html documentation for a BSP. The output is written to 
+  build HTML documentation for a BSP. The output is written to
   Documentation/html/index.html
 
 Overwrite defaults
 ~~~~~~~~~~~~~~~~~~
 
-These options can be used to overwrite some settings. They can be useful
+These options can be used to overwrite default settings. They can be useful
 when working with multiple configurations or platforms in a single project.
 
 ``--ptxconfig=<config>``
-  use the specified ptxconfig file instead of the selected of default
+  use the specified ptxconfig file instead of the selected default
   configuration file.
 
 ``--platformconfig=<config>``
-  use specified platformconfig file instead of the selected of default
+  use specified platformconfig file instead of the selected default
   configuration file.
 
 ``--collectionconfig=<config>``
@@ -247,14 +257,14 @@ when working with multiple configurations or platforms in a single project.
   use specified toolchain instead of the selected or default toolchain.
 
 ``--force-download``
-  allow downloading, even if disabled by setup
+  allow downloading, even if disabled by ``setup``
 
 Options
 ~~~~~~~
 
 ``--force``, ``-f``
   use this option to overwrite various sanity checks. Only use this option
-  if you really know what you are doing.
+  if you really know what you are doing!
 
 ``--debug``, ``-d``
   print out additional info (like make decisions)
@@ -271,13 +281,19 @@ Options
   is implemented by the ``make`` ``--output-sync`` option. For building
   packages in parallel, ``--output-sync=recurse`` is used. For individual
   ``make`` commands in the build stages ``--output-sync=target`` is used.
-  This means, that the output for each individual make target and each
+  This means that the output for each individual make target and each
   build stage is grouped together.
 
-  Note: If output synchronization is enabled then the output for each build
+  Note: If output synchronization is enabled, then the output for each build
   stage is collected by make and won't be visible until the build stage is
   completed. As a result, there will be long periods of time with no
   visible progress.
+
+``--progress``
+  show some progress information in the form of completed/total build
+  stages. This is only shown if ``--quiet`` is enabled as well. Note that this
+  adds some extra overhead at the beginning, so it will take some time
+  until the first build stage starts.
 
 ``--j-intern=<n>``, ``-ji<n>``
   set number of parallel jobs within packages. PTXdist will use this
@@ -285,7 +301,7 @@ Options
   The default is 2x the number of CPUs.
 
 ``--j-extern=<n>``, ``-je<n>``
-  set number of packages built in parallel. The default is 1.
+  set number of packages to be built in parallel. The default is 1.
   Use ``-j`` instead of this. It has the same goal and performs better.
 
 ``-j[<n>]``
@@ -298,7 +314,7 @@ Options
 
   Note: Because of the parallel execution, the output is chaotic and not
   very useful. Use this in combination with ``-q`` and only to speed up
-  building for project that are known to build without errors.
+  building for projects that are known to build without errors.
 
 ``--load-average=<n>``, ``-l<n>``
   try to limit load to <n>. This is used for the equivalent ``make``
@@ -307,8 +323,18 @@ Options
 ``--nice=<n>``, ``-n<n>``
   run with reduced scheduling priority (i.e. nice). The default is 10.
 
+``--dirty``
+  avoid rebuilding packages. By default, if a package is rebuilt, then all
+  packages that depend on it are also rebuilt. This happens because
+  PTXdist cannot know if rebuilding is functionally necessary for the depending
+  packages. By specifying ``--dirty``, depending packages will not be rebuilt
+  if their dependencies were rebuilt. Also, changes to config options,
+  rule and menu file will not trigger a rebuild either.
+
+  To trigger a rebuild, the relevant stage of a package must be dropped.
+
 ``--keep-going``, ``-k``
-  keep going. Continue as much as possible after an error.
+  keep going. Continue to build as much as possible after an error.
 
 ``--git``
   use git to apply patches
@@ -319,5 +345,5 @@ Options
   does not match the current version.
 
 ``--virtualenv=<dir>``
-  inlcude a Python Virtual Environment. The given path must contain a
+  include a Python Virtual Environment. The given path must contain a
   ``bin/activate`` shell script.

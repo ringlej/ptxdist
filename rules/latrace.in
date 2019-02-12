@@ -13,7 +13,7 @@ if LATRACE
 
 config LATRACE_DEMANGLE
 	bool
-	prompt "demangle supprt"
+	prompt "demangle support"
 	default y
 	help
 	  Enable support for the demangle feature, required to trace C++ libraries

@@ -1,0 +1,34 @@
+From: Colin Walters <walters@verbum.org>
+Date: Sat, 9 Nov 2013 13:48:21 -0500
+Subject: [PATCH] 0.113: Port internals non-deprecated PolkitProcess API where
+ possible
+
+We can't port everything, but in PolkitPermission and these test
+cases, we can use _for_owner() with the right information.
+
+[smcv: drop the part that touches
+test/polkitbackend/test-polkitbackendjsauthority.c which is not
+in this branch]
+
+Origin: upstream, 0.113, commit:6d3d0a8ffb0fd8ae59eb35593b305ec87da8858d
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkit/polkitpermission.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkit/polkitpermission.c b/src/polkit/polkitpermission.c
+index 22d195fcdc60..f8a666e81913 100644
+--- a/src/polkit/polkitpermission.c
++++ b/src/polkit/polkitpermission.c
+@@ -122,7 +122,7 @@ polkit_permission_constructed (GObject *object)
+   PolkitPermission *permission = POLKIT_PERMISSION (object);
+ 
+   if (permission->subject == NULL)
+-    permission->subject = polkit_unix_process_new (getpid ());
++    permission->subject = polkit_unix_process_new_for_owner (getpid (), 0, getuid ());
+ 
+   if (G_OBJECT_CLASS (polkit_permission_parent_class)->constructed != NULL)
+     G_OBJECT_CLASS (polkit_permission_parent_class)->constructed (object);

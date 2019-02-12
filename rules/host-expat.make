@@ -32,6 +32,7 @@ HOST_EXPAT_DIR	= $(HOST_BUILDDIR)/$(HOST_EXPAT)
 HOST_EXPAT_CONF_TOOL	:= autoconf
 HOST_EXPAT_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--disable-static
+	--disable-static \
+	--without-docbook
 
 # vim: syntax=make

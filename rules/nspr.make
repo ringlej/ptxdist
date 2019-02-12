@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NSPR) += nspr
 #
 # Paths and names
 #
-NSPR_VERSION	:= 4.19
-NSPR_MD5	:= e1d27282ad6286b69d6b9fd07201d3dd
+NSPR_VERSION	:= 4.20
+NSPR_MD5	:= 1c198c7e73f6b0e2bb9153a644ba246b
 NSPR		:= nspr-$(NSPR_VERSION)
 NSPR_SUFFIX	:= tar.gz
 NSPR_URL	:= https://ftp.mozilla.org/pub/nspr/releases/v$(NSPR_VERSION)/src/$(NSPR).$(NSPR_SUFFIX)
@@ -65,6 +65,10 @@ NSPR_HOST_COMPILE_OPT := \
 	LDFLAGS="" \
 	-C config \
 	export
+
+NSPR_MAKE_OPT := \
+	SH_NOW="$(SOURCE_DATE_EPOCH)000000" \
+	SH_DATE="`date --utc --date @$(SOURCE_DATE_EPOCH) "+%Y-%m-%d %T"`"
 
 $(STATEDIR)/nspr.compile:
 	@$(call targetinfo)

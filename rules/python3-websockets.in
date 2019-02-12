@@ -3,7 +3,6 @@
 config PYTHON3_WEBSOCKETS
 	tristate
 	prompt "python3-websockets"
-	select HOST_PYTHON3_SETUPTOOLS
 	select PYTHON3
 	help
 	  An implementation of the WebSocket Protocol (RFC 6455 & 7692)

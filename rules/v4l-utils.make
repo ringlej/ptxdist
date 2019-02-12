@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 1.14.0
-V4L_UTILS_MD5		:= ef7a0eaadf85a06ec0df272ddca6f5f7
+V4L_UTILS_VERSION	:= 1.16.0
+V4L_UTILS_MD5		:= 21a6ec3605a1c3114c8ccb70a963c871
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
@@ -55,8 +55,14 @@ V4L_UTILS_CONF_OPT	:= \
 	--enable-v4l2-ctl-libv4l \
 	--enable-v4l2-ctl-stream-to \
 	--disable-qv4l2 \
+	--disable-qvidcap \
 	--disable-gconv \
 	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg
+
+ifdef PTXCONF_KERNEL_HEADER
+V4L_UTILS_CPPFLAGS	:= \
+	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

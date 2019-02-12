@@ -38,7 +38,7 @@ config AT91BOOTSTRAP2_VERSION
 	default "3.8.5"
 	prompt "AT91 Bootstrap version"
 	help
-	  Enter the AT91 Bootstrap version you want to build. Usally something like "3.8.5"
+	  Enter the AT91 Bootstrap version you want to build. Usually something like "3.8.5"
 
 config AT91BOOTSTRAP2_MD5
 	prompt "AT91 Bootstrap source md5sum"

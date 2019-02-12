@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NETTLE) += nettle
 #
 # Paths and names
 #
-NETTLE_VERSION	:= 3.3
-NETTLE_MD5	:= 10f969f78a463704ae73529978148dbe
+NETTLE_VERSION	:= 3.4
+NETTLE_MD5	:= dc0f13028264992f58e67b4e8915f53d
 NETTLE		:= nettle-$(NETTLE_VERSION)
 NETTLE_SUFFIX	:= tar.gz
 NETTLE_SOURCE	:= $(SRCDIR)/$(NETTLE).$(NETTLE_SUFFIX)
@@ -49,7 +49,7 @@ NETTLE_CONF_OPT		:= \
 	--disable-fat \
 	--$(call ptx/endis,PTXCONF_ARCH_ARM_NEON)-arm-neon \
 	--disable-x86-aesni \
-	--enable-mini-gmp
+	--$(call ptx/disen,PTXCONF_NETTLE_GMP)-mini-gmp
 
 # ----------------------------------------------------------------------------
 # Target-Install

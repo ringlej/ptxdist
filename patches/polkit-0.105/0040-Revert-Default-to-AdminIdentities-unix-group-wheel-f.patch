@@ -1,0 +1,39 @@
+From: Michael Biebl <biebl@debian.org>
+Date: Fri, 9 Dec 2011 00:31:21 +0100
+Subject: [PATCH] Revert "Default to AdminIdentities=unix-group:wheel for local
+ authority"
+
+This reverts commit 763faf434b445c20ae9529100d3ef5290976d0c9.
+
+On Red Hat derivatives, every member of group 'wheel' is necessarily
+privileged. On Debian derivatives, there is no wheel group, and gid 0
+(root) is not used in this way. Change the default rule to consider
+uid 0 to be privileged, instead.
+
+On Red Hat derivatives, 50-default.rules is not preserved by upgrades;
+on dpkg-based systems, it is a proper conffile and may be edited
+(at the sysadmin's own risk), so the comment about not editing it is
+misleading.
+
+[smcv: added longer explanation of why we make this change;
+remove unrelated cosmetic change to a man page]
+
+Forwarded: no, Debian-specific
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitbackend/50-localauthority.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkitbackend/50-localauthority.conf b/src/polkitbackend/50-localauthority.conf
+index 5e44bde08869..20e0ba344e83 100644
+--- a/src/polkitbackend/50-localauthority.conf
++++ b/src/polkitbackend/50-localauthority.conf
+@@ -7,4 +7,4 @@
+ #
+ 
+ [Configuration]
+-AdminIdentities=unix-group:wheel
++AdminIdentities=unix-user:0

@@ -44,7 +44,7 @@ config PUREFTPD_UPLOADSCRIPT_SCRIPT
 	prompt "script path"
 	help
 	  Full path of the upload script
-	  Must not be left emtpy or unconfigured
+	  Must not be left empty or unconfigured
 
 endif
 

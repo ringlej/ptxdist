@@ -1,8 +1,7 @@
 ## SECTION=hosttools_noprompt
-## SECTION=hosttools_platform
 
 config HOST_E2FSPROGS
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  Useful hosttools for management of ext2 and ext3 filesystems

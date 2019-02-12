@@ -130,6 +130,10 @@ ifdef PTXCONF_GLIBC_GCONV_ZH
 	@$(call install_copy_toolchain_lib, glibc, gconv/GB18030.so)
 endif
 
+ifdef PTXCONF_GLIBC_GETENT
+	@$(call install_copy_toolchain_usr, glibc, bin/getent)
+endif
+
 ifdef PTXCONF_GLIBC_LDCONFIG
 	@$(call install_copy, glibc, 0, 0, 0755, \
 	    $(PTXDIST_SYSROOT_TOOLCHAIN)/sbin/ldconfig, /usr/sbin/ldconfig)

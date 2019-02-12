@@ -35,7 +35,7 @@ config OPENCT_PCSC
 	  Use PCSC as the control daemon.
 
 config OPENCT_TOOLS
-	bool "Install utilites"
+	bool "Install utilities"
 	help
 	  Install also utilities like 'openct-tool', 'ifdhandler',
 	  'ifdproxy' and 'openct-control'.

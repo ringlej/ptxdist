@@ -25,7 +25,7 @@ config XORG_FONTS
 config XORG_FONTS_FC_CACHE
 	default FONTCONFIG
 	select FONTCONFIG_UTILS
-	bool
+	tristate
 
 config XORG_FONTS_QT4_LINKS
 	depends on QT4_PLATFORM_EMBEDDED

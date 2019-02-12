@@ -1,0 +1,3 @@
+## SECTION=platform_project_specific
+# make sure generated/platform_project_specific.in exists
+# this section is for project specific platform packages

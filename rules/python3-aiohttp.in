@@ -2,9 +2,7 @@
 
 config PYTHON3_AIOHTTP
 	tristate
-	select HOST_PYTHON3_SETUPTOOLS
 	select PYTHON3
-	select PYTHON3_ZLIB
 	select PYTHON3_SSL
 	select PYTHON3_CHARDET
 	select PYTHON3_MULTIDICT

@@ -1,6 +1,4 @@
-## SECTION=staging
-## old section:
-### SECTION=multimedia_framebuffer
+## SECTION=multimedia_framebuffer
 
 menuconfig FBV
 	tristate
@@ -11,9 +9,6 @@ menuconfig FBV
 	  capable of displaying GIF, JPEG, PNG and BMP files using libungif,
 	  libjpeg, and libpng. The image can be shown either in fit-to-screen or
 	  panning mode in 8, 15/16, and 32bpp.
-
-	  STAGING: remove in ptxdist-2018.07.0
-	  Old and obsolete, upstream gone. Fails to build with current libpng.
 
 if FBV
 

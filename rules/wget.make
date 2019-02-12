@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WGET) += wget
 #
 # Paths and names
 #
-WGET_VERSION	:= 1.19.1
-WGET_MD5	:= 87cea36b7161fd43e3fd51a4e8b89689
+WGET_VERSION	:= 1.20
+WGET_MD5	:= 9f1515d083b769e9ff7642ce6016518e
 WGET		:= wget-$(WGET_VERSION)
 WGET_SUFFIX	:= tar.gz
 WGET_URL	:= $(call ptx/mirror, GNU, wget/$(WGET).$(WGET_SUFFIX))
@@ -37,7 +37,8 @@ WGET_ENV := \
 #
 # autoconf
 #
-WGET_AUTOCONF := \
+WGET_CONF_TOOL := autoconf
+WGET_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-opie \
 	--enable-digest \
@@ -54,11 +55,11 @@ WGET_AUTOCONF := \
 	--disable-pcre \
 	--disable-xattr \
 	--without-libpsl \
-	--without-ssl \
-	--without-zlib \
+	--with-ssl=$(call remove_quotes, $(PTXCONF_WGET_SSL)) \
+	--$(call ptx/wwo, PTXCONF_WGET_ZLIB)-zlib \
 	--with-metalink \
 	--without-cares \
-	--without-openssl \
+	--$(call ptx/wwo, PTXCONF_WGET_SSL_OPENSSL)-openssl \
 	--with-included-libunistring \
 	--without-included-regex \
 	--with-libidn=/usr \

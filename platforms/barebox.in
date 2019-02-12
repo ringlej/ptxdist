@@ -44,8 +44,11 @@ config BAREBOX_EXTRA_ENV
 config BAREBOX_EXTRA_ENV_PATH
 	prompt "env dir"
 	string
-	default "${PTXDIST_PLATFORMCONFIGDIR}/barebox-defaultenv"
+	default "barebox-defaultenv"
 	depends on BAREBOX_EXTRA_ENV
+	help
+	  Directories and files to add to the builtin barebox environment.
+	  Relative paths must be relative to the platformconfigdir.
 
 config BAREBOX_BAREBOXENV
 	prompt "install 'bareboxenv'"

@@ -66,8 +66,8 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha224 \
 	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha384 \
 	--$(call ptx/endis, PTXCONF_GNUPG_GPG_SHA)-gpg-sha512 \
-	--disable-zip \
-	--disable-bzip2 \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_ZIP)-zip \
+	--$(call ptx/endis, PTXCONF_GNUPG_GPG_BZIP2)-bzip2 \
 	--disable-exec \
 	--disable-photo-viewers \
 	--disable-card-support \
@@ -87,7 +87,7 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-werror \
 	--disable-all-tests \
 	--disable-run-gnupg-user-socket \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000"
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)"
 
 ifndef PTXCONF_ICONV
 GNUPG_CONF_OPT += --without-libiconv-prefix
@@ -113,6 +113,9 @@ endif
 ifdef PTXCONF_GNUPG_GPGV
 	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpgv)
 	@$(call install_link, gnupg, gpgv, /usr/bin/gpgv2)
+endif
+ifdef PTXCONF_GNUPG_GPG_AGENT
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg-agent)
 endif
 
 	@$(call install_finish, gnupg)

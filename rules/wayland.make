@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_WAYLAND) += wayland
 #
 # Paths and names
 #
-WAYLAND_VERSION	:= 1.15.0
-WAYLAND_MD5	:= b7393c17fdce9a8d383edab656c92fd2
+WAYLAND_VERSION	:= 1.16.0
+WAYLAND_MD5	:= 0c215e53de71d6fb26f7102cdc6432d3
 WAYLAND		:= wayland-$(WAYLAND_VERSION)
 WAYLAND_SUFFIX	:= tar.xz
 WAYLAND_URL	:= http://wayland.freedesktop.org/releases/$(WAYLAND).$(WAYLAND_SUFFIX)
@@ -71,6 +71,7 @@ $(STATEDIR)/wayland.targetinstall:
 	@$(call install_lib, wayland, 0, 0, 0644, libwayland-client)
 	@$(call install_lib, wayland, 0, 0, 0644, libwayland-server)
 	@$(call install_lib, wayland, 0, 0, 0644, libwayland-cursor)
+	@$(call install_lib, wayland, 0, 0, 0644, libwayland-egl)
 
 	@$(call install_finish, wayland)
 

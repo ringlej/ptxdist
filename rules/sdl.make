@@ -87,7 +87,7 @@ SDL_CONF_OPT	:= \
 	--disable-video-carbon \
 	--disable-video-cocoa \
 	--$(call ptx/endis,PTXCONF_SDL_FBCON)-video-fbcon \
-	--$(call ptx/endis,PTXCONF_SDL_DIRECTFB)-video-directfb \
+	--disable-video-directfb \
 	--disable-video-ps2gs \
 	--disable-video-ps3 \
 	--disable-video-ggi \

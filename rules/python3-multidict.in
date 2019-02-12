@@ -2,7 +2,6 @@
 
 config PYTHON3_MULTIDICT
 	tristate
-	select HOST_PYTHON3_SETUPTOOLS
 	select PYTHON3
 	prompt "multidict"
 	help

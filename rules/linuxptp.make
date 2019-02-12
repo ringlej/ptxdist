@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LINUXPTP) += linuxptp
 #
 # Paths and names
 #
-LINUXPTP_VERSION	:= 1.8
-LINUXPTP_MD5		:= 5688cdfe57932273e1dbf35b3b97b9a0
+LINUXPTP_VERSION	:= 2.0
+LINUXPTP_MD5		:= d8bb7374943bb747db7786ac26f17f11
 LINUXPTP		:= linuxptp-$(LINUXPTP_VERSION)
 LINUXPTP_SUFFIX		:= tgz
 LINUXPTP_URL		:= $(call ptx/mirror, SF, linuxptp/$(LINUXPTP).$(LINUXPTP_SUFFIX))
@@ -65,6 +65,7 @@ $(STATEDIR)/linuxptp.targetinstall:
 	@$(call install_copy, linuxptp, 0, 0, 0755, -, /usr/sbin/pmc)
 	@$(call install_copy, linuxptp, 0, 0, 0755, -, /usr/sbin/hwstamp_ctl)
 	@$(call install_copy, linuxptp, 0, 0, 0755, -, /usr/sbin/phc_ctl)
+	@$(call install_copy, linuxptp, 0, 0, 0755, -, /usr/sbin/nsm)
 	@$(call install_copy, linuxptp, 0, 0, 0755, -, /usr/sbin/timemaster)
 
 ifdef PTXCONF_LINUXPTP_SYSTEMD_SERVICE

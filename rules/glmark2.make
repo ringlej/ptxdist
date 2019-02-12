@@ -56,7 +56,8 @@ GLMARK2_CONF_OPT	:= \
 $(STATEDIR)/glmark2.prepare:
 	@$(call targetinfo)
 	@cd $(GLMARK2_DIR) && \
-		$(GLMARK2_CONF_ENV) $(SYSTEMPYTHON3) ./waf configure $(GLMARK2_CONF_OPT)
+		$(GLMARK2_CONF_ENV) PATH=$(CROSS_PATH) \
+		$(SYSTEMPYTHON3) ./waf configure $(GLMARK2_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

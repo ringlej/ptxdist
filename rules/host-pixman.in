@@ -2,4 +2,4 @@
 
 config HOST_PIXMAN
 	tristate
-	default ALLYES
+	default y if ALLYES

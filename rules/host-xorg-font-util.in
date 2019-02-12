@@ -2,4 +2,4 @@
 
 config HOST_XORG_FONT_UTIL
 	tristate
-	default ALLYES
+	default y if ALLYES

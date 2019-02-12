@@ -1,0 +1,31 @@
+From: Colin Walters <walters@verbum.org>
+Date: Tue, 20 Aug 2013 15:15:31 -0400
+Subject: [PATCH] 0.112: polkitunixprocess: Deprecate racy APIs
+
+It's only safe for processes to be created with their owning uid,
+(without kernel support, which we don't have).  Anything else is
+subject to clients exec()ing setuid binaries after the fact.
+
+Origin: upstream, 0.112, commit:08291789a1f99d4ab29c74c39344304bcca43023
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkit/polkitunixprocess.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/polkit/polkitunixprocess.h b/src/polkit/polkitunixprocess.h
+index 531a57d61445..f5ed1a73e652 100644
+--- a/src/polkit/polkitunixprocess.h
++++ b/src/polkit/polkitunixprocess.h
+@@ -47,7 +47,9 @@ typedef struct _PolkitUnixProcess PolkitUnixProcess;
+ typedef struct _PolkitUnixProcessClass PolkitUnixProcessClass;
+ 
+ GType           polkit_unix_process_get_type       (void) G_GNUC_CONST;
++G_GNUC_DEPRECATED_FOR(polkit_unix_process_new_for_owner)
+ PolkitSubject  *polkit_unix_process_new            (gint               pid);
++G_GNUC_DEPRECATED_FOR(polkit_unix_process_new_for_owner)
+ PolkitSubject  *polkit_unix_process_new_full       (gint               pid,
+                                                     guint64            start_time);
+ PolkitSubject  *polkit_unix_process_new_for_owner  (gint               pid,

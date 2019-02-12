@@ -19,6 +19,7 @@ endmenu
 menu "Host Tools                    "
 source "generated/hosttools.in"
 source "generated/hosttools_noprompt.in"
+source "generated/hosttools_noprompt_ptx.in"
 endmenu
 
 menu "Cross Tools                   "

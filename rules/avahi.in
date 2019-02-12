@@ -54,7 +54,7 @@ config AVAHI_LIBAVAHI_CLIENT
 	select AVAHI_DAEMON
 	help
 	  A simplifying C wrapper around the D-Bus API.
-	  It is recommend using this API in C or C++ progams.
+	  It is recommend using this API in C or C++ programs.
 	  The D-Bus internals are hidden completely.
 
 config AVAHI_DBUS

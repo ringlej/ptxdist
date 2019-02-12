@@ -60,7 +60,7 @@ $(STATEDIR)/polkit.targetinstall:
 
 # dbus
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
-		/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf)
+		/usr/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf)
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system-services/org.freedesktop.PolicyKit1.service)
 
@@ -72,6 +72,11 @@ $(STATEDIR)/polkit.targetinstall:
 		/etc/polkit-1/nullbackend.conf.d/50-nullbackend.conf)
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
 		/usr/share/polkit-1/actions/org.freedesktop.policykit.policy)
+
+ifdef PTXCONF_POLKIT_SYSTEMD
+	@$(call install_copy, polkit, 0, 0, 0644, -, \
+		/usr/lib/systemd/system/polkit.service)
+endif
 
 # libs
 	@$(call install_lib, polkit, 0, 0, 0644, libpolkit-agent-1)

@@ -1,0 +1,27 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Tue, 1 Jul 2014 20:00:48 +0200
+Subject: [PATCH] 0.113: Fix a memory leak when registering an authentication
+ agent
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=69501
+Origin: upstream, 0.113, commit:ec039f9d7ede5b839f5511e26d5cd6ae9107cb2e
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitbackend/polkitbackendauthority.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/polkitbackend/polkitbackendauthority.c b/src/polkitbackend/polkitbackendauthority.c
+index 39eb5b9d29fa..afe5b90c140e 100644
+--- a/src/polkitbackend/polkitbackendauthority.c
++++ b/src/polkitbackend/polkitbackendauthority.c
+@@ -900,6 +900,7 @@ server_handle_register_authentication_agent (Server                 *server,
+   g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
+ 
+  out:
++  g_variant_unref (subject_gvariant);
+   if (subject != NULL)
+     g_object_unref (subject);
+ }

@@ -2,4 +2,4 @@
 
 config HOST_PROTOBUF
 	tristate
-	default ALLYES
+	default y if ALLYES

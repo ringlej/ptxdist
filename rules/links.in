@@ -11,7 +11,6 @@ menuconfig LINKS
 	select LIBPNG		if LINKS_PNG
 	select LIBJPEG		if LINKS_JPEG
 	select XORG_LIB_XEXT	if LINKS_X
-	select DIRECTFB		if LINKS_DIRECTFB
 	select SDL		if LINKS_SDL
 	select ZLIB		if LINKS_ZLIB
 	select BZIP2		if LINKS_BZIP2
@@ -66,12 +65,6 @@ config LINKS_X
 	bool
 	select LINKS_PNG
 	prompt "support for X"
-
-config LINKS_DIRECTFB
-	bool
-	depends on STAGING
-	select LINKS_PNG
-	prompt "support for DirectFB"
 
 config LINKS_SDL
 	bool

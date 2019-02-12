@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.8
-FREETYPE_MD5		:= 2413ac3eaf508ada019c63959ea81a92
+FREETYPE_VERSION	:= 2.9.1
+FREETYPE_MD5		:= 60ef7d8160cd4bf8cb118ee9d65367ca
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
@@ -27,7 +27,7 @@ FREETYPE_LICENSE	:= BSD-2-Clause AND FTL AND GPL-2.0-or-later
 FREETYPE_LICENSE_FILES	:= \
 	file://docs/LICENSE.TXT;md5=4af6221506f202774ef74f64932878a1 \
 	file://docs/GPLv2.TXT;md5=8ef380476f642c20ebf40fecb0add2ec \
-	file://docs/FTL.TXT;md5=13b25413274c9b3b09b63e4028216ff4 \
+	file://docs/FTL.TXT;md5=9f37b4e6afa3fef9dba8932b16bd3f97 \
 	file://src/bdf/README;startline=98;endline=140;md5=d0c2c2e2e102c393a12869bc34515be2 \
 	file://src/pcf/README;startline=69;endline=88;md5=e0f11f550450e58753f2d54ddaf17d34
 
@@ -47,6 +47,7 @@ FREETYPE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
 	--disable-biarch-config \
+	--enable-freetype-config \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-mmap \
 	--with-zlib \

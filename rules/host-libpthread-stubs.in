@@ -2,4 +2,4 @@
 
 config HOST_LIBPTHREAD_STUBS
 	tristate
-	default ALLYES
+	default y if ALLYES

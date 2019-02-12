@@ -76,6 +76,7 @@ export -f ptxd_make_world_prepare_sanity_check
 # prepare for cmake based pkgs
 #
 ptxd_make_world_prepare_cmake() {
+    full_log="CMakeFiles/CMakeOutput.log"
     ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -106,6 +107,7 @@ export -f ptxd_make_world_prepare_qmake
 # prepare for autoconf based pkgs
 #
 ptxd_make_world_prepare_autoconf() {
+    full_log="config.log"
     ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -120,11 +122,7 @@ export -f ptxd_make_world_prepare_autoconf
 # prepare for kconfig based pkgs
 #
 ptxd_make_world_prepare_kconfig() {
-    if [ -n "${PTXDIST_QUIET}" ]; then
-	ptxd_make_kconfig silentoldconfig
-    else
-	ptxd_make_kconfig oldconfig
-    fi
+    ptxd_make_kconfig oldconfig
 }
 export -f ptxd_make_world_prepare_kconfig
 
@@ -148,6 +146,7 @@ export -f ptxd_make_world_prepare_perl
 # prepare for meson based pkgs
 #
 ptxd_make_world_prepare_meson() {
+    full_log="meson-logs/meson-log.txt"
     ptxd_eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -163,6 +162,7 @@ export -f ptxd_make_world_prepare_meson
 # generic prepare
 #
 ptxd_make_world_prepare() {
+    local full_log
     ptxd_make_world_init &&
     ptxd_make_world_prepare_sanity_check || return
 
@@ -187,5 +187,13 @@ ptxd_make_world_prepare() {
 	"")   echo "No prepare tool found. Do nothing." ;;
 	*)    ptxd_bailout "automatic prepare tool selection failed. Set <PKG>_CONF_TOOL";;
     esac
+    local ret=$?
+    if [ ${ret} -ne 0 -a -f "${full_log}" ]; then
+	echo
+	echo "Full ${pkg_conf_tool} logfile (${full_log}):"
+	echo
+	cat "${pkg_build_dir}/${full_log}"
+    fi >&${PTXDIST_QUIET:=${PTXDIST_FD_LOGFILE}}
+    return ${ret}
 }
 export -f ptxd_make_world_prepare

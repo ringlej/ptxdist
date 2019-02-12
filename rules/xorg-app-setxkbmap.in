@@ -11,6 +11,6 @@ config XORG_APP_SETXKBMAP
 	  a tiny terminal X server only, there is *no* need for this tool on the
 	  target. In this case only xkbcomp is required if you have trouble to
 	  configure a special keyboard mapping.
-	  For a full blown X server setxkbmap can be usefull, but is not
+	  For a full blown X server setxkbmap can be useful, but is not
 	  required for keyboard setup. It can be done by xorg.conf configuration
 	  and xkbcomp only at X server's startup.

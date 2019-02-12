@@ -221,7 +221,7 @@ ptxd_make_world_patchin_apply()
 	pkg_patch_series \
 	pkg_patch_tool
 
-    if [[ "${pkg_url}" =~ ^file:// ]]; then
+    if [[ "${pkg_url}" =~ ^file:// || "${pkg_url}" =~ ^lndir:// ]]; then
 	local url="$(ptxd_file_url_path "${pkg_url}")"
 	# local directories are not intended to be patched
 	if [ -d "${url}" ]; then

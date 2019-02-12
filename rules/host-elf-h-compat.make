@@ -30,7 +30,7 @@ HOST_ELF_H_COMPAT_LICENSE	:= GPL-2.0-or-later
 #
 HOST_ELF_H_COMPAT_CONF_TOOL	:= autoconf
 
-ifneq ($(shell uname -s),Linux)
+ifneq ($(call ptx/force-shell, uname -s),Linux)
 $(STATEDIR)/base.prepare: $(STATEDIR)/host-elf-h-compat.install.post
 endif
 

@@ -1,4 +1,6 @@
-## SECTION=qt
+## SECTION=staging
+## old section:
+### SECTION=qt
 
 config ARORA
 	tristate
@@ -9,3 +11,6 @@ config ARORA
 	help
 	  Arora is a lightweight web browser based on Qt4 (WebKit).
 	  Project page: http://code.google.com/p/arora/
+
+	  STAGING: remove in ptxdist-2019.12.0
+	  Old, obsolete and upstream is dead.

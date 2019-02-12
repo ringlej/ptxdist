@@ -8,12 +8,16 @@ menuconfig BLUEZ
 	select DBUS
 	select GLIB
 	select UDEV
+	select LIBICAL			# needed for --enable-obex
 	select READLINE			if BLUEZ_CLIENT
 	select PYGOBJECT		if BLUEZ_INSTALL_TESTSCRIPTS
 	select DBUS_PYTHON		if BLUEZ_INSTALL_TESTSCRIPTS
 	help
-	  Official Linux Bluetooth protocol stack
-	  For more information refer http://www.bluez.org
+	  Official Linux Bluetooth protocol stack.
+	  For more information refer to <http://www.bluez.org>.
+
+	  Note that you must also enable bluetooth and RFKILL support as well
+	  as the respective drivers in your kernel.
 
 if BLUEZ
 
@@ -23,21 +27,32 @@ config BLUEZ_SYSTEMD_UNIT
 	depends on SYSTEMD
 	prompt "install systemd unit files"
 
-config BLUEZ_UTILS
-	bool "install bluez tools"
+config BLUEZ_TOOLS
+	bool "install tools"
 	help
-	  install the tools "bccmd bluemoon btmon ciptool hciattach
-	  hciconfig hcidump hcitool hex2hcd l2ping l2test mpris-proxy rctest
-	  rfcomm sdptoolciptool l2ping hcitool rctest rfcomm" and "sdptool"
+	  Install the following tools:
+	  
+	  bccmd bluemoon btmon btattach hex2hcd l2ping l2test mpris-proxy
+	  rctest l2ping rctest
+
+config BLUEZ_TOOLS_DEPRECATED
+	depends on BLUEZ_TOOLS
+	bool "install deprecated tools"
+	help
+	  Install the following tools, which have been deprecated by upstream:
+	  
+	  bccmd bluemoon btattach btmon hex2hcd l2ping l2test mpris-proxy
+	  rctest
 
 config BLUEZ_CLIENT
-	bool "install client tools: bluetoothctl, gatttool"
+	bool "install client tools"
 	help
-	  install the client tools bluetoothctl and gatttool
+	  Install the bluetoothctl command line tool
 
 config BLUEZ_INSTALL_TESTSCRIPTS
 	bool "install testscripts"
 	help
-	  install test scripts that allow to set up bluetooth connections
+	  Install test scripts that allow to set up bluetooth connections.
+	  These scripts are installed to /usr/lib/bluez/test/.
 
 endif

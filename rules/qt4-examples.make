@@ -2,10 +2,10 @@
 # do not edit
 
 ifdef PTXCONF_QT4_EXAMPLES
-$(STATEDIR)/qt4.targetinstall.post: $(STATEDIR)/qt4.targetinstall2
+$(STATEDIR)/qt4.targetinstall: $(STATEDIR)/qt4.targetinstall2
 endif
 
-$(STATEDIR)/qt4.targetinstall2: $(STATEDIR)/qt4.targetinstall
+$(STATEDIR)/qt4.targetinstall2: $(STATEDIR)/qt4.install.post
 	@$(call targetinfo)
 	@$(call install_init, qt4-examples)
 	@$(call install_fixup, qt4-examples,PRIORITY,optional)

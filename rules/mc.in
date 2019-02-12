@@ -2,11 +2,14 @@
 
 menuconfig MC
 	tristate
-	select GLIB
-	select NCURSES if MC_USES_NCURSES
-	select SLANG if MC_USES_SLANG
-	select LIBC_NSL
 	select GCCLIBS_GCC_S
+	select LIBC_NSL
+	select GLIB
+	select E2FSPROGS		if MC_VFS_UNDELFS
+	select E2FSPROGS_LIBEXT2FS	if MC_VFS_UNDELFS
+	select LIBSSH2			if MC_VFS_SFTP
+	select NCURSES			if MC_USES_NCURSES
+	select SLANG			if MC_USES_SLANG
 	prompt "midnight commander            "
 	help
 	  midnight commander is a text oriented file manager

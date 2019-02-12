@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_OPENVPN) += openvpn
 #
 # Paths and names
 #
-OPENVPN_VERSION		:= 2.3.13
-OPENVPN_MD5		:= 4955e1d35bf5dc2c3ed9b98c280ee661
+OPENVPN_VERSION		:= 2.4.6
+OPENVPN_MD5		:= 3a1f3f63bdaede443b4df49957df9405
 OPENVPN			:= openvpn-$(OPENVPN_VERSION)
 OPENVPN_SUFFIX		:= tar.xz
 OPENVPN_URL		:= http://swupdate.openvpn.org/community/releases/$(OPENVPN).$(OPENVPN_SUFFIX)
@@ -28,26 +28,52 @@ OPENVPN_DIR		:= $(BUILDDIR)/$(OPENVPN)
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPENVPN_PATH	:= PATH=$(CROSS_PATH)
-OPENVPN_ENV	:= \
+# these options install files from OPENVPN_DIR
+ifneq ($(PTXCONF_OPENVPN_INSTALL_SAMPLE_CONFIGS)$(PTXCONF_OPENVPN_INSTALL_SAMPLE_SCRIPTS),)
+OPENVPN_DEVPKG := NO
+endif
+
+OPENVPN_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	IFCONFIG=/usr/sbin/ifconfig \
-	ROUTE=/usr/sbin/route \
 	IPROUTE=/usr/sbin/ip \
-	NETSTAT=/usr/bin/netstat
+	NETSTAT=/usr/bin/netstat \
+	ROUTE=/usr/sbin/route \
+	SYSTEMD_ASK_PASSWORD=/usr/bin/systemd-ask-password
 
 #
 # autoconf
 #
-OPENVPN_AUTOCONF := \
+OPENVPN_CONF_TOOL	:= autoconf
+OPENVPN_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_OPENVPN_LZO)-lzo \
+	--disable-lz4 \
+	--disable-comp-stub \
+	--enable-crypto \
+	--enable-ofb-cfb \
+	--disable-x509-alt-username \
+	--enable-server \
 	--disable-plugins \
+	--enable-management \
+	--disable-pkcs11 \
+	--enable-fragment \
+	--enable-multihome \
+	--enable-port-share \
 	--disable-debug \
 	--$(call ptx/endis, PTXCONF_OPENVPN_SMALL)-small \
 	--disable-iproute2 \
+	--enable-def-auth \
+	--enable-pf \
+	--disable-plugin-auth-pam \
+	--enable-plugin-down-root \
+	--disable-strict \
+	--disable-pedantic \
+	--disable-werror \
+	--disable-strict-options \
 	--disable-selinux \
 	--$(call ptx/endis, PTXCONF_OPENVPN_SYSTEMD)-systemd \
+	--disable-async-push \
 	--with-crypto-library=openssl
 
 OPENVPN_INSTALL_SAMPLE_CONFIG_FILES := \
@@ -77,19 +103,19 @@ ifdef PTXCONF_OPENVPN_INSTALL_SAMPLE_CONFIGS
 	@$(foreach file,$(OPENVPN_INSTALL_SAMPLE_CONFIG_FILES), \
 		$(call install_copy, openvpn, 0, 0, 0644, \
 		$(OPENVPN_DIR)/sample/sample-config-files/$(file), \
-		/usr/share/openvpn/sample-config-files/$(file));)
+		/usr/share/openvpn/sample-config-files/$(file))$(ptx/nl))
 
 	@$(foreach script,$(OPENVPN_INSTALL_SAMPLE_CONFIG_SCRIPTS), \
 		$(call install_copy, openvpn, 0, 0, 0755, \
 		$(OPENVPN_DIR)/sample/sample-config-files/$(script), \
-		/usr/share/openvpn/sample-config-files/$(script));)
+		/usr/share/openvpn/sample-config-files/$(script))$(ptx/nl))
 endif
 
 ifdef PTXCONF_OPENVPN_INSTALL_SAMPLE_SCRIPTS
 	@$(foreach script,$(OPENVPN_INSTALL_SAMPLE_SCRIPTS), \
 		$(call install_copy, openvpn, 0, 0, 0755, \
 		$(OPENVPN_DIR)/sample/sample-scripts/$(script), \
-		/usr/share/openvpn/sample-scripts/$(script));)
+		/usr/share/openvpn/sample-scripts/$(script))$(ptx/nl))
 endif
 
 	@$(call install_copy, openvpn, 0, 0, 0755, -, /usr/sbin/openvpn)

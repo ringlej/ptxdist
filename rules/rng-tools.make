@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2014 by Andreas Pretzsch <apr@cn-eng.de>
+#               2018 by Juergen Borleis <jbe@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -10,20 +11,24 @@
 
 PACKAGES-$(PTXCONF_RNG_TOOLS) += rng-tools
 
-RNG_TOOLS_VERSION	:= 5
-RNG_TOOLS_MD5		:= 6726cdc6fae1f5122463f24ae980dd68
+RNG_TOOLS_VERSION	:= 6.5
+RNG_TOOLS_MD5		:= c153517cc73f7f2a899bf59df06ed1ce
 RNG_TOOLS		:= rng-tools-$(RNG_TOOLS_VERSION)
 RNG_TOOLS_SUFFIX	:= tar.gz
-RNG_TOOLS_URL		:= $(call ptx/mirror, SF, gkernel/$(RNG_TOOLS).$(RNG_TOOLS_SUFFIX))
+RNG_TOOLS_URL		:= https://github.com/nhorman/rng-tools/archive/v$(RNG_TOOLS_VERSION).$(RNG_TOOLS_SUFFIX)
 RNG_TOOLS_SOURCE	:= $(SRCDIR)/$(RNG_TOOLS).$(RNG_TOOLS_SUFFIX)
 RNG_TOOLS_DIR		:= $(BUILDDIR)/$(RNG_TOOLS)
-RNG_TOOLS_LICENSE	:= GPL-2.0-only
+RNG_TOOLS_LICENSE	:= GPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 RNG_TOOLS_CONF_TOOL	:= autoconf
+RNG_TOOLS_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--with-libgcrypt \
+	--without-nistbeacon
 
 # ----------------------------------------------------------------------------
 # Target-Install
