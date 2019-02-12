@@ -55,10 +55,10 @@ ifdef PTXCONF_DOSFSTOOLS_MKFS_FAT
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
 		/usr/sbin/mkfs.fat)
 endif
-ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
+ifdef PTXCONF_DOSFSTOOLS_MKFS_FAT_MSDOS
 	@$(call install_link, dosfstools, mkfs.fat, /usr/sbin/mkfs.msdos)
 endif
-ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
+ifdef PTXCONF_DOSFSTOOLS_MKFS_FAT_VFAT
 	@$(call install_link, dosfstools, mkfs.fat, /usr/sbin/mkfs.vfat)
 endif
 
@@ -67,10 +67,10 @@ ifdef PTXCONF_DOSFSTOOLS_FSCK_FAT
 	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
 		/usr/sbin/fsck.fat)
 endif
-ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_MSDOS
+ifdef PTXCONF_DOSFSTOOLS_FSCK_FAT_MSDOS
 	@$(call install_link, dosfstools, fsck.fat, /usr/sbin/fsck.msdos)
 endif
-ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_VFAT
+ifdef PTXCONF_DOSFSTOOLS_FSCK_FAT_VFAT
 	@$(call install_link, dosfstools, fsck.fat, /usr/sbin/fsck.vfat)
 endif
 

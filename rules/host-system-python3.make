@@ -26,11 +26,17 @@ $(STATEDIR)/host-system-python3.prepare:
 	@$(SYSTEMPYTHON3) -V >/dev/null 2>&1 || \
 		ptxd_bailout "'python3' not found! Please install.";
 	@echo
+ifdef PTXCONF_HOST_SYSTEM_PYTHON3_DEV
+	@echo "Checking for Python development files ..."
+	@$(SYSTEMPYTHON3)-config --includes &>/dev/null || \
+		ptxd_bailout "Python development files module not found! \
+	Please install python-dev (debian)";
+endif
 ifdef PTXCONF_HOST_SYSTEM_PYTHON3_MAKO
 	@echo "Checking for Python Mako ..."
 	@$(SYSTEMPYTHON3) -c 'import mako' 2>/dev/null || \
 		ptxd_bailout "Python mako module not found! \
-	Please install python-mako (debian)";
+	Please install python3-mako (debian)";
 endif
 ifdef PTXCONF_HOST_SYSTEM_PYTHON3_NUMPY
 	@echo "Checking for Python Numpy ..."

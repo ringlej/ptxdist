@@ -2,5 +2,5 @@
 
 config HOST_NODEJS
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_OPENSSL

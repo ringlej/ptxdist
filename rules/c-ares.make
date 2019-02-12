@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_C_ARES) += c-ares
 #
 # Paths and names
 #
-C_ARES_VERSION	:= 1.14.0
-C_ARES_MD5	:= e57b37a7c46283e83c21cde234df10c7
+C_ARES_VERSION	:= 1.15.0
+C_ARES_MD5	:= d2391da274653f7643270623e822dff7
 C_ARES		:= c-ares-$(C_ARES_VERSION)
 C_ARES_SUFFIX	:= tar.gz
 C_ARES_URL	:= http://c-ares.haxx.se/download/$(C_ARES).$(C_ARES_SUFFIX)

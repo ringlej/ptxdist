@@ -2,4 +2,4 @@
 
 config HOST_LIBGCRYPT
 	tristate
-	default ALLYES
+	default y if ALLYES

@@ -1,0 +1,26 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Tue, 7 May 2013 22:30:25 +0200
+Subject: [PATCH] 0.111: Fix a memory leak
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=64336
+Origin: upstream, 0.111, commit:d7b6ab40b586c255c49aba22f558eb6602c88b1e
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitagent/polkitagenthelper-pam.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/polkitagent/polkitagenthelper-pam.c b/src/polkitagent/polkitagenthelper-pam.c
+index 7af5321ebfa3..292abbe44e88 100644
+--- a/src/polkitagent/polkitagenthelper-pam.c
++++ b/src/polkitagent/polkitagenthelper-pam.c
+@@ -321,6 +321,7 @@ error:
+       }
+     }
+   memset (aresp, 0, n * sizeof *aresp);
++  free (aresp);
+   *resp = NULL;
+   return PAM_CONV_ERR;
+ }

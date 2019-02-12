@@ -71,10 +71,13 @@ world/env/impl = \
 	pkg_build_deps="$(call ptx/escape,$(PTX_MAP_B_dep_$(1)))"		\
 	pkg_run_deps="$(call ptx/escape,$(PTX_MAP_R_dep_$(1)))"			\
 	pkg_license_files="$(call ptx/escape,$($(1)_LICENSE_FILES))"		\
+	pkg_makefile="$(call ptx/escape,$($(1)_MAKEFILE))"			\
+	pkg_infile="$(call ptx/escape,$($(1)_INFILE))"				\
 										\
 	pkg_pkg="$(call ptx/escape,$($(1)))"					\
 	pkg_version="$(call ptx/escape,$($(1)_VERSION))"			\
 	pkg_config="$(call ptx/escape,$($(1)_CONFIG))"				\
+	pkg_ref_config="$(call ptx/escape,$($(1)_REF_CONFIG))"			\
 	pkg_path="$(call ptx/escape,$($(1)_PATH))"				\
 	pkg_src="$(call ptx/escape,$($(1)_SOURCE))"				\
 	pkg_srcs="$(call ptx/escape,$($(1)_SOURCES))"				\

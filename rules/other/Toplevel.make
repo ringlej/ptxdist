@@ -3,8 +3,20 @@
 # Copyright (C) 2002-2009 by The PTXdist Team - See CREDITS for Details
 #
 
+ifneq ($(findstring n,$(filter-out --%,$(MAKEFLAGS))),)
+# make sure recursive calls do nothing for --dry-run
+MAKE=true
+SHELL=true
+define ptx/force-shell
+$(eval SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash))$(shell $(1))$(eval SHELL=true)
+endef
+else
 # make sure bash is used to execute commands from makefiles
 SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash)
+define ptx/force-shell
+$(shell $(1))
+endef
+endif
 export SHELL
 
 unexport MAKEFLAGS
@@ -65,6 +77,10 @@ CROSS_PACKAGES-y+= $(CROSS_PACKAGES-y-y)
 CROSS_PACKAGES-m+= $(CROSS_PACKAGES-y-m)
 CROSS_PACKAGES-	+= $(CROSS_PACKAGES-y-) $(CROSS_PACKAGES--y) $(CROSS_PACKAGES--m) $(CROSS_PACKAGES--)
 
+EXTRA_PACKAGES-y+= $(EXTRA_PACKAGES-y-y)
+EXTRA_PACKAGES-m+= $(EXTRA_PACKAGES-y-m)
+EXTRA_PACKAGES-	+= $(EXTRA_PACKAGES-y-) $(EXTRA_PACKAGES--y) $(EXTRA_PACKAGES--m) $(EXTRA_PACKAGES--)
+
 LAZY_PACKAGES-y	+= $(LAZY_PACKAGES-y-y)
 LAZY_PACKAGES-m	+= $(LAZY_PACKAGES-y-m)
 LAZY_PACKAGES-	+= $(LAZY_PACKAGES-y-) $(LAZY_PACKAGES--y) $(LAZY_PACKAGES--m) $(LAZY_PACKAGES--)
@@ -72,6 +88,7 @@ LAZY_PACKAGES-	+= $(LAZY_PACKAGES-y-) $(LAZY_PACKAGES--y) $(LAZY_PACKAGES--m) $(
 PACKAGES	:= $(PACKAGES-y)
 CROSS_PACKAGES	:= $(CROSS_PACKAGES-y)
 HOST_PACKAGES	:= $(HOST_PACKAGES-y)
+EXTRA_PACKAGES	:= $(EXTRA_PACKAGES-y)
 LAZY_PACKAGES	:= $(LAZY_PACKAGES-y)
 
 #
@@ -81,6 +98,7 @@ ifndef PTX_COLLECTION
 PACKAGES	+= $(PACKAGES-m)
 CROSS_PACKAGES	+= $(CROSS_PACKAGES-m)
 HOST_PACKAGES	+= $(HOST_PACKAGES-m)
+EXTRA_PACKAGES	+= $(EXTRA_PACKAGES-m)
 LAZY_PACKAGES	+= $(LAZY_PACKAGES-m)
 endif
 
@@ -88,6 +106,7 @@ PTX_PACKAGES_SELECTED	:= \
 	$(PACKAGES) \
 	$(CROSS_PACKAGES) \
 	$(HOST_PACKAGES) \
+	$(EXTRA_PACKAGES) \
 	$(LAZY_PACKAGES)
 
 PTX_PACKAGES_INSTALL	:= \
@@ -106,8 +125,8 @@ include $(PTX_DGEN_DEPS_POST)
 # ----------------------------------------------------------------------------
 
 /print-%: FORCE
-	$(if $(filter k,$(MAKEFLAGS)),,$($(if $(filter undefined,$(origin $(*))),$(error $(*) undefined))))
-	@echo "$(if $(filter 1,$(PTXDIST_VERBOSE)),$(*)=)$(call add_quote,$($(*)))"
+	@:$(foreach v,$(or $(filter $(*),$(.VARIABLES)),$(if $(filter k,$(MAKEFLAGS)),$(*),$(error $(*) undefined))),\
+		$(info $(if $(filter 1,$(PTXDIST_VERBOSE)),$(v)=)$(call add_quote,$($(v)))))
 
 # for backwards compatibility
 print-%: /print-%

@@ -5,6 +5,6 @@ config LIBCOAP
 	prompt "libcoap"
 	help
 	  Lightweight application-protocol for devices that are constrained their
-	  resources such as computing power, RF range, memory, bandwith, or network
+	  resources such as computing power, RF range, memory, bandwidth, or network
 	  packet sizes. This protocol, CoAP, is developed in the IETF working group
 	  "CoRE", <http://6lowapp.net>.

@@ -22,7 +22,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_LICENSE	:= unknown
 
-ifdef PTXCONF_@PACKAGE@
+ifneq ($(filter @package@,$(PTX_PACKAGES_SELECTED)),)
 $(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
 
@@ -40,7 +40,7 @@ $(STATEDIR)/@package@.prepare:
 
 $(STATEDIR)/@package@.compile:
 	@$(call targetinfo)
-	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
+	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKE_OPT) \
 		-C $(KERNEL_DIR) \
 		M=$(@PACKAGE@_DIR) \
 		modules
@@ -60,7 +60,7 @@ $(STATEDIR)/@package@.install:
 
 $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
-	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
+	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKE_OPT) \
 		-C $(KERNEL_DIR) \
 		M=$(@PACKAGE@_DIR) \
 		modules_install

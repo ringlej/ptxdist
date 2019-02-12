@@ -1,0 +1,121 @@
+From: David Zeuthen <davidz@redhat.com>
+Date: Wed, 23 May 2012 16:16:20 -0400
+Subject: [PATCH] Add a systemd .service file
+
+Signed-off-by: David Zeuthen <davidz@redhat.com>
+---
+ Makefile.am                                |  7 ++++++-
+ configure.ac                               | 16 +++++++++++++++-
+ data/Makefile.am                           | 13 ++++++++++++-
+ data/org.freedesktop.PolicyKit1.service.in |  1 +
+ data/polkit.service.in                     |  8 ++++++++
+ 5 files changed, 42 insertions(+), 3 deletions(-)
+ create mode 100644 data/polkit.service.in
+
+diff --git a/Makefile.am b/Makefile.am
+index d7ad566dc5f7..f66424040277 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -11,7 +11,12 @@ EXTRA_DIST = 			\
+ 	$(NULL)
+ 
+ # xsltproc barfs on 'make distcheck'; disable for now
+-DISTCHECK_CONFIGURE_FLAGS=--disable-man-pages --disable-gtk-doc --disable-introspection
++DISTCHECK_CONFIGURE_FLAGS=							\
++	--disable-man-pages 							\
++	--disable-gtk-doc 							\
++	--disable-introspection							\
++	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)	\
++	$(NULL)
+ 
+ sign : dist
+ 	gpg --armor --detach-sign --output polkit-$(VERSION).tar.gz.sign polkit-$(VERSION).tar.gz
+diff --git a/configure.ac b/configure.ac
+index f55ddb7fa002..e1a514599d0e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -180,6 +180,19 @@ AC_SUBST(SYSTEMD_CFLAGS)
+ AC_SUBST(SYSTEMD_LIBS)
+ AM_CONDITIONAL(HAVE_SYSTEMD, [test "$have_systemd" = "yes"], [Using systemd])
+ 
++dnl ---------------------------------------------------------------------------
++dnl - systemd unit / service files
++dnl ---------------------------------------------------------------------------
++
++AC_ARG_WITH([systemdsystemunitdir],
++            AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
++            [],
++            [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
++if test "x$with_systemdsystemunitdir" != "xno"; then
++  AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
++fi
++AM_CONDITIONAL(HAVE_SYSTEMD, [test -n "$systemdsystemunitdir"])
++
+ dnl ---------------------------------------------------------------------------
+ dnl - Select which authentication framework to use
+ dnl ---------------------------------------------------------------------------
+@@ -484,7 +497,8 @@ echo "
+         Distribution/OS:            ${with_os_type}
+         Authentication framework:   ${POLKIT_AUTHFW}
+         Session tracking:           ${SESSION_TRACKING}
+-        PAM support:                ${have_pam}"
++        PAM support:                ${have_pam}
++        systemdsystemunitdir:       ${systemdsystemunitdir}"
+ 
+ if test "$have_pam" = yes ; then
+ echo "
+diff --git a/data/Makefile.am b/data/Makefile.am
+index ec41433b48d9..17e829b97421 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -20,15 +20,26 @@ endif
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = polkit-gobject-1.pc polkit-backend-1.pc polkit-agent-1.pc
+ 
++
++systemdservice_in_files = polkit.service.in
++
++if HAVE_SYSTEMD
++systemdservicedir       = $(systemdsystemunitdir)
++systemdservice_DATA     = $(systemdservice_in_files:.service.in=.service)
++$(systemdservice_DATA): $(systemdservice_in_files) Makefile
++	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
++endif
++
+ CLEANFILES = $(BUILT_SOURCES)
+ 
+ EXTRA_DIST = 							\
+ 	org.freedesktop.PolicyKit1.Authority.xml 		\
+ 	org.freedesktop.PolicyKit1.AuthenticationAgent.xml 	\
+ 	$(service_in_files) 					\
++	$(systemdservice_in_files) 				\
+ 	$(dbusconf_DATA) 					\
+ 	$(NULL)
+ 
+ 
+ clean-local :
+-	rm -f *~ $(service_DATA)
++	rm -f *~ $(service_DATA) $(systemdservice_DATA)
+diff --git a/data/org.freedesktop.PolicyKit1.service.in b/data/org.freedesktop.PolicyKit1.service.in
+index b6cd02b6e47c..fbceb3ffe31a 100644
+--- a/data/org.freedesktop.PolicyKit1.service.in
++++ b/data/org.freedesktop.PolicyKit1.service.in
+@@ -2,3 +2,4 @@
+ Name=org.freedesktop.PolicyKit1
+ Exec=@libexecdir@/polkitd --no-debug
+ User=root
++SystemdService=polkit.service
+diff --git a/data/polkit.service.in b/data/polkit.service.in
+new file mode 100644
+index 000000000000..efd29481d847
+--- /dev/null
++++ b/data/polkit.service.in
+@@ -0,0 +1,8 @@
++[Unit]
++Description=Authorization Manager
++Documentation=man:polkit(8)
++
++[Service]
++Type=dbus
++BusName=org.freedesktop.PolicyKit1
++ExecStart=@libexecdir@/polkitd --no-debug

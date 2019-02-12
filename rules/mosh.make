@@ -43,6 +43,7 @@ MOSH_CONF_OPT	:= \
 	--without-ncursesw \
 	--with-crypto-library=$(call ptx/ifdef, PTXCONF_MOSH_NETTLE, nettle, openssl)
 
+MOSH_CXXFLAGS := -std=c++11
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,9 +1,10 @@
-## SECTION=hosttools_noprompt
+## SECTION=hosttools_noprompt_ptx
 
 config HOST_GOBJECT_INTROSPECTION
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_SYSTEM_PYTHON3
+	select HOST_SYSTEM_PYTHON3_DEV
 	select HOST_GLIB
 	select HOST_QEMU
 	select HOST_QEMU_USR

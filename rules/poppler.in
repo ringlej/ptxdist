@@ -38,7 +38,7 @@ config POPPLER_BIN
 	bool
 	prompt "install poppler utilities"
 	help
-	  installs command line utilies comming with poppler package, contains
+	  installs command line utilies coming with poppler package, contains
 	  pdffonts, pdfimages, pdfinfo, pdftoabw, pdftohtml, pdftoppm, pdftops,
 	  pdftotext.
 
@@ -105,9 +105,16 @@ config POPPLER_SPLASH_CMYK
 	bool
 	prompt "enable CMYK raster support"
 
+config POPPLER_SPLASH_DOUBLE
+	bool
+	prompt "use double precision float arithmetic"
+	help
+	  Use double precision floating point arithmetic in Splash backend
+
 config POPPLER_SPLASH_SINGLE
 	bool
 	prompt "use single precision float arithmetic"
+	depends on !POPPLER_SPLASH_DOUBLE
 	help
 	  Use single precision instead of double precision floating point
 	  arithmetic in Splash backend
@@ -115,7 +122,7 @@ config POPPLER_SPLASH_SINGLE
 config POPPLER_SPLASH_FIXED
 	bool
 	prompt "use fixed point arithmetic"
-	depends on !POPPLER_SPLASH_SINGLE
+	depends on !POPPLER_SPLASH_SINGLE && !POPPLER_SPLASH_DOUBLE
 	help
 	  If enabled, the Splash backend will use floating point operations
 	  instead of fixed-point arithmetic.

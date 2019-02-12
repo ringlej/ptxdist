@@ -2,7 +2,7 @@
 
 config HOST_CYTHON3
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_PYTHON3
 	help
 	  Cython is an optimising static compiler for both the Python

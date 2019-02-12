@@ -14,12 +14,13 @@ comment "Timezone support"
 
 config TIMEZONE_LOCALTIME
 	prompt "Timezone for /etc/localtime"
-	default "Europe/Berlin"
+	default ""
 	string
 	help
 	  Where should /etc/localtime point to? (e.g. put in "Europe/Berlin"
 	  here to let it point to /usr/share/zoneinfo/Europe/Berlin)
-	  Note: if you leave this empty /etc/localtime is NOT created.
+
+	  NOTE: if you leave this empty /etc/localtime is NOT created.
 
 config TIMEZONE_AFRICA
 	bool

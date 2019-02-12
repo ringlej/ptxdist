@@ -2,4 +2,4 @@
 
 config HOST_LOCALEDEF
 	tristate
-	default ALLYES
+	default y if ALLYES

@@ -55,7 +55,8 @@ LIBJPEG_CONF_OPT := \
 	--without-turbojpeg \
 	--without-java \
 	--without-gas-preprocessor \
-	--$(call ptx/wwo, LIBJPEG_SIMD)-simd
+	--$(call ptx/wwo, LIBJPEG_SIMD)-simd \
+	--with-build-date=`date --utc --date @$(SOURCE_DATE_EPOCH) +%Y%m%d`
 
 # ----------------------------------------------------------------------------
 # Target-Install

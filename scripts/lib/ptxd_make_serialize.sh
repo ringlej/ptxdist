@@ -35,7 +35,9 @@ ptxd_make_serialize_setup() {
     local readptr="ptxd_make_serialize_${name}_readfd"
     local writefd readfd
 
-    mkfifo "${fifo}" || return
+    if [ ! -e "${fifo}" ]; then
+	mkfifo "${fifo}" || return
+    fi
     echo -n "$(seq -s "+" 0 ${count} | sed 's/[^+]//g')" > "${fifo}" &
     exec {readfd}< "${fifo}" &&
     exec {writefd}> "${fifo}" &&

@@ -60,7 +60,7 @@ $(STATEDIR)/host-gobject-introspection.install.post:
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-scanner" \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-annotation-tool"
 
-	@sed -i 's;'/lib';'$(PTXDIST_SYSROOT_HOST)/lib';' \
+	@sed -i "s;'/lib';'$(PTXDIST_SYSROOT_HOST)/lib';" \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-scanner" \
 		"$(PTXDIST_SYSROOT_HOST)/bin/g-ir-annotation-tool"
 

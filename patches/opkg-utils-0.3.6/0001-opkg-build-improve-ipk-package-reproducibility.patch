@@ -1,0 +1,30 @@
+From: Gardon Lukasz <garjack555@gmail.com>
+Date: Wed, 21 Feb 2018 13:09:39 +0100
+Subject: [PATCH] opkg-build: improve ipk package reproducibility
+
+Implement timestamp recommendation from reproducible-build.org [1]
+
+- Enable deterministic archieve by setting zero timestamp and
+  uids/guds with using 'D' in GNU ar tool
+
+[1] https://reproducible-builds.org/docs/archives/
+
+Signed-off-by: Gardon Lukasz <garjack555@gmail.com>
+Signed-off-by: Alejandro del Castillo <alejandro.delcastillo@ni.com>
+---
+ opkg-build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/opkg-build b/opkg-build
+index 318f308069a7..265906f66a8a 100755
+--- a/opkg-build
++++ b/opkg-build
+@@ -294,7 +294,7 @@ fi
+ 
+ rm -f $pkg_file
+ if [ "$outer" = "ar" ] ; then
+-  ( cd $tmp_dir && ar -crf $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
++  ( cd $tmp_dir && ar -crfD $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
+ else
+   ( cd $tmp_dir && tar -c --sort=name --mtime=$build_date $tarformat ./debian-binary ./control.tar.gz ./data.tar.$cext | gzip $zipargs > $pkg_file )
+ fi

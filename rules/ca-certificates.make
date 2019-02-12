@@ -27,8 +27,8 @@ CA_CERTIFICATES_SOURCE		:= $(SRCDIR)/certdata-$(CA_CERTIFICATES_VERSION).$(CA_CE
 CA_CERTIFICATES_DIR		:= $(BUILDDIR)/$(CA_CERTIFICATES)
 CA_CERTIFICATES_LICENSE		:= MPL-2.0
 # Use '=' to delay $(shell ...) calls until this is needed
-CA_CERTIFICATES_CERTDATA2PEM	 = $(shell ptxd_in_path PTXDIST_PATH_SCRIPTS certdata2pem.py && echo "$${ptxd_reply}")
-CA_CERTIFICATES_BLACKLIST	 = $(shell ptxd_get_alternative config/ca-certificates blacklist.txt && echo "$${ptxd_reply}")
+CA_CERTIFICATES_CERTDATA2PEM	 = $(call ptx/in-path, PTXDIST_PATH_SCRIPTS, certdata2pem.py)
+CA_CERTIFICATES_BLACKLIST	 = $(call ptx/get-alternative, config/ca-certificates, blacklist.txt)
 
 # ----------------------------------------------------------------------------
 # Extract

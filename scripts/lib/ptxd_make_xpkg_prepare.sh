@@ -110,5 +110,6 @@ install_init:	@DEPENDS@ -> ${dep}"
 	    echo "not available"
 	fi
     done
+    touch ${PTXDIST_TEMPDIR}/${pkg_stamp}.${pkg_xpkg}
 }
 export -f ptxd_make_xpkg_prepare

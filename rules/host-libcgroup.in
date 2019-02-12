@@ -2,4 +2,4 @@
 
 config HOST_LIBCGROUP
 	tristate
-	default ALLYES
+	default y if ALLYES

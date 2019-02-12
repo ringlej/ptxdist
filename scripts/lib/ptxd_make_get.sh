@@ -394,6 +394,10 @@ ptxd_make_get() {
 		shift
 
 		case "${url}" in
+		git+file://*)
+			echo "local git repository, removing git+file:// prefix from URL"
+			url=${url#git+file://}
+			;&
 		git://*|http://*.git|https://*.git|ssh://*.git)
 			ptxd_make_get_download_permitted &&
 			ptxd_make_get_git && return
@@ -410,7 +414,7 @@ ptxd_make_get() {
 			local thing="${url/file:\/\///}"
 
 			if [ -f "$thing" ]; then
-				echo "local archive, skiping get"
+				echo "local archive, skipping get"
 				return
 			elif [ -d "${thing}" ]; then
 				echo "local directory instead of tar file, skipping get"

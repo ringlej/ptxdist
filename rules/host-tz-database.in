@@ -2,4 +2,4 @@
 
 config HOST_TZ_DATABASE
 	tristate
-	default ALLYES
+	default y if ALLYES

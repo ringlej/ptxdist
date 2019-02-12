@@ -150,199 +150,6 @@ ptxd_get_ptxconf() {
 export -f ptxd_get_ptxconf
 
 
-
-#
-# migrate a config file
-# look in PTX_MIGRATEDIR for a migration handler and call it
-#
-# $1	part identifier ("ptx", "platform", "collection", "board", "user")
-#
-ptxd_kconfig_migrate() {
-	local part="${1}"
-	local assistent="${PTX_MIGRATEDIR}/migrate_${part}"
-
-	if [ \! -f "${assistent}" ]; then
-		return 0
-	fi
-
-	cp -- ".config" ".config.old" || return
-	sed -f "${assistent}" ".config.old" > ".config"
-	retval=$?
-
-	if [ $retval -ne 0 ]; then
-		ptxd_dialog_msgbox "error: error occured during migration"
-		return ${retval}
-	fi
-
-	if ! diff -u ".config.old" ".config" >/dev/null; then
-		ptxd_dialog_msgbox "info: successfully migrated '${file_dotconfig}'"
-	fi
-
-	return ${retval}
-}
-
-
-
-#
-# $1	what kind of config ("oldconfig", "menuconfig", "dep")
-# $2	part identifier ("ptx", "platform", "collection", "board", "user")
-# $...	optional parameters
-#
-ptxd_kconfig() {
-	local config="${1}"
-	local part="${2}"
-	local copy_back="true"
-
-	ptxd_kgen "${part}" || ptxd_bailout "error in kgen"
-
-	local file_kconfig file_dotconfig
-
-	case "${part}" in
-	ptx)
-		if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-			file_kconfig="${PTXDIST_WORKSPACE}/Kconfig"
-		else
-			file_kconfig="config/Kconfig"
-		fi
-		file_dotconfig="${PTXDIST_PTXCONFIG}"
-		;;
-	platform)
-		if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
-			file_kconfig="${PTXDIST_WORKSPACE}/platforms/Kconfig"
-		else
-			file_kconfig="${PTXDIST_TOPDIR}/platforms/Kconfig"
-		fi
-		file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
-		;;
-	collection)
-		ptxd_dgen || ptxd_bailout "error in dgen"
-
-		#
-		# "PTXDIST_COLLECTIONCONFIG" would overwrite
-		# certain "m" packages with "y".
-		#
-		# but "menuconfig collection" works only on the
-		# "m" packages, so unset PTXDIST_COLLECTIONCONFIG
-		# here.
-		#
-		PTXDIST_COLLECTIONCONFIG="" ptxd_colgen || ptxd_bailout "error in colgen"
-
-		file_kconfig="${PTXDIST_TOPDIR}/config/collection/Kconfig"
-		file_dotconfig="${3}"
-		;;
-	board)
-		if [ -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
-			file_kconfig="${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
-		else
-			file_kconfig="${PTXDIST_TOPDIR}/config/boardsetup/Kconfig"
-		fi
-		file_dotconfig="${PTXDIST_BOARDSETUP}"
-		;;
-	user)
-		file_kconfig="${PTXDIST_TOPDIR}/config/setup/Kconfig"
-		file_dotconfig="${PTXDIST_PTXRC}"
-		;;
-	*)
-		echo
-		echo "${PTXDIST_LOG_PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
-		echo
-		exit 1
-		;;
-	esac
-
-	local confdir="${PTXDIST_TEMPDIR}/kconfig"
-	if [ ! -d "${confdir}" ]; then
-		mkdir -p "${confdir}" || ptxd_bailout "unable to create tmpdir"
-		pushd "${confdir}" > /dev/null
-
-		ln -sf "${PTXDIST_TOPDIR}/rules" &&
-		mkdir config &&
-		ptxd_in_path PTXDIST_PATH config &&
-		for dir in "${ptxd_reply[@]}"; do
-			local tmp
-			for tmp in $( ( cd "${dir}" && ls ) 2>/dev/null); do
-				if [ ! -e "config/${tmp}" ]; then
-					ln -sfT "${dir}/${tmp}" "config/${tmp}" || break
-				fi
-			done
-		done &&
-		ln -sf "${PTXDIST_TOPDIR}/platforms" &&
-		ln -sf "${PTXDIST_WORKSPACE}" workspace &&
-		ln -sf "${PTX_KGEN_DIR}/generated"
-	else
-		pushd "${confdir}" > /dev/null
-	fi &&
-
-	if [ -e "${file_dotconfig}" ]; then
-		cp -- "${file_dotconfig}" ".config" || return
-	fi
-
-	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
-	local mconf="${PTXDIST_TOPDIR}/scripts/kconfig/mconf"
-	local nconf="${PTXDIST_TOPDIR}/scripts/kconfig/nconf"
-
-	export \
-	    KCONFIG_NOTIMESTAMP="1" \
-	    PROJECT="ptxdist" \
-	    FULLVERSION="${PTXDIST_VERSION_FULL}"
-
-	case "${config}" in
-	menuconfig)
-		"${mconf}" "${file_kconfig}"
-		;;
-	nconfig)
-		"${nconf}" "${file_kconfig}"
-		;;
-	oldconfig)
-		#
-		# In silent mode, we cannot redirect input. So use
-		# oldconfig instead of silentoldconfig if somebody
-		# tries to automate us.
-		#
-		ptxd_kconfig_migrate "${part}" &&
-		if tty -s; then
-			"${conf}" --silentoldconfig "${file_kconfig}"
-		else
-			"${conf}" --oldconfig "${file_kconfig}"
-		fi
-		;;
-	all*config|randconfig)
-		"${conf}" --${config} "${file_kconfig}"
-		;;
-	dep)
-		copy_back="false"
-		KCONFIG_ALLCONFIG=".config" "${conf}" \
-			--writedepend --alldefconfig "${file_kconfig}" &&
-		mv -- ".config" "${PTXDIST_DGEN_DIR}/${part}config"
-		;;
-	*)
-		echo
-		echo "${PTXDIST_LOG_PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
-		echo
-		exit 1
-		;;
-	esac
-
-	local retval=${?}
-	unset \
-	    KCONFIG_NOTIMESTAMP \
-	    PROJECT \
-	    FULLVERSION
-
-	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
-		cp -- .config "${file_dotconfig}" || return
-		if [ -f .config.old ]; then
-			cp -- .config.old "$(readlink -f "${file_dotconfig}").old" || return
-		fi
-	fi
-
-	popd > /dev/null
-
-	return $retval
-}
-export -f ptxd_kconfig
-
-
 #
 # call make,
 # source shell libraries wich are used in make
@@ -359,6 +166,7 @@ ptxd_make() {
 			source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
 		done
 	done
+	ptxd_make_setup_progress "${@}" &&
 	${PTX_NICE:+nice -n ${PTX_NICE}} "${PTXCONF_SETUP_HOST_MAKE}" \
 	    "${PTX_MAKE_ARGS[@]}" ${PTXDIST_PARALLELMFLAGS_EXTERN} ${PTXDIST_LOADMFLAGS} \
 	    -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
@@ -384,6 +192,8 @@ ptxd_make_log() {(
 		# stdout and logfile
 		exec {logout}> >(tee -a "${PTX_LOGFILE}")
 	else
+		# no user input
+		exec < /dev/null
 		# logfile only
 		exec {logout}>> "${PTX_LOGFILE}"
 	fi
@@ -510,6 +320,29 @@ ptxd_replace_link() {
 }
 export -f ptxd_replace_link
 
+ptxd_get_alternative_list() {
+    local prefix="${1%/}"
+    local file="${2#/}"
+    local -a layers
+    [ -n "${prefix}" -a -n "${file}" ] || return
+
+    ptxd_in_path PTXDIST_PATH_LAYERS
+    layers=( "${ptxd_reply[@]}" )
+
+    ptxd_reply=()
+    for layer in "${layers[@]}"; do
+	ptxd_reply=( \
+	    "${ptxd_reply[@]}" \
+	    "${layer}/${prefix}${PTXDIST_PLATFORMSUFFIX}/${file}" \
+	    "${layer}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${layer}/${PTXDIST_PLATFORMCONFIG_SUBDIR}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${layer}/${prefix}/${file}" \
+	    "${layer}/${PTXDIST_PLATFORMCONFIG_SUBDIR}/${prefix}/${file}" \
+	    )
+    done
+}
+export -f ptxd_get_alternative_list
+
 #
 # ptxd_get_alternative - look for files in platform, BSP and ptxdist
 #
@@ -523,20 +356,8 @@ export -f ptxd_replace_link
 # array "ptxd_reply" containing the found files
 #
 ptxd_get_alternative() {
-    local prefix="${1%/}"
-    local file="${2}"
-    [ -n "${prefix}" -a -n "${file}" ] || return
-
-    list=( \
-	"${PTXDIST_WORKSPACE}/${prefix}${PTXDIST_PLATFORMSUFFIX}/${file}" \
-	"${PTXDIST_WORKSPACE}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
-	"${PTXDIST_PLATFORMCONFIGDIR}/${prefix}/${file}${PTXDIST_PLATFORMSUFFIX}" \
-	"${PTXDIST_WORKSPACE}/${prefix}/${file}" \
-	"${PTXDIST_PLATFORMCONFIGDIR}/${prefix}/${file}" \
-	"${PTXDIST_TOPDIR}/${prefix}/${file}" \
-	)
-
-    ptxd_get_path "${list[@]}"
+    ptxd_get_alternative_list "${@}" &&
+    ptxd_get_path "${ptxd_reply[@]}"
 }
 export -f ptxd_get_alternative
 
@@ -559,7 +380,36 @@ ptxd_get_path() {
 export -f ptxd_get_path
 
 #
+# ptxd_get_path_fitered - look for files and/or dirs
+#
+# Like ptxd_get_path but skips paths that are symlinks to /dev/null
+#
+# return:
+# 0 if files/dirs are found
+# 1 if no files/dirs are found
+#
+# array "ptxd_reply" containing the found files/dirs
+#
+ptxd_get_path_filtered() {
+    ptxd_get_path "${@}" || return
+
+    set -- "${ptxd_reply[@]}"
+    ptxd_reply=()
+
+    while [ $# -gt 0 ]; do
+	if [ "$(readlink -f "${1}")" != /dev/null ]; then
+	    ptxd_reply[${#ptxd_reply[@]}]="${1}"
+	fi
+	shift
+    done
+    [ ${#ptxd_reply[@]} -ne 0 ]
+}
+export -f ptxd_get_path_filtered
+
+#
 # ptxd_in_path - look for files and/or dirs
+#
+# Note: the make implemenation in ptx/in-path must produce the same result.
 #
 # $1 variable name with paths separated by ":"
 # $2 filename to find within these paths
@@ -572,14 +422,64 @@ export -f ptxd_get_path
 #
 ptxd_in_path() {
 	local orig_IFS="${IFS}"
+	local -a paths tmp
+	local path
+	local relative
 	IFS=:
-	local -a paths
-	paths=( ${!1} )
+	tmp=( ${!1} )
 	IFS="${orig_IFS}"
+	for path in "${tmp[@]}"; do
+	    local search
+	    case "${path}" in
+	    /*)
+		paths=( "${paths[@]}" "${path}" )
+		;;
+	    *)
+		if [ -n "${relative}" ]; then
+		    ptxd_bailout "More than one relative path found in ${1}"
+		fi
+		relative=true
+		ptxd_in_path PTXDIST_PATH_LAYERS "${path}" || continue
+		paths=( "${paths[@]}" "${ptxd_reply[@]}" )
+		;;
+	    esac
+	done
 	paths=( "${paths[@]/%/${2:+/}${2}}" )
 	ptxd_get_path "${paths[@]}"
 }
 export -f ptxd_in_path
+
+#
+# ptxd_in_platformconfigdir - find paths in platformconfigdir
+#
+# Note: the make implemenation in ptx/in-platformconfigdir must produce the
+# same result.
+#
+# $1 filename to find
+#
+# If the filename is absolute then return the filename unchanged.
+# Otherwise search in platformconfigdir in all layers for the file and
+# return the first hit.
+# If no file is found return ${PTXDIST_PLATFORMCONFIGDIR}/${1}
+#
+# return:
+# The result is written to stdout.
+#
+ptxd_in_platformconfigdir() {
+    case "${1}" in
+    /*)
+	echo "${1}"
+	;;
+    *)
+	if ptxd_in_path PTXDIST_PATH_PLATFORMCONFIGDIR "${1}"; then
+	    echo "${ptxd_reply[0]}"
+	else
+	    echo "${PTXDIST_PLATFORMCONFIGDIR}/${1}"
+	fi
+	;;
+    esac
+}
+export -f ptxd_in_platformconfigdir
 
 #
 # convert a relative or absolute path into an absolute path
@@ -652,9 +552,14 @@ export -f ptxd_abs2rel
 #
 ptxd_file_url_path() {
     local url="${1//file:\/\//}"
+    url="${url//lndir:\/\//}"
     if [[ ! "${url}" =~ ^/ ]]; then
 	    # relative to absolute path
-	    url="${PTXDIST_WORKSPACE}/${url}"
+	    if ptxd_in_path PTXDIST_PATH_LAYERS "${url}"; then
+		url="${ptxd_reply}"
+	    else
+		url="${PTXDIST_WORKSPACE}/${url}"
+	    fi
     fi
     echo "${url}"
 }
@@ -670,7 +575,7 @@ ptxd_print_path() {
     fi
 
     local path out
-    for path in ${PTXDIST_PATH//:/ }; do
+    for path in ${PTXDIST_WORKSPACE} ${PTXDIST_TOPDIR}; do
 	path="${path%/*}/"
 	out="${1/#${path}}"
 	if [ "${out}" != "${1}" ]; then
@@ -740,20 +645,36 @@ ptxd_debug(){
 
 ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 
+ptxd_bailout_impl() {
+	echo
+	while [ $# -gt 0 ]; do
+		if [[ $# -eq 1 && "$1" =~ ^[0-9]+$ ]]; then
+			break
+		fi
+		echo -e "${PTXDIST_LOG_PROMPT}error: ${1}"
+		shift
+	done
+	echo
+	return ${1:-1}
+}
+export -f ptxd_bailout_impl
+
 #
 # print out error message and exit with status 1
 #
-# $1: error message
-# $2: optional exit value (1 is default)
+# $*: error messages, one line per argument
+#
+# If the last argument is a number, then it is used as exit value
+# (1 is default)
 #
 # ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_bailout() {
-	echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_LOGERR}
 	if [ -n "${PTXDIST_FD_STDERR}" -a -n "${PTXDIST_QUIET}" ]; then
-		echo "${PTXDIST_LOG_PROMPT}error: $1" >&${PTXDIST_FD_STDERR}
+		ptxd_bailout_impl "${@}"  >&${PTXDIST_FD_STDERR}
 	fi
-	exit ${2:-1}
+	ptxd_bailout_impl "${@}" >&2
+	exit
 }
 export -f ptxd_bailout
 
@@ -783,7 +704,10 @@ export -f ptxd_pedantic
 # ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_warning() {
-	echo "${PTXDIST_LOG_PROMPT}warning: $1" >&2
+	while [ $# -gt 0 ]; do
+		echo -e "${PTXDIST_LOG_PROMPT}warning: $1" >&2
+		shift
+	done
 }
 export -f ptxd_warning
 

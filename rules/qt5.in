@@ -33,7 +33,6 @@ menuconfig QT5
 	select UDEV			if QT5_GUI || QT5_INPUT_LIBINPUT
 	select UDEV_LIBUDEV		if QT5_GUI
 	select TSLIB			if QT5_INPUT_TSLIB
-	select DIRECTFB			if QT5_PLATFORM_DIRECTFB
 	select LIBINPUT			if QT5_INPUT_LIBINPUT
 	select LIBXCB			if QT5_PLATFORM_XCB
 	select LIBXKBCOMMON		if QT5_PLATFORM_XCB || QT5_INPUT_LIBINPUT
@@ -182,7 +181,6 @@ config QT5_PLATFORM_DEFAULT
 	string
 	default "xcb"		if QT5_PLATFORM_DEFAULT_XCB
 	default "eglfs"		if QT5_PLATFORM_DEFAULT_EGLFS
-	default "directfb"	if QT5_PLATFORM_DEFAULT_DIRECTFB
 	default "linuxfb"	if QT5_PLATFORM_DEFAULT_LINUXFB
 	default "wayland"	if QT5_PLATFORM_DEFAULT_WAYLAND
 
@@ -203,13 +201,6 @@ config QT5_PLATFORM_EGLFS_KMS
 
 endif
 
-config QT5_PLATFORM_DIRECTFB
-	bool
-	# fails to build for Qt 5.6.0
-	depends on BROKEN
-	depends on STAGING
-	prompt "DirectFB"
-
 config QT5_PLATFORM_LINUXFB
 	bool
 	prompt "LinuxFB"
@@ -227,7 +218,6 @@ config QT5_PLATFORM_DEFAULT_MISSING
 	prompt "--nothing--"
 	depends on !QT5_PLATFORM_XCB
 	depends on !QT5_PLATFORM_EGLFS
-	depends on !QT5_PLATFORM_DIRECTFB
 	depends on !QT5_PLATFORM_LINUXFB
 	depends on !QT5_MODULE_QTWAYLAND
 
@@ -240,11 +230,6 @@ config QT5_PLATFORM_DEFAULT_EGLFS
 	bool
 	depends on QT5_PLATFORM_EGLFS
 	prompt "eglfs"
-
-config QT5_PLATFORM_DEFAULT_DIRECTFB
-	bool
-	depends on QT5_PLATFORM_DIRECTFB
-	prompt "DirectFB"
 
 config QT5_PLATFORM_DEFAULT_LINUXFB
 	bool

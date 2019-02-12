@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_GOOD1) += gst-plugins-good1
 #
 # Paths and names
 #
-GST_PLUGINS_GOOD1_VERSION	:= 1.14.2
-GST_PLUGINS_GOOD1_MD5		:= 5b83b2828e31ce5b4a5c03c71e707ae7
+GST_PLUGINS_GOOD1_VERSION	:= 1.14.4
+GST_PLUGINS_GOOD1_MD5		:= 6e3b247097366cf2639f22abfece7113
 GST_PLUGINS_GOOD1		:= gst-plugins-good-$(GST_PLUGINS_GOOD1_VERSION)
 GST_PLUGINS_GOOD1_SUFFIX	:= tar.xz
 GST_PLUGINS_GOOD1_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD1).$(GST_PLUGINS_GOOD1_SUFFIX)
@@ -159,6 +159,11 @@ endif
 
 ifneq ($(call remove_quotes,$(GST_PLUGINS_GOOD1_ENABLEC-)),)
 GST_PLUGINS_GOOD1_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_GOOD1_ENABLEC-)))
+endif
+
+ifdef PTXCONF_GST_PLUGINS_GOOD1_QT
+GST_PLUGINS_GOOD1_COMPILE_ENV := \
+	ICECC_REMOTE_CPP=0
 endif
 
 # ----------------------------------------------------------------------------

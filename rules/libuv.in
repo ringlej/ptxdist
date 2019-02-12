@@ -1,0 +1,24 @@
+## SECTION=system_libraries
+
+config LIBUV
+	tristate
+	prompt "libuv"
+	help
+	  asynchronous event notification library - runtime library
+
+	  Libuv is the asynchronous library behind Node.js. Very
+	  similar to libevent or libev, it provides the main elements
+	  for event driven systems: watching and waiting for
+	  availability in a set of sockets, and some other events like
+	  timers or asynchronous messages. However, libuv also comes
+	  with some other extras like:
+
+	  * files watchers and asynchronous operations
+	  * a portable TCP and UDP API, as well as asynchronous DNS
+	    resolution
+	  * processes and threads management, and a portable
+	    inter-process communications mechanism, with pipes and
+	    work queues
+	  * a plugins mechanism for loading libraries dynamically
+	  * interface with external libraries that also need to access
+	    the I/O.

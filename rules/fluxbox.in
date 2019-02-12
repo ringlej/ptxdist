@@ -36,7 +36,7 @@ config FLUXBOX_XPM
 
 config FLUXBOX_XFT
 	bool
-	prompt "Antialising font support"
+	prompt "Antialiasing font support"
 	help
 	  Fluxbox can use the Xft library to perform anti-aliased text
 	  rendering.

@@ -2,6 +2,6 @@
 
 config HOST_LIBSELINUX
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_LIBPCRE
 	select HOST_LIBSEPOL

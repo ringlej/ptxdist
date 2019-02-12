@@ -4,4 +4,4 @@
 
 config HOST_APR
 	tristate
-	default ALLYES
+	default y if ALLYES

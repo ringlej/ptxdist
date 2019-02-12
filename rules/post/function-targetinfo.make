@@ -16,7 +16,7 @@
 #
 ifdef PTXDIST_QUIET
 ifdef PTXDIST_FD_STDOUT
-_targetinfo_opt_output := echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
+_targetinfo_opt_output := echo "$$(ptxd_make_print_progress start $${target})started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
 endif
 endif
 ifdef PTXCONF_SETUP_GEN_DEP_TREE

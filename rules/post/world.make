@@ -16,11 +16,13 @@ DEP_OUTPUT	:= $(STATEDIR)/depend.out
 WORLD_PACKAGES_TARGET 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES)))
 WORLD_PACKAGES_HOST	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(HOST_PACKAGES)))
 WORLD_PACKAGES_CROSS	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(CROSS_PACKAGES)))
+WORLD_PACKAGES_EXTRA	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(EXTRA_PACKAGES)))
 
 $(STATEDIR)/world.targetinstall: \
 	$(WORLD_PACKAGES_TARGET) \
 	$(WORLD_PACKAGES_HOST) \
-	$(WORLD_PACKAGES_CROSS)
+	$(WORLD_PACKAGES_CROSS) \
+	$(WORLD_PACKAGES_EXTRA)
 	@echo $(notdir $@) : $(notdir $^) >> $(DEP_OUTPUT)
 	@$(call touch)
 

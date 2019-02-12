@@ -2,4 +2,4 @@
 
 config XORGPROTO
 	tristate
-	default ALLYES
+	default y if ALLYES

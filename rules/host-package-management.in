@@ -1,4 +1,4 @@
-## SECTION=hosttools
+## SECTION=hosttools_noprompt_ptx
 
 config HOST_PACKAGE_MANAGEMENT_OPKG
 	bool

@@ -1,0 +1,36 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Mon, 15 Sep 2014 19:45:15 +0200
+Subject: [PATCH] 0.113: Fix duplicate GError use when "uid" is missing
+
+Some GLib versions complain loudly about this.
+
+To reproduce, call e.g. RegisterAuthenticationAgent with the following
+parameters:
+("unix-process", {"pid": __import__('gi.repository.GLib', globals(),
+locals(), ['Variant']).Variant("u", 1), "start-time":
+__import__('gi.repository.GLib', globals(), locals(),
+['Variant']).Variant("t", 1)}), "cs", "/"
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=90877
+Origin: upstream, 0.113, commit:2c8738941be18ef05ce724df46547f41dbc02fb5
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkit/polkitsubject.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkit/polkitsubject.c b/src/polkit/polkitsubject.c
+index aed57951bb6b..78ec745a4df2 100644
+--- a/src/polkit/polkitsubject.c
++++ b/src/polkit/polkitsubject.c
+@@ -424,7 +424,7 @@ polkit_subject_new_for_gvariant (GVariant  *variant,
+       start_time = g_variant_get_uint64 (v);
+       g_variant_unref (v);
+ 
+-      v = lookup_asv (details_gvariant, "uid", G_VARIANT_TYPE_INT32, error);
++      v = lookup_asv (details_gvariant, "uid", G_VARIANT_TYPE_INT32, NULL);
+       if (v != NULL)
+         {
+           uid = g_variant_get_int32 (v);

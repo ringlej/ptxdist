@@ -21,7 +21,7 @@ KERNEL_@PACKAGE@_MD5		:=
 KERNEL_@PACKAGE@		:= linux-$(KERNEL_@PACKAGE@_VERSION)
 KERNEL_@PACKAGE@_SUFFIX		:= tar.xz
 KERNEL_@PACKAGE@_DIR		:= $(BUILDDIR)/linux-@package@-$(KERNEL_@PACKAGE@_VERSION)
-KERNEL_@PACKAGE@_CONFIG		:= $(PTXDIST_PLATFORMCONFIGDIR)/kernelconfig-@package@
+KERNEL_@PACKAGE@_CONFIG		:= $(call ptx/in-platformconfigdir, kernelconfig-@package@)
 KERNEL_@PACKAGE@_LICENSE	:= GPL-2.0
 KERNEL_@PACKAGE@_URL		:= $(call kernel-url, KERNEL_@PACKAGE@)
 KERNEL_@PACKAGE@_SOURCE		:= $(SRCDIR)/$(KERNEL_@PACKAGE@).$(KERNEL_@PACKAGE@_SUFFIX)
@@ -57,7 +57,7 @@ $(KERNEL_@PACKAGE@_CONFIG):
 	@exit 1
 endif
 
-$(STATEDIR)/kernel-@package@.prepare: $(KERNEL_@PACKAGE@_CONFIG)
+$(STATEDIR)/kernel-@package@.prepare:
 
 # ----------------------------------------------------------------------------
 # Compile

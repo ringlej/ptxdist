@@ -8,4 +8,6 @@
 0006-TDLS-Reject-TPK-TK-reconfiguration.patch
 0007-WNM-Ignore-WNM-Sleep-Mode-Response-without-pending-r.patch
 0008-FT-Do-not-allow-multiple-Reassociation-Response-fram.patch
-# bb28bfc4d47846ceb41bca8b4bc07edd  - git-ptx-patches magic
+0009-WPA-Ignore-unauthenticated-encrypted-EAPOL-Key-data.patch
+0010-Fix-pem-decryption.patch
+# e29c4cb2c2ffbc71ae328176596ddb22  - git-ptx-patches magic

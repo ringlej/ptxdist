@@ -26,12 +26,14 @@ IMAGE_RAUC_CONFIG	:= rauc.config
 # Image
 # ----------------------------------------------------------------------------
 
-IMAGE_RAUC_KEY = $(PTXDIST_PLATFORMCONFIGDIR)/config/rauc/rauc.key.pem
-IMAGE_RAUC_CERT = $(PTXDIST_PLATFORMCONFIGDIR)/config/rauc/rauc.cert.pem
+ifdef PTXCONF_IMAGE_RAUC
+
+IMAGE_RAUC_KEY := $(call ptx/in-platformconfigdir, config/rauc/rauc.key.pem)
+IMAGE_RAUC_CERT := $(call ptx/in-platformconfigdir, config/rauc/rauc.cert.pem)
 
 IMAGE_RAUC_ENV	:= \
 	RAUC_BUNDLE_COMPATIBLE="$(call remove_quotes,$(PTXCONF_RAUC_COMPATIBLE))" \
-	RAUC_BUNDLE_VERSION=$(PTXDIST_BSP_AUTOVERSION) \
+	RAUC_BUNDLE_VERSION="$(call remove_quotes, $(PTXCONF_RAUC_BUNDLE_VERSION))" \
 	RAUC_BUNDLE_BUILD=$(shell date +%FT%T%z) \
 	RAUC_BUNDLE_DESCRIPTION=$(PTXCONF_IMAGE_RAUC_DESCRIPTION) \
 	RAUC_KEY=$(IMAGE_RAUC_KEY) \
@@ -65,5 +67,7 @@ $(IMAGE_RAUC_CERT):
 	@echo
 	@echo
 	@exit 1
+
+endif
 
 # vim: syntax=make

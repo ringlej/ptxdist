@@ -3,6 +3,7 @@
 menuconfig LIBGPIOD
 	tristate
 	prompt "libgpiod                      "
+	select PYTHON3 if LIBGPIOD_PYTHON3
 	help
 	  libgpiod is a library accompanied by a set of tools for
 	  interacting with the Linux GPIO character device.
@@ -54,5 +55,11 @@ config LIBGPIOD_GPIOMON
 	select LIBGPIOD_TOOLS
 	help
 	  Waits for events on a GPIO line
+
+config LIBGPIOD_PYTHON3
+	bool
+	prompt "Install python3 bindings"
+	help
+	  Provides bindings for Python 3
 
 endif

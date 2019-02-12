@@ -298,3 +298,19 @@ s/^\(\(# \)\?PTXCONF_\)DOSFSTOOLS_DOSFSLABEL/\1DOSFSTOOLS_FATLABEL/
 # reason : option renamed
 #
 s/^\(\(# \)\?PTXCONF_\)LIGHTTPD_MEMCACHE\>/\1LIGHTTPD_MEMCACHED/
+
+#
+# from   : ptxdist-2018.11.0
+# to     : ptxdist-2018.12.0
+# symbol : XORG_LIB_X11_INSTALL_LOCALE -> LIBX11_LOCALE
+# reason : split into a separate package
+#
+s/^\(\(# \)\?PTXCONF_\)XORG_LIB_X11_INSTALL_LOCALE\>/\1LIBX11_LOCALE/
+
+#
+# from   : ptxdist-2018.11.0
+# to     : ptxdist-2018.12.0
+# symbol : BLUEZ_UTILS*			-> BLUEZ_TOOLS*
+# reason : consolidation of config symbols
+#
+s/^\(\(# \)\?PTXCONF_BLUEZ\)_UTILS\(.*$\)/\1_TOOLS\2/

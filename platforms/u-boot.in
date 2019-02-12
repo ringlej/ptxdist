@@ -12,7 +12,7 @@ config U_BOOT_VERSION
 	default 1.2.0
 	prompt "U-Boot version"
 	help
-	  Enter the Uboot version you want to build. Usally something like "1.2.0"
+	  Enter the Uboot version you want to build. Usually something like "1.2.0"
 
 config U_BOOT_MD5
 	string
@@ -49,6 +49,13 @@ config U_BOOT_INSTALL_ELF
 	help
 	  Installing the U-Boot ELF binary into platform image directory.
 
+config U_BOOT_INSTALL_SPL
+	prompt "install SPL"
+	bool
+	help
+	  Installing the U-Boot SPL (Secondary Program Loader) binary into
+	  platform image directory.
+
 config U_BOOT_INSTALL_MLO
 	prompt "install MLO"
 	bool
@@ -57,14 +64,14 @@ config U_BOOT_INSTALL_MLO
 	  Installing the U-Boot SPL ("MLO") binary needed for OMAP CPUs into platform
 	  image directory.
 
-if U_BOOT_INSTALL_MLO
+if U_BOOT_INSTALL_MLO || U_BOOT_INSTALL_SPL
 
 config U_BOOT_INSTALL_U_BOOT_IMG
 	prompt "install u-boot.img"
 	bool
 	help
 	  Installing the u-boot image with header ("u-boot.img") which is executed
-	  by u-boot SPL ("MLO") into platform image directory.
+	  by u-boot SPL into platform image directory.
 
 endif
 
@@ -73,7 +80,8 @@ config U_BOOT_INSTALL_U_BOOT_IMX
 	bool
 	help
 	  Installing the U-Boot image with imx header (u-boot.imx) into platform 
-	  image directory. Say yes if you are building for freescale i.MX SOC
+	  image directory. Say yes if you are building for freescale i.MX SOCs
+	  and are not using SPL.
 
 endif
 

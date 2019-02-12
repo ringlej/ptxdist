@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
 #           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,17 +29,8 @@ XORG_FONT_TTF_BITSTREAM_VERA_LICENSE	:= Bitstream-Vera
 XORG_FONT_TTF_BITSTREAM_VERA_LICENSE_FILES := \
 	file://COPYRIGHT.TXT;md5=27d7484b1e18d0ee4ce538644a3f04be
 
-ifdef PTXCONF_XORG_FONT_TTF_BITSTREAM_VERA
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+XORG_FONT_TTF_BITSTREAM_VERA_CONF_TOOL	:= NO
+XORG_FONT_TTF_BITSTREAM_VERA_FONTDIR	:= $(XORG_FONTDIR)/truetype/bitstream-vera
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -54,6 +46,7 @@ $(STATEDIR)/xorg-font-ttf-bitstream-vera.compile:
 
 $(STATEDIR)/xorg-font-ttf-bitstream-vera.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_BITSTREAM_VERA,*.ttf)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,16 +55,15 @@ $(STATEDIR)/xorg-font-ttf-bitstream-vera.install:
 
 $(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init, xorg-font-ttf-bitstream-vera)
+	@$(call install_fixup, xorg-font-ttf-bitstream-vera,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-ttf-bitstream-vera,SECTION,base)
+	@$(call install_fixup, xorg-font-ttf-bitstream-vera,AUTHOR,"Florian Bäuerle <florian.baeuerle@allegion.com>")
+	@$(call install_fixup, xorg-font-ttf-bitstream-vera,DESCRIPTION,missing)
 
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
+	@$(call install_tree, xorg-font-ttf-bitstream-vera, 0, 0, -, /usr)
 
-	@find $(XORG_FONT_TTF_BITSTREAM_VERA_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
+	@$(call install_finish, xorg-font-ttf-bitstream-vera)
 	@$(call touch)
 
 # vim: syntax=make

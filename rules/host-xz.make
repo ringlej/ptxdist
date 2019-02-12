@@ -24,6 +24,8 @@ HOST_XZ_CONF_TOOL	:= autoconf
 HOST_XZ_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--libdir=/lib/xz \
+	--disable-debug \
+	--disable-external-sha256 \
 	--enable-assembler \
 	--disable-small \
 	--enable-threads \
@@ -34,8 +36,13 @@ HOST_XZ_CONF_OPT	:= \
 	--disable-lzma-links \
 	--disable-scripts \
 	--disable-shared \
+	--disable-doc \
+	--enable-symbol-versions \
+	--disable-sandbox \
+	--enable-static \
 	--disable-nls \
 	--enable-rpath \
+	--enable-unaligned-access=auto \
 	--disable-werror
 
 # vim: syntax=make

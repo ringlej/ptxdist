@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LZ4) += lz4
 #
 # Paths and names
 #
-LZ4_VERSION	:= 1.8.0
-LZ4_MD5		:= 6247bf0e955899969d1600ff34baed6b
+LZ4_VERSION	:= 1.8.3
+LZ4_MD5		:= d5ce78f7b1b76002bbfffa6f78a5fc4e
 LZ4		:= lz4-$(LZ4_VERSION)
 LZ4_SUFFIX	:= tar.gz
 LZ4_URL		:= https://github.com/Cyan4973/lz4/archive/v$(LZ4_VERSION).$(LZ4_SUFFIX)

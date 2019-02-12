@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -26,15 +27,8 @@ XORG_FONT_TTF_HANAZONO_DIR		:= $(BUILDDIR)/$(XORG_FONT_TTF_HANAZONO)
 XORG_FONT_TTF_HANAZONO_STRIP_LEVEL	:= 0
 XORG_FONT_TTF_HANAZONO_LICENSE		:= OFL-1.1
 
-ifdef PTXCONF_XORG_FONT_TTF_HANAZONO
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-hanazono.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
 XORG_FONT_TTF_HANAZONO_CONF_TOOL	:= NO
+XORG_FONT_TTF_HANAZONO_FONTDIR		:= $(XORG_FONTDIR)/truetype/hanazono
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -50,6 +44,7 @@ $(STATEDIR)/xorg-font-ttf-hanazono.compile:
 
 $(STATEDIR)/xorg-font-ttf-hanazono.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_HANAZONO,*.ttf)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -58,16 +53,15 @@ $(STATEDIR)/xorg-font-ttf-hanazono.install:
 
 $(STATEDIR)/xorg-font-ttf-hanazono.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init, xorg-font-ttf-hanazono)
+	@$(call install_fixup, xorg-font-ttf-hanazono,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-ttf-hanazono,SECTION,base)
+	@$(call install_fixup, xorg-font-ttf-hanazono,AUTHOR,"Florian Bäuerle <florian.baeuerle@allegion.com>")
+	@$(call install_fixup, xorg-font-ttf-hanazono,DESCRIPTION,missing)
 
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
+	@$(call install_tree, xorg-font-ttf-hanazono, 0, 0, -, /usr)
 
-	@find $(XORG_FONT_TTF_HANAZONO_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
+	@$(call install_finish, xorg-font-ttf-hanazono)
 	@$(call touch)
 
 # vim: syntax=make

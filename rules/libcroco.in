@@ -13,7 +13,7 @@ menuconfig LIBCROCO
 	  Services provided by Libcroco:
 
 	  * A parser module that provides o A SAC like api. SAC stands
-            for Simple Api for CSS. SAC is an event driven api wich
+            for Simple Api for CSS. SAC is an event driven api which
             resembles SAX in the xml world.
 
 	  * A CSSOM like api. CSSOM stands for Cascading Style Sheet

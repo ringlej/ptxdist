@@ -1,17 +1,13 @@
-## SECTION=staging
-## old section:
-### SECTION=bytecode_engines
+## SECTION=bytecode_engines
 
 config CLASSPATH
 	tristate
 	prompt "classpath"
 	select GCCLIBS_GCC_S
 	select HOST_SYSTEM_JDK
+	select HOST_GETTEXT
 	help
 	  GNU Classpath, Essential Libraries for Java, is a GNU project to create
 	  free core class libraries for use with virtual machines and compilers
 	  for the java programming language.
-
-	  STAGING: remove in ptxdist-2019.04.0
-	  Old, obsolete package that fails to build with OpenJDK 9.
 

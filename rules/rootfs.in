@@ -24,7 +24,7 @@ config ROOTFS_DEV
 	default y
 	help
 	  This directory contains system's device nodes. This is a common
-	  location and name. For example udev depends on the existance of this
+	  location and name. For example udev depends on the existence of this
 	  directory
 
 config ROOTFS_DEV_INITIAL

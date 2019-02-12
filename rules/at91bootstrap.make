@@ -33,6 +33,7 @@ AT91BOOTSTRAP_DIR	:= $(BUILDDIR)/$(AT91BOOTSTRAP)
 # ----------------------------------------------------------------------------
 
 AT91BOOTSTRAP_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACK \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \

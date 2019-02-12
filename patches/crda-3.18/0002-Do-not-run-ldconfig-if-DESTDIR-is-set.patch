@@ -1,0 +1,23 @@
+From: Ben Hutchings <ben@decadent.org.uk>
+Date: Sat, 23 Aug 2014 11:13:44 -0700
+Subject: [PATCH] Do not run ldconfig if DESTDIR is set
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 2f485724c3be..b74d3b544bd9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -127,7 +127,9 @@ install-libreg:
+ 	$(NQ) '  INSTALL  libreg'
+ 	$(Q)mkdir -p $(DESTDIR)/$(LIBDIR)
+ 	$(Q)cp $(LIBREG) $(DESTDIR)/$(LIBDIR)/
++ifndef DESTDIR
+ 	$(Q)ldconfig
++endif
+ 
+ %.o: %.c regdb.h $(LIBREG)
+ 	$(NQ) '  CC  ' $@

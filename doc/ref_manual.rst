@@ -26,6 +26,8 @@ Global Variables
 ``PTXDIST_TOPDIR``
   Points always to the installation directory of PTXdist.
 
+.. _ptxdist_workspace:
+
 ``PTXDIST_WORKSPACE``
   Everything that references ``PTXDIST_WORKSPACE`` will use the active
   projects’s folder.
@@ -92,6 +94,8 @@ Other useful variables:
   platform, but with a leading dot. This is used in various files PTXdist
   should search for.
 
+.. _ptxdist_platformconfigdir:
+
 ``PTXDIST_PLATFORMCONFIGDIR``
   ``PTXDIST_PLATFORMCONFIGDIR`` points to the directory tree of the
   currently selected platform. This path is used in various search
@@ -100,6 +104,31 @@ Other useful variables:
 ``PTXDIST_PLATFORMDIR``
   ``PTXDIST_PLATFORMDIR`` points to the directory build tree of the
   currently selected platform.
+
+``PACKAGES``, ``PACKAGES-y``, ``PACKAGES-m``
+  ``PACKAGES`` is a list of space-separated lowercase package names that are
+  built and installed during the PTXdist build run, and installed into the
+  target root filesystem when building images.
+
+  The ``-y`` variant contains only those packages that are selected with
+  ``PTXCONF_<PKG>=y``, while the ``-m`` variant contains only those which are
+  selected with ``PTXCONF_<PKG>=m`` (used for collections).
+  A target package rule usually adds its name to one of those variables if it
+  has been selected.
+  The union of those two sets then ends up in ``PACKAGES``.
+
+``EXTRA_PACKAGES``, ``EXTRA_PACKAGES-y``, ``EXTRA_PACKAGES-m``
+  In analogy to ``PACKAGES``, target packages that are added to these lists will
+  be built normally during the build run.
+  In contrast however, they are not installed into a root filesystem by default
+  when building images, and image rules must request them explicitely.
+  This is useful for specialized packages that are only needed for specific
+  images, see :ref:`multi_image_individual_root_filesystems`.
+
+``HOST_PACKAGES``, ``CROSS_PACKAGES``
+  Similar to ``PACKAGES``, these variables contain the host and cross packages
+  that are built and installed during the PTXdist build run.
+  There are analogous ``-y`` and ``-m`` variants of those variables too.
 
 Package Specific Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -319,6 +348,8 @@ Prepare Stage
   All other configuration tools have no default options. This variable is
   ignored for kconfig and python/python3.
 
+.. _vars_compile:
+
 Compile Stage
 ^^^^^^^^^^^^^
 
@@ -328,7 +359,8 @@ Compile Stage
   necessary defines are picked up in the prepare stage. For python/python3
   packages PTXdist will use the default value from ``<PKG>_CONF_ENV``.
   For packages without configuration tool this must be set correctly,
-  usually based on the ``<PKG>_CONF_ENV`` default values.
+  usually based on the ``<PKG>_CONF_ENV`` default values, e,g.
+  ``$(CROSS_ENV)`` for target packages.
 
 ``<PKG>_MAKE_OPT``
   This variables defines additional parameters to be forwarded to ``make`` in
@@ -339,7 +371,9 @@ Compile Stage
   This variables informs PTXdist, if this package can be built in parallel. Some
   (mostly very smart selfmade) buildsystems fail doing so. In this case this
   variable can be set to ``NO``. PTXdist will then build this package with one
-  CPU only.
+  CPU only. The default is, to build packages in parallel.
+
+.. _vars_install:
 
 Install Stage
 ^^^^^^^^^^^^^
@@ -349,10 +383,19 @@ Install Stage
   It can be overwritten if the package needs a special target to install its
   results.
 
+.. _pkg_pkgdir:
+
+``<PKG>_PKGDIR``
+  This variable must not be set by the user. It defines package
+  install directory. All files will be installed relative to this
+  directory. It can be used by manual install stages. It is defined as
+  ``$(PKGDIR)/$(<PKG>)`` which expands to
+  ``<platform-dir>/packages/foo-1.1.0`` on our *foo* example.
+
 Targetinstall Stage
 ^^^^^^^^^^^^^^^^^^^
 
-TBD
+The *targetinstall* stage has no additional variables.
 
 .. _image_packages:
 
@@ -419,7 +462,7 @@ Whenever one of these macros installs something to the target's root filesystem,
 it also accepts user and group IDs which are common in all filesystems Linux
 supports. These IDs can be given as numerical values and as text strings.
 In the case text strings are given PTXdist converts them into the
-coresponding numerical value based on the BSP local files :file:`passwd` and :file:`group`.
+corresponding numerical value based on the BSP local files :file:`passwd` and :file:`group`.
 If more than one file with these names are present in the BSP PTXdist follows
 its regular rules which one it prefers.
 
@@ -449,7 +492,7 @@ Usage:
 
  $(call targetinfo)
 
-Gives a feedback, what build *stage* is just started. Thats why it
+Gives a feedback, what build *stage* is just started. That's why it
 should always be the first call for each *stage*. For the package
 *foo* and the *compile stage* it will output:
 
@@ -468,7 +511,7 @@ Usage:
 
  $(call touch)
 
-Gives a feedback, what build *stage* is just finished. Thats why it
+Gives a feedback, what build *stage* is just finished. That's why it
 should always be the last call for each *stage*. For the package
 *foo* and the *compile stage* it will output:
 
@@ -524,20 +567,20 @@ The ``<source>`` parameter can be:
   of the target's filesystem.
 * an absolute path to a file that should be copied to the target's root
   filesystem. To avoid fixed paths, all packages are providing the
-  <package> _DIR variable. So, this parameter in our
+  <PKG>_DIR variable. So, this parameter in our
   *foo* example package can be a ``$(FOO_DIR)/foo``.
 * a minus sign (``-``). PTXdist uses the <destination>
-  parameter in this case to locate the file to copy from. This only works
-  if the package uses the default *install* stage. Only in this
-  case an additional folder in ``<platform-dir>/packages`` will
-  be created for the package and its files. For our *foo* example
-  package this directory is ``<platform-dir>/packages/foo-1.1.0``.
+  parameter in this case to locate the file to copy from. 
+  The <destination> is uses a path relative to the :ref:`package install
+  directory<pkg_pkgdir>`. This only works if the package uses the default
+  or a similar *install* stage.  For our *foo* example used source file is
+  ``<platform-dir>/packages/foo-1.1.0/<destination>``.
 
 The ``<dest>`` parameter can be:
 
 * omitted if a directory in target's root filesystem should be created.
   For this case the directory to be created is in the <source> parameter.
-* an absolute path and filename with its root in target's root filesysem.
+* an absolute path and filename with its root in target's root filesystem.
   It must start with a slash (``//``). If also the <source>
   parameter was given, the file can be renamed while copying.
   If the <source> parameter was given as a minus
@@ -740,7 +783,8 @@ file in the following order:
 * project's directory ``projectroot/etc/foo``
 * platform's directory ``<platform-src>/projectroot/etc/foo``
 * ptxdist's directory ``projectroot/etc/foo``
-* project's directory ``$(FOO_DIR)/etc/foo``
+* package's directory ``$(FOO_PKGDIR)/etc/foo``
+* package's directory ``$(FOO_DIR)/etc/foo``
 
 The generic rules are looking like the following:
 
@@ -750,6 +794,7 @@ The generic rules are looking like the following:
 * ``$(PTXDIST_WORKSPACE)/projectroot/etc/foo``
 * ``$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/etc/foo``
 * ``$(PTXDIST_TOPDIR)/projectroot/etc/foo``
+* ``$(FOO_PKGDIR)/etc/foo``
 * ``$(FOO_DIR)/etc/foo``
 
 Note: You can get the current values for the listed variables above via running
@@ -884,7 +929,7 @@ match ``<yglob>`` and do not match ``<nglob>`` are installed.
 
 Examples:
 
-Install all shared libraries found in ``$(PKGDIR)/usr/lib/foo`` except
+Install all shared libraries found in ``$(FOO_PKGDIR)/usr/lib/foo`` except
 libbar.so
 
 .. code-block:: make
@@ -1105,6 +1150,59 @@ Depending on the state of FOO_VARIABLE this line results into
  FOO_CONF_OPT += --with-something=/usr (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --with-something=none (if FOO_VARIABLE is unset)
 
+ptx/get-alternative
+~~~~~~~~~~~~~~~~~~~
+
+This macro can be used to find files or directories in the BSP and PTXdist.
+There are two arguments, **prefix** and **file**. The search path is very
+similar to :ref:`install_alternative`. The first existing location of the
+following paths is returned:
+
+* ``$(PTXDIST_WORKSPACE)/$(prefix)$(PTXDIST_PLATFORMSUFFIX)/$(file)``
+* ``$(PTXDIST_WORKSPACE)/$(prefix)/$(file)$(PTXDIST_PLATFORMSUFFIX)``
+* ``$(PTXDIST_PLATFORMCONFIGDIR)/$(prefix)/$(file)$(PTXDIST_PLATFORMSUFFIX)``
+* ``$(PTXDIST_WORKSPACE)/$(prefix)/$(file)``
+* ``$(PTXDIST_PLATFORMCONFIGDIR)/$(prefix)/$(file)``
+* ``$(PTXDIST_TOPDIR)/$(prefix)/$(file)``
+
+
+.. _in_path:
+
+ptx/in-path
+~~~~~~~~~~~
+
+This macro can be used to find files or directories in the BSP and PTXdist.
+There are two arguments, **path variable** and **file**. The **path
+variable** must be a variable name that is available in a shell called by
+**make**. The variable must contain a ``:`` separated list of directories.
+The **file** will be searched in these directories and the first existing
+path is returned. PTXdist defines several variables that can be used here.
+The directories are in the usual search order.
+
+-  **PTXDIST_PATH_LAYERS** contains all layers from **PTXDIST_WORKSPACE**
+   to **PTXDIST_TOPDIR**
+
+- **PTXDIST_PATH** is like **PTXDIST_PATH_LAYERS** but also contains the
+  **PTXDIST_PLATFORMCONFIGDIR** for each layer.
+
+- **PTXDIST_PATH_SCRIPTS**, **PTXDIST_PATH_RULES** and
+  **PTXDIST_PATH_PLATFORMS** are like **PTXDIST_PATH** with the extra
+  ``scripts/``, ``rules/`` and ``platforms/`` subdirectory respectively.
+
+Hint: use the :ref:`print<command_print>` command to get the exact list of
+directories for each of these variables.
+
+.. _in_platformconfigdir:
+
+ptx/in-platformconfigdir
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This macro is only useful with multiple layers. It has one argument
+**file**. The **file** is searched for in the platform directory in
+all layers in the usual search order. It returns the first existing file.
+If none exists it returns ``$(PTXDIST_PLATFORMCONFIGDIR)/$(file)``. This
+avoids unexpected errors due to empty variables if a file is missing.
+
 .. _rulefile:
 
 Rule File Layout
@@ -1122,8 +1220,9 @@ Each rule file provides PTXdist with the required steps (in PTXdist called
 4. compile
 5. install
 
-   - install.post
    - install.pack
+   - install.unpack
+   - install.post
 
 6. targetinstall
 
@@ -1149,9 +1248,9 @@ If the *get* stage is omitted, PTXdist runs instead:
 
 .. code-block:: make
 
-    $(STATEDIR)/@package@.get:
-    		@$(call targetinfo)
-    		@$(call touch)
+    $(STATEDIR)/<pkg>.get:
+    	@$(call targetinfo)
+    	@$(call touch)
 
 Which means this step is skipped.
 
@@ -1160,9 +1259,9 @@ following rule must exist in this case:
 
 .. code-block:: make
 
-    $(@package@_SOURCE):
-    		@$(call targetinfo)
-		@$(call get, @package@)
+    $(<PKG>_SOURCE):
+    	@$(call targetinfo)
+    	@$(call get, <PKG>)
 
 extract Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1171,12 +1270,12 @@ If the *extract* stage is omitted, PTXdist runs instead:
 
 .. code-block:: make
 
-    $(STATEDIR)/@package@.extract:
-    		@$(call targetinfo)
-		@$(call clean, $(@package@_DIR))
-		@$(call extract, @package@)
-		@$(call patchin, @package@)
-    		@$(call touch)
+    $(STATEDIR)/<pkg>.extract:
+    	@$(call targetinfo)
+    	@$(call clean, $(<PKG>_DIR))
+    	@$(call extract, <PKG>)
+    	@$(call patchin, <PKG>)
+    	@$(call touch)
 
 Which means a current existing directory of this package will be
 removed, the archive gets freshly extracted again and (if corresponding
@@ -1196,62 +1295,65 @@ autotoolized PTXdist templates makes use of this feature. Refer
 prepare Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If the *prepare* stage is omitted, PTXdist runs a default stage rule
-depending on some variable settings.
+If the *prepare* stage is omitted, PTXdist runs a default stage rule,
+which looks like this:
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to ``NO``,
-this stage is simply skipped.
+.. code-block:: make
 
-All rules files shall create the ``@package@_CONF_ENV`` variable and
-define it at least to ``$(CROSS_ENV)`` if the prepare stage is used.
+    $(STATEDIR)/<pkg>.prepare:
+    	@$(call targetinfo)
+    	@$(call world/prepare, <PKG>)
+    	@$(call touch)
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to
+What ``world/prepare`` does depends on some variable settings.
+
+If the package’s rule file defines ``<PKG>_CONF_TOOL`` to ``NO``,
+this stage is simply does nothing.
+
+All rules files can create the ``<PKG>_CONF_ENV`` variable and should
+define it at least to ``$(CROSS_ENV)`` (the default) if the prepare stage
+is used.
+
+If the package’s rule file defines ``<PKG>_CONF_TOOL`` to
 ``autoconf`` (``FOO_CONF_TOOL = autoconf`` for our *foo* example),
-PTXdist treats this package as an autotoolized package and runs:
+PTXdist treats this package as an autotoolized package and
+``world/prepare`` expands to something like this:
 
-.. code-block:: make
+.. code-block:: sh
 
-    $(STATEDIR)/@package@.prepare:
-    		@$(call targetinfo)
-		@$(call clean, $(@package@_DIR)/config.cache)
-		@cd $(@package@_DIR)/$(@package@_SUBDIR) && \
-			$(@package@_PATH) $(@package@_CONF_ENV) \
-			./configure $(@package@_CONF_OPT)
-    		@$(call touch)
+    cd ${<PKG>_DIR}/${<PKG>_SUBDIR} && \
+    	${<PKG>_PATH} ${<PKG>_CONF_ENV} \
+    	./configure ${<PKG>_CONF_OPT}
 
-The ``@package@_CONF_OPT`` should at least be defined to
-``$(CROSS_AUTOCONF_USR)`` or ``$(CROSS_AUTOCONF_ROOT)``.
+The ``<PKG>_CONF_OPT`` should at least be defined to
+``$(CROSS_AUTOCONF_USR)``.
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to ``cmake``
+If the package’s rule file defines ``<PKG>_CONF_TOOL`` to ``cmake``
 (``FOO_CONF_TOOL = cmake`` for our *foo* example), PTXdist treats this
-package as a *cmake* based package and runs:
+package as a *cmake* based package and ``world/prepare`` expands to
+something like this:
 
-.. code-block:: make
+.. code-block:: sh
 
-    $(STATEDIR)/@package@.prepare:
-    		@$(call targetinfo)
-		@cd $(@package@_DIR) && \
-			$(@package@_PATH) $(@package@_CONF_ENV) \
-			cmake $(@package@_CONF_OPT)
-    		@$(call touch)
+    cd ${<PKG>_DIR} && \
+    	${<PKG>_PATH} ${<PKG>_CONF_ENV} \
+    	cmake ${<PKG>_CONF_OPT}
 
-The ``@package@_CONF_OPT`` should at least be defined to
+The ``<PKG>_CONF_OPT`` should at least be defined to
 ``$(CROSS_CMAKE_USR)`` or ``$(CROSS_CMAKE_ROOT)``.
 
-If the package’s rule file defines ``@package@_CONF_TOOL`` to ``qmake``
+If the package’s rule file defines ``<PKG>_CONF_TOOL`` to ``qmake``
 (``FOO_CONF_TOOL = qmake`` for our *foo* example), PTXdist treats this
-package as a *qmake* based package and runs:
+package as a *qmake* based package and ``world/prepare`` expands to
+something like this:
 
-.. code-block:: make
+.. code-block:: sh
 
-    $(STATEDIR)/@package@.prepare:
-    		@$(call targetinfo)
-		@cd $(@package@_DIR) && \
-			$(@package@_PATH) $(@package@_CONF_ENV) \
-			qmake $(@package@_CONF_OPT)
-    		@$(call touch)
+    cd ${<PKG>_DIR} && \
+    	${<PKG>_PATH} ${<PKG>_CONF_ENV} \
+    	qmake ${<PKG>_CONF_OPT}
 
-The ``@package@_CONF_OPT`` should at least be defined to
+The ``<PKG>_CONF_OPT`` should at least be defined to
 ``$(CROSS_QMAKE_OPT)``.
 
 compile Stage Default Rule
@@ -1261,24 +1363,25 @@ If the *compile* stage is omitted, PTXdist runs instead:
 
 .. code-block:: make
 
-    $(STATEDIR)/@package@.compile:
-    		@$(call targetinfo)
-		@cd $(@package@_DIR) && \
-			$(@package@_PATH) $(@package@_MAKE_ENV) \
-			$(MAKE) $(@package@_MAKE_OPT) $(@package@_MAKE_PAR)
-    		@$(call touch)
+    $(STATEDIR)/<pkg>.compile:
+    	@$(call targetinfo)
+    	@$(call world/compile, <PKG>)
+    	@$(call touch)
 
-If some additional variables should be added to the ``@package@_MAKE_ENV``,
-always begin with the ``$(CROSS_ENV)`` and then add the additional
-variables.
+Except in some corner cases, ``world/compile`` expands to something like
+this:
 
-If the ``@package@_MAKE_OPT`` is intended for additional parameters to
-be forwarded to ``make`` or to overwrite some settings from the
-``@package@_MAKE_ENV``. If not defined in the rule file it defaults to
-an empty string.
+.. code-block:: sh
 
-Note: ``@package@_MAKE_PAR`` can be defined to ``YES`` or ``NO`` to
-control if the package can be built in parallel.
+    cd ${<PKG>_DIR} && \
+    	${<PKG>_PATH} ${<PKG>_MAKE_ENV} \
+    	${MAKE} ${<PKG>_MAKE_OPT} ${PARALLELMFLAGS}
+
+The variables that are used here are described in the :ref:`Compile
+Stage<vars_compile>` section of the variable reference.
+
+``PARALLELMFLAGS`` can be used in custom compile stages. The default stage
+uses the same value if ``<PKG>_MAKE_PAR`` is set to ``YES``.
 
 install Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1287,26 +1390,48 @@ If the *install* stage is omitted, PTXdist runs instead:
 
 .. code-block:: make
 
-    $(STATEDIR)/@package@.install:
-    		@$(call targetinfo)
-		@cd $(@package@_DIR) && \
-			$(@package@_PATH) $(@package@_MAKE_ENV) \
-			$(MAKE) $(@package@_INSTALL_OPT)
-    		@$(call touch)
+    $(STATEDIR)/<pkg>.install:
+    	@$(call targetinfo)
+    	@$(call world/install, <PKG>)
+    	@$(call touch)
 
-Note: ``@package@_INSTALL_OPT`` is always defined to ``install`` if not
-otherwise specified. This value can be replaced by a package’s rule file
-definition.
+Except in some corner cases, ``world/install`` expands to something like
+this:
 
-install.post Stage Default Rule
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: sh
 
-TBD
+    cd ${<PKG>_DIR} && \
+    	${<PKG>_PATH} ${<PKG>_MAKE_ENV} \
+    	${MAKE} ${<PKG>_INSTALL_OPT}
+
+The variables that are used here are described in the :ref:`Install
+Stage<vars_install>` section of the variable reference.
+
+At the end of this stage, all relevant files must be installed in the
+:ref:`package install directory<pkg_pkgdir>`.
 
 install.pack Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TBD
+The *install.pack* should not be overwritten. It consists of two steps. The
+first is, to make the installed files relocatable. This is necessary to
+ensure that everything works correctly once the files are copied to
+*sysroot* in *install.post*. If creating :ref:`pre-built archives<devpkgs>`
+is enabled, then the second step is to create the archive for the package.
+
+install.unpack Stage Default Rule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The *install.unpack* is only executed if using :ref:`pre-built
+archives<devpkgs>` is enabled. In this case, it replaces all previous
+stages. Here, the pre-built is extract.
+
+install.post Stage Default Rule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The *install.post* is mostly internal. Few packages need to customize it.
+It copies all files from the :ref:`package install directory<pkg_pkgdir>`
+into the corresponding *sysroot*.
 
 targetinstall Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1320,7 +1445,8 @@ root filesystem.
 targetinstall.post Stage Default Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TBD
+The *targetinstall.post* stage does nothing by default. It can be used to
+do some work after the *targetinstall* stage.
 
 Skipping a Stage
 ~~~~~~~~~~~~~~~~
@@ -1330,9 +1456,9 @@ be provided:
 
 .. code-block:: make
 
-    $(STATEDIR)/@package@.<stage_to_skip>:
-    		@$(call targetinfo)
-    		@$(call touch)
+    $(STATEDIR)/<pkg>.<stage_to_skip>:
+    	@$(call targetinfo)
+    	@$(call touch)
 
 Replace the <stage_to_skip> by ``get``, ``extract``, ``prepare``,
 ``compile``, ``install`` or ``targetinstall``.
@@ -1342,7 +1468,7 @@ Replace the <stage_to_skip> by ``get``, ``extract``, ``prepare``,
 PTXdist parameter reference
 ---------------------------
 
-PTXdist is a command line tool, which is basicly called as:
+PTXdist is a command line tool, which is basically called as:
 
 .. code-block:: bash
 

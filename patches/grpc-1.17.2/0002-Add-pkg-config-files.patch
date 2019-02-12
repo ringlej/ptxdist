@@ -1,0 +1,47 @@
+From: Clemens Gruber <clemens.gruber@pqgruber.com>
+Date: Mon, 10 Dec 2018 13:44:53 +0100
+Subject: [PATCH] Add pkg-config files
+
+---
+ grpc++.pc.in | 12 ++++++++++++
+ grpc.pc.in   | 12 ++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100644 grpc++.pc.in
+ create mode 100644 grpc.pc.in
+
+diff --git a/grpc++.pc.in b/grpc++.pc.in
+new file mode 100644
+index 000000000000..c2677831a9c7
+--- /dev/null
++++ b/grpc++.pc.in
+@@ -0,0 +1,12 @@
++prefix=${pcfiledir}/../..
++exec_prefix=${prefix}
++libdir=${prefix}/lib
++includedir=${prefix}/include
++
++Name: gRPC++
++Description: C++ wrapper for gRPC
++Version: @VERSION@
++Cflags: -I${includedir}
++Requires.private: grpc protobuf
++Libs: -L${libdir} -lgrpc++
++Libs.private:
+diff --git a/grpc.pc.in b/grpc.pc.in
+new file mode 100644
+index 000000000000..917c57a5e074
+--- /dev/null
++++ b/grpc.pc.in
+@@ -0,0 +1,12 @@
++prefix=${pcfiledir}/../..
++exec_prefix=${prefix}
++libdir=${prefix}/lib
++includedir=${prefix}/include
++
++Name: gRPC
++Description: high performance general RPC framework
++Version: @VERSION@
++Cflags: -I${includedir}
++Requires.private: zlib libcares openssl
++Libs: -L{libdir} -lgrpc
++Libs.private: -lgpr

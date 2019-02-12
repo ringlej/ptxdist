@@ -3,7 +3,6 @@
 config PYTHON3_TRANSITIONS
 	tristate
 	prompt "python3-transitions"
-	select HOST_PYTHON3_SETUPTOOLS
 	select PYTHON3
 	select PYTHON3_SIX
 	help

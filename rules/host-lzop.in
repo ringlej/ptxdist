@@ -1,10 +1,9 @@
 ## SECTION=hosttools_noprompt
-## SECTION=hosttools_platform
 
 config HOST_LZOP
 	tristate
 	select HOST_LIBLZO
-	default ALLYES
+	default y if ALLYES
 	help
 	  fast compression program
 

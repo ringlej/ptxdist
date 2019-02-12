@@ -30,7 +30,7 @@ HOST_GPGME_CONF_OPT	:= \
 	--disable-w32-glib \
 	--enable-fixed-path="" \
 	--enable-languages=cpp \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)" \
 	--disable-gpgconf-test \
 	--disable-gpg-test \
 	--disable-gpgsm-test \

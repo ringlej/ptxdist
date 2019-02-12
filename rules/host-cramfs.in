@@ -1,10 +1,9 @@
 ## SECTION=hosttools_noprompt
-## SECTION=hosttools_platform
 
 config HOST_CRAMFS
 	tristate
 	select HOST_ZLIB
-	default ALLYES
+	default y if ALLYES
 	help
 	  This package contains tools that let you construct a CramFs
 	  (Compressed ROM File System) image from the contents of a

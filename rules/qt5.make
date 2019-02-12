@@ -33,7 +33,7 @@ QT5_LICENSE_FILES := \
 	file://LICENSE.GPLv3;md5=88e2b9117e6be406b5ed6ee4ca99a705 \
 	file://LICENSE.LGPLv3;md5=e0459b45c5c4840b353141a8bbed91f0 \
 	file://LICENSE.FDL;md5=6d9f2a9af4c8b8c3c769f6cc1b6aaf7e
-QT5_MKSPECS	:= $(shell ptxd_get_alternative config/qt5 linux-ptx-g++ && echo $$ptxd_reply)
+QT5_MKSPECS	:= $(call ptx/get-alternative, config/qt5, linux-ptx-g++)
 
 ifdef PTXCONF_QT5
 ifeq ($(strip $(QT5_MKSPECS)),)
@@ -195,7 +195,7 @@ QT5_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS)-eglfs \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS_KMS)-kms \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_EGLFS_KMS)-gbm \
-	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_DIRECTFB)-directfb \
+	--disable-directfb \
 	--$(call ptx/endis, PTXCONF_QT5_PLATFORM_LINUXFB)-linuxfb \
 	--disable-mirclient \
 	$(call ptx/ifdef, PTXCONF_QT5_GUI,-qpa $(PTXCONF_QT5_PLATFORM_DEFAULT)) \
@@ -240,6 +240,9 @@ QT5_MAKE_OPT += "GST_VERSION=1.0"
 else
 QT5_QMAKE_OPT += "QT_CONFIG-=gstreamer-0.10 gstreamer-1.0"
 endif
+
+QT5_COMPILE_ENV := \
+	ICECC_REMOTE_CPP=0
 
 $(STATEDIR)/qt5.prepare:
 	@$(call targetinfo)
@@ -332,7 +335,6 @@ ifdef PTXCONF_QT5_OPENGL_DESKTOP
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_XCB)				+= xcbglintegrations/libqxcb-glx-integration
 endif
 
-QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_DIRECTFB)			+= platforms/libqdirectfb
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS)			+= platforms/libqeglfs
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_LINUXFB)			+= platforms/libqlinuxfb
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTBASE_GUI)			+= platforms/libqminimal
@@ -341,7 +343,6 @@ QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS)			+= platforms/libqminimalegl
 QT5_PLUGINS-$(PTXCONF_QT5_PLATFORM_EGLFS_KMS)			+= egldeviceintegrations/libqeglfs-kms-integration
 
 ### QtCanvas3d ###
-QT5_LIBS_$(PTXCONF_QT5_MODULE_CANVAS3D)				+= QtCanvas3d
 QT5_QML-$(PTXCONF_QT5_MODULE_QTCANVAS3D_QUICK)			+= QtCanvas3D
 
 ### QtConnectivity ###

@@ -3,6 +3,6 @@
 config HOST_NINJA
 	tristate
 	select HOST_SYSTEM_PYTHON3
-	default ALLYES
+	default y if ALLYES
 	help
 	  Ninja build tool

@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.44.3
-E2FSPROGS_MD5		:= 6bd765f3cf8f15740cdf81e71e88f2a4
+E2FSPROGS_VERSION	:= 1.44.4
+E2FSPROGS_MD5		:= 156e94a6169ca1fa3f0c6749ae5921b9
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(call ptx/mirror, SF, e2fsprogs/e2fsprogs/v$(E2FSPROGS_VERSION)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX))
@@ -53,6 +53,7 @@ E2FSPROGS_CONF_OPT	:= \
 	--disable-testio-debug \
 	--disable-libuuid \
 	--disable-libblkid \
+	--disable-subset \
 	--disable-backtrace \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_INSTALL_DEBUGFS)-debugfs \
 	--$(call ptx/endis,PTXCONF_E2FSPROGS_IMAGER)-imager \

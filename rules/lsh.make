@@ -24,18 +24,20 @@ LSH_URL		:= http://www.lysator.liu.se/~nisse/archive/$(LSH).$(LSH_SUFFIX)
 LSH_SOURCE	:= $(SRCDIR)/$(LSH).$(LSH_SUFFIX)
 LSH_DIR		:= $(BUILDDIR)/$(LSH)
 
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-LSH_PATH	:= PATH=$(CROSS_PATH)
-LSH_ENV 	:= $(CROSS_ENV)
+LSH_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_header_X11_Xauth_h=no \
+	ac_cv_lib_Xau_XauGetAuthByAddr=no
 
 #
 # autoconf
 #
-LSH_AUTOCONF := \
+LSH_CONF_TOOL	:= autoconf
+LSH_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--sysconfdir=/etc/lsh \

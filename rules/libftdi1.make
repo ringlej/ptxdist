@@ -39,9 +39,9 @@ LIBFTDI1_CONF_OPT	:= \
 	-DDOCUMENTATION=OFF \
 	-DPYTHON_BINDINGS=OFF \
 	-DSTATICLIBS=OFF \
-	-DEXAMPLES=$(call ptx/ifdef,PTXCONF_LIBFTDI1_EXAMPLES,ON,OFF) \
-	-DFTDIPP=$(call ptx/ifdef,PTXCONF_LIBFTDI1_CPP_WRAPPER,ON,OFF) \
-	-DFTDI_EEPROM=$(call ptx/ifdef,PTXCONF_LIBFTDI1_FTDI_EEPROM,ON,OFF)
+	-DEXAMPLES=$(call ptx/onoff, PTXCONF_LIBFTDI1_EXAMPLES) \
+	-DFTDIPP=$(call ptx/onoff, PTXCONF_LIBFTDI1_CPP_WRAPPER) \
+	-DFTDI_EEPROM=$(call ptx/onoff, PTXCONF_LIBFTDI1_FTDI_EEPROM)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -18,13 +18,14 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.12.0
-HOST_QEMU_MD5		:= ca553eb04c933f58111c304452fc4cc5
+HOST_QEMU_VERSION	:= 3.0.0
+HOST_QEMU_MD5		:= 6a5c8df583406ea24ef25b239c3243e0
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.xz
 HOST_QEMU_URL		:= https://download.qemu.org/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
 HOST_QEMU_SOURCE	:= $(SRCDIR)/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
 HOST_QEMU_DIR		:= $(HOST_BUILDDIR)/$(HOST_QEMU)
+HOST_QEMU_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND MIT AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -116,6 +117,7 @@ HOST_QEMU_CONF_OPT	= \
 	--enable-attr \
 	--enable-vhost-net \
 	--disable-capstone \
+	--disable-debug-mutex \
 	--disable-spice \
 	--disable-rbd \
 	--disable-libiscsi \
@@ -146,7 +148,7 @@ HOST_QEMU_CONF_OPT	= \
 	--enable-vhost-scsi
 
 # Use '=' to delay $(shell ...) calls until this is needed
-QEMU_CROSS_QEMU = $(shell ptxd_get_alternative config/qemu qemu-cross && echo $$ptxd_reply)
+QEMU_CROSS_QEMU = $(call ptx/get-alternative, config/qemu, qemu-cross)
 QEMU_CROSS_DL = $(shell ptxd_cross_cc_v | sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
 QEMU_CROSS_TOOLEXECLIBDIR = $(shell dirname $$(realpath $$(ptxd_cross_cc -print-file-name=libatomic.so 2> /dev/null)))
 QEMU_CROSS_LD_LIBRARY_PATH = $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(QEMU_CROSS_TOOLEXECLIBDIR):$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)

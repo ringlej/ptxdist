@@ -1,0 +1,30 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Wed, 3 Oct 2018 11:15:59 +0200
+Subject: [PATCH] jed: don't execute cross compiled files
+
+When cross compiling, chkslang is a tool for the "host" machine, but we
+try to run it on the "build" box.
+
+Hack alert - not for upstream.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ src/Makefile.in | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/src/Makefile.in b/src/Makefile.in
+index e91f66a1dea8..d2033fba2771 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -160,9 +160,8 @@ slangversion: $(OBJDIR)/chkslang
+ 	if $(OBJDIR)/chkslang jed $(MIN_SLANG_VERSION) $(MAX_SLANG_VERSION);\
+ 	then exit 0; else $(RM) $(OBJDIR)/chkslang; exit 1; fi
+ 
+-$(OBJDIR)/chkslang: config.h Makefile chkslang.c $(DOT_O_DEPS) $(chkslang_O_DEP)
+-	$(CC) $(ALL_CFLAGS) $(LDFLAGS) $(SRCDIR)/chkslang.c -o $(OBJDIR)/chkslang $(COMMON_LIBS)
+-
++$(OBJDIR)/chkslang: | $(OBJDIR)
++	rm -f $@; ln -s /bin/true $@
+ 
+ $(OBJDIR):
+ 	-mkdir $(OBJDIR)

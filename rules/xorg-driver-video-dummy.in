@@ -4,6 +4,7 @@ config XORG_DRIVER_VIDEO_DUMMY
 	tristate
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
+	select XORG_SERVER_EXT_DGA
 	select XORG_SERVER_XORG
 	select XORGPROTO
 	prompt "Dummy"

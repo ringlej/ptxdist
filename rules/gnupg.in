@@ -9,7 +9,9 @@ menuconfig GNUPG
 	select LIBKSBA
 	select NPTH
 	select READLINE
-	select ZLIB
+	select ZLIB if GNUPG_GPG_ZIP
+	select BZIP2 if GNUPG_GPG_BZIP2
+	select BZIP2_LIBBZ2 if GNUPG_GPG_BZIP2
 	# disabling GNUPG_GPG_EDDSA is broken
 	select GNUPG_GPG_EDDSA
 	help
@@ -28,6 +30,10 @@ config GNUPG_GPG
 config GNUPG_GPGV
 	bool
 	prompt "Install gpgv2"
+
+config GNUPG_GPG_AGENT
+	bool
+	prompt "Install gpg-agent"
 
 menu "public key algorithms"
 
@@ -93,6 +99,18 @@ config GNUPG_GPG_MD5
 config GNUPG_GPG_RMD160
 	bool
 	prompt "RIPE-MD160"
+
+endmenu
+
+menu "compression algorithms"
+
+config GNUPG_GPG_ZIP
+	bool
+	prompt "ZIP"
+
+config GNUPG_GPG_BZIP2
+	bool
+	prompt "BZIP2"
 
 endmenu
 

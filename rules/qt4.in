@@ -18,7 +18,6 @@ menuconfig QT4
 	select LIBPNG		if QT4_PNG_SYSTEM
 	select LIBJPEG		if QT4_JPG_SYSTEM
 	select SQLITE		if QT4_SQLITE_SYSTEM
-	select DIRECTFB		if QT4_GFX_DIRECTFB_PLUGIN
 	select GSTREAMER	if QT4_BUILD_PHONON
 	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
 	select OPENSSL		if QT4_OPENSSL
@@ -102,28 +101,6 @@ choice
 endchoice
 
 choice
-	prompt "DirectFB            "
-	default QT4_GFX_DIRECTFB_NONE
-	help
-	  Accelerated driver using DirectFB
-
-	config QT4_GFX_DIRECTFB_NONE
-		bool
-		prompt "none   "
-		help
-		  Don't build the driver
-
-# only as plugin
-
-	config QT4_GFX_DIRECTFB_PLUGIN
-		bool
-		depends on STAGING
-		prompt "plugin "
-		help
-		  Load the driver at runtime
-endchoice
-
-choice
 	prompt "eglnullws           "
 	default QT4_GFX_EGLNULLWS_NULL
 	help
@@ -149,7 +126,7 @@ choice
 	prompt "LinuxFb             "
 	default QT4_GFX_LINUXFB_NONE
 	help
-	  Unaccelerated linux frambuffer driver
+	  Unaccelerated linux framebuffer driver
 
 	config QT4_GFX_LINUXFB_NONE
 		bool
@@ -356,9 +333,9 @@ config QT4_KBD_INPUT
 
 config QT4_KBD_QVFB
 	bool
-	prompt "Qt Virtual Frambuffer"
+	prompt "Qt Virtual Framebuffer"
 	help
-	  Keyboard driver for the Qt Virtual Frambuffer
+	  Keyboard driver for the Qt Virtual Framebuffer
 
 endmenu
 
@@ -387,9 +364,9 @@ config QT4_MOUSE_TSLIB
 
 config QT4_MOUSE_QVFB
 	bool
-	prompt "Qt Virtual Frambuffer"
+	prompt "Qt Virtual Framebuffer"
 	help
-	  Mouse driver for the Qt Virtual Frambuffer
+	  Mouse driver for the Qt Virtual Framebuffer
 
 endmenu
 

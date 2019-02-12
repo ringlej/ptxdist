@@ -59,7 +59,6 @@ HOST_PYTHON_AUTOCONF := \
 $(STATEDIR)/host-python.install:
 	@$(call targetinfo)
 	@$(call install, HOST_PYTHON,,h)
-	install -m 0755 $(HOST_PYTHON_DIR)/Parser/pgen $(HOST_PYTHON_PKGDIR)/bin
 #
 # remove "python" so that it doesn't interfere with the build
 # machine's python

@@ -4,6 +4,5 @@ config PYTHON3_SIX
 	tristate
 	prompt "python3-six"
 	select PYTHON3
-	select HOST_PYTHON3_SETUPTOOLS
 	help
 	  Six is a Python 2 and 3 compatibility library.

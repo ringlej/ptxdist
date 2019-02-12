@@ -13,7 +13,6 @@ menuconfig SDL
 	select XORG_LIB_XT		if SDL_XORG
 	select XORG_LIB_XV		if SDL_XORG && SDL_VIDEO
 	select XORG_LIB_XVMC		if SDL_XORG && SDL_VIDEO
-	select DIRECTFB			if SDL_DIRECTFB
 	select TSLIB			if SDL_TSLIB
 	help
 	  Simple DirectMedia Layer is a cross-platform multimedia
@@ -95,18 +94,6 @@ config SDL_FBCON
 	prompt "SDL fbcon support"
 	help
 	  Framebuffer console
-
-config SDL_DIRECTFB
-	bool
-	depends on STAGING
-	prompt "DirectFB Support"
-	default y
-	help
-	  DirectFB is a thin library that provides hardware
-	  graphics acceleration, input device handling and
-	  abstraction, integrated windowing system with support
-	  for translucent windows and multiple display layers,
-	  not only on top of the Linux Framebuffer Device.
 
 config SDL_OPENGL
 	bool

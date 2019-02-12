@@ -38,7 +38,7 @@ IPERF_ENV 	:= $(CROSS_ENV)
 IPERF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
-	--disable-multicast \
+	--enable-multicast \
 	--enable-threads \
 	--disable-debuginfo \
 	--disable-web100 \

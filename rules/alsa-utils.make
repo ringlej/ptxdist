@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_ALSA_UTILS) += alsa-utils
 #
 # Paths and names
 #
-ALSA_UTILS_VERSION	:= 1.1.1
-ALSA_UTILS_MD5		:= f8d00ad5fba757b4c3735d066cc288e2
+ALSA_UTILS_VERSION	:= 1.1.7
+ALSA_UTILS_MD5		:= 2b88796c6b05520e59eec6049de02f64
 ALSA_UTILS		:= alsa-utils-$(ALSA_UTILS_VERSION)
 ALSA_UTILS_SUFFIX	:= tar.bz2
 ALSA_UTILS_URL		:= \
@@ -35,31 +35,21 @@ ALSA_UTILS_LICENSE	:= GPL-2.0-or-later
 #
 # autoconf
 #
-ALSA_UTILS_AUTOCONF := \
+ALSA_UTILS_CONF_TOOL	:= autoconf
+ALSA_UTILS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
 	--disable-alsatest \
-	--disable-xmlto \
+	--disable-bat \
+	--$(call ptx/endis, PTXCONF_ALSA_UTILS_ALSAMIXER)-alsamixer \
 	--$(call ptx/endis, PTXCONF_ALSA_UTILS_ALSALOOP)-alsaloop \
+	--disable-xmlto \
+	--disable-rst2man \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--with-curses=$(call ptx/ifdef,PTXCONF_ALSA_UTILS_ALSAMIXER,$(call ptx/ifdef,PTXCONF_NCURSES_WIDE_CHAR,ncursesw,ncurses),no) \
+	--with-systemdsystemunitdir=$(call ptx/ifdef,PTXCONF_ALSA_UTILS_SYSTEMD_UNIT,/usr/lib/systemd/system,no) \
 	--with-asound-state-dir=/etc
-
-ifdef PTXCONF_ALSA_UTILS_SYSTEMD_UNIT
-ALSA_UTILS_AUTOCONF += --with-systemdsystemunitdir=/usr/lib/systemd/system
-else
-ALSA_UTILS_AUTOCONF += --without-systemdsystemunitdir
-endif
-
-ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
-ALSA_UTILS_AUTOCONF += \
-	--enable-alsamixer \
-	--with-curses=$(call ptx/ifdef,PTXCONF_NCURSES_WIDE_CHAR,ncursesw,ncurses)
-else
-ALSA_UTILS_AUTOCONF += \
-	--disable-alsamixer \
-	--without-curses
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

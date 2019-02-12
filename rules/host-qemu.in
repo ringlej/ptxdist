@@ -2,7 +2,7 @@
 
 menuconfig HOST_QEMU
 	tristate
-	default ALLYES
+	default y if ALLYES
 	prompt "host-side qemu                "
 	select HOST_ATTR
 	select HOST_GLIB

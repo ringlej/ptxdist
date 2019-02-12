@@ -21,7 +21,7 @@ config DTC_INSTALL_OFTREE
 
 config DTC_OFTREE_DTS_PATH
 	string "path to source dts file"
-	default "${PTXDIST_PLATFORMCONFIGDIR}/dts:${KERNEL_DIR}/arch/${PTXCONF_KERNEL_ARCH_STRING}/boot/dts"
+	default "${PTXDIST_PLATFORMCONFIG_SUBDIR}/dts:${KERNEL_DIR}/arch/${PTXCONF_KERNEL_ARCH_STRING}/boot/dts"
 	help
 	  Define path to the dts source file. Multiple directories can be
 	  specified separated by ':'.

@@ -8,44 +8,6 @@
 # see the README file.
 #
 
-#
-# check if a file is the makefile for a specific package
-#
-# $1: package name
-# $2: file name
-#
-ptxd_is_pkg_makefile() {
-    local pkg="$1"
-    local file="$2"
-
-    grep -q -e "^[A-Z_]*PACKAGES\(-\$(PTXCONF_[^)]*)\)* += ${pkg}$" "${file}"
-}
-export -f ptxd_is_pkg_makefile
-
-
-#
-# find the makefile for the current package
-#
-# $1: package name
-#
-ptxd_find_pkg_makefile() {
-    local pkg="$1"
-    local rulesfiles="${ptx_state_dir}/ptx_dgen_rulesfiles.make"
-    local ignore
-
-    if ptxd_get_path "${ptx_path_rules//://${pkg_label}.make }"; then
-	if ptxd_is_pkg_makefile "${pkg}" "${ptxd_reply}"; then
-	    return
-	fi
-    fi
-    while read ignore ptxd_reply; do
-	if ptxd_is_pkg_makefile "${pkg}" "${ptxd_reply}"; then
-	    return
-	fi
-    done < "${rulesfiles}"
-    return 1
-}
-export -f ptxd_find_pkg_makefile
 
 #
 # try to update the md5sum of the current package
@@ -65,21 +27,18 @@ ptxd_make_world_update_md5() {
 	    return
 	fi
     done
-    local makefile
-    if ! ptxd_find_pkg_makefile "${pkg_label}"; then
+    if [ -z "${pkg_makefile}" ]; then
 	ptxd_bailout "Could not update md5sum for '${pkg_label}': makefile not found"
-    else
-	makefile="$(readlink -f "${ptxd_reply}")"
     fi
-    local count=$(grep "^${PKG}_MD5[ 	]*:=" "${makefile}" 2> /dev/null | wc -l)
+    local count=$(grep "^${PKG}_MD5[ 	]*:=" "${pkg_makefile}" 2> /dev/null | wc -l)
     if [ "${count}" -gt 1 ]; then
-	ptxd_bailout "Could not update md5sum for '${pkg_label}': ${PKG}_MD5 found ${count} times in '$(ptxd_print_path ${makefile})'."
+	ptxd_bailout "Could not update md5sum for '${pkg_label}': ${PKG}_MD5 found ${count} times in '$(ptxd_print_path ${pkg_makefile})'."
     fi
-    sed -i "s/^\(\<${PKG}_MD5[ 	]*:=\) *[a-f0-9]*\$/\1 ${md5}/" "${makefile}"
-    if ! grep -q "${md5}\$" "${makefile}"; then
+    sed -i "s/^\(\<${PKG}_MD5[ 	]*:=\) *[a-f0-9]*\$/\1 ${md5}/" "${pkg_makefile}"
+    if ! grep -q "${md5}\$" "${pkg_makefile}"; then
 	ptxd_bailout "Could not update md5sum for '${pkg_label}': ${PKG}_MD5 not found"
     fi
-    ptxd_warning "New checksum for ${pkg_label}: ${md5} in $(ptxd_print_path "${makefile}")"
+    ptxd_warning "New checksum for ${pkg_label}: ${md5} in $(ptxd_print_path "${pkg_makefile}")"
 }
 export -f ptxd_make_world_update_md5
 

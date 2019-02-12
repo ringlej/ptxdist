@@ -74,8 +74,8 @@ POPPLER_CONF_OPT	:= \
 	-DENABLE_GTK_DOC=NO \
 	-DENABLE_SPLASH=$(call ptx/onoff,PTXCONF_POPPLER_SPLASH) \
 	-DSPLASH_CMYK=$(call ptx/onoff,PTXCONF_POPPLER_SPLASH_CMYK) \
-	-DUSE_FLOAT=$(call ptx/onoff,PTXCONF_POPPLER_SINGLE) \
-	-DUSE_FIXEDPOINT=$(call ptx/onoff,PTXCONF_POPPLER_FIXED) \
+	-DUSE_FLOAT=$(call ptx/onoff,PTXCONF_POPPLER_SPLASH_SINGLE) \
+	-DUSE_FIXEDPOINT=$(call ptx/onoff,PTXCONF_POPPLER_SPLASH_FIXED) \
 	-DWITH_PNG=$(call ptx/onoff,PTXCONF_POPPLER_PNG) \
 	-DWITH_JPEG=$(call ptx/onoff,PTXCONF_POPPLER_JPEG) \
 	-DENABLE_DCTDECODER=$(call ptx/ifdef,PTXCONF_POPPLER_JPEG,libjpeg,none) \
@@ -86,6 +86,11 @@ POPPLER_CONF_OPT	:= \
 	-DENABLE_ZLIB_UNCOMPRESS=NO \
 	-DENABLE_LIBCURL=$(call ptx/onoff,PTXCONF_POPPLER_CURL) \
 	-DENABLE_CMS=$(call ptx/ifdef,PTXCONF_POPPLER_CMS,lcms2,)
+
+ifdef PTXCONF_POPPLER_QT5
+POPPLER_COMPILE_ENV := \
+	ICECC_REMOTE_CPP=0
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

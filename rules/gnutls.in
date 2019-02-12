@@ -5,7 +5,6 @@ menuconfig GNUTLS
 	select LIBTASN1
 	select NETTLE
 	select GCCLIBS_CXX	if GNUTLS_CXX
-	select OPENSSL		if GNUTLS_OPENSSL
 	prompt "gnutls                        "
 	help
 	  GnuTLS is a secure communications library implementing the SSL,

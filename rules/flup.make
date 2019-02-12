@@ -49,10 +49,8 @@ $(STATEDIR)/flup.targetinstall:
 	@$(call install_copy, flup, 0, 0, 0755, $(PYTHON_SITEPACKAGES)/flup/client)
 	@$(call install_copy, flup, 0, 0, 0755, $(PYTHON_SITEPACKAGES)/flup/server)
 
-	for file in $(shell cd $(FLUP_PKGDIR) && find . -name "*.pyc"); \
-	do \
-		$(call install_copy, flup, 0, 0, 0644, -, /$$file) \
-	done
+	@$(call install_glob, flup, 0, 0, -, \
+		/usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/flup,, *.py)
 
 	@$(call install_finish, flup)
 

@@ -26,7 +26,7 @@ HOST_LIBASSUAN_CONF_ENV	:= \
 HOST_LIBASSUAN_CONF_TOOL	:= autoconf
 HOST_LIBASSUAN_CONF_OPT		:= \
 	$(HOST_AUTOCONF) \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000" \
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)" \
 	--disable-doc
 
 # vim: syntax=make

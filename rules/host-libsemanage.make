@@ -32,7 +32,7 @@ HOST_LIBSEMANAGE_INSTALL_OPT	= \
 define semanage/conf_helper
 PTXDIST_SYSROOT_HOST=$(PTXDIST_SYSROOT_HOST) \
 ptxd_replace_magic \
-	$(call ptx/get_alternative, config/libsemanage, host-semanage.conf) > \
+	$(call ptx/get-alternative, config/libsemanage, host-semanage.conf) > \
 	$(strip $(1))/etc/selinux/semanage.conf
 endef
 

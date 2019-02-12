@@ -158,10 +158,6 @@ ptxd_make_world_init_compat() {
 
     # pkg_env
     pkg_env="SYSROOT='${pkg_sysroot_dir}' V=${PTXDIST_VERBOSE} VERBOSE=${PTXDIST_VERBOSE/0/}"
-    case "${pkg_type}" in
-	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} ${pkg_env}" ;;
-	host|cross) pkg_env="${PTXDIST_HOST_ENV_PKG_CONFIG} ${pkg_env}" ;;
-    esac
 }
 export -f ptxd_make_world_init_compat
 
@@ -197,6 +193,13 @@ export -f ptxd_make_world_init_sanity_check
 #
 ptxd_make_world_init() {
     ptxd_make_world_init_sanity_check || return
+
+    # PTXDIST_LAYERS gets lost in 'make' so redefine it here
+    local orig_IFS="${IFS}"
+    IFS=:
+    PTXDIST_LAYERS=( ${PTXDIST_PATH_LAYERS} )
+    IFS="${orig_IFS}"
+    export PTXDIST_LAYERS
 
     #
     # type
@@ -249,6 +252,8 @@ ptxd_make_world_init() {
     if [ -d "$(readlink -f "${wip_sources}")" ]; then
 	pkg_url="file://${wip_sources}"
 	unset pkg_src
+	# always use a new timestamp for wip builds
+	SOURCE_DATE_EPOCH="$(echo $(date "+%s"))"
     fi
     unset wip_sources
 
@@ -305,7 +310,11 @@ ptxd_make_world_init() {
 	    local build_python_ptr="ptx_${pkg_conf_tool}_${pkg_type}"
 	    local env_ptr="ptx_conf_env_${pkg_type}"
 
-	    ptx_build_python="${!build_python_ptr}"
+	    if [[ " ${pkg_build_deps} " =~ " host-system-python " && "${pkg_conf_tool}" = python ]]; then
+		ptx_build_python=python
+	    else
+		ptx_build_python="${!build_python_ptr}"
+	    fi
 	    pkg_make_env="${pkg_conf_env:-${!env_ptr}}"
 	    pkg_make_opt="${pkg_make_opt:-build}"
 	    ;;
@@ -340,12 +349,21 @@ ptxd_make_world_init() {
 	    ;;
 	*) ;;
     esac
-    local pkgconfig_whitelist
-    pkgconfig_whitelist="$(echo $(
-	for dep in ${pkg_build_deps}; do
-	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
-	done))"
-    pkg_env="PKGCONFIG_WHITELIST='${pkgconfig_whitelist}' PKGCONFIG_WHITELIST_SRC='${pkg_label}' ${pkg_env}"
+    local -a deps_host deps_target
+    local whitelist_host whitelist_target
+    for dep in ${pkg_build_deps}; do
+	case "${dep}" in
+	    host-*|cross-*)
+		deps_host[${#deps_host[@]}]="${ptx_state_dir}/${dep}.pkgconfig"
+		;;
+	    *)
+		deps_target[${#deps_target[@]}]="${ptx_state_dir}/${dep}.pkgconfig"
+		;;
+	esac
+    done
+    whitelist_host="$(echo $(cat "${deps_host[@]}" /dev/null 2>/dev/null))"
+    whitelist_target="$(echo $(cat "${deps_target[@]}" /dev/null 2>/dev/null))"
+    pkg_env="PKGCONFIG_WHITELIST_HOST='${whitelist_host}' PKGCONFIG_WHITELIST_TARGET='${whitelist_target}' PKGCONFIG_WHITELIST_SRC='${pkg_label}' ${pkg_env}"
 
     # DESTDIR
     if [[ "${pkg_conf_tool}" =~ "python" ]]; then
@@ -399,6 +417,16 @@ ptxd_make_world_init() {
 	*)	  ptxd_bailout "<PKG>_MAKE_PAR: please set to YES or NO" ;;
     esac
 
+    #
+    # reproducible builds for kbuild
+    #
+    # use a date/time format without spaces to avoid problems
+    local kbuild_date="$(date --utc --date=@${SOURCE_DATE_EPOCH} -Iseconds)"
+    pkg_env="${pkg_env} KBUILD_BUILD_TIMESTAMP=${kbuild_date} KBUILD_BUILD_USER=ptxdist KBUILD_BUILD_HOST=ptxdist"
+
     exec 2>&${PTXDIST_FD_LOGERR}
+    if [ -n "${PTXDIST_QUIET}" ]; then
+	exec 9>&1
+    fi
 }
 export -f ptxd_make_world_init

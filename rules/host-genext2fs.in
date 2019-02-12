@@ -1,9 +1,8 @@
 ## SECTION=hosttools_noprompt
-## SECTION=hosttools_platform
 
 config HOST_GENEXT2FS
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  ext2 filesystem generator for embedded systems
  	  `genext2fs' is meant to generate an ext2 filesystem

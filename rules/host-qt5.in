@@ -3,4 +3,4 @@
 config HOST_QT5
 	tristate
 	select HOST_ZLIB
-	default ALLYES
+	default y if ALLYES

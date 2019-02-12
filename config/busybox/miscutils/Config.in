@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Miscellaneous Utilities"
@@ -366,7 +366,7 @@ config BUSYBOX_FEATURE_HDPARM_HDIO_GETSET_DMA
 	help
 	Enable the 'hdparm -d' option to get/set using_dma flag.
 config BUSYBOX_HEXEDIT
-	bool "hexedit"
+	bool "hexedit (20 kb)"
 	default y
 	help
 	Edit file in hexadecimal.
@@ -484,6 +484,22 @@ config BUSYBOX_FEATURE_LESS_LINENUMS
 	bool "Enable -N (dynamic switching of line numbers)"
 	default y
 	depends on BUSYBOX_FEATURE_LESS_DASHCMD
+
+config BUSYBOX_FEATURE_LESS_RAW
+	bool "Enable -R ('raw control characters')"
+	default y
+	depends on BUSYBOX_FEATURE_LESS_DASHCMD
+	help
+	This is essential for less applet to work with tools that use colors
+	and paging, such as git, systemd tools or nmcli.
+
+config BUSYBOX_FEATURE_LESS_ENV
+	bool "Take options from $LESS environment variable"
+	default y
+	depends on BUSYBOX_FEATURE_LESS_DASHCMD
+	help
+	This is essential for less applet to work with tools that use colors
+	and paging, such as git, systemd tools or nmcli.
 config BUSYBOX_LSSCSI
 	bool "lsscsi (2.4 kb)"
 	default y
@@ -612,7 +628,7 @@ config BUSYBOX_RX
 	help
 	Receive files using the Xmodem protocol.
 config BUSYBOX_SETFATTR
-	bool "setfattr"
+	bool "setfattr (3.6 kb)"
 	default y
 	help
 	Set/delete extended attributes on files

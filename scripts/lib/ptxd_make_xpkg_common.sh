@@ -56,6 +56,12 @@ export -f ptxd_dopermissions
 # ptxd_reply (array)
 #
 ptxd_do_xpkg_map() {
+    local pkg
+    for pkg in "${@}"; do
+	if ! [[ " ${ptx_packages_selected} " =~ " ${pkg} " ]]; then
+	    ptxd_bailout "${pkg} is not a package or not selected"
+	fi
+    done
     set -- "${@/#/${ptx_state_dir}/}"
 
     ptxd_reply=( $(cat "${@/%/.xpkg.map}" 2>/dev/null) )
