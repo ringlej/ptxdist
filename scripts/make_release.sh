@@ -40,6 +40,7 @@ shift $(expr $OPTIND - 1)
 origin=${1:-origin}
 master=${2:-master}
 stable=${3:-stable}
+master_date=${4:-$(date +%Y.%m)}
 
 v="ptxdist-"
 
@@ -68,7 +69,7 @@ fi
 # guess if we're going to make a new or stable release
 case "${branch}" in
     ${master})
-	release="${v}$(date +%Y.%m).0${suffix}"
+	release="${v}${master_date}.0${suffix}"
 	prev_release="${v}*.0${suffix}"
 	;;
     ${stable}/*)
