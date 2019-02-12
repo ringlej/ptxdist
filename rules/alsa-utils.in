@@ -3,7 +3,6 @@
 menuconfig ALSA_UTILS
 	tristate
 	prompt "alsa utils                    "
-	select NCURSES if ALSA_UTILS_ALSAMIXER
 	select ALSA_LIB
 # alsa-utils fails with the salsa-lib
 	select ALSA_LIB_FULL
@@ -14,6 +13,8 @@ menuconfig ALSA_UTILS
 	select ALSA_LIB_SEQ
 	select ALSA_LIB_UCM
 	select LIBC_PTHREAD
+	select NCURSES		if ALSA_UTILS_ALSAMIXER
+	select SYSTEMD		if ALSA_UTILS_SYSTEMD_UNIT
 	help
 	  Some utils to handle the Advanced Linux Sound Architecture.
 	  With these utils you can control your sound device, for
@@ -29,7 +30,7 @@ config ALSA_UTILS_STARTSCRIPT
 config ALSA_UTILS_SYSTEMD_UNIT
 	bool
 	default y
-	depends on SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	prompt "install systemd unit files"
 
 config ALSA_UTILS_ASOUND_STATE

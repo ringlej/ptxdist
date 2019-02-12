@@ -2,4 +2,4 @@
 
 config HOST_LIBCAP_NG
 	tristate
-	default ALLYES
+	default y if ALLYES

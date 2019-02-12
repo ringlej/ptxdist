@@ -32,17 +32,11 @@ choice
 		select CAIRO_XLIB
 		select CAIRO_PS
 
-	config GTK2_TARGET_DIRECTFB
-		bool "directfb"
-		select CAIRO_DIRECTFB
-		select CAIRO_PS
-
 endchoice
 
 config GTK2_TARGET
 	string
 	default "x11" if GTK2_TARGET_X11
-	default "directfb" if GTK2_TARGET_DIRECTFB
 
 config GTK2_TARGET_X11_XINERAMA
 	bool

@@ -1,0 +1,47 @@
+From: Matthew Leeds <matthew.leeds@endlessm.com>
+Date: Tue, 11 Dec 2018 12:04:26 -0800
+Subject: [PATCH] 0.116: Allow uid of -1 for a PolkitUnixProcess
+
+Commit 2cb40c4d5 changed PolkitUnixUser, PolkitUnixGroup, and
+PolkitUnixProcess to allow negative values for their uid/gid properties,
+since these are values above INT_MAX which wrap around but are still
+valid, with the exception of -1 which is not valid. However,
+PolkitUnixProcess allows a uid of -1 to be passed to
+polkit_unix_process_new_for_owner() which means polkit is expected to
+figure out the uid on its own (this happens in the _constructed
+function). So this commit removes the check in
+polkit_unix_process_set_property() so that new_for_owner() can be used
+as documented without producing a critical error message.
+
+This does not affect the protection against CVE-2018-19788 which is
+based on creating a user with a UID up to but not including 4294967295
+(-1).
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkit/polkitunixprocess.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/src/polkit/polkitunixprocess.c b/src/polkit/polkitunixprocess.c
+index 02a083f70a1c..4a4256746d6e 100644
+--- a/src/polkit/polkitunixprocess.c
++++ b/src/polkit/polkitunixprocess.c
+@@ -147,14 +147,9 @@ polkit_unix_process_set_property (GObject      *object,
+       polkit_unix_process_set_pid (unix_process, g_value_get_int (value));
+       break;
+ 
+-    case PROP_UID: {
+-      gint val;
+-
+-      val = g_value_get_int (value);
+-      g_return_if_fail (val != -1);
+-      polkit_unix_process_set_uid (unix_process, val);
++    case PROP_UID:
++      polkit_unix_process_set_uid (unix_process, g_value_get_int (value));
+       break;
+-    }
+ 
+     case PROP_START_TIME:
+       polkit_unix_process_set_start_time (unix_process, g_value_get_uint64 (value));

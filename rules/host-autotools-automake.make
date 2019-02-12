@@ -23,7 +23,6 @@ HOST_AUTOTOOLS_AUTOMAKE_SUFFIX	:= tar.xz
 HOST_AUTOTOOLS_AUTOMAKE_URL	:= $(call ptx/mirror, GNU, automake/$(HOST_AUTOTOOLS_AUTOMAKE).$(HOST_AUTOTOOLS_AUTOMAKE_SUFFIX))
 HOST_AUTOTOOLS_AUTOMAKE_SOURCE	:= $(SRCDIR)/$(HOST_AUTOTOOLS_AUTOMAKE).$(HOST_AUTOTOOLS_AUTOMAKE_SUFFIX)
 HOST_AUTOTOOLS_AUTOMAKE_DIR	:= $(HOST_BUILDDIR)/$(HOST_AUTOTOOLS_AUTOMAKE)
-HOST_AUTOTOOLS_AUTOMAKE_DEVPKG	:= NO
 HOST_AUTOTOOLS_AUTOMAKE_LICENSE	:= GPL-2.0-only
 
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-automake.install.post
@@ -36,5 +35,23 @@ $(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-automake.install.post
 # autoconf
 #
 HOST_AUTOTOOLS_AUTOMAKE_CONF_TOOL	:= autoconf
+
+# create man pages during install to avoid parallel building race
+HOST_AUTOTOOLS_AUTOMAKE_MAKE_OPT	:= MANS=
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-autotools-automake.install.post:
+	@$(call targetinfo)
+	@sed -i \
+		-e "s;'\(/share/automake-[^']*\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
+		-e "s;'\(/share/aclocal[^']*\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
+		-e "s;'\(/bin/m4\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
+		$(HOST_AUTOTOOLS_AUTOMAKE_PKGDIR)/bin/* \
+		$(HOST_AUTOTOOLS_AUTOMAKE_PKGDIR)/share/automake-*/Automake/Config.pm
+	@$(call world/install.post, HOST_AUTOTOOLS_AUTOMAKE)
+	@$(call touch)
 
 # vim: syntax=make

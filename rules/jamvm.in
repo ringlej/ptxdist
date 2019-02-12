@@ -71,7 +71,7 @@ config JAMVM_TRACE_DIRECT
 
 config JAMVM_TRACE_INLINING
 	bool
-	prompt "interpeter inlining tracing"
+	prompt "interpreter inlining tracing"
 endif
 
 endif

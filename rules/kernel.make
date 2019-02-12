@@ -27,7 +27,7 @@ KERNEL_SUFFIX		:= tar.gz
 KERNEL_URL		:= https://git.kernel.org/torvalds/t/$(KERNEL).$(KERNEL_SUFFIX)
 endif
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
-KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
+KERNEL_CONFIG		:= $(call ptx/in-platformconfigdir, $(call remove_quotes, $(PTXCONF_KERNEL_CONFIG)))
 KERNEL_LICENSE		:= GPL-2.0-only
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DEVPKG		:= NO
@@ -46,13 +46,12 @@ KERNEL_WRAPPER_BLACKLIST := \
 	TARGET_DEBUG \
 	TARGET_BUILD_ID
 
-KERNEL_PATH	:= PATH=$(CROSS_PATH)
-KERNEL_ENV 	:= \
-	KCONFIG_NOTIMESTAMP=1 \
-	pkg_wrapper_blacklist="$(KERNEL_WRAPPER_BLACKLIST)"
+# check for old kernel modules rules
+KERNEL_MAKEVARS = -C KERNEL_MAKEVARS-was-renamed-to-KERNEL_MAKE_OPT
+$(STATEDIR)/kernel.% kernel_%config $(IMAGE_KERNEL_IMAGE) $(KERNEL_SOURCE): KERNEL_MAKEVARS=
+$(STATEDIR)/kernel-header.% $(STATEDIR)/host-kernel-header.%: KERNEL_MAKEVARS=
 
-KERNEL_MAKEVARS := \
-	$(PARALLELMFLAGS) \
+KERNEL_CONF_OPT := \
 	V=$(PTXDIST_VERBOSE) \
 	ARCH=$(PTXCONF_KERNEL_ARCH_STRING) \
 	CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) \
@@ -61,18 +60,15 @@ KERNEL_MAKEVARS := \
 	$(call remove_quotes,$(PTXCONF_KERNEL_EXTRA_MAKEVARS))
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
-KERNEL_MAKEVARS += \
+KERNEL_CONF_OPT += \
 	DEPMOD=$(PTXCONF_SYSROOT_HOST)/sbin/depmod
 endif
 
-#
-# Make the build more predictable if $(KERNEL_DIR) is not a symlink
-#
-KERNEL_MAKEVARS += \
-	`test -h "$(KERNEL_DIR)" || echo " \
-	KBUILD_BUILD_TIMESTAMP="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01" \
-	KBUILD_BUILD_USER=ptxdist \
-	KBUILD_BUILD_HOST=ptxdist"`
+ifndef PTXCONF_KERNEL_GCC_PLUGINS
+KERNEL_CONF_OPT += \
+	HOSTCXX=false
+endif
+
 #
 # support the different kernel image formats
 #
@@ -81,8 +77,9 @@ KERNEL_IMAGE := $(call remove_quotes, $(PTXCONF_KERNEL_IMAGE))
 # these are sane default
 KERNEL_IMAGE_PATH_y := $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/$(KERNEL_IMAGE)
 
-# vmlinux is special
+# vmlinux and vmlinuz are special
 KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUX) := $(KERNEL_DIR)/vmlinux
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUZ) := $(KERNEL_DIR)/vmlinuz
 # avr32 is also special
 KERNEL_IMAGE_PATH_$(PTXCONF_ARCH_AVR32) := $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/$(KERNEL_IMAGE)
 
@@ -105,11 +102,10 @@ endif
 #
 KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.cpio
 
-$(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
+$(STATEDIR)/kernel.prepare:
 	@$(call targetinfo)
 
-	@echo "Using kernel config file: $(<)"
-	@install -m 644 "$(<)" "$(KERNEL_DIR)/.config"
+	@$(call world/kconfig-setup, KERNEL)
 ifdef PTXCONF_KERNEL_IMAGE_SIMPLE
 	cp $(PTXCONF_KERNEL_IMAGE_SIMPLE_DTS) \
 		$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/dts/$(PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET).dts
@@ -122,7 +118,7 @@ ifdef KERNEL_INITRAMFS_SOURCE_y
 endif
 
 	@$(call ptx/oldconfig, KERNEL)
-	@diff -q -I "# [^C]" "$(KERNEL_DIR)/.config" "$(<)" > /dev/null || cp "$(KERNEL_DIR)/.config" "$(<)"
+	@$(call world/kconfig-sync, KERNEL)
 
 #
 # Don't keep the expanded path to INITRAMS_SOURCE in $(KERNEL_CONFIG),
@@ -142,14 +138,14 @@ endif
 
 $(STATEDIR)/kernel.tags:
 	@$(call targetinfo)
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) tags TAGS cscope
+	@$(MAKE) -C $(KERNEL_DIR) $(KERNEL_CONF_OPT) tags TAGS cscope
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-KERNEL_TOOL_PERF_OPTS := \
+KERNEL_MAKE_OPT		:= $(KERNEL_CONF_OPT)
+KERNEL_TOOL_PERF_OPTS	:= \
 	WERROR=0 \
 	NO_LIBPERL=1 \
 	NO_LIBPYTHON=1 \
@@ -179,16 +175,16 @@ $(STATEDIR)/kernel.compile:
 	@rm -f \
 		$(KERNEL_DIR)/usr/initramfs_data.cpio.* \
 		$(KERNEL_DIR)/usr/.initramfs_data.cpio.*
-	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
+	@$(call compile, KERNEL, $(KERNEL_MAKE_OPT) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD))
 ifdef PTXCONF_KERNEL_TOOL_PERF
-	@+cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf
+	@$(call compile, KERNEL, $(KERNEL_MAKE_OPT) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf)
 endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
-	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+#	# manual make to handle CPPFLAGS and broken parallel building for some kernel versions
+	@PATH=$(CROSS_PATH) $(MAKE) -C $(KERNEL_DIR) \
+		PTXDIST_ICECC= \
 		CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
-		$(KERNEL_MAKEVARS) $(PARALLELMFLAGS_BROKEN) -C tools/iio
+		$(KERNEL_MAKE_OPT) $(PARALLELMFLAGS_BROKEN) -C tools/iio
 endif
 	@$(call touch)
 
@@ -196,12 +192,12 @@ endif
 # Install
 # ----------------------------------------------------------------------------
 
+KERNEL_INSTALL_OPT := $(KERNEL_MAKE_OPT) modules_install
+
 $(STATEDIR)/kernel.install:
 	@$(call targetinfo)
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
-	@rm -rf $(KERNEL_PKGDIR)
-	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) modules_install
+	@$(call world/install, KERNEL)
 endif
 ifdef PTXCONF_KERNEL_DTC
 	@install -m 755 "$(KERNEL_DIR)/scripts/dtc/dtc" "$(PTXCONF_SYSROOT_HOST)/bin/dtc"
@@ -291,11 +287,7 @@ $(STATEDIR)/kernel.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, KERNEL)
 	@if [ -L $(KERNEL_DIR) ]; then \
-		pushd $(KERNEL_DIR); \
-		quilt pop -af; \
-		rm -rf series patches .pc; \
-		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) distclean; \
-		popd; \
+		$(MAKE) -C $(KERNEL_DIR) $(KERNEL_MAKE_OPT) distclean; \
 	fi
 
 # ----------------------------------------------------------------------------
@@ -303,17 +295,6 @@ $(STATEDIR)/kernel.clean:
 # ----------------------------------------------------------------------------
 
 kernel_oldconfig kernel_menuconfig kernel_nconfig: $(STATEDIR)/kernel.extract
-	@if [ -e $(KERNEL_CONFIG) ]; then \
-		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
-	fi
-
-	@cd $(KERNEL_DIR) && \
-		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) $(subst kernel_,,$@)
-
-	@if cmp -s $(KERNEL_DIR)/.config $(KERNEL_CONFIG); then \
-		echo "kernel configuration unchanged"; \
-	else \
-		cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
-	fi
+	@$(call world/kconfig, KERNEL, $(subst kernel_,,$@))
 
 # vim: syntax=make

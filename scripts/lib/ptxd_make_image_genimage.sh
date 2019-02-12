@@ -31,7 +31,8 @@ ptxd_make_image_genimage_config() {
 	ptxd_replace_magic "${cfg}" > "${tmp}" &&
 
     genimage_configs[${#genimage_configs[@]}]="${tmp}" &&
-    echo "${image_image}: \$(call genimage/config, ${1})" >> "${pkg_genimage_deps}"
+    ptxd_get_alternative_list config/images "${1}"
+    echo "${image_image}: \$(firstword \$(wildcard ${ptxd_reply[*]}))" >> "${pkg_genimage_deps}"
 
     includes=( $(sed -n "s/.*\<include(['\"]\(.*\)['\"]).*/\1/p" "${tmp}") ) &&
     sed  -i "s:\(.*\<include(['\"]\)\(.*\)\(['\"]).*\):\1${configdir}/\2\3:" "${tmp}" &&

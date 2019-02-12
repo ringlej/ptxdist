@@ -18,10 +18,10 @@ endif
 endif
 
 ifdef PTXCONF_QT5_EXAMPLES
-$(STATEDIR)/qt5.targetinstall.post: $(STATEDIR)/qt5.targetinstall2
+$(STATEDIR)/qt5.targetinstall: $(STATEDIR)/qt5.targetinstall2
 endif
 
-$(STATEDIR)/qt5.targetinstall2: $(STATEDIR)/qt5.targetinstall
+$(STATEDIR)/qt5.targetinstall2: $(STATEDIR)/qt5.install.post
 	@$(call targetinfo)
 	@$(call install_init, qt5-examples)
 	@$(call install_fixup, qt5-examples,PRIORITY,optional)

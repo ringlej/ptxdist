@@ -2,9 +2,11 @@
 
 config HOST_FONTCONFIG
 	tristate
-	select HOST_FREETYPE
 	select HOST_EXPAT
-	default ALLYES
+	select HOST_FREETYPE
+	select HOST_GPERF
+	select HOST_LIBUUID
+	default y if ALLYES
 	help
 	  Fontconfig is a font configuration and
 	  customization library, which does not depend on

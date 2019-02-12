@@ -24,8 +24,8 @@ BAREBOX_MLO_DIR		:= $(BUILDDIR)/barebox_mlo-$(BAREBOX_MLO_VERSION)
 BAREBOX_MLO_SOURCE	= $(SRCDIR)/$(BAREBOX_MLO).$(BAREBOX_SUFFIX)
 BAREBOX_MLO_LICENSE	:= GPL-2.0-only
 
-BAREBOX_MLO_CONFIG	:= $(call remove_quotes, \
-		$(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_BAREBOX_MLO_CONFIG))
+BAREBOX_MLO_CONFIG	:= $(call ptx/in-platformconfigdir, \
+		$(call remove_quotes, $(PTXCONF_BAREBOX_MLO_CONFIG)))
 
 # ----------------------------------------------------------------------------
 # Prepare

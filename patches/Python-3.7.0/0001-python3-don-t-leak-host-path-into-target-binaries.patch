@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 14 Oct 2018 18:51:17 +0200
+Subject: [PATCH] python3: don't leak host path into target binaries
+
+Without this the rpath of the _dbm module contains <sysroot>/usr/lib.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ setup.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index a97a7559cae7..a9d59a533aaa 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1300,7 +1300,6 @@ class PyBuildExt(build_ext):
+                         if dbm_setup_debug: print("building dbm using bdb")
+                         dbmext = Extension('_dbm', ['_dbmmodule.c'],
+                                            library_dirs=dblib_dir,
+-                                           runtime_library_dirs=dblib_dir,
+                                            include_dirs=db_incs,
+                                            define_macros=[
+                                                ('HAVE_BERKDB_H', None),

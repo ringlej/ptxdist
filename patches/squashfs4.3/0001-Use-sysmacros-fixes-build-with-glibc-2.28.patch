@@ -1,0 +1,41 @@
+From: Gavin Schenk <g.schenk@eckelmann.de>
+Date: Tue, 18 Dec 2018 11:19:47 +0100
+Subject: [PATCH] Use sysmacros fixes build with glibc >= 2.28
+
+From the manpages major, minor, makedev:
+The  BSDs  expose the definitions for these macros via <sys/types.h>.
+Depending on the version, glibc also exposes definitions for these macros
+from that header file if suitable feature test macros are defined.
+However, this behavior was deprecated in glibc 2.25,
+and since glibc 2.28, <sys/types.h>  no  longer  provides these definitions.
+
+Signed-off-by: Gavin Schenk <g.schenk@eckelmann.de>
+---
+ squashfs-tools/mksquashfs.c | 1 +
+ squashfs-tools/unsquashfs.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/squashfs-tools/mksquashfs.c b/squashfs-tools/mksquashfs.c
+index 86f82bb92804..84affd4be160 100644
+--- a/squashfs-tools/mksquashfs.c
++++ b/squashfs-tools/mksquashfs.c
+@@ -33,6 +33,7 @@
+ #include <unistd.h>
+ #include <stdio.h>
+ #include <stddef.h>
++#include <sys/sysmacros.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
+diff --git a/squashfs-tools/unsquashfs.c b/squashfs-tools/unsquashfs.c
+index 1323dd6f2cb9..2633e0c0b7ef 100644
+--- a/squashfs-tools/unsquashfs.c
++++ b/squashfs-tools/unsquashfs.c
+@@ -32,6 +32,7 @@
+ #include "stdarg.h"
+ 
+ #include <sys/sysinfo.h>
++#include <sys/sysmacros.h>
+ #include <sys/types.h>
+ #include <sys/time.h>
+ #include <sys/resource.h>

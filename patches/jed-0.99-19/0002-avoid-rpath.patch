@@ -1,0 +1,27 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Wed, 3 Oct 2018 11:15:59 +0200
+Subject: [PATCH] avoid rpath
+
+An rpath on the target is uggly as hell when cross compiling. Disable
+it. This is just a hack and not intended for upstream. I was too lazy to
+fix it in the m4 macros... in the end, it's just an emacs clone, so it
+isn't worth it :-)
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ configure | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configure b/configure
+index 2dc36ae5daa4..661a3ae35fe2 100755
+--- a/configure
++++ b/configure
+@@ -11466,6 +11466,8 @@ esac
+     RPATH="$RPATH:$jd_slang_library_dir"
+   fi
+ fi
++# rsc: uggly hack to disable rpath
++RPATH=
+ 
+     fi
+ 

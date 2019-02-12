@@ -17,7 +17,10 @@ ptxd_make_world_install_prepare() {
 	return
     fi &&
     rm -rf -- "${pkg_pkg_dir}" &&
-    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}{man/man{1,2,3,4,5,6,7,8,9},misc}}}
+    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}{man/man{1,2,3,4,5,6,7,8,9},misc}}} &&
+    if [ "${pkg_type}" != "target" ]; then
+	ln -s "lib" "${pkg_pkg_dir}/lib64"
+    fi
 }
 export -f ptxd_make_world_install_prepare
 
@@ -221,11 +224,24 @@ ptxd_make_world_install_post() {
     ptxd_make_world_init &&
     (
 	if [ -n "${pkg_pkg_dir}" -a -d "${pkg_pkg_dir}" ]; then
-	    find "${pkg_pkg_dir}"/usr/{lib,share}/pkgconfig -name *.pc \
+	    find "${pkg_pkg_dir}"{,/usr}/{lib,share}/pkgconfig -name *.pc \
+		-printf "%f\n" 2>/dev/null | sed 's/\.pc$//'
+	elif [ "${pkg_type}" != "target" -a -n "${pkg_build_dir}" -a -d "${pkg_build_dir}" ]; then
+            # workaround for packages that install directly to sysroot
+	    find "${pkg_build_dir}" -name *.pc \
 		-printf "%f\n" 2>/dev/null | sed 's/\.pc$//'
 	fi
 	for dep in ${pkg_build_deps}; do
-	    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null;
+	    case "${dep}" in
+		host-*|cross-*)
+		    if [ "${pkg_type}" = "target" ]; then
+			continue
+		    fi
+		    ;&
+		*)
+		    cat "${ptx_state_dir}/${dep}.pkgconfig" 2>/dev/null
+		    ;;
+	    esac
 	done
     ) | sort -u > "${ptx_state_dir}/${pkg_label}.pkgconfig"
     # do nothing if pkg_pkg_dir does not exist
@@ -242,9 +258,8 @@ ptxd_make_world_install_post() {
 	fi
     done &&
 
-    # create directories first to avoid race contitions with -jeX
-    find "${pkg_pkg_dir}" -type d -printf "%P\0" | \
-	xargs -0 -I{} mkdir -p "${pkg_sysroot_dir}/{}" &&
+    # avoid writing to sysroot in parallel with -jeX/-jX
+    flock "${pkg_sysroot_dir}" \
     cp -dpr --link --remove-destination -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
     # host and cross packages

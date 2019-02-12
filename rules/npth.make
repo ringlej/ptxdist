@@ -37,7 +37,7 @@ NPTH_LICENSE_FILES	:= \
 NPTH_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-tests \
-	--enable-build-timestamp="$(PTXDIST_VERSION_YEAR)-$(PTXDIST_VERSION_MONTH)-01T00:00+0000"
+	--enable-build-timestamp="$(PTXDIST_BUILD_TIMESTAMP)"
 
 # ----------------------------------------------------------------------------
 # Target-Install

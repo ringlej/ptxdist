@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.52.1
-LIBCURL_MD5	:= dd014df06ff1d12e173de86873f9f77a
+LIBCURL_VERSION	:= 7.62.0
+LIBCURL_MD5	:= 7adf426f80c68bbdd04d44b9bc171d61
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.bz2
 LIBCURL_URL	:= https://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -64,8 +64,10 @@ LIBCURL_CONF_OPT	:= \
 	--enable-libcurl-option \
 	--disable-libgcc \
 	$(GLOBAL_IPV6_OPTION) \
+	--enable-openssl-auto-load-config \
 	--disable-versioned-symbols \
 	--$(call ptx/disen, PTXCONF_LIBCURL_C_ARES)-threaded-resolver \
+	--enable-pthreads \
 	--$(call ptx/endis, PTXCONF_LIBCURL_VERBOSE)-verbose \
 	--disable-sspi \
 	--$(call ptx/endis, PTXCONF_LIBCURL_CRYPTO_AUTH)-crypto-auth \
@@ -73,10 +75,9 @@ LIBCURL_CONF_OPT	:= \
 	--enable-tls-srp \
 	--enable-unix-sockets \
 	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
-	--disable-soname-bump \
 	--with-zlib=$(SYSROOT) \
 	--without-gssapi \
-	--with-ssl=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,$(SYSROOT),no) \
+	--with-ssl=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,$(SYSROOT)/usr,no) \
 	--with-random=/dev/urandom \
 	--without-gnutls \
 	--without-polarssl \
@@ -86,11 +87,12 @@ LIBCURL_CONF_OPT	:= \
 	--without-axtls \
 	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
 	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH) \
+	--without-ca-fallback \
 	--without-libpsl \
 	--without-libmetalink \
 	--$(call ptx/wwo, PTXCONF_LIBCURL_LIBSSH2)-libssh2 \
 	--without-librtmp \
-	--without-libidn \
+	--without-libidn2 \
 	--without-nghttp2
 
 # ----------------------------------------------------------------------------

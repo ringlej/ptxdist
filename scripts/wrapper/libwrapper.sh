@@ -76,7 +76,7 @@ cc_check_args() {
 					add_late_arg "-Wl,-rpath-link${ARG#-Wl,-rpath}"
 				fi
 				;;
-			-)
+			-|-print-search-dirs)
 				COMPILING=true
 				;;
 			-*)
@@ -240,6 +240,11 @@ cxx_add_target_extra() {
 	cc_add_arch
 	add_arg ${pkg_cxxflags}
 	add_opt_arg TARGET_EXTRA_CXXFLAGS ${PTXCONF_TARGET_EXTRA_CXXFLAGS}
+}
+
+cc_add_target_reproducible() {
+	add_arg -fdebug-prefix-map="${PTXDIST_PLATFORMDIR%/*}/="
+	add_arg -fdebug-prefix-map="$(readlink -f "${PTXDIST_PLATFORMDIR}")/=${PTXDIST_PLATFORMDIR##*/}/"
 }
 
 cpp_add_host_extra() {

@@ -28,7 +28,7 @@ ptxd_make_world_extract() {
 
     case "${pkg_url}" in
 	lndir://*)
-	    local url="${pkg_url//lndir:\/\//}"
+	    local url="$(ptxd_file_url_path "${pkg_url}")"
 	    if [ -n "${pkg_src}" ]; then
 		ptxd_bailout "<PKG>_SOURCE must not be defined when using a lndir:// URL!"
 	    fi

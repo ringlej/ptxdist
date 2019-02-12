@@ -3,7 +3,7 @@
 config HOST_LIBXSLT
 	tristate
 	select HOST_LIBXML2
-	default ALLYES
+	default y if ALLYES
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the
 	  project homepage:

@@ -64,7 +64,7 @@ CAIRO_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_CAIRO_GL)-gl \
 	--$(call ptx/endis, PTXCONF_CAIRO_GLES2)-glesv2 \
 	--disable-cogl \
-	--$(call ptx/endis, PTXCONF_CAIRO_DIRECTFB)-directfb \
+	--disable-directfb \
 	--disable-vg \
 	--$(call ptx/endis, PTXCONF_CAIRO_EGL)-egl \
 	--$(call ptx/endis, PTXCONF_CAIRO_GLX)-glx \

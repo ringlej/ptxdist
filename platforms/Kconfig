@@ -30,4 +30,7 @@ source "generated/image.in"
 source "generated/image2.in"
 endmenu
 
+source "generated/hosttools_noprompt.in"
 source "generated/hosttools_platform.in"
+
+source "generated/platform_project_specific.in"

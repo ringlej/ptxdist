@@ -25,11 +25,13 @@ HOSTPYTHON3		= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)
 # Prepare
 # ----------------------------------------------------------------------------
 
+# Note: the LDFLAGS are used by setup.py for manual searches
 HOST_PYTHON3_ENV	:= \
 	$(HOST_ENV) \
 	ac_sys_system=Linux \
 	ac_sys_release=2 \
-	MACHDEP=linux2
+	MACHDEP=linux2 \
+	LDFLAGS="-L $(PTXDIST_SYSROOT_HOST)/lib"
 
 #
 # autoconf
@@ -42,16 +44,20 @@ HOST_PYTHON3_CONF_OPT	:= \
 	--disable-optimizations \
 	--disable-loadable-sqlite-extensions \
 	--without-pydebug \
+	--without-assertions \
 	--without-lto \
-	--with-signal-module \
-	--with-threads=pthread \
+	--with-system-expat \
+	--without-system-libmpdec \
+	--with-dbmliborder= \
 	--without-doc-strings \
-	--without-tsc \
 	--with-pymalloc \
+	--with-c-locale-coercion \
+	--with-c-locale-warning \
 	--without-valgrind \
-	--with-fpectl \
+	--without-dtrace \
 	--with-computed-gotos \
-	--without-ensurepip
+	--without-ensurepip \
+	--with-openssl=$(PTXDIST_SYSROOT_HOST)
 
 # ----------------------------------------------------------------------------
 # Install

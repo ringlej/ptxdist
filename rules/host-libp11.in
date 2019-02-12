@@ -1,0 +1,13 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBP11
+	tristate
+	select HOST_OPENSSL
+	select HOST_OPENSC
+	select HOST_P11_KIT
+	default y if ALLYES
+	help
+	  pkcs#11 convenience library
+	  Libp11 is a library to simplify using smart cards via
+	  PKCS#11 modules. It was spun of the OpenSC project but can
+	  be used with any pkcs#11 module.

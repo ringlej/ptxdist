@@ -2,7 +2,7 @@
 
 config HOST_MYSQL
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_LIBAIO
 	select HOST_NCURSES
 	select HOST_CMAKE

@@ -5,7 +5,7 @@ config FIX_PERMISSIONS
 	prompt "create primary rootfs devnodes for nfs and fix permissions"
 	help
 	  This function is useful for development via nfsroot. Initially, the
-	  /dev/null an /dev/console devnodes are missing in a fresh sysroot for
+	  /dev/null and /dev/console devnodes are missing in a fresh sysroot for
 	  nfs, preventing a successful system startup. However, creating them
 	  requires system administrator privileges.
 

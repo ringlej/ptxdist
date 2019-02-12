@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_SDL2_MIXER) += sdl2-mixer
 #
 # Paths and names
 #
-SDL2_MIXER_VERSION	:= 2.0.2
-SDL2_MIXER_MD5		:= aaa0551393993c14a13f72b339c0ed6c
+SDL2_MIXER_VERSION	:= 2.0.4
+SDL2_MIXER_MD5		:= a36e8410cac46b00a4d01752b32c3eb1
 SDL2_MIXER		:= SDL2_mixer-$(SDL2_MIXER_VERSION)
 SDL2_MIXER_SUFFIX	:= tar.gz
 SDL2_MIXER_URL		:= https://www.libsdl.org/projects/SDL_mixer/release/$(SDL2_MIXER).$(SDL2_MIXER_SUFFIX)
@@ -43,10 +43,10 @@ SDL2_MIXER_CONF_OPT	:= \
 	--disable-music-midi-native \
 	--disable-music-midi-fluidsynth \
 	--disable-music-ogg \
+	--disable-music-opus \
 	--disable-music-ogg-tremor \
 	--disable-music-flac \
 	--disable-music-mp3 \
-	--disable-music-mp3-smpeg \
 	--disable-music-mp3-mad-gpl \
 	--disable-music-mp3-mad-gpl-dithering \
 	--disable-music-mp3-mpg123

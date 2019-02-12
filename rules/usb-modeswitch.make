@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_USB_MODESWITCH) += usb-modeswitch
 #
 # Paths and names
 #
-USB_MODESWITCH_VERSION	:= 2.5.1
-USB_MODESWITCH_MD5	:= 7e6435a2afe7aed8574fe59cf09a3503
+USB_MODESWITCH_VERSION	:= 2.5.2
+USB_MODESWITCH_MD5	:= 16b9a8efa1bf8fbd7d5612757eae4f26
 USB_MODESWITCH		:= usb-modeswitch-$(USB_MODESWITCH_VERSION)
 USB_MODESWITCH_SUFFIX	:= tar.bz2
 USB_MODESWITCH_URL	:= http://www.draisberghof.de/usb_modeswitch/$(USB_MODESWITCH).$(USB_MODESWITCH_SUFFIX)
@@ -33,11 +33,15 @@ USB_MODESWITCH_LICENSE	:= GPL-2.0-only
 # autoconf
 #
 USB_MODESWITCH_CONF_TOOL	:= NO
-USB_MODESWITCH_MAKE_ENV		:= $(CROSS_ENV)
-USB_MODESWITCH_MAKE_OPT		:= $(CROSS_ENV_PROGS)
+USB_MODESWITCH_MAKE_ENV		:= \
+	$(CROSS_ENV) \
+	HOST_TCL=$(PTXCONF_SYSROOT_HOST)/usr/bin/jimsh
+USB_MODESWITCH_MAKE_OPT		:= \
+	$(CROSS_ENV_PROGS) \
+	shared
 USB_MODESWITCH_INSTALL_OPT	:= \
 	UDEVDIR=$(USB_MODESWITCH_PKGDIR)/usr/lib/udev \
-	install
+	install-shared
 
 # ----------------------------------------------------------------------------
 # Install

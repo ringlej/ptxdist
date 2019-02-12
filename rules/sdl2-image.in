@@ -34,11 +34,17 @@ config SDL2_IMAGE_PNG
 config SDL2_IMAGE_PNM
 	bool "pnm support"
 
+config SDL2_IMAGE_SVG
+	bool "svg support"
+
 config SDL2_IMAGE_TGA
 	bool "tga support"
 
 config SDL2_IMAGE_TIF
 	bool "tiff support"
+
+config SDL2_IMAGE_WEBP
+	bool "webp support"
 
 config SDL2_IMAGE_XCF
 	bool "xcf support"

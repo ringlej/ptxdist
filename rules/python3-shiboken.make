@@ -60,10 +60,11 @@ $(STATEDIR)/python3-shiboken.install.post:
 	@$(call world/install.post, PYTHON3_SHIBOKEN)
 	@sed -i -e 's,(/usr,($(SYSROOT)/usr,g' \
 		'$(SYSROOT)/usr/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cmake'
-	@sed -i -e 's,"SYSROOT_CROSS,"$(PTXCONF_SYSROOT_CROSS),g' \
-		-e 's,"SYSROOT/usr,"$(SYSROOT)/usr,g' \
-		-e 's,"/usr/bin,"$(PTXCONF_SYSROOT_HOST)/bin,g' \
-		-e 's,"/usr,"$(SYSROOT)/usr,g' \
+	@sed -i -e 's,"SYSROOT_CROSS,"@$(PTXCONF_SYSROOT_CROSS),g' \
+		-e 's,"SYSROOT/usr,"@$(SYSROOT)/usr,g' \
+		-e 's,"/usr/bin,"@$(PTXCONF_SYSROOT_HOST)/bin,g' \
+		-e 's,"/usr,"@$(SYSROOT)/usr,g' \
+		-e 's,"@,",g' \
 		$(SYSROOT)/usr/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython*.cmake
 	@$(call touch)
 

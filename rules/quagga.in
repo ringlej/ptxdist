@@ -56,6 +56,7 @@ config QUAGGA_RIPNGD
 config QUAGGA_OSPF
 	bool
 	default y
+	select QUAGGA_OSPFD
 	prompt "Install ospfclient"
 	help
 	  Disable the ospfclient component if you do not need it

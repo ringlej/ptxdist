@@ -23,7 +23,6 @@ HOST_PKG_CONFIG_SUFFIX	:= tar.gz
 HOST_PKG_CONFIG_URL	:= http://pkgconfig.freedesktop.org/releases/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
 HOST_PKG_CONFIG_SOURCE	:= $(SRCDIR)/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
 HOST_PKG_CONFIG_DIR	:= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG)
-HOST_PKG_CONFIG_DEVPKG	:= NO
 HOST_PKG_CONFIG_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
@@ -35,8 +34,24 @@ HOST_PKG_CONFIG_LICENSE	:= GPL-2.0-only
 #
 HOST_PKG_CONFIG_CONF_TOOL	:= autoconf
 HOST_PKG_CONFIG_CONF_OPT	:= \
-	$(HOST_AUTOCONF_SYSROOT) \
+	$(HOST_AUTOCONF) \
 	--disable-host-tool \
 	--with-internal-glib
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+PKG_CONFIG_SCRIPT = \
+	$(shell ptxd_get_alternative scripts pkg-config-wrapper && echo $$ptxd_reply)
+
+$(STATEDIR)/host-pkg-config.install:
+	@$(call targetinfo)
+	@$(call world/install, HOST_PKG_CONFIG)
+	@mv $(HOST_PKG_CONFIG_PKGDIR)/bin/pkg-config \
+		$(HOST_PKG_CONFIG_PKGDIR)/bin/pkg-config.real
+	@ln -sv $(PKG_CONFIG_SCRIPT) \
+		$(HOST_PKG_CONFIG_PKGDIR)/bin/pkg-config
+	@$(call touch)
 
 # vim: syntax=make

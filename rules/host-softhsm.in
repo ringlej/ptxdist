@@ -1,0 +1,12 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SOFTHSM
+	tristate
+	select HOST_P11_KIT
+	select HOST_OPENSSL
+	select HOST_SQLITE
+	default y if ALLYES
+	help
+	  SoftHSM emulates an HSM (e.g. Hardware Security Module) device and
+	  provides the regular API to be work in conjunction with PKCS#11.
+	  https://www.opendnssec.org/download/

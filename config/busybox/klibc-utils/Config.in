@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "klibc-utils"
@@ -12,17 +12,17 @@ config BUSYBOX_MINIPS
 	help
 	Alias to "ps".
 config BUSYBOX_NUKE
-	bool "nuke"
+	bool "nuke (2.4 kb)"
 	default y
 	help
 	Alias to "rm -rf".
 config BUSYBOX_RESUME
-	bool "resume"
+	bool "resume (3.3 kb)"
 	default y
 	help
 	Resume from saved "suspend-to-disk" image
 config BUSYBOX_RUN_INIT
-	bool "run-init"
+	bool "run-init (7.5 kb)"
 	default y
 	select BUSYBOX_PLATFORM_LINUX
 	help

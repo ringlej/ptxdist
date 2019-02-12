@@ -3,4 +3,4 @@
 config HOST_LIBJPEG
 	tristate
 	select CROSS_NASM
-	default ALLYES
+	default y if ALLYES

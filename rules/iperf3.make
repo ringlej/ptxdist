@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_IPERF3) += iperf3
 #
 # Paths and names
 #
-IPERF3_VERSION	:= 3.2
-IPERF3_MD5	:= d6ed33b742253b1c16dabc3b906e9c9f
+IPERF3_VERSION	:= 3.6
+IPERF3_MD5	:= 6114c34ef6c3a69bc75de12e5366789b
 IPERF3		:= iperf-$(IPERF3_VERSION)
 IPERF3_SUFFIX	:= tar.gz
 IPERF3_URL	:= http://downloads.es.net/pub/iperf/$(IPERF3).$(IPERF3_SUFFIX)

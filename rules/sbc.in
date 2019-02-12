@@ -1,0 +1,8 @@
+## SECTION=multimedia_libs
+
+config SBC
+	tristate
+	prompt "sbc"
+	help
+	  SBC (Low Complexity Subband Codec) is the audio codec
+	  commonly used in Bluetooth devices.

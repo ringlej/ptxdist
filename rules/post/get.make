@@ -1,8 +1,8 @@
 # -*-makefile-*-
 
-get: $(addprefix $(STATEDIR)/,$(addsuffix .get,$(PACKAGES) $(HOST_PACKAGES) $(CROSS_PACKAGES) $(LAZY_PACKAGES)))
+get: $(addprefix $(STATEDIR)/,$(addsuffix .get,$(PTX_PACKAGES_SELECTED)))
 
-urlcheck: $(addprefix $(STATEDIR)/,$(addsuffix .urlcheck,$(PACKAGES) $(HOST_PACKAGES) $(CROSS_PACKAGES) $(LAZY_PACKAGES)))
+urlcheck: $(addprefix $(STATEDIR)/,$(addsuffix .urlcheck,$(PTX_PACKAGES_SELECTED)))
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:

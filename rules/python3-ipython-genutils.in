@@ -3,7 +3,6 @@
 config PYTHON3_IPYTHON_GENUTILS
 	tristate
 	select PYTHON3
-	select HOST_PYTHON3_SETUPTOOLS
 	prompt "ipython-genutils"
 	help
 	  Vestigial utilities from IPython.

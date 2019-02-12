@@ -2,5 +2,5 @@
 
 config HOST_PYTHON3_SETUPTOOLS
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_PYTHON3

@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 18.1.5
-MESALIB_MD5	:= 622bd23ca8daa83a62938bd33600a580
+MESALIB_VERSION	:= 18.3.1
+MESALIB_MD5	:= d60828056d77bfdbae0970f9b15fb1be
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -60,8 +60,8 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_FREEDRENO)+= freedreno
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_ETNAVIV)	+= etnaviv
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IMX)	+= imx
 ifdef PTXCONF_ARCH_ARM
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_V3D)	+= v3d
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
-MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC5)	+= vc5
 endif
 
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
@@ -82,8 +82,6 @@ MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_X11)	+= x11
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_DRM)	+= drm
 MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_WAYLAND)	+= wayland
 
-MESALIB_LIBS-$(PTXCONF_MESALIB_EGL_WAYLAND)	+= libwayland-egl
-
 MESALIB_BUILD_OOT	:= YES
 MESALIB_CONF_TOOL	:= autoconf
 MESALIB_CONF_OPT	:= \
@@ -95,7 +93,6 @@ MESALIB_CONF_OPT	:= \
 	--disable-debug \
 	--disable-profile \
 	--disable-sanitize \
-	--disable-texture-float \
 	--disable-asm \
 	--disable-selinux \
 	--disable-llvm-shared-libs \
@@ -128,12 +125,10 @@ MESALIB_CONF_OPT	:= \
 	--enable-driglx-direct \
 	--enable-glx-tls \
 	--disable-glx-read-only-text \
-	--disable-gallium-llvm \
+	--disable-xlib-lease \
 	--disable-llvm \
 	--disable-valgrind \
 	--with-gallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
-	--with-gl-lib-name=GL \
-	--with-osmesa-lib-name=OSMesa \
 	--with-platforms=$(subst $(space),$(comma),$(MESALIBS_EGL_PLATFORMS-y)) \
 	--with-dri-driverdir=/usr/lib/dri \
 	--with-dri-searchpath=/usr/lib/dri \
@@ -141,6 +136,7 @@ MESALIB_CONF_OPT	:= \
 	--without-vulkan-drivers \
 	--with-vulkan-icddir=/etc/vulkan/icd.d \
 	--with-osmesa-bits=8 \
+	--with-clang-libdir=/usr/lib \
 	--with-xvmc-libdir=/usr/lib \
 	--with-vdpau-libdir=/usr/lib/vdpau \
 	--with-omx-bellagio-libdir=/usr/lib/dri \

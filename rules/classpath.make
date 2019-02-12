@@ -36,6 +36,7 @@ CLASSPATH_ENV 	:= \
 	JAVAC=$(PTXCONF_SETUP_JAVA_SDK)/bin/javac \
 	JAVA=jamvm \
 	CLASSPATH=$(PTXCONF_SETUP_JAVA_SDK)/jre/lib \
+	ac_cv_lib_magic_magic_open=no \
 	ac_cv_prog_java_works=yes \
 	ac_cv_prog_javac_is_gcj=no
 

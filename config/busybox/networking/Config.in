@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Networking Utilities"
@@ -59,7 +59,6 @@ config BUSYBOX_ARPING
 	select BUSYBOX_PLATFORM_LINUX
 	help
 	Ping hosts by ARP packets.
-
 config BUSYBOX_BRCTL
 	bool "brctl (4.7 kb)"
 	default y
@@ -727,6 +726,16 @@ config BUSYBOX_NSLOOKUP
 	default y
 	help
 	nslookup is a tool to query Internet name servers.
+
+config BUSYBOX_FEATURE_NSLOOKUP_BIG
+	bool "Use internal resolver code instead of libc"
+	depends on BUSYBOX_NSLOOKUP
+	default y
+
+config BUSYBOX_FEATURE_NSLOOKUP_LONG_OPTIONS
+	bool "Enable long options"
+	default y
+	depends on BUSYBOX_FEATURE_NSLOOKUP_BIG && BUSYBOX_LONG_OPTS
 config BUSYBOX_NTPD
 	bool "ntpd (17 kb)"
 	default y
@@ -795,6 +804,16 @@ config BUSYBOX_SSL_CLIENT
 	select BUSYBOX_TLS
 	help
 	This tool pipes data to/from a socket, TLS-encrypting it.
+config BUSYBOX_TC
+	bool "tc (3.1 kb)"
+	default y
+	help
+	Show / manipulate traffic control settings
+
+config BUSYBOX_FEATURE_TC_INGRESS
+	bool "Enable ingress"
+	default y
+	depends on BUSYBOX_TC
 config BUSYBOX_TCPSVD
 	bool "tcpsvd (13 kb)"
 	default y

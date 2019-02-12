@@ -4,6 +4,6 @@
 
 config HOST_APR_UTIL
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_EXPAT
 	select HOST_APR

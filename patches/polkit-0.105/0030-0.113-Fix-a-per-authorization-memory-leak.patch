@@ -1,0 +1,53 @@
+From: =?UTF-8?q?Miloslav=20Trma=C4=8D?= <mitr@redhat.com>
+Date: Tue, 1 Jul 2014 20:00:48 +0200
+Subject: [PATCH] 0.113: Fix a per-authorization memory leak
+
+We were leaking PolkitAuthorizationResult on every request, primarily on
+the success path, but also on various error paths as well.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=69501
+Origin: upstream, 0.113, commit:0f5852a4bdabe377ddcdbed09a0c1f95710e17fe
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkitbackend/polkitbackendauthority.c            | 1 +
+ src/polkitbackend/polkitbackendinteractiveauthority.c | 5 ++++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/polkitbackend/polkitbackendauthority.c b/src/polkitbackend/polkitbackendauthority.c
+index 10b8af34205c..39eb5b9d29fa 100644
+--- a/src/polkitbackend/polkitbackendauthority.c
++++ b/src/polkitbackend/polkitbackendauthority.c
+@@ -714,6 +714,7 @@ check_auth_cb (GObject      *source_object,
+       g_variant_ref_sink (value);
+       g_dbus_method_invocation_return_value (data->invocation, g_variant_new ("(@(bba{ss}))", value));
+       g_variant_unref (value);
++      g_object_unref (result);
+     }
+ 
+   check_auth_data_free (data);
+diff --git a/src/polkitbackend/polkitbackendinteractiveauthority.c b/src/polkitbackend/polkitbackendinteractiveauthority.c
+index 5e29af2c83ce..73d0a0e29e24 100644
+--- a/src/polkitbackend/polkitbackendinteractiveauthority.c
++++ b/src/polkitbackend/polkitbackendinteractiveauthority.c
+@@ -1015,7 +1015,7 @@ polkit_backend_interactive_authority_check_authorization (PolkitBackendAuthority
+ 
+   /* Otherwise just return the result */
+   g_simple_async_result_set_op_res_gpointer (simple,
+-                                             result,
++                                             g_object_ref (result),
+                                              g_object_unref);
+   g_simple_async_result_complete (simple);
+   g_object_unref (simple);
+@@ -1032,6 +1032,9 @@ polkit_backend_interactive_authority_check_authorization (PolkitBackendAuthority
+   g_free (subject_str);
+   g_free (user_of_caller_str);
+   g_free (user_of_subject_str);
++
++  if (result != NULL)
++    g_object_unref (result);
+ }
+ 
+ /* ---------------------------------------------------------------------------------------------------- */

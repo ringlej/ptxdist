@@ -7,7 +7,6 @@ menuconfig CAIRO
 	select XORG_LIB_XRENDER	if CAIRO_XLIB
 	select ZLIB		if CAIRO_PS || CAIRO_PDF
 	select GLIB		if CAIRO_GOBJECT
-	select DIRECTFB		if CAIRO_DIRECTFB
 	select FREETYPE		if CAIRO_FREETYPE
 	select FONTCONFIG	if CAIRO_FREETYPE
 	select LIBPNG		if CAIRO_PNG
@@ -49,12 +48,6 @@ config CAIRO_GL
 config CAIRO_GLES2
 	bool
 	prompt "OpenGLESv2"
-
-config CAIRO_DIRECTFB
-	bool
-	prompt "directfb"
-	depends on STAGING
-	select CAIRO_FREETYPE
 
 config CAIRO_PS
 	bool

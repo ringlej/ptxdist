@@ -197,7 +197,7 @@ endif
 #	bool
 #	depends on LTP_KERNEL_FS
 #	help
-#	  Create files and open simultanously.
+#	  Create files and open simultaneously.
 #
 ## ----------------------------------------------------------------------------
 #

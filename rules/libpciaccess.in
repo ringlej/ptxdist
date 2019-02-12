@@ -18,7 +18,7 @@ config LIBPCIACCESS_MTRR
 	  and if so enable this menuentry.
 	  BTW: MTRR stands for "memory type range registers" and its used to
 	  optimize accesses to various memory types, like main memory
-	  or memory accessible via busses like video memory on PCI cards.
+	  or memory accessible via buses like video memory on PCI cards.
 
 config LIBPCIACCESS_ZLIB
 	bool

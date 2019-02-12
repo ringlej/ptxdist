@@ -28,6 +28,8 @@ how to create a new package.
 .. note:: PTXdist looks in ``patches/$(<PKG>)`` for the patches. Symlinks
   can be uses to share the patch stack across multiple bootloader packages.
 
+.. _multi_image_individual_root_filesystems:
+
 Creating Individual Root-Filesystems for each Variant
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -44,13 +46,13 @@ There are two ways to mange the package list for the image:
    Manually create the package list by listing package names or using **make**
    macros to manipulate the default package list ``$(PTX_PACKAGES_INSTALL)``.
 
-   To add a single custom package, lazy packages can be uses. A lazy package
+   To add a single custom package, extra packages can be uses. An extra package
    is not added to ``$(PTX_PACKAGES_INSTALL)``. It is created by modifying the
    package rule like this:
 
    .. code-block:: make
 
-     LAZY_PACKAGES-$(PTXCONF_BOARD_A_EXTRA) += board-a-extra
+     EXTRA_PACKAGES-$(PTXCONF_BOARD_A_EXTRA) += board-a-extra
 
    The resulting package is then added explicitly to on image:
 

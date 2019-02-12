@@ -8,5 +8,5 @@ config DEBUG_PACKAGES
 	  created. These packages are not installed by default but can be
 	  installed manually as needed. They contain the debug files that
 	  are otherwise only available in nfsroot.
-	  This is usefull to run debug tools such as gdb, valgrind, perf
+	  This is useful to run debug tools such as gdb, valgrind, perf
 	  etc. on a normal (not nfsroot) rootfs.

@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.12.0
-NETWORKMANAGER_MD5	:= f728a42310c85b53386b172b15d7fc20
+NETWORKMANAGER_VERSION	:= 1.14.4
+NETWORKMANAGER_MD5	:= 54ce62f0aa18ef6c5e754eaac47494ac
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.12/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.14/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 NETWORKMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -69,14 +69,16 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
+	--without-iwd \
 	--without-libnm-glib \
+	--with-udev-dir=/usr/lib/udev \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-hostname-persist=default \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
 	--with-config-logging-backend-default="" \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-logind \
 	--without-consolekit \
-	--with-session-tracking=no \
+	--without-session-tracking \
 	--with-suspend-resume=$(call ptx/ifdef,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT,systemd,upower) \
 	--without-selinux \
 	--without-libaudit \
@@ -89,7 +91,6 @@ NETWORKMANAGER_CONF_OPT = \
 	--without-dhcpcanon \
 	--with-dhclient=/usr/sbin/dhclient \
 	--without-dhcpcd \
-	--without-dhcpcd-supports-ipv6 \
 	--with-config-dhcp-default=internal \
 	--without-resolvconf \
 	--without-netconfig \
@@ -102,8 +103,8 @@ NETWORKMANAGER_CONF_OPT = \
 	--without-libpsl \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMCLI)-nmcli \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
-	--without-valgrind \
-	--without-tests
+	--without-address-sanitizer \
+	--without-valgrind
 
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 NETWORKMANAGER_LDFLAGS	:= \
@@ -225,10 +226,7 @@ endif
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
-	@cd $(NETWORKMANAGER_PKGDIR)/usr/bin/ \
-		&& for FILE in `find -name "nm-*-*" -printf '%f\n'`; do \
-		$(call install_copy, networkmanager, 0, 0, 0755, -, /usr/bin/$${FILE}); \
-	done
+	@$(call install_glob, networkmanager, 0, 0, -, /usr/bin, */nm-*-*)
 endif
 
 	@$(call install_finish, networkmanager)

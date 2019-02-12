@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Philipp Zabel <p.zabel@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -27,17 +28,8 @@ XORG_FONT_TTF_LIBERATION_LICENSE	:= OFL-1.1
 XORG_FONT_TTF_LIBERATION_LICENSE_FILES	:= \
 	file://LICENSE;md5=f96db970a9a46c5369142b99f530366b
 
-ifdef PTXCONF_XORG_FONT_TTF_LIBERATION
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-liberation.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-font-ttf-liberation.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+XORG_FONT_TTF_LIBERATION_CONF_TOOL	:= NO
+XORG_FONT_TTF_LIBERATION_FONTDIR	:= $(XORG_FONTDIR)/truetype/liberation
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -53,6 +45,7 @@ $(STATEDIR)/xorg-font-ttf-liberation.compile:
 
 $(STATEDIR)/xorg-font-ttf-liberation.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_LIBERATION,*.ttf)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -61,16 +54,15 @@ $(STATEDIR)/xorg-font-ttf-liberation.install:
 
 $(STATEDIR)/xorg-font-ttf-liberation.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init, xorg-font-ttf-liberation)
+	@$(call install_fixup, xorg-font-ttf-liberation,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-ttf-liberation,SECTION,base)
+	@$(call install_fixup, xorg-font-ttf-liberation,AUTHOR,"Florian Bäuerle <florian.baeuerle@allegion.com>")
+	@$(call install_fixup, xorg-font-ttf-liberation,DESCRIPTION,missing)
 
-	mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
+	@$(call install_tree, xorg-font-ttf-liberation, 0, 0, -, /usr)
 
-	find $(XORG_FONT_TTF_LIBERATION_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
+	@$(call install_finish, xorg-font-ttf-liberation)
 	@$(call touch)
 
 # vim: syntax=make

@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_PROCPS) += procps
 #
 # Paths and names
 #
-PROCPS_VERSION	:= 3.3.12
-PROCPS_MD5	:= 957e42e8b193490b2111252e4a2b443c
+PROCPS_VERSION	:= 3.3.15
+PROCPS_MD5	:= 2b0717a7cb474b3d6dfdeedfbad2eccc
 PROCPS		:= procps-ng-$(PROCPS_VERSION)
 PROCPS_SUFFIX	:= tar.xz
 PROCPS_URL	:= $(call ptx/mirror, SF, procps-ng/Production/$(PROCPS).$(PROCPS_SUFFIX))
@@ -62,7 +62,8 @@ PROCPS_CONF_OPT	:= \
 	--without-libiconv-prefix \
 	--without-libintl-prefix \
 	--$(call ptx/wwo, PTXCONF_PROCPS_USES_NCURSES)-ncurses \
-	--$(call ptx/wwo, PTXCONF_PROCPS_WITH_SYSTEMD)-systemd
+	--$(call ptx/wwo, PTXCONF_PROCPS_WITH_SYSTEMD)-systemd \
+	--without-elogind
 
 
 # ----------------------------------------------------------------------------

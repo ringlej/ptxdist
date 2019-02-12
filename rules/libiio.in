@@ -1,0 +1,20 @@
+## SECTION=system_libraries
+
+menuconfig LIBIIO
+	tristate
+	prompt "libiio                        "
+	select HOST_CMAKE
+	help
+	  A cross platform library for interfacing with local and
+	  remote Linux IIO devices.
+
+if LIBIIO
+
+config LIBIIO_TEST_TOOLS
+	bool "install test tools"
+	help
+	  Install IIO test tools: iio_adi_xflow_check, iio_attr,
+	  iio_genxml, iio_info, iio_readdev, iio_reg and
+	  iio_writedev.
+
+endif

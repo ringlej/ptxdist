@@ -17,13 +17,13 @@ PACKAGES-$(PTXCONF_LM_SENSORS) += lm_sensors
 #
 # Paths and names
 #
-LM_SENSORS_VERSION	:= 3.4.0
-LM_SENSORS_TAG		:= V3-4-0
-LM_SENSORS_MD5		:= 1e9f117cbfa11be1955adc96df71eadb
+LM_SENSORS_VERSION	:= 3.5.0
+LM_SENSORS_TAG		:= V3-5-0
+LM_SENSORS_MD5		:= 37981f5d3a0f649381529cb41c0f1ff3
 LM_SENSORS		:= lm_sensors-$(LM_SENSORS_VERSION)
 LM_SENSORS_SUFFIX	:= tar.gz
 LM_SENSORS_URL		:= \
-	https://github.com/groeck/lm-sensors/archive/$(LM_SENSORS_TAG).$(LM_SENSORS_SUFFIX)
+	https://github.com/lm-sensors/lm-sensors/archive/$(LM_SENSORS_TAG).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_SOURCE	:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_DIR		:= $(BUILDDIR)/$(LM_SENSORS)
 LM_SENSORS_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later

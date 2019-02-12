@@ -41,13 +41,13 @@ LINKS_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LINKS_FBCON)-fb \
 	--$(call ptx/wwo, PTXCONF_LINKS_TIFF)-libtiff \
 	--$(call ptx/wwo, PTXCONF_LINKS_X)-x \
-	--$(call ptx/wwo, PTXCONF_LINKS_DIRECTFB)-directfb \
+	--without-directfb \
 	--$(call ptx/wwo, PTXCONF_LINKS_SDL)-sdl \
 	--$(call ptx/wwo, PTXCONF_LINKS_ZLIB)-zlib \
 	--$(call ptx/wwo, PTXCONF_LINKS_BZIP2)-bzip2 \
 	--$(call ptx/wwo, PTXCONF_LINKS_LZMA)-lzma \
 
-ifneq ($(PTXCONF_LINKS_X)$(PTXCONF_LINKS_FBCON)$(PTXCONF_LINKS_DIRECTFB),)
+ifneq ($(PTXCONF_LINKS_X)$(PTXCONF_LINKS_FBCON),)
 LINKS_AUTOCONF += --enable-graphics
 else
 LINKS_AUTOCONF += --disable-graphics

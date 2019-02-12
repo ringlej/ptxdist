@@ -79,12 +79,12 @@ export -f ptxd_install_getent_id
 # convert usr/grp that contain names into numeric values
 #
 ptxd_install_resolve_usr_grp() {
-    if ! [ 0 -le $usr ] 2>/dev/null; then
+    if [ -n "$usr" ] && ! [ 0 -le "$usr" ] 2>/dev/null; then
 	ptxd_install_getent_id usr || return
     else
 	unset usr_name
     fi
-    if ! [ 0 -le $grp ] 2>/dev/null; then
+    if [ -n "$grp" ] && ! [ 0 -le "$grp" ] 2>/dev/null; then
 	ptxd_install_getent_id grp || return
     else
 	unset grp_name
@@ -99,7 +99,7 @@ ptxd_install_setup() {
     case "${dst}" in
 	/bin/*|/sbin/*|/lib/*) dst="/usr${dst}" ;;
 	/*|"") ;;
-	*) ptxd_bailout "'dst' must be an absolute path!" ;;
+	*) ptxd_bailout "${FUNCNAME[${#FUNCNAME[@]}-5]}: 'dst' must be an absolute path!" ;;
     esac
 
     nfsroot_dirs=("${ptx_nfsroot}" ${pkg_nfsroot_dirs})
@@ -119,10 +119,12 @@ ptxd_install_setup() {
     sdirs=("${nfsroot_dirs[@]}" "${pkg_xpkg_tmp}")
 
     # dirs with separate debug files
-    ddirs=("${nfsroot_dirs[@]}")
-    if [ "$(ptxd_get_ptxconf PTXCONF_DEBUG_PACKAGES)" = "y" -a \
-         "$(ptxd_get_ptxconf PTXCONF_TARGET_DEBUG_OFF)" != "y" ]; then
-	ddirs[${#ddirs[@]}]="${pkg_xpkg_dbg_tmp}"
+    ddirs=()
+    if [ "$(ptxd_get_ptxconf PTXCONF_TARGET_DEBUG_OFF)" != "y" ]; then
+	ddirs=("${nfsroot_dirs[@]}")
+	if [ "$(ptxd_get_ptxconf PTXCONF_DEBUG_PACKAGES)" = "y" ]; then
+	    ddirs[${#ddirs[@]}]="${pkg_xpkg_dbg_tmp}"
+	fi
     fi
 
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))" &&
@@ -141,13 +143,10 @@ ptxd_install_setup_src_list() {
 	# if pkg_dir is empty we'll have some some empty entries in
 	# the array, but that's no problem for the "-e" below.
 	#
+	local -a ptxd_reply
+	ptxd_get_alternative_list projectroot "${1}"
 	list=( \
-	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${1}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}${PTXDIST_PLATFORMSUFFIX}" \
-	    "${PTXDIST_WORKSPACE}/projectroot${1}" \
-	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${1}" \
-	    "${PTXDIST_TOPDIR}/projectroot${1}" \
+	    "${ptxd_reply[@]}" \
 	    "${pkg_pkg_dir:+${pkg_pkg_dir}${1}}" \
 	    "${pkg_dir:+${pkg_dir}${1}}" \
 	    )
@@ -166,12 +165,15 @@ ptxd_install_setup_src() {
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}${dst}"
+	gdb_src="${pkg_pkg_dir}/usr/share/gdb/auto-load${dst}-gdb"
+    elif [ "${src#${pkg_pkg_dir}}" != "${src}" ]; then
+	gdb_src="${pkg_pkg_dir}/usr/share/gdb/auto-load${src#${pkg_pkg_dir}}-gdb"
     fi
 
     ptxd_install_setup || return
 
     legacy_src="${src#/usr}"
-    if [ "${legacy_src}" != "${src}" ]; then
+    if [ \( "${cmd}" = "alternative" -o "${cmd}" = "config" \) -a "${legacy_src}" != "${src}" ]; then
 	ptxd_install_setup_src_list "${legacy_src}"
 	if ptxd_get_path "${list[@]}"; then
 	    local tmp
@@ -261,6 +263,10 @@ ptxd_install_file_extract_debug() {
     local dbg dir
     local bid=$(ptxd_extract_build_id)
 
+    if [ "${#ddirs[*]}" -eq 0 ]; then
+	return
+    fi
+
     if [ -z "${bid}" ]; then
 	dbg="$(dirname "${dst}")/.debug/.$(basename "${dst}").dbg"
     else
@@ -283,6 +289,7 @@ ptxd_install_file_extract_debug() {
 	    "${CROSS_OBJCOPY}" ${ptxd_install_file_objcopy_args} "${src}" "${tmp}"
 	fi
     fi &&
+    echo "  debug file: ${dbg}" &&
     for dir in "${ddirs[@]}"; do
 	if [ -n "${bid}" -o -e "${dir}${dst}" ]; then
 	    install -D -m 644 "${tmp}" "${dir}/${dbg}"
@@ -343,6 +350,7 @@ ptxd_install_file_impl() {
     local strip="$6"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
+    local gdb_src
 
     ptxd_install_setup_src &&
     echo "\
@@ -351,8 +359,7 @@ install ${cmd}:
   dst=${dst}
   owner=${usr} ${usr_name}
   group=${grp} ${grp_name}
-  permissions=${mod}
-" &&
+  permissions=${mod}" &&
 
     ptxd_exist "${src}" &&
     rm -f "${dirs[@]/%/${dst}}" &&
@@ -398,6 +405,19 @@ Usually, just remove the 6th parameter and everything works fine.
 	    ptxd_bailout "${FUNCNAME}: invalid value for strip ('${strip}')"
 	    ;;
     esac &&
+
+    if [ "${#ddirs[*]}" -gt 0 -a -n "${gdb_src}" ]; then
+	local gdb_file
+	local ddir="$(dirname "${dst}")"
+	for gdb_file in $(ls "${gdb_src}".* 2>/dev/null); do
+	    local gdb_dst="${ddir}/$(basename "${gdb_file}")"
+	    echo "  debug file: ${gdb_dst}" &&
+	    for d in "${ddirs[@]/%/${gdb_dst}}"; do
+		install -m 644 -D "${gdb_file}" "${d}" || break
+	    done
+	done
+    fi &&
+    echo "" &&
 
     # now change to requested permissions
     chmod "${mod_nfs}" "${ndirs[@]/%/${dst}}" &&
@@ -575,7 +595,7 @@ ptxd_install_replace_figlet() {
     echo "\
 install replace figlet:
   file=${dst}
-  '${placeholder}' -> '\`figlet ${value}\`'
+  '${placeholder}' -> '\$(figlet ${value})'
 " &&
 
     ptxd_exist "${dirs[@]/%/${dst}}" &&
@@ -584,13 +604,13 @@ install replace figlet:
         local escapemode="$2"
         figlet -d "${PTXDIST_SYSROOT_HOST}/share/figlet" -- "${value}" | \
         case "$escapemode" in
-            # a lot of leaning toothpicks because we need to escape a literal
-            # '\' with '\\' on multiple levels:
-            # - one level for the string inside awk: \\\\\\\\\\\\\\\\ -> \\\\\\\\
-            # - one level for the shell string after sed -e:          -> \\\\
-            # - one level for the s expression inside sed:            -> \\
-            # - and finally, one level for /etc/issue:                -> \
-            etcissue)	awk '{ gsub("\\\\", "\\\\\\\\\\\\\\\\"); print }' ;;
+            # /etc/issue needs each backslash quoted by another backslash. As
+            # the string is interpreted by the shell once more below, another
+            # level of quoting is needed such that every \ in the output of
+            # figlet needs to be replaced by \\\\. As a \ in sed needs to be
+            # quoted, too, this results in eight backslashes in the replacement
+            # string.
+            etcissue)	sed 's,\\,\\\\\\\\,g';;
             *)		;;
         esac | \
         awk '{ if ($0 !~ "^ *$") printf("%s\\n", $0) }'  # newlines for sed
@@ -649,13 +669,15 @@ export -f ptxd_install_generic
 ptxd_install_find() {
     local src="${1%/}"
     local dst="${2%/}"
+    dst=${dst:-/}
     local usr="${3#-}"
     local grp="${4#-}"
     local strip="${5}"
     local -a dirs ndirs pdirs sdirs ddirs
     local mod_nfs mod_rw
+    local gdb_src
     if [ -z "${glob}" ]; then
-	local glob="-o -print"
+	local -a glob=( "-o" "-print" )
     fi
 
     ptxd_install_setup_src &&
@@ -669,7 +691,7 @@ ptxd_install_find() {
     find "${src}" ! -path "${src}" -a \( \
 		-path "*/.svn" -prune -o -path "*/.git" -prune -o \
 		-path "*/.pc" -prune -o -path "*/CVS" -prune \
-		${glob} \) | while read file; do
+		"${glob[@]}" \) | while read file; do
 	local dst_file="${dst}${file#${src}}"
 	ptxd_install_generic "${file}" "${dst_file}" "${usr}" "${grp}" "${strip}" || return
     done
@@ -691,19 +713,25 @@ ptxd_install_glob() {
     local cmd="file"
     local src="${1}"
     local dst="${2}"
+    set +B -f
     local yglob=( ${3} )
     local nglob=( ${4} )
-    local glob
+    set -B +f
+    local -a glob
 
     if [ -n "${3}" ]; then
-	yglob=( "${yglob[@]/#/-o -path }" )
-	glob="${yglob[*]/%/ -print }"
+	local pattern
+	for pattern in "${yglob[@]}"; do
+	    glob=( "${glob[@]}" "-o" "-path" "${pattern}" "-print" )
+	done
     else
-	glob="-o -print"
+	glob=( "-o" "-print" )
     fi
     if [ -n "${4}" ]; then
-	nglob=( "${nglob[@]/#/-o -path }" )
-	glob="${nglob[*]/%/ -prune } ${glob}"
+	local pattern
+	for pattern in "${nglob[@]}"; do
+	    glob=( "-o" "-path" "${pattern}" "-prune" "${glob[@]}" )
+	done
     fi
     shift 4
 
@@ -918,7 +946,7 @@ executing '${pkg_label}.${1}'
 export -f ptxd_install_run
 
 ptxd_install_fixup_timestamps() {
-    local timestamp="${PTXDIST_VERSION_YEAR}-${PTXDIST_VERSION_MONTH}-01 UTC"
+    local timestamp="@${SOURCE_DATE_EPOCH}"
     local touch_args
     if touch --help | grep -q -- --no-dereference &> /dev/null; then
 	touch_args="--no-dereference"

@@ -1,5 +1,5 @@
 ## SECTION=hosttools_noprompt
 config HOST_LIBNIH
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_DBUS

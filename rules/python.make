@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PYTHON) += python
 #
 # Paths and names
 #
-PYTHON_VERSION		:= 2.7.13
-PYTHON_MD5		:= 53b43534153bb2a0363f08bae8b9d990
+PYTHON_VERSION		:= 2.7.15
+PYTHON_MD5		:= a80ae3cc478460b922242f43a1b4094d
 PYTHON_MAJORMINOR	:= $(basename $(PYTHON_VERSION))
 PYTHON_SITEPACKAGES	:= /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages
 PYTHON			:= Python-$(PYTHON_VERSION)
@@ -174,6 +174,9 @@ PYTHON_SKIP_LIST_POST :=/*$(quote)
 
 PYTHON_SKIP_LIST := $(subst $(space),$(PYTHON_SKIP_LIST_POST) $(PYTHON_SKIP_LIST_PRE),$(PYTHON_SKIP-y))
 PYTHON_SKIP_LIST := $(PYTHON_SKIP_LIST_PRE)$(PYTHON_SKIP_LIST)$(PYTHON_SKIP_LIST_POST)
+
+# may add extra dependencies and is not useful for embedded
+PYTHON_SKIP_LIST += -a \! -name nis.*
 endif
 
 $(STATEDIR)/python.targetinstall:

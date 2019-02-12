@@ -152,7 +152,6 @@ QT4_AUTOCONF += \
 
 # graphics drivers
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_AHI)		+= gfx-ahi
-QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_DIRECTFB)	+= gfx-directfb
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_EGLNULLWS)	+= gfx-eglnullws
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_LINUXFB)		+= gfx-linuxfb
 QT4_AUTOCONF-$(call ptx/qt-plugin, GFX_POWERVR)		+= gfx-powervr
@@ -380,7 +379,6 @@ ifdef PTXCONF_QT4_BUILD_SVG
 QT4_IMAGEFORMATS-				+= svg
 endif
 
-QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_DIRECTFB)	+= directfbscreen
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_EGLNULLWS)	+= eglnullws
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_LINUXFB)	+= screenlinuxfb
 QT4_GFXDRIVERS-$(call ptx/qt-plugin, GFX_POWERVR)	+= gfxpvregl

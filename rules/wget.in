@@ -1,10 +1,14 @@
 ## SECTION=networking
-config WGET
+
+menuconfig WGET
 	tristate
-	prompt "wget"
+	prompt "wget                          "
 	depends on !BUSYBOX_WGET || ALLYES
 	select LIBC_RT
 	select GCCLIBS_GCC_S
+	select GNUTLS	if WGET_SSL_GNUTLS
+	select OPENSSL	if WGET_SSL_OPENSSL
+	select ZLIB	if WGET_ZLIB
 	help
 	  GNU wget is a commandline mirroring tool.
 
@@ -33,6 +37,45 @@ config WGET
 	  access behind firewalls.
 
 	  http://www.gnu.org/software/wget/
+
+if WGET
+
+choice
+	prompt "SSL support"
+	default WGET_SSL_NONE
+
+	config WGET_SSL_OPENSSL
+		bool
+		prompt "OpenSSL"
+		help
+		  Wget uses OpenSSL
+
+	config WGET_SSL_GNUTLS
+		bool
+		prompt "GNU TLS"
+		help
+		  Wget uses GNU TLS
+
+	config WGET_SSL_NONE
+		bool
+		prompt "none"
+		help
+		  No SSL support for wget
+
+endchoice
+
+config WGET_SSL
+	string
+	default "openssl"	if WGET_SSL_OPENSSL
+	default "gnutls"	if WGET_SSL_GNUTLS
+	default "no"		if WGET_SSL_NONE
+
+config WGET_ZLIB
+	bool "zlib support"
+	help
+	  Build wget with zlib support
+
+endif
 
 comment "BusyBox's wget is selected!"
 	depends on BUSYBOX_WGET

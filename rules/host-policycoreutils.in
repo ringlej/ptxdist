@@ -2,7 +2,7 @@
 
 config HOST_POLICYCOREUTILS
 	tristate
-	default ALLYES
+	default y if ALLYES
 	select HOST_LIBSELINUX
 	select HOST_LIBSEMANAGE
 	select HOST_LIBSEPOL

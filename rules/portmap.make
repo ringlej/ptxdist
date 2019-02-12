@@ -65,11 +65,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_PORTMAP_BBINIT_LINK)),)
 endif
 endif
 endif
-
-ifdef PTXCONF_PORTMAP_INETD_SERVER
-	@$(call install_alternative, portmap, 0, 0, 0644, /etc/inetd.conf.d/portmap, n)
-endif
-
 	@$(call install_finish, portmap)
 	@$(call touch)
 

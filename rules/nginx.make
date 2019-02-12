@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_NGINX) += nginx
 #
 # Paths and names
 #
-NGINX_VERSION	:= 1.14.0
-NGINX_MD5	:= 2d856aca3dfe1d32e3c9f8c4cac0cc95
+NGINX_VERSION	:= 1.14.2
+NGINX_MD5	:= 239b829a13cea1d244c1044e830bd9c2
 NGINX		:= nginx-$(NGINX_VERSION)
 NGINX_SUFFIX	:= tar.gz
 NGINX_URL	:= https://nginx.org/download/$(NGINX).$(NGINX_SUFFIX)

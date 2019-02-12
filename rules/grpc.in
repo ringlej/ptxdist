@@ -1,0 +1,20 @@
+## SECTION=system_libraries
+
+config GRPC
+	tristate
+	select HOST_CMAKE
+	select HOST_GRPC
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_PTHREAD
+	select LIBC_RT
+	select C_ARES
+	select OPENSSL
+	select PROTOBUF
+	select ZLIB
+	prompt "grpc                          "
+	help
+	  gRPC is a modern, open source, high-performance remote procedure
+	  call (RPC) framework.

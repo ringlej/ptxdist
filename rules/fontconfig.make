@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.12.5
-FONTCONFIG_MD5		:= 7dedae852fd7c514fae0b9e58cdeb56e
+FONTCONFIG_VERSION	:= 2.13.1
+FONTCONFIG_MD5		:= 690c6cb840a92fa8908cdf462d19ec66
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
@@ -41,6 +41,8 @@ FONTCONFIG_CONF_TOOL	:= autoconf
 FONTCONFIG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls \
+	--disable-rpath \
 	--$(call ptx/endis, PTXCONF_ICONV)-iconv \
 	--disable-libxml2 \
 	--disable-docs \

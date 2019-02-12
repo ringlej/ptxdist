@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_LIBAV1) += gst-libav1
 #
 # Paths and names
 #
-GST_LIBAV1_VERSION	:= 1.14.2
-GST_LIBAV1_MD5		:= da3d4655268bc6766a261065ca737590
+GST_LIBAV1_VERSION	:= 1.14.4
+GST_LIBAV1_MD5		:= 58342db11dbb201a66a62577dcf7bab5
 GST_LIBAV1		:= gst-libav-$(GST_LIBAV1_VERSION)
 GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
@@ -33,12 +33,14 @@ GST_LIBAV1_CONF_ENV	:= \
 	$(CROSS_ENV) \
 	AS=$(CROSS_CC)
 
+ifdef PTXCONF_GST_LIBAV1
 GST_LIBAV1_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-march=\([^']*\)'.*/\1/p" | tail -n1))
 ifeq ($(GST_LIBAV1_CPU),)
 GST_LIBAV1_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mcpu=\([^']*\)'.*/\1/p" | tail -n1))
 endif
 ifeq ($(GST_LIBAV1_CPU),)
 GST_LIBAV1_CPU := generic
+endif
 endif
 
 #

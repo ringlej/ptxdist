@@ -1,0 +1,50 @@
+From aba59dfbd135cd91802c9dccdb5e2b37c377f5ab Mon Sep 17 00:00:00 2001
+From: Ladislav Michl <ladis@linux-mips.org>
+Date: Tue, 11 Sep 2018 19:09:41 +0200
+Subject: [PATCH] Use system jimtcl
+
+---
+ Makefile | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 463a11f..42c3de6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,6 +3,7 @@ VERS        = 2.5.2
+ CC          ?= gcc
+ CFLAGS      += -Wall
+ LIBS        = `pkg-config --libs --cflags libusb-1.0`
++JIMTCL      = `pkg-config --libs --cflags jimtcl`
+ RM          = /bin/rm -f
+ OBJS        = usb_modeswitch.c
+ PREFIX      = $(DESTDIR)/usr
+@@ -13,12 +14,8 @@ UDEVDIR     = $(DESTDIR)/lib/udev
+ SBINDIR     = $(PREFIX)/sbin
+ MANDIR      = $(PREFIX)/share/man/man1
+ VPATH       = jimtcl
+-HOST_TCL   := $(shell cd jim && ./autosetup/find-tclsh)
+-ifeq (,$(findstring jimsh0,$(HOST_TCL)))
+-TCL        ?= $(HOST_TCL)
+-else
+-TCL        ?= /usr/bin/tclsh
+-endif
++HOST_TCL    ?= /usr/bin/tclsh
++TCL         ?= /usr/bin/tclsh
+ JIM_CONFIGURE_OPTS = --disable-lineedit \
+ 	--with-out-jim-ext="stdlib posix load signal syslog" --prefix=/usr
+ 
+@@ -49,8 +46,8 @@ jim/libjim.a:
+ dispatcher-script: usb_modeswitch.tcl
+ 	sed 's_!/usr/bin/tclsh_!'"$(TCL)"'_' < usb_modeswitch.tcl > usb_modeswitch_dispatcher
+ 
+-dispatcher-shared: jim/libjim.so dispatcher.c usb_modeswitch.string
+-	$(CC) dispatcher.c $(LDFLAGS) -Ljim -ljim -Ijim -o usb_modeswitch_dispatcher $(CFLAGS)
++dispatcher-shared: dispatcher.c usb_modeswitch.string
++	$(CC) dispatcher.c $(LDFLAGS) $(JIMTCL) -o usb_modeswitch_dispatcher $(CFLAGS)
+ 
+ dispatcher-static: jim/libjim.a dispatcher.c usb_modeswitch.string
+ 	$(CC) dispatcher.c $(LDFLAGS) jim/libjim.a -Ijim -o usb_modeswitch_dispatcher $(CFLAGS)
+-- 
+2.19.0
+

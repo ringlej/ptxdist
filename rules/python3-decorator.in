@@ -3,7 +3,6 @@
 config PYTHON3_DECORATOR
 	tristate
 	select PYTHON3
-	select HOST_PYTHON3_SETUPTOOLS
 	prompt "decorator"
 	help
 	  Better living through Python with decorators

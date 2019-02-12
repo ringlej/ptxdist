@@ -1,0 +1,62 @@
+From: David Zeuthen <zeuthen@gmail.com>
+Date: Wed, 19 Dec 2012 14:28:29 -0500
+Subject: [PATCH] 0.110: Set XAUTHORITY environment variable if is unset
+
+The way it works is that if XAUTHORITY is unset, then its default
+value is $HOME/.Xauthority. But since we're changing user identity
+this will not work since $HOME will now change. Therefore, if
+XAUTHORITY is unset, just set its default value before changing
+identity. This bug only affected login managers using X Window
+Authorization but not explicitly setting the XAUTHORITY variable.
+
+You can argue that XAUTHORITY is broken since it forces uid-changing
+apps like pkexec(1) to do more work - and get involved in intimate
+details of how X works and so on - but that doesn't change how things
+work.
+
+Based on a patch from Peter Wu <lekensteyn@gmail.com>.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=51623
+Signed-off-by: David Zeuthen <zeuthen@gmail.com>
+Origin: upstream, 0.110, commit:d6acecdd0ebb42e28ff28e04e0207cb01fa20910
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/programs/pkexec.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/src/programs/pkexec.c b/src/programs/pkexec.c
+index 373977b891c8..7fafa14d1c7a 100644
+--- a/src/programs/pkexec.c
++++ b/src/programs/pkexec.c
+@@ -597,6 +597,28 @@ main (int argc, char *argv[])
+       g_ptr_array_add (saved_env, g_strdup (value));
+     }
+ 
++  /* $XAUTHORITY is "special" - if unset, we need to set it to ~/.Xauthority. Yes,
++   * this is broken but it's unfortunately how things work (see fdo #51623 for
++   * details)
++   */
++  if (g_getenv ("XAUTHORITY") == NULL)
++    {
++      const gchar *home;
++
++      /* pre-2.36 GLib does not examine $HOME (it always looks in /etc/passwd) and
++       * this is not what we want
++       */
++      home = g_getenv ("HOME");
++      if (home == NULL)
++        home = g_get_home_dir ();
++
++      if (home != NULL)
++        {
++          g_ptr_array_add (saved_env, g_strdup ("XAUTHORITY"));
++          g_ptr_array_add (saved_env, g_build_filename (home, ".Xauthority", NULL));
++        }
++    }
++
+   /* Nuke the environment to get a well-known and sanitized environment to avoid attacks
+    * via e.g. the DBUS_SYSTEM_BUS_ADDRESS environment variable and similar.
+    */

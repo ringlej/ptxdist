@@ -1,0 +1,45 @@
+From: Ryan Lortie <desrt@velocity.(none)>
+Date: Tue, 13 Nov 2012 11:50:14 -0500
+Subject: [PATCH] 0.108: build: Fix .gir generation for parallel make
+
+As per the intructions in the introspection Makefile, we should have a
+line declaring a dependency between the .gir and .la files.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=57077
+Signed-off-by: David Zeuthen <zeuthen@gmail.com>
+Bug-Debian: https://bugs.debian.org/894205
+
+Imported from policykit-1_0.105-25.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/polkit/Makefile.am      | 2 ++
+ src/polkitagent/Makefile.am | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/src/polkit/Makefile.am b/src/polkit/Makefile.am
+index 1068ea124b41..41ccf5c34581 100644
+--- a/src/polkit/Makefile.am
++++ b/src/polkit/Makefile.am
+@@ -106,6 +106,8 @@ if HAVE_INTROSPECTION
+ 
+ INTROSPECTION_GIRS = Polkit-1.0.gir
+ 
++Polkit-1.0.gir: libpolkit-gobject-1.la
++
+ girdir = $(INTROSPECTION_GIRDIR)
+ gir_DATA = Polkit-1.0.gir
+ 
+diff --git a/src/polkitagent/Makefile.am b/src/polkitagent/Makefile.am
+index e8c9fb1a7aa8..7b51137b5658 100644
+--- a/src/polkitagent/Makefile.am
++++ b/src/polkitagent/Makefile.am
+@@ -106,6 +106,8 @@ if HAVE_INTROSPECTION
+ girdir = $(INTROSPECTION_GIRDIR)
+ gir_DATA = PolkitAgent-1.0.gir
+ 
++PolkitAgent-1.0.gir: libpolkit-agent-1.la
++
+ typelibsdir = $(INTROSPECTION_TYPELIBDIR)
+ typelibs_DATA = PolkitAgent-1.0.typelib
+ 

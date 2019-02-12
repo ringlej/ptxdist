@@ -40,7 +40,7 @@ config UCLIBC_M
 	bool
 	prompt "Install libm"
 	help
-	  The C math libary
+	  The C math library
 
 config UCLIBC_NSL
 	bool

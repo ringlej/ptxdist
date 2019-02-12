@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_RAUC) += rauc
 #
 # Paths and names
 #
-RAUC_VERSION	:= 0.4
-RAUC_MD5	:= 52a8f15e9484d590e6261e9bd453ff76
+RAUC_VERSION	:= 1.0
+RAUC_MD5	:= f800eae12063b0004980581aeb4932c0
 RAUC		:= rauc-$(RAUC_VERSION)
 RAUC_SUFFIX	:= tar.xz
 RAUC_URL	:= https://github.com/rauc/rauc/releases/download/v$(RAUC_VERSION)/$(RAUC).$(RAUC_SUFFIX)
@@ -41,7 +41,7 @@ RAUC_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-code-coverage \
 	--disable-valgrind \
-	--enable-service \
+	--$(call ptx/endis,PTXCONF_RAUC_SERVICE)-service \
 	--$(call ptx/endis,PTXCONF_RAUC_NETWORK)-network \
 	--$(call ptx/endis,PTXCONF_RAUC_JSON)-json \
 	--with-systemdunitdir=/usr/lib/systemd/system \
@@ -62,16 +62,21 @@ $(STATEDIR)/rauc.targetinstall:
 	@$(call install_fixup, rauc,DESCRIPTION,missing)
 
 	@$(call install_copy, rauc, 0, 0, 0755, -, /usr/bin/rauc)
+
+ifdef PTXCONF_RAUC_CONFIGURATION
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/system.conf)
 	@$(call install_replace, rauc, /etc/rauc/system.conf, \
 		@RAUC_BUNDLE_COMPATIBLE@, \
-		$(PTXCONF_RAUC_COMPATIBLE))
+		"$(call remove_quotes,$(PTXCONF_RAUC_COMPATIBLE))")
 	@$(call install_alternative, rauc, 0, 0, 0644, /etc/rauc/ca.cert.pem)
+endif
 
+ifdef PTXCONF_RAUC_SERVICE
 	@$(call install_copy, rauc, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system-services/de.pengutronix.rauc.service)
 	@$(call install_copy, rauc, 0, 0, 0644, -, \
 		/usr/share/dbus-1/system.d/de.pengutronix.rauc.conf)
+endif
 
 ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_alternative, rauc, 0, 0, 0644, \

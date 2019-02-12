@@ -106,7 +106,8 @@ try:
 except:
 	toolchain = "/opt/OSELAS.Toolchain-2016.06.1/arm-v5te-linux-gnueabi/gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized/bin".split("/")
 
-ptxdistPlatformDir = "platform-" + os.getenv("PTXCONF_PLATFORM", "versatilepb")
+ptxdistPlatformName = os.getenv("PTXCONF_PLATFORM", "versatilepb")
+ptxdistPlatformDir = "platform-" + ptxdistPlatformName
 oselasTCNarch = gnu_target.split("-")[0]
 oselasTCNvariant = gnu_target.split("-")[1]
 oselasTCNVendorVersion = toolchain[-4].split("-")[1]
@@ -130,6 +131,7 @@ except:
 	pass
 
 replace_dict = {
+	b"|ptxdistPlatformName|": ptxdistPlatformName,
 	b"|ptxdistPlatformDir|": ptxdistPlatformDir,
 	b"|oselasTCNarch|": oselasTCNarch,
 	b"|oselasTCNvariant|": oselasTCNvariant,

@@ -1,7 +1,7 @@
 # DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
-# see scripts/kbuild/config-language.txt.
+# see docs/Kconfig-language.txt.
 #
 
 menu "Coreutils"
@@ -160,7 +160,7 @@ config BUSYBOX_FEATURE_DD_THIRD_STATUS_LINE
 	elapsed time and speed.
 
 config BUSYBOX_FEATURE_DD_IBS_OBS
-	bool "Enable ibs, obs and conv options"
+	bool "Enable ibs, obs, iflag and conv options"
 	default y
 	depends on BUSYBOX_DD
 	help
@@ -405,7 +405,7 @@ config BUSYBOX_MD5SUM
 	bool "md5sum (6.8 kb)"
 	default y
 	help
-	md5sum is used to print or check MD5 checksums.
+	Compute and check MD5 message digest
 
 config BUSYBOX_SHA1SUM
 	bool "sha1sum (6 kb)"
@@ -594,16 +594,24 @@ config BUSYBOX_SORT
 	sort is used to sort lines of text in specified files.
 
 config BUSYBOX_FEATURE_SORT_BIG
-	bool "Full SuSv3 compliant sort (support -ktcsbdfiozgM)"
+	bool "Full SuSv3 compliant sort (support -ktcbdfiogM)"
 	default y
 	depends on BUSYBOX_SORT
 	help
-	Without this, sort only supports -r, -u, and an integer version
+	Without this, sort only supports -rusz, and an integer version
 	of -n. Selecting this adds sort keys, floating point support, and
 	more. This adds a little over 3k to a nonstatic build on x86.
 
 	The SuSv3 sort standard is available at:
 	http://www.opengroup.org/onlinepubs/007904975/utilities/sort.html
+
+config BUSYBOX_FEATURE_SORT_OPTIMIZE_MEMORY
+	bool "Use less memory (but might be slower)"
+	default n   # defaults to N since we are size-paranoid tribe
+	depends on BUSYBOX_SORT
+	help
+	Attempt to use less memory (by storing only one copy
+	of duplicated lines, and such). Useful if you work on huge files.
 config BUSYBOX_SPLIT
 	bool "split (5.4 kb)"
 	default y

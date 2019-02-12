@@ -27,7 +27,7 @@ OS_RELEASE_STAMP := $(call remove_quotes, \
 	$(PTXCONF_PLATFORM) \
 	$(PTXCONF_PLATFORM_VERSION))
 
-ifneq ($(strip $(OS_RELEASE_STAMP)),$(strip $(shell cat $(STATEDIR)/os-release.stamp 2>/dev/null)))
+ifneq ($(strip $(OS_RELEASE_STAMP)),$(strip $(call ptx/force-shell, cat $(STATEDIR)/os-release.stamp 2>/dev/null)))
 PHONY += $(STATEDIR)/os-release.targetinstall
 endif
 

@@ -1,5 +1,4 @@
 ## SECTION=hosttools_noprompt
-## SECTION=hosttools_platform
 
 config HOST_CDRKIT
 	tristate
@@ -7,6 +6,6 @@ config HOST_CDRKIT
 	select HOST_BZIP2
 	select HOST_LIBCAP
 	select HOST_ZLIB
-	default ALLYES
+	default y if ALLYES
 	help
 	  command-line CD/DVD recorder software

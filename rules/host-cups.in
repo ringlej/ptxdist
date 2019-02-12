@@ -2,6 +2,6 @@
 
 config HOST_CUPS
 	tristate
-	default ALLYES
+	default y if ALLYES
 
 # vim: ft=kconfig ts=8 noet tw=80

@@ -14,14 +14,25 @@
 #
 #
 ptxd_init_ptxdist_path() {
-    if [ "${PTXDIST_WORKSPACE}" != "${PTXDIST_PLATFORMCONFIGDIR}" ]; then
-	PTXDIST_PATH="${PTXDIST_WORKSPACE}:${PTXDIST_PLATFORMCONFIGDIR}:${PTXDIST_TOPDIR}:"
-    elif [ ! "${PTXDIST_WORKSPACE}" -ef "${PTXDIST_TOPDIR}" ]; then
-	PTXDIST_PATH="${PTXDIST_WORKSPACE}:${PTXDIST_TOPDIR}:"
-    else
-	PTXDIST_PATH="${PTXDIST_WORKSPACE}:"
-    fi
+    local orig_IFS="${IFS}"
+    IFS=:
+    local -a paths
+    PTXDIST_PATH_LAYERS="${PTXDIST_LAYERS[*]}:"
+    IFS="${orig_IFS}"
+    export PTXDIST_PATH_LAYERS
+
+    PTXDIST_PATH=
+    PTXDIST_PATH_PLATFORMCONFIGDIR=
+    for layer in "${PTXDIST_LAYERS[@]}"; do
+	PTXDIST_PATH="${PTXDIST_PATH}${layer}:"
+	local tmp="${layer}/${PTXDIST_PLATFORMCONFIG_SUBDIR}"
+	if [ -n "${PTXDIST_PLATFORMCONFIG_SUBDIR}" -a -d "${tmp}" ]; then
+	    PTXDIST_PATH="${PTXDIST_PATH}${tmp}:"
+	    PTXDIST_PATH_PLATFORMCONFIGDIR="${PTXDIST_PATH_PLATFORMCONFIGDIR}${tmp}:"
+	fi
+    done
     export PTXDIST_PATH
+    export PTXDIST_PATH_PLATFORMCONFIGDIR
 
     PTXDIST_PATH_PATCHES="${PTXDIST_PATH//://patches:}"
     export PTXDIST_PATH_PATCHES

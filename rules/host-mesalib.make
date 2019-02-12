@@ -27,11 +27,14 @@ HOST_MESALIB_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--enable-static \
 	--disable-shared \
+	--disable-pwr8 \
 	--disable-debug \
-	--disable-mangling \
-	--disable-texture-float \
+	--disable-profile \
+	--disable-sanitize \
 	--disable-asm \
 	--disable-selinux \
+	--disable-llvm-shared-libs \
+	--disable-libunwind \
 	--enable-opengl \
 	--disable-gles1 \
 	--disable-gles2 \
@@ -48,18 +51,22 @@ HOST_MESALIB_CONF_OPT	:= \
 	--disable-nine \
 	--disable-xvmc \
 	--disable-vdpau \
-	--disable-va \
+	--disable-omx-tizonia \
 	--disable-omx-bellagio \
+	--disable-va \
 	--disable-opencl \
 	--disable-opencl-icd \
 	--disable-gallium-tests \
+	--disable-libglvnd \
+	--disable-mangling \
 	--enable-shared-glapi \
-	--disable-glx-read-only-text \
 	--disable-driglx-direct \
 	--disable-glx-tls \
 	--disable-llvm-shared-libs \
-	--disable-gallium-llvm \
-	--disable-libglvnd \
+	--disable-glx-read-only-text \
+	--disable-xlib-lease \
+	--disable-llvm \
+	--disable-valgrind \
 	--with-gallium-drivers= \
 	--with-dri-drivers= \
 	--without-vulkan-drivers \

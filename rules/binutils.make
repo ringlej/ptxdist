@@ -17,12 +17,8 @@ PACKAGES-$(PTXCONF_BINUTILS) += binutils
 #
 # Paths and names
 #
-ifeq ($(shell which $(CROSS_LD) 2>/dev/null),)
-BINUTILS_VERSION	:= unknown
-else
-BINUTILS_VERSION	:= $(shell $(CROSS_LD) -v | sed -e 's/.* \(.*\)$$/\1/g')
+BINUTILS_VERSION	:= $(or $(call ptx/force-shell, $(CROSS_LD) -v | sed -e 's/.* \(.*\)$$/\1/g'),unknown)
 BINUTILS_MD5		:= none
-endif
 BINUTILS		:= binutils-$(BINUTILS_VERSION)
 BINUTILS_SUFFIX		:= tar.bz2
 BINUTILS_URL		:= $(call ptx/mirror, GNU, binutils/$(BINUTILS).$(BINUTILS_SUFFIX))

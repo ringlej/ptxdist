@@ -9,7 +9,7 @@ config XORG_LIB_XRENDER
 	  The X Render Extension adds support for alpha-blended icons, anti-aliased
 	  fonts and drawing primitives, as well as true-color animated mouse cursors
 	  to the X window system.
-	  This library is recommeded if you want to run terminals with anti-aliased
+	  This library is recommended if you want to run terminals with anti-aliased
 	  fonts. Without this library on the terminal (=server) side everything gets
 	  rendered on the client side (=host), with a very bad performance.
 	  See lib-Xft for further details.

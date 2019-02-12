@@ -2,7 +2,7 @@
 
 config HOST_TIMEOUT
 	tristate
-	default ALLYES
+	default y if ALLYES
 	help
 	  timeout executes a command and imposes an elapsed time
 	  limit. When the time limit is reached, timeout sends a

@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_GDB) += gdb
 #
 # Paths and names
 #
-GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_GDB_VERSION))
-GDB_MD5		:= $(call remove_quotes,$(PTXCONF_GDB_MD5))
+GDB_VERSION	 = $(SHARED_GDB_VERSION)
+GDB_MD5		 = $(SHARED_GDB_MD5)
 GDB		:= gdb-$(GDB_VERSION)
-GDB_SUFFIX	:= tar.gz
+GDB_SUFFIX	:= tar.xz
 GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		:= $(BUILDDIR)/$(GDB)
 GDB_LICENSE	:= GPL-3.0-or-later

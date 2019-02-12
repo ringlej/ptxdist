@@ -18,15 +18,9 @@ PACKAGES-$(PTXCONF_DB) += db
 # Paths and names
 #
 
-ifdef PTXCONF_DB_41
-DB_VERSION	:= 4.1.25.NC
-DB_MD5		:= b0c31a1db087741a7947c88824043560
-endif
-ifdef PTXCONF_DB_44
-DB_VERSION	:= 4.4.20.NC
-DB_MD5		:= afd9243ea353bbaa04421488d3b37900
-endif
-DB_MINOR	:= $(word 2,$(subst ., ,$(DB_VERSION)))
+DB_VERSION	:= 5.3.28
+DB_MD5		:= b99454564d5b4479750567031d66fe24
+DB_LIBVERSION	:= $(basename $(DB_VERSION))
 DB		:= db-$(DB_VERSION)
 DB_SUFFIX	:= tar.gz
 DB_URL		:= http://download.oracle.com/berkeley-db/$(DB).$(DB_SUFFIX)
@@ -34,6 +28,7 @@ DB_SOURCE	:= $(SRCDIR)/$(DB).$(DB_SUFFIX)
 DB_DIR		:= $(BUILDDIR)/$(DB)
 DB_SUBDIR	:= dist
 DB_BUILDDIR	:= $(DB_DIR)/build_unix
+DB_LICENCE	:= Sleepycat
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -45,8 +40,20 @@ DB_BUILDDIR	:= $(DB_DIR)/build_unix
 DB_CONF_TOOL := autoconf
 DB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-cryptography \
+	--disable-smallbuild \
+	--enable-atomicsupport \
+	--enable-compression \
+	--enable-hash \
+	--enable-heap \
+	--enable-mutexsupport \
+	--enable-log_checksum \
+	--enable-partition \
+	--disable-queue \
+	--disable-replication \
+	--disable-statistics \
+	--disable-verify \
+	--enable-compat185 \
+	--disable-cxx \
 	--disable-debug \
 	--disable-debug_rop \
 	--disable-debug_wop \
@@ -54,24 +61,30 @@ DB_CONF_OPT	:= \
 	--disable-dump185 \
 	--disable-java \
 	--disable-mingw \
-	--disable-queue \
-	--disable-replication \
-	--disable-rpc \
-	--disable-static \
-	--disable-statistics \
+	--enable-o_direct \
+	--disable-posixmutexes \
+	--disable-sql \
+	--disable-sql_compat \
+	--disable-jdbc \
+	--disable-amalgamation \
+	--disable-sql_codegen \
+	--disable-stl \
 	--disable-tcl \
 	--disable-test \
+	--disable-localization \
+	--disable-stripped_messages \
+	--enable-dbm \
+	--disable-dtrace \
+	--disable-systemtap \
+	--disable-perfmon-statistics \
 	--disable-uimutexes \
 	--disable-umrw \
-	--disable-verify \
-	--enable-compat185 \
-	--enable-cxx \
-	--enable-hash \
-	--enable-o_direct \
-	--enable-pthread_self \
-	--enable-shared
-
-DB_MAKE_PAR	:= NO
+	--disable-atomicfileread \
+	--enable-shared \
+	--disable-static \
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-cryptography \
+	--with-mutex=POSIX/pthreads/private
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -86,17 +99,10 @@ $(STATEDIR)/db.targetinstall:
 	@$(call install_fixup, db,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, db,DESCRIPTION,missing)
 
-	@$(call install_copy, db, 0, 0, 0644, -, \
-		/usr/lib/libdb-4.$(DB_MINOR).so)
-	@$(call install_link, db, libdb-4.$(DB_MINOR).so, /usr/lib/libdb-4.so)
-	@$(call install_link, db, libdb-4.$(DB_MINOR).so, /usr/lib/libdb.so)
+	@$(call install_lib, db, 0, 0, 0644, libdb-$(DB_LIBVERSION))
 
 ifdef PTXCONF_DB_UTIL
-	@cd "$(PKGDIR)/$(DB)" && \
-		find ./usr/bin -type f | \
-		 while read file; do \
-		$(call install_copy, db, 0, 0, 0755, -, $${file##.}); \
-	done
+	@$(call install_tree, db, 0, 0, -, /usr/bin)
 endif
 
 	@$(call install_finish, db)

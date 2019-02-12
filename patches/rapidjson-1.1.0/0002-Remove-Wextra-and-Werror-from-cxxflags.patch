@@ -1,0 +1,25 @@
+From: Bernhard Walle <bernhard@bwalle.de>
+Date: Sun, 6 Jan 2019 11:21:23 +0100
+Subject: [PATCH] Remove -Wextra and -Werror from cxxflags
+
+The code doesn't compile with that warnings, for example because
+-Wimplicit-fallthrough is enabled with -Wextra.
+
+Signed-off-by: Bernhard Walle <bernhard@bwalle.de>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 66183d58ab73..5e0e065f8d1b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -50,7 +50,7 @@ if(CCACHE_FOUND)
+ endif(CCACHE_FOUND)
+ 
+ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
++        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-implicit-fallthrough")
+     if (RAPIDJSON_BUILD_CXX11)
+         if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.7.0")
+             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")

@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_COLLECTD) += collectd
 #
 # Paths and names
 #
-COLLECTD_VERSION	:= 5.7.2
+COLLECTD_VERSION	:= 5.8.1
 COLLECTD		:= collectd-$(COLLECTD_VERSION)
 COLLECTD_SUFFIX		:= tar.bz2
 COLLECTD_URL		:= https://collectd.org/files/${COLLECTD}.${COLLECTD_SUFFIX}
-COLLECTD_MD5		:= 5da2b69c286a064db35c6cc1e758b039
+COLLECTD_MD5		:= bfce96c42cede5243028510bcc57c1e6
 COLLECTD_DIR		:= $(BUILDDIR)/$(COLLECTD)
 COLLECTD_SOURCE		:= $(SRCDIR)/$(COLLECTD).$(COLLECTD_SUFFIX)
 COLLECTD_LICENSE	:= MIT AND GPL-2.0-only
@@ -42,14 +42,12 @@ COLLECTD_CONF_ENV	:= \
 COLLECTD_CONF_TOOL	:= autoconf
 COLLECTD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-standards \
 	--disable-xfs \
 	--disable-debug \
 	--enable-daemon \
 	--disable-getifaddrs \
 	--disable-werror \
 	--disable-all-plugins \
-	--with-included-ltdl \
 	--without-libgcrypt \
 	--with-nan-emulation \
 	--with-fp-layout=nothing \
@@ -83,6 +81,7 @@ COLLECTD_ENABLE-				+= dbi
 COLLECTD_ENABLE-				+= df
 COLLECTD_ENABLE-				+= disk
 COLLECTD_ENABLE-				+= dns
+COLLECTD_ENABLE-				+= dpdkevents
 COLLECTD_ENABLE-				+= dpdkstat
 COLLECTD_ENABLE-				+= drbd
 COLLECTD_ENABLE-				+= email
@@ -97,6 +96,7 @@ COLLECTD_ENABLE-				+= gps
 COLLECTD_ENABLE-				+= grpc
 COLLECTD_ENABLE-				+= hddtemp
 COLLECTD_ENABLE-				+= hugepages
+COLLECTD_ENABLE-				+= intel_pmu
 COLLECTD_ENABLE-				+= intel_rdt
 COLLECTD_ENABLE-				+= interface
 COLLECTD_ENABLE-				+= ipc
@@ -118,6 +118,7 @@ COLLECTD_ENABLE-				+= match_regex
 COLLECTD_ENABLE-				+= match_timediff
 COLLECTD_ENABLE-				+= match_value
 COLLECTD_ENABLE-				+= mbmon
+COLLECTD_ENABLE-				+= mcelog
 COLLECTD_ENABLE-				+= md
 COLLECTD_ENABLE-				+= memcachec
 COLLECTD_ENABLE-				+= memcached
@@ -143,6 +144,8 @@ COLLECTD_ENABLE-				+= onewire
 COLLECTD_ENABLE-				+= openldap
 COLLECTD_ENABLE-				+= openvpn
 COLLECTD_ENABLE-				+= oracle
+COLLECTD_ENABLE-				+= ovs_events
+COLLECTD_ENABLE-				+= ovs_stats
 COLLECTD_ENABLE-				+= perl
 COLLECTD_ENABLE-				+= pf
 COLLECTD_ENABLE-				+= pinba
@@ -161,8 +164,10 @@ COLLECTD_ENABLE-				+= serial
 COLLECTD_ENABLE-				+= sigrok
 COLLECTD_ENABLE-				+= smart
 COLLECTD_ENABLE-				+= snmp
+COLLECTD_ENABLE-				+= snmp_agent
 COLLECTD_ENABLE-				+= statsd
 COLLECTD_ENABLE-				+= swap
+COLLECTD_ENABLE-				+= synproxy
 COLLECTD_ENABLE-$(PTXCONF_COLLECTD_SYSLOG)	+= syslog
 COLLECTD_ENABLE-				+= table
 COLLECTD_ENABLE-				+= tail

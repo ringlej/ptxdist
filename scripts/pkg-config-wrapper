@@ -1,8 +1,35 @@
 #!/usr/bin/env bash
 
-declare -a PKG_CONFIG_ARRAY
-PKG_CONFIG_ARRAY=( $(type -a -P pkg-config) )
-PKG_CONFIG="${PKG_CONFIG_ARRAY[1]}"
+basedir="$(basename "$(dirname "$(dirname "$0")")")"
+
+declare -a prefix
+if [ "${basedir}" = "sysroot-cross" ]; then
+    sysroot="$(dirname "$(dirname "$(dirname "$0")")")/sysroot-target"
+    prefix="${sysroot}/usr"
+    whitelist="${PKGCONFIG_WHITELIST_TARGET}"
+elif [ "${basedir}" = "sysroot-host" ]; then
+    sysroot="$(dirname "$(dirname "$0")")"
+    prefix="${sysroot}"
+    whitelist="${PKGCONFIG_WHITELIST_HOST}"
+else
+    echo "$(basename ${0}): failed to determine prefix" >&2
+    exit 1
+fi
+
+declare -a libdir system_path system_incpath
+libdir=( "${prefix/%//lib/pkgconfig}" "${prefix/%//share/pkgconfig}" )
+system_libpath=( "${libdir[@]/%//../../lib}" "${libdir[@]/%//../lib}" "/usr/lib" "/lib" )
+system_incpath=( "${libdir[@]/%//../../include}" "${libdir[@]/%//../include}" "/usr/include" "/include" )
+
+orig_IFS="${IFS}"
+IFS=":"
+# default pkg-config searchs
+export PKG_CONFIG_LIBDIR="${libdir[*]}"
+# default search path that will be dropped from --cflags
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH="${system_libpath[*]}"
+# default search path that will be dropped from --libs
+export PKG_CONFIG_SYSTEM_INCLUDE_PATH="${system_incpath[*]}"
+IFS="${orig_IFS}"
 
 for ((i = 1; i <= ${#}; i++)); do
     case "${!i}" in
@@ -33,25 +60,7 @@ if [ -n "${PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT}" -a \
     # remove sysroot for variables that return a path
     #
     args[${#args[@]}]="-e"
-    args[${#args[@]}]="s~^${SYSROOT}/~/~"
-else
-    declare -a sysroot_prefix
-    #
-    # this shell/sed magic removes "-I$SYSROOT/include" from
-    # pkg-config's output
-    #
-
-    #
-    # transform from PATH to array: /foo:/bar -> /foo /bar
-    #
-    sysroot_prefix=( ${PTXDIST_PATH_SYSROOT_PREFIX//:/ } )
-
-    #
-    # make sed expression: -e s~-I/foo/include\(\s\|$\)~~
-    # remove whitespace
-    #
-    sysroot_prefix=( ${sysroot_prefix[@]/%//include\\(\\s\\|$\\)~~} )
-    args=( ${args[@]} ${sysroot_prefix[@]/#/-e s~-I} -e "s~\s\+~ ~g" -e "s~^\s\+$~~")
+    args[${#args[@]}]="s~^${sysroot}/~/~"
 fi
 
 check_pipe_status() {
@@ -63,13 +72,13 @@ check_pipe_status() {
 }
 
 if [ -n "${PKGCONFIG_WHITELIST_SRC}" ]; then
-    pkgs="$("${PKG_CONFIG}" --print-provides "${@}" 2>/dev/null | awk '{print $1}' && check_pipe_status)" &&
+    pkgs="$(pkg-config.real --print-provides "${@}" 2>/dev/null | awk '{print $1}' && check_pipe_status)" &&
     for pkg in ${pkgs}; do
-	if [[ ! " ${PKGCONFIG_WHITELIST} " =~ " ${pkg} " && ! "${pkg}" =~ '-uninstalled' ]]; then
+	if [[ ! " ${whitelist} " =~ " ${pkg} " && ! "${pkg}" =~ '-uninstalled' ]]; then
 	    echo "$(basename ${0}): warning: blocking '${pkg}': not selected by '${PKGCONFIG_WHITELIST_SRC}'" >&2
 	    exit 1
 	fi
     done
 fi
-"${PKG_CONFIG}" "${@}" | sed "${args[@]}"
+pkg-config.real "${@}" | sed "${args[@]}"
 check_pipe_status

@@ -4,4 +4,4 @@ config HOST_MESON
 	tristate
 	select HOST_SYSTEM_PYTHON3
 	select HOST_NINJA
-	default ALLYES
+	default y if ALLYES

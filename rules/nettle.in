@@ -1,8 +1,18 @@
 ## SECTION=networking
 
-config NETTLE
+menuconfig NETTLE
 	tristate
-	prompt "nettle"
+	select LIBGMP	if NETTLE_GMP
+	prompt "nettle                        "
 	help
 	  Nettle is a cryptographic library.
 
+if NETTLE
+
+config NETTLE_GMP
+	bool
+	prompt "build with full libgmp"
+	help
+	  Use the real libgmp instead of the bundled mini-gmp.
+
+endif

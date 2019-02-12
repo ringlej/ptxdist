@@ -30,8 +30,18 @@ HOST_FREETYPE_CONF_TOOL	:= autoconf
 HOST_FREETYPE_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--disable-static \
+	--disable-biarch-config \
+	--enable-freetype-config \
+	--enable-mmap \
 	--without-zlib \
 	--without-bzip2 \
-	--without-png
+	--without-png \
+	--without-harfbuzz \
+	--without-old-mac-fonts \
+	--without-fsspec \
+	--without-fsref \
+	--without-quickdraw-toolbox \
+	--without-quickdraw-carbon \
+	--without-ats
 
 # vim: syntax=make

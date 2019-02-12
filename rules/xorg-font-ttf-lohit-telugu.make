@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
+#           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -27,15 +28,8 @@ XORG_FONT_TTF_LOHIT_TELUGU_LICENSE	:= OFL-1.1
 XORG_FONT_TTF_LOHIT_TELUGU_LICENSE_FILES := \
 	file://OFL.txt;md5=7dfa0a236dc535ad2d2548e6170c4402
 
-ifdef PTXCONF_XORG_FONT_TTF_LOHIT_TELUGU
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-ttf-lohit-telugu.targetinstall
-endif
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
 XORG_FONT_TTF_LOHIT_TELUGU_CONF_TOOL	:= NO
+XORG_FONT_TTF_LOHIT_TELUGU_FONTDIR	:= $(XORG_FONTDIR)/truetype/lohit-telugu
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -51,6 +45,10 @@ $(STATEDIR)/xorg-font-ttf-lohit-telugu.compile:
 
 $(STATEDIR)/xorg-font-ttf-lohit-telugu.install:
 	@$(call targetinfo)
+	@$(call world/install-fonts,XORG_FONT_TTF_LOHIT_TELUGU,*.ttf)
+	@mkdir -p $(XORG_FONT_TTF_LOHIT_TELUGU_PKGDIR)/etc/fonts/conf.d
+	@install -m 644 $(XORG_FONT_TTF_LOHIT_TELUGU_DIR)/66-lohit-telugu.conf \
+		$(XORG_FONT_TTF_LOHIT_TELUGU_PKGDIR)/etc/fonts/conf.d
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -59,25 +57,14 @@ $(STATEDIR)/xorg-font-ttf-lohit-telugu.install:
 
 $(STATEDIR)/xorg-font-ttf-lohit-telugu.targetinstall:
 	@$(call targetinfo)
-
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
-
-	@find $(XORG_FONT_TTF_LOHIT_TELUGU_DIR) \
-		-name "*.ttf" \
-		| \
-		while read file; do \
-		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
-	done
-
 	@$(call install_init,  xorg-font-ttf-lohit-telugu)
 	@$(call install_fixup, xorg-font-ttf-lohit-telugu,PRIORITY,optional)
 	@$(call install_fixup, xorg-font-ttf-lohit-telugu,SECTION,base)
 	@$(call install_fixup, xorg-font-ttf-lohit-telugu,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, xorg-font-ttf-lohit-telugu,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-font-ttf-lohit-telugu, 0, 0, 644, \
-		$(XORG_FONT_TTF_LOHIT_TELUGU_DIR)/66-lohit-telugu.conf, \
-		/etc/fonts/conf.d/66-lohit-telugu.conf)
+	@$(call install_tree, xorg-font-ttf-lohit-telugu, 0, 0, -, /etc)
+	@$(call install_tree, xorg-font-ttf-lohit-telugu, 0, 0, -, /usr)
 
 	@$(call install_finish, xorg-font-ttf-lohit-telugu)
 	@$(call touch)
