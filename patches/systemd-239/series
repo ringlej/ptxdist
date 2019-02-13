@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-build-sys-Detect-whether-struct-statx-is-defined-in-.patch
 0002-dhcp6-make-sure-we-have-enough-space-for-the-DHCP6-o.patch
-# 69d3a3089d693a020a7338b3e119044a  - git-ptx-patches magic
+0003-meson-unify-linux-stat.h-check-with-other-checks-and.patch
+# 61495c74b2cb09dfd1637f0f41644f1f  - git-ptx-patches magic
