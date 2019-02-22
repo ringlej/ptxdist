@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 #
 # Paths and names
 #
-LIGHTTPD_VERSION	:= 1.4.51
-LIGHTTPD_MD5		:= 6e68c19601af332fa3c5f174245f59bf
+LIGHTTPD_VERSION	:= 1.4.53
+LIGHTTPD_MD5		:= f93436d8d400b2b0e26ee4bcc60b9ac7
 LIGHTTPD		:= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX		:= tar.xz
 LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
