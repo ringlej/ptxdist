@@ -1170,5 +1170,16 @@ config BUSYBOX_IFUPDOWN_UDHCPC_CMD_OPTIONS
 	Command line options to pass to udhcpc from ifup.
 	Intended to alter options not available in /etc/network/interfaces.
 	(IE: --syslog --background etc...)
+	
+config  BUSYBOX_FEATURE_TLS_SHA1
+	bool "In TLS code, support ciphers which use deprecated SHA1"
+	depends on  BUSYBOX_TLS
+	default n
+	help
+	Selecting this option increases interoperability with very old
+	servers, but slightly increases code size.
 
+	Most TLS servers support SHA256 today (2018), since SHA1 is
+	considered possibly insecure (although not yet definitely broken).
+	
 endmenu

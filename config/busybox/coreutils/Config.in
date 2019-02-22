@@ -84,6 +84,12 @@ config BUSYBOX_FEATURE_CP_LONG_OPTIONS
 	help
 	Enable long options.
 	Also add support for --parents option.
+
+config BUSYBOX_FEATURE_CP_REFLINK
+	bool "Enable --reflink[=auto]"
+	default y
+	depends on BUSYBOX_FEATURE_CP_LONG_OPTIONS
+	
 config BUSYBOX_CUT
 	bool "cut (5.3 kb)"
 	default y

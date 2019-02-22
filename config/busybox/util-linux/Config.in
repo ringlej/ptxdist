@@ -962,7 +962,28 @@ config BUSYBOX_FEATURE_MTAB_SUPPORT
 
 	About the only reason to use this is if you've removed /proc from
 	your kernel.
-
+	
+config BUSYBOX_NOLOGIN
+	bool "nologin"
+	default y
+	depends on BUSYBOX_FEATURE_SH_EMBEDDED_SCRIPTS
+	help
+	Politely refuse a login
+	
+config BUSYBOX_NOLOGIN_DEPENDENCIES
+	bool "Enable dependencies for nologin"
+	default y
+	depends on BUSYBOX_NOLOGIN
+	select BUSYBOX_CAT
+	select BUSYBOX_ECHO
+	select BUSYBOX_SLEEP
+	help
+	nologin is implemented as a shell script. It requires the
+	following in the runtime environment:
+		cat echo sleep
+	If you know these will be available externally you can
+	disable this option.
+		
 source "config/busybox/util-linux/volume_id/Config.in"
 
 endmenu

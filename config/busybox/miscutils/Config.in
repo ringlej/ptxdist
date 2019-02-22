@@ -20,6 +20,14 @@ config BUSYBOX_BBCONFIG
 	The bbconfig applet will print the config file with which
 	busybox was built.
 
+config BUSYBOX_BC
+	bool "bc (45 kb)"
+	default y
+	select BUSYBOX_FEATURE_DC_BIG
+	help
+	bc is a command-line, arbitrary-precision calculator with a
+	Turing-complete language. See the GNU bc manual
+
 config BUSYBOX_FEATURE_COMPRESS_BBCONFIG
 	bool "Compress bbconfig data"
 	default y
@@ -201,6 +209,31 @@ config BUSYBOX_FEATURE_DC_LIBM
 	help
 	Enable power and exp functions.
 	NOTE: This will require libm to be present for linking.
+
+config BUSYBOX_FEATURE_BC_INTERACTIVE
+	bool "Interactive mode (+4kb)"
+	default y
+	depends on BUSYBOX_BC || (BUSYBOX_DC && BUSYBOX_FEATURE_DC_BIG)
+	help
+	Enable interactive mode: when started on a tty,
+	^C interrupts execution and returns to command line,
+	errors also return to command line instead of exiting,
+	line editing with history is available.
+	
+	With this option off, input can still be taken from tty,
+	but all errors are fatal, ^C is fatal,
+	tty is treated exactly the same as any other
+	standard input (IOW: no line editing).
+	
+config BUSYBOX_FEATURE_BC_LONG_OPTIONS
+	bool "Enable bc/dc long options"
+	default y
+	depends on BUSYBOX_BC || (BUSYBOX_DC && BUSYBOX_FEATURE_DC_BIG)
+
+config BUSYBOX_FEATURE_DC_BIG
+	bool "Use bc code base for dc (larger, more features)"
+	default y	
+	
 config BUSYBOX_DEVFSD
 	bool "devfsd (obsolete)"
 	default n

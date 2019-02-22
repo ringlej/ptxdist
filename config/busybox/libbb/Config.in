@@ -39,12 +39,30 @@ config BUSYBOX_FEATURE_USE_BSS_TAIL
 	If you are getting a build error like this:
 		appletlib.c:(.text.main+0xd): undefined reference to '_end'
 	disable this option.
+config BUSYBOX_FLOAT_DURATION
+	bool "Enable fractional duration arguments"
+	default y
+	help
+	Allow sleep N.NNN, top -d N.NNN etc.
+	
 config BUSYBOX_FEATURE_RTMINMAX
 	bool "Support RTMIN[+n] and RTMAX[-n] signal names"
 	default y
 	help
 	Support RTMIN[+n] and RTMAX[-n] signal names
 	in kill, killall etc. This costs ~250 bytes.
+	
+config BUSYBOX_FEATURE_RTMINMAX_USE_LIBC_DEFINITIONS
+	bool "Use the definitions of SIGRTMIN/SIGRTMAX provided by libc"
+	default y
+	depends on BUSYBOX_FEATURE_RTMINMAX
+	help
+	Some C libraries reserve a few real-time signals for internal
+	use, and adjust the values of SIGRTMIN/SIGRTMAX seen by
+	applications accordingly. Saying yes here means that a signal
+	name RTMIN+n will be interpreted according to the libc definition
+	of SIGRTMIN, and not the raw definition provided by the kernel.
+	This behavior matches "kill -l RTMIN+n" from bash.
 
 choice
 	prompt "Buffer allocation policy"
